@@ -1,14 +1,23 @@
 # icse-react-assets
 
+## Getting Started
+
+1. `git clone https://github.ibm.com/icse/icse-react-assets.git && cd icse-react-assets`
+2. `npm install`
+3. Test a build with `npm update && npm run build`
+4. Run `npm run dev` to run the playground environment to test any components
+
 ## Contributing Guidelines
 
-1. Add the component within `./src/components`
-2. Export the component in `index.js` as
+1. Create a new branch for your component
+2. Add the component within `./src/components`
+3. Export the component in `index.js` as
 
 ```js
 export { default as UnderConstruction } from "./components/UnderConstruction";
 ```
 
-3. Run `npm update && npm run build` to build the library
-4. Test your component in the playground. Navigate to `/playground/src/App.js` and render your component
-5. Run `npm run dev` to ensure your component renders & functions properly in the playground environment
+4. Run `npm update && npm run build` to build the library
+5. Test your component in the playground. Navigate to `/playground/src/App.js` and render your component
+6. Run `npm run dev` to ensure your component renders & functions properly in the playground environment
+7. Create a PR
