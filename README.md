@@ -19,5 +19,6 @@ export { default as UnderConstruction } from "./components/UnderConstruction";
 
 4. Run `npm update && npm run build` to build the library
 5. Test your component in the playground. Navigate to `/playground/src/App.js` and render your component
-6. Run `npm run dev` to ensure your component renders & functions properly in the playground environment
-7. Create a PR
+6. Run `npm i-all` to npm install in both apps and make sure the library is updated within playground.
+7. Run `npm run dev` to ensure your component renders & functions properly in the playground environment
+8. Create a PR
