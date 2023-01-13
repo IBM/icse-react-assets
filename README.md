@@ -3,7 +3,7 @@
 ## Getting Started
 
 1. `git clone https://github.ibm.com/icse/icse-react-assets.git && cd icse-react-assets`
-2. `npm install`
+2. `npm run i-all`
 3. Test a build with `npm update && npm run build`
 4. Run `npm run dev` to run the playground environment to test any components
 
