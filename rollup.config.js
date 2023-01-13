@@ -1,6 +1,7 @@
 import babel from "@rollup/plugin-babel";
 import external from "rollup-plugin-peer-deps-external";
 import del from "rollup-plugin-delete";
+import postcss from "rollup-plugin-postcss";
 import pkg from "./package.json";
 
 export default {
@@ -17,6 +18,7 @@ export default {
       babelHelpers: "bundled",
     }),
     del({ targets: ["dist/*"] }),
+    postcss(),
   ],
   external: Object.keys(pkg.peerDependencies || {}),
 };
