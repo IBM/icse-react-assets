@@ -1,7 +1,7 @@
 import React from "react";
 import { CloudAlerting, Add } from "@carbon/icons-react";
 import PropTypes from "prop-types";
-import "./EmptyResourceTile.css";
+import "./styles/EmptyResourceTile.css";
 import { Tile } from "@carbon/react";
 
 const EmptyResourceTile = (props) => {

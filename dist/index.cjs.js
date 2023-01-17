@@ -48,8 +48,8 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
-styleInject(css_248z);
+var css_248z$1 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z$1);
 
 var EmptyResourceTile = function EmptyResourceTile(props) {
   return props.showIfEmpty === false || props.showIfEmpty.length === 0 ? /*#__PURE__*/React__default["default"].createElement(react.Tile, {
@@ -120,6 +120,35 @@ function _toPropertyKey(arg) {
   return typeof key === "symbol" ? key : String(key);
 }
 
+var css_248z = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
+styleInject(css_248z);
+
+/**
+ * create a composed class name
+ * @param {string} className name of classes to add
+ * @param {*} props arbitrary props
+ * @param {string=} props.className additional classnames
+ */
+function addClassName(className, props) {
+  var composedClassName = className;
+  if (props !== null && props !== void 0 && props.className) {
+    composedClassName += " " + props.className;
+    if (props.noMarginRight === true) {
+      composedClassName = composedClassName.replace(/\s?marginRight\b/g, "");
+    }
+  }
+  return composedClassName;
+}
+
+/**
+ * add margin bottom to subform chevron
+ * @param {*} componentProps
+ * @returns {string} additional classNames
+ */
+function toggleMarginBottom(hide) {
+  if (hide === false) return " marginBottomSmall";else return "";
+}
+
 /**
  * Render a form
  * @param {*} form form element
@@ -141,7 +170,60 @@ function DynamicRender(props) {
   return props.hide === true ? "" : props.show;
 }
 
+/**
+ * wrapper for title groups
+ */
+var TitleGroup = function TitleGroup(props) {
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: addClassName("displayFlex alignItemsCenter widthOneHundredPercent ".concat(toggleMarginBottom(props.hide)), props)
+  }, props.children);
+};
+TitleGroup.defaultProps = {
+  hide: true
+};
+TitleGroup.propTypes = {
+  children: PropTypes__default["default"].node.isRequired
+};
+var IcseFormGroup = function IcseFormGroup(props) {
+  var formGroupClassName = "displayFlex marginBottom fitContent evenSpacing";
+  // remove margin bottom from formGroup for VPC
+  if (props.noMarginBottom) {
+    formGroupClassName = formGroupClassName.replace(/\smarginBottom/g, "");
+  }
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: addClassName(formGroupClassName, props)
+  }, props.children);
+};
+IcseFormGroup.defaultProps = {
+  noMarginBottom: false
+};
+IcseFormGroup.propTypes = {
+  noMarginBottom: PropTypes__default["default"].bool.isRequired,
+  children: PropTypes__default["default"].node.isRequired,
+  className: PropTypes__default["default"].string
+};
+var IcseSubForm = function IcseSubForm(props) {
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: addClassName(props.formInSubForm ? "formInSubForm positionRelative" : "subForm marginBottomSmall", props),
+    id: props.id
+  }, props.children);
+};
+IcseSubForm.defaultProps = {
+  formInSubForm: false
+};
+IcseSubForm.propTypes = {
+  id: PropTypes__default["default"].string.isRequired,
+  formInSubForm: PropTypes__default["default"].bool.isRequired,
+  className: PropTypes__default["default"].string,
+  children: PropTypes__default["default"].node.isRequired
+};
+
 exports.DynamicRender = DynamicRender;
 exports.EmptyResourceTile = EmptyResourceTile;
+exports.IcseFormGroup = IcseFormGroup;
+exports.IcseSubForm = IcseSubForm;
 exports.RenderForm = RenderForm;
+exports.TitleGroup = TitleGroup;
 exports.UnderConstruction = UnderConstruction;
+exports.addClassName = addClassName;
+exports.toggleMarginBottom = toggleMarginBottom;
