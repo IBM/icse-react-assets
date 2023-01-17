@@ -18,6 +18,7 @@
   },
   "scripts": {
     "test": "NODE_ENV=test mocha --require @babel/register --require ignore-styles unit-tests/*.test.js",
+    "coverage": "npx nyc npm run test",
     "build": "rollup -c",
     "build-watch": "rollup -c -w",
     "start-playground": "cd playground && npm run start",
