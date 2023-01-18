@@ -27,9 +27,9 @@ function App() {
 =======
       <DynamicToolTipWrapper
         tooltip={{
-          content: "test content",
+          content: "this is test content.",
           link: "https://cloud.ibm.com",
-          align: "bottom",
+          align: "bottom-left",
         }}
         name="TestToolTip"
         innerForm={TextArea}

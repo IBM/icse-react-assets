@@ -236,23 +236,44 @@ styleInject(css_248z$1);
  * @param {string=} props.align alignment
  * @returns slz tooltip component
  */
-var IcseToolTip = function IcseToolTip(props) {
+const IcseToolTip = props => {
   return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(react.Toggletip, {
     align: props.align
   }, /*#__PURE__*/React__default["default"].createElement(react.ToggletipButton, null, /*#__PURE__*/React__default["default"].createElement(iconsReact.Information, {
     className: "tooltipMarginLeft"
   })), /*#__PURE__*/React__default["default"].createElement(react.ToggletipContent, null, /*#__PURE__*/React__default["default"].createElement("p", null, props.content, props.link && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, " ", "Visit", " ", /*#__PURE__*/React__default["default"].createElement(react.Link, {
-    onClick: function onClick() {
-      return window.open(props.link, "_blank");
-    }
+    onClick: () => window.open(props.link, "_blank")
   }, "this link"), " ", "for more information.")))));
 };
-var buildToolTip = function buildToolTip(props) {
+IcseToolTip.defaultProps = {
+  content: "",
+  link: false,
+  align: "top"
+};
+IcseToolTip.propTypes = {
+  content: PropTypes__default["default"].string.isRequired,
+  link: urlPropType,
+  align: PropTypes__default["default"].string.isRequired
+};
+const BuildToolTip = props => {
   return /*#__PURE__*/React__default["default"].createElement(IcseToolTip, {
     content: props.tooltip.content,
     link: props.tooltip.link || false,
-    align: props.isModal ? props.tooltip.alignModal || "bottom" : props.tooltip.align || "top"
+    align: props.tooltip.align || "top",
+    modalAlign: props.tooltip.alignModal || "bottom"
   });
+};
+BuildToolTip.defaultProps = {
+  content: "",
+  link: false,
+  align: "top",
+  modalAlign: "bottom"
+};
+BuildToolTip.propTypes = {
+  content: PropTypes__default["default"].string.isRequired,
+  link: urlPropType,
+  align: PropTypes__default["default"].string,
+  modalAlign: PropTypes__default["default"].string
 };
 
 /**
@@ -263,8 +284,10 @@ var buildToolTip = function buildToolTip(props) {
  * @param {string=} props.tooltip.link optional tooltip link
  * @returns
  */
-var ToolTipWrapper = function ToolTipWrapper(props) {
-  var allProps = _objectSpread2({}, props);
+const ToolTipWrapper = props => {
+  let allProps = {
+    ...props
+  };
   delete allProps.innerForm;
   delete allProps.tooltip;
   // remove label text from components where it is not valid param
@@ -272,15 +295,17 @@ var ToolTipWrapper = function ToolTipWrapper(props) {
     delete allProps.labelText;
     delete allProps.noLabelText;
   } else allProps.labelText = " ";
-  allProps.className = addClassName("tooltip", _objectSpread2({}, props));
-  var name = props.labelText || (props.field ? lazyZ.titleCase(props.field) : null);
+  allProps.className = addClassName("tooltip", {
+    ...props
+  });
+  let name = props.labelText || (props.field ? lazyZ.titleCase(props.field) : null);
   return /*#__PURE__*/React__default["default"].createElement("div", {
     className: "cds--form-item"
   }, name ? /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement("div", {
     className: "labelRow cds--label"
   }, /*#__PURE__*/React__default["default"].createElement("label", {
     htmlFor: props.id
-  }, name), buildToolTip(props)), props.children ? /*#__PURE__*/React__default["default"].cloneElement(props.children, {
+  }, name), BuildToolTip(props)), props.children ? /*#__PURE__*/React__default["default"].cloneElement(props.children, {
     // adjust props
     labelText: " ",
     // set labelText to empty
@@ -290,7 +315,16 @@ var ToolTipWrapper = function ToolTipWrapper(props) {
   // No label- this is usually a title
   React__default["default"].createElement("div", {
     className: "labelRow"
-  }, RenderForm(props.innerForm, allProps), buildToolTip(props)));
+  }, RenderForm(props.innerForm, allProps), BuildToolTip(props)));
+};
+ToolTipWrapper.defaultProps = {
+  content: "",
+  link: false
+};
+ToolTipWrapper.propTypes = {
+  content: PropTypes__default["default"].string.isRequired,
+  link: urlPropType,
+  innerForm: PropTypes__default["default"].func.isRequired
 };
 
 /**
@@ -302,8 +336,18 @@ var ToolTipWrapper = function ToolTipWrapper(props) {
  * @param {string=} props.tooltipLink optional tooltip link
  * @returns
  */
-var DynamicToolTipWrapper = function DynamicToolTipWrapper(props) {
+const DynamicToolTipWrapper = props => {
   return props.tooltip ? /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, props) : props.children ? props.children : RenderForm(props.innerForm, {});
+};
+DynamicToolTipWrapper.defaultProps = {
+  tooltipContent: "",
+  tooltipLink: false
+};
+DynamicToolTipWrapper.propTypes = {
+  tooltipClassName: PropTypes__default["default"].string,
+  tooltipContent: PropTypes__default["default"].string.isRequired,
+  tooltipLink: urlPropType,
+  innerForm: PropTypes__default["default"].func.isRequired
 };
 
 <<<<<<< HEAD
