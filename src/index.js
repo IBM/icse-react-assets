@@ -12,4 +12,9 @@ export {
   IcseFormGroup,
   IcseSubForm,
 } from "./components/Utils";
+export {
+  IcseModal,
+  DeleteModal,
+  UnsavedChangesModal,
+} from "./components/Modals";
 export { addClassName, toggleMarginBottom } from "./form-utils";

@@ -219,6 +219,7 @@ IcseSubForm.propTypes = {
   children: PropTypes__default["default"].node.isRequired
 };
 
+<<<<<<< HEAD
 var css_248z = ".labelRow {\n  display: inline-flex;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
 styleInject(css_248z);
 
@@ -300,15 +301,145 @@ var DynamicToolTipWrapper = function DynamicToolTipWrapper(props) {
   return props.tooltip ? /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, props) : props.children ? props.children : RenderForm(props.innerForm, {});
 };
 
+=======
+var css_248z = ".leftTextAlign {\n    text-align: left;\n}";
+styleInject(css_248z);
+
+/**
+ * Icse Modal Wrapper
+ * @param {*} props
+ * @param {string} props.name resource name
+ * @param {string} props.heading modal heading
+ * @param {boolean} props.open show modal
+ * @param {boolean=} props.danger danger, defaults to true
+ * @param {boolean=} props.alert alert, defaults to true
+ * @param {string=} props.primaryButtonText defaults to `Dismiss Changes`
+ * @param {string=} props.secondaryButtonText defaults to `Cancel`
+ * @param {Function} props.onRequestSubmit
+ * @param {Function} props.onRequestClose
+ * @param {boolean=} props.useAddButton use + button instead of edit
+ */
+var IcseModal = function IcseModal(props) {
+  /*#__PURE__*/React__default["default"].createElement("strong", null, props.name);
+  return /*#__PURE__*/React__default["default"].createElement(react.Modal, {
+    id: props.id,
+    className: "leftTextAlign",
+    modalHeading: props.heading,
+    open: props.open,
+    alert: props.alert,
+    danger: props.danger,
+    shouldSubmitOnEnter: true,
+    primaryButtonText: props.primaryButtonText,
+    secondaryButtonText: props.secondaryButtonText,
+    onRequestSubmit: props.onRequestSubmit,
+    onRequestClose: props.onRequestClose
+  }, props.children);
+};
+IcseModal.defaultProps = {
+  primaryButtonText: "Primary Button",
+  secondaryButtonText: "Cancel",
+  primaryButtonDisabled: false,
+  danger: false,
+  alert: true,
+  open: false,
+  heading: "Default Heading",
+  id: "default-icse-modal"
+};
+IcseModal.propTypes = {
+  primaryButtonText: PropTypes__default["default"].string.isRequired,
+  secondaryButtonText: PropTypes__default["default"].string.isRequired,
+  primaryButtonDisabled: PropTypes__default["default"].bool,
+  danger: PropTypes__default["default"].bool,
+  alert: PropTypes__default["default"].bool,
+  heading: PropTypes__default["default"].string.isRequired,
+  type: PropTypes__default["default"].string,
+  onRequestSubmit: PropTypes__default["default"].func.isRequired,
+  onRequestClose: PropTypes__default["default"].func.isRequired,
+  id: PropTypes__default["default"].string.isRequired,
+  open: PropTypes__default["default"].bool.isRequired,
+  children: PropTypes__default["default"].node.isRequired
+};
+
+/**
+ * Delete modal
+ * @param {*} props
+ * @param {string} props.name name of modal
+ * @param {boolean} props.modalOpen true if open
+ * @param {Function} props.onModalClose function for on close
+ * @param {Function} props.onModalSubmit function for on submit
+ */
+var DeleteModal = function DeleteModal(props) {
+  var name = /*#__PURE__*/React__default["default"].createElement("strong", null, props.name);
+  return /*#__PURE__*/React__default["default"].createElement(IcseModal, {
+    id: props.name + "-delete",
+    name: props.name,
+    heading: props.name,
+    open: props.modalOpen,
+    onRequestClose: props.onModalClose,
+    onRequestSubmit: props.onModalSubmit,
+    primaryButtonText: "Delete Resource",
+    danger: true
+  }, /*#__PURE__*/React__default["default"].createElement("span", null, "You are about to delete ", name, ". This cannot be undone."));
+};
+DeleteModal.defaultProps = {
+  modalOpen: false
+};
+DeleteModal.propTypes = {
+  name: PropTypes__default["default"].string.isRequired,
+  modalOpen: PropTypes__default["default"].bool.isRequired,
+  onModalClose: PropTypes__default["default"].func.isRequired,
+  onModalSubmit: PropTypes__default["default"].func.isRequired
+};
+
+/**
+ * unsaved changes modal modal
+ * @param {*} props
+ * @param {string} props.name name of modal
+ * @param {boolean} props.modalOpen true if open
+ * @param {Function} props.onModalClose function for on close
+ * @param {Function} props.onModalSubmit function for on submit
+ */
+
+var UnsavedChangesModal = function UnsavedChangesModal(props) {
+  var name = props.name;
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "unsaved-changes-modal-area"
+  }, /*#__PURE__*/React__default["default"].createElement(IcseModal, {
+    id: props.name + "-unsaved-changes",
+    open: props.modalOpen,
+    name: props.name,
+    onRequestClose: props.onModalClose,
+    onRequestSubmit: props.onModalSubmit,
+    heading: props.useDefaultUnsavedMessage ? "Missing Required Values" : "Unsaved Changes",
+    danger: true,
+    primaryButtonText: "Dismiss Changes"
+  }, props.useDefaultUnsavedMessage ? /*#__PURE__*/React__default["default"].createElement("span", null, "Resource ", name, " is missing required values.", " ", /*#__PURE__*/React__default["default"].createElement("strong", null, "Without these values, your configuration is invalid."), " ", "Are you sure you want to dismiss these changes?") : /*#__PURE__*/React__default["default"].createElement("span", null, "Resource ", name, " has unsaved changes. Are you sure you want to dismiss these changes?")));
+};
+UnsavedChangesModal.defaultProps = {
+  modalOpen: false,
+  useDefaultUnsavedMessage: true
+};
+UnsavedChangesModal.propTypes = {
+  name: PropTypes__default["default"].string.isRequired,
+  modalOpen: PropTypes__default["default"].bool.isRequired,
+  onModalClose: PropTypes__default["default"].func.isRequired,
+  onModalSubmit: PropTypes__default["default"].func.isRequired,
+  useDefaultUnsavedMessage: PropTypes__default["default"].bool
+};
+
+exports.DeleteModal = DeleteModal;
+>>>>>>> 7f45fcc (modals)
 exports.DynamicRender = DynamicRender;
 exports.DynamicToolTipWrapper = DynamicToolTipWrapper;
 exports.EmptyResourceTile = EmptyResourceTile;
 exports.IcseFormGroup = IcseFormGroup;
+exports.IcseModal = IcseModal;
 exports.IcseSubForm = IcseSubForm;
 exports.IcseToolTip = IcseToolTip;
 exports.RenderForm = RenderForm;
 exports.TitleGroup = TitleGroup;
 exports.ToolTipWrapper = ToolTipWrapper;
 exports.UnderConstruction = UnderConstruction;
+exports.UnsavedChangesModal = UnsavedChangesModal;
 exports.addClassName = addClassName;
 exports.toggleMarginBottom = toggleMarginBottom;

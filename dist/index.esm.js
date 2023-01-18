@@ -1,8 +1,12 @@
 import React from 'react';
 import { WarningAlt, CloudAlerting, Add, Information } from '@carbon/icons-react';
 import PropTypes from 'prop-types';
+<<<<<<< HEAD
 import { Tile, Toggletip, ToggletipButton, ToggletipContent, Link } from '@carbon/react';
 import { titleCase } from 'lazy-z';
+=======
+import { Tile, Modal } from '@carbon/react';
+>>>>>>> 7f45fcc (modals)
 
 /**
  * Under Construction Page
@@ -210,6 +214,7 @@ IcseSubForm.propTypes = {
   children: PropTypes.node.isRequired
 };
 
+<<<<<<< HEAD
 var css_248z = ".labelRow {\n  display: inline-flex;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
 styleInject(css_248z);
 
@@ -292,3 +297,131 @@ var DynamicToolTipWrapper = function DynamicToolTipWrapper(props) {
 };
 
 export { DynamicRender, DynamicToolTipWrapper, EmptyResourceTile, IcseFormGroup, IcseSubForm, IcseToolTip, RenderForm, TitleGroup, ToolTipWrapper, UnderConstruction, addClassName, toggleMarginBottom };
+=======
+var css_248z = ".leftTextAlign {\n    text-align: left;\n}";
+styleInject(css_248z);
+
+/**
+ * Icse Modal Wrapper
+ * @param {*} props
+ * @param {string} props.name resource name
+ * @param {string} props.heading modal heading
+ * @param {boolean} props.open show modal
+ * @param {boolean=} props.danger danger, defaults to true
+ * @param {boolean=} props.alert alert, defaults to true
+ * @param {string=} props.primaryButtonText defaults to `Dismiss Changes`
+ * @param {string=} props.secondaryButtonText defaults to `Cancel`
+ * @param {Function} props.onRequestSubmit
+ * @param {Function} props.onRequestClose
+ * @param {boolean=} props.useAddButton use + button instead of edit
+ */
+var IcseModal = function IcseModal(props) {
+  /*#__PURE__*/React.createElement("strong", null, props.name);
+  return /*#__PURE__*/React.createElement(Modal, {
+    id: props.id,
+    className: "leftTextAlign",
+    modalHeading: props.heading,
+    open: props.open,
+    alert: props.alert,
+    danger: props.danger,
+    shouldSubmitOnEnter: true,
+    primaryButtonText: props.primaryButtonText,
+    secondaryButtonText: props.secondaryButtonText,
+    onRequestSubmit: props.onRequestSubmit,
+    onRequestClose: props.onRequestClose
+  }, props.children);
+};
+IcseModal.defaultProps = {
+  primaryButtonText: "Primary Button",
+  secondaryButtonText: "Cancel",
+  primaryButtonDisabled: false,
+  danger: false,
+  alert: true,
+  open: false,
+  heading: "Default Heading",
+  id: "default-icse-modal"
+};
+IcseModal.propTypes = {
+  primaryButtonText: PropTypes.string.isRequired,
+  secondaryButtonText: PropTypes.string.isRequired,
+  primaryButtonDisabled: PropTypes.bool,
+  danger: PropTypes.bool,
+  alert: PropTypes.bool,
+  heading: PropTypes.string.isRequired,
+  type: PropTypes.string,
+  onRequestSubmit: PropTypes.func.isRequired,
+  onRequestClose: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
+  open: PropTypes.bool.isRequired,
+  children: PropTypes.node.isRequired
+};
+
+/**
+ * Delete modal
+ * @param {*} props
+ * @param {string} props.name name of modal
+ * @param {boolean} props.modalOpen true if open
+ * @param {Function} props.onModalClose function for on close
+ * @param {Function} props.onModalSubmit function for on submit
+ */
+var DeleteModal = function DeleteModal(props) {
+  var name = /*#__PURE__*/React.createElement("strong", null, props.name);
+  return /*#__PURE__*/React.createElement(IcseModal, {
+    id: props.name + "-delete",
+    name: props.name,
+    heading: props.name,
+    open: props.modalOpen,
+    onRequestClose: props.onModalClose,
+    onRequestSubmit: props.onModalSubmit,
+    primaryButtonText: "Delete Resource",
+    danger: true
+  }, /*#__PURE__*/React.createElement("span", null, "You are about to delete ", name, ". This cannot be undone."));
+};
+DeleteModal.defaultProps = {
+  modalOpen: false
+};
+DeleteModal.propTypes = {
+  name: PropTypes.string.isRequired,
+  modalOpen: PropTypes.bool.isRequired,
+  onModalClose: PropTypes.func.isRequired,
+  onModalSubmit: PropTypes.func.isRequired
+};
+
+/**
+ * unsaved changes modal modal
+ * @param {*} props
+ * @param {string} props.name name of modal
+ * @param {boolean} props.modalOpen true if open
+ * @param {Function} props.onModalClose function for on close
+ * @param {Function} props.onModalSubmit function for on submit
+ */
+
+var UnsavedChangesModal = function UnsavedChangesModal(props) {
+  var name = props.name;
+  return /*#__PURE__*/React.createElement("div", {
+    className: "unsaved-changes-modal-area"
+  }, /*#__PURE__*/React.createElement(IcseModal, {
+    id: props.name + "-unsaved-changes",
+    open: props.modalOpen,
+    name: props.name,
+    onRequestClose: props.onModalClose,
+    onRequestSubmit: props.onModalSubmit,
+    heading: props.useDefaultUnsavedMessage ? "Missing Required Values" : "Unsaved Changes",
+    danger: true,
+    primaryButtonText: "Dismiss Changes"
+  }, props.useDefaultUnsavedMessage ? /*#__PURE__*/React.createElement("span", null, "Resource ", name, " is missing required values.", " ", /*#__PURE__*/React.createElement("strong", null, "Without these values, your configuration is invalid."), " ", "Are you sure you want to dismiss these changes?") : /*#__PURE__*/React.createElement("span", null, "Resource ", name, " has unsaved changes. Are you sure you want to dismiss these changes?")));
+};
+UnsavedChangesModal.defaultProps = {
+  modalOpen: false,
+  useDefaultUnsavedMessage: true
+};
+UnsavedChangesModal.propTypes = {
+  name: PropTypes.string.isRequired,
+  modalOpen: PropTypes.bool.isRequired,
+  onModalClose: PropTypes.func.isRequired,
+  onModalSubmit: PropTypes.func.isRequired,
+  useDefaultUnsavedMessage: PropTypes.bool
+};
+
+export { DeleteModal, DynamicRender, EmptyResourceTile, IcseFormGroup, IcseModal, IcseSubForm, RenderForm, TitleGroup, UnderConstruction, UnsavedChangesModal, addClassName, toggleMarginBottom };
+>>>>>>> 7f45fcc (modals)
