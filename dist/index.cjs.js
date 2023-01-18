@@ -49,8 +49,8 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$2 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
-styleInject(css_248z$2);
+var css_248z$3 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z$3);
 
 var EmptyResourceTile = function EmptyResourceTile(props) {
   return props.showIfEmpty === false || props.showIfEmpty.length === 0 ? /*#__PURE__*/React__default["default"].createElement(react.Tile, {
@@ -121,8 +121,8 @@ function _toPropertyKey(arg) {
   return typeof key === "symbol" ? key : String(key);
 }
 
-var css_248z$1 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
-styleInject(css_248z$1);
+var css_248z$2 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
+styleInject(css_248z$2);
 
 /**
  * create a composed class name
@@ -220,8 +220,13 @@ IcseSubForm.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z = ".labelRow {\n  display: inline-flex;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
 styleInject(css_248z);
+=======
+var css_248z$1 = ".labelRow {\n  display: inline-flex;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+styleInject(css_248z$1);
+>>>>>>> 90da87c (fixed merge conflicts, fixed tooltip hyperlink)
 
 /**
  * render a tooltip around an input field
@@ -301,7 +306,10 @@ var DynamicToolTipWrapper = function DynamicToolTipWrapper(props) {
   return props.tooltip ? /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, props) : props.children ? props.children : RenderForm(props.innerForm, {});
 };
 
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 90da87c (fixed merge conflicts, fixed tooltip hyperlink)
 var css_248z = ".leftTextAlign {\n    text-align: left;\n}";
 styleInject(css_248z);
 
@@ -319,7 +327,7 @@ styleInject(css_248z);
  * @param {Function} props.onRequestClose
  * @param {boolean=} props.useAddButton use + button instead of edit
  */
-var IcseModal = function IcseModal(props) {
+const IcseModal = props => {
   /*#__PURE__*/React__default["default"].createElement("strong", null, props.name);
   return /*#__PURE__*/React__default["default"].createElement(react.Modal, {
     id: props.id,
@@ -368,8 +376,8 @@ IcseModal.propTypes = {
  * @param {Function} props.onModalClose function for on close
  * @param {Function} props.onModalSubmit function for on submit
  */
-var DeleteModal = function DeleteModal(props) {
-  var name = /*#__PURE__*/React__default["default"].createElement("strong", null, props.name);
+const DeleteModal = props => {
+  let name = /*#__PURE__*/React__default["default"].createElement("strong", null, props.name);
   return /*#__PURE__*/React__default["default"].createElement(IcseModal, {
     id: props.name + "-delete",
     name: props.name,
@@ -400,8 +408,8 @@ DeleteModal.propTypes = {
  * @param {Function} props.onModalSubmit function for on submit
  */
 
-var UnsavedChangesModal = function UnsavedChangesModal(props) {
-  var name = props.name;
+const UnsavedChangesModal = props => {
+  let name = props.name;
   return /*#__PURE__*/React__default["default"].createElement("div", {
     className: "unsaved-changes-modal-area"
   }, /*#__PURE__*/React__default["default"].createElement(IcseModal, {
