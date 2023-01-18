@@ -5,19 +5,22 @@ import { TitleGroup } from "icse-react-assets";
 //import { IcseFormGroup } from "icse-react-assets";
 //import { IcseSubForm } from "icse-react-assets";
 //import { IcseToolTip } from "icse-react-assets";
-import { ToolTipWrapper } from "icse-react-assets";
+import { DynamicToolTipWrapper } from "icse-react-assets";
+import { TextArea } from "@carbon/react";
 
 //import { DynamicToolTipWrapper } from "icse-react-assets";
 
 function App() {
   return (
     <div className="App">
-      <ToolTipWrapper
+      <DynamicToolTipWrapper
         tooltip={{
           content: "test content",
-          align: "top-left",
+          link: "www.cloud.ibm.com",
+          align: "bottom",
         }}
-        innerForm={<TitleGroup>Test</TitleGroup>}
+        name="TestToolTip"
+        innerForm={TextArea}
         className="fitContent"
         id="test"
         labelText="test LabelText"
