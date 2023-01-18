@@ -14,10 +14,6 @@ import "./styles/Tooltips.css";
 
 /**
  * render a tooltip around an input field
- * @param {Object} props
- * @param {string} props.content
- * @param {string=} props.link optional link
- * @param {string=} props.align alignment
  * @returns slz tooltip component
  */
 export const IcseToolTip = (props) => {
@@ -64,32 +60,33 @@ const BuildToolTip = (props) => {
     <IcseToolTip
       content={props.tooltip.content}
       link={props.tooltip.link || false}
-      align={props.tooltip.align || "top"}
-      modalAlign={props.tooltip.alignModal || "bottom"}
+      align={props.isModal ? props.alignModal : props.align}
+      alignModal={props.tooltip.alignModal}
     />
   );
 };
 
 BuildToolTip.defaultProps = {
-  content: "",
-  link: false,
+  tooltip: {
+    content: "",
+    link: false,
+  },
   align: "top",
-  modalAlign: "bottom",
+  alignModal: "bottom",
 };
 
 BuildToolTip.propTypes = {
-  content: PropTypes.string.isRequired,
-  link: PropTypes.string,
+  tooltip: PropTypes.object,
+  tooltip: PropTypes.shape({
+    content: PropTypes.string.isRequired,
+    link: PropTypes.string,
+  }),
   align: PropTypes.string,
-  modalAlign: PropTypes.string,
+  alignModal: PropTypes.string,
 };
 
 /**
  *
- * @param {*} props
- * @param {*} props.innerForm react child form
- * @param {string} props.tooltip.content tooltip content
- * @param {string=} props.tooltip.link optional tooltip link
  * @returns
  */
 export const ToolTipWrapper = (props) => {
@@ -103,7 +100,7 @@ export const ToolTipWrapper = (props) => {
   } else allProps.labelText = " ";
   allProps.className = addClassName("tooltip", { ...props });
 
-  let name = props.labelText || (props.field ? titleCase(props.field) : null);
+  let name = props.labelText || titleCase(props.field);
   return (
     <div className="cds--form-item">
       {name ? (
@@ -139,20 +136,21 @@ ToolTipWrapper.defaultProps = {
 };
 
 ToolTipWrapper.propTypes = {
+  tooltip: PropTypes.object,
   tooltip: PropTypes.shape({
     content: PropTypes.string.isRequired,
     link: PropTypes.string,
-    innerForm: PropTypes.func,
   }),
+  id: PropTypes.string.isRequired,
+  labelText: PropTypes.string,
+  field: PropTypes.string,
+  noLabelText: PropTypes.bool,
+  children: PropTypes.node,
+  innerForm: PropTypes.object,
 };
 
 /**
  *
- * @param {*} props
- * @param {*} props.innerForm react child form
- * @param {string=} props.tooltipClassName optional tooltip classname
- * @param {string} props.tooltipContent tooltip content
- * @param {string=} props.tooltipLink optional tooltip link
  * @returns
  */
 export const DynamicToolTipWrapper = (props) => {
@@ -166,13 +164,18 @@ export const DynamicToolTipWrapper = (props) => {
 };
 
 DynamicToolTipWrapper.defaultProps = {
-  tooltipContent: "",
-  tooltipLink: false,
+  tooltip: {
+    content: "",
+    link: false,
+  },
 };
 
 DynamicToolTipWrapper.propTypes = {
-  tooltipClassName: PropTypes.string,
-  tooltipContent: PropTypes.string.isRequired,
-  tooltipLink: PropTypes.string,
-  innerForm: PropTypes.func,
+  tooltip: PropTypes.object,
+  tooltip: PropTypes.shape({
+    content: PropTypes.string.isRequired,
+    link: PropTypes.string,
+  }),
+  children: PropTypes.node,
+  innerForm: PropTypes.object,
 };

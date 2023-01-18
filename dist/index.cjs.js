@@ -230,10 +230,6 @@ styleInject(css_248z$1);
 
 /**
  * render a tooltip around an input field
- * @param {Object} props
- * @param {string} props.content
- * @param {string=} props.link optional link
- * @param {string=} props.align alignment
  * @returns slz tooltip component
  */
 const IcseToolTip = props => {
@@ -259,29 +255,30 @@ const BuildToolTip = props => {
   return /*#__PURE__*/React__default["default"].createElement(IcseToolTip, {
     content: props.tooltip.content,
     link: props.tooltip.link || false,
-    align: props.tooltip.align || "top",
-    modalAlign: props.tooltip.alignModal || "bottom"
+    align: props.isModal ? props.alignModal : props.align,
+    alignModal: props.tooltip.alignModal
   });
 };
 BuildToolTip.defaultProps = {
-  content: "",
-  link: false,
+  tooltip: {
+    content: "",
+    link: false
+  },
   align: "top",
-  modalAlign: "bottom"
+  alignModal: "bottom"
 };
 BuildToolTip.propTypes = {
-  content: PropTypes__default["default"].string.isRequired,
-  link: PropTypes__default["default"].string,
+  tooltip: PropTypes__default["default"].object,
+  tooltip: PropTypes__default["default"].shape({
+    content: PropTypes__default["default"].string.isRequired,
+    link: PropTypes__default["default"].string
+  }),
   align: PropTypes__default["default"].string,
-  modalAlign: PropTypes__default["default"].string
+  alignModal: PropTypes__default["default"].string
 };
 
 /**
  *
- * @param {*} props
- * @param {*} props.innerForm react child form
- * @param {string} props.tooltip.content tooltip content
- * @param {string=} props.tooltip.link optional tooltip link
  * @returns
  */
 const ToolTipWrapper = props => {
@@ -298,7 +295,7 @@ const ToolTipWrapper = props => {
   allProps.className = addClassName("tooltip", {
     ...props
   });
-  let name = props.labelText || (props.field ? lazyZ.titleCase(props.field) : null);
+  let name = props.labelText || lazyZ.titleCase(props.field);
   return /*#__PURE__*/React__default["default"].createElement("div", {
     className: "cds--form-item"
   }, name ? /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement("div", {
@@ -324,34 +321,40 @@ ToolTipWrapper.defaultProps = {
   }
 };
 ToolTipWrapper.propTypes = {
+  tooltip: PropTypes__default["default"].object,
   tooltip: PropTypes__default["default"].shape({
     content: PropTypes__default["default"].string.isRequired,
-    link: PropTypes__default["default"].string,
-    innerForm: PropTypes__default["default"].func
-  })
+    link: PropTypes__default["default"].string
+  }),
+  id: PropTypes__default["default"].string.isRequired,
+  labelText: PropTypes__default["default"].string,
+  field: PropTypes__default["default"].string,
+  noLabelText: PropTypes__default["default"].bool,
+  children: PropTypes__default["default"].node,
+  innerForm: PropTypes__default["default"].object
 };
 
 /**
  *
- * @param {*} props
- * @param {*} props.innerForm react child form
- * @param {string=} props.tooltipClassName optional tooltip classname
- * @param {string} props.tooltipContent tooltip content
- * @param {string=} props.tooltipLink optional tooltip link
  * @returns
  */
 const DynamicToolTipWrapper = props => {
   return props.tooltip ? /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, props) : props.children ? props.children : RenderForm(props.innerForm, {});
 };
 DynamicToolTipWrapper.defaultProps = {
-  tooltipContent: "",
-  tooltipLink: false
+  tooltip: {
+    content: "",
+    link: false
+  }
 };
 DynamicToolTipWrapper.propTypes = {
-  tooltipClassName: PropTypes__default["default"].string,
-  tooltipContent: PropTypes__default["default"].string.isRequired,
-  tooltipLink: PropTypes__default["default"].string,
-  innerForm: PropTypes__default["default"].func
+  tooltip: PropTypes__default["default"].object,
+  tooltip: PropTypes__default["default"].shape({
+    content: PropTypes__default["default"].string.isRequired,
+    link: PropTypes__default["default"].string
+  }),
+  children: PropTypes__default["default"].node,
+  innerForm: PropTypes__default["default"].object
 };
 
 <<<<<<< HEAD
