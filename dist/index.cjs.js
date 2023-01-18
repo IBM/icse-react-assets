@@ -327,7 +327,7 @@ ToolTipWrapper.propTypes = {
   tooltip: PropTypes__default["default"].shape({
     content: PropTypes__default["default"].string.isRequired,
     link: PropTypes__default["default"].string,
-    innerForm: PropTypes__default["default"].func.isRequired
+    innerForm: PropTypes__default["default"].func
   })
 };
 
@@ -351,7 +351,7 @@ DynamicToolTipWrapper.propTypes = {
   tooltipClassName: PropTypes__default["default"].string,
   tooltipContent: PropTypes__default["default"].string.isRequired,
   tooltipLink: PropTypes__default["default"].string,
-  innerForm: PropTypes__default["default"].func.isRequired
+  innerForm: PropTypes__default["default"].func
 };
 
 <<<<<<< HEAD
