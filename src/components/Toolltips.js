@@ -1,0 +1,127 @@
+import { RenderForm } from "/Utils";
+import { addClassName } from "../form-utils";
+import { titleCase } from "lazy-z";
+import React from "react";
+import {
+  Toggletip,
+  ToggletipButton,
+  ToggletipContent,
+  Link,
+} from "@carbon/react";
+import { Information } from "@carbon/icons-react";
+import "./styles/Tooltips.css";
+
+/**
+ * render a tooltip around an input field
+ * @param {Object} props
+ * @param {string} props.content
+ * @param {string=} props.link optional link
+ * @param {string=} props.align alignment
+ * @returns slz tooltip component
+ */
+export const IcseToolTip = (props) => {
+  return (
+    <>
+      <Toggletip align={props.align}>
+        <ToggletipButton>
+          <Information className="tooltipMarginLeft" />
+        </ToggletipButton>
+        <ToggletipContent>
+          <p>
+            {props.content}
+            {props.link && (
+              <>
+                {" "}
+                Visit{" "}
+                <Link onClick={() => window.open(props.link, "_blank")}>
+                  this link
+                </Link>{" "}
+                for more information.
+              </>
+            )}
+          </p>
+        </ToggletipContent>
+      </Toggletip>
+    </>
+  );
+};
+
+const buildToolTip = (props) => {
+  return (
+    <IcseToolTip
+      content={props.tooltip.content}
+      link={props.tooltip.link || false}
+      align={
+        props.isModal
+          ? props.tooltip.alignModal || "bottom"
+          : props.tooltip.align || "top"
+      }
+    />
+  );
+};
+
+/**
+ *
+ * @param {*} props
+ * @param {*} props.innerForm react child form
+ * @param {string} props.tooltip.content tooltip content
+ * @param {string=} props.tooltip.link optional tooltip link
+ * @returns
+ */
+export const ToolTipWrapper = (props) => {
+  let allProps = { ...props };
+  delete allProps.innerForm;
+  delete allProps.tooltip;
+  // remove label text from components where it is not valid param
+  if (props.noLabelText) {
+    delete allProps.labelText;
+    delete allProps.noLabelText;
+  } else allProps.labelText = " ";
+  allProps.className = addClassName("tooltip", { ...props });
+
+  let name = props.labelText || (props.field ? titleCase(props.field) : null);
+  return (
+    <div className="cds--form-item">
+      {name ? (
+        <>
+          <div className="labelRow cds--label">
+            <label htmlFor={props.id}>{name}</label>
+            {buildToolTip(props)}
+          </div>
+          {props.children
+            ? React.cloneElement(props.children, {
+                // adjust props
+                labelText: " ", // set labelText to empty
+                className: props.children.props.className + " tooltip", // add tooltip class back
+              })
+            : RenderForm(props.innerForm, allProps)}
+        </>
+      ) : (
+        // No label- this is usually a title
+        <div className="labelRow">
+          {RenderForm(props.innerForm, allProps)}
+          {buildToolTip(props)}
+        </div>
+      )}
+    </div>
+  );
+};
+
+/**
+ *
+ * @param {*} props
+ * @param {*} props.innerForm react child form
+ * @param {string=} props.tooltipClassName optional tooltip classname
+ * @param {string} props.tooltipContent tooltip content
+ * @param {string=} props.tooltipLink optional tooltip link
+ * @returns
+ */
+export const DynamicToolTipWrapper = (props) => {
+  return props.tooltip ? (
+    <ToolTipWrapper {...props} />
+  ) : props.children ? (
+    props.children
+  ) : (
+    RenderForm(props.innerForm, {})
+  );
+};
