@@ -285,6 +285,9 @@ const ToolTipWrapper = props => {
   let allProps = {
     ...props
   };
+  let setToolTip = {
+    function: () => BuildToolTip(props)
+  };
   delete allProps.innerForm;
   delete allProps.tooltip;
   // remove label text from components where it is not valid param
@@ -302,7 +305,7 @@ const ToolTipWrapper = props => {
     className: "labelRow cds--label"
   }, /*#__PURE__*/React.createElement("label", {
     htmlFor: props.id
-  }, name), BuildToolTip(props)), props.children ? /*#__PURE__*/React.cloneElement(props.children, {
+  }, name), setToolTip.function()), props.children ? /*#__PURE__*/React.cloneElement(props.children, {
     // adjust props
     labelText: " ",
     // set labelText to empty
@@ -312,7 +315,7 @@ const ToolTipWrapper = props => {
   // No label- this is usually a title
   React.createElement("div", {
     className: "labelRow"
-  }, RenderForm(props.innerForm, allProps), BuildToolTip(props)));
+  }, RenderForm(props.innerForm, allProps), setToolTip.function()));
 };
 ToolTipWrapper.defaultProps = {
   tooltip: {

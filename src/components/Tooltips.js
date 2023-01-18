@@ -9,6 +9,7 @@ import {
   Link,
 } from "@carbon/react";
 import { Information } from "@carbon/icons-react";
+import { useState } from "react";
 import PropTypes from "prop-types";
 import "./styles/Tooltips.css";
 
@@ -91,6 +92,7 @@ BuildToolTip.propTypes = {
  */
 export const ToolTipWrapper = (props) => {
   let allProps = { ...props };
+  let setToolTip = { function: () => BuildToolTip(props) };
   delete allProps.innerForm;
   delete allProps.tooltip;
   // remove label text from components where it is not valid param
@@ -107,7 +109,7 @@ export const ToolTipWrapper = (props) => {
         <>
           <div className="labelRow cds--label">
             <label htmlFor={props.id}>{name}</label>
-            {BuildToolTip(props)}
+            {setToolTip.function()}
           </div>
           {props.children
             ? React.cloneElement(props.children, {
@@ -121,7 +123,7 @@ export const ToolTipWrapper = (props) => {
         // No label- this is usually a title
         <div className="labelRow">
           {RenderForm(props.innerForm, allProps)}
-          {BuildToolTip(props)}
+          {setToolTip.function()}
         </div>
       )}
     </div>
