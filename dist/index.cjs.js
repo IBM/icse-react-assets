@@ -252,7 +252,7 @@ IcseToolTip.defaultProps = {
 };
 IcseToolTip.propTypes = {
   content: PropTypes__default["default"].string.isRequired,
-  link: urlPropType,
+  link: PropTypes__default["default"].string,
   align: PropTypes__default["default"].string.isRequired
 };
 const BuildToolTip = props => {
@@ -271,7 +271,7 @@ BuildToolTip.defaultProps = {
 };
 BuildToolTip.propTypes = {
   content: PropTypes__default["default"].string.isRequired,
-  link: urlPropType,
+  link: PropTypes__default["default"].string,
   align: PropTypes__default["default"].string,
   modalAlign: PropTypes__default["default"].string
 };
@@ -318,13 +318,17 @@ const ToolTipWrapper = props => {
   }, RenderForm(props.innerForm, allProps), BuildToolTip(props)));
 };
 ToolTipWrapper.defaultProps = {
-  content: "",
-  link: false
+  tooltip: {
+    content: "",
+    link: false
+  }
 };
 ToolTipWrapper.propTypes = {
-  content: PropTypes__default["default"].string.isRequired,
-  link: urlPropType,
-  innerForm: PropTypes__default["default"].func.isRequired
+  tooltip: PropTypes__default["default"].shape({
+    content: PropTypes__default["default"].string.isRequired,
+    link: PropTypes__default["default"].string,
+    innerForm: PropTypes__default["default"].func.isRequired
+  })
 };
 
 /**
@@ -346,7 +350,7 @@ DynamicToolTipWrapper.defaultProps = {
 DynamicToolTipWrapper.propTypes = {
   tooltipClassName: PropTypes__default["default"].string,
   tooltipContent: PropTypes__default["default"].string.isRequired,
-  tooltipLink: urlPropType,
+  tooltipLink: PropTypes__default["default"].string,
   innerForm: PropTypes__default["default"].func.isRequired
 };
 

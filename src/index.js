@@ -4,7 +4,7 @@ export {
   ToolTipWrapper,
   DynamicToolTipWrapper,
   IcseToolTip,
-} from "./components/Toolltips";
+} from "./components/Tooltips";
 export {
   RenderForm,
   DynamicRender,
