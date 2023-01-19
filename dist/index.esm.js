@@ -233,17 +233,17 @@ styleInject(css_248z$1);
  * @returns slz tooltip component
  */
 const IcseToolTip = props => {
+  let link = /*#__PURE__*/React.createElement(Link, {
+    onClick: () => window.open(props.link, "_blank")
+  }, "this link");
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Toggletip, {
     align: props.align
   }, /*#__PURE__*/React.createElement(ToggletipButton, null, /*#__PURE__*/React.createElement(Information, {
     className: "tooltipMarginLeft"
-  })), /*#__PURE__*/React.createElement(ToggletipContent, null, /*#__PURE__*/React.createElement("p", null, props.content, props.link && /*#__PURE__*/React.createElement(React.Fragment, null, " ", "Visit", " ", /*#__PURE__*/React.createElement(Link, {
-    onClick: () => window.open(props.link, "_blank")
-  }, "this link"), " ", "for more information.")))));
+  })), /*#__PURE__*/React.createElement(ToggletipContent, null, /*#__PURE__*/React.createElement("p", null, props.content, props.link && /*#__PURE__*/React.createElement(React.Fragment, null, " Visit ", link, " for more information. ")))));
 };
 IcseToolTip.defaultProps = {
   content: "",
-  link: false,
   align: "top"
 };
 IcseToolTip.propTypes = {
@@ -254,27 +254,27 @@ IcseToolTip.propTypes = {
 const BuildToolTip = props => {
   return /*#__PURE__*/React.createElement(IcseToolTip, {
     content: props.tooltip.content,
-    link: props.tooltip.link || false,
-    align: props.isModal ? props.alignModal : props.align,
-    alignModal: props.tooltip.alignModal
+    link: props.tooltip?.link,
+    align: props.isModal ? props.alignModal : props.align
   });
 };
 BuildToolTip.defaultProps = {
   tooltip: {
-    content: "",
-    link: false
+    content: ""
   },
+  isModal: false,
   align: "top",
   alignModal: "bottom"
 };
 BuildToolTip.propTypes = {
-  tooltip: PropTypes.object,
+  tooltip: PropTypes.object.isRequired,
   tooltip: PropTypes.shape({
     content: PropTypes.string.isRequired,
     link: PropTypes.string
   }),
-  align: PropTypes.string,
-  alignModal: PropTypes.string
+  isModal: PropTypes.bool.isRequired,
+  align: PropTypes.string.isRequired,
+  alignModal: PropTypes.string.isRequired
 };
 
 /**
@@ -289,17 +289,20 @@ const ToolTipWrapper = props => {
   delete allProps.innerForm;
   delete allProps.tooltip;
   // remove label text from components where it is not valid param
-  if (props.noLabelText) {
-    delete allProps.labelText;
-    delete allProps.noLabelText;
-  } else allProps.labelText = " ";
+  delete allProps.noLabelText;
+  props.noLabelText ? delete allProps.labelText : allProps.labelText = " ";
   allProps.className = addClassName("tooltip", {
     ...props
   });
   let name = props.labelText || titleCase(props.field);
   return /*#__PURE__*/React.createElement("div", {
     className: "cds--form-item"
-  }, name ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+  }, props.noLabelText ?
+  /*#__PURE__*/
+  // No label- this is usually a title
+  React.createElement("div", {
+    className: "labelRow"
+  }, RenderForm(props.innerForm, allProps), tooltip) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     className: "labelRow cds--label"
   }, /*#__PURE__*/React.createElement("label", {
     htmlFor: props.id
@@ -308,21 +311,16 @@ const ToolTipWrapper = props => {
     labelText: " ",
     // set labelText to empty
     className: props.children.props.className + " tooltip" // add tooltip class back
-  }) : RenderForm(props.innerForm, allProps)) :
-  /*#__PURE__*/
-  // No label- this is usually a title
-  React.createElement("div", {
-    className: "labelRow"
-  }, RenderForm(props.innerForm, allProps), tooltip));
+  }) : RenderForm(props.innerForm, allProps)));
 };
 ToolTipWrapper.defaultProps = {
   tooltip: {
-    content: "",
-    link: false
-  }
+    content: ""
+  },
+  noLabelText: false
 };
 ToolTipWrapper.propTypes = {
-  tooltip: PropTypes.object,
+  tooltip: PropTypes.object.isRequired,
   tooltip: PropTypes.shape({
     content: PropTypes.string.isRequired,
     link: PropTypes.string
@@ -330,7 +328,7 @@ ToolTipWrapper.propTypes = {
   id: PropTypes.string.isRequired,
   labelText: PropTypes.string,
   field: PropTypes.string,
-  noLabelText: PropTypes.bool,
+  noLabelText: PropTypes.bool.isRequired,
   children: PropTypes.node,
   innerForm: PropTypes.object
 };

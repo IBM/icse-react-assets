@@ -9,7 +9,6 @@ import {
   Link,
 } from "@carbon/react";
 import { Information } from "@carbon/icons-react";
-import { useState } from "react";
 import PropTypes from "prop-types";
 import "./styles/Tooltips.css";
 
@@ -18,6 +17,9 @@ import "./styles/Tooltips.css";
  * @returns slz tooltip component
  */
 export const IcseToolTip = (props) => {
+  let link = (
+    <Link onClick={() => window.open(props.link, "_blank")}>this link</Link>
+  );
   return (
     <>
       <Toggletip align={props.align}>
@@ -27,16 +29,7 @@ export const IcseToolTip = (props) => {
         <ToggletipContent>
           <p>
             {props.content}
-            {props.link && (
-              <>
-                {" "}
-                Visit{" "}
-                <Link onClick={() => window.open(props.link, "_blank")}>
-                  this link
-                </Link>{" "}
-                for more information.
-              </>
-            )}
+            {props.link && <> Visit {link} for more information. </>}
           </p>
         </ToggletipContent>
       </Toggletip>
@@ -46,7 +39,6 @@ export const IcseToolTip = (props) => {
 
 IcseToolTip.defaultProps = {
   content: "",
-  link: false,
   align: "top",
 };
 
@@ -60,9 +52,8 @@ const BuildToolTip = (props) => {
   return (
     <IcseToolTip
       content={props.tooltip.content}
-      link={props.tooltip.link || false}
+      link={props.tooltip?.link}
       align={props.isModal ? props.alignModal : props.align}
-      alignModal={props.tooltip.alignModal}
     />
   );
 };
@@ -70,20 +61,21 @@ const BuildToolTip = (props) => {
 BuildToolTip.defaultProps = {
   tooltip: {
     content: "",
-    link: false,
   },
+  isModal: false,
   align: "top",
   alignModal: "bottom",
 };
 
 BuildToolTip.propTypes = {
-  tooltip: PropTypes.object,
+  tooltip: PropTypes.object.isRequired,
   tooltip: PropTypes.shape({
     content: PropTypes.string.isRequired,
     link: PropTypes.string,
   }),
-  align: PropTypes.string,
-  alignModal: PropTypes.string,
+  isModal: PropTypes.bool.isRequired,
+  align: PropTypes.string.isRequired,
+  alignModal: PropTypes.string.isRequired,
 };
 
 /**
@@ -96,16 +88,20 @@ export const ToolTipWrapper = (props) => {
   delete allProps.innerForm;
   delete allProps.tooltip;
   // remove label text from components where it is not valid param
-  if (props.noLabelText) {
-    delete allProps.labelText;
-    delete allProps.noLabelText;
-  } else allProps.labelText = " ";
+  delete allProps.noLabelText;
+  props.noLabelText ? delete allProps.labelText : (allProps.labelText = " ");
   allProps.className = addClassName("tooltip", { ...props });
 
   let name = props.labelText || titleCase(props.field);
   return (
     <div className="cds--form-item">
-      {name ? (
+      {props.noLabelText ? (
+        // No label- this is usually a title
+        <div className="labelRow">
+          {RenderForm(props.innerForm, allProps)}
+          {tooltip}
+        </div>
+      ) : (
         <>
           <div className="labelRow cds--label">
             <label htmlFor={props.id}>{name}</label>
@@ -119,12 +115,6 @@ export const ToolTipWrapper = (props) => {
               })
             : RenderForm(props.innerForm, allProps)}
         </>
-      ) : (
-        // No label- this is usually a title
-        <div className="labelRow">
-          {RenderForm(props.innerForm, allProps)}
-          {tooltip}
-        </div>
       )}
     </div>
   );
@@ -133,12 +123,12 @@ export const ToolTipWrapper = (props) => {
 ToolTipWrapper.defaultProps = {
   tooltip: {
     content: "",
-    link: false,
   },
+  noLabelText: false,
 };
 
 ToolTipWrapper.propTypes = {
-  tooltip: PropTypes.object,
+  tooltip: PropTypes.object.isRequired,
   tooltip: PropTypes.shape({
     content: PropTypes.string.isRequired,
     link: PropTypes.string,
@@ -146,7 +136,7 @@ ToolTipWrapper.propTypes = {
   id: PropTypes.string.isRequired,
   labelText: PropTypes.string,
   field: PropTypes.string,
-  noLabelText: PropTypes.bool,
+  noLabelText: PropTypes.bool.isRequired,
   children: PropTypes.node,
   innerForm: PropTypes.object,
 };
