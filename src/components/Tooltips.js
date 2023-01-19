@@ -92,7 +92,7 @@ BuildToolTip.propTypes = {
  */
 export const ToolTipWrapper = (props) => {
   let allProps = { ...props };
-  let setToolTip = { function: () => BuildToolTip(props) };
+  let tooltip = BuildToolTip(props);
   delete allProps.innerForm;
   delete allProps.tooltip;
   // remove label text from components where it is not valid param
@@ -109,7 +109,7 @@ export const ToolTipWrapper = (props) => {
         <>
           <div className="labelRow cds--label">
             <label htmlFor={props.id}>{name}</label>
-            {setToolTip.function()}
+            {tooltip}
           </div>
           {props.children
             ? React.cloneElement(props.children, {
@@ -123,7 +123,7 @@ export const ToolTipWrapper = (props) => {
         // No label- this is usually a title
         <div className="labelRow">
           {RenderForm(props.innerForm, allProps)}
-          {setToolTip.function()}
+          {tooltip}
         </div>
       )}
     </div>
