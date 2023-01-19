@@ -267,11 +267,10 @@ BuildToolTip.defaultProps = {
   alignModal: "bottom"
 };
 BuildToolTip.propTypes = {
-  tooltip: PropTypes.object.isRequired,
   tooltip: PropTypes.shape({
     content: PropTypes.string.isRequired,
     link: PropTypes.string
-  }),
+  }).isRequired,
   isModal: PropTypes.bool.isRequired,
   align: PropTypes.string.isRequired,
   alignModal: PropTypes.string.isRequired
@@ -297,7 +296,7 @@ const ToolTipWrapper = props => {
   React.createElement("div", {
     className: "labelRow"
   }, RenderForm(props.innerForm, allProps), tooltip) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
-    className: "labelRow cds--label"
+    className: "cds--labellabelRow"
   }, /*#__PURE__*/React.createElement("label", {
     htmlFor: props.id
   }, props.labelText || titleCase(props.field)), tooltip), props.children ? /*#__PURE__*/React.cloneElement(props.children, {
@@ -314,11 +313,10 @@ ToolTipWrapper.defaultProps = {
   noLabelText: false
 };
 ToolTipWrapper.propTypes = {
-  tooltip: PropTypes.object.isRequired,
   tooltip: PropTypes.shape({
     content: PropTypes.string.isRequired,
     link: PropTypes.string
-  }),
+  }).isRequired,
   id: PropTypes.string.isRequired,
   labelText: PropTypes.string,
   field: PropTypes.string,
@@ -336,11 +334,10 @@ DynamicToolTipWrapper.defaultProps = {
   }
 };
 DynamicToolTipWrapper.propTypes = {
-  tooltip: PropTypes.object,
   tooltip: PropTypes.shape({
     content: PropTypes.string.isRequired,
     link: PropTypes.string
-  }),
+  }).isRequired,
   children: PropTypes.node,
   innerForm: PropTypes.object
 };

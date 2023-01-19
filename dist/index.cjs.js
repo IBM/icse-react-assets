@@ -267,11 +267,10 @@ BuildToolTip.defaultProps = {
   alignModal: "bottom"
 };
 BuildToolTip.propTypes = {
-  tooltip: PropTypes__default["default"].object.isRequired,
   tooltip: PropTypes__default["default"].shape({
     content: PropTypes__default["default"].string.isRequired,
     link: PropTypes__default["default"].string
-  }),
+  }).isRequired,
   isModal: PropTypes__default["default"].bool.isRequired,
   align: PropTypes__default["default"].string.isRequired,
   alignModal: PropTypes__default["default"].string.isRequired
@@ -297,7 +296,7 @@ const ToolTipWrapper = props => {
   React__default["default"].createElement("div", {
     className: "labelRow"
   }, RenderForm(props.innerForm, allProps), tooltip) : /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement("div", {
-    className: "labelRow cds--label"
+    className: "cds--labellabelRow"
   }, /*#__PURE__*/React__default["default"].createElement("label", {
     htmlFor: props.id
   }, props.labelText || lazyZ.titleCase(props.field)), tooltip), props.children ? /*#__PURE__*/React__default["default"].cloneElement(props.children, {
@@ -314,11 +313,10 @@ ToolTipWrapper.defaultProps = {
   noLabelText: false
 };
 ToolTipWrapper.propTypes = {
-  tooltip: PropTypes__default["default"].object.isRequired,
   tooltip: PropTypes__default["default"].shape({
     content: PropTypes__default["default"].string.isRequired,
     link: PropTypes__default["default"].string
-  }),
+  }).isRequired,
   id: PropTypes__default["default"].string.isRequired,
   labelText: PropTypes__default["default"].string,
   field: PropTypes__default["default"].string,
@@ -336,11 +334,10 @@ DynamicToolTipWrapper.defaultProps = {
   }
 };
 DynamicToolTipWrapper.propTypes = {
-  tooltip: PropTypes__default["default"].object,
   tooltip: PropTypes__default["default"].shape({
     content: PropTypes__default["default"].string.isRequired,
     link: PropTypes__default["default"].string
-  }),
+  }).isRequired,
   children: PropTypes__default["default"].node,
   innerForm: PropTypes__default["default"].object
 };

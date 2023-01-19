@@ -68,11 +68,10 @@ BuildToolTip.defaultProps = {
 };
 
 BuildToolTip.propTypes = {
-  tooltip: PropTypes.object.isRequired,
   tooltip: PropTypes.shape({
     content: PropTypes.string.isRequired,
     link: PropTypes.string,
-  }),
+  }).isRequired,
   isModal: PropTypes.bool.isRequired,
   align: PropTypes.string.isRequired,
   alignModal: PropTypes.string.isRequired,
@@ -98,7 +97,7 @@ export const ToolTipWrapper = (props) => {
         </div>
       ) : (
         <>
-          <div className="labelRow cds--label">
+          <div className="cds--labellabelRow">
             <label htmlFor={props.id}>
               {props.labelText || titleCase(props.field)}
             </label>
@@ -125,11 +124,10 @@ ToolTipWrapper.defaultProps = {
 };
 
 ToolTipWrapper.propTypes = {
-  tooltip: PropTypes.object.isRequired,
   tooltip: PropTypes.shape({
     content: PropTypes.string.isRequired,
     link: PropTypes.string,
-  }),
+  }).isRequired,
   id: PropTypes.string.isRequired,
   labelText: PropTypes.string,
   field: PropTypes.string,
@@ -156,11 +154,10 @@ DynamicToolTipWrapper.defaultProps = {
 };
 
 DynamicToolTipWrapper.propTypes = {
-  tooltip: PropTypes.object,
   tooltip: PropTypes.shape({
     content: PropTypes.string.isRequired,
     link: PropTypes.string,
-  }),
+  }).isRequired,
   children: PropTypes.node,
   innerForm: PropTypes.object,
 };
