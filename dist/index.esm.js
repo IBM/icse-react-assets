@@ -300,7 +300,7 @@ const ToolTipWrapper = props => {
   React.createElement("div", {
     className: "labelRow"
   }, RenderForm(props.innerForm, allProps), tooltip) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
-    className: "cds--label"
+    className: "cds--label labelRow"
   }, /*#__PURE__*/React.createElement("label", {
     htmlFor: props.id
   }, props.labelText || titleCase(props.field)), tooltip), props.children ? /*#__PURE__*/React.cloneElement(props.children, {

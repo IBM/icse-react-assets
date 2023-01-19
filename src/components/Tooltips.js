@@ -97,7 +97,7 @@ export const ToolTipWrapper = (props) => {
         </div>
       ) : (
         <>
-          <div className="cds--label">
+          <div className="cds--label labelRow">
             <label htmlFor={props.id}>
               {props.labelText || titleCase(props.field)}
             </label>
