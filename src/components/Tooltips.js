@@ -78,10 +78,6 @@ BuildToolTip.propTypes = {
   alignModal: PropTypes.string.isRequired,
 };
 
-/**
- *
- * @returns
- */
 export const ToolTipWrapper = (props) => {
   let allProps = { ...props };
   let tooltip = BuildToolTip(props);
@@ -89,10 +85,9 @@ export const ToolTipWrapper = (props) => {
   delete allProps.tooltip;
   // remove label text from components where it is not valid param
   delete allProps.noLabelText;
-  props.noLabelText ? delete allProps.labelText : (allProps.labelText = " ");
+  if (props.noLabelText) delete allProps.labelText;
+  else allProps.labelText = " ";
   allProps.className = addClassName("tooltip", { ...props });
-
-  let name = props.labelText || titleCase(props.field);
   return (
     <div className="cds--form-item">
       {props.noLabelText ? (
@@ -104,7 +99,9 @@ export const ToolTipWrapper = (props) => {
       ) : (
         <>
           <div className="labelRow cds--label">
-            <label htmlFor={props.id}>{name}</label>
+            <label htmlFor={props.id}>
+              {props.labelText || titleCase(props.field)}
+            </label>
             {tooltip}
           </div>
           {props.children
@@ -141,10 +138,6 @@ ToolTipWrapper.propTypes = {
   innerForm: PropTypes.object,
 };
 
-/**
- *
- * @returns
- */
 export const DynamicToolTipWrapper = (props) => {
   return props.tooltip ? (
     <ToolTipWrapper {...props} />

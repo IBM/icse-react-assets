@@ -276,11 +276,6 @@ BuildToolTip.propTypes = {
   align: PropTypes__default["default"].string.isRequired,
   alignModal: PropTypes__default["default"].string.isRequired
 };
-
-/**
- *
- * @returns
- */
 const ToolTipWrapper = props => {
   let allProps = {
     ...props
@@ -290,11 +285,10 @@ const ToolTipWrapper = props => {
   delete allProps.tooltip;
   // remove label text from components where it is not valid param
   delete allProps.noLabelText;
-  props.noLabelText ? delete allProps.labelText : allProps.labelText = " ";
+  if (props.noLabelText) delete allProps.labelText;else allProps.labelText = " ";
   allProps.className = addClassName("tooltip", {
     ...props
   });
-  let name = props.labelText || lazyZ.titleCase(props.field);
   return /*#__PURE__*/React__default["default"].createElement("div", {
     className: "cds--form-item"
   }, props.noLabelText ?
@@ -306,7 +300,7 @@ const ToolTipWrapper = props => {
     className: "labelRow cds--label"
   }, /*#__PURE__*/React__default["default"].createElement("label", {
     htmlFor: props.id
-  }, name), tooltip), props.children ? /*#__PURE__*/React__default["default"].cloneElement(props.children, {
+  }, props.labelText || lazyZ.titleCase(props.field)), tooltip), props.children ? /*#__PURE__*/React__default["default"].cloneElement(props.children, {
     // adjust props
     labelText: " ",
     // set labelText to empty
@@ -332,11 +326,6 @@ ToolTipWrapper.propTypes = {
   children: PropTypes__default["default"].node,
   innerForm: PropTypes__default["default"].object
 };
-
-/**
- *
- * @returns
- */
 const DynamicToolTipWrapper = props => {
   return props.tooltip ? /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, props) : props.children ? props.children : RenderForm(props.innerForm, {});
 };
