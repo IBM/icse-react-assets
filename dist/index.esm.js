@@ -30,10 +30,38 @@ import { WarningAlt, CloudAlerting, Add, Information } from '@carbon/icons-react
 =======
 import { Tile, Popover, PopoverContent, Modal } from '@carbon/react';
 
+<<<<<<< HEAD
 var _require = require("./form-utils"),
   toggleMarginBottom = _require.toggleMarginBottom,
   addClassName = _require.addClassName;
 >>>>>>> 7ab206c (working on editing imports)
+=======
+/**
+ * create a composed class name
+ * @param {string} className name of classes to add
+ * @param {*} props arbitrary props
+ * @param {string=} props.className additional classnames
+ */
+function addClassName(className, props) {
+  let composedClassName = className;
+  if (props?.className) {
+    composedClassName += " " + props.className;
+    if (props.noMarginRight === true) {
+      composedClassName = composedClassName.replace(/\s?marginRight\b/g, "");
+    }
+  }
+  return composedClassName;
+}
+
+/**
+ * add margin bottom to subform chevron
+ * @param {*} componentProps
+ * @returns {string} additional classNames
+ */
+function toggleMarginBottom(hide) {
+  if (hide === false) return " marginBottomSmall";else return "";
+}
+>>>>>>> cf684ab (added css and fixed imports)
 
 /**
  * create a composed class name
