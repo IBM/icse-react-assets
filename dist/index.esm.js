@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React from 'react';
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -583,6 +584,13 @@ function _toPropertyKey(arg) {
 <<<<<<< HEAD
 var css_248z$2 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
 styleInject(css_248z$2);
+=======
+import { Popover, PopoverContent, FilterableMultiSelect, MultiSelect, Tile, Toggletip, ToggletipButton, ToggletipContent, Link, Modal } from '@carbon/react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { prettyJSON, isNullOrEmptyString, titleCase } from 'lazy-z';
+import { WarningAlt, CloudAlerting, Add, Information } from '@carbon/icons-react';
+>>>>>>> faf8c38 (fixed imports)
 
 /**
  * create a composed class name
@@ -617,6 +625,476 @@ styleInject(css_248z);
 var css_248z$1 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
 styleInject(css_248z$1);
 >>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
+
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    enumerableOnly && (symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    })), keys.push.apply(keys, symbols);
+  }
+  return keys;
+}
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = null != arguments[i] ? arguments[i] : {};
+    i % 2 ? ownKeys(Object(source), !0).forEach(function (key) {
+      _defineProperty(target, key, source[key]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) {
+      Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+    });
+  }
+  return target;
+}
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor);
+  }
+}
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  Object.defineProperty(Constructor, "prototype", {
+    writable: false
+  });
+  return Constructor;
+}
+function _defineProperty(obj, key, value) {
+  key = _toPropertyKey(key);
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  Object.defineProperty(subClass, "prototype", {
+    writable: false
+  });
+  if (superClass) _setPrototypeOf(subClass, superClass);
+}
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+  return _setPrototypeOf(o, p);
+}
+function _isNativeReflectConstruct() {
+  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+  if (Reflect.construct.sham) return false;
+  if (typeof Proxy === "function") return true;
+  try {
+    Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+  return self;
+}
+function _possibleConstructorReturn(self, call) {
+  if (call && (typeof call === "object" || typeof call === "function")) {
+    return call;
+  } else if (call !== void 0) {
+    throw new TypeError("Derived constructors may only return object or undefined");
+  }
+  return _assertThisInitialized(self);
+}
+function _createSuper(Derived) {
+  var hasNativeReflectConstruct = _isNativeReflectConstruct();
+  return function _createSuperInternal() {
+    var Super = _getPrototypeOf(Derived),
+      result;
+    if (hasNativeReflectConstruct) {
+      var NewTarget = _getPrototypeOf(this).constructor;
+      result = Reflect.construct(Super, arguments, NewTarget);
+    } else {
+      result = Super.apply(this, arguments);
+    }
+    return _possibleConstructorReturn(this, result);
+  };
+}
+function _toPrimitive(input, hint) {
+  if (typeof input !== "object" || input === null) return input;
+  var prim = input[Symbol.toPrimitive];
+  if (prim !== undefined) {
+    var res = prim.call(input, hint || "default");
+    if (typeof res !== "object") return res;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return (hint === "string" ? String : Number)(input);
+}
+function _toPropertyKey(arg) {
+  var key = _toPrimitive(arg, "string");
+  return typeof key === "symbol" ? key : String(key);
+}
+
+/**
+ * Wrapper for carbon popover component to handle individual component mouseover
+ */
+var PopoverWrapper = /*#__PURE__*/function (_React$Component) {
+  _inherits(PopoverWrapper, _React$Component);
+  var _super = _createSuper(PopoverWrapper);
+  function PopoverWrapper(props) {
+    var _this;
+    _classCallCheck(this, PopoverWrapper);
+    _this = _super.call(this, props);
+    _this.state = {
+      isHovering: false
+    };
+    _this.handleMouseOver = _this.handleMouseOver.bind(_assertThisInitialized(_this));
+    _this.handleMouseOut = _this.handleMouseOut.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * handle mouse over
+   */
+  _createClass(PopoverWrapper, [{
+    key: "handleMouseOver",
+    value: function handleMouseOver() {
+      this.setState({
+        isHovering: true
+      });
+    }
+
+    /**
+     * handle mouse out
+     */
+  }, {
+    key: "handleMouseOut",
+    value: function handleMouseOut() {
+      this.setState({
+        isHovering: false
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return this.props.noPopover === true || this.props.hoverText === "" ? this.props.children : /*#__PURE__*/React.createElement("div", {
+        className: addClassName("popover-obj", this.props),
+        onMouseEnter: this.handleMouseOver,
+        onMouseLeave: this.handleMouseOut
+      }, /*#__PURE__*/React.createElement(Popover, {
+        open: this.state.isHovering,
+        autoAlign: this.props.align ? false : true,
+        dropShadow: false,
+        highContrast: true,
+        caret: false,
+        align: this.props.align
+      }, this.props.children, /*#__PURE__*/React.createElement(PopoverContent, {
+        className: "popover-box" + (this.props.contentClassName ? " ".concat(this.props.contentClassName) : "")
+      }, this.props.hoverText)));
+    }
+  }]);
+  return PopoverWrapper;
+}(React.Component);
+PopoverWrapper.defaultProps = {
+  noPopover: false
+};
+PopoverWrapper.propTypes = {
+  noPopover: PropTypes.bool,
+  hoverText: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  contentClassName: PropTypes.string,
+  align: PropTypes.string,
+  children: PropTypes.node.isRequired
+};
+
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css_248z$4 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+styleInject(css_248z$4);
+
+var css_248z$3 = ".leftTextAlign {\n  text-align: left;\n}\n";
+styleInject(css_248z$3);
+
+/**
+ * Icse multiselect template
+ */
+var IcseMultiSelect = function IcseMultiSelect(props) {
+  return /*#__PURE__*/React.createElement(FilterableMultiSelect, {
+    id: props.id,
+    className: addClassName("fieldWidth leftTextAlign cds--select", props),
+    titleText: props.titleText,
+    itemToString: function itemToString(item) {
+      return item ? item : "";
+    },
+    invalid: props.invalid,
+    invalidText: props.invalidText,
+    initialSelectedItems: props.initialSelectedItems,
+    onChange: props.onChange,
+    items: props.items,
+    useTitleInItem: props.useTitleInItem,
+    label: props.label,
+    disabled: props.disabled
+  });
+};
+IcseMultiSelect.defaultProps = {
+  disabled: false,
+  useTitleInItem: false,
+  invalid: false,
+  invalidText: "Invalid value"
+};
+IcseMultiSelect.propTypes = {
+  id: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  titleText: PropTypes.string.isRequired,
+  invalid: PropTypes.bool.isRequired,
+  invalidText: PropTypes.string.isRequired,
+  initialSelectedItems: PropTypes.array.isRequired,
+  onChange: PropTypes.func.isRequired,
+  items: PropTypes.arrayOf(PropTypes.string).isRequired,
+  useTitleInItem: PropTypes.bool.isRequired,
+  label: PropTypes.string,
+  disabled: PropTypes.bool.isRequired
+};
+
+/**
+ * ssh key multiselect
+ */
+var SshKeyMultiSelect = function SshKeyMultiSelect(props) {
+  return /*#__PURE__*/React.createElement(IcseMultiSelect, {
+    id: props.id + "-ssh-key-multiselect",
+    useTitleInItem: true,
+    label: "SSH Keys",
+    titleText: "SSH Keys",
+    invalidText: "At least one SSH Key is required",
+    invalid: props.initialSelectedItems.length === 0,
+    items: props.sshKeys,
+    initialSelectedItems: props.initialSelectedItems || [],
+    onChange: function onChange(event) {
+      props.onChange(event.selectedItems);
+    },
+    className: "fieldWidthSmaller cds--form-item"
+  });
+};
+SshKeyMultiSelect.defaultProps = {
+  initialSelectedItems: []
+};
+SshKeyMultiSelect.propTypes = {
+  id: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  sshKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
+  initialSelectedItems: PropTypes.arrayOf(PropTypes.string).isRequired
+};
+
+/**
+ * sg multiselect
+ */
+var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
+  if (props.vpc_name && !props.securityGroups) {
+    // checking props.securityGroups[props.vpc_name] will result in an
+    // undefined error that happens as part of MultiSelect
+    throw new Error("SecurityGroupMultiselect requires a securityGroups object. Got " + prettyJSON(props.securityGroups));
+  }
+  return /*#__PURE__*/React.createElement(MultiSelect, {
+    id: props.id + "-security-group-multiselect",
+    label: props.label,
+    titleText: "Security Groups",
+    className: "fieldWidthSmaller cds--form-item",
+    initialSelectedItems: props.initialSelectedItems,
+    vpc_name: props.vpc_name,
+    invalid: props.invalid,
+    invalidText: "Invalid Selection",
+    onChange: function onChange(event) {
+      props.onChange(event.selectedItems);
+    },
+    disabled: props.disabled,
+    items: props.vpc_name === "" ? [] : props.securityGroups[props.vpc_name],
+    itemToString: function itemToString(item) {
+      return item ? item : "";
+    }
+  });
+};
+SecurityGroupMultiSelect.defaultProps = {
+  disabled: false,
+  label: "Select Security Groups",
+  invalid: false
+};
+SecurityGroupMultiSelect.propTypes = {
+  id: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  initialSelectedItems: PropTypes.array.isRequired,
+  vpc_name: PropTypes.string,
+  // not required, null value should be valid
+  onChange: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  securityGroups: PropTypes.object.isRequired,
+  invalid: PropTypes.bool.isRequired
+};
+
+/**
+ * vpc subnet multiselect
+ */
+var SubnetMultiSelect = function SubnetMultiSelect(props) {
+  return /*#__PURE__*/React.createElement(IcseMultiSelect, {
+    id: props.id + "-subnet-multiselect",
+    className: props.className,
+    titleText: "Subnets",
+    name: props.name,
+    label: props.label,
+    items: isNullOrEmptyString(props.vpc_name) ? [] : props.subnets[props.vpc_name],
+    initialSelectedItems: props.initialSelectedItems,
+    invalidText: isNullOrEmptyString(props.vpc_name) ? "Select a VPC." : "Select at least one subnet.",
+    invalid: props.initialSelectedItems.length === 0,
+    disabled: props.disabled,
+    onChange: function onChange(event) {
+      return props.onChange(event.selectedItems);
+    }
+  });
+};
+SubnetMultiSelect.defaultProps = {
+  name: "subnet_names",
+  label: "Subnets",
+  disabled: false,
+  vpc_name: "",
+  initialSelectedItems: []
+};
+SubnetMultiSelect.propTypes = {
+  id: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  vpc_name: PropTypes.string,
+  // not required, `null` needs to be passed here
+  subnets: PropTypes.object.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  initialSelectedItems: PropTypes.array.isRequired,
+  onChange: PropTypes.func.isRequired
+};
+
+/**
+ * VPC List MultiSelect
+ */
+var VpcListMultiSelect = function VpcListMultiSelect(props) {
+  // throw error here so that passing no vpc list prop will error here
+  // instead of being passed to `FilterableMultiselect`
+  if (!props.vpcList) {
+    throw new Error("VpcListMultiSelect requires a list of VPCs using the prop `vpcList`. Got " + prettyJSON(props.vpcList));
+  }
+  return /*#__PURE__*/React.createElement(IcseMultiSelect, {
+    invalidText: "At least one VPC must be selected.",
+    invalid: props.invalid,
+    id: props.id + "-vpc-select",
+    titleText: props.titleText,
+    onChange: function onChange(event) {
+      return props.onChange(event.selectedItems);
+    },
+    initialSelectedItems: props.initialSelectedItems,
+    className: props.className,
+    items: props.vpcList
+  });
+};
+VpcListMultiSelect.defaultProps = {
+  invalid: false,
+  titleText: "VPCs",
+  initialSelectedItems: []
+};
+VpcListMultiSelect.propTypes = {
+  invalid: PropTypes.bool.isRequired,
+  id: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  initialSelectedItems: PropTypes.array.isRequired,
+  vpcList: PropTypes.arrayOf(PropTypes.string).isRequired
+};
+
+/**
+ * Under Construction Page
+ */
+var UnderConstruction = function UnderConstruction() {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(WarningAlt, {
+    size: "128"
+  }), /*#__PURE__*/React.createElement("h4", null, "Page Under Construction"));
+};
+
+var css_248z$2 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z$2);
+
+var EmptyResourceTile = function EmptyResourceTile(props) {
+  return props.showIfEmpty === false || props.showIfEmpty.length === 0 ? /*#__PURE__*/React.createElement(Tile, {
+    className: "marginBottomXs tileBackground"
+  }, /*#__PURE__*/React.createElement(CloudAlerting, {
+    size: "24",
+    className: "iconMargin"
+  }), "No ", props.name, ".", " ", props.instructions || /*#__PURE__*/React.createElement(React.Fragment, null, "Click", /*#__PURE__*/React.createElement(Add, {
+    size: "24",
+    className: "inlineIconMargin"
+  }), "button to add one.")) : "";
+};
+EmptyResourceTile.defaultProps = {
+  name: "items in this list"
+};
+EmptyResourceTile.propTypes = {
+  name: PropTypes.string.isRequired,
+  showIfEmpty: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]).isRequired
+};
+
+var css_248z$1 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
+styleInject(css_248z$1);
 
 /**
 =======
@@ -704,12 +1182,16 @@ styleInject(css_248z$1);
  */
 function RenderForm(form, formProps) {
 <<<<<<< HEAD
+<<<<<<< HEAD
   return /*#__PURE__*/React.createElement(form, {
     ...formProps
   });
 =======
   return /*#__PURE__*/React.createElement(form, _objectSpread2({}, formProps));
 >>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
+=======
+  return /*#__PURE__*/React.createElement(form, _objectSpread2({}, formProps));
+>>>>>>> faf8c38 (fixed imports)
 }
 
 /**
@@ -734,7 +1216,10 @@ const TitleGroup = props => {
 var TitleGroup = function TitleGroup(props) {
   return /*#__PURE__*/React.createElement("div", {
     className: addClassName("displayFlex alignItemsCenter widthOneHundredPercent ".concat(toggleMarginBottom(props.hide)), props)
+<<<<<<< HEAD
 >>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
+=======
+>>>>>>> faf8c38 (fixed imports)
   }, props.children);
 };
 TitleGroup.defaultProps = {
@@ -770,7 +1255,10 @@ IcseFormGroup.propTypes = {
 const IcseSubForm = props => {
 =======
 var IcseSubForm = function IcseSubForm(props) {
+<<<<<<< HEAD
 >>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
+=======
+>>>>>>> faf8c38 (fixed imports)
   return /*#__PURE__*/React.createElement("div", {
     className: addClassName(props.formInSubForm ? "formInSubForm positionRelative" : "subForm marginBottomSmall", props),
     id: props.id
@@ -786,6 +1274,7 @@ IcseSubForm.propTypes = {
   children: PropTypes.node.isRequired
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -962,12 +1451,136 @@ DynamicToolTipWrapper.propTypes = {
 
 <<<<<<< HEAD
 var css_248z = ".leftTextAlign {\n    text-align: left;\n}";
+=======
+var css_248z = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+>>>>>>> faf8c38 (fixed imports)
 styleInject(css_248z);
 
 =======
 >>>>>>> bbe5b43 (feat: multiselects)
 =======
 >>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
+/**
+ * render a tooltip around an input field
+ * @returns slz tooltip component
+ */
+var IcseToolTip = function IcseToolTip(props) {
+  var link = /*#__PURE__*/React.createElement(Link, {
+    onClick: function onClick() {
+      return window.open(props.link, "_blank");
+    }
+  }, "this link");
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Toggletip, {
+    align: props.align
+  }, /*#__PURE__*/React.createElement(ToggletipButton, null, /*#__PURE__*/React.createElement(Information, {
+    className: "tooltipMarginLeft"
+  })), /*#__PURE__*/React.createElement(ToggletipContent, null, /*#__PURE__*/React.createElement("p", null, props.content, props.link && /*#__PURE__*/React.createElement(React.Fragment, null, " Visit ", link, " for more information. ")))));
+};
+IcseToolTip.defaultProps = {
+  content: "",
+  align: "top"
+};
+IcseToolTip.propTypes = {
+  content: PropTypes.string.isRequired,
+  link: PropTypes.string,
+  align: PropTypes.string.isRequired
+};
+var BuildToolTip = function BuildToolTip(props) {
+  var _props$tooltip;
+  return /*#__PURE__*/React.createElement(IcseToolTip, {
+    content: props.tooltip.content,
+    link: (_props$tooltip = props.tooltip) === null || _props$tooltip === void 0 ? void 0 : _props$tooltip.link,
+    align: props.isModal ? props.alignModal : props.align
+  });
+};
+BuildToolTip.defaultProps = {
+  tooltip: {
+    content: ""
+  },
+  isModal: false,
+  align: "top",
+  alignModal: "bottom"
+};
+BuildToolTip.propTypes = {
+  tooltip: PropTypes.shape({
+    content: PropTypes.string.isRequired,
+    link: PropTypes.string
+  }).isRequired,
+  isModal: PropTypes.bool.isRequired,
+  align: PropTypes.string.isRequired,
+  alignModal: PropTypes.string.isRequired
+};
+var ToolTipWrapper = function ToolTipWrapper(props) {
+  var allProps = _objectSpread2({}, props);
+  var tooltip = BuildToolTip(props);
+  delete allProps.innerForm;
+  delete allProps.tooltip;
+  delete allProps.noLabelText;
+  //check for labelText or field prop for components where it is a valid param
+  if (!props.noLabelText && props.labelText === undefined && props.field === undefined) {
+    throw new Error("ToolTipWrapper expects either `props.labelText` or `props.field` when rendering labelText to be provided, got neither. To not render label text, use the `noLabelText` prop.");
+  }
+  // remove label text from components where it is not valid param
+  if (props.noLabelText) delete allProps.labelText;else allProps.labelText = " ";
+  allProps.className = addClassName("tooltip", _objectSpread2({}, props));
+  return /*#__PURE__*/React.createElement("div", {
+    className: "cds--form-item"
+  }, props.noLabelText ?
+  /*#__PURE__*/
+  // No label- this is usually a title
+  React.createElement("div", {
+    className: "labelRow"
+  }, RenderForm(props.innerForm, allProps), tooltip) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    className: "cds--label labelRow"
+  }, /*#__PURE__*/React.createElement("label", {
+    htmlFor: props.id
+  }, props.labelText || titleCase(props.field)), tooltip), props.children ? /*#__PURE__*/React.cloneElement(props.children, {
+    // adjust props
+    labelText: " ",
+    // set labelText to empty
+    className: props.children.props.className + " tooltip" // add tooltip class back
+  }) : RenderForm(props.innerForm, allProps)));
+};
+ToolTipWrapper.defaultProps = {
+  tooltip: {
+    content: ""
+  },
+  noLabelText: false
+};
+ToolTipWrapper.propTypes = {
+  tooltip: PropTypes.shape({
+    content: PropTypes.string.isRequired,
+    link: PropTypes.string
+  }).isRequired,
+  id: PropTypes.string.isRequired,
+  labelText: PropTypes.string,
+  field: PropTypes.string,
+  noLabelText: PropTypes.bool.isRequired,
+  children: PropTypes.node,
+  innerForm: PropTypes.object
+};
+var DynamicToolTipWrapper = function DynamicToolTipWrapper(props) {
+  //make sure that either children or innerForm are passed as a prop
+  if (props.children === undefined && props.innerForm === undefined) {
+    throw new Error("DynamicToolTipWrapper expects either `props.children` or `props.innerForm` when rendering ToolTipWrapper, got neither.");
+  }
+  return props.tooltip ? /*#__PURE__*/React.createElement(ToolTipWrapper, props) : props.children ? props.children : RenderForm(props.innerForm, {});
+};
+DynamicToolTipWrapper.defaultProps = {
+  tooltip: {
+    content: "",
+    link: false
+  }
+};
+DynamicToolTipWrapper.propTypes = {
+  tooltip: PropTypes.shape({
+    content: PropTypes.string.isRequired,
+    link: PropTypes.string
+  }).isRequired,
+  children: PropTypes.node,
+  innerForm: PropTypes.object
+};
+
 /**
  * Icse Modal Wrapper
  * @param {*} props
@@ -987,10 +1600,13 @@ styleInject(css_248z);
 const IcseModal = props => {
 =======
 var IcseModal = function IcseModal(props) {
+<<<<<<< HEAD
 >>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
 =======
 const IcseModal = props => {
 >>>>>>> 33b1d10 (feat: Modal docs)
+=======
+>>>>>>> faf8c38 (fixed imports)
   /*#__PURE__*/React.createElement("strong", null, props.name);
   return /*#__PURE__*/React.createElement(Modal, {
     id: props.id,
@@ -1045,11 +1661,14 @@ const DeleteModal = props => {
 =======
 var DeleteModal = function DeleteModal(props) {
   var name = /*#__PURE__*/React.createElement("strong", null, props.name);
+<<<<<<< HEAD
 >>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
 =======
 const DeleteModal = props => {
   let name = /*#__PURE__*/React.createElement("strong", null, props.name);
 >>>>>>> 33b1d10 (feat: Modal docs)
+=======
+>>>>>>> faf8c38 (fixed imports)
   return /*#__PURE__*/React.createElement(IcseModal, {
     id: props.name + "-delete",
     name: props.name,
@@ -1087,11 +1706,14 @@ const UnsavedChangesModal = props => {
 =======
 var UnsavedChangesModal = function UnsavedChangesModal(props) {
   var name = props.name;
+<<<<<<< HEAD
 >>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
 =======
 const UnsavedChangesModal = props => {
   let name = props.name;
 >>>>>>> 33b1d10 (feat: Modal docs)
+=======
+>>>>>>> faf8c38 (fixed imports)
   return /*#__PURE__*/React.createElement("div", {
     className: "unsaved-changes-modal-area"
   }, /*#__PURE__*/React.createElement(IcseModal, {
@@ -1121,6 +1743,7 @@ UnsavedChangesModal.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 export { DeleteModal, DynamicRender, EmptyResourceTile, IcseFormGroup, IcseModal, IcseSubForm, RenderForm, TitleGroup, UnderConstruction, UnsavedChangesModal, addClassName, toggleMarginBottom };
 >>>>>>> 7f45fcc (modals)
 =======
@@ -1135,3 +1758,6 @@ export { DeleteModal, DynamicRender, DynamicToolTipWrapper, EmptyResourceTile, I
 =======
 export { DeleteModal, DynamicRender, EmptyResourceTile, IcseFormGroup, IcseModal, IcseSubForm, PopoverWrapper, RenderForm, TitleGroup, UnderConstruction, UnsavedChangesModal, addClassName, toggleMarginBottom };
 >>>>>>> 7ab206c (working on editing imports)
+=======
+export { DeleteModal, DynamicRender, DynamicToolTipWrapper, EmptyResourceTile, IcseFormGroup, IcseModal, IcseMultiSelect, IcseSubForm, IcseToolTip, PopoverWrapper, RenderForm, SecurityGroupMultiSelect, SshKeyMultiSelect, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, VpcListMultiSelect, addClassName, toggleMarginBottom };
+>>>>>>> faf8c38 (fixed imports)

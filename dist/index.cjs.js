@@ -1,9 +1,13 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> faf8c38 (fixed imports)
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+<<<<<<< HEAD
 var React = require('react');
 var iconsReact = require('@carbon/icons-react');
 var PropTypes = require('prop-types');
@@ -39,10 +43,42 @@ function addClassName(className, props) {
 function toggleMarginBottom(hide) {
   if (hide === false) return " marginBottomSmall";else return "";
 }
+=======
+var react = require('@carbon/react');
+var React = require('react');
+var PropTypes = require('prop-types');
+var lazyZ = require('lazy-z');
+var iconsReact = require('@carbon/icons-react');
+
+function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
+var PropTypes__default = /*#__PURE__*/_interopDefaultLegacy(PropTypes);
+>>>>>>> faf8c38 (fixed imports)
 
 /**
- * Under Construction Page
+ * create a composed class name
+ * @param {string} className name of classes to add
+ * @param {*} props arbitrary props
+ * @param {string=} props.className additional classnames
  */
+function addClassName(className, props) {
+  var composedClassName = className;
+  if (props !== null && props !== void 0 && props.className) {
+    composedClassName += " " + props.className;
+    if (props.noMarginRight === true) {
+      composedClassName = composedClassName.replace(/\s?marginRight\b/g, "");
+    }
+  }
+  return composedClassName;
+}
+
+/**
+ * add margin bottom to subform chevron
+ * @param {*} componentProps
+ * @returns {string} additional classNames
+ */
+<<<<<<< HEAD
 var UnderConstruction = function UnderConstruction() {
   return /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(iconsReact.WarningAlt, {
     size: "128"
@@ -98,6 +134,12 @@ EmptyResourceTile.propTypes = {
   showIfEmpty: PropTypes__default["default"].oneOfType([PropTypes__default["default"].array, PropTypes__default["default"].bool]).isRequired
 };
 
+=======
+function toggleMarginBottom(hide) {
+  if (hide === false) return " marginBottomSmall";else return "";
+}
+
+>>>>>>> faf8c38 (fixed imports)
 function ownKeys(object, enumerableOnly) {
   var keys = Object.keys(object);
   if (Object.getOwnPropertySymbols) {
@@ -310,6 +352,264 @@ PopoverWrapper.propTypes = {
   children: PropTypes__default["default"].node.isRequired
 };
 
+<<<<<<< HEAD
+=======
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css_248z$4 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+styleInject(css_248z$4);
+
+var css_248z$3 = ".leftTextAlign {\n  text-align: left;\n}\n";
+styleInject(css_248z$3);
+
+/**
+ * Icse multiselect template
+ */
+var IcseMultiSelect = function IcseMultiSelect(props) {
+  return /*#__PURE__*/React__default["default"].createElement(react.FilterableMultiSelect, {
+    id: props.id,
+    className: addClassName("fieldWidth leftTextAlign cds--select", props),
+    titleText: props.titleText,
+    itemToString: function itemToString(item) {
+      return item ? item : "";
+    },
+    invalid: props.invalid,
+    invalidText: props.invalidText,
+    initialSelectedItems: props.initialSelectedItems,
+    onChange: props.onChange,
+    items: props.items,
+    useTitleInItem: props.useTitleInItem,
+    label: props.label,
+    disabled: props.disabled
+  });
+};
+IcseMultiSelect.defaultProps = {
+  disabled: false,
+  useTitleInItem: false,
+  invalid: false,
+  invalidText: "Invalid value"
+};
+IcseMultiSelect.propTypes = {
+  id: PropTypes__default["default"].string.isRequired,
+  className: PropTypes__default["default"].string,
+  titleText: PropTypes__default["default"].string.isRequired,
+  invalid: PropTypes__default["default"].bool.isRequired,
+  invalidText: PropTypes__default["default"].string.isRequired,
+  initialSelectedItems: PropTypes__default["default"].array.isRequired,
+  onChange: PropTypes__default["default"].func.isRequired,
+  items: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  useTitleInItem: PropTypes__default["default"].bool.isRequired,
+  label: PropTypes__default["default"].string,
+  disabled: PropTypes__default["default"].bool.isRequired
+};
+
+/**
+ * ssh key multiselect
+ */
+var SshKeyMultiSelect = function SshKeyMultiSelect(props) {
+  return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+    id: props.id + "-ssh-key-multiselect",
+    useTitleInItem: true,
+    label: "SSH Keys",
+    titleText: "SSH Keys",
+    invalidText: "At least one SSH Key is required",
+    invalid: props.initialSelectedItems.length === 0,
+    items: props.sshKeys,
+    initialSelectedItems: props.initialSelectedItems || [],
+    onChange: function onChange(event) {
+      props.onChange(event.selectedItems);
+    },
+    className: "fieldWidthSmaller cds--form-item"
+  });
+};
+SshKeyMultiSelect.defaultProps = {
+  initialSelectedItems: []
+};
+SshKeyMultiSelect.propTypes = {
+  id: PropTypes__default["default"].string.isRequired,
+  onChange: PropTypes__default["default"].func.isRequired,
+  sshKeys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  initialSelectedItems: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+};
+
+/**
+ * sg multiselect
+ */
+var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
+  if (props.vpc_name && !props.securityGroups) {
+    // checking props.securityGroups[props.vpc_name] will result in an
+    // undefined error that happens as part of MultiSelect
+    throw new Error("SecurityGroupMultiselect requires a securityGroups object. Got " + lazyZ.prettyJSON(props.securityGroups));
+  }
+  return /*#__PURE__*/React__default["default"].createElement(react.MultiSelect, {
+    id: props.id + "-security-group-multiselect",
+    label: props.label,
+    titleText: "Security Groups",
+    className: "fieldWidthSmaller cds--form-item",
+    initialSelectedItems: props.initialSelectedItems,
+    vpc_name: props.vpc_name,
+    invalid: props.invalid,
+    invalidText: "Invalid Selection",
+    onChange: function onChange(event) {
+      props.onChange(event.selectedItems);
+    },
+    disabled: props.disabled,
+    items: props.vpc_name === "" ? [] : props.securityGroups[props.vpc_name],
+    itemToString: function itemToString(item) {
+      return item ? item : "";
+    }
+  });
+};
+SecurityGroupMultiSelect.defaultProps = {
+  disabled: false,
+  label: "Select Security Groups",
+  invalid: false
+};
+SecurityGroupMultiSelect.propTypes = {
+  id: PropTypes__default["default"].string.isRequired,
+  className: PropTypes__default["default"].string,
+  initialSelectedItems: PropTypes__default["default"].array.isRequired,
+  vpc_name: PropTypes__default["default"].string,
+  // not required, null value should be valid
+  onChange: PropTypes__default["default"].func.isRequired,
+  label: PropTypes__default["default"].string.isRequired,
+  disabled: PropTypes__default["default"].bool.isRequired,
+  securityGroups: PropTypes__default["default"].object.isRequired,
+  invalid: PropTypes__default["default"].bool.isRequired
+};
+
+/**
+ * vpc subnet multiselect
+ */
+var SubnetMultiSelect = function SubnetMultiSelect(props) {
+  return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+    id: props.id + "-subnet-multiselect",
+    className: props.className,
+    titleText: "Subnets",
+    name: props.name,
+    label: props.label,
+    items: lazyZ.isNullOrEmptyString(props.vpc_name) ? [] : props.subnets[props.vpc_name],
+    initialSelectedItems: props.initialSelectedItems,
+    invalidText: lazyZ.isNullOrEmptyString(props.vpc_name) ? "Select a VPC." : "Select at least one subnet.",
+    invalid: props.initialSelectedItems.length === 0,
+    disabled: props.disabled,
+    onChange: function onChange(event) {
+      return props.onChange(event.selectedItems);
+    }
+  });
+};
+SubnetMultiSelect.defaultProps = {
+  name: "subnet_names",
+  label: "Subnets",
+  disabled: false,
+  vpc_name: "",
+  initialSelectedItems: []
+};
+SubnetMultiSelect.propTypes = {
+  id: PropTypes__default["default"].string.isRequired,
+  className: PropTypes__default["default"].string,
+  vpc_name: PropTypes__default["default"].string,
+  // not required, `null` needs to be passed here
+  subnets: PropTypes__default["default"].object.isRequired,
+  disabled: PropTypes__default["default"].bool.isRequired,
+  name: PropTypes__default["default"].string.isRequired,
+  label: PropTypes__default["default"].string.isRequired,
+  initialSelectedItems: PropTypes__default["default"].array.isRequired,
+  onChange: PropTypes__default["default"].func.isRequired
+};
+
+/**
+ * VPC List MultiSelect
+ */
+var VpcListMultiSelect = function VpcListMultiSelect(props) {
+  // throw error here so that passing no vpc list prop will error here
+  // instead of being passed to `FilterableMultiselect`
+  if (!props.vpcList) {
+    throw new Error("VpcListMultiSelect requires a list of VPCs using the prop `vpcList`. Got " + lazyZ.prettyJSON(props.vpcList));
+  }
+  return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+    invalidText: "At least one VPC must be selected.",
+    invalid: props.invalid,
+    id: props.id + "-vpc-select",
+    titleText: props.titleText,
+    onChange: function onChange(event) {
+      return props.onChange(event.selectedItems);
+    },
+    initialSelectedItems: props.initialSelectedItems,
+    className: props.className,
+    items: props.vpcList
+  });
+};
+VpcListMultiSelect.defaultProps = {
+  invalid: false,
+  titleText: "VPCs",
+  initialSelectedItems: []
+};
+VpcListMultiSelect.propTypes = {
+  invalid: PropTypes__default["default"].bool.isRequired,
+  id: PropTypes__default["default"].string.isRequired,
+  onChange: PropTypes__default["default"].func.isRequired,
+  initialSelectedItems: PropTypes__default["default"].array.isRequired,
+  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+};
+
+/**
+ * Under Construction Page
+ */
+var UnderConstruction = function UnderConstruction() {
+  return /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(iconsReact.WarningAlt, {
+    size: "128"
+  }), /*#__PURE__*/React__default["default"].createElement("h4", null, "Page Under Construction"));
+};
+
+var css_248z$2 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z$2);
+
+var EmptyResourceTile = function EmptyResourceTile(props) {
+  return props.showIfEmpty === false || props.showIfEmpty.length === 0 ? /*#__PURE__*/React__default["default"].createElement(react.Tile, {
+    className: "marginBottomXs tileBackground"
+  }, /*#__PURE__*/React__default["default"].createElement(iconsReact.CloudAlerting, {
+    size: "24",
+    className: "iconMargin"
+  }), "No ", props.name, ".", " ", props.instructions || /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, "Click", /*#__PURE__*/React__default["default"].createElement(iconsReact.Add, {
+    size: "24",
+    className: "inlineIconMargin"
+  }), "button to add one.")) : "";
+};
+EmptyResourceTile.defaultProps = {
+  name: "items in this list"
+};
+EmptyResourceTile.propTypes = {
+  name: PropTypes__default["default"].string.isRequired,
+  showIfEmpty: PropTypes__default["default"].oneOfType([PropTypes__default["default"].array, PropTypes__default["default"].bool]).isRequired
+};
+
+>>>>>>> faf8c38 (fixed imports)
 var css_248z$1 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
 styleInject(css_248z$1);
 
@@ -382,10 +682,138 @@ IcseSubForm.propTypes = {
   children: PropTypes__default["default"].node.isRequired
 };
 
+<<<<<<< HEAD
 var css_248z = ".leftTextAlign {\n    text-align: left;\n}";
 styleInject(css_248z);
 
 /**
+=======
+var css_248z = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+styleInject(css_248z);
+
+/**
+ * render a tooltip around an input field
+ * @returns slz tooltip component
+ */
+var IcseToolTip = function IcseToolTip(props) {
+  var link = /*#__PURE__*/React__default["default"].createElement(react.Link, {
+    onClick: function onClick() {
+      return window.open(props.link, "_blank");
+    }
+  }, "this link");
+  return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(react.Toggletip, {
+    align: props.align
+  }, /*#__PURE__*/React__default["default"].createElement(react.ToggletipButton, null, /*#__PURE__*/React__default["default"].createElement(iconsReact.Information, {
+    className: "tooltipMarginLeft"
+  })), /*#__PURE__*/React__default["default"].createElement(react.ToggletipContent, null, /*#__PURE__*/React__default["default"].createElement("p", null, props.content, props.link && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, " Visit ", link, " for more information. ")))));
+};
+IcseToolTip.defaultProps = {
+  content: "",
+  align: "top"
+};
+IcseToolTip.propTypes = {
+  content: PropTypes__default["default"].string.isRequired,
+  link: PropTypes__default["default"].string,
+  align: PropTypes__default["default"].string.isRequired
+};
+var BuildToolTip = function BuildToolTip(props) {
+  var _props$tooltip;
+  return /*#__PURE__*/React__default["default"].createElement(IcseToolTip, {
+    content: props.tooltip.content,
+    link: (_props$tooltip = props.tooltip) === null || _props$tooltip === void 0 ? void 0 : _props$tooltip.link,
+    align: props.isModal ? props.alignModal : props.align
+  });
+};
+BuildToolTip.defaultProps = {
+  tooltip: {
+    content: ""
+  },
+  isModal: false,
+  align: "top",
+  alignModal: "bottom"
+};
+BuildToolTip.propTypes = {
+  tooltip: PropTypes__default["default"].shape({
+    content: PropTypes__default["default"].string.isRequired,
+    link: PropTypes__default["default"].string
+  }).isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired,
+  align: PropTypes__default["default"].string.isRequired,
+  alignModal: PropTypes__default["default"].string.isRequired
+};
+var ToolTipWrapper = function ToolTipWrapper(props) {
+  var allProps = _objectSpread2({}, props);
+  var tooltip = BuildToolTip(props);
+  delete allProps.innerForm;
+  delete allProps.tooltip;
+  delete allProps.noLabelText;
+  //check for labelText or field prop for components where it is a valid param
+  if (!props.noLabelText && props.labelText === undefined && props.field === undefined) {
+    throw new Error("ToolTipWrapper expects either `props.labelText` or `props.field` when rendering labelText to be provided, got neither. To not render label text, use the `noLabelText` prop.");
+  }
+  // remove label text from components where it is not valid param
+  if (props.noLabelText) delete allProps.labelText;else allProps.labelText = " ";
+  allProps.className = addClassName("tooltip", _objectSpread2({}, props));
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "cds--form-item"
+  }, props.noLabelText ?
+  /*#__PURE__*/
+  // No label- this is usually a title
+  React__default["default"].createElement("div", {
+    className: "labelRow"
+  }, RenderForm(props.innerForm, allProps), tooltip) : /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "cds--label labelRow"
+  }, /*#__PURE__*/React__default["default"].createElement("label", {
+    htmlFor: props.id
+  }, props.labelText || lazyZ.titleCase(props.field)), tooltip), props.children ? /*#__PURE__*/React__default["default"].cloneElement(props.children, {
+    // adjust props
+    labelText: " ",
+    // set labelText to empty
+    className: props.children.props.className + " tooltip" // add tooltip class back
+  }) : RenderForm(props.innerForm, allProps)));
+};
+ToolTipWrapper.defaultProps = {
+  tooltip: {
+    content: ""
+  },
+  noLabelText: false
+};
+ToolTipWrapper.propTypes = {
+  tooltip: PropTypes__default["default"].shape({
+    content: PropTypes__default["default"].string.isRequired,
+    link: PropTypes__default["default"].string
+  }).isRequired,
+  id: PropTypes__default["default"].string.isRequired,
+  labelText: PropTypes__default["default"].string,
+  field: PropTypes__default["default"].string,
+  noLabelText: PropTypes__default["default"].bool.isRequired,
+  children: PropTypes__default["default"].node,
+  innerForm: PropTypes__default["default"].object
+};
+var DynamicToolTipWrapper = function DynamicToolTipWrapper(props) {
+  //make sure that either children or innerForm are passed as a prop
+  if (props.children === undefined && props.innerForm === undefined) {
+    throw new Error("DynamicToolTipWrapper expects either `props.children` or `props.innerForm` when rendering ToolTipWrapper, got neither.");
+  }
+  return props.tooltip ? /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, props) : props.children ? props.children : RenderForm(props.innerForm, {});
+};
+DynamicToolTipWrapper.defaultProps = {
+  tooltip: {
+    content: "",
+    link: false
+  }
+};
+DynamicToolTipWrapper.propTypes = {
+  tooltip: PropTypes__default["default"].shape({
+    content: PropTypes__default["default"].string.isRequired,
+    link: PropTypes__default["default"].string
+  }).isRequired,
+  children: PropTypes__default["default"].node,
+  innerForm: PropTypes__default["default"].object
+};
+
+/**
+>>>>>>> faf8c38 (fixed imports)
  * Icse Modal Wrapper
  * @param {*} props
  * @param {string} props.name resource name
@@ -513,6 +941,7 @@ exports.EmptyResourceTile = EmptyResourceTile;
 exports.IcseFormGroup = IcseFormGroup;
 exports.IcseModal = IcseModal;
 exports.IcseSubForm = IcseSubForm;
+exports.IcseToolTip = IcseToolTip;
 exports.PopoverWrapper = PopoverWrapper;
 exports.RenderForm = RenderForm;
 exports.TitleGroup = TitleGroup;
