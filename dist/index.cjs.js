@@ -7,9 +7,13 @@ var PropTypes = require('prop-types');
 var react = require('@carbon/react');
 var lazyZ = require('lazy-z');
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 var iconsReact = require('@carbon/icons-react');
 >>>>>>> bbe5b43 (feat: multiselects)
+=======
+var iconsReact = require('@carbon/icons-react');
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -23,8 +27,13 @@ var PropTypes__default = /*#__PURE__*/_interopDefaultLegacy(PropTypes);
  * @param {string=} props.className additional classnames
  */
 function addClassName(className, props) {
+<<<<<<< HEAD
   let composedClassName = className;
   if (props?.className) {
+=======
+  var composedClassName = className;
+  if (props !== null && props !== void 0 && props.className) {
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
     composedClassName += " " + props.className;
     if (props.noMarginRight === true) {
       composedClassName = composedClassName.replace(/\s?marginRight\b/g, "");
@@ -70,6 +79,7 @@ function styleInject(css, ref) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$3 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$3);
 =======
@@ -79,16 +89,33 @@ styleInject(css_248z$3);
 var css_248z$2 = ".leftTextAlign {\n  text-align: left;\n}\n";
 styleInject(css_248z$2);
 >>>>>>> bbe5b43 (feat: multiselects)
+=======
+var css_248z$4 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+styleInject(css_248z$4);
+
+var css_248z$3 = ".leftTextAlign {\n  text-align: left;\n}\n";
+styleInject(css_248z$3);
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
 
 /**
  * Icse multiselect template
  */
+<<<<<<< HEAD
 const IcseMultiSelect = props => {
+=======
+var IcseMultiSelect = function IcseMultiSelect(props) {
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
   return /*#__PURE__*/React__default["default"].createElement(react.FilterableMultiSelect, {
     id: props.id,
     className: addClassName("fieldWidth leftTextAlign cds--select", props),
     titleText: props.titleText,
+<<<<<<< HEAD
     itemToString: item => item ? item : "",
+=======
+    itemToString: function itemToString(item) {
+      return item ? item : "";
+    },
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
     invalid: props.invalid,
     invalidText: props.invalidText,
     initialSelectedItems: props.initialSelectedItems,
@@ -122,7 +149,11 @@ IcseMultiSelect.propTypes = {
 /**
  * ssh key multiselect
  */
+<<<<<<< HEAD
 const SshKeyMultiSelect = props => {
+=======
+var SshKeyMultiSelect = function SshKeyMultiSelect(props) {
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
   return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
     id: props.id + "-ssh-key-multiselect",
     useTitleInItem: true,
@@ -132,7 +163,11 @@ const SshKeyMultiSelect = props => {
     invalid: props.initialSelectedItems.length === 0,
     items: props.sshKeys,
     initialSelectedItems: props.initialSelectedItems || [],
+<<<<<<< HEAD
     onChange: event => {
+=======
+    onChange: function onChange(event) {
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
       props.onChange(event.selectedItems);
     },
     className: "fieldWidthSmaller cds--form-item"
@@ -143,8 +178,11 @@ SshKeyMultiSelect.defaultProps = {
 };
 SshKeyMultiSelect.propTypes = {
   id: PropTypes__default["default"].string.isRequired,
+<<<<<<< HEAD
   initialSelectedItems: PropTypes__default["default"].array,
   // null needs to be passed
+=======
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
   onChange: PropTypes__default["default"].func.isRequired,
   sshKeys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   initialSelectedItems: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
@@ -153,8 +191,12 @@ SshKeyMultiSelect.propTypes = {
 /**
  * sg multiselect
  */
+<<<<<<< HEAD
 
 const SecurityGroupMultiSelect = props => {
+=======
+var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
   if (props.vpc_name && !props.securityGroups) {
     // checking props.securityGroups[props.vpc_name] will result in an
     // undefined error that happens as part of MultiSelect
@@ -167,19 +209,36 @@ const SecurityGroupMultiSelect = props => {
     className: "fieldWidthSmaller cds--form-item",
     initialSelectedItems: props.initialSelectedItems,
     vpc_name: props.vpc_name,
+<<<<<<< HEAD
     invalid: false,
     invalidText: "Invalid Selection",
     onChange: event => {
+=======
+    invalid: props.invalid,
+    invalidText: "Invalid Selection",
+    onChange: function onChange(event) {
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
       props.onChange(event.selectedItems);
     },
     disabled: props.disabled,
     items: props.vpc_name === "" ? [] : props.securityGroups[props.vpc_name],
+<<<<<<< HEAD
     itemToString: item => item ? item : ""
+=======
+    itemToString: function itemToString(item) {
+      return item ? item : "";
+    }
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
   });
 };
 SecurityGroupMultiSelect.defaultProps = {
   disabled: false,
+<<<<<<< HEAD
   label: "Select Security Groups"
+=======
+  label: "Select Security Groups",
+  invalid: false
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
 };
 SecurityGroupMultiSelect.propTypes = {
   id: PropTypes__default["default"].string.isRequired,
@@ -190,14 +249,23 @@ SecurityGroupMultiSelect.propTypes = {
   onChange: PropTypes__default["default"].func.isRequired,
   label: PropTypes__default["default"].string.isRequired,
   disabled: PropTypes__default["default"].bool.isRequired,
+<<<<<<< HEAD
   securityGroups: PropTypes__default["default"].object.isRequired
+=======
+  securityGroups: PropTypes__default["default"].object.isRequired,
+  invalid: PropTypes__default["default"].bool.isRequired
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
 };
 
 /**
  * vpc subnet multiselect
  */
+<<<<<<< HEAD
 
 const SubnetMultiSelect = props => {
+=======
+var SubnetMultiSelect = function SubnetMultiSelect(props) {
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
   return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
     id: props.id + "-subnet-multiselect",
     className: props.className,
@@ -209,7 +277,13 @@ const SubnetMultiSelect = props => {
     invalidText: lazyZ.isNullOrEmptyString(props.vpc_name) ? "Select a VPC." : "Select at least one subnet.",
     invalid: props.initialSelectedItems.length === 0,
     disabled: props.disabled,
+<<<<<<< HEAD
     onChange: event => props.onChange(event.selectedItems)
+=======
+    onChange: function onChange(event) {
+      return props.onChange(event.selectedItems);
+    }
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
   });
 };
 SubnetMultiSelect.defaultProps = {
@@ -235,8 +309,12 @@ SubnetMultiSelect.propTypes = {
 /**
  * VPC List MultiSelect
  */
+<<<<<<< HEAD
 
 const VpcListMultiSelect = props => {
+=======
+var VpcListMultiSelect = function VpcListMultiSelect(props) {
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
   // throw error here so that passing no vpc list prop will error here
   // instead of being passed to `FilterableMultiselect`
   if (!props.vpcList) {
@@ -247,7 +325,13 @@ const VpcListMultiSelect = props => {
     invalid: props.invalid,
     id: props.id + "-vpc-select",
     titleText: props.titleText,
+<<<<<<< HEAD
     onChange: event => props.onChange(event.selectedItems),
+=======
+    onChange: function onChange(event) {
+      return props.onChange(event.selectedItems);
+    },
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
     initialSelectedItems: props.initialSelectedItems,
     className: props.className,
     items: props.vpcList
@@ -269,16 +353,27 @@ VpcListMultiSelect.propTypes = {
 /**
  * Under Construction Page
  */
+<<<<<<< HEAD
 const UnderConstruction = () => {
+=======
+var UnderConstruction = function UnderConstruction() {
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
   return /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(iconsReact.WarningAlt, {
     size: "128"
   }), /*#__PURE__*/React__default["default"].createElement("h4", null, "Page Under Construction"));
 };
 
+<<<<<<< HEAD
 var css_248z$1 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$1);
 
 const EmptyResourceTile = props => {
+=======
+var css_248z$2 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z$2);
+
+var EmptyResourceTile = function EmptyResourceTile(props) {
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
   return props.showIfEmpty === false || props.showIfEmpty.length === 0 ? /*#__PURE__*/React__default["default"].createElement(react.Tile, {
     className: "marginBottomXs tileBackground"
   }, /*#__PURE__*/React__default["default"].createElement(iconsReact.CloudAlerting, {
@@ -298,6 +393,9 @@ EmptyResourceTile.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
 function ownKeys(object, enumerableOnly) {
   var keys = Object.keys(object);
   if (Object.getOwnPropertySymbols) {
@@ -348,6 +446,7 @@ function _toPropertyKey(arg) {
   return typeof key === "symbol" ? key : String(key);
 }
 
+<<<<<<< HEAD
 var css_248z$2 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
 styleInject(css_248z$2);
 
@@ -380,6 +479,10 @@ function toggleMarginBottom(hide) {
 var css_248z = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
 styleInject(css_248z);
 >>>>>>> bbe5b43 (feat: multiselects)
+=======
+var css_248z$1 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
+styleInject(css_248z$1);
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
 
 /**
  * Render a form
@@ -388,9 +491,13 @@ styleInject(css_248z);
  * @returns Form element
  */
 function RenderForm(form, formProps) {
+<<<<<<< HEAD
   return /*#__PURE__*/React__default["default"].createElement(form, {
     ...formProps
   });
+=======
+  return /*#__PURE__*/React__default["default"].createElement(form, _objectSpread2({}, formProps));
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
 }
 
 /**
@@ -407,9 +514,15 @@ function DynamicRender(props) {
 /**
  * wrapper for title groups
  */
+<<<<<<< HEAD
 const TitleGroup = props => {
   return /*#__PURE__*/React__default["default"].createElement("div", {
     className: addClassName(`displayFlex alignItemsCenter widthOneHundredPercent ${toggleMarginBottom(props.hide)}`, props)
+=======
+var TitleGroup = function TitleGroup(props) {
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: addClassName("displayFlex alignItemsCenter widthOneHundredPercent ".concat(toggleMarginBottom(props.hide)), props)
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
   }, props.children);
 };
 TitleGroup.defaultProps = {
@@ -418,8 +531,13 @@ TitleGroup.defaultProps = {
 TitleGroup.propTypes = {
   children: PropTypes__default["default"].node.isRequired
 };
+<<<<<<< HEAD
 const IcseFormGroup = props => {
   let formGroupClassName = "displayFlex marginBottom fitContent evenSpacing";
+=======
+var IcseFormGroup = function IcseFormGroup(props) {
+  var formGroupClassName = "displayFlex marginBottom fitContent evenSpacing";
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
   // remove margin bottom from formGroup for VPC
   if (props.noMarginBottom) {
     formGroupClassName = formGroupClassName.replace(/\smarginBottom/g, "");
@@ -436,7 +554,11 @@ IcseFormGroup.propTypes = {
   children: PropTypes__default["default"].node.isRequired,
   className: PropTypes__default["default"].string
 };
+<<<<<<< HEAD
 const IcseSubForm = props => {
+=======
+var IcseSubForm = function IcseSubForm(props) {
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
   return /*#__PURE__*/React__default["default"].createElement("div", {
     className: addClassName(props.formInSubForm ? "formInSubForm positionRelative" : "subForm marginBottomSmall", props),
     id: props.id
@@ -456,6 +578,7 @@ IcseSubForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z = ".labelRow {\n  display: inline-flex;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
 styleInject(css_248z);
 =======
@@ -465,14 +588,26 @@ var css_248z$1 = ".labelRow {\n  display: inline-flex !important;\n  align-items
 >>>>>>> 71c64fb (fixed className for labelText tooltip, added to labelRow styling)
 styleInject(css_248z$1);
 >>>>>>> 90da87c (fixed merge conflicts, fixed tooltip hyperlink)
+=======
+var css_248z = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+styleInject(css_248z);
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
 
 /**
  * render a tooltip around an input field
  * @returns slz tooltip component
  */
+<<<<<<< HEAD
 const IcseToolTip = props => {
   let link = /*#__PURE__*/React__default["default"].createElement(react.Link, {
     onClick: () => window.open(props.link, "_blank")
+=======
+var IcseToolTip = function IcseToolTip(props) {
+  var link = /*#__PURE__*/React__default["default"].createElement(react.Link, {
+    onClick: function onClick() {
+      return window.open(props.link, "_blank");
+    }
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
   }, "this link");
   return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(react.Toggletip, {
     align: props.align
@@ -489,10 +624,18 @@ IcseToolTip.propTypes = {
   link: PropTypes__default["default"].string,
   align: PropTypes__default["default"].string.isRequired
 };
+<<<<<<< HEAD
 const BuildToolTip = props => {
   return /*#__PURE__*/React__default["default"].createElement(IcseToolTip, {
     content: props.tooltip.content,
     link: props.tooltip?.link,
+=======
+var BuildToolTip = function BuildToolTip(props) {
+  var _props$tooltip;
+  return /*#__PURE__*/React__default["default"].createElement(IcseToolTip, {
+    content: props.tooltip.content,
+    link: (_props$tooltip = props.tooltip) === null || _props$tooltip === void 0 ? void 0 : _props$tooltip.link,
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
     align: props.isModal ? props.alignModal : props.align
   });
 };
@@ -513,11 +656,17 @@ BuildToolTip.propTypes = {
   align: PropTypes__default["default"].string.isRequired,
   alignModal: PropTypes__default["default"].string.isRequired
 };
+<<<<<<< HEAD
 const ToolTipWrapper = props => {
   let allProps = {
     ...props
   };
   let tooltip = BuildToolTip(props);
+=======
+var ToolTipWrapper = function ToolTipWrapper(props) {
+  var allProps = _objectSpread2({}, props);
+  var tooltip = BuildToolTip(props);
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
   delete allProps.innerForm;
   delete allProps.tooltip;
   delete allProps.noLabelText;
@@ -527,12 +676,19 @@ const ToolTipWrapper = props => {
   }
   // remove label text from components where it is not valid param
   if (props.noLabelText) delete allProps.labelText;else allProps.labelText = " ";
+<<<<<<< HEAD
   allProps.className = addClassName("tooltip", {
     ...props
   });
   return /*#__PURE__*/React__default["default"].createElement("div", {
     className: "cds--form-item"
   }, console.log(props.field), props.noLabelText ?
+=======
+  allProps.className = addClassName("tooltip", _objectSpread2({}, props));
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "cds--form-item"
+  }, props.noLabelText ?
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
   /*#__PURE__*/
   // No label- this is usually a title
   React__default["default"].createElement("div", {
@@ -566,7 +722,11 @@ ToolTipWrapper.propTypes = {
   children: PropTypes__default["default"].node,
   innerForm: PropTypes__default["default"].object
 };
+<<<<<<< HEAD
 const DynamicToolTipWrapper = props => {
+=======
+var DynamicToolTipWrapper = function DynamicToolTipWrapper(props) {
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
   //make sure that either children or innerForm are passed as a prop
   if (props.children === undefined && props.innerForm === undefined) {
     throw new Error("DynamicToolTipWrapper expects either `props.children` or `props.innerForm` when rendering ToolTipWrapper, got neither.");
@@ -589,6 +749,7 @@ DynamicToolTipWrapper.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> 90da87c (fixed merge conflicts, fixed tooltip hyperlink)
@@ -597,6 +758,8 @@ styleInject(css_248z);
 
 =======
 >>>>>>> bbe5b43 (feat: multiselects)
+=======
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
 /**
  * Icse Modal Wrapper
  * @param {*} props
@@ -611,7 +774,11 @@ styleInject(css_248z);
  * @param {Function} props.onRequestClose
  * @param {boolean=} props.useAddButton use + button instead of edit
  */
+<<<<<<< HEAD
 const IcseModal = props => {
+=======
+var IcseModal = function IcseModal(props) {
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
   /*#__PURE__*/React__default["default"].createElement("strong", null, props.name);
   return /*#__PURE__*/React__default["default"].createElement(react.Modal, {
     id: props.id,
@@ -660,8 +827,13 @@ IcseModal.propTypes = {
  * @param {Function} props.onModalClose function for on close
  * @param {Function} props.onModalSubmit function for on submit
  */
+<<<<<<< HEAD
 const DeleteModal = props => {
   let name = /*#__PURE__*/React__default["default"].createElement("strong", null, props.name);
+=======
+var DeleteModal = function DeleteModal(props) {
+  var name = /*#__PURE__*/React__default["default"].createElement("strong", null, props.name);
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
   return /*#__PURE__*/React__default["default"].createElement(IcseModal, {
     id: props.name + "-delete",
     name: props.name,
@@ -692,8 +864,13 @@ DeleteModal.propTypes = {
  * @param {Function} props.onModalSubmit function for on submit
  */
 
+<<<<<<< HEAD
 const UnsavedChangesModal = props => {
   let name = props.name;
+=======
+var UnsavedChangesModal = function UnsavedChangesModal(props) {
+  var name = props.name;
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
   return /*#__PURE__*/React__default["default"].createElement("div", {
     className: "unsaved-changes-modal-area"
   }, /*#__PURE__*/React__default["default"].createElement(IcseModal, {
@@ -720,7 +897,10 @@ UnsavedChangesModal.propTypes = {
 };
 
 exports.DeleteModal = DeleteModal;
+<<<<<<< HEAD
 >>>>>>> 7f45fcc (modals)
+=======
+>>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
 exports.DynamicRender = DynamicRender;
 exports.DynamicToolTipWrapper = DynamicToolTipWrapper;
 exports.EmptyResourceTile = EmptyResourceTile;
