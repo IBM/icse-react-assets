@@ -286,15 +286,19 @@ const ToolTipWrapper = props => {
   let tooltip = BuildToolTip(props);
   delete allProps.innerForm;
   delete allProps.tooltip;
-  // remove label text from components where it is not valid param
   delete allProps.noLabelText;
+  //check for labelText or field prop for components where it is a valid param
+  if (!props.noLabelText && props.labelText === undefined && props.field === undefined) {
+    throw new Error("ToolTipWrapper expects either `props.labelText` or `props.field` when rendering labelText to be provided, got neither. To not render label text, use the `noLabelText` prop.");
+  }
+  // remove label text from components where it is not valid param
   if (props.noLabelText) delete allProps.labelText;else allProps.labelText = " ";
   allProps.className = addClassName("tooltip", {
     ...props
   });
   return /*#__PURE__*/React.createElement("div", {
     className: "cds--form-item"
-  }, props.noLabelText ?
+  }, console.log(props.field), props.noLabelText ?
   /*#__PURE__*/
   // No label- this is usually a title
   React.createElement("div", {
@@ -329,6 +333,10 @@ ToolTipWrapper.propTypes = {
   innerForm: PropTypes.object
 };
 const DynamicToolTipWrapper = props => {
+  //make sure that either children or innerForm are passed as a prop
+  if (props.children === undefined && props.innerForm === undefined) {
+    throw new Error("DynamicToolTipWrapper expects either `props.children` or `props.innerForm` when rendering ToolTipWrapper, got neither.");
+  }
   return props.tooltip ? /*#__PURE__*/React.createElement(ToolTipWrapper, props) : props.children ? props.children : RenderForm(props.innerForm, {});
 };
 DynamicToolTipWrapper.defaultProps = {
