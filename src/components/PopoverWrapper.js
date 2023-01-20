@@ -1,7 +1,7 @@
 import { Popover, PopoverContent } from "@carbon/react";
 import React from "react";
 import PropTypes from "prop-types";
-import { addClassName } from "../../lib";
+import { addClassName } from "../lib/index";
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -64,10 +64,17 @@ class PopoverWrapper extends React.Component {
   }
 }
 
+PopoverWrapper.defaultProps = {
+  noPopover: false,
+};
+
 PopoverWrapper.propTypes = {
+  noPopover: PropTypes.bool,
   hoverText: PropTypes.string.isRequired,
   className: PropTypes.string,
   contentClassName: PropTypes.string,
   align: PropTypes.string,
   children: PropTypes.node.isRequired,
 };
+
+export default PopoverWrapper;

@@ -5,6 +5,7 @@ import { WarningAlt, CloudAlerting, Add, Information } from '@carbon/icons-react
 import PropTypes from 'prop-types';
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { Tile, Toggletip, ToggletipButton, ToggletipContent, Link } from '@carbon/react';
 import { titleCase } from 'lazy-z';
 =======
@@ -26,6 +27,13 @@ import { FilterableMultiSelect, MultiSelect, Tile, Toggletip, ToggletipButton, T
 import { prettyJSON, isNullOrEmptyString, titleCase } from 'lazy-z';
 import { WarningAlt, CloudAlerting, Add, Information } from '@carbon/icons-react';
 >>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
+=======
+import { Tile, Popover, PopoverContent, Modal } from '@carbon/react';
+
+var _require = require("./form-utils"),
+  toggleMarginBottom = _require.toggleMarginBottom,
+  addClassName = _require.addClassName;
+>>>>>>> 7ab206c (working on editing imports)
 
 /**
  * create a composed class name
@@ -424,6 +432,28 @@ function _objectSpread2(target) {
   }
   return target;
 }
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor);
+  }
+}
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  Object.defineProperty(Constructor, "prototype", {
+    writable: false
+  });
+  return Constructor;
+}
 function _defineProperty(obj, key, value) {
   key = _toPropertyKey(key);
   if (key in obj) {
@@ -437,6 +467,74 @@ function _defineProperty(obj, key, value) {
     obj[key] = value;
   }
   return obj;
+}
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  Object.defineProperty(subClass, "prototype", {
+    writable: false
+  });
+  if (superClass) _setPrototypeOf(subClass, superClass);
+}
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+  return _setPrototypeOf(o, p);
+}
+function _isNativeReflectConstruct() {
+  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+  if (Reflect.construct.sham) return false;
+  if (typeof Proxy === "function") return true;
+  try {
+    Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+  return self;
+}
+function _possibleConstructorReturn(self, call) {
+  if (call && (typeof call === "object" || typeof call === "function")) {
+    return call;
+  } else if (call !== void 0) {
+    throw new TypeError("Derived constructors may only return object or undefined");
+  }
+  return _assertThisInitialized(self);
+}
+function _createSuper(Derived) {
+  var hasNativeReflectConstruct = _isNativeReflectConstruct();
+  return function _createSuperInternal() {
+    var Super = _getPrototypeOf(Derived),
+      result;
+    if (hasNativeReflectConstruct) {
+      var NewTarget = _getPrototypeOf(this).constructor;
+      result = Reflect.construct(Super, arguments, NewTarget);
+    } else {
+      result = Super.apply(this, arguments);
+    }
+    return _possibleConstructorReturn(this, result);
+  };
 }
 function _toPrimitive(input, hint) {
   if (typeof input !== "object" || input === null) return input;
@@ -453,6 +551,7 @@ function _toPropertyKey(arg) {
   return typeof key === "symbol" ? key : String(key);
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 var css_248z$2 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
 styleInject(css_248z$2);
@@ -492,6 +591,84 @@ styleInject(css_248z$1);
 >>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
 
 /**
+=======
+/**
+ * Wrapper for carbon popover component to handle individual component mouseover
+ */
+var PopoverWrapper = /*#__PURE__*/function (_React$Component) {
+  _inherits(PopoverWrapper, _React$Component);
+  var _super = _createSuper(PopoverWrapper);
+  function PopoverWrapper(props) {
+    var _this;
+    _classCallCheck(this, PopoverWrapper);
+    _this = _super.call(this, props);
+    _this.state = {
+      isHovering: false
+    };
+    _this.handleMouseOver = _this.handleMouseOver.bind(_assertThisInitialized(_this));
+    _this.handleMouseOut = _this.handleMouseOut.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * handle mouse over
+   */
+  _createClass(PopoverWrapper, [{
+    key: "handleMouseOver",
+    value: function handleMouseOver() {
+      this.setState({
+        isHovering: true
+      });
+    }
+
+    /**
+     * handle mouse out
+     */
+  }, {
+    key: "handleMouseOut",
+    value: function handleMouseOut() {
+      this.setState({
+        isHovering: false
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return this.props.noPopover === true || this.props.hoverText === "" ? this.props.children : /*#__PURE__*/React.createElement("div", {
+        className: addClassName("popover-obj", this.props),
+        onMouseEnter: this.handleMouseOver,
+        onMouseLeave: this.handleMouseOut
+      }, /*#__PURE__*/React.createElement(Popover, {
+        open: this.state.isHovering,
+        autoAlign: this.props.align ? false : true,
+        dropShadow: false,
+        highContrast: true,
+        caret: false,
+        align: this.props.align
+      }, this.props.children, /*#__PURE__*/React.createElement(PopoverContent, {
+        className: "popover-box" + (this.props.contentClassName ? " ".concat(this.props.contentClassName) : "")
+      }, this.props.hoverText)));
+    }
+  }]);
+  return PopoverWrapper;
+}(React.Component);
+PopoverWrapper.defaultProps = {
+  noPopover: false
+};
+PopoverWrapper.propTypes = {
+  noPopover: PropTypes.bool,
+  hoverText: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  contentClassName: PropTypes.string,
+  align: PropTypes.string,
+  children: PropTypes.node.isRequired
+};
+
+var css_248z$1 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
+styleInject(css_248z$1);
+
+/**
+>>>>>>> 7ab206c (working on editing imports)
  * Render a form
  * @param {*} form form element
  * @param {*} formProps props
@@ -915,6 +1092,7 @@ UnsavedChangesModal.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 export { DeleteModal, DynamicRender, EmptyResourceTile, IcseFormGroup, IcseModal, IcseSubForm, RenderForm, TitleGroup, UnderConstruction, UnsavedChangesModal, addClassName, toggleMarginBottom };
 >>>>>>> 7f45fcc (modals)
 =======
@@ -926,3 +1104,6 @@ export { DeleteModal, DynamicRender, EmptyResourceTile, IcseFormGroup, IcseModal
 =======
 export { DeleteModal, DynamicRender, DynamicToolTipWrapper, EmptyResourceTile, IcseFormGroup, IcseModal, IcseMultiSelect, IcseSubForm, IcseToolTip, RenderForm, SecurityGroupMultiSelect, SshKeyMultiSelect, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, VpcListMultiSelect, addClassName, toggleMarginBottom };
 >>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
+=======
+export { DeleteModal, DynamicRender, EmptyResourceTile, IcseFormGroup, IcseModal, IcseSubForm, PopoverWrapper, RenderForm, TitleGroup, UnderConstruction, UnsavedChangesModal, addClassName, toggleMarginBottom };
+>>>>>>> 7ab206c (working on editing imports)

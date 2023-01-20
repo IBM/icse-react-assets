@@ -1,5 +1,5 @@
 const { assert } = require("chai");
-const { toggleMarginBottom, addClassName } = require("../lib/form-utils");
+const { toggleMarginBottom, addClassName } = require("../src/lib/form-utils");
 
 describe("form-utils", () => {
   describe("addClassName", () => {
