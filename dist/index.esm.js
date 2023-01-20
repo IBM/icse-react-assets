@@ -1,4 +1,5 @@
 import React from 'react';
+<<<<<<< HEAD
 import { WarningAlt, CloudAlerting, Add, Information } from '@carbon/icons-react';
 import PropTypes from 'prop-types';
 <<<<<<< HEAD
@@ -12,15 +13,38 @@ import { Tile, Modal } from '@carbon/react';
 import { Tile, Toggletip, ToggletipButton, ToggletipContent, Link, Modal } from '@carbon/react';
 import { titleCase } from 'lazy-z';
 >>>>>>> 90da87c (fixed merge conflicts, fixed tooltip hyperlink)
+=======
+import PropTypes from 'prop-types';
+import { FilterableMultiSelect, MultiSelect, Tile, Modal } from '@carbon/react';
+import { prettyJSON, isNullOrEmptyString } from 'lazy-z';
+import { WarningAlt, CloudAlerting, Add } from '@carbon/icons-react';
+>>>>>>> bbe5b43 (feat: multiselects)
 
 /**
- * Under Construction Page
+ * create a composed class name
+ * @param {string} className name of classes to add
+ * @param {*} props arbitrary props
+ * @param {string=} props.className additional classnames
  */
-var UnderConstruction = function UnderConstruction() {
-  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(WarningAlt, {
-    size: "128"
-  }), /*#__PURE__*/React.createElement("h4", null, "Page Under Construction"));
-};
+function addClassName(className, props) {
+  let composedClassName = className;
+  if (props?.className) {
+    composedClassName += " " + props.className;
+    if (props.noMarginRight === true) {
+      composedClassName = composedClassName.replace(/\s?marginRight\b/g, "");
+    }
+  }
+  return composedClassName;
+}
+
+/**
+ * add margin bottom to subform chevron
+ * @param {*} componentProps
+ * @returns {string} additional classNames
+ */
+function toggleMarginBottom(hide) {
+  if (hide === false) return " marginBottomSmall";else return "";
+}
 
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
@@ -49,10 +73,216 @@ function styleInject(css, ref) {
   }
 }
 
+<<<<<<< HEAD
 var css_248z$3 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$3);
+=======
+var css_248z$3 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+styleInject(css_248z$3);
 
-var EmptyResourceTile = function EmptyResourceTile(props) {
+var css_248z$2 = ".leftTextAlign {\n  text-align: left;\n}\n";
+styleInject(css_248z$2);
+>>>>>>> bbe5b43 (feat: multiselects)
+
+/**
+ * Icse multiselect template
+ */
+const IcseMultiSelect = props => {
+  return /*#__PURE__*/React.createElement(FilterableMultiSelect, {
+    id: props.id,
+    className: addClassName("fieldWidth leftTextAlign cds--select", props),
+    titleText: props.titleText,
+    itemToString: item => item ? item : "",
+    invalid: props.invalid,
+    invalidText: props.invalidText,
+    initialSelectedItems: props.initialSelectedItems,
+    onChange: props.onChange,
+    items: props.items,
+    useTitleInItem: props.useTitleInItem,
+    label: props.label,
+    disabled: props.disabled
+  });
+};
+IcseMultiSelect.defaultProps = {
+  disabled: false,
+  useTitleInItem: false,
+  invalid: false,
+  invalidText: "Invalid value"
+};
+IcseMultiSelect.propTypes = {
+  id: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  titleText: PropTypes.string.isRequired,
+  invalid: PropTypes.bool.isRequired,
+  invalidText: PropTypes.string.isRequired,
+  initialSelectedItems: PropTypes.array.isRequired,
+  onChange: PropTypes.func.isRequired,
+  items: PropTypes.arrayOf(PropTypes.string).isRequired,
+  useTitleInItem: PropTypes.bool.isRequired,
+  label: PropTypes.string,
+  disabled: PropTypes.bool.isRequired
+};
+
+/**
+ * ssh key multiselect
+ */
+const SshKeyMultiSelect = props => {
+  return /*#__PURE__*/React.createElement(IcseMultiSelect, {
+    id: props.id + "-ssh-key-multiselect",
+    useTitleInItem: true,
+    label: "SSH Keys",
+    titleText: "SSH Keys",
+    invalidText: "At least one SSH Key is required",
+    invalid: props.initialSelectedItems.length === 0,
+    items: props.sshKeys,
+    initialSelectedItems: props.initialSelectedItems || [],
+    onChange: event => {
+      props.onChange(event.selectedItems);
+    },
+    className: "fieldWidthSmaller cds--form-item"
+  });
+};
+SshKeyMultiSelect.defaultProps = {
+  initialSelectedItems: []
+};
+SshKeyMultiSelect.propTypes = {
+  id: PropTypes.string.isRequired,
+  initialSelectedItems: PropTypes.array,
+  // null needs to be passed
+  onChange: PropTypes.func.isRequired,
+  sshKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
+  initialSelectedItems: PropTypes.arrayOf(PropTypes.string).isRequired
+};
+
+/**
+ * sg multiselect
+ */
+
+const SecurityGroupMultiSelect = props => {
+  if (props.vpc_name && !props.securityGroups) {
+    // checking props.securityGroups[props.vpc_name] will result in an
+    // undefined error that happens as part of MultiSelect
+    throw new Error("SecurityGroupMultiselect requires a securityGroups object. Got " + prettyJSON(props.securityGroups));
+  }
+  return /*#__PURE__*/React.createElement(MultiSelect, {
+    id: props.id + "-security-group-multiselect",
+    label: props.label,
+    titleText: "Security Groups",
+    className: "fieldWidthSmaller cds--form-item",
+    initialSelectedItems: props.initialSelectedItems,
+    vpc_name: props.vpc_name,
+    invalid: false,
+    invalidText: "Invalid Selection",
+    onChange: event => {
+      props.onChange(event.selectedItems);
+    },
+    disabled: props.disabled,
+    items: props.vpc_name === "" ? [] : props.securityGroups[props.vpc_name],
+    itemToString: item => item ? item : ""
+  });
+};
+SecurityGroupMultiSelect.defaultProps = {
+  disabled: false,
+  label: "Select Security Groups"
+};
+SecurityGroupMultiSelect.propTypes = {
+  id: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  initialSelectedItems: PropTypes.array.isRequired,
+  vpc_name: PropTypes.string,
+  // not required, null value should be valid
+  onChange: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  securityGroups: PropTypes.object.isRequired
+};
+
+/**
+ * vpc subnet multiselect
+ */
+
+const SubnetMultiSelect = props => {
+  return /*#__PURE__*/React.createElement(IcseMultiSelect, {
+    id: props.id + "-subnet-multiselect",
+    className: props.className,
+    titleText: "Subnets",
+    name: props.name,
+    label: props.label,
+    items: isNullOrEmptyString(props.vpc_name) ? [] : props.subnets[props.vpc_name],
+    initialSelectedItems: props.initialSelectedItems,
+    invalidText: isNullOrEmptyString(props.vpc_name) ? "Select a VPC." : "Select at least one subnet.",
+    invalid: props.initialSelectedItems.length === 0,
+    disabled: props.disabled,
+    onChange: event => props.onChange(event.selectedItems)
+  });
+};
+SubnetMultiSelect.defaultProps = {
+  name: "subnet_names",
+  label: "Subnets",
+  disabled: false,
+  vpc_name: "",
+  initialSelectedItems: []
+};
+SubnetMultiSelect.propTypes = {
+  id: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  vpc_name: PropTypes.string,
+  // not required, `null` needs to be passed here
+  subnets: PropTypes.object.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  initialSelectedItems: PropTypes.array.isRequired,
+  onChange: PropTypes.func.isRequired
+};
+
+/**
+ * VPC List MultiSelect
+ */
+
+const VpcListMultiSelect = props => {
+  // throw error here so that passing no vpc list prop will error here
+  // instead of being passed to `FilterableMultiselect`
+  if (!props.vpcList) {
+    throw new Error("VpcListMultiSelect requires a list of VPCs using the prop `vpcList`. Got " + prettyJSON(props.vpcList));
+  }
+  return /*#__PURE__*/React.createElement(IcseMultiSelect, {
+    invalidText: "At least one VPC must be selected.",
+    invalid: props.invalid,
+    id: props.id + "-vpc-select",
+    titleText: props.titleText,
+    onChange: event => props.onChange(event.selectedItems),
+    initialSelectedItems: props.initialSelectedItems,
+    className: props.className,
+    items: props.vpcList
+  });
+};
+VpcListMultiSelect.defaultProps = {
+  invalid: false,
+  titleText: "VPCs",
+  initialSelectedItems: []
+};
+VpcListMultiSelect.propTypes = {
+  invalid: PropTypes.bool.isRequired,
+  id: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  initialSelectedItems: PropTypes.array.isRequired,
+  vpcList: PropTypes.arrayOf(PropTypes.string).isRequired
+};
+
+/**
+ * Under Construction Page
+ */
+const UnderConstruction = () => {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(WarningAlt, {
+    size: "128"
+  }), /*#__PURE__*/React.createElement("h4", null, "Page Under Construction"));
+};
+
+var css_248z$1 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z$1);
+
+const EmptyResourceTile = props => {
   return props.showIfEmpty === false || props.showIfEmpty.length === 0 ? /*#__PURE__*/React.createElement(Tile, {
     className: "marginBottomXs tileBackground"
   }, /*#__PURE__*/React.createElement(CloudAlerting, {
@@ -71,6 +301,7 @@ EmptyResourceTile.propTypes = {
   showIfEmpty: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]).isRequired
 };
 
+<<<<<<< HEAD
 function ownKeys(object, enumerableOnly) {
   var keys = Object.keys(object);
   if (Object.getOwnPropertySymbols) {
@@ -149,6 +380,10 @@ function addClassName(className, props) {
 function toggleMarginBottom(hide) {
   if (hide === false) return " marginBottomSmall";else return "";
 }
+=======
+var css_248z = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
+styleInject(css_248z);
+>>>>>>> bbe5b43 (feat: multiselects)
 
 /**
  * Render a form
@@ -157,7 +392,9 @@ function toggleMarginBottom(hide) {
  * @returns Form element
  */
 function RenderForm(form, formProps) {
-  return /*#__PURE__*/React.createElement(form, _objectSpread2({}, formProps));
+  return /*#__PURE__*/React.createElement(form, {
+    ...formProps
+  });
 }
 
 /**
@@ -174,9 +411,9 @@ function DynamicRender(props) {
 /**
  * wrapper for title groups
  */
-var TitleGroup = function TitleGroup(props) {
+const TitleGroup = props => {
   return /*#__PURE__*/React.createElement("div", {
-    className: addClassName("displayFlex alignItemsCenter widthOneHundredPercent ".concat(toggleMarginBottom(props.hide)), props)
+    className: addClassName(`displayFlex alignItemsCenter widthOneHundredPercent ${toggleMarginBottom(props.hide)}`, props)
   }, props.children);
 };
 TitleGroup.defaultProps = {
@@ -185,8 +422,8 @@ TitleGroup.defaultProps = {
 TitleGroup.propTypes = {
   children: PropTypes.node.isRequired
 };
-var IcseFormGroup = function IcseFormGroup(props) {
-  var formGroupClassName = "displayFlex marginBottom fitContent evenSpacing";
+const IcseFormGroup = props => {
+  let formGroupClassName = "displayFlex marginBottom fitContent evenSpacing";
   // remove margin bottom from formGroup for VPC
   if (props.noMarginBottom) {
     formGroupClassName = formGroupClassName.replace(/\smarginBottom/g, "");
@@ -203,7 +440,7 @@ IcseFormGroup.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string
 };
-var IcseSubForm = function IcseSubForm(props) {
+const IcseSubForm = props => {
   return /*#__PURE__*/React.createElement("div", {
     className: addClassName(props.formInSubForm ? "formInSubForm positionRelative" : "subForm marginBottomSmall", props),
     id: props.id
@@ -219,6 +456,7 @@ IcseSubForm.propTypes = {
   children: PropTypes.node.isRequired
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -357,6 +595,8 @@ DynamicToolTipWrapper.propTypes = {
 var css_248z = ".leftTextAlign {\n    text-align: left;\n}";
 styleInject(css_248z);
 
+=======
+>>>>>>> bbe5b43 (feat: multiselects)
 /**
  * Icse Modal Wrapper
  * @param {*} props
@@ -480,8 +720,12 @@ UnsavedChangesModal.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export { DeleteModal, DynamicRender, EmptyResourceTile, IcseFormGroup, IcseModal, IcseSubForm, RenderForm, TitleGroup, UnderConstruction, UnsavedChangesModal, addClassName, toggleMarginBottom };
 >>>>>>> 7f45fcc (modals)
 =======
 export { DeleteModal, DynamicRender, DynamicToolTipWrapper, EmptyResourceTile, IcseFormGroup, IcseModal, IcseSubForm, IcseToolTip, RenderForm, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, addClassName, toggleMarginBottom };
 >>>>>>> 90da87c (fixed merge conflicts, fixed tooltip hyperlink)
+=======
+export { DeleteModal, DynamicRender, EmptyResourceTile, IcseFormGroup, IcseModal, IcseMultiSelect, IcseSubForm, RenderForm, SecurityGroupMultiSelect, SshKeyMultiSelect, SubnetMultiSelect, TitleGroup, UnderConstruction, UnsavedChangesModal, VpcListMultiSelect, addClassName, toggleMarginBottom };
+>>>>>>> bbe5b43 (feat: multiselects)
