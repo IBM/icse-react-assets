@@ -77,7 +77,6 @@ SshKeyMultiSelect.defaultProps = {
 
 SshKeyMultiSelect.propTypes = {
   id: PropTypes.string.isRequired,
-  initialSelectedItems: PropTypes.array, // null needs to be passed
   onChange: PropTypes.func.isRequired,
   sshKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
   initialSelectedItems: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -86,7 +85,6 @@ SshKeyMultiSelect.propTypes = {
 /**
  * sg multiselect
  */
-
 export const SecurityGroupMultiSelect = (props) => {
   if (props.vpc_name && !props.securityGroups) {
     // checking props.securityGroups[props.vpc_name] will result in an
@@ -104,7 +102,7 @@ export const SecurityGroupMultiSelect = (props) => {
       className="fieldWidthSmaller cds--form-item"
       initialSelectedItems={props.initialSelectedItems}
       vpc_name={props.vpc_name}
-      invalid={false}
+      invalid={props.invalid}
       invalidText="Invalid Selection"
       onChange={(event) => {
         props.onChange(event.selectedItems);
@@ -119,6 +117,7 @@ export const SecurityGroupMultiSelect = (props) => {
 SecurityGroupMultiSelect.defaultProps = {
   disabled: false,
   label: "Select Security Groups",
+  invalid: false,
 };
 
 SecurityGroupMultiSelect.propTypes = {
@@ -130,12 +129,12 @@ SecurityGroupMultiSelect.propTypes = {
   label: PropTypes.string.isRequired,
   disabled: PropTypes.bool.isRequired,
   securityGroups: PropTypes.object.isRequired,
+  invalid: PropTypes.bool.isRequired,
 };
 
 /**
  * vpc subnet multiselect
  */
-
 export const SubnetMultiSelect = (props) => {
   return (
     <IcseMultiSelect
@@ -183,7 +182,6 @@ SubnetMultiSelect.propTypes = {
 /**
  * VPC List MultiSelect
  */
-
 export const VpcListMultiSelect = (props) => {
   // throw error here so that passing no vpc list prop will error here
   // instead of being passed to `FilterableMultiselect`
