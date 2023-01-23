@@ -86,7 +86,7 @@ UnsavedChangesModal is a customized IcseModal that displays a message to the use
 - useDefaultUnsavedMessage: A boolean value, if true (default), says a form is missing required values. Otherwise displays a message saying there are unsaved changes to a form
 
 ```js
-import { IcseModal } from "icse-react-assets";
+import { UnsavedChangesModal } from "icse-react-assets";
 
 export const UnsavedChangesModalExample = () => {
   const [open, setOpen] = useState(false);
@@ -115,7 +115,7 @@ DeleteModal is a customized IcseModal that displays a message to a user to confi
 - onModalSubmit: A function that defines what should occur when the modal is submitted
 
 ```js
-import { IcseModal } from "icse-react-assets";
+import { DeleteModal } from "icse-react-assets";
 
 export const DeleteModalExample = () => {
   const [open, setOpen] = useState(false);
