@@ -130,16 +130,15 @@ export const DeleteModalExample = () => {
 IcseMultiSelect is a component that allows the developer to filterable dropdown multiselect. IcseMultiSelect accepts several arguments:
 
 - `id`: A string of the component's id,
+- `className`: A string for inputting CSS styling classes (optional),
 - `titleText`: A string value for the title of the multiselect,
-- `itemToString`: Anonymous function which will return all items, and any empty items as "",
 - `invalid`: A boolean value for checking if any input values are invalid,
 - `invalidText`: A string value that displays if there is invalid input,
 - `initialSelectedItems`: An array of items that are initially selected,
 - `onChange`: A function that defines what should occur when the selected items are changed,
 - `items`: A (string) list of items to appear in the dropdown,
-- `open`: A boolean value of whether or not the modal is open,
-- `children`: Child nodes for displaying within the modal,
 - `useTitleInItem`: A boolean value that will include the title in each item name if true,
+- `label`: A string label value (optional),
 - `disabled`: A boolean value that will disable this component if true
 
 ```js
@@ -148,16 +147,16 @@ import { IcseMultiSelect } from "icse-react-assets";
 export const IcseMultiSelectExample = () => {
   return (
     <div>
-     <IcseMultiSelect
-          id="test-icse"
-          titleText="test"
-          initialSelectedItems={["1"]}
-          onChange={(event) => {
-            console.log(event);
-          }}
-          items={["1", "2", "3", "4"]}
-          label="hi"
-        />
+      <IcseMultiSelect
+        id="test-icse"
+        titleText="test"
+        initialSelectedItems={["1"]}
+        onChange={(event) => {
+          console.log(event);
+        }}
+        items={["1", "2", "3", "4"]}
+        label="hi"
+      />
     </div>
   );
 };
@@ -165,9 +164,12 @@ export const IcseMultiSelectExample = () => {
 
 #### SshKeyMultiSelect
 
-SshKeyMultiSelect is a customized IcseMultiSelect which can be used to select from a list of SSH keys. 
+SshKeyMultiSelect is a customized IcseMultiSelect which can be used to select from a list of SSH keys. SshKeyMultiSelect accepts several arguments:
 
-- `sshKeys`: A (string) list of SSH keys
+- `id`: A string of the component's id,
+- `onChange`: A function that defines what should occur when the selected items are changed,
+- `sshKeys`: A (string) list of SSH keys,
+- `initialSelectedItems`: An array of SSH keys that are initially selected
 
 ```js
 import { SshKeyMultiSelect } from "icse-react-assets";
@@ -175,14 +177,14 @@ import { SshKeyMultiSelect } from "icse-react-assets";
 export const SshKeyMultiSelectExample = () => {
   return (
     <div>
-     <SshKeyMultiSelect
-          id="test"
-          sshKeys={["a", "b", "c"]}
-          onChange={(selectedItems) => {
-            console.log(selectedItems);
-          }}
-          initialSelectedItems={["a"]}
-        />
+      <SshKeyMultiSelect
+        id="test"
+        sshKeys={["a", "b", "c"]}
+        onChange={(selectedItems) => {
+          console.log(selectedItems);
+        }}
+        initialSelectedItems={["a"]}
+      />
     </div>
   );
 };
@@ -190,10 +192,17 @@ export const SshKeyMultiSelectExample = () => {
 
 #### SecurityGroupMultiSelect
 
-SecurityGroupMultiSelect is a customized IcseMultiSelect which can be used to select from a list of security groups.
+SecurityGroupMultiSelect is a customized IcseMultiSelect which can be used to select from a list of security groups. SecurityGroupMultiSelect accepts several arguments:
 
+- `id`: A string of the component's id,
+- `className`: A string for inputting CSS styling classes (optional),
+- `initialSelectedItems`: An array of items that are initially selected,
 - `vpc_name`: A string for the VPC which the security groups belong to (optional),
-- `securityGroups`: An object which contains the security groups for the given VPC
+- `onChange`: A function that defines what should occur when the selected items are changed,
+- `label`: A string label value (optional),
+- `disabled`: A boolean value that will disable this component if true,
+- `securityGroups`: An object which contains the security groups for the given VPC,
+- `invalid`: A boolean value for checking if any security group input values are invalid
 
 ```js
 import { SecurityGroupMultiSelect } from "icse-react-assets";
@@ -201,17 +210,17 @@ import { SecurityGroupMultiSelect } from "icse-react-assets";
 export const SecurityGroupMultiSelectExample = () => {
   return (
     <div>
-     <SecurityGroupMultiSelect
-          id="test"
-          initialSelectedItems={[]}
-          vpc_name="test"
-          onChange={(selectedItems) => {
-            console.log(selectedItems);
-          }}
-          securityGroups={{
-            test: ["one", "two"],
-          }}
-        />
+      <SecurityGroupMultiSelect
+        id="test"
+        initialSelectedItems={[]}
+        vpc_name="test"
+        onChange={(selectedItems) => {
+          console.log(selectedItems);
+        }}
+        securityGroups={{
+          test: ["one", "two"],
+        }}
+      />
     </div>
   );
 };
@@ -219,10 +228,17 @@ export const SecurityGroupMultiSelectExample = () => {
 
 #### SubnetMultiSelect
 
-SubnetMultiSelect is a customized IcseMultiSelect which can be used to select from a list of subnets.
+SubnetMultiSelect is a customized IcseMultiSelect which can be used to select from a list of subnets. SubnetMultiSelect accepts several arguments:
 
+- `id`: A string of the component's id,
+- `className`: A string for inputting CSS styling classes (optional),
 - `vpc_name`: A string for the VPC which the subnets belong to (optional),
-- `subnets`: An object which contains the subnets for the given VPC
+- `subnets`: An object which contains the subnets for the given VPC,
+- `disabled`: A boolean value that will disable this component if true,
+- `name`: A string value for name of component
+- `label`: A string label value (optional),
+- `initialSelectedItems`: An array of items that are initially selected,
+- `onChange`: A function that defines what should occur when the selected items are changed
 
 ```js
 import { SubnetMultiSelect } from "icse-react-assets";
@@ -230,16 +246,16 @@ import { SubnetMultiSelect } from "icse-react-assets";
 export const SubnetMultiSelectExample = () => {
   return (
     <div>
-     <SubnetMultiSelect
-          id="test"
-          subnets={{
-            test: ["a", "b", " c"],
-          }}
-          vpc_name="test"
-          onChange={(selectedItems) => {
-            console.log(selectedItems);
-          }}
-        />
+      <SubnetMultiSelect
+        id="test"
+        subnets={{
+          test: ["a", "b", " c"],
+        }}
+        vpc_name="test"
+        onChange={(selectedItems) => {
+          console.log(selectedItems);
+        }}
+      />
     </div>
   );
 };
@@ -247,8 +263,12 @@ export const SubnetMultiSelectExample = () => {
 
 #### VpcListMultiSelect
 
-VpcListMultiSelect is a customized IcseMultiSelect which can be used to select from a list of VPCs.
+VpcListMultiSelect is a customized IcseMultiSelect which can be used to select from a list of VPCs. VpcListMultiSelect accepts several arguments:
 
+- `invalid`: A boolean value for checking if any VPC input values are invalid,
+- `id`: A string of the component's id,
+- `onChange`: A function that defines what should occur when the selected items are changed,
+- `initialSelectedItems`: An array of items that are initially selected,
 - `vpcList`: A (string) list of VPCs to select from
 
 ```js
@@ -257,13 +277,13 @@ import { VpcListMultiSelect } from "icse-react-assets";
 export const VpcListMultiSelectExample = () => {
   return (
     <div>
-    <VpcListMultiSelect
-          id="test"
-          onChange={(selectedItems) => {
-            console.log(selectedItems);
-          }}
-          vpcList={["a", "b"]}
-        />
+      <VpcListMultiSelect
+        id="test"
+        onChange={(selectedItems) => {
+          console.log(selectedItems);
+        }}
+        vpcList={["a", "b"]}
+      />
     </div>
   );
 };
