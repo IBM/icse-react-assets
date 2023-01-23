@@ -778,10 +778,14 @@ styleInject(css_248z);
  * @param {boolean=} props.useAddButton use + button instead of edit
  */
 <<<<<<< HEAD
+<<<<<<< HEAD
 const IcseModal = props => {
 =======
 var IcseModal = function IcseModal(props) {
 >>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
+=======
+const IcseModal = props => {
+>>>>>>> 33b1d10 (feat: Modal docs)
   /*#__PURE__*/React.createElement("strong", null, props.name);
   return /*#__PURE__*/React.createElement(Modal, {
     id: props.id,
@@ -814,7 +818,6 @@ IcseModal.propTypes = {
   danger: PropTypes.bool,
   alert: PropTypes.bool,
   heading: PropTypes.string.isRequired,
-  type: PropTypes.string,
   onRequestSubmit: PropTypes.func.isRequired,
   onRequestClose: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
@@ -831,12 +834,17 @@ IcseModal.propTypes = {
  * @param {Function} props.onModalSubmit function for on submit
  */
 <<<<<<< HEAD
+<<<<<<< HEAD
 const DeleteModal = props => {
   let name = /*#__PURE__*/React.createElement("strong", null, props.name);
 =======
 var DeleteModal = function DeleteModal(props) {
   var name = /*#__PURE__*/React.createElement("strong", null, props.name);
 >>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
+=======
+const DeleteModal = props => {
+  let name = /*#__PURE__*/React.createElement("strong", null, props.name);
+>>>>>>> 33b1d10 (feat: Modal docs)
   return /*#__PURE__*/React.createElement(IcseModal, {
     id: props.name + "-delete",
     name: props.name,
@@ -868,12 +876,17 @@ DeleteModal.propTypes = {
  */
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 const UnsavedChangesModal = props => {
   let name = props.name;
 =======
 var UnsavedChangesModal = function UnsavedChangesModal(props) {
   var name = props.name;
 >>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
+=======
+const UnsavedChangesModal = props => {
+  let name = props.name;
+>>>>>>> 33b1d10 (feat: Modal docs)
   return /*#__PURE__*/React.createElement("div", {
     className: "unsaved-changes-modal-area"
   }, /*#__PURE__*/React.createElement(IcseModal, {

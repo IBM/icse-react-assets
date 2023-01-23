@@ -56,7 +56,6 @@ IcseModal.propTypes = {
   danger: PropTypes.bool,
   alert: PropTypes.bool,
   heading: PropTypes.string.isRequired,
-  type: PropTypes.string,
   onRequestSubmit: PropTypes.func.isRequired,
   onRequestClose: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
