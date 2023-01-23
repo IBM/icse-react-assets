@@ -131,14 +131,14 @@ IcseMultiSelect is a component that allows the developer to filterable dropdown 
 
 - `id`: A string of the component's id,
 - `titleText`: A string value for the title of the multiselect,
-- `itemToString`: Anonymous function which will return all items, and any empty items as ""
-- `invalid`: A boolean value for checking if any input values are invalid
+- `itemToString`: Anonymous function which will return all items, and any empty items as "",
+- `invalid`: A boolean value for checking if any input values are invalid,
 - `invalidText`: A string value that displays if there is invalid input,
-- `initialSelectedItems`: A list of items that are initially selected,
+- `initialSelectedItems`: An array of items that are initially selected,
 - `onChange`: A function that defines what should occur when the selected items are changed,
 - `items`: A (string) list of items to appear in the dropdown,
-- `open`: A boolean value of whether or not the modal is open
-- `children`: Child nodes for displaying within the modal
+- `open`: A boolean value of whether or not the modal is open,
+- `children`: Child nodes for displaying within the modal,
 - `useTitleInItem`: A boolean value that will include the title in each item name if true,
 - `disabled`: A boolean value that will disable this component if true
 
@@ -192,7 +192,7 @@ export const SshKeyMultiSelectExample = () => {
 
 SecurityGroupMultiSelect is a customized IcseMultiSelect which can be used to select from a list of security groups.
 
-- `vpc_name`: A string for the VPC which the security groups belong to (optional)
+- `vpc_name`: A string for the VPC which the security groups belong to (optional),
 - `securityGroups`: An object which contains the security groups for the given VPC
 
 ```js
@@ -221,7 +221,7 @@ export const SecurityGroupMultiSelectExample = () => {
 
 SubnetMultiSelect is a customized IcseMultiSelect which can be used to select from a list of subnets.
 
-- `vpc_name`: A string for the VPC which the subnets belong to (optional)
+- `vpc_name`: A string for the VPC which the subnets belong to (optional),
 - `subnets`: An object which contains the subnets for the given VPC
 
 ```js
