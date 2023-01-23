@@ -122,3 +122,43 @@ export const DeleteModalExample = () => {
   );
 };
 ```
+
+### MultiSelects
+
+#### IcseMultiSelect
+
+IcseMultiSelect is a component that allows the developer to filterable dropdown multiselect. IcseMultiSelect accepts several arguments:
+
+- `id`: A string of the component's id,
+- `titleText`: A string value for the title of the multiselect,
+- `itemToString`: Anonymous function which will return all items, and any empty items as ""
+- `invalid`: A boolean value for checking if any input values are invalid
+- `invalidText`: A string value that displays if there is invalid input,
+- `initialSelectedItems`: A list of items that are initially selected,
+- `onChange`: A function that defines what should occur when the selected items are changed,
+- `items`: A (string) list of items to appear in the dropdown,
+- `open`: A boolean value of whether or not the modal is open
+- `children`: Child nodes for displaying within the modal
+- `useTitleInItem`: A boolean value that will include the title in each item name if true,
+- `disabled`: A boolean value that will disable this component if true
+
+```js
+import { IcseMultiSelect } from "icse-react-assets";
+
+export const IcseMultiSelectExample = () => {
+  return (
+    <div>
+     <IcseMultiSelect
+          id="test-icse"
+          titleText="test"
+          initialSelectedItems={["1"]}
+          onChange={(event) => {
+            console.log(event);
+          }}
+          items={["1", "2", "3", "4"]}
+          label="hi"
+        />
+    </div>
+  );
+};
+```

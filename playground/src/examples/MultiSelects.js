@@ -1,16 +1,4 @@
-import "./App.css";
 import {
-  //UnderConstruction,
-  //EmptyResourceTile,
-  //TitleGroup,
-  //IcseFormGroup,
-  //IcseSubForm,
-  //IcseToolTip,
-  //ToolTipWrapper,
-  //DynamicToolTipWrapper,
-  //IcseModal
-  // UnsavedChangesModal,
-  // DeleteModal,
   IcseMultiSelect,
   SshKeyMultiSelect,
   SecurityGroupMultiSelect,
@@ -18,7 +6,7 @@ import {
   VpcListMultiSelect,
 } from "icse-react-assets";
 
-function App() {
+function MultiSelectExamples() {
   return (
     <div className="App">
       <div style={{ marginLeft: "100px" }}>
@@ -30,7 +18,6 @@ function App() {
             console.log(event);
           }}
           items={["1", "2", "3", "4"]}
-          label="hi"
         />
         <SshKeyMultiSelect
           id="test"
@@ -73,4 +60,4 @@ function App() {
   );
 }
 
-export default App;
+export default MultiSelectExamples;

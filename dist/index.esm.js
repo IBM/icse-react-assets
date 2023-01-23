@@ -1597,6 +1597,7 @@ DynamicToolTipWrapper.propTypes = {
  */
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const IcseModal = props => {
 =======
 var IcseModal = function IcseModal(props) {
@@ -1607,6 +1608,9 @@ const IcseModal = props => {
 >>>>>>> 33b1d10 (feat: Modal docs)
 =======
 >>>>>>> faf8c38 (fixed imports)
+=======
+var IcseModal = function IcseModal(props) {
+>>>>>>> 61e1d69 (icse multiselect)
   /*#__PURE__*/React.createElement("strong", null, props.name);
   return /*#__PURE__*/React.createElement(Modal, {
     id: props.id,
@@ -1656,6 +1660,7 @@ IcseModal.propTypes = {
  */
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const DeleteModal = props => {
   let name = /*#__PURE__*/React.createElement("strong", null, props.name);
 =======
@@ -1669,6 +1674,10 @@ const DeleteModal = props => {
 >>>>>>> 33b1d10 (feat: Modal docs)
 =======
 >>>>>>> faf8c38 (fixed imports)
+=======
+var DeleteModal = function DeleteModal(props) {
+  var name = /*#__PURE__*/React.createElement("strong", null, props.name);
+>>>>>>> 61e1d69 (icse multiselect)
   return /*#__PURE__*/React.createElement(IcseModal, {
     id: props.name + "-delete",
     name: props.name,
@@ -1701,6 +1710,7 @@ DeleteModal.propTypes = {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const UnsavedChangesModal = props => {
   let name = props.name;
 =======
@@ -1714,6 +1724,10 @@ const UnsavedChangesModal = props => {
 >>>>>>> 33b1d10 (feat: Modal docs)
 =======
 >>>>>>> faf8c38 (fixed imports)
+=======
+var UnsavedChangesModal = function UnsavedChangesModal(props) {
+  var name = props.name;
+>>>>>>> 61e1d69 (icse multiselect)
   return /*#__PURE__*/React.createElement("div", {
     className: "unsaved-changes-modal-area"
   }, /*#__PURE__*/React.createElement(IcseModal, {
