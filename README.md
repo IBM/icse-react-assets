@@ -41,17 +41,17 @@ export { default as UnderConstruction } from "./components/UnderConstruction";
 
 IcseModal is a component that allows the developer to create a fully customizable modal. IcseModal accepts several arguments:
 
-- primaryButtonText: A string to override the text on the primary button of the modal,
-- secondaryButtonText: A string to override the text on the secondary button of the modal,
-- primaryButtonDisabled: A boolean value for if the primary button should be disabled,
-- danger: A boolean value for if the primary button should be the type "danger" (red)
-- alert: A boolean value for if the modal is displaying an alert,
-- heading: A string value for the heading of the modal,
-- onRequestSubmit: A function that defines what should occur when the modal is submitted,
-- onRequestClose: A function that defines what should occur when the modal is closed,
-- id: A string value of the modal's id,
-- open: A boolean value of whether or not the modal is open
-- children: Child nodes for displaying within the modal
+- `primaryButtonText`: A string to override the text on the primary button of the modal,
+- `secondaryButtonText`: A string to override the text on the secondary button of the modal,
+- `primaryButtonDisabled`: A boolean value for if the primary button should be disabled,
+- `danger`: A boolean value for if the primary button should be the type "danger" (red)
+- `alert`: A boolean value for if the modal is displaying an alert,
+- `heading`: A string value for the heading of the modal,
+- `onRequestSubmit`: A function that defines what should occur when the modal is submitted,
+- `onRequestClose`: A function that defines what should occur when the modal is closed,
+- `id`: A string value of the modal's id,
+- `open`: A boolean value of whether or not the modal is open
+- `children`: Child nodes for displaying within the modal
 
 ```js
 import { IcseModal } from "icse-react-assets";
@@ -79,11 +79,11 @@ export const IcseModalExample = () => {
 
 UnsavedChangesModal is a customized IcseModal that displays a message to the user if a form has unsaved changes or is missing required values. UnsavedChangesModal accepts several arguments:
 
-- name: A string value for the name of the resource/form
-- modalOpen: A boolean value for if the modal is open
-- onModalClose:A function that defines what should occur when the modal is closed,
-- onModalSubmit: A function that defines what should occur when the modal is submitted,
-- useDefaultUnsavedMessage: A boolean value, if true (default), says a form is missing required values. Otherwise displays a message saying there are unsaved changes to a form
+- `name`: A string value for the name of the resource/form
+- `modalOpen`: A boolean value for if the modal is open
+- `onModalClose`:A function that defines what should occur when the modal is closed,
+- `onModalSubmit`: A function that defines what should occur when the modal is submitted,
+- `useDefaultUnsavedMessage`: A boolean value, if true (default), says a form is missing required values. Otherwise displays a message saying there are unsaved changes to a form
 
 ```js
 import { UnsavedChangesModal } from "icse-react-assets";
@@ -109,10 +109,10 @@ export const UnsavedChangesModalExample = () => {
 
 DeleteModal is a customized IcseModal that displays a message to a user to confirm deletion of an object. DeleteModal accepts several arguments:
 
-- name: A string value for the name of the resource/form
-- modalOpen: A boolean value for if the modal is open
-- onModalClose:A function that defines what should occur when the modal is closed,
-- onModalSubmit: A function that defines what should occur when the modal is submitted
+- `name`: A string value for the name of the resource/form
+- `modalOpen`: A boolean value for if the modal is open
+- `onModalClose`:A function that defines what should occur when the modal is closed,
+- `onModalSubmit`: A function that defines what should occur when the modal is submitted
 
 ```js
 import { DeleteModal } from "icse-react-assets";
