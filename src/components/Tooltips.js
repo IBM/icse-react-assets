@@ -1,5 +1,5 @@
 import { RenderForm } from "./Utils";
-import { addClassName } from "../lib/index";
+import { addClassName } from "../lib";
 import { titleCase } from "lazy-z";
 import React from "react";
 import {
