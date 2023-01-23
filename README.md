@@ -162,3 +162,109 @@ export const IcseMultiSelectExample = () => {
   );
 };
 ```
+
+#### SshKeyMultiSelect
+
+SshKeyMultiSelect is a customized IcseMultiSelect which can be used to select from a list of SSH keys. 
+
+- `sshKeys`: A (string) list of SSH keys
+
+```js
+import { SshKeyMultiSelect } from "icse-react-assets";
+
+export const SshKeyMultiSelectExample = () => {
+  return (
+    <div>
+     <SshKeyMultiSelect
+          id="test"
+          sshKeys={["a", "b", "c"]}
+          onChange={(selectedItems) => {
+            console.log(selectedItems);
+          }}
+          initialSelectedItems={["a"]}
+        />
+    </div>
+  );
+};
+```
+
+#### SecurityGroupMultiSelect
+
+SecurityGroupMultiSelect is a customized IcseMultiSelect which can be used to select from a list of security groups.
+
+- `vpc_name`: A string for the VPC which the security groups belong to (optional)
+- `securityGroups`: An object which contains the security groups for the given VPC
+
+```js
+import { SecurityGroupMultiSelect } from "icse-react-assets";
+
+export const SecurityGroupMultiSelectExample = () => {
+  return (
+    <div>
+     <SecurityGroupMultiSelect
+          id="test"
+          initialSelectedItems={[]}
+          vpc_name="test"
+          onChange={(selectedItems) => {
+            console.log(selectedItems);
+          }}
+          securityGroups={{
+            test: ["one", "two"],
+          }}
+        />
+    </div>
+  );
+};
+```
+
+#### SubnetMultiSelect
+
+SubnetMultiSelect is a customized IcseMultiSelect which can be used to select from a list of subnets.
+
+- `vpc_name`: A string for the VPC which the subnets belong to (optional)
+- `subnets`: An object which contains the subnets for the given VPC
+
+```js
+import { SubnetMultiSelect } from "icse-react-assets";
+
+export const SubnetMultiSelectExample = () => {
+  return (
+    <div>
+     <SubnetMultiSelect
+          id="test"
+          subnets={{
+            test: ["a", "b", " c"],
+          }}
+          vpc_name="test"
+          onChange={(selectedItems) => {
+            console.log(selectedItems);
+          }}
+        />
+    </div>
+  );
+};
+```
+
+#### VpcListMultiSelect
+
+VpcListMultiSelect is a customized IcseMultiSelect which can be used to select from a list of VPCs.
+
+- `vpcList`: A (string) list of VPCs to select from
+
+```js
+import { VpcListMultiSelect } from "icse-react-assets";
+
+export const VpcListMultiSelectExample = () => {
+  return (
+    <div>
+    <VpcListMultiSelect
+          id="test"
+          onChange={(selectedItems) => {
+            console.log(selectedItems);
+          }}
+          vpcList={["a", "b"]}
+        />
+    </div>
+  );
+};
+```
