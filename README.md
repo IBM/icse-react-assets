@@ -1,5 +1,15 @@
 # icse-react-assets
 
+## Table of Contents
+
+1. [Getting Started](#getting-started)
+2. [Contribution Guidelines](#contribution-guidelines)
+3. [Documentation](#documentation)
+   - [Modals](#modals)
+     - [IcseModal](#icsemodal)
+     - [UnsavedChangesModal](#unsavedchangesmodal)
+     - [DeleteModal](#deletemodal)
+
 ## Getting Started
 
 1. `git clone https://github.ibm.com/icse/icse-react-assets.git && cd icse-react-assets`
@@ -7,7 +17,7 @@
 3. Test a build with `npm update && npm run build`
 4. Run `npm run dev` to run the playground environment to test any components
 
-## Contributing Guidelines
+## Contribution Guidelines
 
 1. Create a new branch for your component
 2. Add the component within `./src/components`
