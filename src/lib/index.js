@@ -1,3 +1,5 @@
-import { toggleMarginBottom, addClassName } from "./form-utils";
-
-export { addClassName, toggleMarginBottom };
+const { toggleMarginBottom, addClassName } = require("./form-utils");
+module.exports = {
+  toggleMarginBottom,
+  addClassName,
+};
