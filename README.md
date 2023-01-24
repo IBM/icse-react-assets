@@ -25,6 +25,37 @@ export { default as UnderConstruction } from "./components/UnderConstruction";
 
 ## Documentation
 
+## Miscellaneous
+
+#### EmptyResourceTile
+
+The EmptyResourceTile component is the body of a resource page which has no resources yet. EmptyResourceTile takes two props:
+
+- `name`: The string value for the name of the resource.
+- `showIfEmpty`: A boolean or array value which shows the tile only if false or if the given array is empty (indicating no resources).
+
+```js
+import EmptyResourceTile from "icse-react-assets";
+
+export const EmptyResourceTileExample = () => {
+  return <EmptyResourceTile name="Resource Name" showIfEmpty={false} />;
+};
+```
+
+#### UnderConstruction
+
+UnderConstruction is a component for the body of a page which is navigable but not implemented.
+
+UnderConstruction takes no props.
+
+```js
+import { UnderConstruction } from "icse-react-assets";
+
+export const UnderConstructionExample = () => {
+  return <UnderConstruction />;
+};
+```
+
 ### Modals
 
 #### IcseModal
