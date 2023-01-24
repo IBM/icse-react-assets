@@ -1,5 +1,9 @@
 const { assert } = require("chai");
-const { toggleMarginBottom, addClassName } = require("../src/lib/form-utils");
+const {
+  toggleMarginBottom,
+  addClassName,
+  formatInputPlaceholder,
+} = require("../src/lib/form-utils");
 
 describe("form-utils", () => {
   describe("addClassName", () => {
@@ -37,6 +41,15 @@ describe("form-utils", () => {
         toggleMarginBottom(false),
         " marginBottomSmall",
         "it should return className"
+      );
+    });
+  });
+  describe("formatInputPlaceholder", () => {
+    it("should return a formatted placeholder", () => {
+      assert.deepEqual(
+        "my-component-name-field-name",
+        formatInputPlaceholder("component name", "field name"),
+        "it should return true"
       );
     });
   });
