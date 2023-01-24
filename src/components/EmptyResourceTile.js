@@ -8,8 +8,8 @@ import "./styles/EmptyResourceTile.css";
  * Empty Resource Tile
  * @param {*} props
  * @param {string} props.name resource name
- * @param {boolean} props.showIfEmpty if array is empty or boolean is false, show the empty resource tile
- * @returns
+ * @param {(boolean|*[])} props.showIfEmpty if array is empty or boolean is false, show the empty resource tile
+ * @returns tile if shown, empty string otherwise
  */
 
 const EmptyResourceTile = (props) => {
