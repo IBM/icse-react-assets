@@ -132,14 +132,14 @@ IcseMultiSelect is a component that allows the developer to filterable dropdown 
 - `id`: A string of the component's id,
 - `className`: A string for inputting CSS styling classes (optional),
 - `titleText`: A string value for the title of the multiselect,
-- `invalid`: A boolean value for checking if any input values are invalid,
-- `invalidText`: A string value that displays if there is invalid input,
+- `invalid`: A boolean value for checking if any input values are invalid (defaults to `false`),
+- `invalidText`: A string value that displays if there is invalid input (defaults to `"Invalid value"`),
 - `initialSelectedItems`: An array of items that are initially selected,
 - `onChange`: A function that defines what should occur when the selected items are changed,
-- `items`: A (string) list of items to appear in the dropdown,
-- `useTitleInItem`: A boolean value that will include the title in each item name if true,
+- `items`: An array (string) of items to appear in the dropdown,
+- `useTitleInItem`: A boolean value that will include the title in each item name if true (defaults to `false`),
 - `label`: A string label value (optional),
-- `disabled`: A boolean value that will disable this component if true
+- `disabled`: A boolean value that will disable this component if true (defaults to `false`)
 
 ```js
 import { IcseMultiSelect } from "icse-react-assets";
@@ -168,7 +168,7 @@ SshKeyMultiSelect is a customized IcseMultiSelect which can be used to select fr
 
 - `id`: A string of the component's id,
 - `onChange`: A function that defines what should occur when the selected items are changed,
-- `sshKeys`: A (string) list of SSH keys,
+- `sshKeys`: A array (string) of SSH keys,
 - `initialSelectedItems`: An array of SSH keys that are initially selected
 
 ```js
@@ -199,10 +199,10 @@ SecurityGroupMultiSelect is a customized IcseMultiSelect which can be used to se
 - `initialSelectedItems`: An array of items that are initially selected,
 - `vpc_name`: A string for the VPC which the security groups belong to (optional),
 - `onChange`: A function that defines what should occur when the selected items are changed,
-- `label`: A string label value (optional),
-- `disabled`: A boolean value that will disable this component if true,
+- `label`: (optional) A string label value (defaults to `"Select Security Groups"`),
+- `disabled`: A boolean value that will disable this component if true (defaults to `false`),
 - `securityGroups`: An object which contains the security groups for the given VPC,
-- `invalid`: A boolean value for checking if any security group input values are invalid
+- `invalid`: A boolean value for checking if any security group input values are invalid (defaults to `false`)
 
 ```js
 import { SecurityGroupMultiSelect } from "icse-react-assets";
@@ -232,12 +232,12 @@ SubnetMultiSelect is a customized IcseMultiSelect which can be used to select fr
 
 - `id`: A string of the component's id,
 - `className`: A string for inputting CSS styling classes (optional),
-- `vpc_name`: A string for the VPC which the subnets belong to (optional),
+- `vpc_name`: (optional) A string for the VPC which the subnets belong to (defaults to `""`),
 - `subnets`: An object which contains the subnets for the given VPC,
-- `disabled`: A boolean value that will disable this component if true,
-- `name`: A string value for name of component
-- `label`: A string label value (optional),
-- `initialSelectedItems`: An array of items that are initially selected,
+- `disabled`: A boolean value that will disable this component if true (defaults to `false`),
+- `name`: A string value for name of component (defaults to `"subnet_names"`)
+- `label`: (optional) A string label value (defaults to `"Subnets"`),
+- `initialSelectedItems`: An array of items that are initially selected (defaults to `[]`),
 - `onChange`: A function that defines what should occur when the selected items are changed
 
 ```js
@@ -265,11 +265,12 @@ export const SubnetMultiSelectExample = () => {
 
 VpcListMultiSelect is a customized IcseMultiSelect which can be used to select from a list of VPCs. VpcListMultiSelect accepts several arguments:
 
-- `invalid`: A boolean value for checking if any VPC input values are invalid,
+- `invalid`: A boolean value for checking if any VPC input values are invalid (defaults to `false`),
 - `id`: A string of the component's id,
 - `onChange`: A function that defines what should occur when the selected items are changed,
-- `initialSelectedItems`: An array of items that are initially selected,
-- `vpcList`: A (string) list of VPCs to select from
+- `initialSelectedItems`: An array of items that are initially selected (defaults to `[]`),
+- `vpcList`: An array (string) of VPCs to select from,
+- `titleText`: A string for the title of the multiselect (defaults to `"VPCS"`)
 
 ```js
 import { VpcListMultiSelect } from "icse-react-assets";
