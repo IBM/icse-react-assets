@@ -1,8 +1,16 @@
 import React from "react";
 import { CloudAlerting, Add } from "@carbon/icons-react";
+import { Tile } from "@carbon/react";
 import PropTypes from "prop-types";
 import "./styles/EmptyResourceTile.css";
-import { Tile } from "@carbon/react";
+
+/**
+ * Empty Resource Tile
+ * @param {*} props
+ * @param {string} props.name resource name
+ * @param {boolean} props.showIfEmpty if array is empty or boolean is false, show the empty resource tile
+ * @returns
+ */
 
 const EmptyResourceTile = (props) => {
   return props.showIfEmpty === false || props.showIfEmpty.length === 0 ? (
