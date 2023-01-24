@@ -296,7 +296,7 @@ export const VpcListMultiSelectExample = () => {
 
 RenderForm is a function that allows for dynamic passing of components and props, allowing users to quickly create dynamic rendering schemes. Render form accepts two arguments:
 
-- `form` a react node
+- `form` a react node,
 - `formProps` an object of arbitrary props to pass to the form
 
 ```js
@@ -317,7 +317,7 @@ export default RenderFormExample;
 
 DynamicRender is a function that allows for components to be dynamically rendered. DynamicRender accepts two arguments:
 
-- `hide`: A boolean value for if the component should be hidden
+- `hide`: A boolean value for if the component should be hidden,
 - `show`: The component to show when hide is false
 
 ```js
@@ -335,7 +335,7 @@ export const DynamicRenderExample = () => {
 
 #### TitleGroup
 
-TitleGroup is a component that creates a center aligned, full-width title. TitleGroup accepts two arguments:
+TitleGroup is a component that creates a vertically aligned, full-width title. TitleGroup accepts two arguments:
 
 - `hide`: A boolean value for if the title group should have a margin bottom added
 - `children` Child nodes to be displayed within the title group
@@ -356,9 +356,9 @@ export const TitleGroupExample = () => {
 
 IcseFormGroup is a component that creates a row of evenly spaced child components. IcseFormGroup accepts three arguments:
 
-- `noMarginBottom`: A boolean value for if the form group should have a margin applied on the bottom (defaults to false)
-- `children`: Child nodes to be displayed within the row,
-- `className`: String of space separated class names to add to the group
+- `noMarginBottom`: A boolean value for if the form group should have a margin applied on the bottom (defaults to false),
+- `className`: String of space separated class names to add to the group,
+- `children`: Child nodes to be displayed within the row
 
 ```js
 import { IcseFormGroup } from "icse-react-assets";
@@ -375,11 +375,11 @@ export const IcseFormGroupExample = () => {
 
 #### IcseSubForm
 
-IcseSubForm is a component that houses a form and applies styling to it. IcseFormGroup accepts four arguments:
+IcseSubForm is a component that houses a form and applies a background and padding to surround the form elements. IcseFormGroup accepts four arguments:
 
 - `id`: A string that represents a unique id for the subForm,
-- `formInSubForm`: A boolean that represents if this subform is within another subform, which changes the background to white. Defaults to false
-- `className`: A string of classnames to be applied to the subForm
+- `formInSubForm`: A boolean that represents if this subform is within another subform, which changes the background to white (defaults to false),
+- `className`: A string of classnames to be applied to the subForm,
 - `children`: Child nodes to be displayed within the subForm
 
 ```js
