@@ -1,15 +1,5 @@
 # icse-react-assets
 
-## Table of Contents
-
-1. [Getting Started](#getting-started)
-2. [Contribution Guidelines](#contribution-guidelines)
-3. [Documentation](#documentation)
-   - [Modals](#modals)
-     - [IcseModal](#icsemodal)
-     - [UnsavedChangesModal](#unsavedchangesmodal)
-     - [DeleteModal](#deletemodal)
-
 ## Getting Started
 
 1. `git clone https://github.ibm.com/icse/icse-react-assets.git && cd icse-react-assets`
