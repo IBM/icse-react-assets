@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { Tile, Toggletip, ToggletipButton, ToggletipContent, Link } from '@carbon/react';
 import { titleCase } from 'lazy-z';
 =======
@@ -27,6 +28,9 @@ import { WarningAlt, CloudAlerting, Add } from '@carbon/icons-react';
 import PropTypes from 'prop-types';
 import { FilterableMultiSelect, MultiSelect, Tile, Toggletip, ToggletipButton, ToggletipContent, Link, Modal } from '@carbon/react';
 import { prettyJSON, isNullOrEmptyString, titleCase } from 'lazy-z';
+=======
+import { prettyJSON, isNullOrEmptyString } from 'lazy-z';
+>>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
 import { WarningAlt, CloudAlerting, Add, Information } from '@carbon/icons-react';
 >>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
 =======
@@ -65,6 +69,7 @@ function toggleMarginBottom(hide) {
 }
 >>>>>>> cf684ab (added css and fixed imports)
 
+<<<<<<< HEAD
 /**
  * create a composed class name
  * @param {string} className name of classes to add
@@ -462,6 +467,8 @@ function _objectSpread2(target) {
   }
   return target;
 }
+=======
+>>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -483,20 +490,6 @@ function _createClass(Constructor, protoProps, staticProps) {
     writable: false
   });
   return Constructor;
-}
-function _defineProperty(obj, key, value) {
-  key = _toPropertyKey(key);
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-  return obj;
 }
 function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
@@ -1157,6 +1150,79 @@ styleInject(css_248z$2);
 /**
 =======
 /**
+ * create a composed class name
+ * @param {string} className name of classes to add
+ * @param {*} props arbitrary props
+ * @param {string=} props.className additional classnames
+ */
+function addClassName$1(className, props) {
+  let composedClassName = className;
+  if (props?.className) {
+    composedClassName += " " + props.className;
+    if (props.noMarginRight === true) {
+      composedClassName = composedClassName.replace(/\s?marginRight\b/g, "");
+    }
+  }
+  return composedClassName;
+}
+
+/**
+ * add margin bottom to subform chevron
+ * @param {*} componentProps
+ * @returns {string} additional classNames
+ */
+function toggleMarginBottom$1(hide) {
+  if (hide === false) return " marginBottomSmall";else return "";
+}
+
+var formUtils = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  addClassName: addClassName$1,
+  toggleMarginBottom: toggleMarginBottom$1
+});
+
+const {
+  toggleMarginBottom,
+  addClassName
+} = formUtils;
+var lib = {
+  toggleMarginBottom,
+  addClassName
+};
+var lib_1 = lib.toggleMarginBottom;
+var lib_2 = lib.addClassName;
+
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css_248z$5 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n}\n";
+styleInject(css_248z$5);
+
+/**
  * Wrapper for carbon popover component to handle individual component mouseover
  */
 var PopoverWrapper = /*#__PURE__*/function (_React$Component) {
@@ -1199,7 +1265,7 @@ var PopoverWrapper = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       return this.props.noPopover === true || this.props.hoverText === "" ? this.props.children : /*#__PURE__*/React.createElement("div", {
-        className: addClassName("popover-obj", this.props),
+        className: lib_2("popover-obj", this.props),
         onMouseEnter: this.handleMouseOver,
         onMouseLeave: this.handleMouseOut
       }, /*#__PURE__*/React.createElement(Popover, {
@@ -1228,6 +1294,229 @@ PopoverWrapper.propTypes = {
   children: PropTypes.node.isRequired
 };
 
+<<<<<<< HEAD
+=======
+var css_248z$4 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+styleInject(css_248z$4);
+
+var css_248z$3 = ".leftTextAlign {\n  text-align: left;\n}\n";
+styleInject(css_248z$3);
+
+/**
+ * Icse multiselect template
+ */
+const IcseMultiSelect = props => {
+  return /*#__PURE__*/React.createElement(FilterableMultiSelect, {
+    id: props.id,
+    className: lib_2("fieldWidth leftTextAlign cds--select", props),
+    titleText: props.titleText,
+    itemToString: item => item ? item : "",
+    invalid: props.invalid,
+    invalidText: props.invalidText,
+    initialSelectedItems: props.initialSelectedItems,
+    onChange: props.onChange,
+    items: props.items,
+    useTitleInItem: props.useTitleInItem,
+    label: props.label,
+    disabled: props.disabled
+  });
+};
+IcseMultiSelect.defaultProps = {
+  disabled: false,
+  useTitleInItem: false,
+  invalid: false,
+  invalidText: "Invalid value"
+};
+IcseMultiSelect.propTypes = {
+  id: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  titleText: PropTypes.string.isRequired,
+  invalid: PropTypes.bool.isRequired,
+  invalidText: PropTypes.string.isRequired,
+  initialSelectedItems: PropTypes.array.isRequired,
+  onChange: PropTypes.func.isRequired,
+  items: PropTypes.arrayOf(PropTypes.string).isRequired,
+  useTitleInItem: PropTypes.bool.isRequired,
+  label: PropTypes.string,
+  disabled: PropTypes.bool.isRequired
+};
+
+/**
+ * ssh key multiselect
+ */
+const SshKeyMultiSelect = props => {
+  return /*#__PURE__*/React.createElement(IcseMultiSelect, {
+    id: props.id + "-ssh-key-multiselect",
+    useTitleInItem: true,
+    label: "SSH Keys",
+    titleText: "SSH Keys",
+    invalidText: "At least one SSH Key is required",
+    invalid: props.initialSelectedItems.length === 0,
+    items: props.sshKeys,
+    initialSelectedItems: props.initialSelectedItems || [],
+    onChange: event => {
+      props.onChange(event.selectedItems);
+    },
+    className: "fieldWidthSmaller cds--form-item"
+  });
+};
+SshKeyMultiSelect.defaultProps = {
+  initialSelectedItems: []
+};
+SshKeyMultiSelect.propTypes = {
+  id: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  sshKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
+  initialSelectedItems: PropTypes.arrayOf(PropTypes.string).isRequired
+};
+
+/**
+ * sg multiselect
+ */
+const SecurityGroupMultiSelect = props => {
+  if (props.vpc_name && !props.securityGroups) {
+    // checking props.securityGroups[props.vpc_name] will result in an
+    // undefined error that happens as part of MultiSelect
+    throw new Error("SecurityGroupMultiselect requires a securityGroups object. Got " + prettyJSON(props.securityGroups));
+  }
+  return /*#__PURE__*/React.createElement(MultiSelect, {
+    id: props.id + "-security-group-multiselect",
+    label: props.label,
+    titleText: "Security Groups",
+    className: "fieldWidthSmaller cds--form-item",
+    initialSelectedItems: props.initialSelectedItems,
+    vpc_name: props.vpc_name,
+    invalid: props.invalid,
+    invalidText: "Invalid Selection",
+    onChange: event => {
+      props.onChange(event.selectedItems);
+    },
+    disabled: props.disabled,
+    items: props.vpc_name === "" ? [] : props.securityGroups[props.vpc_name],
+    itemToString: item => item ? item : ""
+  });
+};
+SecurityGroupMultiSelect.defaultProps = {
+  disabled: false,
+  label: "Select Security Groups",
+  invalid: false
+};
+SecurityGroupMultiSelect.propTypes = {
+  id: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  initialSelectedItems: PropTypes.array.isRequired,
+  vpc_name: PropTypes.string,
+  // not required, null value should be valid
+  onChange: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  securityGroups: PropTypes.object.isRequired,
+  invalid: PropTypes.bool.isRequired
+};
+
+/**
+ * vpc subnet multiselect
+ */
+const SubnetMultiSelect = props => {
+  return /*#__PURE__*/React.createElement(IcseMultiSelect, {
+    id: props.id + "-subnet-multiselect",
+    className: props.className,
+    titleText: "Subnets",
+    name: props.name,
+    label: props.label,
+    items: isNullOrEmptyString(props.vpc_name) ? [] : props.subnets[props.vpc_name],
+    initialSelectedItems: props.initialSelectedItems,
+    invalidText: isNullOrEmptyString(props.vpc_name) ? "Select a VPC." : "Select at least one subnet.",
+    invalid: props.initialSelectedItems.length === 0,
+    disabled: props.disabled,
+    onChange: event => props.onChange(event.selectedItems)
+  });
+};
+SubnetMultiSelect.defaultProps = {
+  name: "subnet_names",
+  label: "Subnets",
+  disabled: false,
+  vpc_name: "",
+  initialSelectedItems: []
+};
+SubnetMultiSelect.propTypes = {
+  id: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  vpc_name: PropTypes.string,
+  // not required, `null` needs to be passed here
+  subnets: PropTypes.object.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  initialSelectedItems: PropTypes.array.isRequired,
+  onChange: PropTypes.func.isRequired
+};
+
+/**
+ * VPC List MultiSelect
+ */
+const VpcListMultiSelect = props => {
+  // throw error here so that passing no vpc list prop will error here
+  // instead of being passed to `FilterableMultiselect`
+  if (!props.vpcList) {
+    throw new Error("VpcListMultiSelect requires a list of VPCs using the prop `vpcList`. Got " + prettyJSON(props.vpcList));
+  }
+  return /*#__PURE__*/React.createElement(IcseMultiSelect, {
+    invalidText: "At least one VPC must be selected.",
+    invalid: props.invalid,
+    id: props.id + "-vpc-select",
+    titleText: props.titleText,
+    onChange: event => props.onChange(event.selectedItems),
+    initialSelectedItems: props.initialSelectedItems,
+    className: props.className,
+    items: props.vpcList
+  });
+};
+VpcListMultiSelect.defaultProps = {
+  invalid: false,
+  titleText: "VPCs",
+  initialSelectedItems: []
+};
+VpcListMultiSelect.propTypes = {
+  invalid: PropTypes.bool.isRequired,
+  id: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  initialSelectedItems: PropTypes.array.isRequired,
+  vpcList: PropTypes.arrayOf(PropTypes.string).isRequired
+};
+
+/**
+ * Under Construction Page
+ */
+const UnderConstruction = () => {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(WarningAlt, {
+    size: "128"
+  }), /*#__PURE__*/React.createElement("h4", null, "Page Under Construction"));
+};
+
+var css_248z$2 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z$2);
+
+const EmptyResourceTile = props => {
+  return props.showIfEmpty === false || props.showIfEmpty.length === 0 ? /*#__PURE__*/React.createElement(Tile, {
+    className: "marginBottomXs tileBackground"
+  }, /*#__PURE__*/React.createElement(CloudAlerting, {
+    size: "24",
+    className: "iconMargin"
+  }), "No ", props.name, ".", " ", props.instructions || /*#__PURE__*/React.createElement(React.Fragment, null, "Click", /*#__PURE__*/React.createElement(Add, {
+    size: "24",
+    className: "inlineIconMargin"
+  }), "button to add one.")) : "";
+};
+EmptyResourceTile.defaultProps = {
+  name: "items in this list"
+};
+EmptyResourceTile.propTypes = {
+  name: PropTypes.string.isRequired,
+  showIfEmpty: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]).isRequired
+};
+
+>>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
 var css_248z$1 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
 styleInject(css_248z$1);
 
@@ -1239,6 +1528,7 @@ styleInject(css_248z$1);
  * @returns Form element
  */
 function RenderForm(form, formProps) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1256,6 +1546,11 @@ function RenderForm(form, formProps) {
     ...formProps
   });
 >>>>>>> e90fadd (updates)
+=======
+  return /*#__PURE__*/React.createElement(form, {
+    ...formProps
+  });
+>>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
 }
 
 /**
@@ -1274,6 +1569,7 @@ function DynamicRender(props) {
  */
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const TitleGroup = props => {
   return /*#__PURE__*/React.createElement("div", {
     className: addClassName(`displayFlex alignItemsCenter widthOneHundredPercent ${toggleMarginBottom(props.hide)}`, props)
@@ -1290,6 +1586,11 @@ const TitleGroup = props => {
   return /*#__PURE__*/React.createElement("div", {
     className: lib_2(`displayFlex alignItemsCenter widthOneHundredPercent ${lib_1(props.hide)}`, props)
 >>>>>>> e90fadd (updates)
+=======
+const TitleGroup = props => {
+  return /*#__PURE__*/React.createElement("div", {
+    className: lib_2(`displayFlex alignItemsCenter widthOneHundredPercent ${lib_1(props.hide)}`, props)
+>>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
   }, props.children);
 };
 TitleGroup.defaultProps = {
@@ -1298,6 +1599,7 @@ TitleGroup.defaultProps = {
 TitleGroup.propTypes = {
   children: PropTypes.node.isRequired
 };
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 const IcseFormGroup = props => {
@@ -1310,6 +1612,10 @@ var IcseFormGroup = function IcseFormGroup(props) {
 const IcseFormGroup = props => {
   let formGroupClassName = "displayFlex marginBottom fitContent evenSpacing";
 >>>>>>> e90fadd (updates)
+=======
+const IcseFormGroup = props => {
+  let formGroupClassName = "displayFlex marginBottom fitContent evenSpacing";
+>>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
   // remove margin bottom from formGroup for VPC
   if (props.noMarginBottom) {
     formGroupClassName = formGroupClassName.replace(/\smarginBottom/g, "");
@@ -1328,6 +1634,7 @@ IcseFormGroup.propTypes = {
 };
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const IcseSubForm = props => {
 =======
 var IcseSubForm = function IcseSubForm(props) {
@@ -1338,6 +1645,9 @@ var IcseSubForm = function IcseSubForm(props) {
 =======
 const IcseSubForm = props => {
 >>>>>>> e90fadd (updates)
+=======
+const IcseSubForm = props => {
+>>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
   return /*#__PURE__*/React.createElement("div", {
     className: lib_2(props.formInSubForm ? "formInSubForm positionRelative" : "subForm marginBottomSmall", props),
     id: props.id
@@ -1384,6 +1694,7 @@ styleInject(css_248z$1);
  */
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const IcseToolTip = props => {
   let link = /*#__PURE__*/React.createElement(Link, {
     onClick: () => window.open(props.link, "_blank")
@@ -1394,6 +1705,11 @@ var IcseToolTip = function IcseToolTip(props) {
       return window.open(props.link, "_blank");
     }
 >>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
+=======
+const IcseToolTip = props => {
+  let link = /*#__PURE__*/React.createElement(Link, {
+    onClick: () => window.open(props.link, "_blank")
+>>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
   }, "this link");
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Toggletip, {
     align: props.align
@@ -1411,6 +1727,7 @@ IcseToolTip.propTypes = {
   align: PropTypes.string.isRequired
 };
 <<<<<<< HEAD
+<<<<<<< HEAD
 const BuildToolTip = props => {
   return /*#__PURE__*/React.createElement(IcseToolTip, {
     content: props.tooltip.content,
@@ -1423,6 +1740,13 @@ var BuildToolTip = function BuildToolTip(props) {
     link: (_props$tooltip = props.tooltip) === null || _props$tooltip === void 0 ? void 0 : _props$tooltip.link,
 >>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
     align: props.isModal ? props.alignModal : props.align
+=======
+const BuildToolTip = props => {
+  return /*#__PURE__*/React.createElement(IcseToolTip, {
+    content: props.tooltip.content,
+    link: props.tooltip?.link,
+    align: props.isModal ? props.tooltip.alignModal : props.tooltip.align
+>>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
   });
 };
 BuildToolTip.defaultProps = {
@@ -1443,25 +1767,32 @@ BuildToolTip.propTypes = {
   alignModal: PropTypes.string.isRequired
 };
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
 const ToolTipWrapper = props => {
   let allProps = {
     ...props
   };
   let tooltip = BuildToolTip(props);
+<<<<<<< HEAD
 =======
 var ToolTipWrapper = function ToolTipWrapper(props) {
   var allProps = _objectSpread2({}, props);
   var tooltip = BuildToolTip(props);
 >>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
+=======
+>>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
   delete allProps.innerForm;
   delete allProps.tooltip;
   delete allProps.noLabelText;
-  //check for labelText or field prop for components where it is a valid param
-  if (!props.noLabelText && props.labelText === undefined && props.field === undefined) {
-    throw new Error("ToolTipWrapper expects either `props.labelText` or `props.field` when rendering labelText to be provided, got neither. To not render label text, use the `noLabelText` prop.");
+  //check for labelText prop for components where it is a valid param
+  if (!props.noLabelText && props.labelText === undefined) {
+    throw new Error("ToolTipWrapper expects `props.labelText` when rendering labelText to be provided, got neither. To not render label text, use the `noLabelText` prop.");
   }
   // remove label text from components where it is not valid param
   if (props.noLabelText) delete allProps.labelText;else allProps.labelText = " ";
+<<<<<<< HEAD
 <<<<<<< HEAD
   allProps.className = addClassName("tooltip", {
     ...props
@@ -1471,6 +1802,11 @@ var ToolTipWrapper = function ToolTipWrapper(props) {
   }, console.log(props.field), props.noLabelText ?
 =======
   allProps.className = addClassName("tooltip", _objectSpread2({}, props));
+=======
+  allProps.className = lib_2("tooltip", {
+    ...props
+  });
+>>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
   return /*#__PURE__*/React.createElement("div", {
     className: "cds--form-item"
   }, props.noLabelText ?
@@ -1627,7 +1963,7 @@ const ToolTipWrapper = props => {
     className: "cds--label labelRow"
   }, /*#__PURE__*/React.createElement("label", {
     htmlFor: props.id
-  }, props.labelText || titleCase(props.field)), tooltip), props.children ? /*#__PURE__*/React.cloneElement(props.children, {
+  }, props.labelText), tooltip), props.children ? /*#__PURE__*/React.cloneElement(props.children, {
     // adjust props
     labelText: " ",
     // set labelText to empty
@@ -1645,12 +1981,12 @@ ToolTipWrapper.propTypes = {
     content: PropTypes.string.isRequired,
     link: PropTypes.string
   }).isRequired,
+  isModal: PropTypes.bool,
   id: PropTypes.string.isRequired,
   labelText: PropTypes.string,
-  field: PropTypes.string,
   noLabelText: PropTypes.bool.isRequired,
   children: PropTypes.node,
-  innerForm: PropTypes.object
+  innerForm: PropTypes.oneOfType([PropTypes.object, PropTypes.func])
 };
 const DynamicToolTipWrapper = props => {
   //make sure that either children or innerForm are passed as a prop
@@ -1659,19 +1995,14 @@ const DynamicToolTipWrapper = props => {
   }
   return props.tooltip ? /*#__PURE__*/React.createElement(ToolTipWrapper, props) : props.children ? props.children : RenderForm(props.innerForm, {});
 };
-DynamicToolTipWrapper.defaultProps = {
-  tooltip: {
-    content: "",
-    link: false
-  }
-};
 DynamicToolTipWrapper.propTypes = {
   tooltip: PropTypes.shape({
-    content: PropTypes.string.isRequired,
+    content: PropTypes.string,
     link: PropTypes.string
-  }).isRequired,
+  }),
+  isModal: PropTypes.bool,
   children: PropTypes.node,
-  innerForm: PropTypes.object
+  innerForm: PropTypes.oneOfType([PropTypes.object, PropTypes.func])
 };
 
 /**
@@ -1692,6 +2023,7 @@ DynamicToolTipWrapper.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const IcseModal = props => {
 =======
 var IcseModal = function IcseModal(props) {
@@ -1708,6 +2040,9 @@ var IcseModal = function IcseModal(props) {
 =======
 const IcseModal = props => {
 >>>>>>> e90fadd (updates)
+=======
+const IcseModal = props => {
+>>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
   /*#__PURE__*/React.createElement("strong", null, props.name);
   return /*#__PURE__*/React.createElement(Modal, {
     id: props.id,
@@ -1759,6 +2094,7 @@ IcseModal.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const DeleteModal = props => {
   let name = /*#__PURE__*/React.createElement("strong", null, props.name);
 =======
@@ -1780,6 +2116,10 @@ var DeleteModal = function DeleteModal(props) {
 const DeleteModal = props => {
   let name = /*#__PURE__*/React.createElement("strong", null, props.name);
 >>>>>>> e90fadd (updates)
+=======
+const DeleteModal = props => {
+  let name = /*#__PURE__*/React.createElement("strong", null, props.name);
+>>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
   return /*#__PURE__*/React.createElement(IcseModal, {
     id: props.name + "-delete",
     name: props.name,
@@ -1814,6 +2154,7 @@ DeleteModal.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const UnsavedChangesModal = props => {
   let name = props.name;
 =======
@@ -1835,6 +2176,10 @@ var UnsavedChangesModal = function UnsavedChangesModal(props) {
 const UnsavedChangesModal = props => {
   let name = props.name;
 >>>>>>> e90fadd (updates)
+=======
+const UnsavedChangesModal = props => {
+  let name = props.name;
+>>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
   return /*#__PURE__*/React.createElement("div", {
     className: "unsaved-changes-modal-area"
   }, /*#__PURE__*/React.createElement(IcseModal, {
@@ -1860,6 +2205,7 @@ UnsavedChangesModal.propTypes = {
   useDefaultUnsavedMessage: PropTypes.bool
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1934,3 +2280,6 @@ IcseToggle.propTypes = {
 
 export { DeleteModal, DynamicRender, DynamicToolTipWrapper, EmptyResourceTile, IcseFormGroup, IcseModal, IcseMultiSelect, IcseSubForm, IcseToggle, IcseToolTip, PopoverWrapper, RenderForm, SecurityGroupMultiSelect, SshKeyMultiSelect, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, VpcListMultiSelect };
 >>>>>>> e90fadd (updates)
+=======
+export { DeleteModal, DynamicRender, DynamicToolTipWrapper, EmptyResourceTile, IcseFormGroup, IcseModal, IcseMultiSelect, IcseSubForm, IcseToolTip, PopoverWrapper, RenderForm, SecurityGroupMultiSelect, SshKeyMultiSelect, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, VpcListMultiSelect };
+>>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))

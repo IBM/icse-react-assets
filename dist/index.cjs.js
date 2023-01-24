@@ -57,6 +57,7 @@ var PropTypes__default = /*#__PURE__*/_interopDefaultLegacy(PropTypes);
 >>>>>>> faf8c38 (fixed imports)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /**
  * create a composed class name
  * @param {string} className name of classes to add
@@ -164,6 +165,8 @@ function _objectSpread2(target) {
 }
 =======
 >>>>>>> e90fadd (updates)
+=======
+>>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -186,6 +189,7 @@ function _createClass(Constructor, protoProps, staticProps) {
   });
   return Constructor;
 }
+<<<<<<< HEAD
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -200,6 +204,8 @@ function _extends() {
   };
   return _extends.apply(this, arguments);
 }
+=======
+>>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
 function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function");
@@ -309,6 +315,7 @@ function toggleMarginBottom$1(hide) {
   if (hide === false) return " marginBottomSmall";else return "";
 }
 
+<<<<<<< HEAD
 /**
  * format input placeholder
  * @param {string} componentName
@@ -324,10 +331,17 @@ var formUtils = /*#__PURE__*/Object.freeze({
   addClassName: addClassName$1,
   toggleMarginBottom: toggleMarginBottom$1,
   formatInputPlaceholder: formatInputPlaceholder$1
+=======
+var formUtils = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  addClassName: addClassName$1,
+  toggleMarginBottom: toggleMarginBottom$1
+>>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
 });
 
 const {
   toggleMarginBottom,
+<<<<<<< HEAD
   addClassName,
   formatInputPlaceholder
 } = formUtils;
@@ -335,6 +349,13 @@ var lib = {
   toggleMarginBottom,
   addClassName,
   formatInputPlaceholder
+=======
+  addClassName
+} = formUtils;
+var lib = {
+  toggleMarginBottom,
+  addClassName
+>>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
 };
 var lib_1 = lib.toggleMarginBottom;
 var lib_2 = lib.addClassName;
@@ -366,8 +387,13 @@ function styleInject(css, ref) {
   }
 }
 
+<<<<<<< HEAD
 var css_248z$6 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n}\n";
 styleInject(css_248z$6);
+=======
+var css_248z$5 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n}\n";
+styleInject(css_248z$5);
+>>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -443,6 +469,7 @@ PopoverWrapper.propTypes = {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
@@ -453,6 +480,9 @@ styleInject(css_248z$5);
 >>>>>>> e90fadd (updates)
 
 var css_248z$4 = ".leftTextAlign {\n  text-align: left;\n}\n";
+=======
+var css_248z$4 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+>>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
 styleInject(css_248z$4);
 
 /**
@@ -790,7 +820,11 @@ const BuildToolTip = props => {
   return /*#__PURE__*/React__default["default"].createElement(IcseToolTip, {
     content: props.tooltip.content,
     link: props.tooltip?.link,
+<<<<<<< HEAD
     align: props.isModal ? props.alignModal : props.align
+=======
+    align: props.isModal ? props.tooltip.alignModal : props.tooltip.align
+>>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
   });
 };
 BuildToolTip.defaultProps = {
@@ -818,9 +852,9 @@ const ToolTipWrapper = props => {
   delete allProps.innerForm;
   delete allProps.tooltip;
   delete allProps.noLabelText;
-  //check for labelText or field prop for components where it is a valid param
-  if (!props.noLabelText && props.labelText === undefined && props.field === undefined) {
-    throw new Error("ToolTipWrapper expects either `props.labelText` or `props.field` when rendering labelText to be provided, got neither. To not render label text, use the `noLabelText` prop.");
+  //check for labelText prop for components where it is a valid param
+  if (!props.noLabelText && props.labelText === undefined) {
+    throw new Error("ToolTipWrapper expects `props.labelText` when rendering labelText to be provided, got neither. To not render label text, use the `noLabelText` prop.");
   }
   // remove label text from components where it is not valid param
   if (props.noLabelText) delete allProps.labelText;else allProps.labelText = " ";
@@ -838,7 +872,7 @@ const ToolTipWrapper = props => {
     className: "cds--label labelRow"
   }, /*#__PURE__*/React__default["default"].createElement("label", {
     htmlFor: props.id
-  }, props.labelText || lazyZ.titleCase(props.field)), tooltip), props.children ? /*#__PURE__*/React__default["default"].cloneElement(props.children, {
+  }, props.labelText), tooltip), props.children ? /*#__PURE__*/React__default["default"].cloneElement(props.children, {
     // adjust props
     labelText: " ",
     // set labelText to empty
@@ -856,12 +890,12 @@ ToolTipWrapper.propTypes = {
     content: PropTypes__default["default"].string.isRequired,
     link: PropTypes__default["default"].string
   }).isRequired,
+  isModal: PropTypes__default["default"].bool,
   id: PropTypes__default["default"].string.isRequired,
   labelText: PropTypes__default["default"].string,
-  field: PropTypes__default["default"].string,
   noLabelText: PropTypes__default["default"].bool.isRequired,
   children: PropTypes__default["default"].node,
-  innerForm: PropTypes__default["default"].object
+  innerForm: PropTypes__default["default"].oneOfType([PropTypes__default["default"].object, PropTypes__default["default"].func])
 };
 const DynamicToolTipWrapper = props => {
   //make sure that either children or innerForm are passed as a prop
@@ -870,19 +904,14 @@ const DynamicToolTipWrapper = props => {
   }
   return props.tooltip ? /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, props) : props.children ? props.children : RenderForm(props.innerForm, {});
 };
-DynamicToolTipWrapper.defaultProps = {
-  tooltip: {
-    content: "",
-    link: false
-  }
-};
 DynamicToolTipWrapper.propTypes = {
   tooltip: PropTypes__default["default"].shape({
-    content: PropTypes__default["default"].string.isRequired,
+    content: PropTypes__default["default"].string,
     link: PropTypes__default["default"].string
-  }).isRequired,
+  }),
+  isModal: PropTypes__default["default"].bool,
   children: PropTypes__default["default"].node,
-  innerForm: PropTypes__default["default"].object
+  innerForm: PropTypes__default["default"].oneOfType([PropTypes__default["default"].object, PropTypes__default["default"].func])
 };
 
 /**
@@ -1070,9 +1099,13 @@ exports.TitleGroup = TitleGroup;
 exports.UnderConstruction = UnderConstruction;
 exports.UnsavedChangesModal = UnsavedChangesModal;
 <<<<<<< HEAD
+<<<<<<< HEAD
 exports.addClassName = addClassName;
 exports.toggleMarginBottom = toggleMarginBottom;
 >>>>>>> 7ab206c (working on editing imports)
 =======
 exports.VpcListMultiSelect = VpcListMultiSelect;
 >>>>>>> e90fadd (updates)
+=======
+exports.VpcListMultiSelect = VpcListMultiSelect;
+>>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))

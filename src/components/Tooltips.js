@@ -1,6 +1,5 @@
 import { RenderForm } from "./Utils";
 import { addClassName } from "../lib";
-import { titleCase } from "lazy-z";
 import React from "react";
 import {
   Toggletip,
@@ -53,7 +52,7 @@ const BuildToolTip = (props) => {
     <IcseToolTip
       content={props.tooltip.content}
       link={props.tooltip?.link}
-      align={props.isModal ? props.alignModal : props.align}
+      align={props.isModal ? props.tooltip.alignModal : props.tooltip.align}
     />
   );
 };
@@ -83,14 +82,10 @@ export const ToolTipWrapper = (props) => {
   delete allProps.innerForm;
   delete allProps.tooltip;
   delete allProps.noLabelText;
-  //check for labelText or field prop for components where it is a valid param
-  if (
-    !props.noLabelText &&
-    props.labelText === undefined &&
-    props.field === undefined
-  ) {
+  //check for labelText prop for components where it is a valid param
+  if (!props.noLabelText && props.labelText === undefined) {
     throw new Error(
-      "ToolTipWrapper expects either `props.labelText` or `props.field` when rendering labelText to be provided, got neither. To not render label text, use the `noLabelText` prop."
+      "ToolTipWrapper expects `props.labelText` when rendering labelText to be provided, got neither. To not render label text, use the `noLabelText` prop."
     );
   }
   // remove label text from components where it is not valid param
@@ -109,9 +104,7 @@ export const ToolTipWrapper = (props) => {
       ) : (
         <>
           <div className="cds--label labelRow">
-            <label htmlFor={props.id}>
-              {props.labelText || titleCase(props.field)}
-            </label>
+            <label htmlFor={props.id}>{props.labelText}</label>
             {tooltip}
           </div>
           {props.children
@@ -139,12 +132,12 @@ ToolTipWrapper.propTypes = {
     content: PropTypes.string.isRequired,
     link: PropTypes.string,
   }).isRequired,
+  isModal: PropTypes.bool,
   id: PropTypes.string.isRequired,
   labelText: PropTypes.string,
-  field: PropTypes.string,
   noLabelText: PropTypes.bool.isRequired,
   children: PropTypes.node,
-  innerForm: PropTypes.object,
+  innerForm: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 };
 
 export const DynamicToolTipWrapper = (props) => {
@@ -163,18 +156,12 @@ export const DynamicToolTipWrapper = (props) => {
   );
 };
 
-DynamicToolTipWrapper.defaultProps = {
-  tooltip: {
-    content: "",
-    link: false,
-  },
-};
-
 DynamicToolTipWrapper.propTypes = {
   tooltip: PropTypes.shape({
-    content: PropTypes.string.isRequired,
+    content: PropTypes.string,
     link: PropTypes.string,
-  }).isRequired,
+  }),
+  isModal: PropTypes.bool,
   children: PropTypes.node,
-  innerForm: PropTypes.object,
+  innerForm: PropTypes.oneOfType([PropTypes.object, PropTypes.func]),
 };
