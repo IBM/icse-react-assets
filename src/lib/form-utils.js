@@ -15,6 +15,27 @@ function addClassName(className, props) {
   return composedClassName;
 }
 
+/** check if input is null or empty string
+ * @param {string} input
+ * @returns {boolean} true if str null or ""
+ */
+function checkNullorEmptyString(input) {
+  if (input === null || input === "") return true;
+  else return false;
+}
+
+
+/**
+ * preprend [""] to an existing array if check is true
+ * @param {*} value check value if it is null or empty string
+ * @param {Array<string>} arr
+ */
+function prependEmptyStringToArrayOnNullOrEmptyString(value, arr) {
+  let arrayCheck = checkNullorEmptyString(value);
+  let prependArray = arrayCheck ? [""] : [];
+  return prependArray.concat(arr);
+}
+
 /**
  * add margin bottom to subform chevron
  * @param {*} componentProps
@@ -25,4 +46,8 @@ function toggleMarginBottom(hide) {
   else return "";
 }
 
+<<<<<<< HEAD
 module.exports = { addClassName, toggleMarginBottom };
+=======
+export { addClassName, toggleMarginBottom, prependEmptyStringToArrayOnNullOrEmptyString, checkNullorEmptyString };
+>>>>>>> 67351ff (Dropdowns components)

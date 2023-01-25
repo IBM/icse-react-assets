@@ -25,10 +25,16 @@ export {
   UnderConstruction,
   UnsavedChangesModal,
   VpcListMultiSelect,
+<<<<<<< HEAD
   IcseToggle,
   IcseTextInput,
   IcseNameInput,
   buildFormDefaultInputMethods,
   buildFormFunctions,
+=======
+  FetchSelect,
+  IcseSelect,
+  IcseNumberSelect
+>>>>>>> 67351ff (Dropdowns components)
 } from "./components/index.js";
 >>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))

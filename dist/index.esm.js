@@ -4,18 +4,23 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import { Popover, PopoverContent, FilterableMultiSelect, MultiSelect, Tile, Toggletip, ToggletipButton, ToggletipContent, Link, Modal, TextInput, Toggle, Button } from '@carbon/react';
 >>>>>>> 04bfb65 (added button examples)
 =======
 import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, Link, TextInput, Toggle, FilterableMultiSelect, MultiSelect, Tile, Modal } from '@carbon/react';
 >>>>>>> 8db187e (form and documentation)
+=======
+import { Popover, PopoverContent, FilterableMultiSelect, MultiSelect, Toggletip, ToggletipButton, ToggletipContent, Link, Select, SelectItem, Tile, Modal } from '@carbon/react';
+>>>>>>> 67351ff (Dropdowns components)
 import React from 'react';
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
 import PropTypes from 'prop-types';
+<<<<<<< HEAD
 <<<<<<< HEAD
 import { kebabCase, prettyJSON, isNullOrEmptyString, snakeCase, titleCase, isBoolean } from 'lazy-z';
 <<<<<<< HEAD
@@ -55,6 +60,10 @@ import { Tile, Popover, PopoverContent, Modal } from '@carbon/react';
 =======
 import { WarningAlt, CloudAlerting, Add, Information, Save, CloseFilled, Edit, TrashCan, ArrowUp, ArrowDown } from '@carbon/icons-react';
 >>>>>>> 04bfb65 (added button examples)
+=======
+import { prettyJSON, isNullOrEmptyString, isEmpty, buildNumberDropdownList, kebabCase } from 'lazy-z';
+import { Information, WarningAlt, CloudAlerting, Add } from '@carbon/icons-react';
+>>>>>>> 67351ff (Dropdowns components)
 
 <<<<<<< HEAD
 var _require = require("./form-utils"),
@@ -510,6 +519,20 @@ function _createClass(Constructor, protoProps, staticProps) {
     writable: false
   });
   return Constructor;
+}
+function _extends() {
+  _extends = Object.assign ? Object.assign.bind() : function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
+  return _extends.apply(this, arguments);
 }
 function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
@@ -2815,6 +2838,25 @@ function addClassName$1(className, props) {
   return composedClassName;
 }
 
+/** check if input is null or empty string
+ * @param {string} input
+ * @returns {boolean} true if str null or ""
+ */
+function checkNullorEmptyString$1(input) {
+  if (input === null || input === "") return true;else return false;
+}
+
+/**
+ * preprend [""] to an existing array if check is true
+ * @param {*} value check value if it is null or empty string
+ * @param {Array<string>} arr
+ */
+function prependEmptyStringToArrayOnNullOrEmptyString$1(value, arr) {
+  let arrayCheck = checkNullorEmptyString$1(value);
+  let prependArray = arrayCheck ? [""] : [];
+  return prependArray.concat(arr);
+}
+
 /**
  * add margin bottom to subform chevron
  * @param {*} componentProps
@@ -2827,19 +2869,26 @@ function toggleMarginBottom$1(hide) {
 var formUtils = /*#__PURE__*/Object.freeze({
   __proto__: null,
   addClassName: addClassName$1,
-  toggleMarginBottom: toggleMarginBottom$1
+  toggleMarginBottom: toggleMarginBottom$1,
+  prependEmptyStringToArrayOnNullOrEmptyString: prependEmptyStringToArrayOnNullOrEmptyString$1,
+  checkNullorEmptyString: checkNullorEmptyString$1
 });
 
 const {
   toggleMarginBottom,
-  addClassName
+  addClassName,
+  prependEmptyStringToArrayOnNullOrEmptyString,
+  checkNullorEmptyString
 } = formUtils;
 var lib = {
   toggleMarginBottom,
-  addClassName
+  addClassName,
+  prependEmptyStringToArrayOnNullOrEmptyString,
+  checkNullorEmptyString
 };
 var lib_1 = lib.toggleMarginBottom;
 var lib_2 = lib.addClassName;
+var lib_3 = lib.prependEmptyStringToArrayOnNullOrEmptyString;
 
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
@@ -3134,19 +3183,11 @@ VpcListMultiSelect.propTypes = {
   vpcList: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
-/**
- * Under Construction Page
- */
-const UnderConstruction = () => {
-  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(WarningAlt, {
-    size: "128"
-  }), /*#__PURE__*/React.createElement("h4", null, "Page Under Construction"));
-};
-
-var css_248z$2 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+var css_248z$2 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
 styleInject(css_248z$2);
 
 /**
+<<<<<<< HEAD
  * Empty Resource Tile
  * @param {*} props
  * @param {string} props.name resource name
@@ -3180,6 +3221,8 @@ styleInject(css_248z$1);
 
 /**
 >>>>>>> 7ab206c (working on editing imports)
+=======
+>>>>>>> 67351ff (Dropdowns components)
  * Render a form
  * @param {*} form form element
  * @param {*} formProps props
@@ -3348,6 +3391,7 @@ IcseSubForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z = ".labelRow {\n  display: inline-flex;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
 styleInject(css_248z);
 =======
@@ -3369,6 +3413,10 @@ styleInject(css_248z$1);
 var css_248z$2 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
 styleInject(css_248z$2);
 >>>>>>> 04bfb65 (added button examples)
+=======
+var css_248z$1 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+styleInject(css_248z$1);
+>>>>>>> 67351ff (Dropdowns components)
 
 /**
  * render a tooltip around an input field
@@ -3687,8 +3735,237 @@ DynamicToolTipWrapper.propTypes = {
   innerForm: PropTypes.oneOfType([PropTypes.object, PropTypes.func])
 };
 
+<<<<<<< HEAD
 =======
 >>>>>>> 8db187e (form and documentation)
+=======
+const IcseSelect = props => {
+  let invalid =
+  // automatically set to invalid is is null or empty string and invalid not disabled
+  props.disableInvalid !== true && isNullOrEmptyString(props.value) ? true : props.invalid;
+  let groups = props.groups.length === 0 ? [] // if no groups, empty array
+  : lib_3(
+  // otherwise try and prepend empty string if null
+  props.value, props.groups);
+  // please leave debug here //
+  if (props.debug) {
+    console.log("PROPS: ", props);
+    console.log("GROUPS: ", groups);
+  }
+  return /*#__PURE__*/React.createElement(DynamicToolTipWrapper, _extends({
+    innerForm: () => {
+      return /*#__PURE__*/React.createElement(PopoverWrapper, {
+        hoverText: props.defaultValue || props.value || ""
+        // inherit classnames from tooltip
+        ,
+        className: props.tooltip ? "cds--form-item tooltip" : "cds--form-item"
+      }, /*#__PURE__*/React.createElement(Select, {
+        id: props.component + kebabCase(props.name),
+        name: props.name,
+        labelText: props.tooltip ? null : props.labelText,
+        value: props.value || undefined,
+        className: lib_2("fieldWidth leftTextAlign", props),
+        disabled: props.disabled,
+        invalid: invalid,
+        invalidText: props.invalidText,
+        readOnly: props.readOnly,
+        onChange: props.handleInputChange
+      }, groups.map(value => /*#__PURE__*/React.createElement(SelectItem, {
+        key: `${props.component}-${value}`,
+        text: value,
+        value: value
+      }))));
+    }
+  }, props));
+};
+IcseSelect.defaultProps = {
+  value: "",
+  disabled: false,
+  defaultValue: undefined,
+  // prevent null values erroring select when value is passed
+  disableInvalid: false,
+  invalid: false,
+  invalidText: "Invalid Selection",
+  readOnly: false,
+  groups: [],
+  debug: false
+};
+IcseSelect.propTypes = {
+  value: PropTypes.any,
+  // must accept null
+  component: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  disabled: PropTypes.bool.isRequired,
+  defaultValue: PropTypes.any,
+  disableInvalid: PropTypes.bool.isRequired,
+  invalid: PropTypes.bool.isRequired,
+  invalidText: PropTypes.string.isRequired,
+  readOnly: PropTypes.bool.isRequired,
+  groups: PropTypes.array.isRequired,
+  debug: PropTypes.bool.isRequired,
+  handleInputChange: PropTypes.func.isRequired,
+  labelText: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  tooltip: PropTypes.shape({
+    content: PropTypes.string.isRequired,
+    link: PropTypes.string,
+    alignModal: PropTypes.string
+  })
+};
+class FetchSelect extends React.Component {
+  _isMounted = false;
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: ["iks 1.3", "iks 2.5", "default"]
+    };
+  }
+  componentDidMount() {
+    this._isMounted = true;
+    if (isEmpty(this.state.data)) fetch("/api/cluster/data").then(res => res.json()).then(data => {
+      if (this._isMounted) this.setState({
+        data: data
+      });
+    }).catch(err => {
+      console.error(err);
+    });
+  }
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+  render() {
+    return /*#__PURE__*/React.createElement(IcseSelect, {
+      labelText: "Kube Version",
+      handleInputChange: this.props.handleInputChange,
+      name: "kube_version",
+      className: this.props.className,
+      component: "cluster",
+      url: this.props.url,
+      groups: this.state.data.filter(version => {
+        if (this.props.kube_type === "openshift" && version.indexOf("openshift") !== -1 ||
+        // is openshift and contains openshift
+        this.props.kube_type !== "openshift" && version.indexOf("openshift") === -1 ||
+        // is not openshift and does not contain openshift
+        version === "default" // or is default
+        ) {
+          return version;
+        }
+      }),
+      filter: array => {
+        groups = this.props.filter(array);
+      },
+      onReturnFunction: data => {
+        this.props.onReturnFunction(data);
+      },
+      value: this.props.value
+    });
+  }
+}
+FetchSelect.propTypes = {
+  handleInputChange: PropTypes.func.isRequired,
+  className: PropTypes.string,
+  // can be null or undefined
+  value: PropTypes.string,
+  // can be null or undefined
+  kube_type: PropTypes.string.isRequired,
+  url: PropTypes.string.isRequired,
+  onReturnFunction: PropTypes.func,
+  filter: PropTypes.func
+};
+const IcseNumberSelect = props => {
+  return /*#__PURE__*/React.createElement(IcseSelect, {
+    component: props.component,
+    groups: buildNumberDropdownList(props.max, props.min),
+    value: props.value.toString(),
+    name: props.name,
+    className: props.className,
+    handleInputChange: event => {
+      // set name target value and parse int
+      let sendEvent = {
+        target: {
+          name: event.target.name,
+          value: parseInt(event.target.value)
+        }
+      };
+      props.handleInputChange(sendEvent);
+    },
+    invalid: props.invalid,
+    invalidText: props.invalidText,
+    tooltip: props.tooltip,
+    labelText: props.labelText,
+    isModal: props.isModal
+  });
+};
+IcseNumberSelect.defaultProps = {
+  min: 1,
+  invalid: false,
+  isModal: false
+};
+IcseNumberSelect.propTypes = {
+  component: PropTypes.string.isRequired,
+  min: PropTypes.number.isRequired,
+  max: PropTypes.number.isRequired,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  // can be null
+  name: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  invalidText: PropTypes.string,
+  invalid: PropTypes.bool.isRequired,
+  tooltip: PropTypes.shape({
+    content: PropTypes.string.isRequired,
+    link: PropTypes.string
+  }),
+  labelText: PropTypes.string.isRequired,
+  isModal: PropTypes.bool.isRequired
+};
+({
+  value: PropTypes.string,
+  // can be null
+  component: PropTypes.string.isRequired,
+  handleInputChange: PropTypes.func.isRequired
+});
+
+/**
+ * Under Construction Page
+ */
+const UnderConstruction = () => {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(WarningAlt, {
+    size: "128"
+  }), /*#__PURE__*/React.createElement("h4", null, "Page Under Construction"));
+};
+
+var css_248z = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z);
+
+/**
+ * Empty Resource Tile
+ * @param {*} props
+ * @param {string} props.name resource name
+ * @param {(boolean|*[])} props.showIfEmpty if array is empty or boolean is false, show the empty resource tile
+ * @returns tile if shown, empty string otherwise
+ */
+
+const EmptyResourceTile = props => {
+  return props.showIfEmpty === false || props.showIfEmpty.length === 0 ? /*#__PURE__*/React.createElement(Tile, {
+    className: "marginBottomXs tileBackground"
+  }, /*#__PURE__*/React.createElement(CloudAlerting, {
+    size: "24",
+    className: "iconMargin"
+  }), "No ", props.name, ".", " ", props.instructions || /*#__PURE__*/React.createElement(React.Fragment, null, "Click", /*#__PURE__*/React.createElement(Add, {
+    size: "24",
+    className: "inlineIconMargin"
+  }), "button to add one.")) : "";
+};
+EmptyResourceTile.defaultProps = {
+  name: "items in this list"
+};
+EmptyResourceTile.propTypes = {
+  name: PropTypes.string.isRequired,
+  showIfEmpty: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]).isRequired
+};
+
+>>>>>>> 67351ff (Dropdowns components)
 /**
  * Icse Modal Wrapper
  * @param {*} props
@@ -3889,6 +4166,7 @@ UnsavedChangesModal.propTypes = {
   useDefaultUnsavedMessage: PropTypes.bool
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -4325,3 +4603,6 @@ export { AppIdKeyForm, DeleteModal, DynamicRender, DynamicToolTipWrapper, EmptyR
 
 export { AppIdKeyForm, DeleteButton, DeleteModal, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, FormModal, IcseFormGroup, IcseModal, IcseMultiSelect, IcseNameInput, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SecurityGroupMultiSelect, SshKeyMultiSelect, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> b5b1ac6 (fixed build)
+=======
+export { DeleteModal, DynamicRender, DynamicToolTipWrapper, EmptyResourceTile, FetchSelect, IcseFormGroup, IcseModal, IcseMultiSelect, IcseNumberSelect, IcseSelect, IcseSubForm, IcseToolTip, PopoverWrapper, RenderForm, SecurityGroupMultiSelect, SshKeyMultiSelect, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, VpcListMultiSelect };
+>>>>>>> 67351ff (Dropdowns components)
