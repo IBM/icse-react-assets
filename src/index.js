@@ -42,7 +42,11 @@ export {
 >>>>>>> e90fadd (updates)
 =======
   IcseTextInput,
+<<<<<<< HEAD
 >>>>>>> 16dd967 (icsetextinput, working on nameinput)
+=======
+  IcseNameInput,
+>>>>>>> 6979d94 (icse name input, needs docs)
 } from "./components/index.js";
 <<<<<<< HEAD
 export { addClassName, toggleMarginBottom } from "./form-utils";

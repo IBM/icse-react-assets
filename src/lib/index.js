@@ -1,10 +1,14 @@
+const { toggleMarginBottom, addClassName } = require("./form-utils");
+
 const {
-  toggleMarginBottom,
-  addClassName,
   formatInputPlaceholder,
-} = require("./form-utils");
+  hasInvalidName,
+  validName,
+} = require("./text-utils");
 module.exports = {
   toggleMarginBottom,
   addClassName,
   formatInputPlaceholder,
+  hasInvalidName,
+  validName,
 };

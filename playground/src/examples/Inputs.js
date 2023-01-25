@@ -1,5 +1,4 @@
-import { IcseToggle } from "icse-react-assets";
-import { IcseTextInput } from "icse-react-assets";
+import { IcseToggle, IcseNameInput, IcseTextInput } from "icse-react-assets";
 import { useState } from "react";
 
 export const IcseToggleExample = () => {
@@ -26,6 +25,22 @@ export const IcseTextInputExample = () => {
         return value === "";
       }}
       invalidText="TextInput cannot be empty"
+    />
+  );
+};
+
+export const IcseNameInputExample = () => {
+  const [value, setValue] = useState("");
+  return (
+    <IcseNameInput
+      componentName="name-input"
+      id="example-name-input"
+      component="name-input"
+      value={value}
+      onChange={(event) => setValue(event.target.value)}
+      helperTextCallback={() => {
+        return `Composed Name: prefix-${value}`; // helper text does not have to be static
+      }}
     />
   );
 };

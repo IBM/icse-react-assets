@@ -592,7 +592,11 @@ import { Popover, PopoverContent, FilterableMultiSelect, MultiSelect, Tile, Togg
 import React from 'react';
 import PropTypes from 'prop-types';
 import { kebabCase, prettyJSON, isNullOrEmptyString, snakeCase, titleCase, isBoolean } from 'lazy-z';
+<<<<<<< HEAD
 >>>>>>> 16dd967 (icsetextinput, working on nameinput)
+=======
+import regexButWithWords from 'regex-but-with-words';
+>>>>>>> 6979d94 (icse name input, needs docs)
 import { WarningAlt, CloudAlerting, Add, Information } from '@carbon/icons-react';
 >>>>>>> faf8c38 (fixed imports)
 
@@ -799,6 +803,22 @@ function toggleMarginBottom$1(hide) {
   if (hide === false) return " marginBottomSmall";else return "";
 }
 
+var formUtils = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  addClassName: addClassName$1,
+  toggleMarginBottom: toggleMarginBottom$1
+});
+
+const {
+  RegexButWithWords
+} = regexButWithWords;
+var constants = {
+  nameValidationExp: new RegexButWithWords().stringBegin().set("A-z").group(exp => {
+    exp.set("a-z0-9-").anyNumber().set("a-z0-9");
+  }).lazy().stringEnd().done("i")
+};
+var constants_1 = constants.nameValidationExp;
+
 /**
  * format input placeholder
  * @param {string} componentName
@@ -809,26 +829,70 @@ function formatInputPlaceholder$1(componentName, fieldName) {
   return `my-${kebabCase(componentName)}-${kebabCase(fieldName)}`;
 }
 
-var formUtils = /*#__PURE__*/Object.freeze({
+/**
+ * check to see if a component has a valid name
+ * @param {string} componentName ex: resource_groups
+ * @param {string} value name value. ex: management-rg
+ * @param {*} componentProps component props
+ * @param {boolean=} useData get resource grom data
+ * @returns {Object} boolean invalid and text invalidText
+ */
+function hasInvalidName$1(componentName, value, componentProps, useData) {
+  let returnData = {
+    invalidText: `Invalid Name. Must match the regular expression: /[A-z][a-z0-9-]*[a-z0-9]/`
+  };
+
+  // if using data, send only no name provided
+  if (useData) {
+    returnData.invalid = value.length === 0;
+    returnData.invalidText = `Invalid Name. No name provided.`;
+  } else {
+    returnData.invalid = validName$1(value) === false || value.match(/[A-Z]{2,}/g) !== null; // fix edge case where all caps string matches
+  }
+
+  if (useData && value.match(/[^\-_\s\d\w]/i)) {
+    returnData.invalidText = "Invalid name";
+    returnData.invalid = true;
+  }
+  return returnData;
+}
+
+/**
+ * validate name
+ * @param {string} str string
+ * @returns {boolean} true if name does match
+ */
+function validName$1(str) {
+  if (str) return str.match(constants_1) !== null;else return false;
+}
+
+var textUtils = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  addClassName: addClassName$1,
-  toggleMarginBottom: toggleMarginBottom$1,
-  formatInputPlaceholder: formatInputPlaceholder$1
+  formatInputPlaceholder: formatInputPlaceholder$1,
+  hasInvalidName: hasInvalidName$1,
+  validName: validName$1
 });
 
 const {
   toggleMarginBottom,
-  addClassName,
-  formatInputPlaceholder
+  addClassName
 } = formUtils;
+const {
+  formatInputPlaceholder,
+  hasInvalidName,
+  validName
+} = textUtils;
 var lib = {
   toggleMarginBottom,
   addClassName,
-  formatInputPlaceholder
+  formatInputPlaceholder,
+  hasInvalidName,
+  validName
 };
 var lib_1 = lib.toggleMarginBottom;
 var lib_2 = lib.addClassName;
 var lib_3 = lib.formatInputPlaceholder;
+var lib_4 = lib.hasInvalidName;
 
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
@@ -1133,6 +1197,17 @@ const UnderConstruction = () => {
 var css_248z$3 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$3);
 
+<<<<<<< HEAD
+=======
+/**
+ * Empty Resource Tile
+ * @param {*} props
+ * @param {string} props.name resource name
+ * @param {(boolean|*[])} props.showIfEmpty if array is empty or boolean is false, show the empty resource tile
+ * @returns tile if shown, empty string otherwise
+ */
+
+>>>>>>> 6979d94 (icse name input, needs docs)
 const EmptyResourceTile = props => {
   return props.showIfEmpty === false || props.showIfEmpty.length === 0 ? /*#__PURE__*/React.createElement(Tile, {
     className: "marginBottomXs tileBackground"
@@ -2317,6 +2392,7 @@ export { DeleteModal, DynamicRender, DynamicToolTipWrapper, EmptyResourceTile, I
  */
 const IcseTextInput = props => {
   let fieldName = titleCase(props.field);
+  console.log(fieldName);
   return /*#__PURE__*/React.createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React.createElement(TextInput, {
     id: `${props.id || ""}${props.field}`,
     className: lib_2("fieldWidth leftTextAlign", props),
@@ -2358,7 +2434,40 @@ IcseTextInput.propTypes = {
   maxLength: PropTypes.number,
   invalidCallback: PropTypes.func
 };
-({
+
+/**
+ * Icse Name Field
+ * @param {*} props
+ * @param {string} props.id
+ * @param {string=} props.className
+ * @param {string} props.value
+ * @param {Function} props.onChange
+ * @param {string} props.component
+ * @param {string} props.invalid
+ * @param {boolean=} props.hideHelperText
+ * @param {slzStateStore} slz
+ * @returns <IcseNameInput />
+ */
+const IcseNameInput = props => {
+  // get invalid and invalid text
+  let invalid = lib_4(props.component, props.value, props.componentProps, props.useData);
+  let helperText = "";
+  // if helper text is not hidden
+  if (!props.hideHelperText && !props.useData) {
+    helperText = props.helperTextCallback();
+  }
+  return /*#__PURE__*/React.createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React.createElement(IcseTextInput, _extends({}, props, invalid, {
+    className: lib_2("fieldWidth leftTextAlign ", props),
+    field: "name",
+    labelText: "Name",
+    helperText: helperText
+  })));
+};
+IcseNameInput.defaultProps = {
+  useData: false,
+  hideHelperText: false
+};
+IcseNameInput.propTypes = {
   id: PropTypes.string.isRequired,
   className: PropTypes.string,
   value: PropTypes.string.isRequired,
@@ -2370,10 +2479,14 @@ IcseTextInput.propTypes = {
     link: PropTypes.string,
     alignModal: PropTypes.string
   }),
-  noMarginRight: PropTypes.bool,
   hideHelperText: PropTypes.bool.isRequired,
-  useData: PropTypes.bool.isRequired
-});
+  useData: PropTypes.bool.isRequired,
+  helperTextCallback: PropTypes.func
+};
 
+<<<<<<< HEAD
 export { DeleteModal, DynamicRender, DynamicToolTipWrapper, EmptyResourceTile, IcseFormGroup, IcseModal, IcseMultiSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, PopoverWrapper, RenderForm, SecurityGroupMultiSelect, SshKeyMultiSelect, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, VpcListMultiSelect };
 >>>>>>> 16dd967 (icsetextinput, working on nameinput)
+=======
+export { DeleteModal, DynamicRender, DynamicToolTipWrapper, EmptyResourceTile, IcseFormGroup, IcseModal, IcseMultiSelect, IcseNameInput, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, PopoverWrapper, RenderForm, SecurityGroupMultiSelect, SshKeyMultiSelect, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, VpcListMultiSelect };
+>>>>>>> 6979d94 (icse name input, needs docs)

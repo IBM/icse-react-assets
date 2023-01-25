@@ -5,7 +5,7 @@ import { kebabCase, snakeCase, isBoolean, titleCase } from "lazy-z";
 import { DynamicToolTipWrapper } from "./Tooltips";
 import "./styles/Inputs.css";
 import "./styles/Tooltips.css";
-import { addClassName, formatInputPlaceholder } from "../lib";
+import { addClassName, formatInputPlaceholder, hasInvalidName } from "../lib";
 
 export const IcseToggle = (props) => {
   let toggleName = props.toggleFieldName || snakeCase(props.labelText);
@@ -75,6 +75,7 @@ IcseToggle.propTypes = {
  */
 export const IcseTextInput = (props) => {
   let fieldName = titleCase(props.field);
+  console.log(fieldName);
   return (
     <DynamicToolTipWrapper {...props}>
       <TextInput
@@ -141,7 +142,6 @@ IcseTextInput.propTypes = {
  * @param {Function} props.onChange
  * @param {string} props.component
  * @param {string} props.invalid
- * @param {boolean=} props.noMarginRight
  * @param {boolean=} props.hideHelperText
  * @param {slzStateStore} slz
  * @returns <IcseNameInput />
@@ -157,24 +157,16 @@ export const IcseNameInput = (props) => {
   let helperText = "";
   // if helper text is not hidden
   if (!props.hideHelperText && !props.useData) {
-    helperText = buildComposedComponentNameHelperText(
-      props.componentProps.slz.store.prefix,
-      props.value,
-      {
-        useData: props.useData,
-        suffix: props.random_suffix ? "<random suffix>" : false,
-        parentName: props.parentName || false,
-      }
-    );
+    helperText = props.helperTextCallback();
   }
   return (
     <DynamicToolTipWrapper {...props}>
-      <SlzTextInput
+      <IcseTextInput
         {...props}
         {...invalid}
         className={addClassName("fieldWidth leftTextAlign ", props)}
         field="name"
-        labelText="name"
+        labelText="Name"
         helperText={helperText}
       />
     </DynamicToolTipWrapper>
@@ -198,7 +190,7 @@ IcseNameInput.propTypes = {
     link: PropTypes.string,
     alignModal: PropTypes.string,
   }),
-  noMarginRight: PropTypes.bool,
   hideHelperText: PropTypes.bool.isRequired,
   useData: PropTypes.bool.isRequired,
+  helperTextCallback: PropTypes.func,
 };

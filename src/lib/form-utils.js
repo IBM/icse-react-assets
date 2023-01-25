@@ -1,5 +1,3 @@
-import { kebabCase } from "lazy-z";
-
 /**
  * create a composed class name
  * @param {string} className name of classes to add
@@ -27,14 +25,4 @@ function toggleMarginBottom(hide) {
   else return "";
 }
 
-/**
- * format input placeholder
- * @param {string} componentName
- * @param {string} fieldName
- * @returns {string} placeholder name
- */
-function formatInputPlaceholder(componentName, fieldName) {
-  return `my-${kebabCase(componentName)}-${kebabCase(fieldName)}`;
-}
-
-export { addClassName, toggleMarginBottom, formatInputPlaceholder };
+export { addClassName, toggleMarginBottom };
