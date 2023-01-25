@@ -63,6 +63,7 @@ var regexButWithWords__default = /*#__PURE__*/_interopDefaultLegacy(regexButWith
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 /**
  * create a composed class name
  * @param {string} className name of classes to add
@@ -147,6 +148,8 @@ function toggleMarginBottom(hide) {
 }
 
 >>>>>>> faf8c38 (fixed imports)
+=======
+>>>>>>> 23b5837 (add id as required)
 function ownKeys(object, enumerableOnly) {
   var keys = Object.keys(object);
   if (Object.getOwnPropertySymbols) {
@@ -168,10 +171,13 @@ function _objectSpread2(target) {
   }
   return target;
 }
+<<<<<<< HEAD
 =======
 >>>>>>> e90fadd (updates)
 =======
 >>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
+=======
+>>>>>>> 23b5837 (add id as required)
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -195,6 +201,23 @@ function _createClass(Constructor, protoProps, staticProps) {
   return Constructor;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+function _defineProperty(obj, key, value) {
+  key = _toPropertyKey(key);
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+>>>>>>> 23b5837 (add id as required)
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -755,7 +778,7 @@ VpcListMultiSelect.propTypes = {
 /**
  * Under Construction Page
  */
-const UnderConstruction = () => {
+var UnderConstruction = function UnderConstruction() {
   return /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(iconsReact.WarningAlt, {
     size: "128"
   }), /*#__PURE__*/React__default["default"].createElement("h4", null, "Page Under Construction"));
@@ -807,9 +830,7 @@ styleInject(css_248z$2);
  * @returns Form element
  */
 function RenderForm(form, formProps) {
-  return /*#__PURE__*/React__default["default"].createElement(form, {
-    ...formProps
-  });
+  return /*#__PURE__*/React__default["default"].createElement(form, _objectSpread2({}, formProps));
 }
 
 /**
@@ -826,9 +847,9 @@ function DynamicRender(props) {
 /**
  * wrapper for title groups
  */
-const TitleGroup = props => {
+var TitleGroup = function TitleGroup(props) {
   return /*#__PURE__*/React__default["default"].createElement("div", {
-    className: lib_2(`displayFlex alignItemsCenter widthOneHundredPercent ${lib_1(props.hide)}`, props)
+    className: lib_2("displayFlex alignItemsCenter widthOneHundredPercent ".concat(lib_1(props.hide)), props)
   }, props.children);
 };
 TitleGroup.defaultProps = {
@@ -837,8 +858,8 @@ TitleGroup.defaultProps = {
 TitleGroup.propTypes = {
   children: PropTypes__default["default"].node.isRequired
 };
-const IcseFormGroup = props => {
-  let formGroupClassName = "displayFlex marginBottom fitContent evenSpacing";
+var IcseFormGroup = function IcseFormGroup(props) {
+  var formGroupClassName = "displayFlex marginBottom fitContent evenSpacing";
   // remove margin bottom from formGroup for VPC
   if (props.noMarginBottom) {
     formGroupClassName = formGroupClassName.replace(/\smarginBottom/g, "");
@@ -855,7 +876,7 @@ IcseFormGroup.propTypes = {
   children: PropTypes__default["default"].node.isRequired,
   className: PropTypes__default["default"].string
 };
-const IcseSubForm = props => {
+var IcseSubForm = function IcseSubForm(props) {
   return /*#__PURE__*/React__default["default"].createElement("div", {
     className: lib_2(props.formInSubForm ? "formInSubForm positionRelative" : "subForm marginBottomSmall", props),
     id: props.id
@@ -1132,19 +1153,19 @@ UnsavedChangesModal.propTypes = {
 var css_248z = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
 styleInject(css_248z);
 
-const IcseToggle = props => {
-  let toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
+var IcseToggle = function IcseToggle(props) {
+  var toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
   return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, _extends({
-    innerForm: () => {
+    innerForm: function innerForm() {
       return /*#__PURE__*/React__default["default"].createElement(react.Toggle, {
         labelA: props.useOnOff ? "Off" : "False",
         labelB: props.useOnOff ? "On" : "True",
         labelText: props.tooltip ? "" : props.labelText,
-        id: lazyZ.kebabCase(toggleName) + "-slz-toggle-" + props.id,
+        id: lazyZ.kebabCase(toggleName) + "-icse-toggle-" + props.id,
         className: lib_2("leftTextAlign fieldWidth", props) + (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
         ,
 
-        onToggle: event => {
+        onToggle: function onToggle(event) {
           props.onToggle(toggleName, event);
         },
         defaultToggled: props.defaultToggled,
@@ -1191,10 +1212,10 @@ IcseToggle.propTypes = {
  * @param {string=} props.labelText override label text
  * @returns <IcseTextInput/> component
  */
-const IcseTextInput = props => {
-  let fieldName = lazyZ.titleCase(props.field);
+var IcseTextInput = function IcseTextInput(props) {
+  var fieldName = lazyZ.titleCase(props.field);
   return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React__default["default"].createElement(react.TextInput, {
-    id: `${props.id || ""}${props.field}`,
+    id: props.id,
     className: lib_2("fieldWidth leftTextAlign", props),
     labelText: props.labelText ? props.labelText : lazyZ.titleCase(props.field),
     placeholder: props.placeholder || lib_3(props.componentName, fieldName),
@@ -1203,7 +1224,7 @@ const IcseTextInput = props => {
     invalid: lazyZ.isBoolean(props.invalid) ? props.invalid : props.invalidCallback(),
     onChange: props.onChange,
     helperText: props.helperText,
-    invalidText: props.invalidText ? props.invalidText : `Invalid ${props.field} value.`,
+    invalidText: props.invalidText ? props.invalidText : "Invalid ".concat(props.field, " value."),
     maxLength: props.maxLength,
     disabled: props.disabled,
     readOnly: props.readOnly
@@ -1232,7 +1253,8 @@ IcseTextInput.propTypes = {
   readOnly: PropTypes__default["default"].bool.isRequired,
   labelText: PropTypes__default["default"].string.isRequired,
   maxLength: PropTypes__default["default"].number,
-  invalidCallback: PropTypes__default["default"].func
+  invalidCallback: PropTypes__default["default"].func,
+  id: PropTypes__default["default"].string.isRequired
 };
 
 /**
@@ -1244,13 +1266,12 @@ IcseTextInput.propTypes = {
  * @param {Function} props.onChange
  * @param {string} props.component
  * @param {boolean=} props.hideHelperText
- * @param {slzStateStore} slz
  * @returns <IcseNameInput />
  */
-const IcseNameInput = props => {
+var IcseNameInput = function IcseNameInput(props) {
   // get invalid and invalid text
-  let invalid = lib_4(props.componentName, props.value, props.componentProps, props.useData);
-  let helperText = "";
+  var invalid = lib_4(props.componentName, props.value, props.componentProps, props.useData);
+  var helperText = "";
   // if helper text is not hidden
   if (!props.hideHelperText && !props.useData) {
     helperText = props.helperTextCallback();

@@ -601,6 +601,7 @@ import { WarningAlt, CloudAlerting, Add, Information } from '@carbon/icons-react
 >>>>>>> faf8c38 (fixed imports)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 /**
  * create a composed class name
  * @param {string} className name of classes to add
@@ -635,6 +636,8 @@ var css_248z$1 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: f
 styleInject(css_248z$1);
 >>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
 
+=======
+>>>>>>> 23b5837 (add id as required)
 function ownKeys(object, enumerableOnly) {
   var keys = Object.keys(object);
   if (Object.getOwnPropertySymbols) {
@@ -656,8 +659,11 @@ function _objectSpread2(target) {
   }
   return target;
 }
+<<<<<<< HEAD
 =======
 >>>>>>> e90fadd (updates)
+=======
+>>>>>>> 23b5837 (add id as required)
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -679,6 +685,20 @@ function _createClass(Constructor, protoProps, staticProps) {
     writable: false
   });
   return Constructor;
+}
+function _defineProperty(obj, key, value) {
+  key = _toPropertyKey(key);
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
 }
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
@@ -1188,7 +1208,7 @@ VpcListMultiSelect.propTypes = {
 /**
  * Under Construction Page
  */
-const UnderConstruction = () => {
+var UnderConstruction = function UnderConstruction() {
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(WarningAlt, {
     size: "128"
   }), /*#__PURE__*/React.createElement("h4", null, "Page Under Construction"));
@@ -1623,6 +1643,7 @@ function RenderForm(form, formProps) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   return /*#__PURE__*/React.createElement(form, {
     ...formProps
   });
@@ -1642,6 +1663,9 @@ function RenderForm(form, formProps) {
     ...formProps
   });
 >>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
+=======
+  return /*#__PURE__*/React.createElement(form, _objectSpread2({}, formProps));
+>>>>>>> 23b5837 (add id as required)
 }
 
 /**
@@ -1658,6 +1682,7 @@ function DynamicRender(props) {
 /**
  * wrapper for title groups
  */
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1682,6 +1707,11 @@ const TitleGroup = props => {
   return /*#__PURE__*/React.createElement("div", {
     className: lib_2(`displayFlex alignItemsCenter widthOneHundredPercent ${lib_1(props.hide)}`, props)
 >>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
+=======
+var TitleGroup = function TitleGroup(props) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: lib_2("displayFlex alignItemsCenter widthOneHundredPercent ".concat(lib_1(props.hide)), props)
+>>>>>>> 23b5837 (add id as required)
   }, props.children);
 };
 TitleGroup.defaultProps = {
@@ -1690,6 +1720,7 @@ TitleGroup.defaultProps = {
 TitleGroup.propTypes = {
   children: PropTypes.node.isRequired
 };
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1707,6 +1738,10 @@ const IcseFormGroup = props => {
 const IcseFormGroup = props => {
   let formGroupClassName = "displayFlex marginBottom fitContent evenSpacing";
 >>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
+=======
+var IcseFormGroup = function IcseFormGroup(props) {
+  var formGroupClassName = "displayFlex marginBottom fitContent evenSpacing";
+>>>>>>> 23b5837 (add id as required)
   // remove margin bottom from formGroup for VPC
   if (props.noMarginBottom) {
     formGroupClassName = formGroupClassName.replace(/\smarginBottom/g, "");
@@ -1726,6 +1761,7 @@ IcseFormGroup.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const IcseSubForm = props => {
 =======
 var IcseSubForm = function IcseSubForm(props) {
@@ -1739,6 +1775,9 @@ const IcseSubForm = props => {
 =======
 const IcseSubForm = props => {
 >>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
+=======
+var IcseSubForm = function IcseSubForm(props) {
+>>>>>>> 23b5837 (add id as required)
   return /*#__PURE__*/React.createElement("div", {
     className: lib_2(props.formInSubForm ? "formInSubForm positionRelative" : "subForm marginBottomSmall", props),
     id: props.id
@@ -2324,19 +2363,19 @@ export { DeleteModal, DynamicRender, DynamicToolTipWrapper, EmptyResourceTile, I
 var css_248z = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
 styleInject(css_248z);
 
-const IcseToggle = props => {
-  let toggleName = props.toggleFieldName || snakeCase(props.labelText);
+var IcseToggle = function IcseToggle(props) {
+  var toggleName = props.toggleFieldName || snakeCase(props.labelText);
   return /*#__PURE__*/React.createElement(DynamicToolTipWrapper, _extends({
-    innerForm: () => {
+    innerForm: function innerForm() {
       return /*#__PURE__*/React.createElement(Toggle, {
         labelA: props.useOnOff ? "Off" : "False",
         labelB: props.useOnOff ? "On" : "True",
         labelText: props.tooltip ? "" : props.labelText,
-        id: kebabCase(toggleName) + "-slz-toggle-" + props.id,
+        id: kebabCase(toggleName) + "-icse-toggle-" + props.id,
         className: lib_2("leftTextAlign fieldWidth", props) + (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
         ,
 
-        onToggle: event => {
+        onToggle: function onToggle(event) {
           props.onToggle(toggleName, event);
         },
         defaultToggled: props.defaultToggled,
@@ -2390,10 +2429,10 @@ export { DeleteModal, DynamicRender, DynamicToolTipWrapper, EmptyResourceTile, I
  * @param {string=} props.labelText override label text
  * @returns <IcseTextInput/> component
  */
-const IcseTextInput = props => {
-  let fieldName = titleCase(props.field);
+var IcseTextInput = function IcseTextInput(props) {
+  var fieldName = titleCase(props.field);
   return /*#__PURE__*/React.createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React.createElement(TextInput, {
-    id: `${props.id || ""}${props.field}`,
+    id: props.id,
     className: lib_2("fieldWidth leftTextAlign", props),
     labelText: props.labelText ? props.labelText : titleCase(props.field),
     placeholder: props.placeholder || lib_3(props.componentName, fieldName),
@@ -2402,7 +2441,7 @@ const IcseTextInput = props => {
     invalid: isBoolean(props.invalid) ? props.invalid : props.invalidCallback(),
     onChange: props.onChange,
     helperText: props.helperText,
-    invalidText: props.invalidText ? props.invalidText : `Invalid ${props.field} value.`,
+    invalidText: props.invalidText ? props.invalidText : "Invalid ".concat(props.field, " value."),
     maxLength: props.maxLength,
     disabled: props.disabled,
     readOnly: props.readOnly
@@ -2431,7 +2470,8 @@ IcseTextInput.propTypes = {
   readOnly: PropTypes.bool.isRequired,
   labelText: PropTypes.string.isRequired,
   maxLength: PropTypes.number,
-  invalidCallback: PropTypes.func
+  invalidCallback: PropTypes.func,
+  id: PropTypes.string.isRequired
 };
 
 /**
@@ -2443,13 +2483,12 @@ IcseTextInput.propTypes = {
  * @param {Function} props.onChange
  * @param {string} props.component
  * @param {boolean=} props.hideHelperText
- * @param {slzStateStore} slz
  * @returns <IcseNameInput />
  */
-const IcseNameInput = props => {
+var IcseNameInput = function IcseNameInput(props) {
   // get invalid and invalid text
-  let invalid = lib_4(props.componentName, props.value, props.componentProps, props.useData);
-  let helperText = "";
+  var invalid = lib_4(props.componentName, props.value, props.componentProps, props.useData);
+  var helperText = "";
   // if helper text is not hidden
   if (!props.hideHelperText && !props.useData) {
     helperText = props.helperTextCallback();

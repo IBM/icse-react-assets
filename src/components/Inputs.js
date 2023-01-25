@@ -78,7 +78,7 @@ export const IcseTextInput = (props) => {
   return (
     <DynamicToolTipWrapper {...props}>
       <TextInput
-        id={`${props.id || ""}${props.field}`}
+        id={props.id}
         className={addClassName("fieldWidth leftTextAlign", props)}
         labelText={props.labelText ? props.labelText : titleCase(props.field)}
         placeholder={
@@ -130,6 +130,7 @@ IcseTextInput.propTypes = {
   labelText: PropTypes.string.isRequired,
   maxLength: PropTypes.number,
   invalidCallback: PropTypes.func,
+  id: PropTypes.string.isRequired,
 };
 
 /**

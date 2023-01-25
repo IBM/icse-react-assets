@@ -17,6 +17,7 @@ export const IcseTextInputExample = () => {
     <IcseTextInput
       componentName="text-input"
       field="example"
+      id="example-text-input"
       value={value}
       onChange={(event) => setValue(event.target.value)}
       helperText="Example Helper Text"
