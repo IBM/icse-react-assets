@@ -48,7 +48,6 @@ var react = require('@carbon/react');
 var React = require('react');
 var PropTypes = require('prop-types');
 var lazyZ = require('lazy-z');
-var regexButWithWords = require('regex-but-with-words');
 var iconsReact = require('@carbon/icons-react');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
@@ -56,10 +55,13 @@ function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'defau
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 var PropTypes__default = /*#__PURE__*/_interopDefaultLegacy(PropTypes);
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> faf8c38 (fixed imports)
 =======
 var regexButWithWords__default = /*#__PURE__*/_interopDefaultLegacy(regexButWithWords);
 >>>>>>> 6979d94 (icse name input, needs docs)
+=======
+>>>>>>> fecad7c (remove nameinput validation)
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -352,6 +354,7 @@ var formUtils = /*#__PURE__*/Object.freeze({
   toggleMarginBottom: toggleMarginBottom$1
 });
 
+<<<<<<< HEAD
 const {
   RegexButWithWords
 } = regexButWithWords__default["default"];
@@ -363,6 +366,8 @@ var constants = {
 var constants_1 = constants.nameValidationExp;
 
 >>>>>>> 6979d94 (icse name input, needs docs)
+=======
+>>>>>>> fecad7c (remove nameinput validation)
 /**
  * format input placeholder
  * @param {string} componentName
@@ -373,45 +378,9 @@ function formatInputPlaceholder$1(componentName, fieldName) {
   return `my-${lazyZ.kebabCase(componentName)}-${lazyZ.kebabCase(fieldName)}`;
 }
 
-/**
- * check to see if a component has a valid name
- * @param {string} componentName ex: resource_groups
- * @param {string} value name value. ex: management-rg
- * @param {*} componentProps component props
- * @param {boolean=} useData get resource grom data
- * @returns {Object} boolean invalid and text invalidText
- */
-function hasInvalidName$1(componentName, value, componentProps, useData) {
-  let returnData = {
-    invalidText: `Invalid Name. Must match the regular expression: /[A-z][a-z0-9-]*[a-z0-9]/`
-  };
-
-  // if using data, send only no name provided
-  if (useData) {
-    returnData.invalid = value.length === 0;
-    returnData.invalidText = `Invalid Name. No name provided.`;
-  } else {
-    returnData.invalid = validName$1(value) === false || value.match(/[A-Z]{2,}/g) !== null; // fix edge case where all caps string matches
-  }
-
-  if (useData && value.match(/[^\-_\s\d\w]/i)) {
-    returnData.invalidText = "Invalid name";
-    returnData.invalid = true;
-  }
-  return returnData;
-}
-
-/**
- * validate name
- * @param {string} str string
- * @returns {boolean} true if name does match
- */
-function validName$1(str) {
-  if (str) return str.match(constants_1) !== null;else return false;
-}
-
 var textUtils = /*#__PURE__*/Object.freeze({
   __proto__: null,
+<<<<<<< HEAD
 <<<<<<< HEAD
   addClassName: addClassName$1,
   toggleMarginBottom: toggleMarginBottom$1,
@@ -427,6 +396,9 @@ var formUtils = /*#__PURE__*/Object.freeze({
   hasInvalidName: hasInvalidName$1,
   validName: validName$1
 >>>>>>> 6979d94 (icse name input, needs docs)
+=======
+  formatInputPlaceholder: formatInputPlaceholder$1
+>>>>>>> fecad7c (remove nameinput validation)
 });
 
 const {
@@ -440,13 +412,12 @@ const {
 >>>>>>> 6979d94 (icse name input, needs docs)
 } = formUtils;
 const {
-  formatInputPlaceholder,
-  hasInvalidName,
-  validName
+  formatInputPlaceholder
 } = textUtils;
 var lib = {
   toggleMarginBottom,
   addClassName,
+<<<<<<< HEAD
 <<<<<<< HEAD
   formatInputPlaceholder
 =======
@@ -461,11 +432,13 @@ var lib = {
   hasInvalidName,
   validName
 >>>>>>> 6979d94 (icse name input, needs docs)
+=======
+  formatInputPlaceholder
+>>>>>>> fecad7c (remove nameinput validation)
 };
 var lib_1 = lib.toggleMarginBottom;
 var lib_2 = lib.addClassName;
 var lib_3 = lib.formatInputPlaceholder;
-var lib_4 = lib.hasInvalidName;
 
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
@@ -1153,10 +1126,10 @@ UnsavedChangesModal.propTypes = {
 var css_248z = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
 styleInject(css_248z);
 
-var IcseToggle = function IcseToggle(props) {
-  var toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
+const IcseToggle = props => {
+  let toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
   return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, _extends({
-    innerForm: function innerForm() {
+    innerForm: () => {
       return /*#__PURE__*/React__default["default"].createElement(react.Toggle, {
         labelA: props.useOnOff ? "Off" : "False",
         labelB: props.useOnOff ? "On" : "True",
@@ -1165,7 +1138,7 @@ var IcseToggle = function IcseToggle(props) {
         className: lib_2("leftTextAlign fieldWidth", props) + (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
         ,
 
-        onToggle: function onToggle(event) {
+        onToggle: event => {
           props.onToggle(toggleName, event);
         },
         defaultToggled: props.defaultToggled,
@@ -1212,8 +1185,8 @@ IcseToggle.propTypes = {
  * @param {string=} props.labelText override label text
  * @returns <IcseTextInput/> component
  */
-var IcseTextInput = function IcseTextInput(props) {
-  var fieldName = lazyZ.titleCase(props.field);
+const IcseTextInput = props => {
+  let fieldName = lazyZ.titleCase(props.field);
   return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React__default["default"].createElement(react.TextInput, {
     id: props.id,
     className: lib_2("fieldWidth leftTextAlign", props),
@@ -1224,7 +1197,7 @@ var IcseTextInput = function IcseTextInput(props) {
     invalid: lazyZ.isBoolean(props.invalid) ? props.invalid : props.invalidCallback(),
     onChange: props.onChange,
     helperText: props.helperText,
-    invalidText: props.invalidText ? props.invalidText : "Invalid ".concat(props.field, " value."),
+    invalidText: props.invalidText ? props.invalidText : `Invalid ${props.field} value.`,
     maxLength: props.maxLength,
     disabled: props.disabled,
     readOnly: props.readOnly
@@ -1254,7 +1227,8 @@ IcseTextInput.propTypes = {
   labelText: PropTypes__default["default"].string.isRequired,
   maxLength: PropTypes__default["default"].number,
   invalidCallback: PropTypes__default["default"].func,
-  id: PropTypes__default["default"].string.isRequired
+  id: PropTypes__default["default"].string.isRequired,
+  invalidText: PropTypes__default["default"].string
 };
 
 /**
@@ -1266,17 +1240,18 @@ IcseTextInput.propTypes = {
  * @param {Function} props.onChange
  * @param {string} props.component
  * @param {boolean=} props.hideHelperText
+ * @param {func} props.helperTextCallback
+ * @param {string} props.invalidText
+ * @param {func} props.invalidCallback
  * @returns <IcseNameInput />
  */
-var IcseNameInput = function IcseNameInput(props) {
-  // get invalid and invalid text
-  var invalid = lib_4(props.componentName, props.value, props.componentProps, props.useData);
-  var helperText = "";
+const IcseNameInput = props => {
+  let helperText = "";
   // if helper text is not hidden
   if (!props.hideHelperText && !props.useData) {
     helperText = props.helperTextCallback();
   }
-  return /*#__PURE__*/React__default["default"].createElement(IcseTextInput, _extends({}, props, invalid, {
+  return /*#__PURE__*/React__default["default"].createElement(IcseTextInput, _extends({}, props, {
     className: lib_2("fieldWidth leftTextAlign ", props),
     field: "name",
     labelText: "Name",
@@ -1285,7 +1260,8 @@ var IcseNameInput = function IcseNameInput(props) {
 };
 IcseNameInput.defaultProps = {
   useData: false,
-  hideHelperText: false
+  hideHelperText: false,
+  invalidText: ""
 };
 IcseNameInput.propTypes = {
   id: PropTypes__default["default"].string.isRequired,
@@ -1300,7 +1276,9 @@ IcseNameInput.propTypes = {
   }),
   hideHelperText: PropTypes__default["default"].bool.isRequired,
   useData: PropTypes__default["default"].bool.isRequired,
-  helperTextCallback: PropTypes__default["default"].func
+  helperTextCallback: PropTypes__default["default"].func,
+  invalidText: PropTypes__default["default"].string.isRequired,
+  invalidCallback: PropTypes__default["default"].func
 };
 
 exports.DeleteModal = DeleteModal;

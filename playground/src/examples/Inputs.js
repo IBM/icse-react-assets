@@ -41,6 +41,10 @@ export const IcseNameInputExample = () => {
       helperTextCallback={() => {
         return `Composed Name: prefix-${value}`; // helper text does not have to be static
       }}
+      invalidCallback={() => {
+        return value === "";
+      }}
+      invalidText="NameInput cannot be empty"
       tooltip={{ content: "Optional tooltip example", align: "bottom-left" }}
     />
   );

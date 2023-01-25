@@ -5,7 +5,7 @@ import { kebabCase, snakeCase, isBoolean, titleCase } from "lazy-z";
 import { DynamicToolTipWrapper } from "./Tooltips";
 import "./styles/Inputs.css";
 import "./styles/Tooltips.css";
-import { addClassName, formatInputPlaceholder, hasInvalidName } from "../lib";
+import { addClassName, formatInputPlaceholder } from "../lib";
 
 export const IcseToggle = (props) => {
   let toggleName = props.toggleFieldName || snakeCase(props.labelText);
@@ -131,6 +131,7 @@ IcseTextInput.propTypes = {
   maxLength: PropTypes.number,
   invalidCallback: PropTypes.func,
   id: PropTypes.string.isRequired,
+  invalidText: PropTypes.string,
 };
 
 /**
@@ -142,16 +143,12 @@ IcseTextInput.propTypes = {
  * @param {Function} props.onChange
  * @param {string} props.component
  * @param {boolean=} props.hideHelperText
+ * @param {func} props.helperTextCallback
+ * @param {string} props.invalidText
+ * @param {func} props.invalidCallback
  * @returns <IcseNameInput />
  */
 export const IcseNameInput = (props) => {
-  // get invalid and invalid text
-  let invalid = hasInvalidName(
-    props.componentName,
-    props.value,
-    props.componentProps,
-    props.useData
-  );
   let helperText = "";
   // if helper text is not hidden
   if (!props.hideHelperText && !props.useData) {
@@ -160,7 +157,6 @@ export const IcseNameInput = (props) => {
   return (
     <IcseTextInput
       {...props}
-      {...invalid}
       className={addClassName("fieldWidth leftTextAlign ", props)}
       field="name"
       labelText="Name"
@@ -172,6 +168,7 @@ export const IcseNameInput = (props) => {
 IcseNameInput.defaultProps = {
   useData: false,
   hideHelperText: false,
+  invalidText: "",
 };
 
 IcseNameInput.propTypes = {
@@ -188,4 +185,6 @@ IcseNameInput.propTypes = {
   hideHelperText: PropTypes.bool.isRequired,
   useData: PropTypes.bool.isRequired,
   helperTextCallback: PropTypes.func,
+  invalidText: PropTypes.string.isRequired,
+  invalidCallback: PropTypes.func,
 };
