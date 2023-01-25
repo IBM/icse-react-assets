@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const {
   toggleMarginBottom,
   addClassName,
@@ -27,12 +26,4 @@ module.exports = {
   setNameToValue,
   invalidRegex,
   handleClusterInputChange,
-=======
-const { toggleMarginBottom, addClassName, prependEmptyStringToArrayOnNullOrEmptyString, checkNullorEmptyString } = require("./form-utils");
-module.exports = {
-  toggleMarginBottom,
-  addClassName,
-  prependEmptyStringToArrayOnNullOrEmptyString,
-  checkNullorEmptyString
->>>>>>> 67351ff (Dropdowns components)
 };

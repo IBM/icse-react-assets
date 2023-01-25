@@ -3919,12 +3919,23 @@ IcseNumberSelect.propTypes = {
   labelText: PropTypes.string.isRequired,
   isModal: PropTypes.bool.isRequired
 };
-({
+const EntitlementDropdown = props => {
+  return /*#__PURE__*/React.createElement(IcseSelect, {
+    name: "entitlement",
+    labelText: "Entitlement",
+    groups: ["null", "cloud_pak"],
+    value: props.value || "null",
+    handleInputChange: props.handleInputChange,
+    className: "fieldWidthSmaller",
+    component: props.component
+  });
+};
+EntitlementDropdown.propTypes = {
   value: PropTypes.string,
   // can be null
   component: PropTypes.string.isRequired,
   handleInputChange: PropTypes.func.isRequired
-});
+};
 
 /**
  * Under Construction Page
@@ -4166,6 +4177,7 @@ UnsavedChangesModal.propTypes = {
   useDefaultUnsavedMessage: PropTypes.bool
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -4606,3 +4618,6 @@ export { AppIdKeyForm, DeleteButton, DeleteModal, DynamicRender, DynamicToolTipW
 =======
 export { DeleteModal, DynamicRender, DynamicToolTipWrapper, EmptyResourceTile, FetchSelect, IcseFormGroup, IcseModal, IcseMultiSelect, IcseNumberSelect, IcseSelect, IcseSubForm, IcseToolTip, PopoverWrapper, RenderForm, SecurityGroupMultiSelect, SshKeyMultiSelect, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, VpcListMultiSelect };
 >>>>>>> 67351ff (Dropdowns components)
+=======
+export { DeleteModal, DynamicRender, DynamicToolTipWrapper, EmptyResourceTile, EntitlementDropdown, FetchSelect, IcseFormGroup, IcseModal, IcseMultiSelect, IcseNumberSelect, IcseSelect, IcseSubForm, IcseToolTip, PopoverWrapper, RenderForm, SecurityGroupMultiSelect, SshKeyMultiSelect, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, VpcListMultiSelect };
+>>>>>>> e6437cd (dropdown examples)

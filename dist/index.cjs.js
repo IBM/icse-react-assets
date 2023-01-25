@@ -2412,12 +2412,23 @@ IcseNumberSelect.propTypes = {
   labelText: PropTypes__default["default"].string.isRequired,
   isModal: PropTypes__default["default"].bool.isRequired
 };
-({
+const EntitlementDropdown = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+    name: "entitlement",
+    labelText: "Entitlement",
+    groups: ["null", "cloud_pak"],
+    value: props.value || "null",
+    handleInputChange: props.handleInputChange,
+    className: "fieldWidthSmaller",
+    component: props.component
+  });
+};
+EntitlementDropdown.propTypes = {
   value: PropTypes__default["default"].string,
   // can be null
   component: PropTypes__default["default"].string.isRequired,
   handleInputChange: PropTypes__default["default"].func.isRequired
-});
+};
 
 /**
  * Under Construction Page
@@ -4044,8 +4055,12 @@ exports.EditCloseIcon = EditCloseIcon;
 >>>>>>> 04bfb65 (added button examples)
 exports.EmptyResourceTile = EmptyResourceTile;
 <<<<<<< HEAD
+<<<<<<< HEAD
 exports.FormModal = FormModal;
 =======
+=======
+exports.EntitlementDropdown = EntitlementDropdown;
+>>>>>>> e6437cd (dropdown examples)
 exports.FetchSelect = FetchSelect;
 >>>>>>> 67351ff (Dropdowns components)
 exports.IcseFormGroup = IcseFormGroup;
