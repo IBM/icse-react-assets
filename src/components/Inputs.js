@@ -17,7 +17,7 @@ export const IcseToggle = (props) => {
             labelA={props.useOnOff ? "Off" : "False"}
             labelB={props.useOnOff ? "On" : "True"}
             labelText={props.tooltip ? "" : props.labelText}
-            id={kebabCase(toggleName) + "-slz-toggle-" + props.id}
+            id={kebabCase(toggleName) + "-icse-toggle-" + props.id}
             className={
               addClassName("leftTextAlign fieldWidth", props) +
               (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
@@ -141,7 +141,6 @@ IcseTextInput.propTypes = {
  * @param {Function} props.onChange
  * @param {string} props.component
  * @param {boolean=} props.hideHelperText
- * @param {slzStateStore} slz
  * @returns <IcseNameInput />
  */
 export const IcseNameInput = (props) => {
