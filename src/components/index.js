@@ -16,3 +16,4 @@ export {
   IcseSubForm,
 } from "./Utils";
 export { IcseModal, DeleteModal, UnsavedChangesModal } from "./Modals";
+export { IcseToggle } from "./Inputs";

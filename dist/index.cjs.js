@@ -56,6 +56,7 @@ var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 var PropTypes__default = /*#__PURE__*/_interopDefaultLegacy(PropTypes);
 >>>>>>> faf8c38 (fixed imports)
 
+<<<<<<< HEAD
 /**
  * create a composed class name
  * @param {string} className name of classes to add
@@ -161,6 +162,8 @@ function _objectSpread2(target) {
   }
   return target;
 }
+=======
+>>>>>>> e90fadd (updates)
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -183,19 +186,19 @@ function _createClass(Constructor, protoProps, staticProps) {
   });
   return Constructor;
 }
-function _defineProperty(obj, key, value) {
-  key = _toPropertyKey(key);
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-  return obj;
+function _extends() {
+  _extends = Object.assign ? Object.assign.bind() : function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
+  return _extends.apply(this, arguments);
 }
 function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
@@ -281,6 +284,92 @@ function _toPropertyKey(arg) {
 }
 
 /**
+ * create a composed class name
+ * @param {string} className name of classes to add
+ * @param {*} props arbitrary props
+ * @param {string=} props.className additional classnames
+ */
+function addClassName$1(className, props) {
+  let composedClassName = className;
+  if (props?.className) {
+    composedClassName += " " + props.className;
+    if (props.noMarginRight === true) {
+      composedClassName = composedClassName.replace(/\s?marginRight\b/g, "");
+    }
+  }
+  return composedClassName;
+}
+
+/**
+ * add margin bottom to subform chevron
+ * @param {*} componentProps
+ * @returns {string} additional classNames
+ */
+function toggleMarginBottom$1(hide) {
+  if (hide === false) return " marginBottomSmall";else return "";
+}
+
+/**
+ * format input placeholder
+ * @param {string} componentName
+ * @param {string} fieldName
+ * @returns {string} placeholder name
+ */
+function formatInputPlaceholder$1(componentName, fieldName) {
+  return `my-${lazyZ.kebabCase(componentName)}-${lazyZ.kebabCase(fieldName)}`;
+}
+
+var formUtils = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  addClassName: addClassName$1,
+  toggleMarginBottom: toggleMarginBottom$1,
+  formatInputPlaceholder: formatInputPlaceholder$1
+});
+
+const {
+  toggleMarginBottom,
+  addClassName,
+  formatInputPlaceholder
+} = formUtils;
+var lib = {
+  toggleMarginBottom,
+  addClassName,
+  formatInputPlaceholder
+};
+var lib_1 = lib.toggleMarginBottom;
+var lib_2 = lib.addClassName;
+
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css_248z$6 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n}\n";
+styleInject(css_248z$6);
+
+/**
  * Wrapper for carbon popover component to handle individual component mouseover
  */
 var PopoverWrapper = /*#__PURE__*/function (_React$Component) {
@@ -323,7 +412,7 @@ var PopoverWrapper = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       return this.props.noPopover === true || this.props.hoverText === "" ? this.props.children : /*#__PURE__*/React__default["default"].createElement("div", {
-        className: addClassName("popover-obj", this.props),
+        className: lib_2("popover-obj", this.props),
         onMouseEnter: this.handleMouseOver,
         onMouseLeave: this.handleMouseOut
       }, /*#__PURE__*/React__default["default"].createElement(react.Popover, {
@@ -353,51 +442,28 @@ PopoverWrapper.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
+=======
+var css_248z$5 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+styleInject(css_248z$5);
+>>>>>>> e90fadd (updates)
 
-  if (!css || typeof document === 'undefined') { return; }
-
-  var head = document.head || document.getElementsByTagName('head')[0];
-  var style = document.createElement('style');
-  style.type = 'text/css';
-
-  if (insertAt === 'top') {
-    if (head.firstChild) {
-      head.insertBefore(style, head.firstChild);
-    } else {
-      head.appendChild(style);
-    }
-  } else {
-    head.appendChild(style);
-  }
-
-  if (style.styleSheet) {
-    style.styleSheet.cssText = css;
-  } else {
-    style.appendChild(document.createTextNode(css));
-  }
-}
-
-var css_248z$4 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+var css_248z$4 = ".leftTextAlign {\n  text-align: left;\n}\n";
 styleInject(css_248z$4);
-
-var css_248z$3 = ".leftTextAlign {\n  text-align: left;\n}\n";
-styleInject(css_248z$3);
 
 /**
  * Icse multiselect template
  */
-var IcseMultiSelect = function IcseMultiSelect(props) {
+const IcseMultiSelect = props => {
   return /*#__PURE__*/React__default["default"].createElement(react.FilterableMultiSelect, {
     id: props.id,
-    className: addClassName("fieldWidth leftTextAlign cds--select", props),
+    className: lib_2("fieldWidth leftTextAlign cds--select", props),
     titleText: props.titleText,
-    itemToString: function itemToString(item) {
-      return item ? item : "";
-    },
+    itemToString: item => item ? item : "",
     invalid: props.invalid,
     invalidText: props.invalidText,
     initialSelectedItems: props.initialSelectedItems,
@@ -431,7 +497,7 @@ IcseMultiSelect.propTypes = {
 /**
  * ssh key multiselect
  */
-var SshKeyMultiSelect = function SshKeyMultiSelect(props) {
+const SshKeyMultiSelect = props => {
   return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
     id: props.id + "-ssh-key-multiselect",
     useTitleInItem: true,
@@ -441,7 +507,7 @@ var SshKeyMultiSelect = function SshKeyMultiSelect(props) {
     invalid: props.initialSelectedItems.length === 0,
     items: props.sshKeys,
     initialSelectedItems: props.initialSelectedItems || [],
-    onChange: function onChange(event) {
+    onChange: event => {
       props.onChange(event.selectedItems);
     },
     className: "fieldWidthSmaller cds--form-item"
@@ -460,7 +526,7 @@ SshKeyMultiSelect.propTypes = {
 /**
  * sg multiselect
  */
-var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
+const SecurityGroupMultiSelect = props => {
   if (props.vpc_name && !props.securityGroups) {
     // checking props.securityGroups[props.vpc_name] will result in an
     // undefined error that happens as part of MultiSelect
@@ -475,14 +541,12 @@ var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
     vpc_name: props.vpc_name,
     invalid: props.invalid,
     invalidText: "Invalid Selection",
-    onChange: function onChange(event) {
+    onChange: event => {
       props.onChange(event.selectedItems);
     },
     disabled: props.disabled,
     items: props.vpc_name === "" ? [] : props.securityGroups[props.vpc_name],
-    itemToString: function itemToString(item) {
-      return item ? item : "";
-    }
+    itemToString: item => item ? item : ""
   });
 };
 SecurityGroupMultiSelect.defaultProps = {
@@ -506,7 +570,7 @@ SecurityGroupMultiSelect.propTypes = {
 /**
  * vpc subnet multiselect
  */
-var SubnetMultiSelect = function SubnetMultiSelect(props) {
+const SubnetMultiSelect = props => {
   return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
     id: props.id + "-subnet-multiselect",
     className: props.className,
@@ -518,9 +582,7 @@ var SubnetMultiSelect = function SubnetMultiSelect(props) {
     invalidText: lazyZ.isNullOrEmptyString(props.vpc_name) ? "Select a VPC." : "Select at least one subnet.",
     invalid: props.initialSelectedItems.length === 0,
     disabled: props.disabled,
-    onChange: function onChange(event) {
-      return props.onChange(event.selectedItems);
-    }
+    onChange: event => props.onChange(event.selectedItems)
   });
 };
 SubnetMultiSelect.defaultProps = {
@@ -546,7 +608,7 @@ SubnetMultiSelect.propTypes = {
 /**
  * VPC List MultiSelect
  */
-var VpcListMultiSelect = function VpcListMultiSelect(props) {
+const VpcListMultiSelect = props => {
   // throw error here so that passing no vpc list prop will error here
   // instead of being passed to `FilterableMultiselect`
   if (!props.vpcList) {
@@ -557,9 +619,7 @@ var VpcListMultiSelect = function VpcListMultiSelect(props) {
     invalid: props.invalid,
     id: props.id + "-vpc-select",
     titleText: props.titleText,
-    onChange: function onChange(event) {
-      return props.onChange(event.selectedItems);
-    },
+    onChange: event => props.onChange(event.selectedItems),
     initialSelectedItems: props.initialSelectedItems,
     className: props.className,
     items: props.vpcList
@@ -581,16 +641,16 @@ VpcListMultiSelect.propTypes = {
 /**
  * Under Construction Page
  */
-var UnderConstruction = function UnderConstruction() {
+const UnderConstruction = () => {
   return /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(iconsReact.WarningAlt, {
     size: "128"
   }), /*#__PURE__*/React__default["default"].createElement("h4", null, "Page Under Construction"));
 };
 
-var css_248z$2 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
-styleInject(css_248z$2);
+var css_248z$3 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z$3);
 
-var EmptyResourceTile = function EmptyResourceTile(props) {
+const EmptyResourceTile = props => {
   return props.showIfEmpty === false || props.showIfEmpty.length === 0 ? /*#__PURE__*/React__default["default"].createElement(react.Tile, {
     className: "marginBottomXs tileBackground"
   }, /*#__PURE__*/React__default["default"].createElement(iconsReact.CloudAlerting, {
@@ -609,9 +669,14 @@ EmptyResourceTile.propTypes = {
   showIfEmpty: PropTypes__default["default"].oneOfType([PropTypes__default["default"].array, PropTypes__default["default"].bool]).isRequired
 };
 
+<<<<<<< HEAD
 >>>>>>> faf8c38 (fixed imports)
 var css_248z$1 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
 styleInject(css_248z$1);
+=======
+var css_248z$2 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
+styleInject(css_248z$2);
+>>>>>>> e90fadd (updates)
 
 /**
  * Render a form
@@ -620,7 +685,9 @@ styleInject(css_248z$1);
  * @returns Form element
  */
 function RenderForm(form, formProps) {
-  return /*#__PURE__*/React__default["default"].createElement(form, _objectSpread2({}, formProps));
+  return /*#__PURE__*/React__default["default"].createElement(form, {
+    ...formProps
+  });
 }
 
 /**
@@ -637,9 +704,9 @@ function DynamicRender(props) {
 /**
  * wrapper for title groups
  */
-var TitleGroup = function TitleGroup(props) {
+const TitleGroup = props => {
   return /*#__PURE__*/React__default["default"].createElement("div", {
-    className: addClassName("displayFlex alignItemsCenter widthOneHundredPercent ".concat(toggleMarginBottom(props.hide)), props)
+    className: lib_2(`displayFlex alignItemsCenter widthOneHundredPercent ${lib_1(props.hide)}`, props)
   }, props.children);
 };
 TitleGroup.defaultProps = {
@@ -648,14 +715,14 @@ TitleGroup.defaultProps = {
 TitleGroup.propTypes = {
   children: PropTypes__default["default"].node.isRequired
 };
-var IcseFormGroup = function IcseFormGroup(props) {
-  var formGroupClassName = "displayFlex marginBottom fitContent evenSpacing";
+const IcseFormGroup = props => {
+  let formGroupClassName = "displayFlex marginBottom fitContent evenSpacing";
   // remove margin bottom from formGroup for VPC
   if (props.noMarginBottom) {
     formGroupClassName = formGroupClassName.replace(/\smarginBottom/g, "");
   }
   return /*#__PURE__*/React__default["default"].createElement("div", {
-    className: addClassName(formGroupClassName, props)
+    className: lib_2(formGroupClassName, props)
   }, props.children);
 };
 IcseFormGroup.defaultProps = {
@@ -666,9 +733,9 @@ IcseFormGroup.propTypes = {
   children: PropTypes__default["default"].node.isRequired,
   className: PropTypes__default["default"].string
 };
-var IcseSubForm = function IcseSubForm(props) {
+const IcseSubForm = props => {
   return /*#__PURE__*/React__default["default"].createElement("div", {
-    className: addClassName(props.formInSubForm ? "formInSubForm positionRelative" : "subForm marginBottomSmall", props),
+    className: lib_2(props.formInSubForm ? "formInSubForm positionRelative" : "subForm marginBottomSmall", props),
     id: props.id
   }, props.children);
 };
@@ -683,6 +750,7 @@ IcseSubForm.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z = ".leftTextAlign {\n    text-align: left;\n}";
 styleInject(css_248z);
 
@@ -690,16 +758,18 @@ styleInject(css_248z);
 =======
 var css_248z = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
 styleInject(css_248z);
+=======
+var css_248z$1 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+styleInject(css_248z$1);
+>>>>>>> e90fadd (updates)
 
 /**
  * render a tooltip around an input field
  * @returns slz tooltip component
  */
-var IcseToolTip = function IcseToolTip(props) {
-  var link = /*#__PURE__*/React__default["default"].createElement(react.Link, {
-    onClick: function onClick() {
-      return window.open(props.link, "_blank");
-    }
+const IcseToolTip = props => {
+  let link = /*#__PURE__*/React__default["default"].createElement(react.Link, {
+    onClick: () => window.open(props.link, "_blank")
   }, "this link");
   return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(react.Toggletip, {
     align: props.align
@@ -716,11 +786,10 @@ IcseToolTip.propTypes = {
   link: PropTypes__default["default"].string,
   align: PropTypes__default["default"].string.isRequired
 };
-var BuildToolTip = function BuildToolTip(props) {
-  var _props$tooltip;
+const BuildToolTip = props => {
   return /*#__PURE__*/React__default["default"].createElement(IcseToolTip, {
     content: props.tooltip.content,
-    link: (_props$tooltip = props.tooltip) === null || _props$tooltip === void 0 ? void 0 : _props$tooltip.link,
+    link: props.tooltip?.link,
     align: props.isModal ? props.alignModal : props.align
   });
 };
@@ -741,9 +810,11 @@ BuildToolTip.propTypes = {
   align: PropTypes__default["default"].string.isRequired,
   alignModal: PropTypes__default["default"].string.isRequired
 };
-var ToolTipWrapper = function ToolTipWrapper(props) {
-  var allProps = _objectSpread2({}, props);
-  var tooltip = BuildToolTip(props);
+const ToolTipWrapper = props => {
+  let allProps = {
+    ...props
+  };
+  let tooltip = BuildToolTip(props);
   delete allProps.innerForm;
   delete allProps.tooltip;
   delete allProps.noLabelText;
@@ -753,7 +824,9 @@ var ToolTipWrapper = function ToolTipWrapper(props) {
   }
   // remove label text from components where it is not valid param
   if (props.noLabelText) delete allProps.labelText;else allProps.labelText = " ";
-  allProps.className = addClassName("tooltip", _objectSpread2({}, props));
+  allProps.className = lib_2("tooltip", {
+    ...props
+  });
   return /*#__PURE__*/React__default["default"].createElement("div", {
     className: "cds--form-item"
   }, props.noLabelText ?
@@ -790,7 +863,7 @@ ToolTipWrapper.propTypes = {
   children: PropTypes__default["default"].node,
   innerForm: PropTypes__default["default"].object
 };
-var DynamicToolTipWrapper = function DynamicToolTipWrapper(props) {
+const DynamicToolTipWrapper = props => {
   //make sure that either children or innerForm are passed as a prop
   if (props.children === undefined && props.innerForm === undefined) {
     throw new Error("DynamicToolTipWrapper expects either `props.children` or `props.innerForm` when rendering ToolTipWrapper, got neither.");
@@ -827,7 +900,7 @@ DynamicToolTipWrapper.propTypes = {
  * @param {Function} props.onRequestClose
  * @param {boolean=} props.useAddButton use + button instead of edit
  */
-var IcseModal = function IcseModal(props) {
+const IcseModal = props => {
   /*#__PURE__*/React__default["default"].createElement("strong", null, props.name);
   return /*#__PURE__*/React__default["default"].createElement(react.Modal, {
     id: props.id,
@@ -876,8 +949,8 @@ IcseModal.propTypes = {
  * @param {Function} props.onModalClose function for on close
  * @param {Function} props.onModalSubmit function for on submit
  */
-var DeleteModal = function DeleteModal(props) {
-  var name = /*#__PURE__*/React__default["default"].createElement("strong", null, props.name);
+const DeleteModal = props => {
+  let name = /*#__PURE__*/React__default["default"].createElement("strong", null, props.name);
   return /*#__PURE__*/React__default["default"].createElement(IcseModal, {
     id: props.name + "-delete",
     name: props.name,
@@ -908,8 +981,8 @@ DeleteModal.propTypes = {
  * @param {Function} props.onModalSubmit function for on submit
  */
 
-var UnsavedChangesModal = function UnsavedChangesModal(props) {
-  var name = props.name;
+const UnsavedChangesModal = props => {
+  let name = props.name;
   return /*#__PURE__*/React__default["default"].createElement("div", {
     className: "unsaved-changes-modal-area"
   }, /*#__PURE__*/React__default["default"].createElement(IcseModal, {
@@ -935,18 +1008,71 @@ UnsavedChangesModal.propTypes = {
   useDefaultUnsavedMessage: PropTypes__default["default"].bool
 };
 
+var css_248z = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
+styleInject(css_248z);
+
+const IcseToggle = props => {
+  let toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
+  return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, _extends({
+    innerForm: () => {
+      return /*#__PURE__*/React__default["default"].createElement(react.Toggle, {
+        labelA: props.useOnOff ? "Off" : "False",
+        labelB: props.useOnOff ? "On" : "True",
+        labelText: props.tooltip ? "" : props.labelText,
+        id: lazyZ.kebabCase(toggleName) + "-slz-toggle-" + props.id,
+        className: lib_2("leftTextAlign fieldWidth", props) + (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
+        ,
+
+        onToggle: event => {
+          props.onToggle(toggleName, event);
+        },
+        defaultToggled: props.defaultToggled,
+        disabled: props.disabled
+      });
+    }
+  }, props));
+};
+IcseToggle.defaultProps = {
+  useOnOff: false,
+  defaultToggled: false,
+  isModal: false,
+  disabled: false
+};
+IcseToggle.propTypes = {
+  useOnOff: PropTypes__default["default"].bool.isRequired,
+  className: PropTypes__default["default"].string,
+  labelText: PropTypes__default["default"].string.isRequired,
+  id: PropTypes__default["default"].string.isRequired,
+  toggleFieldName: PropTypes__default["default"].string,
+  // if field is name other than label text snake case
+  defaultToggled: PropTypes__default["default"].bool.isRequired,
+  disabled: PropTypes__default["default"].bool.isRequired,
+  tooltip: PropTypes__default["default"].shape({
+    content: PropTypes__default["default"].string.isRequired,
+    link: PropTypes__default["default"].string,
+    alignModal: PropTypes__default["default"].string
+  }),
+  onToggle: PropTypes__default["default"].func.isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired
+};
+
 exports.DeleteModal = DeleteModal;
 exports.DynamicRender = DynamicRender;
 exports.EmptyResourceTile = EmptyResourceTile;
 exports.IcseFormGroup = IcseFormGroup;
 exports.IcseModal = IcseModal;
 exports.IcseSubForm = IcseSubForm;
+exports.IcseToggle = IcseToggle;
 exports.IcseToolTip = IcseToolTip;
 exports.PopoverWrapper = PopoverWrapper;
 exports.RenderForm = RenderForm;
 exports.TitleGroup = TitleGroup;
 exports.UnderConstruction = UnderConstruction;
 exports.UnsavedChangesModal = UnsavedChangesModal;
+<<<<<<< HEAD
 exports.addClassName = addClassName;
 exports.toggleMarginBottom = toggleMarginBottom;
 >>>>>>> 7ab206c (working on editing imports)
+=======
+exports.VpcListMultiSelect = VpcListMultiSelect;
+>>>>>>> e90fadd (updates)

@@ -33,7 +33,12 @@ export {
   SshKeyMultiSelect,
   SecurityGroupMultiSelect,
   SubnetMultiSelect,
+<<<<<<< HEAD
   VpcListMultiSelect
+=======
+  VpcListMultiSelect,
+  IcseToggle,
+>>>>>>> e90fadd (updates)
 } from "./components/index.js";
 <<<<<<< HEAD
 export { addClassName, toggleMarginBottom } from "./form-utils";
