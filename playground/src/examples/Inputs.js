@@ -35,12 +35,12 @@ export const IcseNameInputExample = () => {
     <IcseNameInput
       componentName="name-input"
       id="example-name-input"
-      component="name-input"
       value={value}
       onChange={(event) => setValue(event.target.value)}
       helperTextCallback={() => {
         return `Composed Name: prefix-${value}`; // helper text does not have to be static
       }}
+      tooltip={{ content: "Optional tooltip example", align: "bottom-left" }}
     />
   );
 };

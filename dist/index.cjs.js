@@ -1193,7 +1193,6 @@ IcseToggle.propTypes = {
  */
 const IcseTextInput = props => {
   let fieldName = lazyZ.titleCase(props.field);
-  console.log(fieldName);
   return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React__default["default"].createElement(react.TextInput, {
     id: `${props.id || ""}${props.field}`,
     className: lib_2("fieldWidth leftTextAlign", props),
@@ -1244,25 +1243,24 @@ IcseTextInput.propTypes = {
  * @param {string} props.value
  * @param {Function} props.onChange
  * @param {string} props.component
- * @param {string} props.invalid
  * @param {boolean=} props.hideHelperText
  * @param {slzStateStore} slz
  * @returns <IcseNameInput />
  */
 const IcseNameInput = props => {
   // get invalid and invalid text
-  let invalid = lib_4(props.component, props.value, props.componentProps, props.useData);
+  let invalid = lib_4(props.componentName, props.value, props.componentProps, props.useData);
   let helperText = "";
   // if helper text is not hidden
   if (!props.hideHelperText && !props.useData) {
     helperText = props.helperTextCallback();
   }
-  return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, _extends({}, props, invalid, {
+  return /*#__PURE__*/React__default["default"].createElement(IcseTextInput, _extends({}, props, invalid, {
     className: lib_2("fieldWidth leftTextAlign ", props),
     field: "name",
     labelText: "Name",
     helperText: helperText
-  })));
+  }));
 };
 IcseNameInput.defaultProps = {
   useData: false,
@@ -1273,8 +1271,7 @@ IcseNameInput.propTypes = {
   className: PropTypes__default["default"].string,
   value: PropTypes__default["default"].string.isRequired,
   onChange: PropTypes__default["default"].func,
-  component: PropTypes__default["default"].string.isRequired,
-  invalid: PropTypes__default["default"].string,
+  componentName: PropTypes__default["default"].string.isRequired,
   tooltip: PropTypes__default["default"].shape({
     content: PropTypes__default["default"].string.isRequired,
     link: PropTypes__default["default"].string,

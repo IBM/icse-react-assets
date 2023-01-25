@@ -75,7 +75,6 @@ IcseToggle.propTypes = {
  */
 export const IcseTextInput = (props) => {
   let fieldName = titleCase(props.field);
-  console.log(fieldName);
   return (
     <DynamicToolTipWrapper {...props}>
       <TextInput
@@ -141,7 +140,6 @@ IcseTextInput.propTypes = {
  * @param {string} props.value
  * @param {Function} props.onChange
  * @param {string} props.component
- * @param {string} props.invalid
  * @param {boolean=} props.hideHelperText
  * @param {slzStateStore} slz
  * @returns <IcseNameInput />
@@ -149,7 +147,7 @@ IcseTextInput.propTypes = {
 export const IcseNameInput = (props) => {
   // get invalid and invalid text
   let invalid = hasInvalidName(
-    props.component,
+    props.componentName,
     props.value,
     props.componentProps,
     props.useData
@@ -160,16 +158,14 @@ export const IcseNameInput = (props) => {
     helperText = props.helperTextCallback();
   }
   return (
-    <DynamicToolTipWrapper {...props}>
-      <IcseTextInput
-        {...props}
-        {...invalid}
-        className={addClassName("fieldWidth leftTextAlign ", props)}
-        field="name"
-        labelText="Name"
-        helperText={helperText}
-      />
-    </DynamicToolTipWrapper>
+    <IcseTextInput
+      {...props}
+      {...invalid}
+      className={addClassName("fieldWidth leftTextAlign ", props)}
+      field="name"
+      labelText="Name"
+      helperText={helperText}
+    />
   );
 };
 
@@ -183,8 +179,7 @@ IcseNameInput.propTypes = {
   className: PropTypes.string,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func,
-  component: PropTypes.string.isRequired,
-  invalid: PropTypes.string,
+  componentName: PropTypes.string.isRequired,
   tooltip: PropTypes.shape({
     content: PropTypes.string.isRequired,
     link: PropTypes.string,
