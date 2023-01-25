@@ -38,7 +38,11 @@ export {
 =======
   VpcListMultiSelect,
   IcseToggle,
+<<<<<<< HEAD
 >>>>>>> e90fadd (updates)
+=======
+  IcseTextInput,
+>>>>>>> 16dd967 (icsetextinput, working on nameinput)
 } from "./components/index.js";
 <<<<<<< HEAD
 export { addClassName, toggleMarginBottom } from "./form-utils";

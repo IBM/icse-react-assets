@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React from 'react';
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -586,6 +587,12 @@ import { Popover, PopoverContent, FilterableMultiSelect, MultiSelect, Tile, Togg
 import React from 'react';
 import PropTypes from 'prop-types';
 import { kebabCase, prettyJSON, isNullOrEmptyString, titleCase, snakeCase } from 'lazy-z';
+=======
+import { Popover, PopoverContent, FilterableMultiSelect, MultiSelect, Tile, Toggletip, ToggletipButton, ToggletipContent, Link, Modal, TextInput, Toggle } from '@carbon/react';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { kebabCase, prettyJSON, isNullOrEmptyString, snakeCase, titleCase, isBoolean } from 'lazy-z';
+>>>>>>> 16dd967 (icsetextinput, working on nameinput)
 import { WarningAlt, CloudAlerting, Add, Information } from '@carbon/icons-react';
 >>>>>>> faf8c38 (fixed imports)
 
@@ -821,6 +828,7 @@ var lib = {
 };
 var lib_1 = lib.toggleMarginBottom;
 var lib_2 = lib.addClassName;
+var lib_3 = lib.formatInputPlaceholder;
 
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
@@ -2286,8 +2294,86 @@ IcseToggle.propTypes = {
   isModal: PropTypes.bool.isRequired
 };
 
+<<<<<<< HEAD
 export { DeleteModal, DynamicRender, DynamicToolTipWrapper, EmptyResourceTile, IcseFormGroup, IcseModal, IcseMultiSelect, IcseSubForm, IcseToggle, IcseToolTip, PopoverWrapper, RenderForm, SecurityGroupMultiSelect, SshKeyMultiSelect, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, VpcListMultiSelect };
 >>>>>>> e90fadd (updates)
 =======
 export { DeleteModal, DynamicRender, DynamicToolTipWrapper, EmptyResourceTile, IcseFormGroup, IcseModal, IcseMultiSelect, IcseSubForm, IcseToolTip, PopoverWrapper, RenderForm, SecurityGroupMultiSelect, SshKeyMultiSelect, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, VpcListMultiSelect };
 >>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
+=======
+/**
+ * Icse Text Input
+ * @param {*} props props
+ * @param {string} props.componentName name of the component being edited
+ * @param {string} props.placeholder placeholder text for field
+ * @param {string} props.field field (ex. name)
+ * @param {string=} props.value actual value
+ * @param {Function} props.onChange onchange function
+ * @param {string} props.helperText helper text
+ * @param {string} props.className classnames to add
+ * @param {boolean=} props.readOnly read only
+ * @param {string=} props.labelText override label text
+ * @returns <IcseTextInput/> component
+ */
+const IcseTextInput = props => {
+  let fieldName = titleCase(props.field);
+  return /*#__PURE__*/React.createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React.createElement(TextInput, {
+    id: `${props.id || ""}${props.field}`,
+    className: lib_2("fieldWidth leftTextAlign", props),
+    labelText: props.labelText ? props.labelText : titleCase(props.field),
+    placeholder: props.placeholder || lib_3(props.componentName, fieldName),
+    name: props.field,
+    value: props.value || "",
+    invalid: isBoolean(props.invalid) ? props.invalid : props.invalidCallback(),
+    onChange: props.onChange,
+    helperText: props.helperText,
+    invalidText: props.invalidText ? props.invalidText : `Invalid ${props.field} value.`,
+    maxLength: props.maxLength,
+    disabled: props.disabled,
+    readOnly: props.readOnly
+  }));
+};
+IcseTextInput.defaultProps = {
+  maxLength: null,
+  disabled: false,
+  readOnly: false,
+  hideHelperText: false
+};
+IcseTextInput.propTypes = {
+  disabled: PropTypes.bool.isRequired,
+  componentName: PropTypes.string,
+  placeholder: PropTypes.string,
+  field: PropTypes.string.isRequired,
+  value: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  helperText: PropTypes.string,
+  tooltip: PropTypes.shape({
+    content: PropTypes.string.isRequired,
+    link: PropTypes.string,
+    alignModal: PropTypes.string
+  }),
+  className: PropTypes.string,
+  readOnly: PropTypes.bool.isRequired,
+  labelText: PropTypes.string.isRequired,
+  maxLength: PropTypes.number,
+  invalidCallback: PropTypes.func
+};
+({
+  id: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func,
+  component: PropTypes.string.isRequired,
+  invalid: PropTypes.string,
+  tooltip: PropTypes.shape({
+    content: PropTypes.string.isRequired,
+    link: PropTypes.string,
+    alignModal: PropTypes.string
+  }),
+  noMarginRight: PropTypes.bool,
+  hideHelperText: PropTypes.bool.isRequired,
+  useData: PropTypes.bool.isRequired
+});
+
+export { DeleteModal, DynamicRender, DynamicToolTipWrapper, EmptyResourceTile, IcseFormGroup, IcseModal, IcseMultiSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, PopoverWrapper, RenderForm, SecurityGroupMultiSelect, SshKeyMultiSelect, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, VpcListMultiSelect };
+>>>>>>> 16dd967 (icsetextinput, working on nameinput)

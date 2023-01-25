@@ -359,6 +359,7 @@ var lib = {
 };
 var lib_1 = lib.toggleMarginBottom;
 var lib_2 = lib.addClassName;
+var lib_3 = lib.formatInputPlaceholder;
 
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
@@ -1093,12 +1094,87 @@ IcseToggle.propTypes = {
   isModal: PropTypes__default["default"].bool.isRequired
 };
 
+/**
+ * Icse Text Input
+ * @param {*} props props
+ * @param {string} props.componentName name of the component being edited
+ * @param {string} props.placeholder placeholder text for field
+ * @param {string} props.field field (ex. name)
+ * @param {string=} props.value actual value
+ * @param {Function} props.onChange onchange function
+ * @param {string} props.helperText helper text
+ * @param {string} props.className classnames to add
+ * @param {boolean=} props.readOnly read only
+ * @param {string=} props.labelText override label text
+ * @returns <IcseTextInput/> component
+ */
+const IcseTextInput = props => {
+  let fieldName = lazyZ.titleCase(props.field);
+  return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React__default["default"].createElement(react.TextInput, {
+    id: `${props.id || ""}${props.field}`,
+    className: lib_2("fieldWidth leftTextAlign", props),
+    labelText: props.labelText ? props.labelText : lazyZ.titleCase(props.field),
+    placeholder: props.placeholder || lib_3(props.componentName, fieldName),
+    name: props.field,
+    value: props.value || "",
+    invalid: lazyZ.isBoolean(props.invalid) ? props.invalid : props.invalidCallback(),
+    onChange: props.onChange,
+    helperText: props.helperText,
+    invalidText: props.invalidText ? props.invalidText : `Invalid ${props.field} value.`,
+    maxLength: props.maxLength,
+    disabled: props.disabled,
+    readOnly: props.readOnly
+  }));
+};
+IcseTextInput.defaultProps = {
+  maxLength: null,
+  disabled: false,
+  readOnly: false,
+  hideHelperText: false
+};
+IcseTextInput.propTypes = {
+  disabled: PropTypes__default["default"].bool.isRequired,
+  componentName: PropTypes__default["default"].string,
+  placeholder: PropTypes__default["default"].string,
+  field: PropTypes__default["default"].string.isRequired,
+  value: PropTypes__default["default"].string,
+  onChange: PropTypes__default["default"].func.isRequired,
+  helperText: PropTypes__default["default"].string,
+  tooltip: PropTypes__default["default"].shape({
+    content: PropTypes__default["default"].string.isRequired,
+    link: PropTypes__default["default"].string,
+    alignModal: PropTypes__default["default"].string
+  }),
+  className: PropTypes__default["default"].string,
+  readOnly: PropTypes__default["default"].bool.isRequired,
+  labelText: PropTypes__default["default"].string.isRequired,
+  maxLength: PropTypes__default["default"].number,
+  invalidCallback: PropTypes__default["default"].func
+};
+({
+  id: PropTypes__default["default"].string.isRequired,
+  className: PropTypes__default["default"].string,
+  value: PropTypes__default["default"].string.isRequired,
+  onChange: PropTypes__default["default"].func,
+  component: PropTypes__default["default"].string.isRequired,
+  invalid: PropTypes__default["default"].string,
+  tooltip: PropTypes__default["default"].shape({
+    content: PropTypes__default["default"].string.isRequired,
+    link: PropTypes__default["default"].string,
+    alignModal: PropTypes__default["default"].string
+  }),
+  noMarginRight: PropTypes__default["default"].bool,
+  hideHelperText: PropTypes__default["default"].bool.isRequired,
+  useData: PropTypes__default["default"].bool.isRequired
+});
+
 exports.DeleteModal = DeleteModal;
 exports.DynamicRender = DynamicRender;
 exports.EmptyResourceTile = EmptyResourceTile;
 exports.IcseFormGroup = IcseFormGroup;
 exports.IcseModal = IcseModal;
 exports.IcseSubForm = IcseSubForm;
+exports.IcseTextInput = IcseTextInput;
 exports.IcseToggle = IcseToggle;
 exports.IcseToolTip = IcseToolTip;
 exports.PopoverWrapper = PopoverWrapper;
