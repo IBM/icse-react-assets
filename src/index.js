@@ -8,7 +8,11 @@ export { default as EmptyResourceTile } from "./components/EmptyResourceTile";
 =======
 >>>>>>> 46ef698 (fixed imports and formatting for files)
 export { default as PopoverWrapper } from "./components/PopoverWrapper";
+<<<<<<< HEAD
 >>>>>>> 7ab206c (working on editing imports)
+=======
+export { default as AppIdKeyForm } from "./components/forms/AppIdKeyForm";
+>>>>>>> 8db187e (form and documentation)
 export {
 <<<<<<< HEAD
   ToolTipWrapper,

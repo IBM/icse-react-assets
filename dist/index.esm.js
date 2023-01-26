@@ -2,15 +2,20 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import { Popover, PopoverContent, FilterableMultiSelect, MultiSelect, Tile, Toggletip, ToggletipButton, ToggletipContent, Link, Modal, TextInput, Toggle, Button } from '@carbon/react';
 >>>>>>> 04bfb65 (added button examples)
+=======
+import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, Link, TextInput, Toggle, FilterableMultiSelect, MultiSelect, Tile, Modal } from '@carbon/react';
+>>>>>>> 8db187e (form and documentation)
 import React from 'react';
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
 import PropTypes from 'prop-types';
+<<<<<<< HEAD
 import { kebabCase, prettyJSON, isNullOrEmptyString, snakeCase, titleCase, isBoolean } from 'lazy-z';
 <<<<<<< HEAD
 >>>>>>> fecad7c (remove nameinput validation)
@@ -677,6 +682,11 @@ function _objectSpread2(target) {
 >>>>>>> e90fadd (updates)
 =======
 >>>>>>> 23b5837 (add id as required)
+=======
+import { kebabCase, snakeCase, titleCase, isBoolean, prettyJSON, isNullOrEmptyString } from 'lazy-z';
+import { Information, WarningAlt, CloudAlerting, Add } from '@carbon/icons-react';
+
+>>>>>>> 8db187e (form and documentation)
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -698,20 +708,6 @@ function _createClass(Constructor, protoProps, staticProps) {
     writable: false
   });
   return Constructor;
-}
-function _defineProperty(obj, key, value) {
-  key = _toPropertyKey(key);
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-  return obj;
 }
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
@@ -858,6 +854,7 @@ var textUtils = /*#__PURE__*/Object.freeze({
 });
 
 /**
+<<<<<<< HEAD
  * create classname for sub form chevron save button
  * @param {*} componentProps
  * @returns {string} classNames for button
@@ -871,6 +868,96 @@ function saveChangeButtonClass$1(componentProps) {
 var buttonUtils = {
   saveChangeButtonClass: saveChangeButtonClass$1
 };
+=======
+ * default handle event change function
+ * @param {event} event
+ * @param {Object} event.target
+ * @param {string} event.target.name name to set
+ * @param {*} event.target.value value to set
+ * @returns {Object} object with key of name set to value
+ */
+function eventTargetToNameAndValue$2(event) {
+  let {
+    name,
+    value
+  } = event.target;
+  return setNameToValue$2(name, value);
+}
+
+/**
+ * default handle toggle function
+ * @param {string} fieldName name to set
+ * @param {Object} stateData component state data
+ * @returns {Object} object with key of field name set to boolean opposite in state
+ */
+function toggleStateBoolean$2(fieldName, stateData) {
+  return {
+    [fieldName]: !stateData[fieldName]
+  };
+}
+function setNameToValue$2(name, value) {
+  return {
+    [name]: value
+  };
+}
+
+var methodFunctions = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  eventTargetToNameAndValue: eventTargetToNameAndValue$2,
+  toggleStateBoolean: toggleStateBoolean$2,
+  setNameToValue: setNameToValue$2
+});
+
+const {
+  isFunction
+} = require("lazy-z");
+
+/**
+ * build functions for modal forms
+ * @param {React.Element} component stateful component
+ */
+function buildFormFunctions$1(component) {
+  let disableSubmit = isFunction(component.props.shouldDisableSubmit);
+  let disableSave = isFunction(component.props.shouldDisableSave);
+  if (component.props.shouldDisableSave) component.shouldDisableSave = component.props.shouldDisableSave.bind(component);
+  if (disableSubmit) component.shouldDisableSubmit = component.props.shouldDisableSubmit.bind(component);
+
+  // set update
+  component.componentDidMount = function () {
+    if (disableSubmit) component.shouldDisableSubmit();
+    if (disableSave) component.shouldDisableSave(this.state, this.props);
+  }.bind(component);
+  component.componentDidUpdate = function () {
+    if (disableSubmit) component.shouldDisableSubmit();
+    if (disableSave) component.shouldDisableSave(this.state, this.props);
+  }.bind(component);
+
+  // set on save function
+  component.onSave = function () {
+    component.props.onSave(this.state, this.props);
+  }.bind(component);
+  // save on delete
+  component.onDelete = function () {
+    component.props.onDelete(this.state, this.props);
+  }.bind(component);
+}
+
+/**
+ * add default methods to component
+ * @param {*} component React Component
+ */
+function buildFormDefaultInputMethods$1(component) {
+  component.eventTargetToNameAndValue = eventTargetToNameAndValue.bind(component);
+  component.toggleStateBoolean = toggleStateBoolean.bind(component);
+  component.setNameToValue = setNameToValue.bind(component);
+}
+
+var componentUtils = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  buildFormFunctions: buildFormFunctions$1,
+  buildFormDefaultInputMethods: buildFormDefaultInputMethods$1
+});
+>>>>>>> 8db187e (form and documentation)
 
 const {
   toggleMarginBottom,
@@ -880,18 +967,41 @@ const {
   formatInputPlaceholder
 } = textUtils;
 const {
+<<<<<<< HEAD
   saveChangeButtonClass
 } = buttonUtils;
+=======
+  eventTargetToNameAndValue: eventTargetToNameAndValue$1,
+  toggleStateBoolean: toggleStateBoolean$1,
+  setNameToValue: setNameToValue$1
+} = methodFunctions;
+const {
+  buildFormFunctions,
+  buildFormDefaultInputMethods
+} = componentUtils;
+>>>>>>> 8db187e (form and documentation)
 var lib = {
   toggleMarginBottom,
   addClassName,
   formatInputPlaceholder,
+<<<<<<< HEAD
   saveChangeButtonClass
+=======
+  eventTargetToNameAndValue: eventTargetToNameAndValue$1,
+  toggleStateBoolean: toggleStateBoolean$1,
+  setNameToValue: setNameToValue$1,
+  buildFormFunctions,
+  buildFormDefaultInputMethods
+>>>>>>> 8db187e (form and documentation)
 };
 var lib_1 = lib.toggleMarginBottom;
 var lib_2 = lib.addClassName;
 var lib_3 = lib.formatInputPlaceholder;
+<<<<<<< HEAD
 var lib_4 = lib.saveChangeButtonClass;
+=======
+var lib_7 = lib.buildFormFunctions;
+>>>>>>> 8db187e (form and documentation)
 
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
@@ -995,11 +1105,439 @@ PopoverWrapper.propTypes = {
   children: PropTypes.node.isRequired
 };
 
+<<<<<<< HEAD
 var css_248z$6 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
 styleInject(css_248z$6);
 
 var css_248z$5 = ".leftTextAlign {\n  text-align: left;\n}\n";
 styleInject(css_248z$5);
+=======
+var css_248z$6 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
+styleInject(css_248z$6);
+
+/**
+ * Render a form
+ * @param {*} form form element
+ * @param {*} formProps props
+ * @returns Form element
+ */
+function RenderForm(form, formProps) {
+  return /*#__PURE__*/React.createElement(form, {
+    ...formProps
+  });
+}
+
+/**
+ * Dynamically render inner contents
+ * @param {*} props
+ * @param {boolean=} props.hide hide element
+ * @param {boolean=} props.show component to show when hide is false
+ * @returns empty string when hidden, component when visible
+ */
+function DynamicRender(props) {
+  return props.hide === true ? "" : props.show;
+}
+
+/**
+ * wrapper for title groups
+ */
+const TitleGroup = props => {
+  return /*#__PURE__*/React.createElement("div", {
+    className: lib_2(`displayFlex alignItemsCenter widthOneHundredPercent ${lib_1(props.hide)}`, props)
+  }, props.children);
+};
+TitleGroup.defaultProps = {
+  hide: true
+};
+TitleGroup.propTypes = {
+  children: PropTypes.node.isRequired
+};
+const IcseFormGroup = props => {
+  let formGroupClassName = "displayFlex marginBottom fitContent evenSpacing";
+  // remove margin bottom from formGroup for VPC
+  if (props.noMarginBottom) {
+    formGroupClassName = formGroupClassName.replace(/\smarginBottom/g, "");
+  }
+  return /*#__PURE__*/React.createElement("div", {
+    className: lib_2(formGroupClassName, props)
+  }, props.children);
+};
+IcseFormGroup.defaultProps = {
+  noMarginBottom: false
+};
+IcseFormGroup.propTypes = {
+  noMarginBottom: PropTypes.bool.isRequired,
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string
+};
+const IcseSubForm = props => {
+  return /*#__PURE__*/React.createElement("div", {
+    className: lib_2(props.formInSubForm ? "formInSubForm positionRelative" : "subForm marginBottomSmall", props),
+    id: props.id
+  }, props.children);
+};
+IcseSubForm.defaultProps = {
+  formInSubForm: false
+};
+IcseSubForm.propTypes = {
+  id: PropTypes.string.isRequired,
+  formInSubForm: PropTypes.bool.isRequired,
+  className: PropTypes.string,
+  children: PropTypes.node.isRequired
+};
+
+var css_248z$5 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+styleInject(css_248z$5);
+
+/**
+ * render a tooltip around an input field
+ * @returns slz tooltip component
+ */
+const IcseToolTip = props => {
+  let link = /*#__PURE__*/React.createElement(Link, {
+    onClick: () => window.open(props.link, "_blank")
+  }, "this link");
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Toggletip, {
+    align: props.align
+  }, /*#__PURE__*/React.createElement(ToggletipButton, null, /*#__PURE__*/React.createElement(Information, {
+    className: "tooltipMarginLeft"
+  })), /*#__PURE__*/React.createElement(ToggletipContent, null, /*#__PURE__*/React.createElement("p", null, props.content, props.link && /*#__PURE__*/React.createElement(React.Fragment, null, " Visit ", link, " for more information. ")))));
+};
+IcseToolTip.defaultProps = {
+  content: "",
+  align: "top"
+};
+IcseToolTip.propTypes = {
+  content: PropTypes.string.isRequired,
+  link: PropTypes.string,
+  align: PropTypes.string.isRequired
+};
+const BuildToolTip = props => {
+  return /*#__PURE__*/React.createElement(IcseToolTip, {
+    content: props.tooltip.content,
+    link: props.tooltip?.link,
+    align: props.isModal ? props.tooltip.alignModal : props.tooltip.align
+  });
+};
+BuildToolTip.defaultProps = {
+  tooltip: {
+    content: ""
+  },
+  isModal: false,
+  align: "top",
+  alignModal: "bottom"
+};
+BuildToolTip.propTypes = {
+  tooltip: PropTypes.shape({
+    content: PropTypes.string.isRequired,
+    link: PropTypes.string
+  }).isRequired,
+  isModal: PropTypes.bool.isRequired,
+  align: PropTypes.string.isRequired,
+  alignModal: PropTypes.string.isRequired
+};
+const ToolTipWrapper = props => {
+  let allProps = {
+    ...props
+  };
+  let tooltip = BuildToolTip(props);
+  delete allProps.innerForm;
+  delete allProps.tooltip;
+  delete allProps.noLabelText;
+  //check for labelText prop for components where it is a valid param
+  if (!props.noLabelText && props.labelText === undefined) {
+    throw new Error("ToolTipWrapper expects `props.labelText` when rendering labelText to be provided, got neither. To not render label text, use the `noLabelText` prop.");
+  }
+  // remove label text from components where it is not valid param
+  if (props.noLabelText) delete allProps.labelText;else allProps.labelText = " ";
+  allProps.className = lib_2("tooltip", {
+    ...props
+  });
+  return /*#__PURE__*/React.createElement("div", {
+    className: "cds--form-item"
+  }, props.noLabelText ?
+  /*#__PURE__*/
+  // No label- this is usually a title
+  React.createElement("div", {
+    className: "labelRow"
+  }, RenderForm(props.innerForm, allProps), tooltip) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    className: "cds--label labelRow"
+  }, /*#__PURE__*/React.createElement("label", {
+    htmlFor: props.id
+  }, props.labelText), tooltip), props.children ? /*#__PURE__*/React.cloneElement(props.children, {
+    // adjust props
+    labelText: " ",
+    // set labelText to empty
+    className: props.children.props.className + " tooltip" // add tooltip class back
+  }) : RenderForm(props.innerForm, allProps)));
+};
+ToolTipWrapper.defaultProps = {
+  tooltip: {
+    content: ""
+  },
+  noLabelText: false
+};
+ToolTipWrapper.propTypes = {
+  tooltip: PropTypes.shape({
+    content: PropTypes.string.isRequired,
+    link: PropTypes.string
+  }).isRequired,
+  isModal: PropTypes.bool,
+  id: PropTypes.string.isRequired,
+  labelText: PropTypes.string,
+  noLabelText: PropTypes.bool.isRequired,
+  children: PropTypes.node,
+  innerForm: PropTypes.oneOfType([PropTypes.object, PropTypes.func])
+};
+const DynamicToolTipWrapper = props => {
+  //make sure that either children or innerForm are passed as a prop
+  if (props.children === undefined && props.innerForm === undefined) {
+    throw new Error("DynamicToolTipWrapper expects either `props.children` or `props.innerForm` when rendering ToolTipWrapper, got neither.");
+  }
+  return props.tooltip ? /*#__PURE__*/React.createElement(ToolTipWrapper, props) : props.children ? props.children : RenderForm(props.innerForm, {});
+};
+DynamicToolTipWrapper.propTypes = {
+  tooltip: PropTypes.shape({
+    content: PropTypes.string,
+    link: PropTypes.string
+  }),
+  isModal: PropTypes.bool,
+  children: PropTypes.node,
+  innerForm: PropTypes.oneOfType([PropTypes.object, PropTypes.func])
+};
+
+var css_248z$4 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
+styleInject(css_248z$4);
+>>>>>>> 8db187e (form and documentation)
+
+const IcseToggle = props => {
+  let toggleName = props.toggleFieldName || snakeCase(props.labelText);
+  return /*#__PURE__*/React.createElement(DynamicToolTipWrapper, _extends({
+    innerForm: () => {
+      return /*#__PURE__*/React.createElement(Toggle, {
+        labelA: props.useOnOff ? "Off" : "False",
+        labelB: props.useOnOff ? "On" : "True",
+        labelText: props.tooltip ? "" : props.labelText,
+        id: kebabCase(toggleName) + "-icse-toggle-" + props.id,
+        className: lib_2("leftTextAlign fieldWidth", props) + (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
+        ,
+
+        onToggle: event => {
+          props.onToggle(toggleName, event);
+        },
+        defaultToggled: props.defaultToggled,
+        disabled: props.disabled
+      });
+    }
+  }, props));
+};
+IcseToggle.defaultProps = {
+  useOnOff: false,
+  defaultToggled: false,
+  isModal: false,
+  disabled: false
+};
+IcseToggle.propTypes = {
+  useOnOff: PropTypes.bool.isRequired,
+  className: PropTypes.string,
+  labelText: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  toggleFieldName: PropTypes.string,
+  // if field is name other than label text snake case
+  defaultToggled: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  tooltip: PropTypes.shape({
+    content: PropTypes.string.isRequired,
+    link: PropTypes.string,
+    alignModal: PropTypes.string
+  }),
+  onToggle: PropTypes.func.isRequired,
+  isModal: PropTypes.bool.isRequired
+};
+
+/**
+ * Icse Text Input
+ * @param {*} props props
+ * @param {string} props.componentName name of the component being edited
+ * @param {string} props.placeholder placeholder text for field
+ * @param {string} props.field field (ex. name)
+ * @param {string=} props.value actual value
+ * @param {Function} props.onChange onchange function
+ * @param {string} props.helperText helper text
+ * @param {string} props.className classnames to add
+ * @param {boolean=} props.readOnly read only
+ * @param {string=} props.labelText override label text
+ * @returns <IcseTextInput/> component
+ */
+const IcseTextInput = props => {
+  let fieldName = titleCase(props.field);
+  return /*#__PURE__*/React.createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React.createElement(TextInput, {
+    id: props.id,
+    className: lib_2("fieldWidth leftTextAlign", props),
+    labelText: props.labelText ? props.labelText : titleCase(props.field),
+    placeholder: props.placeholder || lib_3(props.componentName, fieldName),
+    name: props.field,
+    value: props.value || "",
+    invalid: isBoolean(props.invalid) ? props.invalid : props.invalidCallback(),
+    onChange: props.onChange,
+    helperText: props.helperText,
+    invalidText: props.invalidText ? props.invalidText : `Invalid ${props.field} value.`,
+    maxLength: props.maxLength,
+    disabled: props.disabled,
+    readOnly: props.readOnly
+  }));
+};
+IcseTextInput.defaultProps = {
+  maxLength: null,
+  disabled: false,
+  readOnly: false,
+  hideHelperText: false
+};
+IcseTextInput.propTypes = {
+  disabled: PropTypes.bool.isRequired,
+  componentName: PropTypes.string,
+  placeholder: PropTypes.string,
+  field: PropTypes.string.isRequired,
+  value: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  helperText: PropTypes.string,
+  tooltip: PropTypes.shape({
+    content: PropTypes.string.isRequired,
+    link: PropTypes.string,
+    alignModal: PropTypes.string
+  }),
+  className: PropTypes.string,
+  readOnly: PropTypes.bool.isRequired,
+  labelText: PropTypes.string.isRequired,
+  maxLength: PropTypes.number,
+  invalidCallback: PropTypes.func,
+  id: PropTypes.string.isRequired,
+  invalidText: PropTypes.string
+};
+
+/**
+ * Icse Name Field
+ * @param {*} props
+ * @param {string} props.id
+ * @param {string=} props.className
+ * @param {string} props.value
+ * @param {Function} props.onChange
+ * @param {string} props.component
+ * @param {boolean=} props.hideHelperText
+ * @param {func} props.helperTextCallback
+ * @param {string} props.invalidText
+ * @param {func} props.invalidCallback
+ * @returns <IcseNameInput />
+ */
+const IcseNameInput = props => {
+  let helperText = "";
+  // if helper text is not hidden
+  if (!props.hideHelperText && !props.useData) {
+    helperText = props.helperTextCallback();
+  }
+  return /*#__PURE__*/React.createElement(IcseTextInput, _extends({}, props, {
+    className: lib_2("fieldWidth leftTextAlign ", props),
+    field: "name",
+    labelText: "Name",
+    helperText: helperText
+  }));
+};
+IcseNameInput.defaultProps = {
+  useData: false,
+  hideHelperText: false,
+  invalidText: ""
+};
+IcseNameInput.propTypes = {
+  id: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func,
+  componentName: PropTypes.string.isRequired,
+  tooltip: PropTypes.shape({
+    content: PropTypes.string.isRequired,
+    link: PropTypes.string,
+    alignModal: PropTypes.string
+  }),
+  hideHelperText: PropTypes.bool.isRequired,
+  useData: PropTypes.bool.isRequired,
+  helperTextCallback: PropTypes.func,
+  invalidText: PropTypes.string.isRequired,
+  invalidCallback: PropTypes.func
+};
+
+var css_248z$3 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
+styleInject(css_248z$3);
+
+var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(AppIdKeyForm, _React$Component);
+  var _super = _createSuper(AppIdKeyForm);
+  function AppIdKeyForm(props) {
+    var _this;
+    _classCallCheck(this, AppIdKeyForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    lib_7(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  _createClass(AppIdKeyForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState({
+        key_name: event.target.value
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+        id: "app-id-key-name",
+        value: this.state.key_name,
+        onChange: this.handleInputChange,
+        field: "appid_key",
+        labelText: "App ID Key",
+        componentName: "appid",
+        className: "fieldWidthSmaller",
+        invalid: this.props.invalidCallback(this.props, this.state),
+        invalidText: this.props.invalidTextCallback(this.props, this.state)
+      }));
+    }
+  }]);
+  return AppIdKeyForm;
+}(React.Component);
+AppIdKeyForm.defaultProps = {
+  data: {
+    key_name: ""
+  }
+};
+AppIdKeyForm.propTypes = {
+  data: PropTypes.shape({
+    key_name: PropTypes.string.isRequired
+  }),
+  icse: PropTypes.shape({
+    store: PropTypes.shape({
+      configDotJson: PropTypes.shape({
+        appid: PropTypes.shape({
+          keys: PropTypes.arrayOf(PropTypes.string).isRequired
+        }).isRequired
+      }).isRequired
+    })
+  }),
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired
+};
+
+var css_248z$2 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+styleInject(css_248z$2);
+
+var css_248z$1 = ".leftTextAlign {\n  text-align: left;\n}\n";
+styleInject(css_248z$1);
 
 /**
  * Icse multiselect template
@@ -1187,14 +1725,19 @@ VpcListMultiSelect.propTypes = {
 /**
  * Under Construction Page
  */
-var UnderConstruction = function UnderConstruction() {
+const UnderConstruction = () => {
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(WarningAlt, {
     size: "128"
   }), /*#__PURE__*/React.createElement("h4", null, "Page Under Construction"));
 };
 
+<<<<<<< HEAD
 var css_248z$4 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$4);
+=======
+var css_248z = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z);
+>>>>>>> 8db187e (form and documentation)
 
 <<<<<<< HEAD
 =======
@@ -1606,6 +2149,7 @@ EmptyResourceTile.propTypes = {
   showIfEmpty: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]).isRequired
 };
 
+<<<<<<< HEAD
 >>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
 var css_248z$1 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
 styleInject(css_248z$1);
@@ -2119,6 +2663,8 @@ DynamicToolTipWrapper.propTypes = {
   innerForm: PropTypes.oneOfType([PropTypes.object, PropTypes.func])
 };
 
+=======
+>>>>>>> 8db187e (form and documentation)
 /**
  * Icse Modal Wrapper
  * @param {*} props
@@ -2319,6 +2865,7 @@ UnsavedChangesModal.propTypes = {
   useDefaultUnsavedMessage: PropTypes.bool
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -2688,3 +3235,6 @@ UpDownButtons.propTypes = {
 
 export { DeleteButton, DeleteModal, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, IcseFormGroup, IcseModal, IcseMultiSelect, IcseNameInput, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SecurityGroupMultiSelect, SshKeyMultiSelect, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect };
 >>>>>>> 04bfb65 (added button examples)
+=======
+export { AppIdKeyForm, DeleteModal, DynamicRender, DynamicToolTipWrapper, EmptyResourceTile, IcseFormGroup, IcseModal, IcseMultiSelect, IcseNameInput, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, PopoverWrapper, RenderForm, SecurityGroupMultiSelect, SshKeyMultiSelect, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, VpcListMultiSelect };
+>>>>>>> 8db187e (form and documentation)
