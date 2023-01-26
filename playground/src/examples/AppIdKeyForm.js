@@ -23,7 +23,7 @@ function invalidTextCallback(componentProps, stateData) {
     stateData.key_name
   )
     ? `Key name ${stateData.key_name} already in use.`
-    : `Invalid Key Name. Must match the regular expression: /[A-z][a-z0-9-]*[a-z0-9]`;
+    : `Invalid Key Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
 }
 
 export const AppIdKeyFormExample = () => {
