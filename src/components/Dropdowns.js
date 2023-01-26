@@ -9,7 +9,7 @@ import PopoverWrapper from "./PopoverWrapper";
 import PropTypes from "prop-types";
 import {
   addClassName,
-  prependEmptyStringToArrayOnNullOrEmptyString,
+  prependEmptyStringWhenNull,
 } from "../lib";
 import { DynamicToolTipWrapper } from "./Tooltips";
 import React from "react";
@@ -22,7 +22,7 @@ export const IcseSelect = (props) => {
   let groups =
     props.groups.length === 0
       ? [] // if no groups, empty array
-      : prependEmptyStringToArrayOnNullOrEmptyString(
+      : prependEmptyStringWhenNull(
           // otherwise try and prepend empty string if null
           props.value,
           props.groups
@@ -37,14 +37,14 @@ export const IcseSelect = (props) => {
       innerForm={() => {
         return (
           <PopoverWrapper
-            hoverText={props.defaultValue || props.value || ""}
+            hoverText={props.value || ""}
             // inherit classnames from tooltip
             className={
               props.tooltip ? "cds--form-item tooltip" : "cds--form-item"
             }
           >
             <Select
-              id={props.component + kebabCase(props.name)}
+              id={kebabCase(props.formName + " " + props.name)}
               name={props.name}
               labelText={props.tooltip ? null : props.labelText}
               value={props.value || undefined}
@@ -74,7 +74,6 @@ export const IcseSelect = (props) => {
 IcseSelect.defaultProps = {
   value: "",
   disabled: false,
-  defaultValue: undefined, // prevent null values erroring select when value is passed
   disableInvalid: false,
   invalid: false,
   invalidText: "Invalid Selection",
@@ -85,11 +84,10 @@ IcseSelect.defaultProps = {
 
 IcseSelect.propTypes = {
   value: PropTypes.any, // must accept null
-  component: PropTypes.string.isRequired,
+  formName: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   className: PropTypes.string,
   disabled: PropTypes.bool.isRequired,
-  defaultValue: PropTypes.any,
   disableInvalid: PropTypes.bool.isRequired,
   invalid: PropTypes.bool.isRequired,
   invalidText: PropTypes.string.isRequired,
@@ -110,13 +108,13 @@ export class FetchSelect extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: ["iks 1.3", "iks 2.5", "default"],
+      data: []
     };
   }
   componentDidMount() {
     this._isMounted = true;
     if (isEmpty(this.state.data))
-      fetch("/api/cluster/data")
+      fetch(this.props.apiEndpoint)
         .then((res) => res.json())
         .then((data) => {
           if (this._isMounted) this.setState({ data: data });
@@ -131,12 +129,11 @@ export class FetchSelect extends React.Component {
   render() {
     return (
       <IcseSelect
-        labelText="FetchSelect"
+        labelText={this.props.labelText}
         handleInputChange={this.props.handleInputChange}
-        name="Fetch Select"
+        name={this.props.name}
         className={this.props.className}
-        component="Fetch"
-        url={this.props.url}
+        formName={this.props.formName}
         groups={this.props.groups}
         filter={(array) => {
           groups = this.props.filter(array);
@@ -151,22 +148,25 @@ export class FetchSelect extends React.Component {
 }
 
 FetchSelect.propTypes = {
+  labelText: PropTypes.string.isRequired,
   handleInputChange: PropTypes.func.isRequired,
   className: PropTypes.string, // can be null or undefined
   value: PropTypes.string, // can be null or undefined
   groups: PropTypes.array.isRequired,
-  url: PropTypes.string.isRequired,
+  apiEndpoint: PropTypes.string.isRequired,
   onReturnFunction: PropTypes.func,
   filter: PropTypes.func,
+  name: PropTypes.string.isRequired,
+  formName: PropTypes.string.isRequired
 };
 
 export const IcseNumberSelect = (props) => {
   return (
     <IcseSelect
-      component={props.component}
+      formName={props.formName}
       groups={buildNumberDropdownList(props.max, props.min)}
       value={props.value.toString()}
-      name={props.name}
+      name={props.name || "Icse Number Select"}
       className={props.className}
       handleInputChange={(event) => {
         // set name target value and parse int
@@ -189,16 +189,17 @@ export const IcseNumberSelect = (props) => {
 
 IcseNumberSelect.defaultProps = {
   min: 1,
+  max: 10,
   invalid: false,
   isModal: false,
 };
 
 IcseNumberSelect.propTypes = {
-  component: PropTypes.string.isRequired,
+  formName: PropTypes.string.isRequired,
   min: PropTypes.number.isRequired,
   max: PropTypes.number.isRequired,
-  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]), // can be null
-  name: PropTypes.string.isRequired,
+  value: PropTypes.number, // can be null
+  name: PropTypes.string,
   className: PropTypes.string,
   invalidText: PropTypes.string,
   invalid: PropTypes.bool.isRequired,
@@ -206,6 +207,7 @@ IcseNumberSelect.propTypes = {
     content: PropTypes.string.isRequired,
     link: PropTypes.string,
   }),
+
   labelText: PropTypes.string.isRequired,
   isModal: PropTypes.bool.isRequired,
 };
@@ -213,13 +215,14 @@ IcseNumberSelect.propTypes = {
 export const EntitlementSelect = (props) => {
   return (
     <IcseSelect
-      name="entitlement"
-      labelText="Entitlement (Cloud Pak)"
+      name={props.name}
+      labelText="Entitlement"
       groups={["null", "cloud_pak"]}
       value={props.value || "null"}
       handleInputChange={props.handleInputChange}
       className="fieldWidthSmaller"
       component={props.component}
+      formName = {props.formName}
     />
   );
 };
@@ -228,4 +231,6 @@ EntitlementSelect.propTypes = {
   value: PropTypes.string, // can be null
   component: PropTypes.string.isRequired,
   handleInputChange: PropTypes.func.isRequired,
+  formName: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired
 };

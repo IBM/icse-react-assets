@@ -10,7 +10,7 @@ function DropdownExamples() {
     <div className="App">
       <div style={{ marginLeft: "100px" }}>
         <IcseSelect
-          component="example"
+          formName="playground"
           name="icseSelect"
           disabled={false}
           disableInvalid={true}
@@ -21,16 +21,18 @@ function DropdownExamples() {
           labelText="ICSE Select"
         />
         <FetchSelect
-          url="www.myendpointhereIBM.com"
+          labelText = "Fetch"
+          name = "Fetch Select"
+          apiEndpoint="/my/api/endpoint"
           groups={["1", "2", "3"]}
           handleInputChange={(event) => {
             console.log(event.target.value);
           }}
+          formName = "playground"
         />
         <IcseNumberSelect
-          component="numberSelect"
+          formName="playground"
           max={20}
-          name="icseNumberSelect"
           labelText="ICSE Number Select"
           handleInputChange={(event) => {
             console.log(event.target.value);
@@ -46,6 +48,8 @@ function DropdownExamples() {
           handleInputChange={(event) => {
             console.log(event.target.value);
           }}
+          name="Entitlement"
+          formName="playground"
         />
       </div>
     </div>
