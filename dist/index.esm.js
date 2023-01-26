@@ -66,6 +66,7 @@ import { Information, WarningAlt, CloudAlerting, Add } from '@carbon/icons-react
 >>>>>>> 67351ff (Dropdowns components)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 var _require = require("./form-utils"),
   toggleMarginBottom = _require.toggleMarginBottom,
   addClassName = _require.addClassName;
@@ -475,6 +476,8 @@ EmptyResourceTile.propTypes = {
 <<<<<<< HEAD
 =======
 >>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
+=======
+>>>>>>> b238572 (Dropdowns Documentation)
 function ownKeys(object, enumerableOnly) {
   var keys = Object.keys(object);
   if (Object.getOwnPropertySymbols) {
@@ -496,8 +499,11 @@ function _objectSpread2(target) {
   }
   return target;
 }
+<<<<<<< HEAD
 =======
 >>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
+=======
+>>>>>>> b238572 (Dropdowns Documentation)
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -519,6 +525,20 @@ function _createClass(Constructor, protoProps, staticProps) {
     writable: false
   });
   return Constructor;
+}
+function _defineProperty(obj, key, value) {
+  key = _toPropertyKey(key);
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
 }
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
@@ -3003,12 +3023,14 @@ styleInject(css_248z$3);
 /**
  * Icse multiselect template
  */
-const IcseMultiSelect = props => {
+var IcseMultiSelect = function IcseMultiSelect(props) {
   return /*#__PURE__*/React.createElement(FilterableMultiSelect, {
     id: props.id,
     className: lib_2("fieldWidth leftTextAlign cds--select", props),
     titleText: props.titleText,
-    itemToString: item => item ? item : "",
+    itemToString: function itemToString(item) {
+      return item ? item : "";
+    },
     invalid: props.invalid,
     invalidText: props.invalidText,
     initialSelectedItems: props.initialSelectedItems,
@@ -3042,7 +3064,7 @@ IcseMultiSelect.propTypes = {
 /**
  * ssh key multiselect
  */
-const SshKeyMultiSelect = props => {
+var SshKeyMultiSelect = function SshKeyMultiSelect(props) {
   return /*#__PURE__*/React.createElement(IcseMultiSelect, {
     id: props.id + "-ssh-key-multiselect",
     useTitleInItem: true,
@@ -3052,7 +3074,7 @@ const SshKeyMultiSelect = props => {
     invalid: props.initialSelectedItems.length === 0,
     items: props.sshKeys,
     initialSelectedItems: props.initialSelectedItems || [],
-    onChange: event => {
+    onChange: function onChange(event) {
       props.onChange(event.selectedItems);
     },
     className: "fieldWidthSmaller cds--form-item"
@@ -3071,7 +3093,7 @@ SshKeyMultiSelect.propTypes = {
 /**
  * sg multiselect
  */
-const SecurityGroupMultiSelect = props => {
+var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
   if (props.vpc_name && !props.securityGroups) {
     // checking props.securityGroups[props.vpc_name] will result in an
     // undefined error that happens as part of MultiSelect
@@ -3086,12 +3108,14 @@ const SecurityGroupMultiSelect = props => {
     vpc_name: props.vpc_name,
     invalid: props.invalid,
     invalidText: "Invalid Selection",
-    onChange: event => {
+    onChange: function onChange(event) {
       props.onChange(event.selectedItems);
     },
     disabled: props.disabled,
     items: props.vpc_name === "" ? [] : props.securityGroups[props.vpc_name],
-    itemToString: item => item ? item : ""
+    itemToString: function itemToString(item) {
+      return item ? item : "";
+    }
   });
 };
 SecurityGroupMultiSelect.defaultProps = {
@@ -3115,7 +3139,7 @@ SecurityGroupMultiSelect.propTypes = {
 /**
  * vpc subnet multiselect
  */
-const SubnetMultiSelect = props => {
+var SubnetMultiSelect = function SubnetMultiSelect(props) {
   return /*#__PURE__*/React.createElement(IcseMultiSelect, {
     id: props.id + "-subnet-multiselect",
     className: props.className,
@@ -3127,7 +3151,9 @@ const SubnetMultiSelect = props => {
     invalidText: isNullOrEmptyString(props.vpc_name) ? "Select a VPC." : "Select at least one subnet.",
     invalid: props.initialSelectedItems.length === 0,
     disabled: props.disabled,
-    onChange: event => props.onChange(event.selectedItems)
+    onChange: function onChange(event) {
+      return props.onChange(event.selectedItems);
+    }
   });
 };
 SubnetMultiSelect.defaultProps = {
@@ -3153,7 +3179,7 @@ SubnetMultiSelect.propTypes = {
 /**
  * VPC List MultiSelect
  */
-const VpcListMultiSelect = props => {
+var VpcListMultiSelect = function VpcListMultiSelect(props) {
   // throw error here so that passing no vpc list prop will error here
   // instead of being passed to `FilterableMultiselect`
   if (!props.vpcList) {
@@ -3164,7 +3190,9 @@ const VpcListMultiSelect = props => {
     invalid: props.invalid,
     id: props.id + "-vpc-select",
     titleText: props.titleText,
-    onChange: event => props.onChange(event.selectedItems),
+    onChange: function onChange(event) {
+      return props.onChange(event.selectedItems);
+    },
     initialSelectedItems: props.initialSelectedItems,
     className: props.className,
     items: props.vpcList
@@ -3234,6 +3262,7 @@ function RenderForm(form, formProps) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   return /*#__PURE__*/React.createElement(form, {
     ...formProps
   });
@@ -3256,6 +3285,9 @@ function RenderForm(form, formProps) {
 =======
   return /*#__PURE__*/React.createElement(form, _objectSpread2({}, formProps));
 >>>>>>> 23b5837 (add id as required)
+=======
+  return /*#__PURE__*/React.createElement(form, _objectSpread2({}, formProps));
+>>>>>>> b238572 (Dropdowns Documentation)
 }
 
 /**
@@ -3272,6 +3304,7 @@ function DynamicRender(props) {
 /**
  * wrapper for title groups
  */
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -3302,6 +3335,11 @@ var TitleGroup = function TitleGroup(props) {
   return /*#__PURE__*/React.createElement("div", {
     className: lib_2("displayFlex alignItemsCenter widthOneHundredPercent ".concat(lib_1(props.hide)), props)
 >>>>>>> 23b5837 (add id as required)
+=======
+var TitleGroup = function TitleGroup(props) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: lib_2("displayFlex alignItemsCenter widthOneHundredPercent ".concat(lib_1(props.hide)), props)
+>>>>>>> b238572 (Dropdowns Documentation)
   }, props.children);
 };
 TitleGroup.defaultProps = {
@@ -3310,6 +3348,7 @@ TitleGroup.defaultProps = {
 TitleGroup.propTypes = {
   children: PropTypes.node.isRequired
 };
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -3332,6 +3371,10 @@ const IcseFormGroup = props => {
 var IcseFormGroup = function IcseFormGroup(props) {
   var formGroupClassName = "displayFlex marginBottom fitContent evenSpacing";
 >>>>>>> 23b5837 (add id as required)
+=======
+var IcseFormGroup = function IcseFormGroup(props) {
+  var formGroupClassName = "displayFlex marginBottom fitContent evenSpacing";
+>>>>>>> b238572 (Dropdowns Documentation)
   // remove margin bottom from formGroup for VPC
   if (props.noMarginBottom) {
     formGroupClassName = formGroupClassName.replace(/\smarginBottom/g, "");
@@ -3352,6 +3395,7 @@ IcseFormGroup.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const IcseSubForm = props => {
 =======
 var IcseSubForm = function IcseSubForm(props) {
@@ -3368,6 +3412,9 @@ const IcseSubForm = props => {
 =======
 var IcseSubForm = function IcseSubForm(props) {
 >>>>>>> 23b5837 (add id as required)
+=======
+var IcseSubForm = function IcseSubForm(props) {
+>>>>>>> b238572 (Dropdowns Documentation)
   return /*#__PURE__*/React.createElement("div", {
     className: lib_2(props.formInSubForm ? "formInSubForm positionRelative" : "subForm marginBottomSmall", props),
     id: props.id
@@ -3425,15 +3472,19 @@ styleInject(css_248z$1);
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const IcseToolTip = props => {
   let link = /*#__PURE__*/React.createElement(Link, {
     onClick: () => window.open(props.link, "_blank")
 =======
+=======
+>>>>>>> b238572 (Dropdowns Documentation)
 var IcseToolTip = function IcseToolTip(props) {
   var link = /*#__PURE__*/React.createElement(Link, {
     onClick: function onClick() {
       return window.open(props.link, "_blank");
     }
+<<<<<<< HEAD
 >>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
 =======
 const IcseToolTip = props => {
@@ -3625,6 +3676,8 @@ const IcseToolTip = props => {
   let link = /*#__PURE__*/React.createElement(Link, {
     onClick: () => window.open(props.link, "_blank")
 >>>>>>> e90fadd (updates)
+=======
+>>>>>>> b238572 (Dropdowns Documentation)
   }, "this link");
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Toggletip, {
     align: props.align
@@ -3641,11 +3694,17 @@ IcseToolTip.propTypes = {
   link: PropTypes.string,
   align: PropTypes.string.isRequired
 };
-const BuildToolTip = props => {
+var BuildToolTip = function BuildToolTip(props) {
+  var _props$tooltip;
   return /*#__PURE__*/React.createElement(IcseToolTip, {
     content: props.tooltip.content,
+<<<<<<< HEAD
     link: props.tooltip?.link,
     align: props.isModal ? props.alignModal : props.align
+=======
+    link: (_props$tooltip = props.tooltip) === null || _props$tooltip === void 0 ? void 0 : _props$tooltip.link,
+    align: props.isModal ? props.tooltip.alignModal : props.tooltip.align
+>>>>>>> b238572 (Dropdowns Documentation)
   });
 };
 BuildToolTip.defaultProps = {
@@ -3665,11 +3724,9 @@ BuildToolTip.propTypes = {
   align: PropTypes.string.isRequired,
   alignModal: PropTypes.string.isRequired
 };
-const ToolTipWrapper = props => {
-  let allProps = {
-    ...props
-  };
-  let tooltip = BuildToolTip(props);
+var ToolTipWrapper = function ToolTipWrapper(props) {
+  var allProps = _objectSpread2({}, props);
+  var tooltip = BuildToolTip(props);
   delete allProps.innerForm;
   delete allProps.tooltip;
   delete allProps.noLabelText;
@@ -3679,9 +3736,7 @@ const ToolTipWrapper = props => {
   }
   // remove label text from components where it is not valid param
   if (props.noLabelText) delete allProps.labelText;else allProps.labelText = " ";
-  allProps.className = lib_2("tooltip", {
-    ...props
-  });
+  allProps.className = lib_2("tooltip", _objectSpread2({}, props));
   return /*#__PURE__*/React.createElement("div", {
     className: "cds--form-item"
   }, props.noLabelText ?
@@ -3718,7 +3773,7 @@ ToolTipWrapper.propTypes = {
   children: PropTypes.node,
   innerForm: PropTypes.oneOfType([PropTypes.object, PropTypes.func])
 };
-const DynamicToolTipWrapper = props => {
+var DynamicToolTipWrapper = function DynamicToolTipWrapper(props) {
   //make sure that either children or innerForm are passed as a prop
   if (props.children === undefined && props.innerForm === undefined) {
     throw new Error("DynamicToolTipWrapper expects either `props.children` or `props.innerForm` when rendering ToolTipWrapper, got neither.");
@@ -3806,7 +3861,6 @@ IcseSelect.propTypes = {
   debug: PropTypes.bool.isRequired,
   handleInputChange: PropTypes.func.isRequired,
   labelText: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
   tooltip: PropTypes.shape({
     content: PropTypes.string.isRequired,
     link: PropTypes.string,
@@ -3836,22 +3890,13 @@ class FetchSelect extends React.Component {
   }
   render() {
     return /*#__PURE__*/React.createElement(IcseSelect, {
-      labelText: "Kube Version",
+      labelText: "FetchSelect",
       handleInputChange: this.props.handleInputChange,
-      name: "kube_version",
+      name: "Fetch Select",
       className: this.props.className,
-      component: "cluster",
+      component: "Fetch",
       url: this.props.url,
-      groups: this.state.data.filter(version => {
-        if (this.props.kube_type === "openshift" && version.indexOf("openshift") !== -1 ||
-        // is openshift and contains openshift
-        this.props.kube_type !== "openshift" && version.indexOf("openshift") === -1 ||
-        // is not openshift and does not contain openshift
-        version === "default" // or is default
-        ) {
-          return version;
-        }
-      }),
+      groups: this.props.groups,
       filter: array => {
         groups = this.props.filter(array);
       },
@@ -3868,7 +3913,7 @@ FetchSelect.propTypes = {
   // can be null or undefined
   value: PropTypes.string,
   // can be null or undefined
-  kube_type: PropTypes.string.isRequired,
+  groups: PropTypes.array.isRequired,
   url: PropTypes.string.isRequired,
   onReturnFunction: PropTypes.func,
   filter: PropTypes.func
@@ -3919,10 +3964,10 @@ IcseNumberSelect.propTypes = {
   labelText: PropTypes.string.isRequired,
   isModal: PropTypes.bool.isRequired
 };
-const EntitlementDropdown = props => {
+const EntitlementSelect = props => {
   return /*#__PURE__*/React.createElement(IcseSelect, {
     name: "entitlement",
-    labelText: "Entitlement",
+    labelText: "Entitlement (Cloud Pak)",
     groups: ["null", "cloud_pak"],
     value: props.value || "null",
     handleInputChange: props.handleInputChange,
@@ -3930,7 +3975,7 @@ const EntitlementDropdown = props => {
     component: props.component
   });
 };
-EntitlementDropdown.propTypes = {
+EntitlementSelect.propTypes = {
   value: PropTypes.string,
   // can be null
   component: PropTypes.string.isRequired,
@@ -3940,7 +3985,7 @@ EntitlementDropdown.propTypes = {
 /**
  * Under Construction Page
  */
-const UnderConstruction = () => {
+var UnderConstruction = function UnderConstruction() {
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(WarningAlt, {
     size: "128"
   }), /*#__PURE__*/React.createElement("h4", null, "Page Under Construction"));
@@ -3957,7 +4002,7 @@ styleInject(css_248z);
  * @returns tile if shown, empty string otherwise
  */
 
-const EmptyResourceTile = props => {
+var EmptyResourceTile = function EmptyResourceTile(props) {
   return props.showIfEmpty === false || props.showIfEmpty.length === 0 ? /*#__PURE__*/React.createElement(Tile, {
     className: "marginBottomXs tileBackground"
   }, /*#__PURE__*/React.createElement(CloudAlerting, {
@@ -4177,6 +4222,7 @@ UnsavedChangesModal.propTypes = {
   useDefaultUnsavedMessage: PropTypes.bool
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -4621,3 +4667,6 @@ export { DeleteModal, DynamicRender, DynamicToolTipWrapper, EmptyResourceTile, F
 =======
 export { DeleteModal, DynamicRender, DynamicToolTipWrapper, EmptyResourceTile, EntitlementDropdown, FetchSelect, IcseFormGroup, IcseModal, IcseMultiSelect, IcseNumberSelect, IcseSelect, IcseSubForm, IcseToolTip, PopoverWrapper, RenderForm, SecurityGroupMultiSelect, SshKeyMultiSelect, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, VpcListMultiSelect };
 >>>>>>> e6437cd (dropdown examples)
+=======
+export { DeleteModal, DynamicRender, DynamicToolTipWrapper, EmptyResourceTile, EntitlementSelect, FetchSelect, IcseFormGroup, IcseModal, IcseMultiSelect, IcseNumberSelect, IcseSelect, IcseSubForm, IcseToolTip, PopoverWrapper, RenderForm, SecurityGroupMultiSelect, SshKeyMultiSelect, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, VpcListMultiSelect };
+>>>>>>> b238572 (Dropdowns Documentation)

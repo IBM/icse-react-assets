@@ -3,15 +3,18 @@ import {
   isEmpty,
   isNullOrEmptyString,
   kebabCase,
-  buildNumberDropdownList
+  buildNumberDropdownList,
 } from "lazy-z";
 import PopoverWrapper from "./PopoverWrapper";
 import PropTypes from "prop-types";
-import { addClassName, prependEmptyStringToArrayOnNullOrEmptyString } from "../lib";
+import {
+  addClassName,
+  prependEmptyStringToArrayOnNullOrEmptyString,
+} from "../lib";
 import { DynamicToolTipWrapper } from "./Tooltips";
 import React from "react";
 
-export const IcseSelect = props => {
+export const IcseSelect = (props) => {
   let invalid = // automatically set to invalid is is null or empty string and invalid not disabled
     props.disableInvalid !== true && isNullOrEmptyString(props.value)
       ? true
@@ -52,7 +55,7 @@ export const IcseSelect = props => {
               readOnly={props.readOnly}
               onChange={props.handleInputChange}
             >
-              {groups.map(value => (
+              {groups.map((value) => (
                 <SelectItem
                   key={`${props.component}-${value}`}
                   text={value}
@@ -77,7 +80,7 @@ IcseSelect.defaultProps = {
   invalidText: "Invalid Selection",
   readOnly: false,
   groups: [],
-  debug: false
+  debug: false,
 };
 
 IcseSelect.propTypes = {
@@ -95,12 +98,11 @@ IcseSelect.propTypes = {
   debug: PropTypes.bool.isRequired,
   handleInputChange: PropTypes.func.isRequired,
   labelText: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
   tooltip: PropTypes.shape({
     content: PropTypes.string.isRequired,
     link: PropTypes.string,
-    alignModal: PropTypes.string
-  })
+    alignModal: PropTypes.string,
+  }),
 };
 
 export class FetchSelect extends React.Component {
@@ -108,18 +110,18 @@ export class FetchSelect extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: ["iks 1.3","iks 2.5", "default"]
+      data: ["iks 1.3", "iks 2.5", "default"],
     };
   }
   componentDidMount() {
     this._isMounted = true;
     if (isEmpty(this.state.data))
       fetch("/api/cluster/data")
-        .then(res => res.json())
-        .then(data => {
+        .then((res) => res.json())
+        .then((data) => {
           if (this._isMounted) this.setState({ data: data });
         })
-        .catch(err => {
+        .catch((err) => {
           console.error(err);
         });
   }
@@ -129,29 +131,19 @@ export class FetchSelect extends React.Component {
   render() {
     return (
       <IcseSelect
-        labelText="Kube Version"
+        labelText="FetchSelect"
         handleInputChange={this.props.handleInputChange}
-        name="kube_version"
+        name="Fetch Select"
         className={this.props.className}
-        component="cluster"
-        url = {this.props.url}
-        groups={this.state.data.filter(version => {
-          if (
-            (this.props.kube_type === "openshift" &&
-              version.indexOf("openshift") !== -1) || // is openshift and contains openshift
-            (this.props.kube_type !== "openshift" &&
-              version.indexOf("openshift") === -1) || // is not openshift and does not contain openshift
-            version === "default" // or is default
-          ) {
-            return version;
-          }
-        })}
-        filter = {array => {
-            groups = this.props.filter(array);
+        component="Fetch"
+        url={this.props.url}
+        groups={this.props.groups}
+        filter={(array) => {
+          groups = this.props.filter(array);
         }}
-        onReturnFunction={data => {
-            this.props.onReturnFunction(data);
-            }}
+        onReturnFunction={(data) => {
+          this.props.onReturnFunction(data);
+        }}
         value={this.props.value}
       />
     );
@@ -162,15 +154,13 @@ FetchSelect.propTypes = {
   handleInputChange: PropTypes.func.isRequired,
   className: PropTypes.string, // can be null or undefined
   value: PropTypes.string, // can be null or undefined
-  kube_type: PropTypes.string.isRequired,
+  groups: PropTypes.array.isRequired,
   url: PropTypes.string.isRequired,
   onReturnFunction: PropTypes.func,
-  filter: PropTypes.func
+  filter: PropTypes.func,
 };
 
-
-
-export const IcseNumberSelect = props => {
+export const IcseNumberSelect = (props) => {
   return (
     <IcseSelect
       component={props.component}
@@ -178,13 +168,13 @@ export const IcseNumberSelect = props => {
       value={props.value.toString()}
       name={props.name}
       className={props.className}
-      handleInputChange={event => {
+      handleInputChange={(event) => {
         // set name target value and parse int
         let sendEvent = {
           target: {
             name: event.target.name,
-            value: parseInt(event.target.value)
-          }
+            value: parseInt(event.target.value),
+          },
         };
         props.handleInputChange(sendEvent);
       }}
@@ -200,7 +190,7 @@ export const IcseNumberSelect = props => {
 IcseNumberSelect.defaultProps = {
   min: 1,
   invalid: false,
-  isModal: false
+  isModal: false,
 };
 
 IcseNumberSelect.propTypes = {
@@ -214,17 +204,17 @@ IcseNumberSelect.propTypes = {
   invalid: PropTypes.bool.isRequired,
   tooltip: PropTypes.shape({
     content: PropTypes.string.isRequired,
-    link: PropTypes.string
+    link: PropTypes.string,
   }),
   labelText: PropTypes.string.isRequired,
-  isModal: PropTypes.bool.isRequired
+  isModal: PropTypes.bool.isRequired,
 };
 
-export const EntitlementDropdown = props => {
+export const EntitlementSelect = (props) => {
   return (
     <IcseSelect
       name="entitlement"
-      labelText="Entitlement"
+      labelText="Entitlement (Cloud Pak)"
       groups={["null", "cloud_pak"]}
       value={props.value || "null"}
       handleInputChange={props.handleInputChange}
@@ -234,17 +224,8 @@ export const EntitlementDropdown = props => {
   );
 };
 
-EntitlementDropdown.propTypes = {
+EntitlementSelect.propTypes = {
   value: PropTypes.string, // can be null
   component: PropTypes.string.isRequired,
-  handleInputChange: PropTypes.func.isRequired
+  handleInputChange: PropTypes.func.isRequired,
 };
-
-
-
-
-
-
-
-
-

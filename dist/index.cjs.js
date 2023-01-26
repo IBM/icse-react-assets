@@ -38,6 +38,7 @@ var lazyZ__default = /*#__PURE__*/_interopDefaultLegacy(lazyZ);
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 /**
  * create a composed class name
  * @param {string} className name of classes to add
@@ -348,10 +349,13 @@ function toggleMarginBottom(hide) {
 >>>>>>> 23b5837 (add id as required)
 =======
 >>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))
+=======
+>>>>>>> b238572 (Dropdowns Documentation)
 function ownKeys(object, enumerableOnly) {
   var keys = Object.keys(object);
   if (Object.getOwnPropertySymbols) {
     var symbols = Object.getOwnPropertySymbols(object);
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     enumerableOnly &&
@@ -369,12 +373,18 @@ function ownKeys(object, enumerableOnly) {
       return Object.getOwnPropertyDescriptor(object, sym).enumerable;
     })), keys.push.apply(keys, symbols);
 >>>>>>> b5b1ac6 (fixed build)
+=======
+    enumerableOnly && (symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    })), keys.push.apply(keys, symbols);
+>>>>>>> b238572 (Dropdowns Documentation)
   }
   return keys;
 }
 function _objectSpread2(target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = null != arguments[i] ? arguments[i] : {};
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     i % 2
@@ -413,6 +423,8 @@ function _objectSpread2(target) {
 =======
 >>>>>>> 8db187e (form and documentation)
 =======
+=======
+>>>>>>> b238572 (Dropdowns Documentation)
     i % 2 ? ownKeys(Object(source), !0).forEach(function (key) {
       _defineProperty(target, key, source[key]);
     }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) {
@@ -421,7 +433,10 @@ function _objectSpread2(target) {
   }
   return target;
 }
+<<<<<<< HEAD
 >>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))
+=======
+>>>>>>> b238572 (Dropdowns Documentation)
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -449,9 +464,12 @@ function _createClass(Constructor, protoProps, staticProps) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))
+=======
+>>>>>>> b238572 (Dropdowns Documentation)
 function _defineProperty(obj, key, value) {
   key = _toPropertyKey(key);
   if (key in obj) {
@@ -461,6 +479,7 @@ function _defineProperty(obj, key, value) {
       configurable: true,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       writable: true,
 =======
       writable: true
@@ -468,12 +487,16 @@ function _defineProperty(obj, key, value) {
 =======
       writable: true
 >>>>>>> b5b1ac6 (fixed build)
+=======
+      writable: true
+>>>>>>> b238572 (Dropdowns Documentation)
     });
   } else {
     obj[key] = value;
   }
   return obj;
 }
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> 23b5837 (add id as required)
 =======
@@ -482,6 +505,8 @@ function _defineProperty(obj, key, value) {
 >>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))
 =======
 >>>>>>> 67351ff (Dropdowns components)
+=======
+>>>>>>> b238572 (Dropdowns Documentation)
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -1975,9 +2000,7 @@ styleInject(css_248z$2);
  * @returns Form element
  */
 function RenderForm(form, formProps) {
-  return /*#__PURE__*/React__default["default"].createElement(form, {
-    ...formProps
-  });
+  return /*#__PURE__*/React__default["default"].createElement(form, _objectSpread2({}, formProps));
 }
 
 /**
@@ -1994,9 +2017,9 @@ function DynamicRender(props) {
 /**
  * wrapper for title groups
  */
-const TitleGroup = props => {
+var TitleGroup = function TitleGroup(props) {
   return /*#__PURE__*/React__default["default"].createElement("div", {
-    className: lib_2(`displayFlex alignItemsCenter widthOneHundredPercent ${lib_1(props.hide)}`, props)
+    className: lib_2("displayFlex alignItemsCenter widthOneHundredPercent ".concat(lib_1(props.hide)), props)
   }, props.children);
 };
 TitleGroup.defaultProps = {
@@ -2005,8 +2028,8 @@ TitleGroup.defaultProps = {
 TitleGroup.propTypes = {
   children: PropTypes__default["default"].node.isRequired
 };
-const IcseFormGroup = props => {
-  let formGroupClassName = "displayFlex marginBottom fitContent evenSpacing";
+var IcseFormGroup = function IcseFormGroup(props) {
+  var formGroupClassName = "displayFlex marginBottom fitContent evenSpacing";
   // remove margin bottom from formGroup for VPC
   if (props.noMarginBottom) {
     formGroupClassName = formGroupClassName.replace(/\smarginBottom/g, "");
@@ -2023,7 +2046,7 @@ IcseFormGroup.propTypes = {
   children: PropTypes__default["default"].node.isRequired,
   className: PropTypes__default["default"].string
 };
-const IcseSubForm = props => {
+var IcseSubForm = function IcseSubForm(props) {
   return /*#__PURE__*/React__default["default"].createElement("div", {
     className: lib_2(props.formInSubForm ? "formInSubForm positionRelative" : "subForm marginBottomSmall", props),
     id: props.id
@@ -2059,9 +2082,11 @@ var css_248z$4 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  w
  * render a tooltip around an input field
  * @returns slz tooltip component
  */
-const IcseToolTip = props => {
-  let link = /*#__PURE__*/React__default["default"].createElement(react.Link, {
-    onClick: () => window.open(props.link, "_blank")
+var IcseToolTip = function IcseToolTip(props) {
+  var link = /*#__PURE__*/React__default["default"].createElement(react.Link, {
+    onClick: function onClick() {
+      return window.open(props.link, "_blank");
+    }
   }, "this link");
   return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(react.Toggletip, {
     align: props.align
@@ -2078,10 +2103,11 @@ IcseToolTip.propTypes = {
   link: PropTypes__default["default"].string,
   align: PropTypes__default["default"].string.isRequired
 };
-const BuildToolTip = props => {
+var BuildToolTip = function BuildToolTip(props) {
+  var _props$tooltip;
   return /*#__PURE__*/React__default["default"].createElement(IcseToolTip, {
     content: props.tooltip.content,
-    link: props.tooltip?.link,
+    link: (_props$tooltip = props.tooltip) === null || _props$tooltip === void 0 ? void 0 : _props$tooltip.link,
     align: props.isModal ? props.tooltip.alignModal : props.tooltip.align
   });
 };
@@ -2102,11 +2128,9 @@ BuildToolTip.propTypes = {
   align: PropTypes__default["default"].string.isRequired,
   alignModal: PropTypes__default["default"].string.isRequired
 };
-const ToolTipWrapper = props => {
-  let allProps = {
-    ...props
-  };
-  let tooltip = BuildToolTip(props);
+var ToolTipWrapper = function ToolTipWrapper(props) {
+  var allProps = _objectSpread2({}, props);
+  var tooltip = BuildToolTip(props);
   delete allProps.innerForm;
   delete allProps.tooltip;
   delete allProps.noLabelText;
@@ -2116,9 +2140,7 @@ const ToolTipWrapper = props => {
   }
   // remove label text from components where it is not valid param
   if (props.noLabelText) delete allProps.labelText;else allProps.labelText = " ";
-  allProps.className = lib_2("tooltip", {
-    ...props
-  });
+  allProps.className = lib_2("tooltip", _objectSpread2({}, props));
   return /*#__PURE__*/React__default["default"].createElement("div", {
     className: "cds--form-item"
   }, props.noLabelText ?
@@ -2155,7 +2177,7 @@ ToolTipWrapper.propTypes = {
   children: PropTypes__default["default"].node,
   innerForm: PropTypes__default["default"].oneOfType([PropTypes__default["default"].object, PropTypes__default["default"].func])
 };
-const DynamicToolTipWrapper = props => {
+var DynamicToolTipWrapper = function DynamicToolTipWrapper(props) {
   //make sure that either children or innerForm are passed as a prop
   if (props.children === undefined && props.innerForm === undefined) {
     throw new Error("DynamicToolTipWrapper expects either `props.children` or `props.innerForm` when rendering ToolTipWrapper, got neither.");
@@ -2292,8 +2314,11 @@ IcseSelect.propTypes = {
   debug: PropTypes__default["default"].bool.isRequired,
   handleInputChange: PropTypes__default["default"].func.isRequired,
   labelText: PropTypes__default["default"].string.isRequired,
+<<<<<<< HEAD
   name: PropTypes__default["default"].string.isRequired,
 >>>>>>> 67351ff (Dropdowns components)
+=======
+>>>>>>> b238572 (Dropdowns Documentation)
   tooltip: PropTypes__default["default"].shape({
     content: PropTypes__default["default"].string.isRequired,
     link: PropTypes__default["default"].string,
@@ -2329,22 +2354,13 @@ class FetchSelect extends React__default["default"].Component {
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      labelText: "Kube Version",
+      labelText: "FetchSelect",
       handleInputChange: this.props.handleInputChange,
-      name: "kube_version",
+      name: "Fetch Select",
       className: this.props.className,
-      component: "cluster",
+      component: "Fetch",
       url: this.props.url,
-      groups: this.state.data.filter(version => {
-        if (this.props.kube_type === "openshift" && version.indexOf("openshift") !== -1 ||
-        // is openshift and contains openshift
-        this.props.kube_type !== "openshift" && version.indexOf("openshift") === -1 ||
-        // is not openshift and does not contain openshift
-        version === "default" // or is default
-        ) {
-          return version;
-        }
-      }),
+      groups: this.props.groups,
       filter: array => {
         groups = this.props.filter(array);
       },
@@ -2361,7 +2377,7 @@ FetchSelect.propTypes = {
   // can be null or undefined
   value: PropTypes__default["default"].string,
   // can be null or undefined
-  kube_type: PropTypes__default["default"].string.isRequired,
+  groups: PropTypes__default["default"].array.isRequired,
   url: PropTypes__default["default"].string.isRequired,
   onReturnFunction: PropTypes__default["default"].func,
   filter: PropTypes__default["default"].func
@@ -2412,10 +2428,10 @@ IcseNumberSelect.propTypes = {
   labelText: PropTypes__default["default"].string.isRequired,
   isModal: PropTypes__default["default"].bool.isRequired
 };
-const EntitlementDropdown = props => {
+const EntitlementSelect = props => {
   return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
     name: "entitlement",
-    labelText: "Entitlement",
+    labelText: "Entitlement (Cloud Pak)",
     groups: ["null", "cloud_pak"],
     value: props.value || "null",
     handleInputChange: props.handleInputChange,
@@ -2423,7 +2439,7 @@ const EntitlementDropdown = props => {
     component: props.component
   });
 };
-EntitlementDropdown.propTypes = {
+EntitlementSelect.propTypes = {
   value: PropTypes__default["default"].string,
   // can be null
   component: PropTypes__default["default"].string.isRequired,
@@ -2433,7 +2449,7 @@ EntitlementDropdown.propTypes = {
 /**
  * Under Construction Page
  */
-const UnderConstruction = () => {
+var UnderConstruction = function UnderConstruction() {
   return /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(iconsReact.WarningAlt, {
     size: "128"
   }), /*#__PURE__*/React__default["default"].createElement("h4", null, "Page Under Construction"));
@@ -2450,7 +2466,7 @@ styleInject(css_248z);
  * @returns tile if shown, empty string otherwise
  */
 
-const EmptyResourceTile = props => {
+var EmptyResourceTile = function EmptyResourceTile(props) {
   return props.showIfEmpty === false || props.showIfEmpty.length === 0 ? /*#__PURE__*/React__default["default"].createElement(react.Tile, {
     className: "marginBottomXs tileBackground"
   }, /*#__PURE__*/React__default["default"].createElement(iconsReact.CloudAlerting, {
@@ -4056,11 +4072,15 @@ exports.EditCloseIcon = EditCloseIcon;
 exports.EmptyResourceTile = EmptyResourceTile;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 exports.FormModal = FormModal;
 =======
 =======
 exports.EntitlementDropdown = EntitlementDropdown;
 >>>>>>> e6437cd (dropdown examples)
+=======
+exports.EntitlementSelect = EntitlementSelect;
+>>>>>>> b238572 (Dropdowns Documentation)
 exports.FetchSelect = FetchSelect;
 >>>>>>> 67351ff (Dropdowns components)
 exports.IcseFormGroup = IcseFormGroup;

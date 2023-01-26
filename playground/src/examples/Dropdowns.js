@@ -1,4 +1,9 @@
-import { FetchSelect, IcseSelect, IcseNumberSelect, EntitlementDropdown } from "icse-react-assets";
+import {
+  FetchSelect,
+  IcseSelect,
+  IcseNumberSelect,
+  EntitlementSelect,
+} from "icse-react-assets";
 
 function DropdownExamples() {
   return (
@@ -16,8 +21,8 @@ function DropdownExamples() {
           labelText="ICSE Select"
         />
         <FetchSelect
-          kube_type="1.3.5"
-          url="www.hi.com"
+          url="www.myendpointhereIBM.com"
+          groups={["1", "2", "3"]}
           handleInputChange={(event) => {
             console.log(event.target.value);
           }}
@@ -31,9 +36,13 @@ function DropdownExamples() {
             console.log(event.target.value);
           }}
           value={1}
+          tooltip={{
+            content: "Test",
+            link: "www.test.test",
+          }}
         />
-        <EntitlementDropdown
-          component="icseEntitlementDropdown"
+        <EntitlementSelect
+          component="icseEntitlementSelect"
           handleInputChange={(event) => {
             console.log(event.target.value);
           }}

@@ -209,7 +209,7 @@ export const DeleteModalExample = () => {
 
 #### IcseMultiSelect
 
-IcseMultiSelect is a component that allows the developer to filterable dropdown multiselect. IcseMultiSelect accepts several arguments:
+IcseMultiSelect is a component that allows the developer to create a filterable dropdown multiselect. IcseMultiSelect accepts several arguments:
 
 - `id`: A string of the component's id,
 - `className`: A string for inputting CSS styling classes (optional),
@@ -642,6 +642,7 @@ export const DynamicToolTipWrapperWithoutToolTipExample = (props) => {
 };
 ```
 
+<<<<<<< HEAD
 ### Inputs
 
 #### IcseToggle
@@ -673,10 +674,57 @@ export const IcseToggleExample = () => {
       id={"example-toggle"}
       onToggle={(toggleName, value) => console.log(toggleName, value)}
     />
+=======
+### Dropdowns
+
+#### IcseSelect
+
+IcseSelect is a component that allows the developer to create a customized Carbon React Select component. IcseSelect accepts several arguments:
+
+- `value`: The current value that is saved by the Select (can be null),
+- `component`: String for the component which the IcseSelect belongs to
+- `className`: A string for inputting CSS styling classes (optional),
+- `disabled`: A boolean value that will disable this component if true (defaults to `false`),
+- `invalid`: A boolean value for checking if any input values are invalid (defaults to `false`),
+- `invalidText`: A string value that displays if there is invalid input (defaults to `"Invalid Selection"`),
+- `disableInvalid`: A boolean value that will disable invalid checking if true (defaults to `false`),
+- `readOnly`: A boolean value that will set the component to "read-only" if true (defaults to `false`),
+- `groups`: An array of objecs to select from (defaults to `[]`),
+- `debug`: An boolean value for setting to debug mode (defaults to `false`),
+- `handleInputChange`: A function which determines what happens when the selected input is changed,
+- `labelText`: A string for the label text of the component,
+- `tooltip`: An object that contains the following parameters:
+  - `content`: A string containing brief, supplemental information for the component it is tied to,
+  - `link`: An optional string contaning a custom hyperlink to be displayed with the content of the tooltip,
+  - `alignModal`: An optional string used to dynamically alternate direction for tooltip text when rendered in modals
+
+```js
+import { IcseSelect } from "icse-react-assets";
+
+export const IcseSelectExample = () => {
+  return (
+    <div>
+      <IcseSelect
+        component="example"
+        name="icseSelect"
+        disabled={false}
+        disableInvalid={true}
+        groups={["hi", "hello", "1"]}
+        handleInputChange={(event) => {
+          console.log(event.target.value);
+        }}
+        labelText="ICSE Select"
+        tooltip={{
+          content: "Test",
+        }}
+      />
+    </div>
+>>>>>>> b238572 (Dropdowns Documentation)
   );
 };
 ```
 
+<<<<<<< HEAD
 #### IcseTextInput
 
 IcseTextInput is a text input component that allows the user to input text into a field and the developer to easily validate it. IcseTextInput accepts several arguments:
@@ -720,10 +768,39 @@ export const IcseTextInputExample = () => {
       }}
       invalidText="TextInput cannot be empty"
     />
+=======
+#### FetchSelect
+
+FetchSelect is a customized IcseSelect component for fetching/filtering data. FetchSelect accepts several arguments:
+
+- `handleInputChange`: A function which determines what happens when the selected input is changed,
+- `className`: A string for inputting CSS styling classes (optional),
+- `value`: The current value that is saved by the FetchSelect,
+- `groups`: An array of objects to select from,
+- `url`: String value for the endpoint of the fetch call,
+- `onReturnFunction`: Function which accepts one parameter (data) and is called before data is set to the state,
+- `filter`: Function which accepts one parameter (array) and can be used to filter the groups (array) parameter,
+
+```js
+import { FetchSelect } from "icse-react-assets";
+
+export const FetchSelectExample = () => {
+  return (
+    <div>
+      <FetchSelect
+        url="www.myendpointhereIBM.com"
+        groups={["1", "2", "3"]}
+        handleInputChange={(event) => {
+          console.log(event.target.value);
+        }}
+      />
+    </div>
+>>>>>>> b238572 (Dropdowns Documentation)
   );
 };
 ```
 
+<<<<<<< HEAD
 #### IcseNameInput
 
 IcseNameInput is an extension of IcseTextInput that adds additional functionality to handle resource names as an input. IcseNameInput takes several arguments:
@@ -764,10 +841,53 @@ export const IcseNameInputExample = () => {
       invalidText="NameInput cannot be empty"
       tooltip={{ content: "Optional tooltip example", align: "bottom-left" }}
     />
+=======
+#### IcseNumberSelect
+
+IcseNumberSelect is a customized IcseSelect component for selecting number values. IcseNumberSelect accepts several arguments:
+
+- `min`: A number value for the minimum selectable value,
+- `max`: A number value for the maximum selectable value,
+- `value`: The current value that is saved by the IcseNumberSelect,
+- `groups`: An array of objects to select from,
+- `className`: A string for inputting CSS styling classes (optional),
+- `invalid`: A boolean value for checking if any input values are invalid (defaults to `false`),
+- `invalidText`: A string value that displays if there is invalid input,
+- `tooltip`: An object that contains the following parameters:
+  - `content`: A string containing brief, supplemental information for the component it is tied to,
+  - `link`: An optional string contaning a custom hyperlink to be displayed with the content of the tooltip,
+- `labelText`: A string for the label text of the component,
+- `isModal`: A boolean value that specifies if the IcseNumberSelect is a component within a modal
+- `name`: The name of the component
+
+```js
+import { IcseNumberSelect } from "icse-react-assets";
+
+export const IcseNumberSelectExample = () => {
+  return (
+    <div>
+      <IcseNumberSelect
+        component="numberSelect"
+        max={20}
+        min={1}
+        name="icseNumberSelect"
+        labelText="ICSE Number Select"
+        handleInputChange={(event) => {
+          console.log(event.target.value);
+        }}
+        value={2}
+        tooltip={{
+          content: "Test",
+          link: "www.test.test",
+        }}
+      />
+    </div>
+>>>>>>> b238572 (Dropdowns Documentation)
   );
 };
 ```
 
+<<<<<<< HEAD
 ### Forms
 
 #### AppIdKeyForm
@@ -897,3 +1017,29 @@ UpDownButtons is a function that allows for dynamic passing of components and pr
 />
 ```
 >>>>>>> 82ac8ce (changed parameter order to fit specifications)
+=======
+#### EntitlementSelect
+
+EntitlementSelect is a customized IcseSelect for selecting entitlements related to the IBM Cloud Pak for Data platform. The default selectable values of EntitlementSelect are `["cloud_pak", "null"]`. EntitlementSelect accepts several arguments:
+
+- `value`: The current value that is saved by the EntitlementSelect (can be null),
+- `handleInputChange`: A function which determines what happens when the selected input is changed,
+- `component`: String for the component which the EntitlementSelect belongs to
+
+```js
+import { EntitlementSelect } from "icse-react-assets";
+
+export const EntitlementSelectExample = () => {
+  return (
+    <div>
+      <EntitlementSelect
+        component="icseEntitlementSelect"
+        handleInputChange={(event) => {
+          console.log(event.target.value);
+        }}
+      />
+    </div>
+  );
+};
+```
+>>>>>>> b238572 (Dropdowns Documentation)
