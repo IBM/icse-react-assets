@@ -1,3 +1,19 @@
+import { Button } from "@carbon/react";
+import { saveChangeButtonClass } from "../lib/index";
+import PopoverWrapper from "./PopoverWrapper";
+import PropTypes from "prop-types";
+import "./styles/Buttons.css";
+import {
+  Save,
+  Edit,
+  Add,
+  CloseFilled,
+  TrashCan,
+  ArrowDown,
+  ArrowUp,
+} from "@carbon/icons-react";
+import React from "react";
+
 /**
  * generate save icon
  * @param {object} props
@@ -119,6 +135,10 @@ EditCloseIcon.defaultProps = {
 /**
  * Delete button
  * @param {*} props
+ * @param {boolean} props.disabled
+ * @param {boolean} props.modalOpen toggle is modal open, defaults to false
+ * @param {Function} props.onClick onclick function
+ * @param {string} props.name classname
  *
  */
 export const DeleteButton = (props) => {
