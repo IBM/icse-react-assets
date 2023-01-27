@@ -4,6 +4,7 @@ import {
   DeleteButton,
   UpDownButtons,
 } from "icse-react-assets";
+import { useState } from "react";
 
 function ButtonsExample() {
   const [isOpen, setOpen] = useState(false);
@@ -20,10 +21,10 @@ function ButtonsExample() {
           disabled={false}
         />
         <EditCloseIcon
-          hoverText="SaveAddButton Hover Text"
+          hoverText="EditCloseIcon Hover Text"
           type="edit"
           disabled={false}
-          onClick={() => setOpen(false)}
+          onClick={() => setOpen(!isOpen)}
           open={isOpen}
         />
         <DeleteButton

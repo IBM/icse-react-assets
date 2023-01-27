@@ -1,4 +1,5 @@
 const { saveChangeButtonClass } = require("../src/lib/button-utils");
+const { assert } = require("chai");
 
 describe("saveChangeButtonClass", () => {
   it("should return default styles with no params", () => {
