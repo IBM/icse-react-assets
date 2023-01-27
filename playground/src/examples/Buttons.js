@@ -6,6 +6,7 @@ import {
 } from "icse-react-assets";
 
 function ButtonsExample() {
+  const [isOpen, setOpen] = useState(false);
   return (
     <div className="App">
       <div style={{ marginLeft: "100px" }}>
@@ -22,7 +23,8 @@ function ButtonsExample() {
           hoverText="SaveAddButton Hover Text"
           type="edit"
           disabled={false}
-          open={false}
+          onClick={() => setOpen(false)}
+          open={isOpen}
         />
         <DeleteButton
           name="icseButtonClass"
@@ -33,10 +35,10 @@ function ButtonsExample() {
         />
         <UpDownButtons
           name="icseButtonClass"
-          handleCardUp={(event) => {
+          handleUp={(event) => {
             console.log(event);
           }}
-          handleCardDown={(event) => {
+          handleDown={(event) => {
             console.log(event);
           }}
           disableUp={false}

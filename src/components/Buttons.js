@@ -92,6 +92,7 @@ SaveAddButton.propTypes = {
  * @param {string=} props.hoverText text for popover hover
  * @param {string} props.type can be `edit` or `add`, defaults to add
  * @param {boolean} props.disabled
+ * @param {Function} props.onClick onclick function
  * @param {boolean} props.open toggle is open, defaults to false
  * @returns edit close icon
  */
@@ -182,8 +183,8 @@ DeleteButton.propTypes = {
  * @param {string} props.name
  * @param {boolean} props.disableUp
  * @param {boolean} props.disableDown
- * @param {Function} props.handleCardUp
- * @param {Function} props.handleCardDown
+ * @param {Function} props.handleUp
+ * @param {Function} props.handleDown
  *
  */
 export const UpDownButtons = (props) => {
@@ -195,7 +196,7 @@ export const UpDownButtons = (props) => {
         kind="ghost"
         size="sm"
         id={props.name + "-up"}
-        onClick={props.handleCardUp}
+        onClick={props.handleUp}
         className="focus forceTertiaryButtonStyles marginRightSmall"
       >
         <ArrowUp key={"up-" + props.name} />
@@ -206,7 +207,7 @@ export const UpDownButtons = (props) => {
         key={"rule-down-" + props.name}
         size="sm"
         id={props.name + "-down"}
-        onClick={props.handleCardDown}
+        onClick={props.handleDown}
         className="focus forceTertiaryButtonStyles"
       >
         <ArrowDown key={"down-" + props.name} />
@@ -224,6 +225,6 @@ UpDownButtons.propTypes = {
   disableUp: PropTypes.bool.isRequired,
   disableDown: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
-  handleCardUp: PropTypes.func.isRequired,
-  handleCardDown: PropTypes.func.isRequired,
+  handleUp: PropTypes.func.isRequired,
+  handleDown: PropTypes.func.isRequired,
 };
