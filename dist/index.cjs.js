@@ -13,10 +13,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var React = require('react');
 var iconsReact = require('@carbon/icons-react');
 var PropTypes = require('prop-types');
 var react = require('@carbon/react');
+=======
+var React = require('react');
+var iconsReact = require('@carbon/icons-react');
+var react = require('@carbon/react');
+var PropTypes = require('prop-types');
+var lazyZ = require('lazy-z');
+>>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -24,6 +32,7 @@ var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 var PropTypes__default = /*#__PURE__*/_interopDefaultLegacy(PropTypes);
 var lazyZ__default = /*#__PURE__*/_interopDefaultLegacy(lazyZ);
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /**
  * create a composed class name
@@ -115,6 +124,50 @@ var UnderConstruction = function UnderConstruction() {
     size: "128"
   }), /*#__PURE__*/React__default["default"].createElement("h4", null, "Page Under Construction"));
 };
+=======
+var _require = require("lazy-z"),
+  isFunction = _require.isFunction;
+
+/**
+ * build functions for modal forms
+ * @param {React.Element} component stateful component
+ */
+function buildFormFunctions(component) {
+  var disableSubmit = isFunction(component.props.shouldDisableSubmit);
+  var disableSave = isFunction(component.props.shouldDisableSave);
+  if (component.props.shouldDisableSave) component.shouldDisableSave = component.props.shouldDisableSave.bind(component);
+  if (disableSubmit) component.shouldDisableSubmit = component.props.shouldDisableSubmit.bind(component);
+
+  // set update
+  component.componentDidMount = function () {
+    if (disableSubmit) component.shouldDisableSubmit();
+    if (disableSave) component.shouldDisableSave(this.state, this.props);
+  }.bind(component);
+  component.componentDidUpdate = function () {
+    if (disableSubmit) component.shouldDisableSubmit();
+    if (disableSave) component.shouldDisableSave(this.state, this.props);
+  }.bind(component);
+
+  // set on save function
+  component.onSave = function () {
+    component.props.onSave(this.state, this.props);
+  }.bind(component);
+  // save on delete
+  component.onDelete = function () {
+    component.props.onDelete(this.state, this.props);
+  }.bind(component);
+}
+
+/**
+ * add default methods to component
+ * @param {*} component React Component
+ */
+function buildFormDefaultInputMethods(component) {
+  component.eventTargetToNameAndValue = eventTargetToNameAndValue.bind(component);
+  component.toggleStateBoolean = toggleStateBoolean.bind(component);
+  component.setNameToValue = setNameToValue.bind(component);
+}
+>>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))
 
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
@@ -143,8 +196,21 @@ function styleInject(css, ref) {
   }
 }
 
+<<<<<<< HEAD
 var css_248z$2 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$2);
+=======
+var css_248z$7 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z$7);
+
+/**
+ * Empty Resource Tile
+ * @param {*} props
+ * @param {string} props.name resource name
+ * @param {(boolean|*[])} props.showIfEmpty if array is empty or boolean is false, show the empty resource tile
+ * @returns tile if shown, empty string otherwise
+ */
+>>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))
 
 var EmptyResourceTile = function EmptyResourceTile(props) {
   return props.showIfEmpty === false || props.showIfEmpty.length === 0 ? /*#__PURE__*/React__default["default"].createElement(react.Tile, {
@@ -165,6 +231,7 @@ EmptyResourceTile.propTypes = {
   showIfEmpty: PropTypes__default["default"].oneOfType([PropTypes__default["default"].array, PropTypes__default["default"].bool]).isRequired
 };
 
+<<<<<<< HEAD
 =======
 function toggleMarginBottom(hide) {
   if (hide === false) return " marginBottomSmall";else return "";
@@ -173,21 +240,30 @@ function toggleMarginBottom(hide) {
 >>>>>>> faf8c38 (fixed imports)
 =======
 >>>>>>> 23b5837 (add id as required)
+=======
+>>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))
 function ownKeys(object, enumerableOnly) {
   var keys = Object.keys(object);
   if (Object.getOwnPropertySymbols) {
     var symbols = Object.getOwnPropertySymbols(object);
+<<<<<<< HEAD
     enumerableOnly &&
       (symbols = symbols.filter(function (sym) {
         return Object.getOwnPropertyDescriptor(object, sym).enumerable;
       })),
       keys.push.apply(keys, symbols);
+=======
+    enumerableOnly && (symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    })), keys.push.apply(keys, symbols);
+>>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))
   }
   return keys;
 }
 function _objectSpread2(target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = null != arguments[i] ? arguments[i] : {};
+<<<<<<< HEAD
     i % 2
       ? ownKeys(Object(source), !0).forEach(function (key) {
           _defineProperty(target, key, source[key]);
@@ -216,6 +292,16 @@ function _objectSpread2(target) {
 >>>>>>> 23b5837 (add id as required)
 =======
 >>>>>>> 8db187e (form and documentation)
+=======
+    i % 2 ? ownKeys(Object(source), !0).forEach(function (key) {
+      _defineProperty(target, key, source[key]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) {
+      Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+    });
+  }
+  return target;
+}
+>>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -241,7 +327,10 @@ function _createClass(Constructor, protoProps, staticProps) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))
 function _defineProperty(obj, key, value) {
   key = _toPropertyKey(key);
   if (key in obj) {
@@ -249,16 +338,23 @@ function _defineProperty(obj, key, value) {
       value: value,
       enumerable: true,
       configurable: true,
+<<<<<<< HEAD
       writable: true,
+=======
+      writable: true
+>>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))
     });
   } else {
     obj[key] = value;
   }
   return obj;
 }
+<<<<<<< HEAD
 >>>>>>> 23b5837 (add id as required)
 =======
 >>>>>>> 8db187e (form and documentation)
+=======
+>>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))
 function _extends() {
   _extends = Object.assign
     ? Object.assign.bind()
@@ -475,6 +571,7 @@ var formUtils = /*#__PURE__*/Object.freeze({
 var textUtils = {
   formatInputPlaceholder: formatInputPlaceholder$1
 };
+<<<<<<< HEAD
 var textUtils_1 = textUtils.formatInputPlaceholder;
 
 var textUtils$1 = /*#__PURE__*/Object.freeze({
@@ -484,6 +581,8 @@ var textUtils$1 = /*#__PURE__*/Object.freeze({
   formatInputPlaceholder: textUtils_1
 >>>>>>> 8655315 (changes (exports, readme, example))
 });
+=======
+>>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))
 
 /**
 <<<<<<< HEAD
@@ -553,7 +652,7 @@ const {
 } = formUtils;
 const {
   formatInputPlaceholder
-} = textUtils$1;
+} = textUtils;
 const {
 <<<<<<< HEAD
   saveChangeButtonClass
@@ -625,6 +724,7 @@ var lib_7 = lib.buildFormFunctions;
 =======
 >>>>>>> 8655315 (changes (exports, readme, example))
 
+<<<<<<< HEAD
 function styleInject(css, ref) {
   if (ref === void 0) ref = {};
   var insertAt = ref.insertAt;
@@ -676,6 +776,836 @@ styleInject(css_248z$7);
 var css_248z$7 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n}\n";
 styleInject(css_248z$7);
 >>>>>>> 8db187e (form and documentation)
+=======
+var css_248z$6 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
+styleInject(css_248z$6);
+
+/**
+ * Render a form
+ * @param {*} form form element
+ * @param {*} formProps props
+ * @returns Form element
+ */
+function RenderForm(form, formProps) {
+  return /*#__PURE__*/React__default["default"].createElement(form, _objectSpread2({}, formProps));
+}
+
+/**
+ * Dynamically render inner contents
+ * @param {*} props
+ * @param {boolean=} props.hide hide element
+ * @param {boolean=} props.show component to show when hide is false
+ * @returns empty string when hidden, component when visible
+ */
+function DynamicRender(props) {
+  return props.hide === true ? "" : props.show;
+}
+
+/**
+ * wrapper for title groups
+ */
+var TitleGroup = function TitleGroup(props) {
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: lib_2("displayFlex alignItemsCenter widthOneHundredPercent ".concat(lib_1(props.hide)), props)
+  }, props.children);
+};
+TitleGroup.defaultProps = {
+  hide: true
+};
+TitleGroup.propTypes = {
+  children: PropTypes__default["default"].node.isRequired
+};
+var IcseFormGroup = function IcseFormGroup(props) {
+  var formGroupClassName = "displayFlex marginBottom fitContent evenSpacing";
+  // remove margin bottom from formGroup for VPC
+  if (props.noMarginBottom) {
+    formGroupClassName = formGroupClassName.replace(/\smarginBottom/g, "");
+  }
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: lib_2(formGroupClassName, props)
+  }, props.children);
+};
+IcseFormGroup.defaultProps = {
+  noMarginBottom: false
+};
+IcseFormGroup.propTypes = {
+  noMarginBottom: PropTypes__default["default"].bool.isRequired,
+  children: PropTypes__default["default"].node.isRequired,
+  className: PropTypes__default["default"].string
+};
+var IcseSubForm = function IcseSubForm(props) {
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: lib_2(props.formInSubForm ? "formInSubForm positionRelative" : "subForm marginBottomSmall", props),
+    id: props.id
+  }, props.children);
+};
+IcseSubForm.defaultProps = {
+  formInSubForm: false
+};
+IcseSubForm.propTypes = {
+  id: PropTypes__default["default"].string.isRequired,
+  formInSubForm: PropTypes__default["default"].bool.isRequired,
+  className: PropTypes__default["default"].string,
+  children: PropTypes__default["default"].node.isRequired
+};
+
+var css_248z$5 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+styleInject(css_248z$5);
+
+/**
+ * render a tooltip around an input field
+ * @returns slz tooltip component
+ */
+var IcseToolTip = function IcseToolTip(props) {
+  var link = /*#__PURE__*/React__default["default"].createElement(react.Link, {
+    onClick: function onClick() {
+      return window.open(props.link, "_blank");
+    }
+  }, "this link");
+  return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(react.Toggletip, {
+    align: props.align
+  }, /*#__PURE__*/React__default["default"].createElement(react.ToggletipButton, null, /*#__PURE__*/React__default["default"].createElement(iconsReact.Information, {
+    className: "tooltipMarginLeft"
+  })), /*#__PURE__*/React__default["default"].createElement(react.ToggletipContent, null, /*#__PURE__*/React__default["default"].createElement("p", null, props.content, props.link && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, " Visit ", link, " for more information. ")))));
+};
+IcseToolTip.defaultProps = {
+  content: "",
+  align: "top"
+};
+IcseToolTip.propTypes = {
+  content: PropTypes__default["default"].string.isRequired,
+  link: PropTypes__default["default"].string,
+  align: PropTypes__default["default"].string.isRequired
+};
+var BuildToolTip = function BuildToolTip(props) {
+  var _props$tooltip;
+  return /*#__PURE__*/React__default["default"].createElement(IcseToolTip, {
+    content: props.tooltip.content,
+    link: (_props$tooltip = props.tooltip) === null || _props$tooltip === void 0 ? void 0 : _props$tooltip.link,
+    align: props.isModal ? props.tooltip.alignModal : props.tooltip.align
+  });
+};
+BuildToolTip.defaultProps = {
+  tooltip: {
+    content: ""
+  },
+  isModal: false,
+  align: "top",
+  alignModal: "bottom"
+};
+BuildToolTip.propTypes = {
+  tooltip: PropTypes__default["default"].shape({
+    content: PropTypes__default["default"].string.isRequired,
+    link: PropTypes__default["default"].string
+  }).isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired,
+  align: PropTypes__default["default"].string.isRequired,
+  alignModal: PropTypes__default["default"].string.isRequired
+};
+var ToolTipWrapper = function ToolTipWrapper(props) {
+  var allProps = _objectSpread2({}, props);
+  var tooltip = BuildToolTip(props);
+  delete allProps.innerForm;
+  delete allProps.tooltip;
+  delete allProps.noLabelText;
+  //check for labelText prop for components where it is a valid param
+  if (!props.noLabelText && props.labelText === undefined) {
+    throw new Error("ToolTipWrapper expects `props.labelText` when rendering labelText to be provided, got neither. To not render label text, use the `noLabelText` prop.");
+  }
+  // remove label text from components where it is not valid param
+  if (props.noLabelText) delete allProps.labelText;else allProps.labelText = " ";
+  allProps.className = lib_2("tooltip", _objectSpread2({}, props));
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "cds--form-item"
+  }, props.noLabelText ?
+  /*#__PURE__*/
+  // No label- this is usually a title
+  React__default["default"].createElement("div", {
+    className: "labelRow"
+  }, RenderForm(props.innerForm, allProps), tooltip) : /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "cds--label labelRow"
+  }, /*#__PURE__*/React__default["default"].createElement("label", {
+    htmlFor: props.id
+  }, props.labelText), tooltip), props.children ? /*#__PURE__*/React__default["default"].cloneElement(props.children, {
+    // adjust props
+    labelText: " ",
+    // set labelText to empty
+    className: props.children.props.className + " tooltip" // add tooltip class back
+  }) : RenderForm(props.innerForm, allProps)));
+};
+ToolTipWrapper.defaultProps = {
+  tooltip: {
+    content: ""
+  },
+  noLabelText: false
+};
+ToolTipWrapper.propTypes = {
+  tooltip: PropTypes__default["default"].shape({
+    content: PropTypes__default["default"].string.isRequired,
+    link: PropTypes__default["default"].string
+  }).isRequired,
+  isModal: PropTypes__default["default"].bool,
+  id: PropTypes__default["default"].string.isRequired,
+  labelText: PropTypes__default["default"].string,
+  noLabelText: PropTypes__default["default"].bool.isRequired,
+  children: PropTypes__default["default"].node,
+  innerForm: PropTypes__default["default"].oneOfType([PropTypes__default["default"].object, PropTypes__default["default"].func])
+};
+var DynamicToolTipWrapper = function DynamicToolTipWrapper(props) {
+  //make sure that either children or innerForm are passed as a prop
+  if (props.children === undefined && props.innerForm === undefined) {
+    throw new Error("DynamicToolTipWrapper expects either `props.children` or `props.innerForm` when rendering ToolTipWrapper, got neither.");
+  }
+  return props.tooltip ? /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, props) : props.children ? props.children : RenderForm(props.innerForm, {});
+};
+DynamicToolTipWrapper.propTypes = {
+  tooltip: PropTypes__default["default"].shape({
+    content: PropTypes__default["default"].string,
+    link: PropTypes__default["default"].string
+  }),
+  isModal: PropTypes__default["default"].bool,
+  children: PropTypes__default["default"].node,
+  innerForm: PropTypes__default["default"].oneOfType([PropTypes__default["default"].object, PropTypes__default["default"].func])
+};
+
+var css_248z$4 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
+styleInject(css_248z$4);
+
+var IcseToggle = function IcseToggle(props) {
+  var toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
+  return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, _extends({
+    innerForm: function innerForm() {
+      return /*#__PURE__*/React__default["default"].createElement(react.Toggle, {
+        labelA: props.useOnOff ? "Off" : "False",
+        labelB: props.useOnOff ? "On" : "True",
+        labelText: props.tooltip ? "" : props.labelText,
+        id: lazyZ.kebabCase(toggleName) + "-icse-toggle-" + props.id,
+        className: lib_2("leftTextAlign fieldWidth", props) + (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
+        ,
+
+        onToggle: function onToggle(event) {
+          props.onToggle(toggleName, event);
+        },
+        defaultToggled: props.defaultToggled,
+        disabled: props.disabled
+      });
+    }
+  }, props));
+};
+IcseToggle.defaultProps = {
+  useOnOff: false,
+  defaultToggled: false,
+  isModal: false,
+  disabled: false
+};
+IcseToggle.propTypes = {
+  useOnOff: PropTypes__default["default"].bool.isRequired,
+  className: PropTypes__default["default"].string,
+  labelText: PropTypes__default["default"].string.isRequired,
+  id: PropTypes__default["default"].string.isRequired,
+  toggleFieldName: PropTypes__default["default"].string,
+  // if field is name other than label text snake case
+  defaultToggled: PropTypes__default["default"].bool.isRequired,
+  disabled: PropTypes__default["default"].bool.isRequired,
+  tooltip: PropTypes__default["default"].shape({
+    content: PropTypes__default["default"].string.isRequired,
+    link: PropTypes__default["default"].string,
+    alignModal: PropTypes__default["default"].string
+  }),
+  onToggle: PropTypes__default["default"].func.isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired
+};
+
+/**
+ * Icse Text Input
+ * @param {*} props props
+ * @param {string} props.componentName name of the component being edited
+ * @param {string} props.placeholder placeholder text for field
+ * @param {string} props.field field (ex. name)
+ * @param {string=} props.value actual value
+ * @param {Function} props.onChange onchange function
+ * @param {string} props.helperText helper text
+ * @param {string} props.className classnames to add
+ * @param {boolean=} props.readOnly read only
+ * @param {string=} props.labelText override label text
+ * @returns <IcseTextInput/> component
+ */
+var IcseTextInput = function IcseTextInput(props) {
+  var fieldName = lazyZ.titleCase(props.field);
+  return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React__default["default"].createElement(react.TextInput, {
+    id: props.id,
+    className: lib_2("fieldWidth leftTextAlign", props),
+    labelText: props.labelText ? props.labelText : lazyZ.titleCase(props.field),
+    placeholder: props.placeholder || lib_3(props.componentName, fieldName),
+    name: props.field,
+    value: props.value || "",
+    invalid: lazyZ.isBoolean(props.invalid) ? props.invalid : props.invalidCallback(),
+    onChange: props.onChange,
+    helperText: props.helperText,
+    invalidText: props.invalidText ? props.invalidText : "Invalid ".concat(props.field, " value."),
+    maxLength: props.maxLength,
+    disabled: props.disabled,
+    readOnly: props.readOnly
+  }));
+};
+IcseTextInput.defaultProps = {
+  maxLength: null,
+  disabled: false,
+  readOnly: false,
+  hideHelperText: false
+};
+IcseTextInput.propTypes = {
+  disabled: PropTypes__default["default"].bool.isRequired,
+  componentName: PropTypes__default["default"].string,
+  placeholder: PropTypes__default["default"].string,
+  field: PropTypes__default["default"].string.isRequired,
+  value: PropTypes__default["default"].string,
+  onChange: PropTypes__default["default"].func.isRequired,
+  helperText: PropTypes__default["default"].string,
+  tooltip: PropTypes__default["default"].shape({
+    content: PropTypes__default["default"].string.isRequired,
+    link: PropTypes__default["default"].string,
+    alignModal: PropTypes__default["default"].string
+  }),
+  className: PropTypes__default["default"].string,
+  readOnly: PropTypes__default["default"].bool.isRequired,
+  labelText: PropTypes__default["default"].string.isRequired,
+  maxLength: PropTypes__default["default"].number,
+  invalidCallback: PropTypes__default["default"].func,
+  id: PropTypes__default["default"].string.isRequired,
+  invalidText: PropTypes__default["default"].string
+};
+
+/**
+ * Icse Name Field
+ * @param {*} props
+ * @param {string} props.id
+ * @param {string=} props.className
+ * @param {string} props.value
+ * @param {Function} props.onChange
+ * @param {string} props.component
+ * @param {boolean=} props.hideHelperText
+ * @param {func} props.helperTextCallback
+ * @param {string} props.invalidText
+ * @param {func} props.invalidCallback
+ * @returns <IcseNameInput />
+ */
+var IcseNameInput = function IcseNameInput(props) {
+  var helperText = "";
+  // if helper text is not hidden
+  if (!props.hideHelperText && !props.useData) {
+    helperText = props.helperTextCallback();
+  }
+  return /*#__PURE__*/React__default["default"].createElement(IcseTextInput, _extends({}, props, {
+    className: lib_2("fieldWidth leftTextAlign ", props),
+    field: "name",
+    labelText: "Name",
+    helperText: helperText
+  }));
+};
+IcseNameInput.defaultProps = {
+  useData: false,
+  hideHelperText: false,
+  invalidText: ""
+};
+IcseNameInput.propTypes = {
+  id: PropTypes__default["default"].string.isRequired,
+  className: PropTypes__default["default"].string,
+  value: PropTypes__default["default"].string.isRequired,
+  onChange: PropTypes__default["default"].func,
+  componentName: PropTypes__default["default"].string.isRequired,
+  tooltip: PropTypes__default["default"].shape({
+    content: PropTypes__default["default"].string.isRequired,
+    link: PropTypes__default["default"].string,
+    alignModal: PropTypes__default["default"].string
+  }),
+  hideHelperText: PropTypes__default["default"].bool.isRequired,
+  useData: PropTypes__default["default"].bool.isRequired,
+  helperTextCallback: PropTypes__default["default"].func,
+  invalidText: PropTypes__default["default"].string.isRequired,
+  invalidCallback: PropTypes__default["default"].func
+};
+
+var css_248z$3 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
+styleInject(css_248z$3);
+
+var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(AppIdKeyForm, _React$Component);
+  var _super = _createSuper(AppIdKeyForm);
+  function AppIdKeyForm(props) {
+    var _this;
+    _classCallCheck(this, AppIdKeyForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  _createClass(AppIdKeyForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState({
+        key_name: event.target.value
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+        id: "app-id-key-name",
+        value: this.state.key_name,
+        onChange: this.handleInputChange,
+        field: "appid_key",
+        labelText: "App ID Key",
+        componentName: "appid",
+        className: "fieldWidthSmaller",
+        invalid: this.props.invalidCallback(this.props, this.state),
+        invalidText: this.props.invalidTextCallback(this.props, this.state)
+      }));
+    }
+  }]);
+  return AppIdKeyForm;
+}(React__default["default"].Component);
+AppIdKeyForm.defaultProps = {
+  data: {
+    key_name: ""
+  }
+};
+AppIdKeyForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    key_name: PropTypes__default["default"].string.isRequired
+  }),
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired
+};
+
+/**
+ * Instance Form Modal
+ * @param {Object} props
+ * @param {string} props.name the name of the modal
+ * @param {Function} props.onRequestClose close modal function
+ * @param {Function} props.onRequestSubmit submit function
+ * @param {boolean} props.show show modal if true
+ */
+var FormModal = /*#__PURE__*/function (_Component) {
+  _inherits(FormModal, _Component);
+  var _super = _createSuper(FormModal);
+  function FormModal(props) {
+    var _this;
+    _classCallCheck(this, FormModal);
+    _this = _super.call(this, props);
+    _this.state = {
+      isDisabled: false
+    };
+    _this.modalForm = /*#__PURE__*/React__default["default"].createRef();
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.disableModal = _this.disableModal.bind(_assertThisInitialized(_this));
+    _this.enableModal = _this.enableModal.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * submit child data
+   */
+  _createClass(FormModal, [{
+    key: "handleSubmit",
+    value: function handleSubmit() {
+      var childData = this.modalForm.current.state;
+      this.props.onRequestSubmit(childData);
+    }
+
+    /**
+     * disable modal
+     */
+  }, {
+    key: "disableModal",
+    value: function disableModal() {
+      if (!this.state.isDisabled) this.setState({
+        isDisabled: true
+      });
+    }
+
+    /**
+     * enable modal
+     */
+  }, {
+    key: "enableModal",
+    value: function enableModal() {
+      if (this.state.isDisabled) this.setState({
+        isDisabled: false
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      return /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+        hide: this.props.show === false,
+        show: /*#__PURE__*/React__default["default"].createElement(react.Modal, {
+          modalHeading: this.props.name,
+          open: this.props.show,
+          onRequestSubmit: this.handleSubmit,
+          onRequestClose: this.props.onRequestClose,
+          primaryButtonText: "Submit",
+          secondaryButtonText: "Cancel",
+          primaryButtonDisabled: this.state.isDisabled
+        }, this.props.show && React__default["default"].Children.map(this.props.children, function (child) {
+          return (
+            /*#__PURE__*/
+            // clone react child
+            React__default["default"].cloneElement(child, {
+              // add modal specific methods
+              disableModal: _this2.disableModal,
+              enableModal: _this2.enableModal,
+              isModal: true,
+              ref: _this2.modalForm
+            })
+          );
+        }))
+      });
+    }
+  }]);
+  return FormModal;
+}(React.Component);
+FormModal.defaultProps = {
+  show: false
+};
+FormModal.propTypes = {
+  show: PropTypes__default["default"].bool.isRequired,
+  onRequestSubmit: PropTypes__default["default"].func.isRequired,
+  onRequestClose: PropTypes__default["default"].func.isRequired,
+  name: PropTypes__default["default"].string,
+  // undefined for loaded modal not rendered
+  children: PropTypes__default["default"].node.isRequired
+};
+
+var css_248z$2 = ".leftTextAlign {\n  text-align: left;\n}\n";
+styleInject(css_248z$2);
+
+/**
+ * Icse Modal Wrapper
+ * @param {*} props
+ * @param {string} props.name resource name
+ * @param {string} props.heading modal heading
+ * @param {boolean} props.open show modal
+ * @param {boolean=} props.danger danger, defaults to true
+ * @param {boolean=} props.alert alert, defaults to true
+ * @param {string=} props.primaryButtonText defaults to `Dismiss Changes`
+ * @param {string=} props.secondaryButtonText defaults to `Cancel`
+ * @param {Function} props.onRequestSubmit
+ * @param {Function} props.onRequestClose
+ * @param {boolean=} props.useAddButton use + button instead of edit
+ */
+var IcseModal = function IcseModal(props) {
+  /*#__PURE__*/React__default["default"].createElement("strong", null, props.name);
+  return /*#__PURE__*/React__default["default"].createElement(react.Modal, {
+    id: props.id,
+    className: "leftTextAlign",
+    modalHeading: props.heading,
+    open: props.open,
+    alert: props.alert,
+    danger: props.danger,
+    shouldSubmitOnEnter: true,
+    primaryButtonText: props.primaryButtonText,
+    secondaryButtonText: props.secondaryButtonText,
+    onRequestSubmit: props.onRequestSubmit,
+    onRequestClose: props.onRequestClose
+  }, props.children);
+};
+IcseModal.defaultProps = {
+  primaryButtonText: "Primary Button",
+  secondaryButtonText: "Cancel",
+  primaryButtonDisabled: false,
+  danger: false,
+  alert: true,
+  open: false,
+  heading: "Default Heading",
+  id: "default-icse-modal"
+};
+IcseModal.propTypes = {
+  primaryButtonText: PropTypes__default["default"].string.isRequired,
+  secondaryButtonText: PropTypes__default["default"].string.isRequired,
+  primaryButtonDisabled: PropTypes__default["default"].bool,
+  danger: PropTypes__default["default"].bool,
+  alert: PropTypes__default["default"].bool,
+  heading: PropTypes__default["default"].string.isRequired,
+  onRequestSubmit: PropTypes__default["default"].func.isRequired,
+  onRequestClose: PropTypes__default["default"].func.isRequired,
+  id: PropTypes__default["default"].string.isRequired,
+  open: PropTypes__default["default"].bool.isRequired,
+  children: PropTypes__default["default"].node.isRequired
+};
+
+/**
+ * Delete modal
+ * @param {*} props
+ * @param {string} props.name name of modal
+ * @param {boolean} props.modalOpen true if open
+ * @param {Function} props.onModalClose function for on close
+ * @param {Function} props.onModalSubmit function for on submit
+ */
+var DeleteModal = function DeleteModal(props) {
+  var name = /*#__PURE__*/React__default["default"].createElement("strong", null, props.name);
+  return /*#__PURE__*/React__default["default"].createElement(IcseModal, {
+    id: props.name + "-delete",
+    name: props.name,
+    heading: props.name,
+    open: props.modalOpen,
+    onRequestClose: props.onModalClose,
+    onRequestSubmit: props.onModalSubmit,
+    primaryButtonText: "Delete Resource",
+    danger: true
+  }, /*#__PURE__*/React__default["default"].createElement("span", null, "You are about to delete ", name, ". This cannot be undone."));
+};
+DeleteModal.defaultProps = {
+  modalOpen: false
+};
+DeleteModal.propTypes = {
+  name: PropTypes__default["default"].string.isRequired,
+  modalOpen: PropTypes__default["default"].bool.isRequired,
+  onModalClose: PropTypes__default["default"].func.isRequired,
+  onModalSubmit: PropTypes__default["default"].func.isRequired
+};
+
+/**
+ * unsaved changes modal modal
+ * @param {*} props
+ * @param {string} props.name name of modal
+ * @param {boolean} props.modalOpen true if open
+ * @param {Function} props.onModalClose function for on close
+ * @param {Function} props.onModalSubmit function for on submit
+ */
+
+var UnsavedChangesModal = function UnsavedChangesModal(props) {
+  var name = props.name;
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "unsaved-changes-modal-area"
+  }, /*#__PURE__*/React__default["default"].createElement(IcseModal, {
+    id: props.name + "-unsaved-changes",
+    open: props.modalOpen,
+    name: props.name,
+    onRequestClose: props.onModalClose,
+    onRequestSubmit: props.onModalSubmit,
+    heading: props.useDefaultUnsavedMessage ? "Missing Required Values" : "Unsaved Changes",
+    danger: true,
+    primaryButtonText: "Dismiss Changes"
+  }, props.useDefaultUnsavedMessage ? /*#__PURE__*/React__default["default"].createElement("span", null, "Resource ", name, " is missing required values.", " ", /*#__PURE__*/React__default["default"].createElement("strong", null, "Without these values, your configuration is invalid."), " ", "Are you sure you want to dismiss these changes?") : /*#__PURE__*/React__default["default"].createElement("span", null, "Resource ", name, " has unsaved changes. Are you sure you want to dismiss these changes?")));
+};
+UnsavedChangesModal.defaultProps = {
+  modalOpen: false,
+  useDefaultUnsavedMessage: true
+};
+UnsavedChangesModal.propTypes = {
+  name: PropTypes__default["default"].string.isRequired,
+  modalOpen: PropTypes__default["default"].bool.isRequired,
+  onModalClose: PropTypes__default["default"].func.isRequired,
+  onModalSubmit: PropTypes__default["default"].func.isRequired,
+  useDefaultUnsavedMessage: PropTypes__default["default"].bool
+};
+
+var css_248z$1 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+styleInject(css_248z$1);
+
+/**
+ * Icse multiselect template
+ */
+var IcseMultiSelect = function IcseMultiSelect(props) {
+  return /*#__PURE__*/React__default["default"].createElement(react.FilterableMultiSelect, {
+    id: props.id,
+    className: lib_2("fieldWidth leftTextAlign cds--select", props),
+    titleText: props.titleText,
+    itemToString: function itemToString(item) {
+      return item ? item : "";
+    },
+    invalid: props.invalid,
+    invalidText: props.invalidText,
+    initialSelectedItems: props.initialSelectedItems,
+    onChange: props.onChange,
+    items: props.items,
+    useTitleInItem: props.useTitleInItem,
+    label: props.label,
+    disabled: props.disabled
+  });
+};
+IcseMultiSelect.defaultProps = {
+  disabled: false,
+  useTitleInItem: false,
+  invalid: false,
+  invalidText: "Invalid value"
+};
+IcseMultiSelect.propTypes = {
+  id: PropTypes__default["default"].string.isRequired,
+  className: PropTypes__default["default"].string,
+  titleText: PropTypes__default["default"].string.isRequired,
+  invalid: PropTypes__default["default"].bool.isRequired,
+  invalidText: PropTypes__default["default"].string.isRequired,
+  initialSelectedItems: PropTypes__default["default"].array.isRequired,
+  onChange: PropTypes__default["default"].func.isRequired,
+  items: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  useTitleInItem: PropTypes__default["default"].bool.isRequired,
+  label: PropTypes__default["default"].string,
+  disabled: PropTypes__default["default"].bool.isRequired
+};
+
+/**
+ * ssh key multiselect
+ */
+var SshKeyMultiSelect = function SshKeyMultiSelect(props) {
+  return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+    id: props.id + "-ssh-key-multiselect",
+    useTitleInItem: true,
+    label: "SSH Keys",
+    titleText: "SSH Keys",
+    invalidText: "At least one SSH Key is required",
+    invalid: props.initialSelectedItems.length === 0,
+    items: props.sshKeys,
+    initialSelectedItems: props.initialSelectedItems || [],
+    onChange: function onChange(event) {
+      props.onChange(event.selectedItems);
+    },
+    className: "fieldWidthSmaller cds--form-item"
+  });
+};
+SshKeyMultiSelect.defaultProps = {
+  initialSelectedItems: []
+};
+SshKeyMultiSelect.propTypes = {
+  id: PropTypes__default["default"].string.isRequired,
+  onChange: PropTypes__default["default"].func.isRequired,
+  sshKeys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  initialSelectedItems: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+};
+
+/**
+ * sg multiselect
+ */
+var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
+  if (props.vpc_name && !props.securityGroups) {
+    // checking props.securityGroups[props.vpc_name] will result in an
+    // undefined error that happens as part of MultiSelect
+    throw new Error("SecurityGroupMultiselect requires a securityGroups object. Got " + lazyZ.prettyJSON(props.securityGroups));
+  }
+  return /*#__PURE__*/React__default["default"].createElement(react.MultiSelect, {
+    id: props.id + "-security-group-multiselect",
+    label: props.label,
+    titleText: "Security Groups",
+    className: "fieldWidthSmaller cds--form-item",
+    initialSelectedItems: props.initialSelectedItems,
+    vpc_name: props.vpc_name,
+    invalid: props.invalid,
+    invalidText: "Invalid Selection",
+    onChange: function onChange(event) {
+      props.onChange(event.selectedItems);
+    },
+    disabled: props.disabled,
+    items: props.vpc_name === "" ? [] : props.securityGroups[props.vpc_name],
+    itemToString: function itemToString(item) {
+      return item ? item : "";
+    }
+  });
+};
+SecurityGroupMultiSelect.defaultProps = {
+  disabled: false,
+  label: "Select Security Groups",
+  invalid: false
+};
+SecurityGroupMultiSelect.propTypes = {
+  id: PropTypes__default["default"].string.isRequired,
+  className: PropTypes__default["default"].string,
+  initialSelectedItems: PropTypes__default["default"].array.isRequired,
+  vpc_name: PropTypes__default["default"].string,
+  // not required, null value should be valid
+  onChange: PropTypes__default["default"].func.isRequired,
+  label: PropTypes__default["default"].string.isRequired,
+  disabled: PropTypes__default["default"].bool.isRequired,
+  securityGroups: PropTypes__default["default"].object.isRequired,
+  invalid: PropTypes__default["default"].bool.isRequired
+};
+
+/**
+ * vpc subnet multiselect
+ */
+var SubnetMultiSelect = function SubnetMultiSelect(props) {
+  return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+    id: props.id + "-subnet-multiselect",
+    className: props.className,
+    titleText: "Subnets",
+    name: props.name,
+    label: props.label,
+    items: lazyZ.isNullOrEmptyString(props.vpc_name) ? [] : props.subnets[props.vpc_name],
+    initialSelectedItems: props.initialSelectedItems,
+    invalidText: lazyZ.isNullOrEmptyString(props.vpc_name) ? "Select a VPC." : "Select at least one subnet.",
+    invalid: props.initialSelectedItems.length === 0,
+    disabled: props.disabled,
+    onChange: function onChange(event) {
+      return props.onChange(event.selectedItems);
+    }
+  });
+};
+SubnetMultiSelect.defaultProps = {
+  name: "subnet_names",
+  label: "Subnets",
+  disabled: false,
+  vpc_name: "",
+  initialSelectedItems: []
+};
+SubnetMultiSelect.propTypes = {
+  id: PropTypes__default["default"].string.isRequired,
+  className: PropTypes__default["default"].string,
+  vpc_name: PropTypes__default["default"].string,
+  // not required, `null` needs to be passed here
+  subnets: PropTypes__default["default"].object.isRequired,
+  disabled: PropTypes__default["default"].bool.isRequired,
+  name: PropTypes__default["default"].string.isRequired,
+  label: PropTypes__default["default"].string.isRequired,
+  initialSelectedItems: PropTypes__default["default"].array.isRequired,
+  onChange: PropTypes__default["default"].func.isRequired
+};
+
+/**
+ * VPC List MultiSelect
+ */
+var VpcListMultiSelect = function VpcListMultiSelect(props) {
+  // throw error here so that passing no vpc list prop will error here
+  // instead of being passed to `FilterableMultiselect`
+  if (!props.vpcList) {
+    throw new Error("VpcListMultiSelect requires a list of VPCs using the prop `vpcList`. Got " + lazyZ.prettyJSON(props.vpcList));
+  }
+  return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+    invalidText: "At least one VPC must be selected.",
+    invalid: props.invalid,
+    id: props.id + "-vpc-select",
+    titleText: props.titleText,
+    onChange: function onChange(event) {
+      return props.onChange(event.selectedItems);
+    },
+    initialSelectedItems: props.initialSelectedItems,
+    className: props.className,
+    items: props.vpcList
+  });
+};
+VpcListMultiSelect.defaultProps = {
+  invalid: false,
+  titleText: "VPCs",
+  initialSelectedItems: []
+};
+VpcListMultiSelect.propTypes = {
+  invalid: PropTypes__default["default"].bool.isRequired,
+  id: PropTypes__default["default"].string.isRequired,
+  onChange: PropTypes__default["default"].func.isRequired,
+  initialSelectedItems: PropTypes__default["default"].array.isRequired,
+  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+};
+
+var css_248z = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n}\n";
+styleInject(css_248z);
+>>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -776,6 +1706,7 @@ PopoverWrapper.propTypes = {
   children: PropTypes__default["default"].node.isRequired,
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1505,11 +2436,18 @@ var css_248z$4 =
 styleInject(css_248z$4);
 =======
 const UnderConstruction = () => {
+=======
+/**
+ * Under Construction Page
+ */
+var UnderConstruction = function UnderConstruction() {
+>>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))
   return /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(iconsReact.WarningAlt, {
     size: "128"
   }), /*#__PURE__*/React__default["default"].createElement("h4", null, "Page Under Construction"));
 };
 
+<<<<<<< HEAD
 var css_248z = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z);
 >>>>>>> 8db187e (form and documentation)
@@ -2534,6 +3472,8 @@ UpDownButtons.propTypes = {
 
 exports.DeleteButton = DeleteButton;
 =======
+=======
+>>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))
 exports.AppIdKeyForm = AppIdKeyForm;
 >>>>>>> 8db187e (form and documentation)
 exports.DeleteModal = DeleteModal;
@@ -2544,6 +3484,7 @@ exports.DynamicToolTipWrapper = DynamicToolTipWrapper;
 exports.EditCloseIcon = EditCloseIcon;
 >>>>>>> 04bfb65 (added button examples)
 exports.EmptyResourceTile = EmptyResourceTile;
+exports.FormModal = FormModal;
 exports.IcseFormGroup = IcseFormGroup;
 exports.IcseModal = IcseModal;
 <<<<<<< HEAD
