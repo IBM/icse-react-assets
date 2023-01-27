@@ -25,4 +25,8 @@ function setNameToValue(name, value) {
   return { [name]: value };
 }
 
-export { eventTargetToNameAndValue, toggleStateBoolean, setNameToValue };
+module.exports = {
+  eventTargetToNameAndValue,
+  toggleStateBoolean,
+  setNameToValue,
+};

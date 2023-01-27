@@ -22,6 +22,7 @@ function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'defau
 
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 var PropTypes__default = /*#__PURE__*/_interopDefaultLegacy(PropTypes);
+var lazyZ__default = /*#__PURE__*/_interopDefaultLegacy(lazyZ);
 
 <<<<<<< HEAD
 /**
@@ -395,6 +396,7 @@ function toggleMarginBottom$1(hide) {
   if (hide === false) return " marginBottomSmall";
   else return "";
 }
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -408,6 +410,16 @@ var formUtils = /*#__PURE__*/ Object.freeze({
   addClassName: addClassName$1,
   toggleMarginBottom: toggleMarginBottom$1,
 });
+=======
+var formUtils = {
+  addClassName: addClassName$1,
+  toggleMarginBottom: toggleMarginBottom$1
+};
+
+const {
+  kebabCase
+} = lazyZ__default["default"];
+>>>>>>> 8655315 (changes (exports, readme, example))
 
 <<<<<<< HEAD
 const {
@@ -430,8 +442,9 @@ var constants_1 = constants.nameValidationExp;
  * @returns {string} placeholder name
  */
 function formatInputPlaceholder$1(componentName, fieldName) {
-  return `my-${lazyZ.kebabCase(componentName)}-${lazyZ.kebabCase(fieldName)}`;
+  return `my-${kebabCase(componentName)}-${kebabCase(fieldName)}`;
 }
+<<<<<<< HEAD
 
 var textUtils = /*#__PURE__*/ Object.freeze({
   __proto__: null,
@@ -458,6 +471,18 @@ var formUtils = /*#__PURE__*/Object.freeze({
 =======
   formatInputPlaceholder: formatInputPlaceholder$1,
 >>>>>>> 94a1f9f (added tests and changed naming and examples)
+=======
+var textUtils = {
+  formatInputPlaceholder: formatInputPlaceholder$1
+};
+var textUtils_1 = textUtils.formatInputPlaceholder;
+
+var textUtils$1 = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  'default': textUtils,
+  __moduleExports: textUtils,
+  formatInputPlaceholder: textUtils_1
+>>>>>>> 8655315 (changes (exports, readme, example))
 });
 
 /**
@@ -509,63 +534,11 @@ function setNameToValue$2(name, value) {
     [name]: value
   };
 }
-
-var methodFunctions = /*#__PURE__*/Object.freeze({
-  __proto__: null,
+var methodFunctions = {
   eventTargetToNameAndValue: eventTargetToNameAndValue$2,
   toggleStateBoolean: toggleStateBoolean$2,
   setNameToValue: setNameToValue$2
-});
-
-const {
-  isFunction
-} = require("lazy-z");
-
-/**
- * build functions for modal forms
- * @param {React.Element} component stateful component
- */
-function buildFormFunctions$1(component) {
-  let disableSubmit = isFunction(component.props.shouldDisableSubmit);
-  let disableSave = isFunction(component.props.shouldDisableSave);
-  if (component.props.shouldDisableSave) component.shouldDisableSave = component.props.shouldDisableSave.bind(component);
-  if (disableSubmit) component.shouldDisableSubmit = component.props.shouldDisableSubmit.bind(component);
-
-  // set update
-  component.componentDidMount = function () {
-    if (disableSubmit) component.shouldDisableSubmit();
-    if (disableSave) component.shouldDisableSave(this.state, this.props);
-  }.bind(component);
-  component.componentDidUpdate = function () {
-    if (disableSubmit) component.shouldDisableSubmit();
-    if (disableSave) component.shouldDisableSave(this.state, this.props);
-  }.bind(component);
-
-  // set on save function
-  component.onSave = function () {
-    component.props.onSave(this.state, this.props);
-  }.bind(component);
-  // save on delete
-  component.onDelete = function () {
-    component.props.onDelete(this.state, this.props);
-  }.bind(component);
-}
-
-/**
- * add default methods to component
- * @param {*} component React Component
- */
-function buildFormDefaultInputMethods$1(component) {
-  component.eventTargetToNameAndValue = eventTargetToNameAndValue.bind(component);
-  component.toggleStateBoolean = toggleStateBoolean.bind(component);
-  component.setNameToValue = setNameToValue.bind(component);
-}
-
-var componentUtils = /*#__PURE__*/Object.freeze({
-  __proto__: null,
-  buildFormFunctions: buildFormFunctions$1,
-  buildFormDefaultInputMethods: buildFormDefaultInputMethods$1
-});
+};
 
 >>>>>>> 8db187e (form and documentation)
 const {
@@ -580,7 +553,7 @@ const {
 } = formUtils;
 const {
   formatInputPlaceholder
-} = textUtils;
+} = textUtils$1;
 const {
 <<<<<<< HEAD
   saveChangeButtonClass
@@ -625,29 +598,32 @@ var lib = {
   toggleStateBoolean: toggleStateBoolean$1,
   setNameToValue: setNameToValue$1
 } = methodFunctions;
-const {
-  buildFormFunctions,
-  buildFormDefaultInputMethods
-} = componentUtils;
 var lib = {
   toggleMarginBottom,
   addClassName,
   formatInputPlaceholder,
   eventTargetToNameAndValue: eventTargetToNameAndValue$1,
   toggleStateBoolean: toggleStateBoolean$1,
+<<<<<<< HEAD
   setNameToValue: setNameToValue$1,
   buildFormFunctions,
   buildFormDefaultInputMethods
 >>>>>>> 8db187e (form and documentation)
+=======
+  setNameToValue: setNameToValue$1
+>>>>>>> 8655315 (changes (exports, readme, example))
 };
 var lib_1 = lib.toggleMarginBottom;
 var lib_2 = lib.addClassName;
 var lib_3 = lib.formatInputPlaceholder;
 <<<<<<< HEAD
+<<<<<<< HEAD
 var lib_4 = lib.saveChangeButtonClass;
 =======
 var lib_7 = lib.buildFormFunctions;
 >>>>>>> 8db187e (form and documentation)
+=======
+>>>>>>> 8655315 (changes (exports, readme, example))
 
 function styleInject(css, ref) {
   if (ref === void 0) ref = {};
@@ -806,6 +782,7 @@ PopoverWrapper.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
@@ -813,6 +790,52 @@ function styleInject(css, ref) {
 =======
 var css_248z$5 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
 =======
+=======
+const {
+  isFunction
+} = require("lazy-z");
+
+/**
+ * build functions for modal forms
+ * @param {React.Element} component stateful component
+ */
+function buildFormFunctions(component) {
+  let disableSubmit = isFunction(component.props.shouldDisableSubmit);
+  let disableSave = isFunction(component.props.shouldDisableSave);
+  if (component.props.shouldDisableSave) component.shouldDisableSave = component.props.shouldDisableSave.bind(component);
+  if (disableSubmit) component.shouldDisableSubmit = component.props.shouldDisableSubmit.bind(component);
+
+  // set update
+  component.componentDidMount = function () {
+    if (disableSubmit) component.shouldDisableSubmit();
+    if (disableSave) component.shouldDisableSave(this.state, this.props);
+  }.bind(component);
+  component.componentDidUpdate = function () {
+    if (disableSubmit) component.shouldDisableSubmit();
+    if (disableSave) component.shouldDisableSave(this.state, this.props);
+  }.bind(component);
+
+  // set on save function
+  component.onSave = function () {
+    component.props.onSave(this.state, this.props);
+  }.bind(component);
+  // save on delete
+  component.onDelete = function () {
+    component.props.onDelete(this.state, this.props);
+  }.bind(component);
+}
+
+/**
+ * add default methods to component
+ * @param {*} component React Component
+ */
+function buildFormDefaultInputMethods(component) {
+  component.eventTargetToNameAndValue = eventTargetToNameAndValue.bind(component);
+  component.toggleStateBoolean = toggleStateBoolean.bind(component);
+  component.setNameToValue = setNameToValue.bind(component);
+}
+
+>>>>>>> 8655315 (changes (exports, readme, example))
 var css_248z$6 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
 styleInject(css_248z$6);
 
@@ -1188,17 +1211,12 @@ IcseNameInput.propTypes = {
 var css_248z$3 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
 styleInject(css_248z$3);
 
-var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
-  _inherits(AppIdKeyForm, _React$Component);
-  var _super = _createSuper(AppIdKeyForm);
-  function AppIdKeyForm(props) {
-    var _this;
-    _classCallCheck(this, AppIdKeyForm);
-    _this = _super.call(this, props);
-    _this.state = _this.props.data;
-    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
-    lib_7(_assertThisInitialized(_this));
-    return _this;
+class AppIdKeyForm extends React__default["default"].Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    this.handleInputChange = this.handleInputChange.bind(this);
+    buildFormFunctions(this);
   }
 
   /**
@@ -1206,31 +1224,25 @@ var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
    * @param {string} name key to change in state
    * @param {*} value value to update
    */
-  _createClass(AppIdKeyForm, [{
-    key: "handleInputChange",
-    value: function handleInputChange(event) {
-      this.setState({
-        key_name: event.target.value
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-        id: "app-id-key-name",
-        value: this.state.key_name,
-        onChange: this.handleInputChange,
-        field: "appid_key",
-        labelText: "App ID Key",
-        componentName: "appid",
-        className: "fieldWidthSmaller",
-        invalid: this.props.invalidCallback(this.props, this.state),
-        invalidText: this.props.invalidTextCallback(this.props, this.state)
-      }));
-    }
-  }]);
-  return AppIdKeyForm;
-}(React__default["default"].Component);
+  handleInputChange(event) {
+    this.setState({
+      key_name: event.target.value
+    });
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: "app-id-key-name",
+      value: this.state.key_name,
+      onChange: this.handleInputChange,
+      field: "appid_key",
+      labelText: "App ID Key",
+      componentName: "appid",
+      className: "fieldWidthSmaller",
+      invalid: this.props.invalidCallback(this.props, this.state),
+      invalidText: this.props.invalidTextCallback(this.props, this.state)
+    }));
+  }
+}
 AppIdKeyForm.defaultProps = {
   data: {
     key_name: ""
@@ -1239,15 +1251,6 @@ AppIdKeyForm.defaultProps = {
 AppIdKeyForm.propTypes = {
   data: PropTypes__default["default"].shape({
     key_name: PropTypes__default["default"].string.isRequired
-  }),
-  icse: PropTypes__default["default"].shape({
-    store: PropTypes__default["default"].shape({
-      configDotJson: PropTypes__default["default"].shape({
-        appid: PropTypes__default["default"].shape({
-          keys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
-        }).isRequired
-      }).isRequired
-    })
   }),
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired
@@ -2576,7 +2579,12 @@ exports.toggleMarginBottom = toggleMarginBottom;
 exports.UpDownButtons = UpDownButtons;
 >>>>>>> 04bfb65 (added button examples)
 exports.VpcListMultiSelect = VpcListMultiSelect;
+<<<<<<< HEAD
 >>>>>>> e90fadd (updates)
 =======
 exports.VpcListMultiSelect = VpcListMultiSelect;
 >>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
+=======
+exports.buildFormDefaultInputMethods = buildFormDefaultInputMethods;
+exports.buildFormFunctions = buildFormFunctions;
+>>>>>>> 8655315 (changes (exports, readme, example))

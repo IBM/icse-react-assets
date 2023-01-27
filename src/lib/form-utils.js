@@ -25,4 +25,4 @@ function toggleMarginBottom(hide) {
   else return "";
 }
 
-export { addClassName, toggleMarginBottom };
+module.exports = { addClassName, toggleMarginBottom };

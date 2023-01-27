@@ -10,18 +10,12 @@ function validName(str) {
 function invalidCallback(componentProps, stateData) {
   return (
     !validName(stateData.key_name) ||
-    contains(
-      componentProps.icse.store.configDotJson.appid.keys,
-      stateData.key_name
-    )
+    contains(componentProps.data.keys, stateData.key_name)
   );
 }
 
 function invalidTextCallback(componentProps, stateData) {
-  return contains(
-    componentProps.icse.store.configDotJson.appid.keys,
-    stateData.key_name
-  )
+  return contains(componentProps.data.keys, stateData.key_name)
     ? `Key name ${stateData.key_name} already in use.`
     : `Invalid Key Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
 }
@@ -29,8 +23,7 @@ function invalidTextCallback(componentProps, stateData) {
 export const AppIdKeyFormExample = () => {
   return (
     <AppIdKeyForm
-      icse={{ store: { configDotJson: { appid: { keys: ["foo"] } } } }}
-      data={{ key_name: "test-key" }}
+      data={{ key_name: "test-key", keys: ["foo", "bar"] }}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
     />

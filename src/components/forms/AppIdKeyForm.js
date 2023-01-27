@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { buildFormFunctions } from "../../lib";
+import { buildFormFunctions } from "../component-utils";
 import { IcseTextInput } from "../Inputs";
 import "../styles/AppIdKeyForm.css";
 
@@ -50,15 +50,6 @@ AppIdKeyForm.defaultProps = {
 AppIdKeyForm.propTypes = {
   data: PropTypes.shape({
     key_name: PropTypes.string.isRequired,
-  }),
-  icse: PropTypes.shape({
-    store: PropTypes.shape({
-      configDotJson: PropTypes.shape({
-        appid: PropTypes.shape({
-          keys: PropTypes.arrayOf(PropTypes.string).isRequired,
-        }).isRequired,
-      }).isRequired,
-    }),
   }),
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,

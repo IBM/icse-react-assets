@@ -1,4 +1,4 @@
-import { kebabCase } from "lazy-z";
+const { kebabCase } = require("lazy-z");
 
 /**
  * format input placeholder
@@ -10,4 +10,6 @@ function formatInputPlaceholder(componentName, fieldName) {
   return `my-${kebabCase(componentName)}-${kebabCase(fieldName)}`;
 }
 
-export { formatInputPlaceholder };
+module.exports = {
+  formatInputPlaceholder,
+};
