@@ -529,20 +529,6 @@ function _createClass(Constructor, protoProps, staticProps) {
   });
   return Constructor;
 }
-function _defineProperty(obj, key, value) {
-  key = _toPropertyKey(key);
-  if (key in obj) {
-    Object.defineProperty(obj, key, {
-      value: value,
-      enumerable: true,
-      configurable: true,
-      writable: true
-    });
-  } else {
-    obj[key] = value;
-  }
-  return obj;
-}
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -2888,14 +2874,12 @@ function prependEmptyStringWhenNull$1(value, arr) {
 function toggleMarginBottom$1(hide) {
   if (hide === false) return " marginBottomSmall";else return "";
 }
-
-var formUtils = /*#__PURE__*/Object.freeze({
-  __proto__: null,
+var formUtils = {
   addClassName: addClassName$1,
   toggleMarginBottom: toggleMarginBottom$1,
   prependEmptyStringWhenNull: prependEmptyStringWhenNull$1,
   checkNullorEmptyString: checkNullorEmptyString$1
-});
+};
 
 const {
   toggleMarginBottom,
@@ -3821,6 +3805,7 @@ DynamicToolTipWrapper.propTypes = {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 8db187e (form and documentation)
 =======
@@ -3830,9 +3815,13 @@ const IcseSelect = props => {
 var IcseSelect = function IcseSelect(props) {
   var invalid =
 >>>>>>> b3a36f0 (changes pt. 1)
+=======
+const IcseSelect = props => {
+  let invalid =
+>>>>>>> 69bcf66 (changes pt. 2)
   // automatically set to invalid is is null or empty string and invalid not disabled
   props.disableInvalid !== true && isNullOrEmptyString(props.value) ? true : props.invalid;
-  var groups = props.groups.length === 0 ? [] // if no groups, empty array
+  let groups = props.groups.length === 0 ? [] // if no groups, empty array
   : lib_3(
   // otherwise try and prepend empty string if null
   props.value, props.groups);
@@ -3842,7 +3831,7 @@ var IcseSelect = function IcseSelect(props) {
     console.log("GROUPS: ", groups);
   }
   return /*#__PURE__*/React.createElement(DynamicToolTipWrapper, _extends({
-    innerForm: function innerForm() {
+    innerForm: () => {
       return /*#__PURE__*/React.createElement(PopoverWrapper, {
         hoverText: props.value || ""
         // inherit classnames from tooltip
@@ -3859,13 +3848,11 @@ var IcseSelect = function IcseSelect(props) {
         invalidText: props.invalidText,
         readOnly: props.readOnly,
         onChange: props.handleInputChange
-      }, groups.map(function (value) {
-        return /*#__PURE__*/React.createElement(SelectItem, {
-          key: "".concat(props.component, "-").concat(value),
-          text: value,
-          value: value
-        });
-      })));
+      }, groups.map(value => /*#__PURE__*/React.createElement(SelectItem, {
+        key: `${props.id}-${value}`,
+        text: value,
+        value: value
+      }))));
     }
   }, props));
 };
@@ -3900,86 +3887,75 @@ IcseSelect.propTypes = {
     alignModal: PropTypes.string
   })
 };
-var FetchSelect = /*#__PURE__*/function (_React$Component) {
-  _inherits(FetchSelect, _React$Component);
-  var _super = _createSuper(FetchSelect);
-  function FetchSelect(props) {
-    var _this;
-    _classCallCheck(this, FetchSelect);
-    _this = _super.call(this, props);
-    _defineProperty(_assertThisInitialized(_this), "_isMounted", false);
-    _this.state = {
+class FetchSelect extends React.Component {
+  _isMounted = false;
+  constructor(props) {
+    super(props);
+    this.state = {
       data: []
     };
-    return _this;
+    this.dataToGroups = this.dataToGroups.bind(this);
   }
-  _createClass(FetchSelect, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this2 = this;
-      this._isMounted = true;
-      if (isEmpty(this.state.data)) fetch(this.props.apiEndpoint).then(function (res) {
-        return res.json();
-      }).then(function (data) {
-        if (_this2._isMounted) _this2.setState({
-          data: data
-        });
-      }).catch(function (err) {
-        console.error(err);
+  componentDidMount() {
+    this._isMounted = true;
+    if (isEmpty(this.state.data)) fetch(this.props.apiEndpoint).then(res => res.json()).then(data => {
+      if (this.props.onReturnFunction) {
+        this.props.onReturnFunction(data);
+      }
+      if (this._isMounted) this.setState({
+        data: data
       });
+    }).catch(err => {
+      console.error(err);
+    });
+  }
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+  dataToGroups() {
+    if (this.props.filter) {
+      return this.state.data.filter(this.props.filter);
+    } else {
+      return this.state.data;
     }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      this._isMounted = false;
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this3 = this;
-      return /*#__PURE__*/React.createElement(IcseSelect, {
-        labelText: this.props.labelText,
-        handleInputChange: this.props.handleInputChange,
-        name: this.props.name,
-        className: this.props.className,
-        formName: this.props.formName,
-        groups: this.props.groups,
-        filter: function filter(array) {
-          groups = _this3.props.filter(array);
-        },
-        onReturnFunction: function onReturnFunction(data) {
-          _this3.props.onReturnFunction(data);
-        },
-        value: this.props.value
-      });
-    }
-  }]);
-  return FetchSelect;
-}(React.Component);
+  }
+  render() {
+    return /*#__PURE__*/React.createElement(IcseSelect, {
+      labelText: this.props.labelText,
+      handleInputChange: this.props.handleInputChange,
+      name: this.props.name,
+      className: this.props.className,
+      formName: this.props.formName,
+      groups: this.dataToGroups(),
+      value: this.props.value || "null"
+    });
+  }
+}
 FetchSelect.propTypes = {
   labelText: PropTypes.string.isRequired,
   handleInputChange: PropTypes.func.isRequired,
+  filterArr: PropTypes.array,
   className: PropTypes.string,
   // can be null or undefined
   value: PropTypes.string,
   // can be null or undefined
-  groups: PropTypes.array.isRequired,
+  groups: PropTypes.array,
   apiEndpoint: PropTypes.string.isRequired,
   onReturnFunction: PropTypes.func,
   filter: PropTypes.func,
   name: PropTypes.string.isRequired,
   formName: PropTypes.string.isRequired
 };
-var IcseNumberSelect = function IcseNumberSelect(props) {
+const IcseNumberSelect = props => {
   return /*#__PURE__*/React.createElement(IcseSelect, {
     formName: props.formName,
     groups: buildNumberDropdownList(props.max, props.min),
     value: props.value.toString(),
     name: props.name || "Icse Number Select",
     className: props.className,
-    handleInputChange: function handleInputChange(event) {
+    handleInputChange: event => {
       // set name target value and parse int
-      var sendEvent = {
+      let sendEvent = {
         target: {
           name: event.target.name,
           value: parseInt(event.target.value)
@@ -4012,12 +3988,14 @@ IcseNumberSelect.propTypes = {
   invalid: PropTypes.bool.isRequired,
   tooltip: PropTypes.shape({
     content: PropTypes.string.isRequired,
-    link: PropTypes.string
+    link: PropTypes.string,
+    alignModal: PropTypes.string,
+    align: PropTypes.string
   }),
   labelText: PropTypes.string.isRequired,
   isModal: PropTypes.bool.isRequired
 };
-var EntitlementSelect = function EntitlementSelect(props) {
+const EntitlementSelect = props => {
   return /*#__PURE__*/React.createElement(IcseSelect, {
     name: props.name,
     labelText: "Entitlement",
@@ -4025,14 +4003,12 @@ var EntitlementSelect = function EntitlementSelect(props) {
     value: props.value || "null",
     handleInputChange: props.handleInputChange,
     className: "fieldWidthSmaller",
-    component: props.component,
     formName: props.formName
   });
 };
 EntitlementSelect.propTypes = {
   value: PropTypes.string,
   // can be null
-  component: PropTypes.string.isRequired,
   handleInputChange: PropTypes.func.isRequired,
   formName: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired
@@ -4041,7 +4017,7 @@ EntitlementSelect.propTypes = {
 /**
  * Under Construction Page
  */
-var UnderConstruction = function UnderConstruction() {
+const UnderConstruction = () => {
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(WarningAlt, {
     size: "128"
   }), /*#__PURE__*/React.createElement("h4", null, "Page Under Construction"));
@@ -4058,7 +4034,7 @@ styleInject(css_248z);
  * @returns tile if shown, empty string otherwise
  */
 
-var EmptyResourceTile = function EmptyResourceTile(props) {
+const EmptyResourceTile = props => {
   return props.showIfEmpty === false || props.showIfEmpty.length === 0 ? /*#__PURE__*/React.createElement(Tile, {
     className: "marginBottomXs tileBackground"
   }, /*#__PURE__*/React.createElement(CloudAlerting, {

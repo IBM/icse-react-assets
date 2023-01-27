@@ -468,6 +468,7 @@ function _createClass(Constructor, protoProps, staticProps) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))
@@ -510,6 +511,8 @@ function _defineProperty(obj, key, value) {
 >>>>>>> 67351ff (Dropdowns components)
 =======
 >>>>>>> b238572 (Dropdowns Documentation)
+=======
+>>>>>>> 69bcf66 (changes pt. 2)
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -657,6 +660,7 @@ function toggleMarginBottom$1(hide) {
   if (hide === false) return " marginBottomSmall";else return "";
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -724,6 +728,9 @@ var textUtils = /*#__PURE__*/ Object.freeze({
 =======
 var formUtils = /*#__PURE__*/Object.freeze({
   __proto__: null,
+=======
+var formUtils = {
+>>>>>>> 69bcf66 (changes pt. 2)
   addClassName: addClassName$1,
 <<<<<<< HEAD
   toggleMarginBottom: toggleMarginBottom$1
@@ -749,8 +756,12 @@ var textUtils_1 = textUtils.formatInputPlaceholder;
   toggleMarginBottom: toggleMarginBottom$1,
   prependEmptyStringWhenNull: prependEmptyStringWhenNull$1,
   checkNullorEmptyString: checkNullorEmptyString$1
+<<<<<<< HEAD
 });
 >>>>>>> 67351ff (Dropdowns components)
+=======
+};
+>>>>>>> 69bcf66 (changes pt. 2)
 
 var textUtils$1 = /*#__PURE__*/Object.freeze({
   __proto__: null,
@@ -2198,6 +2209,7 @@ DynamicToolTipWrapper.propTypes = {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$4 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
 >>>>>>> 8db187e (form and documentation)
 styleInject(css_248z$4);
@@ -2256,9 +2268,13 @@ const IcseSelect = props => {
 var IcseSelect = function IcseSelect(props) {
   var invalid =
 >>>>>>> b3a36f0 (changes pt. 1)
+=======
+const IcseSelect = props => {
+  let invalid =
+>>>>>>> 69bcf66 (changes pt. 2)
   // automatically set to invalid is is null or empty string and invalid not disabled
   props.disableInvalid !== true && lazyZ.isNullOrEmptyString(props.value) ? true : props.invalid;
-  var groups = props.groups.length === 0 ? [] // if no groups, empty array
+  let groups = props.groups.length === 0 ? [] // if no groups, empty array
   : lib_3(
   // otherwise try and prepend empty string if null
   props.value, props.groups);
@@ -2268,7 +2284,7 @@ var IcseSelect = function IcseSelect(props) {
     console.log("GROUPS: ", groups);
   }
   return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, _extends({
-    innerForm: function innerForm() {
+    innerForm: () => {
       return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
         hoverText: props.value || ""
         // inherit classnames from tooltip
@@ -2285,13 +2301,11 @@ var IcseSelect = function IcseSelect(props) {
         invalidText: props.invalidText,
         readOnly: props.readOnly,
         onChange: props.handleInputChange
-      }, groups.map(function (value) {
-        return /*#__PURE__*/React__default["default"].createElement(react.SelectItem, {
-          key: "".concat(props.component, "-").concat(value),
-          text: value,
-          value: value
-        });
-      })));
+      }, groups.map(value => /*#__PURE__*/React__default["default"].createElement(react.SelectItem, {
+        key: `${props.id}-${value}`,
+        text: value,
+        value: value
+      }))));
     }
   }, props));
 };
@@ -2337,86 +2351,75 @@ IcseSelect.propTypes = {
 =======
   })
 };
-var FetchSelect = /*#__PURE__*/function (_React$Component) {
-  _inherits(FetchSelect, _React$Component);
-  var _super = _createSuper(FetchSelect);
-  function FetchSelect(props) {
-    var _this;
-    _classCallCheck(this, FetchSelect);
-    _this = _super.call(this, props);
-    _defineProperty(_assertThisInitialized(_this), "_isMounted", false);
-    _this.state = {
+class FetchSelect extends React__default["default"].Component {
+  _isMounted = false;
+  constructor(props) {
+    super(props);
+    this.state = {
       data: []
     };
-    return _this;
+    this.dataToGroups = this.dataToGroups.bind(this);
   }
-  _createClass(FetchSelect, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this2 = this;
-      this._isMounted = true;
-      if (lazyZ.isEmpty(this.state.data)) fetch(this.props.apiEndpoint).then(function (res) {
-        return res.json();
-      }).then(function (data) {
-        if (_this2._isMounted) _this2.setState({
-          data: data
-        });
-      }).catch(function (err) {
-        console.error(err);
+  componentDidMount() {
+    this._isMounted = true;
+    if (lazyZ.isEmpty(this.state.data)) fetch(this.props.apiEndpoint).then(res => res.json()).then(data => {
+      if (this.props.onReturnFunction) {
+        this.props.onReturnFunction(data);
+      }
+      if (this._isMounted) this.setState({
+        data: data
       });
+    }).catch(err => {
+      console.error(err);
+    });
+  }
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+  dataToGroups() {
+    if (this.props.filter) {
+      return this.state.data.filter(this.props.filter);
+    } else {
+      return this.state.data;
     }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      this._isMounted = false;
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this3 = this;
-      return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-        labelText: this.props.labelText,
-        handleInputChange: this.props.handleInputChange,
-        name: this.props.name,
-        className: this.props.className,
-        formName: this.props.formName,
-        groups: this.props.groups,
-        filter: function filter(array) {
-          groups = _this3.props.filter(array);
-        },
-        onReturnFunction: function onReturnFunction(data) {
-          _this3.props.onReturnFunction(data);
-        },
-        value: this.props.value
-      });
-    }
-  }]);
-  return FetchSelect;
-}(React__default["default"].Component);
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      labelText: this.props.labelText,
+      handleInputChange: this.props.handleInputChange,
+      name: this.props.name,
+      className: this.props.className,
+      formName: this.props.formName,
+      groups: this.dataToGroups(),
+      value: this.props.value || "null"
+    });
+  }
+}
 FetchSelect.propTypes = {
   labelText: PropTypes__default["default"].string.isRequired,
   handleInputChange: PropTypes__default["default"].func.isRequired,
+  filterArr: PropTypes__default["default"].array,
   className: PropTypes__default["default"].string,
   // can be null or undefined
   value: PropTypes__default["default"].string,
   // can be null or undefined
-  groups: PropTypes__default["default"].array.isRequired,
+  groups: PropTypes__default["default"].array,
   apiEndpoint: PropTypes__default["default"].string.isRequired,
   onReturnFunction: PropTypes__default["default"].func,
   filter: PropTypes__default["default"].func,
   name: PropTypes__default["default"].string.isRequired,
   formName: PropTypes__default["default"].string.isRequired
 };
-var IcseNumberSelect = function IcseNumberSelect(props) {
+const IcseNumberSelect = props => {
   return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
     formName: props.formName,
     groups: lazyZ.buildNumberDropdownList(props.max, props.min),
     value: props.value.toString(),
     name: props.name || "Icse Number Select",
     className: props.className,
-    handleInputChange: function handleInputChange(event) {
+    handleInputChange: event => {
       // set name target value and parse int
-      var sendEvent = {
+      let sendEvent = {
         target: {
           name: event.target.name,
           value: parseInt(event.target.value)
@@ -2449,12 +2452,14 @@ IcseNumberSelect.propTypes = {
   invalid: PropTypes__default["default"].bool.isRequired,
   tooltip: PropTypes__default["default"].shape({
     content: PropTypes__default["default"].string.isRequired,
-    link: PropTypes__default["default"].string
+    link: PropTypes__default["default"].string,
+    alignModal: PropTypes__default["default"].string,
+    align: PropTypes__default["default"].string
   }),
   labelText: PropTypes__default["default"].string.isRequired,
   isModal: PropTypes__default["default"].bool.isRequired
 };
-var EntitlementSelect = function EntitlementSelect(props) {
+const EntitlementSelect = props => {
   return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
     name: props.name,
     labelText: "Entitlement",
@@ -2462,14 +2467,12 @@ var EntitlementSelect = function EntitlementSelect(props) {
     value: props.value || "null",
     handleInputChange: props.handleInputChange,
     className: "fieldWidthSmaller",
-    component: props.component,
     formName: props.formName
   });
 };
 EntitlementSelect.propTypes = {
   value: PropTypes__default["default"].string,
   // can be null
-  component: PropTypes__default["default"].string.isRequired,
   handleInputChange: PropTypes__default["default"].func.isRequired,
   formName: PropTypes__default["default"].string.isRequired,
   name: PropTypes__default["default"].string.isRequired
@@ -2478,7 +2481,7 @@ EntitlementSelect.propTypes = {
 /**
  * Under Construction Page
  */
-var UnderConstruction = function UnderConstruction() {
+const UnderConstruction = () => {
   return /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(iconsReact.WarningAlt, {
     size: "128"
   }), /*#__PURE__*/React__default["default"].createElement("h4", null, "Page Under Construction"));
@@ -2495,7 +2498,7 @@ styleInject(css_248z);
  * @returns tile if shown, empty string otherwise
  */
 
-var EmptyResourceTile = function EmptyResourceTile(props) {
+const EmptyResourceTile = props => {
   return props.showIfEmpty === false || props.showIfEmpty.length === 0 ? /*#__PURE__*/React__default["default"].createElement(react.Tile, {
     className: "marginBottomXs tileBackground"
   }, /*#__PURE__*/React__default["default"].createElement(iconsReact.CloudAlerting, {

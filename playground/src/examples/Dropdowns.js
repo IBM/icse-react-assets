@@ -4,8 +4,10 @@ import {
   IcseNumberSelect,
   EntitlementSelect,
 } from "icse-react-assets";
+import { useState } from "react";
 
 function DropdownExamples() {
+  const [value, setValue] = useState("");
   return (
     <div className="App">
       <div style={{ marginLeft: "100px" }}>
@@ -14,40 +16,43 @@ function DropdownExamples() {
           name="icseSelect"
           disabled={false}
           disableInvalid={true}
-          groups={["hi", "hello", "1"]}
+          groups={["test", "hello", "1"]}
           handleInputChange={(event) => {
-            console.log(event.target.value);
+            setValue(event.target.value);
           }}
+          value="test"
           labelText="ICSE Select"
         />
         <FetchSelect
-          labelText = "Fetch"
-          name = "Fetch Select"
+          labelText="Fetch"
+          name="Fetch Select"
           apiEndpoint="/my/api/endpoint"
-          groups={["1", "2", "3"]}
           handleInputChange={(event) => {
-            console.log(event.target.value);
+            setValue(event.target.value);
           }}
-          formName = "playground"
+          value="test"
+          formName="playground"
         />
         <IcseNumberSelect
           formName="playground"
           max={20}
           labelText="ICSE Number Select"
           handleInputChange={(event) => {
-            console.log(event.target.value);
+            setValue(event.target.value);
           }}
           value={1}
           tooltip={{
             content: "Test",
             link: "www.test.test",
+            align: "top",
           }}
         />
         <EntitlementSelect
           component="icseEntitlementSelect"
           handleInputChange={(event) => {
-            console.log(event.target.value);
+            setValue(event.target.value);
           }}
+          value="cloud_pak"
           name="Entitlement"
           formName="playground"
         />

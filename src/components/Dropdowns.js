@@ -7,10 +7,7 @@ import {
 } from "lazy-z";
 import PopoverWrapper from "./PopoverWrapper";
 import PropTypes from "prop-types";
-import {
-  addClassName,
-  prependEmptyStringWhenNull,
-} from "../lib";
+import { addClassName, prependEmptyStringWhenNull } from "../lib";
 import { DynamicToolTipWrapper } from "./Tooltips";
 import React from "react";
 
@@ -57,7 +54,7 @@ export const IcseSelect = (props) => {
             >
               {groups.map((value) => (
                 <SelectItem
-                  key={`${props.component}-${value}`}
+                  key={`${props.id}-${value}`}
                   text={value}
                   value={value}
                 />
@@ -108,8 +105,9 @@ export class FetchSelect extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: []
+      data: [],
     };
+    this.dataToGroups = this.dataToGroups.bind(this);
   }
   componentDidMount() {
     this._isMounted = true;
@@ -117,6 +115,10 @@ export class FetchSelect extends React.Component {
       fetch(this.props.apiEndpoint)
         .then((res) => res.json())
         .then((data) => {
+          if (this.props.onReturnFunction) {
+            this.props.onReturnFunction(data);
+          }
+
           if (this._isMounted) this.setState({ data: data });
         })
         .catch((err) => {
@@ -126,6 +128,13 @@ export class FetchSelect extends React.Component {
   componentWillUnmount() {
     this._isMounted = false;
   }
+  dataToGroups() {
+    if (this.props.filter) {
+      return this.state.data.filter(this.props.filter);
+    } else {
+      return this.state.data;
+    }
+  }
   render() {
     return (
       <IcseSelect
@@ -134,14 +143,8 @@ export class FetchSelect extends React.Component {
         name={this.props.name}
         className={this.props.className}
         formName={this.props.formName}
-        groups={this.props.groups}
-        filter={(array) => {
-          groups = this.props.filter(array);
-        }}
-        onReturnFunction={(data) => {
-          this.props.onReturnFunction(data);
-        }}
-        value={this.props.value}
+        groups={this.dataToGroups()}
+        value={this.props.value || "null"}
       />
     );
   }
@@ -150,14 +153,15 @@ export class FetchSelect extends React.Component {
 FetchSelect.propTypes = {
   labelText: PropTypes.string.isRequired,
   handleInputChange: PropTypes.func.isRequired,
+  filterArr: PropTypes.array,
   className: PropTypes.string, // can be null or undefined
   value: PropTypes.string, // can be null or undefined
-  groups: PropTypes.array.isRequired,
+  groups: PropTypes.array,
   apiEndpoint: PropTypes.string.isRequired,
   onReturnFunction: PropTypes.func,
   filter: PropTypes.func,
   name: PropTypes.string.isRequired,
-  formName: PropTypes.string.isRequired
+  formName: PropTypes.string.isRequired,
 };
 
 export const IcseNumberSelect = (props) => {
@@ -206,6 +210,8 @@ IcseNumberSelect.propTypes = {
   tooltip: PropTypes.shape({
     content: PropTypes.string.isRequired,
     link: PropTypes.string,
+    alignModal: PropTypes.string,
+    align: PropTypes.string,
   }),
 
   labelText: PropTypes.string.isRequired,
@@ -221,16 +227,14 @@ export const EntitlementSelect = (props) => {
       value={props.value || "null"}
       handleInputChange={props.handleInputChange}
       className="fieldWidthSmaller"
-      component={props.component}
-      formName = {props.formName}
+      formName={props.formName}
     />
   );
 };
 
 EntitlementSelect.propTypes = {
   value: PropTypes.string, // can be null
-  component: PropTypes.string.isRequired,
   handleInputChange: PropTypes.func.isRequired,
   formName: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
 };
