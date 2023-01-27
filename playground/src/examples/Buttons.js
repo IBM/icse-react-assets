@@ -30,7 +30,6 @@ function ButtonsExample() {
             console.log(event);
           }}
           disabled={false}
-          modalOpen={false}
         />
         <UpDownButtons
           name="icseButtonClass"

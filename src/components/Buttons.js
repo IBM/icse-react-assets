@@ -136,7 +136,6 @@ EditCloseIcon.defaultProps = {
  * Delete button
  * @param {*} props
  * @param {boolean} props.disabled
- * @param {boolean} props.modalOpen toggle is modal open, defaults to false
  * @param {Function} props.onClick onclick function
  * @param {string} props.name classname
  *
@@ -169,7 +168,6 @@ export const DeleteButton = (props) => {
 
 DeleteButton.defaultProps = {
   disabled: false,
-  modalOpen: false,
 };
 
 DeleteButton.propTypes = {
