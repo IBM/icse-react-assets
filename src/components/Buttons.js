@@ -178,6 +178,16 @@ DeleteButton.propTypes = {
   name: PropTypes.string.isRequired,
 };
 
+/**
+ * Up/Down button
+ * @param {*} props
+ * @param {string} props.name
+ * @param {boolean} props.disableUp
+ * @param {boolean} props.disableDown
+ * @param {Function} props.handleCardUp
+ * @param {Function} props.handleCardDown
+ *
+ */
 export const UpDownButtons = (props) => {
   return (
     <>

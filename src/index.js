@@ -46,7 +46,15 @@ export {
 >>>>>>> 16dd967 (icsetextinput, working on nameinput)
 =======
   IcseNameInput,
+<<<<<<< HEAD
 >>>>>>> 6979d94 (icse name input, needs docs)
+=======
+  SaveAddButton,
+  EditCloseIcon,
+  DeleteButton,
+  UpDownButtons,
+  SaveIcon,
+>>>>>>> 04bfb65 (added button examples)
 } from "./components/index.js";
 <<<<<<< HEAD
 export { addClassName, toggleMarginBottom } from "./form-utils";
