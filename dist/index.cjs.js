@@ -1,6 +1,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> faf8c38 (fixed imports)
@@ -8,8 +9,11 @@
 =======
 "use strict";
 >>>>>>> 94a1f9f (added tests and changed naming and examples)
+=======
+'use strict';
+>>>>>>> b5b1ac6 (fixed build)
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, '__esModule', { value: true });
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -73,13 +77,12 @@ var lazyZ = require("lazy-z");
 var iconsReact = require("@carbon/icons-react");
 >>>>>>> 94a1f9f (added tests and changed naming and examples)
 
-function _interopDefaultLegacy(e) {
-  return e && typeof e === "object" && "default" in e ? e : { default: e };
-}
+function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
 <<<<<<< HEAD
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 var PropTypes__default = /*#__PURE__*/_interopDefaultLegacy(PropTypes);
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> faf8c38 (fixed imports)
@@ -92,6 +95,109 @@ var regexButWithWords__default = /*#__PURE__*/_interopDefaultLegacy(regexButWith
 var React__default = /*#__PURE__*/ _interopDefaultLegacy(React);
 var PropTypes__default = /*#__PURE__*/ _interopDefaultLegacy(PropTypes);
 >>>>>>> 94a1f9f (added tests and changed naming and examples)
+=======
+var lazyZ__default = /*#__PURE__*/_interopDefaultLegacy(lazyZ);
+
+var _require = require("lazy-z"),
+  isFunction = _require.isFunction;
+
+/**
+ * build functions for modal forms
+ * @param {React.Element} component stateful component
+ */
+function buildFormFunctions(component) {
+  var disableSubmit = isFunction(component.props.shouldDisableSubmit);
+  var disableSave = isFunction(component.props.shouldDisableSave);
+  if (component.props.shouldDisableSave) component.shouldDisableSave = component.props.shouldDisableSave.bind(component);
+  if (disableSubmit) component.shouldDisableSubmit = component.props.shouldDisableSubmit.bind(component);
+
+  // set update
+  component.componentDidMount = function () {
+    if (disableSubmit) component.shouldDisableSubmit();
+    if (disableSave) component.shouldDisableSave(this.state, this.props);
+  }.bind(component);
+  component.componentDidUpdate = function () {
+    if (disableSubmit) component.shouldDisableSubmit();
+    if (disableSave) component.shouldDisableSave(this.state, this.props);
+  }.bind(component);
+
+  // set on save function
+  component.onSave = function () {
+    component.props.onSave(this.state, this.props);
+  }.bind(component);
+  // save on delete
+  component.onDelete = function () {
+    component.props.onDelete(this.state, this.props);
+  }.bind(component);
+}
+
+/**
+ * add default methods to component
+ * @param {*} component React Component
+ */
+function buildFormDefaultInputMethods(component) {
+  component.eventTargetToNameAndValue = eventTargetToNameAndValue.bind(component);
+  component.toggleStateBoolean = toggleStateBoolean.bind(component);
+  component.setNameToValue = setNameToValue.bind(component);
+}
+
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css_248z$8 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z$8);
+
+/**
+ * Empty Resource Tile
+ * @param {*} props
+ * @param {string} props.name resource name
+ * @param {(boolean|*[])} props.showIfEmpty if array is empty or boolean is false, show the empty resource tile
+ * @returns tile if shown, empty string otherwise
+ */
+
+var EmptyResourceTile = function EmptyResourceTile(props) {
+  return props.showIfEmpty === false || props.showIfEmpty.length === 0 ? /*#__PURE__*/React__default["default"].createElement(react.Tile, {
+    className: "marginBottomXs tileBackground"
+  }, /*#__PURE__*/React__default["default"].createElement(iconsReact.CloudAlerting, {
+    size: "24",
+    className: "iconMargin"
+  }), "No ", props.name, ".", " ", props.instructions || /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, "Click", /*#__PURE__*/React__default["default"].createElement(iconsReact.Add, {
+    size: "24",
+    className: "inlineIconMargin"
+  }), "button to add one.")) : "";
+};
+EmptyResourceTile.defaultProps = {
+  name: "items in this list"
+};
+EmptyResourceTile.propTypes = {
+  name: PropTypes__default["default"].string.isRequired,
+  showIfEmpty: PropTypes__default["default"].oneOfType([PropTypes__default["default"].array, PropTypes__default["default"].bool]).isRequired
+};
+>>>>>>> b5b1ac6 (fixed build)
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -247,6 +353,7 @@ function ownKeys(object, enumerableOnly) {
   if (Object.getOwnPropertySymbols) {
     var symbols = Object.getOwnPropertySymbols(object);
 <<<<<<< HEAD
+<<<<<<< HEAD
     enumerableOnly &&
       (symbols = symbols.filter(function (sym) {
         return Object.getOwnPropertyDescriptor(object, sym).enumerable;
@@ -257,12 +364,18 @@ function ownKeys(object, enumerableOnly) {
       return Object.getOwnPropertyDescriptor(object, sym).enumerable;
     })), keys.push.apply(keys, symbols);
 >>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))
+=======
+    enumerableOnly && (symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    })), keys.push.apply(keys, symbols);
+>>>>>>> b5b1ac6 (fixed build)
   }
   return keys;
 }
 function _objectSpread2(target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = null != arguments[i] ? arguments[i] : {};
+<<<<<<< HEAD
 <<<<<<< HEAD
     i % 2
       ? ownKeys(Object(source), !0).forEach(function (key) {
@@ -280,6 +393,13 @@ function _objectSpread2(target) {
             Object.getOwnPropertyDescriptor(source, key)
           );
         });
+=======
+    i % 2 ? ownKeys(Object(source), !0).forEach(function (key) {
+      _defineProperty(target, key, source[key]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) {
+      Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+    });
+>>>>>>> b5b1ac6 (fixed build)
   }
   return target;
 }
@@ -320,7 +440,7 @@ function _createClass(Constructor, protoProps, staticProps) {
   if (protoProps) _defineProperties(Constructor.prototype, protoProps);
   if (staticProps) _defineProperties(Constructor, staticProps);
   Object.defineProperty(Constructor, "prototype", {
-    writable: false,
+    writable: false
   });
   return Constructor;
 }
@@ -339,10 +459,14 @@ function _defineProperty(obj, key, value) {
       enumerable: true,
       configurable: true,
 <<<<<<< HEAD
+<<<<<<< HEAD
       writable: true,
 =======
       writable: true
 >>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))
+=======
+      writable: true
+>>>>>>> b5b1ac6 (fixed build)
     });
   } else {
     obj[key] = value;
@@ -356,19 +480,17 @@ function _defineProperty(obj, key, value) {
 =======
 >>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))
 function _extends() {
-  _extends = Object.assign
-    ? Object.assign.bind()
-    : function (target) {
-        for (var i = 1; i < arguments.length; i++) {
-          var source = arguments[i];
-          for (var key in source) {
-            if (Object.prototype.hasOwnProperty.call(source, key)) {
-              target[key] = source[key];
-            }
-          }
+  _extends = Object.assign ? Object.assign.bind() : function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
         }
-        return target;
-      };
+      }
+    }
+    return target;
+  };
   return _extends.apply(this, arguments);
 }
 =======
@@ -381,29 +503,25 @@ function _inherits(subClass, superClass) {
     constructor: {
       value: subClass,
       writable: true,
-      configurable: true,
-    },
+      configurable: true
+    }
   });
   Object.defineProperty(subClass, "prototype", {
-    writable: false,
+    writable: false
   });
   if (superClass) _setPrototypeOf(subClass, superClass);
 }
 function _getPrototypeOf(o) {
-  _getPrototypeOf = Object.setPrototypeOf
-    ? Object.getPrototypeOf.bind()
-    : function _getPrototypeOf(o) {
-        return o.__proto__ || Object.getPrototypeOf(o);
-      };
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
   return _getPrototypeOf(o);
 }
 function _setPrototypeOf(o, p) {
-  _setPrototypeOf = Object.setPrototypeOf
-    ? Object.setPrototypeOf.bind()
-    : function _setPrototypeOf(o, p) {
-        o.__proto__ = p;
-        return o;
-      };
+  _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
   return _setPrototypeOf(o, p);
 }
 function _isNativeReflectConstruct() {
@@ -411,9 +529,7 @@ function _isNativeReflectConstruct() {
   if (Reflect.construct.sham) return false;
   if (typeof Proxy === "function") return true;
   try {
-    Boolean.prototype.valueOf.call(
-      Reflect.construct(Boolean, [], function () {})
-    );
+    Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
     return true;
   } catch (e) {
     return false;
@@ -421,9 +537,7 @@ function _isNativeReflectConstruct() {
 }
 function _assertThisInitialized(self) {
   if (self === void 0) {
-    throw new ReferenceError(
-      "this hasn't been initialised - super() hasn't been called"
-    );
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
   }
   return self;
 }
@@ -431,9 +545,7 @@ function _possibleConstructorReturn(self, call) {
   if (call && (typeof call === "object" || typeof call === "function")) {
     return call;
   } else if (call !== void 0) {
-    throw new TypeError(
-      "Derived constructors may only return object or undefined"
-    );
+    throw new TypeError("Derived constructors may only return object or undefined");
   }
   return _assertThisInitialized(self);
 }
@@ -489,8 +601,7 @@ function addClassName$1(className, props) {
  * @returns {string} additional classNames
  */
 function toggleMarginBottom$1(hide) {
-  if (hide === false) return " marginBottomSmall";
-  else return "";
+  if (hide === false) return " marginBottomSmall";else return "";
 }
 <<<<<<< HEAD
 
@@ -511,6 +622,13 @@ var formUtils = {
   addClassName: addClassName$1,
   toggleMarginBottom: toggleMarginBottom$1
 };
+<<<<<<< HEAD
+=======
+
+const {
+  kebabCase
+} = lazyZ__default["default"];
+>>>>>>> b5b1ac6 (fixed build)
 
 const {
   kebabCase
@@ -586,6 +704,9 @@ var textUtils$1 = /*#__PURE__*/Object.freeze({
 
 /**
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> b5b1ac6 (fixed build)
  * create classname for sub form chevron save button
  * @param {*} componentProps
  * @returns {string} classNames for button
@@ -597,11 +718,18 @@ function saveChangeButtonClass$1(componentProps) {
   return className;
 }
 var buttonUtils = {
+<<<<<<< HEAD
   saveChangeButtonClass: saveChangeButtonClass$1,
 };
 
 <<<<<<< HEAD
 =======
+=======
+  saveChangeButtonClass: saveChangeButtonClass$1
+};
+
+/**
+>>>>>>> b5b1ac6 (fixed build)
  * default handle event change function
  * @param {event} event
  * @param {Object} event.target
@@ -655,6 +783,7 @@ const {
 } = textUtils;
 const {
 <<<<<<< HEAD
+<<<<<<< HEAD
   saveChangeButtonClass
 } = buttonUtils;
 =======
@@ -693,6 +822,11 @@ var lib = {
   saveChangeButtonClass,
 >>>>>>> 94a1f9f (added tests and changed naming and examples)
 =======
+=======
+  saveChangeButtonClass
+} = buttonUtils;
+const {
+>>>>>>> b5b1ac6 (fixed build)
   eventTargetToNameAndValue: eventTargetToNameAndValue$1,
   toggleStateBoolean: toggleStateBoolean$1,
   setNameToValue: setNameToValue$1
@@ -701,6 +835,7 @@ var lib = {
   toggleMarginBottom,
   addClassName,
   formatInputPlaceholder,
+  saveChangeButtonClass,
   eventTargetToNameAndValue: eventTargetToNameAndValue$1,
   toggleStateBoolean: toggleStateBoolean$1,
 <<<<<<< HEAD
@@ -724,6 +859,7 @@ var lib_7 = lib.buildFormFunctions;
 =======
 >>>>>>> 8655315 (changes (exports, readme, example))
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 function styleInject(css, ref) {
   if (ref === void 0) ref = {};
@@ -779,6 +915,10 @@ styleInject(css_248z$7);
 =======
 var css_248z$6 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
 styleInject(css_248z$6);
+=======
+var css_248z$7 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
+styleInject(css_248z$7);
+>>>>>>> b5b1ac6 (fixed build)
 
 /**
  * Render a form
@@ -849,8 +989,8 @@ IcseSubForm.propTypes = {
   children: PropTypes__default["default"].node.isRequired
 };
 
-var css_248z$5 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
-styleInject(css_248z$5);
+var css_248z$6 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+styleInject(css_248z$6);
 
 /**
  * render a tooltip around an input field
@@ -968,8 +1108,8 @@ DynamicToolTipWrapper.propTypes = {
   innerForm: PropTypes__default["default"].oneOfType([PropTypes__default["default"].object, PropTypes__default["default"].func])
 };
 
-var css_248z$4 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
-styleInject(css_248z$4);
+var css_248z$5 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
+styleInject(css_248z$5);
 
 var IcseToggle = function IcseToggle(props) {
   var toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
@@ -1126,8 +1266,8 @@ IcseNameInput.propTypes = {
   invalidCallback: PropTypes__default["default"].func
 };
 
-var css_248z$3 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
-styleInject(css_248z$3);
+var css_248z$4 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
+styleInject(css_248z$4);
 
 var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
   _inherits(AppIdKeyForm, _React$Component);
@@ -1186,7 +1326,7 @@ AppIdKeyForm.propTypes = {
 };
 
 /**
- * Instance Form Modal
+ * Form Modal
  * @param {Object} props
  * @param {string} props.name the name of the modal
  * @param {Function} props.onRequestClose close modal function
@@ -1285,8 +1425,8 @@ FormModal.propTypes = {
   children: PropTypes__default["default"].node.isRequired
 };
 
-var css_248z$2 = ".leftTextAlign {\n  text-align: left;\n}\n";
-styleInject(css_248z$2);
+var css_248z$3 = ".leftTextAlign {\n  text-align: left;\n}\n";
+styleInject(css_248z$3);
 
 /**
  * Icse Modal Wrapper
@@ -1409,8 +1549,8 @@ UnsavedChangesModal.propTypes = {
   useDefaultUnsavedMessage: PropTypes__default["default"].bool
 };
 
-var css_248z$1 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
-styleInject(css_248z$1);
+var css_248z$2 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+styleInject(css_248z$2);
 
 /**
  * Icse multiselect template
@@ -1603,9 +1743,14 @@ VpcListMultiSelect.propTypes = {
   vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
 };
 
+<<<<<<< HEAD
 var css_248z = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n}\n";
 styleInject(css_248z);
 >>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))
+=======
+var css_248z$1 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n}\n";
+styleInject(css_248z$1);
+>>>>>>> b5b1ac6 (fixed build)
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -2448,6 +2593,7 @@ var UnderConstruction = function UnderConstruction() {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z);
 >>>>>>> 8db187e (form and documentation)
@@ -3215,6 +3361,9 @@ IcseNameInput.propTypes = {
 
 var css_248z =
   ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  top: 20px;\n  z-index: 9001; /* navbar is 9000 */\n  font-size: 80%;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n";
+=======
+var css_248z = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  top: 20px;\n  z-index: 9001; /* navbar is 9000 */\n  font-size: 80%;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
+>>>>>>> b5b1ac6 (fixed build)
 styleInject(css_248z);
 
 /**
@@ -3223,6 +3372,7 @@ styleInject(css_248z);
  * @param {boolean} props.saveIsDisabled true if disabled
  * @returns Save Icon
  */
+<<<<<<< HEAD
 const SaveIcon = (props) => {
   return /*#__PURE__*/ React__default["default"].createElement(
     iconsReact.Save,
@@ -3230,6 +3380,12 @@ const SaveIcon = (props) => {
       className: props.disabled ? "" : "tertiaryButtonColors",
     }
   );
+=======
+var SaveIcon = function SaveIcon(props) {
+  return /*#__PURE__*/React__default["default"].createElement(iconsReact.Save, {
+    className: props.disabled ? "" : "tertiaryButtonColors"
+  });
+>>>>>>> b5b1ac6 (fixed build)
 };
 
 /**
@@ -3242,6 +3398,7 @@ const SaveIcon = (props) => {
  * @param {boolean} props.disabled
  * @returns Save add button
  */
+<<<<<<< HEAD
 const SaveAddButton = (props) => {
   return /*#__PURE__*/ React__default["default"].createElement(
     PopoverWrapper,
@@ -3279,19 +3436,42 @@ const SaveAddButton = (props) => {
           })
     )
   );
+=======
+var SaveAddButton = function SaveAddButton(props) {
+  return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
+    hoverText: props.type === "add" && props.hoverText === "Save Changes" ? "Add Resource" : props.hoverText,
+    className: (props.disabled ? "inlineBlock cursorNotAllowed" : "") + (props.inline ? " alignItemsCenter marginTopLarge inLineFormButton" : "")
+  }, /*#__PURE__*/React__default["default"].createElement(react.Button, {
+    kind: props.type === "add" ? "tertiary" : "primary",
+    onClick: props.onClick,
+    className: lib_4(props) + (props.disabled === true ? " pointerEventsNone " : " " + props.className),
+    disabled: props.disabled || false,
+    size: "sm"
+  }, props.type === "add" ? /*#__PURE__*/React__default["default"].createElement(iconsReact.Add, null) : /*#__PURE__*/React__default["default"].createElement(SaveIcon, {
+    saveIsDisabled: props.disabled
+  })));
+>>>>>>> b5b1ac6 (fixed build)
 };
 SaveAddButton.defaultProps = {
   type: "save",
   hoverText: "Save Changes",
   inline: false,
+<<<<<<< HEAD
   disabled: false,
+=======
+  disabled: false
+>>>>>>> b5b1ac6 (fixed build)
 };
 SaveAddButton.propTypes = {
   hoverText: PropTypes__default["default"].string.isRequired,
   onClick: PropTypes__default["default"].func,
   disabled: PropTypes__default["default"].bool.isRequired,
   type: PropTypes__default["default"].string.isRequired,
+<<<<<<< HEAD
   inline: PropTypes__default["default"].bool.isRequired,
+=======
+  inline: PropTypes__default["default"].bool.isRequired
+>>>>>>> b5b1ac6 (fixed build)
 };
 
 /**
@@ -3300,6 +3480,7 @@ SaveAddButton.propTypes = {
  * @param {string=} props.hoverText text for popover hover
  * @param {string} props.type can be `edit` or `add`, defaults to add
  * @param {boolean} props.disabled
+<<<<<<< HEAD
  * @param {boolean} props.open toggle is open, defaults to false
  * @returns edit close icon
  */
@@ -3339,28 +3520,55 @@ const EditCloseIcon = (props) => {
       icon
     )
   );
+=======
+ * @param {Function} props.onClick onclick function
+ * @param {boolean} props.open toggle is open, defaults to false
+ * @returns edit close icon
+ */
+var EditCloseIcon = function EditCloseIcon(props) {
+  var hoverText = props.hoverText ? props.hoverText : props.open ? "Close" : props.type === "add" ? "Configure Resource" : "Edit Resource";
+  var icon = props.open ? /*#__PURE__*/React__default["default"].createElement(iconsReact.CloseFilled, null) : props.type === "add" ? /*#__PURE__*/React__default["default"].createElement(iconsReact.Add, null) : /*#__PURE__*/React__default["default"].createElement(iconsReact.Edit, null);
+  return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
+    hoverText: hoverText
+  }, /*#__PURE__*/React__default["default"].createElement("i", {
+    onClick: props.onClick,
+    className: "chevron"
+  }, icon));
+>>>>>>> b5b1ac6 (fixed build)
 };
 EditCloseIcon.propTypes = {
   hoverText: PropTypes__default["default"].string,
   onClick: PropTypes__default["default"].func.isRequired,
   disabled: PropTypes__default["default"].bool,
   type: PropTypes__default["default"].string,
+<<<<<<< HEAD
   open: PropTypes__default["default"].bool,
 };
 EditCloseIcon.defaultProps = {
   type: "edit",
   open: false,
+=======
+  open: PropTypes__default["default"].bool
+};
+EditCloseIcon.defaultProps = {
+  type: "edit",
+  open: false
+>>>>>>> b5b1ac6 (fixed build)
 };
 
 /**
  * Delete button
  * @param {*} props
  * @param {boolean} props.disabled
+<<<<<<< HEAD
  * @param {boolean} props.modalOpen toggle is modal open, defaults to false
+=======
+>>>>>>> b5b1ac6 (fixed build)
  * @param {Function} props.onClick onclick function
  * @param {string} props.name classname
  *
  */
+<<<<<<< HEAD
 const DeleteButton = (props) => {
   return /*#__PURE__*/ React__default["default"].createElement(
     "div",
@@ -3399,11 +3607,35 @@ const DeleteButton = (props) => {
 DeleteButton.defaultProps = {
   disabled: false,
   modalOpen: false,
+=======
+var DeleteButton = function DeleteButton(props) {
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "delete-area"
+  }, /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
+    hoverText: props.disabled ? props.disableDeleteMessage : "Delete Resource",
+    className: props.disabled ? "inlineBlock cursorNotAllowed" : ""
+  }, /*#__PURE__*/React__default["default"].createElement(react.Button, {
+    className: "cds--btn--danger--tertiary forceTertiaryButtonStyles" + (props.disabled ? " pointerEventsNone" : ""),
+    kind: "ghost",
+    size: "sm",
+    onClick: props.onClick,
+    disabled: props.disabled === true
+  }, /*#__PURE__*/React__default["default"].createElement(iconsReact.TrashCan, {
+    className: props.disabled ? "" : "redFill"
+  }))));
+};
+DeleteButton.defaultProps = {
+  disabled: false
+>>>>>>> b5b1ac6 (fixed build)
 };
 DeleteButton.propTypes = {
   disabled: PropTypes__default["default"].bool.isRequired,
   onClick: PropTypes__default["default"].func.isRequired,
+<<<<<<< HEAD
   name: PropTypes__default["default"].string.isRequired,
+=======
+  name: PropTypes__default["default"].string.isRequired
+>>>>>>> b5b1ac6 (fixed build)
 };
 
 /**
@@ -3412,6 +3644,7 @@ DeleteButton.propTypes = {
  * @param {string} props.name
  * @param {boolean} props.disableUp
  * @param {boolean} props.disableDown
+<<<<<<< HEAD
  * @param {Function} props.handleCardUp
  * @param {Function} props.handleCardDown
  *
@@ -3461,11 +3694,44 @@ const UpDownButtons = (props) => {
 UpDownButtons.defaultProps = {
   disableUp: false,
   disableDown: false,
+=======
+ * @param {Function} props.handleUp
+ * @param {Function} props.handleDown
+ *
+ */
+var UpDownButtons = function UpDownButtons(props) {
+  return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(react.Button, {
+    key: "rule-up-" + props.name,
+    disabled: props.disableUp,
+    kind: "ghost",
+    size: "sm",
+    id: props.name + "-up",
+    onClick: props.handleUp,
+    className: "focus forceTertiaryButtonStyles marginRightSmall"
+  }, /*#__PURE__*/React__default["default"].createElement(iconsReact.ArrowUp, {
+    key: "up-" + props.name
+  })), /*#__PURE__*/React__default["default"].createElement(react.Button, {
+    kind: "ghost",
+    disabled: props.disableDown,
+    key: "rule-down-" + props.name,
+    size: "sm",
+    id: props.name + "-down",
+    onClick: props.handleDown,
+    className: "focus forceTertiaryButtonStyles"
+  }, /*#__PURE__*/React__default["default"].createElement(iconsReact.ArrowDown, {
+    key: "down-" + props.name
+  })));
+};
+UpDownButtons.defaultProps = {
+  disableUp: false,
+  disableDown: false
+>>>>>>> b5b1ac6 (fixed build)
 };
 UpDownButtons.propTypes = {
   disableUp: PropTypes__default["default"].bool.isRequired,
   disableDown: PropTypes__default["default"].bool.isRequired,
   name: PropTypes__default["default"].string.isRequired,
+<<<<<<< HEAD
   handleCardUp: PropTypes__default["default"].func.isRequired,
   handleCardDown: PropTypes__default["default"].func.isRequired,
 };
@@ -3476,6 +3742,14 @@ exports.DeleteButton = DeleteButton;
 >>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))
 exports.AppIdKeyForm = AppIdKeyForm;
 >>>>>>> 8db187e (form and documentation)
+=======
+  handleUp: PropTypes__default["default"].func.isRequired,
+  handleDown: PropTypes__default["default"].func.isRequired
+};
+
+exports.AppIdKeyForm = AppIdKeyForm;
+exports.DeleteButton = DeleteButton;
+>>>>>>> b5b1ac6 (fixed build)
 exports.DeleteModal = DeleteModal;
 exports.DynamicRender = DynamicRender;
 <<<<<<< HEAD

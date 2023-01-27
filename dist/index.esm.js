@@ -606,9 +606,14 @@ import { Popover, PopoverContent, FilterableMultiSelect, MultiSelect, Tile, Togg
 import React from 'react';
 =======
 import React, { Component } from 'react';
+<<<<<<< HEAD
 import { CloudAlerting, Add, Information, WarningAlt } from '@carbon/icons-react';
 import { Tile, Toggletip, ToggletipButton, ToggletipContent, Link, TextInput, Toggle, Modal, FilterableMultiSelect, MultiSelect, Popover, PopoverContent } from '@carbon/react';
 >>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))
+=======
+import { CloudAlerting, Add, Information, WarningAlt, Save, CloseFilled, Edit, TrashCan, ArrowUp, ArrowDown } from '@carbon/icons-react';
+import { Tile, Toggletip, ToggletipButton, ToggletipContent, Link, TextInput, Toggle, Modal, FilterableMultiSelect, MultiSelect, Popover, PopoverContent, Button } from '@carbon/react';
+>>>>>>> b5b1ac6 (fixed build)
 import PropTypes from 'prop-types';
 <<<<<<< HEAD
 import { kebabCase, prettyJSON, isNullOrEmptyString, titleCase, snakeCase } from 'lazy-z';
@@ -770,8 +775,8 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$7 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
-styleInject(css_248z$7);
+var css_248z$8 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z$8);
 
 /**
  * Empty Resource Tile
@@ -1004,6 +1009,9 @@ var textUtils = {
 
 /**
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> b5b1ac6 (fixed build)
  * create classname for sub form chevron save button
  * @param {*} componentProps
  * @returns {string} classNames for button
@@ -1017,7 +1025,12 @@ function saveChangeButtonClass$1(componentProps) {
 var buttonUtils = {
   saveChangeButtonClass: saveChangeButtonClass$1
 };
+<<<<<<< HEAD
 =======
+=======
+
+/**
+>>>>>>> b5b1ac6 (fixed build)
  * default handle event change function
  * @param {event} event
  * @param {Object} event.target
@@ -1060,6 +1073,7 @@ const {
   isFunction
 } = require("lazy-z");
 
+<<<<<<< HEAD
 /**
  * build functions for modal forms
  * @param {React.Element} component stateful component
@@ -1110,6 +1124,8 @@ var componentUtils = /*#__PURE__*/Object.freeze({
 };
 >>>>>>> 8655315 (changes (exports, readme, example))
 
+=======
+>>>>>>> b5b1ac6 (fixed build)
 const {
   toggleMarginBottom,
   addClassName
@@ -1119,13 +1135,20 @@ const {
 } = textUtils;
 const {
 <<<<<<< HEAD
+<<<<<<< HEAD
   saveChangeButtonClass
 } = buttonUtils;
 =======
+=======
+  saveChangeButtonClass
+} = buttonUtils;
+const {
+>>>>>>> b5b1ac6 (fixed build)
   eventTargetToNameAndValue: eventTargetToNameAndValue$1,
   toggleStateBoolean: toggleStateBoolean$1,
   setNameToValue: setNameToValue$1
 } = methodFunctions;
+<<<<<<< HEAD
 <<<<<<< HEAD
 const {
   buildFormFunctions,
@@ -1134,10 +1157,13 @@ const {
 >>>>>>> 8db187e (form and documentation)
 =======
 >>>>>>> 8655315 (changes (exports, readme, example))
+=======
+>>>>>>> b5b1ac6 (fixed build)
 var lib = {
   toggleMarginBottom,
   addClassName,
   formatInputPlaceholder,
+<<<<<<< HEAD
 <<<<<<< HEAD
   saveChangeButtonClass
 =======
@@ -1151,6 +1177,12 @@ var lib = {
 =======
   setNameToValue: setNameToValue$1
 >>>>>>> 8655315 (changes (exports, readme, example))
+=======
+  saveChangeButtonClass,
+  eventTargetToNameAndValue: eventTargetToNameAndValue$1,
+  toggleStateBoolean: toggleStateBoolean$1,
+  setNameToValue: setNameToValue$1
+>>>>>>> b5b1ac6 (fixed build)
 };
 var lib_1 = lib.toggleMarginBottom;
 var lib_2 = lib.addClassName;
@@ -1164,8 +1196,8 @@ var lib_7 = lib.buildFormFunctions;
 =======
 >>>>>>> 8655315 (changes (exports, readme, example))
 
-var css_248z$6 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
-styleInject(css_248z$6);
+var css_248z$7 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
+styleInject(css_248z$7);
 
 /**
  * Render a form
@@ -1236,8 +1268,8 @@ IcseSubForm.propTypes = {
   children: PropTypes.node.isRequired
 };
 
-var css_248z$5 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
-styleInject(css_248z$5);
+var css_248z$6 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+styleInject(css_248z$6);
 
 /**
  * render a tooltip around an input field
@@ -1355,8 +1387,8 @@ DynamicToolTipWrapper.propTypes = {
   innerForm: PropTypes.oneOfType([PropTypes.object, PropTypes.func])
 };
 
-var css_248z$4 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
-styleInject(css_248z$4);
+var css_248z$5 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
+styleInject(css_248z$5);
 
 var IcseToggle = function IcseToggle(props) {
   var toggleName = props.toggleFieldName || snakeCase(props.labelText);
@@ -1513,8 +1545,8 @@ IcseNameInput.propTypes = {
   invalidCallback: PropTypes.func
 };
 
-var css_248z$3 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
-styleInject(css_248z$3);
+var css_248z$4 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
+styleInject(css_248z$4);
 
 var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
   _inherits(AppIdKeyForm, _React$Component);
@@ -1573,7 +1605,7 @@ AppIdKeyForm.propTypes = {
 };
 
 /**
- * Instance Form Modal
+ * Form Modal
  * @param {Object} props
  * @param {string} props.name the name of the modal
  * @param {Function} props.onRequestClose close modal function
@@ -1672,8 +1704,8 @@ FormModal.propTypes = {
   children: PropTypes.node.isRequired
 };
 
-var css_248z$2 = ".leftTextAlign {\n  text-align: left;\n}\n";
-styleInject(css_248z$2);
+var css_248z$3 = ".leftTextAlign {\n  text-align: left;\n}\n";
+styleInject(css_248z$3);
 
 /**
  * Icse Modal Wrapper
@@ -1796,8 +1828,8 @@ UnsavedChangesModal.propTypes = {
   useDefaultUnsavedMessage: PropTypes.bool
 };
 
-var css_248z$1 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
-styleInject(css_248z$1);
+var css_248z$2 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+styleInject(css_248z$2);
 
 /**
  * Icse multiselect template
@@ -1990,8 +2022,8 @@ VpcListMultiSelect.propTypes = {
   vpcList: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
-var css_248z = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n}\n";
-styleInject(css_248z);
+var css_248z$1 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n}\n";
+styleInject(css_248z$1);
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -2721,6 +2753,7 @@ var UnderConstruction = function UnderConstruction() {
   }), /*#__PURE__*/React.createElement("h4", null, "Page Under Construction"));
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 var css_248z$4 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
@@ -4062,6 +4095,9 @@ export { DeleteModal, DynamicRender, DynamicToolTipWrapper, EmptyResourceTile, I
 >>>>>>> 6979d94 (icse name input, needs docs)
 =======
 var css_248z = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  top: 20px;\n  z-index: 9001; /* navbar is 9000 */\n  font-size: 80%;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n";
+=======
+var css_248z = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  top: 20px;\n  z-index: 9001; /* navbar is 9000 */\n  font-size: 80%;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
+>>>>>>> b5b1ac6 (fixed build)
 styleInject(css_248z);
 
 /**
@@ -4070,7 +4106,11 @@ styleInject(css_248z);
  * @param {boolean} props.saveIsDisabled true if disabled
  * @returns Save Icon
  */
+<<<<<<< HEAD
 const SaveIcon = props => {
+=======
+var SaveIcon = function SaveIcon(props) {
+>>>>>>> b5b1ac6 (fixed build)
   return /*#__PURE__*/React.createElement(Save, {
     className: props.disabled ? "" : "tertiaryButtonColors"
   });
@@ -4086,7 +4126,11 @@ const SaveIcon = props => {
  * @param {boolean} props.disabled
  * @returns Save add button
  */
+<<<<<<< HEAD
 const SaveAddButton = props => {
+=======
+var SaveAddButton = function SaveAddButton(props) {
+>>>>>>> b5b1ac6 (fixed build)
   return /*#__PURE__*/React.createElement(PopoverWrapper, {
     hoverText: props.type === "add" && props.hoverText === "Save Changes" ? "Add Resource" : props.hoverText,
     className: (props.disabled ? "inlineBlock cursorNotAllowed" : "") + (props.inline ? " alignItemsCenter marginTopLarge inLineFormButton" : "")
@@ -4120,12 +4164,22 @@ SaveAddButton.propTypes = {
  * @param {string=} props.hoverText text for popover hover
  * @param {string} props.type can be `edit` or `add`, defaults to add
  * @param {boolean} props.disabled
+<<<<<<< HEAD
  * @param {boolean} props.open toggle is open, defaults to false
  * @returns edit close icon
  */
 const EditCloseIcon = props => {
   let hoverText = props.hoverText ? props.hoverText : props.open ? "Close" : props.type === "add" ? "Configure Resource" : "Edit Resource";
   let icon = props.open ? /*#__PURE__*/React.createElement(CloseFilled, null) : props.type === "add" ? /*#__PURE__*/React.createElement(Add, null) : /*#__PURE__*/React.createElement(Edit, null);
+=======
+ * @param {Function} props.onClick onclick function
+ * @param {boolean} props.open toggle is open, defaults to false
+ * @returns edit close icon
+ */
+var EditCloseIcon = function EditCloseIcon(props) {
+  var hoverText = props.hoverText ? props.hoverText : props.open ? "Close" : props.type === "add" ? "Configure Resource" : "Edit Resource";
+  var icon = props.open ? /*#__PURE__*/React.createElement(CloseFilled, null) : props.type === "add" ? /*#__PURE__*/React.createElement(Add, null) : /*#__PURE__*/React.createElement(Edit, null);
+>>>>>>> b5b1ac6 (fixed build)
   return /*#__PURE__*/React.createElement(PopoverWrapper, {
     hoverText: hoverText
   }, /*#__PURE__*/React.createElement("i", {
@@ -4149,12 +4203,19 @@ EditCloseIcon.defaultProps = {
  * Delete button
  * @param {*} props
  * @param {boolean} props.disabled
+<<<<<<< HEAD
  * @param {boolean} props.modalOpen toggle is modal open, defaults to false
+=======
+>>>>>>> b5b1ac6 (fixed build)
  * @param {Function} props.onClick onclick function
  * @param {string} props.name classname
  *
  */
+<<<<<<< HEAD
 const DeleteButton = props => {
+=======
+var DeleteButton = function DeleteButton(props) {
+>>>>>>> b5b1ac6 (fixed build)
   return /*#__PURE__*/React.createElement("div", {
     className: "delete-area"
   }, /*#__PURE__*/React.createElement(PopoverWrapper, {
@@ -4171,8 +4232,12 @@ const DeleteButton = props => {
   }))));
 };
 DeleteButton.defaultProps = {
+<<<<<<< HEAD
   disabled: false,
   modalOpen: false
+=======
+  disabled: false
+>>>>>>> b5b1ac6 (fixed build)
 };
 DeleteButton.propTypes = {
   disabled: PropTypes.bool.isRequired,
@@ -4186,18 +4251,30 @@ DeleteButton.propTypes = {
  * @param {string} props.name
  * @param {boolean} props.disableUp
  * @param {boolean} props.disableDown
+<<<<<<< HEAD
  * @param {Function} props.handleCardUp
  * @param {Function} props.handleCardDown
  *
  */
 const UpDownButtons = props => {
+=======
+ * @param {Function} props.handleUp
+ * @param {Function} props.handleDown
+ *
+ */
+var UpDownButtons = function UpDownButtons(props) {
+>>>>>>> b5b1ac6 (fixed build)
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Button, {
     key: "rule-up-" + props.name,
     disabled: props.disableUp,
     kind: "ghost",
     size: "sm",
     id: props.name + "-up",
+<<<<<<< HEAD
     onClick: props.handleCardUp,
+=======
+    onClick: props.handleUp,
+>>>>>>> b5b1ac6 (fixed build)
     className: "focus forceTertiaryButtonStyles marginRightSmall"
   }, /*#__PURE__*/React.createElement(ArrowUp, {
     key: "up-" + props.name
@@ -4207,7 +4284,11 @@ const UpDownButtons = props => {
     key: "rule-down-" + props.name,
     size: "sm",
     id: props.name + "-down",
+<<<<<<< HEAD
     onClick: props.handleCardDown,
+=======
+    onClick: props.handleDown,
+>>>>>>> b5b1ac6 (fixed build)
     className: "focus forceTertiaryButtonStyles"
   }, /*#__PURE__*/React.createElement(ArrowDown, {
     key: "down-" + props.name
@@ -4221,6 +4302,7 @@ UpDownButtons.propTypes = {
   disableUp: PropTypes.bool.isRequired,
   disableDown: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
+<<<<<<< HEAD
   handleCardUp: PropTypes.func.isRequired,
   handleCardDown: PropTypes.func.isRequired
 };
@@ -4236,3 +4318,10 @@ export { AppIdKeyForm, DeleteModal, DynamicRender, DynamicToolTipWrapper, EmptyR
 =======
 export { AppIdKeyForm, DeleteModal, DynamicRender, DynamicToolTipWrapper, EmptyResourceTile, FormModal, IcseFormGroup, IcseModal, IcseMultiSelect, IcseNameInput, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, PopoverWrapper, RenderForm, SecurityGroupMultiSelect, SshKeyMultiSelect, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, VpcListMultiSelect, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))
+=======
+  handleUp: PropTypes.func.isRequired,
+  handleDown: PropTypes.func.isRequired
+};
+
+export { AppIdKeyForm, DeleteButton, DeleteModal, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, FormModal, IcseFormGroup, IcseModal, IcseMultiSelect, IcseNameInput, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SecurityGroupMultiSelect, SshKeyMultiSelect, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, buildFormDefaultInputMethods, buildFormFunctions };
+>>>>>>> b5b1ac6 (fixed build)
