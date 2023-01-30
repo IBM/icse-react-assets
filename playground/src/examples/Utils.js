@@ -74,7 +74,7 @@ export const StatelessToggleFormExample = () => {
       hide={!open} // hidden if not open
       buttons={<SaveAddButton type="save" noDeleteButton />}
     >
-      <TextInput id="example" labelText="Example Form"></TextInput>
+      <TextInput id="example" labelText="Example Form" />
     </StatelessToggleForm>
   );
 };
