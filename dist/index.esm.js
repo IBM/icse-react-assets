@@ -1737,7 +1737,9 @@ UpDownButtons.propTypes = {
  * @returns Form element
  */
 function RenderForm(form, formProps) {
-  return /*#__PURE__*/React.createElement(form, _objectSpread2({}, formProps));
+  return /*#__PURE__*/React.createElement(form, {
+    ...formProps
+  });
 }
 
 /**
@@ -1754,9 +1756,9 @@ function DynamicRender(props) {
 /**
  * wrapper for title groups
  */
-var TitleGroup = function TitleGroup(props) {
+const TitleGroup = props => {
   return /*#__PURE__*/React.createElement("div", {
-    className: lib_2("displayFlex alignItemsCenter widthOneHundredPercent ".concat(lib_1(props.hide)), props)
+    className: lib_2(`displayFlex alignItemsCenter widthOneHundredPercent ${lib_1(props.hide)}`, props)
   }, props.children);
 };
 TitleGroup.defaultProps = {
@@ -1765,8 +1767,8 @@ TitleGroup.defaultProps = {
 TitleGroup.propTypes = {
   children: PropTypes.node.isRequired
 };
-var IcseFormGroup = function IcseFormGroup(props) {
-  var formGroupClassName = "displayFlex marginBottom fitContent evenSpacing";
+const IcseFormGroup = props => {
+  let formGroupClassName = "displayFlex marginBottom fitContent evenSpacing";
   // remove margin bottom from formGroup for VPC
   if (props.noMarginBottom) {
     formGroupClassName = formGroupClassName.replace(/\smarginBottom/g, "");
@@ -1783,7 +1785,7 @@ IcseFormGroup.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string
 };
-var IcseSubForm = function IcseSubForm(props) {
+const IcseSubForm = props => {
   return /*#__PURE__*/React.createElement("div", {
     className: lib_2(props.formInSubForm ? "formInSubForm positionRelative" : "subForm marginBottomSmall", props),
     id: props.id
@@ -1798,13 +1800,13 @@ IcseSubForm.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node.isRequired
 };
-var IcseHeading = function IcseHeading(props) {
-  var titleFormDivClass = props.toggleFormTitle ? "" : props.name === "" ? "" : " icseFormTitleMinHeight";
+const IcseHeading = props => {
+  let titleFormDivClass = props.toggleFormTitle ? "" : props.name === "" ? "" : " icseFormTitleMinHeight";
   return /*#__PURE__*/React.createElement("div", {
     className: lib_2("displayFlex spaceBetween widthOneHundredPercent alignItemsCenter", props) + titleFormDivClass
   }, /*#__PURE__*/React.createElement(DynamicToolTipWrapper, {
     tooltip: props.tooltip,
-    innerForm: function innerForm() {
+    innerForm: () => {
       return props.type === "subHeading" ? /*#__PURE__*/React.createElement("h5", null, props.name) : props.type === "p" ? /*#__PURE__*/React.createElement("p", null, props.name) : /*#__PURE__*/React.createElement("h4", null, props.name);
     }
   }), /*#__PURE__*/React.createElement("div", {
@@ -1820,6 +1822,7 @@ IcseHeading.propTypes = {
   tooltip: PropTypes.shape({
     content: PropTypes.string.isRequired,
     link: PropTypes.string,
+    align: PropTypes.string,
     alignModal: PropTypes.string
   }),
   buttons: PropTypes.node,
@@ -1829,7 +1832,7 @@ IcseHeading.propTypes = {
 /**
  * All of the toggle form functionality without injecting anything on render
  */
-var StatelessToggleForm = function StatelessToggleForm(props) {
+const StatelessToggleForm = props => {
   return props.hideTitle ? props.children : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(TitleGroup, {
     hide: props.hide,
     props: props,

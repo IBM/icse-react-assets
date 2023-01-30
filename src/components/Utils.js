@@ -146,6 +146,7 @@ IcseHeading.propTypes = {
   tooltip: PropTypes.shape({
     content: PropTypes.string.isRequired,
     link: PropTypes.string,
+    align: PropTypes.string,
     alignModal: PropTypes.string,
   }),
   buttons: PropTypes.node,
