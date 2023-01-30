@@ -4,8 +4,12 @@ import {
   IcseFormGroup,
   TitleGroup,
   IcseSubForm,
+  SaveAddButton,
+  IcseHeading,
+  StatelessToggleForm,
 } from "icse-react-assets";
 import { TextInput } from "@carbon/react";
+import { useState } from "react";
 
 const TestForm = (props) => {
   return <h1>hello {props.name}</h1>;
@@ -48,5 +52,29 @@ export const IcseSubFormExample = () => {
         <TitleGroup>Hi</TitleGroup>
       </IcseSubForm>
     </IcseSubForm>
+  );
+};
+
+export const IcseHeadingExample = () => {
+  return (
+    <IcseHeading
+      name="Test Heading"
+      type="subHeading"
+      buttons={<SaveAddButton type="add" noDeleteButton />}
+    />
+  );
+};
+
+export const StatelessToggleFormExample = () => {
+  const [open, setOpen] = useState(false);
+  return (
+    <StatelessToggleForm
+      name="Example Stateless Toggle Form"
+      onIconClick={() => setOpen(!open)} // toggle open or closed
+      hide={!open} // hidden if not open
+      buttons={<SaveAddButton type="save" noDeleteButton />}
+    >
+      <TextInput id="example" labelText="Example Form"></TextInput>
+    </StatelessToggleForm>
   );
 };

@@ -48,6 +48,7 @@ export const SaveAddButton = (props) => {
           ? " alignItemsCenter marginTopLarge inLineFormButton"
           : "")
       }
+      align={props.hoverTextAlign}
     >
       <Button
         kind={props.type === "add" ? "tertiary" : "primary"}
@@ -76,6 +77,7 @@ SaveAddButton.defaultProps = {
   hoverText: "Save Changes",
   inline: false,
   disabled: false,
+  hoverTextAlign: "bottom",
 };
 
 SaveAddButton.propTypes = {
@@ -84,6 +86,7 @@ SaveAddButton.propTypes = {
   disabled: PropTypes.bool.isRequired,
   type: PropTypes.string.isRequired,
   inline: PropTypes.bool.isRequired,
+  hoverTextAlign: PropTypes.string.isRequired,
 };
 
 /**

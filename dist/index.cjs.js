@@ -1207,6 +1207,7 @@ var lib_3 = lib.prependEmptyStringWhenNull;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 function styleInject(css, ref) {
   if (ref === void 0) ref = {};
   var insertAt = ref.insertAt;
@@ -1263,6 +1264,9 @@ var css_248z$6 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: f
 styleInject(css_248z$6);
 =======
 var css_248z$7 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
+=======
+var css_248z$7 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
+>>>>>>> b345987 (fixes & heading/statelesstoggle form added)
 styleInject(css_248z$7);
 >>>>>>> b5b1ac6 (fixed build)
 =======
@@ -1279,6 +1283,247 @@ var lib_6 = lib.saveChangeButtonClass;
 var css_248z$7 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
 styleInject(css_248z$7);
 >>>>>>> 72d0b85 (merge)
+
+var css_248z$6 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  z-index: 9001 !important;\n}";
+styleInject(css_248z$6);
+
+/**
+ * Wrapper for carbon popover component to handle individual component mouseover
+ */
+var PopoverWrapper = /*#__PURE__*/function (_React$Component) {
+  _inherits(PopoverWrapper, _React$Component);
+  var _super = _createSuper(PopoverWrapper);
+  function PopoverWrapper(props) {
+    var _this;
+    _classCallCheck(this, PopoverWrapper);
+    _this = _super.call(this, props);
+    _this.state = {
+      isHovering: false
+    };
+    _this.handleMouseOver = _this.handleMouseOver.bind(_assertThisInitialized(_this));
+    _this.handleMouseOut = _this.handleMouseOut.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * handle mouse over
+   */
+  _createClass(PopoverWrapper, [{
+    key: "handleMouseOver",
+    value: function handleMouseOver() {
+      this.setState({
+        isHovering: true
+      });
+    }
+
+    /**
+     * handle mouse out
+     */
+  }, {
+    key: "handleMouseOut",
+    value: function handleMouseOut() {
+      this.setState({
+        isHovering: false
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return this.props.noPopover === true || this.props.hoverText === "" ? this.props.children : /*#__PURE__*/React__default["default"].createElement("div", {
+        className: lib_2("popover-obj", this.props),
+        onMouseEnter: this.handleMouseOver,
+        onMouseLeave: this.handleMouseOut
+      }, /*#__PURE__*/React__default["default"].createElement(react.Popover, {
+        open: this.state.isHovering,
+        autoAlign: this.props.align ? false : true,
+        dropShadow: false,
+        highContrast: true,
+        caret: false,
+        align: this.props.align
+      }, this.props.children, /*#__PURE__*/React__default["default"].createElement(react.PopoverContent, {
+        className: "popover-box" + (this.props.contentClassName ? " ".concat(this.props.contentClassName) : "")
+      }, this.props.hoverText)));
+    }
+  }]);
+  return PopoverWrapper;
+}(React__default["default"].Component);
+PopoverWrapper.defaultProps = {
+  noPopover: false
+};
+PopoverWrapper.propTypes = {
+  noPopover: PropTypes__default["default"].bool,
+  hoverText: PropTypes__default["default"].string.isRequired,
+  className: PropTypes__default["default"].string,
+  contentClassName: PropTypes__default["default"].string,
+  align: PropTypes__default["default"].string,
+  children: PropTypes__default["default"].node.isRequired
+};
+
+var css_248z$5 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  top: 20px;\n  z-index: 9001; /* navbar is 9000 */\n  font-size: 80%;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
+styleInject(css_248z$5);
+
+/**
+ * generate save icon
+ * @param {object} props
+ * @param {boolean} props.saveIsDisabled true if disabled
+ * @returns Save Icon
+ */
+var SaveIcon = function SaveIcon(props) {
+  return /*#__PURE__*/React__default["default"].createElement(iconsReact.Save, {
+    className: props.disabled ? "" : "tertiaryButtonColors"
+  });
+};
+
+/**
+ * save add button
+ * @param {*} props
+ * @param {string} props.hoverText
+ * @param {string} props.type can be `add` defaults to `save`
+ * @param {Function} props.onClick onclick function
+ * @param {string=} props.className
+ * @param {boolean} props.disabled
+ * @returns Save add button
+ */
+var SaveAddButton = function SaveAddButton(props) {
+  return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
+    hoverText: props.type === "add" && props.hoverText === "Save Changes" ? "Add Resource" : props.hoverText,
+    className: (props.disabled ? "inlineBlock cursorNotAllowed" : "") + (props.inline ? " alignItemsCenter marginTopLarge inLineFormButton" : ""),
+    align: props.hoverTextAlign
+  }, /*#__PURE__*/React__default["default"].createElement(react.Button, {
+    kind: props.type === "add" ? "tertiary" : "primary",
+    onClick: props.onClick,
+    className: lib_4(props) + (props.disabled === true ? " pointerEventsNone " : " " + props.className),
+    disabled: props.disabled || false,
+    size: "sm"
+  }, props.type === "add" ? /*#__PURE__*/React__default["default"].createElement(iconsReact.Add, null) : /*#__PURE__*/React__default["default"].createElement(SaveIcon, {
+    saveIsDisabled: props.disabled
+  })));
+};
+SaveAddButton.defaultProps = {
+  type: "save",
+  hoverText: "Save Changes",
+  inline: false,
+  disabled: false,
+  hoverTextAlign: "bottom"
+};
+SaveAddButton.propTypes = {
+  hoverText: PropTypes__default["default"].string.isRequired,
+  onClick: PropTypes__default["default"].func,
+  disabled: PropTypes__default["default"].bool.isRequired,
+  type: PropTypes__default["default"].string.isRequired,
+  inline: PropTypes__default["default"].bool.isRequired,
+  hoverTextAlign: PropTypes__default["default"].string.isRequired
+};
+
+/**
+ * Edit close icon with popover
+ * @param {*} props
+ * @param {string=} props.hoverText text for popover hover
+ * @param {string} props.type can be `edit` or `add`, defaults to add
+ * @param {boolean} props.disabled
+ * @param {Function} props.onClick onclick function
+ * @param {boolean} props.open toggle is open, defaults to false
+ * @returns edit close icon
+ */
+var EditCloseIcon = function EditCloseIcon(props) {
+  var hoverText = props.hoverText ? props.hoverText : props.open ? "Close" : props.type === "add" ? "Configure Resource" : "Edit Resource";
+  var icon = props.open ? /*#__PURE__*/React__default["default"].createElement(iconsReact.CloseFilled, null) : props.type === "add" ? /*#__PURE__*/React__default["default"].createElement(iconsReact.Add, null) : /*#__PURE__*/React__default["default"].createElement(iconsReact.Edit, null);
+  return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
+    hoverText: hoverText
+  }, /*#__PURE__*/React__default["default"].createElement("i", {
+    onClick: props.onClick,
+    className: "chevron"
+  }, icon));
+};
+EditCloseIcon.propTypes = {
+  hoverText: PropTypes__default["default"].string,
+  onClick: PropTypes__default["default"].func.isRequired,
+  disabled: PropTypes__default["default"].bool,
+  type: PropTypes__default["default"].string,
+  open: PropTypes__default["default"].bool
+};
+EditCloseIcon.defaultProps = {
+  type: "edit",
+  open: false
+};
+
+/**
+ * Delete button
+ * @param {*} props
+ * @param {boolean} props.disabled
+ * @param {Function} props.onClick onclick function
+ * @param {string} props.name classname
+ *
+ */
+var DeleteButton = function DeleteButton(props) {
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "delete-area"
+  }, /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
+    hoverText: props.disabled ? props.disableDeleteMessage : "Delete Resource",
+    className: props.disabled ? "inlineBlock cursorNotAllowed" : ""
+  }, /*#__PURE__*/React__default["default"].createElement(react.Button, {
+    className: "cds--btn--danger--tertiary forceTertiaryButtonStyles" + (props.disabled ? " pointerEventsNone" : ""),
+    kind: "ghost",
+    size: "sm",
+    onClick: props.onClick,
+    disabled: props.disabled === true
+  }, /*#__PURE__*/React__default["default"].createElement(iconsReact.TrashCan, {
+    className: props.disabled ? "" : "redFill"
+  }))));
+};
+DeleteButton.defaultProps = {
+  disabled: false
+};
+DeleteButton.propTypes = {
+  disabled: PropTypes__default["default"].bool.isRequired,
+  onClick: PropTypes__default["default"].func.isRequired,
+  name: PropTypes__default["default"].string.isRequired
+};
+
+/**
+ * Up/Down button
+ * @param {*} props
+ * @param {string} props.name
+ * @param {boolean} props.disableUp
+ * @param {boolean} props.disableDown
+ * @param {Function} props.handleUp
+ * @param {Function} props.handleDown
+ *
+ */
+var UpDownButtons = function UpDownButtons(props) {
+  return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(react.Button, {
+    key: "rule-up-" + props.name,
+    disabled: props.disableUp,
+    kind: "ghost",
+    size: "sm",
+    id: props.name + "-up",
+    onClick: props.handleUp,
+    className: "focus forceTertiaryButtonStyles marginRightSmall"
+  }, /*#__PURE__*/React__default["default"].createElement(iconsReact.ArrowUp, {
+    key: "up-" + props.name
+  })), /*#__PURE__*/React__default["default"].createElement(react.Button, {
+    kind: "ghost",
+    disabled: props.disableDown,
+    key: "rule-down-" + props.name,
+    size: "sm",
+    id: props.name + "-down",
+    onClick: props.handleDown,
+    className: "focus forceTertiaryButtonStyles"
+  }, /*#__PURE__*/React__default["default"].createElement(iconsReact.ArrowDown, {
+    key: "down-" + props.name
+  })));
+};
+UpDownButtons.defaultProps = {
+  disableUp: false,
+  disableDown: false
+};
+UpDownButtons.propTypes = {
+  disableUp: PropTypes__default["default"].bool.isRequired,
+  disableDown: PropTypes__default["default"].bool.isRequired,
+  name: PropTypes__default["default"].string.isRequired,
+  handleUp: PropTypes__default["default"].func.isRequired,
+  handleDown: PropTypes__default["default"].func.isRequired
+};
 
 /**
  * Render a form
@@ -1348,9 +1593,77 @@ IcseSubForm.propTypes = {
   className: PropTypes__default["default"].string,
   children: PropTypes__default["default"].node.isRequired
 };
+var IcseHeading = function IcseHeading(props) {
+  var titleFormDivClass = props.toggleFormTitle ? "" : props.name === "" ? "" : " icseFormTitleMinHeight";
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: lib_2("displayFlex spaceBetween widthOneHundredPercent alignItemsCenter", props) + titleFormDivClass
+  }, /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, {
+    tooltip: props.tooltip,
+    innerForm: function innerForm() {
+      return props.type === "subHeading" ? /*#__PURE__*/React__default["default"].createElement("h5", null, props.name) : props.type === "p" ? /*#__PURE__*/React__default["default"].createElement("p", null, props.name) : /*#__PURE__*/React__default["default"].createElement("h4", null, props.name);
+    }
+  }), /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "displayFlex"
+  }, props.buttons));
+};
+IcseHeading.defaultProps = {
+  type: "heading"
+};
+IcseHeading.propTypes = {
+  name: PropTypes__default["default"].string.isRequired,
+  type: PropTypes__default["default"].string,
+  tooltip: PropTypes__default["default"].shape({
+    content: PropTypes__default["default"].string.isRequired,
+    link: PropTypes__default["default"].string,
+    alignModal: PropTypes__default["default"].string
+  }),
+  buttons: PropTypes__default["default"].node,
+  className: PropTypes__default["default"].string
+};
 
-var css_248z$6 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
-styleInject(css_248z$6);
+/**
+ * All of the toggle form functionality without injecting anything on render
+ */
+var StatelessToggleForm = function StatelessToggleForm(props) {
+  return props.hideTitle ? props.children : /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(TitleGroup, {
+    hide: props.hide,
+    props: props,
+    className: props.className
+  }, props.hideIcon !== true && /*#__PURE__*/React__default["default"].createElement(EditCloseIcon, {
+    onClick: props.onIconClick,
+    type: props.iconType,
+    open: props.hide === false
+  }), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+    type: props.toggleFormTitle ? "p" : props.subHeading ? "subHeading" : "heading",
+    name: props.name,
+    buttons: /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+      hide: props.hide === true && props.alwaysShowButtons !== true,
+      show: props.buttons || ""
+    })
+  })), /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+    hide: props.hide,
+    show: props.children
+  }));
+};
+StatelessToggleForm.defaultProps = {
+  hide: true,
+  iconType: "edit",
+  name: "Stateless Toggle Form"
+};
+StatelessToggleForm.propTypes = {
+  children: PropTypes__default["default"].node.isRequired,
+  hide: PropTypes__default["default"].bool.isRequired,
+  iconType: PropTypes__default["default"].string.isRequired,
+  onIconClick: PropTypes__default["default"].func,
+  subHeading: PropTypes__default["default"].bool,
+  name: PropTypes__default["default"].string.isRequired,
+  buttons: PropTypes__default["default"].node,
+  toggleFormTitle: PropTypes__default["default"].bool,
+  alwaysShowButtons: PropTypes__default["default"].bool
+};
+
+var css_248z$4 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+styleInject(css_248z$4);
 
 /**
  * render a tooltip around an input field
@@ -1468,8 +1781,8 @@ DynamicToolTipWrapper.propTypes = {
   innerForm: PropTypes__default["default"].oneOfType([PropTypes__default["default"].object, PropTypes__default["default"].func])
 };
 
-var css_248z$5 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
-styleInject(css_248z$5);
+var css_248z$3 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
+styleInject(css_248z$3);
 
 var IcseToggle = function IcseToggle(props) {
   var toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
@@ -1630,8 +1943,8 @@ IcseNameInput.propTypes = {
   invalidCallback: PropTypes__default["default"].func
 };
 
-var css_248z$4 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
-styleInject(css_248z$4);
+var css_248z$2 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
+styleInject(css_248z$2);
 
 var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
   _inherits(AppIdKeyForm, _React$Component);
@@ -1939,8 +2252,8 @@ FormModal.propTypes = {
   children: PropTypes__default["default"].node.isRequired
 };
 
-var css_248z$3 = ".leftTextAlign {\n  text-align: left;\n}\n";
-styleInject(css_248z$3);
+var css_248z$1 = ".leftTextAlign {\n  text-align: left;\n}\n";
+styleInject(css_248z$1);
 
 /**
  * Icse Modal Wrapper
@@ -2063,8 +2376,8 @@ UnsavedChangesModal.propTypes = {
   useDefaultUnsavedMessage: PropTypes__default["default"].bool
 };
 
-var css_248z$2 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
-styleInject(css_248z$2);
+var css_248z = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+styleInject(css_248z);
 
 /**
  * Icse multiselect template
@@ -2301,6 +2614,7 @@ VpcListMultiSelect.propTypes = {
   vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -3131,6 +3445,8 @@ EntitlementSelect.propTypes = {
   name: PropTypes__default["default"].string.isRequired
 };
 
+=======
+>>>>>>> b345987 (fixes & heading/statelesstoggle form added)
 /**
  * Under Construction Page
  */
@@ -3144,6 +3460,7 @@ var UnderConstruction = function UnderConstruction() {
   }), /*#__PURE__*/React__default["default"].createElement("h4", null, "Page Under Construction"));
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 var css_248z = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z);
@@ -4810,6 +5127,8 @@ exports.AppIdKeyForm = AppIdKeyForm;
   handleDown: PropTypes__default["default"].func.isRequired
 };
 
+=======
+>>>>>>> b345987 (fixes & heading/statelesstoggle form added)
 exports.AppIdKeyForm = AppIdKeyForm;
 exports.DeleteButton = DeleteButton;
 <<<<<<< HEAD
@@ -4857,6 +5176,7 @@ exports.EntitlementSelect = EntitlementSelect;
 exports.FetchSelect = FetchSelect;
 exports.FormModal = FormModal;
 exports.IcseFormGroup = IcseFormGroup;
+exports.IcseHeading = IcseHeading;
 exports.IcseModal = IcseModal;
 exports.IcseMultiSelect = IcseMultiSelect;
 exports.IcseNameInput = IcseNameInput;
@@ -4879,6 +5199,7 @@ exports.SaveIcon = SaveIcon;
 exports.SccForm = SccForm;
 exports.SecurityGroupMultiSelect = SecurityGroupMultiSelect;
 exports.SshKeyMultiSelect = SshKeyMultiSelect;
+exports.StatelessToggleForm = StatelessToggleForm;
 exports.SubnetMultiSelect = SubnetMultiSelect;
 <<<<<<< HEAD
 >>>>>>> 04bfb65 (added button examples)

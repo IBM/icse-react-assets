@@ -71,4 +71,6 @@ export {
   RenderForm,
   StatelessToggleForm,
   TitleGroup,
+  IcseHeading,
+  StatelessToggleForm,
 } from "./Utils";

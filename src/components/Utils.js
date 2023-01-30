@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { addClassName, toggleMarginBottom } from "../lib/index";
 import "./styles/Utils.css";
+import { DynamicToolTipWrapper } from "./Tooltips";
+import { EditCloseIcon } from "./Buttons";
 
 /**
  * Render a form
@@ -100,4 +102,108 @@ IcseSubForm.propTypes = {
   formInSubForm: PropTypes.bool.isRequired,
   className: PropTypes.string,
   children: PropTypes.node.isRequired,
+};
+
+export const IcseHeading = (props) => {
+  let titleFormDivClass = props.toggleFormTitle
+    ? ""
+    : props.name === ""
+    ? ""
+    : " icseFormTitleMinHeight";
+  return (
+    <div
+      className={
+        addClassName(
+          "displayFlex spaceBetween widthOneHundredPercent alignItemsCenter",
+          props
+        ) + titleFormDivClass
+      }
+    >
+      <DynamicToolTipWrapper
+        tooltip={props.tooltip}
+        innerForm={() => {
+          return props.type === "subHeading" ? (
+            <h5>{props.name}</h5>
+          ) : props.type === "p" ? (
+            <p>{props.name}</p>
+          ) : (
+            <h4>{props.name}</h4>
+          );
+        }}
+      />
+      <div className="displayFlex">{props.buttons}</div>
+    </div>
+  );
+};
+
+IcseHeading.defaultProps = {
+  type: "heading",
+};
+
+IcseHeading.propTypes = {
+  name: PropTypes.string.isRequired,
+  type: PropTypes.string,
+  tooltip: PropTypes.shape({
+    content: PropTypes.string.isRequired,
+    link: PropTypes.string,
+    alignModal: PropTypes.string,
+  }),
+  buttons: PropTypes.node,
+  className: PropTypes.string,
+};
+
+/**
+ * All of the toggle form functionality without injecting anything on render
+ */
+export const StatelessToggleForm = (props) => {
+  return props.hideTitle ? (
+    props.children
+  ) : (
+    <>
+      <TitleGroup hide={props.hide} props={props} className={props.className}>
+        {props.hideIcon !== true && (
+          <EditCloseIcon
+            onClick={props.onIconClick}
+            type={props.iconType}
+            open={props.hide === false}
+          />
+        )}
+        <IcseHeading
+          type={
+            props.toggleFormTitle
+              ? "p"
+              : props.subHeading
+              ? "subHeading"
+              : "heading"
+          }
+          name={props.name}
+          buttons={
+            <DynamicRender
+              hide={props.hide === true && props.alwaysShowButtons !== true}
+              show={props.buttons || ""}
+            />
+          }
+        />
+      </TitleGroup>
+      <DynamicRender hide={props.hide} show={props.children} />
+    </>
+  );
+};
+
+StatelessToggleForm.defaultProps = {
+  hide: true,
+  iconType: "edit",
+  name: "Stateless Toggle Form",
+};
+
+StatelessToggleForm.propTypes = {
+  children: PropTypes.node.isRequired,
+  hide: PropTypes.bool.isRequired,
+  iconType: PropTypes.string.isRequired,
+  onIconClick: PropTypes.func,
+  subHeading: PropTypes.bool,
+  name: PropTypes.string.isRequired,
+  buttons: PropTypes.node,
+  toggleFormTitle: PropTypes.bool,
+  alwaysShowButtons: PropTypes.bool,
 };

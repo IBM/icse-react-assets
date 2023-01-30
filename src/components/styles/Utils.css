@@ -41,3 +41,11 @@
   margin-top: 1rem;
   margin-bottom: 2rem;
 }
+
+.icseFormTitleMinHeight {
+  min-height: 32px;
+}
+
+.spaceBetween {
+  justify-content: space-between;
+}
