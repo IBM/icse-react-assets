@@ -2513,8 +2513,12 @@ var IcseSelect = function IcseSelect(props) {
   }
   return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, _extends({
 <<<<<<< HEAD
+<<<<<<< HEAD
     innerForm: () => {
 =======
+=======
+    id: lazyZ.kebabCase(props.name) + "-dropdown-tooltip",
+>>>>>>> e63c208 (fix value prop type warning)
     innerForm: function innerForm() {
 >>>>>>> 72d0b85 (merge)
       return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {

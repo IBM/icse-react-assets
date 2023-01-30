@@ -8,6 +8,7 @@ import { useState } from "react";
 
 function DropdownExamples() {
   const [value, setValue] = useState("");
+  const [numValue, setNumValue] = useState(1);
   return (
     <div className="App">
       <div style={{ marginLeft: "100px" }}>
@@ -38,9 +39,9 @@ function DropdownExamples() {
           max={20}
           labelText="ICSE Number Select"
           handleInputChange={(event) => {
-            setValue(event.target.value);
+            setNumValue(event.target.value);
           }}
-          value={value}
+          value={numValue}
           tooltip={{
             content: "Test",
             link: "www.test.test",
