@@ -20,7 +20,7 @@ function DropdownExamples() {
           handleInputChange={(event) => {
             setValue(event.target.value);
           }}
-          value="test"
+          value={value}
           labelText="ICSE Select"
         />
         <FetchSelect
@@ -30,7 +30,7 @@ function DropdownExamples() {
           handleInputChange={(event) => {
             setValue(event.target.value);
           }}
-          value="test"
+          value={value}
           formName="playground"
         />
         <IcseNumberSelect
@@ -40,7 +40,7 @@ function DropdownExamples() {
           handleInputChange={(event) => {
             setValue(event.target.value);
           }}
-          value={1}
+          value={value}
           tooltip={{
             content: "Test",
             link: "www.test.test",
@@ -52,7 +52,7 @@ function DropdownExamples() {
           handleInputChange={(event) => {
             setValue(event.target.value);
           }}
-          value="cloud_pak"
+          value={value}
           name="Entitlement"
           formName="playground"
         />
