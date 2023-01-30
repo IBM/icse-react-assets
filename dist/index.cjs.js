@@ -2,6 +2,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> faf8c38 (fixed imports)
@@ -23,12 +24,21 @@ var iconsReact = require('@carbon/icons-react');
 var PropTypes = require('prop-types');
 var react = require('@carbon/react');
 =======
+=======
+'use strict';
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+>>>>>>> 72d0b85 (merge)
 var React = require('react');
 var iconsReact = require('@carbon/icons-react');
 var react = require('@carbon/react');
 var PropTypes = require('prop-types');
 var lazyZ = require('lazy-z');
+<<<<<<< HEAD
 >>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))
+=======
+>>>>>>> 72d0b85 (merge)
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -36,6 +46,7 @@ var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 var PropTypes__default = /*#__PURE__*/_interopDefaultLegacy(PropTypes);
 var lazyZ__default = /*#__PURE__*/_interopDefaultLegacy(lazyZ);
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -100,6 +111,8 @@ var PropTypes__default = /*#__PURE__*/ _interopDefaultLegacy(PropTypes);
 =======
 var lazyZ__default = /*#__PURE__*/_interopDefaultLegacy(lazyZ);
 
+=======
+>>>>>>> 72d0b85 (merge)
 var _require = require("lazy-z"),
   isFunction = _require.isFunction;
 
@@ -199,6 +212,7 @@ EmptyResourceTile.propTypes = {
   name: PropTypes__default["default"].string.isRequired,
   showIfEmpty: PropTypes__default["default"].oneOfType([PropTypes__default["default"].array, PropTypes__default["default"].bool]).isRequired
 };
+<<<<<<< HEAD
 >>>>>>> b5b1ac6 (fixed build)
 
 <<<<<<< HEAD
@@ -352,10 +366,14 @@ function toggleMarginBottom(hide) {
 >>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))
 =======
 >>>>>>> b238572 (Dropdowns Documentation)
+=======
+
+>>>>>>> 72d0b85 (merge)
 function ownKeys(object, enumerableOnly) {
   var keys = Object.keys(object);
   if (Object.getOwnPropertySymbols) {
     var symbols = Object.getOwnPropertySymbols(object);
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -379,12 +397,18 @@ function ownKeys(object, enumerableOnly) {
       return Object.getOwnPropertyDescriptor(object, sym).enumerable;
     })), keys.push.apply(keys, symbols);
 >>>>>>> b238572 (Dropdowns Documentation)
+=======
+    enumerableOnly && (symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    })), keys.push.apply(keys, symbols);
+>>>>>>> 72d0b85 (merge)
   }
   return keys;
 }
 function _objectSpread2(target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = null != arguments[i] ? arguments[i] : {};
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -426,6 +450,8 @@ function _objectSpread2(target) {
 =======
 =======
 >>>>>>> b238572 (Dropdowns Documentation)
+=======
+>>>>>>> 72d0b85 (merge)
     i % 2 ? ownKeys(Object(source), !0).forEach(function (key) {
       _defineProperty(target, key, source[key]);
     }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) {
@@ -435,11 +461,14 @@ function _objectSpread2(target) {
   return target;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))
 =======
 >>>>>>> b238572 (Dropdowns Documentation)
 =======
 >>>>>>> b3a36f0 (changes pt. 1)
+=======
+>>>>>>> 72d0b85 (merge)
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -469,11 +498,14 @@ function _createClass(Constructor, protoProps, staticProps) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))
 =======
 >>>>>>> b238572 (Dropdowns Documentation)
+=======
+>>>>>>> 72d0b85 (merge)
 function _defineProperty(obj, key, value) {
   key = _toPropertyKey(key);
   if (key in obj) {
@@ -481,6 +513,7 @@ function _defineProperty(obj, key, value) {
       value: value,
       enumerable: true,
       configurable: true,
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -494,12 +527,16 @@ function _defineProperty(obj, key, value) {
 =======
       writable: true
 >>>>>>> b238572 (Dropdowns Documentation)
+=======
+      writable: true
+>>>>>>> 72d0b85 (merge)
     });
   } else {
     obj[key] = value;
   }
   return obj;
 }
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> 23b5837 (add id as required)
@@ -513,6 +550,8 @@ function _defineProperty(obj, key, value) {
 >>>>>>> b238572 (Dropdowns Documentation)
 =======
 >>>>>>> 69bcf66 (changes pt. 2)
+=======
+>>>>>>> 72d0b85 (merge)
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -528,10 +567,13 @@ function _extends() {
   return _extends.apply(this, arguments);
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
 =======
 >>>>>>> 67351ff (Dropdowns components)
+=======
+>>>>>>> 72d0b85 (merge)
 function _inherits(subClass, superClass) {
   if (typeof superClass !== "function" && superClass !== null) {
     throw new TypeError("Super expression must either be null or a function");
@@ -661,6 +703,7 @@ function toggleMarginBottom$1(hide) {
 }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -681,10 +724,19 @@ var formUtils = {
 };
 <<<<<<< HEAD
 =======
+=======
+var formUtils = {
+  addClassName: addClassName$1,
+  toggleMarginBottom: toggleMarginBottom$1,
+  prependEmptyStringWhenNull: prependEmptyStringWhenNull$1,
+  checkNullorEmptyString: checkNullorEmptyString$1
+};
+>>>>>>> 72d0b85 (merge)
 
 const {
   kebabCase
 } = lazyZ__default["default"];
+<<<<<<< HEAD
 >>>>>>> b5b1ac6 (fixed build)
 
 const {
@@ -706,6 +758,9 @@ var constants_1 = constants.nameValidationExp;
 >>>>>>> 6979d94 (icse name input, needs docs)
 =======
 >>>>>>> fecad7c (remove nameinput validation)
+=======
+
+>>>>>>> 72d0b85 (merge)
 /**
  * format input placeholder
  * @param {string} componentName
@@ -715,6 +770,7 @@ var constants_1 = constants.nameValidationExp;
 function formatInputPlaceholder$1(componentName, fieldName) {
   return `my-${kebabCase(componentName)}-${kebabCase(fieldName)}`;
 }
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 var textUtils = /*#__PURE__*/ Object.freeze({
@@ -778,6 +834,13 @@ var textUtils$1 = /*#__PURE__*/Object.freeze({
 <<<<<<< HEAD
 =======
 >>>>>>> b5b1ac6 (fixed build)
+=======
+var textUtils = {
+  formatInputPlaceholder: formatInputPlaceholder$1
+};
+
+/**
+>>>>>>> 72d0b85 (merge)
  * create classname for sub form chevron save button
  * @param {*} componentProps
  * @returns {string} classNames for button
@@ -790,17 +853,23 @@ function saveChangeButtonClass$1(componentProps) {
 }
 var buttonUtils = {
 <<<<<<< HEAD
+<<<<<<< HEAD
   saveChangeButtonClass: saveChangeButtonClass$1,
 };
 
 <<<<<<< HEAD
 =======
 =======
+=======
+>>>>>>> 72d0b85 (merge)
   saveChangeButtonClass: saveChangeButtonClass$1
 };
 
 /**
+<<<<<<< HEAD
 >>>>>>> b5b1ac6 (fixed build)
+=======
+>>>>>>> 72d0b85 (merge)
  * default handle event change function
  * @param {event} event
  * @param {Object} event.target
@@ -838,6 +907,7 @@ var methodFunctions = {
   setNameToValue: setNameToValue$2
 };
 
+<<<<<<< HEAD
 >>>>>>> 8db187e (form and documentation)
 const {
   toggleMarginBottom,
@@ -849,11 +919,19 @@ const {
 =======
   addClassName
 >>>>>>> 6979d94 (icse name input, needs docs)
+=======
+const {
+  toggleMarginBottom,
+  addClassName,
+  prependEmptyStringWhenNull,
+  checkNullorEmptyString
+>>>>>>> 72d0b85 (merge)
 } = formUtils;
 const {
   formatInputPlaceholder
 } = textUtils;
 const {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   saveChangeButtonClass
@@ -899,6 +977,11 @@ var lib = {
 } = buttonUtils;
 const {
 >>>>>>> b5b1ac6 (fixed build)
+=======
+  saveChangeButtonClass
+} = buttonUtils;
+const {
+>>>>>>> 72d0b85 (merge)
   eventTargetToNameAndValue: eventTargetToNameAndValue$1,
   toggleStateBoolean: toggleStateBoolean$1,
   setNameToValue: setNameToValue$1
@@ -906,10 +989,16 @@ const {
 var lib = {
   toggleMarginBottom,
   addClassName,
+<<<<<<< HEAD
+=======
+  prependEmptyStringWhenNull,
+  checkNullorEmptyString,
+>>>>>>> 72d0b85 (merge)
   formatInputPlaceholder,
   saveChangeButtonClass,
   eventTargetToNameAndValue: eventTargetToNameAndValue$1,
   toggleStateBoolean: toggleStateBoolean$1,
+<<<<<<< HEAD
 <<<<<<< HEAD
   setNameToValue: setNameToValue$1,
   buildFormFunctions,
@@ -1010,6 +1099,18 @@ styleInject(css_248z$6);
 var css_248z$7 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
 styleInject(css_248z$7);
 >>>>>>> b5b1ac6 (fixed build)
+=======
+  setNameToValue: setNameToValue$1
+};
+var lib_1 = lib.toggleMarginBottom;
+var lib_2 = lib.addClassName;
+var lib_3 = lib.prependEmptyStringWhenNull;
+var lib_5 = lib.formatInputPlaceholder;
+var lib_6 = lib.saveChangeButtonClass;
+
+var css_248z$7 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
+styleInject(css_248z$7);
+>>>>>>> 72d0b85 (merge)
 
 /**
  * Render a form
@@ -1267,7 +1368,11 @@ var IcseTextInput = function IcseTextInput(props) {
     id: props.id,
     className: lib_2("fieldWidth leftTextAlign", props),
     labelText: props.labelText ? props.labelText : lazyZ.titleCase(props.field),
+<<<<<<< HEAD
     placeholder: props.placeholder || lib_3(props.componentName, fieldName),
+=======
+    placeholder: props.placeholder || lib_5(props.componentName, fieldName),
+>>>>>>> 72d0b85 (merge)
     name: props.field,
     value: props.value || "",
     invalid: lazyZ.isBoolean(props.invalid) ? props.invalid : props.invalidCallback(),
@@ -1646,12 +1751,22 @@ styleInject(css_248z$2);
 /**
  * Icse multiselect template
  */
+<<<<<<< HEAD
 const IcseMultiSelect = props => {
+=======
+var IcseMultiSelect = function IcseMultiSelect(props) {
+>>>>>>> 72d0b85 (merge)
   return /*#__PURE__*/React__default["default"].createElement(react.FilterableMultiSelect, {
     id: props.id,
     className: lib_2("fieldWidth leftTextAlign cds--select", props),
     titleText: props.titleText,
+<<<<<<< HEAD
     itemToString: item => item ? item : "",
+=======
+    itemToString: function itemToString(item) {
+      return item ? item : "";
+    },
+>>>>>>> 72d0b85 (merge)
     invalid: props.invalid,
     invalidText: props.invalidText,
     initialSelectedItems: props.initialSelectedItems,
@@ -1685,7 +1800,11 @@ IcseMultiSelect.propTypes = {
 /**
  * ssh key multiselect
  */
+<<<<<<< HEAD
 const SshKeyMultiSelect = props => {
+=======
+var SshKeyMultiSelect = function SshKeyMultiSelect(props) {
+>>>>>>> 72d0b85 (merge)
   return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
     id: props.id + "-ssh-key-multiselect",
     useTitleInItem: true,
@@ -1695,7 +1814,11 @@ const SshKeyMultiSelect = props => {
     invalid: props.initialSelectedItems.length === 0,
     items: props.sshKeys,
     initialSelectedItems: props.initialSelectedItems || [],
+<<<<<<< HEAD
     onChange: event => {
+=======
+    onChange: function onChange(event) {
+>>>>>>> 72d0b85 (merge)
       props.onChange(event.selectedItems);
     },
     className: "fieldWidthSmaller cds--form-item"
@@ -1714,7 +1837,11 @@ SshKeyMultiSelect.propTypes = {
 /**
  * sg multiselect
  */
+<<<<<<< HEAD
 const SecurityGroupMultiSelect = props => {
+=======
+var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
+>>>>>>> 72d0b85 (merge)
   if (props.vpc_name && !props.securityGroups) {
     // checking props.securityGroups[props.vpc_name] will result in an
     // undefined error that happens as part of MultiSelect
@@ -1729,12 +1856,22 @@ const SecurityGroupMultiSelect = props => {
     vpc_name: props.vpc_name,
     invalid: props.invalid,
     invalidText: "Invalid Selection",
+<<<<<<< HEAD
     onChange: event => {
+=======
+    onChange: function onChange(event) {
+>>>>>>> 72d0b85 (merge)
       props.onChange(event.selectedItems);
     },
     disabled: props.disabled,
     items: props.vpc_name === "" ? [] : props.securityGroups[props.vpc_name],
+<<<<<<< HEAD
     itemToString: item => item ? item : ""
+=======
+    itemToString: function itemToString(item) {
+      return item ? item : "";
+    }
+>>>>>>> 72d0b85 (merge)
   });
 };
 SecurityGroupMultiSelect.defaultProps = {
@@ -1758,7 +1895,11 @@ SecurityGroupMultiSelect.propTypes = {
 /**
  * vpc subnet multiselect
  */
+<<<<<<< HEAD
 const SubnetMultiSelect = props => {
+=======
+var SubnetMultiSelect = function SubnetMultiSelect(props) {
+>>>>>>> 72d0b85 (merge)
   return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
     id: props.id + "-subnet-multiselect",
     className: props.className,
@@ -1770,7 +1911,13 @@ const SubnetMultiSelect = props => {
     invalidText: lazyZ.isNullOrEmptyString(props.vpc_name) ? "Select a VPC." : "Select at least one subnet.",
     invalid: props.initialSelectedItems.length === 0,
     disabled: props.disabled,
+<<<<<<< HEAD
     onChange: event => props.onChange(event.selectedItems)
+=======
+    onChange: function onChange(event) {
+      return props.onChange(event.selectedItems);
+    }
+>>>>>>> 72d0b85 (merge)
   });
 };
 SubnetMultiSelect.defaultProps = {
@@ -1796,7 +1943,11 @@ SubnetMultiSelect.propTypes = {
 /**
  * VPC List MultiSelect
  */
+<<<<<<< HEAD
 const VpcListMultiSelect = props => {
+=======
+var VpcListMultiSelect = function VpcListMultiSelect(props) {
+>>>>>>> 72d0b85 (merge)
   // throw error here so that passing no vpc list prop will error here
   // instead of being passed to `FilterableMultiselect`
   if (!props.vpcList) {
@@ -1807,7 +1958,13 @@ const VpcListMultiSelect = props => {
     invalid: props.invalid,
     id: props.id + "-vpc-select",
     titleText: props.titleText,
+<<<<<<< HEAD
     onChange: event => props.onChange(event.selectedItems),
+=======
+    onChange: function onChange(event) {
+      return props.onChange(event.selectedItems);
+    },
+>>>>>>> 72d0b85 (merge)
     initialSelectedItems: props.initialSelectedItems,
     className: props.className,
     items: props.vpcList
@@ -1828,6 +1985,7 @@ VpcListMultiSelect.propTypes = {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n}\n";
 styleInject(css_248z);
 >>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))
@@ -1835,11 +1993,19 @@ styleInject(css_248z);
 var css_248z$1 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n}\n";
 styleInject(css_248z$1);
 >>>>>>> b5b1ac6 (fixed build)
+=======
+var css_248z$1 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n}\n";
+styleInject(css_248z$1);
+>>>>>>> 72d0b85 (merge)
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
  */
+<<<<<<< HEAD
 var PopoverWrapper = /*#__PURE__*/ (function (_React$Component) {
+=======
+var PopoverWrapper = /*#__PURE__*/function (_React$Component) {
+>>>>>>> 72d0b85 (merge)
   _inherits(PopoverWrapper, _React$Component);
   var _super = _createSuper(PopoverWrapper);
   function PopoverWrapper(props) {
@@ -1847,6 +2013,7 @@ var PopoverWrapper = /*#__PURE__*/ (function (_React$Component) {
     _classCallCheck(this, PopoverWrapper);
     _this = _super.call(this, props);
     _this.state = {
+<<<<<<< HEAD
       isHovering: false,
     };
     _this.handleMouseOver = _this.handleMouseOver.bind(
@@ -1855,12 +2022,19 @@ var PopoverWrapper = /*#__PURE__*/ (function (_React$Component) {
     _this.handleMouseOut = _this.handleMouseOut.bind(
       _assertThisInitialized(_this)
     );
+=======
+      isHovering: false
+    };
+    _this.handleMouseOver = _this.handleMouseOver.bind(_assertThisInitialized(_this));
+    _this.handleMouseOut = _this.handleMouseOut.bind(_assertThisInitialized(_this));
+>>>>>>> 72d0b85 (merge)
     return _this;
   }
 
   /**
    * handle mouse over
    */
+<<<<<<< HEAD
   _createClass(PopoverWrapper, [
     {
       key: "handleMouseOver",
@@ -1925,6 +2099,49 @@ var PopoverWrapper = /*#__PURE__*/ (function (_React$Component) {
 })(React__default["default"].Component);
 PopoverWrapper.defaultProps = {
   noPopover: false,
+=======
+  _createClass(PopoverWrapper, [{
+    key: "handleMouseOver",
+    value: function handleMouseOver() {
+      this.setState({
+        isHovering: true
+      });
+    }
+
+    /**
+     * handle mouse out
+     */
+  }, {
+    key: "handleMouseOut",
+    value: function handleMouseOut() {
+      this.setState({
+        isHovering: false
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return this.props.noPopover === true || this.props.hoverText === "" ? this.props.children : /*#__PURE__*/React__default["default"].createElement("div", {
+        className: lib_2("popover-obj", this.props),
+        onMouseEnter: this.handleMouseOver,
+        onMouseLeave: this.handleMouseOut
+      }, /*#__PURE__*/React__default["default"].createElement(react.Popover, {
+        open: this.state.isHovering,
+        autoAlign: this.props.align ? false : true,
+        dropShadow: false,
+        highContrast: true,
+        caret: false,
+        align: this.props.align
+      }, this.props.children, /*#__PURE__*/React__default["default"].createElement(react.PopoverContent, {
+        className: "popover-box" + (this.props.contentClassName ? " ".concat(this.props.contentClassName) : "")
+      }, this.props.hoverText)));
+    }
+  }]);
+  return PopoverWrapper;
+}(React__default["default"].Component);
+PopoverWrapper.defaultProps = {
+  noPopover: false
+>>>>>>> 72d0b85 (merge)
 };
 PopoverWrapper.propTypes = {
   noPopover: PropTypes__default["default"].bool,
@@ -1932,6 +2149,7 @@ PopoverWrapper.propTypes = {
   className: PropTypes__default["default"].string,
   contentClassName: PropTypes__default["default"].string,
   align: PropTypes__default["default"].string,
+<<<<<<< HEAD
   children: PropTypes__default["default"].node.isRequired,
 };
 
@@ -2275,6 +2493,16 @@ const IcseSelect = props => {
   // automatically set to invalid is is null or empty string and invalid not disabled
   props.disableInvalid !== true && lazyZ.isNullOrEmptyString(props.value) ? true : props.invalid;
   let groups = props.groups.length === 0 ? [] // if no groups, empty array
+=======
+  children: PropTypes__default["default"].node.isRequired
+};
+
+var IcseSelect = function IcseSelect(props) {
+  var invalid =
+  // automatically set to invalid is is null or empty string and invalid not disabled
+  props.disableInvalid !== true && lazyZ.isNullOrEmptyString(props.value) ? true : props.invalid;
+  var groups = props.groups.length === 0 ? [] // if no groups, empty array
+>>>>>>> 72d0b85 (merge)
   : lib_3(
   // otherwise try and prepend empty string if null
   props.value, props.groups);
@@ -2284,7 +2512,11 @@ const IcseSelect = props => {
     console.log("GROUPS: ", groups);
   }
   return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, _extends({
+<<<<<<< HEAD
     innerForm: () => {
+=======
+    innerForm: function innerForm() {
+>>>>>>> 72d0b85 (merge)
       return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
         hoverText: props.value || ""
         // inherit classnames from tooltip
@@ -2301,11 +2533,21 @@ const IcseSelect = props => {
         invalidText: props.invalidText,
         readOnly: props.readOnly,
         onChange: props.handleInputChange
+<<<<<<< HEAD
       }, groups.map(value => /*#__PURE__*/React__default["default"].createElement(react.SelectItem, {
         key: `${props.id}-${value}`,
         text: value,
         value: value
       }))));
+=======
+      }, groups.map(function (value) {
+        return /*#__PURE__*/React__default["default"].createElement(react.SelectItem, {
+          key: "".concat(props.id, "-").concat(value),
+          text: value,
+          value: value
+        });
+      })));
+>>>>>>> 72d0b85 (merge)
     }
   }, props));
 };
@@ -2335,14 +2577,18 @@ IcseSelect.propTypes = {
   handleInputChange: PropTypes__default["default"].func.isRequired,
   labelText: PropTypes__default["default"].string.isRequired,
 <<<<<<< HEAD
+<<<<<<< HEAD
   name: PropTypes__default["default"].string.isRequired,
 >>>>>>> 67351ff (Dropdowns components)
 =======
 >>>>>>> b238572 (Dropdowns Documentation)
+=======
+>>>>>>> 72d0b85 (merge)
   tooltip: PropTypes__default["default"].shape({
     content: PropTypes__default["default"].string.isRequired,
     link: PropTypes__default["default"].string,
     alignModal: PropTypes__default["default"].string
+<<<<<<< HEAD
 <<<<<<< HEAD
   }),
   onToggle: PropTypes__default["default"].func.isRequired,
@@ -2395,6 +2641,72 @@ class FetchSelect extends React__default["default"].Component {
     });
   }
 }
+=======
+  })
+};
+var FetchSelect = /*#__PURE__*/function (_React$Component) {
+  _inherits(FetchSelect, _React$Component);
+  var _super = _createSuper(FetchSelect);
+  function FetchSelect(props) {
+    var _this;
+    _classCallCheck(this, FetchSelect);
+    _this = _super.call(this, props);
+    _defineProperty(_assertThisInitialized(_this), "_isMounted", false);
+    _this.state = {
+      data: []
+    };
+    _this.dataToGroups = _this.dataToGroups.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+  _createClass(FetchSelect, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+      this._isMounted = true;
+      if (lazyZ.isEmpty(this.state.data)) fetch(this.props.apiEndpoint).then(function (res) {
+        return res.json();
+      }).then(function (data) {
+        if (_this2.props.onReturnFunction) {
+          _this2.props.onReturnFunction(data);
+        }
+        if (_this2._isMounted) _this2.setState({
+          data: data
+        });
+      }).catch(function (err) {
+        console.error(err);
+      });
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this._isMounted = false;
+    }
+  }, {
+    key: "dataToGroups",
+    value: function dataToGroups() {
+      if (this.props.filter) {
+        return this.state.data.filter(this.props.filter);
+      } else {
+        return this.state.data;
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        labelText: this.props.labelText,
+        handleInputChange: this.props.handleInputChange,
+        name: this.props.name,
+        className: this.props.className,
+        formName: this.props.formName,
+        groups: this.dataToGroups(),
+        value: this.props.value || "null"
+      });
+    }
+  }]);
+  return FetchSelect;
+}(React__default["default"].Component);
+>>>>>>> 72d0b85 (merge)
 FetchSelect.propTypes = {
   labelText: PropTypes__default["default"].string.isRequired,
   handleInputChange: PropTypes__default["default"].func.isRequired,
@@ -2410,16 +2722,26 @@ FetchSelect.propTypes = {
   name: PropTypes__default["default"].string.isRequired,
   formName: PropTypes__default["default"].string.isRequired
 };
+<<<<<<< HEAD
 const IcseNumberSelect = props => {
+=======
+var IcseNumberSelect = function IcseNumberSelect(props) {
+>>>>>>> 72d0b85 (merge)
   return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
     formName: props.formName,
     groups: lazyZ.buildNumberDropdownList(props.max, props.min),
     value: props.value.toString(),
     name: props.name || "Icse Number Select",
     className: props.className,
+<<<<<<< HEAD
     handleInputChange: event => {
       // set name target value and parse int
       let sendEvent = {
+=======
+    handleInputChange: function handleInputChange(event) {
+      // set name target value and parse int
+      var sendEvent = {
+>>>>>>> 72d0b85 (merge)
         target: {
           name: event.target.name,
           value: parseInt(event.target.value)
@@ -2459,7 +2781,11 @@ IcseNumberSelect.propTypes = {
   labelText: PropTypes__default["default"].string.isRequired,
   isModal: PropTypes__default["default"].bool.isRequired
 };
+<<<<<<< HEAD
 const EntitlementSelect = props => {
+=======
+var EntitlementSelect = function EntitlementSelect(props) {
+>>>>>>> 72d0b85 (merge)
   return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
     name: props.name,
     labelText: "Entitlement",
@@ -2481,12 +2807,17 @@ EntitlementSelect.propTypes = {
 /**
  * Under Construction Page
  */
+<<<<<<< HEAD
 const UnderConstruction = () => {
+=======
+var UnderConstruction = function UnderConstruction() {
+>>>>>>> 72d0b85 (merge)
   return /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(iconsReact.WarningAlt, {
     size: "128"
   }), /*#__PURE__*/React__default["default"].createElement("h4", null, "Page Under Construction"));
 };
 
+<<<<<<< HEAD
 var css_248z = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z);
 
@@ -3708,6 +4039,9 @@ var css_248z =
 =======
 var css_248z = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  top: 20px;\n  z-index: 9001; /* navbar is 9000 */\n  font-size: 80%;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
 >>>>>>> b5b1ac6 (fixed build)
+=======
+var css_248z = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  top: 20px;\n  z-index: 9001; /* navbar is 9000 */\n  font-size: 80%;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
+>>>>>>> 72d0b85 (merge)
 styleInject(css_248z);
 
 /**
@@ -3717,6 +4051,7 @@ styleInject(css_248z);
  * @returns Save Icon
  */
 <<<<<<< HEAD
+<<<<<<< HEAD
 const SaveIcon = (props) => {
   return /*#__PURE__*/ React__default["default"].createElement(
     iconsReact.Save,
@@ -3725,11 +4060,16 @@ const SaveIcon = (props) => {
     }
   );
 =======
+=======
+>>>>>>> 72d0b85 (merge)
 var SaveIcon = function SaveIcon(props) {
   return /*#__PURE__*/React__default["default"].createElement(iconsReact.Save, {
     className: props.disabled ? "" : "tertiaryButtonColors"
   });
+<<<<<<< HEAD
 >>>>>>> b5b1ac6 (fixed build)
+=======
+>>>>>>> 72d0b85 (merge)
 };
 
 /**
@@ -3742,6 +4082,7 @@ var SaveIcon = function SaveIcon(props) {
  * @param {boolean} props.disabled
  * @returns Save add button
  */
+<<<<<<< HEAD
 <<<<<<< HEAD
 const SaveAddButton = (props) => {
   return /*#__PURE__*/ React__default["default"].createElement(
@@ -3781,6 +4122,8 @@ const SaveAddButton = (props) => {
     )
   );
 =======
+=======
+>>>>>>> 72d0b85 (merge)
 var SaveAddButton = function SaveAddButton(props) {
   return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
     hoverText: props.type === "add" && props.hoverText === "Save Changes" ? "Add Resource" : props.hoverText,
@@ -3788,23 +4131,34 @@ var SaveAddButton = function SaveAddButton(props) {
   }, /*#__PURE__*/React__default["default"].createElement(react.Button, {
     kind: props.type === "add" ? "tertiary" : "primary",
     onClick: props.onClick,
+<<<<<<< HEAD
     className: lib_4(props) + (props.disabled === true ? " pointerEventsNone " : " " + props.className),
+=======
+    className: lib_6(props) + (props.disabled === true ? " pointerEventsNone " : " " + props.className),
+>>>>>>> 72d0b85 (merge)
     disabled: props.disabled || false,
     size: "sm"
   }, props.type === "add" ? /*#__PURE__*/React__default["default"].createElement(iconsReact.Add, null) : /*#__PURE__*/React__default["default"].createElement(SaveIcon, {
     saveIsDisabled: props.disabled
   })));
+<<<<<<< HEAD
 >>>>>>> b5b1ac6 (fixed build)
+=======
+>>>>>>> 72d0b85 (merge)
 };
 SaveAddButton.defaultProps = {
   type: "save",
   hoverText: "Save Changes",
   inline: false,
 <<<<<<< HEAD
+<<<<<<< HEAD
   disabled: false,
 =======
   disabled: false
 >>>>>>> b5b1ac6 (fixed build)
+=======
+  disabled: false
+>>>>>>> 72d0b85 (merge)
 };
 SaveAddButton.propTypes = {
   hoverText: PropTypes__default["default"].string.isRequired,
@@ -3812,10 +4166,14 @@ SaveAddButton.propTypes = {
   disabled: PropTypes__default["default"].bool.isRequired,
   type: PropTypes__default["default"].string.isRequired,
 <<<<<<< HEAD
+<<<<<<< HEAD
   inline: PropTypes__default["default"].bool.isRequired,
 =======
   inline: PropTypes__default["default"].bool.isRequired
 >>>>>>> b5b1ac6 (fixed build)
+=======
+  inline: PropTypes__default["default"].bool.isRequired
+>>>>>>> 72d0b85 (merge)
 };
 
 /**
@@ -3824,6 +4182,7 @@ SaveAddButton.propTypes = {
  * @param {string=} props.hoverText text for popover hover
  * @param {string} props.type can be `edit` or `add`, defaults to add
  * @param {boolean} props.disabled
+<<<<<<< HEAD
 <<<<<<< HEAD
  * @param {boolean} props.open toggle is open, defaults to false
  * @returns edit close icon
@@ -3865,6 +4224,8 @@ const EditCloseIcon = (props) => {
     )
   );
 =======
+=======
+>>>>>>> 72d0b85 (merge)
  * @param {Function} props.onClick onclick function
  * @param {boolean} props.open toggle is open, defaults to false
  * @returns edit close icon
@@ -3878,7 +4239,10 @@ var EditCloseIcon = function EditCloseIcon(props) {
     onClick: props.onClick,
     className: "chevron"
   }, icon));
+<<<<<<< HEAD
 >>>>>>> b5b1ac6 (fixed build)
+=======
+>>>>>>> 72d0b85 (merge)
 };
 EditCloseIcon.propTypes = {
   hoverText: PropTypes__default["default"].string,
@@ -3886,18 +4250,24 @@ EditCloseIcon.propTypes = {
   disabled: PropTypes__default["default"].bool,
   type: PropTypes__default["default"].string,
 <<<<<<< HEAD
+<<<<<<< HEAD
   open: PropTypes__default["default"].bool,
 };
 EditCloseIcon.defaultProps = {
   type: "edit",
   open: false,
 =======
+=======
+>>>>>>> 72d0b85 (merge)
   open: PropTypes__default["default"].bool
 };
 EditCloseIcon.defaultProps = {
   type: "edit",
   open: false
+<<<<<<< HEAD
 >>>>>>> b5b1ac6 (fixed build)
+=======
+>>>>>>> 72d0b85 (merge)
 };
 
 /**
@@ -3905,13 +4275,17 @@ EditCloseIcon.defaultProps = {
  * @param {*} props
  * @param {boolean} props.disabled
 <<<<<<< HEAD
+<<<<<<< HEAD
  * @param {boolean} props.modalOpen toggle is modal open, defaults to false
 =======
 >>>>>>> b5b1ac6 (fixed build)
+=======
+>>>>>>> 72d0b85 (merge)
  * @param {Function} props.onClick onclick function
  * @param {string} props.name classname
  *
  */
+<<<<<<< HEAD
 <<<<<<< HEAD
 const DeleteButton = (props) => {
   return /*#__PURE__*/ React__default["default"].createElement(
@@ -3952,6 +4326,8 @@ DeleteButton.defaultProps = {
   disabled: false,
   modalOpen: false,
 =======
+=======
+>>>>>>> 72d0b85 (merge)
 var DeleteButton = function DeleteButton(props) {
   return /*#__PURE__*/React__default["default"].createElement("div", {
     className: "delete-area"
@@ -3970,16 +4346,23 @@ var DeleteButton = function DeleteButton(props) {
 };
 DeleteButton.defaultProps = {
   disabled: false
+<<<<<<< HEAD
 >>>>>>> b5b1ac6 (fixed build)
+=======
+>>>>>>> 72d0b85 (merge)
 };
 DeleteButton.propTypes = {
   disabled: PropTypes__default["default"].bool.isRequired,
   onClick: PropTypes__default["default"].func.isRequired,
 <<<<<<< HEAD
+<<<<<<< HEAD
   name: PropTypes__default["default"].string.isRequired,
 =======
   name: PropTypes__default["default"].string.isRequired
 >>>>>>> b5b1ac6 (fixed build)
+=======
+  name: PropTypes__default["default"].string.isRequired
+>>>>>>> 72d0b85 (merge)
 };
 
 /**
@@ -3988,6 +4371,7 @@ DeleteButton.propTypes = {
  * @param {string} props.name
  * @param {boolean} props.disableUp
  * @param {boolean} props.disableDown
+<<<<<<< HEAD
 <<<<<<< HEAD
  * @param {Function} props.handleCardUp
  * @param {Function} props.handleCardDown
@@ -4039,6 +4423,8 @@ UpDownButtons.defaultProps = {
   disableUp: false,
   disableDown: false,
 =======
+=======
+>>>>>>> 72d0b85 (merge)
  * @param {Function} props.handleUp
  * @param {Function} props.handleDown
  *
@@ -4069,12 +4455,16 @@ var UpDownButtons = function UpDownButtons(props) {
 UpDownButtons.defaultProps = {
   disableUp: false,
   disableDown: false
+<<<<<<< HEAD
 >>>>>>> b5b1ac6 (fixed build)
+=======
+>>>>>>> 72d0b85 (merge)
 };
 UpDownButtons.propTypes = {
   disableUp: PropTypes__default["default"].bool.isRequired,
   disableDown: PropTypes__default["default"].bool.isRequired,
   name: PropTypes__default["default"].string.isRequired,
+<<<<<<< HEAD
 <<<<<<< HEAD
   handleCardUp: PropTypes__default["default"].func.isRequired,
   handleCardDown: PropTypes__default["default"].func.isRequired,
@@ -4087,12 +4477,15 @@ exports.DeleteButton = DeleteButton;
 exports.AppIdKeyForm = AppIdKeyForm;
 >>>>>>> 8db187e (form and documentation)
 =======
+=======
+>>>>>>> 72d0b85 (merge)
   handleUp: PropTypes__default["default"].func.isRequired,
   handleDown: PropTypes__default["default"].func.isRequired
 };
 
 exports.AppIdKeyForm = AppIdKeyForm;
 exports.DeleteButton = DeleteButton;
+<<<<<<< HEAD
 >>>>>>> b5b1ac6 (fixed build)
 exports.DeleteModal = DeleteModal;
 exports.DynamicRender = DynamicRender;
@@ -4127,6 +4520,22 @@ exports.IcseNameInput = IcseNameInput;
 exports.IcseNumberSelect = IcseNumberSelect;
 exports.IcseSelect = IcseSelect;
 >>>>>>> 67351ff (Dropdowns components)
+=======
+exports.DeleteModal = DeleteModal;
+exports.DynamicRender = DynamicRender;
+exports.DynamicToolTipWrapper = DynamicToolTipWrapper;
+exports.EditCloseIcon = EditCloseIcon;
+exports.EmptyResourceTile = EmptyResourceTile;
+exports.EntitlementSelect = EntitlementSelect;
+exports.FetchSelect = FetchSelect;
+exports.FormModal = FormModal;
+exports.IcseFormGroup = IcseFormGroup;
+exports.IcseModal = IcseModal;
+exports.IcseMultiSelect = IcseMultiSelect;
+exports.IcseNameInput = IcseNameInput;
+exports.IcseNumberSelect = IcseNumberSelect;
+exports.IcseSelect = IcseSelect;
+>>>>>>> 72d0b85 (merge)
 exports.IcseSubForm = IcseSubForm;
 exports.IcseTextInput = IcseTextInput;
 exports.IcseToggle = IcseToggle;
@@ -4134,12 +4543,16 @@ exports.IcseToolTip = IcseToolTip;
 exports.PopoverWrapper = PopoverWrapper;
 exports.RenderForm = RenderForm;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 72d0b85 (merge)
 exports.SaveAddButton = SaveAddButton;
 exports.SaveIcon = SaveIcon;
 exports.SecurityGroupMultiSelect = SecurityGroupMultiSelect;
 exports.SshKeyMultiSelect = SshKeyMultiSelect;
 exports.SubnetMultiSelect = SubnetMultiSelect;
+<<<<<<< HEAD
 >>>>>>> 04bfb65 (added button examples)
 exports.TitleGroup = TitleGroup;
 exports.UnderConstruction = UnderConstruction;
@@ -4164,3 +4577,13 @@ exports.VpcListMultiSelect = VpcListMultiSelect;
 exports.buildFormDefaultInputMethods = buildFormDefaultInputMethods;
 exports.buildFormFunctions = buildFormFunctions;
 >>>>>>> 8655315 (changes (exports, readme, example))
+=======
+exports.TitleGroup = TitleGroup;
+exports.ToolTipWrapper = ToolTipWrapper;
+exports.UnderConstruction = UnderConstruction;
+exports.UnsavedChangesModal = UnsavedChangesModal;
+exports.UpDownButtons = UpDownButtons;
+exports.VpcListMultiSelect = VpcListMultiSelect;
+exports.buildFormDefaultInputMethods = buildFormDefaultInputMethods;
+exports.buildFormFunctions = buildFormFunctions;
+>>>>>>> 72d0b85 (merge)
