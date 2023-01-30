@@ -7,14 +7,14 @@ function validName(str) {
   else return false;
 }
 
-function invalidCallback(componentProps, stateData) {
+function invalidCallback(stateData, componentProps) {
   return (
     !validName(stateData.key_name) ||
     contains(componentProps.data.keys, stateData.key_name)
   );
 }
 
-function invalidTextCallback(componentProps, stateData) {
+function invalidTextCallback(stateData, componentProps) {
   return contains(componentProps.data.keys, stateData.key_name)
     ? `Key name ${stateData.key_name} already in use.`
     : `Invalid Key Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;

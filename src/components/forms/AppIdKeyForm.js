@@ -33,8 +33,8 @@ class AppIdKeyForm extends React.Component {
           labelText="App ID Key"
           componentName="appid"
           className="fieldWidthSmaller"
-          invalid={this.props.invalidCallback(this.props, this.state)}
-          invalidText={this.props.invalidTextCallback(this.props, this.state)}
+          invalid={this.props.invalidCallback(this.state, this.props)}
+          invalidText={this.props.invalidTextCallback(this.state, this.props)}
         />
       </>
     );
