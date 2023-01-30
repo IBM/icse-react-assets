@@ -98,6 +98,7 @@ IcseSelect.propTypes = {
     content: PropTypes.string.isRequired,
     link: PropTypes.string,
     alignModal: PropTypes.string,
+    align: PropTypes.string
   }),
 };
 

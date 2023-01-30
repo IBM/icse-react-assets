@@ -2591,6 +2591,7 @@ IcseSelect.propTypes = {
   tooltip: PropTypes__default["default"].shape({
     content: PropTypes__default["default"].string.isRequired,
     link: PropTypes__default["default"].string,
+<<<<<<< HEAD
     alignModal: PropTypes__default["default"].string
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -2646,6 +2647,10 @@ class FetchSelect extends React__default["default"].Component {
   }
 }
 =======
+=======
+    alignModal: PropTypes__default["default"].string,
+    align: PropTypes__default["default"].string
+>>>>>>> f15fc78 (tooltip align prop)
   })
 };
 var FetchSelect = /*#__PURE__*/function (_React$Component) {
