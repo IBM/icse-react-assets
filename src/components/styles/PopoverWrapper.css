@@ -2,5 +2,6 @@
   padding: 5px;
   position: relative;
   font-size: 80%;
-  z-index: 9001 !important;
+  z-index: 9001;
+  top: 10px;
 }

@@ -7,7 +7,6 @@
 .popover-box {
   padding: 5px;
   position: relative;
-  top: 20px;
   z-index: 9001; /* navbar is 9000 */
   font-size: 80%;
 }
