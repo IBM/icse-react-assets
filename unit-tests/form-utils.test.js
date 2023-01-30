@@ -1,5 +1,5 @@
 const { assert } = require("chai");
-const { toggleMarginBottom, addClassName } = require("../src/lib/form-utils");
+const { toggleMarginBottom, addClassName, checkNullorEmptyString, prependEmptyStringWhenNull} = require("../src/lib/form-utils");
 
 describe("form-utils", () => {
   describe("addClassName", () => {
@@ -37,6 +37,33 @@ describe("form-utils", () => {
         toggleMarginBottom(false),
         " marginBottomSmall",
         "it should return className"
+      );
+    });
+  });
+  describe("checkNullorEmptyString", () => {
+    it("should return true if string input is empty", () => {
+      assert.isTrue(checkNullorEmptyString(""), "it should be true");
+    });
+    it("should return true if input is null", () => {
+      assert.isTrue(checkNullorEmptyString(null), "it should be true");
+    });
+    it("should return false otherwise", () => {
+      assert.isFalse(checkNullorEmptyString("test"), "it should be false");
+    });
+  });
+  describe("prependEmptyStringWhenNull", () => {
+    it("should return array with empty string prepended if value is null", () => {
+      assert.deepEqual(
+        prependEmptyStringWhenNull(null, ["hi"]),
+        ["", "hi"],
+        "it should prepend empty string"
+      );
+    });
+    it("should return array if value is not null", () => {
+      assert.deepEqual(
+        prependEmptyStringWhenNull("hm", ["hi"]),
+        ["hi"],
+        "it should not prepend empty string"
       );
     });
   });
