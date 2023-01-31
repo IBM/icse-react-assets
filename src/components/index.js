@@ -17,12 +17,6 @@ export {
   IcseSelect,
 } from "./Dropdowns";
 export { default as EmptyResourceTile } from "./EmptyResourceTile";
-<<<<<<< HEAD
-=======
-export { default as AppIdKeyForm } from "./forms/AppIdKeyForm";
-export { default as EncryptionKeyForm } from "./forms/EncryptionKeyForm";
-export { IcseNameInput, IcseTextInput, IcseToggle } from "./Inputs";
->>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
 export { default as FormModal } from "./FormModal";
 export { default as AppIdForm } from "./forms/AppIdForm";
 export { default as AppIdKeyForm } from "./forms/AppIdKeyForm";

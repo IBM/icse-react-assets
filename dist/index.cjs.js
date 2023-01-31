@@ -56,22 +56,20 @@ var PropTypes__default = /*#__PURE__*/_interopDefaultLegacy(PropTypes);
 =======
 var lazyZ__default = /*#__PURE__*/_interopDefaultLegacy(lazyZ);
 
-const {
-  isFunction
-} = require("lazy-z");
-const {
-  eventTargetToNameAndValue: eventTargetToNameAndValue$2,
-  toggleStateBoolean: toggleStateBoolean$2,
-  setNameToValue: setNameToValue$2
-} = require("../src/lib/method-functions");
+var _require = require("lazy-z"),
+  isFunction = _require.isFunction;
+var _require2 = require("../src/lib/method-functions"),
+  eventTargetToNameAndValue$2 = _require2.eventTargetToNameAndValue,
+  toggleStateBoolean$2 = _require2.toggleStateBoolean,
+  setNameToValue$2 = _require2.setNameToValue;
 
 /**
  * build functions for modal forms
  * @param {React.Element} component stateful component
  */
 function buildFormFunctions(component) {
-  let disableSubmit = isFunction(component.props.shouldDisableSubmit);
-  let disableSave = isFunction(component.props.shouldDisableSave);
+  var disableSubmit = isFunction(component.props.shouldDisableSubmit);
+  var disableSave = isFunction(component.props.shouldDisableSave);
   if (component.props.shouldDisableSave) component.shouldDisableSave = component.props.shouldDisableSave.bind(component);
   if (disableSubmit) component.shouldDisableSubmit = component.props.shouldDisableSubmit.bind(component);
 
@@ -132,8 +130,8 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$8 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
-styleInject(css_248z$8);
+var css_248z$9 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z$9);
 
 /**
  * Empty Resource Tile
@@ -476,6 +474,7 @@ var lib_7 = lib.eventTargetToNameAndValue;
 var lib_8 = lib.toggleStateBoolean;
 var lib_9 = lib.setNameToValue;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1565,6 +1564,13 @@ styleInject(css_248z$7);
 
 var css_248z$6 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  z-index: 9001;\n  top: 10px;\n}";
 styleInject(css_248z$6);
+=======
+var css_248z$8 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
+styleInject(css_248z$8);
+
+var css_248z$7 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  z-index: 9001;\n  top: 10px;\n}";
+styleInject(css_248z$7);
+>>>>>>> b982705 (feat: StatefulTabPanel)
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -1638,8 +1644,8 @@ PopoverWrapper.propTypes = {
   children: PropTypes__default["default"].node.isRequired
 };
 
-var css_248z$5 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  z-index: 9001; /* navbar is 9000 */\n  font-size: 80%;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
-styleInject(css_248z$5);
+var css_248z$6 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  z-index: 9001; /* navbar is 9000 */\n  font-size: 80%;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
+styleInject(css_248z$6);
 
 /**
  * generate save icon
@@ -1647,7 +1653,7 @@ styleInject(css_248z$5);
  * @param {boolean} props.saveIsDisabled true if disabled
  * @returns Save Icon
  */
-const SaveIcon = props => {
+var SaveIcon = function SaveIcon(props) {
   return /*#__PURE__*/React__default["default"].createElement(iconsReact.Save, {
     className: props.disabled ? "" : "tertiaryButtonColors"
   });
@@ -1663,7 +1669,7 @@ const SaveIcon = props => {
  * @param {boolean} props.disabled
  * @returns Save add button
  */
-const SaveAddButton = props => {
+var SaveAddButton = function SaveAddButton(props) {
   return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
     hoverText: props.type === "add" && props.hoverText === "Save Changes" ? "Add Resource" : props.hoverText,
     className: (props.disabled ? "inlineBlock cursorNotAllowed" : "") + (props.inline ? " alignItemsCenter marginTopLarge inLineFormButton" : ""),
@@ -1704,9 +1710,9 @@ SaveAddButton.propTypes = {
  * @param {boolean} props.open toggle is open, defaults to false
  * @returns edit close icon
  */
-const EditCloseIcon = props => {
-  let hoverText = props.hoverText ? props.hoverText : props.open ? "Close" : props.type === "add" ? "Configure Resource" : "Edit Resource";
-  let icon = props.open ? /*#__PURE__*/React__default["default"].createElement(iconsReact.CloseFilled, null) : props.type === "add" ? /*#__PURE__*/React__default["default"].createElement(iconsReact.Add, null) : /*#__PURE__*/React__default["default"].createElement(iconsReact.Edit, null);
+var EditCloseIcon = function EditCloseIcon(props) {
+  var hoverText = props.hoverText ? props.hoverText : props.open ? "Close" : props.type === "add" ? "Configure Resource" : "Edit Resource";
+  var icon = props.open ? /*#__PURE__*/React__default["default"].createElement(iconsReact.CloseFilled, null) : props.type === "add" ? /*#__PURE__*/React__default["default"].createElement(iconsReact.Add, null) : /*#__PURE__*/React__default["default"].createElement(iconsReact.Edit, null);
   return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
     hoverText: hoverText
   }, /*#__PURE__*/React__default["default"].createElement("i", {
@@ -1734,7 +1740,7 @@ EditCloseIcon.defaultProps = {
  * @param {string} props.name classname
  *
  */
-const DeleteButton = props => {
+var DeleteButton = function DeleteButton(props) {
   return /*#__PURE__*/React__default["default"].createElement("div", {
     className: "delete-area"
   }, /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
@@ -1769,7 +1775,7 @@ DeleteButton.propTypes = {
  * @param {Function} props.handleDown
  *
  */
-const UpDownButtons = props => {
+var UpDownButtons = function UpDownButtons(props) {
   return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(react.Button, {
     key: "rule-up-" + props.name,
     disabled: props.disableUp,
@@ -1811,9 +1817,7 @@ UpDownButtons.propTypes = {
  * @returns Form element
  */
 function RenderForm(form, formProps) {
-  return /*#__PURE__*/React__default["default"].createElement(form, {
-    ...formProps
-  });
+  return /*#__PURE__*/React__default["default"].createElement(form, _objectSpread2({}, formProps));
 }
 
 /**
@@ -1830,9 +1834,9 @@ function DynamicRender(props) {
 /**
  * wrapper for title groups
  */
-const TitleGroup = props => {
+var TitleGroup = function TitleGroup(props) {
   return /*#__PURE__*/React__default["default"].createElement("div", {
-    className: lib_2(`displayFlex alignItemsCenter widthOneHundredPercent ${lib_1(props.hide)}`, props)
+    className: lib_2("displayFlex alignItemsCenter widthOneHundredPercent ".concat(lib_1(props.hide)), props)
   }, props.children);
 };
 TitleGroup.defaultProps = {
@@ -1841,8 +1845,8 @@ TitleGroup.defaultProps = {
 TitleGroup.propTypes = {
   children: PropTypes__default["default"].node.isRequired
 };
-const IcseFormGroup = props => {
-  let formGroupClassName = "displayFlex marginBottom fitContent evenSpacing";
+var IcseFormGroup = function IcseFormGroup(props) {
+  var formGroupClassName = "displayFlex marginBottom fitContent evenSpacing";
   // remove margin bottom from formGroup for VPC
   if (props.noMarginBottom) {
     formGroupClassName = formGroupClassName.replace(/\smarginBottom/g, "");
@@ -1859,7 +1863,7 @@ IcseFormGroup.propTypes = {
   children: PropTypes__default["default"].node.isRequired,
   className: PropTypes__default["default"].string
 };
-const IcseSubForm = props => {
+var IcseSubForm = function IcseSubForm(props) {
   return /*#__PURE__*/React__default["default"].createElement("div", {
     className: lib_2(props.formInSubForm ? "formInSubForm positionRelative" : "subForm marginBottomSmall", props),
     id: props.id
@@ -1874,13 +1878,13 @@ IcseSubForm.propTypes = {
   className: PropTypes__default["default"].string,
   children: PropTypes__default["default"].node.isRequired
 };
-const IcseHeading = props => {
-  let titleFormDivClass = props.toggleFormTitle ? "" : props.name === "" ? "" : " icseFormTitleMinHeight";
+var IcseHeading = function IcseHeading(props) {
+  var titleFormDivClass = props.toggleFormTitle ? "" : props.name === "" ? "" : " icseFormTitleMinHeight";
   return /*#__PURE__*/React__default["default"].createElement("div", {
     className: lib_2("displayFlex spaceBetween widthOneHundredPercent alignItemsCenter", props) + titleFormDivClass
   }, /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, {
     tooltip: props.tooltip,
-    innerForm: () => {
+    innerForm: function innerForm() {
       return props.type === "subHeading" ? /*#__PURE__*/React__default["default"].createElement("h5", null, props.name) : props.type === "p" ? /*#__PURE__*/React__default["default"].createElement("p", null, props.name) : /*#__PURE__*/React__default["default"].createElement("h4", null, props.name);
     }
   }), /*#__PURE__*/React__default["default"].createElement("div", {
@@ -1906,7 +1910,7 @@ IcseHeading.propTypes = {
 /**
  * All of the toggle form functionality without injecting anything on render
  */
-const StatelessToggleForm = props => {
+var StatelessToggleForm = function StatelessToggleForm(props) {
   return props.hideTitle ? props.children : /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(TitleGroup, {
     hide: props.hide,
     props: props,
@@ -1944,8 +1948,8 @@ StatelessToggleForm.propTypes = {
   alwaysShowButtons: PropTypes__default["default"].bool
 };
 
-var css_248z$4 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
-styleInject(css_248z$4);
+var css_248z$5 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+styleInject(css_248z$5);
 
 /**
  * render a tooltip around an input field
@@ -2063,13 +2067,13 @@ DynamicToolTipWrapper.propTypes = {
   innerForm: PropTypes__default["default"].oneOfType([PropTypes__default["default"].object, PropTypes__default["default"].func])
 };
 
-var css_248z$3 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
-styleInject(css_248z$3);
+var css_248z$4 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
+styleInject(css_248z$4);
 
-const IcseToggle = props => {
-  let toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
+var IcseToggle = function IcseToggle(props) {
+  var toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
   return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, _extends({
-    innerForm: () => {
+    innerForm: function innerForm() {
       return /*#__PURE__*/React__default["default"].createElement(react.Toggle, {
         labelA: props.useOnOff ? "Off" : "False",
         labelB: props.useOnOff ? "On" : "True",
@@ -2079,7 +2083,7 @@ const IcseToggle = props => {
         className: lib_2("leftTextAlign fieldWidth", props) + (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
         ,
 
-        onToggle: event => {
+        onToggle: function onToggle(event) {
           props.onToggle(toggleName, event);
         },
         defaultToggled: props.defaultToggled,
@@ -2126,8 +2130,8 @@ IcseToggle.propTypes = {
  * @param {string=} props.labelText override label text
  * @returns <IcseTextInput/> component
  */
-const IcseTextInput = props => {
-  let fieldName = lazyZ.titleCase(props.field);
+var IcseTextInput = function IcseTextInput(props) {
+  var fieldName = lazyZ.titleCase(props.field);
   return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React__default["default"].createElement(react.TextInput, {
     id: props.id,
     className: lib_2("fieldWidth leftTextAlign", props),
@@ -2142,7 +2146,7 @@ const IcseTextInput = props => {
     invalid: lazyZ.isBoolean(props.invalid) ? props.invalid : props.invalidCallback(),
     onChange: props.onChange,
     helperText: props.helperText,
-    invalidText: props.invalidText ? props.invalidText : `Invalid ${props.field} value.`,
+    invalidText: props.invalidText ? props.invalidText : "Invalid ".concat(props.field, " value."),
     maxLength: props.maxLength,
     disabled: props.disabled,
     readOnly: props.readOnly
@@ -2190,8 +2194,8 @@ IcseTextInput.propTypes = {
  * @param {func} props.invalidCallback
  * @returns <IcseNameInput />
  */
-const IcseNameInput = props => {
-  let helperText = "";
+var IcseNameInput = function IcseNameInput(props) {
+  var helperText = "";
   // if helper text is not hidden
   if (!props.hideHelperText && !props.useData) {
     helperText = props.helperTextCallback();
@@ -2226,15 +2230,20 @@ IcseNameInput.propTypes = {
   invalidCallback: PropTypes__default["default"].func
 };
 
-var css_248z$2 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
-styleInject(css_248z$2);
+var css_248z$3 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
+styleInject(css_248z$3);
 
-class AppIdKeyForm extends React__default["default"].Component {
-  constructor(props) {
-    super(props);
-    this.state = this.props.data;
-    this.handleInputChange = this.handleInputChange.bind(this);
-    buildFormFunctions(this);
+var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(AppIdKeyForm, _React$Component);
+  var _super = _createSuper(AppIdKeyForm);
+  function AppIdKeyForm(props) {
+    var _this;
+    _classCallCheck(this, AppIdKeyForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    return _this;
   }
 
   /**
@@ -2242,25 +2251,31 @@ class AppIdKeyForm extends React__default["default"].Component {
    * @param {string} name key to change in state
    * @param {*} value value to update
    */
-  handleInputChange(event) {
-    this.setState({
-      key_name: event.target.value
-    });
-  }
-  render() {
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: "app-id-key-name",
-      value: this.state.key_name,
-      onChange: this.handleInputChange,
-      field: "appid_key",
-      labelText: "App ID Key",
-      componentName: "appid",
-      className: "fieldWidthSmaller",
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props)
-    }));
-  }
-}
+  _createClass(AppIdKeyForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState({
+        key_name: event.target.value
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+        id: "app-id-key-name",
+        value: this.state.key_name,
+        onChange: this.handleInputChange,
+        field: "appid_key",
+        labelText: "App ID Key",
+        componentName: "appid",
+        className: "fieldWidthSmaller",
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props)
+      }));
+    }
+  }]);
+  return AppIdKeyForm;
+}(React__default["default"].Component);
 AppIdKeyForm.defaultProps = {
   data: {
     key_name: ""
@@ -2645,16 +2660,21 @@ EntitlementSelect.propTypes = {
 /**
  * kms keys
  */
-class EncryptionKeyForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = this.props.data;
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
-    this.handleTextInput = this.handleTextInput.bind(this);
-    this.toggleShow = this.toggleShow.bind(this);
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
+var EncryptionKeyForm = /*#__PURE__*/function (_Component) {
+  _inherits(EncryptionKeyForm, _Component);
+  var _super = _createSuper(EncryptionKeyForm);
+  function EncryptionKeyForm(props) {
+    var _this;
+    _classCallCheck(this, EncryptionKeyForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    _this.handleTextInput = _this.handleTextInput.bind(_assertThisInitialized(_this));
+    _this.toggleShow = _this.toggleShow.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    return _this;
   }
 
   /**
@@ -2662,90 +2682,100 @@ class EncryptionKeyForm extends React.Component {
    * @param {string} name key to change in state
    * @param {*} value value to update
    */
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
+  _createClass(EncryptionKeyForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
 
-  /**
-   * Toggle on and off param in state at name
-   * @param {string} name name of the object key to change
-   */
-  handleToggle(name) {
-    this.setState({
-      [name]: !this.state[name]
-    });
-  }
+    /**
+     * Toggle on and off param in state at name
+     * @param {string} name name of the object key to change
+     */
+  }, {
+    key: "handleToggle",
+    value: function handleToggle(name) {
+      this.setState(_defineProperty({}, name, !this.state[name]));
+    }
 
-  /**
-   * Handle input change for a text field
-   * @param {event} event
-   */
-  handleTextInput(event) {
-    this.setState({
-      name: event.target.value
-    });
-  }
+    /**
+     * Handle input change for a text field
+     * @param {event} event
+     */
+  }, {
+    key: "handleTextInput",
+    value: function handleTextInput(event) {
+      this.setState({
+        name: event.target.value
+      });
+    }
 
-  // Handle toggle for showing/hiding details of keys
-  toggleShow() {
-    this.setState({
-      show: !this.state.show
-    });
-  }
-  render() {
-    let composedId = `encryption-key-${this.props.data.name}-`;
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: this.state.name + "-name",
-      component: "kms_key",
-      componentName: this.props.data.name,
-      value: this.state.name,
-      onChange: this.handleTextInput,
-      componentProps: this.props,
-      placeholder: "my-encryption-key-name",
-      hideHelperText: true,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props)
-    }), /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
-      tooltip: {
-        content: "Setting a rotation policy shortens the lifetime of the key at regular intervals. When it's time to rotate the key based on the rotation interval that you specify, the root key will be automatically replaced with new key material.",
-        align: "bottom-left"
-      },
-      component: this.props.data.name,
-      max: 12,
-      value: this.state.interval_month,
-      formName: "interval_month",
-      name: "interval_month",
-      labelText: "Rotation Interval (Months)",
-      handleInputChange: this.handleInputChange,
-      isModal: this.props.isModal
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
-      noMarginBottom: true
-    }, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      tooltip: {
-        content: "Root keys are symmetric key-wrapping keys used as roots of trust for encrypting/decrypting other keys. Can be either imported or generated by IBM Key Protect.",
-        link: "https://cloud.ibm.com/docs/key-protect?topic=key-protect-envelope-encryption",
-        align: "bottom-left"
-      },
-      id: composedId + "kms-key-root",
-      labelText: "Set as a Root Key",
-      toggleFieldName: "root_key",
-      onToggle: this.handleToggle,
-      defaultToggled: this.state.root_key,
-      isModal: this.props.isModal
-    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      tooltip: {
-        content: "Force deletion of a key refers to the deletion of any key that's actively protecting any registered cloud resources. KMS keys can be force-deleted by managers of the instance. However, the force-delete won't succeed if the key's associated resource is non-erasable due to a retention policy.",
-        align: "bottom-left"
-      },
-      id: composedId + "kms-key-force-delete",
-      labelText: "Force Deletion of KMS Key",
-      toggleFieldName: "force_delete",
-      defaultToggled: this.state.force_delete,
-      onToggle: this.handleToggle,
-      isModal: this.props.isModal
-    })));
-  }
-}
+    // Handle toggle for showing/hiding details of keys
+  }, {
+    key: "toggleShow",
+    value: function toggleShow() {
+      this.setState({
+        show: !this.state.show
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var composedId = "encryption-key-".concat(this.props.data.name, "-");
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+        id: this.state.name + "-name",
+        component: "kms_key",
+        componentName: this.props.data.name,
+        value: this.state.name,
+        onChange: this.handleTextInput,
+        componentProps: this.props,
+        placeholder: "my-encryption-key-name",
+        hideHelperText: true,
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props)
+      }), /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
+        tooltip: {
+          content: "Setting a rotation policy shortens the lifetime of the key at regular intervals. When it's time to rotate the key based on the rotation interval that you specify, the root key will be automatically replaced with new key material.",
+          align: "bottom-left"
+        },
+        component: this.props.data.name,
+        max: 12,
+        value: this.state.interval_month,
+        formName: "interval_month",
+        name: "interval_month",
+        labelText: "Rotation Interval (Months)",
+        handleInputChange: this.handleInputChange,
+        isModal: this.props.isModal
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+        noMarginBottom: true
+      }, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        tooltip: {
+          content: "Root keys are symmetric key-wrapping keys used as roots of trust for encrypting/decrypting other keys. Can be either imported or generated by IBM Key Protect.",
+          link: "https://cloud.ibm.com/docs/key-protect?topic=key-protect-envelope-encryption",
+          align: "bottom-left"
+        },
+        id: composedId + "kms-key-root",
+        labelText: "Set as a Root Key",
+        toggleFieldName: "root_key",
+        onToggle: this.handleToggle,
+        defaultToggled: this.state.root_key,
+        isModal: this.props.isModal
+      }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        tooltip: {
+          content: "Force deletion of a key refers to the deletion of any key that's actively protecting any registered cloud resources. KMS keys can be force-deleted by managers of the instance. However, the force-delete won't succeed if the key's associated resource is non-erasable due to a retention policy.",
+          align: "bottom-left"
+        },
+        id: composedId + "kms-key-force-delete",
+        labelText: "Force Deletion of KMS Key",
+        toggleFieldName: "force_delete",
+        defaultToggled: this.state.force_delete,
+        onToggle: this.handleToggle,
+        isModal: this.props.isModal
+      })));
+    }
+  }]);
+  return EncryptionKeyForm;
+}(React.Component);
 EncryptionKeyForm.defaultProps = {
   data: {
     name: "",
@@ -2866,8 +2896,8 @@ FormModal.propTypes = {
   children: PropTypes__default["default"].node.isRequired
 };
 
-var css_248z$1 = ".leftTextAlign {\n  text-align: left;\n}\n";
-styleInject(css_248z$1);
+var css_248z$2 = ".leftTextAlign {\n  text-align: left;\n}\n";
+styleInject(css_248z$2);
 
 /**
  * Icse Modal Wrapper
@@ -2990,8 +3020,8 @@ UnsavedChangesModal.propTypes = {
   useDefaultUnsavedMessage: PropTypes__default["default"].bool
 };
 
-var css_248z = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
-styleInject(css_248z);
+var css_248z$1 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+styleInject(css_248z$1);
 
 /**
  * Icse multiselect template
@@ -4077,6 +4107,7 @@ var UnderConstruction = function UnderConstruction() {
   }), /*#__PURE__*/React__default["default"].createElement("h4", null, "Page Under Construction"));
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 var css_248z = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
@@ -5746,6 +5777,84 @@ exports.AppIdKeyForm = AppIdKeyForm;
 
 =======
 >>>>>>> b345987 (fixes & heading/statelesstoggle form added)
+=======
+var css_248z = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }";
+styleInject(css_248z);
+
+/**
+ * StatefulTabPanel wrapper for non array forms
+ * @param {*} props props
+ * @param {*} props.form form to put in the create tab
+ * @param {*} props.about docs to put in the about tab
+ */
+class StatefulTabPanel extends React__default["default"].Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tabIndex: 0
+    };
+    this.setSelectedIndex = this.setSelectedIndex.bind(this);
+  }
+  setSelectedIndex(event) {
+    // if the index is being set to a new tab
+    if (this.props.toggleShowChildren && event.selectedIndex !== this.state.tabIndex) this.props.toggleShowChildren();
+    this.setState({
+      tabIndex: event.selectedIndex
+    });
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, this.props.name && !this.props.hasBuiltInHeading && /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+      name: this.props.name,
+      type: this.props.subHeading ? "subHeading" : "heading",
+      className: this.props.className,
+      tooltip: this.props.tooltip,
+      buttons: /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+        hide: this.props.hideFormTitleButton || this.state.tabIndex !== 0 || !lazyZ.isFunction(this.props.onClick) || this.props.hasBuiltInHeading,
+        show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+          type: "add",
+          noDeleteButton: true,
+          onClick: this.props.onClick,
+          disabled: this.props.shouldDisableSave ? this.props.shouldDisableSave() : false
+        })
+      })
+    }), this.props.hideAbout && !this.props.about ? this.props.form : /*#__PURE__*/React__default["default"].createElement(react.Tabs, {
+      onChange: this.setSelectedIndex
+    }, /*#__PURE__*/React__default["default"].createElement(react.TabList, {
+      "aria-label": "formTabs"
+    }, /*#__PURE__*/React__default["default"].createElement(react.Tab, null, "Create"), /*#__PURE__*/React__default["default"].createElement(react.Tab, null, "About")), /*#__PURE__*/React__default["default"].createElement(react.TabPanels, null, /*#__PURE__*/React__default["default"].createElement(react.TabPanel, {
+      className: "doc"
+    }, this.props.form), /*#__PURE__*/React__default["default"].createElement(react.TabPanel, {
+      className: "doc"
+    }, this.props.about ? this.props.about : /*#__PURE__*/React__default["default"].createElement(UnderConstruction, null)))));
+  }
+}
+StatefulTabPanel.defaultProps = {
+  subHeading: false,
+  hideFormTitleButton: false,
+  hideAbout: false,
+  hasBuiltInHeading: false
+};
+StatefulTabPanel.propTypes = {
+  name: PropTypes__default["default"].string,
+  // can be null
+  subHeading: PropTypes__default["default"].bool.isRequired,
+  className: PropTypes__default["default"].string,
+  // can be null
+  tooltip: PropTypes__default["default"].object,
+  // only if using tooltip
+  hideFormTitleButton: PropTypes__default["default"].bool.isRequired,
+  onClick: PropTypes__default["default"].func,
+  // can be null
+  shouldDisableSave: PropTypes__default["default"].func,
+  // can be null
+  about: PropTypes__default["default"].node,
+  // can be null
+  form: PropTypes__default["default"].node.isRequired,
+  hideAbout: PropTypes__default["default"].bool.isRequired,
+  hasBuiltInHeading: PropTypes__default["default"].bool.isRequired
+};
+
+>>>>>>> b982705 (feat: StatefulTabPanel)
 exports.AppIdKeyForm = AppIdKeyForm;
 exports.DeleteButton = DeleteButton;
 <<<<<<< HEAD
@@ -5817,6 +5926,7 @@ exports.SaveIcon = SaveIcon;
 exports.SccForm = SccForm;
 exports.SecurityGroupMultiSelect = SecurityGroupMultiSelect;
 exports.SshKeyMultiSelect = SshKeyMultiSelect;
+exports.StatefulTabPanel = StatefulTabPanel;
 exports.StatelessToggleForm = StatelessToggleForm;
 exports.SubnetMultiSelect = SubnetMultiSelect;
 <<<<<<< HEAD
