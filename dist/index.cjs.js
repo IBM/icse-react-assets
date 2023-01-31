@@ -52,6 +52,270 @@ function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'defau
 var lazyZ__default = /*#__PURE__*/_interopDefaultLegacy(lazyZ);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 var PropTypes__default = /*#__PURE__*/_interopDefaultLegacy(PropTypes);
+<<<<<<< HEAD
+=======
+var lazyZ__default = /*#__PURE__*/_interopDefaultLegacy(lazyZ);
+
+const {
+  isFunction
+} = require("lazy-z");
+const {
+  eventTargetToNameAndValue: eventTargetToNameAndValue$2,
+  toggleStateBoolean: toggleStateBoolean$2,
+  setNameToValue: setNameToValue$2
+} = require("../src/lib/method-functions");
+
+/**
+ * build functions for modal forms
+ * @param {React.Element} component stateful component
+ */
+function buildFormFunctions(component) {
+  let disableSubmit = isFunction(component.props.shouldDisableSubmit);
+  let disableSave = isFunction(component.props.shouldDisableSave);
+  if (component.props.shouldDisableSave) component.shouldDisableSave = component.props.shouldDisableSave.bind(component);
+  if (disableSubmit) component.shouldDisableSubmit = component.props.shouldDisableSubmit.bind(component);
+
+  // set update
+  component.componentDidMount = function () {
+    if (disableSubmit) component.shouldDisableSubmit();
+    if (disableSave) component.shouldDisableSave(this.state, this.props);
+  }.bind(component);
+  component.componentDidUpdate = function () {
+    if (disableSubmit) component.shouldDisableSubmit();
+    if (disableSave) component.shouldDisableSave(this.state, this.props);
+  }.bind(component);
+
+  // set on save function
+  component.onSave = function () {
+    component.props.onSave(this.state, this.props);
+  }.bind(component);
+  // save on delete
+  component.onDelete = function () {
+    component.props.onDelete(this.state, this.props);
+  }.bind(component);
+}
+
+/**
+ * add default methods to component
+ * @param {*} component React Component
+ */
+function buildFormDefaultInputMethods(component) {
+  component.eventTargetToNameAndValue = eventTargetToNameAndValue$2.bind(component);
+  component.toggleStateBoolean = toggleStateBoolean$2.bind(component);
+  component.setNameToValue = setNameToValue$2.bind(component);
+}
+
+function styleInject(css, ref) {
+  if ( ref === void 0 ) ref = {};
+  var insertAt = ref.insertAt;
+
+  if (!css || typeof document === 'undefined') { return; }
+
+  var head = document.head || document.getElementsByTagName('head')[0];
+  var style = document.createElement('style');
+  style.type = 'text/css';
+
+  if (insertAt === 'top') {
+    if (head.firstChild) {
+      head.insertBefore(style, head.firstChild);
+    } else {
+      head.appendChild(style);
+    }
+  } else {
+    head.appendChild(style);
+  }
+
+  if (style.styleSheet) {
+    style.styleSheet.cssText = css;
+  } else {
+    style.appendChild(document.createTextNode(css));
+  }
+}
+
+var css_248z$8 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z$8);
+
+/**
+ * Empty Resource Tile
+ * @param {*} props
+ * @param {string} props.name resource name
+ * @param {(boolean|*[])} props.showIfEmpty if array is empty or boolean is false, show the empty resource tile
+ * @returns tile if shown, empty string otherwise
+ */
+
+var EmptyResourceTile = function EmptyResourceTile(props) {
+  return props.showIfEmpty === false || props.showIfEmpty.length === 0 ? /*#__PURE__*/React__default["default"].createElement(react.Tile, {
+    className: "marginBottomXs tileBackground"
+  }, /*#__PURE__*/React__default["default"].createElement(iconsReact.CloudAlerting, {
+    size: "24",
+    className: "iconMargin"
+  }), "No ", props.name, ".", " ", props.instructions || /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, "Click", /*#__PURE__*/React__default["default"].createElement(iconsReact.Add, {
+    size: "24",
+    className: "inlineIconMargin"
+  }), "button to add one.")) : "";
+};
+EmptyResourceTile.defaultProps = {
+  name: "items in this list"
+};
+EmptyResourceTile.propTypes = {
+  name: PropTypes__default["default"].string.isRequired,
+  showIfEmpty: PropTypes__default["default"].oneOfType([PropTypes__default["default"].array, PropTypes__default["default"].bool]).isRequired
+};
+
+function ownKeys(object, enumerableOnly) {
+  var keys = Object.keys(object);
+  if (Object.getOwnPropertySymbols) {
+    var symbols = Object.getOwnPropertySymbols(object);
+    enumerableOnly && (symbols = symbols.filter(function (sym) {
+      return Object.getOwnPropertyDescriptor(object, sym).enumerable;
+    })), keys.push.apply(keys, symbols);
+  }
+  return keys;
+}
+function _objectSpread2(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = null != arguments[i] ? arguments[i] : {};
+    i % 2 ? ownKeys(Object(source), !0).forEach(function (key) {
+      _defineProperty(target, key, source[key]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) {
+      Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));
+    });
+  }
+  return target;
+}
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+}
+function _defineProperties(target, props) {
+  for (var i = 0; i < props.length; i++) {
+    var descriptor = props[i];
+    descriptor.enumerable = descriptor.enumerable || false;
+    descriptor.configurable = true;
+    if ("value" in descriptor) descriptor.writable = true;
+    Object.defineProperty(target, _toPropertyKey(descriptor.key), descriptor);
+  }
+}
+function _createClass(Constructor, protoProps, staticProps) {
+  if (protoProps) _defineProperties(Constructor.prototype, protoProps);
+  if (staticProps) _defineProperties(Constructor, staticProps);
+  Object.defineProperty(Constructor, "prototype", {
+    writable: false
+  });
+  return Constructor;
+}
+function _defineProperty(obj, key, value) {
+  key = _toPropertyKey(key);
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+function _extends() {
+  _extends = Object.assign ? Object.assign.bind() : function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+    return target;
+  };
+  return _extends.apply(this, arguments);
+}
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function");
+  }
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      writable: true,
+      configurable: true
+    }
+  });
+  Object.defineProperty(subClass, "prototype", {
+    writable: false
+  });
+  if (superClass) _setPrototypeOf(subClass, superClass);
+}
+function _getPrototypeOf(o) {
+  _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function _getPrototypeOf(o) {
+    return o.__proto__ || Object.getPrototypeOf(o);
+  };
+  return _getPrototypeOf(o);
+}
+function _setPrototypeOf(o, p) {
+  _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function _setPrototypeOf(o, p) {
+    o.__proto__ = p;
+    return o;
+  };
+  return _setPrototypeOf(o, p);
+}
+function _isNativeReflectConstruct() {
+  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+  if (Reflect.construct.sham) return false;
+  if (typeof Proxy === "function") return true;
+  try {
+    Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+function _assertThisInitialized(self) {
+  if (self === void 0) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+  return self;
+}
+function _possibleConstructorReturn(self, call) {
+  if (call && (typeof call === "object" || typeof call === "function")) {
+    return call;
+  } else if (call !== void 0) {
+    throw new TypeError("Derived constructors may only return object or undefined");
+  }
+  return _assertThisInitialized(self);
+}
+function _createSuper(Derived) {
+  var hasNativeReflectConstruct = _isNativeReflectConstruct();
+  return function _createSuperInternal() {
+    var Super = _getPrototypeOf(Derived),
+      result;
+    if (hasNativeReflectConstruct) {
+      var NewTarget = _getPrototypeOf(this).constructor;
+      result = Reflect.construct(Super, arguments, NewTarget);
+    } else {
+      result = Super.apply(this, arguments);
+    }
+    return _possibleConstructorReturn(this, result);
+  };
+}
+function _toPrimitive(input, hint) {
+  if (typeof input !== "object" || input === null) return input;
+  var prim = input[Symbol.toPrimitive];
+  if (prim !== undefined) {
+    var res = prim.call(input, hint || "default");
+    if (typeof res !== "object") return res;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return (hint === "string" ? String : Number)(input);
+}
+function _toPropertyKey(arg) {
+  var key = _toPrimitive(arg, "string");
+  return typeof key === "symbol" ? key : String(key);
+}
+>>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
 
 /**
  * create a composed class name
@@ -145,6 +409,7 @@ var buttonUtils = {
  * @returns {Object} object with key of name set to value
  */
 function eventTargetToNameAndValue$1(event) {
+<<<<<<< HEAD
   let {
     name,
     value
@@ -1044,11 +1309,13 @@ var buttonUtils = {
  * @returns {Object} object with key of name set to value
  */
 function eventTargetToNameAndValue$2(event) {
+=======
+>>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
   let {
     name,
     value
   } = event.target;
-  return setNameToValue$2(name, value);
+  return setNameToValue$1(name, value);
 }
 
 /**
@@ -1057,20 +1324,20 @@ function eventTargetToNameAndValue$2(event) {
  * @param {Object} stateData component state data
  * @returns {Object} object with key of field name set to boolean opposite in state
  */
-function toggleStateBoolean$2(fieldName, stateData) {
+function toggleStateBoolean$1(fieldName, stateData) {
   return {
     [fieldName]: !stateData[fieldName]
   };
 }
-function setNameToValue$2(name, value) {
+function setNameToValue$1(name, value) {
   return {
     [name]: value
   };
 }
 var methodFunctions = {
-  eventTargetToNameAndValue: eventTargetToNameAndValue$2,
-  toggleStateBoolean: toggleStateBoolean$2,
-  setNameToValue: setNameToValue$2
+  eventTargetToNameAndValue: eventTargetToNameAndValue$1,
+  toggleStateBoolean: toggleStateBoolean$1,
+  setNameToValue: setNameToValue$1
 };
 
 <<<<<<< HEAD
@@ -1142,6 +1409,7 @@ var lib = {
   saveChangeButtonClass
 } = buttonUtils;
 const {
+<<<<<<< HEAD
 >>>>>>> b5b1ac6 (fixed build)
 =======
   saveChangeButtonClass
@@ -1151,6 +1419,11 @@ const {
   eventTargetToNameAndValue: eventTargetToNameAndValue$1,
   toggleStateBoolean: toggleStateBoolean$1,
   setNameToValue: setNameToValue$1
+=======
+  eventTargetToNameAndValue,
+  toggleStateBoolean,
+  setNameToValue
+>>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
 } = methodFunctions;
 var lib = {
   toggleMarginBottom,
@@ -1162,6 +1435,7 @@ var lib = {
 >>>>>>> 72d0b85 (merge)
   formatInputPlaceholder,
   saveChangeButtonClass,
+<<<<<<< HEAD
   eventTargetToNameAndValue: eventTargetToNameAndValue$1,
   toggleStateBoolean: toggleStateBoolean$1,
 <<<<<<< HEAD
@@ -1271,6 +1545,11 @@ styleInject(css_248z$7);
 >>>>>>> b5b1ac6 (fixed build)
 =======
   setNameToValue: setNameToValue$1
+=======
+  eventTargetToNameAndValue,
+  toggleStateBoolean,
+  setNameToValue
+>>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
 };
 var lib_1 = lib.toggleMarginBottom;
 var lib_2 = lib.addClassName;
@@ -1368,7 +1647,7 @@ styleInject(css_248z$5);
  * @param {boolean} props.saveIsDisabled true if disabled
  * @returns Save Icon
  */
-var SaveIcon = function SaveIcon(props) {
+const SaveIcon = props => {
   return /*#__PURE__*/React__default["default"].createElement(iconsReact.Save, {
     className: props.disabled ? "" : "tertiaryButtonColors"
   });
@@ -1384,7 +1663,7 @@ var SaveIcon = function SaveIcon(props) {
  * @param {boolean} props.disabled
  * @returns Save add button
  */
-var SaveAddButton = function SaveAddButton(props) {
+const SaveAddButton = props => {
   return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
     hoverText: props.type === "add" && props.hoverText === "Save Changes" ? "Add Resource" : props.hoverText,
     className: (props.disabled ? "inlineBlock cursorNotAllowed" : "") + (props.inline ? " alignItemsCenter marginTopLarge inLineFormButton" : ""),
@@ -1425,9 +1704,9 @@ SaveAddButton.propTypes = {
  * @param {boolean} props.open toggle is open, defaults to false
  * @returns edit close icon
  */
-var EditCloseIcon = function EditCloseIcon(props) {
-  var hoverText = props.hoverText ? props.hoverText : props.open ? "Close" : props.type === "add" ? "Configure Resource" : "Edit Resource";
-  var icon = props.open ? /*#__PURE__*/React__default["default"].createElement(iconsReact.CloseFilled, null) : props.type === "add" ? /*#__PURE__*/React__default["default"].createElement(iconsReact.Add, null) : /*#__PURE__*/React__default["default"].createElement(iconsReact.Edit, null);
+const EditCloseIcon = props => {
+  let hoverText = props.hoverText ? props.hoverText : props.open ? "Close" : props.type === "add" ? "Configure Resource" : "Edit Resource";
+  let icon = props.open ? /*#__PURE__*/React__default["default"].createElement(iconsReact.CloseFilled, null) : props.type === "add" ? /*#__PURE__*/React__default["default"].createElement(iconsReact.Add, null) : /*#__PURE__*/React__default["default"].createElement(iconsReact.Edit, null);
   return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
     hoverText: hoverText
   }, /*#__PURE__*/React__default["default"].createElement("i", {
@@ -1455,7 +1734,7 @@ EditCloseIcon.defaultProps = {
  * @param {string} props.name classname
  *
  */
-var DeleteButton = function DeleteButton(props) {
+const DeleteButton = props => {
   return /*#__PURE__*/React__default["default"].createElement("div", {
     className: "delete-area"
   }, /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
@@ -1490,7 +1769,7 @@ DeleteButton.propTypes = {
  * @param {Function} props.handleDown
  *
  */
-var UpDownButtons = function UpDownButtons(props) {
+const UpDownButtons = props => {
   return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(react.Button, {
     key: "rule-up-" + props.name,
     disabled: props.disableUp,
@@ -1787,19 +2066,20 @@ DynamicToolTipWrapper.propTypes = {
 var css_248z$3 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
 styleInject(css_248z$3);
 
-var IcseToggle = function IcseToggle(props) {
-  var toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
+const IcseToggle = props => {
+  let toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
   return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, _extends({
-    innerForm: function innerForm() {
+    innerForm: () => {
       return /*#__PURE__*/React__default["default"].createElement(react.Toggle, {
         labelA: props.useOnOff ? "Off" : "False",
         labelB: props.useOnOff ? "On" : "True",
         labelText: props.tooltip ? "" : props.labelText,
+        "aria-labelledby": props.labelText,
         id: lazyZ.kebabCase(toggleName) + "-icse-toggle-" + props.id,
         className: lib_2("leftTextAlign fieldWidth", props) + (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
         ,
 
-        onToggle: function onToggle(event) {
+        onToggle: event => {
           props.onToggle(toggleName, event);
         },
         defaultToggled: props.defaultToggled,
@@ -1846,8 +2126,8 @@ IcseToggle.propTypes = {
  * @param {string=} props.labelText override label text
  * @returns <IcseTextInput/> component
  */
-var IcseTextInput = function IcseTextInput(props) {
-  var fieldName = lazyZ.titleCase(props.field);
+const IcseTextInput = props => {
+  let fieldName = lazyZ.titleCase(props.field);
   return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React__default["default"].createElement(react.TextInput, {
     id: props.id,
     className: lib_2("fieldWidth leftTextAlign", props),
@@ -1862,7 +2142,7 @@ var IcseTextInput = function IcseTextInput(props) {
     invalid: lazyZ.isBoolean(props.invalid) ? props.invalid : props.invalidCallback(),
     onChange: props.onChange,
     helperText: props.helperText,
-    invalidText: props.invalidText ? props.invalidText : "Invalid ".concat(props.field, " value."),
+    invalidText: props.invalidText ? props.invalidText : `Invalid ${props.field} value.`,
     maxLength: props.maxLength,
     disabled: props.disabled,
     readOnly: props.readOnly
@@ -1910,8 +2190,8 @@ IcseTextInput.propTypes = {
  * @param {func} props.invalidCallback
  * @returns <IcseNameInput />
  */
-var IcseNameInput = function IcseNameInput(props) {
-  var helperText = "";
+const IcseNameInput = props => {
+  let helperText = "";
   // if helper text is not hidden
   if (!props.hideHelperText && !props.useData) {
     helperText = props.helperTextCallback();
@@ -1949,17 +2229,12 @@ IcseNameInput.propTypes = {
 var css_248z$2 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
 styleInject(css_248z$2);
 
-var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
-  _inherits(AppIdKeyForm, _React$Component);
-  var _super = _createSuper(AppIdKeyForm);
-  function AppIdKeyForm(props) {
-    var _this;
-    _classCallCheck(this, AppIdKeyForm);
-    _this = _super.call(this, props);
-    _this.state = _this.props.data;
-    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
-    buildFormFunctions(_assertThisInitialized(_this));
-    return _this;
+class AppIdKeyForm extends React__default["default"].Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    this.handleInputChange = this.handleInputChange.bind(this);
+    buildFormFunctions(this);
   }
 
   /**
@@ -1967,31 +2242,25 @@ var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
    * @param {string} name key to change in state
    * @param {*} value value to update
    */
-  _createClass(AppIdKeyForm, [{
-    key: "handleInputChange",
-    value: function handleInputChange(event) {
-      this.setState({
-        key_name: event.target.value
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-        id: "app-id-key-name",
-        value: this.state.key_name,
-        onChange: this.handleInputChange,
-        field: "appid_key",
-        labelText: "App ID Key",
-        componentName: "appid",
-        className: "fieldWidthSmaller",
-        invalid: this.props.invalidCallback(this.state, this.props),
-        invalidText: this.props.invalidTextCallback(this.state, this.props)
-      }));
-    }
-  }]);
-  return AppIdKeyForm;
-}(React__default["default"].Component);
+  handleInputChange(event) {
+    this.setState({
+      key_name: event.target.value
+    });
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: "app-id-key-name",
+      value: this.state.key_name,
+      onChange: this.handleInputChange,
+      field: "appid_key",
+      labelText: "App ID Key",
+      componentName: "appid",
+      className: "fieldWidthSmaller",
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }));
+  }
+}
 AppIdKeyForm.defaultProps = {
   data: {
     key_name: ""
@@ -2005,6 +2274,7 @@ AppIdKeyForm.propTypes = {
   invalidTextCallback: PropTypes__default["default"].func.isRequired
 };
 
+<<<<<<< HEAD
 var sccRegions = [{
   id: "us",
   label: "us"
@@ -2068,10 +2338,132 @@ var SccForm = /*#__PURE__*/function (_Component) {
     key: "handleToggle",
     value: function handleToggle(name) {
       this.setState(lib_8(name, this.state));
+=======
+var IcseSelect = function IcseSelect(props) {
+  var invalid =
+  // automatically set to invalid is is null or empty string and invalid not disabled
+  props.disableInvalid !== true && lazyZ.isNullOrEmptyString(props.value) ? true : props.invalid;
+  var groups = props.groups.length === 0 ? [] // if no groups, empty array
+  : lib_3(
+  // otherwise try and prepend empty string if null
+  props.value, props.groups);
+  // please leave debug here //
+  if (props.debug) {
+    console.log("PROPS: ", props);
+    console.log("GROUPS: ", groups);
+  }
+  return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, _extends({
+    id: lazyZ.kebabCase(props.name) + "-dropdown-tooltip",
+    innerForm: function innerForm() {
+      return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
+        hoverText: props.value || ""
+        // inherit classnames from tooltip
+        ,
+        className: props.tooltip ? "cds--form-item tooltip" : "cds--form-item"
+      }, /*#__PURE__*/React__default["default"].createElement(react.Select, {
+        id: lazyZ.kebabCase(props.formName + " " + props.name),
+        name: props.name,
+        labelText: props.tooltip ? null : props.labelText,
+        value: props.value || undefined,
+        className: lib_2("fieldWidth leftTextAlign", props),
+        disabled: props.disabled,
+        invalid: invalid,
+        invalidText: props.invalidText,
+        readOnly: props.readOnly,
+        onChange: props.handleInputChange
+      }, groups.map(function (value) {
+        return /*#__PURE__*/React__default["default"].createElement(react.SelectItem, {
+          key: "".concat(props.id, "-").concat(value),
+          text: value,
+          value: value
+        });
+      })));
+    }
+  }, props));
+};
+IcseSelect.defaultProps = {
+  value: "",
+  disabled: false,
+  disableInvalid: false,
+  invalid: false,
+  invalidText: "Invalid Selection",
+  readOnly: false,
+  groups: [],
+  debug: false
+};
+IcseSelect.propTypes = {
+  value: PropTypes__default["default"].any,
+  // must accept null
+  formName: PropTypes__default["default"].string.isRequired,
+  name: PropTypes__default["default"].string.isRequired,
+  className: PropTypes__default["default"].string,
+  disabled: PropTypes__default["default"].bool.isRequired,
+  disableInvalid: PropTypes__default["default"].bool.isRequired,
+  invalid: PropTypes__default["default"].bool.isRequired,
+  invalidText: PropTypes__default["default"].string.isRequired,
+  readOnly: PropTypes__default["default"].bool.isRequired,
+  groups: PropTypes__default["default"].array.isRequired,
+  debug: PropTypes__default["default"].bool.isRequired,
+  handleInputChange: PropTypes__default["default"].func.isRequired,
+  labelText: PropTypes__default["default"].string.isRequired,
+  tooltip: PropTypes__default["default"].shape({
+    content: PropTypes__default["default"].string.isRequired,
+    link: PropTypes__default["default"].string,
+    alignModal: PropTypes__default["default"].string,
+    align: PropTypes__default["default"].string
+  })
+};
+var FetchSelect = /*#__PURE__*/function (_React$Component) {
+  _inherits(FetchSelect, _React$Component);
+  var _super = _createSuper(FetchSelect);
+  function FetchSelect(props) {
+    var _this;
+    _classCallCheck(this, FetchSelect);
+    _this = _super.call(this, props);
+    _defineProperty(_assertThisInitialized(_this), "_isMounted", false);
+    _this.state = {
+      data: []
+    };
+    _this.dataToGroups = _this.dataToGroups.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+  _createClass(FetchSelect, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+      this._isMounted = true;
+      if (lazyZ.isEmpty(this.state.data)) fetch(this.props.apiEndpoint).then(function (res) {
+        return res.json();
+      }).then(function (data) {
+        if (_this2.props.onReturnFunction) {
+          _this2.props.onReturnFunction(data);
+        }
+        if (_this2._isMounted) _this2.setState({
+          data: data
+        });
+      }).catch(function (err) {
+        console.error(err);
+      });
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this._isMounted = false;
+    }
+  }, {
+    key: "dataToGroups",
+    value: function dataToGroups() {
+      if (this.props.filter) {
+        return this.state.data.filter(this.props.filter);
+      } else {
+        return this.state.data;
+      }
+>>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
     }
   }, {
     key: "render",
     value: function render() {
+<<<<<<< HEAD
       var _this2 = this;
       return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.Dropdown, {
         ariaLabel: "Dropdown",
@@ -2153,6 +2545,225 @@ SccForm.propTypes = {
   invalidSccScopeName: PropTypes__default["default"].func.isRequired,
   invalidSccScopeDescription: PropTypes__default["default"].func.isRequired,
   invalidSccCollectorDescription: PropTypes__default["default"].func.isRequired
+=======
+      return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        labelText: this.props.labelText,
+        handleInputChange: this.props.handleInputChange,
+        name: this.props.name,
+        className: this.props.className,
+        formName: this.props.formName,
+        groups: this.dataToGroups(),
+        value: this.props.value || "null"
+      });
+    }
+  }]);
+  return FetchSelect;
+}(React__default["default"].Component);
+FetchSelect.propTypes = {
+  labelText: PropTypes__default["default"].string.isRequired,
+  handleInputChange: PropTypes__default["default"].func.isRequired,
+  filterArr: PropTypes__default["default"].array,
+  className: PropTypes__default["default"].string,
+  // can be null or undefined
+  value: PropTypes__default["default"].string,
+  // can be null or undefined
+  groups: PropTypes__default["default"].array,
+  apiEndpoint: PropTypes__default["default"].string.isRequired,
+  onReturnFunction: PropTypes__default["default"].func,
+  filter: PropTypes__default["default"].func,
+  name: PropTypes__default["default"].string.isRequired,
+  formName: PropTypes__default["default"].string.isRequired
+};
+var IcseNumberSelect = function IcseNumberSelect(props) {
+  return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+    formName: props.formName,
+    groups: lazyZ.buildNumberDropdownList(props.max, props.min),
+    value: props.value.toString(),
+    name: props.name || "Icse Number Select",
+    className: props.className,
+    handleInputChange: function handleInputChange(event) {
+      // set name target value and parse int
+      var sendEvent = {
+        target: {
+          name: event.target.name,
+          value: parseInt(event.target.value)
+        }
+      };
+      props.handleInputChange(sendEvent);
+    },
+    invalid: props.invalid,
+    invalidText: props.invalidText,
+    tooltip: props.tooltip,
+    labelText: props.labelText,
+    isModal: props.isModal
+  });
+};
+IcseNumberSelect.defaultProps = {
+  min: 1,
+  max: 10,
+  invalid: false,
+  isModal: false
+};
+IcseNumberSelect.propTypes = {
+  formName: PropTypes__default["default"].string.isRequired,
+  min: PropTypes__default["default"].number.isRequired,
+  max: PropTypes__default["default"].number.isRequired,
+  value: PropTypes__default["default"].number,
+  // can be null
+  name: PropTypes__default["default"].string,
+  className: PropTypes__default["default"].string,
+  invalidText: PropTypes__default["default"].string,
+  invalid: PropTypes__default["default"].bool.isRequired,
+  tooltip: PropTypes__default["default"].shape({
+    content: PropTypes__default["default"].string.isRequired,
+    link: PropTypes__default["default"].string,
+    alignModal: PropTypes__default["default"].string,
+    align: PropTypes__default["default"].string
+  }),
+  labelText: PropTypes__default["default"].string.isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired
+};
+var EntitlementSelect = function EntitlementSelect(props) {
+  return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+    name: props.name,
+    labelText: "Entitlement",
+    groups: ["null", "cloud_pak"],
+    value: props.value || "null",
+    handleInputChange: props.handleInputChange,
+    className: "fieldWidthSmaller",
+    formName: props.formName
+  });
+};
+EntitlementSelect.propTypes = {
+  value: PropTypes__default["default"].string,
+  // can be null
+  handleInputChange: PropTypes__default["default"].func.isRequired,
+  formName: PropTypes__default["default"].string.isRequired,
+  name: PropTypes__default["default"].string.isRequired
+};
+
+/**
+ * kms keys
+ */
+class EncryptionKeyForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    this.handleTextInput = this.handleTextInput.bind(this);
+    this.toggleShow = this.toggleShow.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * Toggle on and off param in state at name
+   * @param {string} name name of the object key to change
+   */
+  handleToggle(name) {
+    this.setState({
+      [name]: !this.state[name]
+    });
+  }
+
+  /**
+   * Handle input change for a text field
+   * @param {event} event
+   */
+  handleTextInput(event) {
+    this.setState({
+      name: event.target.value
+    });
+  }
+
+  // Handle toggle for showing/hiding details of keys
+  toggleShow() {
+    this.setState({
+      show: !this.state.show
+    });
+  }
+  render() {
+    let composedId = `encryption-key-${this.props.data.name}-`;
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: this.state.name + "-name",
+      component: "kms_key",
+      componentName: this.props.data.name,
+      value: this.state.name,
+      onChange: this.handleTextInput,
+      componentProps: this.props,
+      placeholder: "my-encryption-key-name",
+      hideHelperText: true,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
+      tooltip: {
+        content: "Setting a rotation policy shortens the lifetime of the key at regular intervals. When it's time to rotate the key based on the rotation interval that you specify, the root key will be automatically replaced with new key material.",
+        align: "bottom-left"
+      },
+      component: this.props.data.name,
+      max: 12,
+      value: this.state.interval_month,
+      formName: "interval_month",
+      name: "interval_month",
+      labelText: "Rotation Interval (Months)",
+      handleInputChange: this.handleInputChange,
+      isModal: this.props.isModal
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+      noMarginBottom: true
+    }, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      tooltip: {
+        content: "Root keys are symmetric key-wrapping keys used as roots of trust for encrypting/decrypting other keys. Can be either imported or generated by IBM Key Protect.",
+        link: "https://cloud.ibm.com/docs/key-protect?topic=key-protect-envelope-encryption",
+        align: "bottom-left"
+      },
+      id: composedId + "kms-key-root",
+      labelText: "Set as a Root Key",
+      toggleFieldName: "root_key",
+      onToggle: this.handleToggle,
+      defaultToggled: this.state.root_key,
+      isModal: this.props.isModal
+    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      tooltip: {
+        content: "Force deletion of a key refers to the deletion of any key that's actively protecting any registered cloud resources. KMS keys can be force-deleted by managers of the instance. However, the force-delete won't succeed if the key's associated resource is non-erasable due to a retention policy.",
+        align: "bottom-left"
+      },
+      id: composedId + "kms-key-force-delete",
+      labelText: "Force Deletion of KMS Key",
+      toggleFieldName: "force_delete",
+      defaultToggled: this.state.force_delete,
+      onToggle: this.handleToggle,
+      isModal: this.props.isModal
+    })));
+  }
+}
+EncryptionKeyForm.defaultProps = {
+  data: {
+    name: "",
+    interval_month: 12,
+    root_key: false,
+    force_delete: false
+  },
+  isModal: false
+};
+EncryptionKeyForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    interval_month: PropTypes__default["default"].number.isRequired,
+    root_key: PropTypes__default["default"].bool.isRequired,
+    force_delete: PropTypes__default["default"].bool
+  }).isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired
+>>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
 };
 
 /**
@@ -2617,6 +3228,7 @@ VpcListMultiSelect.propTypes = {
   vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -3450,6 +4062,8 @@ EntitlementSelect.propTypes = {
 
 =======
 >>>>>>> b345987 (fixes & heading/statelesstoggle form added)
+=======
+>>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
 /**
  * Under Construction Page
  */
@@ -5175,6 +5789,7 @@ exports.DynamicRender = DynamicRender;
 exports.DynamicToolTipWrapper = DynamicToolTipWrapper;
 exports.EditCloseIcon = EditCloseIcon;
 exports.EmptyResourceTile = EmptyResourceTile;
+exports.EncryptionKeyForm = EncryptionKeyForm;
 exports.EntitlementSelect = EntitlementSelect;
 exports.FetchSelect = FetchSelect;
 exports.FormModal = FormModal;

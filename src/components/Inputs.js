@@ -17,6 +17,7 @@ export const IcseToggle = (props) => {
             labelA={props.useOnOff ? "Off" : "False"}
             labelB={props.useOnOff ? "On" : "True"}
             labelText={props.tooltip ? "" : props.labelText}
+            aria-labelledby={props.labelText}
             id={kebabCase(toggleName) + "-icse-toggle-" + props.id}
             className={
               addClassName("leftTextAlign fieldWidth", props) +

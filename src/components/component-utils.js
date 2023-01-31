@@ -4,6 +4,11 @@ import {
   setNameToValue,
 } from "../lib";
 const { isFunction } = require("lazy-z");
+const {
+  eventTargetToNameAndValue,
+  toggleStateBoolean,
+  setNameToValue,
+} = require("../src/lib/method-functions");
 
 /**
  * build functions for modal forms

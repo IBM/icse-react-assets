@@ -7,6 +7,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import { Popover, PopoverContent, FilterableMultiSelect, MultiSelect, Tile, Toggletip, ToggletipButton, ToggletipContent, Link, Modal, TextInput, Toggle, Button } from '@carbon/react';
 >>>>>>> 04bfb65 (added button examples)
@@ -914,17 +915,30 @@ var lib_7 = lib.eventTargetToNameAndValue;
 var lib_8 = lib.toggleStateBoolean;
 var lib_9 = lib.setNameToValue;
 >>>>>>> 28f2e52 (code now)
+=======
+import React, { Component } from 'react';
+import { CloudAlerting, Add, Save, CloseFilled, Edit, TrashCan, ArrowUp, ArrowDown, Information, WarningAlt } from '@carbon/icons-react';
+import { Tile, Popover, PopoverContent, Button, Toggletip, ToggletipButton, ToggletipContent, Link, TextInput, Toggle, Select, SelectItem, Modal, FilterableMultiSelect, MultiSelect } from '@carbon/react';
+import PropTypes from 'prop-types';
+import lazyZ, { snakeCase, titleCase, isBoolean, kebabCase as kebabCase$1, isNullOrEmptyString, isEmpty, buildNumberDropdownList, prettyJSON } from 'lazy-z';
+>>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
 
-var _require = require("lazy-z"),
-  isFunction = _require.isFunction;
+const {
+  isFunction
+} = require("lazy-z");
+const {
+  eventTargetToNameAndValue: eventTargetToNameAndValue$2,
+  toggleStateBoolean: toggleStateBoolean$2,
+  setNameToValue: setNameToValue$2
+} = require("../src/lib/method-functions");
 
 /**
  * build functions for modal forms
  * @param {React.Element} component stateful component
  */
 function buildFormFunctions(component) {
-  var disableSubmit = isFunction(component.props.shouldDisableSubmit);
-  var disableSave = isFunction(component.props.shouldDisableSave);
+  let disableSubmit = isFunction(component.props.shouldDisableSubmit);
+  let disableSave = isFunction(component.props.shouldDisableSave);
   if (component.props.shouldDisableSave) component.shouldDisableSave = component.props.shouldDisableSave.bind(component);
   if (disableSubmit) component.shouldDisableSubmit = component.props.shouldDisableSubmit.bind(component);
 
@@ -953,9 +967,15 @@ function buildFormFunctions(component) {
  * @param {*} component React Component
  */
 function buildFormDefaultInputMethods(component) {
+<<<<<<< HEAD
   component.eventTargetToNameAndValue = lib_7.bind(component);
   component.toggleStateBoolean = lib_8.bind(component);
   component.setNameToValue = lib_9.bind(component);
+=======
+  component.eventTargetToNameAndValue = eventTargetToNameAndValue$2.bind(component);
+  component.toggleStateBoolean = toggleStateBoolean$2.bind(component);
+  component.setNameToValue = setNameToValue$2.bind(component);
+>>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
 }
 
 function styleInject(css, ref) {
@@ -1288,12 +1308,12 @@ var buttonUtils = {
  * @param {*} event.target.value value to set
  * @returns {Object} object with key of name set to value
  */
-function eventTargetToNameAndValue$2(event) {
+function eventTargetToNameAndValue$1(event) {
   let {
     name,
     value
   } = event.target;
-  return setNameToValue$2(name, value);
+  return setNameToValue$1(name, value);
 }
 
 /**
@@ -1302,17 +1322,18 @@ function eventTargetToNameAndValue$2(event) {
  * @param {Object} stateData component state data
  * @returns {Object} object with key of field name set to boolean opposite in state
  */
-function toggleStateBoolean$2(fieldName, stateData) {
+function toggleStateBoolean$1(fieldName, stateData) {
   return {
     [fieldName]: !stateData[fieldName]
   };
 }
-function setNameToValue$2(name, value) {
+function setNameToValue$1(name, value) {
   return {
     [name]: value
   };
 }
 var methodFunctions = {
+<<<<<<< HEAD
   eventTargetToNameAndValue: eventTargetToNameAndValue$2,
   toggleStateBoolean: toggleStateBoolean$2,
   setNameToValue: setNameToValue$2
@@ -1381,6 +1402,11 @@ const {
   toggleMarginBottom,
   addClassName
 =======
+=======
+  eventTargetToNameAndValue: eventTargetToNameAndValue$1,
+  toggleStateBoolean: toggleStateBoolean$1,
+  setNameToValue: setNameToValue$1
+>>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
 };
 
 const {
@@ -1404,6 +1430,7 @@ const {
   saveChangeButtonClass
 } = buttonUtils;
 const {
+<<<<<<< HEAD
 >>>>>>> b5b1ac6 (fixed build)
 =======
   saveChangeButtonClass
@@ -1413,6 +1440,11 @@ const {
   eventTargetToNameAndValue: eventTargetToNameAndValue$1,
   toggleStateBoolean: toggleStateBoolean$1,
   setNameToValue: setNameToValue$1
+=======
+  eventTargetToNameAndValue,
+  toggleStateBoolean,
+  setNameToValue
+>>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
 } = methodFunctions;
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1454,6 +1486,7 @@ var lib = {
   formatInputPlaceholder,
 >>>>>>> 72d0b85 (merge)
   saveChangeButtonClass,
+<<<<<<< HEAD
   eventTargetToNameAndValue: eventTargetToNameAndValue$1,
   toggleStateBoolean: toggleStateBoolean$1,
   setNameToValue: setNameToValue$1
@@ -1472,6 +1505,11 @@ var lib_7 = lib.buildFormFunctions;
 =======
 >>>>>>> 8655315 (changes (exports, readme, example))
 =======
+=======
+  eventTargetToNameAndValue,
+  toggleStateBoolean,
+  setNameToValue
+>>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
 };
 var lib_1 = lib.toggleMarginBottom;
 var lib_2 = lib.addClassName;
@@ -1573,7 +1611,7 @@ styleInject(css_248z$5);
  * @param {boolean} props.saveIsDisabled true if disabled
  * @returns Save Icon
  */
-var SaveIcon = function SaveIcon(props) {
+const SaveIcon = props => {
   return /*#__PURE__*/React.createElement(Save, {
     className: props.disabled ? "" : "tertiaryButtonColors"
   });
@@ -1589,7 +1627,7 @@ var SaveIcon = function SaveIcon(props) {
  * @param {boolean} props.disabled
  * @returns Save add button
  */
-var SaveAddButton = function SaveAddButton(props) {
+const SaveAddButton = props => {
   return /*#__PURE__*/React.createElement(PopoverWrapper, {
     hoverText: props.type === "add" && props.hoverText === "Save Changes" ? "Add Resource" : props.hoverText,
     className: (props.disabled ? "inlineBlock cursorNotAllowed" : "") + (props.inline ? " alignItemsCenter marginTopLarge inLineFormButton" : ""),
@@ -1630,9 +1668,9 @@ SaveAddButton.propTypes = {
  * @param {boolean} props.open toggle is open, defaults to false
  * @returns edit close icon
  */
-var EditCloseIcon = function EditCloseIcon(props) {
-  var hoverText = props.hoverText ? props.hoverText : props.open ? "Close" : props.type === "add" ? "Configure Resource" : "Edit Resource";
-  var icon = props.open ? /*#__PURE__*/React.createElement(CloseFilled, null) : props.type === "add" ? /*#__PURE__*/React.createElement(Add, null) : /*#__PURE__*/React.createElement(Edit, null);
+const EditCloseIcon = props => {
+  let hoverText = props.hoverText ? props.hoverText : props.open ? "Close" : props.type === "add" ? "Configure Resource" : "Edit Resource";
+  let icon = props.open ? /*#__PURE__*/React.createElement(CloseFilled, null) : props.type === "add" ? /*#__PURE__*/React.createElement(Add, null) : /*#__PURE__*/React.createElement(Edit, null);
   return /*#__PURE__*/React.createElement(PopoverWrapper, {
     hoverText: hoverText
   }, /*#__PURE__*/React.createElement("i", {
@@ -1660,7 +1698,7 @@ EditCloseIcon.defaultProps = {
  * @param {string} props.name classname
  *
  */
-var DeleteButton = function DeleteButton(props) {
+const DeleteButton = props => {
   return /*#__PURE__*/React.createElement("div", {
     className: "delete-area"
   }, /*#__PURE__*/React.createElement(PopoverWrapper, {
@@ -1695,7 +1733,7 @@ DeleteButton.propTypes = {
  * @param {Function} props.handleDown
  *
  */
-var UpDownButtons = function UpDownButtons(props) {
+const UpDownButtons = props => {
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Button, {
     key: "rule-up-" + props.name,
     disabled: props.disableUp,
@@ -1992,19 +2030,20 @@ DynamicToolTipWrapper.propTypes = {
 var css_248z$3 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
 styleInject(css_248z$3);
 
-var IcseToggle = function IcseToggle(props) {
-  var toggleName = props.toggleFieldName || snakeCase(props.labelText);
+const IcseToggle = props => {
+  let toggleName = props.toggleFieldName || snakeCase(props.labelText);
   return /*#__PURE__*/React.createElement(DynamicToolTipWrapper, _extends({
-    innerForm: function innerForm() {
+    innerForm: () => {
       return /*#__PURE__*/React.createElement(Toggle, {
         labelA: props.useOnOff ? "Off" : "False",
         labelB: props.useOnOff ? "On" : "True",
         labelText: props.tooltip ? "" : props.labelText,
+        "aria-labelledby": props.labelText,
         id: kebabCase$1(toggleName) + "-icse-toggle-" + props.id,
         className: lib_2("leftTextAlign fieldWidth", props) + (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
         ,
 
-        onToggle: function onToggle(event) {
+        onToggle: event => {
           props.onToggle(toggleName, event);
         },
         defaultToggled: props.defaultToggled,
@@ -2051,8 +2090,8 @@ IcseToggle.propTypes = {
  * @param {string=} props.labelText override label text
  * @returns <IcseTextInput/> component
  */
-var IcseTextInput = function IcseTextInput(props) {
-  var fieldName = titleCase(props.field);
+const IcseTextInput = props => {
+  let fieldName = titleCase(props.field);
   return /*#__PURE__*/React.createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React.createElement(TextInput, {
     id: props.id,
     className: lib_2("fieldWidth leftTextAlign", props),
@@ -2067,7 +2106,7 @@ var IcseTextInput = function IcseTextInput(props) {
     invalid: isBoolean(props.invalid) ? props.invalid : props.invalidCallback(),
     onChange: props.onChange,
     helperText: props.helperText,
-    invalidText: props.invalidText ? props.invalidText : "Invalid ".concat(props.field, " value."),
+    invalidText: props.invalidText ? props.invalidText : `Invalid ${props.field} value.`,
     maxLength: props.maxLength,
     disabled: props.disabled,
     readOnly: props.readOnly
@@ -2115,8 +2154,8 @@ IcseTextInput.propTypes = {
  * @param {func} props.invalidCallback
  * @returns <IcseNameInput />
  */
-var IcseNameInput = function IcseNameInput(props) {
-  var helperText = "";
+const IcseNameInput = props => {
+  let helperText = "";
   // if helper text is not hidden
   if (!props.hideHelperText && !props.useData) {
     helperText = props.helperTextCallback();
@@ -2154,17 +2193,12 @@ IcseNameInput.propTypes = {
 var css_248z$2 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
 styleInject(css_248z$2);
 
-var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
-  _inherits(AppIdKeyForm, _React$Component);
-  var _super = _createSuper(AppIdKeyForm);
-  function AppIdKeyForm(props) {
-    var _this;
-    _classCallCheck(this, AppIdKeyForm);
-    _this = _super.call(this, props);
-    _this.state = _this.props.data;
-    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
-    buildFormFunctions(_assertThisInitialized(_this));
-    return _this;
+class AppIdKeyForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    this.handleInputChange = this.handleInputChange.bind(this);
+    buildFormFunctions(this);
   }
 
   /**
@@ -2172,31 +2206,25 @@ var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
    * @param {string} name key to change in state
    * @param {*} value value to update
    */
-  _createClass(AppIdKeyForm, [{
-    key: "handleInputChange",
-    value: function handleInputChange(event) {
-      this.setState({
-        key_name: event.target.value
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseTextInput, {
-        id: "app-id-key-name",
-        value: this.state.key_name,
-        onChange: this.handleInputChange,
-        field: "appid_key",
-        labelText: "App ID Key",
-        componentName: "appid",
-        className: "fieldWidthSmaller",
-        invalid: this.props.invalidCallback(this.state, this.props),
-        invalidText: this.props.invalidTextCallback(this.state, this.props)
-      }));
-    }
-  }]);
-  return AppIdKeyForm;
-}(React.Component);
+  handleInputChange(event) {
+    this.setState({
+      key_name: event.target.value
+    });
+  }
+  render() {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: "app-id-key-name",
+      value: this.state.key_name,
+      onChange: this.handleInputChange,
+      field: "appid_key",
+      labelText: "App ID Key",
+      componentName: "appid",
+      className: "fieldWidthSmaller",
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }));
+  }
+}
 AppIdKeyForm.defaultProps = {
   data: {
     key_name: ""
@@ -2210,6 +2238,7 @@ AppIdKeyForm.propTypes = {
   invalidTextCallback: PropTypes.func.isRequired
 };
 
+<<<<<<< HEAD
 var sccRegions = [{
   id: "us",
   label: "us"
@@ -2273,10 +2302,132 @@ var SccForm = /*#__PURE__*/function (_Component) {
     key: "handleToggle",
     value: function handleToggle(name) {
       this.setState(lib_8(name, this.state));
+=======
+var IcseSelect = function IcseSelect(props) {
+  var invalid =
+  // automatically set to invalid is is null or empty string and invalid not disabled
+  props.disableInvalid !== true && isNullOrEmptyString(props.value) ? true : props.invalid;
+  var groups = props.groups.length === 0 ? [] // if no groups, empty array
+  : lib_3(
+  // otherwise try and prepend empty string if null
+  props.value, props.groups);
+  // please leave debug here //
+  if (props.debug) {
+    console.log("PROPS: ", props);
+    console.log("GROUPS: ", groups);
+  }
+  return /*#__PURE__*/React.createElement(DynamicToolTipWrapper, _extends({
+    id: kebabCase$1(props.name) + "-dropdown-tooltip",
+    innerForm: function innerForm() {
+      return /*#__PURE__*/React.createElement(PopoverWrapper, {
+        hoverText: props.value || ""
+        // inherit classnames from tooltip
+        ,
+        className: props.tooltip ? "cds--form-item tooltip" : "cds--form-item"
+      }, /*#__PURE__*/React.createElement(Select, {
+        id: kebabCase$1(props.formName + " " + props.name),
+        name: props.name,
+        labelText: props.tooltip ? null : props.labelText,
+        value: props.value || undefined,
+        className: lib_2("fieldWidth leftTextAlign", props),
+        disabled: props.disabled,
+        invalid: invalid,
+        invalidText: props.invalidText,
+        readOnly: props.readOnly,
+        onChange: props.handleInputChange
+      }, groups.map(function (value) {
+        return /*#__PURE__*/React.createElement(SelectItem, {
+          key: "".concat(props.id, "-").concat(value),
+          text: value,
+          value: value
+        });
+      })));
+    }
+  }, props));
+};
+IcseSelect.defaultProps = {
+  value: "",
+  disabled: false,
+  disableInvalid: false,
+  invalid: false,
+  invalidText: "Invalid Selection",
+  readOnly: false,
+  groups: [],
+  debug: false
+};
+IcseSelect.propTypes = {
+  value: PropTypes.any,
+  // must accept null
+  formName: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  disabled: PropTypes.bool.isRequired,
+  disableInvalid: PropTypes.bool.isRequired,
+  invalid: PropTypes.bool.isRequired,
+  invalidText: PropTypes.string.isRequired,
+  readOnly: PropTypes.bool.isRequired,
+  groups: PropTypes.array.isRequired,
+  debug: PropTypes.bool.isRequired,
+  handleInputChange: PropTypes.func.isRequired,
+  labelText: PropTypes.string.isRequired,
+  tooltip: PropTypes.shape({
+    content: PropTypes.string.isRequired,
+    link: PropTypes.string,
+    alignModal: PropTypes.string,
+    align: PropTypes.string
+  })
+};
+var FetchSelect = /*#__PURE__*/function (_React$Component) {
+  _inherits(FetchSelect, _React$Component);
+  var _super = _createSuper(FetchSelect);
+  function FetchSelect(props) {
+    var _this;
+    _classCallCheck(this, FetchSelect);
+    _this = _super.call(this, props);
+    _defineProperty(_assertThisInitialized(_this), "_isMounted", false);
+    _this.state = {
+      data: []
+    };
+    _this.dataToGroups = _this.dataToGroups.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+  _createClass(FetchSelect, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+      this._isMounted = true;
+      if (isEmpty(this.state.data)) fetch(this.props.apiEndpoint).then(function (res) {
+        return res.json();
+      }).then(function (data) {
+        if (_this2.props.onReturnFunction) {
+          _this2.props.onReturnFunction(data);
+        }
+        if (_this2._isMounted) _this2.setState({
+          data: data
+        });
+      }).catch(function (err) {
+        console.error(err);
+      });
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this._isMounted = false;
+    }
+  }, {
+    key: "dataToGroups",
+    value: function dataToGroups() {
+      if (this.props.filter) {
+        return this.state.data.filter(this.props.filter);
+      } else {
+        return this.state.data;
+      }
+>>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
     }
   }, {
     key: "render",
     value: function render() {
+<<<<<<< HEAD
       var _this2 = this;
       return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(Dropdown, {
         ariaLabel: "Dropdown",
@@ -2358,6 +2509,225 @@ SccForm.propTypes = {
   invalidSccScopeName: PropTypes.func.isRequired,
   invalidSccScopeDescription: PropTypes.func.isRequired,
   invalidSccCollectorDescription: PropTypes.func.isRequired
+=======
+      return /*#__PURE__*/React.createElement(IcseSelect, {
+        labelText: this.props.labelText,
+        handleInputChange: this.props.handleInputChange,
+        name: this.props.name,
+        className: this.props.className,
+        formName: this.props.formName,
+        groups: this.dataToGroups(),
+        value: this.props.value || "null"
+      });
+    }
+  }]);
+  return FetchSelect;
+}(React.Component);
+FetchSelect.propTypes = {
+  labelText: PropTypes.string.isRequired,
+  handleInputChange: PropTypes.func.isRequired,
+  filterArr: PropTypes.array,
+  className: PropTypes.string,
+  // can be null or undefined
+  value: PropTypes.string,
+  // can be null or undefined
+  groups: PropTypes.array,
+  apiEndpoint: PropTypes.string.isRequired,
+  onReturnFunction: PropTypes.func,
+  filter: PropTypes.func,
+  name: PropTypes.string.isRequired,
+  formName: PropTypes.string.isRequired
+};
+var IcseNumberSelect = function IcseNumberSelect(props) {
+  return /*#__PURE__*/React.createElement(IcseSelect, {
+    formName: props.formName,
+    groups: buildNumberDropdownList(props.max, props.min),
+    value: props.value.toString(),
+    name: props.name || "Icse Number Select",
+    className: props.className,
+    handleInputChange: function handleInputChange(event) {
+      // set name target value and parse int
+      var sendEvent = {
+        target: {
+          name: event.target.name,
+          value: parseInt(event.target.value)
+        }
+      };
+      props.handleInputChange(sendEvent);
+    },
+    invalid: props.invalid,
+    invalidText: props.invalidText,
+    tooltip: props.tooltip,
+    labelText: props.labelText,
+    isModal: props.isModal
+  });
+};
+IcseNumberSelect.defaultProps = {
+  min: 1,
+  max: 10,
+  invalid: false,
+  isModal: false
+};
+IcseNumberSelect.propTypes = {
+  formName: PropTypes.string.isRequired,
+  min: PropTypes.number.isRequired,
+  max: PropTypes.number.isRequired,
+  value: PropTypes.number,
+  // can be null
+  name: PropTypes.string,
+  className: PropTypes.string,
+  invalidText: PropTypes.string,
+  invalid: PropTypes.bool.isRequired,
+  tooltip: PropTypes.shape({
+    content: PropTypes.string.isRequired,
+    link: PropTypes.string,
+    alignModal: PropTypes.string,
+    align: PropTypes.string
+  }),
+  labelText: PropTypes.string.isRequired,
+  isModal: PropTypes.bool.isRequired
+};
+var EntitlementSelect = function EntitlementSelect(props) {
+  return /*#__PURE__*/React.createElement(IcseSelect, {
+    name: props.name,
+    labelText: "Entitlement",
+    groups: ["null", "cloud_pak"],
+    value: props.value || "null",
+    handleInputChange: props.handleInputChange,
+    className: "fieldWidthSmaller",
+    formName: props.formName
+  });
+};
+EntitlementSelect.propTypes = {
+  value: PropTypes.string,
+  // can be null
+  handleInputChange: PropTypes.func.isRequired,
+  formName: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired
+};
+
+/**
+ * kms keys
+ */
+class EncryptionKeyForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    this.handleTextInput = this.handleTextInput.bind(this);
+    this.toggleShow = this.toggleShow.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * Toggle on and off param in state at name
+   * @param {string} name name of the object key to change
+   */
+  handleToggle(name) {
+    this.setState({
+      [name]: !this.state[name]
+    });
+  }
+
+  /**
+   * Handle input change for a text field
+   * @param {event} event
+   */
+  handleTextInput(event) {
+    this.setState({
+      name: event.target.value
+    });
+  }
+
+  // Handle toggle for showing/hiding details of keys
+  toggleShow() {
+    this.setState({
+      show: !this.state.show
+    });
+  }
+  render() {
+    let composedId = `encryption-key-${this.props.data.name}-`;
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: this.state.name + "-name",
+      component: "kms_key",
+      componentName: this.props.data.name,
+      value: this.state.name,
+      onChange: this.handleTextInput,
+      componentProps: this.props,
+      placeholder: "my-encryption-key-name",
+      hideHelperText: true,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React.createElement(IcseNumberSelect, {
+      tooltip: {
+        content: "Setting a rotation policy shortens the lifetime of the key at regular intervals. When it's time to rotate the key based on the rotation interval that you specify, the root key will be automatically replaced with new key material.",
+        align: "bottom-left"
+      },
+      component: this.props.data.name,
+      max: 12,
+      value: this.state.interval_month,
+      formName: "interval_month",
+      name: "interval_month",
+      labelText: "Rotation Interval (Months)",
+      handleInputChange: this.handleInputChange,
+      isModal: this.props.isModal
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, {
+      noMarginBottom: true
+    }, /*#__PURE__*/React.createElement(IcseToggle, {
+      tooltip: {
+        content: "Root keys are symmetric key-wrapping keys used as roots of trust for encrypting/decrypting other keys. Can be either imported or generated by IBM Key Protect.",
+        link: "https://cloud.ibm.com/docs/key-protect?topic=key-protect-envelope-encryption",
+        align: "bottom-left"
+      },
+      id: composedId + "kms-key-root",
+      labelText: "Set as a Root Key",
+      toggleFieldName: "root_key",
+      onToggle: this.handleToggle,
+      defaultToggled: this.state.root_key,
+      isModal: this.props.isModal
+    }), /*#__PURE__*/React.createElement(IcseToggle, {
+      tooltip: {
+        content: "Force deletion of a key refers to the deletion of any key that's actively protecting any registered cloud resources. KMS keys can be force-deleted by managers of the instance. However, the force-delete won't succeed if the key's associated resource is non-erasable due to a retention policy.",
+        align: "bottom-left"
+      },
+      id: composedId + "kms-key-force-delete",
+      labelText: "Force Deletion of KMS Key",
+      toggleFieldName: "force_delete",
+      defaultToggled: this.state.force_delete,
+      onToggle: this.handleToggle,
+      isModal: this.props.isModal
+    })));
+  }
+}
+EncryptionKeyForm.defaultProps = {
+  data: {
+    name: "",
+    interval_month: 12,
+    root_key: false,
+    force_delete: false
+  },
+  isModal: false
+};
+EncryptionKeyForm.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    interval_month: PropTypes.number.isRequired,
+    root_key: PropTypes.bool.isRequired,
+    force_delete: PropTypes.bool
+  }).isRequired,
+  isModal: PropTypes.bool.isRequired
+>>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
 };
 
 /**
@@ -2778,6 +3148,7 @@ VpcListMultiSelect.propTypes = {
   vpcList: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 var css_248z$1 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n}\n";
 styleInject(css_248z$1);
@@ -4852,6 +5223,8 @@ EntitlementSelect.propTypes = {
   name: PropTypes.string.isRequired
 };
 
+=======
+>>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
 /**
  * Under Construction Page
  */
@@ -4865,6 +5238,7 @@ var UnderConstruction = function UnderConstruction() {
   }), /*#__PURE__*/React.createElement("h4", null, "Page Under Construction"));
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 var css_248z = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z);
@@ -5605,3 +5979,6 @@ export { AppIdKeyForm, DeleteButton, DeleteModal, DynamicRender, DynamicToolTipW
 =======
 export { AppIdKeyForm, DeleteButton, DeleteModal, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, FormModal, IcseFormGroup, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SecurityGroupMultiSelect, SshKeyMultiSelect, StatelessToggleForm, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> b345987 (fixes & heading/statelesstoggle form added)
+=======
+export { AppIdKeyForm, DeleteButton, DeleteModal, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SecurityGroupMultiSelect, SshKeyMultiSelect, StatelessToggleForm, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, buildFormDefaultInputMethods, buildFormFunctions };
+>>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
