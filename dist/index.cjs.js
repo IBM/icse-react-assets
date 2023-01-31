@@ -5840,8 +5840,12 @@ StatefulTabPanel.propTypes = {
   subHeading: PropTypes__default["default"].bool.isRequired,
   className: PropTypes__default["default"].string,
   // can be null
-  tooltip: PropTypes__default["default"].object,
-  // only if using tooltip
+  tooltip: PropTypes__default["default"].shape({
+    content: PropTypes__default["default"].string.isRequired,
+    link: PropTypes__default["default"].string,
+    align: PropTypes__default["default"].string,
+    alignModal: PropTypes__default["default"].string
+  }),
   hideFormTitleButton: PropTypes__default["default"].bool.isRequired,
   onClick: PropTypes__default["default"].func,
   // can be null

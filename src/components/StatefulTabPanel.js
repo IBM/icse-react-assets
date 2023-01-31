@@ -97,7 +97,12 @@ StatefulTabPanel.propTypes = {
   name: PropTypes.string, // can be null
   subHeading: PropTypes.bool.isRequired,
   className: PropTypes.string, // can be null
-  tooltip: PropTypes.object, // only if using tooltip
+  tooltip: PropTypes.shape({
+    content: PropTypes.string.isRequired,
+    link: PropTypes.string,
+    align: PropTypes.string,
+    alignModal: PropTypes.string,
+  }),
   hideFormTitleButton: PropTypes.bool.isRequired,
   onClick: PropTypes.func, // can be null
   shouldDisableSave: PropTypes.func, // can be null
