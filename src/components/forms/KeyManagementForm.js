@@ -56,6 +56,7 @@ class KeyManagementForm extends Component {
           <IcseSelect
             component="km-system-dropdown"
             name="system"
+            formName="system"
             groups={["Key Protect", "HPCS"]}
             value={this.state.use_hs_crypto ? "HPCS" : "Key Protect"}
             labelText="Key Management System"
@@ -63,7 +64,10 @@ class KeyManagementForm extends Component {
             className="fieldWidth"
           />
           <IcseToggle
-            tooltip={{ content: "Get Key Management from Data Source" }}
+            tooltip={{
+              content: "Get Key Management from Data Source",
+              align: "bottom-left",
+            }}
             labelText="Use Existing Instance"
             key={this.state.use_data}
             defaultToggled={this.state.use_data}
@@ -79,13 +83,17 @@ class KeyManagementForm extends Component {
             value={this.state.name}
             componentProps={this.props}
             component="key_management"
+            componentName={this.props.data.name}
             onChange={this.handleInputChange}
             className="fieldWidth"
-            noMarginRight
+            hideHelperText
+            invalid={this.props.invalidCallback(this.state, this.props)}
+            invalidText={this.props.invalidTextCallback(this.state, this.props)}
           />
           <ResourceGroupSelect
-            slz={this.props.slz}
             component="Key Management"
+            formName="resource_group"
+            name="resource_group"
             value={this.state.resource_group}
             handleInputChange={this.handleInputChange}
             className="fieldWidth"
@@ -95,6 +103,15 @@ class KeyManagementForm extends Component {
     );
   }
 }
+
+KeyManagementForm.defaultProps = {
+  data: {
+    use_hs_crypto: false,
+    use_data: false,
+    name: "test-key-protect",
+    resource_group: "service-rg",
+  },
+};
 
 KeyManagementForm.propTypes = {
   data: PropTypes.shape({

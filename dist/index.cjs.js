@@ -1739,6 +1739,7 @@ var SaveIcon = function SaveIcon(props) {
  * @returns Save add button
  */
 var SaveAddButton = function SaveAddButton(props) {
+<<<<<<< HEAD
   return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
     hoverText: props.type === "add" && props.hoverText === "Save Changes" ? "Add Resource" : props.hoverText,
     className: (props.disabled ? "inlineBlock cursorNotAllowed" : "") + (props.inline ? " alignItemsCenter marginTopLarge inLineFormButton" : ""),
@@ -1981,6 +1982,8 @@ var SaveIcon = function SaveIcon(props) {
  * @returns Save add button
  */
 var SaveAddButton = function SaveAddButton(props) {
+=======
+>>>>>>> b18f05c (added documentation for KeyManagementForm)
   return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
     hoverText: props.type === "add" && props.hoverText === "Save Changes" ? "Add Resource" : props.hoverText,
     className: (props.disabled ? "inlineBlock cursorNotAllowed" : "") + (props.inline ? " alignItemsCenter marginTopLarge inLineFormButton" : ""),
@@ -2383,6 +2386,7 @@ styleInject(css_248z$4);
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const IcseToggle = props => {
   let toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
 =======
@@ -2415,6 +2419,29 @@ var IcseToggle = function IcseToggle(props) {
     defaultToggled: props.defaultToggled,
     disabled: props.disabled
   }));
+=======
+var IcseToggle = function IcseToggle(props) {
+  var toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
+  return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, _extends({
+    innerForm: function innerForm() {
+      return /*#__PURE__*/React__default["default"].createElement(react.Toggle, {
+        labelA: props.useOnOff ? "Off" : "False",
+        labelB: props.useOnOff ? "On" : "True",
+        labelText: props.tooltip ? "" : props.labelText,
+        "aria-labelledby": props.labelText,
+        id: lazyZ.kebabCase(toggleName) + "-icse-toggle-" + props.id,
+        className: lib_2("leftTextAlign fieldWidth", props) + (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
+        ,
+
+        onToggle: function onToggle(event) {
+          props.onToggle(toggleName, event);
+        },
+        defaultToggled: props.defaultToggled,
+        disabled: props.disabled
+      });
+    }
+  }, props));
+>>>>>>> b18f05c (added documentation for KeyManagementForm)
 };
 IcseToggle.defaultProps = {
   useOnOff: false,
@@ -3094,6 +3121,24 @@ EntitlementSelect.propTypes = {
   formName: PropTypes__default["default"].string.isRequired,
   name: PropTypes__default["default"].string.isRequired
 };
+var ResourceGroupSelect = function ResourceGroupSelect(props) {
+  return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+    name: props.name,
+    labelText: "Resource Group",
+    groups: ["service-rg", "management-rg", "workload-rg"],
+    value: props.value || "null",
+    handleInputChange: props.handleInputChange,
+    className: "fieldWidthSmaller",
+    formName: props.formName
+  });
+};
+ResourceGroupSelect.propTypes = {
+  value: PropTypes__default["default"].string,
+  // can be null
+  handleInputChange: PropTypes__default["default"].func.isRequired,
+  formName: PropTypes__default["default"].string.isRequired,
+  name: PropTypes__default["default"].string.isRequired
+};
 
 /**
  * SecretsManagerForm
@@ -3312,6 +3357,7 @@ EncryptionKeyForm.propTypes = {
 };
 
 /**
+<<<<<<< HEAD
  * Atracker
  * @param {Object} props
  * @param {Object} props.data
@@ -3333,6 +3379,20 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
     _this = _super.call(this, props);
     _this.state = _this.props.data;
     _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+=======
+ * Key Management
+ */
+var KeyManagementForm = /*#__PURE__*/function (_Component) {
+  _inherits(KeyManagementForm, _Component);
+  var _super = _createSuper(KeyManagementForm);
+  function KeyManagementForm(props) {
+    var _this;
+    _classCallCheck(this, KeyManagementForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleSystemDropdown = _this.handleSystemDropdown.bind(_assertThisInitialized(_this));
+>>>>>>> b18f05c (added documentation for KeyManagementForm)
     _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
     buildFormFunctions(_assertThisInitialized(_this));
     buildFormDefaultInputMethods(_assertThisInitialized(_this));
@@ -3343,12 +3403,17 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
    * handle input change
    * @param {event} event event
    */
+<<<<<<< HEAD
   _createClass(AtrackerForm, [{
+=======
+  _createClass(KeyManagementForm, [{
+>>>>>>> b18f05c (added documentation for KeyManagementForm)
     key: "handleInputChange",
     value: function handleInputChange(event) {
       this.setState(this.eventTargetToNameAndValue(event));
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
   /**
    * Toggle on and off param in state at name
@@ -3426,6 +3491,25 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
   }
 }
 =======
+=======
+    /**
+     * handle dropdown for key management system
+     * @param {event} event event
+     */
+  }, {
+    key: "handleSystemDropdown",
+    value: function handleSystemDropdown(event) {
+      var selection = event.target.value; // selected value in dropdown
+      selection === "HPCS" ? this.setState({
+        use_hs_crypto: true,
+        use_data: true
+      }) : this.setState({
+        use_hs_crypto: false,
+        use_data: false
+      });
+    }
+
+>>>>>>> b18f05c (added documentation for KeyManagementForm)
     /**
      * Toggle on and off param in state at name
      * @param {string} name name of the object key to change
@@ -3438,6 +3522,7 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
+<<<<<<< HEAD
       return /*#__PURE__*/React__default["default"].createElement("div", {
         id: "atracker-form"
       }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
@@ -3528,6 +3613,66 @@ AtrackerForm.propTypes = {
 };
 
 <<<<<<< HEAD
+=======
+      var _this2 = this;
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        component: "km-system-dropdown",
+        name: "system",
+        formName: "system",
+        groups: ["Key Protect", "HPCS"],
+        value: this.state.use_hs_crypto ? "HPCS" : "Key Protect",
+        labelText: "Key Management System",
+        handleInputChange: this.handleSystemDropdown,
+        className: "fieldWidth"
+      }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        tooltip: {
+          content: "Get Key Management from Data Source",
+          align: "bottom-left"
+        },
+        labelText: "Use Existing Instance",
+        key: this.state.use_data,
+        defaultToggled: this.state.use_data,
+        onToggle: function onToggle() {
+          return _this2.handleToggle("use_data");
+        },
+        disabled: this.state.use_hs_crypto === true,
+        className: "fieldWidth",
+        id: "kms-existing"
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+        noMarginBottom: true
+      }, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+        id: this.state.name + "-name",
+        value: this.state.name,
+        componentProps: this.props,
+        component: "key_management",
+        componentName: this.props.data.name,
+        onChange: this.handleInputChange,
+        className: "fieldWidth",
+        hideHelperText: true,
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props)
+      }), /*#__PURE__*/React__default["default"].createElement(ResourceGroupSelect, {
+        component: "Key Management",
+        formName: "resource_group",
+        name: "resource_group",
+        value: this.state.resource_group,
+        handleInputChange: this.handleInputChange,
+        className: "fieldWidth"
+      })));
+    }
+  }]);
+  return KeyManagementForm;
+}(React.Component);
+KeyManagementForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    use_hs_crypto: PropTypes__default["default"].bool.isRequired,
+    use_data: PropTypes__default["default"].bool.isRequired,
+    name: PropTypes__default["default"].string.isRequired,
+    resource_group: PropTypes__default["default"].string.isRequired
+  }).isRequired
+};
+
+>>>>>>> b18f05c (added documentation for KeyManagementForm)
 /**
  * Form Modal
  * @param {Object} props
@@ -7511,14 +7656,19 @@ exports.IcseSubForm = IcseSubForm;
 exports.IcseTextInput = IcseTextInput;
 exports.IcseToggle = IcseToggle;
 exports.IcseToolTip = IcseToolTip;
+exports.KeyManagementForm = KeyManagementForm;
 exports.PopoverWrapper = PopoverWrapper;
 exports.RenderForm = RenderForm;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
 =======
 >>>>>>> 72d0b85 (merge)
+=======
+exports.ResourceGroupSelect = ResourceGroupSelect;
+>>>>>>> b18f05c (added documentation for KeyManagementForm)
 exports.SaveAddButton = SaveAddButton;
 exports.SaveIcon = SaveIcon;
 <<<<<<< HEAD

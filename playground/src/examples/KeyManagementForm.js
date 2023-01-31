@@ -7,7 +7,7 @@ function validName(str) {
   else return false;
 }
 
-function invalidCallback(stateData) {
+function invalidCallback(stateData, componentProps) {
   return !validName(stateData.name) || contains(["foo", "bar"], stateData.name);
 }
 
