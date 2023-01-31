@@ -46,7 +46,7 @@ class KeyManagementForm extends Component {
    * @param {string} name name of the object key to change
    */
   handleToggle(name) {
-    this.setState(this.toggleStateBoolean(name, this.state));
+    this.setState({ [name]: !this.state[name] });
   }
 
   render() {
@@ -71,7 +71,7 @@ class KeyManagementForm extends Component {
             labelText="Use Existing Instance"
             key={this.state.use_data}
             defaultToggled={this.state.use_data}
-            onToggle={() => this.handleToggle("use_data")}
+            onToggle={this.handleToggle}
             disabled={this.state.use_hs_crypto === true}
             className="fieldWidth"
             id="kms-existing"

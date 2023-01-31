@@ -5218,11 +5218,12 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
   }, {
     key: "handleToggle",
     value: function handleToggle(name) {
-      this.setState(this.toggleStateBoolean(name, this.state));
+      this.setState(_defineProperty({}, name, !this.state[name]));
     }
   }, {
     key: "render",
     value: function render() {
+<<<<<<< HEAD
       return /*#__PURE__*/React__default["default"].createElement("div", {
         id: "atracker-form"
       }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
@@ -5256,15 +5257,36 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
         className: "fieldWidth",
         labelText: "Object Storage Log Bucket",
         invalidText: "Select an Object Storage bucket."
+=======
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        component: "km-system-dropdown",
+        name: "system",
+        formName: "system",
+        groups: ["Key Protect", "HPCS"],
+        value: this.state.use_hs_crypto ? "HPCS" : "Key Protect",
+        labelText: "Key Management System",
+        handleInputChange: this.handleSystemDropdown,
+        className: "fieldWidth"
+>>>>>>> 55aac62 (trying to fix toggle)
       }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
         tooltip: {
           content: "Must be enabled in order to forward all logs to the Cloud Object Storage bucket"
         },
+<<<<<<< HEAD
         labelText: "Create Activity Tracker Route",
         defaultToggled: this.state.add_route,
         toggleFieldName: "add_route",
         onToggle: this.handleToggle,
         id: "app-id-add-route"
+=======
+        labelText: "Use Existing Instance",
+        key: this.state.use_data,
+        defaultToggled: this.state.use_data,
+        onToggle: this.handleToggle,
+        disabled: this.state.use_hs_crypto === true,
+        className: "fieldWidth",
+        id: "kms-existing"
+>>>>>>> 55aac62 (trying to fix toggle)
       })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
         noMarginBottom: true
       }, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
@@ -5284,8 +5306,20 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
   }]);
   return AtrackerForm;
 }(React.Component);
+<<<<<<< HEAD
 AtrackerForm.defaultProps = {
   isModal: false,
+=======
+KeyManagementForm.defaultProps = {
+  data: {
+    use_hs_crypto: false,
+    use_data: false,
+    name: "test-key-protect",
+    resource_group: "service-rg"
+  }
+};
+KeyManagementForm.propTypes = {
+>>>>>>> 55aac62 (trying to fix toggle)
   data: PropTypes__default["default"].shape({
     cos_bucket: "",
     cos_key: "",
