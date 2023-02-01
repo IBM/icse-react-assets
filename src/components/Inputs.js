@@ -10,29 +10,23 @@ import { addClassName, formatInputPlaceholder } from "../lib";
 export const IcseToggle = (props) => {
   let toggleName = props.toggleFieldName || snakeCase(props.labelText);
   return (
-    <DynamicToolTipWrapper
-      innerForm={() => {
-        return (
-          <Toggle
-            labelA={props.useOnOff ? "Off" : "False"}
-            labelB={props.useOnOff ? "On" : "True"}
-            labelText={props.tooltip ? "" : props.labelText}
-            aria-labelledby={props.labelText}
-            id={kebabCase(toggleName) + "-icse-toggle-" + props.id}
-            className={
-              addClassName("leftTextAlign fieldWidth", props) +
-              (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
-            }
-            onToggle={(event) => {
-              props.onToggle(toggleName, event);
-            }}
-            defaultToggled={props.defaultToggled}
-            disabled={props.disabled}
-          />
-        );
-      }}
-      {...props}
-    />
+    <DynamicToolTipWrapper {...props}>
+      <Toggle
+        labelA={props.useOnOff ? "Off" : "False"}
+        labelB={props.useOnOff ? "On" : "True"}
+        labelText={props.tooltip ? " " : props.labelText}
+        id={kebabCase(toggleName) + "-icse-toggle-" + props.id}
+        className={
+          addClassName("leftTextAlign fieldWidth", props) +
+          (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
+        }
+        onToggle={(event) => {
+          props.onToggle(toggleName, event);
+        }}
+        defaultToggled={props.defaultToggled}
+        disabled={props.disabled}
+      />
+    </DynamicToolTipWrapper>
   );
 };
 

@@ -2070,27 +2070,22 @@ DynamicToolTipWrapper.propTypes = {
 var css_248z$4 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
 styleInject(css_248z$4);
 
-var IcseToggle = function IcseToggle(props) {
-  var toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
-  return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, _extends({
-    innerForm: function innerForm() {
-      return /*#__PURE__*/React__default["default"].createElement(react.Toggle, {
-        labelA: props.useOnOff ? "Off" : "False",
-        labelB: props.useOnOff ? "On" : "True",
-        labelText: props.tooltip ? "" : props.labelText,
-        "aria-labelledby": props.labelText,
-        id: lazyZ.kebabCase(toggleName) + "-icse-toggle-" + props.id,
-        className: lib_2("leftTextAlign fieldWidth", props) + (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
-        ,
+const IcseToggle = props => {
+  let toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
+  return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React__default["default"].createElement(react.Toggle, {
+    labelA: props.useOnOff ? "Off" : "False",
+    labelB: props.useOnOff ? "On" : "True",
+    labelText: props.tooltip ? " " : props.labelText,
+    id: lazyZ.kebabCase(toggleName) + "-icse-toggle-" + props.id,
+    className: lib_2("leftTextAlign fieldWidth", props) + (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
+    ,
 
-        onToggle: function onToggle(event) {
-          props.onToggle(toggleName, event);
-        },
-        defaultToggled: props.defaultToggled,
-        disabled: props.disabled
-      });
-    }
-  }, props));
+    onToggle: event => {
+      props.onToggle(toggleName, event);
+    },
+    defaultToggled: props.defaultToggled,
+    disabled: props.disabled
+  }));
 };
 IcseToggle.defaultProps = {
   useOnOff: false,
@@ -2130,8 +2125,8 @@ IcseToggle.propTypes = {
  * @param {string=} props.labelText override label text
  * @returns <IcseTextInput/> component
  */
-var IcseTextInput = function IcseTextInput(props) {
-  var fieldName = lazyZ.titleCase(props.field);
+const IcseTextInput = props => {
+  let fieldName = lazyZ.titleCase(props.field);
   return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React__default["default"].createElement(react.TextInput, {
     id: props.id,
     className: lib_2("fieldWidth leftTextAlign", props),
@@ -2146,7 +2141,7 @@ var IcseTextInput = function IcseTextInput(props) {
     invalid: lazyZ.isBoolean(props.invalid) ? props.invalid : props.invalidCallback(),
     onChange: props.onChange,
     helperText: props.helperText,
-    invalidText: props.invalidText ? props.invalidText : "Invalid ".concat(props.field, " value."),
+    invalidText: props.invalidText ? props.invalidText : `Invalid ${props.field} value.`,
     maxLength: props.maxLength,
     disabled: props.disabled,
     readOnly: props.readOnly
@@ -2194,8 +2189,8 @@ IcseTextInput.propTypes = {
  * @param {func} props.invalidCallback
  * @returns <IcseNameInput />
  */
-var IcseNameInput = function IcseNameInput(props) {
-  var helperText = "";
+const IcseNameInput = props => {
+  let helperText = "";
   // if helper text is not hidden
   if (!props.hideHelperText && !props.useData) {
     helperText = props.helperTextCallback();
@@ -2794,6 +2789,126 @@ EncryptionKeyForm.propTypes = {
   }).isRequired,
   isModal: PropTypes__default["default"].bool.isRequired
 >>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
+};
+
+/**
+ * Atracker
+ * @param {Object} props
+ * @param {Object} props.data
+ * @param {string} props.data.resource_group
+ * @param {string} props.data.cos_bucket
+ * @param {string} props.data.cos_key
+ * @param {boolean} props.data.add_route
+ * @param {Array} props.resourceGroups list of resource groups
+ * @param {Array} props.cosBuckets list of cos buckets
+ * @param {Array} props.cosKeys list of cos Keys
+ * @param {string} props.prefix
+ */
+class AtrackerForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * Toggle on and off param in state at name
+   * @param {string} name name of the object key to change
+   */
+  handleToggle(name) {
+    this.setState(this.toggleStateBoolean(name, this.state));
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement("div", {
+      id: "atracker-form"
+    }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      componentName: "Activity Tracker",
+      field: "Name",
+      labelText: "Name",
+      className: "fieldWidth",
+      value: this.props.prefix + "-atracker",
+      onChange: this.handleInputChange,
+      readOnly: true,
+      id: "atracker-name",
+      invalid: false
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: "Activity Tracker",
+      value: this.state.resource_group,
+      groups: this.props.resourceGroups,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidth",
+      name: "resource_group",
+      labelText: "Resource Group"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      tooltip: {
+        content: "The bucket name under the Cloud Object Storage instance where Activity Tracker logs will be stored"
+      },
+      groups: this.props.cosBuckets,
+      formName: "Activity Tracker",
+      field: "collector_bucket_name",
+      name: "collector_bucket_name",
+      value: this.state.collector_bucket_name || "",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidth",
+      labelText: "Object Storage Log Bucket",
+      invalidText: "Select an Object Storage bucket."
+    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      tooltip: {
+        content: "Must be enabled in order to forward all logs to the Cloud Object Storage bucket"
+      },
+      labelText: "Create Activity Tracker Route",
+      defaultToggled: this.state.add_route,
+      toggleFieldName: "add_route",
+      onToggle: this.handleToggle,
+      id: "app-id-add-route"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+      noMarginBottom: true
+    }, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      tooltip: {
+        content: "The IAM API key that has writer access to the Cloud Object Storage instance"
+      },
+      formName: "Activity Tracker",
+      name: "atracker_key",
+      groups: this.props.cosKeys,
+      value: this.state.atracker_key || "",
+      labelText: "Privileged IAM Object Storage Key",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidth",
+      invalidText: "Select an Object Storage key."
+    })));
+  }
+}
+AtrackerForm.defaultProps = {
+  isModal: false,
+  data: PropTypes__default["default"].shape({
+    cos_bucket: "",
+    cos_key: "",
+    resource_group: "",
+    add_route: false
+  }).isRequired
+};
+AtrackerForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    cos_bucket: PropTypes__default["default"].string.isRequired,
+    cos_key: PropTypes__default["default"].string.isRequired,
+    resource_group: PropTypes__default["default"].string.isRequired,
+    add_route: PropTypes__default["default"].bool.isRequired
+  }).isRequired,
+  prefix: PropTypes__default["default"].string.isRequired,
+  cosKeys: PropTypes__default["default"].array.isRequired,
+  cosBuckets: PropTypes__default["default"].array.isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired
 };
 
 /**
@@ -5787,47 +5902,58 @@ styleInject(css_248z);
  * @param {*} props.form form to put in the create tab
  * @param {*} props.about docs to put in the about tab
  */
-class StatefulTabPanel extends React__default["default"].Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+var StatefulTabPanel = /*#__PURE__*/function (_React$Component) {
+  _inherits(StatefulTabPanel, _React$Component);
+  var _super = _createSuper(StatefulTabPanel);
+  function StatefulTabPanel(props) {
+    var _this;
+    _classCallCheck(this, StatefulTabPanel);
+    _this = _super.call(this, props);
+    _this.state = {
       tabIndex: 0
     };
-    this.setSelectedIndex = this.setSelectedIndex.bind(this);
+    _this.setSelectedIndex = _this.setSelectedIndex.bind(_assertThisInitialized(_this));
+    return _this;
   }
-  setSelectedIndex(event) {
-    // if the index is being set to a new tab
-    if (this.props.toggleShowChildren && event.selectedIndex !== this.state.tabIndex) this.props.toggleShowChildren();
-    this.setState({
-      tabIndex: event.selectedIndex
-    });
-  }
-  render() {
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, this.props.name && !this.props.hasBuiltInHeading && /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
-      name: this.props.name,
-      type: this.props.subHeading ? "subHeading" : "heading",
-      className: this.props.className,
-      tooltip: this.props.tooltip,
-      buttons: /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
-        hide: this.props.hideFormTitleButton || this.state.tabIndex !== 0 || !lazyZ.isFunction(this.props.onClick) || this.props.hasBuiltInHeading,
-        show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
-          type: "add",
-          noDeleteButton: true,
-          onClick: this.props.onClick,
-          disabled: this.props.shouldDisableSave ? this.props.shouldDisableSave() : false
+  _createClass(StatefulTabPanel, [{
+    key: "setSelectedIndex",
+    value: function setSelectedIndex(event) {
+      // if the index is being set to a new tab
+      if (this.props.toggleShowChildren && event.selectedIndex !== this.state.tabIndex) this.props.toggleShowChildren();
+      this.setState({
+        tabIndex: event.selectedIndex
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, this.props.name && !this.props.hasBuiltInHeading && /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+        name: this.props.name,
+        type: this.props.subHeading ? "subHeading" : "heading",
+        className: this.props.className,
+        tooltip: this.props.tooltip,
+        buttons: /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+          hide: this.props.hideFormTitleButton || this.state.tabIndex !== 0 || !lazyZ.isFunction(this.props.onClick) || this.props.hasBuiltInHeading,
+          show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+            type: "add",
+            noDeleteButton: true,
+            onClick: this.props.onClick,
+            disabled: this.props.shouldDisableSave ? this.props.shouldDisableSave() : false
+          })
         })
-      })
-    }), this.props.hideAbout && !this.props.about ? this.props.form : /*#__PURE__*/React__default["default"].createElement(react.Tabs, {
-      onChange: this.setSelectedIndex
-    }, /*#__PURE__*/React__default["default"].createElement(react.TabList, {
-      "aria-label": "formTabs"
-    }, /*#__PURE__*/React__default["default"].createElement(react.Tab, null, "Create"), /*#__PURE__*/React__default["default"].createElement(react.Tab, null, "About")), /*#__PURE__*/React__default["default"].createElement(react.TabPanels, null, /*#__PURE__*/React__default["default"].createElement(react.TabPanel, {
-      className: "doc"
-    }, this.props.form), /*#__PURE__*/React__default["default"].createElement(react.TabPanel, {
-      className: "doc"
-    }, this.props.about ? this.props.about : /*#__PURE__*/React__default["default"].createElement(UnderConstruction, null)))));
-  }
-}
+      }), this.props.hideAbout && !this.props.about ? this.props.form : /*#__PURE__*/React__default["default"].createElement(react.Tabs, {
+        onChange: this.setSelectedIndex
+      }, /*#__PURE__*/React__default["default"].createElement(react.TabList, {
+        "aria-label": "formTabs"
+      }, /*#__PURE__*/React__default["default"].createElement(react.Tab, null, "Create"), /*#__PURE__*/React__default["default"].createElement(react.Tab, null, "About")), /*#__PURE__*/React__default["default"].createElement(react.TabPanels, null, /*#__PURE__*/React__default["default"].createElement(react.TabPanel, {
+        className: "doc"
+      }, this.props.form), /*#__PURE__*/React__default["default"].createElement(react.TabPanel, {
+        className: "doc"
+      }, this.props.about ? this.props.about : /*#__PURE__*/React__default["default"].createElement(UnderConstruction, null)))));
+    }
+  }]);
+  return StatefulTabPanel;
+}(React__default["default"].Component);
 StatefulTabPanel.defaultProps = {
   subHeading: false,
   hideFormTitleButton: false,
@@ -5860,6 +5986,7 @@ StatefulTabPanel.propTypes = {
 
 >>>>>>> b982705 (feat: StatefulTabPanel)
 exports.AppIdKeyForm = AppIdKeyForm;
+exports.AtrackerForm = AtrackerForm;
 exports.DeleteButton = DeleteButton;
 <<<<<<< HEAD
 >>>>>>> b5b1ac6 (fixed build)
