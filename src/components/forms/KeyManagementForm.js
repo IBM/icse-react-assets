@@ -5,7 +5,7 @@ import {
 } from "../component-utils";
 import { IcseFormGroup } from "../Utils";
 import { IcseNameInput, IcseToggle } from "../Inputs";
-import { IcseSelect, ResourceGroupSelect } from "../Dropdowns";
+import { IcseSelect } from "../Dropdowns";
 import PropTypes from "prop-types";
 
 /**
@@ -90,10 +90,11 @@ class KeyManagementForm extends Component {
             invalid={this.props.invalidCallback(this.state, this.props)}
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
           />
-          <ResourceGroupSelect
-            component="Key Management"
+          <IcseSelect
             formName="resource_group"
             name="resource_group"
+            labelText="Resource Group"
+            groups={this.state.resourceGroups}
             value={this.state.resource_group}
             handleInputChange={this.handleInputChange}
             className="fieldWidth"
@@ -110,6 +111,7 @@ KeyManagementForm.defaultProps = {
     use_data: false,
     name: "test-key-protect",
     resource_group: "service-rg",
+    resourceGroups: ["service-rg", "management-rg", "workload-rg"],
   },
 };
 
