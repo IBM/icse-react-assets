@@ -9,6 +9,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import { Popover, PopoverContent, FilterableMultiSelect, MultiSelect, Tile, Toggletip, ToggletipButton, ToggletipContent, Link, Modal, TextInput, Toggle, Button } from '@carbon/react';
 >>>>>>> 04bfb65 (added button examples)
@@ -69,6 +70,8 @@ import { prettyJSON, isNullOrEmptyString, isEmpty, buildNumberDropdownList, keba
 import { Information, WarningAlt, CloudAlerting, Add } from '@carbon/icons-react';
 >>>>>>> 67351ff (Dropdowns components)
 =======
+=======
+>>>>>>> dc1cdcb (arrayOf)
 import React, { Component } from 'react';
 import { CloudAlerting, Add, Save, CloseFilled, Edit, TrashCan, ArrowUp, ArrowDown, Information, WarningAlt } from '@carbon/icons-react';
 import { Tile, Popover, PopoverContent, Button, Toggletip, ToggletipButton, ToggletipContent, Link, Toggle, TextInput, Select, SelectItem, Modal, FilterableMultiSelect, MultiSelect, Tabs, TabList, Tab, TabPanels, TabPanel } from '@carbon/react';
@@ -81,6 +84,7 @@ var _require2 = require("../src/lib/method-functions"),
   eventTargetToNameAndValue$2 = _require2.eventTargetToNameAndValue,
   toggleStateBoolean$2 = _require2.toggleStateBoolean,
   setNameToValue$2 = _require2.setNameToValue;
+<<<<<<< HEAD
 >>>>>>> b982705 (feat: StatefulTabPanel)
 
 <<<<<<< HEAD
@@ -979,14 +983,21 @@ const {
   toggleStateBoolean: toggleStateBoolean$2,
   setNameToValue: setNameToValue$2
 } = require("../src/lib/method-functions");
+=======
+>>>>>>> dc1cdcb (arrayOf)
 
 /**
  * build functions for modal forms
  * @param {React.Element} component stateful component
  */
 function buildFormFunctions(component) {
+<<<<<<< HEAD
   let disableSubmit = isFunction(component.props.shouldDisableSubmit);
   let disableSave = isFunction(component.props.shouldDisableSave);
+=======
+  var disableSubmit = isFunction(component.props.shouldDisableSubmit);
+  var disableSave = isFunction(component.props.shouldDisableSave);
+>>>>>>> dc1cdcb (arrayOf)
   if (component.props.shouldDisableSave) component.shouldDisableSave = component.props.shouldDisableSave.bind(component);
   if (disableSubmit) component.shouldDisableSubmit = component.props.shouldDisableSubmit.bind(component);
 
@@ -1016,6 +1027,7 @@ function buildFormFunctions(component) {
  */
 function buildFormDefaultInputMethods(component) {
 <<<<<<< HEAD
+<<<<<<< HEAD
   component.eventTargetToNameAndValue = lib_7.bind(component);
   component.toggleStateBoolean = lib_8.bind(component);
   component.setNameToValue = lib_9.bind(component);
@@ -1024,6 +1036,11 @@ function buildFormDefaultInputMethods(component) {
   component.toggleStateBoolean = toggleStateBoolean$2.bind(component);
   component.setNameToValue = setNameToValue$2.bind(component);
 >>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
+=======
+  component.eventTargetToNameAndValue = eventTargetToNameAndValue$2.bind(component);
+  component.toggleStateBoolean = toggleStateBoolean$2.bind(component);
+  component.setNameToValue = setNameToValue$2.bind(component);
+>>>>>>> dc1cdcb (arrayOf)
 }
 
 function styleInject(css, ref) {
@@ -1053,8 +1070,13 @@ function styleInject(css, ref) {
   }
 }
 
+<<<<<<< HEAD
 var css_248z$8 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$8);
+=======
+var css_248z$9 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z$9);
+>>>>>>> dc1cdcb (arrayOf)
 
 /**
  * Empty Resource Tile
@@ -1105,9 +1127,12 @@ function _objectSpread2(target) {
   return target;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))
 =======
 >>>>>>> 72d0b85 (merge)
+=======
+>>>>>>> dc1cdcb (arrayOf)
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -1242,6 +1267,9 @@ function _toPropertyKey(arg) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> dc1cdcb (arrayOf)
 /**
  * create a composed class name
  * @param {string} className name of classes to add
@@ -1260,7 +1288,10 @@ function addClassName$1(className, props) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> dc1cdcb (arrayOf)
 /** check if input is null or empty string
  * @param {string} input
  * @returns {boolean} true if str null or ""
@@ -1280,7 +1311,10 @@ function prependEmptyStringWhenNull$1(value, arr) {
   return prependArray.concat(arr);
 }
 
+<<<<<<< HEAD
 >>>>>>> 72d0b85 (merge)
+=======
+>>>>>>> dc1cdcb (arrayOf)
 /**
  * add margin bottom to subform chevron
  * @param {*} componentProps
@@ -1292,12 +1326,18 @@ function toggleMarginBottom$1(hide) {
 var formUtils = {
   addClassName: addClassName$1,
 <<<<<<< HEAD
+<<<<<<< HEAD
   toggleMarginBottom: toggleMarginBottom$1
 =======
   toggleMarginBottom: toggleMarginBottom$1,
   prependEmptyStringWhenNull: prependEmptyStringWhenNull$1,
   checkNullorEmptyString: checkNullorEmptyString$1
 >>>>>>> 72d0b85 (merge)
+=======
+  toggleMarginBottom: toggleMarginBottom$1,
+  prependEmptyStringWhenNull: prependEmptyStringWhenNull$1,
+  checkNullorEmptyString: checkNullorEmptyString$1
+>>>>>>> dc1cdcb (arrayOf)
 };
 
 const {
@@ -1321,10 +1361,13 @@ var textUtils = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> b5b1ac6 (fixed build)
 =======
 >>>>>>> 72d0b85 (merge)
+=======
+>>>>>>> dc1cdcb (arrayOf)
  * create classname for sub form chevron save button
  * @param {*} componentProps
  * @returns {string} classNames for button
@@ -1340,6 +1383,7 @@ var buttonUtils = {
 };
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 
@@ -1349,6 +1393,10 @@ var buttonUtils = {
 
 /**
 >>>>>>> 72d0b85 (merge)
+=======
+
+/**
+>>>>>>> dc1cdcb (arrayOf)
  * default handle event change function
  * @param {event} event
  * @param {Object} event.target
@@ -1381,6 +1429,7 @@ function setNameToValue$1(name, value) {
   };
 }
 var methodFunctions = {
+<<<<<<< HEAD
 <<<<<<< HEAD
   eventTargetToNameAndValue: eventTargetToNameAndValue$2,
   toggleStateBoolean: toggleStateBoolean$2,
@@ -1455,6 +1504,11 @@ const {
   toggleStateBoolean: toggleStateBoolean$1,
   setNameToValue: setNameToValue$1
 >>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
+=======
+  eventTargetToNameAndValue: eventTargetToNameAndValue$1,
+  toggleStateBoolean: toggleStateBoolean$1,
+  setNameToValue: setNameToValue$1
+>>>>>>> dc1cdcb (arrayOf)
 };
 
 const {
@@ -1462,12 +1516,16 @@ const {
   addClassName,
   prependEmptyStringWhenNull,
   checkNullorEmptyString
+<<<<<<< HEAD
 >>>>>>> 72d0b85 (merge)
+=======
+>>>>>>> dc1cdcb (arrayOf)
 } = formUtils;
 const {
   formatInputPlaceholder
 } = textUtils;
 const {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1526,12 +1584,22 @@ var lib = {
 >>>>>>> 8655315 (changes (exports, readme, example))
 =======
 =======
+=======
+  saveChangeButtonClass
+} = buttonUtils;
+const {
+  eventTargetToNameAndValue,
+  toggleStateBoolean,
+  setNameToValue
+} = methodFunctions;
+>>>>>>> dc1cdcb (arrayOf)
 var lib = {
   toggleMarginBottom,
   addClassName,
   prependEmptyStringWhenNull,
   checkNullorEmptyString,
   formatInputPlaceholder,
+<<<<<<< HEAD
 >>>>>>> 72d0b85 (merge)
   saveChangeButtonClass,
 <<<<<<< HEAD
@@ -1558,12 +1626,19 @@ var lib_7 = lib.buildFormFunctions;
   toggleStateBoolean,
   setNameToValue
 >>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
+=======
+  saveChangeButtonClass,
+  eventTargetToNameAndValue,
+  toggleStateBoolean,
+  setNameToValue
+>>>>>>> dc1cdcb (arrayOf)
 };
 var lib_1 = lib.toggleMarginBottom;
 var lib_2 = lib.addClassName;
 var lib_3 = lib.prependEmptyStringWhenNull;
 var lib_5 = lib.formatInputPlaceholder;
 var lib_6 = lib.saveChangeButtonClass;
+<<<<<<< HEAD
 >>>>>>> 72d0b85 (merge)
 
 <<<<<<< HEAD
@@ -1578,6 +1653,11 @@ styleInject(css_248z$7);
 var css_248z$8 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
 styleInject(css_248z$8);
 >>>>>>> b982705 (feat: StatefulTabPanel)
+=======
+
+var css_248z$8 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
+styleInject(css_248z$8);
+>>>>>>> dc1cdcb (arrayOf)
 
 var css_248z$7 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  z-index: 9001;\n  top: 10px;\n}";
 styleInject(css_248z$7);
@@ -1687,7 +1767,11 @@ var SaveAddButton = function SaveAddButton(props) {
   }, /*#__PURE__*/React.createElement(Button, {
     kind: props.type === "add" ? "tertiary" : "primary",
     onClick: props.onClick,
+<<<<<<< HEAD
     className: lib_4(props) + (props.disabled === true ? " pointerEventsNone " : " " + props.className),
+=======
+    className: lib_6(props) + (props.disabled === true ? " pointerEventsNone " : " " + props.className),
+>>>>>>> dc1cdcb (arrayOf)
     disabled: props.disabled || false,
     size: "sm"
   }, props.type === "add" ? /*#__PURE__*/React.createElement(Add, null) : /*#__PURE__*/React.createElement(SaveIcon, {
@@ -2142,10 +2226,14 @@ const IcseTextInput = props => {
     className: lib_2("fieldWidth leftTextAlign", props),
     labelText: props.labelText ? props.labelText : titleCase(props.field),
 <<<<<<< HEAD
+<<<<<<< HEAD
     placeholder: props.placeholder || lib_3(props.componentName, fieldName),
 =======
     placeholder: props.placeholder || lib_5(props.componentName, fieldName),
 >>>>>>> 72d0b85 (merge)
+=======
+    placeholder: props.placeholder || lib_5(props.componentName, fieldName),
+>>>>>>> dc1cdcb (arrayOf)
     name: props.field,
     value: props.value || "",
     invalid: isBoolean(props.invalid) ? props.invalid : props.invalidCallback(),
@@ -2295,6 +2383,7 @@ AppIdKeyForm.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 var sccRegions = [{
   id: "us",
   label: "us"
@@ -2359,6 +2448,8 @@ var SccForm = /*#__PURE__*/function (_Component) {
     value: function handleToggle(name) {
       this.setState(lib_8(name, this.state));
 =======
+=======
+>>>>>>> dc1cdcb (arrayOf)
 var IcseSelect = function IcseSelect(props) {
   var invalid =
   // automatically set to invalid is is null or empty string and invalid not disabled
@@ -2478,11 +2569,15 @@ var FetchSelect = /*#__PURE__*/function (_React$Component) {
       } else {
         return this.state.data;
       }
+<<<<<<< HEAD
 >>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
+=======
+>>>>>>> dc1cdcb (arrayOf)
     }
   }, {
     key: "render",
     value: function render() {
+<<<<<<< HEAD
 <<<<<<< HEAD
       var _this2 = this;
       return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(Dropdown, {
@@ -2566,6 +2661,8 @@ SccForm.propTypes = {
   invalidSccScopeDescription: PropTypes.func.isRequired,
   invalidSccCollectorDescription: PropTypes.func.isRequired
 =======
+=======
+>>>>>>> dc1cdcb (arrayOf)
       return /*#__PURE__*/React.createElement(IcseSelect, {
         labelText: this.props.labelText,
         handleInputChange: this.props.handleInputChange,
@@ -2798,7 +2895,10 @@ EncryptionKeyForm.propTypes = {
     force_delete: PropTypes.bool
   }).isRequired,
   isModal: PropTypes.bool.isRequired
+<<<<<<< HEAD
 >>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
+=======
+>>>>>>> dc1cdcb (arrayOf)
 };
 
 /**
@@ -2868,7 +2968,11 @@ class AtrackerForm extends Component {
       formName: "Activity Tracker",
       field: "collector_bucket_name",
       name: "collector_bucket_name",
+<<<<<<< HEAD
       value: this.state.collector_bucket_name || "",
+=======
+      value: this.state.collector_bucket_name,
+>>>>>>> dc1cdcb (arrayOf)
       handleInputChange: this.handleInputChange,
       className: "fieldWidth",
       labelText: "Object Storage Log Bucket",
@@ -2891,7 +2995,11 @@ class AtrackerForm extends Component {
       formName: "Activity Tracker",
       name: "atracker_key",
       groups: this.props.cosKeys,
+<<<<<<< HEAD
       value: this.state.atracker_key || "",
+=======
+      value: this.state.atracker_key,
+>>>>>>> dc1cdcb (arrayOf)
       labelText: "Privileged IAM Object Storage Key",
       handleInputChange: this.handleInputChange,
       className: "fieldWidth",
@@ -2916,8 +3024,13 @@ AtrackerForm.propTypes = {
     add_route: PropTypes.bool.isRequired
   }).isRequired,
   prefix: PropTypes.string.isRequired,
+<<<<<<< HEAD
   cosKeys: PropTypes.array.isRequired,
   cosBuckets: PropTypes.array.isRequired,
+=======
+  cosKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
+  cosBuckets: PropTypes.arrayOf(PropTypes.string).isRequired,
+>>>>>>> dc1cdcb (arrayOf)
   isModal: PropTypes.bool.isRequired
 };
 
@@ -3339,6 +3452,7 @@ VpcListMultiSelect.propTypes = {
   vpcList: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 var css_248z$1 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n}\n";
@@ -4066,6 +4180,8 @@ VpcListMultiSelect.propTypes = {
 >>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))
 =======
 >>>>>>> b345987 (fixes & heading/statelesstoggle form added)
+=======
+>>>>>>> dc1cdcb (arrayOf)
 /**
  * Under Construction Page
  */
@@ -4075,6 +4191,7 @@ var UnderConstruction = function UnderConstruction() {
   }), /*#__PURE__*/React.createElement("h4", null, "Page Under Construction"));
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -6175,6 +6292,8 @@ export { AppIdKeyForm, DeleteButton, DeleteModal, DynamicRender, DynamicToolTipW
 export { AppIdKeyForm, DeleteButton, DeleteModal, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SecurityGroupMultiSelect, SshKeyMultiSelect, StatelessToggleForm, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
 =======
+=======
+>>>>>>> dc1cdcb (arrayOf)
 var css_248z = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }";
 styleInject(css_248z);
 
@@ -6267,8 +6386,12 @@ StatefulTabPanel.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export { AppIdKeyForm, DeleteButton, DeleteModal, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SecurityGroupMultiSelect, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> b982705 (feat: StatefulTabPanel)
 =======
 export { AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SecurityGroupMultiSelect, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> f7f1280 (atrackerform)
+=======
+export { AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SecurityGroupMultiSelect, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, buildFormDefaultInputMethods, buildFormFunctions };
+>>>>>>> dc1cdcb (arrayOf)

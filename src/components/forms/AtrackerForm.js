@@ -141,7 +141,7 @@ AtrackerForm.propTypes = {
     add_route: PropTypes.bool.isRequired,
   }).isRequired,
   prefix: PropTypes.string.isRequired,
-  cosKeys: PropTypes.array.isRequired,
-  cosBuckets: PropTypes.array.isRequired,
+  cosKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
+  cosBuckets: PropTypes.arrayOf(PropTypes.string).isRequired,
   isModal: PropTypes.bool.isRequired,
 };

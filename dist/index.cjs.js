@@ -3,6 +3,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> faf8c38 (fixed imports)
@@ -25,19 +26,25 @@ var PropTypes = require('prop-types');
 var react = require('@carbon/react');
 =======
 =======
+=======
+>>>>>>> dc1cdcb (arrayOf)
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 72d0b85 (merge)
 =======
 var lazyZ = require('lazy-z');
 >>>>>>> 28f2e52 (code now)
+=======
+>>>>>>> dc1cdcb (arrayOf)
 var React = require('react');
 var iconsReact = require('@carbon/icons-react');
 var react = require('@carbon/react');
 var PropTypes = require('prop-types');
+<<<<<<< HEAD
 <<<<<<< HEAD
 var lazyZ = require('lazy-z');
 <<<<<<< HEAD
@@ -54,6 +61,14 @@ var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 var PropTypes__default = /*#__PURE__*/_interopDefaultLegacy(PropTypes);
 <<<<<<< HEAD
 =======
+=======
+var lazyZ = require('lazy-z');
+
+function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
+var PropTypes__default = /*#__PURE__*/_interopDefaultLegacy(PropTypes);
+>>>>>>> dc1cdcb (arrayOf)
 var lazyZ__default = /*#__PURE__*/_interopDefaultLegacy(lazyZ);
 
 var _require = require("lazy-z"),
@@ -313,7 +328,10 @@ function _toPropertyKey(arg) {
   var key = _toPrimitive(arg, "string");
   return typeof key === "symbol" ? key : String(key);
 }
+<<<<<<< HEAD
 >>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
+=======
+>>>>>>> dc1cdcb (arrayOf)
 
 /**
  * create a composed class name
@@ -408,6 +426,9 @@ var buttonUtils = {
  */
 function eventTargetToNameAndValue$1(event) {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> dc1cdcb (arrayOf)
   let {
     name,
     value
@@ -470,6 +491,7 @@ var lib_2 = lib.addClassName;
 var lib_3 = lib.prependEmptyStringWhenNull;
 var lib_5 = lib.formatInputPlaceholder;
 var lib_6 = lib.saveChangeButtonClass;
+<<<<<<< HEAD
 var lib_7 = lib.eventTargetToNameAndValue;
 var lib_8 = lib.toggleStateBoolean;
 var lib_9 = lib.setNameToValue;
@@ -1565,12 +1587,18 @@ styleInject(css_248z$7);
 var css_248z$6 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  z-index: 9001;\n  top: 10px;\n}";
 styleInject(css_248z$6);
 =======
+=======
+
+>>>>>>> dc1cdcb (arrayOf)
 var css_248z$8 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
 styleInject(css_248z$8);
 
 var css_248z$7 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  z-index: 9001;\n  top: 10px;\n}";
 styleInject(css_248z$7);
+<<<<<<< HEAD
 >>>>>>> b982705 (feat: StatefulTabPanel)
+=======
+>>>>>>> dc1cdcb (arrayOf)
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -1677,7 +1705,11 @@ var SaveAddButton = function SaveAddButton(props) {
   }, /*#__PURE__*/React__default["default"].createElement(react.Button, {
     kind: props.type === "add" ? "tertiary" : "primary",
     onClick: props.onClick,
+<<<<<<< HEAD
     className: lib_4(props) + (props.disabled === true ? " pointerEventsNone " : " " + props.className),
+=======
+    className: lib_6(props) + (props.disabled === true ? " pointerEventsNone " : " " + props.className),
+>>>>>>> dc1cdcb (arrayOf)
     disabled: props.disabled || false,
     size: "sm"
   }, props.type === "add" ? /*#__PURE__*/React__default["default"].createElement(iconsReact.Add, null) : /*#__PURE__*/React__default["default"].createElement(SaveIcon, {
@@ -2132,10 +2164,14 @@ const IcseTextInput = props => {
     className: lib_2("fieldWidth leftTextAlign", props),
     labelText: props.labelText ? props.labelText : lazyZ.titleCase(props.field),
 <<<<<<< HEAD
+<<<<<<< HEAD
     placeholder: props.placeholder || lib_3(props.componentName, fieldName),
 =======
     placeholder: props.placeholder || lib_5(props.componentName, fieldName),
 >>>>>>> 72d0b85 (merge)
+=======
+    placeholder: props.placeholder || lib_5(props.componentName, fieldName),
+>>>>>>> dc1cdcb (arrayOf)
     name: props.field,
     value: props.value || "",
     invalid: lazyZ.isBoolean(props.invalid) ? props.invalid : props.invalidCallback(),
@@ -2285,6 +2321,7 @@ AppIdKeyForm.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 var sccRegions = [{
   id: "us",
   label: "us"
@@ -2349,6 +2386,8 @@ var SccForm = /*#__PURE__*/function (_Component) {
     value: function handleToggle(name) {
       this.setState(lib_8(name, this.state));
 =======
+=======
+>>>>>>> dc1cdcb (arrayOf)
 var IcseSelect = function IcseSelect(props) {
   var invalid =
   // automatically set to invalid is is null or empty string and invalid not disabled
@@ -2468,11 +2507,15 @@ var FetchSelect = /*#__PURE__*/function (_React$Component) {
       } else {
         return this.state.data;
       }
+<<<<<<< HEAD
 >>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
+=======
+>>>>>>> dc1cdcb (arrayOf)
     }
   }, {
     key: "render",
     value: function render() {
+<<<<<<< HEAD
 <<<<<<< HEAD
       var _this2 = this;
       return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.Dropdown, {
@@ -2556,6 +2599,8 @@ SccForm.propTypes = {
   invalidSccScopeDescription: PropTypes__default["default"].func.isRequired,
   invalidSccCollectorDescription: PropTypes__default["default"].func.isRequired
 =======
+=======
+>>>>>>> dc1cdcb (arrayOf)
       return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
         labelText: this.props.labelText,
         handleInputChange: this.props.handleInputChange,
@@ -2788,7 +2833,10 @@ EncryptionKeyForm.propTypes = {
     force_delete: PropTypes__default["default"].bool
   }).isRequired,
   isModal: PropTypes__default["default"].bool.isRequired
+<<<<<<< HEAD
 >>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
+=======
+>>>>>>> dc1cdcb (arrayOf)
 };
 
 /**
@@ -2858,7 +2906,11 @@ class AtrackerForm extends React.Component {
       formName: "Activity Tracker",
       field: "collector_bucket_name",
       name: "collector_bucket_name",
+<<<<<<< HEAD
       value: this.state.collector_bucket_name || "",
+=======
+      value: this.state.collector_bucket_name,
+>>>>>>> dc1cdcb (arrayOf)
       handleInputChange: this.handleInputChange,
       className: "fieldWidth",
       labelText: "Object Storage Log Bucket",
@@ -2881,7 +2933,11 @@ class AtrackerForm extends React.Component {
       formName: "Activity Tracker",
       name: "atracker_key",
       groups: this.props.cosKeys,
+<<<<<<< HEAD
       value: this.state.atracker_key || "",
+=======
+      value: this.state.atracker_key,
+>>>>>>> dc1cdcb (arrayOf)
       labelText: "Privileged IAM Object Storage Key",
       handleInputChange: this.handleInputChange,
       className: "fieldWidth",
@@ -2906,8 +2962,13 @@ AtrackerForm.propTypes = {
     add_route: PropTypes__default["default"].bool.isRequired
   }).isRequired,
   prefix: PropTypes__default["default"].string.isRequired,
+<<<<<<< HEAD
   cosKeys: PropTypes__default["default"].array.isRequired,
   cosBuckets: PropTypes__default["default"].array.isRequired,
+=======
+  cosKeys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  cosBuckets: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+>>>>>>> dc1cdcb (arrayOf)
   isModal: PropTypes__default["default"].bool.isRequired
 };
 
@@ -3142,14 +3203,19 @@ styleInject(css_248z$1);
  * Icse multiselect template
  */
 <<<<<<< HEAD
+<<<<<<< HEAD
 const IcseMultiSelect = props => {
 =======
 var IcseMultiSelect = function IcseMultiSelect(props) {
 >>>>>>> 72d0b85 (merge)
+=======
+var IcseMultiSelect = function IcseMultiSelect(props) {
+>>>>>>> dc1cdcb (arrayOf)
   return /*#__PURE__*/React__default["default"].createElement(react.FilterableMultiSelect, {
     id: props.id,
     className: lib_2("fieldWidth leftTextAlign cds--select", props),
     titleText: props.titleText,
+<<<<<<< HEAD
 <<<<<<< HEAD
     itemToString: item => item ? item : "",
 =======
@@ -3157,6 +3223,11 @@ var IcseMultiSelect = function IcseMultiSelect(props) {
       return item ? item : "";
     },
 >>>>>>> 72d0b85 (merge)
+=======
+    itemToString: function itemToString(item) {
+      return item ? item : "";
+    },
+>>>>>>> dc1cdcb (arrayOf)
     invalid: props.invalid,
     invalidText: props.invalidText,
     initialSelectedItems: props.initialSelectedItems,
@@ -3191,10 +3262,14 @@ IcseMultiSelect.propTypes = {
  * ssh key multiselect
  */
 <<<<<<< HEAD
+<<<<<<< HEAD
 const SshKeyMultiSelect = props => {
 =======
 var SshKeyMultiSelect = function SshKeyMultiSelect(props) {
 >>>>>>> 72d0b85 (merge)
+=======
+var SshKeyMultiSelect = function SshKeyMultiSelect(props) {
+>>>>>>> dc1cdcb (arrayOf)
   return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
     id: props.id + "-ssh-key-multiselect",
     useTitleInItem: true,
@@ -3205,10 +3280,14 @@ var SshKeyMultiSelect = function SshKeyMultiSelect(props) {
     items: props.sshKeys,
     initialSelectedItems: props.initialSelectedItems || [],
 <<<<<<< HEAD
+<<<<<<< HEAD
     onChange: event => {
 =======
     onChange: function onChange(event) {
 >>>>>>> 72d0b85 (merge)
+=======
+    onChange: function onChange(event) {
+>>>>>>> dc1cdcb (arrayOf)
       props.onChange(event.selectedItems);
     },
     className: "fieldWidthSmaller cds--form-item"
@@ -3228,10 +3307,14 @@ SshKeyMultiSelect.propTypes = {
  * sg multiselect
  */
 <<<<<<< HEAD
+<<<<<<< HEAD
 const SecurityGroupMultiSelect = props => {
 =======
 var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
 >>>>>>> 72d0b85 (merge)
+=======
+var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
+>>>>>>> dc1cdcb (arrayOf)
   if (props.vpc_name && !props.securityGroups) {
     // checking props.securityGroups[props.vpc_name] will result in an
     // undefined error that happens as part of MultiSelect
@@ -3247,14 +3330,19 @@ var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
     invalid: props.invalid,
     invalidText: "Invalid Selection",
 <<<<<<< HEAD
+<<<<<<< HEAD
     onChange: event => {
 =======
     onChange: function onChange(event) {
 >>>>>>> 72d0b85 (merge)
+=======
+    onChange: function onChange(event) {
+>>>>>>> dc1cdcb (arrayOf)
       props.onChange(event.selectedItems);
     },
     disabled: props.disabled,
     items: props.vpc_name === "" ? [] : props.securityGroups[props.vpc_name],
+<<<<<<< HEAD
 <<<<<<< HEAD
     itemToString: item => item ? item : ""
 =======
@@ -3262,6 +3350,11 @@ var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
       return item ? item : "";
     }
 >>>>>>> 72d0b85 (merge)
+=======
+    itemToString: function itemToString(item) {
+      return item ? item : "";
+    }
+>>>>>>> dc1cdcb (arrayOf)
   });
 };
 SecurityGroupMultiSelect.defaultProps = {
@@ -3286,10 +3379,14 @@ SecurityGroupMultiSelect.propTypes = {
  * vpc subnet multiselect
  */
 <<<<<<< HEAD
+<<<<<<< HEAD
 const SubnetMultiSelect = props => {
 =======
 var SubnetMultiSelect = function SubnetMultiSelect(props) {
 >>>>>>> 72d0b85 (merge)
+=======
+var SubnetMultiSelect = function SubnetMultiSelect(props) {
+>>>>>>> dc1cdcb (arrayOf)
   return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
     id: props.id + "-subnet-multiselect",
     className: props.className,
@@ -3302,12 +3399,18 @@ var SubnetMultiSelect = function SubnetMultiSelect(props) {
     invalid: props.initialSelectedItems.length === 0,
     disabled: props.disabled,
 <<<<<<< HEAD
+<<<<<<< HEAD
     onChange: event => props.onChange(event.selectedItems)
 =======
     onChange: function onChange(event) {
       return props.onChange(event.selectedItems);
     }
 >>>>>>> 72d0b85 (merge)
+=======
+    onChange: function onChange(event) {
+      return props.onChange(event.selectedItems);
+    }
+>>>>>>> dc1cdcb (arrayOf)
   });
 };
 SubnetMultiSelect.defaultProps = {
@@ -3334,10 +3437,14 @@ SubnetMultiSelect.propTypes = {
  * VPC List MultiSelect
  */
 <<<<<<< HEAD
+<<<<<<< HEAD
 const VpcListMultiSelect = props => {
 =======
 var VpcListMultiSelect = function VpcListMultiSelect(props) {
 >>>>>>> 72d0b85 (merge)
+=======
+var VpcListMultiSelect = function VpcListMultiSelect(props) {
+>>>>>>> dc1cdcb (arrayOf)
   // throw error here so that passing no vpc list prop will error here
   // instead of being passed to `FilterableMultiselect`
   if (!props.vpcList) {
@@ -3349,12 +3456,18 @@ var VpcListMultiSelect = function VpcListMultiSelect(props) {
     id: props.id + "-vpc-select",
     titleText: props.titleText,
 <<<<<<< HEAD
+<<<<<<< HEAD
     onChange: event => props.onChange(event.selectedItems),
 =======
     onChange: function onChange(event) {
       return props.onChange(event.selectedItems);
     },
 >>>>>>> 72d0b85 (merge)
+=======
+    onChange: function onChange(event) {
+      return props.onChange(event.selectedItems);
+    },
+>>>>>>> dc1cdcb (arrayOf)
     initialSelectedItems: props.initialSelectedItems,
     className: props.className,
     items: props.vpcList
@@ -3373,6 +3486,7 @@ VpcListMultiSelect.propTypes = {
   vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -4217,11 +4331,18 @@ const UnderConstruction = () => {
 =======
 var UnderConstruction = function UnderConstruction() {
 >>>>>>> 72d0b85 (merge)
+=======
+/**
+ * Under Construction Page
+ */
+var UnderConstruction = function UnderConstruction() {
+>>>>>>> dc1cdcb (arrayOf)
   return /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(iconsReact.WarningAlt, {
     size: "128"
   }), /*#__PURE__*/React__default["default"].createElement("h4", null, "Page Under Construction"));
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -5893,6 +6014,8 @@ exports.AppIdKeyForm = AppIdKeyForm;
 =======
 >>>>>>> b345987 (fixes & heading/statelesstoggle form added)
 =======
+=======
+>>>>>>> dc1cdcb (arrayOf)
 var css_248z = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }";
 styleInject(css_248z);
 
@@ -5984,6 +6107,7 @@ StatefulTabPanel.propTypes = {
   hasBuiltInHeading: PropTypes__default["default"].bool.isRequired
 };
 
+<<<<<<< HEAD
 >>>>>>> b982705 (feat: StatefulTabPanel)
 exports.AppIdKeyForm = AppIdKeyForm;
 exports.AtrackerForm = AtrackerForm;
@@ -6024,6 +6148,11 @@ exports.IcseNumberSelect = IcseNumberSelect;
 exports.IcseSelect = IcseSelect;
 >>>>>>> 67351ff (Dropdowns components)
 =======
+=======
+exports.AppIdKeyForm = AppIdKeyForm;
+exports.AtrackerForm = AtrackerForm;
+exports.DeleteButton = DeleteButton;
+>>>>>>> dc1cdcb (arrayOf)
 exports.DeleteModal = DeleteModal;
 exports.DynamicRender = DynamicRender;
 exports.DynamicToolTipWrapper = DynamicToolTipWrapper;
@@ -6040,7 +6169,10 @@ exports.IcseMultiSelect = IcseMultiSelect;
 exports.IcseNameInput = IcseNameInput;
 exports.IcseNumberSelect = IcseNumberSelect;
 exports.IcseSelect = IcseSelect;
+<<<<<<< HEAD
 >>>>>>> 72d0b85 (merge)
+=======
+>>>>>>> dc1cdcb (arrayOf)
 exports.IcseSubForm = IcseSubForm;
 exports.IcseTextInput = IcseTextInput;
 exports.IcseToggle = IcseToggle;
@@ -6049,17 +6181,23 @@ exports.PopoverWrapper = PopoverWrapper;
 exports.RenderForm = RenderForm;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> 72d0b85 (merge)
 exports.SaveAddButton = SaveAddButton;
 exports.SaveIcon = SaveIcon;
 exports.SccForm = SccForm;
+=======
+exports.SaveAddButton = SaveAddButton;
+exports.SaveIcon = SaveIcon;
+>>>>>>> dc1cdcb (arrayOf)
 exports.SecurityGroupMultiSelect = SecurityGroupMultiSelect;
 exports.SshKeyMultiSelect = SshKeyMultiSelect;
 exports.StatefulTabPanel = StatefulTabPanel;
 exports.StatelessToggleForm = StatelessToggleForm;
 exports.SubnetMultiSelect = SubnetMultiSelect;
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> 04bfb65 (added button examples)
 exports.TitleGroup = TitleGroup;
@@ -6086,6 +6224,8 @@ exports.buildFormDefaultInputMethods = buildFormDefaultInputMethods;
 exports.buildFormFunctions = buildFormFunctions;
 >>>>>>> 8655315 (changes (exports, readme, example))
 =======
+=======
+>>>>>>> dc1cdcb (arrayOf)
 exports.TitleGroup = TitleGroup;
 exports.ToolTipWrapper = ToolTipWrapper;
 exports.UnderConstruction = UnderConstruction;
@@ -6094,4 +6234,7 @@ exports.UpDownButtons = UpDownButtons;
 exports.VpcListMultiSelect = VpcListMultiSelect;
 exports.buildFormDefaultInputMethods = buildFormDefaultInputMethods;
 exports.buildFormFunctions = buildFormFunctions;
+<<<<<<< HEAD
 >>>>>>> 72d0b85 (merge)
+=======
+>>>>>>> dc1cdcb (arrayOf)
