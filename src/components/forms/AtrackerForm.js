@@ -82,7 +82,7 @@ class AtrackerForm extends Component {
             formName="Activity Tracker"
             field="collector_bucket_name"
             name="collector_bucket_name"
-            value={this.state.collector_bucket_name || ""}
+            value={this.state.collector_bucket_name}
             handleInputChange={this.handleInputChange}
             className="fieldWidth"
             labelText="Object Storage Log Bucket"
@@ -109,7 +109,7 @@ class AtrackerForm extends Component {
             formName="Activity Tracker"
             name="atracker_key"
             groups={this.props.cosKeys}
-            value={this.state.atracker_key || ""}
+            value={this.state.atracker_key}
             labelText="Privileged IAM Object Storage Key"
             handleInputChange={this.handleInputChange}
             className="fieldWidth"
