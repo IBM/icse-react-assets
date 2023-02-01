@@ -4,6 +4,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> faf8c38 (fixed imports)
@@ -28,10 +29,13 @@ var react = require('@carbon/react');
 =======
 =======
 >>>>>>> dc1cdcb (arrayOf)
+=======
+>>>>>>> 4c7a274 (fixed formatting for docs)
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -43,10 +47,13 @@ var lazyZ = require('lazy-z');
 >>>>>>> dc1cdcb (arrayOf)
 =======
 >>>>>>> b6eab56 (example and readme)
+=======
+>>>>>>> 4c7a274 (fixed formatting for docs)
 var React = require('react');
 var iconsReact = require('@carbon/icons-react');
 var react = require('@carbon/react');
 var PropTypes = require('prop-types');
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -69,15 +76,20 @@ var PropTypes__default = /*#__PURE__*/_interopDefaultLegacy(PropTypes);
 <<<<<<< HEAD
 =======
 =======
+=======
+>>>>>>> 4c7a274 (fixed formatting for docs)
 var lazyZ = require('lazy-z');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 var PropTypes__default = /*#__PURE__*/_interopDefaultLegacy(PropTypes);
+<<<<<<< HEAD
 >>>>>>> dc1cdcb (arrayOf)
 =======
 >>>>>>> b6eab56 (example and readme)
+=======
+>>>>>>> 4c7a274 (fixed formatting for docs)
 var lazyZ__default = /*#__PURE__*/_interopDefaultLegacy(lazyZ);
 
 var _require = require("lazy-z"),
@@ -338,9 +350,12 @@ function _toPropertyKey(arg) {
   return typeof key === "symbol" ? key : String(key);
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
 =======
 >>>>>>> dc1cdcb (arrayOf)
+=======
+>>>>>>> 4c7a274 (fixed formatting for docs)
 
 /**
  * create a composed class name
@@ -386,6 +401,7 @@ function prependEmptyStringWhenNull$1(value, arr) {
 function toggleMarginBottom$1(hide) {
   if (hide === false) return " marginBottomSmall";else return "";
 }
+<<<<<<< HEAD
 
 /**
  * Function that determines invalid state and invalid text for scc fields: scope_name, scope_description, and collector_description
@@ -401,12 +417,18 @@ function invalidScc$1(name, value, regex) {
     invalidText: `Invalid ${name}. Must match regular expression: ${regex}`
   };
 }
+=======
+>>>>>>> 4c7a274 (fixed formatting for docs)
 var formUtils = {
   addClassName: addClassName$1,
   toggleMarginBottom: toggleMarginBottom$1,
   prependEmptyStringWhenNull: prependEmptyStringWhenNull$1,
+<<<<<<< HEAD
   checkNullorEmptyString: checkNullorEmptyString$1,
   invalidScc: invalidScc$1
+=======
+  checkNullorEmptyString: checkNullorEmptyString$1
+>>>>>>> 4c7a274 (fixed formatting for docs)
 };
 
 const {
@@ -453,10 +475,13 @@ function eventTargetToNameAndValue$1(event) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> dc1cdcb (arrayOf)
 =======
 >>>>>>> b6eab56 (example and readme)
+=======
+>>>>>>> 4c7a274 (fixed formatting for docs)
   let {
     name,
     value
@@ -490,8 +515,12 @@ const {
   toggleMarginBottom,
   addClassName,
   prependEmptyStringWhenNull,
+<<<<<<< HEAD
   checkNullorEmptyString,
   invalidScc
+=======
+  checkNullorEmptyString
+>>>>>>> 4c7a274 (fixed formatting for docs)
 } = formUtils;
 const {
   formatInputPlaceholder
@@ -513,6 +542,7 @@ var lib = {
   saveChangeButtonClass,
   eventTargetToNameAndValue,
   toggleStateBoolean,
+<<<<<<< HEAD
   setNameToValue,
   invalidScc
 };
@@ -1602,6 +1632,9 @@ styleInject(css_248z$7);
   toggleStateBoolean,
   setNameToValue
 >>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
+=======
+  setNameToValue
+>>>>>>> 4c7a274 (fixed formatting for docs)
 };
 var lib_1 = lib.toggleMarginBottom;
 var lib_2 = lib.addClassName;
@@ -1609,6 +1642,7 @@ var lib_3 = lib.prependEmptyStringWhenNull;
 var lib_5 = lib.formatInputPlaceholder;
 var lib_6 = lib.saveChangeButtonClass;
 
+<<<<<<< HEAD
 =======
 >>>>>>> 28f2e52 (code now)
 var css_248z$7 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
@@ -1631,15 +1665,20 @@ styleInject(css_248z$6);
 =======
 
 >>>>>>> dc1cdcb (arrayOf)
+=======
+>>>>>>> 4c7a274 (fixed formatting for docs)
 var css_248z$8 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
 styleInject(css_248z$8);
 
 var css_248z$7 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  z-index: 9001;\n  top: 10px;\n}";
 styleInject(css_248z$7);
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> b982705 (feat: StatefulTabPanel)
 =======
 >>>>>>> dc1cdcb (arrayOf)
+=======
+>>>>>>> 4c7a274 (fixed formatting for docs)
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -1739,6 +1778,7 @@ var SaveIcon = function SaveIcon(props) {
  * @returns Save add button
  */
 var SaveAddButton = function SaveAddButton(props) {
+<<<<<<< HEAD
 <<<<<<< HEAD
   return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
     hoverText: props.type === "add" && props.hoverText === "Save Changes" ? "Add Resource" : props.hoverText,
@@ -1984,6 +2024,8 @@ var SaveIcon = function SaveIcon(props) {
 var SaveAddButton = function SaveAddButton(props) {
 =======
 >>>>>>> b18f05c (added documentation for KeyManagementForm)
+=======
+>>>>>>> 4c7a274 (fixed formatting for docs)
   return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
     hoverText: props.type === "add" && props.hoverText === "Save Changes" ? "Add Resource" : props.hoverText,
     className: (props.disabled ? "inlineBlock cursorNotAllowed" : "") + (props.inline ? " alignItemsCenter marginTopLarge inLineFormButton" : ""),
@@ -2387,6 +2429,7 @@ styleInject(css_248z$4);
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const IcseToggle = props => {
   let toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
 =======
@@ -2397,6 +2440,10 @@ var IcseToggle = function IcseToggle(props) {
 var IcseToggle = function IcseToggle(props) {
   var toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
 >>>>>>> 1e428a4 (SecretsManager form)
+=======
+var IcseToggle = function IcseToggle(props) {
+  var toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
+>>>>>>> 4c7a274 (fixed formatting for docs)
   return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React__default["default"].createElement(react.Toggle, {
     labelA: props.useOnOff ? "Off" : "False",
     labelB: props.useOnOff ? "On" : "True",
@@ -2407,6 +2454,7 @@ var IcseToggle = function IcseToggle(props) {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     onToggle: event => {
 =======
     onToggle: function onToggle(event) {
@@ -2414,11 +2462,15 @@ var IcseToggle = function IcseToggle(props) {
 =======
     onToggle: function onToggle(event) {
 >>>>>>> 1e428a4 (SecretsManager form)
+=======
+    onToggle: function onToggle(event) {
+>>>>>>> 4c7a274 (fixed formatting for docs)
       props.onToggle(toggleName, event);
     },
     defaultToggled: props.defaultToggled,
     disabled: props.disabled
   }));
+<<<<<<< HEAD
 =======
 var IcseToggle = function IcseToggle(props) {
   var toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
@@ -2442,6 +2494,8 @@ var IcseToggle = function IcseToggle(props) {
     }
   }, props));
 >>>>>>> b18f05c (added documentation for KeyManagementForm)
+=======
+>>>>>>> 4c7a274 (fixed formatting for docs)
 };
 IcseToggle.defaultProps = {
   useOnOff: false,
@@ -2489,6 +2543,7 @@ var IcseTextInput = function IcseTextInput(props) {
     labelText: props.labelText ? props.labelText : lazyZ.titleCase(props.field),
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     placeholder: props.placeholder || lib_3(props.componentName, fieldName),
 =======
     placeholder: props.placeholder || lib_5(props.componentName, fieldName),
@@ -2496,6 +2551,9 @@ var IcseTextInput = function IcseTextInput(props) {
 =======
     placeholder: props.placeholder || lib_5(props.componentName, fieldName),
 >>>>>>> dc1cdcb (arrayOf)
+=======
+    placeholder: props.placeholder || lib_5(props.componentName, fieldName),
+>>>>>>> 4c7a274 (fixed formatting for docs)
     name: props.field,
     value: props.value || "",
     invalid: lazyZ.isBoolean(props.invalid) ? props.invalid : props.invalidCallback(),
@@ -2644,6 +2702,7 @@ AppIdKeyForm.propTypes = {
   invalidTextCallback: PropTypes__default["default"].func.isRequired
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 var sccRegions = [{
@@ -2813,6 +2872,8 @@ SccForm.propTypes = {
 };
 
 >>>>>>> 4fb645f (moved to lib with tests)
+=======
+>>>>>>> 4c7a274 (fixed formatting for docs)
 var IcseSelect = function IcseSelect(props) {
   var invalid =
   // automatically set to invalid is is null or empty string and invalid not disabled
@@ -2933,13 +2994,17 @@ var FetchSelect = /*#__PURE__*/function (_React$Component) {
         return this.state.data;
       }
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
 =======
 >>>>>>> dc1cdcb (arrayOf)
+=======
+>>>>>>> 4c7a274 (fixed formatting for docs)
     }
   }, {
     key: "render",
     value: function render() {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
       var _this2 = this;
@@ -3026,6 +3091,8 @@ SccForm.propTypes = {
 =======
 =======
 >>>>>>> dc1cdcb (arrayOf)
+=======
+>>>>>>> 4c7a274 (fixed formatting for docs)
       return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
         labelText: this.props.labelText,
         handleInputChange: this.props.handleInputChange,
@@ -3141,6 +3208,7 @@ ResourceGroupSelect.propTypes = {
 };
 
 /**
+<<<<<<< HEAD
  * SecretsManagerForm
  * @param {Object} props
  */
@@ -3215,6 +3283,8 @@ SecretsManagerForm.propTypes = {
 };
 
 /**
+=======
+>>>>>>> 4c7a274 (fixed formatting for docs)
  * kms keys
  */
 var EncryptionKeyForm = /*#__PURE__*/function (_Component) {
@@ -3351,6 +3421,7 @@ EncryptionKeyForm.propTypes = {
   }).isRequired,
   isModal: PropTypes__default["default"].bool.isRequired
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
 =======
 >>>>>>> dc1cdcb (arrayOf)
@@ -3380,6 +3451,11 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
     _this.state = _this.props.data;
     _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
 =======
+=======
+};
+
+/**
+>>>>>>> 4c7a274 (fixed formatting for docs)
  * Key Management
  */
 var KeyManagementForm = /*#__PURE__*/function (_Component) {
@@ -3392,7 +3468,10 @@ var KeyManagementForm = /*#__PURE__*/function (_Component) {
     _this.state = _this.props.data;
     _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
     _this.handleSystemDropdown = _this.handleSystemDropdown.bind(_assertThisInitialized(_this));
+<<<<<<< HEAD
 >>>>>>> b18f05c (added documentation for KeyManagementForm)
+=======
+>>>>>>> 4c7a274 (fixed formatting for docs)
     _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
     buildFormFunctions(_assertThisInitialized(_this));
     buildFormDefaultInputMethods(_assertThisInitialized(_this));
@@ -3404,15 +3483,20 @@ var KeyManagementForm = /*#__PURE__*/function (_Component) {
    * @param {event} event event
    */
 <<<<<<< HEAD
+<<<<<<< HEAD
   _createClass(AtrackerForm, [{
 =======
   _createClass(KeyManagementForm, [{
 >>>>>>> b18f05c (added documentation for KeyManagementForm)
+=======
+  _createClass(KeyManagementForm, [{
+>>>>>>> 4c7a274 (fixed formatting for docs)
     key: "handleInputChange",
     value: function handleInputChange(event) {
       this.setState(this.eventTargetToNameAndValue(event));
     }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   /**
@@ -3492,6 +3576,8 @@ var KeyManagementForm = /*#__PURE__*/function (_Component) {
 }
 =======
 =======
+=======
+>>>>>>> 4c7a274 (fixed formatting for docs)
     /**
      * handle dropdown for key management system
      * @param {event} event event
@@ -3509,7 +3595,10 @@ var KeyManagementForm = /*#__PURE__*/function (_Component) {
       });
     }
 
+<<<<<<< HEAD
 >>>>>>> b18f05c (added documentation for KeyManagementForm)
+=======
+>>>>>>> 4c7a274 (fixed formatting for docs)
     /**
      * Toggle on and off param in state at name
      * @param {string} name name of the object key to change
@@ -3517,11 +3606,16 @@ var KeyManagementForm = /*#__PURE__*/function (_Component) {
   }, {
     key: "handleToggle",
     value: function handleToggle(name) {
+<<<<<<< HEAD
       this.setState(this.toggleStateBoolean(name, this.state));
+=======
+      this.setState(_defineProperty({}, name, !this.state[name]));
+>>>>>>> 4c7a274 (fixed formatting for docs)
     }
   }, {
     key: "render",
     value: function render() {
+<<<<<<< HEAD
 <<<<<<< HEAD
       return /*#__PURE__*/React__default["default"].createElement("div", {
         id: "atracker-form"
@@ -3615,6 +3709,8 @@ AtrackerForm.propTypes = {
 <<<<<<< HEAD
 =======
       var _this2 = this;
+=======
+>>>>>>> 4c7a274 (fixed formatting for docs)
       return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
         component: "km-system-dropdown",
         name: "system",
@@ -3632,9 +3728,13 @@ AtrackerForm.propTypes = {
         labelText: "Use Existing Instance",
         key: this.state.use_data,
         defaultToggled: this.state.use_data,
+<<<<<<< HEAD
         onToggle: function onToggle() {
           return _this2.handleToggle("use_data");
         },
+=======
+        onToggle: this.handleToggle,
+>>>>>>> 4c7a274 (fixed formatting for docs)
         disabled: this.state.use_hs_crypto === true,
         className: "fieldWidth",
         id: "kms-existing"
@@ -3663,6 +3763,17 @@ AtrackerForm.propTypes = {
   }]);
   return KeyManagementForm;
 }(React.Component);
+<<<<<<< HEAD
+=======
+KeyManagementForm.defaultProps = {
+  data: {
+    use_hs_crypto: false,
+    use_data: false,
+    name: "test-key-protect",
+    resource_group: "service-rg"
+  }
+};
+>>>>>>> 4c7a274 (fixed formatting for docs)
 KeyManagementForm.propTypes = {
   data: PropTypes__default["default"].shape({
     use_hs_crypto: PropTypes__default["default"].bool.isRequired,
@@ -3672,6 +3783,7 @@ KeyManagementForm.propTypes = {
   }).isRequired
 };
 
+<<<<<<< HEAD
 >>>>>>> b18f05c (added documentation for KeyManagementForm)
 /**
  * Form Modal
@@ -5173,6 +5285,8 @@ EncryptionKeyForm.propTypes = {
   isModal: PropTypes__default["default"].bool.isRequired
 };
 
+=======
+>>>>>>> 4c7a274 (fixed formatting for docs)
 /**
  * Atracker
  * @param {Object} props
@@ -5218,12 +5332,19 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
   }, {
     key: "handleToggle",
     value: function handleToggle(name) {
+<<<<<<< HEAD
       this.setState(_defineProperty({}, name, !this.state[name]));
+=======
+      this.setState(this.toggleStateBoolean(name, this.state));
+>>>>>>> 4c7a274 (fixed formatting for docs)
     }
   }, {
     key: "render",
     value: function render() {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4c7a274 (fixed formatting for docs)
       return /*#__PURE__*/React__default["default"].createElement("div", {
         id: "atracker-form"
       }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
@@ -5257,6 +5378,7 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
         className: "fieldWidth",
         labelText: "Object Storage Log Bucket",
         invalidText: "Select an Object Storage bucket."
+<<<<<<< HEAD
 =======
       return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
         component: "km-system-dropdown",
@@ -5268,16 +5390,22 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
         handleInputChange: this.handleSystemDropdown,
         className: "fieldWidth"
 >>>>>>> 55aac62 (trying to fix toggle)
+=======
+>>>>>>> 4c7a274 (fixed formatting for docs)
       }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
         tooltip: {
           content: "Must be enabled in order to forward all logs to the Cloud Object Storage bucket"
         },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4c7a274 (fixed formatting for docs)
         labelText: "Create Activity Tracker Route",
         defaultToggled: this.state.add_route,
         toggleFieldName: "add_route",
         onToggle: this.handleToggle,
         id: "app-id-add-route"
+<<<<<<< HEAD
 =======
         labelText: "Use Existing Instance",
         key: this.state.use_data,
@@ -5287,6 +5415,8 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
         className: "fieldWidth",
         id: "kms-existing"
 >>>>>>> 55aac62 (trying to fix toggle)
+=======
+>>>>>>> 4c7a274 (fixed formatting for docs)
       })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
         noMarginBottom: true
       }, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
@@ -5307,6 +5437,7 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
   return AtrackerForm;
 }(React.Component);
 <<<<<<< HEAD
+<<<<<<< HEAD
 AtrackerForm.defaultProps = {
   isModal: false,
 =======
@@ -5320,6 +5451,10 @@ KeyManagementForm.defaultProps = {
 };
 KeyManagementForm.propTypes = {
 >>>>>>> 55aac62 (trying to fix toggle)
+=======
+AtrackerForm.defaultProps = {
+  isModal: false,
+>>>>>>> 4c7a274 (fixed formatting for docs)
   data: PropTypes__default["default"].shape({
     cos_bucket: "",
     cos_key: "",
@@ -5762,12 +5897,16 @@ VpcListMultiSelect.propTypes = {
  * Under Construction Page
  */
 var UnderConstruction = function UnderConstruction() {
+<<<<<<< HEAD
 >>>>>>> dc1cdcb (arrayOf)
+=======
+>>>>>>> 4c7a274 (fixed formatting for docs)
   return /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(iconsReact.WarningAlt, {
     size: "128"
   }), /*#__PURE__*/React__default["default"].createElement("h4", null, "Page Under Construction"));
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -7529,6 +7668,8 @@ StatefulTabPanel.propTypes = {
 =======
 =======
 >>>>>>> dc1cdcb (arrayOf)
+=======
+>>>>>>> 4c7a274 (fixed formatting for docs)
 var css_248z = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }";
 styleInject(css_248z);
 
@@ -7621,6 +7762,7 @@ StatefulTabPanel.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> b982705 (feat: StatefulTabPanel)
 exports.AppIdKeyForm = AppIdKeyForm;
 exports.AtrackerForm = AtrackerForm;
@@ -7666,6 +7808,11 @@ exports.AppIdKeyForm = AppIdKeyForm;
 exports.AtrackerForm = AtrackerForm;
 exports.DeleteButton = DeleteButton;
 >>>>>>> dc1cdcb (arrayOf)
+=======
+exports.AppIdKeyForm = AppIdKeyForm;
+exports.AtrackerForm = AtrackerForm;
+exports.DeleteButton = DeleteButton;
+>>>>>>> 4c7a274 (fixed formatting for docs)
 exports.DeleteModal = DeleteModal;
 exports.DynamicRender = DynamicRender;
 exports.DynamicToolTipWrapper = DynamicToolTipWrapper;
@@ -7683,9 +7830,12 @@ exports.IcseNameInput = IcseNameInput;
 exports.IcseNumberSelect = IcseNumberSelect;
 exports.IcseSelect = IcseSelect;
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 72d0b85 (merge)
 =======
 >>>>>>> dc1cdcb (arrayOf)
+=======
+>>>>>>> 4c7a274 (fixed formatting for docs)
 exports.IcseSubForm = IcseSubForm;
 exports.IcseTextInput = IcseTextInput;
 exports.IcseToggle = IcseToggle;
@@ -7693,6 +7843,7 @@ exports.IcseToolTip = IcseToolTip;
 exports.KeyManagementForm = KeyManagementForm;
 exports.PopoverWrapper = PopoverWrapper;
 exports.RenderForm = RenderForm;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -7714,11 +7865,17 @@ exports.SaveIcon = SaveIcon;
 =======
 exports.SecretsManagerForm = SecretsManagerForm;
 >>>>>>> 1e428a4 (SecretsManager form)
+=======
+exports.ResourceGroupSelect = ResourceGroupSelect;
+exports.SaveAddButton = SaveAddButton;
+exports.SaveIcon = SaveIcon;
+>>>>>>> 4c7a274 (fixed formatting for docs)
 exports.SecurityGroupMultiSelect = SecurityGroupMultiSelect;
 exports.SshKeyMultiSelect = SshKeyMultiSelect;
 exports.StatefulTabPanel = StatefulTabPanel;
 exports.StatelessToggleForm = StatelessToggleForm;
 exports.SubnetMultiSelect = SubnetMultiSelect;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> 04bfb65 (added button examples)
@@ -7748,6 +7905,8 @@ exports.buildFormFunctions = buildFormFunctions;
 =======
 =======
 >>>>>>> dc1cdcb (arrayOf)
+=======
+>>>>>>> 4c7a274 (fixed formatting for docs)
 exports.TitleGroup = TitleGroup;
 exports.ToolTipWrapper = ToolTipWrapper;
 exports.UnderConstruction = UnderConstruction;
@@ -7757,6 +7916,9 @@ exports.VpcListMultiSelect = VpcListMultiSelect;
 exports.buildFormDefaultInputMethods = buildFormDefaultInputMethods;
 exports.buildFormFunctions = buildFormFunctions;
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 72d0b85 (merge)
 =======
 >>>>>>> dc1cdcb (arrayOf)
+=======
+>>>>>>> 4c7a274 (fixed formatting for docs)
