@@ -80,7 +80,7 @@ import React, { Component } from 'react';
 import { CloudAlerting, Add, Save, CloseFilled, Edit, TrashCan, ArrowUp, ArrowDown, Information, WarningAlt } from '@carbon/icons-react';
 import { Tile, Popover, PopoverContent, Button, Toggletip, ToggletipButton, ToggletipContent, Link, Toggle, TextInput, Select, SelectItem, Modal, FilterableMultiSelect, MultiSelect, Tabs, TabList, Tab, TabPanels, TabPanel } from '@carbon/react';
 import PropTypes from 'prop-types';
-import lazyZ, { snakeCase, kebabCase as kebabCase$1, titleCase, isBoolean, isNullOrEmptyString, isEmpty, buildNumberDropdownList, prettyJSON, isFunction as isFunction$1 } from 'lazy-z';
+import lazyZ, { snakeCase, kebabCase as kebabCase$1, titleCase, isBoolean, isEmpty, isNullOrEmptyString, buildNumberDropdownList, prettyJSON, isFunction as isFunction$1 } from 'lazy-z';
 
 var _require = require("lazy-z"),
   isFunction = _require.isFunction;
@@ -2866,6 +2866,7 @@ AppIdKeyForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var sccRegions = [{
   id: "us",
   label: "us"
@@ -3037,9 +3038,13 @@ SccForm.propTypes = {
 >>>>>>> 4c7a274 (fixed formatting for docs)
 var IcseSelect = function IcseSelect(props) {
   var invalid =
+=======
+const IcseSelect = props => {
+  let invalid =
+>>>>>>> 061a17e (removed resourceGroups from state, added proptypes, removed ResourceGroupSelect)
   // automatically set to invalid is is null or empty string and invalid not disabled
   props.disableInvalid !== true && isNullOrEmptyString(props.value) ? true : props.invalid;
-  var groups = props.groups.length === 0 ? [] // if no groups, empty array
+  let groups = props.groups.length === 0 ? [] // if no groups, empty array
   : lib_3(
   // otherwise try and prepend empty string if null
   props.value, props.groups);
@@ -3050,7 +3055,7 @@ var IcseSelect = function IcseSelect(props) {
   }
   return /*#__PURE__*/React.createElement(DynamicToolTipWrapper, _extends({
     id: kebabCase$1(props.name) + "-dropdown-tooltip",
-    innerForm: function innerForm() {
+    innerForm: () => {
       return /*#__PURE__*/React.createElement(PopoverWrapper, {
         hoverText: props.value || ""
         // inherit classnames from tooltip
@@ -3067,13 +3072,11 @@ var IcseSelect = function IcseSelect(props) {
         invalidText: props.invalidText,
         readOnly: props.readOnly,
         onChange: props.handleInputChange
-      }, groups.map(function (value) {
-        return /*#__PURE__*/React.createElement(SelectItem, {
-          key: "".concat(props.id, "-").concat(value),
-          text: value,
-          value: value
-        });
-      })));
+      }, groups.map(value => /*#__PURE__*/React.createElement(SelectItem, {
+        key: `${props.id}-${value}`,
+        text: value,
+        value: value
+      }))));
     }
   }, props));
 };
@@ -3109,51 +3112,22 @@ IcseSelect.propTypes = {
     align: PropTypes.string
   })
 };
-var FetchSelect = /*#__PURE__*/function (_React$Component) {
-  _inherits(FetchSelect, _React$Component);
-  var _super = _createSuper(FetchSelect);
-  function FetchSelect(props) {
-    var _this;
-    _classCallCheck(this, FetchSelect);
-    _this = _super.call(this, props);
-    _defineProperty(_assertThisInitialized(_this), "_isMounted", false);
-    _this.state = {
+class FetchSelect extends React.Component {
+  _isMounted = false;
+  constructor(props) {
+    super(props);
+    this.state = {
       data: []
     };
-    _this.dataToGroups = _this.dataToGroups.bind(_assertThisInitialized(_this));
-    return _this;
+    this.dataToGroups = this.dataToGroups.bind(this);
   }
-  _createClass(FetchSelect, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this2 = this;
-      this._isMounted = true;
-      if (isEmpty(this.state.data)) fetch(this.props.apiEndpoint).then(function (res) {
-        return res.json();
-      }).then(function (data) {
-        if (_this2.props.onReturnFunction) {
-          _this2.props.onReturnFunction(data);
-        }
-        if (_this2._isMounted) _this2.setState({
-          data: data
-        });
-      }).catch(function (err) {
-        console.error(err);
-      });
-    }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      this._isMounted = false;
-    }
-  }, {
-    key: "dataToGroups",
-    value: function dataToGroups() {
-      if (this.props.filter) {
-        return this.state.data.filter(this.props.filter);
-      } else {
-        return this.state.data;
+  componentDidMount() {
+    this._isMounted = true;
+    if (isEmpty(this.state.data)) fetch(this.props.apiEndpoint).then(res => res.json()).then(data => {
+      if (this.props.onReturnFunction) {
+        this.props.onReturnFunction(data);
       }
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
@@ -3262,11 +3236,37 @@ SccForm.propTypes = {
         formName: this.props.formName,
         groups: this.dataToGroups(),
         value: this.props.value || "null"
+=======
+      if (this._isMounted) this.setState({
+        data: data
+>>>>>>> 061a17e (removed resourceGroups from state, added proptypes, removed ResourceGroupSelect)
       });
+    }).catch(err => {
+      console.error(err);
+    });
+  }
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+  dataToGroups() {
+    if (this.props.filter) {
+      return this.state.data.filter(this.props.filter);
+    } else {
+      return this.state.data;
     }
-  }]);
-  return FetchSelect;
-}(React.Component);
+  }
+  render() {
+    return /*#__PURE__*/React.createElement(IcseSelect, {
+      labelText: this.props.labelText,
+      handleInputChange: this.props.handleInputChange,
+      name: this.props.name,
+      className: this.props.className,
+      formName: this.props.formName,
+      groups: this.dataToGroups(),
+      value: this.props.value || "null"
+    });
+  }
+}
 FetchSelect.propTypes = {
   labelText: PropTypes.string.isRequired,
   handleInputChange: PropTypes.func.isRequired,
@@ -3282,16 +3282,16 @@ FetchSelect.propTypes = {
   name: PropTypes.string.isRequired,
   formName: PropTypes.string.isRequired
 };
-var IcseNumberSelect = function IcseNumberSelect(props) {
+const IcseNumberSelect = props => {
   return /*#__PURE__*/React.createElement(IcseSelect, {
     formName: props.formName,
     groups: buildNumberDropdownList(props.max, props.min),
     value: props.value.toString(),
     name: props.name || "Icse Number Select",
     className: props.className,
-    handleInputChange: function handleInputChange(event) {
+    handleInputChange: event => {
       // set name target value and parse int
-      var sendEvent = {
+      let sendEvent = {
         target: {
           name: event.target.name,
           value: parseInt(event.target.value)
@@ -3331,7 +3331,7 @@ IcseNumberSelect.propTypes = {
   labelText: PropTypes.string.isRequired,
   isModal: PropTypes.bool.isRequired
 };
-var EntitlementSelect = function EntitlementSelect(props) {
+const EntitlementSelect = props => {
   return /*#__PURE__*/React.createElement(IcseSelect, {
     name: props.name,
     labelText: "Entitlement",
@@ -3349,13 +3349,6 @@ EntitlementSelect.propTypes = {
   formName: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired
 };
-({
-  value: PropTypes.string,
-  // can be null
-  handleInputChange: PropTypes.func.isRequired,
-  formName: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired
-});
 
 /**
 <<<<<<< HEAD
@@ -6664,7 +6657,7 @@ class KeyManagementForm extends Component {
       formName: "resource_group",
       name: "resource_group",
       labelText: "Resource Group",
-      groups: this.state.resourceGroups,
+      groups: this.props.resourceGroups,
       value: this.state.resource_group,
       handleInputChange: this.handleInputChange,
       className: "fieldWidth"
@@ -6685,7 +6678,8 @@ KeyManagementForm.propTypes = {
     use_hs_crypto: PropTypes.bool.isRequired,
     use_data: PropTypes.bool.isRequired,
     name: PropTypes.string.isRequired,
-    resource_group: PropTypes.string.isRequired
+    resource_group: PropTypes.string.isRequired,
+    resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired
   }).isRequired
 };
 

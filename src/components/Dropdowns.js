@@ -240,24 +240,3 @@ EntitlementSelect.propTypes = {
   formName: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
 };
-
-export const ResourceGroupSelect = (props) => {
-  return (
-    <IcseSelect
-      name={props.name}
-      labelText="Resource Group"
-      groups={["service-rg", "management-rg", "workload-rg"]}
-      value={props.value || "null"}
-      handleInputChange={props.handleInputChange}
-      className="fieldWidthSmaller"
-      formName={props.formName}
-    />
-  );
-};
-
-ResourceGroupSelect.propTypes = {
-  value: PropTypes.string, // can be null
-  handleInputChange: PropTypes.func.isRequired,
-  formName: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-};

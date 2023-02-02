@@ -25,8 +25,8 @@ export const KeyManagementFormExample = () => {
         use_data: false,
         name: "test-key-protect",
         resource_group: "service-rg",
-        resourceGroups: ["service-rg", "management-rg", "workload-rg"],
       }}
+      resourceGroups={["service-rg", "management-rg", "workload-rg"]}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
     />

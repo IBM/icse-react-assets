@@ -94,7 +94,7 @@ class KeyManagementForm extends Component {
             formName="resource_group"
             name="resource_group"
             labelText="Resource Group"
-            groups={this.state.resourceGroups}
+            groups={this.props.resourceGroups}
             value={this.state.resource_group}
             handleInputChange={this.handleInputChange}
             className="fieldWidth"
@@ -121,6 +121,7 @@ KeyManagementForm.propTypes = {
     use_data: PropTypes.bool.isRequired,
     name: PropTypes.string.isRequired,
     resource_group: PropTypes.string.isRequired,
+    resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
 };
 
