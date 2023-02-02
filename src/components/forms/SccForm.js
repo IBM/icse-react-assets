@@ -35,6 +35,11 @@ class SccForm extends Component {
     this.handleToggle = this.handleToggle.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleLocationChange = this.handleLocationChange.bind(this);
+    this.invalidSccScopeName = this.invalidSccScopeName.bind(this);
+    this.invalidSccScopeDescription =
+      this.invalidSccScopeDescription.bind(this);
+    this.invalidSccCollectorDescription =
+      this.invalidSccCollectorDescription.bind(this);
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
     this.state.enable_scc = true;
@@ -63,6 +68,45 @@ class SccForm extends Component {
    */
   handleToggle(name) {
     this.setState(toggleStateBoolean(name, this.state));
+  }
+
+  /**
+   * Determines invalid status of scope_name
+   * @returns {Object} object containing invalid boolean and string invalidText
+   */
+  invalidSccScopeName() {
+    return {
+      invalid:
+        this.state.scope_name.match(this.props.scope_name_regex) === null,
+      invalidText: `Invalid scope name. Must match regular expression: ${this.props.scope_name_regex}`,
+    };
+  }
+
+  /**
+   * Determines invalid status of scope_description
+   * @returns {Object} object containing invalid boolean and string invalidText
+   */
+  invalidSccScopeDescription() {
+    return {
+      invalid:
+        this.state.scope_description.match(this.props.scope_desc_regex) ===
+        null,
+      invalidText: `Invalid scope name. Must match regular expression: ${this.props.scope_desc_regex}`,
+    };
+  }
+
+  /**
+   * Determines invalid status of collector_description
+   * @returns {Object} object containing invalid boolean and string invalidText
+   */
+  invalidSccCollectorDescription() {
+    return {
+      invalid:
+        this.state.collector_description.match(
+          this.props.collector_desc_regex
+        ) === null,
+      invalidText: `Invalid scope name. Must match regular expression: ${this.props.collector_desc_regex}`,
+    };
   }
 
   render() {
@@ -108,11 +152,8 @@ class SccForm extends Component {
             value={this.state.scope_name}
             onChange={this.handleInputChange}
             maxLength={50}
-            invalid={this.props.invalidSccScopeName(this.state).invalid}
-            invalidText={
-              this.props.invalidSccScopeName(this.state).invalidText ||
-              "Invalid scope name. Must match regular expression: /[A-z][a-z0-9-]*[a-z0-9]/"
-            }
+            invalid={this.invalidSccScopeName().invalid}
+            invalidText={this.invalidSccScopeName().invalidText}
           />
           {/* scope-description text input */}
           <IcseTextInput
@@ -124,11 +165,8 @@ class SccForm extends Component {
             value={this.state.scope_description}
             onChange={this.handleInputChange}
             maxLength={255}
-            invalid={this.props.invalidSccScopeDescription(this.state).invalid}
-            invalidText={
-              this.props.invalidSccScopeDescription(this.state).invalidText ||
-              'Invalid scope description. Must match regular expression: /[A-z][a-z0-9._,"-\\s]*/'
-            }
+            invalid={this.invalidSccScopeDescription().invalid}
+            invalidText={this.invalidSccScopeDescription().invalidText}
           />
         </IcseFormGroup>
         <IcseFormGroup noMarginBottom>
@@ -145,14 +183,8 @@ class SccForm extends Component {
             onChange={this.handleInputChange}
             componentName="SCC"
             maxLength={1000}
-            invalid={
-              this.props.invalidSccCollectorDescription(this.state).invalid
-            }
-            invalidText={
-              this.props.invalidSccCollectorDescription(this.state)
-                .invalidText ||
-              'Invalid collector description. Must match regular expression: /[A-z][a-z0-9._,"-\\s]*/'
-            }
+            invalid={this.invalidSccCollectorDescription().invalid}
+            invalidText={this.invalidSccCollectorDescription().invalidText}
           />
         </IcseFormGroup>
       </>
@@ -160,19 +192,28 @@ class SccForm extends Component {
   }
 }
 
+SccForm.defaultProps = {
+  data: {
+    enable_scc: false,
+  },
+  scope_name_regex: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i,
+  scope_desc_regex: /^[A-z][a-zA-Z0-9-\._,\s]*$/i,
+  collector_desc_regex: /^[A-z][a-zA-Z0-9-\._,\s]*$/i,
+};
+
 SccForm.propTypes = {
   data: PropTypes.shape({
     enable_scc: PropTypes.bool.isRequired,
     collector_description: PropTypes.string,
-    is_public: PropTypes.bool.isRequired,
+    is_public: PropTypes.bool,
     location_id: PropTypes.string,
     scope_description: PropTypes.string,
     scope_name: PropTypes.string,
     collector_passphrase: PropTypes.string,
+    scope_name_regex: PropTypes.instanceOf(RegExp),
+    scope_desc_regex: PropTypes.instanceOf(RegExp),
+    collector_desc_regex: PropTypes.instanceOf(RegExp),
   }),
-  invalidSccScopeName: PropTypes.func.isRequired,
-  invalidSccScopeDescription: PropTypes.func.isRequired,
-  invalidSccCollectorDescription: PropTypes.func.isRequired,
 };
 
 export default SccForm;
