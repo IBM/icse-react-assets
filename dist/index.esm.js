@@ -6,6 +6,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import { Popover, PopoverContent, FilterableMultiSelect, MultiSelect, Tile, Toggletip, ToggletipButton, ToggletipContent, Link, Modal, TextInput, Toggle, Button } from '@carbon/react';
 >>>>>>> 04bfb65 (added button examples)
@@ -738,12 +739,176 @@ import { Information, WarningAlt, CloudAlerting, Add } from '@carbon/icons-react
 >>>>>>> 8db187e (form and documentation)
 =======
 =======
+=======
+import lazyZ, { snakeCase, titleCase, isBoolean, kebabCase as kebabCase$1, prettyJSON, isNullOrEmptyString, isEmpty, buildNumberDropdownList } from 'lazy-z';
+>>>>>>> 28f2e52 (code now)
 import React, { Component } from 'react';
 import { CloudAlerting, Add, Information, WarningAlt, Save, CloseFilled, Edit, TrashCan, ArrowUp, ArrowDown } from '@carbon/icons-react';
-import { Tile, Toggletip, ToggletipButton, ToggletipContent, Link, TextInput, Toggle, Modal, FilterableMultiSelect, MultiSelect, Popover, PopoverContent, Select, SelectItem, Button } from '@carbon/react';
+import { Tile, Toggletip, ToggletipButton, ToggletipContent, Link, TextInput, Toggle, Dropdown, Modal, FilterableMultiSelect, MultiSelect, Popover, PopoverContent, Select, SelectItem, Button } from '@carbon/react';
 import PropTypes from 'prop-types';
+<<<<<<< HEAD
 import lazyZ, { snakeCase, titleCase, isBoolean, kebabCase as kebabCase$1, prettyJSON, isNullOrEmptyString, isEmpty, buildNumberDropdownList } from 'lazy-z';
 >>>>>>> 72d0b85 (merge)
+=======
+
+/**
+ * create a composed class name
+ * @param {string} className name of classes to add
+ * @param {*} props arbitrary props
+ * @param {string=} props.className additional classnames
+ */
+function addClassName$1(className, props) {
+  let composedClassName = className;
+  if (props?.className) {
+    composedClassName += " " + props.className;
+    if (props.noMarginRight === true) {
+      composedClassName = composedClassName.replace(/\s?marginRight\b/g, "");
+    }
+  }
+  return composedClassName;
+}
+
+/** check if input is null or empty string
+ * @param {string} input
+ * @returns {boolean} true if str null or ""
+ */
+function checkNullorEmptyString$1(input) {
+  if (input === null || input === "") return true;else return false;
+}
+
+/**
+ * preprend [""] to an existing array if check is true
+ * @param {*} value check value if it is null or empty string
+ * @param {Array<string>} arr
+ */
+function prependEmptyStringWhenNull$1(value, arr) {
+  let arrayCheck = checkNullorEmptyString$1(value);
+  let prependArray = arrayCheck ? [""] : [];
+  return prependArray.concat(arr);
+}
+
+/**
+ * add margin bottom to subform chevron
+ * @param {*} componentProps
+ * @returns {string} additional classNames
+ */
+function toggleMarginBottom$1(hide) {
+  if (hide === false) return " marginBottomSmall";else return "";
+}
+var formUtils = {
+  addClassName: addClassName$1,
+  toggleMarginBottom: toggleMarginBottom$1,
+  prependEmptyStringWhenNull: prependEmptyStringWhenNull$1,
+  checkNullorEmptyString: checkNullorEmptyString$1
+};
+
+const {
+  kebabCase
+} = lazyZ;
+
+/**
+ * format input placeholder
+ * @param {string} componentName
+ * @param {string} fieldName
+ * @returns {string} placeholder name
+ */
+function formatInputPlaceholder$1(componentName, fieldName) {
+  return `my-${kebabCase(componentName)}-${kebabCase(fieldName)}`;
+}
+var textUtils = {
+  formatInputPlaceholder: formatInputPlaceholder$1
+};
+
+/**
+ * create classname for sub form chevron save button
+ * @param {*} componentProps
+ * @returns {string} classNames for button
+ */
+function saveChangeButtonClass$1(componentProps) {
+  let className = "forceTertiaryButtonStyles";
+  if (componentProps.noDeleteButton !== true) className += " marginRightSmall";
+  if (componentProps.disabled !== true) className += " tertiaryButtonColors";
+  return className;
+}
+var buttonUtils = {
+  saveChangeButtonClass: saveChangeButtonClass$1
+};
+
+/**
+ * default handle event change function
+ * @param {event} event
+ * @param {Object} event.target
+ * @param {string} event.target.name name to set
+ * @param {*} event.target.value value to set
+ * @returns {Object} object with key of name set to value
+ */
+function eventTargetToNameAndValue$1(event) {
+  let {
+    name,
+    value
+  } = event.target;
+  return setNameToValue$1(name, value);
+}
+
+/**
+ * default handle toggle function
+ * @param {string} fieldName name to set
+ * @param {Object} stateData component state data
+ * @returns {Object} object with key of field name set to boolean opposite in state
+ */
+function toggleStateBoolean$1(fieldName, stateData) {
+  return {
+    [fieldName]: !stateData[fieldName]
+  };
+}
+function setNameToValue$1(name, value) {
+  return {
+    [name]: value
+  };
+}
+var methodFunctions = {
+  eventTargetToNameAndValue: eventTargetToNameAndValue$1,
+  toggleStateBoolean: toggleStateBoolean$1,
+  setNameToValue: setNameToValue$1
+};
+
+const {
+  toggleMarginBottom,
+  addClassName,
+  prependEmptyStringWhenNull,
+  checkNullorEmptyString
+} = formUtils;
+const {
+  formatInputPlaceholder
+} = textUtils;
+const {
+  saveChangeButtonClass
+} = buttonUtils;
+const {
+  eventTargetToNameAndValue,
+  toggleStateBoolean,
+  setNameToValue
+} = methodFunctions;
+var lib = {
+  toggleMarginBottom,
+  addClassName,
+  prependEmptyStringWhenNull,
+  checkNullorEmptyString,
+  formatInputPlaceholder,
+  saveChangeButtonClass,
+  eventTargetToNameAndValue,
+  toggleStateBoolean,
+  setNameToValue
+};
+var lib_1 = lib.toggleMarginBottom;
+var lib_2 = lib.addClassName;
+var lib_3 = lib.prependEmptyStringWhenNull;
+var lib_5 = lib.formatInputPlaceholder;
+var lib_6 = lib.saveChangeButtonClass;
+var lib_7 = lib.eventTargetToNameAndValue;
+var lib_8 = lib.toggleStateBoolean;
+var lib_9 = lib.setNameToValue;
+>>>>>>> 28f2e52 (code now)
 
 var _require = require("lazy-z"),
   isFunction = _require.isFunction;
@@ -783,9 +948,9 @@ function buildFormFunctions(component) {
  * @param {*} component React Component
  */
 function buildFormDefaultInputMethods(component) {
-  component.eventTargetToNameAndValue = eventTargetToNameAndValue.bind(component);
-  component.toggleStateBoolean = toggleStateBoolean.bind(component);
-  component.setNameToValue = setNameToValue.bind(component);
+  component.eventTargetToNameAndValue = lib_7.bind(component);
+  component.toggleStateBoolean = lib_8.bind(component);
+  component.setNameToValue = lib_9.bind(component);
 }
 
 function styleInject(css, ref) {
@@ -1003,6 +1168,7 @@ function _toPropertyKey(arg) {
   return typeof key === "symbol" ? key : String(key);
 }
 
+<<<<<<< HEAD
 /**
  * create a composed class name
  * @param {string} className name of classes to add
@@ -1309,6 +1475,8 @@ var lib_5 = lib.formatInputPlaceholder;
 var lib_6 = lib.saveChangeButtonClass;
 >>>>>>> 72d0b85 (merge)
 
+=======
+>>>>>>> 28f2e52 (code now)
 var css_248z$7 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
 styleInject(css_248z$7);
 
@@ -1701,8 +1869,8 @@ var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
         labelText: "App ID Key",
         componentName: "appid",
         className: "fieldWidthSmaller",
-        invalid: this.props.invalidCallback(this.props, this.state),
-        invalidText: this.props.invalidTextCallback(this.props, this.state)
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props)
       }));
     }
   }]);
@@ -1719,6 +1887,156 @@ AppIdKeyForm.propTypes = {
   }),
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired
+};
+
+var sccRegions = [{
+  id: "us",
+  label: "us"
+}, {
+  id: "eu",
+  label: "eu"
+}, {
+  id: "uk",
+  label: "uk"
+}];
+
+/**
+ * SccForm
+ * @param {Object} props
+ */
+var SccForm = /*#__PURE__*/function (_Component) {
+  _inherits(SccForm, _Component);
+  var _super = _createSuper(SccForm);
+  function SccForm(props) {
+    var _this;
+    _classCallCheck(this, SccForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleLocationChange = _this.handleLocationChange.bind(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    _this.state.enable_scc = true;
+    return _this;
+  }
+
+  /**
+   * Handle input change for scope_name field
+   * @param {event} event
+   */
+  _createClass(SccForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(lib_7(event));
+    }
+
+    /**
+     * handle input change
+     * @param {event} event event
+     */
+  }, {
+    key: "handleLocationChange",
+    value: function handleLocationChange(selectedItem) {
+      this.setState({
+        location_id: selectedItem.selectedItem.label
+      });
+    }
+
+    /**
+     * Toggle on and off param in state at name
+     * @param {string} name name of the object key to change
+     * @param {bool} setDefaults set default values, default is false
+     */
+  }, {
+    key: "handleToggle",
+    value: function handleToggle(name) {
+      this.setState(lib_8(name, this.state));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(Dropdown, {
+        ariaLabel: "Dropdown",
+        id: "location_id",
+        items: sccRegions,
+        label: "SCC Region Options",
+        titleText: "Region",
+        onChange: function onChange(selectedItem) {
+          _this2.handleLocationChange(selectedItem);
+        },
+        className: "leftTextAlign fieldWidth"
+      }), /*#__PURE__*/React.createElement(IcseToggle, {
+        tooltip: {
+          content: "Determines whether the collector endpoint is accessible on a public network."
+        },
+        labelText: "Is Public",
+        defaultToggled: this.state.is_public,
+        className: "leftTextAlign",
+        onToggle: this.handleToggle,
+        id: "scc-is-public"
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+        id: "scc_scope_name",
+        tooltip: {
+          content: "A unique name for your scope. A scope narrows the focus of the scan.",
+          align: "top-left"
+        },
+        componentName: "SCC",
+        field: "scope_name",
+        labelText: "Scope Name",
+        value: this.state.scope_name,
+        onChange: this.handleInputChange,
+        maxLength: 50,
+        invalid: this.props.invalidSccScopeName(this.state).invalid,
+        invalidText: this.props.invalidSccScopeName(this.state).invalidText || "Invalid scope name. Must match regular expression: /[A-z][a-z0-9-]*[a-z0-9]/"
+      }), /*#__PURE__*/React.createElement(IcseTextInput, {
+        id: "scc_scope_description",
+        tooltip: {
+          content: "A detailed description of the scope."
+        },
+        componentName: "SCC",
+        field: "scope_description",
+        labelText: "Scope Description",
+        value: this.state.scope_description,
+        onChange: this.handleInputChange,
+        maxLength: 255,
+        invalid: this.props.invalidSccScopeDescription(this.state).invalid,
+        invalidText: this.props.invalidSccScopeDescription(this.state).invalidText || 'Invalid scope description. Must match regular expression: /[A-z][a-z0-9._,"-\\s]*/'
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, {
+        noMarginBottom: true
+      }, /*#__PURE__*/React.createElement(IcseTextInput, {
+        id: "scc_collector",
+        tooltip: {
+          content: "A detailed description of the collector.",
+          align: "top-left"
+        },
+        labelText: "Collector Description",
+        field: "collector_description",
+        value: this.state.collector_description,
+        onChange: this.handleInputChange,
+        componentName: "SCC",
+        maxLength: 1000,
+        invalid: this.props.invalidSccCollectorDescription(this.state).invalid,
+        invalidText: this.props.invalidSccCollectorDescription(this.state).invalidText || 'Invalid collector description. Must match regular expression: /[A-z][a-z0-9._,"-\\s]*/'
+      })));
+    }
+  }]);
+  return SccForm;
+}(Component);
+SccForm.propTypes = {
+  data: PropTypes.shape(_defineProperty({
+    enable_scc: PropTypes.bool.isRequired,
+    collector_description: PropTypes.string,
+    is_public: PropTypes.bool.isRequired,
+    location_id: PropTypes.string,
+    scope_description: PropTypes.string,
+    scope_name: PropTypes.string,
+    collector_passphrase: PropTypes.string
+  }, "location_id", PropTypes.string)),
+  invalidSccScopeName: PropTypes.func.isRequired,
+  invalidSccScopeDescription: PropTypes.func.isRequired,
+  invalidSccCollectorDescription: PropTypes.func.isRequired
 };
 
 /**
@@ -4941,6 +5259,7 @@ export { AppIdKeyForm, DeleteModal, DynamicRender, DynamicToolTipWrapper, EmptyR
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export { AppIdKeyForm, DeleteButton, DeleteModal, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, FormModal, IcseFormGroup, IcseModal, IcseMultiSelect, IcseNameInput, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SecurityGroupMultiSelect, SshKeyMultiSelect, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> b5b1ac6 (fixed build)
 =======
@@ -4955,3 +5274,6 @@ export { DeleteModal, DynamicRender, DynamicToolTipWrapper, EmptyResourceTile, E
 =======
 export { AppIdKeyForm, DeleteButton, DeleteModal, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SecurityGroupMultiSelect, SshKeyMultiSelect, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> 72d0b85 (merge)
+=======
+export { AppIdKeyForm, DeleteButton, DeleteModal, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecurityGroupMultiSelect, SshKeyMultiSelect, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, buildFormDefaultInputMethods, buildFormFunctions };
+>>>>>>> 28f2e52 (code now)
