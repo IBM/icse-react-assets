@@ -6669,18 +6669,18 @@ KeyManagementForm.defaultProps = {
     use_hs_crypto: false,
     use_data: false,
     name: "test-key-protect",
-    resource_group: "service-rg",
-    resourceGroups: ["service-rg", "management-rg", "workload-rg"]
-  }
+    resource_group: "service-rg"
+  },
+  resourceGroups: ["service-rg", "management-rg", "workload-rg"]
 };
 KeyManagementForm.propTypes = {
   data: PropTypes.shape({
     use_hs_crypto: PropTypes.bool.isRequired,
     use_data: PropTypes.bool.isRequired,
     name: PropTypes.string.isRequired,
-    resource_group: PropTypes.string.isRequired,
-    resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired
-  }).isRequired
+    resource_group: PropTypes.string.isRequired
+  }).isRequired,
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
 >>>>>>> 92f0c0d (removed resourcegroupselect component)

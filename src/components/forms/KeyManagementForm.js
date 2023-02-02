@@ -111,8 +111,8 @@ KeyManagementForm.defaultProps = {
     use_data: false,
     name: "test-key-protect",
     resource_group: "service-rg",
-    resourceGroups: ["service-rg", "management-rg", "workload-rg"],
   },
+  resourceGroups: ["service-rg", "management-rg", "workload-rg"],
 };
 
 KeyManagementForm.propTypes = {
@@ -121,8 +121,8 @@ KeyManagementForm.propTypes = {
     use_data: PropTypes.bool.isRequired,
     name: PropTypes.string.isRequired,
     resource_group: PropTypes.string.isRequired,
-    resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default KeyManagementForm;
