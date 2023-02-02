@@ -2504,12 +2504,17 @@ var css_248z$4 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-
 styleInject(css_248z$4);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 const IcseToggle = props => {
   let toggleName = props.toggleFieldName || snakeCase(props.labelText);
 =======
 var IcseToggle = function IcseToggle(props) {
   var toggleName = props.toggleFieldName || snakeCase(props.labelText);
 >>>>>>> b6eab56 (example and readme)
+=======
+var IcseToggle = function IcseToggle(props) {
+  var toggleName = props.toggleFieldName || snakeCase(props.labelText);
+>>>>>>> 1e428a4 (SecretsManager form)
   return /*#__PURE__*/React.createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React.createElement(Toggle, {
     labelA: props.useOnOff ? "Off" : "False",
     labelB: props.useOnOff ? "On" : "True",
@@ -2519,10 +2524,14 @@ var IcseToggle = function IcseToggle(props) {
     ,
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     onToggle: event => {
 =======
     onToggle: function onToggle(event) {
 >>>>>>> b6eab56 (example and readme)
+=======
+    onToggle: function onToggle(event) {
+>>>>>>> 1e428a4 (SecretsManager form)
       props.onToggle(toggleName, event);
     },
     defaultToggled: props.defaultToggled,
@@ -2567,8 +2576,8 @@ IcseToggle.propTypes = {
  * @param {string=} props.labelText override label text
  * @returns <IcseTextInput/> component
  */
-const IcseTextInput = props => {
-  let fieldName = titleCase(props.field);
+var IcseTextInput = function IcseTextInput(props) {
+  var fieldName = titleCase(props.field);
   return /*#__PURE__*/React.createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React.createElement(TextInput, {
     id: props.id,
     className: lib_2("fieldWidth leftTextAlign", props),
@@ -2587,7 +2596,7 @@ const IcseTextInput = props => {
     invalid: isBoolean(props.invalid) ? props.invalid : props.invalidCallback(),
     onChange: props.onChange,
     helperText: props.helperText,
-    invalidText: props.invalidText ? props.invalidText : `Invalid ${props.field} value.`,
+    invalidText: props.invalidText ? props.invalidText : "Invalid ".concat(props.field, " value."),
     maxLength: props.maxLength,
     disabled: props.disabled,
     readOnly: props.readOnly
@@ -2635,8 +2644,8 @@ IcseTextInput.propTypes = {
  * @param {func} props.invalidCallback
  * @returns <IcseNameInput />
  */
-const IcseNameInput = props => {
-  let helperText = "";
+var IcseNameInput = function IcseNameInput(props) {
+  var helperText = "";
   // if helper text is not hidden
   if (!props.hideHelperText && !props.useData) {
     helperText = props.helperTextCallback();
@@ -3209,6 +3218,80 @@ EntitlementSelect.propTypes = {
 };
 
 /**
+ * SecretsManagerForm
+ * @param {Object} props
+ */
+class SecretsManagerForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
+    this.state.use_secrets_manager = true;
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * Toggle on and off param in state at name
+   * @param {string} name name of the object key to change
+   * @param {bool} setDefaults set default values, default is false
+   */
+  handleToggle() {
+    this.setState(this.toggleStateBoolean("use_secrets_manager", this.state));
+  }
+  render() {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: this.state.name + "-name",
+      componentName: "Secrets Manager",
+      component: "secrets_manager",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      componentProps: this.props,
+      hideHelperText: true,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: "Secrets Manager",
+      value: this.state.resource_group,
+      groups: this.props.resourceGroups,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidth",
+      name: "resource_group",
+      labelText: "Resource Group"
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "fieldWidth"
+    }, /*#__PURE__*/React.createElement(IcseSelect, {
+      value: this.state.kms_key_name,
+      groups: this.props.kmsKeys,
+      formName: "Secrets Manager",
+      name: "kms_key_name",
+      className: "fieldWidth",
+      labelText: "KMS Key",
+      handleInputChange: this.handleInputChange
+    })));
+  }
+}
+SecretsManagerForm.propTypes = {
+  data: PropTypes.shape({
+    use_secrets_manager: PropTypes.bool.isRequired,
+    name: PropTypes.string,
+    resource_group: PropTypes.string,
+    kms_key_name: PropTypes.string
+  }).isRequired,
+  kmsKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired
+};
+
+/**
  * kms keys
  */
 var EncryptionKeyForm = /*#__PURE__*/function (_Component) {
@@ -3363,24 +3446,32 @@ EncryptionKeyForm.propTypes = {
  * @param {Array} props.cosKeys list of cos Keys
  * @param {string} props.prefix
  */
-class AtrackerForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = this.props.data;
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
+var AtrackerForm = /*#__PURE__*/function (_Component) {
+  _inherits(AtrackerForm, _Component);
+  var _super = _createSuper(AtrackerForm);
+  function AtrackerForm(props) {
+    var _this;
+    _classCallCheck(this, AtrackerForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    return _this;
   }
 
   /**
    * handle input change
    * @param {event} event event
    */
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
+  _createClass(AtrackerForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
 
+<<<<<<< HEAD
   /**
    * Toggle on and off param in state at name
    * @param {string} name name of the object key to change
@@ -3456,6 +3547,81 @@ class AtrackerForm extends Component {
     })));
   }
 }
+=======
+    /**
+     * Toggle on and off param in state at name
+     * @param {string} name name of the object key to change
+     */
+  }, {
+    key: "handleToggle",
+    value: function handleToggle(name) {
+      this.setState(this.toggleStateBoolean(name, this.state));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement("div", {
+        id: "atracker-form"
+      }, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+        componentName: "Activity Tracker",
+        field: "Name",
+        labelText: "Name",
+        className: "fieldWidth",
+        value: this.props.prefix + "-atracker",
+        onChange: this.handleInputChange,
+        readOnly: true,
+        id: "atracker-name",
+        invalid: false
+      }), /*#__PURE__*/React.createElement(IcseSelect, {
+        formName: "Activity Tracker",
+        value: this.state.resource_group,
+        groups: this.props.resourceGroups,
+        handleInputChange: this.handleInputChange,
+        className: "fieldWidth",
+        name: "resource_group",
+        labelText: "Resource Group"
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+        tooltip: {
+          content: "The bucket name under the Cloud Object Storage instance where Activity Tracker logs will be stored"
+        },
+        groups: this.props.cosBuckets,
+        formName: "Activity Tracker",
+        field: "collector_bucket_name",
+        name: "collector_bucket_name",
+        value: this.state.collector_bucket_name,
+        handleInputChange: this.handleInputChange,
+        className: "fieldWidth",
+        labelText: "Object Storage Log Bucket",
+        invalidText: "Select an Object Storage bucket."
+      }), /*#__PURE__*/React.createElement(IcseToggle, {
+        tooltip: {
+          content: "Must be enabled in order to forward all logs to the Cloud Object Storage bucket"
+        },
+        labelText: "Create Activity Tracker Route",
+        defaultToggled: this.state.add_route,
+        toggleFieldName: "add_route",
+        onToggle: this.handleToggle,
+        id: "app-id-add-route"
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, {
+        noMarginBottom: true
+      }, /*#__PURE__*/React.createElement(IcseSelect, {
+        tooltip: {
+          content: "The IAM API key that has writer access to the Cloud Object Storage instance"
+        },
+        formName: "Activity Tracker",
+        name: "atracker_key",
+        groups: this.props.cosKeys,
+        value: this.state.atracker_key,
+        labelText: "Privileged IAM Object Storage Key",
+        handleInputChange: this.handleInputChange,
+        className: "fieldWidth",
+        invalidText: "Select an Object Storage key."
+      })));
+    }
+  }]);
+  return AtrackerForm;
+}(Component);
+>>>>>>> 1e428a4 (SecretsManager form)
 AtrackerForm.defaultProps = {
   isModal: false,
   data: PropTypes.shape({
@@ -7612,6 +7778,7 @@ StatefulTabPanel.propTypes = {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 export { AppIdKeyForm, DeleteButton, DeleteModal, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SecurityGroupMultiSelect, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> b982705 (feat: StatefulTabPanel)
 =======
@@ -7623,3 +7790,6 @@ export { AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, DynamicRender, D
 =======
 export { AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecurityGroupMultiSelect, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> b6eab56 (example and readme)
+=======
+export { AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, buildFormDefaultInputMethods, buildFormFunctions };
+>>>>>>> 1e428a4 (SecretsManager form)
