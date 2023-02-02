@@ -1,8 +1,3 @@
-import {
-  eventTargetToNameAndValue,
-  toggleStateBoolean,
-  setNameToValue,
-} from "../lib";
 const { isFunction } = require("lazy-z");
 const {
   eventTargetToNameAndValue,

@@ -169,7 +169,6 @@ SccForm.propTypes = {
     scope_description: PropTypes.string,
     scope_name: PropTypes.string,
     collector_passphrase: PropTypes.string,
-    location_id: PropTypes.string,
   }),
   invalidSccScopeName: PropTypes.func.isRequired,
   invalidSccScopeDescription: PropTypes.func.isRequired,

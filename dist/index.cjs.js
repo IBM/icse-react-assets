@@ -34,16 +34,20 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 72d0b85 (merge)
 =======
 var lazyZ = require('lazy-z');
 >>>>>>> 28f2e52 (code now)
 =======
 >>>>>>> dc1cdcb (arrayOf)
+=======
+>>>>>>> b6eab56 (example and readme)
 var React = require('react');
 var iconsReact = require('@carbon/icons-react');
 var react = require('@carbon/react');
 var PropTypes = require('prop-types');
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 var lazyZ = require('lazy-z');
@@ -53,12 +57,15 @@ var lazyZ = require('lazy-z');
 >>>>>>> 72d0b85 (merge)
 =======
 >>>>>>> 28f2e52 (code now)
+=======
+var lazyZ = require('lazy-z');
+>>>>>>> b6eab56 (example and readme)
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
-var lazyZ__default = /*#__PURE__*/_interopDefaultLegacy(lazyZ);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 var PropTypes__default = /*#__PURE__*/_interopDefaultLegacy(PropTypes);
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 =======
@@ -69,6 +76,8 @@ function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'defau
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 var PropTypes__default = /*#__PURE__*/_interopDefaultLegacy(PropTypes);
 >>>>>>> dc1cdcb (arrayOf)
+=======
+>>>>>>> b6eab56 (example and readme)
 var lazyZ__default = /*#__PURE__*/_interopDefaultLegacy(lazyZ);
 
 var _require = require("lazy-z"),
@@ -427,8 +436,11 @@ var buttonUtils = {
 function eventTargetToNameAndValue$1(event) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> dc1cdcb (arrayOf)
+=======
+>>>>>>> b6eab56 (example and readme)
   let {
     name,
     value
@@ -491,6 +503,7 @@ var lib_2 = lib.addClassName;
 var lib_3 = lib.prependEmptyStringWhenNull;
 var lib_5 = lib.formatInputPlaceholder;
 var lib_6 = lib.saveChangeButtonClass;
+<<<<<<< HEAD
 <<<<<<< HEAD
 var lib_7 = lib.eventTargetToNameAndValue;
 var lib_8 = lib.toggleStateBoolean;
@@ -1581,6 +1594,15 @@ var lib_6 = lib.saveChangeButtonClass;
 =======
 >>>>>>> 28f2e52 (code now)
 var css_248z$7 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
+=======
+var lib_7 = lib.eventTargetToNameAndValue;
+var lib_8 = lib.toggleStateBoolean;
+
+var css_248z$8 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
+styleInject(css_248z$8);
+
+var css_248z$7 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  z-index: 9001;\n  top: 10px;\n}";
+>>>>>>> b6eab56 (example and readme)
 styleInject(css_248z$7);
 >>>>>>> 72d0b85 (merge)
 
@@ -1710,6 +1732,244 @@ var SaveAddButton = function SaveAddButton(props) {
 =======
     className: lib_6(props) + (props.disabled === true ? " pointerEventsNone " : " " + props.className),
 >>>>>>> dc1cdcb (arrayOf)
+    disabled: props.disabled || false,
+    size: "sm"
+  }, props.type === "add" ? /*#__PURE__*/React__default["default"].createElement(iconsReact.Add, null) : /*#__PURE__*/React__default["default"].createElement(SaveIcon, {
+    saveIsDisabled: props.disabled
+  })));
+};
+SaveAddButton.defaultProps = {
+  type: "save",
+  hoverText: "Save Changes",
+  inline: false,
+  disabled: false,
+  hoverTextAlign: "bottom"
+};
+SaveAddButton.propTypes = {
+  hoverText: PropTypes__default["default"].string.isRequired,
+  onClick: PropTypes__default["default"].func,
+  disabled: PropTypes__default["default"].bool.isRequired,
+  type: PropTypes__default["default"].string.isRequired,
+  inline: PropTypes__default["default"].bool.isRequired,
+  hoverTextAlign: PropTypes__default["default"].string.isRequired
+};
+
+/**
+ * Edit close icon with popover
+ * @param {*} props
+ * @param {string=} props.hoverText text for popover hover
+ * @param {string} props.type can be `edit` or `add`, defaults to add
+ * @param {boolean} props.disabled
+ * @param {Function} props.onClick onclick function
+ * @param {boolean} props.open toggle is open, defaults to false
+ * @returns edit close icon
+ */
+var EditCloseIcon = function EditCloseIcon(props) {
+  var hoverText = props.hoverText ? props.hoverText : props.open ? "Close" : props.type === "add" ? "Configure Resource" : "Edit Resource";
+  var icon = props.open ? /*#__PURE__*/React__default["default"].createElement(iconsReact.CloseFilled, null) : props.type === "add" ? /*#__PURE__*/React__default["default"].createElement(iconsReact.Add, null) : /*#__PURE__*/React__default["default"].createElement(iconsReact.Edit, null);
+  return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
+    hoverText: hoverText
+  }, /*#__PURE__*/React__default["default"].createElement("i", {
+    onClick: props.onClick,
+    className: "chevron"
+  }, icon));
+};
+EditCloseIcon.propTypes = {
+  hoverText: PropTypes__default["default"].string,
+  onClick: PropTypes__default["default"].func.isRequired,
+  disabled: PropTypes__default["default"].bool,
+  type: PropTypes__default["default"].string,
+  open: PropTypes__default["default"].bool
+};
+EditCloseIcon.defaultProps = {
+  type: "edit",
+  open: false
+};
+
+/**
+ * Delete button
+ * @param {*} props
+ * @param {boolean} props.disabled
+ * @param {Function} props.onClick onclick function
+ * @param {string} props.name classname
+ *
+ */
+var DeleteButton = function DeleteButton(props) {
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "delete-area"
+  }, /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
+    hoverText: props.disabled ? props.disableDeleteMessage : "Delete Resource",
+    className: props.disabled ? "inlineBlock cursorNotAllowed" : ""
+  }, /*#__PURE__*/React__default["default"].createElement(react.Button, {
+    className: "cds--btn--danger--tertiary forceTertiaryButtonStyles" + (props.disabled ? " pointerEventsNone" : ""),
+    kind: "ghost",
+    size: "sm",
+    onClick: props.onClick,
+    disabled: props.disabled === true
+  }, /*#__PURE__*/React__default["default"].createElement(iconsReact.TrashCan, {
+    className: props.disabled ? "" : "redFill"
+  }))));
+};
+DeleteButton.defaultProps = {
+  disabled: false
+};
+DeleteButton.propTypes = {
+  disabled: PropTypes__default["default"].bool.isRequired,
+  onClick: PropTypes__default["default"].func.isRequired,
+  name: PropTypes__default["default"].string.isRequired
+};
+
+/**
+ * Up/Down button
+ * @param {*} props
+ * @param {string} props.name
+ * @param {boolean} props.disableUp
+ * @param {boolean} props.disableDown
+ * @param {Function} props.handleUp
+ * @param {Function} props.handleDown
+ *
+ */
+var UpDownButtons = function UpDownButtons(props) {
+  return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(react.Button, {
+    key: "rule-up-" + props.name,
+    disabled: props.disableUp,
+    kind: "ghost",
+    size: "sm",
+    id: props.name + "-up",
+    onClick: props.handleUp,
+    className: "focus forceTertiaryButtonStyles marginRightSmall"
+  }, /*#__PURE__*/React__default["default"].createElement(iconsReact.ArrowUp, {
+    key: "up-" + props.name
+  })), /*#__PURE__*/React__default["default"].createElement(react.Button, {
+    kind: "ghost",
+    disabled: props.disableDown,
+    key: "rule-down-" + props.name,
+    size: "sm",
+    id: props.name + "-down",
+    onClick: props.handleDown,
+    className: "focus forceTertiaryButtonStyles"
+  }, /*#__PURE__*/React__default["default"].createElement(iconsReact.ArrowDown, {
+    key: "down-" + props.name
+  })));
+};
+UpDownButtons.defaultProps = {
+  disableUp: false,
+  disableDown: false
+};
+UpDownButtons.propTypes = {
+  disableUp: PropTypes__default["default"].bool.isRequired,
+  disableDown: PropTypes__default["default"].bool.isRequired,
+  name: PropTypes__default["default"].string.isRequired,
+  handleUp: PropTypes__default["default"].func.isRequired,
+  handleDown: PropTypes__default["default"].func.isRequired
+};
+
+/**
+ * Wrapper for carbon popover component to handle individual component mouseover
+ */
+var PopoverWrapper = /*#__PURE__*/function (_React$Component) {
+  _inherits(PopoverWrapper, _React$Component);
+  var _super = _createSuper(PopoverWrapper);
+  function PopoverWrapper(props) {
+    var _this;
+    _classCallCheck(this, PopoverWrapper);
+    _this = _super.call(this, props);
+    _this.state = {
+      isHovering: false
+    };
+    _this.handleMouseOver = _this.handleMouseOver.bind(_assertThisInitialized(_this));
+    _this.handleMouseOut = _this.handleMouseOut.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * handle mouse over
+   */
+  _createClass(PopoverWrapper, [{
+    key: "handleMouseOver",
+    value: function handleMouseOver() {
+      this.setState({
+        isHovering: true
+      });
+    }
+
+    /**
+     * handle mouse out
+     */
+  }, {
+    key: "handleMouseOut",
+    value: function handleMouseOut() {
+      this.setState({
+        isHovering: false
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return this.props.noPopover === true || this.props.hoverText === "" ? this.props.children : /*#__PURE__*/React__default["default"].createElement("div", {
+        className: lib_2("popover-obj", this.props),
+        onMouseEnter: this.handleMouseOver,
+        onMouseLeave: this.handleMouseOut
+      }, /*#__PURE__*/React__default["default"].createElement(react.Popover, {
+        open: this.state.isHovering,
+        autoAlign: this.props.align ? false : true,
+        dropShadow: false,
+        highContrast: true,
+        caret: false,
+        align: this.props.align
+      }, this.props.children, /*#__PURE__*/React__default["default"].createElement(react.PopoverContent, {
+        className: "popover-box" + (this.props.contentClassName ? " ".concat(this.props.contentClassName) : "")
+      }, this.props.hoverText)));
+    }
+  }]);
+  return PopoverWrapper;
+}(React__default["default"].Component);
+PopoverWrapper.defaultProps = {
+  noPopover: false
+};
+PopoverWrapper.propTypes = {
+  noPopover: PropTypes__default["default"].bool,
+  hoverText: PropTypes__default["default"].string.isRequired,
+  className: PropTypes__default["default"].string,
+  contentClassName: PropTypes__default["default"].string,
+  align: PropTypes__default["default"].string,
+  children: PropTypes__default["default"].node.isRequired
+};
+
+var css_248z$6 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  z-index: 9001; /* navbar is 9000 */\n  font-size: 80%;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
+styleInject(css_248z$6);
+
+/**
+ * generate save icon
+ * @param {object} props
+ * @param {boolean} props.saveIsDisabled true if disabled
+ * @returns Save Icon
+ */
+var SaveIcon = function SaveIcon(props) {
+  return /*#__PURE__*/React__default["default"].createElement(iconsReact.Save, {
+    className: props.disabled ? "" : "tertiaryButtonColors"
+  });
+};
+
+/**
+ * save add button
+ * @param {*} props
+ * @param {string} props.hoverText
+ * @param {string} props.type can be `add` defaults to `save`
+ * @param {Function} props.onClick onclick function
+ * @param {string=} props.className
+ * @param {boolean} props.disabled
+ * @returns Save add button
+ */
+var SaveAddButton = function SaveAddButton(props) {
+  return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
+    hoverText: props.type === "add" && props.hoverText === "Save Changes" ? "Add Resource" : props.hoverText,
+    className: (props.disabled ? "inlineBlock cursorNotAllowed" : "") + (props.inline ? " alignItemsCenter marginTopLarge inLineFormButton" : ""),
+    align: props.hoverTextAlign
+  }, /*#__PURE__*/React__default["default"].createElement(react.Button, {
+    kind: props.type === "add" ? "tertiary" : "primary",
+    onClick: props.onClick,
+    className: lib_6(props) + (props.disabled === true ? " pointerEventsNone " : " " + props.className),
     disabled: props.disabled || false,
     size: "sm"
   }, props.type === "add" ? /*#__PURE__*/React__default["default"].createElement(iconsReact.Add, null) : /*#__PURE__*/React__default["default"].createElement(SaveIcon, {
@@ -2102,8 +2362,13 @@ DynamicToolTipWrapper.propTypes = {
 var css_248z$4 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
 styleInject(css_248z$4);
 
+<<<<<<< HEAD
 const IcseToggle = props => {
   let toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
+=======
+var IcseToggle = function IcseToggle(props) {
+  var toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
+>>>>>>> b6eab56 (example and readme)
   return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React__default["default"].createElement(react.Toggle, {
     labelA: props.useOnOff ? "Off" : "False",
     labelB: props.useOnOff ? "On" : "True",
@@ -2112,7 +2377,11 @@ const IcseToggle = props => {
     className: lib_2("leftTextAlign fieldWidth", props) + (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
     ,
 
+<<<<<<< HEAD
     onToggle: event => {
+=======
+    onToggle: function onToggle(event) {
+>>>>>>> b6eab56 (example and readme)
       props.onToggle(toggleName, event);
     },
     defaultToggled: props.defaultToggled,
@@ -2586,7 +2855,7 @@ var FetchSelect = /*#__PURE__*/function (_React$Component) {
   return SccForm;
 }(React.Component);
 SccForm.propTypes = {
-  data: PropTypes__default["default"].shape(_defineProperty({
+  data: PropTypes__default["default"].shape({
     enable_scc: PropTypes__default["default"].bool.isRequired,
     collector_description: PropTypes__default["default"].string,
     is_public: PropTypes__default["default"].bool.isRequired,
@@ -2594,7 +2863,7 @@ SccForm.propTypes = {
     scope_description: PropTypes__default["default"].string,
     scope_name: PropTypes__default["default"].string,
     collector_passphrase: PropTypes__default["default"].string
-  }, "location_id", PropTypes__default["default"].string)),
+  }),
   invalidSccScopeName: PropTypes__default["default"].func.isRequired,
   invalidSccScopeDescription: PropTypes__default["default"].func.isRequired,
   invalidSccCollectorDescription: PropTypes__default["default"].func.isRequired
@@ -2972,6 +3241,7 @@ AtrackerForm.propTypes = {
   isModal: PropTypes__default["default"].bool.isRequired
 };
 
+<<<<<<< HEAD
 /**
  * Form Modal
  * @param {Object} props
@@ -4003,6 +4273,8 @@ const IcseSelect = props => {
   children: PropTypes__default["default"].node.isRequired
 };
 
+=======
+>>>>>>> b6eab56 (example and readme)
 var IcseSelect = function IcseSelect(props) {
   var invalid =
   // automatically set to invalid is is null or empty string and invalid not disabled
@@ -4333,6 +4605,695 @@ var UnderConstruction = function UnderConstruction() {
 >>>>>>> 72d0b85 (merge)
 =======
 /**
+ * kms keys
+ */
+var EncryptionKeyForm = /*#__PURE__*/function (_Component) {
+  _inherits(EncryptionKeyForm, _Component);
+  var _super = _createSuper(EncryptionKeyForm);
+  function EncryptionKeyForm(props) {
+    var _this;
+    _classCallCheck(this, EncryptionKeyForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    _this.handleTextInput = _this.handleTextInput.bind(_assertThisInitialized(_this));
+    _this.toggleShow = _this.toggleShow.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  _createClass(EncryptionKeyForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+
+    /**
+     * Toggle on and off param in state at name
+     * @param {string} name name of the object key to change
+     */
+  }, {
+    key: "handleToggle",
+    value: function handleToggle(name) {
+      this.setState(_defineProperty({}, name, !this.state[name]));
+    }
+
+    /**
+     * Handle input change for a text field
+     * @param {event} event
+     */
+  }, {
+    key: "handleTextInput",
+    value: function handleTextInput(event) {
+      this.setState({
+        name: event.target.value
+      });
+    }
+
+    // Handle toggle for showing/hiding details of keys
+  }, {
+    key: "toggleShow",
+    value: function toggleShow() {
+      this.setState({
+        show: !this.state.show
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var composedId = "encryption-key-".concat(this.props.data.name, "-");
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+        id: this.state.name + "-name",
+        component: "kms_key",
+        componentName: this.props.data.name,
+        value: this.state.name,
+        onChange: this.handleTextInput,
+        componentProps: this.props,
+        placeholder: "my-encryption-key-name",
+        hideHelperText: true,
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props)
+      }), /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
+        tooltip: {
+          content: "Setting a rotation policy shortens the lifetime of the key at regular intervals. When it's time to rotate the key based on the rotation interval that you specify, the root key will be automatically replaced with new key material.",
+          align: "bottom-left"
+        },
+        component: this.props.data.name,
+        max: 12,
+        value: this.state.interval_month,
+        formName: "interval_month",
+        name: "interval_month",
+        labelText: "Rotation Interval (Months)",
+        handleInputChange: this.handleInputChange,
+        isModal: this.props.isModal
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+        noMarginBottom: true
+      }, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        tooltip: {
+          content: "Root keys are symmetric key-wrapping keys used as roots of trust for encrypting/decrypting other keys. Can be either imported or generated by IBM Key Protect.",
+          link: "https://cloud.ibm.com/docs/key-protect?topic=key-protect-envelope-encryption",
+          align: "bottom-left"
+        },
+        id: composedId + "kms-key-root",
+        labelText: "Set as a Root Key",
+        toggleFieldName: "root_key",
+        onToggle: this.handleToggle,
+        defaultToggled: this.state.root_key,
+        isModal: this.props.isModal
+      }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        tooltip: {
+          content: "Force deletion of a key refers to the deletion of any key that's actively protecting any registered cloud resources. KMS keys can be force-deleted by managers of the instance. However, the force-delete won't succeed if the key's associated resource is non-erasable due to a retention policy.",
+          align: "bottom-left"
+        },
+        id: composedId + "kms-key-force-delete",
+        labelText: "Force Deletion of KMS Key",
+        toggleFieldName: "force_delete",
+        defaultToggled: this.state.force_delete,
+        onToggle: this.handleToggle,
+        isModal: this.props.isModal
+      })));
+    }
+  }]);
+  return EncryptionKeyForm;
+}(React.Component);
+EncryptionKeyForm.defaultProps = {
+  data: {
+    name: "",
+    interval_month: 12,
+    root_key: false,
+    force_delete: false
+  },
+  isModal: false
+};
+EncryptionKeyForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    interval_month: PropTypes__default["default"].number.isRequired,
+    root_key: PropTypes__default["default"].bool.isRequired,
+    force_delete: PropTypes__default["default"].bool
+  }).isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired
+};
+
+/**
+ * Atracker
+ * @param {Object} props
+ * @param {Object} props.data
+ * @param {string} props.data.resource_group
+ * @param {string} props.data.cos_bucket
+ * @param {string} props.data.cos_key
+ * @param {boolean} props.data.add_route
+ * @param {Array} props.resourceGroups list of resource groups
+ * @param {Array} props.cosBuckets list of cos buckets
+ * @param {Array} props.cosKeys list of cos Keys
+ * @param {string} props.prefix
+ */
+var AtrackerForm = /*#__PURE__*/function (_Component) {
+  _inherits(AtrackerForm, _Component);
+  var _super = _createSuper(AtrackerForm);
+  function AtrackerForm(props) {
+    var _this;
+    _classCallCheck(this, AtrackerForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  _createClass(AtrackerForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+
+    /**
+     * Toggle on and off param in state at name
+     * @param {string} name name of the object key to change
+     */
+  }, {
+    key: "handleToggle",
+    value: function handleToggle(name) {
+      this.setState(this.toggleStateBoolean(name, this.state));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React__default["default"].createElement("div", {
+        id: "atracker-form"
+      }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+        componentName: "Activity Tracker",
+        field: "Name",
+        labelText: "Name",
+        className: "fieldWidth",
+        value: this.props.prefix + "-atracker",
+        onChange: this.handleInputChange,
+        readOnly: true,
+        id: "atracker-name",
+        invalid: false
+      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: "Activity Tracker",
+        value: this.state.resource_group,
+        groups: this.props.resourceGroups,
+        handleInputChange: this.handleInputChange,
+        className: "fieldWidth",
+        name: "resource_group",
+        labelText: "Resource Group"
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        tooltip: {
+          content: "The bucket name under the Cloud Object Storage instance where Activity Tracker logs will be stored"
+        },
+        groups: this.props.cosBuckets,
+        formName: "Activity Tracker",
+        field: "collector_bucket_name",
+        name: "collector_bucket_name",
+        value: this.state.collector_bucket_name,
+        handleInputChange: this.handleInputChange,
+        className: "fieldWidth",
+        labelText: "Object Storage Log Bucket",
+        invalidText: "Select an Object Storage bucket."
+      }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        tooltip: {
+          content: "Must be enabled in order to forward all logs to the Cloud Object Storage bucket"
+        },
+        labelText: "Create Activity Tracker Route",
+        defaultToggled: this.state.add_route,
+        toggleFieldName: "add_route",
+        onToggle: this.handleToggle,
+        id: "app-id-add-route"
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+        noMarginBottom: true
+      }, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        tooltip: {
+          content: "The IAM API key that has writer access to the Cloud Object Storage instance"
+        },
+        formName: "Activity Tracker",
+        name: "atracker_key",
+        groups: this.props.cosKeys,
+        value: this.state.atracker_key,
+        labelText: "Privileged IAM Object Storage Key",
+        handleInputChange: this.handleInputChange,
+        className: "fieldWidth",
+        invalidText: "Select an Object Storage key."
+      })));
+    }
+  }]);
+  return AtrackerForm;
+}(React.Component);
+AtrackerForm.defaultProps = {
+  isModal: false,
+  data: PropTypes__default["default"].shape({
+    cos_bucket: "",
+    cos_key: "",
+    resource_group: "",
+    add_route: false
+  }).isRequired
+};
+AtrackerForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    cos_bucket: PropTypes__default["default"].string.isRequired,
+    cos_key: PropTypes__default["default"].string.isRequired,
+    resource_group: PropTypes__default["default"].string.isRequired,
+    add_route: PropTypes__default["default"].bool.isRequired
+  }).isRequired,
+  prefix: PropTypes__default["default"].string.isRequired,
+  cosKeys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  cosBuckets: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired
+};
+
+/**
+ * Form Modal
+ * @param {Object} props
+ * @param {string} props.name the name of the modal
+ * @param {Function} props.onRequestClose close modal function
+ * @param {Function} props.onRequestSubmit submit function
+ * @param {boolean} props.show show modal if true
+ */
+var FormModal = /*#__PURE__*/function (_Component) {
+  _inherits(FormModal, _Component);
+  var _super = _createSuper(FormModal);
+  function FormModal(props) {
+    var _this;
+    _classCallCheck(this, FormModal);
+    _this = _super.call(this, props);
+    _this.state = {
+      isDisabled: false
+    };
+    _this.modalForm = /*#__PURE__*/React__default["default"].createRef();
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.disableModal = _this.disableModal.bind(_assertThisInitialized(_this));
+    _this.enableModal = _this.enableModal.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * submit child data
+   */
+  _createClass(FormModal, [{
+    key: "handleSubmit",
+    value: function handleSubmit() {
+      var childData = this.modalForm.current.state;
+      this.props.onRequestSubmit(childData);
+    }
+
+    /**
+     * disable modal
+     */
+  }, {
+    key: "disableModal",
+    value: function disableModal() {
+      if (!this.state.isDisabled) this.setState({
+        isDisabled: true
+      });
+    }
+
+    /**
+     * enable modal
+     */
+  }, {
+    key: "enableModal",
+    value: function enableModal() {
+      if (this.state.isDisabled) this.setState({
+        isDisabled: false
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      return /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+        hide: this.props.show === false,
+        show: /*#__PURE__*/React__default["default"].createElement(react.Modal, {
+          modalHeading: this.props.name,
+          open: this.props.show,
+          onRequestSubmit: this.handleSubmit,
+          onRequestClose: this.props.onRequestClose,
+          primaryButtonText: "Submit",
+          secondaryButtonText: "Cancel",
+          primaryButtonDisabled: this.state.isDisabled
+        }, this.props.show && React__default["default"].Children.map(this.props.children, function (child) {
+          return (
+            /*#__PURE__*/
+            // clone react child
+            React__default["default"].cloneElement(child, {
+              // add modal specific methods
+              disableModal: _this2.disableModal,
+              enableModal: _this2.enableModal,
+              isModal: true,
+              ref: _this2.modalForm
+            })
+          );
+        }))
+      });
+    }
+  }]);
+  return FormModal;
+}(React.Component);
+FormModal.defaultProps = {
+  show: false
+};
+FormModal.propTypes = {
+  show: PropTypes__default["default"].bool.isRequired,
+  onRequestSubmit: PropTypes__default["default"].func.isRequired,
+  onRequestClose: PropTypes__default["default"].func.isRequired,
+  name: PropTypes__default["default"].string,
+  // undefined for loaded modal not rendered
+  children: PropTypes__default["default"].node.isRequired
+};
+
+var css_248z$2 = ".leftTextAlign {\n  text-align: left;\n}\n";
+styleInject(css_248z$2);
+
+/**
+ * Icse Modal Wrapper
+ * @param {*} props
+ * @param {string} props.name resource name
+ * @param {string} props.heading modal heading
+ * @param {boolean} props.open show modal
+ * @param {boolean=} props.danger danger, defaults to true
+ * @param {boolean=} props.alert alert, defaults to true
+ * @param {string=} props.primaryButtonText defaults to `Dismiss Changes`
+ * @param {string=} props.secondaryButtonText defaults to `Cancel`
+ * @param {Function} props.onRequestSubmit
+ * @param {Function} props.onRequestClose
+ * @param {boolean=} props.useAddButton use + button instead of edit
+ */
+var IcseModal = function IcseModal(props) {
+  /*#__PURE__*/React__default["default"].createElement("strong", null, props.name);
+  return /*#__PURE__*/React__default["default"].createElement(react.Modal, {
+    id: props.id,
+    className: "leftTextAlign",
+    modalHeading: props.heading,
+    open: props.open,
+    alert: props.alert,
+    danger: props.danger,
+    shouldSubmitOnEnter: true,
+    primaryButtonText: props.primaryButtonText,
+    secondaryButtonText: props.secondaryButtonText,
+    onRequestSubmit: props.onRequestSubmit,
+    onRequestClose: props.onRequestClose
+  }, props.children);
+};
+IcseModal.defaultProps = {
+  primaryButtonText: "Primary Button",
+  secondaryButtonText: "Cancel",
+  primaryButtonDisabled: false,
+  danger: false,
+  alert: true,
+  open: false,
+  heading: "Default Heading",
+  id: "default-icse-modal"
+};
+IcseModal.propTypes = {
+  primaryButtonText: PropTypes__default["default"].string.isRequired,
+  secondaryButtonText: PropTypes__default["default"].string.isRequired,
+  primaryButtonDisabled: PropTypes__default["default"].bool,
+  danger: PropTypes__default["default"].bool,
+  alert: PropTypes__default["default"].bool,
+  heading: PropTypes__default["default"].string.isRequired,
+  onRequestSubmit: PropTypes__default["default"].func.isRequired,
+  onRequestClose: PropTypes__default["default"].func.isRequired,
+  id: PropTypes__default["default"].string.isRequired,
+  open: PropTypes__default["default"].bool.isRequired,
+  children: PropTypes__default["default"].node.isRequired
+};
+
+/**
+ * Delete modal
+ * @param {*} props
+ * @param {string} props.name name of modal
+ * @param {boolean} props.modalOpen true if open
+ * @param {Function} props.onModalClose function for on close
+ * @param {Function} props.onModalSubmit function for on submit
+ */
+var DeleteModal = function DeleteModal(props) {
+  var name = /*#__PURE__*/React__default["default"].createElement("strong", null, props.name);
+  return /*#__PURE__*/React__default["default"].createElement(IcseModal, {
+    id: props.name + "-delete",
+    name: props.name,
+    heading: props.name,
+    open: props.modalOpen,
+    onRequestClose: props.onModalClose,
+    onRequestSubmit: props.onModalSubmit,
+    primaryButtonText: "Delete Resource",
+    danger: true
+  }, /*#__PURE__*/React__default["default"].createElement("span", null, "You are about to delete ", name, ". This cannot be undone."));
+};
+DeleteModal.defaultProps = {
+  modalOpen: false
+};
+DeleteModal.propTypes = {
+  name: PropTypes__default["default"].string.isRequired,
+  modalOpen: PropTypes__default["default"].bool.isRequired,
+  onModalClose: PropTypes__default["default"].func.isRequired,
+  onModalSubmit: PropTypes__default["default"].func.isRequired
+};
+
+/**
+ * unsaved changes modal modal
+ * @param {*} props
+ * @param {string} props.name name of modal
+ * @param {boolean} props.modalOpen true if open
+ * @param {Function} props.onModalClose function for on close
+ * @param {Function} props.onModalSubmit function for on submit
+ */
+
+var UnsavedChangesModal = function UnsavedChangesModal(props) {
+  var name = props.name;
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "unsaved-changes-modal-area"
+  }, /*#__PURE__*/React__default["default"].createElement(IcseModal, {
+    id: props.name + "-unsaved-changes",
+    open: props.modalOpen,
+    name: props.name,
+    onRequestClose: props.onModalClose,
+    onRequestSubmit: props.onModalSubmit,
+    heading: props.useDefaultUnsavedMessage ? "Missing Required Values" : "Unsaved Changes",
+    danger: true,
+    primaryButtonText: "Dismiss Changes"
+  }, props.useDefaultUnsavedMessage ? /*#__PURE__*/React__default["default"].createElement("span", null, "Resource ", name, " is missing required values.", " ", /*#__PURE__*/React__default["default"].createElement("strong", null, "Without these values, your configuration is invalid."), " ", "Are you sure you want to dismiss these changes?") : /*#__PURE__*/React__default["default"].createElement("span", null, "Resource ", name, " has unsaved changes. Are you sure you want to dismiss these changes?")));
+};
+UnsavedChangesModal.defaultProps = {
+  modalOpen: false,
+  useDefaultUnsavedMessage: true
+};
+UnsavedChangesModal.propTypes = {
+  name: PropTypes__default["default"].string.isRequired,
+  modalOpen: PropTypes__default["default"].bool.isRequired,
+  onModalClose: PropTypes__default["default"].func.isRequired,
+  onModalSubmit: PropTypes__default["default"].func.isRequired,
+  useDefaultUnsavedMessage: PropTypes__default["default"].bool
+};
+
+var css_248z$1 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+styleInject(css_248z$1);
+
+/**
+ * Icse multiselect template
+ */
+var IcseMultiSelect = function IcseMultiSelect(props) {
+  return /*#__PURE__*/React__default["default"].createElement(react.FilterableMultiSelect, {
+    id: props.id,
+    className: lib_2("fieldWidth leftTextAlign cds--select", props),
+    titleText: props.titleText,
+    itemToString: function itemToString(item) {
+      return item ? item : "";
+    },
+    invalid: props.invalid,
+    invalidText: props.invalidText,
+    initialSelectedItems: props.initialSelectedItems,
+    onChange: props.onChange,
+    items: props.items,
+    useTitleInItem: props.useTitleInItem,
+    label: props.label,
+    disabled: props.disabled
+  });
+};
+IcseMultiSelect.defaultProps = {
+  disabled: false,
+  useTitleInItem: false,
+  invalid: false,
+  invalidText: "Invalid value"
+};
+IcseMultiSelect.propTypes = {
+  id: PropTypes__default["default"].string.isRequired,
+  className: PropTypes__default["default"].string,
+  titleText: PropTypes__default["default"].string.isRequired,
+  invalid: PropTypes__default["default"].bool.isRequired,
+  invalidText: PropTypes__default["default"].string.isRequired,
+  initialSelectedItems: PropTypes__default["default"].array.isRequired,
+  onChange: PropTypes__default["default"].func.isRequired,
+  items: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  useTitleInItem: PropTypes__default["default"].bool.isRequired,
+  label: PropTypes__default["default"].string,
+  disabled: PropTypes__default["default"].bool.isRequired
+};
+
+/**
+ * ssh key multiselect
+ */
+var SshKeyMultiSelect = function SshKeyMultiSelect(props) {
+  return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+    id: props.id + "-ssh-key-multiselect",
+    useTitleInItem: true,
+    label: "SSH Keys",
+    titleText: "SSH Keys",
+    invalidText: "At least one SSH Key is required",
+    invalid: props.initialSelectedItems.length === 0,
+    items: props.sshKeys,
+    initialSelectedItems: props.initialSelectedItems || [],
+    onChange: function onChange(event) {
+      props.onChange(event.selectedItems);
+    },
+    className: "fieldWidthSmaller cds--form-item"
+  });
+};
+SshKeyMultiSelect.defaultProps = {
+  initialSelectedItems: []
+};
+SshKeyMultiSelect.propTypes = {
+  id: PropTypes__default["default"].string.isRequired,
+  onChange: PropTypes__default["default"].func.isRequired,
+  sshKeys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  initialSelectedItems: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+};
+
+/**
+ * sg multiselect
+ */
+var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
+  if (props.vpc_name && !props.securityGroups) {
+    // checking props.securityGroups[props.vpc_name] will result in an
+    // undefined error that happens as part of MultiSelect
+    throw new Error("SecurityGroupMultiselect requires a securityGroups object. Got " + lazyZ.prettyJSON(props.securityGroups));
+  }
+  return /*#__PURE__*/React__default["default"].createElement(react.MultiSelect, {
+    id: props.id + "-security-group-multiselect",
+    label: props.label,
+    titleText: "Security Groups",
+    className: "fieldWidthSmaller cds--form-item",
+    initialSelectedItems: props.initialSelectedItems,
+    vpc_name: props.vpc_name,
+    invalid: props.invalid,
+    invalidText: "Invalid Selection",
+    onChange: function onChange(event) {
+      props.onChange(event.selectedItems);
+    },
+    disabled: props.disabled,
+    items: props.vpc_name === "" ? [] : props.securityGroups[props.vpc_name],
+    itemToString: function itemToString(item) {
+      return item ? item : "";
+    }
+  });
+};
+SecurityGroupMultiSelect.defaultProps = {
+  disabled: false,
+  label: "Select Security Groups",
+  invalid: false
+};
+SecurityGroupMultiSelect.propTypes = {
+  id: PropTypes__default["default"].string.isRequired,
+  className: PropTypes__default["default"].string,
+  initialSelectedItems: PropTypes__default["default"].array.isRequired,
+  vpc_name: PropTypes__default["default"].string,
+  // not required, null value should be valid
+  onChange: PropTypes__default["default"].func.isRequired,
+  label: PropTypes__default["default"].string.isRequired,
+  disabled: PropTypes__default["default"].bool.isRequired,
+  securityGroups: PropTypes__default["default"].object.isRequired,
+  invalid: PropTypes__default["default"].bool.isRequired
+};
+
+/**
+ * vpc subnet multiselect
+ */
+var SubnetMultiSelect = function SubnetMultiSelect(props) {
+  return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+    id: props.id + "-subnet-multiselect",
+    className: props.className,
+    titleText: "Subnets",
+    name: props.name,
+    label: props.label,
+    items: lazyZ.isNullOrEmptyString(props.vpc_name) ? [] : props.subnets[props.vpc_name],
+    initialSelectedItems: props.initialSelectedItems,
+    invalidText: lazyZ.isNullOrEmptyString(props.vpc_name) ? "Select a VPC." : "Select at least one subnet.",
+    invalid: props.initialSelectedItems.length === 0,
+    disabled: props.disabled,
+    onChange: function onChange(event) {
+      return props.onChange(event.selectedItems);
+    }
+  });
+};
+SubnetMultiSelect.defaultProps = {
+  name: "subnet_names",
+  label: "Subnets",
+  disabled: false,
+  vpc_name: "",
+  initialSelectedItems: []
+};
+SubnetMultiSelect.propTypes = {
+  id: PropTypes__default["default"].string.isRequired,
+  className: PropTypes__default["default"].string,
+  vpc_name: PropTypes__default["default"].string,
+  // not required, `null` needs to be passed here
+  subnets: PropTypes__default["default"].object.isRequired,
+  disabled: PropTypes__default["default"].bool.isRequired,
+  name: PropTypes__default["default"].string.isRequired,
+  label: PropTypes__default["default"].string.isRequired,
+  initialSelectedItems: PropTypes__default["default"].array.isRequired,
+  onChange: PropTypes__default["default"].func.isRequired
+};
+
+/**
+ * VPC List MultiSelect
+ */
+var VpcListMultiSelect = function VpcListMultiSelect(props) {
+  // throw error here so that passing no vpc list prop will error here
+  // instead of being passed to `FilterableMultiselect`
+  if (!props.vpcList) {
+    throw new Error("VpcListMultiSelect requires a list of VPCs using the prop `vpcList`. Got " + lazyZ.prettyJSON(props.vpcList));
+  }
+  return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+    invalidText: "At least one VPC must be selected.",
+    invalid: props.invalid,
+    id: props.id + "-vpc-select",
+    titleText: props.titleText,
+    onChange: function onChange(event) {
+      return props.onChange(event.selectedItems);
+    },
+    initialSelectedItems: props.initialSelectedItems,
+    className: props.className,
+    items: props.vpcList
+  });
+};
+VpcListMultiSelect.defaultProps = {
+  invalid: false,
+  titleText: "VPCs",
+  initialSelectedItems: []
+};
+VpcListMultiSelect.propTypes = {
+  invalid: PropTypes__default["default"].bool.isRequired,
+  id: PropTypes__default["default"].string.isRequired,
+  onChange: PropTypes__default["default"].func.isRequired,
+  initialSelectedItems: PropTypes__default["default"].array.isRequired,
+  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+};
+
+/**
  * Under Construction Page
  */
 var UnderConstruction = function UnderConstruction() {
@@ -4342,6 +5303,7 @@ var UnderConstruction = function UnderConstruction() {
   }), /*#__PURE__*/React__default["default"].createElement("h4", null, "Page Under Construction"));
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -5570,14 +6532,18 @@ var css_248z = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cur
 =======
 var css_248z = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  top: 20px;\n  z-index: 9001; /* navbar is 9000 */\n  font-size: 80%;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
 >>>>>>> 72d0b85 (merge)
+=======
+var css_248z = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }";
+>>>>>>> b6eab56 (example and readme)
 styleInject(css_248z);
 
 /**
- * generate save icon
- * @param {object} props
- * @param {boolean} props.saveIsDisabled true if disabled
- * @returns Save Icon
+ * StatefulTabPanel wrapper for non array forms
+ * @param {*} props props
+ * @param {*} props.form form to put in the create tab
+ * @param {*} props.about docs to put in the about tab
  */
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 const SaveIcon = (props) => {
@@ -6009,6 +6975,88 @@ exports.AppIdKeyForm = AppIdKeyForm;
 >>>>>>> 72d0b85 (merge)
   handleUp: PropTypes__default["default"].func.isRequired,
   handleDown: PropTypes__default["default"].func.isRequired
+=======
+var StatefulTabPanel = /*#__PURE__*/function (_React$Component) {
+  _inherits(StatefulTabPanel, _React$Component);
+  var _super = _createSuper(StatefulTabPanel);
+  function StatefulTabPanel(props) {
+    var _this;
+    _classCallCheck(this, StatefulTabPanel);
+    _this = _super.call(this, props);
+    _this.state = {
+      tabIndex: 0
+    };
+    _this.setSelectedIndex = _this.setSelectedIndex.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+  _createClass(StatefulTabPanel, [{
+    key: "setSelectedIndex",
+    value: function setSelectedIndex(event) {
+      // if the index is being set to a new tab
+      if (this.props.toggleShowChildren && event.selectedIndex !== this.state.tabIndex) this.props.toggleShowChildren();
+      this.setState({
+        tabIndex: event.selectedIndex
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, this.props.name && !this.props.hasBuiltInHeading && /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+        name: this.props.name,
+        type: this.props.subHeading ? "subHeading" : "heading",
+        className: this.props.className,
+        tooltip: this.props.tooltip,
+        buttons: /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+          hide: this.props.hideFormTitleButton || this.state.tabIndex !== 0 || !lazyZ.isFunction(this.props.onClick) || this.props.hasBuiltInHeading,
+          show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+            type: "add",
+            noDeleteButton: true,
+            onClick: this.props.onClick,
+            disabled: this.props.shouldDisableSave ? this.props.shouldDisableSave() : false
+          })
+        })
+      }), this.props.hideAbout && !this.props.about ? this.props.form : /*#__PURE__*/React__default["default"].createElement(react.Tabs, {
+        onChange: this.setSelectedIndex
+      }, /*#__PURE__*/React__default["default"].createElement(react.TabList, {
+        "aria-label": "formTabs"
+      }, /*#__PURE__*/React__default["default"].createElement(react.Tab, null, "Create"), /*#__PURE__*/React__default["default"].createElement(react.Tab, null, "About")), /*#__PURE__*/React__default["default"].createElement(react.TabPanels, null, /*#__PURE__*/React__default["default"].createElement(react.TabPanel, {
+        className: "doc"
+      }, this.props.form), /*#__PURE__*/React__default["default"].createElement(react.TabPanel, {
+        className: "doc"
+      }, this.props.about ? this.props.about : /*#__PURE__*/React__default["default"].createElement(UnderConstruction, null)))));
+    }
+  }]);
+  return StatefulTabPanel;
+}(React__default["default"].Component);
+StatefulTabPanel.defaultProps = {
+  subHeading: false,
+  hideFormTitleButton: false,
+  hideAbout: false,
+  hasBuiltInHeading: false
+};
+StatefulTabPanel.propTypes = {
+  name: PropTypes__default["default"].string,
+  // can be null
+  subHeading: PropTypes__default["default"].bool.isRequired,
+  className: PropTypes__default["default"].string,
+  // can be null
+  tooltip: PropTypes__default["default"].shape({
+    content: PropTypes__default["default"].string.isRequired,
+    link: PropTypes__default["default"].string,
+    align: PropTypes__default["default"].string,
+    alignModal: PropTypes__default["default"].string
+  }),
+  hideFormTitleButton: PropTypes__default["default"].bool.isRequired,
+  onClick: PropTypes__default["default"].func,
+  // can be null
+  shouldDisableSave: PropTypes__default["default"].func,
+  // can be null
+  about: PropTypes__default["default"].node,
+  // can be null
+  form: PropTypes__default["default"].node.isRequired,
+  hideAbout: PropTypes__default["default"].bool.isRequired,
+  hasBuiltInHeading: PropTypes__default["default"].bool.isRequired
+>>>>>>> b6eab56 (example and readme)
 };
 
 =======
