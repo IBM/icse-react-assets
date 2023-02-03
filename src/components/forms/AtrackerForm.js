@@ -125,18 +125,18 @@ export default AtrackerForm;
 
 AtrackerForm.defaultProps = {
   isModal: false,
-  data: PropTypes.shape({
-    cos_bucket: "",
-    cos_key: "",
+  data: {
+    collector_bucket_name: "",
+    atracker_key: "",
     resource_group: "",
     add_route: false,
-  }).isRequired,
+  },
 };
 
 AtrackerForm.propTypes = {
   data: PropTypes.shape({
-    cos_bucket: PropTypes.string.isRequired,
-    cos_key: PropTypes.string.isRequired,
+    collector_bucket_name: PropTypes.string.isRequired,
+    atracker_key: PropTypes.string.isRequired,
     resource_group: PropTypes.string.isRequired,
     add_route: PropTypes.bool.isRequired,
   }).isRequired,

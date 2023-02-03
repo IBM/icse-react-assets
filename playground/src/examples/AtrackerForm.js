@@ -5,8 +5,8 @@ export const AtrackerFormExample = () => {
     <AtrackerForm
       data={{
         resource_group: "default",
-        cos_bucket: "default_bucket",
-        cos_key: "default_key",
+        collector_bucket_name: "default_bucket",
+        atracker_key: "default_key",
         add_route: false,
       }}
       resourceGroups={["default", "foo", "bar"]}

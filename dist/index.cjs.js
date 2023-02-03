@@ -1685,7 +1685,7 @@ styleInject(css_248z$6);
 var css_248z$8 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
 styleInject(css_248z$8);
 
-var css_248z$7 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  z-index: 9001;\n  top: 10px;\n}";
+var css_248z$7 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  z-index: 9001;\n  top: 20px;\n}\n";
 styleInject(css_248z$7);
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -2011,7 +2011,7 @@ PopoverWrapper.propTypes = {
   children: PropTypes__default["default"].node.isRequired
 };
 
-var css_248z$6 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  z-index: 9001; /* navbar is 9000 */\n  font-size: 80%;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
+var css_248z$6 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
 styleInject(css_248z$6);
 
 /**
@@ -3528,6 +3528,7 @@ EncryptionKeyForm.propTypes = {
  * @param {Array} props.cosKeys list of cos Keys
  * @param {string} props.prefix
  */
+<<<<<<< HEAD
 var AtrackerForm = /*#__PURE__*/function (_Component) {
   _inherits(AtrackerForm, _Component);
   var _super = _createSuper(AtrackerForm);
@@ -3563,12 +3564,23 @@ var KeyManagementForm = /*#__PURE__*/function (_Component) {
     buildFormFunctions(_assertThisInitialized(_this));
     buildFormDefaultInputMethods(_assertThisInitialized(_this));
     return _this;
+=======
+class AtrackerForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+>>>>>>> f680a35 (almost done)
   }
 
   /**
    * handle input change
    * @param {event} event event
    */
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   _createClass(AtrackerForm, [{
@@ -3586,6 +3598,12 @@ var KeyManagementForm = /*#__PURE__*/function (_Component) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+=======
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+>>>>>>> f680a35 (almost done)
   /**
    * Toggle on and off param in state at name
    * @param {string} name name of the object key to change
@@ -3623,10 +3641,14 @@ var KeyManagementForm = /*#__PURE__*/function (_Component) {
       field: "collector_bucket_name",
       name: "collector_bucket_name",
 <<<<<<< HEAD
+<<<<<<< HEAD
       value: this.state.collector_bucket_name || "",
 =======
       value: this.state.collector_bucket_name,
 >>>>>>> dc1cdcb (arrayOf)
+=======
+      value: this.state.collector_bucket_name,
+>>>>>>> f680a35 (almost done)
       handleInputChange: this.handleInputChange,
       className: "fieldWidth",
       labelText: "Object Storage Log Bucket",
@@ -3650,10 +3672,14 @@ var KeyManagementForm = /*#__PURE__*/function (_Component) {
       name: "atracker_key",
       groups: this.props.cosKeys,
 <<<<<<< HEAD
+<<<<<<< HEAD
       value: this.state.atracker_key || "",
 =======
       value: this.state.atracker_key,
 >>>>>>> dc1cdcb (arrayOf)
+=======
+      value: this.state.atracker_key,
+>>>>>>> f680a35 (almost done)
       labelText: "Privileged IAM Object Storage Key",
       handleInputChange: this.handleInputChange,
       className: "fieldWidth",
@@ -3661,6 +3687,7 @@ var KeyManagementForm = /*#__PURE__*/function (_Component) {
     })));
   }
 }
+<<<<<<< HEAD
 =======
 =======
 =======
@@ -3766,19 +3793,21 @@ var KeyManagementForm = /*#__PURE__*/function (_Component) {
   return AtrackerForm;
 }(React.Component);
 >>>>>>> 1e428a4 (SecretsManager form)
+=======
+>>>>>>> f680a35 (almost done)
 AtrackerForm.defaultProps = {
   isModal: false,
-  data: PropTypes__default["default"].shape({
-    cos_bucket: "",
-    cos_key: "",
+  data: {
+    collector_bucket_name: "",
+    atracker_key: "",
     resource_group: "",
     add_route: false
-  }).isRequired
+  }
 };
 AtrackerForm.propTypes = {
   data: PropTypes__default["default"].shape({
-    cos_bucket: PropTypes__default["default"].string.isRequired,
-    cos_key: PropTypes__default["default"].string.isRequired,
+    collector_bucket_name: PropTypes__default["default"].string.isRequired,
+    atracker_key: PropTypes__default["default"].string.isRequired,
     resource_group: PropTypes__default["default"].string.isRequired,
     add_route: PropTypes__default["default"].bool.isRequired
   }).isRequired,
@@ -8240,7 +8269,304 @@ StatefulTabPanel.propTypes = {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> b982705 (feat: StatefulTabPanel)
+=======
+class ToggleForm extends React__default["default"].Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      hide: this.props.hide,
+      showDeleteModal: false,
+      showUnsavedChangeModal: false,
+      disableSave: true,
+      disableDelete: false,
+      showChildren: true,
+      showSubModal: false,
+      propsMatchState: true,
+      useDefaultUnsavedMessage: true,
+      ruleOrderChange: false
+    };
+    this.toggleChildren = this.toggleChildren.bind(this);
+    this.toggleDeleteModal = this.toggleDeleteModal.bind(this);
+    this.toggleUnsavedChangeModal = this.toggleUnsavedChangeModal.bind(this);
+    this.dismissChangesAndClose = this.dismissChangesAndClose.bind(this);
+    this.onSave = this.onSave.bind(this);
+    this.onDelete = this.onDelete.bind(this);
+    this.shouldDisableSave = this.shouldDisableSave.bind(this);
+    this.shouldShow = this.shouldShow.bind(this);
+    this.networkRuleOrderDidChange = this.networkRuleOrderDidChange.bind(this);
+    this.toggleShowChildren = this.toggleShowChildren.bind(this);
+    this.onToggleSubModal = this.onToggleSubModal.bind(this);
+    this.childRef = /*#__PURE__*/React__default["default"].createRef();
+  }
+
+  /**
+   * toggle sub modal
+   */
+  onToggleSubModal() {
+    this.setState({
+      showSubModal: !this.state.showSubModal
+    });
+  }
+  componentDidMount() {
+    if (this.state.hide === true && this.shouldShow() === true) {
+      this.setState({
+        hide: false
+      });
+    }
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.hide !== this.state.hide && this.props.onShowToggle) {
+      this.props.onShowToggle(this.props.index);
+    }
+  }
+
+  /**
+   * toggle children rendered by form
+   */
+  toggleChildren() {
+    if (this.childRef.current?.state) {
+      let stateData = this.childRef.current.state;
+      let componentProps = this.childRef.current.props;
+      let propsDoNotMatch = this.props.propsMatchState(this.props.submissionFieldName, stateData, componentProps) === false;
+      if (propsDoNotMatch || this.state.useDefaultUnsavedMessage === false) {
+        this.toggleUnsavedChangeModal();
+      } else {
+        this.setState({
+          hide: !this.state.hide
+        });
+      }
+    } else {
+      this.setState({
+        hide: !this.state.hide
+      });
+    }
+  }
+
+  /**
+   * toggle delete modal
+   */
+  toggleDeleteModal() {
+    this.setState({
+      showDeleteModal: !this.state.showDeleteModal
+    });
+  }
+
+  /**
+   * toggle unsaved changes modal
+   */
+  toggleUnsavedChangeModal() {
+    this.setState({
+      showUnsavedChangeModal: !this.state.showUnsavedChangeModal
+    });
+  }
+
+  /**
+   * Dismiss changes and close
+   */
+  dismissChangesAndClose() {
+    this.setState({
+      showUnsavedChangeModal: false,
+      hide: true
+    });
+  }
+
+  /**
+   * on save
+   */
+  onSave() {
+    this.props.onSave(this.childRef.current.state, this.childRef.current.props);
+    this.setState({
+      useDefaultUnsavedMessage: true
+    });
+  }
+
+  /**
+   * on delete
+   */
+  onDelete() {
+    this.props.onShowToggle(this.props.index);
+    this.props.onDelete(this.childRef.current?.state, this.childRef.current?.props);
+    this.setState({
+      hide: true,
+      showDeleteModal: false
+    });
+  }
+
+  /**
+   * should disable save
+   * @param {*} stateData state data
+   * @param {*} componentProps component props
+   */
+  shouldDisableSave(stateData, componentProps) {
+    let enableSave = this.props.disableSave(this.props.submissionFieldName, stateData, componentProps) === false;
+    let propsDoNotMatch = this.props.propsMatchState(this.props.submissionFieldName, stateData, componentProps) === false;
+    if (enableSave === false && this.state.useDefaultUnsavedMessage && propsDoNotMatch === false) {
+      this.setState({
+        useDefaultUnsavedMessage: false
+      });
+    } else if (enableSave && propsDoNotMatch && this.state.disableSave) {
+      this.setState({
+        disableSave: false,
+        propsMatchState: false
+      });
+    } else if (!this.state.disableSave && (!enableSave || !propsDoNotMatch)) {
+      this.setState({
+        disableSave: true,
+        propsMatchState: !propsDoNotMatch
+      });
+    }
+  }
+  shouldShow() {
+    return this.props.forceShowForm(this.state, this.props);
+  }
+  networkRuleOrderDidChange(didNotChange) {
+    let didChange = !didNotChange;
+    if (this.state.ruleOrderChange !== didChange) {
+      this.setState({
+        ruleOrderChange: didChange
+      });
+    }
+  }
+  toggleShowChildren() {
+    this.setState({
+      showChildren: !this.state.showChildren
+    });
+  }
+  render() {
+    if (this.props.noDeleteButton !== true && !this.props.onDelete) {
+      throw new Error(`ToggleForm expects onDelete Function to be passed when a delete button is rendered`);
+    }
+    if (this.props.noSaveButton !== true && !this.props.onSave) {
+      throw new Error(`ToggleForm expects onSave Function to be passed when a save button is rendered`);
+    }
+    let formTitle = this.props.name;
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(StatefulTabPanel, _extends({}, this.props.tabPanel ? this.props.tabPanel : {}, {
+      toggleShowChildren: this.toggleShowChildren,
+      form: /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, this.props.formName && /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+        name: this.props.formName,
+        hideButton: true
+      }), /*#__PURE__*/React__default["default"].createElement("div", {
+        className: lib_2(this.props.type === "formInSubForm" ? "formInSubForm positionRelative marginBottomSmall" : "subForm marginBottomSmall")
+      }, /*#__PURE__*/React__default["default"].createElement(StatelessToggleForm, {
+        hide: this.state.hide,
+        iconType: this.props.useAddButton ? "add" : "edit",
+        onIconClick: this.toggleChildren,
+        onClick: this.props.onCreate,
+        toggleFormTitle: true,
+        name: formTitle,
+        buttons: /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+          hide: this.props.addButtonAtFormTitle !== true,
+          show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+            type: "add",
+            onClick: this.onToggleSubModal,
+            noDeleteButton: true
+          })
+        }), /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+          hide: this.props.noSaveButton || this.props.addButtonAtFormTitle,
+          show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+            onClick: this.onSave,
+            disabled: this.state.disableSave,
+            noDeleteButton: this.props.noDeleteButton
+          })
+        }), /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+          hide: this.props.noDeleteButton,
+          show: /*#__PURE__*/React__default["default"].createElement(DeleteButton, {
+            onClick: this.toggleDeleteModal,
+            name: formTitle,
+            disabled: this.props.deleteDisabled(this.props),
+            disableDeleteMessage: () => this.props.disableDeleteMessage(this.props)
+          })
+        }))
+      }, /*#__PURE__*/React__default["default"].createElement(UnsavedChangesModal, {
+        name:
+        // use tab panel name if passed
+        this.props.tabPanel ? this.props.tabPanel.name : formTitle,
+        modalOpen: this.state.showUnsavedChangeModal,
+        onModalClose: this.toggleUnsavedChangeModal,
+        onModalSubmit: this.dismissChangesAndClose,
+        useDefaultUnsavedMessage: this.state.useDefaultUnsavedMessage
+      }), /*#__PURE__*/React__default["default"].createElement(DeleteModal, {
+        name:
+        // use tab panel name if passed
+        this.props.tabPanel ? this.props.tabPanel.name : formTitle,
+        modalOpen: this.state.showDeleteModal,
+        onModalClose: this.toggleDeleteModal,
+        onModalSubmit: this.onDelete
+      }), RenderForm(this.props.innerForm, {
+        ...this.props.innerFormProps,
+        ref: this.props.nullRef ? null : this.childRef,
+        shouldDisableSave: this.shouldDisableSave,
+        data: this.props.data,
+        isModal: false,
+        arrayParentName: this.props.arrayParentName,
+        showSubModal: this.state.showSubModal,
+        addText: this.props.addText,
+        // is this used?
+        readOnly: this.props.readOnly,
+        networkRuleOrderDidChange: this.networkRuleOrderDidChange,
+        onChildShowToggle: this.props.onChildShowToggle,
+        index: this.props.index,
+        shownChildren: this.props.shownChildren,
+        handleModalToggle: this.onToggleSubModal,
+        showSubModal: this.state.showSubModal,
+        // this is an override to allow the
+        // parent form to be saved from a button inside the child form
+        saveFromChildForm: {
+          onSave: this.onSave,
+          disableSave: this.state.disableSave
+        }
+      })))),
+      about: this.props.about || false
+    })), this.state.showChildren && this.props.children ? this.props.children : "");
+  }
+}
+ToggleForm.defaultProps = {
+  hide: true,
+  unsavedChanges: false,
+  index: 0,
+  nonArrayForm: false,
+  type: "subForm",
+  nullRef: false,
+  noDeleteButton: false,
+  noSaveButton: false,
+  useAddButton: false,
+  // functions that return booleans must have a default
+  deleteDisabled: () => {
+    return false;
+  },
+  forceShowForm: () => {
+    return false;
+  }
+};
+ToggleForm.propTypes = {
+  onDelete: PropTypes__default["default"].func,
+  onSave: PropTypes__default["default"].func,
+  onShowToggle: PropTypes__default["default"].func,
+  index: PropTypes__default["default"].number.isRequired,
+  hide: PropTypes__default["default"].bool.isRequired,
+  submissionFieldName: PropTypes__default["default"].string.isRequired,
+  nonArrayForm: PropTypes__default["default"].bool.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  forceOpen: PropTypes__default["default"].func,
+  // can be null
+  deleteDisabled: PropTypes__default["default"].func,
+  // can be null
+  disableDeleteMessage: PropTypes__default["default"].func,
+  // can be null
+  type: PropTypes__default["default"].string.isRequired,
+  nullRef: PropTypes__default["default"].bool.isRequired,
+  innerFormProps: PropTypes__default["default"].object,
+  // can be null
+  noDeleteButton: PropTypes__default["default"].bool.isRequired,
+  noSaveButton: PropTypes__default["default"].bool.isRequired,
+  useAddButton: PropTypes__default["default"].bool.isRequired,
+  onCreate: PropTypes__default["default"].func // can be null
+};
+
+>>>>>>> f680a35 (almost done)
 exports.AppIdKeyForm = AppIdKeyForm;
 exports.AtrackerForm = AtrackerForm;
 exports.DeleteButton = DeleteButton;
@@ -8396,6 +8722,7 @@ exports.buildFormFunctions = buildFormFunctions;
 exports.TeleportClaimToRoleForm = TeleportClaimToRoleForm;
 >>>>>>> d3f1972 (migrate TeleportClaimToRoleForm)
 exports.TitleGroup = TitleGroup;
+exports.ToggleForm = ToggleForm;
 exports.ToolTipWrapper = ToolTipWrapper;
 exports.UnderConstruction = UnderConstruction;
 exports.UnsavedChangesModal = UnsavedChangesModal;
