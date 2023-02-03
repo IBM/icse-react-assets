@@ -17,7 +17,6 @@ class SecretsManagerForm extends Component {
     super(props);
     this.state = this.props.data;
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
     this.state.use_secrets_manager = true;
@@ -31,14 +30,7 @@ class SecretsManagerForm extends Component {
     this.setState(this.eventTargetToNameAndValue(event));
   }
 
-  /**
-   * Toggle on and off param in state at name
-   * @param {string} name name of the object key to change
-   * @param {bool} setDefaults set default values, default is false
-   */
-  handleToggle() {
-    this.setState(this.toggleStateBoolean("use_secrets_manager", this.state));
-  }
+
 
   render() {
     return (
@@ -86,7 +78,6 @@ class SecretsManagerForm extends Component {
 
 SecretsManagerForm.propTypes = {
   data: PropTypes.shape({
-    use_secrets_manager: PropTypes.bool.isRequired,
     name: PropTypes.string,
     resource_group: PropTypes.string,
     kms_key_name: PropTypes.string,

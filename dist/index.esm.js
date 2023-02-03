@@ -3221,68 +3221,68 @@ EntitlementSelect.propTypes = {
  * SecretsManagerForm
  * @param {Object} props
  */
-class SecretsManagerForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = this.props.data;
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
-    buildFormDefaultInputMethods(this);
-    buildFormFunctions(this);
-    this.state.use_secrets_manager = true;
+var SecretsManagerForm = /*#__PURE__*/function (_Component) {
+  _inherits(SecretsManagerForm, _Component);
+  var _super = _createSuper(SecretsManagerForm);
+  function SecretsManagerForm(props) {
+    var _this;
+    _classCallCheck(this, SecretsManagerForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    _this.state.use_secrets_manager = true;
+    return _this;
   }
 
   /**
    * handle input change
    * @param {event} event event
    */
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-
-  /**
-   * Toggle on and off param in state at name
-   * @param {string} name name of the object key to change
-   * @param {bool} setDefaults set default values, default is false
-   */
-  handleToggle() {
-    this.setState(this.toggleStateBoolean("use_secrets_manager", this.state));
-  }
-  render() {
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
-      id: this.state.name + "-name",
-      componentName: "Secrets Manager",
-      component: "secrets_manager",
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      componentProps: this.props,
-      hideHelperText: true,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props)
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: "Secrets Manager",
-      value: this.state.resource_group,
-      groups: this.props.resourceGroups,
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidth",
-      name: "resource_group",
-      labelText: "Resource Group"
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "fieldWidth"
-    }, /*#__PURE__*/React.createElement(IcseSelect, {
-      value: this.state.kms_key_name,
-      groups: this.props.kmsKeys,
-      formName: "Secrets Manager",
-      name: "kms_key_name",
-      className: "fieldWidth",
-      labelText: "KMS Key",
-      handleInputChange: this.handleInputChange
-    })));
-  }
-}
+  _createClass(SecretsManagerForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+        id: this.state.name + "-name",
+        componentName: "Secrets Manager",
+        component: "secrets_manager",
+        value: this.state.name,
+        onChange: this.handleInputChange,
+        componentProps: this.props,
+        hideHelperText: true,
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props)
+      }), /*#__PURE__*/React.createElement(IcseSelect, {
+        formName: "Secrets Manager",
+        value: this.state.resource_group,
+        groups: this.props.resourceGroups,
+        handleInputChange: this.handleInputChange,
+        className: "fieldWidth",
+        name: "resource_group",
+        labelText: "Resource Group"
+      })), /*#__PURE__*/React.createElement("div", {
+        className: "fieldWidth"
+      }, /*#__PURE__*/React.createElement(IcseSelect, {
+        value: this.state.kms_key_name,
+        groups: this.props.kmsKeys,
+        formName: "Secrets Manager",
+        name: "kms_key_name",
+        className: "fieldWidth",
+        labelText: "KMS Key",
+        handleInputChange: this.handleInputChange
+      })));
+    }
+  }]);
+  return SecretsManagerForm;
+}(Component);
 SecretsManagerForm.propTypes = {
   data: PropTypes.shape({
-    use_secrets_manager: PropTypes.bool.isRequired,
     name: PropTypes.string,
     resource_group: PropTypes.string,
     kms_key_name: PropTypes.string

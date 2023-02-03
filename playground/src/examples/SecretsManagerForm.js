@@ -20,7 +20,6 @@ export const SecretsManagerExample = () => {
   return (
     <SecretsManagerForm
       data={{
-        use_secrets_manager: true,
         name: "Example",
         resource_group: "default",
         kms_key_name: "key1",
