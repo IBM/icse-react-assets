@@ -3148,11 +3148,11 @@ var SecretsManagerForm = /*#__PURE__*/function (_Component) {
         className: "fieldWidth"
       }, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
         value: this.state.kms_key_name,
-        groups: this.props.kmsKeys,
+        groups: this.props.encryptionKeys,
         formName: "Secrets Manager",
         name: "kms_key_name",
         className: "fieldWidth",
-        labelText: "KMS Key",
+        labelText: "Encryption Keys",
         handleInputChange: this.handleInputChange
       })));
     }
@@ -3165,7 +3165,7 @@ SecretsManagerForm.propTypes = {
     resource_group: PropTypes__default["default"].string,
     kms_key_name: PropTypes__default["default"].string
   }).isRequired,
-  kmsKeys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  encryptionKeys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
 };
 

@@ -25,7 +25,7 @@ export const SecretsManagerExample = () => {
         kms_key_name: "key1",
       }}
       resourceGroups={["default_group", "foo", "bar"]}
-      kmsKeys={["default_key", "foo"]}
+      encryptionKeys={["default_key", "foo"]}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
     />

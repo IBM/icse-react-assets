@@ -63,11 +63,11 @@ class SecretsManagerForm extends Component {
           {/* Select Key Management Service Key */}
           <IcseSelect
             value={this.state.kms_key_name}
-            groups={this.props.kmsKeys}
+            groups={this.props.encryptionKeys}
             formName="Secrets Manager"
             name="kms_key_name"
             className="fieldWidth"
-            labelText="KMS Key"
+            labelText="Encryption Keys"
             handleInputChange={this.handleInputChange}
           />
         </div>
@@ -82,7 +82,7 @@ SecretsManagerForm.propTypes = {
     resource_group: PropTypes.string,
     kms_key_name: PropTypes.string,
   }).isRequired,
-  kmsKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
+  encryptionKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
