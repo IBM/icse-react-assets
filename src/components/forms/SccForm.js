@@ -116,14 +116,14 @@ class SccForm extends Component {
               invalidScc(
                 "scope_name",
                 this.state.scope_name,
-                this.props.scope_name_regex
+                this.props.scopeNameRegex
               ).invalid
             }
             invalidText={
               invalidScc(
                 "scope_name",
                 this.state.scope_name,
-                this.props.scope_name_regex
+                this.props.scopeNameRegex
               ).invalidText
             }
           />
@@ -141,14 +141,14 @@ class SccForm extends Component {
               invalidScc(
                 "scope_description",
                 this.state.scope_description,
-                this.props.scope_desc_regex
+                this.props.descriptionRegex
               ).invalid
             }
             invalidText={
               invalidScc(
                 "scope_description",
                 this.state.scope_description,
-                this.props.scope_desc_regex
+                this.props.descriptionRegex
               ).invalidText
             }
           />
@@ -171,14 +171,14 @@ class SccForm extends Component {
               invalidScc(
                 "collector_description",
                 this.state.collector_description,
-                this.props.collector_desc_regex
+                this.props.descriptionRegex
               ).invalid
             }
             invalidText={
               invalidScc(
                 "collector_description",
                 this.state.collector_description,
-                this.props.collector_desc_regex
+                this.props.descriptionRegex
               ).invalidText
             }
           />
@@ -192,9 +192,8 @@ SccForm.defaultProps = {
   data: {
     enable_scc: false,
   },
-  scope_name_regex: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i,
-  scope_desc_regex: /^[A-z][a-zA-Z0-9-\._,\s]*$/i,
-  collector_desc_regex: /^[A-z][a-zA-Z0-9-\._,\s]*$/i,
+  scopeNameRegex: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i,
+  descriptionRegex: /^[A-z][a-zA-Z0-9-\._,\s]*$/i,
 };
 
 SccForm.propTypes = {
@@ -207,9 +206,8 @@ SccForm.propTypes = {
     scope_name: PropTypes.string,
     collector_passphrase: PropTypes.string,
   }),
-  scope_name_regex: PropTypes.instanceOf(RegExp).isRequired,
-  scope_desc_regex: PropTypes.instanceOf(RegExp).isRequired,
-  collector_desc_regex: PropTypes.instanceOf(RegExp).isRequired,
+  scopeNameRegex: PropTypes.instanceOf(RegExp).isRequired,
+  descriptionRegex: PropTypes.instanceOf(RegExp).isRequired,
 };
 
 export default SccForm;

@@ -2809,8 +2809,8 @@ var SccForm = /*#__PURE__*/function (_Component) {
         value: this.state.scope_name,
         onChange: this.handleInputChange,
         maxLength: 50,
-        invalid: lib_10("scope_name", this.state.scope_name, this.props.scope_name_regex).invalid,
-        invalidText: lib_10("scope_name", this.state.scope_name, this.props.scope_name_regex).invalidText
+        invalid: lib_10("scope_name", this.state.scope_name, this.props.scopeNameRegex).invalid,
+        invalidText: lib_10("scope_name", this.state.scope_name, this.props.scopeNameRegex).invalidText
       }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
         id: "scc_scope_description",
         tooltip: {
@@ -2822,8 +2822,8 @@ var SccForm = /*#__PURE__*/function (_Component) {
         value: this.state.scope_description,
         onChange: this.handleInputChange,
         maxLength: 255,
-        invalid: lib_10("scope_description", this.state.scope_description, this.props.scope_desc_regex).invalid,
-        invalidText: lib_10("scope_description", this.state.scope_description, this.props.scope_desc_regex).invalidText
+        invalid: lib_10("scope_description", this.state.scope_description, this.props.descriptionRegex).invalid,
+        invalidText: lib_10("scope_description", this.state.scope_description, this.props.descriptionRegex).invalidText
       })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
         noMarginBottom: true
       }, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
@@ -2838,8 +2838,8 @@ var SccForm = /*#__PURE__*/function (_Component) {
         onChange: this.handleInputChange,
         componentName: "SCC",
         maxLength: 1000,
-        invalid: lib_10("collector_description", this.state.collector_description, this.props.collector_desc_regex).invalid,
-        invalidText: lib_10("collector_description", this.state.collector_description, this.props.collector_desc_regex).invalidText
+        invalid: lib_10("collector_description", this.state.collector_description, this.props.descriptionRegex).invalid,
+        invalidText: lib_10("collector_description", this.state.collector_description, this.props.descriptionRegex).invalidText
       })));
     }
   }]);
@@ -2849,9 +2849,8 @@ SccForm.defaultProps = {
   data: {
     enable_scc: false
   },
-  scope_name_regex: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i,
-  scope_desc_regex: /^[A-z][a-zA-Z0-9-\._,\s]*$/i,
-  collector_desc_regex: /^[A-z][a-zA-Z0-9-\._,\s]*$/i
+  scopeNameRegex: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i,
+  descriptionRegex: /^[A-z][a-zA-Z0-9-\._,\s]*$/i
 };
 SccForm.propTypes = {
   data: PropTypes__default["default"].shape({
@@ -2863,9 +2862,8 @@ SccForm.propTypes = {
     scope_name: PropTypes__default["default"].string,
     collector_passphrase: PropTypes__default["default"].string
   }),
-  scope_name_regex: PropTypes__default["default"].instanceOf(RegExp).isRequired,
-  scope_desc_regex: PropTypes__default["default"].instanceOf(RegExp).isRequired,
-  collector_desc_regex: PropTypes__default["default"].instanceOf(RegExp).isRequired
+  scopeNameRegex: PropTypes__default["default"].instanceOf(RegExp).isRequired,
+  descriptionRegex: PropTypes__default["default"].instanceOf(RegExp).isRequired
 };
 
 >>>>>>> 4fb645f (moved to lib with tests)
