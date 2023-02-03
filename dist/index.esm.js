@@ -12,6 +12,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import { Popover, PopoverContent, FilterableMultiSelect, MultiSelect, Tile, Toggletip, ToggletipButton, ToggletipContent, Link, Modal, TextInput, Toggle, Button } from '@carbon/react';
 >>>>>>> 04bfb65 (added button examples)
@@ -81,6 +82,13 @@ import { CloudAlerting, Add, Save, CloseFilled, Edit, TrashCan, ArrowUp, ArrowDo
 import { Tile, Popover, PopoverContent, Button, Toggletip, ToggletipButton, ToggletipContent, Link, Toggle, TextInput, Select, SelectItem, Modal, FilterableMultiSelect, MultiSelect, Tabs, TabList, Tab, TabPanels, TabPanel } from '@carbon/react';
 import PropTypes from 'prop-types';
 import lazyZ, { snakeCase, kebabCase as kebabCase$1, titleCase, isBoolean, isEmpty, isNullOrEmptyString, buildNumberDropdownList, prettyJSON, isFunction as isFunction$1 } from 'lazy-z';
+=======
+import React, { Component } from 'react';
+import { CloudAlerting, Add, Save, CloseFilled, Edit, TrashCan, ArrowUp, ArrowDown, Information, WarningAlt } from '@carbon/icons-react';
+import { Tile, Popover, PopoverContent, Button, Toggletip, ToggletipButton, ToggletipContent, Link, Toggle, TextInput, Dropdown, Select, SelectItem, Modal, FilterableMultiSelect, MultiSelect, Tabs, TabList, Tab, TabPanels, TabPanel } from '@carbon/react';
+import PropTypes from 'prop-types';
+import lazyZ, { snakeCase, kebabCase as kebabCase$1, titleCase, isBoolean, isNullOrEmptyString, isEmpty, buildNumberDropdownList, prettyJSON, isFunction as isFunction$1 } from 'lazy-z';
+>>>>>>> f19dfef (merge)
 
 var _require = require("lazy-z"),
   isFunction = _require.isFunction;
@@ -88,6 +96,7 @@ var _require2 = require("../src/lib/method-functions"),
   eventTargetToNameAndValue$2 = _require2.eventTargetToNameAndValue,
   toggleStateBoolean$2 = _require2.toggleStateBoolean,
   setNameToValue$2 = _require2.setNameToValue;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -120,6 +129,13 @@ function addClassName(className, props) {
   }
   return composedClassName;
 =======
+=======
+
+/**
+ * build functions for modal forms
+ * @param {React.Element} component stateful component
+ */
+>>>>>>> f19dfef (merge)
 function buildFormFunctions(component) {
   var disableSubmit = isFunction(component.props.shouldDisableSubmit);
   var disableSave = isFunction(component.props.shouldDisableSave);
@@ -144,6 +160,7 @@ function buildFormFunctions(component) {
   component.onDelete = function () {
     component.props.onDelete(this.state, this.props);
   }.bind(component);
+<<<<<<< HEAD
 >>>>>>> b982705 (feat: StatefulTabPanel)
 }
 
@@ -187,6 +204,18 @@ function addClassName(className, props) {
  */
 function toggleMarginBottom(hide) {
   if (hide === false) return " marginBottomSmall";else return "";
+=======
+}
+
+/**
+ * add default methods to component
+ * @param {*} component React Component
+ */
+function buildFormDefaultInputMethods(component) {
+  component.eventTargetToNameAndValue = eventTargetToNameAndValue$2.bind(component);
+  component.toggleStateBoolean = toggleStateBoolean$2.bind(component);
+  component.setNameToValue = setNameToValue$2.bind(component);
+>>>>>>> f19dfef (merge)
 }
 
 function styleInject(css, ref) {
@@ -216,6 +245,7 @@ function styleInject(css, ref) {
   }
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -521,6 +551,20 @@ styleInject(css_248z$2);
 
 var EmptyResourceTile = function EmptyResourceTile(props) {
 >>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
+=======
+var css_248z$9 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z$9);
+
+/**
+ * Empty Resource Tile
+ * @param {*} props
+ * @param {string} props.name resource name
+ * @param {(boolean|*[])} props.showIfEmpty if array is empty or boolean is false, show the empty resource tile
+ * @returns tile if shown, empty string otherwise
+ */
+
+var EmptyResourceTile = function EmptyResourceTile(props) {
+>>>>>>> f19dfef (merge)
   return props.showIfEmpty === false || props.showIfEmpty.length === 0 ? /*#__PURE__*/React.createElement(Tile, {
     className: "marginBottomXs tileBackground"
   }, /*#__PURE__*/React.createElement(CloudAlerting, {
@@ -541,10 +585,13 @@ EmptyResourceTile.propTypes = {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> c5662b8 (resolved export errors, moved MultiSelect and Tooltip playground code to backup files in playground/src)
 =======
 >>>>>>> b238572 (Dropdowns Documentation)
+=======
+>>>>>>> f19dfef (merge)
 function ownKeys(object, enumerableOnly) {
   var keys = Object.keys(object);
   if (Object.getOwnPropertySymbols) {
@@ -567,12 +614,15 @@ function _objectSpread2(target) {
   return target;
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
 =======
 >>>>>>> b238572 (Dropdowns Documentation)
 =======
 >>>>>>> b3a36f0 (changes pt. 1)
+=======
+>>>>>>> f19dfef (merge)
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -595,6 +645,23 @@ function _createClass(Constructor, protoProps, staticProps) {
   });
   return Constructor;
 }
+<<<<<<< HEAD
+=======
+function _defineProperty(obj, key, value) {
+  key = _toPropertyKey(key);
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+>>>>>>> f19dfef (merge)
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -692,6 +759,7 @@ function _toPropertyKey(arg) {
   return typeof key === "symbol" ? key : String(key);
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 var css_248z$2 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
@@ -823,6 +891,8 @@ import lazyZ, { snakeCase, titleCase, isBoolean, kebabCase as kebabCase$1, prett
 >>>>>>> 72d0b85 (merge)
 =======
 
+=======
+>>>>>>> f19dfef (merge)
 /**
  * create a composed class name
  * @param {string} className name of classes to add
@@ -994,6 +1064,7 @@ var lib_2 = lib.addClassName;
 var lib_3 = lib.prependEmptyStringWhenNull;
 var lib_5 = lib.formatInputPlaceholder;
 var lib_6 = lib.saveChangeButtonClass;
+<<<<<<< HEAD
 <<<<<<< HEAD
 var lib_7 = lib.eventTargetToNameAndValue;
 var lib_8 = lib.toggleStateBoolean;
@@ -1854,6 +1925,14 @@ var css_248z$7 = ".popover-box {\r\n  padding: 5px;\r\n  position: relative;\r\n
 =======
 var css_248z$7 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  z-index: 9001;\n  top: 20px;\n}\n";
 >>>>>>> f680a35 (almost done)
+=======
+var lib_10 = lib.invalidRegex;
+
+var css_248z$8 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
+styleInject(css_248z$8);
+
+var css_248z$7 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  z-index: 9001;\n  top: 20px;\n}\n";
+>>>>>>> f19dfef (merge)
 styleInject(css_248z$7);
 
 /**
@@ -1928,6 +2007,7 @@ PopoverWrapper.propTypes = {
   children: PropTypes.node.isRequired
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 var css_248z$6 = ".chevron {\r\n  margin-right: 1rem;\r\n  margin-top: 0.25rem;\r\n  cursor: pointer;\r\n}\r\n\r\n.popover-box {\r\n  padding: 5px;\r\n  position: relative;\r\n  z-index: 9001; /* navbar is 9000 */\r\n  font-size: 80%;\r\n}\r\n\r\n.tertiaryButtonColors {\r\n  color: #0f62fe !important;\r\n  fill: white !important;\r\n  border-color: #0f62fe !important;\r\n}\r\n\r\n.pointerEventsNone {\r\n  pointer-events: none;\r\n}\r\n\r\n.cursorNotAllowed {\r\n  cursor: not-allowed;\r\n}\r\n\r\n.forceTertiaryButtonStyles {\r\n  padding-right: 0.4375rem !important;\r\n  padding-left: 0.4375rem !important;\r\n}\r\n.inlineBlock {\r\n  display: inline-block;\r\n}\r\n\r\n.redFill {\r\n  fill: #da1e28 !important;\r\n}\r\n\r\n/* CSS for overriding default component styles */\r\n.cds--btn--ghost:focus {\r\n  outline: none;\r\n  border: none;\r\n  box-shadow: none;\r\n}\r\n\r\n.marginRightSmall {\r\n  margin-right: 0.5rem;\r\n}\r\n";
 styleInject(css_248z$6);
@@ -2177,6 +2257,9 @@ var css_248z$6 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  c
 =======
 var css_248z$6 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
 >>>>>>> f680a35 (almost done)
+=======
+var css_248z$6 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
+>>>>>>> f19dfef (merge)
 styleInject(css_248z$6);
 
 /**
@@ -2202,10 +2285,13 @@ var SaveIcon = function SaveIcon(props) {
  * @returns Save add button
  */
 var SaveAddButton = function SaveAddButton(props) {
+<<<<<<< HEAD
 =======
 >>>>>>> b18f05c (added documentation for KeyManagementForm)
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+>>>>>>> f19dfef (merge)
   return /*#__PURE__*/React.createElement(PopoverWrapper, {
     hoverText: props.type === "add" && props.hoverText === "Save Changes" ? "Add Resource" : props.hoverText,
     className: (props.disabled ? "inlineBlock cursorNotAllowed" : "") + (props.inline ? " alignItemsCenter marginTopLarge inLineFormButton" : ""),
@@ -2484,7 +2570,11 @@ StatelessToggleForm.propTypes = {
   alwaysShowButtons: PropTypes.bool
 };
 
+<<<<<<< HEAD
 var css_248z$5 = ".labelRow {\r\n  display: inline-flex !important;\r\n  align-items: center;\r\n}\r\n\r\n.tooltip > div div.cds--password-input-wrapper {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.cds--toggle {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.cds--text-input-wrapper {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.popover-obj {\r\n  margin-top: -8px;\r\n}\r\n\r\n.subHeadingTooltip {\r\n  margin: 0.2rem 0 0 0.2rem;\r\n}\r\n\r\n.tooltipMarginLeft {\r\n  margin-left: 3px;\r\n}\r\n";
+=======
+var css_248z$5 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+>>>>>>> f19dfef (merge)
 styleInject(css_248z$5);
 
 /**
@@ -2603,6 +2693,7 @@ DynamicToolTipWrapper.propTypes = {
   innerForm: PropTypes.oneOfType([PropTypes.object, PropTypes.func])
 };
 
+<<<<<<< HEAD
 var css_248z$4 = ".fieldWidth {\r\n  width: 14rem;\r\n}\r\n\r\n.leftTextAlign {\r\n  text-align: left;\r\n}";
 styleInject(css_248z$4);
 
@@ -2624,6 +2715,13 @@ var IcseToggle = function IcseToggle(props) {
 var IcseToggle = function IcseToggle(props) {
   var toggleName = props.toggleFieldName || snakeCase(props.labelText);
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+var css_248z$4 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
+styleInject(css_248z$4);
+
+var IcseToggle = function IcseToggle(props) {
+  var toggleName = props.toggleFieldName || snakeCase(props.labelText);
+>>>>>>> f19dfef (merge)
   return /*#__PURE__*/React.createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React.createElement(Toggle, {
     labelA: props.useOnOff ? "Off" : "False",
     labelB: props.useOnOff ? "On" : "True",
@@ -2632,6 +2730,7 @@ var IcseToggle = function IcseToggle(props) {
     className: lib_2("leftTextAlign fieldWidth", props) + (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
     ,
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -2645,11 +2744,15 @@ var IcseToggle = function IcseToggle(props) {
 =======
     onToggle: function onToggle(event) {
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+    onToggle: function onToggle(event) {
+>>>>>>> f19dfef (merge)
       props.onToggle(toggleName, event);
     },
     defaultToggled: props.defaultToggled,
     disabled: props.disabled
   }));
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 var IcseToggle = function IcseToggle(props) {
@@ -2676,6 +2779,8 @@ var IcseToggle = function IcseToggle(props) {
 >>>>>>> b18f05c (added documentation for KeyManagementForm)
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+>>>>>>> f19dfef (merge)
 };
 IcseToggle.defaultProps = {
   useOnOff: false,
@@ -2724,6 +2829,7 @@ var IcseTextInput = function IcseTextInput(props) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     placeholder: props.placeholder || lib_3(props.componentName, fieldName),
 =======
     placeholder: props.placeholder || lib_5(props.componentName, fieldName),
@@ -2734,6 +2840,9 @@ var IcseTextInput = function IcseTextInput(props) {
 =======
     placeholder: props.placeholder || lib_5(props.componentName, fieldName),
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+    placeholder: props.placeholder || lib_5(props.componentName, fieldName),
+>>>>>>> f19dfef (merge)
     name: props.field,
     value: props.value || "",
     invalid: isBoolean(props.invalid) ? props.invalid : props.invalidCallback(),
@@ -2823,7 +2932,11 @@ IcseNameInput.propTypes = {
   invalidCallback: PropTypes.func
 };
 
+<<<<<<< HEAD
 var css_248z$3 = ".fieldWidthSmaller {\r\n  width: 11rem;\r\n}";
+=======
+var css_248z$3 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
+>>>>>>> f19dfef (merge)
 styleInject(css_248z$3);
 
 var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
@@ -2888,6 +3001,7 @@ AppIdKeyForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var sccRegions = [{
 =======
 const sccRegions = [{
@@ -2895,6 +3009,9 @@ const sccRegions = [{
 =======
 var sccRegions = [{
 >>>>>>> d3f1972 (migrate TeleportClaimToRoleForm)
+=======
+var sccRegions = [{
+>>>>>>> f19dfef (merge)
   id: "us",
   label: "us"
 }, {
@@ -2950,8 +3067,11 @@ var SccForm = /*#__PURE__*/function (_Component) {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> d3f1972 (migrate TeleportClaimToRoleForm)
+=======
+>>>>>>> f19dfef (merge)
     /**
      * Toggle on and off param in state at name
      * @param {string} name name of the object key to change
@@ -2960,6 +3080,7 @@ var SccForm = /*#__PURE__*/function (_Component) {
   }, {
     key: "handleToggle",
     value: function handleToggle(name) {
+<<<<<<< HEAD
 <<<<<<< HEAD
       this.setState(lib_8(name, this.state));
 <<<<<<< HEAD
@@ -2970,6 +3091,9 @@ var SccForm = /*#__PURE__*/function (_Component) {
 =======
       this.setState(this.toggleStateBoolean(name, this.state));
 >>>>>>> d3f1972 (migrate TeleportClaimToRoleForm)
+=======
+      this.setState(this.toggleStateBoolean(name, this.state));
+>>>>>>> f19dfef (merge)
     }
   }, {
     key: "render",
@@ -3042,6 +3166,7 @@ var SccForm = /*#__PURE__*/function (_Component) {
   }]);
   return SccForm;
 }(Component);
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
   /**
@@ -3121,6 +3246,8 @@ var SccForm = /*#__PURE__*/function (_Component) {
 >>>>>>> 55b6519 (rename function and fix imports)
 =======
 >>>>>>> d3f1972 (migrate TeleportClaimToRoleForm)
+=======
+>>>>>>> f19dfef (merge)
 SccForm.defaultProps = {
   data: {
     enable_scc: false
@@ -3142,6 +3269,7 @@ SccForm.propTypes = {
   descriptionRegex: PropTypes.instanceOf(RegExp).isRequired
 };
 
+<<<<<<< HEAD
 >>>>>>> 4fb645f (moved to lib with tests)
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
@@ -3154,6 +3282,13 @@ const IcseSelect = props => {
   // automatically set to invalid is is null or empty string and invalid not disabled
   props.disableInvalid !== true && isNullOrEmptyString(props.value) ? true : props.invalid;
   let groups = props.groups.length === 0 ? [] // if no groups, empty array
+=======
+var IcseSelect = function IcseSelect(props) {
+  var invalid =
+  // automatically set to invalid is is null or empty string and invalid not disabled
+  props.disableInvalid !== true && isNullOrEmptyString(props.value) ? true : props.invalid;
+  var groups = props.groups.length === 0 ? [] // if no groups, empty array
+>>>>>>> f19dfef (merge)
   : lib_3(
   // otherwise try and prepend empty string if null
   props.value, props.groups);
@@ -3164,7 +3299,11 @@ const IcseSelect = props => {
   }
   return /*#__PURE__*/React.createElement(DynamicToolTipWrapper, _extends({
     id: kebabCase$1(props.name) + "-dropdown-tooltip",
+<<<<<<< HEAD
     innerForm: () => {
+=======
+    innerForm: function innerForm() {
+>>>>>>> f19dfef (merge)
       return /*#__PURE__*/React.createElement(PopoverWrapper, {
         hoverText: props.value || ""
         // inherit classnames from tooltip
@@ -3181,11 +3320,21 @@ const IcseSelect = props => {
         invalidText: props.invalidText,
         readOnly: props.readOnly,
         onChange: props.handleInputChange
+<<<<<<< HEAD
       }, groups.map(value => /*#__PURE__*/React.createElement(SelectItem, {
         key: `${props.id}-${value}`,
         text: value,
         value: value
       }))));
+=======
+      }, groups.map(function (value) {
+        return /*#__PURE__*/React.createElement(SelectItem, {
+          key: "".concat(props.id, "-").concat(value),
+          text: value,
+          value: value
+        });
+      })));
+>>>>>>> f19dfef (merge)
     }
   }, props));
 };
@@ -3221,6 +3370,7 @@ IcseSelect.propTypes = {
     align: PropTypes.string
   })
 };
+<<<<<<< HEAD
 class FetchSelect extends React.Component {
   _isMounted = false;
   constructor(props) {
@@ -3244,10 +3394,58 @@ class FetchSelect extends React.Component {
 >>>>>>> dc1cdcb (arrayOf)
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+var FetchSelect = /*#__PURE__*/function (_React$Component) {
+  _inherits(FetchSelect, _React$Component);
+  var _super = _createSuper(FetchSelect);
+  function FetchSelect(props) {
+    var _this;
+    _classCallCheck(this, FetchSelect);
+    _this = _super.call(this, props);
+    _defineProperty(_assertThisInitialized(_this), "_isMounted", false);
+    _this.state = {
+      data: []
+    };
+    _this.dataToGroups = _this.dataToGroups.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+  _createClass(FetchSelect, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+      this._isMounted = true;
+      if (isEmpty(this.state.data)) fetch(this.props.apiEndpoint).then(function (res) {
+        return res.json();
+      }).then(function (data) {
+        if (_this2.props.onReturnFunction) {
+          _this2.props.onReturnFunction(data);
+        }
+        if (_this2._isMounted) _this2.setState({
+          data: data
+        });
+      }).catch(function (err) {
+        console.error(err);
+      });
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this._isMounted = false;
+    }
+  }, {
+    key: "dataToGroups",
+    value: function dataToGroups() {
+      if (this.props.filter) {
+        return this.state.data.filter(this.props.filter);
+      } else {
+        return this.state.data;
+      }
+>>>>>>> f19dfef (merge)
     }
   }, {
     key: "render",
     value: function render() {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -3337,6 +3535,8 @@ SccForm.propTypes = {
 >>>>>>> dc1cdcb (arrayOf)
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+>>>>>>> f19dfef (merge)
       return /*#__PURE__*/React.createElement(IcseSelect, {
         labelText: this.props.labelText,
         handleInputChange: this.props.handleInputChange,
@@ -3345,6 +3545,7 @@ SccForm.propTypes = {
         formName: this.props.formName,
         groups: this.dataToGroups(),
         value: this.props.value || "null"
+<<<<<<< HEAD
 =======
       if (this._isMounted) this.setState({
         data: data
@@ -3376,6 +3577,13 @@ SccForm.propTypes = {
     });
   }
 }
+=======
+      });
+    }
+  }]);
+  return FetchSelect;
+}(React.Component);
+>>>>>>> f19dfef (merge)
 FetchSelect.propTypes = {
   labelText: PropTypes.string.isRequired,
   handleInputChange: PropTypes.func.isRequired,
@@ -3391,16 +3599,26 @@ FetchSelect.propTypes = {
   name: PropTypes.string.isRequired,
   formName: PropTypes.string.isRequired
 };
+<<<<<<< HEAD
 const IcseNumberSelect = props => {
+=======
+var IcseNumberSelect = function IcseNumberSelect(props) {
+>>>>>>> f19dfef (merge)
   return /*#__PURE__*/React.createElement(IcseSelect, {
     formName: props.formName,
     groups: buildNumberDropdownList(props.max, props.min),
     value: props.value.toString(),
     name: props.name || "Icse Number Select",
     className: props.className,
+<<<<<<< HEAD
     handleInputChange: event => {
       // set name target value and parse int
       let sendEvent = {
+=======
+    handleInputChange: function handleInputChange(event) {
+      // set name target value and parse int
+      var sendEvent = {
+>>>>>>> f19dfef (merge)
         target: {
           name: event.target.name,
           value: parseInt(event.target.value)
@@ -3440,7 +3658,11 @@ IcseNumberSelect.propTypes = {
   labelText: PropTypes.string.isRequired,
   isModal: PropTypes.bool.isRequired
 };
+<<<<<<< HEAD
 const EntitlementSelect = props => {
+=======
+var EntitlementSelect = function EntitlementSelect(props) {
+>>>>>>> f19dfef (merge)
   return /*#__PURE__*/React.createElement(IcseSelect, {
     name: props.name,
     labelText: "Entitlement",
@@ -3461,6 +3683,9 @@ EntitlementSelect.propTypes = {
 
 /**
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f19dfef (merge)
  * SecretsManagerForm
  * @param {Object} props
  */
@@ -3535,8 +3760,11 @@ SecretsManagerForm.propTypes = {
 };
 
 /**
+<<<<<<< HEAD
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+>>>>>>> f19dfef (merge)
  * kms keys
  */
 var EncryptionKeyForm = /*#__PURE__*/function (_Component) {
@@ -3674,6 +3902,7 @@ EncryptionKeyForm.propTypes = {
   isModal: PropTypes.bool.isRequired
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
 =======
 >>>>>>> dc1cdcb (arrayOf)
@@ -3713,6 +3942,11 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
 
 /**
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+};
+
+/**
+>>>>>>> f19dfef (merge)
  * Key Management
  */
 var KeyManagementForm = /*#__PURE__*/function (_Component) {
@@ -3726,15 +3960,19 @@ var KeyManagementForm = /*#__PURE__*/function (_Component) {
     _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
     _this.handleSystemDropdown = _this.handleSystemDropdown.bind(_assertThisInitialized(_this));
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> b18f05c (added documentation for KeyManagementForm)
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
 =======
 >>>>>>> 8fb616a (added docs)
+=======
+>>>>>>> f19dfef (merge)
     _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
     buildFormFunctions(_assertThisInitialized(_this));
     buildFormDefaultInputMethods(_assertThisInitialized(_this));
     return _this;
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 class AtrackerForm extends Component {
@@ -3748,12 +3986,15 @@ class AtrackerForm extends Component {
 >>>>>>> f680a35 (almost done)
 =======
 >>>>>>> 8fb616a (added docs)
+=======
+>>>>>>> f19dfef (merge)
   }
 
   /**
    * handle input change
    * @param {event} event event
    */
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -3768,10 +4009,14 @@ class AtrackerForm extends Component {
 =======
   _createClass(AtrackerForm, [{
 >>>>>>> 8fb616a (added docs)
+=======
+  _createClass(KeyManagementForm, [{
+>>>>>>> f19dfef (merge)
     key: "handleInputChange",
     value: function handleInputChange(event) {
       this.setState(this.eventTargetToNameAndValue(event));
     }
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 <<<<<<< HEAD
@@ -3871,6 +4116,9 @@ class AtrackerForm extends Component {
 =======
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+
+>>>>>>> f19dfef (merge)
     /**
      * handle dropdown for key management system
      * @param {event} event event
@@ -3889,12 +4137,15 @@ class AtrackerForm extends Component {
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> b18f05c (added documentation for KeyManagementForm)
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
 =======
 
 >>>>>>> 8fb616a (added docs)
+=======
+>>>>>>> f19dfef (merge)
     /**
      * Toggle on and off param in state at name
      * @param {string} name name of the object key to change
@@ -3904,6 +4155,7 @@ class AtrackerForm extends Component {
     value: function handleToggle(name) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       this.setState(this.toggleStateBoolean(name, this.state));
 =======
       this.setState(_defineProperty({}, name, !this.state[name]));
@@ -3911,6 +4163,9 @@ class AtrackerForm extends Component {
 =======
       this.setState(this.toggleStateBoolean(name, this.state));
 >>>>>>> 8fb616a (added docs)
+=======
+      this.setState(_defineProperty({}, name, !this.state[name]));
+>>>>>>> f19dfef (merge)
     }
   }, {
     key: "render",
@@ -3918,8 +4173,127 @@ class AtrackerForm extends Component {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 8fb616a (added docs)
+=======
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+        component: "km-system-dropdown",
+        name: "system",
+        formName: "system",
+        groups: ["Key Protect", "HPCS"],
+        value: this.state.use_hs_crypto ? "HPCS" : "Key Protect",
+        labelText: "Key Management System",
+        handleInputChange: this.handleSystemDropdown,
+        className: "fieldWidth"
+      }), /*#__PURE__*/React.createElement(IcseToggle, {
+        tooltip: {
+          content: "Get Key Management from Data Source",
+          align: "bottom-left"
+        },
+        labelText: "Use Existing Instance",
+        key: this.state.use_data,
+        defaultToggled: this.state.use_data,
+        onToggle: this.handleToggle,
+        disabled: this.state.use_hs_crypto === true,
+        className: "fieldWidth",
+        id: "kms-existing"
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, {
+        noMarginBottom: true
+      }, /*#__PURE__*/React.createElement(IcseNameInput, {
+        id: this.state.name + "-name",
+        value: this.state.name,
+        componentProps: this.props,
+        component: "key_management",
+        componentName: this.props.data.name,
+        onChange: this.handleInputChange,
+        className: "fieldWidth",
+        hideHelperText: true,
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props)
+      }), /*#__PURE__*/React.createElement(IcseSelect, {
+        formName: "resource_group",
+        name: "resource_group",
+        labelText: "Resource Group",
+        groups: this.props.resourceGroups,
+        value: this.state.resource_group,
+        handleInputChange: this.handleInputChange,
+        className: "fieldWidth"
+      })));
+    }
+  }]);
+  return KeyManagementForm;
+}(Component);
+KeyManagementForm.defaultProps = {
+  data: {
+    use_hs_crypto: false,
+    use_data: false,
+    name: "test-key-protect",
+    resource_group: "service-rg"
+  },
+  resourceGroups: ["service-rg", "management-rg", "workload-rg"]
+};
+KeyManagementForm.propTypes = {
+  data: PropTypes.shape({
+    use_hs_crypto: PropTypes.bool.isRequired,
+    use_data: PropTypes.bool.isRequired,
+    name: PropTypes.string.isRequired,
+    resource_group: PropTypes.string.isRequired
+  }).isRequired,
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired
+};
+
+/**
+ * Atracker
+ * @param {Object} props
+ * @param {Object} props.data
+ * @param {string} props.data.resource_group
+ * @param {string} props.data.cos_bucket
+ * @param {string} props.data.cos_key
+ * @param {boolean} props.data.add_route
+ * @param {Array} props.resourceGroups list of resource groups
+ * @param {Array} props.cosBuckets list of cos buckets
+ * @param {Array} props.cosKeys list of cos Keys
+ * @param {string} props.prefix
+ */
+var AtrackerForm = /*#__PURE__*/function (_Component) {
+  _inherits(AtrackerForm, _Component);
+  var _super = _createSuper(AtrackerForm);
+  function AtrackerForm(props) {
+    var _this;
+    _classCallCheck(this, AtrackerForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  _createClass(AtrackerForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+
+    /**
+     * Toggle on and off param in state at name
+     * @param {string} name name of the object key to change
+     */
+  }, {
+    key: "handleToggle",
+    value: function handleToggle(name) {
+      this.setState(this.toggleStateBoolean(name, this.state));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+>>>>>>> f19dfef (merge)
       return /*#__PURE__*/React.createElement("div", {
         id: "atracker-form"
       }, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
@@ -3982,11 +4356,14 @@ class AtrackerForm extends Component {
   return AtrackerForm;
 }(Component);
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 1e428a4 (SecretsManager form)
 =======
 >>>>>>> f680a35 (almost done)
 =======
 >>>>>>> 8fb616a (added docs)
+=======
+>>>>>>> f19dfef (merge)
 AtrackerForm.defaultProps = {
   isModal: false,
   data: {
@@ -4004,6 +4381,7 @@ AtrackerForm.propTypes = {
     add_route: PropTypes.bool.isRequired
   }).isRequired,
   prefix: PropTypes.string.isRequired,
+<<<<<<< HEAD
 <<<<<<< HEAD
   cosKeys: PropTypes.array.isRequired,
   cosBuckets: PropTypes.array.isRequired,
@@ -4093,6 +4471,13 @@ KeyManagementForm.propTypes = {
 
 <<<<<<< HEAD
 >>>>>>> b18f05c (added documentation for KeyManagementForm)
+=======
+  cosKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
+  cosBuckets: PropTypes.arrayOf(PropTypes.string).isRequired,
+  isModal: PropTypes.bool.isRequired
+};
+
+>>>>>>> f19dfef (merge)
 /**
  * Form Modal
  * @param {Object} props
@@ -4511,6 +4896,7 @@ VpcListMultiSelect.propTypes = {
   vpcList: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -5241,6 +5627,8 @@ VpcListMultiSelect.propTypes = {
 >>>>>>> b345987 (fixes & heading/statelesstoggle form added)
 =======
 >>>>>>> dc1cdcb (arrayOf)
+=======
+>>>>>>> f19dfef (merge)
 /**
  * Under Construction Page
  */
@@ -5250,6 +5638,7 @@ var UnderConstruction = function UnderConstruction() {
   }), /*#__PURE__*/React.createElement("h4", null, "Page Under Construction"));
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -8584,6 +8973,9 @@ var css_248z = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }";
 =======
 var css_248z = ".cds--tab-content.doc {\r\n    padding: 0.5rem 0;\r\n  }";
 >>>>>>> d3f1972 (migrate TeleportClaimToRoleForm)
+=======
+var css_248z = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }";
+>>>>>>> f19dfef (merge)
 styleInject(css_248z);
 
 /**
@@ -8682,6 +9074,7 @@ StatefulTabPanel.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 export { AppIdKeyForm, DeleteButton, DeleteModal, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SecurityGroupMultiSelect, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> b982705 (feat: StatefulTabPanel)
 =======
@@ -8717,6 +9110,17 @@ class ToggleForm extends React.Component {
     super(props);
     this.state = {
       hide: this.props.hide,
+=======
+var ToggleForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(ToggleForm, _React$Component);
+  var _super = _createSuper(ToggleForm);
+  function ToggleForm(props) {
+    var _this;
+    _classCallCheck(this, ToggleForm);
+    _this = _super.call(this, props);
+    _this.state = {
+      hide: _this.props.hide,
+>>>>>>> f19dfef (merge)
       showDeleteModal: false,
       showUnsavedChangeModal: false,
       disableSave: true,
@@ -8727,6 +9131,7 @@ class ToggleForm extends React.Component {
       useDefaultUnsavedMessage: true,
       ruleOrderChange: false
     };
+<<<<<<< HEAD
     this.toggleChildren = this.toggleChildren.bind(this);
     this.toggleDeleteModal = this.toggleDeleteModal.bind(this);
     this.toggleUnsavedChangeModal = this.toggleUnsavedChangeModal.bind(this);
@@ -8739,11 +9144,27 @@ class ToggleForm extends React.Component {
     this.toggleShowChildren = this.toggleShowChildren.bind(this);
     this.onToggleSubModal = this.onToggleSubModal.bind(this);
     this.childRef = /*#__PURE__*/React.createRef();
+=======
+    _this.toggleChildren = _this.toggleChildren.bind(_assertThisInitialized(_this));
+    _this.toggleDeleteModal = _this.toggleDeleteModal.bind(_assertThisInitialized(_this));
+    _this.toggleUnsavedChangeModal = _this.toggleUnsavedChangeModal.bind(_assertThisInitialized(_this));
+    _this.dismissChangesAndClose = _this.dismissChangesAndClose.bind(_assertThisInitialized(_this));
+    _this.onSave = _this.onSave.bind(_assertThisInitialized(_this));
+    _this.onDelete = _this.onDelete.bind(_assertThisInitialized(_this));
+    _this.shouldDisableSave = _this.shouldDisableSave.bind(_assertThisInitialized(_this));
+    _this.shouldShow = _this.shouldShow.bind(_assertThisInitialized(_this));
+    _this.networkRuleOrderDidChange = _this.networkRuleOrderDidChange.bind(_assertThisInitialized(_this));
+    _this.toggleShowChildren = _this.toggleShowChildren.bind(_assertThisInitialized(_this));
+    _this.onToggleSubModal = _this.onToggleSubModal.bind(_assertThisInitialized(_this));
+    _this.childRef = /*#__PURE__*/React.createRef();
+    return _this;
+>>>>>>> f19dfef (merge)
   }
 
   /**
    * toggle sub modal
    */
+<<<<<<< HEAD
   onToggleSubModal() {
     this.setState({
       showSubModal: !this.state.showSubModal
@@ -8772,11 +9193,56 @@ class ToggleForm extends React.Component {
       let propsDoNotMatch = this.props.propsMatchState(this.props.submissionFieldName, stateData, componentProps) === false;
       if (propsDoNotMatch || this.state.useDefaultUnsavedMessage === false) {
         this.toggleUnsavedChangeModal();
+=======
+  _createClass(ToggleForm, [{
+    key: "onToggleSubModal",
+    value: function onToggleSubModal() {
+      this.setState({
+        showSubModal: !this.state.showSubModal
+      });
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      if (this.state.hide === true && this.shouldShow() === true) {
+        this.setState({
+          hide: false
+        });
+      }
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState) {
+      if (prevState.hide !== this.state.hide && this.props.onShowToggle) {
+        this.props.onShowToggle(this.props.index);
+      }
+    }
+
+    /**
+     * toggle children rendered by form
+     */
+  }, {
+    key: "toggleChildren",
+    value: function toggleChildren() {
+      var _this$childRef$curren;
+      if ((_this$childRef$curren = this.childRef.current) !== null && _this$childRef$curren !== void 0 && _this$childRef$curren.state) {
+        var stateData = this.childRef.current.state;
+        var componentProps = this.childRef.current.props;
+        var propsDoNotMatch = this.props.propsMatchState(this.props.submissionFieldName, stateData, componentProps) === false;
+        if (propsDoNotMatch || this.state.useDefaultUnsavedMessage === false) {
+          this.toggleUnsavedChangeModal();
+        } else {
+          this.setState({
+            hide: !this.state.hide
+          });
+        }
+>>>>>>> f19dfef (merge)
       } else {
         this.setState({
           hide: !this.state.hide
         });
       }
+<<<<<<< HEAD
     } else {
       this.setState({
         hide: !this.state.hide
@@ -8961,6 +9427,209 @@ class ToggleForm extends React.Component {
     })), this.state.showChildren && this.props.children ? this.props.children : "");
   }
 }
+=======
+    }
+
+    /**
+     * toggle delete modal
+     */
+  }, {
+    key: "toggleDeleteModal",
+    value: function toggleDeleteModal() {
+      this.setState({
+        showDeleteModal: !this.state.showDeleteModal
+      });
+    }
+
+    /**
+     * toggle unsaved changes modal
+     */
+  }, {
+    key: "toggleUnsavedChangeModal",
+    value: function toggleUnsavedChangeModal() {
+      this.setState({
+        showUnsavedChangeModal: !this.state.showUnsavedChangeModal
+      });
+    }
+
+    /**
+     * Dismiss changes and close
+     */
+  }, {
+    key: "dismissChangesAndClose",
+    value: function dismissChangesAndClose() {
+      this.setState({
+        showUnsavedChangeModal: false,
+        hide: true
+      });
+    }
+
+    /**
+     * on save
+     */
+  }, {
+    key: "onSave",
+    value: function onSave() {
+      this.props.onSave(this.childRef.current.state, this.childRef.current.props);
+      this.setState({
+        useDefaultUnsavedMessage: true
+      });
+    }
+
+    /**
+     * on delete
+     */
+  }, {
+    key: "onDelete",
+    value: function onDelete() {
+      var _this$childRef$curren2, _this$childRef$curren3;
+      this.props.onShowToggle(this.props.index);
+      this.props.onDelete((_this$childRef$curren2 = this.childRef.current) === null || _this$childRef$curren2 === void 0 ? void 0 : _this$childRef$curren2.state, (_this$childRef$curren3 = this.childRef.current) === null || _this$childRef$curren3 === void 0 ? void 0 : _this$childRef$curren3.props);
+      this.setState({
+        hide: true,
+        showDeleteModal: false
+      });
+    }
+
+    /**
+     * should disable save
+     * @param {*} stateData state data
+     * @param {*} componentProps component props
+     */
+  }, {
+    key: "shouldDisableSave",
+    value: function shouldDisableSave(stateData, componentProps) {
+      var enableSave = this.props.disableSave(this.props.submissionFieldName, stateData, componentProps) === false;
+      var propsDoNotMatch = this.props.propsMatchState(this.props.submissionFieldName, stateData, componentProps) === false;
+      if (enableSave === false && this.state.useDefaultUnsavedMessage && propsDoNotMatch === false) {
+        this.setState({
+          useDefaultUnsavedMessage: false
+        });
+      } else if (enableSave && propsDoNotMatch && this.state.disableSave) {
+        this.setState({
+          disableSave: false,
+          propsMatchState: false
+        });
+      } else if (!this.state.disableSave && (!enableSave || !propsDoNotMatch)) {
+        this.setState({
+          disableSave: true,
+          propsMatchState: !propsDoNotMatch
+        });
+      }
+    }
+  }, {
+    key: "shouldShow",
+    value: function shouldShow() {
+      return this.props.forceOpen(this.state, this.props);
+    }
+  }, {
+    key: "networkRuleOrderDidChange",
+    value: function networkRuleOrderDidChange(didNotChange) {
+      var didChange = !didNotChange;
+      if (this.state.ruleOrderChange !== didChange) {
+        this.setState({
+          ruleOrderChange: didChange
+        });
+      }
+    }
+  }, {
+    key: "toggleShowChildren",
+    value: function toggleShowChildren() {
+      this.setState({
+        showChildren: !this.state.showChildren
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this,
+        _objectSpread2$1;
+      if (this.props.noDeleteButton !== true && !this.props.onDelete) {
+        throw new Error("ToggleForm expects onDelete Function to be passed when a delete button is rendered");
+      }
+      if (this.props.noSaveButton !== true && !this.props.onSave) {
+        throw new Error("ToggleForm expects onSave Function to be passed when a save button is rendered");
+      }
+      var formTitle = this.props.name;
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(StatefulTabPanel, _extends({}, this.props.tabPanel ? this.props.tabPanel : {}, {
+        toggleShowChildren: this.toggleShowChildren,
+        form: /*#__PURE__*/React.createElement(React.Fragment, null, this.props.formName && /*#__PURE__*/React.createElement(IcseHeading, {
+          name: this.props.formName,
+          hideButton: true
+        }), /*#__PURE__*/React.createElement("div", {
+          className: lib_2(this.props.type === "formInSubForm" ? "formInSubForm positionRelative marginBottomSmall" : "subForm marginBottomSmall")
+        }, /*#__PURE__*/React.createElement(StatelessToggleForm, {
+          hide: this.state.hide,
+          iconType: this.props.useAddButton ? "add" : "edit",
+          onIconClick: this.toggleChildren,
+          toggleFormTitle: true,
+          name: formTitle,
+          buttons: /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DynamicRender, {
+            hide: this.props.addButtonAtFormTitle !== true,
+            show: /*#__PURE__*/React.createElement(SaveAddButton, {
+              type: "add",
+              onClick: this.onToggleSubModal,
+              noDeleteButton: true
+            })
+          }), /*#__PURE__*/React.createElement(DynamicRender, {
+            hide: this.props.noSaveButton || this.props.addButtonAtFormTitle,
+            show: /*#__PURE__*/React.createElement(SaveAddButton, {
+              onClick: this.onSave,
+              disabled: this.state.disableSave,
+              noDeleteButton: this.props.noDeleteButton
+            })
+          }), /*#__PURE__*/React.createElement(DynamicRender, {
+            hide: this.props.noDeleteButton,
+            show: /*#__PURE__*/React.createElement(DeleteButton, {
+              onClick: this.toggleDeleteModal,
+              name: formTitle,
+              disabled: this.props.deleteDisabled(this.props),
+              disableDeleteMessage: function disableDeleteMessage() {
+                return _this2.props.disableDeleteMessage(_this2.props);
+              }
+            })
+          }))
+        }, /*#__PURE__*/React.createElement(UnsavedChangesModal, {
+          name:
+          // use tab panel name if passed
+          this.props.tabPanel ? this.props.tabPanel.name : formTitle,
+          modalOpen: this.state.showUnsavedChangeModal,
+          onModalClose: this.toggleUnsavedChangeModal,
+          onModalSubmit: this.dismissChangesAndClose,
+          useDefaultUnsavedMessage: this.state.useDefaultUnsavedMessage
+        }), /*#__PURE__*/React.createElement(DeleteModal, {
+          name:
+          // use tab panel name if passed
+          this.props.tabPanel ? this.props.tabPanel.name : formTitle,
+          modalOpen: this.state.showDeleteModal,
+          onModalClose: this.toggleDeleteModal,
+          onModalSubmit: this.onDelete
+        }), RenderForm(this.props.innerForm, _objectSpread2(_objectSpread2({}, this.props.innerFormProps), {}, (_objectSpread2$1 = {
+          ref: this.props.nullRef ? null : this.childRef,
+          shouldDisableSave: this.shouldDisableSave,
+          data: this.props.data,
+          isModal: false,
+          arrayParentName: this.props.arrayParentName,
+          showSubModal: this.state.showSubModal,
+          addText: this.props.addText,
+          // is this used?
+          readOnly: this.props.readOnly,
+          networkRuleOrderDidChange: this.networkRuleOrderDidChange,
+          onChildShowToggle: this.props.onChildShowToggle,
+          index: this.props.index,
+          shownChildren: this.props.shownChildren,
+          handleModalToggle: this.onToggleSubModal
+        }, _defineProperty(_objectSpread2$1, "showSubModal", this.state.showSubModal), _defineProperty(_objectSpread2$1, "saveFromChildForm", {
+          onSave: this.onSave,
+          disableSave: this.state.disableSave
+        }), _objectSpread2$1)))))),
+        about: this.props.about || false
+      })), this.state.showChildren && this.props.children ? this.props.children : "");
+    }
+  }]);
+  return ToggleForm;
+}(React.Component);
+>>>>>>> f19dfef (merge)
 ToggleForm.defaultProps = {
   hide: true,
   unsavedChanges: false,
@@ -8972,10 +9641,17 @@ ToggleForm.defaultProps = {
   noSaveButton: false,
   useAddButton: false,
   // functions that return booleans must have a default
+<<<<<<< HEAD
   deleteDisabled: () => {
     return false;
   },
   forceOpen: () => {
+=======
+  deleteDisabled: function deleteDisabled() {
+    return false;
+  },
+  forceOpen: function forceOpen() {
+>>>>>>> f19dfef (merge)
     return false;
   }
 };
@@ -9008,5 +9684,9 @@ ToggleForm.propTypes = {
   }).isRequired
 };
 
+<<<<<<< HEAD
 export { AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TitleGroup, ToggleForm, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> f680a35 (almost done)
+=======
+export { AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TitleGroup, ToggleForm, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, buildFormDefaultInputMethods, buildFormFunctions };
+>>>>>>> f19dfef (merge)
