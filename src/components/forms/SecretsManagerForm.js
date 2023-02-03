@@ -67,7 +67,7 @@ class SecretsManagerForm extends Component {
             formName="Secrets Manager"
             name="kms_key_name"
             className="fieldWidth"
-            labelText="Encryption Keys"
+            labelText="Encryption Key"
             handleInputChange={this.handleInputChange}
           />
         </div>

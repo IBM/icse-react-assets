@@ -3152,7 +3152,7 @@ var SecretsManagerForm = /*#__PURE__*/function (_Component) {
         formName: "Secrets Manager",
         name: "kms_key_name",
         className: "fieldWidth",
-        labelText: "Encryption Keys",
+        labelText: "Encryption Key",
         handleInputChange: this.handleInputChange
       })));
     }
