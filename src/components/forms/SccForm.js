@@ -4,11 +4,7 @@ import {
   buildFormDefaultInputMethods,
   buildFormFunctions,
 } from "../component-utils";
-import {
-  eventTargetToNameAndValue,
-  toggleStateBoolean,
-  invalidScc,
-} from "../../lib";
+import { invalidRegex } from "../../lib";
 import { IcseTextInput, IcseToggle } from "../Inputs";
 import { IcseFormGroup } from "../Utils";
 import PropTypes from "prop-types";
@@ -49,7 +45,7 @@ class SccForm extends Component {
    * @param {event} event
    */
   handleInputChange(event) {
-    this.setState(eventTargetToNameAndValue(event));
+    this.setState(this.eventTargetToNameAndValue(event));
   }
 
   /**
@@ -66,7 +62,7 @@ class SccForm extends Component {
    * @param {bool} setDefaults set default values, default is false
    */
   handleToggle(name) {
-    this.setState(toggleStateBoolean(name, this.state));
+    this.setState(this.toggleStateBoolean(name, this.state));
   }
 
   render() {
@@ -113,14 +109,14 @@ class SccForm extends Component {
             onChange={this.handleInputChange}
             maxLength={50}
             invalid={
-              invalidScc(
+              invalidRegex(
                 "scope_name",
                 this.state.scope_name,
                 this.props.scopeNameRegex
               ).invalid
             }
             invalidText={
-              invalidScc(
+              invalidRegex(
                 "scope_name",
                 this.state.scope_name,
                 this.props.scopeNameRegex
@@ -138,14 +134,14 @@ class SccForm extends Component {
             onChange={this.handleInputChange}
             maxLength={255}
             invalid={
-              invalidScc(
+              invalidRegex(
                 "scope_description",
                 this.state.scope_description,
                 this.props.descriptionRegex
               ).invalid
             }
             invalidText={
-              invalidScc(
+              invalidRegex(
                 "scope_description",
                 this.state.scope_description,
                 this.props.descriptionRegex
@@ -168,14 +164,14 @@ class SccForm extends Component {
             componentName="SCC"
             maxLength={1000}
             invalid={
-              invalidScc(
+              invalidRegex(
                 "collector_description",
                 this.state.collector_description,
                 this.props.descriptionRegex
               ).invalid
             }
             invalidText={
-              invalidScc(
+              invalidRegex(
                 "collector_description",
                 this.state.collector_description,
                 this.props.descriptionRegex

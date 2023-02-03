@@ -4,7 +4,7 @@ const {
   addClassName,
   checkNullorEmptyString,
   prependEmptyStringWhenNull,
-  invalidScc,
+  invalidRegex,
 } = require("../src/lib/form-utils");
 
 describe("form-utils", () => {
@@ -73,10 +73,14 @@ describe("form-utils", () => {
       );
     });
   });
-  describe("invalidScc", () => {
+  describe("invalidRegex", () => {
     it("should return false and with correct error text", () => {
       assert.deepEqual(
-        invalidScc("scope_name", "test-name", /^[A-z]([a-z0-9-]*[a-z0-9])?$/i),
+        invalidRegex(
+          "scope_name",
+          "test-name",
+          /^[A-z]([a-z0-9-]*[a-z0-9])?$/i
+        ),
         {
           invalid: false,
           invalidText: `Invalid scope_name. Must match regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`,
@@ -85,7 +89,7 @@ describe("form-utils", () => {
     });
     it("should return true and with correct error text", () => {
       assert.deepEqual(
-        invalidScc(
+        invalidRegex(
           "scope_name",
           "test name wrong",
           /^[A-z]([a-z0-9-]*[a-z0-9])?$/i
