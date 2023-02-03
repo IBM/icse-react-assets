@@ -12,6 +12,9 @@ export const SccFormExample = () => {
         collector_passphrase: "test-passphrase",
         location_id: "us",
       }}
+      scope_name_regex={/^[A-z]([a-z0-9-]*[a-z0-9])?$/i}
+      scope_desc_regex={/^[A-z][a-zA-Z0-9-\._,\s]*$/i}
+      collector_desc_regex={/^[A-z][a-zA-Z0-9-\._,\s]*$/i}
     />
   );
 };

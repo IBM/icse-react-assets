@@ -1,5 +1,11 @@
 const { assert } = require("chai");
-const { toggleMarginBottom, addClassName, checkNullorEmptyString, prependEmptyStringWhenNull} = require("../src/lib/form-utils");
+const {
+  toggleMarginBottom,
+  addClassName,
+  checkNullorEmptyString,
+  prependEmptyStringWhenNull,
+  invalidScc,
+} = require("../src/lib/form-utils");
 
 describe("form-utils", () => {
   describe("addClassName", () => {
@@ -64,6 +70,30 @@ describe("form-utils", () => {
         prependEmptyStringWhenNull("hm", ["hi"]),
         ["hi"],
         "it should not prepend empty string"
+      );
+    });
+  });
+  describe("invalidScc", () => {
+    it("should return false and with correct error text", () => {
+      assert.deepEqual(
+        invalidScc("scope_name", "test-name", /^[A-z]([a-z0-9-]*[a-z0-9])?$/i),
+        {
+          invalid: false,
+          invalidText: `Invalid scope_name. Must match regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`,
+        }
+      );
+    });
+    it("should return true and with correct error text", () => {
+      assert.deepEqual(
+        invalidScc(
+          "scope_name",
+          "test name wrong",
+          /^[A-z]([a-z0-9-]*[a-z0-9])?$/i
+        ),
+        {
+          invalid: true,
+          invalidText: `Invalid scope_name. Must match regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`,
+        }
       );
     });
   });

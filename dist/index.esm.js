@@ -856,11 +856,27 @@ function prependEmptyStringWhenNull$1(value, arr) {
 function toggleMarginBottom$1(hide) {
   if (hide === false) return " marginBottomSmall";else return "";
 }
+
+/**
+ * Function that determines invalid state and invalid text for scc fields: scope_name, scope_description, and collector_description
+ * @param {string} name field name
+ * @param {string} value field value
+ * @param {RegExp} regex regular expression to verify value
+ * @returns {object} object containing invalid boolean and invalidText string
+ */
+function invalidScc$1(name, value, regex) {
+  console.log(typeof value);
+  return {
+    invalid: value.match(regex) === null,
+    invalidText: `Invalid ${name}. Must match regular expression: ${regex}`
+  };
+}
 var formUtils = {
   addClassName: addClassName$1,
   toggleMarginBottom: toggleMarginBottom$1,
   prependEmptyStringWhenNull: prependEmptyStringWhenNull$1,
-  checkNullorEmptyString: checkNullorEmptyString$1
+  checkNullorEmptyString: checkNullorEmptyString$1,
+  invalidScc: invalidScc$1
 };
 
 const {
@@ -937,7 +953,8 @@ const {
   toggleMarginBottom,
   addClassName,
   prependEmptyStringWhenNull,
-  checkNullorEmptyString
+  checkNullorEmptyString,
+  invalidScc
 } = formUtils;
 const {
   formatInputPlaceholder
@@ -959,7 +976,8 @@ var lib = {
   saveChangeButtonClass,
   eventTargetToNameAndValue,
   toggleStateBoolean,
-  setNameToValue
+  setNameToValue,
+  invalidScc
 };
 var lib_1 = lib.toggleMarginBottom;
 var lib_2 = lib.addClassName;
@@ -968,6 +986,7 @@ var lib_5 = lib.formatInputPlaceholder;
 var lib_6 = lib.saveChangeButtonClass;
 var lib_7 = lib.eventTargetToNameAndValue;
 var lib_8 = lib.toggleStateBoolean;
+<<<<<<< HEAD
 var lib_9 = lib.setNameToValue;
 >>>>>>> 28f2e52 (code now)
 =======
@@ -1721,6 +1740,9 @@ var css_248z$7 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: f
 =======
 var lib_7 = lib.eventTargetToNameAndValue;
 var lib_8 = lib.toggleStateBoolean;
+=======
+var lib_10 = lib.invalidScc;
+>>>>>>> 4fb645f (moved to lib with tests)
 
 var css_248z$8 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
 styleInject(css_248z$8);
@@ -2736,6 +2758,9 @@ var SccForm = /*#__PURE__*/function (_Component) {
     _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
     _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
     _this.handleLocationChange = _this.handleLocationChange.bind(_assertThisInitialized(_this));
+    _this.invalidSccScopeName = _this.invalidSccScopeName.bind(_assertThisInitialized(_this));
+    _this.invalidSccScopeDescription = _this.invalidSccScopeDescription.bind(_assertThisInitialized(_this));
+    _this.invalidSccCollectorDescription = _this.invalidSccCollectorDescription.bind(_assertThisInitialized(_this));
     buildFormDefaultInputMethods(_assertThisInitialized(_this));
     buildFormFunctions(_assertThisInitialized(_this));
     _this.state.enable_scc = true;
@@ -2773,9 +2798,107 @@ var SccForm = /*#__PURE__*/function (_Component) {
     key: "handleToggle",
     value: function handleToggle(name) {
       this.setState(lib_8(name, this.state));
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> dc1cdcb (arrayOf)
+=======
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(Dropdown, {
+        ariaLabel: "Dropdown",
+        id: "location_id",
+        items: sccRegions,
+        label: "SCC Region Options",
+        titleText: "Region",
+        onChange: function onChange(selectedItem) {
+          _this2.handleLocationChange(selectedItem);
+        },
+        className: "leftTextAlign fieldWidth"
+      }), /*#__PURE__*/React.createElement(IcseToggle, {
+        tooltip: {
+          content: "Determines whether the collector endpoint is accessible on a public network."
+        },
+        labelText: "Is Public",
+        defaultToggled: this.state.is_public,
+        className: "leftTextAlign",
+        onToggle: this.handleToggle,
+        id: "scc-is-public"
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+        id: "scc_scope_name",
+        tooltip: {
+          content: "A unique name for your scope. A scope narrows the focus of the scan.",
+          align: "top-left"
+        },
+        componentName: "SCC",
+        field: "scope_name",
+        labelText: "Scope Name",
+        value: this.state.scope_name,
+        onChange: this.handleInputChange,
+        maxLength: 50,
+        invalid: lib_10("scope_name", this.state.scope_name, this.props.scope_name_regex).invalid,
+        invalidText: lib_10("scope_name", this.state.scope_name, this.props.scope_name_regex).invalidText
+      }), /*#__PURE__*/React.createElement(IcseTextInput, {
+        id: "scc_scope_description",
+        tooltip: {
+          content: "A detailed description of the scope."
+        },
+        componentName: "SCC",
+        field: "scope_description",
+        labelText: "Scope Description",
+        value: this.state.scope_description,
+        onChange: this.handleInputChange,
+        maxLength: 255,
+        invalid: lib_10("scope_description", this.state.scope_description, this.props.scope_desc_regex).invalid,
+        invalidText: lib_10("scope_description", this.state.scope_description, this.props.scope_desc_regex).invalidText
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, {
+        noMarginBottom: true
+      }, /*#__PURE__*/React.createElement(IcseTextInput, {
+        id: "scc_collector",
+        tooltip: {
+          content: "A detailed description of the collector.",
+          align: "top-left"
+        },
+        labelText: "Collector Description",
+        field: "collector_description",
+        value: this.state.collector_description,
+        onChange: this.handleInputChange,
+        componentName: "SCC",
+        maxLength: 1000,
+        invalid: lib_10("collector_description", this.state.collector_description, this.props.collector_desc_regex).invalid,
+        invalidText: lib_10("collector_description", this.state.collector_description, this.props.collector_desc_regex).invalidText
+      })));
+    }
+  }]);
+  return SccForm;
+}(Component);
+SccForm.defaultProps = {
+  data: {
+    enable_scc: false
+  },
+  scope_name_regex: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i,
+  scope_desc_regex: /^[A-z][a-zA-Z0-9-\._,\s]*$/i,
+  collector_desc_regex: /^[A-z][a-zA-Z0-9-\._,\s]*$/i
+};
+SccForm.propTypes = {
+  data: PropTypes.shape({
+    enable_scc: PropTypes.bool.isRequired,
+    collector_description: PropTypes.string,
+    is_public: PropTypes.bool,
+    location_id: PropTypes.string,
+    scope_description: PropTypes.string,
+    scope_name: PropTypes.string,
+    collector_passphrase: PropTypes.string
+  }),
+  scope_name_regex: PropTypes.instanceOf(RegExp).isRequired,
+  scope_desc_regex: PropTypes.instanceOf(RegExp).isRequired,
+  collector_desc_regex: PropTypes.instanceOf(RegExp).isRequired
+};
+
+>>>>>>> 4fb645f (moved to lib with tests)
 var IcseSelect = function IcseSelect(props) {
   var invalid =
   // automatically set to invalid is is null or empty string and invalid not disabled
