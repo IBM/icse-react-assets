@@ -30,8 +30,6 @@ class SecretsManagerForm extends Component {
     this.setState(this.eventTargetToNameAndValue(event));
   }
 
-
-
   render() {
     return (
       <>
