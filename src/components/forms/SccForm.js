@@ -39,11 +39,6 @@ class SccForm extends Component {
     this.handleToggle = this.handleToggle.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleLocationChange = this.handleLocationChange.bind(this);
-    this.invalidSccScopeName = this.invalidSccScopeName.bind(this);
-    this.invalidSccScopeDescription =
-      this.invalidSccScopeDescription.bind(this);
-    this.invalidSccCollectorDescription =
-      this.invalidSccCollectorDescription.bind(this);
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
     this.state.enable_scc = true;

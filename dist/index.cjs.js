@@ -411,7 +411,6 @@ function toggleMarginBottom$1(hide) {
  * @returns {object} object containing invalid boolean and invalidText string
  */
 function invalidScc$1(name, value, regex) {
-  console.log(typeof value);
   return {
     invalid: value.match(regex) === null,
     invalidText: `Invalid ${name}. Must match regular expression: ${regex}`
@@ -2732,9 +2731,6 @@ var SccForm = /*#__PURE__*/function (_Component) {
     _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
     _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
     _this.handleLocationChange = _this.handleLocationChange.bind(_assertThisInitialized(_this));
-    _this.invalidSccScopeName = _this.invalidSccScopeName.bind(_assertThisInitialized(_this));
-    _this.invalidSccScopeDescription = _this.invalidSccScopeDescription.bind(_assertThisInitialized(_this));
-    _this.invalidSccCollectorDescription = _this.invalidSccCollectorDescription.bind(_assertThisInitialized(_this));
     buildFormDefaultInputMethods(_assertThisInitialized(_this));
     buildFormFunctions(_assertThisInitialized(_this));
     _this.state.enable_scc = true;
@@ -5130,6 +5126,80 @@ var UnderConstruction = function UnderConstruction() {
 >>>>>>> 72d0b85 (merge)
 =======
 /**
+ * SecretsManagerForm
+ * @param {Object} props
+ */
+var SecretsManagerForm = /*#__PURE__*/function (_Component) {
+  _inherits(SecretsManagerForm, _Component);
+  var _super = _createSuper(SecretsManagerForm);
+  function SecretsManagerForm(props) {
+    var _this;
+    _classCallCheck(this, SecretsManagerForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    _this.state.use_secrets_manager = true;
+    return _this;
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  _createClass(SecretsManagerForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+        id: this.state.name + "-name",
+        componentName: "Secrets Manager",
+        component: "secrets_manager",
+        value: this.state.name,
+        onChange: this.handleInputChange,
+        componentProps: this.props,
+        hideHelperText: true,
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props)
+      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: "Secrets Manager",
+        value: this.state.resource_group,
+        groups: this.props.resourceGroups,
+        handleInputChange: this.handleInputChange,
+        className: "fieldWidth",
+        name: "resource_group",
+        labelText: "Resource Group"
+      })), /*#__PURE__*/React__default["default"].createElement("div", {
+        className: "fieldWidth"
+      }, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        value: this.state.kms_key_name,
+        groups: this.props.encryptionKeys,
+        formName: "Secrets Manager",
+        name: "kms_key_name",
+        className: "fieldWidth",
+        labelText: "Encryption Key",
+        handleInputChange: this.handleInputChange
+      })));
+    }
+  }]);
+  return SecretsManagerForm;
+}(React.Component);
+SecretsManagerForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string,
+    resource_group: PropTypes__default["default"].string,
+    kms_key_name: PropTypes__default["default"].string
+  }).isRequired,
+  encryptionKeys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+};
+
+/**
  * kms keys
  */
 var EncryptionKeyForm = /*#__PURE__*/function (_Component) {
@@ -5383,6 +5453,130 @@ KeyManagementForm.propTypes = {
 };
 
 >>>>>>> 92f0c0d (removed resourcegroupselect component)
+/**
+ * Key Management
+ */
+var KeyManagementForm = /*#__PURE__*/function (_Component) {
+  _inherits(KeyManagementForm, _Component);
+  var _super = _createSuper(KeyManagementForm);
+  function KeyManagementForm(props) {
+    var _this;
+    _classCallCheck(this, KeyManagementForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleSystemDropdown = _this.handleSystemDropdown.bind(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  _createClass(KeyManagementForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+
+    /**
+     * handle dropdown for key management system
+     * @param {event} event event
+     */
+  }, {
+    key: "handleSystemDropdown",
+    value: function handleSystemDropdown(event) {
+      var selection = event.target.value; // selected value in dropdown
+      selection === "HPCS" ? this.setState({
+        use_hs_crypto: true,
+        use_data: true
+      }) : this.setState({
+        use_hs_crypto: false,
+        use_data: false
+      });
+    }
+
+    /**
+     * Toggle on and off param in state at name
+     * @param {string} name name of the object key to change
+     */
+  }, {
+    key: "handleToggle",
+    value: function handleToggle(name) {
+      this.setState(_defineProperty({}, name, !this.state[name]));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        component: "km-system-dropdown",
+        name: "system",
+        formName: "system",
+        groups: ["Key Protect", "HPCS"],
+        value: this.state.use_hs_crypto ? "HPCS" : "Key Protect",
+        labelText: "Key Management System",
+        handleInputChange: this.handleSystemDropdown,
+        className: "fieldWidth"
+      }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        tooltip: {
+          content: "Get Key Management from Data Source",
+          align: "bottom-left"
+        },
+        labelText: "Use Existing Instance",
+        key: this.state.use_data,
+        defaultToggled: this.state.use_data,
+        onToggle: this.handleToggle,
+        disabled: this.state.use_hs_crypto === true,
+        className: "fieldWidth",
+        id: "kms-existing"
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+        noMarginBottom: true
+      }, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+        id: this.state.name + "-name",
+        value: this.state.name,
+        componentProps: this.props,
+        component: "key_management",
+        componentName: this.props.data.name,
+        onChange: this.handleInputChange,
+        className: "fieldWidth",
+        hideHelperText: true,
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props)
+      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: "resource_group",
+        name: "resource_group",
+        labelText: "Resource Group",
+        groups: this.props.resourceGroups,
+        value: this.state.resource_group,
+        handleInputChange: this.handleInputChange,
+        className: "fieldWidth"
+      })));
+    }
+  }]);
+  return KeyManagementForm;
+}(React.Component);
+KeyManagementForm.defaultProps = {
+  data: {
+    use_hs_crypto: false,
+    use_data: false,
+    name: "test-key-protect",
+    resource_group: "service-rg"
+  },
+  resourceGroups: ["service-rg", "management-rg", "workload-rg"]
+};
+KeyManagementForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    use_hs_crypto: PropTypes__default["default"].bool.isRequired,
+    use_data: PropTypes__default["default"].bool.isRequired,
+    name: PropTypes__default["default"].string.isRequired,
+    resource_group: PropTypes__default["default"].string.isRequired
+  }).isRequired,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+};
+
 /**
  * Atracker
  * @param {Object} props
@@ -7955,6 +8149,7 @@ exports.SaveAddButton = SaveAddButton;
 exports.SaveIcon = SaveIcon;
 <<<<<<< HEAD
 exports.SccForm = SccForm;
+<<<<<<< HEAD
 =======
 exports.SaveAddButton = SaveAddButton;
 exports.SaveIcon = SaveIcon;
@@ -7969,6 +8164,9 @@ exports.ResourceGroupSelect = ResourceGroupSelect;
 exports.SaveAddButton = SaveAddButton;
 exports.SaveIcon = SaveIcon;
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+exports.SecretsManagerForm = SecretsManagerForm;
+>>>>>>> 159e1d3 (fix: remove log and bind)
 exports.SecurityGroupMultiSelect = SecurityGroupMultiSelect;
 exports.SshKeyMultiSelect = SshKeyMultiSelect;
 exports.StatefulTabPanel = StatefulTabPanel;
