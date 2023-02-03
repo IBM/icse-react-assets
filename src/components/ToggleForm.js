@@ -162,7 +162,7 @@ class ToggleForm extends React.Component {
   }
 
   shouldShow() {
-    return this.props.forceShowForm(this.state, this.props);
+    return this.props.forceOpen(this.state, this.props);
   }
 
   networkRuleOrderDidChange(didNotChange) {
@@ -210,7 +210,6 @@ class ToggleForm extends React.Component {
                   hide={this.state.hide}
                   iconType={this.props.useAddButton ? "add" : "edit"}
                   onIconClick={this.toggleChildren}
-                  onClick={this.props.onCreate}
                   toggleFormTitle
                   name={formTitle}
                   buttons={
@@ -332,7 +331,7 @@ ToggleForm.defaultProps = {
   deleteDisabled: () => {
     return false;
   },
-  forceShowForm: () => {
+  forceOpen: () => {
     return false;
   },
 };
@@ -356,5 +355,8 @@ ToggleForm.propTypes = {
   noDeleteButton: PropTypes.bool.isRequired,
   noSaveButton: PropTypes.bool.isRequired,
   useAddButton: PropTypes.bool.isRequired,
-  onCreate: PropTypes.func, // can be null
+  tabPanel: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    hideFormTitleButton: PropTypes.bool, // can be null
+  }).isRequired,
 };

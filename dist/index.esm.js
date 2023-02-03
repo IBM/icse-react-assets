@@ -3694,6 +3694,9 @@ EncryptionKeyForm.propTypes = {
  * @param {string} props.prefix
  */
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8fb616a (added docs)
 var AtrackerForm = /*#__PURE__*/function (_Component) {
   _inherits(AtrackerForm, _Component);
   var _super = _createSuper(AtrackerForm);
@@ -3703,6 +3706,7 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
     _this = _super.call(this, props);
     _this.state = _this.props.data;
     _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+<<<<<<< HEAD
 =======
 =======
 };
@@ -3725,10 +3729,13 @@ var KeyManagementForm = /*#__PURE__*/function (_Component) {
 >>>>>>> b18f05c (added documentation for KeyManagementForm)
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+>>>>>>> 8fb616a (added docs)
     _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
     buildFormFunctions(_assertThisInitialized(_this));
     buildFormDefaultInputMethods(_assertThisInitialized(_this));
     return _this;
+<<<<<<< HEAD
 =======
 class AtrackerForm extends Component {
   constructor(props) {
@@ -3739,12 +3746,15 @@ class AtrackerForm extends Component {
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
 >>>>>>> f680a35 (almost done)
+=======
+>>>>>>> 8fb616a (added docs)
   }
 
   /**
    * handle input change
    * @param {event} event event
    */
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -3755,10 +3765,14 @@ class AtrackerForm extends Component {
 =======
   _createClass(KeyManagementForm, [{
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+  _createClass(AtrackerForm, [{
+>>>>>>> 8fb616a (added docs)
     key: "handleInputChange",
     value: function handleInputChange(event) {
       this.setState(this.eventTargetToNameAndValue(event));
     }
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -3878,6 +3892,9 @@ class AtrackerForm extends Component {
 >>>>>>> b18f05c (added documentation for KeyManagementForm)
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+
+>>>>>>> 8fb616a (added docs)
     /**
      * Toggle on and off param in state at name
      * @param {string} name name of the object key to change
@@ -3886,16 +3903,23 @@ class AtrackerForm extends Component {
     key: "handleToggle",
     value: function handleToggle(name) {
 <<<<<<< HEAD
+<<<<<<< HEAD
       this.setState(this.toggleStateBoolean(name, this.state));
 =======
       this.setState(_defineProperty({}, name, !this.state[name]));
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+      this.setState(this.toggleStateBoolean(name, this.state));
+>>>>>>> 8fb616a (added docs)
     }
   }, {
     key: "render",
     value: function render() {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8fb616a (added docs)
       return /*#__PURE__*/React.createElement("div", {
         id: "atracker-form"
       }, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
@@ -3957,9 +3981,12 @@ class AtrackerForm extends Component {
   }]);
   return AtrackerForm;
 }(Component);
+<<<<<<< HEAD
 >>>>>>> 1e428a4 (SecretsManager form)
 =======
 >>>>>>> f680a35 (almost done)
+=======
+>>>>>>> 8fb616a (added docs)
 AtrackerForm.defaultProps = {
   isModal: false,
   data: {
@@ -8832,7 +8859,7 @@ class ToggleForm extends React.Component {
     }
   }
   shouldShow() {
-    return this.props.forceShowForm(this.state, this.props);
+    return this.props.forceOpen(this.state, this.props);
   }
   networkRuleOrderDidChange(didNotChange) {
     let didChange = !didNotChange;
@@ -8866,7 +8893,6 @@ class ToggleForm extends React.Component {
         hide: this.state.hide,
         iconType: this.props.useAddButton ? "add" : "edit",
         onIconClick: this.toggleChildren,
-        onClick: this.props.onCreate,
         toggleFormTitle: true,
         name: formTitle,
         buttons: /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DynamicRender, {
@@ -8949,7 +8975,7 @@ ToggleForm.defaultProps = {
   deleteDisabled: () => {
     return false;
   },
-  forceShowForm: () => {
+  forceOpen: () => {
     return false;
   }
 };
@@ -8976,7 +9002,10 @@ ToggleForm.propTypes = {
   noDeleteButton: PropTypes.bool.isRequired,
   noSaveButton: PropTypes.bool.isRequired,
   useAddButton: PropTypes.bool.isRequired,
-  onCreate: PropTypes.func // can be null
+  tabPanel: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    hideFormTitleButton: PropTypes.bool // can be null
+  }).isRequired
 };
 
 export { AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TitleGroup, ToggleForm, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, buildFormDefaultInputMethods, buildFormFunctions };
