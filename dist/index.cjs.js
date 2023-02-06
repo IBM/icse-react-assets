@@ -171,8 +171,13 @@ function styleInject(css, ref) {
   }
 }
 
+<<<<<<< HEAD
 var css_248z$a = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$a);
+=======
+var css_248z$9 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z$9);
+>>>>>>> 353b3a7 ($@)
 
 /**
  * Empty Resource Tile
@@ -629,6 +634,7 @@ var lib_9 = lib.setNameToValue;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 /**
  * create a composed class name
  * @param {string} className name of classes to add
@@ -1039,6 +1045,12 @@ DynamicToolTipWrapper.propTypes = {
 
 var css_248z$7 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  z-index: 9001;\n  top: 20px;\n}\n";
 >>>>>>> b9aa481 (feat: object storage key form)
+=======
+var css_248z$8 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
+styleInject(css_248z$8);
+
+var css_248z$7 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  z-index: 9001;\n  top: 20px;\n}\n";
+>>>>>>> 353b3a7 ($@)
 styleInject(css_248z$7);
 
 /**
@@ -1969,6 +1981,7 @@ PopoverWrapper.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$7 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
 styleInject(css_248z$7);
 
@@ -2215,6 +2228,8 @@ PopoverWrapper.propTypes = {
 
 =======
 >>>>>>> b9aa481 (feat: object storage key form)
+=======
+>>>>>>> 353b3a7 ($@)
 var css_248z$6 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
 styleInject(css_248z$6);
 
@@ -2524,8 +2539,13 @@ StatelessToggleForm.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$6 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
 styleInject(css_248z$6);
+=======
+var css_248z$5 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+styleInject(css_248z$5);
+>>>>>>> 353b3a7 ($@)
 
 /**
  * render a tooltip around an input field
@@ -2643,8 +2663,13 @@ DynamicToolTipWrapper.propTypes = {
   innerForm: PropTypes__default["default"].oneOfType([PropTypes__default["default"].object, PropTypes__default["default"].func])
 };
 
+<<<<<<< HEAD
 var css_248z$5 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
 styleInject(css_248z$5);
+=======
+var css_248z$4 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
+styleInject(css_248z$4);
+>>>>>>> 353b3a7 ($@)
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -2868,6 +2893,7 @@ IcseNameInput.propTypes = {
   invalidCallback: PropTypes__default["default"].func
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 var css_248z$4 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
 styleInject(css_248z$4);
@@ -5776,6 +5802,8 @@ EmptyResourceTile.propTypes = {
   showIfEmpty: PropTypes__default["default"].oneOfType([PropTypes__default["default"].array, PropTypes__default["default"].bool]).isRequired
 };
 
+=======
+>>>>>>> 353b3a7 ($@)
 var css_248z$3 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
 styleInject(css_248z$3);
 
@@ -6064,6 +6092,348 @@ SecretsManagerForm.propTypes = {
   }).isRequired,
   encryptionKeys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+};
+
+var css_248z$2 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+styleInject(css_248z$2);
+
+var css_248z$1 = ".leftTextAlign {\n  text-align: left;\n}\n";
+styleInject(css_248z$1);
+
+/**
+ * Icse multiselect template
+ */
+var IcseMultiSelect = function IcseMultiSelect(props) {
+  return /*#__PURE__*/React__default["default"].createElement(react.FilterableMultiSelect, {
+    id: props.id,
+    className: lib_2("fieldWidth leftTextAlign cds--select", props),
+    titleText: props.titleText,
+    itemToString: function itemToString(item) {
+      return item ? item : "";
+    },
+    invalid: props.invalid,
+    invalidText: props.invalidText,
+    initialSelectedItems: props.initialSelectedItems,
+    onChange: props.onChange,
+    items: props.items,
+    useTitleInItem: props.useTitleInItem,
+    label: props.label,
+    disabled: props.disabled
+  });
+};
+IcseMultiSelect.defaultProps = {
+  disabled: false,
+  useTitleInItem: false,
+  invalid: false,
+  invalidText: "Invalid value"
+};
+IcseMultiSelect.propTypes = {
+  id: PropTypes__default["default"].string.isRequired,
+  className: PropTypes__default["default"].string,
+  titleText: PropTypes__default["default"].string.isRequired,
+  invalid: PropTypes__default["default"].bool.isRequired,
+  invalidText: PropTypes__default["default"].string.isRequired,
+  initialSelectedItems: PropTypes__default["default"].array.isRequired,
+  onChange: PropTypes__default["default"].func.isRequired,
+  items: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  useTitleInItem: PropTypes__default["default"].bool.isRequired,
+  label: PropTypes__default["default"].string,
+  disabled: PropTypes__default["default"].bool.isRequired
+};
+
+/**
+ * ssh key multiselect
+ */
+var SshKeyMultiSelect = function SshKeyMultiSelect(props) {
+  return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+    id: props.id + "-ssh-key-multiselect",
+    useTitleInItem: true,
+    label: "SSH Keys",
+    titleText: "SSH Keys",
+    invalidText: "At least one SSH Key is required",
+    invalid: props.initialSelectedItems.length === 0,
+    items: props.sshKeys,
+    initialSelectedItems: props.initialSelectedItems || [],
+    onChange: function onChange(event) {
+      props.onChange(event.selectedItems);
+    },
+    className: "fieldWidthSmaller cds--form-item"
+  });
+};
+SshKeyMultiSelect.defaultProps = {
+  initialSelectedItems: []
+};
+SshKeyMultiSelect.propTypes = {
+  id: PropTypes__default["default"].string.isRequired,
+  onChange: PropTypes__default["default"].func.isRequired,
+  sshKeys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  initialSelectedItems: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+};
+
+/**
+ * sg multiselect
+ */
+var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
+  if (props.vpc_name && !props.securityGroups) {
+    // checking props.securityGroups[props.vpc_name] will result in an
+    // undefined error that happens as part of MultiSelect
+    throw new Error("SecurityGroupMultiselect requires a securityGroups object. Got " + lazyZ.prettyJSON(props.securityGroups));
+  }
+  return /*#__PURE__*/React__default["default"].createElement(react.MultiSelect, {
+    id: props.id + "-security-group-multiselect",
+    label: props.label,
+    titleText: "Security Groups",
+    className: "fieldWidthSmaller cds--form-item",
+    initialSelectedItems: props.initialSelectedItems,
+    vpc_name: props.vpc_name,
+    invalid: props.invalid,
+    invalidText: "Invalid Selection",
+    onChange: function onChange(event) {
+      props.onChange(event.selectedItems);
+    },
+    disabled: props.disabled,
+    items: props.vpc_name === "" ? [] : props.securityGroups[props.vpc_name],
+    itemToString: function itemToString(item) {
+      return item ? item : "";
+    }
+  });
+};
+SecurityGroupMultiSelect.defaultProps = {
+  disabled: false,
+  label: "Select Security Groups",
+  invalid: false
+};
+SecurityGroupMultiSelect.propTypes = {
+  id: PropTypes__default["default"].string.isRequired,
+  className: PropTypes__default["default"].string,
+  initialSelectedItems: PropTypes__default["default"].array.isRequired,
+  vpc_name: PropTypes__default["default"].string,
+  // not required, null value should be valid
+  onChange: PropTypes__default["default"].func.isRequired,
+  label: PropTypes__default["default"].string.isRequired,
+  disabled: PropTypes__default["default"].bool.isRequired,
+  securityGroups: PropTypes__default["default"].object.isRequired,
+  invalid: PropTypes__default["default"].bool.isRequired
+};
+
+/**
+ * vpc subnet multiselect
+ */
+var SubnetMultiSelect = function SubnetMultiSelect(props) {
+  return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+    id: props.id + "-subnet-multiselect",
+    className: props.className,
+    titleText: "Subnets",
+    name: props.name,
+    label: props.label,
+    items: lazyZ.isNullOrEmptyString(props.vpc_name) ? [] : props.subnets[props.vpc_name],
+    initialSelectedItems: props.initialSelectedItems,
+    invalidText: lazyZ.isNullOrEmptyString(props.vpc_name) ? "Select a VPC." : "Select at least one subnet.",
+    invalid: props.initialSelectedItems.length === 0,
+    disabled: props.disabled,
+    onChange: function onChange(event) {
+      return props.onChange(event.selectedItems);
+    }
+  });
+};
+SubnetMultiSelect.defaultProps = {
+  name: "subnet_names",
+  label: "Subnets",
+  disabled: false,
+  vpc_name: "",
+  initialSelectedItems: []
+};
+SubnetMultiSelect.propTypes = {
+  id: PropTypes__default["default"].string.isRequired,
+  className: PropTypes__default["default"].string,
+  vpc_name: PropTypes__default["default"].string,
+  // not required, `null` needs to be passed here
+  subnets: PropTypes__default["default"].object.isRequired,
+  disabled: PropTypes__default["default"].bool.isRequired,
+  name: PropTypes__default["default"].string.isRequired,
+  label: PropTypes__default["default"].string.isRequired,
+  initialSelectedItems: PropTypes__default["default"].array.isRequired,
+  onChange: PropTypes__default["default"].func.isRequired
+};
+
+/**
+ * VPC List MultiSelect
+ */
+var VpcListMultiSelect = function VpcListMultiSelect(props) {
+  // throw error here so that passing no vpc list prop will error here
+  // instead of being passed to `FilterableMultiselect`
+  if (!props.vpcList) {
+    throw new Error("VpcListMultiSelect requires a list of VPCs using the prop `vpcList`. Got " + lazyZ.prettyJSON(props.vpcList));
+  }
+  return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+    invalidText: "At least one VPC must be selected.",
+    invalid: props.invalid,
+    id: props.id + "-vpc-select",
+    titleText: props.titleText,
+    onChange: function onChange(event) {
+      return props.onChange(event.selectedItems);
+    },
+    initialSelectedItems: props.initialSelectedItems,
+    className: props.className,
+    items: props.vpcList
+  });
+};
+VpcListMultiSelect.defaultProps = {
+  invalid: false,
+  titleText: "VPCs",
+  initialSelectedItems: []
+};
+VpcListMultiSelect.propTypes = {
+  invalid: PropTypes__default["default"].bool.isRequired,
+  id: PropTypes__default["default"].string.isRequired,
+  onChange: PropTypes__default["default"].func.isRequired,
+  initialSelectedItems: PropTypes__default["default"].array.isRequired,
+  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+};
+
+var WorkerPoolForm = /*#__PURE__*/function (_Component) {
+  _inherits(WorkerPoolForm, _Component);
+  var _super = _createSuper(WorkerPoolForm);
+  function WorkerPoolForm(props) {
+    var _this;
+    _classCallCheck(this, WorkerPoolForm);
+    _this = _super.call(this, props);
+    _this.state = {
+      pool: _this.props.isModal ? {
+        name: "",
+        flavor: _this.props.cluster.machine_type,
+        subnet_names: _this.props.cluster.subnet_names,
+        vpc_name: _this.props.cluster.vpc_name,
+        workers_per_subnet: _this.props.cluster.workers_per_subnet,
+        entitlement: _this.props.cluster.entitlement
+      } : _this.props.data
+    };
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleSubnetChange = _this.handleSubnetChange.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  // Handle pool input change
+  _createClass(WorkerPoolForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      var _event$target = event.target,
+        name = _event$target.name,
+        value = _event$target.value;
+      var pool = _objectSpread2({}, this.state.pool);
+      if (name === "workers_per_subnet") {
+        pool[name] = Number(value);
+      } else {
+        pool[name] = value === "null" ? null : value;
+      }
+      this.setState({
+        pool: pool
+      });
+    }
+
+    // Handle subnet multiselect change
+  }, {
+    key: "handleSubnetChange",
+    value: function handleSubnetChange(event) {
+      var pool = _objectSpread2({}, this.state.pool);
+      pool.subnet_names = event.selectedItems;
+      this.setState({
+        pool: pool
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+        id: this.state.name + "-name",
+        componentName: "Worker Pools",
+        component: "worker-pools",
+        onChange: this.handleInputChange,
+        componentProps: this.props,
+        value: this.state.pool.name,
+        className: "fieldWidthSmaller",
+        placeholder: "my-worker-pool-name",
+        hideHelperText: true,
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props)
+      }), /*#__PURE__*/React__default["default"].createElement(EntitlementSelect, {
+        name: "entitlement",
+        value: this.state.pool.entitlement,
+        handleInputChange: this.handleInputChange,
+        component: this.props.data.name,
+        formName: "Worker Pools"
+      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: "Worker Pools",
+        name: "flavor",
+        labelText: "Flavor Select",
+        value: this.state.pool.flavor,
+        groups: ["bx2.16x64", "bx2.2x8"],
+        handleInputChange: this.handleInputChange,
+        className: "fieldWidthSmaller"
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(SubnetMultiSelect, {
+        id: this.props.data.name,
+        slz: this.props.slz,
+        disabled: this.state.pool.vpc_name === null,
+        vpc_name: this.state.pool.vpc_name,
+        initialSelectedItems: this.state.pool.subnet_names,
+        onChange: this.handleSubnetChange,
+        component: this.props.data.name,
+        className: "fieldWidthSmaller cds--form-item"
+      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        name: "workers_per_subnet",
+        formName: "Worker Pools",
+        labelText: "Workers Per Subnet",
+        value: this.state.pool.workers_per_subnet,
+        groups: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+        handleInputChange: this.handleInputChange,
+        component: this.props.data.name,
+        className: "fieldWidthSmaller"
+      })));
+    }
+  }]);
+  return WorkerPoolForm;
+}(React.Component);
+WorkerPoolForm.defaultProps = {
+  data: {
+    entitlement: "",
+    flavor: "bx2.16x64",
+    name: "",
+    subnet_names: [],
+    vpc_name: "",
+    workers_per_subnet: 2
+  },
+  isModal: false
+};
+WorkerPoolForm.propTypes = {
+  isModal: PropTypes__default["default"].bool.isRequired,
+  cluster: PropTypes__default["default"].shape({
+    cos_name: PropTypes__default["default"].string.isRequired,
+    entitlement: PropTypes__default["default"].string,
+    // can be null
+    kube_type: PropTypes__default["default"].string.isRequired,
+    kube_version: PropTypes__default["default"].string.isRequired,
+    machine_type: PropTypes__default["default"].string.isRequired,
+    name: PropTypes__default["default"].string.isRequired,
+    resource_group: PropTypes__default["default"].string,
+    kms_config: PropTypes__default["default"].shape({
+      crk_name: PropTypes__default["default"].string.isRequired
+    }).isRequired,
+    subnet_names: PropTypes__default["default"].array.isRequired,
+    update_all_workers: PropTypes__default["default"].bool.isRequired,
+    vpc_name: PropTypes__default["default"].string.isRequired,
+    worker_pools: PropTypes__default["default"].array.isRequired,
+    workers_per_subnet: PropTypes__default["default"].number.isRequired
+  }),
+  // can be null
+  data: PropTypes__default["default"].shape({
+    entitlement: PropTypes__default["default"].string.isRequired,
+    flavor: PropTypes__default["default"].string.isRequired,
+    name: PropTypes__default["default"].string.isRequired,
+    subnet_names: PropTypes__default["default"].array.isRequired,
+    vpc_name: PropTypes__default["default"].string.isRequired,
+    workers_per_subnet: PropTypes__default["default"].number.isRequired
+  }).isRequired
 };
 
 /**
@@ -6805,6 +7175,7 @@ FormModal.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$3 = ".leftTextAlign {\n  text-align: left;\n}\n";
 styleInject(css_248z$3);
 =======
@@ -6812,6 +7183,8 @@ var css_248z$2 = ".leftTextAlign {\n  text-align: left;\n}\n";
 styleInject(css_248z$2);
 >>>>>>> b9aa481 (feat: object storage key form)
 
+=======
+>>>>>>> 353b3a7 ($@)
 /**
  * Icse Modal Wrapper
  * @param {*} props
@@ -6933,6 +7306,7 @@ UnsavedChangesModal.propTypes = {
   useDefaultUnsavedMessage: PropTypes__default["default"].bool
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 var css_248z$2 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
 styleInject(css_248z$2);
@@ -7132,6 +7506,8 @@ VpcListMultiSelect.propTypes = {
   vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
 };
 
+=======
+>>>>>>> 353b3a7 ($@)
 /**
  * Under Construction Page
  */
@@ -7154,10 +7530,14 @@ var UnderConstruction = function UnderConstruction() {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 =======
 var css_248z = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }";
 >>>>>>> b9aa481 (feat: object storage key form)
+=======
+var css_248z = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }";
+>>>>>>> 353b3a7 ($@)
 styleInject(css_248z);
 
 /**
@@ -9020,6 +9400,7 @@ StatefulTabPanel.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> b982705 (feat: StatefulTabPanel)
 =======
 =======
@@ -9035,6 +9416,8 @@ class ToggleForm extends React__default["default"].Component {
 >>>>>>> 09dbacf (SshKeyForm, example, and docs)
 =======
 >>>>>>> b9aa481 (feat: object storage key form)
+=======
+>>>>>>> 353b3a7 ($@)
 var ToggleForm = /*#__PURE__*/function (_React$Component) {
   _inherits(ToggleForm, _React$Component);
   var _super = _createSuper(ToggleForm);
@@ -9046,6 +9429,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
       hide: _this.props.hide,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> f19dfef (merge)
 =======
 >>>>>>> 45b57f8 (remove extra props, add name and hideName)
@@ -9053,6 +9437,8 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
 >>>>>>> 09dbacf (SshKeyForm, example, and docs)
 =======
 >>>>>>> b9aa481 (feat: object storage key form)
+=======
+>>>>>>> 353b3a7 ($@)
       showDeleteModal: false,
       showUnsavedChangeModal: false,
       disableSave: true,
@@ -9622,7 +10008,11 @@ exports.UnderConstruction = UnderConstruction;
 exports.UnsavedChangesModal = UnsavedChangesModal;
 exports.UpDownButtons = UpDownButtons;
 exports.VpcListMultiSelect = VpcListMultiSelect;
+<<<<<<< HEAD
 exports.VpnGatewayForm = VpnGatewayForm;
+=======
+exports.WorkerPoolForm = WorkerPoolForm;
+>>>>>>> 353b3a7 ($@)
 exports.buildFormDefaultInputMethods = buildFormDefaultInputMethods;
 exports.buildFormFunctions = buildFormFunctions;
 <<<<<<< HEAD
