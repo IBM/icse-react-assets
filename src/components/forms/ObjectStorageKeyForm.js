@@ -56,7 +56,6 @@ class ObjectStorageKeyForm extends Component {
             onChange={this.handleInputChange}
             componentProps={this.props}
             placeholder="my-cos-key-name"
-            random_suffix={this.props.parentHasRandomSuffix}
             className={fieldWidth}
             helperTextCallback={() => this.props.composedNameCallback(this.state)}
             invalid={this.props.invalidCallback(this.state, this.props)}
