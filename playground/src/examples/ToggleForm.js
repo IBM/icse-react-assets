@@ -18,6 +18,7 @@ export const ToggleFormExample = () => {
   return (
     <ToggleForm
       name={"icse-atracker"}
+      hideName
       submissionFieldName="atracker"
       innerForm={AtrackerForm}
       innerFormProps={{
@@ -36,7 +37,6 @@ export const ToggleFormExample = () => {
       propsMatchState={propsMatchState}
       disableSave={disableSave}
       noDeleteButton
-      hideName
       tabPanel={{
         name: "Activity Tracker",
       }}

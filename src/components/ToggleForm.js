@@ -318,7 +318,6 @@ ToggleForm.defaultProps = {
   hide: true,
   unsavedChanges: false,
   index: 0,
-  nonArrayForm: false,
   type: "subForm",
   nullRef: false,
   noDeleteButton: false,
@@ -343,7 +342,6 @@ ToggleForm.propTypes = {
   index: PropTypes.number.isRequired,
   hide: PropTypes.bool.isRequired,
   submissionFieldName: PropTypes.string.isRequired,
-  nonArrayForm: PropTypes.bool.isRequired,
   propsMatchState: PropTypes.func.isRequired,
   disableSave: PropTypes.func.isRequired,
   forceOpen: PropTypes.func, // can be null
