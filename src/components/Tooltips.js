@@ -1,4 +1,3 @@
-import { RenderForm } from "./Utils";
 import { addClassName } from "../lib";
 import React from "react";
 import {
@@ -10,6 +9,18 @@ import {
 import { Information } from "@carbon/icons-react";
 import PropTypes from "prop-types";
 import "./styles/Tooltips.css";
+
+/**
+ * Render a form (duplicate from utils to prevent circular dependencies)
+ * @param {*} form form element
+ * @param {*} formProps props
+ * @returns Form element
+ */
+function RenderForm(form, formProps) {
+  return React.createElement(form, {
+    ...formProps,
+  });
+}
 
 /**
  * render a tooltip around an input field

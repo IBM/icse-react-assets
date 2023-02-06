@@ -50,8 +50,6 @@ var lazyZ = require('lazy-z');
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
 var React = require('react');
-var iconsReact = require('@carbon/icons-react');
-var react = require('@carbon/react');
 var PropTypes = require('prop-types');
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -79,6 +77,8 @@ var PropTypes__default = /*#__PURE__*/_interopDefaultLegacy(PropTypes);
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
 var lazyZ = require('lazy-z');
+var react = require('@carbon/react');
+var iconsReact = require('@carbon/icons-react');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -139,6 +139,7 @@ function buildFormDefaultInputMethods(component) {
   component.setNameToValue = setNameToValue$2.bind(component);
 }
 
+<<<<<<< HEAD
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
@@ -196,6 +197,8 @@ EmptyResourceTile.propTypes = {
   showIfEmpty: PropTypes__default["default"].oneOfType([PropTypes__default["default"].array, PropTypes__default["default"].bool]).isRequired
 };
 
+=======
+>>>>>>> b9aa481 (feat: object storage key form)
 function ownKeys(object, enumerableOnly) {
   var keys = Object.keys(object);
   if (Object.getOwnPropertySymbols) {
@@ -571,6 +574,7 @@ var lib_9 = lib.setNameToValue;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 /**
  * create a composed class name
  * @param {string} className name of classes to add
@@ -676,6 +680,8 @@ function buildFormDefaultInputMethods(component) {
   component.setNameToValue = lib_9.bind(component);
 }
 
+=======
+>>>>>>> b9aa481 (feat: object storage key form)
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
@@ -703,6 +709,7 @@ function styleInject(css, ref) {
   }
 }
 
+<<<<<<< HEAD
 var css_248z$8 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$8);
 
@@ -843,6 +850,141 @@ var css_248z$2 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIcon
 styleInject(css_248z$2);
 =======
 var css_248z$7 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+=======
+var css_248z$9 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
+styleInject(css_248z$9);
+
+var css_248z$8 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+styleInject(css_248z$8);
+
+/**
+ * Render a form (duplicate from utils to prevent circular dependencies)
+ * @param {*} form form element
+ * @param {*} formProps props
+ * @returns Form element
+ */
+function RenderForm$1(form, formProps) {
+  return /*#__PURE__*/React__default["default"].createElement(form, _objectSpread2({}, formProps));
+}
+
+/**
+ * render a tooltip around an input field
+ * @returns slz tooltip component
+ */
+var IcseToolTip = function IcseToolTip(props) {
+  var link = /*#__PURE__*/React__default["default"].createElement(react.Link, {
+    onClick: function onClick() {
+      return window.open(props.link, "_blank");
+    }
+  }, "this link");
+  return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(react.Toggletip, {
+    align: props.align
+  }, /*#__PURE__*/React__default["default"].createElement(react.ToggletipButton, null, /*#__PURE__*/React__default["default"].createElement(iconsReact.Information, {
+    className: "tooltipMarginLeft"
+  })), /*#__PURE__*/React__default["default"].createElement(react.ToggletipContent, null, /*#__PURE__*/React__default["default"].createElement("p", null, props.content, props.link && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, " Visit ", link, " for more information. ")))));
+};
+IcseToolTip.defaultProps = {
+  content: "",
+  align: "top"
+};
+IcseToolTip.propTypes = {
+  content: PropTypes__default["default"].string.isRequired,
+  link: PropTypes__default["default"].string,
+  align: PropTypes__default["default"].string.isRequired
+};
+var BuildToolTip = function BuildToolTip(props) {
+  var _props$tooltip;
+  return /*#__PURE__*/React__default["default"].createElement(IcseToolTip, {
+    content: props.tooltip.content,
+    link: (_props$tooltip = props.tooltip) === null || _props$tooltip === void 0 ? void 0 : _props$tooltip.link,
+    align: props.isModal ? props.tooltip.alignModal : props.tooltip.align
+  });
+};
+BuildToolTip.defaultProps = {
+  tooltip: {
+    content: ""
+  },
+  isModal: false,
+  align: "top",
+  alignModal: "bottom"
+};
+BuildToolTip.propTypes = {
+  tooltip: PropTypes__default["default"].shape({
+    content: PropTypes__default["default"].string.isRequired,
+    link: PropTypes__default["default"].string
+  }).isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired,
+  align: PropTypes__default["default"].string.isRequired,
+  alignModal: PropTypes__default["default"].string.isRequired
+};
+var ToolTipWrapper = function ToolTipWrapper(props) {
+  var allProps = _objectSpread2({}, props);
+  var tooltip = BuildToolTip(props);
+  delete allProps.innerForm;
+  delete allProps.tooltip;
+  delete allProps.noLabelText;
+  //check for labelText prop for components where it is a valid param
+  if (!props.noLabelText && props.labelText === undefined) {
+    throw new Error("ToolTipWrapper expects `props.labelText` when rendering labelText to be provided, got neither. To not render label text, use the `noLabelText` prop.");
+  }
+  // remove label text from components where it is not valid param
+  if (props.noLabelText) delete allProps.labelText;else allProps.labelText = " ";
+  allProps.className = lib_2("tooltip", _objectSpread2({}, props));
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "cds--form-item"
+  }, props.noLabelText ?
+  /*#__PURE__*/
+  // No label- this is usually a title
+  React__default["default"].createElement("div", {
+    className: "labelRow"
+  }, RenderForm$1(props.innerForm, allProps), tooltip) : /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "cds--label labelRow"
+  }, /*#__PURE__*/React__default["default"].createElement("label", {
+    htmlFor: props.id
+  }, props.labelText), tooltip), props.children ? /*#__PURE__*/React__default["default"].cloneElement(props.children, {
+    // adjust props
+    labelText: " ",
+    // set labelText to empty
+    className: props.children.props.className + " tooltip" // add tooltip class back
+  }) : RenderForm$1(props.innerForm, allProps)));
+};
+ToolTipWrapper.defaultProps = {
+  tooltip: {
+    content: ""
+  },
+  noLabelText: false
+};
+ToolTipWrapper.propTypes = {
+  tooltip: PropTypes__default["default"].shape({
+    content: PropTypes__default["default"].string.isRequired,
+    link: PropTypes__default["default"].string
+  }).isRequired,
+  isModal: PropTypes__default["default"].bool,
+  id: PropTypes__default["default"].string.isRequired,
+  labelText: PropTypes__default["default"].string,
+  noLabelText: PropTypes__default["default"].bool.isRequired,
+  children: PropTypes__default["default"].node,
+  innerForm: PropTypes__default["default"].oneOfType([PropTypes__default["default"].object, PropTypes__default["default"].func])
+};
+var DynamicToolTipWrapper = function DynamicToolTipWrapper(props) {
+  //make sure that either children or innerForm are passed as a prop
+  if (props.children === undefined && props.innerForm === undefined) {
+    throw new Error("DynamicToolTipWrapper expects either `props.children` or `props.innerForm` when rendering ToolTipWrapper, got neither.");
+  }
+  return props.tooltip ? /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, props) : props.children ? props.children : RenderForm$1(props.innerForm, {});
+};
+DynamicToolTipWrapper.propTypes = {
+  tooltip: PropTypes__default["default"].shape({
+    content: PropTypes__default["default"].string,
+    link: PropTypes__default["default"].string
+  }),
+  isModal: PropTypes__default["default"].bool,
+  children: PropTypes__default["default"].node,
+  innerForm: PropTypes__default["default"].oneOfType([PropTypes__default["default"].object, PropTypes__default["default"].func])
+};
+
+var css_248z$7 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  z-index: 9001;\n  top: 20px;\n}\n";
+>>>>>>> b9aa481 (feat: object storage key form)
 styleInject(css_248z$7);
 
 /**
@@ -1772,6 +1914,7 @@ PopoverWrapper.propTypes = {
   children: PropTypes__default["default"].node.isRequired
 };
 
+<<<<<<< HEAD
 var css_248z$7 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
 styleInject(css_248z$7);
 
@@ -2016,6 +2159,8 @@ PopoverWrapper.propTypes = {
   children: PropTypes__default["default"].node.isRequired
 };
 
+=======
+>>>>>>> b9aa481 (feat: object storage key form)
 var css_248z$6 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
 styleInject(css_248z$6);
 
@@ -2324,6 +2469,7 @@ StatelessToggleForm.propTypes = {
   alwaysShowButtons: PropTypes__default["default"].bool
 };
 
+<<<<<<< HEAD
 var css_248z$6 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
 styleInject(css_248z$6);
 
@@ -2453,6 +2599,11 @@ styleInject(css_248z$5);
 const IcseToggle = props => {
   let toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
 =======
+=======
+var css_248z$5 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
+styleInject(css_248z$5);
+
+>>>>>>> b9aa481 (feat: object storage key form)
 var IcseToggle = function IcseToggle(props) {
   var toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
 >>>>>>> b6eab56 (example and readme)
@@ -2663,6 +2814,7 @@ IcseNameInput.propTypes = {
   invalidCallback: PropTypes__default["default"].func
 };
 
+<<<<<<< HEAD
 var css_248z$4 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
 styleInject(css_248z$4);
 
@@ -2999,6 +3151,8 @@ SccForm.propTypes = {
 >>>>>>> 4fb645f (moved to lib with tests)
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+>>>>>>> b9aa481 (feat: object storage key form)
 var IcseSelect = function IcseSelect(props) {
   var invalid =
 =======
@@ -5296,6 +5450,7 @@ EntitlementSelect.propTypes = {
   name: PropTypes__default["default"].string.isRequired
 };
 
+<<<<<<< HEAD
 =======
 >>>>>>> b345987 (fixes & heading/statelesstoggle form added)
 =======
@@ -5309,6 +5464,361 @@ const UnderConstruction = () => {
 var UnderConstruction = function UnderConstruction() {
 >>>>>>> 72d0b85 (merge)
 =======
+=======
+var ObjectStorageKeyForm = /*#__PURE__*/function (_Component) {
+  _inherits(ObjectStorageKeyForm, _Component);
+  var _super = _createSuper(ObjectStorageKeyForm);
+  function ObjectStorageKeyForm(props) {
+    var _this;
+    _classCallCheck(this, ObjectStorageKeyForm);
+    _this = _super.call(this, props);
+    _this.state = {
+      name: _this.props.data.name,
+      role: _this.props.data.role || "Writer",
+      enable_hmac: _this.props.data.enable_hmac
+    };
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * Handler for toggle
+   * @param {String} name specifies the name of the state value you wish to change
+   */
+  _createClass(ObjectStorageKeyForm, [{
+    key: "handleToggle",
+    value: function handleToggle() {
+      this.setState(this.toggleStateBoolean("enable_hmac", this.state));
+    }
+
+    /**
+     * handle input change
+     * @param {event} event event
+     */
+  }, {
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      // composed id
+      var composedId = "key-form-".concat(this.props.data.name ? this.props.data.name : "new-key");
+      var fieldWidth = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+        noMarginBottom: true
+      }, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+        id: this.state.name + "-name",
+        componentName: this.props.data.name,
+        component: "cos_keys",
+        value: this.state.name,
+        onChange: this.handleInputChange,
+        componentProps: this.props,
+        placeholder: "my-cos-key-name",
+        random_suffix: this.props.parentHasRandomSuffix,
+        className: fieldWidth,
+        helperTextCallback: function helperTextCallback() {
+          return _this2.props.composedNameCallback(_this2.state);
+        },
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props)
+      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        component: this.props.data.name,
+        name: "role",
+        groups: ["Object Writer", "Object Reader", "Content Reader", "Reader", "Writer", "Manager"],
+        value: this.state.role,
+        labelText: "Role",
+        handleInputChange: this.handleInputChange,
+        className: fieldWidth
+      }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        tooltip: {
+          link: "https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-uhc-hmac-credentials-main",
+          content: "HMAC (hash-based message authentication code) is required for Teleport VSI instances."
+        },
+        id: composedId + "cos-instance-key-hmac",
+        labelText: "Enable HMAC",
+        defaultToggled: this.props.forceEnableHmac,
+        onToggle: this.handleToggle,
+        isModal: this.props.isModal,
+        disabled: this.props.forceEnableHmac
+      })));
+    }
+  }]);
+  return ObjectStorageKeyForm;
+}(React.Component);
+ObjectStorageKeyForm.defaultProps = {
+  data: {
+    name: "",
+    enable_hmac: false
+  },
+  forceEnableHmac: false
+};
+ObjectStorageKeyForm.propTypes = {
+  isModal: PropTypes__default["default"].bool,
+  data: PropTypes__default["default"].shape({
+    enable_hmac: PropTypes__default["default"].bool.isRequired,
+    name: PropTypes__default["default"].string.isRequired,
+    role: PropTypes__default["default"].string
+  }),
+  shouldDisableSave: PropTypes__default["default"].func,
+  shouldDisableSubmit: PropTypes__default["default"].func,
+  forceEnableHmac: PropTypes__default["default"].bool.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  composedNameCallback: PropTypes__default["default"].func.isRequired
+};
+
+var css_248z$4 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z$4);
+
+/**
+ * Empty Resource Tile
+ * @param {*} props
+ * @param {string} props.name resource name
+ * @param {(boolean|*[])} props.showIfEmpty if array is empty or boolean is false, show the empty resource tile
+ * @returns tile if shown, empty string otherwise
+ */
+
+var EmptyResourceTile = function EmptyResourceTile(props) {
+  return props.showIfEmpty === false || props.showIfEmpty.length === 0 ? /*#__PURE__*/React__default["default"].createElement(react.Tile, {
+    className: "marginBottomXs tileBackground"
+  }, /*#__PURE__*/React__default["default"].createElement(iconsReact.CloudAlerting, {
+    size: "24",
+    className: "iconMargin"
+  }), "No ", props.name, ".", " ", props.instructions || /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, "Click", /*#__PURE__*/React__default["default"].createElement(iconsReact.Add, {
+    size: "24",
+    className: "inlineIconMargin"
+  }), "button to add one.")) : "";
+};
+EmptyResourceTile.defaultProps = {
+  name: "items in this list"
+};
+EmptyResourceTile.propTypes = {
+  name: PropTypes__default["default"].string.isRequired,
+  showIfEmpty: PropTypes__default["default"].oneOfType([PropTypes__default["default"].array, PropTypes__default["default"].bool]).isRequired
+};
+
+var css_248z$3 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
+styleInject(css_248z$3);
+
+var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(AppIdKeyForm, _React$Component);
+  var _super = _createSuper(AppIdKeyForm);
+  function AppIdKeyForm(props) {
+    var _this;
+    _classCallCheck(this, AppIdKeyForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  _createClass(AppIdKeyForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState({
+        key_name: event.target.value
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+        id: "app-id-key-name",
+        value: this.state.key_name,
+        onChange: this.handleInputChange,
+        field: "appid_key",
+        labelText: "App ID Key",
+        componentName: "appid",
+        className: "fieldWidthSmaller",
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props)
+      }));
+    }
+  }]);
+  return AppIdKeyForm;
+}(React__default["default"].Component);
+AppIdKeyForm.defaultProps = {
+  data: {
+    key_name: ""
+  }
+};
+AppIdKeyForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    key_name: PropTypes__default["default"].string.isRequired
+  }),
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired
+};
+
+var sccRegions = [{
+  id: "us",
+  label: "us"
+}, {
+  id: "eu",
+  label: "eu"
+}, {
+  id: "uk",
+  label: "uk"
+}];
+
+/**
+ * SccForm
+ * @param {Object} props
+ */
+var SccForm = /*#__PURE__*/function (_Component) {
+  _inherits(SccForm, _Component);
+  var _super = _createSuper(SccForm);
+  function SccForm(props) {
+    var _this;
+    _classCallCheck(this, SccForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleLocationChange = _this.handleLocationChange.bind(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    _this.state.enable_scc = true;
+    return _this;
+  }
+
+  /**
+   * Handle input change for scope_name field
+   * @param {event} event
+   */
+  _createClass(SccForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+
+    /**
+     * handle input change
+     * @param {event} event event
+     */
+  }, {
+    key: "handleLocationChange",
+    value: function handleLocationChange(selectedItem) {
+      this.setState({
+        location_id: selectedItem.selectedItem.label
+      });
+    }
+
+    /**
+     * Toggle on and off param in state at name
+     * @param {string} name name of the object key to change
+     * @param {bool} setDefaults set default values, default is false
+     */
+  }, {
+    key: "handleToggle",
+    value: function handleToggle(name) {
+      this.setState(this.toggleStateBoolean(name, this.state));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.Dropdown, {
+        ariaLabel: "Dropdown",
+        id: "location_id",
+        items: sccRegions,
+        label: "SCC Region Options",
+        titleText: "Region",
+        onChange: function onChange(selectedItem) {
+          _this2.handleLocationChange(selectedItem);
+        },
+        className: "leftTextAlign fieldWidth"
+      }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        tooltip: {
+          content: "Determines whether the collector endpoint is accessible on a public network."
+        },
+        labelText: "Is Public",
+        defaultToggled: this.state.is_public,
+        className: "leftTextAlign",
+        onToggle: this.handleToggle,
+        id: "scc-is-public"
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+        id: "scc_scope_name",
+        tooltip: {
+          content: "A unique name for your scope. A scope narrows the focus of the scan.",
+          align: "top-left"
+        },
+        componentName: "SCC",
+        field: "scope_name",
+        labelText: "Scope Name",
+        value: this.state.scope_name,
+        onChange: this.handleInputChange,
+        maxLength: 50,
+        invalid: lib_10("scope_name", this.state.scope_name, this.props.scopeNameRegex).invalid,
+        invalidText: lib_10("scope_name", this.state.scope_name, this.props.scopeNameRegex).invalidText
+      }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+        id: "scc_scope_description",
+        tooltip: {
+          content: "A detailed description of the scope."
+        },
+        componentName: "SCC",
+        field: "scope_description",
+        labelText: "Scope Description",
+        value: this.state.scope_description,
+        onChange: this.handleInputChange,
+        maxLength: 255,
+        invalid: lib_10("scope_description", this.state.scope_description, this.props.descriptionRegex).invalid,
+        invalidText: lib_10("scope_description", this.state.scope_description, this.props.descriptionRegex).invalidText
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+        noMarginBottom: true
+      }, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+        id: "scc_collector",
+        tooltip: {
+          content: "A detailed description of the collector.",
+          align: "top-left"
+        },
+        labelText: "Collector Description",
+        field: "collector_description",
+        value: this.state.collector_description,
+        onChange: this.handleInputChange,
+        componentName: "SCC",
+        maxLength: 1000,
+        invalid: lib_10("collector_description", this.state.collector_description, this.props.descriptionRegex).invalid,
+        invalidText: lib_10("collector_description", this.state.collector_description, this.props.descriptionRegex).invalidText
+      })));
+    }
+  }]);
+  return SccForm;
+}(React.Component);
+SccForm.defaultProps = {
+  data: {
+    enable_scc: false
+  },
+  scopeNameRegex: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i,
+  descriptionRegex: /^[A-z][a-zA-Z0-9-\._,\s]*$/i
+};
+SccForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    enable_scc: PropTypes__default["default"].bool.isRequired,
+    collector_description: PropTypes__default["default"].string,
+    is_public: PropTypes__default["default"].bool,
+    location_id: PropTypes__default["default"].string,
+    scope_description: PropTypes__default["default"].string,
+    scope_name: PropTypes__default["default"].string,
+    collector_passphrase: PropTypes__default["default"].string
+  }),
+  scopeNameRegex: PropTypes__default["default"].instanceOf(RegExp).isRequired,
+  descriptionRegex: PropTypes__default["default"].instanceOf(RegExp).isRequired
+};
+
+>>>>>>> b9aa481 (feat: object storage key form)
 /**
  * SecretsManagerForm
  * @param {Object} props
@@ -6121,8 +6631,13 @@ FormModal.propTypes = {
   children: PropTypes__default["default"].node.isRequired
 };
 
+<<<<<<< HEAD
 var css_248z$3 = ".leftTextAlign {\n  text-align: left;\n}\n";
 styleInject(css_248z$3);
+=======
+var css_248z$2 = ".leftTextAlign {\n  text-align: left;\n}\n";
+styleInject(css_248z$2);
+>>>>>>> b9aa481 (feat: object storage key form)
 
 /**
  * Icse Modal Wrapper
@@ -6245,8 +6760,13 @@ UnsavedChangesModal.propTypes = {
   useDefaultUnsavedMessage: PropTypes__default["default"].bool
 };
 
+<<<<<<< HEAD
 var css_248z$2 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
 styleInject(css_248z$2);
+=======
+var css_248z$1 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+styleInject(css_248z$1);
+>>>>>>> b9aa481 (feat: object storage key form)
 
 /**
  * Icse multiselect template
@@ -6460,7 +6980,11 @@ var UnderConstruction = function UnderConstruction() {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+=======
+var css_248z = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }";
+>>>>>>> b9aa481 (feat: object storage key form)
 styleInject(css_248z);
 
 /**
@@ -8322,6 +8846,7 @@ StatefulTabPanel.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> b982705 (feat: StatefulTabPanel)
 =======
 =======
@@ -8335,6 +8860,8 @@ class ToggleForm extends React__default["default"].Component {
 =======
 =======
 >>>>>>> 09dbacf (SshKeyForm, example, and docs)
+=======
+>>>>>>> b9aa481 (feat: object storage key form)
 var ToggleForm = /*#__PURE__*/function (_React$Component) {
   _inherits(ToggleForm, _React$Component);
   var _super = _createSuper(ToggleForm);
@@ -8345,11 +8872,14 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       hide: _this.props.hide,
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> f19dfef (merge)
 =======
 >>>>>>> 45b57f8 (remove extra props, add name and hideName)
 =======
 >>>>>>> 09dbacf (SshKeyForm, example, and docs)
+=======
+>>>>>>> b9aa481 (feat: object storage key form)
       showDeleteModal: false,
       showUnsavedChangeModal: false,
       disableSave: true,
@@ -8836,6 +9366,7 @@ exports.IcseTextInput = IcseTextInput;
 exports.IcseToggle = IcseToggle;
 exports.IcseToolTip = IcseToolTip;
 exports.KeyManagementForm = KeyManagementForm;
+exports.ObjectStorageKeyForm = ObjectStorageKeyForm;
 exports.PopoverWrapper = PopoverWrapper;
 exports.RenderForm = RenderForm;
 <<<<<<< HEAD
