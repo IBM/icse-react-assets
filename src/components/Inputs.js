@@ -111,7 +111,7 @@ IcseTextInput.propTypes = {
   disabled: PropTypes.bool.isRequired,
   componentName: PropTypes.string,
   placeholder: PropTypes.string,
-  field: PropTypes.string.isRequired,
+  field: PropTypes.string,
   value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   helperText: PropTypes.string,
