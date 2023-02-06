@@ -8312,13 +8312,17 @@ StatefulTabPanel.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> b982705 (feat: StatefulTabPanel)
 =======
+=======
+>>>>>>> 45b57f8 (remove extra props, add name and hideName)
 class ToggleForm extends React__default["default"].Component {
   constructor(props) {
     super(props);
     this.state = {
       hide: this.props.hide,
+<<<<<<< HEAD
 =======
 var ToggleForm = /*#__PURE__*/function (_React$Component) {
   _inherits(ToggleForm, _React$Component);
@@ -8330,6 +8334,8 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       hide: _this.props.hide,
 >>>>>>> f19dfef (merge)
+=======
+>>>>>>> 45b57f8 (remove extra props, add name and hideName)
       showDeleteModal: false,
       showUnsavedChangeModal: false,
       disableSave: true,
@@ -8340,272 +8346,232 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
       useDefaultUnsavedMessage: true,
       ruleOrderChange: false
     };
-    _this.toggleChildren = _this.toggleChildren.bind(_assertThisInitialized(_this));
-    _this.toggleDeleteModal = _this.toggleDeleteModal.bind(_assertThisInitialized(_this));
-    _this.toggleUnsavedChangeModal = _this.toggleUnsavedChangeModal.bind(_assertThisInitialized(_this));
-    _this.dismissChangesAndClose = _this.dismissChangesAndClose.bind(_assertThisInitialized(_this));
-    _this.onSave = _this.onSave.bind(_assertThisInitialized(_this));
-    _this.onDelete = _this.onDelete.bind(_assertThisInitialized(_this));
-    _this.shouldDisableSave = _this.shouldDisableSave.bind(_assertThisInitialized(_this));
-    _this.shouldShow = _this.shouldShow.bind(_assertThisInitialized(_this));
-    _this.networkRuleOrderDidChange = _this.networkRuleOrderDidChange.bind(_assertThisInitialized(_this));
-    _this.toggleShowChildren = _this.toggleShowChildren.bind(_assertThisInitialized(_this));
-    _this.onToggleSubModal = _this.onToggleSubModal.bind(_assertThisInitialized(_this));
-    _this.childRef = /*#__PURE__*/React__default["default"].createRef();
-    return _this;
+    this.toggleChildren = this.toggleChildren.bind(this);
+    this.toggleDeleteModal = this.toggleDeleteModal.bind(this);
+    this.toggleUnsavedChangeModal = this.toggleUnsavedChangeModal.bind(this);
+    this.dismissChangesAndClose = this.dismissChangesAndClose.bind(this);
+    this.onSave = this.onSave.bind(this);
+    this.onDelete = this.onDelete.bind(this);
+    this.shouldDisableSave = this.shouldDisableSave.bind(this);
+    this.shouldShow = this.shouldShow.bind(this);
+    this.networkRuleOrderDidChange = this.networkRuleOrderDidChange.bind(this);
+    this.toggleShowChildren = this.toggleShowChildren.bind(this);
+    this.onToggleSubModal = this.onToggleSubModal.bind(this);
+    this.childRef = /*#__PURE__*/React__default["default"].createRef();
   }
 
   /**
    * toggle sub modal
    */
-  _createClass(ToggleForm, [{
-    key: "onToggleSubModal",
-    value: function onToggleSubModal() {
+  onToggleSubModal() {
+    this.setState({
+      showSubModal: !this.state.showSubModal
+    });
+  }
+  componentDidMount() {
+    if (this.state.hide === true && this.shouldShow() === true) {
       this.setState({
-        showSubModal: !this.state.showSubModal
+        hide: false
       });
     }
-  }, {
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      if (this.state.hide === true && this.shouldShow() === true) {
-        this.setState({
-          hide: false
-        });
-      }
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.hide !== this.state.hide && this.props.onShowToggle) {
+      this.props.onShowToggle(this.props.index);
     }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps, prevState) {
-      if (prevState.hide !== this.state.hide && this.props.onShowToggle) {
-        this.props.onShowToggle(this.props.index);
-      }
-    }
+  }
 
-    /**
-     * toggle children rendered by form
-     */
-  }, {
-    key: "toggleChildren",
-    value: function toggleChildren() {
-      var _this$childRef$curren;
-      if ((_this$childRef$curren = this.childRef.current) !== null && _this$childRef$curren !== void 0 && _this$childRef$curren.state) {
-        var stateData = this.childRef.current.state;
-        var componentProps = this.childRef.current.props;
-        var propsDoNotMatch = this.props.propsMatchState(this.props.submissionFieldName, stateData, componentProps) === false;
-        if (propsDoNotMatch || this.state.useDefaultUnsavedMessage === false) {
-          this.toggleUnsavedChangeModal();
-        } else {
-          this.setState({
-            hide: !this.state.hide
-          });
-        }
+  /**
+   * toggle children rendered by form
+   */
+  toggleChildren() {
+    if (this.childRef.current?.state) {
+      let stateData = this.childRef.current.state;
+      let componentProps = this.childRef.current.props;
+      let propsDoNotMatch = this.props.propsMatchState(this.props.submissionFieldName, stateData, componentProps) === false;
+      if (propsDoNotMatch || this.state.useDefaultUnsavedMessage === false) {
+        this.toggleUnsavedChangeModal();
       } else {
         this.setState({
           hide: !this.state.hide
         });
       }
-    }
-
-    /**
-     * toggle delete modal
-     */
-  }, {
-    key: "toggleDeleteModal",
-    value: function toggleDeleteModal() {
+    } else {
       this.setState({
-        showDeleteModal: !this.state.showDeleteModal
+        hide: !this.state.hide
       });
     }
+  }
 
-    /**
-     * toggle unsaved changes modal
-     */
-  }, {
-    key: "toggleUnsavedChangeModal",
-    value: function toggleUnsavedChangeModal() {
+  /**
+   * toggle delete modal
+   */
+  toggleDeleteModal() {
+    this.setState({
+      showDeleteModal: !this.state.showDeleteModal
+    });
+  }
+
+  /**
+   * toggle unsaved changes modal
+   */
+  toggleUnsavedChangeModal() {
+    this.setState({
+      showUnsavedChangeModal: !this.state.showUnsavedChangeModal
+    });
+  }
+
+  /**
+   * Dismiss changes and close
+   */
+  dismissChangesAndClose() {
+    this.setState({
+      showUnsavedChangeModal: false,
+      hide: true
+    });
+  }
+
+  /**
+   * on save
+   */
+  onSave() {
+    this.props.onSave(this.childRef.current.state, this.childRef.current.props);
+    this.setState({
+      useDefaultUnsavedMessage: true
+    });
+  }
+
+  /**
+   * on delete
+   */
+  onDelete() {
+    this.props.onShowToggle(this.props.index);
+    this.props.onDelete(this.childRef.current?.state, this.childRef.current?.props);
+    this.setState({
+      hide: true,
+      showDeleteModal: false
+    });
+  }
+
+  /**
+   * should disable save
+   * @param {*} stateData state data
+   * @param {*} componentProps component props
+   */
+  shouldDisableSave(stateData, componentProps) {
+    let enableSave = this.props.disableSave(this.props.submissionFieldName, stateData, componentProps) === false;
+    let propsDoNotMatch = this.props.propsMatchState(this.props.submissionFieldName, stateData, componentProps) === false;
+    if (enableSave === false && this.state.useDefaultUnsavedMessage && propsDoNotMatch === false) {
       this.setState({
-        showUnsavedChangeModal: !this.state.showUnsavedChangeModal
+        useDefaultUnsavedMessage: false
+      });
+    } else if (enableSave && propsDoNotMatch && this.state.disableSave) {
+      this.setState({
+        disableSave: false,
+        propsMatchState: false
+      });
+    } else if (!this.state.disableSave && (!enableSave || !propsDoNotMatch)) {
+      this.setState({
+        disableSave: true,
+        propsMatchState: !propsDoNotMatch
       });
     }
-
-    /**
-     * Dismiss changes and close
-     */
-  }, {
-    key: "dismissChangesAndClose",
-    value: function dismissChangesAndClose() {
+  }
+  shouldShow() {
+    return this.props.forceOpen(this.state, this.props);
+  }
+  networkRuleOrderDidChange(didNotChange) {
+    let didChange = !didNotChange;
+    if (this.state.ruleOrderChange !== didChange) {
       this.setState({
-        showUnsavedChangeModal: false,
-        hide: true
+        ruleOrderChange: didChange
       });
     }
-
-    /**
-     * on save
-     */
-  }, {
-    key: "onSave",
-    value: function onSave() {
-      this.props.onSave(this.childRef.current.state, this.childRef.current.props);
-      this.setState({
-        useDefaultUnsavedMessage: true
-      });
+  }
+  toggleShowChildren() {
+    this.setState({
+      showChildren: !this.state.showChildren
+    });
+  }
+  render() {
+    if (this.props.noDeleteButton !== true && !this.props.onDelete) {
+      throw new Error(`ToggleForm expects onDelete Function to be passed when a delete button is rendered`);
     }
-
-    /**
-     * on delete
-     */
-  }, {
-    key: "onDelete",
-    value: function onDelete() {
-      var _this$childRef$curren2, _this$childRef$curren3;
-      this.props.onShowToggle(this.props.index);
-      this.props.onDelete((_this$childRef$curren2 = this.childRef.current) === null || _this$childRef$curren2 === void 0 ? void 0 : _this$childRef$curren2.state, (_this$childRef$curren3 = this.childRef.current) === null || _this$childRef$curren3 === void 0 ? void 0 : _this$childRef$curren3.props);
-      this.setState({
-        hide: true,
-        showDeleteModal: false
-      });
+    if (this.props.noSaveButton !== true && !this.props.onSave) {
+      throw new Error(`ToggleForm expects onSave Function to be passed when a save button is rendered`);
     }
-
-    /**
-     * should disable save
-     * @param {*} stateData state data
-     * @param {*} componentProps component props
-     */
-  }, {
-    key: "shouldDisableSave",
-    value: function shouldDisableSave(stateData, componentProps) {
-      var enableSave = this.props.disableSave(this.props.submissionFieldName, stateData, componentProps) === false;
-      var propsDoNotMatch = this.props.propsMatchState(this.props.submissionFieldName, stateData, componentProps) === false;
-      if (enableSave === false && this.state.useDefaultUnsavedMessage && propsDoNotMatch === false) {
-        this.setState({
-          useDefaultUnsavedMessage: false
-        });
-      } else if (enableSave && propsDoNotMatch && this.state.disableSave) {
-        this.setState({
-          disableSave: false,
-          propsMatchState: false
-        });
-      } else if (!this.state.disableSave && (!enableSave || !propsDoNotMatch)) {
-        this.setState({
-          disableSave: true,
-          propsMatchState: !propsDoNotMatch
-        });
-      }
-    }
-  }, {
-    key: "shouldShow",
-    value: function shouldShow() {
-      return this.props.forceOpen(this.state, this.props);
-    }
-  }, {
-    key: "networkRuleOrderDidChange",
-    value: function networkRuleOrderDidChange(didNotChange) {
-      var didChange = !didNotChange;
-      if (this.state.ruleOrderChange !== didChange) {
-        this.setState({
-          ruleOrderChange: didChange
-        });
-      }
-    }
-  }, {
-    key: "toggleShowChildren",
-    value: function toggleShowChildren() {
-      this.setState({
-        showChildren: !this.state.showChildren
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this2 = this,
-        _objectSpread2$1;
-      if (this.props.noDeleteButton !== true && !this.props.onDelete) {
-        throw new Error("ToggleForm expects onDelete Function to be passed when a delete button is rendered");
-      }
-      if (this.props.noSaveButton !== true && !this.props.onSave) {
-        throw new Error("ToggleForm expects onSave Function to be passed when a save button is rendered");
-      }
-      var formTitle = this.props.name;
-      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(StatefulTabPanel, _extends({}, this.props.tabPanel ? this.props.tabPanel : {}, {
-        toggleShowChildren: this.toggleShowChildren,
-        form: /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, this.props.formName && /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
-          name: this.props.formName,
-          hideButton: true
-        }), /*#__PURE__*/React__default["default"].createElement("div", {
-          className: lib_2(this.props.type === "formInSubForm" ? "formInSubForm positionRelative marginBottomSmall" : "subForm marginBottomSmall")
-        }, /*#__PURE__*/React__default["default"].createElement(StatelessToggleForm, {
-          hide: this.state.hide,
-          iconType: this.props.useAddButton ? "add" : "edit",
-          onIconClick: this.toggleChildren,
-          toggleFormTitle: true,
-          name: formTitle,
-          buttons: /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
-            hide: this.props.addButtonAtFormTitle !== true,
-            show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
-              type: "add",
-              onClick: this.onToggleSubModal,
-              noDeleteButton: true
-            })
-          }), /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
-            hide: this.props.noSaveButton || this.props.addButtonAtFormTitle,
-            show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
-              onClick: this.onSave,
-              disabled: this.state.disableSave,
-              noDeleteButton: this.props.noDeleteButton
-            })
-          }), /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
-            hide: this.props.noDeleteButton,
-            show: /*#__PURE__*/React__default["default"].createElement(DeleteButton, {
-              onClick: this.toggleDeleteModal,
-              name: formTitle,
-              disabled: this.props.deleteDisabled(this.props),
-              disableDeleteMessage: function disableDeleteMessage() {
-                return _this2.props.disableDeleteMessage(_this2.props);
-              }
-            })
-          }))
-        }, /*#__PURE__*/React__default["default"].createElement(UnsavedChangesModal, {
-          name:
-          // use tab panel name if passed
-          this.props.tabPanel ? this.props.tabPanel.name : formTitle,
-          modalOpen: this.state.showUnsavedChangeModal,
-          onModalClose: this.toggleUnsavedChangeModal,
-          onModalSubmit: this.dismissChangesAndClose,
-          useDefaultUnsavedMessage: this.state.useDefaultUnsavedMessage
-        }), /*#__PURE__*/React__default["default"].createElement(DeleteModal, {
-          name:
-          // use tab panel name if passed
-          this.props.tabPanel ? this.props.tabPanel.name : formTitle,
-          modalOpen: this.state.showDeleteModal,
-          onModalClose: this.toggleDeleteModal,
-          onModalSubmit: this.onDelete
-        }), RenderForm(this.props.innerForm, _objectSpread2(_objectSpread2({}, this.props.innerFormProps), {}, (_objectSpread2$1 = {
-          ref: this.props.nullRef ? null : this.childRef,
-          shouldDisableSave: this.shouldDisableSave,
-          data: this.props.data,
-          isModal: false,
-          arrayParentName: this.props.arrayParentName,
-          showSubModal: this.state.showSubModal,
-          addText: this.props.addText,
-          // is this used?
-          readOnly: this.props.readOnly,
-          networkRuleOrderDidChange: this.networkRuleOrderDidChange,
-          onChildShowToggle: this.props.onChildShowToggle,
-          index: this.props.index,
-          shownChildren: this.props.shownChildren,
-          handleModalToggle: this.onToggleSubModal
-        }, _defineProperty(_objectSpread2$1, "showSubModal", this.state.showSubModal), _defineProperty(_objectSpread2$1, "saveFromChildForm", {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(StatefulTabPanel, _extends({}, this.props.tabPanel ? this.props.tabPanel : {}, {
+      toggleShowChildren: this.toggleShowChildren,
+      form: /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, this.props.name && !this.props.hideName && /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+        name: this.props.name,
+        hideButton: true
+      }), /*#__PURE__*/React__default["default"].createElement("div", {
+        className: lib_2(this.props.type === "formInSubForm" ? "formInSubForm positionRelative marginBottomSmall" : "subForm marginBottomSmall")
+      }, /*#__PURE__*/React__default["default"].createElement(StatelessToggleForm, {
+        hide: this.state.hide,
+        iconType: this.props.useAddButton ? "add" : "edit",
+        onIconClick: this.toggleChildren,
+        toggleFormTitle: true,
+        name: this.props.name,
+        buttons: /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+          hide: this.props.addButtonAtFormTitle !== true,
+          show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+            type: "add",
+            onClick: this.onToggleSubModal,
+            noDeleteButton: true
+          })
+        }), /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+          hide: this.props.noSaveButton || this.props.addButtonAtFormTitle,
+          show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+            onClick: this.onSave,
+            disabled: this.state.disableSave,
+            noDeleteButton: this.props.noDeleteButton
+          })
+        }), /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+          hide: this.props.noDeleteButton,
+          show: /*#__PURE__*/React__default["default"].createElement(DeleteButton, {
+            onClick: this.toggleDeleteModal,
+            name: this.props.name,
+            disabled: this.props.deleteDisabled(this.props),
+            disableDeleteMessage: () => this.props.disableDeleteMessage(this.props)
+          })
+        }))
+      }, /*#__PURE__*/React__default["default"].createElement(UnsavedChangesModal, {
+        name:
+        // use tab panel name if passed
+        this.props.tabPanel ? this.props.tabPanel.name : this.props.name,
+        modalOpen: this.state.showUnsavedChangeModal,
+        onModalClose: this.toggleUnsavedChangeModal,
+        onModalSubmit: this.dismissChangesAndClose,
+        useDefaultUnsavedMessage: this.state.useDefaultUnsavedMessage
+      }), /*#__PURE__*/React__default["default"].createElement(DeleteModal, {
+        name:
+        // use tab panel name if passed
+        this.props.tabPanel ? this.props.tabPanel.name : this.props.name,
+        modalOpen: this.state.showDeleteModal,
+        onModalClose: this.toggleDeleteModal,
+        onModalSubmit: this.onDelete
+      }), RenderForm(this.props.innerForm, {
+        ...this.props.innerFormProps,
+        ref: this.props.nullRef ? null : this.childRef,
+        shouldDisableSave: this.shouldDisableSave,
+        showSubModal: this.state.showSubModal,
+        networkRuleOrderDidChange: this.networkRuleOrderDidChange,
+        onChildShowToggle: this.props.onChildShowToggle,
+        shownChildren: this.props.shownChildren,
+        handleModalToggle: this.onToggleSubModal,
+        showSubModal: this.state.showSubModal,
+        // this is an override to allow the
+        // parent form to be saved from a button inside the child form
+        saveFromChildForm: {
           onSave: this.onSave,
           disableSave: this.state.disableSave
-        }), _objectSpread2$1)))))),
-        about: this.props.about || false
-      })), this.state.showChildren && this.props.children ? this.props.children : "");
-    }
-  }]);
-  return ToggleForm;
-}(React__default["default"].Component);
+        }
+      })))),
+      about: this.props.about || false
+    })), this.state.showChildren && this.props.children ? this.props.children : "");
+  }
+}
 ToggleForm.defaultProps = {
   hide: true,
   unsavedChanges: false,
@@ -8616,15 +8582,18 @@ ToggleForm.defaultProps = {
   noDeleteButton: false,
   noSaveButton: false,
   useAddButton: false,
+  hideName: false,
   // functions that return booleans must have a default
-  deleteDisabled: function deleteDisabled() {
+  deleteDisabled: () => {
     return false;
   },
-  forceOpen: function forceOpen() {
+  forceOpen: () => {
     return false;
   }
 };
 ToggleForm.propTypes = {
+  name: PropTypes__default["default"].string,
+  hideName: PropTypes__default["default"].bool.isRequired,
   onDelete: PropTypes__default["default"].func,
   onSave: PropTypes__default["default"].func,
   onShowToggle: PropTypes__default["default"].func,

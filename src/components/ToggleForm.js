@@ -188,7 +188,6 @@ class ToggleForm extends React.Component {
         `ToggleForm expects onSave Function to be passed when a save button is rendered`
       );
     }
-    let formTitle = this.props.name;
     return (
       <>
         <StatefulTabPanel
@@ -196,8 +195,8 @@ class ToggleForm extends React.Component {
           toggleShowChildren={this.toggleShowChildren}
           form={
             <>
-              {this.props.formName && (
-                <IcseHeading name={this.props.formName} hideButton />
+              {this.props.name && !this.props.hideName && (
+                <IcseHeading name={this.props.name} hideButton />
               )}
               <div
                 className={addClassName(
@@ -211,7 +210,7 @@ class ToggleForm extends React.Component {
                   iconType={this.props.useAddButton ? "add" : "edit"}
                   onIconClick={this.toggleChildren}
                   toggleFormTitle
-                  name={formTitle}
+                  name={this.props.name}
                   buttons={
                     <>
                       <DynamicRender
@@ -244,7 +243,7 @@ class ToggleForm extends React.Component {
                         show={
                           <DeleteButton
                             onClick={this.toggleDeleteModal}
-                            name={formTitle}
+                            name={this.props.name}
                             disabled={this.props.deleteDisabled(this.props)}
                             disableDeleteMessage={() =>
                               this.props.disableDeleteMessage(this.props)
@@ -259,7 +258,9 @@ class ToggleForm extends React.Component {
                   <UnsavedChangesModal
                     name={
                       // use tab panel name if passed
-                      this.props.tabPanel ? this.props.tabPanel.name : formTitle
+                      this.props.tabPanel
+                        ? this.props.tabPanel.name
+                        : this.props.name
                     }
                     modalOpen={this.state.showUnsavedChangeModal}
                     onModalClose={this.toggleUnsavedChangeModal}
@@ -272,7 +273,9 @@ class ToggleForm extends React.Component {
                   <DeleteModal
                     name={
                       // use tab panel name if passed
-                      this.props.tabPanel ? this.props.tabPanel.name : formTitle
+                      this.props.tabPanel
+                        ? this.props.tabPanel.name
+                        : this.props.name
                     }
                     modalOpen={this.state.showDeleteModal}
                     onModalClose={this.toggleDeleteModal}
@@ -282,15 +285,9 @@ class ToggleForm extends React.Component {
                     ...this.props.innerFormProps,
                     ref: this.props.nullRef ? null : this.childRef,
                     shouldDisableSave: this.shouldDisableSave,
-                    data: this.props.data,
-                    isModal: false,
-                    arrayParentName: this.props.arrayParentName,
                     showSubModal: this.state.showSubModal,
-                    addText: this.props.addText, // is this used?
-                    readOnly: this.props.readOnly,
                     networkRuleOrderDidChange: this.networkRuleOrderDidChange,
                     onChildShowToggle: this.props.onChildShowToggle,
-                    index: this.props.index,
                     shownChildren: this.props.shownChildren,
                     handleModalToggle: this.onToggleSubModal,
                     showSubModal: this.state.showSubModal,
@@ -327,6 +324,7 @@ ToggleForm.defaultProps = {
   noDeleteButton: false,
   noSaveButton: false,
   useAddButton: false,
+  hideName: false,
   // functions that return booleans must have a default
   deleteDisabled: () => {
     return false;
@@ -337,6 +335,8 @@ ToggleForm.defaultProps = {
 };
 
 ToggleForm.propTypes = {
+  name: PropTypes.string,
+  hideName: PropTypes.bool.isRequired,
   onDelete: PropTypes.func,
   onSave: PropTypes.func,
   onShowToggle: PropTypes.func,

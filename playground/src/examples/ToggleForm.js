@@ -36,6 +36,7 @@ export const ToggleFormExample = () => {
       propsMatchState={propsMatchState}
       disableSave={disableSave}
       noDeleteButton
+      hideName
       tabPanel={{
         name: "Activity Tracker",
       }}
