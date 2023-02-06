@@ -35,7 +35,7 @@ class TeleportClaimToRoleForm extends Component {
         <IcseTextInput
           id={composedId + "-email"}
           componentName="teleport-claim"
-          labelText="Email"
+          field="email"
           invalid={!this.state.email.match(emailRegex)}
           value={this.state.email}
           onChange={(event) =>
@@ -46,7 +46,7 @@ class TeleportClaimToRoleForm extends Component {
         <IcseTextInput
           id={composedId + "roles"}
           componentName="teleport-claim"
-          labelText="Roles"
+          field="roles"
           value={this.state.roles[0] || ""}
           onChange={(event) =>
             this.onChangeTextInput("roles", event.target.value)
