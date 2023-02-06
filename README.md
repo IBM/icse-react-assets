@@ -1565,9 +1565,8 @@ export const ObjectStorageKeyFormExample = () => {
     <ObjectStorageKeyForm
       data={{
         name: "test-encryption-key",
-        interval_month: 12,
-        root_key: false,
-        force_delete: false,
+        enable_hmac: false,
+        role: "Reader"
       }}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
