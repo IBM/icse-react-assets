@@ -166,7 +166,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$9 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+var css_248z$9 = ".iconMargin {\r\n  margin: 0 0.5rem -0.4rem 0;\r\n}\r\n\r\n.inlineIconMargin {\r\n  margin: -0.4rem 0.05rem;\r\n}\r\n\r\n.marginBottomXs {\r\n  margin-bottom: 0.5rem;\r\n}\r\n\r\n.tileBackground {\r\n  background-color: #f4f4f4;\r\n}";
 styleInject(css_248z$9);
 
 /**
@@ -1662,11 +1662,15 @@ var lib_10 = lib.invalidScc;
 var lib_10 = lib.invalidRegex;
 >>>>>>> 55b6519 (rename function and fix imports)
 
-var css_248z$8 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
+var css_248z$8 = ".displayFlex {\r\n  display: flex;\r\n}\r\n.fitContent {\r\n  width: fit-content;\r\n}\r\n\r\n.alignItemsCenter {\r\n  align-items: center;\r\n}\r\n\r\n.widthOneHundredPercent{\r\n  width: 100%;\r\n}\r\n\r\n.marginBottom {\r\n  margin-bottom: 2rem;\r\n}\r\n  \r\n.marginBottomSmall {\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.evenSpacing {\r\n  gap: 3vw;\r\n}\r\n\r\n.positionRelative {\r\n  position: relative;\r\n}\r\n\r\n.formInSubForm {\r\n  margin-top: 0rem;\r\n  background: #fffdfd;\r\n  padding: 1rem;\r\n}\r\n\r\n.subForm {\r\n  background: #f4f4f4;\r\n  padding: 1rem;\r\n  margin-top: 1rem;\r\n  margin-bottom: 2rem;\r\n}\r\n\r\n.icseFormTitleMinHeight {\r\n  min-height: 32px;\r\n}\r\n\r\n.spaceBetween {\r\n  justify-content: space-between;\r\n}\r\n";
 styleInject(css_248z$8);
 
+<<<<<<< HEAD
 var css_248z$7 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  z-index: 9001;\n  top: 10px;\n}";
 >>>>>>> b6eab56 (example and readme)
+=======
+var css_248z$7 = ".popover-box {\r\n  padding: 5px;\r\n  position: relative;\r\n  font-size: 80%;\r\n  z-index: 9001;\r\n  top: 10px;\r\n}";
+>>>>>>> d3f1972 (migrate TeleportClaimToRoleForm)
 styleInject(css_248z$7);
 >>>>>>> 72d0b85 (merge)
 
@@ -1763,7 +1767,7 @@ PopoverWrapper.propTypes = {
   children: PropTypes__default["default"].node.isRequired
 };
 
-var css_248z$6 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  z-index: 9001; /* navbar is 9000 */\n  font-size: 80%;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
+var css_248z$6 = ".chevron {\r\n  margin-right: 1rem;\r\n  margin-top: 0.25rem;\r\n  cursor: pointer;\r\n}\r\n\r\n.popover-box {\r\n  padding: 5px;\r\n  position: relative;\r\n  z-index: 9001; /* navbar is 9000 */\r\n  font-size: 80%;\r\n}\r\n\r\n.tertiaryButtonColors {\r\n  color: #0f62fe !important;\r\n  fill: white !important;\r\n  border-color: #0f62fe !important;\r\n}\r\n\r\n.pointerEventsNone {\r\n  pointer-events: none;\r\n}\r\n\r\n.cursorNotAllowed {\r\n  cursor: not-allowed;\r\n}\r\n\r\n.forceTertiaryButtonStyles {\r\n  padding-right: 0.4375rem !important;\r\n  padding-left: 0.4375rem !important;\r\n}\r\n.inlineBlock {\r\n  display: inline-block;\r\n}\r\n\r\n.redFill {\r\n  fill: #da1e28 !important;\r\n}\r\n\r\n/* CSS for overriding default component styles */\r\n.cds--btn--ghost:focus {\r\n  outline: none;\r\n  border: none;\r\n  box-shadow: none;\r\n}\r\n\r\n.marginRightSmall {\r\n  margin-right: 0.5rem;\r\n}\r\n";
 styleInject(css_248z$6);
 
 /**
@@ -2315,7 +2319,7 @@ StatelessToggleForm.propTypes = {
   alwaysShowButtons: PropTypes__default["default"].bool
 };
 
-var css_248z$5 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+var css_248z$5 = ".labelRow {\r\n  display: inline-flex !important;\r\n  align-items: center;\r\n}\r\n\r\n.tooltip > div div.cds--password-input-wrapper {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.cds--toggle {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.cds--text-input-wrapper {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.popover-obj {\r\n  margin-top: -8px;\r\n}\r\n\r\n.subHeadingTooltip {\r\n  margin: 0.2rem 0 0 0.2rem;\r\n}\r\n\r\n.tooltipMarginLeft {\r\n  margin-left: 3px;\r\n}\r\n";
 styleInject(css_248z$5);
 
 /**
@@ -2434,7 +2438,7 @@ DynamicToolTipWrapper.propTypes = {
   innerForm: PropTypes__default["default"].oneOfType([PropTypes__default["default"].object, PropTypes__default["default"].func])
 };
 
-var css_248z$4 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
+var css_248z$4 = ".fieldWidth {\r\n  width: 14rem;\r\n}\r\n\r\n.leftTextAlign {\r\n  text-align: left;\r\n}";
 styleInject(css_248z$4);
 
 <<<<<<< HEAD
@@ -2654,7 +2658,7 @@ IcseNameInput.propTypes = {
   invalidCallback: PropTypes__default["default"].func
 };
 
-var css_248z$3 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
+var css_248z$3 = ".fieldWidthSmaller {\r\n  width: 11rem;\r\n}";
 styleInject(css_248z$3);
 
 var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
@@ -2718,10 +2722,14 @@ AppIdKeyForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var sccRegions = [{
 =======
 const sccRegions = [{
 >>>>>>> 55b6519 (rename function and fix imports)
+=======
+var sccRegions = [{
+>>>>>>> d3f1972 (migrate TeleportClaimToRoleForm)
   id: "us",
   label: "us"
 }, {
@@ -2736,37 +2744,49 @@ const sccRegions = [{
  * SccForm
  * @param {Object} props
  */
-class SccForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = this.props.data;
-    this.handleToggle = this.handleToggle.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleLocationChange = this.handleLocationChange.bind(this);
-    buildFormDefaultInputMethods(this);
-    buildFormFunctions(this);
-    this.state.enable_scc = true;
+var SccForm = /*#__PURE__*/function (_Component) {
+  _inherits(SccForm, _Component);
+  var _super = _createSuper(SccForm);
+  function SccForm(props) {
+    var _this;
+    _classCallCheck(this, SccForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleLocationChange = _this.handleLocationChange.bind(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    _this.state.enable_scc = true;
+    return _this;
   }
 
   /**
    * Handle input change for scope_name field
    * @param {event} event
    */
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
+  _createClass(SccForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
 
-  /**
-   * handle input change
-   * @param {event} event event
-   */
-  handleLocationChange(selectedItem) {
-    this.setState({
-      location_id: selectedItem.selectedItem.label
-    });
-  }
+    /**
+     * handle input change
+     * @param {event} event event
+     */
+  }, {
+    key: "handleLocationChange",
+    value: function handleLocationChange(selectedItem) {
+      this.setState({
+        location_id: selectedItem.selectedItem.label
+      });
+    }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> d3f1972 (migrate TeleportClaimToRoleForm)
     /**
      * Toggle on and off param in state at name
      * @param {string} name name of the object key to change
@@ -2775,12 +2795,16 @@ class SccForm extends React.Component {
   }, {
     key: "handleToggle",
     value: function handleToggle(name) {
+<<<<<<< HEAD
       this.setState(lib_8(name, this.state));
 <<<<<<< HEAD
 =======
 =======
 >>>>>>> dc1cdcb (arrayOf)
 =======
+=======
+      this.setState(this.toggleStateBoolean(name, this.state));
+>>>>>>> d3f1972 (migrate TeleportClaimToRoleForm)
     }
   }, {
     key: "render",
@@ -2853,6 +2877,7 @@ class SccForm extends React.Component {
   }]);
   return SccForm;
 }(React.Component);
+<<<<<<< HEAD
 =======
   /**
    * Toggle on and off param in state at name
@@ -2929,6 +2954,8 @@ class SccForm extends React.Component {
   }
 }
 >>>>>>> 55b6519 (rename function and fix imports)
+=======
+>>>>>>> d3f1972 (migrate TeleportClaimToRoleForm)
 SccForm.defaultProps = {
   data: {
     enable_scc: false
@@ -5659,6 +5686,80 @@ KeyManagementForm.propTypes = {
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
 };
 
+var emailRegex = /^[\w-_\.]+@([\w-_]+\.)+[\w]{1,4}$/g;
+var TeleportClaimToRoleForm = /*#__PURE__*/function (_Component) {
+  _inherits(TeleportClaimToRoleForm, _Component);
+  var _super = _createSuper(TeleportClaimToRoleForm);
+  function TeleportClaimToRoleForm(props) {
+    var _this;
+    _classCallCheck(this, TeleportClaimToRoleForm);
+    _this = _super.call(this, props);
+    _this.state = {
+      email: _this.props.data.email,
+      roles: _this.props.data.roles
+    };
+    _this.onChangeTextInput = _this.onChangeTextInput.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   *
+   * @param {String} name specifies name of state value to change
+   * @param {String} value value to set it to
+   */
+  _createClass(TeleportClaimToRoleForm, [{
+    key: "onChangeTextInput",
+    value: function onChangeTextInput(name, value) {
+      if (name === "roles") {
+        this.setState(_defineProperty({}, name, [value]));
+      } else this.setState(_defineProperty({}, name, value));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      var composedId = "teleport-claim-form-".concat(this.props.data.email);
+      return /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+        id: composedId + "-email",
+        componentName: "teleport-claim",
+        field: "email",
+        labelText: "Email",
+        invalid: !this.state.email.match(emailRegex),
+        value: this.state.email,
+        onChange: function onChange(event) {
+          return _this2.onChangeTextInput("email", event.target.value);
+        },
+        className: "fieldWidth"
+      }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+        id: composedId + "roles",
+        componentName: "teleport-claim",
+        field: "roles",
+        labelText: "Roles",
+        value: this.state.roles[0] || "",
+        onChange: function onChange(event) {
+          return _this2.onChangeTextInput("roles", event.target.value);
+        },
+        invalid: this.props.invalidRolesCallback(this.state),
+        className: "fieldWidth"
+      }));
+    }
+  }]);
+  return TeleportClaimToRoleForm;
+}(React.Component);
+TeleportClaimToRoleForm.defaultProps = {
+  data: {
+    email: "",
+    roles: []
+  }
+};
+TeleportClaimToRoleForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    email: PropTypes__default["default"].string.isRequired,
+    roles: PropTypes__default["default"].array.isRequired
+  }).isRequired
+};
+
 /**
  * Atracker
  * @param {Object} props
@@ -5947,7 +6048,7 @@ FormModal.propTypes = {
   children: PropTypes__default["default"].node.isRequired
 };
 
-var css_248z$2 = ".leftTextAlign {\n  text-align: left;\n}\n";
+var css_248z$2 = ".leftTextAlign {\r\n  text-align: left;\r\n}\r\n";
 styleInject(css_248z$2);
 
 /**
@@ -6071,7 +6172,7 @@ UnsavedChangesModal.propTypes = {
   useDefaultUnsavedMessage: PropTypes__default["default"].bool
 };
 
-var css_248z$1 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+var css_248z$1 = ".fieldWidth {\r\n  width: 14rem;\r\n}\r\n\r\n.fieldWidthSmaller {\r\n  width: 11rem;\r\n}\r\n";
 styleInject(css_248z$1);
 
 /**
@@ -6278,6 +6379,7 @@ var UnderConstruction = function UnderConstruction() {
   }), /*#__PURE__*/React__default["default"].createElement("h4", null, "Page Under Construction"));
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -8043,6 +8145,9 @@ StatefulTabPanel.propTypes = {
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
 var css_248z = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }";
+=======
+var css_248z = ".cds--tab-content.doc {\r\n    padding: 0.5rem 0;\r\n  }";
+>>>>>>> d3f1972 (migrate TeleportClaimToRoleForm)
 styleInject(css_248z);
 
 /**
@@ -8257,6 +8362,7 @@ exports.SubnetMultiSelect = SubnetMultiSelect;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 04bfb65 (added button examples)
 exports.TitleGroup = TitleGroup;
 exports.UnderConstruction = UnderConstruction;
@@ -8286,6 +8392,9 @@ exports.buildFormFunctions = buildFormFunctions;
 >>>>>>> dc1cdcb (arrayOf)
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+exports.TeleportClaimToRoleForm = TeleportClaimToRoleForm;
+>>>>>>> d3f1972 (migrate TeleportClaimToRoleForm)
 exports.TitleGroup = TitleGroup;
 exports.ToolTipWrapper = ToolTipWrapper;
 exports.UnderConstruction = UnderConstruction;
