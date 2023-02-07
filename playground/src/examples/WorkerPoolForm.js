@@ -1,4 +1,5 @@
 import { WorkerPoolForm } from "icse-react-assets";
+
 function validName(str) {
   const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
   if (str) return str.match(regex) !== null;
@@ -14,6 +15,7 @@ function invalidTextCallback(stateData) {
     ? `Name ${stateData.pool.name} is invalid.`
     : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
 }
+
 export const WorkerPoolFormExample = () => {
   return (
     <WorkerPoolForm
@@ -36,7 +38,7 @@ export const WorkerPoolFormExample = () => {
       }}
       data={{
         entitlement: "null",
-        name: "test",
+        name: "test worker pool",
         subnet_names: ["zone1", "zone2"],
         subnets: ["management"],
         flavor: "bx2.16x64",
