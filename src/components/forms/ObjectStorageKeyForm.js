@@ -43,7 +43,7 @@ class ObjectStorageKeyForm extends Component {
     let composedId = `key-form-${
       this.props.data.name ? this.props.data.name : "new-key"
     }`;
-    let fieldWidth = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
+    let inputSize = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
     return (
       <>
         <IcseFormGroup noMarginBottom>
@@ -55,7 +55,7 @@ class ObjectStorageKeyForm extends Component {
             onChange={this.handleInputChange}
             componentProps={this.props}
             placeholder="my-cos-key-name"
-            className={fieldWidth}
+            className={inputSize}
             helperTextCallback={() => this.props.composedNameCallback(this.state)}
             invalid={this.props.invalidCallback(this.state, this.props)}
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
@@ -75,7 +75,7 @@ class ObjectStorageKeyForm extends Component {
             value={this.state.role}
             labelText="Role"
             handleInputChange={this.handleInputChange}
-            className={fieldWidth}
+            className={inputSize}
           />
           {/* use hmac */}
           <IcseToggle
