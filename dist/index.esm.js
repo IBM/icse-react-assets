@@ -250,6 +250,7 @@ function styleInject(css, ref) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$3 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$3);
 =======
@@ -554,6 +555,10 @@ var EmptyResourceTile = function EmptyResourceTile(props) {
 =======
 var css_248z$9 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$9);
+=======
+var css_248z$a = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z$a);
+>>>>>>> 09dbacf (SshKeyForm, example, and docs)
 
 /**
  * Empty Resource Tile
@@ -1897,9 +1902,10 @@ var lib_10 = lib.invalidScc;
 var lib_10 = lib.invalidRegex;
 >>>>>>> 55b6519 (rename function and fix imports)
 
-var css_248z$8 = ".displayFlex {\r\n  display: flex;\r\n}\r\n.fitContent {\r\n  width: fit-content;\r\n}\r\n\r\n.alignItemsCenter {\r\n  align-items: center;\r\n}\r\n\r\n.widthOneHundredPercent{\r\n  width: 100%;\r\n}\r\n\r\n.marginBottom {\r\n  margin-bottom: 2rem;\r\n}\r\n  \r\n.marginBottomSmall {\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.evenSpacing {\r\n  gap: 3vw;\r\n}\r\n\r\n.positionRelative {\r\n  position: relative;\r\n}\r\n\r\n.formInSubForm {\r\n  margin-top: 0rem;\r\n  background: #fffdfd;\r\n  padding: 1rem;\r\n}\r\n\r\n.subForm {\r\n  background: #f4f4f4;\r\n  padding: 1rem;\r\n  margin-top: 1rem;\r\n  margin-bottom: 2rem;\r\n}\r\n\r\n.icseFormTitleMinHeight {\r\n  min-height: 32px;\r\n}\r\n\r\n.spaceBetween {\r\n  justify-content: space-between;\r\n}\r\n";
-styleInject(css_248z$8);
+var css_248z$9 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
+styleInject(css_248z$9);
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 var css_248z$7 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  z-index: 9001;\n  top: 10px;\n}";
 <<<<<<< HEAD
@@ -1934,6 +1940,10 @@ styleInject(css_248z$8);
 var css_248z$7 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  z-index: 9001;\n  top: 20px;\n}\n";
 >>>>>>> f19dfef (merge)
 styleInject(css_248z$7);
+=======
+var css_248z$8 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  z-index: 9001;\n  top: 20px;\n}\n";
+styleInject(css_248z$8);
+>>>>>>> 09dbacf (SshKeyForm, example, and docs)
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -2009,8 +2019,13 @@ PopoverWrapper.propTypes = {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$6 = ".chevron {\r\n  margin-right: 1rem;\r\n  margin-top: 0.25rem;\r\n  cursor: pointer;\r\n}\r\n\r\n.popover-box {\r\n  padding: 5px;\r\n  position: relative;\r\n  z-index: 9001; /* navbar is 9000 */\r\n  font-size: 80%;\r\n}\r\n\r\n.tertiaryButtonColors {\r\n  color: #0f62fe !important;\r\n  fill: white !important;\r\n  border-color: #0f62fe !important;\r\n}\r\n\r\n.pointerEventsNone {\r\n  pointer-events: none;\r\n}\r\n\r\n.cursorNotAllowed {\r\n  cursor: not-allowed;\r\n}\r\n\r\n.forceTertiaryButtonStyles {\r\n  padding-right: 0.4375rem !important;\r\n  padding-left: 0.4375rem !important;\r\n}\r\n.inlineBlock {\r\n  display: inline-block;\r\n}\r\n\r\n.redFill {\r\n  fill: #da1e28 !important;\r\n}\r\n\r\n/* CSS for overriding default component styles */\r\n.cds--btn--ghost:focus {\r\n  outline: none;\r\n  border: none;\r\n  box-shadow: none;\r\n}\r\n\r\n.marginRightSmall {\r\n  margin-right: 0.5rem;\r\n}\r\n";
 styleInject(css_248z$6);
+=======
+var css_248z$7 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
+styleInject(css_248z$7);
+>>>>>>> 09dbacf (SshKeyForm, example, and docs)
 
 /**
  * generate save icon
@@ -2571,11 +2586,16 @@ StatelessToggleForm.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$5 = ".labelRow {\r\n  display: inline-flex !important;\r\n  align-items: center;\r\n}\r\n\r\n.tooltip > div div.cds--password-input-wrapper {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.cds--toggle {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.cds--text-input-wrapper {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.popover-obj {\r\n  margin-top: -8px;\r\n}\r\n\r\n.subHeadingTooltip {\r\n  margin: 0.2rem 0 0 0.2rem;\r\n}\r\n\r\n.tooltipMarginLeft {\r\n  margin-left: 3px;\r\n}\r\n";
 =======
 var css_248z$5 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
 >>>>>>> f19dfef (merge)
 styleInject(css_248z$5);
+=======
+var css_248z$6 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+styleInject(css_248z$6);
+>>>>>>> 09dbacf (SshKeyForm, example, and docs)
 
 /**
  * render a tooltip around an input field
@@ -2694,8 +2714,13 @@ DynamicToolTipWrapper.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$4 = ".fieldWidth {\r\n  width: 14rem;\r\n}\r\n\r\n.leftTextAlign {\r\n  text-align: left;\r\n}";
 styleInject(css_248z$4);
+=======
+var css_248z$5 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
+styleInject(css_248z$5);
+>>>>>>> 09dbacf (SshKeyForm, example, and docs)
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -2875,7 +2900,7 @@ IcseTextInput.propTypes = {
   }),
   className: PropTypes.string,
   readOnly: PropTypes.bool.isRequired,
-  labelText: PropTypes.string.isRequired,
+  labelText: PropTypes.string,
   maxLength: PropTypes.number,
   invalidCallback: PropTypes.func,
   id: PropTypes.string.isRequired,
@@ -2933,11 +2958,16 @@ IcseNameInput.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$3 = ".fieldWidthSmaller {\r\n  width: 11rem;\r\n}";
 =======
 var css_248z$3 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
 >>>>>>> f19dfef (merge)
 styleInject(css_248z$3);
+=======
+var css_248z$4 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
+styleInject(css_248z$4);
+>>>>>>> 09dbacf (SshKeyForm, example, and docs)
 
 var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
   _inherits(AppIdKeyForm, _React$Component);
@@ -7474,7 +7504,6 @@ var TeleportClaimToRoleForm = /*#__PURE__*/function (_Component) {
         id: composedId + "-email",
         componentName: "teleport-claim",
         field: "email",
-        labelText: "Email",
         invalid: !this.state.email.match(emailRegex),
         value: this.state.email,
         onChange: function onChange(event) {
@@ -7485,7 +7514,6 @@ var TeleportClaimToRoleForm = /*#__PURE__*/function (_Component) {
         id: composedId + "roles",
         componentName: "teleport-claim",
         field: "roles",
-        labelText: "Roles",
         value: this.state.roles[0] || "",
         onChange: function onChange(event) {
           return _this2.onChangeTextInput("roles", event.target.value);
@@ -7798,8 +7826,8 @@ FormModal.propTypes = {
   children: PropTypes.node.isRequired
 };
 
-var css_248z$2 = ".leftTextAlign {\r\n  text-align: left;\r\n}\r\n";
-styleInject(css_248z$2);
+var css_248z$3 = ".leftTextAlign {\n  text-align: left;\n}\n";
+styleInject(css_248z$3);
 
 /**
  * Icse Modal Wrapper
@@ -7922,8 +7950,8 @@ UnsavedChangesModal.propTypes = {
   useDefaultUnsavedMessage: PropTypes.bool
 };
 
-var css_248z$1 = ".fieldWidth {\r\n  width: 14rem;\r\n}\r\n\r\n.fieldWidthSmaller {\r\n  width: 11rem;\r\n}\r\n";
-styleInject(css_248z$1);
+var css_248z$2 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+styleInject(css_248z$2);
 
 /**
  * Icse multiselect template
@@ -8133,6 +8161,7 @@ var UnderConstruction = function UnderConstruction() {
   }), /*#__PURE__*/React.createElement("h4", null, "Page Under Construction"));
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -8977,6 +9006,10 @@ var css_248z = ".cds--tab-content.doc {\r\n    padding: 0.5rem 0;\r\n  }";
 var css_248z = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }";
 >>>>>>> f19dfef (merge)
 styleInject(css_248z);
+=======
+var css_248z$1 = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }";
+styleInject(css_248z$1);
+>>>>>>> 09dbacf (SshKeyForm, example, and docs)
 
 /**
  * StatefulTabPanel wrapper for non array forms
@@ -9076,6 +9109,7 @@ StatefulTabPanel.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 export { AppIdKeyForm, DeleteButton, DeleteModal, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SecurityGroupMultiSelect, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> b982705 (feat: StatefulTabPanel)
 =======
@@ -9115,6 +9149,8 @@ class ToggleForm extends React.Component {
       hide: this.props.hide,
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> 09dbacf (SshKeyForm, example, and docs)
 var ToggleForm = /*#__PURE__*/function (_React$Component) {
   _inherits(ToggleForm, _React$Component);
   var _super = _createSuper(ToggleForm);
@@ -9124,9 +9160,12 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.state = {
       hide: _this.props.hide,
+<<<<<<< HEAD
 >>>>>>> f19dfef (merge)
 =======
 >>>>>>> 45b57f8 (remove extra props, add name and hideName)
+=======
+>>>>>>> 09dbacf (SshKeyForm, example, and docs)
       showDeleteModal: false,
       showUnsavedChangeModal: false,
       disableSave: true,
@@ -9137,6 +9176,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
       useDefaultUnsavedMessage: true,
       ruleOrderChange: false
     };
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -9155,6 +9195,8 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
     this.childRef = /*#__PURE__*/React.createRef();
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> 09dbacf (SshKeyForm, example, and docs)
     _this.toggleChildren = _this.toggleChildren.bind(_assertThisInitialized(_this));
     _this.toggleDeleteModal = _this.toggleDeleteModal.bind(_assertThisInitialized(_this));
     _this.toggleUnsavedChangeModal = _this.toggleUnsavedChangeModal.bind(_assertThisInitialized(_this));
@@ -9168,14 +9210,18 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
     _this.onToggleSubModal = _this.onToggleSubModal.bind(_assertThisInitialized(_this));
     _this.childRef = /*#__PURE__*/React.createRef();
     return _this;
+<<<<<<< HEAD
 >>>>>>> f19dfef (merge)
 =======
 >>>>>>> 45b57f8 (remove extra props, add name and hideName)
+=======
+>>>>>>> 09dbacf (SshKeyForm, example, and docs)
   }
 
   /**
    * toggle sub modal
    */
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -9227,6 +9273,32 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
   }
 
 <<<<<<< HEAD
+=======
+  _createClass(ToggleForm, [{
+    key: "onToggleSubModal",
+    value: function onToggleSubModal() {
+      this.setState({
+        showSubModal: !this.state.showSubModal
+      });
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      if (this.state.hide === true && this.shouldShow() === true) {
+        this.setState({
+          hide: false
+        });
+      }
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState) {
+      if (prevState.hide !== this.state.hide && this.props.onShowToggle) {
+        this.props.onShowToggle(this.props.index);
+      }
+    }
+
+>>>>>>> 09dbacf (SshKeyForm, example, and docs)
     /**
      * toggle children rendered by form
      */
@@ -9245,6 +9317,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
             hide: !this.state.hide
           });
         }
+<<<<<<< HEAD
 >>>>>>> f19dfef (merge)
 =======
   /**
@@ -9258,11 +9331,14 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
       if (propsDoNotMatch || this.state.useDefaultUnsavedMessage === false) {
         this.toggleUnsavedChangeModal();
 >>>>>>> 45b57f8 (remove extra props, add name and hideName)
+=======
+>>>>>>> 09dbacf (SshKeyForm, example, and docs)
       } else {
         this.setState({
           hide: !this.state.hide
         });
       }
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     } else {
@@ -9450,6 +9526,8 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
   }
 }
 =======
+=======
+>>>>>>> 09dbacf (SshKeyForm, example, and docs)
     }
 
     /**
@@ -9458,6 +9536,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "toggleDeleteModal",
     value: function toggleDeleteModal() {
+<<<<<<< HEAD
 =======
     } else {
 >>>>>>> 45b57f8 (remove extra props, add name and hideName)
@@ -9631,6 +9710,186 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
           onSave: this.onSave,
           disableSave: this.state.disableSave
 <<<<<<< HEAD
+=======
+      this.setState({
+        showDeleteModal: !this.state.showDeleteModal
+      });
+    }
+
+    /**
+     * toggle unsaved changes modal
+     */
+  }, {
+    key: "toggleUnsavedChangeModal",
+    value: function toggleUnsavedChangeModal() {
+      this.setState({
+        showUnsavedChangeModal: !this.state.showUnsavedChangeModal
+      });
+    }
+
+    /**
+     * Dismiss changes and close
+     */
+  }, {
+    key: "dismissChangesAndClose",
+    value: function dismissChangesAndClose() {
+      this.setState({
+        showUnsavedChangeModal: false,
+        hide: true
+      });
+    }
+
+    /**
+     * on save
+     */
+  }, {
+    key: "onSave",
+    value: function onSave() {
+      this.props.onSave(this.childRef.current.state, this.childRef.current.props);
+      this.setState({
+        useDefaultUnsavedMessage: true
+      });
+    }
+
+    /**
+     * on delete
+     */
+  }, {
+    key: "onDelete",
+    value: function onDelete() {
+      var _this$childRef$curren2, _this$childRef$curren3;
+      this.props.onShowToggle(this.props.index);
+      this.props.onDelete((_this$childRef$curren2 = this.childRef.current) === null || _this$childRef$curren2 === void 0 ? void 0 : _this$childRef$curren2.state, (_this$childRef$curren3 = this.childRef.current) === null || _this$childRef$curren3 === void 0 ? void 0 : _this$childRef$curren3.props);
+      this.setState({
+        hide: true,
+        showDeleteModal: false
+      });
+    }
+
+    /**
+     * should disable save
+     * @param {*} stateData state data
+     * @param {*} componentProps component props
+     */
+  }, {
+    key: "shouldDisableSave",
+    value: function shouldDisableSave(stateData, componentProps) {
+      var enableSave = this.props.disableSave(this.props.submissionFieldName, stateData, componentProps) === false;
+      var propsDoNotMatch = this.props.propsMatchState(this.props.submissionFieldName, stateData, componentProps) === false;
+      if (enableSave === false && this.state.useDefaultUnsavedMessage && propsDoNotMatch === false) {
+        this.setState({
+          useDefaultUnsavedMessage: false
+        });
+      } else if (enableSave && propsDoNotMatch && this.state.disableSave) {
+        this.setState({
+          disableSave: false,
+          propsMatchState: false
+        });
+      } else if (!this.state.disableSave && (!enableSave || !propsDoNotMatch)) {
+        this.setState({
+          disableSave: true,
+          propsMatchState: !propsDoNotMatch
+        });
+      }
+    }
+  }, {
+    key: "shouldShow",
+    value: function shouldShow() {
+      return this.props.forceOpen(this.state, this.props);
+    }
+  }, {
+    key: "networkRuleOrderDidChange",
+    value: function networkRuleOrderDidChange(didNotChange) {
+      var didChange = !didNotChange;
+      if (this.state.ruleOrderChange !== didChange) {
+        this.setState({
+          ruleOrderChange: didChange
+        });
+      }
+    }
+  }, {
+    key: "toggleShowChildren",
+    value: function toggleShowChildren() {
+      this.setState({
+        showChildren: !this.state.showChildren
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this,
+        _objectSpread2$1;
+      if (this.props.noDeleteButton !== true && !this.props.onDelete) {
+        throw new Error("ToggleForm expects onDelete Function to be passed when a delete button is rendered");
+      }
+      if (this.props.noSaveButton !== true && !this.props.onSave) {
+        throw new Error("ToggleForm expects onSave Function to be passed when a save button is rendered");
+      }
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(StatefulTabPanel, _extends({}, this.props.tabPanel ? this.props.tabPanel : {}, {
+        toggleShowChildren: this.toggleShowChildren,
+        form: /*#__PURE__*/React.createElement(React.Fragment, null, this.props.name && !this.props.hideName && /*#__PURE__*/React.createElement(IcseHeading, {
+          name: this.props.name,
+          hideButton: true
+        }), /*#__PURE__*/React.createElement("div", {
+          className: lib_2(this.props.type === "formInSubForm" ? "formInSubForm positionRelative marginBottomSmall" : "subForm marginBottomSmall")
+        }, /*#__PURE__*/React.createElement(StatelessToggleForm, {
+          hide: this.state.hide,
+          iconType: this.props.useAddButton ? "add" : "edit",
+          onIconClick: this.toggleChildren,
+          toggleFormTitle: true,
+          name: this.props.name,
+          buttons: /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DynamicRender, {
+            hide: this.props.addButtonAtFormTitle !== true,
+            show: /*#__PURE__*/React.createElement(SaveAddButton, {
+              type: "add",
+              onClick: this.onToggleSubModal,
+              noDeleteButton: true
+            })
+          }), /*#__PURE__*/React.createElement(DynamicRender, {
+            hide: this.props.noSaveButton || this.props.addButtonAtFormTitle,
+            show: /*#__PURE__*/React.createElement(SaveAddButton, {
+              onClick: this.onSave,
+              disabled: this.state.disableSave,
+              noDeleteButton: this.props.noDeleteButton
+            })
+          }), /*#__PURE__*/React.createElement(DynamicRender, {
+            hide: this.props.noDeleteButton,
+            show: /*#__PURE__*/React.createElement(DeleteButton, {
+              onClick: this.toggleDeleteModal,
+              name: this.props.name,
+              disabled: this.props.deleteDisabled(this.props),
+              disableDeleteMessage: function disableDeleteMessage() {
+                return _this2.props.disableDeleteMessage(_this2.props);
+              }
+            })
+          }))
+        }, /*#__PURE__*/React.createElement(UnsavedChangesModal, {
+          name:
+          // use tab panel name if passed
+          this.props.tabPanel ? this.props.tabPanel.name : this.props.name,
+          modalOpen: this.state.showUnsavedChangeModal,
+          onModalClose: this.toggleUnsavedChangeModal,
+          onModalSubmit: this.dismissChangesAndClose,
+          useDefaultUnsavedMessage: this.state.useDefaultUnsavedMessage
+        }), /*#__PURE__*/React.createElement(DeleteModal, {
+          name:
+          // use tab panel name if passed
+          this.props.tabPanel ? this.props.tabPanel.name : this.props.name,
+          modalOpen: this.state.showDeleteModal,
+          onModalClose: this.toggleDeleteModal,
+          onModalSubmit: this.onDelete
+        }), RenderForm(this.props.innerForm, _objectSpread2(_objectSpread2({}, this.props.innerFormProps), {}, (_objectSpread2$1 = {
+          ref: this.props.nullRef ? null : this.childRef,
+          shouldDisableSave: this.shouldDisableSave,
+          showSubModal: this.state.showSubModal,
+          networkRuleOrderDidChange: this.networkRuleOrderDidChange,
+          onChildShowToggle: this.props.onChildShowToggle,
+          shownChildren: this.props.shownChildren,
+          handleModalToggle: this.onToggleSubModal
+        }, _defineProperty(_objectSpread2$1, "showSubModal", this.state.showSubModal), _defineProperty(_objectSpread2$1, "saveFromChildForm", {
+          onSave: this.onSave,
+          disableSave: this.state.disableSave
+>>>>>>> 09dbacf (SshKeyForm, example, and docs)
         }), _objectSpread2$1)))))),
         about: this.props.about || false
       })), this.state.showChildren && this.props.children ? this.props.children : "");
@@ -9638,6 +9897,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
   }]);
   return ToggleForm;
 }(React.Component);
+<<<<<<< HEAD
 >>>>>>> f19dfef (merge)
 =======
         }
@@ -9647,6 +9907,8 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
   }
 }
 >>>>>>> 45b57f8 (remove extra props, add name and hideName)
+=======
+>>>>>>> 09dbacf (SshKeyForm, example, and docs)
 ToggleForm.defaultProps = {
   hide: true,
   unsavedChanges: false,
@@ -9660,15 +9922,19 @@ ToggleForm.defaultProps = {
   // functions that return booleans must have a default
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   deleteDisabled: () => {
     return false;
   },
   forceOpen: () => {
 =======
+=======
+>>>>>>> 09dbacf (SshKeyForm, example, and docs)
   deleteDisabled: function deleteDisabled() {
     return false;
   },
   forceOpen: function forceOpen() {
+<<<<<<< HEAD
 >>>>>>> f19dfef (merge)
 =======
   deleteDisabled: () => {
@@ -9676,6 +9942,8 @@ ToggleForm.defaultProps = {
   },
   forceOpen: () => {
 >>>>>>> 45b57f8 (remove extra props, add name and hideName)
+=======
+>>>>>>> 09dbacf (SshKeyForm, example, and docs)
     return false;
   }
 };
@@ -9710,8 +9978,101 @@ ToggleForm.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 export { AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TitleGroup, ToggleForm, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> f680a35 (almost done)
 =======
 export { AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TitleGroup, ToggleForm, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> f19dfef (merge)
+=======
+var css_248z = ".leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidthBigger {\n  width: 30rem\n}\n";
+styleInject(css_248z);
+
+/**
+ * ssh key form
+ */
+var SshKeyForm = /*#__PURE__*/function (_Component) {
+  _inherits(SshKeyForm, _Component);
+  var _super = _createSuper(SshKeyForm);
+  function SshKeyForm(props) {
+    var _this;
+    _classCallCheck(this, SshKeyForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * handle other input events
+   * @param {*} event
+   */
+  _createClass(SshKeyForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+        id: this.state.name + "-name",
+        componentName: this.props.data.name + "-ssh-key-name",
+        component: "ssh_keys",
+        componentProps: this.props,
+        value: this.state.name,
+        onChange: this.handleInputChange,
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props),
+        hideHelperText: true
+      }), /*#__PURE__*/React.createElement(IcseSelect, {
+        name: "resource_group",
+        formName: "".concat(kebabCase$1(this.props.data.name), "-ssh-rg-select"),
+        groups: this.props.resourceGroups,
+        value: this.state.resource_group,
+        handleInputChange: this.handleInputChange,
+        invalidText: "Select a Resource Group.",
+        labelText: "Resource Group"
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, {
+        noMarginBottom: true
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "fieldWidthBigger leftTextAlign"
+      }, /*#__PURE__*/React.createElement(TextInput.PasswordInput, {
+        labelText: "Public Key",
+        name: "public_key",
+        id: this.props.data.name + "-ssh-public-key",
+        value: this.state.public_key,
+        onChange: this.handleInputChange,
+        invalid: this.props.invalidKeyCallback(this.state.public_key).invalid,
+        invalidText: this.props.invalidKeyCallback(this.state.public_key).invalidText
+      }))));
+    }
+  }]);
+  return SshKeyForm;
+}(Component);
+SshKeyForm.defaultProps = {
+  data: {
+    name: "",
+    resource_group: "",
+    public_key: ""
+  },
+  resourceGroups: [],
+  isModal: false
+};
+SshKeyForm.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    resource_group: PropTypes.string,
+    public_key: PropTypes.string.isRequired
+  }).isRequired,
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  isModal: PropTypes.bool.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  invalidKeyCallback: PropTypes.func.isRequired
+};
+
+export { AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, buildFormDefaultInputMethods, buildFormFunctions };
+>>>>>>> 09dbacf (SshKeyForm, example, and docs)
