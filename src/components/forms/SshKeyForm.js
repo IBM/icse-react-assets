@@ -83,7 +83,6 @@ class SshKeyForm extends Component {
 SshKeyForm.defaultProps = {
   data: {
     name: "",
-    resource_group: "",
     public_key: "",
   },
   resourceGroups: [],

@@ -5451,6 +5451,7 @@ EntitlementSelect.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> b345987 (fixes & heading/statelesstoggle form added)
 =======
@@ -5465,6 +5466,8 @@ var UnderConstruction = function UnderConstruction() {
 >>>>>>> 72d0b85 (merge)
 =======
 =======
+=======
+>>>>>>> 2f16728 (removed resource_group default)
 var ObjectStorageKeyForm = /*#__PURE__*/function (_Component) {
   _inherits(ObjectStorageKeyForm, _Component);
   var _super = _createSuper(ObjectStorageKeyForm);
@@ -9267,7 +9270,6 @@ var SshKeyForm = /*#__PURE__*/function (_Component) {
 SshKeyForm.defaultProps = {
   data: {
     name: "",
-    resource_group: "",
     public_key: ""
   },
   resourceGroups: [],

@@ -11006,7 +11006,6 @@ var SshKeyForm = /*#__PURE__*/function (_Component) {
 SshKeyForm.defaultProps = {
   data: {
     name: "",
-    resource_group: "",
     public_key: ""
   },
   resourceGroups: [],
