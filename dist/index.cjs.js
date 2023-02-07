@@ -5515,12 +5515,10 @@ var ObjectStorageKeyForm = /*#__PURE__*/function (_Component) {
       }, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
         id: this.state.name + "-name",
         componentName: this.props.data.name,
-        component: "cos_keys",
         value: this.state.name,
         onChange: this.handleInputChange,
         componentProps: this.props,
         placeholder: "my-cos-key-name",
-        random_suffix: this.props.parentHasRandomSuffix,
         className: fieldWidth,
         helperTextCallback: function helperTextCallback() {
           return _this2.props.composedNameCallback(_this2.state);

@@ -3140,8 +3140,366 @@ IcseNameInput.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$3 = ".fieldWidthSmaller {\r\n  width: 11rem;\r\n}";
 =======
+=======
+var IcseSelect = function IcseSelect(props) {
+  var invalid =
+  // automatically set to invalid is is null or empty string and invalid not disabled
+  props.disableInvalid !== true && isNullOrEmptyString(props.value) ? true : props.invalid;
+  var groups = props.groups.length === 0 ? [] // if no groups, empty array
+  : lib_3(
+  // otherwise try and prepend empty string if null
+  props.value, props.groups);
+  // please leave debug here //
+  if (props.debug) {
+    console.log("PROPS: ", props);
+    console.log("GROUPS: ", groups);
+  }
+  return /*#__PURE__*/React.createElement(DynamicToolTipWrapper, _extends({
+    id: kebabCase$1(props.name) + "-dropdown-tooltip",
+    innerForm: function innerForm() {
+      return /*#__PURE__*/React.createElement(PopoverWrapper, {
+        hoverText: props.value || ""
+        // inherit classnames from tooltip
+        ,
+        className: props.tooltip ? "cds--form-item tooltip" : "cds--form-item"
+      }, /*#__PURE__*/React.createElement(Select, {
+        id: kebabCase$1(props.formName + " " + props.name),
+        name: props.name,
+        labelText: props.tooltip ? null : props.labelText,
+        value: props.value || undefined,
+        className: lib_2("fieldWidth leftTextAlign", props),
+        disabled: props.disabled,
+        invalid: invalid,
+        invalidText: props.invalidText,
+        readOnly: props.readOnly,
+        onChange: props.handleInputChange
+      }, groups.map(function (value) {
+        return /*#__PURE__*/React.createElement(SelectItem, {
+          key: "".concat(props.id, "-").concat(value),
+          text: value,
+          value: value
+        });
+      })));
+    }
+  }, props));
+};
+IcseSelect.defaultProps = {
+  value: "",
+  disabled: false,
+  disableInvalid: false,
+  invalid: false,
+  invalidText: "Invalid Selection",
+  readOnly: false,
+  groups: [],
+  debug: false
+};
+IcseSelect.propTypes = {
+  value: PropTypes.any,
+  // must accept null
+  formName: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  disabled: PropTypes.bool.isRequired,
+  disableInvalid: PropTypes.bool.isRequired,
+  invalid: PropTypes.bool.isRequired,
+  invalidText: PropTypes.string.isRequired,
+  readOnly: PropTypes.bool.isRequired,
+  groups: PropTypes.array.isRequired,
+  debug: PropTypes.bool.isRequired,
+  handleInputChange: PropTypes.func.isRequired,
+  labelText: PropTypes.string.isRequired,
+  tooltip: PropTypes.shape({
+    content: PropTypes.string.isRequired,
+    link: PropTypes.string,
+    alignModal: PropTypes.string,
+    align: PropTypes.string
+  })
+};
+var FetchSelect = /*#__PURE__*/function (_React$Component) {
+  _inherits(FetchSelect, _React$Component);
+  var _super = _createSuper(FetchSelect);
+  function FetchSelect(props) {
+    var _this;
+    _classCallCheck(this, FetchSelect);
+    _this = _super.call(this, props);
+    _defineProperty(_assertThisInitialized(_this), "_isMounted", false);
+    _this.state = {
+      data: []
+    };
+    _this.dataToGroups = _this.dataToGroups.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+  _createClass(FetchSelect, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+      this._isMounted = true;
+      if (isEmpty(this.state.data)) fetch(this.props.apiEndpoint).then(function (res) {
+        return res.json();
+      }).then(function (data) {
+        if (_this2.props.onReturnFunction) {
+          _this2.props.onReturnFunction(data);
+        }
+        if (_this2._isMounted) _this2.setState({
+          data: data
+        });
+      }).catch(function (err) {
+        console.error(err);
+      });
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this._isMounted = false;
+    }
+  }, {
+    key: "dataToGroups",
+    value: function dataToGroups() {
+      if (this.props.filter) {
+        return this.state.data.filter(this.props.filter);
+      } else {
+        return this.state.data;
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement(IcseSelect, {
+        labelText: this.props.labelText,
+        handleInputChange: this.props.handleInputChange,
+        name: this.props.name,
+        className: this.props.className,
+        formName: this.props.formName,
+        groups: this.dataToGroups(),
+        value: this.props.value || "null"
+      });
+    }
+  }]);
+  return FetchSelect;
+}(React.Component);
+FetchSelect.propTypes = {
+  labelText: PropTypes.string.isRequired,
+  handleInputChange: PropTypes.func.isRequired,
+  filterArr: PropTypes.array,
+  className: PropTypes.string,
+  // can be null or undefined
+  value: PropTypes.string,
+  // can be null or undefined
+  groups: PropTypes.array,
+  apiEndpoint: PropTypes.string.isRequired,
+  onReturnFunction: PropTypes.func,
+  filter: PropTypes.func,
+  name: PropTypes.string.isRequired,
+  formName: PropTypes.string.isRequired
+};
+var IcseNumberSelect = function IcseNumberSelect(props) {
+  return /*#__PURE__*/React.createElement(IcseSelect, {
+    formName: props.formName,
+    groups: buildNumberDropdownList(props.max, props.min),
+    value: props.value.toString(),
+    name: props.name || "Icse Number Select",
+    className: props.className,
+    handleInputChange: function handleInputChange(event) {
+      // set name target value and parse int
+      var sendEvent = {
+        target: {
+          name: event.target.name,
+          value: parseInt(event.target.value)
+        }
+      };
+      props.handleInputChange(sendEvent);
+    },
+    invalid: props.invalid,
+    invalidText: props.invalidText,
+    tooltip: props.tooltip,
+    labelText: props.labelText,
+    isModal: props.isModal
+  });
+};
+IcseNumberSelect.defaultProps = {
+  min: 1,
+  max: 10,
+  invalid: false,
+  isModal: false
+};
+IcseNumberSelect.propTypes = {
+  formName: PropTypes.string.isRequired,
+  min: PropTypes.number.isRequired,
+  max: PropTypes.number.isRequired,
+  value: PropTypes.number,
+  // can be null
+  name: PropTypes.string,
+  className: PropTypes.string,
+  invalidText: PropTypes.string,
+  invalid: PropTypes.bool.isRequired,
+  tooltip: PropTypes.shape({
+    content: PropTypes.string.isRequired,
+    link: PropTypes.string,
+    alignModal: PropTypes.string,
+    align: PropTypes.string
+  }),
+  labelText: PropTypes.string.isRequired,
+  isModal: PropTypes.bool.isRequired
+};
+var EntitlementSelect = function EntitlementSelect(props) {
+  return /*#__PURE__*/React.createElement(IcseSelect, {
+    name: props.name,
+    labelText: "Entitlement",
+    groups: ["null", "cloud_pak"],
+    value: props.value || "null",
+    handleInputChange: props.handleInputChange,
+    className: "fieldWidthSmaller",
+    formName: props.formName
+  });
+};
+EntitlementSelect.propTypes = {
+  value: PropTypes.string,
+  // can be null
+  handleInputChange: PropTypes.func.isRequired,
+  formName: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired
+};
+
+var ObjectStorageKeyForm = /*#__PURE__*/function (_Component) {
+  _inherits(ObjectStorageKeyForm, _Component);
+  var _super = _createSuper(ObjectStorageKeyForm);
+  function ObjectStorageKeyForm(props) {
+    var _this;
+    _classCallCheck(this, ObjectStorageKeyForm);
+    _this = _super.call(this, props);
+    _this.state = {
+      name: _this.props.data.name,
+      role: _this.props.data.role || "Writer",
+      enable_hmac: _this.props.data.enable_hmac
+    };
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * Handler for toggle
+   * @param {String} name specifies the name of the state value you wish to change
+   */
+  _createClass(ObjectStorageKeyForm, [{
+    key: "handleToggle",
+    value: function handleToggle() {
+      this.setState(this.toggleStateBoolean("enable_hmac", this.state));
+    }
+
+    /**
+     * handle input change
+     * @param {event} event event
+     */
+  }, {
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      // composed id
+      var composedId = "key-form-".concat(this.props.data.name ? this.props.data.name : "new-key");
+      var fieldWidth = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, {
+        noMarginBottom: true
+      }, /*#__PURE__*/React.createElement(IcseNameInput, {
+        id: this.state.name + "-name",
+        componentName: this.props.data.name,
+        value: this.state.name,
+        onChange: this.handleInputChange,
+        componentProps: this.props,
+        placeholder: "my-cos-key-name",
+        className: fieldWidth,
+        helperTextCallback: function helperTextCallback() {
+          return _this2.props.composedNameCallback(_this2.state);
+        },
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props)
+      }), /*#__PURE__*/React.createElement(IcseSelect, {
+        component: this.props.data.name,
+        name: "role",
+        groups: ["Object Writer", "Object Reader", "Content Reader", "Reader", "Writer", "Manager"],
+        value: this.state.role,
+        labelText: "Role",
+        handleInputChange: this.handleInputChange,
+        className: fieldWidth
+      }), /*#__PURE__*/React.createElement(IcseToggle, {
+        tooltip: {
+          link: "https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-uhc-hmac-credentials-main",
+          content: "HMAC (hash-based message authentication code) is required for Teleport VSI instances."
+        },
+        id: composedId + "cos-instance-key-hmac",
+        labelText: "Enable HMAC",
+        defaultToggled: this.props.forceEnableHmac,
+        onToggle: this.handleToggle,
+        isModal: this.props.isModal,
+        disabled: this.props.forceEnableHmac
+      })));
+    }
+  }]);
+  return ObjectStorageKeyForm;
+}(Component);
+ObjectStorageKeyForm.defaultProps = {
+  data: {
+    name: "",
+    enable_hmac: false
+  },
+  forceEnableHmac: false
+};
+ObjectStorageKeyForm.propTypes = {
+  isModal: PropTypes.bool,
+  data: PropTypes.shape({
+    enable_hmac: PropTypes.bool.isRequired,
+    name: PropTypes.string.isRequired,
+    role: PropTypes.string
+  }),
+  shouldDisableSave: PropTypes.func,
+  shouldDisableSubmit: PropTypes.func,
+  forceEnableHmac: PropTypes.bool.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  composedNameCallback: PropTypes.func.isRequired
+};
+
+var css_248z$4 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z$4);
+
+/**
+ * Empty Resource Tile
+ * @param {*} props
+ * @param {string} props.name resource name
+ * @param {(boolean|*[])} props.showIfEmpty if array is empty or boolean is false, show the empty resource tile
+ * @returns tile if shown, empty string otherwise
+ */
+
+var EmptyResourceTile = function EmptyResourceTile(props) {
+  return props.showIfEmpty === false || props.showIfEmpty.length === 0 ? /*#__PURE__*/React.createElement(Tile, {
+    className: "marginBottomXs tileBackground"
+  }, /*#__PURE__*/React.createElement(CloudAlerting, {
+    size: "24",
+    className: "iconMargin"
+  }), "No ", props.name, ".", " ", props.instructions || /*#__PURE__*/React.createElement(React.Fragment, null, "Click", /*#__PURE__*/React.createElement(Add, {
+    size: "24",
+    className: "inlineIconMargin"
+  }), "button to add one.")) : "";
+};
+EmptyResourceTile.defaultProps = {
+  name: "items in this list"
+};
+EmptyResourceTile.propTypes = {
+  name: PropTypes.string.isRequired,
+  showIfEmpty: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]).isRequired
+};
+
+>>>>>>> f433c72 (fix: remove unused params)
 var css_248z$3 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
 >>>>>>> f19dfef (merge)
 styleInject(css_248z$3);

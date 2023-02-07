@@ -51,7 +51,6 @@ class ObjectStorageKeyForm extends Component {
           <IcseNameInput
             id={this.state.name + "-name"}
             componentName={this.props.data.name}
-            component="cos_keys"
             value={this.state.name}
             onChange={this.handleInputChange}
             componentProps={this.props}
