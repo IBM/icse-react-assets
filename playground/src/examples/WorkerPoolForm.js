@@ -38,10 +38,11 @@ export const WorkerPoolFormExample = () => {
       }}
       data={{
         entitlement: "null",
-        name: "test worker pool",
+        name: "testWorkerPool",
         subnet_names: ["zone1", "zone2"],
         subnets: ["management"],
         flavor: "bx2.16x64",
+        workers_per_subnet: 2,
       }}
     />
   );

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { buildFormFunctions } from "../component-utils";
 import { IcseNameInput } from "../Inputs";
-import { EntitlementSelect, IcseSelect } from "../Dropdowns";
+import { EntitlementSelect, IcseSelect, IcseNumberSelect } from "../Dropdowns";
 import { SubnetMultiSelect } from "../MultiSelects";
 import { IcseFormGroup } from "../Utils";
 import PropTypes from "prop-types";
@@ -95,12 +95,13 @@ class WorkerPoolForm extends Component {
             className="fieldWidthSmaller cds--form-item"
           />
           {/* Workers per Subnet */}
-          <IcseSelect
+          <IcseNumberSelect
             name="workers_per_subnet"
             formName="Worker Pools"
             labelText="Workers Per Subnet"
             value={this.state.pool.workers_per_subnet}
-            groups={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
+            max={10}
+            min={0}
             handleInputChange={this.handleInputChange}
             component={this.props.data.name}
             className="fieldWidthSmaller"
