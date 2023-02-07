@@ -3407,7 +3407,7 @@ var ObjectStorageKeyForm = /*#__PURE__*/function (_Component) {
       var _this2 = this;
       // composed id
       var composedId = "key-form-".concat(this.props.data.name ? this.props.data.name : "new-key");
-      var fieldWidth = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
+      var inputSize = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
       return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, {
         noMarginBottom: true
       }, /*#__PURE__*/React.createElement(IcseNameInput, {
@@ -3417,20 +3417,20 @@ var ObjectStorageKeyForm = /*#__PURE__*/function (_Component) {
         onChange: this.handleInputChange,
         componentProps: this.props,
         placeholder: "my-cos-key-name",
-        className: fieldWidth,
+        className: inputSize,
         helperTextCallback: function helperTextCallback() {
           return _this2.props.composedNameCallback(_this2.state);
         },
         invalid: this.props.invalidCallback(this.state, this.props),
         invalidText: this.props.invalidTextCallback(this.state, this.props)
       }), /*#__PURE__*/React.createElement(IcseSelect, {
-        component: this.props.data.name,
         name: "role",
         groups: ["Object Writer", "Object Reader", "Content Reader", "Reader", "Writer", "Manager"],
         value: this.state.role,
         labelText: "Role",
         handleInputChange: this.handleInputChange,
-        className: fieldWidth
+        className: inputSize,
+        formName: this.state.data + "-cos-key"
       }), /*#__PURE__*/React.createElement(IcseToggle, {
         tooltip: {
           link: "https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-uhc-hmac-credentials-main",

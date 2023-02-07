@@ -75,6 +75,7 @@ class ObjectStorageKeyForm extends Component {
             labelText="Role"
             handleInputChange={this.handleInputChange}
             className={inputSize}
+            formName={this.state.data + "-cos-key"}
           />
           {/* use hmac */}
           <IcseToggle
