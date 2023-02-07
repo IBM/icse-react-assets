@@ -62,7 +62,6 @@ class ObjectStorageKeyForm extends Component {
           />
           {/* role */}
           <IcseSelect
-            component={this.props.data.name}
             name="role"
             groups={[
               "Object Writer",
