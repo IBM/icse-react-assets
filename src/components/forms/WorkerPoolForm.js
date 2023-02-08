@@ -89,6 +89,7 @@ class WorkerPoolForm extends Component {
             slz={this.props.slz}
             disabled={this.state.pool.vpc_name === null}
             vpc_name={this.state.pool.vpc_name}
+            subnets={this.props.data.subnets}
             initialSelectedItems={this.state.pool.subnet_names}
             onChange={this.handleSubnetChange}
             component={this.props.data.name}
@@ -149,6 +150,7 @@ WorkerPoolForm.propTypes = {
     subnet_names: PropTypes.array.isRequired,
     vpc_name: PropTypes.string.isRequired,
     workers_per_subnet: PropTypes.number.isRequired,
+    subnets: PropTypes.array.isRequired,
   }).isRequired,
 };
 

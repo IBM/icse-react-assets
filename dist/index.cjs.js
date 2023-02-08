@@ -6376,6 +6376,7 @@ var WorkerPoolForm = /*#__PURE__*/function (_Component) {
         slz: this.props.slz,
         disabled: this.state.pool.vpc_name === null,
         vpc_name: this.state.pool.vpc_name,
+        subnets: this.props.data.subnets,
         initialSelectedItems: this.state.pool.subnet_names,
         onChange: this.handleSubnetChange,
         component: this.props.data.name,
@@ -6433,7 +6434,8 @@ WorkerPoolForm.propTypes = {
     name: PropTypes__default["default"].string.isRequired,
     subnet_names: PropTypes__default["default"].array.isRequired,
     vpc_name: PropTypes__default["default"].string.isRequired,
-    workers_per_subnet: PropTypes__default["default"].number.isRequired
+    workers_per_subnet: PropTypes__default["default"].number.isRequired,
+    subnets: PropTypes__default["default"].array.isRequired
   }).isRequired
 };
 

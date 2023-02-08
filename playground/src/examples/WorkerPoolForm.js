@@ -22,25 +22,20 @@ export const WorkerPoolFormExample = () => {
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
       cluster={{
-        cos_name: "cos name",
-        kube_type: "kube_type",
-        kube_version: "1.3.5",
-        machine_type: "machine_type",
-        name: "test",
-        subnet_names: ["zone-1", "zone-2"],
-        update_all_workers: true,
-        kms_config: {
-          crk_name: "test_crk_name",
-        },
+        machine_type: "bx2.16x64",
+        subnet_names: ["zone1", "zone2"],
         vpc_name: "test",
-        worker_pools: ["test1", "test2", "test3"],
         workers_per_subnet: 2,
+        entitlement: "null",
       }}
       data={{
         entitlement: "null",
         name: "testWorkerPool",
         subnet_names: ["zone1", "zone2"],
-        subnets: ["management"],
+        subnets: {
+          test: ["a", "b", " c"],
+        },
+        vpc_name: "test",
         flavor: "bx2.16x64",
         workers_per_subnet: 2,
       }}
