@@ -1,6 +1,7 @@
 .displayFlex {
   display: flex;
 }
+
 .fitContent {
   width: fit-content;
 }
@@ -9,14 +10,14 @@
   align-items: center;
 }
 
-.widthOneHundredPercent{
+.widthOneHundredPercent {
   width: 100%;
 }
 
 .marginBottom {
   margin-bottom: 2rem;
 }
-  
+
 .marginBottomSmall {
   margin-bottom: 1rem;
 }
