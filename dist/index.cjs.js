@@ -5,6 +5,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> faf8c38 (fixed imports)
@@ -31,10 +32,13 @@ var react = require('@carbon/react');
 >>>>>>> dc1cdcb (arrayOf)
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+>>>>>>> 7d02243 (fix merge)
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -80,6 +84,11 @@ var PropTypes__default = /*#__PURE__*/_interopDefaultLegacy(PropTypes);
 =======
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+var iconsReact = require('@carbon/icons-react');
+var React = require('react');
+var PropTypes = require('prop-types');
+>>>>>>> 7d02243 (fix merge)
 var lazyZ = require('lazy-z');
 var react = require('@carbon/react');
 
@@ -87,6 +96,7 @@ function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'defau
 
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 var PropTypes__default = /*#__PURE__*/_interopDefaultLegacy(PropTypes);
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> dc1cdcb (arrayOf)
 =======
@@ -210,6 +220,10 @@ EmptyResourceTile.propTypes = {
 >>>>>>> b9aa481 (feat: object storage key form)
 =======
 >>>>>>> 611854f (AccesGroupPolicyForm done)
+=======
+var lazyZ__default = /*#__PURE__*/_interopDefaultLegacy(lazyZ);
+
+>>>>>>> 7d02243 (fix merge)
 function ownKeys(object, enumerableOnly) {
   var keys = Object.keys(object);
   if (Object.getOwnPropertySymbols) {
@@ -365,11 +379,14 @@ function _toPropertyKey(arg) {
 }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
 =======
 >>>>>>> dc1cdcb (arrayOf)
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+>>>>>>> 7d02243 (fix merge)
 
 var _require = require("lazy-z"),
   isFunction = _require.isFunction;
@@ -463,6 +480,9 @@ function toggleMarginBottom$1(hide) {
   if (hide === false) return " marginBottomSmall";else return "";
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7d02243 (fix merge)
 
 /**
  * Function that determines invalid state and invalid text for scc fields: scope_name, scope_description, and collector_description
@@ -477,12 +497,16 @@ function invalidRegex$1(name, value, regex) {
     invalidText: `Invalid ${name}. Must match regular expression: ${regex}`
   };
 }
+<<<<<<< HEAD
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+>>>>>>> 7d02243 (fix merge)
 var formUtils = {
   addClassName: addClassName$1,
   toggleMarginBottom: toggleMarginBottom$1,
   prependEmptyStringWhenNull: prependEmptyStringWhenNull$1,
+<<<<<<< HEAD
 <<<<<<< HEAD
   checkNullorEmptyString: checkNullorEmptyString$1,
 <<<<<<< HEAD
@@ -493,6 +517,10 @@ var formUtils = {
 =======
   invalidRegex: invalidRegex$1
 >>>>>>> 55b6519 (rename function and fix imports)
+=======
+  checkNullorEmptyString: checkNullorEmptyString$1,
+  invalidRegex: invalidRegex$1
+>>>>>>> 7d02243 (fix merge)
 };
 
 const {
@@ -540,12 +568,15 @@ function eventTargetToNameAndValue$1(event) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> dc1cdcb (arrayOf)
 =======
 >>>>>>> b6eab56 (example and readme)
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+>>>>>>> 7d02243 (fix merge)
   let {
     name,
     value
@@ -580,6 +611,7 @@ const {
   addClassName,
   prependEmptyStringWhenNull,
 <<<<<<< HEAD
+<<<<<<< HEAD
   checkNullorEmptyString,
 <<<<<<< HEAD
   invalidScc
@@ -589,6 +621,10 @@ const {
 =======
   invalidRegex
 >>>>>>> 55b6519 (rename function and fix imports)
+=======
+  checkNullorEmptyString,
+  invalidRegex
+>>>>>>> 7d02243 (fix merge)
 } = formUtils;
 const {
   formatInputPlaceholder
@@ -611,6 +647,9 @@ var lib = {
   eventTargetToNameAndValue,
   toggleStateBoolean,
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7d02243 (fix merge)
   setNameToValue,
   invalidRegex
 };
@@ -620,6 +659,7 @@ var lib_3 = lib.prependEmptyStringWhenNull;
 var lib_4 = lib.checkNullorEmptyString;
 var lib_5 = lib.formatInputPlaceholder;
 var lib_6 = lib.saveChangeButtonClass;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -877,6 +917,9 @@ function buildFormDefaultInputMethods(component) {
   component.setNameToValue = setNameToValue.bind(component);
 }
 >>>>>>> 1dc4ca0 (Issue 680: Instance Form Modal (#17))
+=======
+var lib_10 = lib.invalidRegex;
+>>>>>>> 7d02243 (fix merge)
 
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
@@ -906,6 +949,7 @@ function styleInject(css, ref) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$2 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$2);
 =======
@@ -917,6 +961,14 @@ styleInject(css_248z$9);
 var css_248z$8 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
 styleInject(css_248z$8);
 
+=======
+var css_248z$a = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
+styleInject(css_248z$a);
+
+var css_248z$9 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+styleInject(css_248z$9);
+
+>>>>>>> 7d02243 (fix merge)
 /**
  * Render a form (duplicate from utils to prevent circular dependencies)
  * @param {*} form form element
@@ -1043,6 +1095,7 @@ DynamicToolTipWrapper.propTypes = {
   innerForm: PropTypes__default["default"].oneOfType([PropTypes__default["default"].object, PropTypes__default["default"].func])
 };
 
+<<<<<<< HEAD
 var css_248z$7 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  z-index: 9001;\n  top: 20px;\n}\n";
 >>>>>>> b9aa481 (feat: object storage key form)
 =======
@@ -1907,6 +1960,10 @@ styleInject(css_248z$7);
 var css_248z$8 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  z-index: 9001;\n  top: 20px;\n}\n";
 styleInject(css_248z$8);
 >>>>>>> 09dbacf (SshKeyForm, example, and docs)
+=======
+var css_248z$8 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  z-index: 9001;\n  top: 20px;\n}\n";
+styleInject(css_248z$8);
+>>>>>>> 7d02243 (fix merge)
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -1982,6 +2039,9 @@ PopoverWrapper.propTypes = {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 7d02243 (fix merge)
 var css_248z$7 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
 styleInject(css_248z$7);
 
@@ -2008,6 +2068,7 @@ var SaveIcon = function SaveIcon(props) {
  * @returns Save add button
  */
 var SaveAddButton = function SaveAddButton(props) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
@@ -2260,6 +2321,8 @@ var SaveAddButton = function SaveAddButton(props) {
 >>>>>>> b18f05c (added documentation for KeyManagementForm)
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+>>>>>>> 7d02243 (fix merge)
   return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
     hoverText: props.type === "add" && props.hoverText === "Save Changes" ? "Add Resource" : props.hoverText,
     className: (props.disabled ? "inlineBlock cursorNotAllowed" : "") + (props.inline ? " alignItemsCenter marginTopLarge inLineFormButton" : ""),
@@ -2540,6 +2603,7 @@ StatelessToggleForm.propTypes = {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$6 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
 styleInject(css_248z$6);
 =======
@@ -2694,6 +2758,13 @@ var IcseToggle = function IcseToggle(props) {
 var IcseToggle = function IcseToggle(props) {
   var toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+var css_248z$6 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
+styleInject(css_248z$6);
+
+var IcseToggle = function IcseToggle(props) {
+  var toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
+>>>>>>> 7d02243 (fix merge)
   return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React__default["default"].createElement(react.Toggle, {
     labelA: props.useOnOff ? "Off" : "False",
     labelB: props.useOnOff ? "On" : "True",
@@ -2702,6 +2773,7 @@ var IcseToggle = function IcseToggle(props) {
     className: lib_2("leftTextAlign fieldWidth", props) + (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
     ,
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -2715,11 +2787,15 @@ var IcseToggle = function IcseToggle(props) {
 =======
     onToggle: function onToggle(event) {
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+    onToggle: function onToggle(event) {
+>>>>>>> 7d02243 (fix merge)
       props.onToggle(toggleName, event);
     },
     defaultToggled: props.defaultToggled,
     disabled: props.disabled
   }));
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 var IcseToggle = function IcseToggle(props) {
@@ -2746,6 +2822,8 @@ var IcseToggle = function IcseToggle(props) {
 >>>>>>> b18f05c (added documentation for KeyManagementForm)
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+>>>>>>> 7d02243 (fix merge)
 };
 IcseToggle.defaultProps = {
   useOnOff: false,
@@ -2794,6 +2872,7 @@ var IcseTextInput = function IcseTextInput(props) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     placeholder: props.placeholder || lib_3(props.componentName, fieldName),
 =======
     placeholder: props.placeholder || lib_5(props.componentName, fieldName),
@@ -2804,6 +2883,9 @@ var IcseTextInput = function IcseTextInput(props) {
 =======
     placeholder: props.placeholder || lib_5(props.componentName, fieldName),
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+    placeholder: props.placeholder || lib_5(props.componentName, fieldName),
+>>>>>>> 7d02243 (fix merge)
     name: props.field,
     value: props.value || "",
     invalid: lazyZ.isBoolean(props.invalid) ? props.invalid : props.invalidCallback(),
@@ -2893,6 +2975,7 @@ IcseNameInput.propTypes = {
   invalidCallback: PropTypes__default["default"].func
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 var css_248z$4 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
@@ -5214,12 +5297,17 @@ const IcseSelect = props => {
 
 =======
 >>>>>>> b6eab56 (example and readme)
+=======
+>>>>>>> 7d02243 (fix merge)
 var IcseSelect = function IcseSelect(props) {
   var invalid =
   // automatically set to invalid is is null or empty string and invalid not disabled
   props.disableInvalid !== true && lazyZ.isNullOrEmptyString(props.value) ? true : props.invalid;
   var groups = props.groups.length === 0 ? [] // if no groups, empty array
+<<<<<<< HEAD
 >>>>>>> 72d0b85 (merge)
+=======
+>>>>>>> 7d02243 (fix merge)
   : lib_3(
   // otherwise try and prepend empty string if null
   props.value, props.groups);
@@ -5231,6 +5319,7 @@ var IcseSelect = function IcseSelect(props) {
   return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, _extends({
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     innerForm: () => {
 =======
 =======
@@ -5238,6 +5327,10 @@ var IcseSelect = function IcseSelect(props) {
 >>>>>>> e63c208 (fix value prop type warning)
     innerForm: function innerForm() {
 >>>>>>> 72d0b85 (merge)
+=======
+    id: lazyZ.kebabCase(props.name) + "-dropdown-tooltip",
+    innerForm: function innerForm() {
+>>>>>>> 7d02243 (fix merge)
       return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
         hoverText: props.value || ""
         // inherit classnames from tooltip
@@ -5255,12 +5348,15 @@ var IcseSelect = function IcseSelect(props) {
         readOnly: props.readOnly,
         onChange: props.handleInputChange
 <<<<<<< HEAD
+<<<<<<< HEAD
       }, groups.map(value => /*#__PURE__*/React__default["default"].createElement(react.SelectItem, {
         key: `${props.id}-${value}`,
         text: value,
         value: value
       }))));
 =======
+=======
+>>>>>>> 7d02243 (fix merge)
       }, groups.map(function (value) {
         return /*#__PURE__*/React__default["default"].createElement(react.SelectItem, {
           key: "".concat(props.id, "-").concat(value),
@@ -5268,7 +5364,10 @@ var IcseSelect = function IcseSelect(props) {
           value: value
         });
       })));
+<<<<<<< HEAD
 >>>>>>> 72d0b85 (merge)
+=======
+>>>>>>> 7d02243 (fix merge)
     }
   }, props));
 };
@@ -5297,6 +5396,7 @@ IcseSelect.propTypes = {
   debug: PropTypes__default["default"].bool.isRequired,
   handleInputChange: PropTypes__default["default"].func.isRequired,
   labelText: PropTypes__default["default"].string.isRequired,
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   name: PropTypes__default["default"].string.isRequired,
@@ -5368,6 +5468,13 @@ class FetchSelect extends React__default["default"].Component {
     alignModal: PropTypes__default["default"].string,
     align: PropTypes__default["default"].string
 >>>>>>> f15fc78 (tooltip align prop)
+=======
+  tooltip: PropTypes__default["default"].shape({
+    content: PropTypes__default["default"].string.isRequired,
+    link: PropTypes__default["default"].string,
+    alignModal: PropTypes__default["default"].string,
+    align: PropTypes__default["default"].string
+>>>>>>> 7d02243 (fix merge)
   })
 };
 var FetchSelect = /*#__PURE__*/function (_React$Component) {
@@ -5432,7 +5539,10 @@ var FetchSelect = /*#__PURE__*/function (_React$Component) {
   }]);
   return FetchSelect;
 }(React__default["default"].Component);
+<<<<<<< HEAD
 >>>>>>> 72d0b85 (merge)
+=======
+>>>>>>> 7d02243 (fix merge)
 FetchSelect.propTypes = {
   labelText: PropTypes__default["default"].string.isRequired,
   handleInputChange: PropTypes__default["default"].func.isRequired,
@@ -5449,16 +5559,21 @@ FetchSelect.propTypes = {
   formName: PropTypes__default["default"].string.isRequired
 };
 <<<<<<< HEAD
+<<<<<<< HEAD
 const IcseNumberSelect = props => {
 =======
 var IcseNumberSelect = function IcseNumberSelect(props) {
 >>>>>>> 72d0b85 (merge)
+=======
+var IcseNumberSelect = function IcseNumberSelect(props) {
+>>>>>>> 7d02243 (fix merge)
   return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
     formName: props.formName,
     groups: lazyZ.buildNumberDropdownList(props.max, props.min),
     value: props.value.toString(),
     name: props.name || "Icse Number Select",
     className: props.className,
+<<<<<<< HEAD
 <<<<<<< HEAD
     handleInputChange: event => {
       // set name target value and parse int
@@ -5468,6 +5583,11 @@ var IcseNumberSelect = function IcseNumberSelect(props) {
       // set name target value and parse int
       var sendEvent = {
 >>>>>>> 72d0b85 (merge)
+=======
+    handleInputChange: function handleInputChange(event) {
+      // set name target value and parse int
+      var sendEvent = {
+>>>>>>> 7d02243 (fix merge)
         target: {
           name: event.target.name,
           value: parseInt(event.target.value)
@@ -5508,10 +5628,14 @@ IcseNumberSelect.propTypes = {
   isModal: PropTypes__default["default"].bool.isRequired
 };
 <<<<<<< HEAD
+<<<<<<< HEAD
 const EntitlementSelect = props => {
 =======
 var EntitlementSelect = function EntitlementSelect(props) {
 >>>>>>> 72d0b85 (merge)
+=======
+var EntitlementSelect = function EntitlementSelect(props) {
+>>>>>>> 7d02243 (fix merge)
   return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
     name: props.name,
     labelText: "Entitlement",
@@ -5533,6 +5657,7 @@ EntitlementSelect.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> b345987 (fixes & heading/statelesstoggle form added)
 =======
@@ -5550,6 +5675,8 @@ var UnderConstruction = function UnderConstruction() {
 =======
 >>>>>>> 2f16728 (removed resource_group default)
 =======
+=======
+>>>>>>> 7d02243 (fix merge)
 /**
  * vpn gateway form
  */
@@ -5665,7 +5792,10 @@ VpnGatewayForm.propTypes = {
   isModal: PropTypes__default["default"].bool.isRequired
 };
 
+<<<<<<< HEAD
 >>>>>>> ad3a1f9 (Migrated VpnGatewayForm + Documentation (Issue702) (#31))
+=======
+>>>>>>> 7d02243 (fix merge)
 var ObjectStorageKeyForm = /*#__PURE__*/function (_Component) {
   _inherits(ObjectStorageKeyForm, _Component);
   var _super = _createSuper(ObjectStorageKeyForm);
@@ -5772,8 +5902,13 @@ ObjectStorageKeyForm.propTypes = {
   composedNameCallback: PropTypes__default["default"].func.isRequired
 };
 
+<<<<<<< HEAD
 var css_248z$4 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$4);
+=======
+var css_248z$5 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z$5);
+>>>>>>> 7d02243 (fix merge)
 
 /**
  * Empty Resource Tile
@@ -5802,10 +5937,15 @@ EmptyResourceTile.propTypes = {
   showIfEmpty: PropTypes__default["default"].oneOfType([PropTypes__default["default"].array, PropTypes__default["default"].bool]).isRequired
 };
 
+<<<<<<< HEAD
 =======
 >>>>>>> 353b3a7 ($@)
 var css_248z$3 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
 styleInject(css_248z$3);
+=======
+var css_248z$4 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
+styleInject(css_248z$4);
+>>>>>>> 7d02243 (fix merge)
 
 var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
   _inherits(AppIdKeyForm, _React$Component);
@@ -6019,7 +6159,10 @@ SccForm.propTypes = {
   descriptionRegex: PropTypes__default["default"].instanceOf(RegExp).isRequired
 };
 
+<<<<<<< HEAD
 >>>>>>> b9aa481 (feat: object storage key form)
+=======
+>>>>>>> 7d02243 (fix merge)
 /**
  * SecretsManagerForm
  * @param {Object} props
@@ -6094,11 +6237,19 @@ SecretsManagerForm.propTypes = {
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
 };
 
+<<<<<<< HEAD
 var css_248z$2 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
 styleInject(css_248z$2);
 
 var css_248z$1 = ".leftTextAlign {\n  text-align: left;\n}\n";
 styleInject(css_248z$1);
+=======
+var css_248z$3 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+styleInject(css_248z$3);
+
+var css_248z$2 = ".leftTextAlign {\n  text-align: left;\n}\n";
+styleInject(css_248z$2);
+>>>>>>> 7d02243 (fix merge)
 
 /**
  * Icse multiselect template
@@ -6302,6 +6453,10 @@ var WorkerPoolForm = /*#__PURE__*/function (_Component) {
       pool: _this.props.isModal ? {
         name: "",
         flavor: _this.props.cluster.machine_type,
+<<<<<<< HEAD
+=======
+        subnetList: _this.props.cluster.subnetList,
+>>>>>>> 7d02243 (fix merge)
         subnets: _this.props.cluster.subnets,
         vpc_name: _this.props.cluster.vpc_name,
         workers_per_subnet: _this.props.cluster.workers_per_subnet,
@@ -6376,7 +6531,12 @@ var WorkerPoolForm = /*#__PURE__*/function (_Component) {
         slz: this.props.slz,
         disabled: this.state.pool.vpc_name === null,
         vpc_name: this.state.pool.vpc_name,
+<<<<<<< HEAD
         subnets: this.props.data.subnets,
+=======
+        initialSelectedItems: this.props.data.subnets,
+        subnets: this.props.data.subnetList,
+>>>>>>> 7d02243 (fix merge)
         onChange: this.handleSubnetChange,
         component: this.props.data.name,
         className: "fieldWidthSmaller cds--form-item"
@@ -6409,6 +6569,7 @@ WorkerPoolForm.defaultProps = {
 WorkerPoolForm.propTypes = {
   isModal: PropTypes__default["default"].bool.isRequired,
   cluster: PropTypes__default["default"].shape({
+<<<<<<< HEAD
     cos_name: PropTypes__default["default"].string.isRequired,
     entitlement: PropTypes__default["default"].string,
     // can be null
@@ -6425,6 +6586,15 @@ WorkerPoolForm.propTypes = {
     worker_pools: PropTypes__default["default"].array.isRequired,
     workers_per_subnet: PropTypes__default["default"].number.isRequired,
     subnets: PropTypes__default["default"].array.isRequired
+=======
+    entitlement: PropTypes__default["default"].string,
+    // can be null
+    machine_type: PropTypes__default["default"].string.isRequired,
+    vpc_name: PropTypes__default["default"].string.isRequired,
+    workers_per_subnet: PropTypes__default["default"].number.isRequired,
+    subnets: PropTypes__default["default"].array.isRequired,
+    subnetList: PropTypes__default["default"].array.isRequired
+>>>>>>> 7d02243 (fix merge)
   }),
   // can be null
   data: PropTypes__default["default"].shape({
@@ -6433,7 +6603,12 @@ WorkerPoolForm.propTypes = {
     name: PropTypes__default["default"].string.isRequired,
     vpc_name: PropTypes__default["default"].string.isRequired,
     workers_per_subnet: PropTypes__default["default"].number.isRequired,
+<<<<<<< HEAD
     subnets: PropTypes__default["default"].array.isRequired
+=======
+    subnets: PropTypes__default["default"].array.isRequired,
+    subnetList: PropTypes__default["default"].array.isRequired
+>>>>>>> 7d02243 (fix merge)
   }).isRequired
 };
 
@@ -6576,6 +6751,7 @@ EncryptionKeyForm.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
 =======
@@ -6691,6 +6867,8 @@ KeyManagementForm.propTypes = {
 };
 
 >>>>>>> 92f0c0d (removed resourcegroupselect component)
+=======
+>>>>>>> 7d02243 (fix merge)
 /**
  * Key Management
  */
@@ -6933,18 +7111,25 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
     key: "handleToggle",
     value: function handleToggle(name) {
 <<<<<<< HEAD
+<<<<<<< HEAD
       this.setState(_defineProperty({}, name, !this.state[name]));
 =======
       this.setState(this.toggleStateBoolean(name, this.state));
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+      this.setState(this.toggleStateBoolean(name, this.state));
+>>>>>>> 7d02243 (fix merge)
     }
   }, {
     key: "render",
     value: function render() {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+>>>>>>> 7d02243 (fix merge)
       return /*#__PURE__*/React__default["default"].createElement("div", {
         id: "atracker-form"
       }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
@@ -6979,6 +7164,7 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
         labelText: "Object Storage Log Bucket",
         invalidText: "Select an Object Storage bucket."
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
       return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
         component: "km-system-dropdown",
@@ -6992,19 +7178,25 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
 >>>>>>> 55aac62 (trying to fix toggle)
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+>>>>>>> 7d02243 (fix merge)
       }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
         tooltip: {
           content: "Must be enabled in order to forward all logs to the Cloud Object Storage bucket"
         },
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+>>>>>>> 7d02243 (fix merge)
         labelText: "Create Activity Tracker Route",
         defaultToggled: this.state.add_route,
         toggleFieldName: "add_route",
         onToggle: this.handleToggle,
         id: "app-id-add-route"
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
         labelText: "Use Existing Instance",
@@ -7017,6 +7209,8 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
 >>>>>>> 55aac62 (trying to fix toggle)
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+>>>>>>> 7d02243 (fix merge)
       })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
         noMarginBottom: true
       }, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
@@ -7036,6 +7230,7 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
   }]);
   return AtrackerForm;
 }(React.Component);
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 AtrackerForm.defaultProps = {
@@ -7066,6 +7261,21 @@ AtrackerForm.propTypes = {
   data: PropTypes__default["default"].shape({
     cos_bucket: PropTypes__default["default"].string.isRequired,
     cos_key: PropTypes__default["default"].string.isRequired,
+=======
+AtrackerForm.defaultProps = {
+  isModal: false,
+  data: {
+    collector_bucket_name: "",
+    atracker_key: "",
+    resource_group: "",
+    add_route: false
+  }
+};
+AtrackerForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    collector_bucket_name: PropTypes__default["default"].string.isRequired,
+    atracker_key: PropTypes__default["default"].string.isRequired,
+>>>>>>> 7d02243 (fix merge)
     resource_group: PropTypes__default["default"].string.isRequired,
     add_route: PropTypes__default["default"].bool.isRequired
   }).isRequired,
@@ -7177,6 +7387,7 @@ FormModal.propTypes = {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$3 = ".leftTextAlign {\n  text-align: left;\n}\n";
 styleInject(css_248z$3);
 =======
@@ -7186,6 +7397,8 @@ styleInject(css_248z$2);
 
 =======
 >>>>>>> 353b3a7 ($@)
+=======
+>>>>>>> 7d02243 (fix merge)
 /**
  * Icse Modal Wrapper
  * @param {*} props
@@ -7307,6 +7520,7 @@ UnsavedChangesModal.propTypes = {
   useDefaultUnsavedMessage: PropTypes__default["default"].bool
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 var css_248z$2 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
@@ -7509,19 +7723,25 @@ VpcListMultiSelect.propTypes = {
 
 =======
 >>>>>>> 353b3a7 ($@)
+=======
+>>>>>>> 7d02243 (fix merge)
 /**
  * Under Construction Page
  */
 var UnderConstruction = function UnderConstruction() {
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> dc1cdcb (arrayOf)
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+>>>>>>> 7d02243 (fix merge)
   return /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(iconsReact.WarningAlt, {
     size: "128"
   }), /*#__PURE__*/React__default["default"].createElement("h4", null, "Page Under Construction"));
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -9305,6 +9525,10 @@ styleInject(css_248z);
 var css_248z$1 = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }";
 styleInject(css_248z$1);
 >>>>>>> 09dbacf (SshKeyForm, example, and docs)
+=======
+var css_248z$1 = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }";
+styleInject(css_248z$1);
+>>>>>>> 7d02243 (fix merge)
 
 /**
  * StatefulTabPanel wrapper for non array forms
@@ -9402,6 +9626,7 @@ StatefulTabPanel.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> b982705 (feat: StatefulTabPanel)
 =======
 =======
@@ -9419,6 +9644,8 @@ class ToggleForm extends React__default["default"].Component {
 >>>>>>> b9aa481 (feat: object storage key form)
 =======
 >>>>>>> 353b3a7 ($@)
+=======
+>>>>>>> 7d02243 (fix merge)
 var ToggleForm = /*#__PURE__*/function (_React$Component) {
   _inherits(ToggleForm, _React$Component);
   var _super = _createSuper(ToggleForm);
@@ -9431,6 +9658,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> f19dfef (merge)
 =======
 >>>>>>> 45b57f8 (remove extra props, add name and hideName)
@@ -9440,6 +9668,8 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
 >>>>>>> b9aa481 (feat: object storage key form)
 =======
 >>>>>>> 353b3a7 ($@)
+=======
+>>>>>>> 7d02243 (fix merge)
       showDeleteModal: false,
       showUnsavedChangeModal: false,
       disableSave: true,
@@ -9757,8 +9987,11 @@ ToggleForm.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> f680a35 (almost done)
 =======
+=======
+>>>>>>> 7d02243 (fix merge)
 var css_248z = ".leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidthBigger {\n  width: 30rem\n}\n";
 styleInject(css_248z);
 
@@ -9845,6 +10078,7 @@ SshKeyForm.propTypes = {
   invalidKeyCallback: PropTypes__default["default"].func.isRequired
 };
 
+<<<<<<< HEAD
 >>>>>>> 09dbacf (SshKeyForm, example, and docs)
 exports.AppIdKeyForm = AppIdKeyForm;
 exports.AtrackerForm = AtrackerForm;
@@ -9895,6 +10129,11 @@ exports.AppIdKeyForm = AppIdKeyForm;
 exports.AtrackerForm = AtrackerForm;
 exports.DeleteButton = DeleteButton;
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+exports.AppIdKeyForm = AppIdKeyForm;
+exports.AtrackerForm = AtrackerForm;
+exports.DeleteButton = DeleteButton;
+>>>>>>> 7d02243 (fix merge)
 exports.DeleteModal = DeleteModal;
 exports.DynamicRender = DynamicRender;
 exports.DynamicToolTipWrapper = DynamicToolTipWrapper;
@@ -9913,11 +10152,14 @@ exports.IcseNumberSelect = IcseNumberSelect;
 exports.IcseSelect = IcseSelect;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 72d0b85 (merge)
 =======
 >>>>>>> dc1cdcb (arrayOf)
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+>>>>>>> 7d02243 (fix merge)
 exports.IcseSubForm = IcseSubForm;
 exports.IcseTextInput = IcseTextInput;
 exports.IcseToggle = IcseToggle;
@@ -9926,6 +10168,7 @@ exports.KeyManagementForm = KeyManagementForm;
 exports.ObjectStorageKeyForm = ObjectStorageKeyForm;
 exports.PopoverWrapper = PopoverWrapper;
 exports.RenderForm = RenderForm;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -9960,12 +10203,19 @@ exports.SaveIcon = SaveIcon;
 =======
 exports.SecretsManagerForm = SecretsManagerForm;
 >>>>>>> 159e1d3 (fix: remove log and bind)
+=======
+exports.SaveAddButton = SaveAddButton;
+exports.SaveIcon = SaveIcon;
+exports.SccForm = SccForm;
+exports.SecretsManagerForm = SecretsManagerForm;
+>>>>>>> 7d02243 (fix merge)
 exports.SecurityGroupMultiSelect = SecurityGroupMultiSelect;
 exports.SshKeyForm = SshKeyForm;
 exports.SshKeyMultiSelect = SshKeyMultiSelect;
 exports.StatefulTabPanel = StatefulTabPanel;
 exports.StatelessToggleForm = StatelessToggleForm;
 exports.SubnetMultiSelect = SubnetMultiSelect;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -10002,6 +10252,9 @@ exports.buildFormFunctions = buildFormFunctions;
 =======
 exports.TeleportClaimToRoleForm = TeleportClaimToRoleForm;
 >>>>>>> d3f1972 (migrate TeleportClaimToRoleForm)
+=======
+exports.TeleportClaimToRoleForm = TeleportClaimToRoleForm;
+>>>>>>> 7d02243 (fix merge)
 exports.TitleGroup = TitleGroup;
 exports.ToggleForm = ToggleForm;
 exports.ToolTipWrapper = ToolTipWrapper;
@@ -10009,6 +10262,7 @@ exports.UnderConstruction = UnderConstruction;
 exports.UnsavedChangesModal = UnsavedChangesModal;
 exports.UpDownButtons = UpDownButtons;
 exports.VpcListMultiSelect = VpcListMultiSelect;
+<<<<<<< HEAD
 <<<<<<< HEAD
 exports.VpnGatewayForm = VpnGatewayForm;
 =======
@@ -10023,3 +10277,9 @@ exports.buildFormFunctions = buildFormFunctions;
 >>>>>>> dc1cdcb (arrayOf)
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
+=======
+exports.VpnGatewayForm = VpnGatewayForm;
+exports.WorkerPoolForm = WorkerPoolForm;
+exports.buildFormDefaultInputMethods = buildFormDefaultInputMethods;
+exports.buildFormFunctions = buildFormFunctions;
+>>>>>>> 7d02243 (fix merge)
