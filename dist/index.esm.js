@@ -8736,7 +8736,8 @@ WorkerPoolForm.propTypes = {
     update_all_workers: PropTypes.bool.isRequired,
     vpc_name: PropTypes.string.isRequired,
     worker_pools: PropTypes.array.isRequired,
-    workers_per_subnet: PropTypes.number.isRequired
+    workers_per_subnet: PropTypes.number.isRequired,
+    subnets: PropTypes.array.isRequired
   }),
   // can be null
   data: PropTypes.shape({

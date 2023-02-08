@@ -24,6 +24,9 @@ export const WorkerPoolFormExample = () => {
       cluster={{
         machine_type: "bx2.16x64",
         subnet_names: ["zone1", "zone2"],
+        subnets: {
+          test: ["a", "b", " c"],
+        },
         vpc_name: "test",
         workers_per_subnet: 2,
         entitlement: "null",

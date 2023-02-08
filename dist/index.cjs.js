@@ -6425,7 +6425,8 @@ WorkerPoolForm.propTypes = {
     update_all_workers: PropTypes__default["default"].bool.isRequired,
     vpc_name: PropTypes__default["default"].string.isRequired,
     worker_pools: PropTypes__default["default"].array.isRequired,
-    workers_per_subnet: PropTypes__default["default"].number.isRequired
+    workers_per_subnet: PropTypes__default["default"].number.isRequired,
+    subnets: PropTypes__default["default"].array.isRequired
   }),
   // can be null
   data: PropTypes__default["default"].shape({
