@@ -14,7 +14,7 @@ class WorkerPoolForm extends Component {
         ? {
             name: "",
             flavor: this.props.cluster.machine_type,
-            subnet_names: this.props.cluster.subnet_names,
+            subnets: this.props.cluster.subnets,
             vpc_name: this.props.cluster.vpc_name,
             workers_per_subnet: this.props.cluster.workers_per_subnet,
             entitlement: this.props.cluster.entitlement,
@@ -41,7 +41,7 @@ class WorkerPoolForm extends Component {
   // Handle subnet multiselect change
   handleSubnetChange(event) {
     let pool = { ...this.state.pool };
-    pool.subnet_names = event.selectedItems;
+    pool.subnets = event.selectedItems;
     this.setState({ pool });
   }
 
@@ -90,7 +90,6 @@ class WorkerPoolForm extends Component {
             disabled={this.state.pool.vpc_name === null}
             vpc_name={this.state.pool.vpc_name}
             subnets={this.props.data.subnets}
-            initialSelectedItems={this.state.pool.subnet_names}
             onChange={this.handleSubnetChange}
             component={this.props.data.name}
             className="fieldWidthSmaller cds--form-item"
@@ -118,7 +117,7 @@ WorkerPoolForm.defaultProps = {
     entitlement: "",
     flavor: "bx2.16x64",
     name: "",
-    subnet_names: [],
+    subnets: [],
     vpc_name: "",
     workers_per_subnet: 2,
   },
@@ -137,7 +136,6 @@ WorkerPoolForm.propTypes = {
     resource_group: PropTypes.string,
     kms_config: PropTypes.shape({ crk_name: PropTypes.string.isRequired })
       .isRequired,
-    subnet_names: PropTypes.array.isRequired,
     update_all_workers: PropTypes.bool.isRequired,
     vpc_name: PropTypes.string.isRequired,
     worker_pools: PropTypes.array.isRequired,
@@ -148,7 +146,6 @@ WorkerPoolForm.propTypes = {
     entitlement: PropTypes.string.isRequired,
     flavor: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    subnet_names: PropTypes.array.isRequired,
     vpc_name: PropTypes.string.isRequired,
     workers_per_subnet: PropTypes.number.isRequired,
     subnets: PropTypes.array.isRequired,
