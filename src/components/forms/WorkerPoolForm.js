@@ -14,6 +14,7 @@ class WorkerPoolForm extends Component {
         ? {
             name: "",
             flavor: this.props.cluster.machine_type,
+            subnetList: this.props.cluster.subnetList,
             subnets: this.props.cluster.subnets,
             vpc_name: this.props.cluster.vpc_name,
             workers_per_subnet: this.props.cluster.workers_per_subnet,
@@ -89,7 +90,8 @@ class WorkerPoolForm extends Component {
             slz={this.props.slz}
             disabled={this.state.pool.vpc_name === null}
             vpc_name={this.state.pool.vpc_name}
-            subnets={this.props.data.subnets}
+            initialSelectedItems={this.props.data.subnets}
+            subnets={this.props.data.subnetList}
             onChange={this.handleSubnetChange}
             component={this.props.data.name}
             className="fieldWidthSmaller cds--form-item"
@@ -127,20 +129,12 @@ WorkerPoolForm.defaultProps = {
 WorkerPoolForm.propTypes = {
   isModal: PropTypes.bool.isRequired,
   cluster: PropTypes.shape({
-    cos_name: PropTypes.string.isRequired,
     entitlement: PropTypes.string, // can be null
-    kube_type: PropTypes.string.isRequired,
-    kube_version: PropTypes.string.isRequired,
     machine_type: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    resource_group: PropTypes.string,
-    kms_config: PropTypes.shape({ crk_name: PropTypes.string.isRequired })
-      .isRequired,
-    update_all_workers: PropTypes.bool.isRequired,
     vpc_name: PropTypes.string.isRequired,
-    worker_pools: PropTypes.array.isRequired,
     workers_per_subnet: PropTypes.number.isRequired,
     subnets: PropTypes.array.isRequired,
+    subnetList: PropTypes.array.isRequired,
   }), // can be null
   data: PropTypes.shape({
     entitlement: PropTypes.string.isRequired,
@@ -149,6 +143,7 @@ WorkerPoolForm.propTypes = {
     vpc_name: PropTypes.string.isRequired,
     workers_per_subnet: PropTypes.number.isRequired,
     subnets: PropTypes.array.isRequired,
+    subnetList: PropTypes.array.isRequired,
   }).isRequired,
 };
 

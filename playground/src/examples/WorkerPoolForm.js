@@ -24,6 +24,7 @@ export const WorkerPoolFormExample = () => {
       cluster={{
         machine_type: "bx2.16x64",
 <<<<<<< HEAD
+<<<<<<< HEAD
         subnet_names: ["zone1", "zone2"],
         subnets: {
           test: ["a", "b", " c"],
@@ -31,6 +32,10 @@ export const WorkerPoolFormExample = () => {
 =======
         subnets: ["a", "b", " c"],
 >>>>>>> aa8795c (remove subnet_names, just keep subnets)
+=======
+        subnets: ["a", "b", "c"],
+        subnetList: ["a", "b", "c", "d", "e"],
+>>>>>>> 3d2558a (added subnetList)
         vpc_name: "test",
         workers_per_subnet: 2,
         entitlement: "null",
@@ -45,7 +50,11 @@ export const WorkerPoolFormExample = () => {
         },
 =======
         subnets: ["a", "b", "c"],
+<<<<<<< HEAD
 >>>>>>> aa8795c (remove subnet_names, just keep subnets)
+=======
+        subnetList: ["a", "b", "c", "d", "e"],
+>>>>>>> 3d2558a (added subnetList)
         vpc_name: "test",
         flavor: "bx2.16x64",
         workers_per_subnet: 2,
