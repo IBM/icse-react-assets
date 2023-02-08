@@ -13,6 +13,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import { Popover, PopoverContent, FilterableMultiSelect, MultiSelect, Tile, Toggletip, ToggletipButton, ToggletipContent, Link, Modal, TextInput, Toggle, Button } from '@carbon/react';
 >>>>>>> 04bfb65 (added button examples)
@@ -83,6 +84,9 @@ import { Tile, Popover, PopoverContent, Button, Toggletip, ToggletipButton, Togg
 import PropTypes from 'prop-types';
 import lazyZ, { snakeCase, kebabCase as kebabCase$1, titleCase, isBoolean, isEmpty, isNullOrEmptyString, buildNumberDropdownList, prettyJSON, isFunction as isFunction$1 } from 'lazy-z';
 =======
+=======
+import { Information, Save, Add, CloseFilled, Edit, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt } from '@carbon/icons-react';
+>>>>>>> ad3a1f9 (Migrated VpnGatewayForm + Documentation (Issue702) (#31))
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import lazyZ, { snakeCase, kebabCase as kebabCase$1, titleCase, isBoolean, isNullOrEmptyString, isEmpty, buildNumberDropdownList, prettyJSON, isFunction as isFunction$1 } from 'lazy-z';
@@ -90,8 +94,11 @@ import lazyZ, { snakeCase, kebabCase as kebabCase$1, titleCase, isBoolean, isNul
 >>>>>>> f19dfef (merge)
 =======
 import { Toggletip, ToggletipButton, ToggletipContent, Link, Popover, PopoverContent, Button, Toggle, TextInput, Select, SelectItem, Tile, Dropdown, Modal, FilterableMultiSelect, MultiSelect, Tabs, TabList, Tab, TabPanels, TabPanel } from '@carbon/react';
+<<<<<<< HEAD
 import { Information, Save, Add, CloseFilled, Edit, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt } from '@carbon/icons-react';
 >>>>>>> b9aa481 (feat: object storage key form)
+=======
+>>>>>>> ad3a1f9 (Migrated VpnGatewayForm + Documentation (Issue702) (#31))
 
 var _require = require("lazy-z"),
   isFunction = _require.isFunction;
@@ -1073,6 +1080,7 @@ var lib = {
 var lib_1 = lib.toggleMarginBottom;
 var lib_2 = lib.addClassName;
 var lib_3 = lib.prependEmptyStringWhenNull;
+var lib_4 = lib.checkNullorEmptyString;
 var lib_5 = lib.formatInputPlaceholder;
 var lib_6 = lib.saveChangeButtonClass;
 <<<<<<< HEAD
@@ -3361,6 +3369,110 @@ EntitlementSelect.propTypes = {
   handleInputChange: PropTypes.func.isRequired,
   formName: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired
+};
+
+/**
+ * vpn gateway form
+ */
+class VpnGatewayForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    this.handleInputChange = this.handleInputChange.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+
+  /**
+   * handle input change
+   * @param {event} event
+   */
+  handleInputChange(event) {
+    if (event.target.name === "vpc_name") {
+      this.setState({
+        vpc_name: event.target.value,
+        subnet_name: ""
+      });
+    } else if (event.target.name === "subnet_name" && lib_4(this.state.vpc_name)) {
+      this.setState({
+        subnet_name: ""
+      });
+    } else {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+  }
+  render() {
+    let composedId = `vpn-gateway-form-${this.props.data.name}-`;
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: composedId,
+      component: "vpn_gateways",
+      componentName: this.props.data.name,
+      componentProps: this.props,
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      placeholder: "my-vpn-gateway-name",
+      hideHelperText: true,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: "resource_group",
+      name: "resource_group",
+      labelText: "Resource Group",
+      groups: this.props.resourceGroups,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange,
+      invalid: lib_4(this.state.resource_group),
+      invalidText: "Select a Resource Group.",
+      className: "fieldWidth"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+      id: composedId,
+      formName: "vpc_name",
+      name: "vpc_name",
+      labelText: "VPC",
+      groups: this.props.vpcList,
+      value: this.state.vpc_name,
+      handleInputChange: this.handleInputChange,
+      invalid: lib_4(this.state.vpc_name),
+      invalidText: "Select a VPC.",
+      className: "fieldWidth"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      id: composedId,
+      formName: "subnet_name",
+      name: "subnet_name",
+      labelText: "Subnet",
+      groups: this.props.subnetList,
+      value: this.state.subnet_name,
+      handleInputChange: this.handleInputChange,
+      invalid: lib_4(this.state.vpc_name) || lib_4(this.state.subnet_name),
+      invalidText: lib_4(this.state.vpc_name) ? `No VPC Selected.` : `Select a Subnet.`,
+      className: "fieldWidth"
+    })));
+  }
+}
+VpnGatewayForm.defaultProps = {
+  data: {
+    name: "",
+    resource_group: "",
+    vpc_name: "",
+    subnet_name: null
+  },
+  isModal: false
+};
+VpnGatewayForm.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    resource_group: PropTypes.string,
+    // can be null
+    vpc_name: PropTypes.string,
+    // can be null
+    subnet_name: PropTypes.string // can be null
+  }).isRequired,
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  vpcList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  subnetList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  isModal: PropTypes.bool.isRequired
 };
 
 var ObjectStorageKeyForm = /*#__PURE__*/function (_Component) {
@@ -10942,67 +11054,54 @@ styleInject(css_248z);
 /**
  * ssh key form
  */
-var SshKeyForm = /*#__PURE__*/function (_Component) {
-  _inherits(SshKeyForm, _Component);
-  var _super = _createSuper(SshKeyForm);
-  function SshKeyForm(props) {
-    var _this;
-    _classCallCheck(this, SshKeyForm);
-    _this = _super.call(this, props);
-    _this.state = _this.props.data;
-    buildFormFunctions(_assertThisInitialized(_this));
-    buildFormDefaultInputMethods(_assertThisInitialized(_this));
-    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
-    return _this;
+class SshKeyForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
   /**
    * handle other input events
    * @param {*} event
    */
-  _createClass(SshKeyForm, [{
-    key: "handleInputChange",
-    value: function handleInputChange(event) {
-      this.setState(this.eventTargetToNameAndValue(event));
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
-        id: this.state.name + "-name",
-        componentName: this.props.data.name + "-ssh-key-name",
-        component: "ssh_keys",
-        componentProps: this.props,
-        value: this.state.name,
-        onChange: this.handleInputChange,
-        invalid: this.props.invalidCallback(this.state, this.props),
-        invalidText: this.props.invalidTextCallback(this.state, this.props),
-        hideHelperText: true
-      }), /*#__PURE__*/React.createElement(IcseSelect, {
-        name: "resource_group",
-        formName: "".concat(kebabCase$1(this.props.data.name), "-ssh-rg-select"),
-        groups: this.props.resourceGroups,
-        value: this.state.resource_group,
-        handleInputChange: this.handleInputChange,
-        invalidText: "Select a Resource Group.",
-        labelText: "Resource Group"
-      })), /*#__PURE__*/React.createElement(IcseFormGroup, {
-        noMarginBottom: true
-      }, /*#__PURE__*/React.createElement("div", {
-        className: "fieldWidthBigger leftTextAlign"
-      }, /*#__PURE__*/React.createElement(TextInput.PasswordInput, {
-        labelText: "Public Key",
-        name: "public_key",
-        id: this.props.data.name + "-ssh-public-key",
-        value: this.state.public_key,
-        onChange: this.handleInputChange,
-        invalid: this.props.invalidKeyCallback(this.state.public_key).invalid,
-        invalidText: this.props.invalidKeyCallback(this.state.public_key).invalidText
-      }))));
-    }
-  }]);
-  return SshKeyForm;
-}(Component);
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  render() {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: this.state.name + "-name",
+      componentName: this.props.data.name + "-ssh-key-name",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      hideHelperText: true
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      name: "resource_group",
+      formName: `${kebabCase$1(this.props.data.name)}-ssh-rg-select`,
+      groups: this.props.resourceGroups,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a Resource Group.",
+      labelText: "Resource Group"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, {
+      noMarginBottom: true
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "fieldWidthBigger leftTextAlign"
+    }, /*#__PURE__*/React.createElement(TextInput.PasswordInput, {
+      labelText: "Public Key",
+      name: "public_key",
+      id: this.props.data.name + "-ssh-public-key",
+      value: this.state.public_key,
+      onChange: this.handleInputChange,
+      invalid: this.props.invalidKeyCallback(this.state.public_key).invalid,
+      invalidText: this.props.invalidKeyCallback(this.state.public_key).invalidText
+    }))));
+  }
+}
 SshKeyForm.defaultProps = {
   data: {
     name: "",
@@ -11024,8 +11123,12 @@ SshKeyForm.propTypes = {
   invalidKeyCallback: PropTypes.func.isRequired
 };
 
+<<<<<<< HEAD
 export { AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> 09dbacf (SshKeyForm, example, and docs)
 =======
 export { AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> b9aa481 (feat: object storage key form)
+=======
+export { AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, VpnGatewayForm, buildFormDefaultInputMethods, buildFormFunctions };
+>>>>>>> ad3a1f9 (Migrated VpnGatewayForm + Documentation (Issue702) (#31))
