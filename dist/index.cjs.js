@@ -183,12 +183,17 @@ function styleInject(css, ref) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$a = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$a);
 =======
 var css_248z$9 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$9);
 >>>>>>> 353b3a7 ($@)
+=======
+var css_248z$a = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z$a);
+>>>>>>> 817ead3 (update build)
 
 /**
  * Empty Resource Tile
@@ -365,6 +370,31 @@ function _createSuper(Derived) {
     }
     return _possibleConstructorReturn(this, result);
   };
+}
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+}
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+}
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+}
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+  return arr2;
+}
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 function _toPrimitive(input, hint) {
   if (typeof input !== "object" || input === null) return input;
@@ -717,6 +747,7 @@ var lib_7 = lib.eventTargetToNameAndValue;
 var lib_8 = lib.toggleStateBoolean;
 var lib_9 = lib.setNameToValue;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1160,6 +1191,13 @@ styleInject(css_248z$8);
 var css_248z$7 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  z-index: 9001;\n  top: 20px;\n}\n";
 >>>>>>> 353b3a7 ($@)
 styleInject(css_248z$7);
+=======
+var css_248z$9 = ".displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
+styleInject(css_248z$9);
+
+var css_248z$8 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  z-index: 9001;\n  top: 20px;\n}\n";
+styleInject(css_248z$8);
+>>>>>>> 817ead3 (update build)
 
 /**
  * Empty Resource Tile
@@ -2099,6 +2137,7 @@ PopoverWrapper.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 7d02243 (fix merge)
 var css_248z$7 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
@@ -2355,6 +2394,10 @@ PopoverWrapper.propTypes = {
 >>>>>>> 353b3a7 ($@)
 var css_248z$6 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
 styleInject(css_248z$6);
+=======
+var css_248z$7 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
+styleInject(css_248z$7);
+>>>>>>> 817ead3 (update build)
 
 /**
  * generate save icon
@@ -2667,12 +2710,17 @@ StatelessToggleForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$6 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
 styleInject(css_248z$6);
 =======
 var css_248z$5 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
 styleInject(css_248z$5);
 >>>>>>> 353b3a7 ($@)
+=======
+var css_248z$6 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+styleInject(css_248z$6);
+>>>>>>> 817ead3 (update build)
 
 /**
  * render a tooltip around an input field
@@ -2791,6 +2839,7 @@ DynamicToolTipWrapper.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$5 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
 styleInject(css_248z$5);
 =======
@@ -2827,6 +2876,10 @@ var css_248z$6 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-
 var css_248z$6 = ".fieldWidth {\r\n  width: 14rem;\r\n}\r\n\r\n.leftTextAlign {\r\n  text-align: left;\r\n}";
 >>>>>>> ee08088 (issue 700: transit gateway form)
 styleInject(css_248z$6);
+=======
+var css_248z$5 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
+styleInject(css_248z$5);
+>>>>>>> 817ead3 (update build)
 
 var IcseToggle = function IcseToggle(props) {
   var toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
@@ -3041,6 +3094,7 @@ IcseNameInput.propTypes = {
   invalidCallback: PropTypes__default["default"].func
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -6020,6 +6074,10 @@ var css_248z$4 = ".fieldWidthSmaller {\r\n  width: 11rem;\r\n}";
 >>>>>>> ee08088 (issue 700: transit gateway form)
 styleInject(css_248z$4);
 >>>>>>> 7d02243 (fix merge)
+=======
+var css_248z$4 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
+styleInject(css_248z$4);
+>>>>>>> 817ead3 (update build)
 
 var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
   _inherits(AppIdKeyForm, _React$Component);
@@ -7761,12 +7819,17 @@ FormModal.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$3 = ".leftTextAlign {\n  text-align: left;\n}\n";
 styleInject(css_248z$3);
 =======
 var css_248z$2 = ".leftTextAlign {\n  text-align: left;\n}\n";
 styleInject(css_248z$2);
 >>>>>>> b9aa481 (feat: object storage key form)
+=======
+var css_248z$3 = ".leftTextAlign {\n  text-align: left;\n}\n";
+styleInject(css_248z$3);
+>>>>>>> 817ead3 (update build)
 
 =======
 >>>>>>> 353b3a7 ($@)
@@ -7899,12 +7962,17 @@ UnsavedChangesModal.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$2 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
 styleInject(css_248z$2);
 =======
 var css_248z$1 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
 styleInject(css_248z$1);
 >>>>>>> b9aa481 (feat: object storage key form)
+=======
+var css_248z$2 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+styleInject(css_248z$2);
+>>>>>>> 817ead3 (update build)
 
 /**
  * Icse multiselect template
@@ -8131,6 +8199,7 @@ var UnderConstruction = function UnderConstruction() {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 =======
 var css_248z = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }";
@@ -8139,6 +8208,10 @@ var css_248z = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }";
 var css_248z = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }";
 >>>>>>> 353b3a7 ($@)
 styleInject(css_248z);
+=======
+var css_248z$1 = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }";
+styleInject(css_248z$1);
+>>>>>>> 817ead3 (update build)
 
 /**
  * Empty Resource Tile
@@ -10009,6 +10082,7 @@ StatefulTabPanel.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> b982705 (feat: StatefulTabPanel)
 =======
 =======
@@ -10028,6 +10102,8 @@ class ToggleForm extends React__default["default"].Component {
 >>>>>>> 353b3a7 ($@)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 817ead3 (update build)
 var ToggleForm = /*#__PURE__*/function (_React$Component) {
   _inherits(ToggleForm, _React$Component);
   var _super = _createSuper(ToggleForm);
@@ -10037,6 +10113,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.state = {
       hide: _this.props.hide,
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -10052,6 +10129,8 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
 >>>>>>> 353b3a7 ($@)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 817ead3 (update build)
       showDeleteModal: false,
       showUnsavedChangeModal: false,
       disableSave: true,
@@ -10371,6 +10450,7 @@ ToggleForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> f680a35 (almost done)
 =======
 =======
@@ -10466,6 +10546,117 @@ SshKeyForm.propTypes = {
 
 <<<<<<< HEAD
 >>>>>>> 09dbacf (SshKeyForm, example, and docs)
+=======
+var css_248z = ".about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n";
+styleInject(css_248z);
+
+var DocTextField = function DocTextField(props) {
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: props.text === "_default_includes" ? "marginBottomSmall" : props.className
+  }, props.text === "_default_includes" ? "The default configuration includes:" : props.text);
+};
+DocTextField.defaultProps = {
+  className: "marginBottom"
+};
+DocTextField.propTypes = {
+  className: PropTypes__default["default"].string.isRequired,
+  text: PropTypes__default["default"].string.isRequired
+};
+var StructuredList = function StructuredList(props) {
+  return /*#__PURE__*/React__default["default"].createElement(react.StructuredListWrapper, {
+    className: "marginBottom"
+  }, props.headers && /*#__PURE__*/React__default["default"].createElement(react.StructuredListHead, null, /*#__PURE__*/React__default["default"].createElement(react.StructuredListRow, null, props.headers.map(function (cell, index) {
+    return /*#__PURE__*/React__default["default"].createElement(react.StructuredListCell, {
+      head: true,
+      key: index
+    }, cell);
+  }))), /*#__PURE__*/React__default["default"].createElement(react.StructuredListBody, null, props.list.map(function (row, rowIndex) {
+    return /*#__PURE__*/React__default["default"].createElement(react.StructuredListRow, {
+      key: rowIndex
+    }, row.map(function (cell, colIndex) {
+      return /*#__PURE__*/React__default["default"].createElement(react.StructuredListCell, {
+        key: colIndex
+      }, cell);
+    }));
+  })));
+};
+StructuredList.propTypes = {
+  headers: PropTypes__default["default"].array,
+  list: PropTypes__default["default"].array.isRequired
+};
+var DocTable = function DocTable(props) {
+  var headers = [];
+  var list = _toConsumableArray(props.list); // copy list, required due to reference errors
+
+  if (props.list[0][0] === "_headers") {
+    headers = _toConsumableArray(props.list[0]); // copy header row
+    headers.shift(); // remove _header
+
+    list.shift(); // remove heaer row from list
+  }
+
+  return /*#__PURE__*/React__default["default"].createElement(StructuredList, {
+    list: list,
+    headers: headers
+  });
+};
+DocTable.propTypes = {
+  list: PropTypes__default["default"].array.isRequired
+};
+var RelatedLinks = function RelatedLinks(props) {
+  return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "smallerText"
+  }, "Related Links"), props.links.map(function (link, index) {
+    return /*#__PURE__*/React__default["default"].createElement("div", {
+      key: "related-link-" + index
+    }, /*#__PURE__*/React__default["default"].createElement("a", {
+      href: link[0],
+      target: "_blank",
+      rel: "noreferrer",
+      className: "smallerText"
+    }, link.length === 1 ? "Docs" : link[1]));
+  }));
+};
+RelatedLinks.propTypes = {
+  links: PropTypes__default["default"].arrayOf(PropTypes__default["default"].arrayOf(PropTypes__default["default"].string.isRequired).isRequired).isRequired
+};
+var Docs = function Docs(props) {
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "subForm leftTextAlign about"
+  }, props.content.map(function (field, index) {
+    return field.text ?
+    /*#__PURE__*/
+    // text field
+    React__default["default"].createElement(DocTextField, _extends({
+      key: index
+    }, field)) : field.subHeading ?
+    /*#__PURE__*/
+    // subheading
+    React__default["default"].createElement("h6", {
+      className: "marginBottomSmall",
+      key: index
+    }, field.subHeading) :
+    /*#__PURE__*/
+    // table
+    React__default["default"].createElement(DocTable, {
+      key: index,
+      list: _toConsumableArray(field.table)
+    });
+  }), props.relatedLinks && /*#__PURE__*/React__default["default"].createElement(RelatedLinks, {
+    links: props.relatedLinks
+  }));
+};
+Docs.propTypes = {
+  content: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({
+    text: PropTypes__default["default"].string,
+    className: PropTypes__default["default"].string,
+    table: PropTypes__default["default"].array,
+    subHeading: PropTypes__default["default"].string
+  })).isRequired,
+  relatedLinks: PropTypes__default["default"].array
+};
+
+>>>>>>> 817ead3 (update build)
 exports.AppIdKeyForm = AppIdKeyForm;
 exports.AtrackerForm = AtrackerForm;
 exports.DeleteButton = DeleteButton;
@@ -10521,6 +10712,7 @@ exports.AtrackerForm = AtrackerForm;
 exports.DeleteButton = DeleteButton;
 >>>>>>> 7d02243 (fix merge)
 exports.DeleteModal = DeleteModal;
+exports.Docs = Docs;
 exports.DynamicRender = DynamicRender;
 exports.DynamicToolTipWrapper = DynamicToolTipWrapper;
 exports.EditCloseIcon = EditCloseIcon;

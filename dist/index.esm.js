@@ -82,6 +82,7 @@ import { Information, WarningAlt, CloudAlerting, Add } from '@carbon/icons-react
 import React, { Component } from 'react';
 import { CloudAlerting, Add, Save, CloseFilled, Edit, TrashCan, ArrowUp, ArrowDown, Information, WarningAlt } from '@carbon/icons-react';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { Tile, Popover, PopoverContent, Button, Toggletip, ToggletipButton, ToggletipContent, Link, Toggle, TextInput, Select, SelectItem, Modal, FilterableMultiSelect, MultiSelect, Tabs, TabList, Tab, TabPanels, TabPanel } from '@carbon/react';
 import PropTypes from 'prop-types';
 import lazyZ, { snakeCase, kebabCase as kebabCase$1, titleCase, isBoolean, isEmpty, isNullOrEmptyString, buildNumberDropdownList, prettyJSON, isFunction as isFunction$1 } from 'lazy-z';
@@ -93,6 +94,9 @@ import React, { Component } from 'react';
 =======
 import { Tile, Popover, PopoverContent, Button, Toggletip, ToggletipButton, ToggletipContent, Link, Toggle, TextInput, Dropdown, Select, SelectItem, FilterableMultiSelect, MultiSelect, Modal, Tabs, TabList, Tab, TabPanels, TabPanel } from '@carbon/react';
 >>>>>>> 353b3a7 ($@)
+=======
+import { Tile, Popover, PopoverContent, Button, Toggletip, ToggletipButton, ToggletipContent, Link, Toggle, TextInput, Dropdown, Select, SelectItem, Modal, FilterableMultiSelect, MultiSelect, Tabs, TabList, Tab, TabPanels, TabPanel, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody } from '@carbon/react';
+>>>>>>> 817ead3 (update build)
 import PropTypes from 'prop-types';
 import lazyZ, { snakeCase, kebabCase as kebabCase$1, titleCase, isBoolean, isNullOrEmptyString, isEmpty, buildNumberDropdownList, prettyJSON, isFunction as isFunction$1 } from 'lazy-z';
 <<<<<<< HEAD
@@ -266,6 +270,7 @@ function styleInject(css, ref) {
   }
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -584,6 +589,10 @@ styleInject(css_248z$9);
 var css_248z$a = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$a);
 >>>>>>> 09dbacf (SshKeyForm, example, and docs)
+=======
+var css_248z$a = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z$a);
+>>>>>>> 817ead3 (update build)
 
 /**
  * Empty Resource Tile
@@ -794,6 +803,31 @@ function _createSuper(Derived) {
     }
     return _possibleConstructorReturn(this, result);
   };
+}
+function _toConsumableArray(arr) {
+  return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread();
+}
+function _arrayWithoutHoles(arr) {
+  if (Array.isArray(arr)) return _arrayLikeToArray(arr);
+}
+function _iterableToArray(iter) {
+  if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter);
+}
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+  return arr2;
+}
+function _nonIterableSpread() {
+  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 function _toPrimitive(input, hint) {
   if (typeof input !== "object" || input === null) return input;
@@ -2051,6 +2085,7 @@ var lib_10 = lib.invalidRegex;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 353b3a7 ($@)
 var css_248z$8 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
@@ -2247,6 +2282,13 @@ styleInject(css_248z$8);
 var css_248z$8 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  z-index: 9001;\n  top: 20px;\n}\n";
 styleInject(css_248z$8);
 >>>>>>> 7d02243 (fix merge)
+=======
+var css_248z$9 = ".displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
+styleInject(css_248z$9);
+
+var css_248z$8 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  z-index: 9001;\n  top: 20px;\n}\n";
+styleInject(css_248z$8);
+>>>>>>> 817ead3 (update build)
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -2320,6 +2362,7 @@ PopoverWrapper.propTypes = {
   children: PropTypes.node.isRequired
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -2597,6 +2640,10 @@ var css_248z$6 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  c
 var css_248z$6 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
 >>>>>>> 353b3a7 ($@)
 styleInject(css_248z$6);
+=======
+var css_248z$7 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
+styleInject(css_248z$7);
+>>>>>>> 817ead3 (update build)
 
 /**
  * generate save icon
@@ -2914,6 +2961,7 @@ StatelessToggleForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$5 = ".labelRow {\r\n  display: inline-flex !important;\r\n  align-items: center;\r\n}\r\n\r\n.tooltip > div div.cds--password-input-wrapper {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.cds--toggle {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.cds--text-input-wrapper {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.popover-obj {\r\n  margin-top: -8px;\r\n}\r\n\r\n.subHeadingTooltip {\r\n  margin: 0.2rem 0 0 0.2rem;\r\n}\r\n\r\n.tooltipMarginLeft {\r\n  margin-left: 3px;\r\n}\r\n";
 =======
 var css_248z$5 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
@@ -2929,6 +2977,10 @@ styleInject(css_248z$5);
 var css_248z$6 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
 styleInject(css_248z$6);
 >>>>>>> 09dbacf (SshKeyForm, example, and docs)
+=======
+var css_248z$6 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+styleInject(css_248z$6);
+>>>>>>> 817ead3 (update build)
 
 <<<<<<< HEAD
 /**
@@ -3050,6 +3102,7 @@ DynamicToolTipWrapper.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$4 = ".fieldWidth {\r\n  width: 14rem;\r\n}\r\n\r\n.leftTextAlign {\r\n  text-align: left;\r\n}";
 =======
 var css_248z$4 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
@@ -3093,6 +3146,10 @@ var css_248z$6 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-
 var css_248z$6 = ".fieldWidth {\r\n  width: 14rem;\r\n}\r\n\r\n.leftTextAlign {\r\n  text-align: left;\r\n}";
 >>>>>>> ee08088 (issue 700: transit gateway form)
 styleInject(css_248z$6);
+=======
+var css_248z$5 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
+styleInject(css_248z$5);
+>>>>>>> 817ead3 (update build)
 
 var IcseToggle = function IcseToggle(props) {
   var toggleName = props.toggleFieldName || snakeCase(props.labelText);
@@ -3324,12 +3381,17 @@ IcseNameInput.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$3 = ".fieldWidthSmaller {\r\n  width: 11rem;\r\n}";
 =======
 =======
 =======
 var css_248z$3 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
 styleInject(css_248z$3);
+=======
+var css_248z$4 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
+styleInject(css_248z$4);
+>>>>>>> 817ead3 (update build)
 
 var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
   _inherits(AppIdKeyForm, _React$Component);
@@ -5368,6 +5430,81 @@ KeyManagementForm.propTypes = {
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
+<<<<<<< HEAD
+=======
+var emailRegex = /^[\w-_\.]+@([\w-_]+\.)+[\w]{1,4}$/g;
+var TeleportClaimToRoleForm = /*#__PURE__*/function (_Component) {
+  _inherits(TeleportClaimToRoleForm, _Component);
+  var _super = _createSuper(TeleportClaimToRoleForm);
+  function TeleportClaimToRoleForm(props) {
+    var _this;
+    _classCallCheck(this, TeleportClaimToRoleForm);
+    _this = _super.call(this, props);
+    _this.state = {
+      email: _this.props.data.email,
+      roles: _this.props.data.roles
+    };
+    _this.onChangeTextInput = _this.onChangeTextInput.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   *
+   * @param {String} name specifies name of state value to change
+   * @param {String} value value to set it to
+   */
+  _createClass(TeleportClaimToRoleForm, [{
+    key: "onChangeTextInput",
+    value: function onChangeTextInput(name, value) {
+      if (name === "roles") {
+        this.setState(_defineProperty({}, name, [value]));
+      } else this.setState(_defineProperty({}, name, value));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      var composedId = "teleport-claim-form-".concat(this.props.data.email);
+      return /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+        id: composedId + "-email",
+        componentName: "teleport-claim",
+        field: "email",
+        invalid: !this.state.email.match(emailRegex),
+        value: this.state.email,
+        onChange: function onChange(event) {
+          return _this2.onChangeTextInput("email", event.target.value);
+        },
+        className: "fieldWidth"
+      }), /*#__PURE__*/React.createElement(IcseTextInput, {
+        id: composedId + "roles",
+        componentName: "teleport-claim",
+        field: "roles",
+        value: this.state.roles[0] || "",
+        onChange: function onChange(event) {
+          return _this2.onChangeTextInput("roles", event.target.value);
+        },
+        invalid: this.props.invalidRolesCallback(this.state),
+        className: "fieldWidth"
+      }));
+    }
+  }]);
+  return TeleportClaimToRoleForm;
+}(Component);
+TeleportClaimToRoleForm.defaultProps = {
+  data: {
+    email: "",
+    roles: []
+  }
+};
+TeleportClaimToRoleForm.propTypes = {
+  data: PropTypes.shape({
+    email: PropTypes.string.isRequired,
+    roles: PropTypes.array.isRequired
+  }).isRequired
+};
+
+>>>>>>> 817ead3 (update build)
 /**
  * Atracker
  * @param {Object} props
@@ -5707,8 +5844,13 @@ var css_248z$3 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  w
 styleInject(css_248z$3);
 >>>>>>> 7d02243 (fix merge)
 
+<<<<<<< HEAD
 var css_248z$2 = ".leftTextAlign {\n  text-align: left;\n}\n";
 styleInject(css_248z$2);
+=======
+var css_248z$3 = ".leftTextAlign {\n  text-align: left;\n}\n";
+styleInject(css_248z$3);
+>>>>>>> 817ead3 (update build)
 
 /**
 <<<<<<< HEAD
@@ -5832,8 +5974,13 @@ UnsavedChangesModal.propTypes = {
   useDefaultUnsavedMessage: PropTypes.bool
 };
 
+<<<<<<< HEAD
 var css_248z$1 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
 styleInject(css_248z$1);
+=======
+var css_248z$2 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+styleInject(css_248z$2);
+>>>>>>> 817ead3 (update build)
 
 /**
  * Icse multiselect template
@@ -6768,6 +6915,7 @@ var UnderConstruction = function UnderConstruction() {
   }), /*#__PURE__*/React.createElement("h4", null, "Page Under Construction"));
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -11217,6 +11365,10 @@ styleInject(css_248z$1);
 var css_248z$1 = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }";
 styleInject(css_248z$1);
 >>>>>>> 7d02243 (fix merge)
+=======
+var css_248z$1 = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }";
+styleInject(css_248z$1);
+>>>>>>> 817ead3 (update build)
 
 /**
  * StatefulTabPanel wrapper for non array forms
@@ -11320,6 +11472,7 @@ StatefulTabPanel.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 export { AppIdKeyForm, DeleteButton, DeleteModal, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SecurityGroupMultiSelect, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TitleGroup, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> b982705 (feat: StatefulTabPanel)
 =======
@@ -11367,6 +11520,8 @@ class ToggleForm extends React.Component {
 >>>>>>> 353b3a7 ($@)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 817ead3 (update build)
 var ToggleForm = /*#__PURE__*/function (_React$Component) {
   _inherits(ToggleForm, _React$Component);
   var _super = _createSuper(ToggleForm);
@@ -11376,6 +11531,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.state = {
       hide: _this.props.hide,
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -11391,6 +11547,8 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
 >>>>>>> 353b3a7 ($@)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 817ead3 (update build)
       showDeleteModal: false,
       showUnsavedChangeModal: false,
       disableSave: true,
@@ -11401,6 +11559,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
       useDefaultUnsavedMessage: true,
       ruleOrderChange: false
     };
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -11431,6 +11590,8 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
 >>>>>>> 353b3a7 ($@)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 817ead3 (update build)
     _this.toggleChildren = _this.toggleChildren.bind(_assertThisInitialized(_this));
     _this.toggleDeleteModal = _this.toggleDeleteModal.bind(_assertThisInitialized(_this));
     _this.toggleUnsavedChangeModal = _this.toggleUnsavedChangeModal.bind(_assertThisInitialized(_this));
@@ -11448,6 +11609,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> f19dfef (merge)
 =======
 >>>>>>> 45b57f8 (remove extra props, add name and hideName)
@@ -11459,11 +11621,14 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
 >>>>>>> 353b3a7 ($@)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 817ead3 (update build)
   }
 
   /**
    * toggle sub modal
    */
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -11526,6 +11691,8 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
 >>>>>>> 353b3a7 ($@)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 817ead3 (update build)
   _createClass(ToggleForm, [{
     key: "onToggleSubModal",
     value: function onToggleSubModal() {
@@ -11553,6 +11720,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 09dbacf (SshKeyForm, example, and docs)
 =======
 >>>>>>> b9aa481 (feat: object storage key form)
@@ -11560,6 +11728,8 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
 >>>>>>> 353b3a7 ($@)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 817ead3 (update build)
     /**
      * toggle children rendered by form
      */
@@ -11578,6 +11748,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
             hide: !this.state.hide
           });
         }
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -11603,11 +11774,14 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
 >>>>>>> 353b3a7 ($@)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 817ead3 (update build)
       } else {
         this.setState({
           hide: !this.state.hide
         });
       }
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -11807,6 +11981,8 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
 >>>>>>> 353b3a7 ($@)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 817ead3 (update build)
     }
 
     /**
@@ -11815,6 +11991,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "toggleDeleteModal",
     value: function toggleDeleteModal() {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -11999,6 +12176,8 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
 >>>>>>> 353b3a7 ($@)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 817ead3 (update build)
       this.setState({
         showDeleteModal: !this.state.showDeleteModal
       });
@@ -12180,6 +12359,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 09dbacf (SshKeyForm, example, and docs)
 =======
 >>>>>>> b9aa481 (feat: object storage key form)
@@ -12187,6 +12367,8 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
 >>>>>>> 353b3a7 ($@)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 817ead3 (update build)
         }), _objectSpread2$1)))))),
         about: this.props.about || false
       })), this.state.showChildren && this.props.children ? this.props.children : "");
@@ -12194,6 +12376,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
   }]);
   return ToggleForm;
 }(React.Component);
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -12215,6 +12398,8 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
 >>>>>>> 353b3a7 ($@)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 817ead3 (update build)
 ToggleForm.defaultProps = {
   hide: true,
   unsavedChanges: false,
@@ -12226,6 +12411,7 @@ ToggleForm.defaultProps = {
   useAddButton: false,
   hideName: false,
   // functions that return booleans must have a default
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -12245,10 +12431,13 @@ ToggleForm.defaultProps = {
 >>>>>>> 353b3a7 ($@)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 817ead3 (update build)
   deleteDisabled: function deleteDisabled() {
     return false;
   },
   forceOpen: function forceOpen() {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -12268,6 +12457,8 @@ ToggleForm.defaultProps = {
 >>>>>>> 353b3a7 ($@)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 817ead3 (update build)
     return false;
   }
 };
@@ -12301,6 +12492,7 @@ ToggleForm.propTypes = {
   }).isRequired
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -12424,3 +12616,115 @@ export { AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, DynamicRender, D
 =======
 export { AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, VpnGatewayForm, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> ee08088 (issue 700: transit gateway form)
+=======
+var css_248z = ".about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n";
+styleInject(css_248z);
+
+var DocTextField = function DocTextField(props) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: props.text === "_default_includes" ? "marginBottomSmall" : props.className
+  }, props.text === "_default_includes" ? "The default configuration includes:" : props.text);
+};
+DocTextField.defaultProps = {
+  className: "marginBottom"
+};
+DocTextField.propTypes = {
+  className: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired
+};
+var StructuredList = function StructuredList(props) {
+  return /*#__PURE__*/React.createElement(StructuredListWrapper, {
+    className: "marginBottom"
+  }, props.headers && /*#__PURE__*/React.createElement(StructuredListHead, null, /*#__PURE__*/React.createElement(StructuredListRow, null, props.headers.map(function (cell, index) {
+    return /*#__PURE__*/React.createElement(StructuredListCell, {
+      head: true,
+      key: index
+    }, cell);
+  }))), /*#__PURE__*/React.createElement(StructuredListBody, null, props.list.map(function (row, rowIndex) {
+    return /*#__PURE__*/React.createElement(StructuredListRow, {
+      key: rowIndex
+    }, row.map(function (cell, colIndex) {
+      return /*#__PURE__*/React.createElement(StructuredListCell, {
+        key: colIndex
+      }, cell);
+    }));
+  })));
+};
+StructuredList.propTypes = {
+  headers: PropTypes.array,
+  list: PropTypes.array.isRequired
+};
+var DocTable = function DocTable(props) {
+  var headers = [];
+  var list = _toConsumableArray(props.list); // copy list, required due to reference errors
+
+  if (props.list[0][0] === "_headers") {
+    headers = _toConsumableArray(props.list[0]); // copy header row
+    headers.shift(); // remove _header
+
+    list.shift(); // remove heaer row from list
+  }
+
+  return /*#__PURE__*/React.createElement(StructuredList, {
+    list: list,
+    headers: headers
+  });
+};
+DocTable.propTypes = {
+  list: PropTypes.array.isRequired
+};
+var RelatedLinks = function RelatedLinks(props) {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    className: "smallerText"
+  }, "Related Links"), props.links.map(function (link, index) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: "related-link-" + index
+    }, /*#__PURE__*/React.createElement("a", {
+      href: link[0],
+      target: "_blank",
+      rel: "noreferrer",
+      className: "smallerText"
+    }, link.length === 1 ? "Docs" : link[1]));
+  }));
+};
+RelatedLinks.propTypes = {
+  links: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string.isRequired).isRequired).isRequired
+};
+var Docs = function Docs(props) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "subForm leftTextAlign about"
+  }, props.content.map(function (field, index) {
+    return field.text ?
+    /*#__PURE__*/
+    // text field
+    React.createElement(DocTextField, _extends({
+      key: index
+    }, field)) : field.subHeading ?
+    /*#__PURE__*/
+    // subheading
+    React.createElement("h6", {
+      className: "marginBottomSmall",
+      key: index
+    }, field.subHeading) :
+    /*#__PURE__*/
+    // table
+    React.createElement(DocTable, {
+      key: index,
+      list: _toConsumableArray(field.table)
+    });
+  }), props.relatedLinks && /*#__PURE__*/React.createElement(RelatedLinks, {
+    links: props.relatedLinks
+  }));
+};
+Docs.propTypes = {
+  content: PropTypes.arrayOf(PropTypes.shape({
+    text: PropTypes.string,
+    className: PropTypes.string,
+    table: PropTypes.array,
+    subHeading: PropTypes.string
+  })).isRequired,
+  relatedLinks: PropTypes.array
+};
+
+export { AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, buildFormDefaultInputMethods, buildFormFunctions };
+>>>>>>> 817ead3 (update build)
