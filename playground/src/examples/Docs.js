@@ -29,7 +29,7 @@ export const DocExample = () => {
           ],
         },
       ]}
-      relatedLinks={[["cloud.ibm.com/docs", "IBM Cloud Docs"]]}
+      relatedLinks={[["https://cloud.ibm.com/docs", "IBM Cloud Docs"]]}
     />
   );
 };
