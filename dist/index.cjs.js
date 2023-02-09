@@ -106,6 +106,7 @@ var PropTypes__default = /*#__PURE__*/_interopDefaultLegacy(PropTypes);
 var lazyZ__default = /*#__PURE__*/_interopDefaultLegacy(lazyZ);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 var _require = require("lazy-z"),
   isFunction = _require.isFunction;
 var _require2 = require("../src/lib/method-functions"),
@@ -224,6 +225,8 @@ EmptyResourceTile.propTypes = {
 var lazyZ__default = /*#__PURE__*/_interopDefaultLegacy(lazyZ);
 
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> ee08088 (issue 700: transit gateway form)
 function ownKeys(object, enumerableOnly) {
   var keys = Object.keys(object);
   if (Object.getOwnPropertySymbols) {
@@ -387,6 +390,53 @@ function _toPropertyKey(arg) {
 >>>>>>> 4c7a274 (fixed formatting for docs)
 =======
 >>>>>>> 7d02243 (fix merge)
+
+var _require = require("lazy-z"),
+  isFunction = _require.isFunction;
+var _require2 = require("../src/lib/method-functions"),
+  eventTargetToNameAndValue$2 = _require2.eventTargetToNameAndValue,
+  toggleStateBoolean$2 = _require2.toggleStateBoolean,
+  setNameToValue$2 = _require2.setNameToValue;
+
+/**
+ * build functions for modal forms
+ * @param {React.Element} component stateful component
+ */
+function buildFormFunctions(component) {
+  var disableSubmit = isFunction(component.props.shouldDisableSubmit);
+  var disableSave = isFunction(component.props.shouldDisableSave);
+  if (component.props.shouldDisableSave) component.shouldDisableSave = component.props.shouldDisableSave.bind(component);
+  if (disableSubmit) component.shouldDisableSubmit = component.props.shouldDisableSubmit.bind(component);
+
+  // set update
+  component.componentDidMount = function () {
+    if (disableSubmit) component.shouldDisableSubmit();
+    if (disableSave) component.shouldDisableSave(this.state, this.props);
+  }.bind(component);
+  component.componentDidUpdate = function () {
+    if (disableSubmit) component.shouldDisableSubmit();
+    if (disableSave) component.shouldDisableSave(this.state, this.props);
+  }.bind(component);
+
+  // set on save function
+  component.onSave = function () {
+    component.props.onSave(this.state, this.props);
+  }.bind(component);
+  // save on delete
+  component.onDelete = function () {
+    component.props.onDelete(this.state, this.props);
+  }.bind(component);
+}
+
+/**
+ * add default methods to component
+ * @param {*} component React Component
+ */
+function buildFormDefaultInputMethods(component) {
+  component.eventTargetToNameAndValue = eventTargetToNameAndValue$2.bind(component);
+  component.toggleStateBoolean = toggleStateBoolean$2.bind(component);
+  component.setNameToValue = setNameToValue$2.bind(component);
+}
 
 var _require = require("lazy-z"),
   isFunction = _require.isFunction;
@@ -950,6 +1000,7 @@ function styleInject(css, ref) {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$2 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$2);
 =======
@@ -963,9 +1014,12 @@ styleInject(css_248z$8);
 
 =======
 var css_248z$a = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
+=======
+var css_248z$a = ".displayFlex {\r\n  display: flex;\r\n}\r\n.fitContent {\r\n  width: fit-content;\r\n}\r\n\r\n.alignItemsCenter {\r\n  align-items: center;\r\n}\r\n\r\n.widthOneHundredPercent{\r\n  width: 100%;\r\n}\r\n\r\n.marginBottom {\r\n  margin-bottom: 2rem;\r\n}\r\n  \r\n.marginBottomSmall {\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.evenSpacing {\r\n  gap: 3vw;\r\n}\r\n\r\n.positionRelative {\r\n  position: relative;\r\n}\r\n\r\n.formInSubForm {\r\n  margin-top: 0rem;\r\n  background: #fffdfd;\r\n  padding: 1rem;\r\n}\r\n\r\n.subForm {\r\n  background: #f4f4f4;\r\n  padding: 1rem;\r\n  margin-top: 1rem;\r\n  margin-bottom: 2rem;\r\n}\r\n\r\n.icseFormTitleMinHeight {\r\n  min-height: 32px;\r\n}\r\n\r\n.spaceBetween {\r\n  justify-content: space-between;\r\n}\r\n";
+>>>>>>> ee08088 (issue 700: transit gateway form)
 styleInject(css_248z$a);
 
-var css_248z$9 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+var css_248z$9 = ".labelRow {\r\n  display: inline-flex !important;\r\n  align-items: center;\r\n}\r\n\r\n.tooltip > div div.cds--password-input-wrapper {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.cds--toggle {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.cds--text-input-wrapper {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.popover-obj {\r\n  margin-top: -8px;\r\n}\r\n\r\n.subHeadingTooltip {\r\n  margin: 0.2rem 0 0 0.2rem;\r\n}\r\n\r\n.tooltipMarginLeft {\r\n  margin-left: 3px;\r\n}\r\n";
 styleInject(css_248z$9);
 
 >>>>>>> 7d02243 (fix merge)
@@ -1095,6 +1149,7 @@ DynamicToolTipWrapper.propTypes = {
   innerForm: PropTypes__default["default"].oneOfType([PropTypes__default["default"].object, PropTypes__default["default"].func])
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 var css_248z$7 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  z-index: 9001;\n  top: 20px;\n}\n";
 >>>>>>> b9aa481 (feat: object storage key form)
@@ -1958,6 +2013,9 @@ styleInject(css_248z$7);
 >>>>>>> 4c7a274 (fixed formatting for docs)
 =======
 var css_248z$8 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  z-index: 9001;\n  top: 20px;\n}\n";
+=======
+var css_248z$8 = ".popover-box {\r\n  padding: 5px;\r\n  position: relative;\r\n  font-size: 80%;\r\n  z-index: 9001;\r\n  top: 20px;\r\n}\r\n";
+>>>>>>> ee08088 (issue 700: transit gateway form)
 styleInject(css_248z$8);
 >>>>>>> 09dbacf (SshKeyForm, example, and docs)
 =======
@@ -2040,9 +2098,13 @@ PopoverWrapper.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 7d02243 (fix merge)
 var css_248z$7 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
+=======
+var css_248z$7 = ".chevron {\r\n  margin-right: 1rem;\r\n  margin-top: 0.25rem;\r\n  cursor: pointer;\r\n}\r\n\r\n.tertiaryButtonColors {\r\n  color: #0f62fe !important;\r\n  fill: white !important;\r\n  border-color: #0f62fe !important;\r\n}\r\n\r\n.pointerEventsNone {\r\n  pointer-events: none;\r\n}\r\n\r\n.cursorNotAllowed {\r\n  cursor: not-allowed;\r\n}\r\n\r\n.forceTertiaryButtonStyles {\r\n  padding-right: 0.4375rem !important;\r\n  padding-left: 0.4375rem !important;\r\n}\r\n.inlineBlock {\r\n  display: inline-block;\r\n}\r\n\r\n.redFill {\r\n  fill: #da1e28 !important;\r\n}\r\n\r\n/* CSS for overriding default component styles */\r\n.cds--btn--ghost:focus {\r\n  outline: none;\r\n  border: none;\r\n  box-shadow: none;\r\n}\r\n\r\n.marginRightSmall {\r\n  margin-right: 0.5rem;\r\n}\r\n";
+>>>>>>> ee08088 (issue 700: transit gateway form)
 styleInject(css_248z$7);
 
 /**
@@ -2604,6 +2666,7 @@ StatelessToggleForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$6 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
 styleInject(css_248z$6);
 =======
@@ -2760,6 +2823,9 @@ var IcseToggle = function IcseToggle(props) {
 >>>>>>> 4c7a274 (fixed formatting for docs)
 =======
 var css_248z$6 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
+=======
+var css_248z$6 = ".fieldWidth {\r\n  width: 14rem;\r\n}\r\n\r\n.leftTextAlign {\r\n  text-align: left;\r\n}";
+>>>>>>> ee08088 (issue 700: transit gateway form)
 styleInject(css_248z$6);
 
 var IcseToggle = function IcseToggle(props) {
@@ -5903,10 +5969,14 @@ ObjectStorageKeyForm.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$4 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$4);
 =======
 var css_248z$5 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+=======
+var css_248z$5 = ".iconMargin {\r\n  margin: 0 0.5rem -0.4rem 0;\r\n}\r\n\r\n.inlineIconMargin {\r\n  margin: -0.4rem 0.05rem;\r\n}\r\n\r\n.marginBottomXs {\r\n  margin-bottom: 0.5rem;\r\n}\r\n\r\n.tileBackground {\r\n  background-color: #f4f4f4;\r\n}";
+>>>>>>> ee08088 (issue 700: transit gateway form)
 styleInject(css_248z$5);
 >>>>>>> 7d02243 (fix merge)
 
@@ -5938,12 +6008,16 @@ EmptyResourceTile.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 353b3a7 ($@)
 var css_248z$3 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
 styleInject(css_248z$3);
 =======
 var css_248z$4 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
+=======
+var css_248z$4 = ".fieldWidthSmaller {\r\n  width: 11rem;\r\n}";
+>>>>>>> ee08088 (issue 700: transit gateway form)
 styleInject(css_248z$4);
 >>>>>>> 7d02243 (fix merge)
 
@@ -7056,6 +7130,308 @@ TeleportClaimToRoleForm.propTypes = {
   }).isRequired
 };
 
+var css_248z$3 = ".fieldWidth {\r\n  width: 14rem;\r\n}\r\n\r\n.fieldWidthSmaller {\r\n  width: 11rem;\r\n}\r\n";
+styleInject(css_248z$3);
+
+var css_248z$2 = ".leftTextAlign {\r\n  text-align: left;\r\n}\r\n";
+styleInject(css_248z$2);
+
+/**
+ * Icse multiselect template
+ */
+var IcseMultiSelect = function IcseMultiSelect(props) {
+  return /*#__PURE__*/React__default["default"].createElement(react.FilterableMultiSelect, {
+    id: props.id,
+    className: lib_2("fieldWidth leftTextAlign cds--select", props),
+    titleText: props.titleText,
+    itemToString: function itemToString(item) {
+      return item ? item : "";
+    },
+    invalid: props.invalid,
+    invalidText: props.invalidText,
+    initialSelectedItems: props.initialSelectedItems,
+    onChange: props.onChange,
+    items: props.items,
+    useTitleInItem: props.useTitleInItem,
+    label: props.label,
+    disabled: props.disabled
+  });
+};
+IcseMultiSelect.defaultProps = {
+  disabled: false,
+  useTitleInItem: false,
+  invalid: false,
+  invalidText: "Invalid value"
+};
+IcseMultiSelect.propTypes = {
+  id: PropTypes__default["default"].string.isRequired,
+  className: PropTypes__default["default"].string,
+  titleText: PropTypes__default["default"].string.isRequired,
+  invalid: PropTypes__default["default"].bool.isRequired,
+  invalidText: PropTypes__default["default"].string.isRequired,
+  initialSelectedItems: PropTypes__default["default"].array.isRequired,
+  onChange: PropTypes__default["default"].func.isRequired,
+  items: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  useTitleInItem: PropTypes__default["default"].bool.isRequired,
+  label: PropTypes__default["default"].string,
+  disabled: PropTypes__default["default"].bool.isRequired
+};
+
+/**
+ * ssh key multiselect
+ */
+var SshKeyMultiSelect = function SshKeyMultiSelect(props) {
+  return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+    id: props.id + "-ssh-key-multiselect",
+    useTitleInItem: true,
+    label: "SSH Keys",
+    titleText: "SSH Keys",
+    invalidText: "At least one SSH Key is required",
+    invalid: props.initialSelectedItems.length === 0,
+    items: props.sshKeys,
+    initialSelectedItems: props.initialSelectedItems || [],
+    onChange: function onChange(event) {
+      props.onChange(event.selectedItems);
+    },
+    className: "fieldWidthSmaller cds--form-item"
+  });
+};
+SshKeyMultiSelect.defaultProps = {
+  initialSelectedItems: []
+};
+SshKeyMultiSelect.propTypes = {
+  id: PropTypes__default["default"].string.isRequired,
+  onChange: PropTypes__default["default"].func.isRequired,
+  sshKeys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  initialSelectedItems: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+};
+
+/**
+ * sg multiselect
+ */
+var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
+  if (props.vpc_name && !props.securityGroups) {
+    // checking props.securityGroups[props.vpc_name] will result in an
+    // undefined error that happens as part of MultiSelect
+    throw new Error("SecurityGroupMultiselect requires a securityGroups object. Got " + lazyZ.prettyJSON(props.securityGroups));
+  }
+  return /*#__PURE__*/React__default["default"].createElement(react.MultiSelect, {
+    id: props.id + "-security-group-multiselect",
+    label: props.label,
+    titleText: "Security Groups",
+    className: "fieldWidthSmaller cds--form-item",
+    initialSelectedItems: props.initialSelectedItems,
+    vpc_name: props.vpc_name,
+    invalid: props.invalid,
+    invalidText: "Invalid Selection",
+    onChange: function onChange(event) {
+      props.onChange(event.selectedItems);
+    },
+    disabled: props.disabled,
+    items: props.vpc_name === "" ? [] : props.securityGroups[props.vpc_name],
+    itemToString: function itemToString(item) {
+      return item ? item : "";
+    }
+  });
+};
+SecurityGroupMultiSelect.defaultProps = {
+  disabled: false,
+  label: "Select Security Groups",
+  invalid: false
+};
+SecurityGroupMultiSelect.propTypes = {
+  id: PropTypes__default["default"].string.isRequired,
+  className: PropTypes__default["default"].string,
+  initialSelectedItems: PropTypes__default["default"].array.isRequired,
+  vpc_name: PropTypes__default["default"].string,
+  // not required, null value should be valid
+  onChange: PropTypes__default["default"].func.isRequired,
+  label: PropTypes__default["default"].string.isRequired,
+  disabled: PropTypes__default["default"].bool.isRequired,
+  securityGroups: PropTypes__default["default"].object.isRequired,
+  invalid: PropTypes__default["default"].bool.isRequired
+};
+
+/**
+ * vpc subnet multiselect
+ */
+var SubnetMultiSelect = function SubnetMultiSelect(props) {
+  return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+    id: props.id + "-subnet-multiselect",
+    className: props.className,
+    titleText: "Subnets",
+    name: props.name,
+    label: props.label,
+    items: lazyZ.isNullOrEmptyString(props.vpc_name) ? [] : props.subnets[props.vpc_name],
+    initialSelectedItems: props.initialSelectedItems,
+    invalidText: lazyZ.isNullOrEmptyString(props.vpc_name) ? "Select a VPC." : "Select at least one subnet.",
+    invalid: props.initialSelectedItems.length === 0,
+    disabled: props.disabled,
+    onChange: function onChange(event) {
+      return props.onChange(event.selectedItems);
+    }
+  });
+};
+SubnetMultiSelect.defaultProps = {
+  name: "subnet_names",
+  label: "Subnets",
+  disabled: false,
+  vpc_name: "",
+  initialSelectedItems: []
+};
+SubnetMultiSelect.propTypes = {
+  id: PropTypes__default["default"].string.isRequired,
+  className: PropTypes__default["default"].string,
+  vpc_name: PropTypes__default["default"].string,
+  // not required, `null` needs to be passed here
+  subnets: PropTypes__default["default"].object.isRequired,
+  disabled: PropTypes__default["default"].bool.isRequired,
+  name: PropTypes__default["default"].string.isRequired,
+  label: PropTypes__default["default"].string.isRequired,
+  initialSelectedItems: PropTypes__default["default"].array.isRequired,
+  onChange: PropTypes__default["default"].func.isRequired
+};
+
+/**
+ * VPC List MultiSelect
+ */
+var VpcListMultiSelect = function VpcListMultiSelect(props) {
+  // throw error here so that passing no vpc list prop will error here
+  // instead of being passed to `FilterableMultiselect`
+  if (!props.vpcList) {
+    throw new Error("VpcListMultiSelect requires a list of VPCs using the prop `vpcList`. Got " + lazyZ.prettyJSON(props.vpcList));
+  }
+  return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+    invalidText: "At least one VPC must be selected.",
+    invalid: props.invalid,
+    id: props.id + "-vpc-select",
+    titleText: props.titleText,
+    onChange: function onChange(event) {
+      return props.onChange(event.selectedItems);
+    },
+    initialSelectedItems: props.initialSelectedItems,
+    className: props.className,
+    items: props.vpcList
+  });
+};
+VpcListMultiSelect.defaultProps = {
+  invalid: false,
+  titleText: "VPCs",
+  initialSelectedItems: []
+};
+VpcListMultiSelect.propTypes = {
+  invalid: PropTypes__default["default"].bool.isRequired,
+  id: PropTypes__default["default"].string.isRequired,
+  onChange: PropTypes__default["default"].func.isRequired,
+  initialSelectedItems: PropTypes__default["default"].array.isRequired,
+  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+};
+
+/**
+ * Transit Gateway
+ * @param {Object} props
+ * @param {configDotJson} props.configDotJson config dot json
+ * @param {slz} props.slz slz state store
+ */
+class TransitGatewayForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    this.handleToggle = this.handleToggle.bind(this);
+    this.handleVpcSelect = this.handleVpcSelect.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+
+  /**
+   * Toggle on and off param in state at name
+   * @param {string} name name of the object key to change
+   */
+  handleToggle(name) {
+    this.setState({
+      [name]: !this.state[name]
+    });
+  }
+
+  /**
+   * handle vpc selection
+   * @param {event} event
+   */
+  handleVpcSelect(event) {
+    this.setState({
+      transit_gateway_connections: event
+    });
+  }
+
+  /**
+   * Handle input change
+   * @param {event} event
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      labelText: "Use Transit Gateway",
+      toggleFieldName: "enable_transit_gateway",
+      id: "tg-enable",
+      onToggle: this.handleToggle,
+      defaultToggled: this.state.enable_transit_gateway
+    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      onChange: this.handleInputChange,
+      componentName: "Transit Gateway",
+      field: "name",
+      value: this.state.name,
+      readOnly: this.state.readOnlyName,
+      id: "tg-name",
+      invalid: this.props.invalidCallback(this.state),
+      invalidText: this.props.invalidTextCallback(this.state)
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: "Transit Gateway",
+      value: this.state.transit_gateway_resource_group,
+      groups: this.props.resourceGroups,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidth",
+      name: "transit_gateway_resource_group",
+      labelText: "Resource Group"
+    }), /*#__PURE__*/React__default["default"].createElement(VpcListMultiSelect, {
+      id: "tg-vpc-multiselect",
+      titleText: "Connected VPCs",
+      initialSelectedItems: this.state.transit_gateway_connections,
+      vpcList: this.props.vpcList,
+      onChange: this.handleVpcSelect,
+      className: "fieldWidth",
+      invalid: this.state.transit_gateway_connections.length === 0 && this.state.enable_transit_gateway,
+      invalidText: "At least one VPC must be connected"
+    })));
+  }
+}
+TransitGatewayForm.defaultProps = {
+  data: {
+    enable_transit_gateway: true,
+    transit_gateway_connections: [],
+    transit_gateway_resource_group: "",
+    name: ""
+  },
+  readOnlyName: true,
+  vpcList: [],
+  resourceGroups: []
+};
+TransitGatewayForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    enable_transit_gateway: PropTypes__default["default"].bool.isRequired,
+    transit_gateway_connections: PropTypes__default["default"].array.isRequired,
+    transit_gateway_resource_group: PropTypes__default["default"].string.isRequired,
+    name: PropTypes__default["default"].string
+  }).isRequired,
+  readOnlyName: PropTypes__default["default"].bool.isRequired,
+  vpcList: PropTypes__default["default"].array.isRequired,
+  resourceGroups: PropTypes__default["default"].array.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired
+};
+
 /**
  * Atracker
  * @param {Object} props
@@ -7379,6 +7755,7 @@ FormModal.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$3 = ".leftTextAlign {\n  text-align: left;\n}\n";
 styleInject(css_248z$3);
 =======
@@ -7390,6 +7767,8 @@ styleInject(css_248z$2);
 >>>>>>> 353b3a7 ($@)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> ee08088 (issue 700: transit gateway form)
 /**
  * Icse Modal Wrapper
  * @param {*} props
@@ -7511,6 +7890,7 @@ UnsavedChangesModal.propTypes = {
   useDefaultUnsavedMessage: PropTypes__default["default"].bool
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -7716,6 +8096,8 @@ VpcListMultiSelect.propTypes = {
 >>>>>>> 353b3a7 ($@)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> ee08088 (issue 700: transit gateway form)
 /**
  * Under Construction Page
  */
@@ -7732,6 +8114,7 @@ var UnderConstruction = function UnderConstruction() {
   }), /*#__PURE__*/React__default["default"].createElement("h4", null, "Page Under Construction"));
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -9514,6 +9897,9 @@ var css_248z = ".cds--tab-content.doc {\r\n    padding: 0.5rem 0;\r\n  }";
 styleInject(css_248z);
 =======
 var css_248z$1 = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }";
+=======
+var css_248z$1 = ".cds--tab-content.doc {\r\n    padding: 0.5rem 0;\r\n  }";
+>>>>>>> ee08088 (issue 700: transit gateway form)
 styleInject(css_248z$1);
 >>>>>>> 09dbacf (SshKeyForm, example, and docs)
 =======
@@ -9979,11 +10365,15 @@ ToggleForm.propTypes = {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> f680a35 (almost done)
 =======
 =======
 >>>>>>> 7d02243 (fix merge)
 var css_248z = ".leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidthBigger {\n  width: 30rem\n}\n";
+=======
+var css_248z = ".leftTextAlign {\r\n  text-align: left;\r\n}\r\n\r\n.fieldWidthBigger {\r\n  width: 30rem\r\n}\r\n";
+>>>>>>> ee08088 (issue 700: transit gateway form)
 styleInject(css_248z);
 
 /**
@@ -10249,6 +10639,7 @@ exports.TeleportClaimToRoleForm = TeleportClaimToRoleForm;
 exports.TitleGroup = TitleGroup;
 exports.ToggleForm = ToggleForm;
 exports.ToolTipWrapper = ToolTipWrapper;
+exports.TransitGatewayForm = TransitGatewayForm;
 exports.UnderConstruction = UnderConstruction;
 exports.UnsavedChangesModal = UnsavedChangesModal;
 exports.UpDownButtons = UpDownButtons;
