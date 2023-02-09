@@ -13,7 +13,7 @@ export const IcseMultiSelect = (props) => {
   return (
     <FilterableMultiSelect
       id={props.id}
-      className={addClassName("fieldWidth leftTextAlign cds--select", props)}
+      className={addClassName("fieldWidth leftTextAlign", props)}
       titleText={props.titleText}
       itemToString={(item) => (item ? item : "")}
       invalid={props.invalid}

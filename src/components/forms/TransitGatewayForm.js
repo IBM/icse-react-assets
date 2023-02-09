@@ -60,7 +60,7 @@ class TransitGatewayForm extends Component {
             componentName="Transit Gateway"
             field="name"
             value={this.state.name}
-            readOnly={this.state.readOnlyName}
+            readOnly={this.props.readOnlyName}
             id="tg-name"
             invalid={this.props.invalidCallback(this.state)}
             invalidText={this.props.invalidTextCallback(this.state)}
@@ -72,7 +72,6 @@ class TransitGatewayForm extends Component {
             value={this.state.transit_gateway_resource_group}
             groups={this.props.resourceGroups}
             handleInputChange={this.handleInputChange}
-            className="fieldWidth"
             name="transit_gateway_resource_group"
             labelText="Resource Group"
           />
@@ -82,7 +81,6 @@ class TransitGatewayForm extends Component {
             initialSelectedItems={this.state.transit_gateway_connections}
             vpcList={this.props.vpcList}
             onChange={this.handleVpcSelect}
-            className="fieldWidth"
             invalid={
               this.state.transit_gateway_connections.length === 0 &&
               this.state.enable_transit_gateway
