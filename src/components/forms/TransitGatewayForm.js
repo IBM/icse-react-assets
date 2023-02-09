@@ -9,12 +9,6 @@ import {
 } from "../component-utils";
 import PropTypes from "prop-types";
 
-/**
- * Transit Gateway
- * @param {Object} props
- * @param {configDotJson} props.configDotJson config dot json
- * @param {slz} props.slz slz state store
- */
 class TransitGatewayForm extends Component {
   constructor(props) {
     super(props);
