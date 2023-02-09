@@ -7142,7 +7142,7 @@ styleInject(css_248z$2);
 var IcseMultiSelect = function IcseMultiSelect(props) {
   return /*#__PURE__*/React__default["default"].createElement(react.FilterableMultiSelect, {
     id: props.id,
-    className: lib_2("fieldWidth leftTextAlign cds--select", props),
+    className: lib_2("fieldWidth leftTextAlign", props),
     titleText: props.titleText,
     itemToString: function itemToString(item) {
       return item ? item : "";
@@ -7327,86 +7327,91 @@ VpcListMultiSelect.propTypes = {
   vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
 };
 
-/**
- * Transit Gateway
- * @param {Object} props
- * @param {configDotJson} props.configDotJson config dot json
- * @param {slz} props.slz slz state store
- */
-class TransitGatewayForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = this.props.data;
-    this.handleToggle = this.handleToggle.bind(this);
-    this.handleVpcSelect = this.handleVpcSelect.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
+var TransitGatewayForm = /*#__PURE__*/function (_Component) {
+  _inherits(TransitGatewayForm, _Component);
+  var _super = _createSuper(TransitGatewayForm);
+  function TransitGatewayForm(props) {
+    var _this;
+    _classCallCheck(this, TransitGatewayForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    _this.handleVpcSelect = _this.handleVpcSelect.bind(_assertThisInitialized(_this));
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    return _this;
   }
 
   /**
    * Toggle on and off param in state at name
    * @param {string} name name of the object key to change
    */
-  handleToggle(name) {
-    this.setState({
-      [name]: !this.state[name]
-    });
-  }
+  _createClass(TransitGatewayForm, [{
+    key: "handleToggle",
+    value: function handleToggle(name) {
+      this.setState(_defineProperty({}, name, !this.state[name]));
+    }
 
-  /**
-   * handle vpc selection
-   * @param {event} event
-   */
-  handleVpcSelect(event) {
-    this.setState({
-      transit_gateway_connections: event
-    });
-  }
+    /**
+     * handle vpc selection
+     * @param {event} event
+     */
+  }, {
+    key: "handleVpcSelect",
+    value: function handleVpcSelect(event) {
+      this.setState({
+        transit_gateway_connections: event
+      });
+    }
 
-  /**
-   * Handle input change
-   * @param {event} event
-   */
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-  render() {
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      labelText: "Use Transit Gateway",
-      toggleFieldName: "enable_transit_gateway",
-      id: "tg-enable",
-      onToggle: this.handleToggle,
-      defaultToggled: this.state.enable_transit_gateway
-    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      onChange: this.handleInputChange,
-      componentName: "Transit Gateway",
-      field: "name",
-      value: this.state.name,
-      readOnly: this.state.readOnlyName,
-      id: "tg-name",
-      invalid: this.props.invalidCallback(this.state),
-      invalidText: this.props.invalidTextCallback(this.state)
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "Transit Gateway",
-      value: this.state.transit_gateway_resource_group,
-      groups: this.props.resourceGroups,
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidth",
-      name: "transit_gateway_resource_group",
-      labelText: "Resource Group"
-    }), /*#__PURE__*/React__default["default"].createElement(VpcListMultiSelect, {
-      id: "tg-vpc-multiselect",
-      titleText: "Connected VPCs",
-      initialSelectedItems: this.state.transit_gateway_connections,
-      vpcList: this.props.vpcList,
-      onChange: this.handleVpcSelect,
-      className: "fieldWidth",
-      invalid: this.state.transit_gateway_connections.length === 0 && this.state.enable_transit_gateway,
-      invalidText: "At least one VPC must be connected"
-    })));
-  }
-}
+    /**
+     * Handle input change
+     * @param {event} event
+     */
+  }, {
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        labelText: "Use Transit Gateway",
+        toggleFieldName: "enable_transit_gateway",
+        id: "tg-enable",
+        onToggle: this.handleToggle,
+        defaultToggled: this.state.enable_transit_gateway
+      }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+        onChange: this.handleInputChange,
+        componentName: "Transit Gateway",
+        field: "name",
+        value: this.state.name,
+        readOnly: this.props.readOnlyName,
+        id: "tg-name",
+        invalid: this.props.invalidCallback(this.state),
+        invalidText: this.props.invalidTextCallback(this.state)
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: "Transit Gateway",
+        value: this.state.transit_gateway_resource_group,
+        groups: this.props.resourceGroups,
+        handleInputChange: this.handleInputChange,
+        name: "transit_gateway_resource_group",
+        labelText: "Resource Group"
+      }), /*#__PURE__*/React__default["default"].createElement(VpcListMultiSelect, {
+        id: "tg-vpc-multiselect",
+        titleText: "Connected VPCs",
+        initialSelectedItems: this.state.transit_gateway_connections,
+        vpcList: this.props.vpcList,
+        onChange: this.handleVpcSelect,
+        invalid: this.state.transit_gateway_connections.length === 0 && this.state.enable_transit_gateway,
+        invalidText: "At least one VPC must be connected"
+      })));
+    }
+  }]);
+  return TransitGatewayForm;
+}(React.Component);
 TransitGatewayForm.defaultProps = {
   data: {
     enable_transit_gateway: true,
