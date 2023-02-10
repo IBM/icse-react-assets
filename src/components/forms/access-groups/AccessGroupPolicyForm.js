@@ -2,7 +2,7 @@ import React from "react";
 import {
   buildFormFunctions,
   buildFormDefaultInputMethods,
-} from "../../../component-utils";
+} from "../../component-utils";
 import { IcseFormGroup, IcseHeading } from "../../Utils";
 import { IcseNameInput, IcseTextInput } from "../../Inputs";
 import { IcseSelect } from "../../Dropdowns";

@@ -2,18 +2,21 @@ import React from "react";
 import {
   buildFormFunctions,
   buildFormDefaultInputMethods,
-} from "../../../component-utils";
-import { conditionOperators } from "../../../../lib";
+} from "../../component-utils";
 import { eachKey } from "lazy-z";
+import { IcseFormGroup, IcseHeading } from "../../Utils";
+import { IcseNameInput, IcseTextInput } from "../../Inputs";
+import { IcseSelect, IcseNumberSelect } from "../../Dropdowns";
 import PropTypes from "prop-types";
-import {
-  IcseFormGroup,
-  IcseHeading,
-  IcseNameInput,
-  IcseNumberSelect,
-  IcseSelect,
-  IcseTextInput,
-} from "../../../../dist/index.cjs";
+
+const conditionOperators = {
+  EQUALS: "Equals",
+  EQUALS_IGNORE_CASE: "Equals (Ignore Case)",
+  IN: "In",
+  NOT_EQUALS_IGNORE_CASE: "Not Equals (Ignore Case)",
+  NOT_EQUALS: "Not Equals",
+  CONTAINS: "Contains",
+};
 
 class AccessGroupDynamicPolicyForm extends React.Component {
   constructor(props) {
@@ -64,15 +67,16 @@ class AccessGroupDynamicPolicyForm extends React.Component {
             field="name"
             labelText="Name"
             value={this.state.name}
-            componentProps={this.props}
             onChange={this.handleInputChange}
+            invalidText={this.props.invalidTextCallback(this.state, this.props)}
+            invalid={this.props.invalidCallback(this.state, this.props)}
           />
           <IcseNumberSelect
             tooltip={{
               content:
                 "How many hours authenticated users can work before refresh",
             }}
-            component="expiration"
+            formName="expiration"
             max={24}
             value={this.state.expiration}
             name="expiration"
@@ -94,7 +98,6 @@ class AccessGroupDynamicPolicyForm extends React.Component {
             labelText="Identity Provider"
             value={this.state.identity_provider}
             invalid={"sixOrMore"}
-            componentProps={this.props}
             onChange={this.handleInputChange}
             className="textInputWide"
           />
@@ -114,7 +117,6 @@ class AccessGroupDynamicPolicyForm extends React.Component {
             isModal={this.props.isModal}
             labelText="Condition Claim"
             value={this.state.conditions.claim}
-            componentProps={this.props}
             invalid={false}
             onChange={this.handleInputCondition}
           />
@@ -143,7 +145,6 @@ class AccessGroupDynamicPolicyForm extends React.Component {
             field="value"
             isModal={this.props.isModal}
             value={this.state.conditions.value}
-            componentProps={this.props}
             labelText="Condition Value"
             invalid={false}
             onChange={this.handleInputCondition}
