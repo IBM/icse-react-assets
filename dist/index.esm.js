@@ -100,6 +100,7 @@ import { Information, Save, Add, CloseFilled, Edit, TrashCan, ArrowUp, ArrowDown
 =======
 >>>>>>> ad3a1f9 (Migrated VpnGatewayForm + Documentation (Issue702) (#31))
 
+<<<<<<< HEAD
 var _require = require("lazy-z"),
   isFunction = _require.isFunction;
 var _require2 = require("../src/lib/method-functions"),
@@ -610,6 +611,8 @@ EmptyResourceTile.propTypes = {
 >>>>>>> f19dfef (merge)
 =======
 >>>>>>> b9aa481 (feat: object storage key form)
+=======
+>>>>>>> 611854f (AccesGroupPolicyForm done)
 function ownKeys(object, enumerableOnly) {
   var keys = Object.keys(object);
   if (Object.getOwnPropertySymbols) {
@@ -780,6 +783,7 @@ function _toPropertyKey(arg) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$2 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
 styleInject(css_248z$2);
 =======
@@ -911,6 +915,55 @@ import lazyZ, { snakeCase, titleCase, isBoolean, kebabCase as kebabCase$1, prett
 
 =======
 >>>>>>> f19dfef (merge)
+=======
+var _require = require("lazy-z"),
+  isFunction = _require.isFunction;
+var _require2 = require("../src/lib/method-functions"),
+  eventTargetToNameAndValue$2 = _require2.eventTargetToNameAndValue,
+  toggleStateBoolean$2 = _require2.toggleStateBoolean,
+  setNameToValue$2 = _require2.setNameToValue;
+
+/**
+ * build functions for modal forms
+ * @param {React.Element} component stateful component
+ */
+function buildFormFunctions(component) {
+  var disableSubmit = isFunction(component.props.shouldDisableSubmit);
+  var disableSave = isFunction(component.props.shouldDisableSave);
+  if (component.props.shouldDisableSave) component.shouldDisableSave = component.props.shouldDisableSave.bind(component);
+  if (disableSubmit) component.shouldDisableSubmit = component.props.shouldDisableSubmit.bind(component);
+
+  // set update
+  component.componentDidMount = function () {
+    if (disableSubmit) component.shouldDisableSubmit();
+    if (disableSave) component.shouldDisableSave(this.state, this.props);
+  }.bind(component);
+  component.componentDidUpdate = function () {
+    if (disableSubmit) component.shouldDisableSubmit();
+    if (disableSave) component.shouldDisableSave(this.state, this.props);
+  }.bind(component);
+
+  // set on save function
+  component.onSave = function () {
+    component.props.onSave(this.state, this.props);
+  }.bind(component);
+  // save on delete
+  component.onDelete = function () {
+    component.props.onDelete(this.state, this.props);
+  }.bind(component);
+}
+
+/**
+ * add default methods to component
+ * @param {*} component React Component
+ */
+function buildFormDefaultInputMethods(component) {
+  component.eventTargetToNameAndValue = eventTargetToNameAndValue$2.bind(component);
+  component.toggleStateBoolean = toggleStateBoolean$2.bind(component);
+  component.setNameToValue = setNameToValue$2.bind(component);
+}
+
+>>>>>>> 611854f (AccesGroupPolicyForm done)
 /**
  * create a composed class name
  * @param {string} className name of classes to add
@@ -3374,81 +3427,92 @@ EntitlementSelect.propTypes = {
 /**
  * vpn gateway form
  */
-class VpnGatewayForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = this.props.data;
-    this.handleInputChange = this.handleInputChange.bind(this);
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
+var VpnGatewayForm = /*#__PURE__*/function (_Component) {
+  _inherits(VpnGatewayForm, _Component);
+  var _super = _createSuper(VpnGatewayForm);
+  function VpnGatewayForm(props) {
+    var _this;
+    _classCallCheck(this, VpnGatewayForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    return _this;
   }
 
   /**
    * handle input change
    * @param {event} event
    */
-  handleInputChange(event) {
-    if (event.target.name === "vpc_name") {
-      this.setState({
-        vpc_name: event.target.value,
-        subnet_name: ""
-      });
-    } else if (event.target.name === "subnet_name" && lib_4(this.state.vpc_name)) {
-      this.setState({
-        subnet_name: ""
-      });
-    } else {
-      this.setState(this.eventTargetToNameAndValue(event));
+  _createClass(VpnGatewayForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      if (event.target.name === "vpc_name") {
+        this.setState({
+          vpc_name: event.target.value,
+          subnet_name: ""
+        });
+      } else if (event.target.name === "subnet_name" && lib_4(this.state.vpc_name)) {
+        this.setState({
+          subnet_name: ""
+        });
+      } else {
+        this.setState(this.eventTargetToNameAndValue(event));
+      }
     }
-  }
-  render() {
-    let composedId = `vpn-gateway-form-${this.props.data.name}-`;
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
-      id: composedId,
-      component: "vpn_gateways",
-      componentName: this.props.data.name,
-      componentProps: this.props,
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      placeholder: "my-vpn-gateway-name",
-      hideHelperText: true,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props)
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: "resource_group",
-      name: "resource_group",
-      labelText: "Resource Group",
-      groups: this.props.resourceGroups,
-      value: this.state.resource_group,
-      handleInputChange: this.handleInputChange,
-      invalid: lib_4(this.state.resource_group),
-      invalidText: "Select a Resource Group.",
-      className: "fieldWidth"
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
-      id: composedId,
-      formName: "vpc_name",
-      name: "vpc_name",
-      labelText: "VPC",
-      groups: this.props.vpcList,
-      value: this.state.vpc_name,
-      handleInputChange: this.handleInputChange,
-      invalid: lib_4(this.state.vpc_name),
-      invalidText: "Select a VPC.",
-      className: "fieldWidth"
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      id: composedId,
-      formName: "subnet_name",
-      name: "subnet_name",
-      labelText: "Subnet",
-      groups: this.props.subnetList,
-      value: this.state.subnet_name,
-      handleInputChange: this.handleInputChange,
-      invalid: lib_4(this.state.vpc_name) || lib_4(this.state.subnet_name),
-      invalidText: lib_4(this.state.vpc_name) ? `No VPC Selected.` : `Select a Subnet.`,
-      className: "fieldWidth"
-    })));
-  }
-}
+  }, {
+    key: "render",
+    value: function render() {
+      var composedId = "vpn-gateway-form-".concat(this.props.data.name, "-");
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+        id: composedId,
+        component: "vpn_gateways",
+        componentName: this.props.data.name,
+        componentProps: this.props,
+        value: this.state.name,
+        onChange: this.handleInputChange,
+        placeholder: "my-vpn-gateway-name",
+        hideHelperText: true,
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props)
+      }), /*#__PURE__*/React.createElement(IcseSelect, {
+        formName: "resource_group",
+        name: "resource_group",
+        labelText: "Resource Group",
+        groups: this.props.resourceGroups,
+        value: this.state.resource_group,
+        handleInputChange: this.handleInputChange,
+        invalid: lib_4(this.state.resource_group),
+        invalidText: "Select a Resource Group.",
+        className: "fieldWidth"
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+        id: composedId,
+        formName: "vpc_name",
+        name: "vpc_name",
+        labelText: "VPC",
+        groups: this.props.vpcList,
+        value: this.state.vpc_name,
+        handleInputChange: this.handleInputChange,
+        invalid: lib_4(this.state.vpc_name),
+        invalidText: "Select a VPC.",
+        className: "fieldWidth"
+      }), /*#__PURE__*/React.createElement(IcseSelect, {
+        id: composedId,
+        formName: "subnet_name",
+        name: "subnet_name",
+        labelText: "Subnet",
+        groups: this.props.subnetList,
+        value: this.state.subnet_name,
+        handleInputChange: this.handleInputChange,
+        invalid: lib_4(this.state.vpc_name) || lib_4(this.state.subnet_name),
+        invalidText: lib_4(this.state.vpc_name) ? "No VPC Selected." : "Select a Subnet.",
+        className: "fieldWidth"
+      })));
+    }
+  }]);
+  return VpnGatewayForm;
+}(Component);
 VpnGatewayForm.defaultProps = {
   data: {
     name: "",
@@ -11054,54 +11118,65 @@ styleInject(css_248z);
 /**
  * ssh key form
  */
-class SshKeyForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = this.props.data;
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
+var SshKeyForm = /*#__PURE__*/function (_Component) {
+  _inherits(SshKeyForm, _Component);
+  var _super = _createSuper(SshKeyForm);
+  function SshKeyForm(props) {
+    var _this;
+    _classCallCheck(this, SshKeyForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   /**
    * handle other input events
    * @param {*} event
    */
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-  render() {
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
-      id: this.state.name + "-name",
-      componentName: this.props.data.name + "-ssh-key-name",
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props),
-      hideHelperText: true
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      name: "resource_group",
-      formName: `${kebabCase$1(this.props.data.name)}-ssh-rg-select`,
-      groups: this.props.resourceGroups,
-      value: this.state.resource_group,
-      handleInputChange: this.handleInputChange,
-      invalidText: "Select a Resource Group.",
-      labelText: "Resource Group"
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, {
-      noMarginBottom: true
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "fieldWidthBigger leftTextAlign"
-    }, /*#__PURE__*/React.createElement(TextInput.PasswordInput, {
-      labelText: "Public Key",
-      name: "public_key",
-      id: this.props.data.name + "-ssh-public-key",
-      value: this.state.public_key,
-      onChange: this.handleInputChange,
-      invalid: this.props.invalidKeyCallback(this.state.public_key).invalid,
-      invalidText: this.props.invalidKeyCallback(this.state.public_key).invalidText
-    }))));
-  }
-}
+  _createClass(SshKeyForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+        id: this.state.name + "-name",
+        componentName: this.props.data.name + "-ssh-key-name",
+        value: this.state.name,
+        onChange: this.handleInputChange,
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props),
+        hideHelperText: true
+      }), /*#__PURE__*/React.createElement(IcseSelect, {
+        name: "resource_group",
+        formName: "".concat(kebabCase$1(this.props.data.name), "-ssh-rg-select"),
+        groups: this.props.resourceGroups,
+        value: this.state.resource_group,
+        handleInputChange: this.handleInputChange,
+        invalidText: "Select a Resource Group.",
+        labelText: "Resource Group"
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, {
+        noMarginBottom: true
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "fieldWidthBigger leftTextAlign"
+      }, /*#__PURE__*/React.createElement(TextInput.PasswordInput, {
+        labelText: "Public Key",
+        name: "public_key",
+        id: this.props.data.name + "-ssh-public-key",
+        value: this.state.public_key,
+        onChange: this.handleInputChange,
+        invalid: this.props.invalidKeyCallback(this.state.public_key).invalid,
+        invalidText: this.props.invalidKeyCallback(this.state.public_key).invalidText
+      }))));
+    }
+  }]);
+  return SshKeyForm;
+}(Component);
 SshKeyForm.defaultProps = {
   data: {
     name: "",
