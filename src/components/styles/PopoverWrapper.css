@@ -2,6 +2,10 @@
   padding: 5px;
   position: relative;
   font-size: 80%;
-  z-index: 9001;
   top: 20px;
+}
+
+.cds--popover--open .cds--popover-content {
+  position: relative;
+  z-index: 9001;
 }

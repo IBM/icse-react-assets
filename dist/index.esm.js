@@ -15,6 +15,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import { Popover, PopoverContent, FilterableMultiSelect, MultiSelect, Tile, Toggletip, ToggletipButton, ToggletipContent, Link, Modal, TextInput, Toggle, Button } from '@carbon/react';
 >>>>>>> 04bfb65 (added button examples)
@@ -641,6 +642,60 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import lazyZ, { snakeCase, kebabCase as kebabCase$1, titleCase, isBoolean, isNullOrEmptyString, isEmpty, buildNumberDropdownList, prettyJSON, isFunction as isFunction$1 } from 'lazy-z';
 import { Toggletip, ToggletipButton, ToggletipContent, Link, Popover, PopoverContent, Button, Toggle, TextInput, Select, SelectItem, Tile, Dropdown, FilterableMultiSelect, MultiSelect, Modal, Tabs, TabList, Tab, TabPanels, TabPanel } from '@carbon/react';
+=======
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import lazyZ, { snakeCase, kebabCase as kebabCase$1, titleCase, isBoolean, isNullOrEmptyString, isEmpty, buildNumberDropdownList, prettyJSON, isFunction as isFunction$1, contains } from 'lazy-z';
+import { Toggletip, ToggletipButton, ToggletipContent, Link, Popover, PopoverContent, Button, Toggle, TextInput, Select, SelectItem, Tile, Dropdown, Modal, FilterableMultiSelect, MultiSelect, Tabs, TabList, Tab, TabPanels, TabPanel, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody } from '@carbon/react';
+import { Information, Save, Add, CloseFilled, Edit, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt } from '@carbon/icons-react';
+
+var _require = require("lazy-z"),
+  isFunction = _require.isFunction;
+var _require2 = require("../src/lib/method-functions"),
+  eventTargetToNameAndValue$2 = _require2.eventTargetToNameAndValue,
+  toggleStateBoolean$2 = _require2.toggleStateBoolean,
+  setNameToValue$2 = _require2.setNameToValue;
+
+/**
+ * build functions for modal forms
+ * @param {React.Element} component stateful component
+ */
+function buildFormFunctions(component) {
+  var disableSubmit = isFunction(component.props.shouldDisableSubmit);
+  var disableSave = isFunction(component.props.shouldDisableSave);
+  if (component.props.shouldDisableSave) component.shouldDisableSave = component.props.shouldDisableSave.bind(component);
+  if (disableSubmit) component.shouldDisableSubmit = component.props.shouldDisableSubmit.bind(component);
+
+  // set update
+  component.componentDidMount = function () {
+    if (disableSubmit) component.shouldDisableSubmit();
+    if (disableSave) component.shouldDisableSave(this.state, this.props);
+  }.bind(component);
+  component.componentDidUpdate = function () {
+    if (disableSubmit) component.shouldDisableSubmit();
+    if (disableSave) component.shouldDisableSave(this.state, this.props);
+  }.bind(component);
+
+  // set on save function
+  component.onSave = function () {
+    component.props.onSave(this.state, this.props);
+  }.bind(component);
+  // save on delete
+  component.onDelete = function () {
+    component.props.onDelete(this.state, this.props);
+  }.bind(component);
+}
+
+/**
+ * add default methods to component
+ * @param {*} component React Component
+ */
+function buildFormDefaultInputMethods(component) {
+  component.eventTargetToNameAndValue = eventTargetToNameAndValue$2.bind(component);
+  component.toggleStateBoolean = toggleStateBoolean$2.bind(component);
+  component.setNameToValue = setNameToValue$2.bind(component);
+}
+>>>>>>> 82a5f28 (Issue 681: IcseFormTemplate (#38))
 
 >>>>>>> 7d02243 (fix merge)
 function ownKeys(object, enumerableOnly) {
@@ -850,6 +905,7 @@ function _toPropertyKey(arg) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$2 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}";
 styleInject(css_248z$2);
 =======
@@ -1040,6 +1096,8 @@ function buildFormDefaultInputMethods(component) {
 >>>>>>> 7d02243 (fix merge)
 =======
 >>>>>>> ee08088 (issue 700: transit gateway form)
+=======
+>>>>>>> 82a5f28 (Issue 681: IcseFormTemplate (#38))
 /**
  * create a composed class name
  * @param {string} className name of classes to add
@@ -2266,6 +2324,7 @@ DynamicToolTipWrapper.propTypes = {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$7 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  z-index: 9001;\n  top: 20px;\n}\n";
 >>>>>>> b9aa481 (feat: object storage key form)
 =======
@@ -2284,6 +2343,9 @@ styleInject(css_248z$8);
 >>>>>>> 7d02243 (fix merge)
 =======
 var css_248z$9 = ".displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
+=======
+var css_248z$9 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  position: relative;\n  z-index: 9001;\n}";
+>>>>>>> 82a5f28 (Issue 681: IcseFormTemplate (#38))
 styleInject(css_248z$9);
 
 var css_248z$8 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  z-index: 9001;\n  top: 20px;\n}\n";
@@ -2370,6 +2432,7 @@ PopoverWrapper.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$6 = ".chevron {\r\n  margin-right: 1rem;\r\n  margin-top: 0.25rem;\r\n  cursor: pointer;\r\n}\r\n\r\n.popover-box {\r\n  padding: 5px;\r\n  position: relative;\r\n  z-index: 9001; /* navbar is 9000 */\r\n  font-size: 80%;\r\n}\r\n\r\n.tertiaryButtonColors {\r\n  color: #0f62fe !important;\r\n  fill: white !important;\r\n  border-color: #0f62fe !important;\r\n}\r\n\r\n.pointerEventsNone {\r\n  pointer-events: none;\r\n}\r\n\r\n.cursorNotAllowed {\r\n  cursor: not-allowed;\r\n}\r\n\r\n.forceTertiaryButtonStyles {\r\n  padding-right: 0.4375rem !important;\r\n  padding-left: 0.4375rem !important;\r\n}\r\n.inlineBlock {\r\n  display: inline-block;\r\n}\r\n\r\n.redFill {\r\n  fill: #da1e28 !important;\r\n}\r\n\r\n/* CSS for overriding default component styles */\r\n.cds--btn--ghost:focus {\r\n  outline: none;\r\n  border: none;\r\n  box-shadow: none;\r\n}\r\n\r\n.marginRightSmall {\r\n  margin-right: 0.5rem;\r\n}\r\n";
 =======
 var css_248z$6 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
@@ -2386,6 +2449,10 @@ styleInject(css_248z$7);
 var css_248z$7 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
 styleInject(css_248z$7);
 >>>>>>> 7d02243 (fix merge)
+=======
+var css_248z$8 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important; \n}\n";
+styleInject(css_248z$8);
+>>>>>>> 82a5f28 (Issue 681: IcseFormTemplate (#38))
 
 /**
  * generate save icon
@@ -2752,6 +2819,7 @@ var DeleteButton = function DeleteButton(props) {
     className: "delete-area"
   }, /*#__PURE__*/React.createElement(PopoverWrapper, {
     hoverText: props.disabled ? props.disableDeleteMessage : "Delete Resource",
+    align: props.hoverTextAlign,
     className: props.disabled ? "inlineBlock cursorNotAllowed" : ""
   }, /*#__PURE__*/React.createElement(Button, {
     className: "cds--btn--danger--tertiary forceTertiaryButtonStyles" + (props.disabled ? " pointerEventsNone" : ""),
@@ -2764,12 +2832,14 @@ var DeleteButton = function DeleteButton(props) {
   }))));
 };
 DeleteButton.defaultProps = {
-  disabled: false
+  disabled: false,
+  hoverTextAlign: "bottom"
 };
 DeleteButton.propTypes = {
   disabled: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
-  name: PropTypes.string.isRequired
+  name: PropTypes.string.isRequired,
+  hoverTextAlign: PropTypes.string.isRequired
 };
 
 /**
@@ -3825,121 +3895,6 @@ EntitlementSelect.propTypes = {
   handleInputChange: PropTypes.func.isRequired,
   formName: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired
-};
-
-/**
- * vpn gateway form
- */
-var VpnGatewayForm = /*#__PURE__*/function (_Component) {
-  _inherits(VpnGatewayForm, _Component);
-  var _super = _createSuper(VpnGatewayForm);
-  function VpnGatewayForm(props) {
-    var _this;
-    _classCallCheck(this, VpnGatewayForm);
-    _this = _super.call(this, props);
-    _this.state = _this.props.data;
-    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
-    buildFormFunctions(_assertThisInitialized(_this));
-    buildFormDefaultInputMethods(_assertThisInitialized(_this));
-    return _this;
-  }
-
-  /**
-   * handle input change
-   * @param {event} event
-   */
-  _createClass(VpnGatewayForm, [{
-    key: "handleInputChange",
-    value: function handleInputChange(event) {
-      if (event.target.name === "vpc_name") {
-        this.setState({
-          vpc_name: event.target.value,
-          subnet_name: ""
-        });
-      } else if (event.target.name === "subnet_name" && lib_4(this.state.vpc_name)) {
-        this.setState({
-          subnet_name: ""
-        });
-      } else {
-        this.setState(this.eventTargetToNameAndValue(event));
-      }
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var composedId = "vpn-gateway-form-".concat(this.props.data.name, "-");
-      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
-        id: composedId,
-        component: "vpn_gateways",
-        componentName: this.props.data.name,
-        componentProps: this.props,
-        value: this.state.name,
-        onChange: this.handleInputChange,
-        placeholder: "my-vpn-gateway-name",
-        hideHelperText: true,
-        invalid: this.props.invalidCallback(this.state, this.props),
-        invalidText: this.props.invalidTextCallback(this.state, this.props)
-      }), /*#__PURE__*/React.createElement(IcseSelect, {
-        formName: "resource_group",
-        name: "resource_group",
-        labelText: "Resource Group",
-        groups: this.props.resourceGroups,
-        value: this.state.resource_group,
-        handleInputChange: this.handleInputChange,
-        invalid: lib_4(this.state.resource_group),
-        invalidText: "Select a Resource Group.",
-        className: "fieldWidth"
-      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
-        id: composedId,
-        formName: "vpc_name",
-        name: "vpc_name",
-        labelText: "VPC",
-        groups: this.props.vpcList,
-        value: this.state.vpc_name,
-        handleInputChange: this.handleInputChange,
-        invalid: lib_4(this.state.vpc_name),
-        invalidText: "Select a VPC.",
-        className: "fieldWidth"
-      }), /*#__PURE__*/React.createElement(IcseSelect, {
-        id: composedId,
-        formName: "subnet_name",
-        name: "subnet_name",
-        labelText: "Subnet",
-        groups: this.props.subnetList,
-        value: this.state.subnet_name,
-        handleInputChange: this.handleInputChange,
-        invalid: lib_4(this.state.vpc_name) || lib_4(this.state.subnet_name),
-        invalidText: lib_4(this.state.vpc_name) ? "No VPC Selected." : "Select a Subnet.",
-        className: "fieldWidth"
-      })));
-    }
-  }]);
-  return VpnGatewayForm;
-}(Component);
-VpnGatewayForm.defaultProps = {
-  data: {
-    name: "",
-    resource_group: "",
-    vpc_name: "",
-    subnet_name: null
-  },
-  isModal: false
-};
-VpnGatewayForm.propTypes = {
-  data: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    resource_group: PropTypes.string,
-    // can be null
-    vpc_name: PropTypes.string,
-    // can be null
-    subnet_name: PropTypes.string // can be null
-  }).isRequired,
-  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
-  vpcList: PropTypes.arrayOf(PropTypes.string).isRequired,
-  subnetList: PropTypes.arrayOf(PropTypes.string).isRequired,
-  invalidCallback: PropTypes.func.isRequired,
-  invalidTextCallback: PropTypes.func.isRequired,
-  isModal: PropTypes.bool.isRequired
 };
 
 var ObjectStorageKeyForm = /*#__PURE__*/function (_Component) {
@@ -10033,6 +9988,121 @@ AtrackerForm.propTypes = {
 };
 
 /**
+ * vpn gateway form
+ */
+var VpnGatewayForm = /*#__PURE__*/function (_Component) {
+  _inherits(VpnGatewayForm, _Component);
+  var _super = _createSuper(VpnGatewayForm);
+  function VpnGatewayForm(props) {
+    var _this;
+    _classCallCheck(this, VpnGatewayForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * handle input change
+   * @param {event} event
+   */
+  _createClass(VpnGatewayForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      if (event.target.name === "vpc_name") {
+        this.setState({
+          vpc_name: event.target.value,
+          subnet_name: ""
+        });
+      } else if (event.target.name === "subnet_name" && lib_4(this.state.vpc_name)) {
+        this.setState({
+          subnet_name: ""
+        });
+      } else {
+        this.setState(this.eventTargetToNameAndValue(event));
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var composedId = "vpn-gateway-form-".concat(this.props.data.name, "-");
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+        id: composedId,
+        component: "vpn_gateways",
+        componentName: this.props.data.name,
+        componentProps: this.props,
+        value: this.state.name,
+        onChange: this.handleInputChange,
+        placeholder: "my-vpn-gateway-name",
+        hideHelperText: true,
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props)
+      }), /*#__PURE__*/React.createElement(IcseSelect, {
+        formName: "resource_group",
+        name: "resource_group",
+        labelText: "Resource Group",
+        groups: this.props.resourceGroups,
+        value: this.state.resource_group,
+        handleInputChange: this.handleInputChange,
+        invalid: lib_4(this.state.resource_group),
+        invalidText: "Select a Resource Group.",
+        className: "fieldWidth"
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+        id: composedId,
+        formName: "vpc_name",
+        name: "vpc_name",
+        labelText: "VPC",
+        groups: this.props.vpcList,
+        value: this.state.vpc_name,
+        handleInputChange: this.handleInputChange,
+        invalid: lib_4(this.state.vpc_name),
+        invalidText: "Select a VPC.",
+        className: "fieldWidth"
+      }), /*#__PURE__*/React.createElement(IcseSelect, {
+        id: composedId,
+        formName: "subnet_name",
+        name: "subnet_name",
+        labelText: "Subnet",
+        groups: this.props.subnetList,
+        value: this.state.subnet_name,
+        handleInputChange: this.handleInputChange,
+        invalid: lib_4(this.state.vpc_name) || lib_4(this.state.subnet_name),
+        invalidText: lib_4(this.state.vpc_name) ? "No VPC Selected." : "Select a Subnet.",
+        className: "fieldWidth"
+      })));
+    }
+  }]);
+  return VpnGatewayForm;
+}(Component);
+VpnGatewayForm.defaultProps = {
+  data: {
+    name: "",
+    resource_group: "",
+    vpc_name: "",
+    subnet_name: null
+  },
+  isModal: false
+};
+VpnGatewayForm.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    resource_group: PropTypes.string,
+    // can be null
+    vpc_name: PropTypes.string,
+    // can be null
+    subnet_name: PropTypes.string // can be null
+  }).isRequired,
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  vpcList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  subnetList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  isModal: PropTypes.bool.isRequired
+};
+
+/**
  * Form Modal
  * @param {Object} props
  * @param {string} props.name the name of the modal
@@ -10499,6 +10569,7 @@ var UnderConstruction = function UnderConstruction() {
   }), /*#__PURE__*/React.createElement("h4", null, "Page Under Construction"));
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -11369,6 +11440,10 @@ styleInject(css_248z$1);
 var css_248z$1 = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }";
 styleInject(css_248z$1);
 >>>>>>> 817ead3 (update build)
+=======
+var css_248z$2 = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}";
+styleInject(css_248z$2);
+>>>>>>> 82a5f28 (Issue 681: IcseFormTemplate (#38))
 
 /**
  * StatefulTabPanel wrapper for non array forms
@@ -12726,5 +12801,294 @@ Docs.propTypes = {
   relatedLinks: PropTypes.array
 };
 
+<<<<<<< HEAD
 export { AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> 817ead3 (update build)
+=======
+var css_248z = ".leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidthBigger {\n  width: 30rem\n}\n";
+styleInject(css_248z);
+
+/**
+ * ssh key form
+ */
+var SshKeyForm = /*#__PURE__*/function (_Component) {
+  _inherits(SshKeyForm, _Component);
+  var _super = _createSuper(SshKeyForm);
+  function SshKeyForm(props) {
+    var _this;
+    _classCallCheck(this, SshKeyForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * handle other input events
+   * @param {*} event
+   */
+  _createClass(SshKeyForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+        id: this.state.name + "-name",
+        componentName: this.props.data.name + "-ssh-key-name",
+        value: this.state.name,
+        onChange: this.handleInputChange,
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props),
+        hideHelperText: true
+      }), /*#__PURE__*/React.createElement(IcseSelect, {
+        name: "resource_group",
+        formName: "".concat(kebabCase$1(this.props.data.name), "-ssh-rg-select"),
+        groups: this.props.resourceGroups,
+        value: this.state.resource_group,
+        handleInputChange: this.handleInputChange,
+        invalidText: "Select a Resource Group.",
+        labelText: "Resource Group"
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, {
+        noMarginBottom: true
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "fieldWidthBigger leftTextAlign"
+      }, /*#__PURE__*/React.createElement(TextInput.PasswordInput, {
+        labelText: "Public Key",
+        name: "public_key",
+        id: this.props.data.name + "-ssh-public-key",
+        value: this.state.public_key,
+        onChange: this.handleInputChange,
+        invalid: this.props.invalidKeyCallback(this.state.public_key).invalid,
+        invalidText: this.props.invalidKeyCallback(this.state.public_key).invalidText
+      }))));
+    }
+  }]);
+  return SshKeyForm;
+}(Component);
+SshKeyForm.defaultProps = {
+  data: {
+    name: "",
+    public_key: ""
+  },
+  resourceGroups: [],
+  isModal: false
+};
+SshKeyForm.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    resource_group: PropTypes.string,
+    public_key: PropTypes.string.isRequired
+  }).isRequired,
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  isModal: PropTypes.bool.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  invalidKeyCallback: PropTypes.func.isRequired
+};
+
+class IcseFormTemplate extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showModal: false,
+      shownArrayForms: [],
+      // list of array forms to keep open on save
+      shownChildForms: [] // list of child forms to keep open on save
+    };
+
+    this.onChildToggle = this.onChildToggle.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+    this.shouldShow = this.shouldShow.bind(this);
+    // add an array to track middle forms
+    if (this.props.isMiddleForm) {
+      this.props.arrayData.forEach(() => this.state.shownChildForms.push([]));
+    }
+  }
+
+  /**
+   * keep update forms open
+   * @param {number} index index to keep open
+   * @param {number=} childIndex optional child index
+   */
+  onChildToggle(index, childIndex) {
+    if (this.props.parentToggle) {
+      // if the parent toggle is passed, run the callback (this function on parent form)
+      // with parent index and current index
+      this.props.parentToggle.callback(this.props.parentToggle.index, index);
+    } else if (arguments.length !== 1) {
+      // if a second param is passed
+      let shownChildForms = [...this.state.shownChildForms]; // all forms
+      // if contains index
+      if (contains(this.state.shownChildForms[index], childIndex)) {
+        // remove index from list
+        shownChildForms[index].splice(index, 1);
+      } else {
+        // otherwise add
+        shownChildForms[index].push(childIndex);
+      }
+      this.setState({
+        shownChildForms: shownChildForms
+      });
+    } else {
+      // if only parent index
+      let shownForms = [...this.state.shownArrayForms]; // all forms
+      if (contains(this.state.shownArrayForms, index)) {
+        // remove if contains
+        shownForms.splice(index, 1);
+      } else shownForms.push(index);
+      this.setState({
+        shownArrayForms: shownForms
+      });
+    }
+  }
+
+  /**
+   * on modal submit
+   * @param {*} data arbitrary data
+   */
+  onSubmit(data) {
+    this.props.onSubmit(data, this.props);
+    this.toggleModal();
+  }
+
+  /**
+   * toggle modal on and off
+   */
+  toggleModal() {
+    this.setState({
+      showModal: !this.state.showModal
+    });
+  }
+
+  /**
+   * check if form should show
+   * @returns {bool} if the child forms should show
+   */
+  shouldShow(index) {
+    return this.props.parentToggle ? contains(this.props.parentToggle.shownChildren[this.props.parentToggle.index], index) // show children
+    : contains(this.state.shownArrayForms, index);
+  }
+  render() {
+    let formattedName = kebabCase$1(this.props.name); // formatted component name
+    // enable submit field here is set to variable value to allow for passing to
+    // child array components without needing to reference `this` directly
+    return /*#__PURE__*/React.createElement("div", {
+      id: formattedName
+    }, /*#__PURE__*/React.createElement(StatefulTabPanel, {
+      name: this.props.name,
+      onClick: this.toggleModal,
+      addText: this.props.addText,
+      hideButton: this.props.hideFormTitleButton,
+      subHeading: this.props.subHeading,
+      className: this.props.subHeading ? "subHeading marginBottomSmall" : "",
+      tooltip: this.props.tooltip,
+      about: this.props.docs ? this.props.docs() : false,
+      form: /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(EmptyResourceTile, {
+        name: this.props.name,
+        showIfEmpty: this.props.arrayData
+      }), this.props.arrayData.map((data, index) => {
+        // return a form with the index and props
+        return /*#__PURE__*/React.createElement(ToggleForm, _extends({}, this.props.toggleFormProps, {
+          tabPanel: {
+            name: this.props.name,
+            hideAbout: true,
+            // passed to ignore second tab panel
+            hasBuiltInHeading: true // passed to ignore second tabPanel
+          },
+
+          key: this.props.name + "-" + index,
+          innerForm: this.props.innerForm,
+          innerFormProps: {
+            ...this.props.innerFormProps,
+            data: {
+              ...data
+            }
+          } // merge data into innerForm props
+          ,
+          arrayParentName: this.props.arrayParentName,
+          onShowToggle: this.onChildToggle,
+          onChildShowToggle: this.props.isMiddleForm ? this.onChildToggle // pass through to child component if middle form
+          : false,
+          index: index,
+          show: this.shouldShow(index),
+          shownChildren: this.state.shownChildForms,
+          onSave: this.props?.onSave,
+          onDelete: this.props?.onDelete
+        }));
+      }), /*#__PURE__*/React.createElement(FormModal, {
+        name: this.props.addText,
+        show: this.state.showModal,
+        onRequestSubmit: this.onSubmit,
+        onRequestClose: this.toggleModal,
+        arrayParentName: this.props.arrayParentName
+      },
+      // render the form inside the modal
+      RenderForm(this.props.innerForm, {
+        ...this.props.innerFormProps,
+        arrayParentName: this.props.arrayParentName,
+        isModal: true,
+        shouldDisableSubmit: function () {
+          // references to `this` in function are intentionally vague
+          // in order to pass the correct functions and field values to the
+          // child modal component
+          // by passing `this` in a function that it scoped to the component
+          // we allow the function to be successfully bound to the modal form
+          // while still referencing the local value `enableSubmitField`
+          // to use it's own values for state and props including enableModal
+          // and disableModal, which are dynamically added to the component
+          // at time of render
+          if (this.props.disableSave(this.state, this.props) === false) {
+            this.props.enableModal();
+          } else {
+            this.props.disableModal();
+          }
+        }
+      }))),
+      hideFormTitleButton: this.props.hideFormTitleButton
+    }));
+  }
+}
+IcseFormTemplate.defaultProps = {
+  hideFormTitleButton: false,
+  subHeading: false,
+  arrayParentName: null,
+  isMiddleForm: false
+};
+IcseFormTemplate.propTypes = {
+  name: PropTypes.string,
+  // can be null
+  arrayData: PropTypes.array.isRequired,
+  parentToggle: PropTypes.shape({
+    // used to track open and closed middle forms
+    callback: PropTypes.func.isRequired,
+    shownChildren: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired
+  }),
+  onSubmit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+  addText: PropTypes.string,
+  hideFormTitleButton: PropTypes.bool.isRequired,
+  subHeading: PropTypes.bool.isRequired,
+  docs: PropTypes.func,
+  // only used on top level components
+  tooltip: PropTypes.object,
+  // used only for cos keys
+  arrayParentName: PropTypes.string,
+  isMiddleForm: PropTypes.bool.isRequired,
+  innerFormProps: PropTypes.shape({
+    disableSave: PropTypes.func.isRequired
+  }).isRequired,
+  toggleFormProps: PropTypes.shape({
+    disableSave: PropTypes.func.isRequired,
+    propsMatchState: PropTypes.func.isRequired
+  }).isRequired
+};
+
+export { AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, VpnGatewayForm, buildFormDefaultInputMethods, buildFormFunctions };
+>>>>>>> 82a5f28 (Issue 681: IcseFormTemplate (#38))

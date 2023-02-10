@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 export {
   DeleteButton,
   EditCloseIcon,
@@ -5,6 +6,8 @@ export {
   SaveIcon,
   UpDownButtons,
 } from "./Buttons";
+=======
+>>>>>>> 82a5f28 (Issue 681: IcseFormTemplate (#38))
 export {
   buildFormDefaultInputMethods,
   buildFormFunctions,
@@ -72,3 +75,18 @@ export {
   StatelessToggleForm,
   TitleGroup,
 } from "./Utils";
+<<<<<<< HEAD
+=======
+export {
+  SaveAddButton,
+  EditCloseIcon,
+  DeleteButton,
+  UpDownButtons,
+  SaveIcon,
+} from "./Buttons";
+export { default as StatefulTabPanel } from "./StatefulTabPanel";
+export { default as ToggleForm } from "./ToggleForm";
+export { default as Docs } from "./Docs";
+export { default as SshKeyForm } from "./forms/SshKeyForm";
+export { default as IcseFormTemplate } from "./IcseFormTemplate";
+>>>>>>> 82a5f28 (Issue 681: IcseFormTemplate (#38))

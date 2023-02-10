@@ -151,6 +151,7 @@ export const DeleteButton = (props) => {
         hoverText={
           props.disabled ? props.disableDeleteMessage : "Delete Resource"
         }
+        align={props.hoverTextAlign}
         className={props.disabled ? "inlineBlock cursorNotAllowed" : ""}
       >
         <Button
@@ -172,12 +173,14 @@ export const DeleteButton = (props) => {
 
 DeleteButton.defaultProps = {
   disabled: false,
+  hoverTextAlign: "bottom",
 };
 
 DeleteButton.propTypes = {
   disabled: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
+  hoverTextAlign: PropTypes.string.isRequired,
 };
 
 /**
