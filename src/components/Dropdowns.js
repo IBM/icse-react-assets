@@ -46,7 +46,7 @@ export const IcseSelect = (props) => {
               name={props.name}
               labelText={props.tooltip ? null : props.labelText}
               value={props.value || undefined}
-              className={addClassName("fieldWidth leftTextAlign", props)}
+              className={addClassName("leftTextAlign", props)}
               disabled={props.disabled}
               invalid={invalid}
               invalidText={props.invalidText}
@@ -78,6 +78,7 @@ IcseSelect.defaultProps = {
   readOnly: false,
   groups: [],
   debug: false,
+  className: "fieldWidth",
 };
 
 IcseSelect.propTypes = {
@@ -228,7 +229,7 @@ export const EntitlementSelect = (props) => {
       groups={["null", "cloud_pak"]}
       value={props.value || "null"}
       handleInputChange={props.handleInputChange}
-      className="fieldWidthSmaller"
+      className={props.className}
       formName={props.formName}
     />
   );
@@ -239,4 +240,9 @@ EntitlementSelect.propTypes = {
   handleInputChange: PropTypes.func.isRequired,
   formName: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  className: PropTypes.string,
+};
+
+EntitlementSelect.defaultProps = {
+  className: "fieldWidthSmaller",
 };

@@ -1041,6 +1041,7 @@ function styleInject(css, ref) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$2 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$2);
 =======
@@ -1058,9 +1059,13 @@ var css_248z$a = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: f
 var css_248z$a = ".displayFlex {\r\n  display: flex;\r\n}\r\n.fitContent {\r\n  width: fit-content;\r\n}\r\n\r\n.alignItemsCenter {\r\n  align-items: center;\r\n}\r\n\r\n.widthOneHundredPercent{\r\n  width: 100%;\r\n}\r\n\r\n.marginBottom {\r\n  margin-bottom: 2rem;\r\n}\r\n  \r\n.marginBottomSmall {\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.evenSpacing {\r\n  gap: 3vw;\r\n}\r\n\r\n.positionRelative {\r\n  position: relative;\r\n}\r\n\r\n.formInSubForm {\r\n  margin-top: 0rem;\r\n  background: #fffdfd;\r\n  padding: 1rem;\r\n}\r\n\r\n.subForm {\r\n  background: #f4f4f4;\r\n  padding: 1rem;\r\n  margin-top: 1rem;\r\n  margin-bottom: 2rem;\r\n}\r\n\r\n.icseFormTitleMinHeight {\r\n  min-height: 32px;\r\n}\r\n\r\n.spaceBetween {\r\n  justify-content: space-between;\r\n}\r\n";
 >>>>>>> ee08088 (issue 700: transit gateway form)
 styleInject(css_248z$a);
+=======
+var css_248z$b = ".displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
+styleInject(css_248z$b);
+>>>>>>> 01e0136 (classNames now as default prop (#40))
 
-var css_248z$9 = ".labelRow {\r\n  display: inline-flex !important;\r\n  align-items: center;\r\n}\r\n\r\n.tooltip > div div.cds--password-input-wrapper {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.cds--toggle {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.cds--text-input-wrapper {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.popover-obj {\r\n  margin-top: -8px;\r\n}\r\n\r\n.subHeadingTooltip {\r\n  margin: 0.2rem 0 0 0.2rem;\r\n}\r\n\r\n.tooltipMarginLeft {\r\n  margin-left: 3px;\r\n}\r\n";
-styleInject(css_248z$9);
+var css_248z$a = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+styleInject(css_248z$a);
 
 >>>>>>> 7d02243 (fix merge)
 =======
@@ -1201,11 +1206,16 @@ DynamicToolTipWrapper.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$7 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  z-index: 9001;\n  top: 20px;\n}\n";
 >>>>>>> b9aa481 (feat: object storage key form)
 =======
 var css_248z$8 = ".displayFlex {\n  display: flex;\n}\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent{\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n  \n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
 styleInject(css_248z$8);
+=======
+var css_248z$9 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  position: relative;\n  z-index: 9001;\n}";
+styleInject(css_248z$9);
+>>>>>>> 01e0136 (classNames now as default prop (#40))
 
 var css_248z$7 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  z-index: 9001;\n  top: 20px;\n}\n";
 >>>>>>> 353b3a7 ($@)
@@ -2426,6 +2436,7 @@ PopoverWrapper.propTypes = {
   children: PropTypes__default["default"].node.isRequired
 };
 
+<<<<<<< HEAD
 =======
 >>>>>>> b9aa481 (feat: object storage key form)
 =======
@@ -2436,6 +2447,10 @@ styleInject(css_248z$6);
 var css_248z$7 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
 styleInject(css_248z$7);
 >>>>>>> 817ead3 (update build)
+=======
+var css_248z$8 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important; \n}\n";
+styleInject(css_248z$8);
+>>>>>>> 01e0136 (classNames now as default prop (#40))
 
 /**
  * generate save icon
@@ -2755,6 +2770,7 @@ StatelessToggleForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$6 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
 styleInject(css_248z$6);
 =======
@@ -2935,14 +2951,22 @@ styleInject(css_248z$7);
 var IcseToggle = function IcseToggle(props) {
   var toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+var css_248z$7 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
+styleInject(css_248z$7);
+
+const IcseToggle = props => {
+  let toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
+>>>>>>> 01e0136 (classNames now as default prop (#40))
   return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React__default["default"].createElement(react.Toggle, {
     labelA: props.useOnOff ? "Off" : "False",
     labelB: props.useOnOff ? "On" : "True",
     labelText: props.tooltip ? " " : props.labelText,
     id: lazyZ.kebabCase(toggleName) + "-icse-toggle-" + props.id,
-    className: lib_2("leftTextAlign fieldWidth", props) + (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
+    className: lib_2("leftTextAlign", props) + (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
     ,
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -2964,6 +2988,9 @@ var IcseToggle = function IcseToggle(props) {
 =======
     onToggle: function onToggle(event) {
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+    onToggle: event => {
+>>>>>>> 01e0136 (classNames now as default prop (#40))
       props.onToggle(toggleName, event);
     },
     defaultToggled: props.defaultToggled,
@@ -3006,7 +3033,8 @@ IcseToggle.defaultProps = {
   useOnOff: false,
   defaultToggled: false,
   isModal: false,
-  disabled: false
+  disabled: false,
+  className: "fieldWidth"
 };
 IcseToggle.propTypes = {
   useOnOff: PropTypes__default["default"].bool.isRequired,
@@ -3040,11 +3068,11 @@ IcseToggle.propTypes = {
  * @param {string=} props.labelText override label text
  * @returns <IcseTextInput/> component
  */
-var IcseTextInput = function IcseTextInput(props) {
-  var fieldName = lazyZ.titleCase(props.field);
+const IcseTextInput = props => {
+  let fieldName = lazyZ.titleCase(props.field);
   return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React__default["default"].createElement(react.TextInput, {
     id: props.id,
-    className: lib_2("fieldWidth leftTextAlign", props),
+    className: lib_2("leftTextAlign", props),
     labelText: props.labelText ? props.labelText : lazyZ.titleCase(props.field),
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -3072,7 +3100,7 @@ var IcseTextInput = function IcseTextInput(props) {
     invalid: lazyZ.isBoolean(props.invalid) ? props.invalid : props.invalidCallback(),
     onChange: props.onChange,
     helperText: props.helperText,
-    invalidText: props.invalidText ? props.invalidText : "Invalid ".concat(props.field, " value."),
+    invalidText: props.invalidText ? props.invalidText : `Invalid ${props.field} value.`,
     maxLength: props.maxLength,
     disabled: props.disabled,
     readOnly: props.readOnly
@@ -3082,7 +3110,8 @@ IcseTextInput.defaultProps = {
   maxLength: null,
   disabled: false,
   readOnly: false,
-  hideHelperText: false
+  hideHelperText: false,
+  className: "fieldWidth"
 };
 IcseTextInput.propTypes = {
   disabled: PropTypes__default["default"].bool.isRequired,
@@ -3120,14 +3149,14 @@ IcseTextInput.propTypes = {
  * @param {func} props.invalidCallback
  * @returns <IcseNameInput />
  */
-var IcseNameInput = function IcseNameInput(props) {
-  var helperText = "";
+const IcseNameInput = props => {
+  let helperText = "";
   // if helper text is not hidden
   if (!props.hideHelperText && !props.useData) {
     helperText = props.helperTextCallback();
   }
   return /*#__PURE__*/React__default["default"].createElement(IcseTextInput, _extends({}, props, {
-    className: lib_2("fieldWidth leftTextAlign ", props),
+    className: lib_2("leftTextAlign", props),
     field: "name",
     labelText: "Name",
     helperText: helperText
@@ -3136,7 +3165,8 @@ var IcseNameInput = function IcseNameInput(props) {
 IcseNameInput.defaultProps = {
   useData: false,
   hideHelperText: false,
-  invalidText: ""
+  invalidText: "",
+  className: "fieldWidth"
 };
 IcseNameInput.propTypes = {
   id: PropTypes__default["default"].string.isRequired,
@@ -3156,6 +3186,7 @@ IcseNameInput.propTypes = {
   invalidCallback: PropTypes__default["default"].func
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -3505,6 +3536,10 @@ var IcseSelect = function IcseSelect(props) {
 const IcseSelect = props => {
   let invalid =
 >>>>>>> 061a17e (removed resourceGroups from state, added proptypes, removed ResourceGroupSelect)
+=======
+const IcseSelect = props => {
+  let invalid =
+>>>>>>> 01e0136 (classNames now as default prop (#40))
   // automatically set to invalid is is null or empty string and invalid not disabled
   props.disableInvalid !== true && lazyZ.isNullOrEmptyString(props.value) ? true : props.invalid;
   let groups = props.groups.length === 0 ? [] // if no groups, empty array
@@ -3529,7 +3564,7 @@ const IcseSelect = props => {
         name: props.name,
         labelText: props.tooltip ? null : props.labelText,
         value: props.value || undefined,
-        className: lib_2("fieldWidth leftTextAlign", props),
+        className: lib_2("leftTextAlign", props),
         disabled: props.disabled,
         invalid: invalid,
         invalidText: props.invalidText,
@@ -3551,7 +3586,8 @@ IcseSelect.defaultProps = {
   invalidText: "Invalid Selection",
   readOnly: false,
   groups: [],
-  debug: false
+  debug: false,
+  className: "fieldWidth"
 };
 IcseSelect.propTypes = {
   value: PropTypes__default["default"].any,
@@ -3580,6 +3616,7 @@ class FetchSelect extends React__default["default"].Component {
   constructor(props) {
     super(props);
     this.state = {
+<<<<<<< HEAD
       data: []
     };
     this.dataToGroups = this.dataToGroups.bind(this);
@@ -5691,56 +5728,35 @@ var FetchSelect = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _defineProperty(_assertThisInitialized(_this), "_isMounted", false);
     _this.state = {
+=======
+>>>>>>> 01e0136 (classNames now as default prop (#40))
       data: []
     };
-    _this.dataToGroups = _this.dataToGroups.bind(_assertThisInitialized(_this));
-    return _this;
+    this.dataToGroups = this.dataToGroups.bind(this);
   }
-  _createClass(FetchSelect, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this2 = this;
-      this._isMounted = true;
-      if (lazyZ.isEmpty(this.state.data)) fetch(this.props.apiEndpoint).then(function (res) {
-        return res.json();
-      }).then(function (data) {
-        if (_this2.props.onReturnFunction) {
-          _this2.props.onReturnFunction(data);
-        }
-        if (_this2._isMounted) _this2.setState({
-          data: data
-        });
-      }).catch(function (err) {
-        console.error(err);
-      });
-    }
-  }, {
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      this._isMounted = false;
-    }
-  }, {
-    key: "dataToGroups",
-    value: function dataToGroups() {
-      if (this.props.filter) {
-        return this.state.data.filter(this.props.filter);
-      } else {
-        return this.state.data;
+  componentDidMount() {
+    this._isMounted = true;
+    if (lazyZ.isEmpty(this.state.data)) fetch(this.props.apiEndpoint).then(res => res.json()).then(data => {
+      if (this.props.onReturnFunction) {
+        this.props.onReturnFunction(data);
       }
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-        labelText: this.props.labelText,
-        handleInputChange: this.props.handleInputChange,
-        name: this.props.name,
-        className: this.props.className,
-        formName: this.props.formName,
-        groups: this.dataToGroups(),
-        value: this.props.value || "null"
+      if (this._isMounted) this.setState({
+        data: data
       });
+    }).catch(err => {
+      console.error(err);
+    });
+  }
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+  dataToGroups() {
+    if (this.props.filter) {
+      return this.state.data.filter(this.props.filter);
+    } else {
+      return this.state.data;
     }
+<<<<<<< HEAD
   }]);
   return FetchSelect;
 }(React__default["default"].Component);
@@ -5751,6 +5767,21 @@ var FetchSelect = /*#__PURE__*/function (_React$Component) {
 >>>>>>> 7d02243 (fix merge)
 =======
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      labelText: this.props.labelText,
+      handleInputChange: this.props.handleInputChange,
+      name: this.props.name,
+      className: this.props.className,
+      formName: this.props.formName,
+      groups: this.dataToGroups(),
+      value: this.props.value || "null"
+    });
+  }
+}
+>>>>>>> 01e0136 (classNames now as default prop (#40))
 FetchSelect.propTypes = {
   labelText: PropTypes__default["default"].string.isRequired,
   handleInputChange: PropTypes__default["default"].func.isRequired,
@@ -5769,6 +5800,7 @@ FetchSelect.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const IcseNumberSelect = props => {
 =======
 var IcseNumberSelect = function IcseNumberSelect(props) {
@@ -5779,12 +5811,16 @@ var IcseNumberSelect = function IcseNumberSelect(props) {
 =======
 var IcseNumberSelect = function IcseNumberSelect(props) {
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+const IcseNumberSelect = props => {
+>>>>>>> 01e0136 (classNames now as default prop (#40))
   return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
     formName: props.formName,
     groups: lazyZ.buildNumberDropdownList(props.max, props.min),
     value: props.value.toString(),
     name: props.name || "Icse Number Select",
     className: props.className,
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -5806,6 +5842,11 @@ var IcseNumberSelect = function IcseNumberSelect(props) {
       // set name target value and parse int
       var sendEvent = {
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+    handleInputChange: event => {
+      // set name target value and parse int
+      let sendEvent = {
+>>>>>>> 01e0136 (classNames now as default prop (#40))
         target: {
           name: event.target.name,
           value: parseInt(event.target.value)
@@ -5848,6 +5889,7 @@ IcseNumberSelect.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const EntitlementSelect = props => {
 =======
 var EntitlementSelect = function EntitlementSelect(props) {
@@ -5858,13 +5900,16 @@ var EntitlementSelect = function EntitlementSelect(props) {
 =======
 var EntitlementSelect = function EntitlementSelect(props) {
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+const EntitlementSelect = props => {
+>>>>>>> 01e0136 (classNames now as default prop (#40))
   return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
     name: props.name,
     labelText: "Entitlement",
     groups: ["null", "cloud_pak"],
     value: props.value || "null",
     handleInputChange: props.handleInputChange,
-    className: "fieldWidthSmaller",
+    className: props.className,
     formName: props.formName
   });
 };
@@ -5873,7 +5918,11 @@ EntitlementSelect.propTypes = {
   // can be null
   handleInputChange: PropTypes__default["default"].func.isRequired,
   formName: PropTypes__default["default"].string.isRequired,
-  name: PropTypes__default["default"].string.isRequired
+  name: PropTypes__default["default"].string.isRequired,
+  className: PropTypes__default["default"].string
+};
+EntitlementSelect.defaultProps = {
+  className: "fieldWidthSmaller"
 };
 
 <<<<<<< HEAD
@@ -6133,6 +6182,7 @@ ObjectStorageKeyForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$4 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$4);
 =======
@@ -6146,6 +6196,10 @@ styleInject(css_248z$5);
 var css_248z$6 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$6);
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+var css_248z$6 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z$6);
+>>>>>>> 01e0136 (classNames now as default prop (#40))
 
 /**
  * Empty Resource Tile
@@ -6177,6 +6231,7 @@ EmptyResourceTile.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 353b3a7 ($@)
 var css_248z$3 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
@@ -6196,6 +6251,10 @@ styleInject(css_248z$4);
 var css_248z$5 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
 styleInject(css_248z$5);
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+var css_248z$5 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
+styleInject(css_248z$5);
+>>>>>>> 01e0136 (classNames now as default prop (#40))
 
 var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
   _inherits(AppIdKeyForm, _React$Component);
@@ -7403,23 +7462,26 @@ TeleportClaimToRoleForm.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$3 = ".fieldWidth {\r\n  width: 14rem;\r\n}\r\n\r\n.fieldWidthSmaller {\r\n  width: 11rem;\r\n}\r\n";
 styleInject(css_248z$3);
+=======
+var css_248z$4 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+styleInject(css_248z$4);
+>>>>>>> 01e0136 (classNames now as default prop (#40))
 
-var css_248z$2 = ".leftTextAlign {\r\n  text-align: left;\r\n}\r\n";
-styleInject(css_248z$2);
+var css_248z$3 = ".leftTextAlign {\n  text-align: left;\n}\n";
+styleInject(css_248z$3);
 
 /**
  * Icse multiselect template
  */
-var IcseMultiSelect = function IcseMultiSelect(props) {
+const IcseMultiSelect = props => {
   return /*#__PURE__*/React__default["default"].createElement(react.FilterableMultiSelect, {
     id: props.id,
-    className: lib_2("fieldWidth leftTextAlign", props),
+    className: lib_2("leftTextAlign", props),
     titleText: props.titleText,
-    itemToString: function itemToString(item) {
-      return item ? item : "";
-    },
+    itemToString: item => item ? item : "",
     invalid: props.invalid,
     invalidText: props.invalidText,
     initialSelectedItems: props.initialSelectedItems,
@@ -7434,7 +7496,8 @@ IcseMultiSelect.defaultProps = {
   disabled: false,
   useTitleInItem: false,
   invalid: false,
-  invalidText: "Invalid value"
+  invalidText: "Invalid value",
+  className: "fieldWidth"
 };
 IcseMultiSelect.propTypes = {
   id: PropTypes__default["default"].string.isRequired,
@@ -7453,7 +7516,7 @@ IcseMultiSelect.propTypes = {
 /**
  * ssh key multiselect
  */
-var SshKeyMultiSelect = function SshKeyMultiSelect(props) {
+const SshKeyMultiSelect = props => {
   return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
     id: props.id + "-ssh-key-multiselect",
     useTitleInItem: true,
@@ -7463,10 +7526,10 @@ var SshKeyMultiSelect = function SshKeyMultiSelect(props) {
     invalid: props.initialSelectedItems.length === 0,
     items: props.sshKeys,
     initialSelectedItems: props.initialSelectedItems || [],
-    onChange: function onChange(event) {
+    onChange: event => {
       props.onChange(event.selectedItems);
     },
-    className: "fieldWidthSmaller cds--form-item"
+    className: props.className
   });
 };
 SshKeyMultiSelect.defaultProps = {
@@ -7482,7 +7545,7 @@ SshKeyMultiSelect.propTypes = {
 /**
  * sg multiselect
  */
-var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
+const SecurityGroupMultiSelect = props => {
   if (props.vpc_name && !props.securityGroups) {
     // checking props.securityGroups[props.vpc_name] will result in an
     // undefined error that happens as part of MultiSelect
@@ -7492,25 +7555,24 @@ var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
     id: props.id + "-security-group-multiselect",
     label: props.label,
     titleText: "Security Groups",
-    className: "fieldWidthSmaller cds--form-item",
+    className: props.className,
     initialSelectedItems: props.initialSelectedItems,
     vpc_name: props.vpc_name,
     invalid: props.invalid,
     invalidText: "Invalid Selection",
-    onChange: function onChange(event) {
+    onChange: event => {
       props.onChange(event.selectedItems);
     },
     disabled: props.disabled,
     items: props.vpc_name === "" ? [] : props.securityGroups[props.vpc_name],
-    itemToString: function itemToString(item) {
-      return item ? item : "";
-    }
+    itemToString: item => item ? item : ""
   });
 };
 SecurityGroupMultiSelect.defaultProps = {
   disabled: false,
   label: "Select Security Groups",
-  invalid: false
+  invalid: false,
+  className: "fieldWidthSmaller"
 };
 SecurityGroupMultiSelect.propTypes = {
   id: PropTypes__default["default"].string.isRequired,
@@ -7528,7 +7590,7 @@ SecurityGroupMultiSelect.propTypes = {
 /**
  * vpc subnet multiselect
  */
-var SubnetMultiSelect = function SubnetMultiSelect(props) {
+const SubnetMultiSelect = props => {
   return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
     id: props.id + "-subnet-multiselect",
     className: props.className,
@@ -7540,9 +7602,7 @@ var SubnetMultiSelect = function SubnetMultiSelect(props) {
     invalidText: lazyZ.isNullOrEmptyString(props.vpc_name) ? "Select a VPC." : "Select at least one subnet.",
     invalid: props.initialSelectedItems.length === 0,
     disabled: props.disabled,
-    onChange: function onChange(event) {
-      return props.onChange(event.selectedItems);
-    }
+    onChange: event => props.onChange(event.selectedItems)
   });
 };
 SubnetMultiSelect.defaultProps = {
@@ -7568,7 +7628,7 @@ SubnetMultiSelect.propTypes = {
 /**
  * VPC List MultiSelect
  */
-var VpcListMultiSelect = function VpcListMultiSelect(props) {
+const VpcListMultiSelect = props => {
   // throw error here so that passing no vpc list prop will error here
   // instead of being passed to `FilterableMultiselect`
   if (!props.vpcList) {
@@ -7579,9 +7639,7 @@ var VpcListMultiSelect = function VpcListMultiSelect(props) {
     invalid: props.invalid,
     id: props.id + "-vpc-select",
     titleText: props.titleText,
-    onChange: function onChange(event) {
-      return props.onChange(event.selectedItems);
-    },
+    onChange: event => props.onChange(event.selectedItems),
     initialSelectedItems: props.initialSelectedItems,
     className: props.className,
     items: props.vpcList
@@ -8565,6 +8623,7 @@ var UnderConstruction = function UnderConstruction() {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 =======
 var css_248z = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }";
@@ -8772,6 +8831,10 @@ styleInject(css_248z$2);
 
 var css_248z$1 = ".leftTextAlign {\n  text-align: left;\n}\n";
 styleInject(css_248z$1);
+=======
+var css_248z$2 = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}";
+styleInject(css_248z$2);
+>>>>>>> 01e0136 (classNames now as default prop (#40))
 
 /**
  * Icse multiselect template
@@ -10831,6 +10894,7 @@ ToggleForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> f680a35 (almost done)
 =======
 =======
@@ -10839,6 +10903,118 @@ var css_248z = ".leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidthBigger {\
 =======
 var css_248z = ".leftTextAlign {\r\n  text-align: left;\r\n}\r\n\r\n.fieldWidthBigger {\r\n  width: 30rem\r\n}\r\n";
 >>>>>>> ee08088 (issue 700: transit gateway form)
+=======
+var css_248z$1 = ".about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n";
+styleInject(css_248z$1);
+
+var DocTextField = function DocTextField(props) {
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: props.text === "_default_includes" ? "marginBottomSmall" : props.className
+  }, props.text === "_default_includes" ? "The default configuration includes:" : props.text);
+};
+DocTextField.defaultProps = {
+  className: "marginBottom"
+};
+DocTextField.propTypes = {
+  className: PropTypes__default["default"].string.isRequired,
+  text: PropTypes__default["default"].string.isRequired
+};
+var StructuredList = function StructuredList(props) {
+  return /*#__PURE__*/React__default["default"].createElement(react.StructuredListWrapper, {
+    className: "marginBottom"
+  }, props.headers && /*#__PURE__*/React__default["default"].createElement(react.StructuredListHead, null, /*#__PURE__*/React__default["default"].createElement(react.StructuredListRow, null, props.headers.map(function (cell, index) {
+    return /*#__PURE__*/React__default["default"].createElement(react.StructuredListCell, {
+      head: true,
+      key: index
+    }, cell);
+  }))), /*#__PURE__*/React__default["default"].createElement(react.StructuredListBody, null, props.list.map(function (row, rowIndex) {
+    return /*#__PURE__*/React__default["default"].createElement(react.StructuredListRow, {
+      key: rowIndex
+    }, row.map(function (cell, colIndex) {
+      return /*#__PURE__*/React__default["default"].createElement(react.StructuredListCell, {
+        key: colIndex
+      }, cell);
+    }));
+  })));
+};
+StructuredList.propTypes = {
+  headers: PropTypes__default["default"].array,
+  list: PropTypes__default["default"].array.isRequired
+};
+var DocTable = function DocTable(props) {
+  var headers = [];
+  var list = _toConsumableArray(props.list); // copy list, required due to reference errors
+
+  if (props.list[0][0] === "_headers") {
+    headers = _toConsumableArray(props.list[0]); // copy header row
+    headers.shift(); // remove _header
+
+    list.shift(); // remove heaer row from list
+  }
+
+  return /*#__PURE__*/React__default["default"].createElement(StructuredList, {
+    list: list,
+    headers: headers
+  });
+};
+DocTable.propTypes = {
+  list: PropTypes__default["default"].array.isRequired
+};
+var RelatedLinks = function RelatedLinks(props) {
+  return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "smallerText"
+  }, "Related Links"), props.links.map(function (link, index) {
+    return /*#__PURE__*/React__default["default"].createElement("div", {
+      key: "related-link-" + index
+    }, /*#__PURE__*/React__default["default"].createElement("a", {
+      href: link[0],
+      target: "_blank",
+      rel: "noreferrer",
+      className: "smallerText"
+    }, link.length === 1 ? "Docs" : link[1]));
+  }));
+};
+RelatedLinks.propTypes = {
+  links: PropTypes__default["default"].arrayOf(PropTypes__default["default"].arrayOf(PropTypes__default["default"].string.isRequired).isRequired).isRequired
+};
+var Docs = function Docs(props) {
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "subForm leftTextAlign about"
+  }, props.content.map(function (field, index) {
+    return field.text ?
+    /*#__PURE__*/
+    // text field
+    React__default["default"].createElement(DocTextField, _extends({
+      key: index
+    }, field)) : field.subHeading ?
+    /*#__PURE__*/
+    // subheading
+    React__default["default"].createElement("h6", {
+      className: "marginBottomSmall",
+      key: index
+    }, field.subHeading) :
+    /*#__PURE__*/
+    // table
+    React__default["default"].createElement(DocTable, {
+      key: index,
+      list: _toConsumableArray(field.table)
+    });
+  }), props.relatedLinks && /*#__PURE__*/React__default["default"].createElement(RelatedLinks, {
+    links: props.relatedLinks
+  }));
+};
+Docs.propTypes = {
+  content: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({
+    text: PropTypes__default["default"].string,
+    className: PropTypes__default["default"].string,
+    table: PropTypes__default["default"].array,
+    subHeading: PropTypes__default["default"].string
+  })).isRequired,
+  relatedLinks: PropTypes__default["default"].array
+};
+
+var css_248z = ".leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidthBigger {\n  width: 30rem\n}\n";
+>>>>>>> 01e0136 (classNames now as default prop (#40))
 styleInject(css_248z);
 
 /**
@@ -10924,6 +11100,7 @@ SshKeyForm.propTypes = {
   invalidKeyCallback: PropTypes__default["default"].func.isRequired
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> 09dbacf (SshKeyForm, example, and docs)
 =======
@@ -11138,6 +11315,8 @@ class IcseFormTemplate extends React__default["default"].Component {
     super(props);
     this.state = {
 =======
+=======
+>>>>>>> 01e0136 (classNames now as default prop (#40))
 var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
   _inherits(IcseFormTemplate, _React$Component);
   var _super = _createSuper(IcseFormTemplate);
@@ -11146,7 +11325,10 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, IcseFormTemplate);
     _this = _super.call(this, props);
     _this.state = {
+<<<<<<< HEAD
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+>>>>>>> 01e0136 (classNames now as default prop (#40))
       showModal: false,
       shownArrayForms: [],
       // list of array forms to keep open on save
@@ -11154,14 +11336,24 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
     };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     this.onChildToggle = this.onChildToggle.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.shouldShow = this.shouldShow.bind(this);
+=======
+    _this.onChildToggle = _this.onChildToggle.bind(_assertThisInitialized(_this));
+    _this.toggleModal = _this.toggleModal.bind(_assertThisInitialized(_this));
+    _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
+    _this.shouldShow = _this.shouldShow.bind(_assertThisInitialized(_this));
+>>>>>>> 01e0136 (classNames now as default prop (#40))
     // add an array to track middle forms
-    if (this.props.isMiddleForm) {
-      this.props.arrayData.forEach(() => this.state.shownChildForms.push([]));
+    if (_this.props.isMiddleForm) {
+      _this.props.arrayData.forEach(function () {
+        return _this.state.shownChildForms.push([]);
+      });
     }
+<<<<<<< HEAD
 =======
     _this.onChildToggle = _this.onChildToggle.bind(_assertThisInitialized(_this));
     _this.toggleModal = _this.toggleModal.bind(_assertThisInitialized(_this));
@@ -11175,6 +11367,9 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
     }
     return _this;
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+    return _this;
+>>>>>>> 01e0136 (classNames now as default prop (#40))
   }
 
   /**
@@ -11182,6 +11377,7 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
    * @param {number} index index to keep open
    * @param {number=} childIndex optional child index
    */
+<<<<<<< HEAD
 <<<<<<< HEAD
   onChildToggle(index, childIndex) {
     if (this.props.parentToggle) {
@@ -11195,126 +11391,150 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
       if (lazyZ.contains(this.state.shownChildForms[index], childIndex)) {
         // remove index from list
         shownChildForms[index].splice(index, 1);
+=======
+  _createClass(IcseFormTemplate, [{
+    key: "onChildToggle",
+    value: function onChildToggle(index, childIndex) {
+      if (this.props.parentToggle) {
+        // if the parent toggle is passed, run the callback (this function on parent form)
+        // with parent index and current index
+        this.props.parentToggle.callback(this.props.parentToggle.index, index);
+      } else if (arguments.length !== 1) {
+        // if a second param is passed
+        var shownChildForms = _toConsumableArray(this.state.shownChildForms); // all forms
+        // if contains index
+        if (lazyZ.contains(this.state.shownChildForms[index], childIndex)) {
+          // remove index from list
+          shownChildForms[index].splice(index, 1);
+        } else {
+          // otherwise add
+          shownChildForms[index].push(childIndex);
+        }
+        this.setState({
+          shownChildForms: shownChildForms
+        });
+>>>>>>> 01e0136 (classNames now as default prop (#40))
       } else {
-        // otherwise add
-        shownChildForms[index].push(childIndex);
+        // if only parent index
+        var shownForms = _toConsumableArray(this.state.shownArrayForms); // all forms
+        if (lazyZ.contains(this.state.shownArrayForms, index)) {
+          // remove if contains
+          shownForms.splice(index, 1);
+        } else shownForms.push(index);
+        this.setState({
+          shownArrayForms: shownForms
+        });
       }
+    }
+
+    /**
+     * on modal submit
+     * @param {*} data arbitrary data
+     */
+  }, {
+    key: "onSubmit",
+    value: function onSubmit(data) {
+      this.props.onSubmit(data, this.props);
+      this.toggleModal();
+    }
+
+    /**
+     * toggle modal on and off
+     */
+  }, {
+    key: "toggleModal",
+    value: function toggleModal() {
       this.setState({
-        shownChildForms: shownChildForms
-      });
-    } else {
-      // if only parent index
-      let shownForms = [...this.state.shownArrayForms]; // all forms
-      if (lazyZ.contains(this.state.shownArrayForms, index)) {
-        // remove if contains
-        shownForms.splice(index, 1);
-      } else shownForms.push(index);
-      this.setState({
-        shownArrayForms: shownForms
+        showModal: !this.state.showModal
       });
     }
-  }
 
-  /**
-   * on modal submit
-   * @param {*} data arbitrary data
-   */
-  onSubmit(data) {
-    this.props.onSubmit(data, this.props);
-    this.toggleModal();
-  }
-
-  /**
-   * toggle modal on and off
-   */
-  toggleModal() {
-    this.setState({
-      showModal: !this.state.showModal
-    });
-  }
-
-  /**
-   * check if form should show
-   * @returns {bool} if the child forms should show
-   */
-  shouldShow(index) {
-    return this.props.parentToggle ? lazyZ.contains(this.props.parentToggle.shownChildren[this.props.parentToggle.index], index) // show children
-    : lazyZ.contains(this.state.shownArrayForms, index);
-  }
-  render() {
-    let formattedName = lazyZ.kebabCase(this.props.name); // formatted component name
-    // enable submit field here is set to variable value to allow for passing to
-    // child array components without needing to reference `this` directly
-    return /*#__PURE__*/React__default["default"].createElement("div", {
-      id: formattedName
-    }, /*#__PURE__*/React__default["default"].createElement(StatefulTabPanel, {
-      name: this.props.name,
-      onClick: this.toggleModal,
-      addText: this.props.addText,
-      hideButton: this.props.hideFormTitleButton,
-      subHeading: this.props.subHeading,
-      className: this.props.subHeading ? "subHeading marginBottomSmall" : "",
-      tooltip: this.props.tooltip,
-      about: this.props.docs ? this.props.docs() : false,
-      form: /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(EmptyResourceTile, {
+    /**
+     * check if form should show
+     * @returns {bool} if the child forms should show
+     */
+  }, {
+    key: "shouldShow",
+    value: function shouldShow(index) {
+      return this.props.parentToggle ? lazyZ.contains(this.props.parentToggle.shownChildren[this.props.parentToggle.index], index) // show children
+      : lazyZ.contains(this.state.shownArrayForms, index);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      var formattedName = lazyZ.kebabCase(this.props.name); // formatted component name
+      // enable submit field here is set to variable value to allow for passing to
+      // child array components without needing to reference `this` directly
+      return /*#__PURE__*/React__default["default"].createElement("div", {
+        id: formattedName
+      }, /*#__PURE__*/React__default["default"].createElement(StatefulTabPanel, {
         name: this.props.name,
-        showIfEmpty: this.props.arrayData
-      }), this.props.arrayData.map((data, index) => {
-        // return a form with the index and props
-        return /*#__PURE__*/React__default["default"].createElement(ToggleForm, _extends({}, this.props.toggleFormProps, {
-          tabPanel: {
-            name: this.props.name,
-            hideAbout: true,
-            // passed to ignore second tab panel
-            hasBuiltInHeading: true // passed to ignore second tabPanel
-          },
+        onClick: this.toggleModal,
+        addText: this.props.addText,
+        hideButton: this.props.hideFormTitleButton,
+        subHeading: this.props.subHeading,
+        className: this.props.subHeading ? "subHeading marginBottomSmall" : "",
+        tooltip: this.props.tooltip,
+        about: this.props.docs ? this.props.docs() : false,
+        form: /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(EmptyResourceTile, {
+          name: this.props.name,
+          showIfEmpty: this.props.arrayData
+        }), this.props.arrayData.map(function (data, index) {
+          var _this2$props, _this2$props2;
+          // return a form with the index and props
+          return /*#__PURE__*/React__default["default"].createElement(ToggleForm, _extends({}, _this2.props.toggleFormProps, {
+            tabPanel: {
+              name: _this2.props.name,
+              hideAbout: true,
+              // passed to ignore second tab panel
+              hasBuiltInHeading: true // passed to ignore second tabPanel
+            },
 
-          key: this.props.name + "-" + index,
-          innerForm: this.props.innerForm,
-          innerFormProps: {
-            ...this.props.innerFormProps,
-            data: {
-              ...data
-            }
-          } // merge data into innerForm props
-          ,
+            key: _this2.props.name + "-" + index,
+            innerForm: _this2.props.innerForm,
+            innerFormProps: _objectSpread2(_objectSpread2({}, _this2.props.innerFormProps), {}, {
+              data: _objectSpread2({}, data)
+            }) // merge data into innerForm props
+            ,
+            arrayParentName: _this2.props.arrayParentName,
+            onShowToggle: _this2.onChildToggle,
+            onChildShowToggle: _this2.props.isMiddleForm ? _this2.onChildToggle // pass through to child component if middle form
+            : false,
+            index: index,
+            show: _this2.shouldShow(index),
+            shownChildren: _this2.state.shownChildForms,
+            onSave: (_this2$props = _this2.props) === null || _this2$props === void 0 ? void 0 : _this2$props.onSave,
+            onDelete: (_this2$props2 = _this2.props) === null || _this2$props2 === void 0 ? void 0 : _this2$props2.onDelete
+          }));
+        }), /*#__PURE__*/React__default["default"].createElement(FormModal, {
+          name: this.props.addText,
+          show: this.state.showModal,
+          onRequestSubmit: this.onSubmit,
+          onRequestClose: this.toggleModal,
+          arrayParentName: this.props.arrayParentName
+        },
+        // render the form inside the modal
+        RenderForm(this.props.innerForm, _objectSpread2(_objectSpread2({}, this.props.innerFormProps), {}, {
           arrayParentName: this.props.arrayParentName,
-          onShowToggle: this.onChildToggle,
-          onChildShowToggle: this.props.isMiddleForm ? this.onChildToggle // pass through to child component if middle form
-          : false,
-          index: index,
-          show: this.shouldShow(index),
-          shownChildren: this.state.shownChildForms,
-          onSave: this.props?.onSave,
-          onDelete: this.props?.onDelete
-        }));
-      }), /*#__PURE__*/React__default["default"].createElement(FormModal, {
-        name: this.props.addText,
-        show: this.state.showModal,
-        onRequestSubmit: this.onSubmit,
-        onRequestClose: this.toggleModal,
-        arrayParentName: this.props.arrayParentName
-      },
-      // render the form inside the modal
-      RenderForm(this.props.innerForm, {
-        ...this.props.innerFormProps,
-        arrayParentName: this.props.arrayParentName,
-        isModal: true,
-        shouldDisableSubmit: function () {
-          // references to `this` in function are intentionally vague
-          // in order to pass the correct functions and field values to the
-          // child modal component
-          // by passing `this` in a function that it scoped to the component
-          // we allow the function to be successfully bound to the modal form
-          // while still referencing the local value `enableSubmitField`
-          // to use it's own values for state and props including enableModal
-          // and disableModal, which are dynamically added to the component
-          // at time of render
-          if (this.props.disableSave(this.state, this.props) === false) {
-            this.props.enableModal();
-          } else {
-            this.props.disableModal();
+          isModal: true,
+          shouldDisableSubmit: function shouldDisableSubmit() {
+            // references to `this` in function are intentionally vague
+            // in order to pass the correct functions and field values to the
+            // child modal component
+            // by passing `this` in a function that it scoped to the component
+            // we allow the function to be successfully bound to the modal form
+            // while still referencing the local value `enableSubmitField`
+            // to use it's own values for state and props including enableModal
+            // and disableModal, which are dynamically added to the component
+            // at time of render
+            if (this.props.disableSave(this.state, this.props) === false) {
+              this.props.enableModal();
+            } else {
+              this.props.disableModal();
+            }
           }
+<<<<<<< HEAD
         }
       }))),
       hideFormTitleButton: this.props.hideFormTitleButton
@@ -11463,6 +11683,8 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
               this.props.disableModal();
             }
           }
+=======
+>>>>>>> 01e0136 (classNames now as default prop (#40))
         })))),
         hideFormTitleButton: this.props.hideFormTitleButton
       }));
@@ -11470,7 +11692,10 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
   }]);
   return IcseFormTemplate;
 }(React__default["default"].Component);
+<<<<<<< HEAD
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+>>>>>>> 01e0136 (classNames now as default prop (#40))
 IcseFormTemplate.defaultProps = {
   hideFormTitleButton: false,
   subHeading: false,

@@ -17,7 +17,7 @@ export const IcseToggle = (props) => {
         labelText={props.tooltip ? " " : props.labelText}
         id={kebabCase(toggleName) + "-icse-toggle-" + props.id}
         className={
-          addClassName("leftTextAlign fieldWidth", props) +
+          addClassName("leftTextAlign", props) +
           (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
         }
         onToggle={(event) => {
@@ -35,6 +35,7 @@ IcseToggle.defaultProps = {
   defaultToggled: false,
   isModal: false,
   disabled: false,
+  className: "fieldWidth",
 };
 
 IcseToggle.propTypes = {
@@ -74,7 +75,7 @@ export const IcseTextInput = (props) => {
     <DynamicToolTipWrapper {...props}>
       <TextInput
         id={props.id}
-        className={addClassName("fieldWidth leftTextAlign", props)}
+        className={addClassName("leftTextAlign", props)}
         labelText={props.labelText ? props.labelText : titleCase(props.field)}
         placeholder={
           props.placeholder ||
@@ -105,6 +106,7 @@ IcseTextInput.defaultProps = {
   disabled: false,
   readOnly: false,
   hideHelperText: false,
+  className: "fieldWidth",
 };
 
 IcseTextInput.propTypes = {
@@ -152,7 +154,7 @@ export const IcseNameInput = (props) => {
   return (
     <IcseTextInput
       {...props}
-      className={addClassName("fieldWidth leftTextAlign ", props)}
+      className={addClassName("leftTextAlign", props)}
       field="name"
       labelText="Name"
       helperText={helperText}
@@ -164,6 +166,7 @@ IcseNameInput.defaultProps = {
   useData: false,
   hideHelperText: false,
   invalidText: "",
+  className: "fieldWidth",
 };
 
 IcseNameInput.propTypes = {

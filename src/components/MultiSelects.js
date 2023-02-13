@@ -13,7 +13,7 @@ export const IcseMultiSelect = (props) => {
   return (
     <FilterableMultiSelect
       id={props.id}
-      className={addClassName("fieldWidth leftTextAlign", props)}
+      className={addClassName("leftTextAlign", props)}
       titleText={props.titleText}
       itemToString={(item) => (item ? item : "")}
       invalid={props.invalid}
@@ -33,6 +33,7 @@ IcseMultiSelect.defaultProps = {
   useTitleInItem: false,
   invalid: false,
   invalidText: "Invalid value",
+  className: "fieldWidth",
 };
 
 IcseMultiSelect.propTypes = {
@@ -66,7 +67,7 @@ export const SshKeyMultiSelect = (props) => {
       onChange={(event) => {
         props.onChange(event.selectedItems);
       }}
-      className="fieldWidthSmaller cds--form-item"
+      className={props.className}
     />
   );
 };
@@ -99,7 +100,7 @@ export const SecurityGroupMultiSelect = (props) => {
       id={props.id + "-security-group-multiselect"}
       label={props.label}
       titleText="Security Groups"
-      className="fieldWidthSmaller cds--form-item"
+      className={props.className}
       initialSelectedItems={props.initialSelectedItems}
       vpc_name={props.vpc_name}
       invalid={props.invalid}
@@ -118,6 +119,7 @@ SecurityGroupMultiSelect.defaultProps = {
   disabled: false,
   label: "Select Security Groups",
   invalid: false,
+  className: "fieldWidthSmaller",
 };
 
 SecurityGroupMultiSelect.propTypes = {
