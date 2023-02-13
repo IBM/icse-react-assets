@@ -143,9 +143,7 @@ export const SubnetMultiSelect = (props) => {
       titleText="Subnets"
       name={props.name}
       label={props.label}
-      items={
-        isNullOrEmptyString(props.vpc_name) ? [] : props.subnets[props.vpc_name]
-      }
+      items={isNullOrEmptyString(props.vpc_name) ? [] : props.subnets}
       initialSelectedItems={props.initialSelectedItems}
       invalidText={
         isNullOrEmptyString(props.vpc_name)

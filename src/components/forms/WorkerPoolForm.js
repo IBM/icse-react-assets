@@ -54,7 +54,6 @@ class WorkerPoolForm extends Component {
           <IcseNameInput
             id={this.state.name + "-name"}
             componentName="Worker Pools"
-            component={"worker-pools"}
             onChange={this.handleInputChange}
             componentProps={this.props}
             value={this.state.pool.name}

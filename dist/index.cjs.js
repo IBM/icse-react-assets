@@ -6254,14 +6254,12 @@ styleInject(css_248z$2);
 /**
  * Icse multiselect template
  */
-var IcseMultiSelect = function IcseMultiSelect(props) {
+const IcseMultiSelect = props => {
   return /*#__PURE__*/React__default["default"].createElement(react.FilterableMultiSelect, {
     id: props.id,
     className: lib_2("fieldWidth leftTextAlign cds--select", props),
     titleText: props.titleText,
-    itemToString: function itemToString(item) {
-      return item ? item : "";
-    },
+    itemToString: item => item ? item : "",
     invalid: props.invalid,
     invalidText: props.invalidText,
     initialSelectedItems: props.initialSelectedItems,
@@ -6295,7 +6293,7 @@ IcseMultiSelect.propTypes = {
 /**
  * ssh key multiselect
  */
-var SshKeyMultiSelect = function SshKeyMultiSelect(props) {
+const SshKeyMultiSelect = props => {
   return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
     id: props.id + "-ssh-key-multiselect",
     useTitleInItem: true,
@@ -6305,7 +6303,7 @@ var SshKeyMultiSelect = function SshKeyMultiSelect(props) {
     invalid: props.initialSelectedItems.length === 0,
     items: props.sshKeys,
     initialSelectedItems: props.initialSelectedItems || [],
-    onChange: function onChange(event) {
+    onChange: event => {
       props.onChange(event.selectedItems);
     },
     className: "fieldWidthSmaller cds--form-item"
@@ -6324,7 +6322,7 @@ SshKeyMultiSelect.propTypes = {
 /**
  * sg multiselect
  */
-var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
+const SecurityGroupMultiSelect = props => {
   if (props.vpc_name && !props.securityGroups) {
     // checking props.securityGroups[props.vpc_name] will result in an
     // undefined error that happens as part of MultiSelect
@@ -6339,14 +6337,12 @@ var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
     vpc_name: props.vpc_name,
     invalid: props.invalid,
     invalidText: "Invalid Selection",
-    onChange: function onChange(event) {
+    onChange: event => {
       props.onChange(event.selectedItems);
     },
     disabled: props.disabled,
     items: props.vpc_name === "" ? [] : props.securityGroups[props.vpc_name],
-    itemToString: function itemToString(item) {
-      return item ? item : "";
-    }
+    itemToString: item => item ? item : ""
   });
 };
 SecurityGroupMultiSelect.defaultProps = {
@@ -6370,21 +6366,19 @@ SecurityGroupMultiSelect.propTypes = {
 /**
  * vpc subnet multiselect
  */
-var SubnetMultiSelect = function SubnetMultiSelect(props) {
+const SubnetMultiSelect = props => {
   return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
     id: props.id + "-subnet-multiselect",
     className: props.className,
     titleText: "Subnets",
     name: props.name,
     label: props.label,
-    items: lazyZ.isNullOrEmptyString(props.vpc_name) ? [] : props.subnets[props.vpc_name],
+    items: lazyZ.isNullOrEmptyString(props.vpc_name) ? [] : props.subnets,
     initialSelectedItems: props.initialSelectedItems,
     invalidText: lazyZ.isNullOrEmptyString(props.vpc_name) ? "Select a VPC." : "Select at least one subnet.",
     invalid: props.initialSelectedItems.length === 0,
     disabled: props.disabled,
-    onChange: function onChange(event) {
-      return props.onChange(event.selectedItems);
-    }
+    onChange: event => props.onChange(event.selectedItems)
   });
 };
 SubnetMultiSelect.defaultProps = {
@@ -6410,7 +6404,7 @@ SubnetMultiSelect.propTypes = {
 /**
  * VPC List MultiSelect
  */
-var VpcListMultiSelect = function VpcListMultiSelect(props) {
+const VpcListMultiSelect = props => {
   // throw error here so that passing no vpc list prop will error here
   // instead of being passed to `FilterableMultiselect`
   if (!props.vpcList) {
@@ -6421,9 +6415,7 @@ var VpcListMultiSelect = function VpcListMultiSelect(props) {
     invalid: props.invalid,
     id: props.id + "-vpc-select",
     titleText: props.titleText,
-    onChange: function onChange(event) {
-      return props.onChange(event.selectedItems);
-    },
+    onChange: event => props.onChange(event.selectedItems),
     initialSelectedItems: props.initialSelectedItems,
     className: props.className,
     items: props.vpcList
@@ -6503,7 +6495,6 @@ var WorkerPoolForm = /*#__PURE__*/function (_Component) {
       return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
         id: this.state.name + "-name",
         componentName: "Worker Pools",
-        component: "worker-pools",
         onChange: this.handleInputChange,
         componentProps: this.props,
         value: this.state.pool.name,
