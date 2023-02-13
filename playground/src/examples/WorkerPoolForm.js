@@ -21,6 +21,7 @@ export const WorkerPoolFormExample = () => {
     <WorkerPoolForm
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
+      subnetList={["a", "b", "c", "d", "e"]}
       cluster={{
         machine_type: "bx2.16x64",
 <<<<<<< HEAD
@@ -34,8 +35,11 @@ export const WorkerPoolFormExample = () => {
 >>>>>>> aa8795c (remove subnet_names, just keep subnets)
 =======
         subnets: ["a", "b", "c"],
+<<<<<<< HEAD
         subnetList: ["a", "b", "c", "d", "e"],
 >>>>>>> 3d2558a (added subnetList)
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
         vpc_name: "test",
         workers_per_subnet: 2,
         entitlement: "null",
@@ -51,10 +55,13 @@ export const WorkerPoolFormExample = () => {
 =======
         subnets: ["a", "b", "c"],
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> aa8795c (remove subnet_names, just keep subnets)
 =======
         subnetList: ["a", "b", "c", "d", "e"],
 >>>>>>> 3d2558a (added subnetList)
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
         vpc_name: "test",
         flavor: "bx2.16x64",
         workers_per_subnet: 2,

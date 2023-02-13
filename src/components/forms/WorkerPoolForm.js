@@ -14,7 +14,6 @@ class WorkerPoolForm extends Component {
         ? {
             name: "",
             flavor: this.props.cluster.machine_type,
-            subnetList: this.props.cluster.subnetList,
             subnets: this.props.cluster.subnets,
             vpc_name: this.props.cluster.vpc_name,
             workers_per_subnet: this.props.cluster.workers_per_subnet,
@@ -90,7 +89,7 @@ class WorkerPoolForm extends Component {
             disabled={this.state.pool.vpc_name === null}
             vpc_name={this.state.pool.vpc_name}
             initialSelectedItems={this.props.data.subnets}
-            subnets={this.props.data.subnetList}
+            subnets={this.props.subnetList}
             onChange={this.handleSubnetChange}
             component={this.props.data.name}
             className="fieldWidthSmaller cds--form-item"
@@ -126,6 +125,7 @@ WorkerPoolForm.defaultProps = {
 };
 
 WorkerPoolForm.propTypes = {
+  subnetList: PropTypes.array.isRequired,
   isModal: PropTypes.bool.isRequired,
   cluster: PropTypes.shape({
     entitlement: PropTypes.string, // can be null
@@ -133,7 +133,6 @@ WorkerPoolForm.propTypes = {
     vpc_name: PropTypes.string.isRequired,
     workers_per_subnet: PropTypes.number.isRequired,
     subnets: PropTypes.array.isRequired,
-    subnetList: PropTypes.array.isRequired,
   }), // can be null
   data: PropTypes.shape({
     entitlement: PropTypes.string.isRequired,
@@ -142,7 +141,6 @@ WorkerPoolForm.propTypes = {
     vpc_name: PropTypes.string.isRequired,
     workers_per_subnet: PropTypes.number.isRequired,
     subnets: PropTypes.array.isRequired,
-    subnetList: PropTypes.array.isRequired,
   }).isRequired,
 };
 

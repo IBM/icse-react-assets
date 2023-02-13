@@ -169,7 +169,7 @@ SubnetMultiSelect.propTypes = {
   id: PropTypes.string.isRequired,
   className: PropTypes.string,
   vpc_name: PropTypes.string, // not required, `null` needs to be passed here
-  subnets: PropTypes.object.isRequired,
+  subnets: PropTypes.array.isRequired,
   disabled: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,

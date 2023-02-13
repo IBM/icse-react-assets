@@ -40,9 +40,7 @@ function MultiSelectExamples() {
         />
         <SubnetMultiSelect
           id="test"
-          subnets={{
-            test: ["a", "b", " c"],
-          }}
+          subnets={["a", "b", "c"]}
           vpc_name="test"
           onChange={(selectedItems) => {
             console.log(selectedItems);

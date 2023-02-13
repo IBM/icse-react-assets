@@ -6,6 +6,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> faf8c38 (fixed imports)
@@ -34,10 +35,13 @@ var react = require('@carbon/react');
 >>>>>>> 4c7a274 (fixed formatting for docs)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -92,6 +96,10 @@ var iconsReact = require('@carbon/icons-react');
 var React = require('react');
 var PropTypes = require('prop-types');
 >>>>>>> 7d02243 (fix merge)
+=======
+var React = require('react');
+var PropTypes = require('prop-types');
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 var lazyZ = require('lazy-z');
 var react = require('@carbon/react');
 var iconsReact = require('@carbon/icons-react');
@@ -100,6 +108,7 @@ function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'defau
 
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 var PropTypes__default = /*#__PURE__*/_interopDefaultLegacy(PropTypes);
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> dc1cdcb (arrayOf)
@@ -114,6 +123,10 @@ var lazyZ__default = /*#__PURE__*/_interopDefaultLegacy(lazyZ);
 <<<<<<< HEAD
 =======
 >>>>>>> 82a5f28 (Issue 681: IcseFormTemplate (#38))
+=======
+var lazyZ__default = /*#__PURE__*/_interopDefaultLegacy(lazyZ);
+
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 var _require = require("lazy-z"),
   isFunction = _require.isFunction;
 var _require2 = require("../src/lib/method-functions"),
@@ -161,6 +174,7 @@ function buildFormDefaultInputMethods(component) {
   component.setNameToValue = setNameToValue$2.bind(component);
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 function styleInject(css, ref) {
@@ -242,6 +256,8 @@ var lazyZ__default = /*#__PURE__*/_interopDefaultLegacy(lazyZ);
 >>>>>>> ee08088 (issue 700: transit gateway form)
 =======
 >>>>>>> 82a5f28 (Issue 681: IcseFormTemplate (#38))
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 function ownKeys(object, enumerableOnly) {
   var keys = Object.keys(object);
   if (Object.getOwnPropertySymbols) {
@@ -423,6 +439,7 @@ function _toPropertyKey(arg) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 044d5a2 (Migrated EncryptionKeyForm + Documentation (Issue 684) (#22))
 =======
 >>>>>>> dc1cdcb (arrayOf)
@@ -477,6 +494,8 @@ function buildFormDefaultInputMethods(component) {
   component.toggleStateBoolean = toggleStateBoolean$2.bind(component);
   component.setNameToValue = setNameToValue$2.bind(component);
 }
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 
 /**
  * create a composed class name
@@ -524,8 +543,11 @@ function toggleMarginBottom$1(hide) {
 }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 
 /**
  * Function that determines invalid state and invalid text for scc fields: scope_name, scope_description, and collector_description
@@ -541,14 +563,18 @@ function invalidRegex$1(name, value, regex) {
   };
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 var formUtils = {
   addClassName: addClassName$1,
   toggleMarginBottom: toggleMarginBottom$1,
   prependEmptyStringWhenNull: prependEmptyStringWhenNull$1,
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   checkNullorEmptyString: checkNullorEmptyString$1,
@@ -564,6 +590,10 @@ var formUtils = {
   checkNullorEmptyString: checkNullorEmptyString$1,
   invalidRegex: invalidRegex$1
 >>>>>>> 7d02243 (fix merge)
+=======
+  checkNullorEmptyString: checkNullorEmptyString$1,
+  invalidRegex: invalidRegex$1
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 };
 
 const {
@@ -612,6 +642,7 @@ function eventTargetToNameAndValue$1(event) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> dc1cdcb (arrayOf)
 =======
@@ -620,6 +651,8 @@ function eventTargetToNameAndValue$1(event) {
 >>>>>>> 4c7a274 (fixed formatting for docs)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
   let {
     name,
     value
@@ -655,6 +688,7 @@ const {
   prependEmptyStringWhenNull,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   checkNullorEmptyString,
 <<<<<<< HEAD
   invalidScc
@@ -668,6 +702,10 @@ const {
   checkNullorEmptyString,
   invalidRegex
 >>>>>>> 7d02243 (fix merge)
+=======
+  checkNullorEmptyString,
+  invalidRegex
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 } = formUtils;
 const {
   formatInputPlaceholder
@@ -691,8 +729,11 @@ var lib = {
   toggleStateBoolean,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
   setNameToValue,
   invalidRegex
 };
@@ -702,6 +743,7 @@ var lib_3 = lib.prependEmptyStringWhenNull;
 var lib_4 = lib.checkNullorEmptyString;
 var lib_5 = lib.formatInputPlaceholder;
 var lib_6 = lib.saveChangeButtonClass;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -964,6 +1006,9 @@ function buildFormDefaultInputMethods(component) {
 =======
 var lib_10 = lib.invalidRegex;
 >>>>>>> 7d02243 (fix merge)
+=======
+var lib_10 = lib.invalidRegex;
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
@@ -995,6 +1040,7 @@ function styleInject(css, ref) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$2 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$2);
 =======
@@ -1017,6 +1063,14 @@ var css_248z$9 = ".labelRow {\r\n  display: inline-flex !important;\r\n  align-i
 styleInject(css_248z$9);
 
 >>>>>>> 7d02243 (fix merge)
+=======
+var css_248z$b = ".displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
+styleInject(css_248z$b);
+
+var css_248z$a = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+styleInject(css_248z$a);
+
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 /**
  * Render a form (duplicate from utils to prevent circular dependencies)
  * @param {*} form form element
@@ -1143,6 +1197,7 @@ DynamicToolTipWrapper.propTypes = {
   innerForm: PropTypes__default["default"].oneOfType([PropTypes__default["default"].object, PropTypes__default["default"].func])
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -2028,6 +2083,11 @@ var css_248z$8 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font
 styleInject(css_248z$8);
 >>>>>>> 7d02243 (fix merge)
 
+=======
+var css_248z$9 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  position: relative;\n  z-index: 9001;\n}";
+styleInject(css_248z$9);
+
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
  */
@@ -2106,6 +2166,7 @@ PopoverWrapper.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 7d02243 (fix merge)
 var css_248z$7 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
@@ -2117,6 +2178,10 @@ styleInject(css_248z$7);
 var css_248z$8 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important; \n}\n";
 styleInject(css_248z$8);
 >>>>>>> 82a5f28 (Issue 681: IcseFormTemplate (#38))
+=======
+var css_248z$8 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important; \n}\n";
+styleInject(css_248z$8);
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 
 /**
  * generate save icon
@@ -2141,6 +2206,7 @@ var SaveIcon = function SaveIcon(props) {
  * @returns Save add button
  */
 var SaveAddButton = function SaveAddButton(props) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -2400,6 +2466,8 @@ var SaveAddButton = function SaveAddButton(props) {
 >>>>>>> 4c7a274 (fixed formatting for docs)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
   return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
     hoverText: props.type === "add" && props.hoverText === "Save Changes" ? "Add Resource" : props.hoverText,
     className: (props.disabled ? "inlineBlock cursorNotAllowed" : "") + (props.inline ? " alignItemsCenter marginTopLarge inLineFormButton" : ""),
@@ -2686,6 +2754,7 @@ StatelessToggleForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$6 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
 styleInject(css_248z$6);
 =======
@@ -2859,6 +2928,13 @@ styleInject(css_248z$5);
 var IcseToggle = function IcseToggle(props) {
   var toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
 >>>>>>> 7d02243 (fix merge)
+=======
+var css_248z$7 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
+styleInject(css_248z$7);
+
+var IcseToggle = function IcseToggle(props) {
+  var toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
   return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React__default["default"].createElement(react.Toggle, {
     labelA: props.useOnOff ? "Off" : "False",
     labelB: props.useOnOff ? "On" : "True",
@@ -2867,6 +2943,7 @@ var IcseToggle = function IcseToggle(props) {
     className: lib_2("leftTextAlign fieldWidth", props) + (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
     ,
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -2884,11 +2961,15 @@ var IcseToggle = function IcseToggle(props) {
 =======
     onToggle: function onToggle(event) {
 >>>>>>> 7d02243 (fix merge)
+=======
+    onToggle: function onToggle(event) {
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
       props.onToggle(toggleName, event);
     },
     defaultToggled: props.defaultToggled,
     disabled: props.disabled
   }));
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -2918,6 +2999,8 @@ var IcseToggle = function IcseToggle(props) {
 >>>>>>> 4c7a274 (fixed formatting for docs)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 };
 IcseToggle.defaultProps = {
   useOnOff: false,
@@ -2967,6 +3050,7 @@ var IcseTextInput = function IcseTextInput(props) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     placeholder: props.placeholder || lib_3(props.componentName, fieldName),
 =======
     placeholder: props.placeholder || lib_5(props.componentName, fieldName),
@@ -2980,6 +3064,9 @@ var IcseTextInput = function IcseTextInput(props) {
 =======
     placeholder: props.placeholder || lib_5(props.componentName, fieldName),
 >>>>>>> 7d02243 (fix merge)
+=======
+    placeholder: props.placeholder || lib_5(props.componentName, fieldName),
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
     name: props.field,
     value: props.value || "",
     invalid: lazyZ.isBoolean(props.invalid) ? props.invalid : props.invalidCallback(),
@@ -3069,6 +3156,7 @@ IcseNameInput.propTypes = {
   invalidCallback: PropTypes__default["default"].func
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -5394,15 +5482,20 @@ const IcseSelect = props => {
 >>>>>>> b6eab56 (example and readme)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 var IcseSelect = function IcseSelect(props) {
   var invalid =
   // automatically set to invalid is is null or empty string and invalid not disabled
   props.disableInvalid !== true && lazyZ.isNullOrEmptyString(props.value) ? true : props.invalid;
   var groups = props.groups.length === 0 ? [] // if no groups, empty array
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 72d0b85 (merge)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
   : lib_3(
   // otherwise try and prepend empty string if null
   props.value, props.groups);
@@ -5412,6 +5505,7 @@ var IcseSelect = function IcseSelect(props) {
     console.log("GROUPS: ", groups);
   }
   return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, _extends({
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -5426,6 +5520,10 @@ var IcseSelect = function IcseSelect(props) {
     id: lazyZ.kebabCase(props.name) + "-dropdown-tooltip",
     innerForm: function innerForm() {
 >>>>>>> 7d02243 (fix merge)
+=======
+    id: lazyZ.kebabCase(props.name) + "-dropdown-tooltip",
+    innerForm: function innerForm() {
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
       return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
         hoverText: props.value || ""
         // inherit classnames from tooltip
@@ -5444,6 +5542,7 @@ var IcseSelect = function IcseSelect(props) {
         onChange: props.handleInputChange
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       }, groups.map(value => /*#__PURE__*/React__default["default"].createElement(react.SelectItem, {
         key: `${props.id}-${value}`,
         text: value,
@@ -5452,6 +5551,8 @@ var IcseSelect = function IcseSelect(props) {
 =======
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
       }, groups.map(function (value) {
         return /*#__PURE__*/React__default["default"].createElement(react.SelectItem, {
           key: "".concat(props.id, "-").concat(value),
@@ -5460,9 +5561,12 @@ var IcseSelect = function IcseSelect(props) {
         });
       })));
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 72d0b85 (merge)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
     }
   }, props));
 };
@@ -5491,6 +5595,7 @@ IcseSelect.propTypes = {
   debug: PropTypes__default["default"].bool.isRequired,
   handleInputChange: PropTypes__default["default"].func.isRequired,
   labelText: PropTypes__default["default"].string.isRequired,
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -5564,12 +5669,17 @@ class FetchSelect extends React__default["default"].Component {
     align: PropTypes__default["default"].string
 >>>>>>> f15fc78 (tooltip align prop)
 =======
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
   tooltip: PropTypes__default["default"].shape({
     content: PropTypes__default["default"].string.isRequired,
     link: PropTypes__default["default"].string,
     alignModal: PropTypes__default["default"].string,
     align: PropTypes__default["default"].string
+<<<<<<< HEAD
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
   })
 };
 var FetchSelect = /*#__PURE__*/function (_React$Component) {
@@ -5635,9 +5745,12 @@ var FetchSelect = /*#__PURE__*/function (_React$Component) {
   return FetchSelect;
 }(React__default["default"].Component);
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 72d0b85 (merge)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 FetchSelect.propTypes = {
   labelText: PropTypes__default["default"].string.isRequired,
   handleInputChange: PropTypes__default["default"].func.isRequired,
@@ -5655,6 +5768,7 @@ FetchSelect.propTypes = {
 };
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const IcseNumberSelect = props => {
 =======
 var IcseNumberSelect = function IcseNumberSelect(props) {
@@ -5662,12 +5776,16 @@ var IcseNumberSelect = function IcseNumberSelect(props) {
 =======
 var IcseNumberSelect = function IcseNumberSelect(props) {
 >>>>>>> 7d02243 (fix merge)
+=======
+var IcseNumberSelect = function IcseNumberSelect(props) {
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
   return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
     formName: props.formName,
     groups: lazyZ.buildNumberDropdownList(props.max, props.min),
     value: props.value.toString(),
     name: props.name || "Icse Number Select",
     className: props.className,
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     handleInputChange: event => {
@@ -5683,6 +5801,11 @@ var IcseNumberSelect = function IcseNumberSelect(props) {
       // set name target value and parse int
       var sendEvent = {
 >>>>>>> 7d02243 (fix merge)
+=======
+    handleInputChange: function handleInputChange(event) {
+      // set name target value and parse int
+      var sendEvent = {
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
         target: {
           name: event.target.name,
           value: parseInt(event.target.value)
@@ -5724,6 +5847,7 @@ IcseNumberSelect.propTypes = {
 };
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const EntitlementSelect = props => {
 =======
 var EntitlementSelect = function EntitlementSelect(props) {
@@ -5731,6 +5855,9 @@ var EntitlementSelect = function EntitlementSelect(props) {
 =======
 var EntitlementSelect = function EntitlementSelect(props) {
 >>>>>>> 7d02243 (fix merge)
+=======
+var EntitlementSelect = function EntitlementSelect(props) {
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
   return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
     name: props.name,
     labelText: "Entitlement",
@@ -5749,6 +5876,7 @@ EntitlementSelect.propTypes = {
   name: PropTypes__default["default"].string.isRequired
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -5894,6 +6022,8 @@ VpnGatewayForm.propTypes = {
 >>>>>>> 7d02243 (fix merge)
 =======
 >>>>>>> 82a5f28 (Issue 681: IcseFormTemplate (#38))
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 var ObjectStorageKeyForm = /*#__PURE__*/function (_Component) {
   _inherits(ObjectStorageKeyForm, _Component);
   var _super = _createSuper(ObjectStorageKeyForm);
@@ -6002,6 +6132,7 @@ ObjectStorageKeyForm.propTypes = {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$4 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$4);
 =======
@@ -6011,6 +6142,10 @@ var css_248z$5 = ".iconMargin {\r\n  margin: 0 0.5rem -0.4rem 0;\r\n}\r\n\r\n.in
 >>>>>>> ee08088 (issue 700: transit gateway form)
 styleInject(css_248z$5);
 >>>>>>> 7d02243 (fix merge)
+=======
+var css_248z$6 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z$6);
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 
 /**
  * Empty Resource Tile
@@ -6041,6 +6176,7 @@ EmptyResourceTile.propTypes = {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 353b3a7 ($@)
 var css_248z$3 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
@@ -6056,6 +6192,10 @@ styleInject(css_248z$4);
 var css_248z$4 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
 styleInject(css_248z$4);
 >>>>>>> 817ead3 (update build)
+=======
+var css_248z$5 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
+styleInject(css_248z$5);
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 
 var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
   _inherits(AppIdKeyForm, _React$Component);
@@ -6270,9 +6410,12 @@ SccForm.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> b9aa481 (feat: object storage key form)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 /**
  * SecretsManagerForm
  * @param {Object} props
@@ -6348,6 +6491,7 @@ SecretsManagerForm.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$2 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
 styleInject(css_248z$2);
 
@@ -6370,6 +6514,25 @@ const IcseMultiSelect = props => {
     className: lib_2("fieldWidth leftTextAlign cds--select", props),
     titleText: props.titleText,
     itemToString: item => item ? item : "",
+=======
+var css_248z$4 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+styleInject(css_248z$4);
+
+var css_248z$3 = ".leftTextAlign {\n  text-align: left;\n}\n";
+styleInject(css_248z$3);
+
+/**
+ * Icse multiselect template
+ */
+var IcseMultiSelect = function IcseMultiSelect(props) {
+  return /*#__PURE__*/React__default["default"].createElement(react.FilterableMultiSelect, {
+    id: props.id,
+    className: lib_2("fieldWidth leftTextAlign", props),
+    titleText: props.titleText,
+    itemToString: function itemToString(item) {
+      return item ? item : "";
+    },
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
     invalid: props.invalid,
     invalidText: props.invalidText,
     initialSelectedItems: props.initialSelectedItems,
@@ -6403,7 +6566,11 @@ IcseMultiSelect.propTypes = {
 /**
  * ssh key multiselect
  */
+<<<<<<< HEAD
 const SshKeyMultiSelect = props => {
+=======
+var SshKeyMultiSelect = function SshKeyMultiSelect(props) {
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
   return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
     id: props.id + "-ssh-key-multiselect",
     useTitleInItem: true,
@@ -6413,7 +6580,11 @@ const SshKeyMultiSelect = props => {
     invalid: props.initialSelectedItems.length === 0,
     items: props.sshKeys,
     initialSelectedItems: props.initialSelectedItems || [],
+<<<<<<< HEAD
     onChange: event => {
+=======
+    onChange: function onChange(event) {
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
       props.onChange(event.selectedItems);
     },
     className: "fieldWidthSmaller cds--form-item"
@@ -6432,7 +6603,11 @@ SshKeyMultiSelect.propTypes = {
 /**
  * sg multiselect
  */
+<<<<<<< HEAD
 const SecurityGroupMultiSelect = props => {
+=======
+var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
   if (props.vpc_name && !props.securityGroups) {
     // checking props.securityGroups[props.vpc_name] will result in an
     // undefined error that happens as part of MultiSelect
@@ -6447,12 +6622,22 @@ const SecurityGroupMultiSelect = props => {
     vpc_name: props.vpc_name,
     invalid: props.invalid,
     invalidText: "Invalid Selection",
+<<<<<<< HEAD
     onChange: event => {
+=======
+    onChange: function onChange(event) {
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
       props.onChange(event.selectedItems);
     },
     disabled: props.disabled,
     items: props.vpc_name === "" ? [] : props.securityGroups[props.vpc_name],
+<<<<<<< HEAD
     itemToString: item => item ? item : ""
+=======
+    itemToString: function itemToString(item) {
+      return item ? item : "";
+    }
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
   });
 };
 SecurityGroupMultiSelect.defaultProps = {
@@ -6476,7 +6661,11 @@ SecurityGroupMultiSelect.propTypes = {
 /**
  * vpc subnet multiselect
  */
+<<<<<<< HEAD
 const SubnetMultiSelect = props => {
+=======
+var SubnetMultiSelect = function SubnetMultiSelect(props) {
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
   return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
     id: props.id + "-subnet-multiselect",
     className: props.className,
@@ -6488,7 +6677,13 @@ const SubnetMultiSelect = props => {
     invalidText: lazyZ.isNullOrEmptyString(props.vpc_name) ? "Select a VPC." : "Select at least one subnet.",
     invalid: props.initialSelectedItems.length === 0,
     disabled: props.disabled,
+<<<<<<< HEAD
     onChange: event => props.onChange(event.selectedItems)
+=======
+    onChange: function onChange(event) {
+      return props.onChange(event.selectedItems);
+    }
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
   });
 };
 SubnetMultiSelect.defaultProps = {
@@ -6503,7 +6698,11 @@ SubnetMultiSelect.propTypes = {
   className: PropTypes__default["default"].string,
   vpc_name: PropTypes__default["default"].string,
   // not required, `null` needs to be passed here
+<<<<<<< HEAD
   subnets: PropTypes__default["default"].object.isRequired,
+=======
+  subnets: PropTypes__default["default"].array.isRequired,
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
   disabled: PropTypes__default["default"].bool.isRequired,
   name: PropTypes__default["default"].string.isRequired,
   label: PropTypes__default["default"].string.isRequired,
@@ -6514,7 +6713,11 @@ SubnetMultiSelect.propTypes = {
 /**
  * VPC List MultiSelect
  */
+<<<<<<< HEAD
 const VpcListMultiSelect = props => {
+=======
+var VpcListMultiSelect = function VpcListMultiSelect(props) {
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
   // throw error here so that passing no vpc list prop will error here
   // instead of being passed to `FilterableMultiselect`
   if (!props.vpcList) {
@@ -6525,7 +6728,13 @@ const VpcListMultiSelect = props => {
     invalid: props.invalid,
     id: props.id + "-vpc-select",
     titleText: props.titleText,
+<<<<<<< HEAD
     onChange: event => props.onChange(event.selectedItems),
+=======
+    onChange: function onChange(event) {
+      return props.onChange(event.selectedItems);
+    },
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
     initialSelectedItems: props.initialSelectedItems,
     className: props.className,
     items: props.vpcList
@@ -6556,9 +6765,12 @@ var WorkerPoolForm = /*#__PURE__*/function (_Component) {
         name: "",
         flavor: _this.props.cluster.machine_type,
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         subnetList: _this.props.cluster.subnetList,
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
         subnets: _this.props.cluster.subnets,
         vpc_name: _this.props.cluster.vpc_name,
         workers_per_subnet: _this.props.cluster.workers_per_subnet,
@@ -6633,11 +6845,16 @@ var WorkerPoolForm = /*#__PURE__*/function (_Component) {
         disabled: this.state.pool.vpc_name === null,
         vpc_name: this.state.pool.vpc_name,
 <<<<<<< HEAD
+<<<<<<< HEAD
         subnets: this.props.data.subnets,
 =======
         initialSelectedItems: this.props.data.subnets,
         subnets: this.props.data.subnetList,
 >>>>>>> 7d02243 (fix merge)
+=======
+        initialSelectedItems: this.props.data.subnets,
+        subnets: this.props.subnetList,
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
         onChange: this.handleSubnetChange,
         component: this.props.data.name,
         className: "fieldWidthSmaller cds--form-item"
@@ -6668,6 +6885,7 @@ WorkerPoolForm.defaultProps = {
   isModal: false
 };
 WorkerPoolForm.propTypes = {
+<<<<<<< HEAD
   isModal: PropTypes__default["default"].bool.isRequired,
   cluster: PropTypes__default["default"].shape({
 <<<<<<< HEAD
@@ -6696,6 +6914,17 @@ WorkerPoolForm.propTypes = {
     subnets: PropTypes__default["default"].array.isRequired,
     subnetList: PropTypes__default["default"].array.isRequired
 >>>>>>> 7d02243 (fix merge)
+=======
+  subnetList: PropTypes__default["default"].array.isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired,
+  cluster: PropTypes__default["default"].shape({
+    entitlement: PropTypes__default["default"].string,
+    // can be null
+    machine_type: PropTypes__default["default"].string.isRequired,
+    vpc_name: PropTypes__default["default"].string.isRequired,
+    workers_per_subnet: PropTypes__default["default"].number.isRequired,
+    subnets: PropTypes__default["default"].array.isRequired
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
   }),
   // can be null
   data: PropTypes__default["default"].shape({
@@ -6705,11 +6934,15 @@ WorkerPoolForm.propTypes = {
     vpc_name: PropTypes__default["default"].string.isRequired,
     workers_per_subnet: PropTypes__default["default"].number.isRequired,
 <<<<<<< HEAD
+<<<<<<< HEAD
     subnets: PropTypes__default["default"].array.isRequired
 =======
     subnets: PropTypes__default["default"].array.isRequired,
     subnetList: PropTypes__default["default"].array.isRequired
 >>>>>>> 7d02243 (fix merge)
+=======
+    subnets: PropTypes__default["default"].array.isRequired
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
   }).isRequired
 };
 
@@ -6853,6 +7086,7 @@ EncryptionKeyForm.propTypes = {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
 =======
@@ -6970,6 +7204,8 @@ KeyManagementForm.propTypes = {
 >>>>>>> 92f0c0d (removed resourcegroupselect component)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 /**
  * Key Management
  */
@@ -7166,6 +7402,7 @@ TeleportClaimToRoleForm.propTypes = {
   }).isRequired
 };
 
+<<<<<<< HEAD
 var css_248z$3 = ".fieldWidth {\r\n  width: 14rem;\r\n}\r\n\r\n.fieldWidthSmaller {\r\n  width: 11rem;\r\n}\r\n";
 styleInject(css_248z$3);
 
@@ -7363,6 +7600,8 @@ VpcListMultiSelect.propTypes = {
   vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
 };
 
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 var TransitGatewayForm = /*#__PURE__*/function (_Component) {
   _inherits(TransitGatewayForm, _Component);
   var _super = _createSuper(TransitGatewayForm);
@@ -7520,6 +7759,7 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
     value: function handleToggle(name) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       this.setState(_defineProperty({}, name, !this.state[name]));
 =======
       this.setState(this.toggleStateBoolean(name, this.state));
@@ -7527,6 +7767,9 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
 =======
       this.setState(this.toggleStateBoolean(name, this.state));
 >>>>>>> 7d02243 (fix merge)
+=======
+      this.setState(this.toggleStateBoolean(name, this.state));
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
     }
   }, {
     key: "render",
@@ -7534,10 +7777,13 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
       return /*#__PURE__*/React__default["default"].createElement("div", {
         id: "atracker-form"
       }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
@@ -7573,6 +7819,7 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
         invalidText: "Select an Object Storage bucket."
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
       return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
         component: "km-system-dropdown",
@@ -7588,6 +7835,8 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
 >>>>>>> 4c7a274 (fixed formatting for docs)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
       }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
         tooltip: {
           content: "Must be enabled in order to forward all logs to the Cloud Object Storage bucket"
@@ -7595,15 +7844,19 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
         labelText: "Create Activity Tracker Route",
         defaultToggled: this.state.add_route,
         toggleFieldName: "add_route",
         onToggle: this.handleToggle,
         id: "app-id-add-route"
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
@@ -7619,6 +7872,8 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
 >>>>>>> 4c7a274 (fixed formatting for docs)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
       })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
         noMarginBottom: true
       }, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
@@ -7638,6 +7893,7 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
   }]);
   return AtrackerForm;
 }(React.Component);
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -7670,6 +7926,8 @@ AtrackerForm.propTypes = {
     cos_bucket: PropTypes__default["default"].string.isRequired,
     cos_key: PropTypes__default["default"].string.isRequired,
 =======
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 AtrackerForm.defaultProps = {
   isModal: false,
   data: {
@@ -7683,7 +7941,10 @@ AtrackerForm.propTypes = {
   data: PropTypes__default["default"].shape({
     collector_bucket_name: PropTypes__default["default"].string.isRequired,
     atracker_key: PropTypes__default["default"].string.isRequired,
+<<<<<<< HEAD
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
     resource_group: PropTypes__default["default"].string.isRequired,
     add_route: PropTypes__default["default"].bool.isRequired
   }).isRequired,
@@ -7913,6 +8174,7 @@ FormModal.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$3 = ".leftTextAlign {\n  text-align: left;\n}\n";
 styleInject(css_248z$3);
 =======
@@ -7930,6 +8192,8 @@ styleInject(css_248z$3);
 >>>>>>> 7d02243 (fix merge)
 =======
 >>>>>>> ee08088 (issue 700: transit gateway form)
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 /**
  * Icse Modal Wrapper
  * @param {*} props
@@ -8051,6 +8315,7 @@ UnsavedChangesModal.propTypes = {
   useDefaultUnsavedMessage: PropTypes__default["default"].bool
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -8264,10 +8529,13 @@ VpcListMultiSelect.propTypes = {
 >>>>>>> 7d02243 (fix merge)
 =======
 >>>>>>> ee08088 (issue 700: transit gateway form)
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 /**
  * Under Construction Page
  */
 var UnderConstruction = function UnderConstruction() {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> dc1cdcb (arrayOf)
@@ -8275,11 +8543,14 @@ var UnderConstruction = function UnderConstruction() {
 >>>>>>> 4c7a274 (fixed formatting for docs)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
   return /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(iconsReact.WarningAlt, {
     size: "128"
   }), /*#__PURE__*/React__default["default"].createElement("h4", null, "Page Under Construction"));
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -10082,6 +10353,11 @@ var css_248z$1 = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }";
 styleInject(css_248z$1);
 >>>>>>> 7d02243 (fix merge)
 
+=======
+var css_248z$2 = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}";
+styleInject(css_248z$2);
+
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 /**
  * StatefulTabPanel wrapper for non array forms
  * @param {*} props props
@@ -10180,6 +10456,7 @@ StatefulTabPanel.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> b982705 (feat: StatefulTabPanel)
 =======
 =======
@@ -10201,6 +10478,8 @@ class ToggleForm extends React__default["default"].Component {
 >>>>>>> 7d02243 (fix merge)
 =======
 >>>>>>> 817ead3 (update build)
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 var ToggleForm = /*#__PURE__*/function (_React$Component) {
   _inherits(ToggleForm, _React$Component);
   var _super = _createSuper(ToggleForm);
@@ -10210,6 +10489,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.state = {
       hide: _this.props.hide,
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -10228,6 +10508,8 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
 >>>>>>> 7d02243 (fix merge)
 =======
 >>>>>>> 817ead3 (update build)
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
       showDeleteModal: false,
       showUnsavedChangeModal: false,
       disableSave: true,
@@ -10548,6 +10830,7 @@ ToggleForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> f680a35 (almost done)
 =======
 =======
@@ -10646,6 +10929,10 @@ SshKeyForm.propTypes = {
 =======
 var css_248z = ".about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n";
 styleInject(css_248z);
+=======
+var css_248z$1 = ".about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n";
+styleInject(css_248z$1);
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 
 var DocTextField = function DocTextField(props) {
   return /*#__PURE__*/React__default["default"].createElement("div", {
@@ -10754,8 +11041,11 @@ Docs.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 817ead3 (update build)
 =======
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 var css_248z = ".leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidthBigger {\n  width: 30rem\n}\n";
 styleInject(css_248z);
 
@@ -10842,16 +11132,28 @@ SshKeyForm.propTypes = {
   invalidKeyCallback: PropTypes__default["default"].func.isRequired
 };
 
+<<<<<<< HEAD
 class IcseFormTemplate extends React__default["default"].Component {
   constructor(props) {
     super(props);
     this.state = {
+=======
+var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
+  _inherits(IcseFormTemplate, _React$Component);
+  var _super = _createSuper(IcseFormTemplate);
+  function IcseFormTemplate(props) {
+    var _this;
+    _classCallCheck(this, IcseFormTemplate);
+    _this = _super.call(this, props);
+    _this.state = {
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
       showModal: false,
       shownArrayForms: [],
       // list of array forms to keep open on save
       shownChildForms: [] // list of child forms to keep open on save
     };
 
+<<<<<<< HEAD
     this.onChildToggle = this.onChildToggle.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -10860,6 +11162,19 @@ class IcseFormTemplate extends React__default["default"].Component {
     if (this.props.isMiddleForm) {
       this.props.arrayData.forEach(() => this.state.shownChildForms.push([]));
     }
+=======
+    _this.onChildToggle = _this.onChildToggle.bind(_assertThisInitialized(_this));
+    _this.toggleModal = _this.toggleModal.bind(_assertThisInitialized(_this));
+    _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
+    _this.shouldShow = _this.shouldShow.bind(_assertThisInitialized(_this));
+    // add an array to track middle forms
+    if (_this.props.isMiddleForm) {
+      _this.props.arrayData.forEach(function () {
+        return _this.state.shownChildForms.push([]);
+      });
+    }
+    return _this;
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
   }
 
   /**
@@ -10867,6 +11182,7 @@ class IcseFormTemplate extends React__default["default"].Component {
    * @param {number} index index to keep open
    * @param {number=} childIndex optional child index
    */
+<<<<<<< HEAD
   onChildToggle(index, childIndex) {
     if (this.props.parentToggle) {
       // if the parent toggle is passed, run the callback (this function on parent form)
@@ -11005,6 +11321,156 @@ class IcseFormTemplate extends React__default["default"].Component {
     }));
   }
 }
+=======
+  _createClass(IcseFormTemplate, [{
+    key: "onChildToggle",
+    value: function onChildToggle(index, childIndex) {
+      if (this.props.parentToggle) {
+        // if the parent toggle is passed, run the callback (this function on parent form)
+        // with parent index and current index
+        this.props.parentToggle.callback(this.props.parentToggle.index, index);
+      } else if (arguments.length !== 1) {
+        // if a second param is passed
+        var shownChildForms = _toConsumableArray(this.state.shownChildForms); // all forms
+        // if contains index
+        if (lazyZ.contains(this.state.shownChildForms[index], childIndex)) {
+          // remove index from list
+          shownChildForms[index].splice(index, 1);
+        } else {
+          // otherwise add
+          shownChildForms[index].push(childIndex);
+        }
+        this.setState({
+          shownChildForms: shownChildForms
+        });
+      } else {
+        // if only parent index
+        var shownForms = _toConsumableArray(this.state.shownArrayForms); // all forms
+        if (lazyZ.contains(this.state.shownArrayForms, index)) {
+          // remove if contains
+          shownForms.splice(index, 1);
+        } else shownForms.push(index);
+        this.setState({
+          shownArrayForms: shownForms
+        });
+      }
+    }
+
+    /**
+     * on modal submit
+     * @param {*} data arbitrary data
+     */
+  }, {
+    key: "onSubmit",
+    value: function onSubmit(data) {
+      this.props.onSubmit(data, this.props);
+      this.toggleModal();
+    }
+
+    /**
+     * toggle modal on and off
+     */
+  }, {
+    key: "toggleModal",
+    value: function toggleModal() {
+      this.setState({
+        showModal: !this.state.showModal
+      });
+    }
+
+    /**
+     * check if form should show
+     * @returns {bool} if the child forms should show
+     */
+  }, {
+    key: "shouldShow",
+    value: function shouldShow(index) {
+      return this.props.parentToggle ? lazyZ.contains(this.props.parentToggle.shownChildren[this.props.parentToggle.index], index) // show children
+      : lazyZ.contains(this.state.shownArrayForms, index);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      var formattedName = lazyZ.kebabCase(this.props.name); // formatted component name
+      // enable submit field here is set to variable value to allow for passing to
+      // child array components without needing to reference `this` directly
+      return /*#__PURE__*/React__default["default"].createElement("div", {
+        id: formattedName
+      }, /*#__PURE__*/React__default["default"].createElement(StatefulTabPanel, {
+        name: this.props.name,
+        onClick: this.toggleModal,
+        addText: this.props.addText,
+        hideButton: this.props.hideFormTitleButton,
+        subHeading: this.props.subHeading,
+        className: this.props.subHeading ? "subHeading marginBottomSmall" : "",
+        tooltip: this.props.tooltip,
+        about: this.props.docs ? this.props.docs() : false,
+        form: /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(EmptyResourceTile, {
+          name: this.props.name,
+          showIfEmpty: this.props.arrayData
+        }), this.props.arrayData.map(function (data, index) {
+          var _this2$props, _this2$props2;
+          // return a form with the index and props
+          return /*#__PURE__*/React__default["default"].createElement(ToggleForm, _extends({}, _this2.props.toggleFormProps, {
+            tabPanel: {
+              name: _this2.props.name,
+              hideAbout: true,
+              // passed to ignore second tab panel
+              hasBuiltInHeading: true // passed to ignore second tabPanel
+            },
+
+            key: _this2.props.name + "-" + index,
+            innerForm: _this2.props.innerForm,
+            innerFormProps: _objectSpread2(_objectSpread2({}, _this2.props.innerFormProps), {}, {
+              data: _objectSpread2({}, data)
+            }) // merge data into innerForm props
+            ,
+            arrayParentName: _this2.props.arrayParentName,
+            onShowToggle: _this2.onChildToggle,
+            onChildShowToggle: _this2.props.isMiddleForm ? _this2.onChildToggle // pass through to child component if middle form
+            : false,
+            index: index,
+            show: _this2.shouldShow(index),
+            shownChildren: _this2.state.shownChildForms,
+            onSave: (_this2$props = _this2.props) === null || _this2$props === void 0 ? void 0 : _this2$props.onSave,
+            onDelete: (_this2$props2 = _this2.props) === null || _this2$props2 === void 0 ? void 0 : _this2$props2.onDelete
+          }));
+        }), /*#__PURE__*/React__default["default"].createElement(FormModal, {
+          name: this.props.addText,
+          show: this.state.showModal,
+          onRequestSubmit: this.onSubmit,
+          onRequestClose: this.toggleModal,
+          arrayParentName: this.props.arrayParentName
+        },
+        // render the form inside the modal
+        RenderForm(this.props.innerForm, _objectSpread2(_objectSpread2({}, this.props.innerFormProps), {}, {
+          arrayParentName: this.props.arrayParentName,
+          isModal: true,
+          shouldDisableSubmit: function shouldDisableSubmit() {
+            // references to `this` in function are intentionally vague
+            // in order to pass the correct functions and field values to the
+            // child modal component
+            // by passing `this` in a function that it scoped to the component
+            // we allow the function to be successfully bound to the modal form
+            // while still referencing the local value `enableSubmitField`
+            // to use it's own values for state and props including enableModal
+            // and disableModal, which are dynamically added to the component
+            // at time of render
+            if (this.props.disableSave(this.state, this.props) === false) {
+              this.props.enableModal();
+            } else {
+              this.props.disableModal();
+            }
+          }
+        })))),
+        hideFormTitleButton: this.props.hideFormTitleButton
+      }));
+    }
+  }]);
+  return IcseFormTemplate;
+}(React__default["default"].Component);
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 IcseFormTemplate.defaultProps = {
   hideFormTitleButton: false,
   subHeading: false,
@@ -11041,6 +11507,7 @@ IcseFormTemplate.propTypes = {
   }).isRequired
 };
 
+<<<<<<< HEAD
 >>>>>>> 82a5f28 (Issue 681: IcseFormTemplate (#38))
 exports.AppIdKeyForm = AppIdKeyForm;
 exports.AtrackerForm = AtrackerForm;
@@ -11096,6 +11563,11 @@ exports.AppIdKeyForm = AppIdKeyForm;
 exports.AtrackerForm = AtrackerForm;
 exports.DeleteButton = DeleteButton;
 >>>>>>> 7d02243 (fix merge)
+=======
+exports.AppIdKeyForm = AppIdKeyForm;
+exports.AtrackerForm = AtrackerForm;
+exports.DeleteButton = DeleteButton;
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 exports.DeleteModal = DeleteModal;
 exports.Docs = Docs;
 exports.DynamicRender = DynamicRender;
@@ -11117,6 +11589,7 @@ exports.IcseSelect = IcseSelect;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 72d0b85 (merge)
 =======
 >>>>>>> dc1cdcb (arrayOf)
@@ -11124,6 +11597,8 @@ exports.IcseSelect = IcseSelect;
 >>>>>>> 4c7a274 (fixed formatting for docs)
 =======
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 exports.IcseSubForm = IcseSubForm;
 exports.IcseTextInput = IcseTextInput;
 exports.IcseToggle = IcseToggle;
@@ -11132,6 +11607,7 @@ exports.KeyManagementForm = KeyManagementForm;
 exports.ObjectStorageKeyForm = ObjectStorageKeyForm;
 exports.PopoverWrapper = PopoverWrapper;
 exports.RenderForm = RenderForm;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -11168,17 +11644,23 @@ exports.SaveIcon = SaveIcon;
 exports.SecretsManagerForm = SecretsManagerForm;
 >>>>>>> 159e1d3 (fix: remove log and bind)
 =======
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 exports.SaveAddButton = SaveAddButton;
 exports.SaveIcon = SaveIcon;
 exports.SccForm = SccForm;
 exports.SecretsManagerForm = SecretsManagerForm;
+<<<<<<< HEAD
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 exports.SecurityGroupMultiSelect = SecurityGroupMultiSelect;
 exports.SshKeyForm = SshKeyForm;
 exports.SshKeyMultiSelect = SshKeyMultiSelect;
 exports.StatefulTabPanel = StatefulTabPanel;
 exports.StatelessToggleForm = StatelessToggleForm;
 exports.SubnetMultiSelect = SubnetMultiSelect;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -11219,6 +11701,9 @@ exports.TeleportClaimToRoleForm = TeleportClaimToRoleForm;
 =======
 exports.TeleportClaimToRoleForm = TeleportClaimToRoleForm;
 >>>>>>> 7d02243 (fix merge)
+=======
+exports.TeleportClaimToRoleForm = TeleportClaimToRoleForm;
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 exports.TitleGroup = TitleGroup;
 exports.ToggleForm = ToggleForm;
 exports.ToolTipWrapper = ToolTipWrapper;
@@ -11227,6 +11712,7 @@ exports.UnderConstruction = UnderConstruction;
 exports.UnsavedChangesModal = UnsavedChangesModal;
 exports.UpDownButtons = UpDownButtons;
 exports.VpcListMultiSelect = VpcListMultiSelect;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 exports.VpnGatewayForm = VpnGatewayForm;
@@ -11243,8 +11729,13 @@ exports.buildFormFunctions = buildFormFunctions;
 =======
 >>>>>>> 4c7a274 (fixed formatting for docs)
 =======
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 exports.VpnGatewayForm = VpnGatewayForm;
 exports.WorkerPoolForm = WorkerPoolForm;
 exports.buildFormDefaultInputMethods = buildFormDefaultInputMethods;
 exports.buildFormFunctions = buildFormFunctions;
+<<<<<<< HEAD
 >>>>>>> 7d02243 (fix merge)
+=======
+>>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
