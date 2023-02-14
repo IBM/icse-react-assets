@@ -1,11 +1,12 @@
 import React from "react";
 import {
-  buildFormFunctions,
   buildFormDefaultInputMethods,
-} from "../../../component-utils";
-import { AccessGroupPolicies } from "../../SlzArrayForms";
-import { AccessGroupDynamicPolicies } from "../../SlzArrayForms";
-import { IcseFormGroup, IcseNameInput } from "../../../../dist/index.cjs";
+  buildFormFunctions,
+} from "../../component-utils";
+import { AccessGroupPolicyForm } from "./AccessGroupPolicyForm";
+import { AccessGroupDynamicPolicyForm } from "./AccessGroupDynamicPolicyForm";
+import { IcseFormGroup } from "../../Utils";
+import { IcseNameInput } from "../../Inputs";
 import PropTypes from "prop-types";
 
 class AccessGroupForm extends React.Component {
@@ -37,7 +38,6 @@ class AccessGroupForm extends React.Component {
             componentName="access_groups"
             value={this.state.name}
             onChange={this.handleInputChange}
-            componentProps={this.props}
             className="fieldWidthSmaller"
           />
         </IcseFormGroup>
@@ -51,7 +51,6 @@ class AccessGroupForm extends React.Component {
             field="description"
             labelText="Description"
             value={this.state.description}
-            componentProps={this.props}
             onChange={this.handleInputChange}
             isModal={this.props.isModal}
             invalid={false}
@@ -60,14 +59,14 @@ class AccessGroupForm extends React.Component {
         </IcseFormGroup>
         {!this.props.isModal && (
           <>
-            <AccessGroupPolicies
+            {/* <AccessGroupPolicies
               slz={this.props.slz}
               arrayParentName={this.props.data.name}
             />
             <AccessGroupDynamicPolicies
               slz={this.props.slz}
               arrayParentName={this.props.data.name}
-            />
+            /> */}
           </>
         )}
       </>
