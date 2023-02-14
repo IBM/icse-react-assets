@@ -63,13 +63,20 @@ class ResourceGroupForm extends Component {
         <IcseFormGroup noMarginBottom>
           <IcseNameInput
             id={composedId}
-            component="resource_groups"
+            componentName="resource_groups"
             componentProps={this.props}
             value={this.state.name}
             onChange={this.handleTextInput}
             useData={
               this.state.create === false || this.state.use_prefix === false
             }
+            helperTextCallback={() => {
+              return this.props.helperText || "Resource group name";
+            }}
+            invalidCallback={() => {
+              return this.state.name === "";
+            }}
+            invalidText={"Name cannot be empty"}
           />
           {/* use prefix only if create enabled */}
           {this.state.create && (
