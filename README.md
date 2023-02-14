@@ -122,3 +122,23 @@ Only after your PR is approved and before it is merged, please run the following
 npm run predeploy
 npm run deploy-storybook
 ```
+### ResourceGroupForm
+ResourceGroupForm is a form component that enables the use of a new or already existing resource group. ResourceGroupForm accepts several arguments:
+
+- `data`: An object containing the following:
+  - `name`: String value of resource group name (required)
+- `toggleName`: String value representing the name of the toggle
+- `isModal`: Boolean representing whether or not the toggle is a modal
+- `helperText`: String used for the helper text
+
+```js
+import { ResourceGroupFormExample } from "./examples/ResourceGroupForm";
+
+function App() {
+  return (
+    <div className="App">
+      <ResourceGroupFormExample />
+    </div>
+  );
+}
+```
