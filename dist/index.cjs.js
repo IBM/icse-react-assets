@@ -2703,6 +2703,8 @@ var IcseHeading = function IcseHeading(props) {
     className: lib_2("displayFlex spaceBetween widthOneHundredPercent alignItemsCenter", props) + titleFormDivClass
   }, /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, {
     tooltip: props.tooltip,
+    noLabelText: props.noLabelText,
+    id: props.name,
     innerForm: function innerForm() {
       return props.type === "subHeading" ? /*#__PURE__*/React__default["default"].createElement("h5", null, props.name) : props.type === "p" ? /*#__PURE__*/React__default["default"].createElement("p", null, props.name) : /*#__PURE__*/React__default["default"].createElement("h4", null, props.name);
     }
@@ -2951,6 +2953,7 @@ var IcseToggle = function IcseToggle(props) {
 var css_248z$7 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
 styleInject(css_248z$7);
 
+<<<<<<< HEAD
 var IcseToggle = function IcseToggle(props) {
   var toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
@@ -2966,6 +2969,10 @@ const IcseToggle = props => {
 var IcseToggle = function IcseToggle(props) {
   var toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
 >>>>>>> f849341 (access group forms :100:)
+=======
+const IcseToggle = props => {
+  let toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
+>>>>>>> 13e8562 (Migrated VpcForm + Documentation (Issue701) (#39))
   return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React__default["default"].createElement(react.Toggle, {
     labelA: props.useOnOff ? "Off" : "False",
     labelB: props.useOnOff ? "On" : "True",
@@ -2974,6 +2981,7 @@ var IcseToggle = function IcseToggle(props) {
     className: lib_2("leftTextAlign", props) + (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
     ,
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -3003,6 +3011,9 @@ var IcseToggle = function IcseToggle(props) {
 =======
     onToggle: function onToggle(event) {
 >>>>>>> f849341 (access group forms :100:)
+=======
+    onToggle: event => {
+>>>>>>> 13e8562 (Migrated VpcForm + Documentation (Issue701) (#39))
       props.onToggle(toggleName, event);
     },
     defaultToggled: props.defaultToggled,
@@ -3080,8 +3091,8 @@ IcseToggle.propTypes = {
  * @param {string=} props.labelText override label text
  * @returns <IcseTextInput/> component
  */
-var IcseTextInput = function IcseTextInput(props) {
-  var fieldName = lazyZ.titleCase(props.field);
+const IcseTextInput = props => {
+  let fieldName = lazyZ.titleCase(props.field);
   return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React__default["default"].createElement(react.TextInput, {
     id: props.id,
     className: lib_2("leftTextAlign", props),
@@ -3112,7 +3123,7 @@ var IcseTextInput = function IcseTextInput(props) {
     invalid: lazyZ.isBoolean(props.invalid) ? props.invalid : props.invalidCallback(),
     onChange: props.onChange,
     helperText: props.helperText,
-    invalidText: props.invalidText ? props.invalidText : "Invalid ".concat(props.field, " value."),
+    invalidText: props.invalidText ? props.invalidText : `Invalid ${props.field} value.`,
     maxLength: props.maxLength,
     disabled: props.disabled,
     readOnly: props.readOnly
@@ -3161,8 +3172,8 @@ IcseTextInput.propTypes = {
  * @param {func} props.invalidCallback
  * @returns <IcseNameInput />
  */
-var IcseNameInput = function IcseNameInput(props) {
-  var helperText = "";
+const IcseNameInput = props => {
+  let helperText = "";
   // if helper text is not hidden
   if (!props.hideHelperText && !props.useData) {
     helperText = props.helperTextCallback();
@@ -3198,6 +3209,7 @@ IcseNameInput.propTypes = {
   invalidCallback: PropTypes__default["default"].func
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -3557,9 +3569,13 @@ const IcseSelect = props => {
 var IcseSelect = function IcseSelect(props) {
   var invalid =
 >>>>>>> f849341 (access group forms :100:)
+=======
+const IcseSelect = props => {
+  let invalid =
+>>>>>>> 13e8562 (Migrated VpcForm + Documentation (Issue701) (#39))
   // automatically set to invalid is is null or empty string and invalid not disabled
   props.disableInvalid !== true && lazyZ.isNullOrEmptyString(props.value) ? true : props.invalid;
-  var groups = props.groups.length === 0 ? [] // if no groups, empty array
+  let groups = props.groups.length === 0 ? [] // if no groups, empty array
   : lib_3(
   // otherwise try and prepend empty string if null
   props.value, props.groups);
@@ -3570,7 +3586,7 @@ var IcseSelect = function IcseSelect(props) {
   }
   return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, _extends({
     id: lazyZ.kebabCase(props.name) + "-dropdown-tooltip",
-    innerForm: function innerForm() {
+    innerForm: () => {
       return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
         hoverText: props.value || ""
         // inherit classnames from tooltip
@@ -3587,13 +3603,11 @@ var IcseSelect = function IcseSelect(props) {
         invalidText: props.invalidText,
         readOnly: props.readOnly,
         onChange: props.handleInputChange
-      }, groups.map(function (value) {
-        return /*#__PURE__*/React__default["default"].createElement(react.SelectItem, {
-          key: "".concat(props.id, "-").concat(value),
-          text: value,
-          value: value
-        });
-      })));
+      }, groups.map(value => /*#__PURE__*/React__default["default"].createElement(react.SelectItem, {
+        key: `${props.id}-${value}`,
+        text: value,
+        value: value
+      }))));
     }
   }, props));
 };
@@ -3631,11 +3645,15 @@ IcseSelect.propTypes = {
   })
 };
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 13e8562 (Migrated VpcForm + Documentation (Issue701) (#39))
 class FetchSelect extends React__default["default"].Component {
   _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 var FetchSelect = /*#__PURE__*/function (_React$Component) {
@@ -3648,17 +3666,22 @@ var FetchSelect = /*#__PURE__*/function (_React$Component) {
     _defineProperty(_assertThisInitialized(_this), "_isMounted", false);
     _this.state = {
 >>>>>>> f849341 (access group forms :100:)
+=======
+>>>>>>> 13e8562 (Migrated VpcForm + Documentation (Issue701) (#39))
       data: []
     };
-    _this.dataToGroups = _this.dataToGroups.bind(_assertThisInitialized(_this));
-    return _this;
+    this.dataToGroups = this.dataToGroups.bind(this);
   }
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 13e8562 (Migrated VpcForm + Documentation (Issue701) (#39))
   componentDidMount() {
     this._isMounted = true;
     if (lazyZ.isEmpty(this.state.data)) fetch(this.props.apiEndpoint).then(res => res.json()).then(data => {
       if (this.props.onReturnFunction) {
         this.props.onReturnFunction(data);
+<<<<<<< HEAD
       }
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -3805,24 +3828,38 @@ SccForm.propTypes = {
         return this.state.data.filter(this.props.filter);
       } else {
         return this.state.data;
+=======
+>>>>>>> 13e8562 (Migrated VpcForm + Documentation (Issue701) (#39))
       }
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-        labelText: this.props.labelText,
-        handleInputChange: this.props.handleInputChange,
-        name: this.props.name,
-        className: this.props.className,
-        formName: this.props.formName,
-        groups: this.dataToGroups(),
-        value: this.props.value || "null"
+      if (this._isMounted) this.setState({
+        data: data
       });
+    }).catch(err => {
+      console.error(err);
+    });
+  }
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+  dataToGroups() {
+    if (this.props.filter) {
+      return this.state.data.filter(this.props.filter);
+    } else {
+      return this.state.data;
     }
-  }]);
-  return FetchSelect;
-}(React__default["default"].Component);
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      labelText: this.props.labelText,
+      handleInputChange: this.props.handleInputChange,
+      name: this.props.name,
+      className: this.props.className,
+      formName: this.props.formName,
+      groups: this.dataToGroups(),
+      value: this.props.value || "null"
+    });
+  }
+}
 FetchSelect.propTypes = {
   labelText: PropTypes__default["default"].string.isRequired,
   handleInputChange: PropTypes__default["default"].func.isRequired,
@@ -3838,16 +3875,16 @@ FetchSelect.propTypes = {
   name: PropTypes__default["default"].string.isRequired,
   formName: PropTypes__default["default"].string.isRequired
 };
-var IcseNumberSelect = function IcseNumberSelect(props) {
+const IcseNumberSelect = props => {
   return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
     formName: props.formName,
     groups: lazyZ.buildNumberDropdownList(props.max, props.min),
     value: props.value.toString(),
     name: props.name || "Icse Number Select",
     className: props.className,
-    handleInputChange: function handleInputChange(event) {
+    handleInputChange: event => {
       // set name target value and parse int
-      var sendEvent = {
+      let sendEvent = {
         target: {
           name: event.target.name,
           value: parseInt(event.target.value)
@@ -3887,7 +3924,7 @@ IcseNumberSelect.propTypes = {
   labelText: PropTypes__default["default"].string.isRequired,
   isModal: PropTypes__default["default"].bool.isRequired
 };
-var EntitlementSelect = function EntitlementSelect(props) {
+const EntitlementSelect = props => {
   return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
     name: props.name,
     labelText: "Entitlement",
@@ -6639,11 +6676,12 @@ styleInject(css_248z$3);
 /**
  * Icse multiselect template
  */
-var IcseMultiSelect = function IcseMultiSelect(props) {
+const IcseMultiSelect = props => {
   return /*#__PURE__*/React__default["default"].createElement(react.FilterableMultiSelect, {
     id: props.id,
     className: lib_2("fieldWidth leftTextAlign", props),
     titleText: props.titleText,
+<<<<<<< HEAD
     itemToString: function itemToString(item) {
       return item ? item : "";
     },
@@ -6651,6 +6689,9 @@ var IcseMultiSelect = function IcseMultiSelect(props) {
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 =======
 >>>>>>> f849341 (access group forms :100:)
+=======
+    itemToString: item => item ? item : "",
+>>>>>>> 13e8562 (Migrated VpcForm + Documentation (Issue701) (#39))
     invalid: props.invalid,
     invalidText: props.invalidText,
     initialSelectedItems: props.initialSelectedItems,
@@ -6686,6 +6727,7 @@ IcseMultiSelect.propTypes = {
  */
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const SshKeyMultiSelect = props => {
 =======
 var SshKeyMultiSelect = function SshKeyMultiSelect(props) {
@@ -6693,6 +6735,9 @@ var SshKeyMultiSelect = function SshKeyMultiSelect(props) {
 =======
 var SshKeyMultiSelect = function SshKeyMultiSelect(props) {
 >>>>>>> f849341 (access group forms :100:)
+=======
+const SshKeyMultiSelect = props => {
+>>>>>>> 13e8562 (Migrated VpcForm + Documentation (Issue701) (#39))
   return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
     id: props.id + "-ssh-key-multiselect",
     useTitleInItem: true,
@@ -6704,6 +6749,7 @@ var SshKeyMultiSelect = function SshKeyMultiSelect(props) {
     initialSelectedItems: props.initialSelectedItems || [],
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     onChange: event => {
 =======
     onChange: function onChange(event) {
@@ -6711,6 +6757,9 @@ var SshKeyMultiSelect = function SshKeyMultiSelect(props) {
 =======
     onChange: function onChange(event) {
 >>>>>>> f849341 (access group forms :100:)
+=======
+    onChange: event => {
+>>>>>>> 13e8562 (Migrated VpcForm + Documentation (Issue701) (#39))
       props.onChange(event.selectedItems);
     },
     className: "fieldWidthSmaller cds--form-item"
@@ -6731,6 +6780,7 @@ SshKeyMultiSelect.propTypes = {
  */
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const SecurityGroupMultiSelect = props => {
 =======
 var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
@@ -6738,6 +6788,9 @@ var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
 =======
 var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
 >>>>>>> f849341 (access group forms :100:)
+=======
+const SecurityGroupMultiSelect = props => {
+>>>>>>> 13e8562 (Migrated VpcForm + Documentation (Issue701) (#39))
   if (props.vpc_name && !props.securityGroups) {
     // checking props.securityGroups[props.vpc_name] will result in an
     // undefined error that happens as part of MultiSelect
@@ -6754,6 +6807,7 @@ var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
     invalidText: "Invalid Selection",
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     onChange: event => {
 =======
     onChange: function onChange(event) {
@@ -6761,10 +6815,14 @@ var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
 =======
     onChange: function onChange(event) {
 >>>>>>> f849341 (access group forms :100:)
+=======
+    onChange: event => {
+>>>>>>> 13e8562 (Migrated VpcForm + Documentation (Issue701) (#39))
       props.onChange(event.selectedItems);
     },
     disabled: props.disabled,
     items: props.vpc_name === "" ? [] : props.securityGroups[props.vpc_name],
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     itemToString: item => item ? item : ""
@@ -6778,6 +6836,9 @@ var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
       return item ? item : "";
     }
 >>>>>>> f849341 (access group forms :100:)
+=======
+    itemToString: item => item ? item : ""
+>>>>>>> 13e8562 (Migrated VpcForm + Documentation (Issue701) (#39))
   });
 };
 SecurityGroupMultiSelect.defaultProps = {
@@ -6803,6 +6864,7 @@ SecurityGroupMultiSelect.propTypes = {
  */
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const SubnetMultiSelect = props => {
 =======
 var SubnetMultiSelect = function SubnetMultiSelect(props) {
@@ -6810,6 +6872,9 @@ var SubnetMultiSelect = function SubnetMultiSelect(props) {
 =======
 var SubnetMultiSelect = function SubnetMultiSelect(props) {
 >>>>>>> f849341 (access group forms :100:)
+=======
+const SubnetMultiSelect = props => {
+>>>>>>> 13e8562 (Migrated VpcForm + Documentation (Issue701) (#39))
   return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
     id: props.id + "-subnet-multiselect",
     className: props.className,
@@ -6823,6 +6888,7 @@ var SubnetMultiSelect = function SubnetMultiSelect(props) {
     disabled: props.disabled,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     onChange: event => props.onChange(event.selectedItems)
 =======
     onChange: function onChange(event) {
@@ -6834,6 +6900,9 @@ var SubnetMultiSelect = function SubnetMultiSelect(props) {
       return props.onChange(event.selectedItems);
     }
 >>>>>>> f849341 (access group forms :100:)
+=======
+    onChange: event => props.onChange(event.selectedItems)
+>>>>>>> 13e8562 (Migrated VpcForm + Documentation (Issue701) (#39))
   });
 };
 SubnetMultiSelect.defaultProps = {
@@ -6865,6 +6934,7 @@ SubnetMultiSelect.propTypes = {
  */
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 const VpcListMultiSelect = props => {
 =======
 var VpcListMultiSelect = function VpcListMultiSelect(props) {
@@ -6872,6 +6942,9 @@ var VpcListMultiSelect = function VpcListMultiSelect(props) {
 =======
 var VpcListMultiSelect = function VpcListMultiSelect(props) {
 >>>>>>> f849341 (access group forms :100:)
+=======
+const VpcListMultiSelect = props => {
+>>>>>>> 13e8562 (Migrated VpcForm + Documentation (Issue701) (#39))
   // throw error here so that passing no vpc list prop will error here
   // instead of being passed to `FilterableMultiselect`
   if (!props.vpcList) {
@@ -6882,6 +6955,7 @@ var VpcListMultiSelect = function VpcListMultiSelect(props) {
     invalid: props.invalid,
     id: props.id + "-vpc-select",
     titleText: props.titleText,
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     onChange: event => props.onChange(event.selectedItems),
@@ -6895,6 +6969,9 @@ var VpcListMultiSelect = function VpcListMultiSelect(props) {
       return props.onChange(event.selectedItems);
     },
 >>>>>>> f849341 (access group forms :100:)
+=======
+    onChange: event => props.onChange(event.selectedItems),
+>>>>>>> 13e8562 (Migrated VpcForm + Documentation (Issue701) (#39))
     initialSelectedItems: props.initialSelectedItems,
     className: props.className,
     items: props.vpcList
@@ -6913,16 +6990,13 @@ VpcListMultiSelect.propTypes = {
   vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
 };
 
-var WorkerPoolForm = /*#__PURE__*/function (_Component) {
-  _inherits(WorkerPoolForm, _Component);
-  var _super = _createSuper(WorkerPoolForm);
-  function WorkerPoolForm(props) {
-    var _this;
-    _classCallCheck(this, WorkerPoolForm);
-    _this = _super.call(this, props);
-    _this.state = {
-      pool: _this.props.isModal ? {
+class WorkerPoolForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      pool: this.props.isModal ? {
         name: "",
+<<<<<<< HEAD
         flavor: _this.props.cluster.machine_type,
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -6939,31 +7013,40 @@ var WorkerPoolForm = /*#__PURE__*/function (_Component) {
         workers_per_subnet: _this.props.cluster.workers_per_subnet,
         entitlement: _this.props.cluster.entitlement
       } : _this.props.data
+=======
+        flavor: this.props.cluster.machine_type,
+        subnets: this.props.cluster.subnets,
+        vpc_name: this.props.cluster.vpc_name,
+        workers_per_subnet: this.props.cluster.workers_per_subnet,
+        entitlement: this.props.cluster.entitlement
+      } : this.props.data
+>>>>>>> 13e8562 (Migrated VpcForm + Documentation (Issue701) (#39))
     };
-    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
-    _this.handleSubnetChange = _this.handleSubnetChange.bind(_assertThisInitialized(_this));
-    buildFormFunctions(_assertThisInitialized(_this));
-    return _this;
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubnetChange = this.handleSubnetChange.bind(this);
+    buildFormFunctions(this);
   }
 
   // Handle pool input change
-  _createClass(WorkerPoolForm, [{
-    key: "handleInputChange",
-    value: function handleInputChange(event) {
-      var _event$target = event.target,
-        name = _event$target.name,
-        value = _event$target.value;
-      var pool = _objectSpread2({}, this.state.pool);
-      if (name === "workers_per_subnet") {
-        pool[name] = Number(value);
-      } else {
-        pool[name] = value === "null" ? null : value;
-      }
-      this.setState({
-        pool: pool
-      });
+  handleInputChange(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    let pool = {
+      ...this.state.pool
+    };
+    if (name === "workers_per_subnet") {
+      pool[name] = Number(value);
+    } else {
+      pool[name] = value === "null" ? null : value;
     }
+    this.setState({
+      pool
+    });
+  }
 
+<<<<<<< HEAD
     // Handle subnet multiselect change
   }, {
     key: "handleSubnetChange",
@@ -7041,6 +7124,67 @@ var WorkerPoolForm = /*#__PURE__*/function (_Component) {
   }]);
   return WorkerPoolForm;
 }(React.Component);
+=======
+  // Handle subnet multiselect change
+  handleSubnetChange(event) {
+    let pool = {
+      ...this.state.pool
+    };
+    pool.subnets = event.selectedItems;
+    this.setState({
+      pool
+    });
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: this.state.name + "-name",
+      componentName: "Worker Pools",
+      onChange: this.handleInputChange,
+      componentProps: this.props,
+      value: this.state.pool.name,
+      className: "fieldWidthSmaller",
+      placeholder: "my-worker-pool-name",
+      hideHelperText: true,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(EntitlementSelect, {
+      name: "entitlement",
+      value: this.state.pool.entitlement,
+      handleInputChange: this.handleInputChange,
+      component: this.props.data.name,
+      formName: "Worker Pools"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: "Worker Pools",
+      name: "flavor",
+      labelText: "Flavor Select",
+      value: this.state.pool.flavor,
+      groups: ["bx2.16x64", "bx2.2x8"],
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(SubnetMultiSelect, {
+      id: this.props.data.name,
+      slz: this.props.slz,
+      disabled: this.state.pool.vpc_name === null,
+      vpc_name: this.state.pool.vpc_name,
+      initialSelectedItems: this.props.data.subnets,
+      subnets: this.props.subnetList,
+      onChange: this.handleSubnetChange,
+      component: this.props.data.name,
+      className: "fieldWidthSmaller cds--form-item"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
+      name: "workers_per_subnet",
+      formName: "Worker Pools",
+      labelText: "Workers Per Subnet",
+      value: this.state.pool.workers_per_subnet,
+      max: 10,
+      min: 0,
+      handleInputChange: this.handleInputChange,
+      component: this.props.data.name,
+      className: "fieldWidthSmaller"
+    })));
+  }
+}
+>>>>>>> 13e8562 (Migrated VpcForm + Documentation (Issue701) (#39))
 WorkerPoolForm.defaultProps = {
   data: {
     entitlement: "",
@@ -8234,6 +8378,188 @@ VpnGatewayForm.propTypes = {
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   subnetList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired
+};
+
+var nameFields = ["default_network_acl_name", "default_routing_table_name", "default_security_group_name"];
+var VpcNetworkForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(VpcNetworkForm, _React$Component);
+  var _super = _createSuper(VpcNetworkForm);
+  function VpcNetworkForm(props) {
+    var _this;
+    _classCallCheck(this, VpcNetworkForm);
+    _this = _super.call(this, props);
+    _this.state = _objectSpread2({}, _this.props.data);
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    _this.handPgwToggle = _this.handPgwToggle.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  _createClass(VpcNetworkForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+
+    /**
+     * Toggle on and off param in state at name
+     * @param {string} name name of the object key to change
+     */
+  }, {
+    key: "handleToggle",
+    value: function handleToggle(name) {
+      this.setState(_defineProperty({}, name, !this.state[name]));
+    }
+
+    /**
+     * handle change of public gateway by zone
+     * @param {string} zone zone-1, zone-2, or zone-3
+     */
+  }, {
+    key: "handPgwToggle",
+    value: function handPgwToggle(zone) {
+      var vpc = _objectSpread2({}, this.state);
+      var currentGw = _objectSpread2({}, this.state.use_public_gateways);
+      currentGw[zone] = !currentGw[zone];
+      vpc.use_public_gateways = currentGw;
+      this.setState(_objectSpread2({}, vpc));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      var composedId = "".concat(this.props.data.name, "-vpc-form");
+      var classNameModalCheck = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+        tooltip: {
+          content: "This name will be prepended to all components within this VPC.",
+          alignModal: "bottom-left",
+          align: "bottom-left"
+        },
+        id: composedId + "-prefix",
+        componentProps: this.props,
+        component: "vpc",
+        componentName: this.props.data.name,
+        field: "name",
+        labelText: "Name",
+        placeholder: "my-vpc-name",
+        hideHelperText: true,
+        value: this.state.name,
+        onChange: this.handleInputChange,
+        invalid: this.props.invalidCallback("name", this.state, this.props),
+        invalidText: this.props.invalidTextCallback("name", this.state, this.props),
+        className: classNameModalCheck
+      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        labelText: "Resource Group",
+        name: "resource_group",
+        formName: "resource_group",
+        groups: this.props.resourceGroups,
+        value: this.state.resource_group,
+        handleInputChange: this.handleInputChange,
+        invalid: lib_4(this.state.resource_group),
+        invalidText: "Select a Resource Group.",
+        className: classNameModalCheck
+      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        labelText: "Flow Logs Bucket Name",
+        name: "flow_logs_bucket_name",
+        formName: this.props.data.name + "-vpc",
+        groups: this.props.cosBuckets,
+        value: this.state.flow_logs_bucket_name || "",
+        handleInputChange: this.handleInputChange,
+        invalid: lib_4(this.state.flow_logs_bucket_name),
+        invalidText: "Select a Bucket.",
+        className: classNameModalCheck
+      })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+        name: "VPC Options",
+        type: "subHeading"
+      }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        id: this.props.data.name + "-classic-access",
+        labelText: "Classic Infrastructure Access",
+        toggleFieldName: "classic_access",
+        defaultToggled: this.state.classic_access,
+        onToggle: this.handleToggle,
+        className: classNameModalCheck + " leftTextAlign"
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, nameFields.map(function (field) {
+        return /*#__PURE__*/React__default["default"].createElement("div", {
+          className: "fitContent",
+          key: _this2.props.data.name + "-" + lazyZ.kebabCase(field) + "-div"
+        }, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+          id: composedId + "-" + field,
+          componentName: "VPC Network",
+          field: field,
+          labelText: field,
+          value: _this2.state[field],
+          onChange: _this2.handleInputChange,
+          invalid: _this2.props.invalidCallback(field, _this2.state, _this2.props),
+          invalidText: _this2.props.invalidTextCallback(field, _this2.state, _this2.props),
+          className: classNameModalCheck
+        }));
+      })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+        name: "Public Gateways",
+        type: "subHeading",
+        noLabelText: true,
+        tooltip: {
+          content: "Public Gateways allow for all resources in a zone to communicate with the public internet. Public Gateways are not needed for subnets where a VPN gateway is created."
+        }
+      }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+        noMarginBottom: true
+      }, ["zone-1", "zone-2", "zone-3"].map(function (zone) {
+        return /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+          key: _this2.props.data.name + "-gateway-toggle-" + zone,
+          id: _this2.props.data.name + "-pgw-" + zone,
+          labelText: "Create in Zone " + lazyZ.parseIntFromZone(zone),
+          defaultToggled: _this2.state.use_public_gateways[zone],
+          onToggle: function onToggle() {
+            return _this2.handPgwToggle(zone);
+          },
+          className: classNameModalCheck + " leftTextAlign"
+        });
+      })));
+    }
+  }]);
+  return VpcNetworkForm;
+}(React__default["default"].Component);
+VpcNetworkForm.defaultProps = {
+  data: {
+    name: "",
+    resource_group: "",
+    flow_logs_bucket_name: "",
+    default_network_acl_name: "",
+    default_routing_table_name: "",
+    default_security_group_name: "",
+    classic_access: false,
+    use_manual_address_prefixes: false,
+    use_public_gateways: {
+      "zone-1": false,
+      "zone-2": false,
+      "zone-3": false
+    }
+  },
+  isModal: false
+};
+VpcNetworkForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    resource_group: PropTypes__default["default"].string,
+    flow_logs_bucket_name: PropTypes__default["default"].string,
+    default_network_acl_name: PropTypes__default["default"].string,
+    default_security_group_name: PropTypes__default["default"].string,
+    default_routing_table_name: PropTypes__default["default"].string,
+    classic_access: PropTypes__default["default"].bool.isRequired,
+    use_manual_address_prefixes: PropTypes__default["default"].bool.isRequired,
+    use_public_gateways: PropTypes__default["default"].object.isRequired
+  }),
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  cosBuckets: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
   isModal: PropTypes__default["default"].bool.isRequired
@@ -12502,6 +12828,7 @@ exports.TransitGatewayForm = TransitGatewayForm;
 exports.UnderConstruction = UnderConstruction;
 exports.UnsavedChangesModal = UnsavedChangesModal;
 exports.UpDownButtons = UpDownButtons;
+exports.VpcForm = VpcNetworkForm;
 exports.VpcListMultiSelect = VpcListMultiSelect;
 <<<<<<< HEAD
 <<<<<<< HEAD

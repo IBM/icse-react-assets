@@ -121,6 +121,8 @@ export const IcseHeading = (props) => {
     >
       <DynamicToolTipWrapper
         tooltip={props.tooltip}
+        noLabelText={props.noLabelText}
+        id={props.name}
         innerForm={() => {
           return props.type === "subHeading" ? (
             <h5>{props.name}</h5>
