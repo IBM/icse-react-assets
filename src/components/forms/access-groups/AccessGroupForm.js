@@ -32,7 +32,6 @@ class AccessGroupForm extends React.Component {
           {/* vpc name */}
           <IcseNameInput
             id="name"
-            component="access_groups"
             componentName="access_groups"
             value={this.state.name}
             onChange={this.handleInputChange}

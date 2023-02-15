@@ -13877,7 +13877,6 @@ var AccessGroupForm = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
         id: "name",
-        component: "access_groups",
         componentName: "access_groups",
         value: this.state.name,
         onChange: this.handleInputChange,

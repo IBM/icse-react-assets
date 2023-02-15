@@ -21,6 +21,10 @@ function invalidTextCallback(stateData, componentProps) {
     : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
 }
 
+function composedNameCallback(stateData) {
+  return `${stateData.name}-<random suffix>`;
+}
+
 export const AccessGroupFormExample = () => {
   return (
     <AccessGroupForm
@@ -30,10 +34,6 @@ export const AccessGroupFormExample = () => {
     />
   );
 };
-
-function composedNameCallback(stateData) {
-  return `${stateData.name}-<random suffix>`;
-}
 
 export const AccessGroupPolicyFormExample = () => {
   return (
