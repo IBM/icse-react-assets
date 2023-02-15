@@ -42,10 +42,10 @@ export const AccessGroupPolicyFormExample = () => {
         name: "test-policy",
         resources: {
           resource_group: "rg1",
-          resource_type: "",
-          resource: "",
-          service: "",
-          resource_instance_id: "",
+          resource_type: "resource-group",
+          resource: "test-resource",
+          service: "cloud-object-storage",
+          resource_instance_id: "fake-id-12345",
         },
       }}
       resourceGroups={["rg1", "rg2", "rg3"]}
@@ -61,12 +61,12 @@ export const AccessGroupDynamicPolicyFormExample = () => {
     <AccessGroupDynamicPolicyForm
       data={{
         name: "test-dynamic-policy",
-        identity_provider: "",
+        identity_provider: "test-uri-123-foo345.netweb.cloud123",
         expiration: 1,
         conditions: {
-          claim: "",
-          operator: "",
-          value: "",
+          claim: "test-123",
+          operator: "EQUALS",
+          value: "test-123",
         },
       }}
       invalidCallback={invalidCallback}

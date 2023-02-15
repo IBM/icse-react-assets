@@ -7,6 +7,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> faf8c38 (fixed imports)
@@ -37,10 +38,13 @@ var react = require('@carbon/react');
 >>>>>>> 7d02243 (fix merge)
 =======
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 'use strict';
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -104,11 +108,16 @@ var PropTypes = require('prop-types');
 var lazyZ = require('lazy-z');
 var react = require('@carbon/react');
 =======
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 var react = require('@carbon/react');
 var lazyZ = require('lazy-z');
 var React = require('react');
 var PropTypes = require('prop-types');
+<<<<<<< HEAD
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 var iconsReact = require('@carbon/icons-react');
 var regexButWithWords = require('regex-but-with-words');
 
@@ -117,6 +126,7 @@ function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'defau
 var lazyZ__default = /*#__PURE__*/_interopDefaultLegacy(lazyZ);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 var PropTypes__default = /*#__PURE__*/_interopDefaultLegacy(PropTypes);
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -146,6 +156,9 @@ var _require2 = require("../src/lib/method-functions"),
 =======
 var regexButWithWords__default = /*#__PURE__*/_interopDefaultLegacy(regexButWithWords);
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
+=======
+var regexButWithWords__default = /*#__PURE__*/_interopDefaultLegacy(regexButWithWords);
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 
 /**
  * create a composed class name
@@ -183,6 +196,7 @@ function prependEmptyStringWhenNull$1(value, arr) {
   return prependArray.concat(arr);
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -269,6 +283,8 @@ var lazyZ__default = /*#__PURE__*/_interopDefaultLegacy(lazyZ);
 =======
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 =======
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 /**
  * add margin bottom to subform chevron
  * @param {*} componentProps
@@ -407,7 +423,10 @@ var lib_5 = lib.formatInputPlaceholder;
 var lib_6 = lib.saveChangeButtonClass;
 var lib_10 = lib.invalidRegex;
 
+<<<<<<< HEAD
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 function ownKeys(object, enumerableOnly) {
   var keys = Object.keys(object);
   if (Object.getOwnPropertySymbols) {
@@ -586,6 +605,7 @@ function _toPropertyKey(arg) {
   var key = _toPrimitive(arg, "string");
   return typeof key === "symbol" ? key : String(key);
 }
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1019,6 +1039,9 @@ function buildFormDefaultInputMethods(component) {
 
 =======
 >>>>>>> b9aa481 (feat: object storage key form)
+=======
+
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
@@ -1046,6 +1069,7 @@ function styleInject(css, ref) {
   }
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 var css_248z$8 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$8);
@@ -2529,6 +2553,10 @@ UpDownButtons.propTypes = {
 var css_248z$c = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  position: relative;\n  z-index: 9001;\n}";
 styleInject(css_248z$c);
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
+=======
+var css_248z$c = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  position: relative;\n  z-index: 9001;\n}";
+styleInject(css_248z$c);
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -2605,6 +2633,7 @@ PopoverWrapper.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> b9aa481 (feat: object storage key form)
 =======
@@ -2626,6 +2655,10 @@ styleInject(css_248z$8);
 var css_248z$b = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important; \n}\n";
 styleInject(css_248z$b);
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
+=======
+var css_248z$b = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important; \n}\n";
+styleInject(css_248z$b);
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 
 /**
  * generate save icon
@@ -2651,6 +2684,7 @@ var SaveIcon = function SaveIcon(props) {
  */
 var SaveAddButton = function SaveAddButton(props) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> b18f05c (added documentation for KeyManagementForm)
 =======
@@ -2661,6 +2695,8 @@ var SaveAddButton = function SaveAddButton(props) {
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 =======
 >>>>>>> f849341 (access group forms :100:)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
   return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
     hoverText: props.type === "add" && props.hoverText === "Save Changes" ? "Add Resource" : props.hoverText,
     className: (props.disabled ? "inlineBlock cursorNotAllowed" : "") + (props.inline ? " alignItemsCenter marginTopLarge inLineFormButton" : ""),
@@ -2851,6 +2887,7 @@ function buildFormDefaultInputMethods(component) {
   component.setNameToValue = setNameToValue.bind(component);
 }
 
+<<<<<<< HEAD
 var css_248z$a = ".displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
 styleInject(css_248z$a);
 
@@ -2966,6 +3003,11 @@ Docs.propTypes = {
 var css_248z$8 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
 styleInject(css_248z$8);
 
+=======
+var css_248z$a = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+styleInject(css_248z$a);
+
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 /**
  * Render a form (duplicate from utils to prevent circular dependencies)
  * @param {*} form form element
@@ -3009,6 +3051,7 @@ var BuildToolTip = function BuildToolTip(props) {
     align: props.isModal ? props.tooltip.alignModal : props.tooltip.align
   });
 };
+<<<<<<< HEAD
 <<<<<<< HEAD
 StatelessToggleForm.defaultProps = {
   hide: true,
@@ -3081,11 +3124,16 @@ var BuildToolTip = function BuildToolTip(props) {
 };
 =======
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 BuildToolTip.defaultProps = {
   tooltip: {
     content: ""
   },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
   isModal: false,
   align: "top",
   alignModal: "bottom"
@@ -3119,6 +3167,7 @@ var ToolTipWrapper = function ToolTipWrapper(props) {
   // No label- this is usually a title
   React__default["default"].createElement("div", {
     className: "labelRow"
+<<<<<<< HEAD
   }, RenderForm(props.innerForm, allProps), tooltip) : /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement("div", {
     className: "cds--label labelRow"
   }, /*#__PURE__*/React__default["default"].createElement("label", {
@@ -3467,6 +3516,8 @@ var ToolTipWrapper = function ToolTipWrapper(props) {
   // No label- this is usually a title
   React__default["default"].createElement("div", {
     className: "labelRow"
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
   }, RenderForm$1(props.innerForm, allProps), tooltip) : /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement("div", {
     className: "cds--label labelRow"
   }, /*#__PURE__*/React__default["default"].createElement("label", {
@@ -3513,6 +3564,7 @@ DynamicToolTipWrapper.propTypes = {
   innerForm: PropTypes__default["default"].oneOfType([PropTypes__default["default"].object, PropTypes__default["default"].func])
 };
 
+<<<<<<< HEAD
 var css_248z$7 = ".textInputMedium {\n  width: 20rem;\n}";
 styleInject(css_248z$7);
 
@@ -3885,6 +3937,13 @@ const IcseSelect = props => {
 var IcseSelect = function IcseSelect(props) {
   var invalid =
 >>>>>>> 007ab0d (cos bucket form)
+=======
+var css_248z$9 = ".textInputMedium {\n  width: 20rem;\n}";
+styleInject(css_248z$9);
+
+var IcseSelect = function IcseSelect(props) {
+  var invalid =
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
   // automatically set to invalid is is null or empty string and invalid not disabled
   props.disableInvalid !== true && lazyZ.isNullOrEmptyString(props.value) ? true : props.invalid;
   var groups = props.groups.length === 0 ? [] // if no groups, empty array
@@ -3961,6 +4020,7 @@ IcseSelect.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 13e8562 (Migrated VpcForm + Documentation (Issue701) (#39))
 class FetchSelect extends React__default["default"].Component {
@@ -3973,6 +4033,8 @@ class FetchSelect extends React__default["default"].Component {
 =======
 =======
 >>>>>>> 007ab0d (cos bucket form)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 var FetchSelect = /*#__PURE__*/function (_React$Component) {
   _inherits(FetchSelect, _React$Component);
   var _super = _createSuper(FetchSelect);
@@ -3983,16 +4045,20 @@ var FetchSelect = /*#__PURE__*/function (_React$Component) {
     _defineProperty(_assertThisInitialized(_this), "_isMounted", false);
     _this.state = {
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> f849341 (access group forms :100:)
 =======
 >>>>>>> 13e8562 (Migrated VpcForm + Documentation (Issue701) (#39))
 =======
 >>>>>>> 007ab0d (cos bucket form)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
       data: []
     };
     _this.dataToGroups = _this.dataToGroups.bind(_assertThisInitialized(_this));
     return _this;
   }
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -4121,6 +4187,8 @@ SccForm.propTypes = {
 =======
 =======
 >>>>>>> 007ab0d (cos bucket form)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
   _createClass(FetchSelect, [{
     key: "componentDidMount",
     value: function componentDidMount() {
@@ -4137,6 +4205,7 @@ SccForm.propTypes = {
         });
       }).catch(function (err) {
         console.error(err);
+<<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> f849341 (access group forms :100:)
       });
@@ -4160,6 +4229,8 @@ SccForm.propTypes = {
         data: data
 =======
 >>>>>>> 007ab0d (cos bucket form)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
       });
     }
   }, {
@@ -4263,6 +4334,7 @@ var EntitlementSelect = function EntitlementSelect(props) {
     groups: ["null", "cloud_pak"],
     value: props.value || "null",
     handleInputChange: props.handleInputChange,
+<<<<<<< HEAD
     className: "fieldWidthSmaller",
     formName: props.formName
   });
@@ -6334,6 +6406,8 @@ const EntitlementSelect = props => {
     groups: ["null", "cloud_pak"],
     value: props.value || "null",
     handleInputChange: props.handleInputChange,
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
     className: props.className,
     formName: props.formName
   });
@@ -6350,6 +6424,7 @@ EntitlementSelect.defaultProps = {
   className: "fieldWidthSmaller"
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -6388,6 +6463,10 @@ var VpnGatewayForm = /*#__PURE__*/function (_Component) {
 =======
 var css_248z$6 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$6);
+=======
+var css_248z$8 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z$8);
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 
 /**
  * Empty Resource Tile
@@ -6416,6 +6495,12 @@ EmptyResourceTile.propTypes = {
   showIfEmpty: PropTypes__default["default"].oneOfType([PropTypes__default["default"].array, PropTypes__default["default"].bool]).isRequired
 };
 
+<<<<<<< HEAD
+=======
+var css_248z$7 = ".displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
+styleInject(css_248z$7);
+
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 /**
  * Render a form
  * @param {*} form form element
@@ -6656,8 +6741,13 @@ FormModal.propTypes = {
   children: PropTypes__default["default"].node.isRequired
 };
 
+<<<<<<< HEAD
 var css_248z$5 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
 styleInject(css_248z$5);
+=======
+var css_248z$6 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
+styleInject(css_248z$6);
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 
 var IcseToggle = function IcseToggle(props) {
   var toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
@@ -6813,8 +6903,13 @@ IcseNameInput.propTypes = {
   invalidCallback: PropTypes__default["default"].func
 };
 
+<<<<<<< HEAD
 var css_248z$4 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
 styleInject(css_248z$4);
+=======
+var css_248z$5 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
+styleInject(css_248z$5);
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 
 var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
   _inherits(AppIdKeyForm, _React$Component);
@@ -6822,13 +6917,19 @@ var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
   function AppIdKeyForm(props) {
     var _this;
     _classCallCheck(this, AppIdKeyForm);
+<<<<<<< HEAD
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
     _this = _super.call(this, props);
     _this.state = _this.props.data;
     _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
     buildFormFunctions(_assertThisInitialized(_this));
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
     return _this;
   }
 
@@ -6899,13 +7000,17 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
     _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
     _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
     buildFormFunctions(_assertThisInitialized(_this));
+<<<<<<< HEAD
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
     buildFormDefaultInputMethods(_assertThisInitialized(_this));
     return _this;
   }
 
   /**
    * handle input change
+<<<<<<< HEAD
 <<<<<<< HEAD
    * @param {event} event
    */
@@ -6925,6 +7030,8 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
         this.setState(this.eventTargetToNameAndValue(event));
       }
 =======
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
    * @param {event} event event
    */
   _createClass(AtrackerForm, [{
@@ -6941,11 +7048,15 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
     key: "handleToggle",
     value: function handleToggle(name) {
       this.setState(this.toggleStateBoolean(name, this.state));
+<<<<<<< HEAD
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
     }
   }, {
     key: "render",
     value: function render() {
+<<<<<<< HEAD
 <<<<<<< HEAD
       var composedId = "vpn-gateway-form-".concat(this.props.data.name, "-");
       return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
@@ -6957,6 +7068,8 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
         onChange: this.handleInputChange,
         placeholder: "my-vpn-gateway-name",
 =======
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
       return /*#__PURE__*/React__default["default"].createElement("div", {
         id: "atracker-form"
       }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
@@ -7651,7 +7764,10 @@ var KeyManagementForm = /*#__PURE__*/function (_Component) {
         componentName: this.props.data.name,
         onChange: this.handleInputChange,
         className: "fieldWidth",
+<<<<<<< HEAD
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
         hideHelperText: true,
         invalid: this.props.invalidCallback(this.state, this.props),
         invalidText: this.props.invalidTextCallback(this.state, this.props)
@@ -7662,6 +7778,7 @@ var KeyManagementForm = /*#__PURE__*/function (_Component) {
         groups: this.props.resourceGroups,
         value: this.state.resource_group,
         handleInputChange: this.handleInputChange,
+<<<<<<< HEAD
 <<<<<<< HEAD
         invalid: lib_4(this.state.resource_group),
         invalidText: "Select a Resource Group.",
@@ -7689,10 +7806,13 @@ var KeyManagementForm = /*#__PURE__*/function (_Component) {
         invalidText: lib_4(this.state.vpc_name) ? "No VPC Selected." : "Select a Subnet.",
 =======
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
         className: "fieldWidth"
       })));
     }
   }]);
+<<<<<<< HEAD
 <<<<<<< HEAD
   return VpnGatewayForm;
 }(React.Component);
@@ -7731,6 +7851,8 @@ VpnGatewayForm.propTypes = {
 =======
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 =======
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
   return KeyManagementForm;
 }(React.Component);
 KeyManagementForm.defaultProps = {
@@ -7866,7 +7988,10 @@ ObjectStorageBucketForm.propTypes = {
   composedNameCallback: PropTypes__default["default"].func.isRequired
 };
 
+<<<<<<< HEAD
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 var ObjectStorageKeyForm = /*#__PURE__*/function (_Component) {
   _inherits(ObjectStorageKeyForm, _Component);
   var _super = _createSuper(ObjectStorageKeyForm);
@@ -7973,6 +8098,7 @@ ObjectStorageKeyForm.propTypes = {
   composedNameCallback: PropTypes__default["default"].func.isRequired
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -8215,6 +8341,8 @@ AppIdKeyForm.propTypes = {
 
 =======
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 var sccRegions = [{
   id: "us",
   label: "us"
@@ -8373,11 +8501,14 @@ SccForm.propTypes = {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> b9aa481 (feat: object storage key form)
 =======
 >>>>>>> 7d02243 (fix merge)
 =======
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 /**
  * SecretsManagerForm
  * @param {Object} props
@@ -8456,6 +8587,7 @@ SecretsManagerForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$2 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
 styleInject(css_248z$2);
 
@@ -8491,6 +8623,11 @@ var css_248z$3 = ".leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidthBigger 
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
 styleInject(css_248z$3);
 
+=======
+var css_248z$4 = ".leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidthBigger {\n  width: 30rem\n}\n";
+styleInject(css_248z$4);
+
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 /**
  * ssh key form
  */
@@ -8646,11 +8783,19 @@ TeleportClaimToRoleForm.propTypes = {
   }).isRequired
 };
 
+<<<<<<< HEAD
 var css_248z$2 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
 styleInject(css_248z$2);
 
 var css_248z$1 = ".leftTextAlign {\n  text-align: left;\n}\n";
 styleInject(css_248z$1);
+=======
+var css_248z$3 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+styleInject(css_248z$3);
+
+var css_248z$2 = ".leftTextAlign {\n  text-align: left;\n}\n";
+styleInject(css_248z$2);
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 
 /**
  * Icse multiselect template
@@ -8658,6 +8803,7 @@ styleInject(css_248z$1);
 var IcseMultiSelect = function IcseMultiSelect(props) {
   return /*#__PURE__*/React__default["default"].createElement(react.FilterableMultiSelect, {
     id: props.id,
+<<<<<<< HEAD
     className: lib_2("fieldWidth leftTextAlign", props),
     titleText: props.titleText,
 <<<<<<< HEAD
@@ -9786,6 +9932,13 @@ const IcseMultiSelect = props => {
     className: lib_2("leftTextAlign", props),
     titleText: props.titleText,
     itemToString: item => item ? item : "",
+=======
+    className: lib_2("leftTextAlign", props),
+    titleText: props.titleText,
+    itemToString: function itemToString(item) {
+      return item ? item : "";
+    },
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
     invalid: props.invalid,
     invalidText: props.invalidText,
     initialSelectedItems: props.initialSelectedItems,
@@ -9820,7 +9973,11 @@ IcseMultiSelect.propTypes = {
 /**
  * ssh key multiselect
  */
+<<<<<<< HEAD
 const SshKeyMultiSelect = props => {
+=======
+var SshKeyMultiSelect = function SshKeyMultiSelect(props) {
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
   return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
     id: props.id + "-ssh-key-multiselect",
     useTitleInItem: true,
@@ -9830,7 +9987,11 @@ const SshKeyMultiSelect = props => {
     invalid: props.initialSelectedItems.length === 0,
     items: props.sshKeys,
     initialSelectedItems: props.initialSelectedItems || [],
+<<<<<<< HEAD
     onChange: event => {
+=======
+    onChange: function onChange(event) {
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
       props.onChange(event.selectedItems);
     },
     className: props.className
@@ -9849,7 +10010,11 @@ SshKeyMultiSelect.propTypes = {
 /**
  * sg multiselect
  */
+<<<<<<< HEAD
 const SecurityGroupMultiSelect = props => {
+=======
+var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
   if (props.vpc_name && !props.securityGroups) {
     // checking props.securityGroups[props.vpc_name] will result in an
     // undefined error that happens as part of MultiSelect
@@ -9864,6 +10029,7 @@ const SecurityGroupMultiSelect = props => {
     vpc_name: props.vpc_name,
     invalid: props.invalid,
 <<<<<<< HEAD
+<<<<<<< HEAD
     invalidText: "Invalid Selection",
     onChange: event => {
       props.onChange(event.selectedItems);
@@ -9872,6 +10038,8 @@ const SecurityGroupMultiSelect = props => {
     items: props.vpc_name === "" ? [] : props.securityGroups[props.vpc_name],
     itemToString: item => item ? item : ""
 =======
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
     invalidText: props.invalidText,
     onChange: function onChange(event) {
       props.onChange(event.selectedItems);
@@ -9881,7 +10049,10 @@ const SecurityGroupMultiSelect = props => {
     itemToString: function itemToString(item) {
       return item ? item : "";
     }
+<<<<<<< HEAD
 >>>>>>> 74e4b37 (Issue 713: **NEW** VPE Form  (#41))
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
   });
 };
 SecurityGroupMultiSelect.defaultProps = {
@@ -9908,19 +10079,33 @@ SecurityGroupMultiSelect.propTypes = {
 /**
  * vpc subnet multiselect
  */
+<<<<<<< HEAD
 const SubnetMultiSelect = props => {
+=======
+var SubnetMultiSelect = function SubnetMultiSelect(props) {
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
   return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
     id: props.id + "-subnet-multiselect",
     className: props.className,
     titleText: "Subnets",
     name: props.name,
     label: props.label,
+<<<<<<< HEAD
     items: lazyZ.isNullOrEmptyString(props.vpc_name) ? [] : props.subnets[props.vpc_name],
+=======
+    items: lazyZ.isNullOrEmptyString(props.vpc_name) ? [] : props.subnets,
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
     initialSelectedItems: props.initialSelectedItems,
     invalidText: lazyZ.isNullOrEmptyString(props.vpc_name) ? "Select a VPC." : "Select at least one subnet.",
     invalid: props.initialSelectedItems.length === 0,
     disabled: props.disabled,
+<<<<<<< HEAD
     onChange: event => props.onChange(event.selectedItems)
+=======
+    onChange: function onChange(event) {
+      return props.onChange(event.selectedItems);
+    }
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
   });
 };
 SubnetMultiSelect.defaultProps = {
@@ -9935,7 +10120,11 @@ SubnetMultiSelect.propTypes = {
   className: PropTypes__default["default"].string,
   vpc_name: PropTypes__default["default"].string,
   // not required, `null` needs to be passed here
+<<<<<<< HEAD
   subnets: PropTypes__default["default"].object.isRequired,
+=======
+  subnets: PropTypes__default["default"].array.isRequired,
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
   disabled: PropTypes__default["default"].bool.isRequired,
   name: PropTypes__default["default"].string.isRequired,
   label: PropTypes__default["default"].string.isRequired,
@@ -9946,7 +10135,11 @@ SubnetMultiSelect.propTypes = {
 /**
  * VPC List MultiSelect
  */
+<<<<<<< HEAD
 const VpcListMultiSelect = props => {
+=======
+var VpcListMultiSelect = function VpcListMultiSelect(props) {
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
   // throw error here so that passing no vpc list prop will error here
   // instead of being passed to `FilterableMultiselect`
   if (!props.vpcList) {
@@ -9957,7 +10150,13 @@ const VpcListMultiSelect = props => {
     invalid: props.invalid,
     id: props.id + "-vpc-select",
     titleText: props.titleText,
+<<<<<<< HEAD
     onChange: event => props.onChange(event.selectedItems),
+=======
+    onChange: function onChange(event) {
+      return props.onChange(event.selectedItems);
+    },
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
     initialSelectedItems: props.initialSelectedItems,
     className: props.className,
     items: props.vpcList
@@ -9976,12 +10175,15 @@ VpcListMultiSelect.propTypes = {
   vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
 };
 
+<<<<<<< HEAD
 =======
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 =======
 >>>>>>> f849341 (access group forms :100:)
 =======
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 var TransitGatewayForm = /*#__PURE__*/function (_Component) {
   _inherits(TransitGatewayForm, _Component);
   var _super = _createSuper(TransitGatewayForm);
@@ -10092,6 +10294,7 @@ TransitGatewayForm.propTypes = {
   invalidTextCallback: PropTypes__default["default"].func.isRequired
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /**
  * Atracker
@@ -10452,6 +10655,8 @@ VpnGatewayForm.propTypes = {
 
 =======
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 var nameFields = ["default_network_acl_name", "default_routing_table_name", "default_security_group_name"];
 var VpcNetworkForm = /*#__PURE__*/function (_React$Component) {
   _inherits(VpcNetworkForm, _React$Component);
@@ -10895,8 +11100,13 @@ var UnderConstruction = function UnderConstruction() {
   }), /*#__PURE__*/React__default["default"].createElement("h4", null, "Page Under Construction"));
 };
 
+<<<<<<< HEAD
 var css_248z = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}";
 styleInject(css_248z);
+=======
+var css_248z$1 = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}";
+styleInject(css_248z$1);
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 
 /**
  * StatefulTabPanel wrapper for non array forms
@@ -10992,6 +11202,7 @@ StatefulTabPanel.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$3 = ".leftTextAlign {\n  text-align: left;\n}\n";
 styleInject(css_248z$3);
 =======
@@ -11011,6 +11222,8 @@ styleInject(css_248z$3);
 >>>>>>> ee08088 (issue 700: transit gateway form)
 =======
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 /**
  * Icse Modal Wrapper
  * @param {*} props
@@ -11132,6 +11345,7 @@ UnsavedChangesModal.propTypes = {
   useDefaultUnsavedMessage: PropTypes__default["default"].bool
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -13309,6 +13523,8 @@ class ToggleForm extends React__default["default"].Component {
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 =======
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 var ToggleForm = /*#__PURE__*/function (_React$Component) {
   _inherits(ToggleForm, _React$Component);
   var _super = _createSuper(ToggleForm);
@@ -13318,6 +13534,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.state = {
       hide: _this.props.hide,
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -13339,6 +13556,8 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
 >>>>>>> 817ead3 (update build)
 =======
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
       showDeleteModal: false,
       showUnsavedChangeModal: false,
       disableSave: true,
@@ -13655,6 +13874,7 @@ ToggleForm.propTypes = {
   }).isRequired
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -14097,6 +14317,8 @@ class IcseFormTemplate extends React__default["default"].Component {
 >>>>>>> f849341 (access group forms :100:)
 =======
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
   _inherits(IcseFormTemplate, _React$Component);
   var _super = _createSuper(IcseFormTemplate);
@@ -14107,17 +14329,21 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
     _this.state = {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 =======
 >>>>>>> 01e0136 (classNames now as default prop (#40))
 =======
 >>>>>>> f849341 (access group forms :100:)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
       showModal: false,
       shownArrayForms: [],
       // list of array forms to keep open on save
       shownChildForms: [] // list of child forms to keep open on save
     };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -14145,6 +14371,8 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
     _this.onChildToggle = _this.onChildToggle.bind(_assertThisInitialized(_this));
     _this.toggleModal = _this.toggleModal.bind(_assertThisInitialized(_this));
     _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
@@ -14156,6 +14384,7 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
       });
     }
     return _this;
+<<<<<<< HEAD
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 =======
     return _this;
@@ -14163,6 +14392,8 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
 =======
     return _this;
 >>>>>>> f849341 (access group forms :100:)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
   }
 
   /**
@@ -14170,6 +14401,7 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
    * @param {number} index index to keep open
    * @param {number=} childIndex optional child index
    */
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -14188,6 +14420,8 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
 =======
 =======
 >>>>>>> f849341 (access group forms :100:)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
   _createClass(IcseFormTemplate, [{
     key: "onChildToggle",
     value: function onChildToggle(index, childIndex) {
@@ -14210,9 +14444,12 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
           shownChildForms: shownChildForms
         });
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 01e0136 (classNames now as default prop (#40))
 =======
 >>>>>>> f849341 (access group forms :100:)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
       } else {
         // if only parent index
         var shownForms = _toConsumableArray(this.state.shownArrayForms); // all forms
@@ -14277,9 +14514,13 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
         tooltip: this.props.tooltip,
         about: this.props.docs ? this.props.docs() : false,
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         hideAbout: this.props.hideAbout,
 >>>>>>> f849341 (access group forms :100:)
+=======
+        hideAbout: this.props.hideAbout,
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
         form: /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(EmptyResourceTile, {
           name: this.props.name,
           showIfEmpty: this.props.arrayData
@@ -14337,6 +14578,7 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
               this.props.disableModal();
             }
           }
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         }
@@ -14491,6 +14733,8 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
 >>>>>>> 01e0136 (classNames now as default prop (#40))
 =======
 >>>>>>> f849341 (access group forms :100:)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
         })))),
         hideFormTitleButton: this.props.hideFormTitleButton
       }));
@@ -14500,11 +14744,14 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
 }(React__default["default"].Component);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 =======
 >>>>>>> 01e0136 (classNames now as default prop (#40))
 =======
 >>>>>>> f849341 (access group forms :100:)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 IcseFormTemplate.defaultProps = {
   hideFormTitleButton: false,
   subHeading: false,
@@ -14544,6 +14791,7 @@ IcseFormTemplate.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 82a5f28 (Issue 681: IcseFormTemplate (#38))
 =======
 var AccessGroupForm = /*#__PURE__*/function (_React$Component) {
@@ -14558,6 +14806,8 @@ var AccessGroupForm = /*#__PURE__*/function (_React$Component) {
     buildFormDefaultInputMethods(_assertThisInitialized(_this));
     _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
 =======
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 var services = {
   hpcs: "Hyper Protect Crypto Services",
   kms: "Key Protect",
@@ -14587,12 +14837,264 @@ var VpeForm = /*#__PURE__*/function (_Component) {
     _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
     buildFormFunctions(_assertThisInitialized(_this));
     buildFormDefaultInputMethods(_assertThisInitialized(_this));
+<<<<<<< HEAD
 >>>>>>> 74e4b37 (Issue 713: **NEW** VPE Form  (#41))
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
     return _this;
   }
 
   /**
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+   * Handle input change
+   * @param {event} event
+   */
+  _createClass(VpeForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+
+    /**
+     * handle service dropdown
+     * @param {event} event event
+     */
+  }, {
+    key: "handleServiceDropdown",
+    value: function handleServiceDropdown(event) {
+      this.setState({
+        service: services[event.target.value]
+      });
+    }
+
+    /**
+     * Toggle on and off param in state at name
+     * @param {string} name name of the object key to change
+     */
+  }, {
+    key: "handleToggle",
+    value: function handleToggle(name) {
+      this.setState(_defineProperty({}, name, !this.state[name]));
+    }
+
+    /**
+     * handle multiselects
+     * @param {event} event
+     */
+  }, {
+    key: "handleMultiSelect",
+    value: function handleMultiSelect(name, event) {
+      this.setState(_defineProperty({}, name, event));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+        componentName: "Vpe",
+        field: "vpc",
+        labelText: "VPC Name",
+        className: "fieldWidthSmaller",
+        value: this.state.vpc,
+        onChange: function onChange() {} // nothing
+        ,
+        readOnly: true,
+        id: "vpe-vpc-name",
+        invalid: false
+      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        name: "service",
+        formName: "vpe",
+        groups: serviceGroups,
+        value: services[this.state.service],
+        labelText: "Service Type",
+        handleInputChange: this.handleServiceDropdown,
+        className: "fieldWidthSmaller"
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: "resource_group",
+        name: "resource_group",
+        labelText: "Resource Group",
+        groups: this.props.resourceGroups,
+        value: this.state.resource_group,
+        handleInputChange: this.handleInputChange,
+        className: "fieldWidthSmaller"
+      }), /*#__PURE__*/React__default["default"].createElement(SecurityGroupMultiSelect, {
+        id: "vpe-security-groups",
+        initialSelectedItems: this.state.security_groups,
+        vpc_name: this.state.vpc,
+        onChange: function onChange(event) {
+          return _this2.handleMultiSelect("security_groups", event);
+        },
+        securityGroups: this.props.securityGroups,
+        className: "fieldWidthSmaller",
+        invalid: this.state.security_groups.length === 0
+      }), /*#__PURE__*/React__default["default"].createElement(SubnetMultiSelect, {
+        id: "vpe-subnets",
+        initialSelectedItems: this.state.subnets,
+        vpc_name: this.state.vpc,
+        onChange: function onChange(event) {
+          return _this2.handleMultiSelect("subnets", event);
+        },
+        subnets: this.props.subnetList,
+        className: "fieldWidthSmaller"
+      })));
+    }
+  }]);
+  return VpeForm;
+}(React.Component);
+VpeForm.defaultProps = {
+  data: {
+    vpc: "",
+    service: "kms",
+    resource_group: "",
+    security_groups: [],
+    subnets: []
+  },
+  resourceGroups: [],
+  subnetList: [],
+  securityGroups: [],
+  isModal: false
+};
+VpeForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    vpc: PropTypes__default["default"].string.isRequired,
+    service: PropTypes__default["default"].string.isRequired,
+    resource_group: PropTypes__default["default"].string.isRequired,
+    security_groups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+    subnets: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+  }),
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  subnetList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  securityGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired
+};
+
+var css_248z = ".about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n";
+styleInject(css_248z);
+
+var DocTextField = function DocTextField(props) {
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: props.text === "_default_includes" ? "marginBottomSmall" : props.className
+  }, props.text === "_default_includes" ? "The default configuration includes:" : props.text);
+};
+DocTextField.defaultProps = {
+  className: "marginBottom"
+};
+DocTextField.propTypes = {
+  className: PropTypes__default["default"].string.isRequired,
+  text: PropTypes__default["default"].string.isRequired
+};
+var StructuredList = function StructuredList(props) {
+  return /*#__PURE__*/React__default["default"].createElement(react.StructuredListWrapper, {
+    className: "marginBottom"
+  }, props.headers && /*#__PURE__*/React__default["default"].createElement(react.StructuredListHead, null, /*#__PURE__*/React__default["default"].createElement(react.StructuredListRow, null, props.headers.map(function (cell, index) {
+    return /*#__PURE__*/React__default["default"].createElement(react.StructuredListCell, {
+      head: true,
+      key: index
+    }, cell);
+  }))), /*#__PURE__*/React__default["default"].createElement(react.StructuredListBody, null, props.list.map(function (row, rowIndex) {
+    return /*#__PURE__*/React__default["default"].createElement(react.StructuredListRow, {
+      key: rowIndex
+    }, row.map(function (cell, colIndex) {
+      return /*#__PURE__*/React__default["default"].createElement(react.StructuredListCell, {
+        key: colIndex
+      }, cell);
+    }));
+  })));
+};
+StructuredList.propTypes = {
+  headers: PropTypes__default["default"].array,
+  list: PropTypes__default["default"].array.isRequired
+};
+var DocTable = function DocTable(props) {
+  var headers = [];
+  var list = _toConsumableArray(props.list); // copy list, required due to reference errors
+
+  if (props.list[0][0] === "_headers") {
+    headers = _toConsumableArray(props.list[0]); // copy header row
+    headers.shift(); // remove _header
+
+    list.shift(); // remove heaer row from list
+  }
+
+  return /*#__PURE__*/React__default["default"].createElement(StructuredList, {
+    list: list,
+    headers: headers
+  });
+};
+DocTable.propTypes = {
+  list: PropTypes__default["default"].array.isRequired
+};
+var RelatedLinks = function RelatedLinks(props) {
+  return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "smallerText"
+  }, "Related Links"), props.links.map(function (link, index) {
+    return /*#__PURE__*/React__default["default"].createElement("div", {
+      key: "related-link-" + index
+    }, /*#__PURE__*/React__default["default"].createElement("a", {
+      href: link[0],
+      target: "_blank",
+      rel: "noreferrer",
+      className: "smallerText"
+    }, link.length === 1 ? "Docs" : link[1]));
+  }));
+};
+RelatedLinks.propTypes = {
+  links: PropTypes__default["default"].arrayOf(PropTypes__default["default"].arrayOf(PropTypes__default["default"].string.isRequired).isRequired).isRequired
+};
+var Docs = function Docs(props) {
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "subForm leftTextAlign about"
+  }, props.content.map(function (field, index) {
+    return field.text ?
+    /*#__PURE__*/
+    // text field
+    React__default["default"].createElement(DocTextField, _extends({
+      key: index
+    }, field)) : field.subHeading ?
+    /*#__PURE__*/
+    // subheading
+    React__default["default"].createElement("h6", {
+      className: "marginBottomSmall",
+      key: index
+    }, field.subHeading) :
+    /*#__PURE__*/
+    // table
+    React__default["default"].createElement(DocTable, {
+      key: index,
+      list: _toConsumableArray(field.table)
+    });
+  }), props.relatedLinks && /*#__PURE__*/React__default["default"].createElement(RelatedLinks, {
+    links: props.relatedLinks
+  }));
+};
+Docs.propTypes = {
+  content: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({
+    text: PropTypes__default["default"].string,
+    className: PropTypes__default["default"].string,
+    table: PropTypes__default["default"].array,
+    subHeading: PropTypes__default["default"].string
+  })).isRequired,
+  relatedLinks: PropTypes__default["default"].array
+};
+
+var AccessGroupForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(AccessGroupForm, _React$Component);
+  var _super = _createSuper(AccessGroupForm);
+  function AccessGroupForm(props) {
+    var _this;
+    _classCallCheck(this, AccessGroupForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
    * handle input change
    * @param {string} name key to change in state
    * @param {*} value value to update
@@ -14671,12 +15173,15 @@ var AccessGroupPolicyForm = /*#__PURE__*/function (_React$Component) {
    * @param {*} value value to update
    */
   _createClass(AccessGroupPolicyForm, [{
+<<<<<<< HEAD
 =======
    * Handle input change
    * @param {event} event
    */
   _createClass(VpeForm, [{
 >>>>>>> 74e4b37 (Issue 713: **NEW** VPE Form  (#41))
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
     key: "handleInputChange",
     value: function handleInputChange(event) {
       this.setState(this.eventTargetToNameAndValue(event));
@@ -14684,6 +15189,9 @@ var AccessGroupPolicyForm = /*#__PURE__*/function (_React$Component) {
 
     /**
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
      * handle input change
      * @param {string} name key to change in state
      * @param {*} value value to update
@@ -14700,6 +15208,7 @@ var AccessGroupPolicyForm = /*#__PURE__*/function (_React$Component) {
         resources: resources
       });
     }
+<<<<<<< HEAD
 =======
      * handle service dropdown
      * @param {event} event event
@@ -14732,11 +15241,16 @@ var AccessGroupPolicyForm = /*#__PURE__*/function (_React$Component) {
       this.setState(_defineProperty({}, name, event));
     }
 >>>>>>> 74e4b37 (Issue 713: **NEW** VPE Form  (#41))
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
   }, {
     key: "render",
     value: function render() {
       var _this2 = this;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
       return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
         id: "name",
         componentName: "policies",
@@ -15037,6 +15551,7 @@ AccessGroupDynamicPolicyForm.propTypes = {
 exports.AccessGroupDynamicPolicyForm = AccessGroupDynamicPolicyForm;
 exports.AccessGroupForm = AccessGroupForm;
 exports.AccessGroupPolicyForm = AccessGroupPolicyForm;
+<<<<<<< HEAD
 >>>>>>> f849341 (access group forms :100:)
 =======
       return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
@@ -15177,6 +15692,11 @@ exports.AppIdKeyForm = AppIdKeyForm;
 exports.AtrackerForm = AtrackerForm;
 exports.DeleteButton = DeleteButton;
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+exports.AppIdKeyForm = AppIdKeyForm;
+exports.AtrackerForm = AtrackerForm;
+exports.DeleteButton = DeleteButton;
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 exports.DeleteModal = DeleteModal;
 exports.Docs = Docs;
 exports.DynamicRender = DynamicRender;
@@ -15200,6 +15720,7 @@ exports.IcseSelect = IcseSelect;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 72d0b85 (merge)
 =======
 >>>>>>> dc1cdcb (arrayOf)
@@ -15209,6 +15730,8 @@ exports.IcseSelect = IcseSelect;
 >>>>>>> 7d02243 (fix merge)
 =======
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 exports.IcseSubForm = IcseSubForm;
 exports.IcseTextInput = IcseTextInput;
 exports.IcseToggle = IcseToggle;
@@ -15218,6 +15741,7 @@ exports.ObjectStorageBucketForm = ObjectStorageBucketForm;
 exports.ObjectStorageKeyForm = ObjectStorageKeyForm;
 exports.PopoverWrapper = PopoverWrapper;
 exports.RenderForm = RenderForm;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -15257,20 +15781,26 @@ exports.SecretsManagerForm = SecretsManagerForm;
 =======
 =======
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 exports.SaveAddButton = SaveAddButton;
 exports.SaveIcon = SaveIcon;
 exports.SccForm = SccForm;
 exports.SecretsManagerForm = SecretsManagerForm;
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 7d02243 (fix merge)
 =======
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 exports.SecurityGroupMultiSelect = SecurityGroupMultiSelect;
 exports.SshKeyForm = SshKeyForm;
 exports.SshKeyMultiSelect = SshKeyMultiSelect;
 exports.StatefulTabPanel = StatefulTabPanel;
 exports.StatelessToggleForm = StatelessToggleForm;
 exports.SubnetMultiSelect = SubnetMultiSelect;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -15315,6 +15845,9 @@ exports.TeleportClaimToRoleForm = TeleportClaimToRoleForm;
 =======
 exports.TeleportClaimToRoleForm = TeleportClaimToRoleForm;
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+exports.TeleportClaimToRoleForm = TeleportClaimToRoleForm;
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 exports.TitleGroup = TitleGroup;
 exports.ToggleForm = ToggleForm;
 exports.ToolTipWrapper = ToolTipWrapper;
@@ -15324,6 +15857,7 @@ exports.UnsavedChangesModal = UnsavedChangesModal;
 exports.UpDownButtons = UpDownButtons;
 exports.VpcForm = VpcNetworkForm;
 exports.VpcListMultiSelect = VpcListMultiSelect;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -15347,11 +15881,17 @@ exports.buildFormFunctions = buildFormFunctions;
 =======
 exports.VpeForm = VpeForm;
 >>>>>>> 74e4b37 (Issue 713: **NEW** VPE Form  (#41))
+=======
+exports.VpeForm = VpeForm;
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 exports.VpnGatewayForm = VpnGatewayForm;
 exports.WorkerPoolForm = WorkerPoolForm;
 exports.buildFormDefaultInputMethods = buildFormDefaultInputMethods;
 exports.buildFormFunctions = buildFormFunctions;
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 7d02243 (fix merge)
 =======
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)

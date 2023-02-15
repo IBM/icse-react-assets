@@ -19,6 +19,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import { Popover, PopoverContent, FilterableMultiSelect, MultiSelect, Tile, Toggletip, ToggletipButton, ToggletipContent, Link, Modal, TextInput, Toggle, Button } from '@carbon/react';
 >>>>>>> 04bfb65 (added button examples)
@@ -687,11 +688,18 @@ import { Popover, PopoverContent, Button, StructuredListWrapper, StructuredListH
 import { Popover, PopoverContent, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Toggletip, ToggletipButton, ToggletipContent, Link, Select, SelectItem, Tile, Modal, Toggle, TextInput, NumberInput, TextArea, Dropdown, FilterableMultiSelect, Tabs, TabList, Tab, TabPanels, TabPanel } from '@carbon/react';
 >>>>>>> 74e4b37 (Issue 713: **NEW** VPE Form  (#41))
 import lazyZ, { isNullOrEmptyString as isNullOrEmptyString$1, kebabCase as kebabCase$1, isEmpty, buildNumberDropdownList, snakeCase, titleCase, isBoolean, capitalize, prettyJSON, parseIntFromZone, isFunction as isFunction$1, contains } from 'lazy-z';
+=======
+import { Popover, PopoverContent, Button, Toggletip, ToggletipButton, ToggletipContent, Link, Select, SelectItem, Tile, Modal, Toggle, TextInput, NumberInput, TextArea, Dropdown, FilterableMultiSelect, Tabs, TabList, Tab, TabPanels, TabPanel, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody } from '@carbon/react';
+import lazyZ, { isNullOrEmptyString as isNullOrEmptyString$1, kebabCase as kebabCase$1, isEmpty, buildNumberDropdownList, snakeCase, titleCase, isBoolean, capitalize, prettyJSON, parseIntFromZone, isFunction as isFunction$1, contains, eachKey } from 'lazy-z';
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Save, Add, CloseFilled, Edit, TrashCan, ArrowUp, ArrowDown, Information, CloudAlerting, WarningAlt } from '@carbon/icons-react';
 import regexButWithWords from 'regex-but-with-words';
+<<<<<<< HEAD
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 
 /**
  * create a composed class name
@@ -728,6 +736,7 @@ function prependEmptyStringWhenNull$1(value, arr) {
   let prependArray = arrayCheck ? [""] : [];
   return prependArray.concat(arr);
 }
+<<<<<<< HEAD
 >>>>>>> 01e0136 (classNames now as default prop (#40))
 
 <<<<<<< HEAD
@@ -785,6 +794,9 @@ function buildFormDefaultInputMethods(component) {
 
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 =======
+=======
+
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 /**
  * add margin bottom to subform chevron
  * @param {*} componentProps
@@ -923,7 +935,10 @@ var lib_5 = lib.formatInputPlaceholder;
 var lib_6 = lib.saveChangeButtonClass;
 var lib_10 = lib.invalidRegex;
 
+<<<<<<< HEAD
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 function ownKeys(object, enumerableOnly) {
   var keys = Object.keys(object);
   if (Object.getOwnPropertySymbols) {
@@ -949,6 +964,7 @@ function _objectSpread2(target) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
 =======
@@ -961,6 +977,8 @@ function _objectSpread2(target) {
 >>>>>>> 7d02243 (fix merge)
 =======
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -986,11 +1004,14 @@ function _createClass(Constructor, protoProps, staticProps) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 =======
 >>>>>>> 7d02243 (fix merge)
 =======
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 function _defineProperty(obj, key, value) {
   key = _toPropertyKey(key);
   if (key in obj) {
@@ -1007,11 +1028,14 @@ function _defineProperty(obj, key, value) {
 }
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> f19dfef (merge)
 =======
 >>>>>>> 7d02243 (fix merge)
 =======
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -1134,6 +1158,7 @@ function _toPropertyKey(arg) {
   return typeof key === "symbol" ? key : String(key);
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1632,6 +1657,8 @@ var lib_10 = lib.invalidRegex;
 
 =======
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
@@ -1659,6 +1686,7 @@ function styleInject(css, ref) {
   }
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -2915,6 +2943,10 @@ UpDownButtons.propTypes = {
 var css_248z$9 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  position: relative;\n  z-index: 9001;\n}";
 styleInject(css_248z$9);
 >>>>>>> 01e0136 (classNames now as default prop (#40))
+=======
+var css_248z$c = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  position: relative;\n  z-index: 9001;\n}";
+styleInject(css_248z$c);
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -2991,6 +3023,7 @@ PopoverWrapper.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$6 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  z-index: 9001; /* navbar is 9000 */\n  font-size: 80%;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
 =======
 var css_248z$6 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
@@ -3017,6 +3050,10 @@ styleInject(css_248z$8);
 var css_248z$b = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important; \n}\n";
 styleInject(css_248z$b);
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
+=======
+var css_248z$b = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important; \n}\n";
+styleInject(css_248z$b);
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 
 /**
  * generate save icon
@@ -3043,6 +3080,7 @@ var SaveIcon = function SaveIcon(props) {
 var SaveAddButton = function SaveAddButton(props) {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> b18f05c (added documentation for KeyManagementForm)
 =======
@@ -3055,6 +3093,8 @@ var SaveAddButton = function SaveAddButton(props) {
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 =======
 >>>>>>> f849341 (access group forms :100:)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
   return /*#__PURE__*/React.createElement(PopoverWrapper, {
     hoverText: props.type === "add" && props.hoverText === "Save Changes" ? "Add Resource" : props.hoverText,
     className: (props.disabled ? "inlineBlock cursorNotAllowed" : "") + (props.inline ? " alignItemsCenter marginTopLarge inLineFormButton" : ""),
@@ -3245,6 +3285,7 @@ function buildFormDefaultInputMethods(component) {
   component.setNameToValue = setNameToValue.bind(component);
 }
 
+<<<<<<< HEAD
 var css_248z$a = ".displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
 styleInject(css_248z$a);
 
@@ -3360,6 +3401,11 @@ Docs.propTypes = {
 var css_248z$8 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
 styleInject(css_248z$8);
 
+=======
+var css_248z$a = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+styleInject(css_248z$a);
+
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 /**
  * Render a form (duplicate from utils to prevent circular dependencies)
  * @param {*} form form element
@@ -3403,6 +3449,7 @@ var BuildToolTip = function BuildToolTip(props) {
     align: props.isModal ? props.tooltip.alignModal : props.tooltip.align
   });
 };
+<<<<<<< HEAD
 <<<<<<< HEAD
 StatelessToggleForm.defaultProps = {
   hide: true,
@@ -3487,11 +3534,16 @@ var BuildToolTip = function BuildToolTip(props) {
 };
 =======
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 BuildToolTip.defaultProps = {
   tooltip: {
     content: ""
   },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
   isModal: false,
   align: "top",
   alignModal: "bottom"
@@ -3525,6 +3577,7 @@ var ToolTipWrapper = function ToolTipWrapper(props) {
   // No label- this is usually a title
   React.createElement("div", {
     className: "labelRow"
+<<<<<<< HEAD
   }, RenderForm(props.innerForm, allProps), tooltip) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     className: "cds--label labelRow"
   }, /*#__PURE__*/React.createElement("label", {
@@ -3893,6 +3946,8 @@ var ToolTipWrapper = function ToolTipWrapper(props) {
   // No label- this is usually a title
   React.createElement("div", {
     className: "labelRow"
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
   }, RenderForm$1(props.innerForm, allProps), tooltip) : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
     className: "cds--label labelRow"
   }, /*#__PURE__*/React.createElement("label", {
@@ -3939,6 +3994,7 @@ DynamicToolTipWrapper.propTypes = {
   innerForm: PropTypes.oneOfType([PropTypes.object, PropTypes.func])
 };
 
+<<<<<<< HEAD
 var css_248z$7 = ".textInputMedium {\n  width: 20rem;\n}";
 styleInject(css_248z$7);
 
@@ -4200,6 +4256,13 @@ const IcseSelect = props => {
 var IcseSelect = function IcseSelect(props) {
   var invalid =
 >>>>>>> 007ab0d (cos bucket form)
+=======
+var css_248z$9 = ".textInputMedium {\n  width: 20rem;\n}";
+styleInject(css_248z$9);
+
+var IcseSelect = function IcseSelect(props) {
+  var invalid =
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
   // automatically set to invalid is is null or empty string and invalid not disabled
   props.disableInvalid !== true && isNullOrEmptyString$1(props.value) ? true : props.invalid;
   var groups = props.groups.length === 0 ? [] // if no groups, empty array
@@ -4422,8 +4485,13 @@ EntitlementSelect.defaultProps = {
   className: "fieldWidthSmaller"
 };
 
+<<<<<<< HEAD
 var css_248z$6 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$6);
+=======
+var css_248z$8 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z$8);
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 
 /**
  * Empty Resource Tile
@@ -4452,6 +4520,12 @@ EmptyResourceTile.propTypes = {
   showIfEmpty: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]).isRequired
 };
 
+<<<<<<< HEAD
+=======
+var css_248z$7 = ".displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
+styleInject(css_248z$7);
+
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 /**
  * Render a form
  * @param {*} form form element
@@ -4692,8 +4766,13 @@ FormModal.propTypes = {
   children: PropTypes.node.isRequired
 };
 
+<<<<<<< HEAD
 var css_248z$5 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
 styleInject(css_248z$5);
+=======
+var css_248z$6 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
+styleInject(css_248z$6);
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 
 var IcseToggle = function IcseToggle(props) {
   var toggleName = props.toggleFieldName || snakeCase(props.labelText);
@@ -4849,8 +4928,13 @@ IcseNameInput.propTypes = {
   invalidCallback: PropTypes.func
 };
 
+<<<<<<< HEAD
 var css_248z$4 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
 styleInject(css_248z$4);
+=======
+var css_248z$5 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
+styleInject(css_248z$5);
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 
 var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
   _inherits(AppIdKeyForm, _React$Component);
@@ -5907,6 +5991,7 @@ ObjectStorageKeyForm.propTypes = {
   composedNameCallback: PropTypes.func.isRequired
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -10488,6 +10573,8 @@ AppIdKeyForm.propTypes = {
 
 =======
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 var sccRegions = [{
   id: "us",
   label: "us"
@@ -10644,7 +10731,10 @@ SccForm.propTypes = {
   descriptionRegex: PropTypes.instanceOf(RegExp).isRequired
 };
 
+<<<<<<< HEAD
 >>>>>>> b9aa481 (feat: object storage key form)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 /**
  * SecretsManagerForm
  * @param {Object} props
@@ -10721,6 +10811,7 @@ SecretsManagerForm.propTypes = {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$2 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
 styleInject(css_248z$2);
 
@@ -10742,6 +10833,12 @@ styleInject(css_248z$3);
 =======
 >>>>>>> 7d02243 (fix merge)
 =======
+=======
+var css_248z$4 = ".leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidthBigger {\n  width: 30rem\n}\n";
+styleInject(css_248z$4);
+
+/**
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
  * ssh key form
  */
 var SshKeyForm = /*#__PURE__*/function (_Component) {
@@ -10896,6 +10993,7 @@ TeleportClaimToRoleForm.propTypes = {
   }).isRequired
 };
 
+<<<<<<< HEAD
 var css_248z$2 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
 styleInject(css_248z$2);
 
@@ -10904,12 +11002,25 @@ styleInject(css_248z$1);
 
 /**
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
+=======
+var css_248z$3 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+styleInject(css_248z$3);
+
+var css_248z$2 = ".leftTextAlign {\n  text-align: left;\n}\n";
+styleInject(css_248z$2);
+
+/**
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
  * Icse multiselect template
  */
 var IcseMultiSelect = function IcseMultiSelect(props) {
   return /*#__PURE__*/React.createElement(FilterableMultiSelect, {
     id: props.id,
+<<<<<<< HEAD
     className: lib_2("fieldWidth leftTextAlign cds--select", props),
+=======
+    className: lib_2("leftTextAlign", props),
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
     titleText: props.titleText,
     itemToString: function itemToString(item) {
       return item ? item : "";
@@ -10928,7 +11039,12 @@ IcseMultiSelect.defaultProps = {
   disabled: false,
   useTitleInItem: false,
   invalid: false,
+<<<<<<< HEAD
   invalidText: "Invalid value"
+=======
+  invalidText: "Invalid value",
+  className: "fieldWidth"
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 };
 IcseMultiSelect.propTypes = {
   id: PropTypes.string.isRequired,
@@ -10960,7 +11076,11 @@ var SshKeyMultiSelect = function SshKeyMultiSelect(props) {
     onChange: function onChange(event) {
       props.onChange(event.selectedItems);
     },
+<<<<<<< HEAD
     className: "fieldWidthSmaller cds--form-item"
+=======
+    className: props.className
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
   });
 };
 SshKeyMultiSelect.defaultProps = {
@@ -10986,7 +11106,11 @@ var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
     id: props.id + "-security-group-multiselect",
     label: props.label,
     titleText: "Security Groups",
+<<<<<<< HEAD
     className: "fieldWidthSmaller cds--form-item",
+=======
+    className: props.className,
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
     initialSelectedItems: props.initialSelectedItems,
     vpc_name: props.vpc_name,
     invalid: props.invalid,
@@ -11005,12 +11129,18 @@ SecurityGroupMultiSelect.defaultProps = {
   disabled: false,
   label: "Select Security Groups",
 <<<<<<< HEAD
+<<<<<<< HEAD
   invalid: false
 =======
   invalid: false,
   className: "fieldWidthSmaller",
   invalidText: "Select at least one security group."
 >>>>>>> 74e4b37 (Issue 713: **NEW** VPE Form  (#41))
+=======
+  invalid: false,
+  className: "fieldWidthSmaller",
+  invalidText: "Select at least one security group."
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 };
 SecurityGroupMultiSelect.propTypes = {
   id: PropTypes.string.isRequired,
@@ -11058,7 +11188,11 @@ SubnetMultiSelect.propTypes = {
   className: PropTypes.string,
   vpc_name: PropTypes.string,
   // not required, `null` needs to be passed here
+<<<<<<< HEAD
   subnets: PropTypes.object.isRequired,
+=======
+  subnets: PropTypes.array.isRequired,
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
   disabled: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
@@ -11101,6 +11235,7 @@ VpcListMultiSelect.propTypes = {
   vpcList: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -12069,6 +12204,8 @@ VpcListMultiSelect.propTypes = {
 >>>>>>> f849341 (access group forms :100:)
 =======
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 var TransitGatewayForm = /*#__PURE__*/function (_Component) {
   _inherits(TransitGatewayForm, _Component);
   var _super = _createSuper(TransitGatewayForm);
@@ -12179,6 +12316,7 @@ TransitGatewayForm.propTypes = {
   invalidTextCallback: PropTypes.func.isRequired
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 /**
  * Atracker
@@ -12539,6 +12677,8 @@ VpnGatewayForm.propTypes = {
 
 =======
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 var nameFields = ["default_network_acl_name", "default_routing_table_name", "default_security_group_name"];
 var VpcNetworkForm = /*#__PURE__*/function (_React$Component) {
   _inherits(VpcNetworkForm, _React$Component);
@@ -12982,8 +13122,13 @@ var UnderConstruction = function UnderConstruction() {
   }), /*#__PURE__*/React.createElement("h4", null, "Page Under Construction"));
 };
 
+<<<<<<< HEAD
 var css_248z = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}";
 styleInject(css_248z);
+=======
+var css_248z$1 = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}";
+styleInject(css_248z$1);
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 
 /**
  * StatefulTabPanel wrapper for non array forms
@@ -13078,6 +13223,7 @@ StatefulTabPanel.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$3 = ".leftTextAlign {\n  text-align: left;\n}\n";
 styleInject(css_248z$3);
 =======
@@ -13093,6 +13239,8 @@ styleInject(css_248z$2);
 >>>>>>> ee08088 (issue 700: transit gateway form)
 =======
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 /**
  * Icse Modal Wrapper
  * @param {*} props
@@ -13214,6 +13362,7 @@ UnsavedChangesModal.propTypes = {
   useDefaultUnsavedMessage: PropTypes.bool
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -14497,6 +14646,8 @@ class ToggleForm extends React.Component {
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 =======
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 var ToggleForm = /*#__PURE__*/function (_React$Component) {
   _inherits(ToggleForm, _React$Component);
   var _super = _createSuper(ToggleForm);
@@ -14506,6 +14657,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.state = {
       hide: _this.props.hide,
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -14527,6 +14679,8 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
 >>>>>>> 817ead3 (update build)
 =======
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
       showDeleteModal: false,
       showUnsavedChangeModal: false,
       disableSave: true,
@@ -14537,6 +14691,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
       useDefaultUnsavedMessage: true,
       ruleOrderChange: false
     };
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -14573,6 +14728,8 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
 >>>>>>> 817ead3 (update build)
 =======
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
     _this.toggleChildren = _this.toggleChildren.bind(_assertThisInitialized(_this));
     _this.toggleDeleteModal = _this.toggleDeleteModal.bind(_assertThisInitialized(_this));
     _this.toggleUnsavedChangeModal = _this.toggleUnsavedChangeModal.bind(_assertThisInitialized(_this));
@@ -14586,6 +14743,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
     _this.onToggleSubModal = _this.onToggleSubModal.bind(_assertThisInitialized(_this));
     _this.childRef = /*#__PURE__*/React.createRef();
     return _this;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -14607,11 +14765,14 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
 >>>>>>> 817ead3 (update build)
 =======
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
   }
 
   /**
    * toggle sub modal
    */
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -14680,6 +14841,8 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
 >>>>>>> 817ead3 (update build)
 =======
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
   _createClass(ToggleForm, [{
     key: "onToggleSubModal",
     value: function onToggleSubModal() {
@@ -14709,6 +14872,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 09dbacf (SshKeyForm, example, and docs)
 =======
 >>>>>>> b9aa481 (feat: object storage key form)
@@ -14720,6 +14884,8 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
 >>>>>>> 817ead3 (update build)
 =======
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
     /**
      * toggle children rendered by form
      */
@@ -14738,6 +14904,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
             hide: !this.state.hide
           });
         }
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -14769,11 +14936,14 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
 >>>>>>> 817ead3 (update build)
 =======
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
       } else {
         this.setState({
           hide: !this.state.hide
         });
       }
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -14979,6 +15149,8 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
 >>>>>>> 817ead3 (update build)
 =======
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
     }
 
     /**
@@ -14987,6 +15159,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "toggleDeleteModal",
     value: function toggleDeleteModal() {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -15177,6 +15350,8 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
 >>>>>>> 817ead3 (update build)
 =======
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
       this.setState({
         showDeleteModal: !this.state.showDeleteModal
       });
@@ -15360,6 +15535,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 09dbacf (SshKeyForm, example, and docs)
 =======
 >>>>>>> b9aa481 (feat: object storage key form)
@@ -15371,6 +15547,8 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
 >>>>>>> 817ead3 (update build)
 =======
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
         }), _objectSpread2$1)))))),
         about: this.props.about || false
       })), this.state.showChildren && this.props.children ? this.props.children : "");
@@ -15378,6 +15556,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
   }]);
   return ToggleForm;
 }(React.Component);
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -15405,6 +15584,8 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
 >>>>>>> 817ead3 (update build)
 =======
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 ToggleForm.defaultProps = {
   hide: true,
   unsavedChanges: false,
@@ -15416,6 +15597,7 @@ ToggleForm.defaultProps = {
   useAddButton: false,
   hideName: false,
   // functions that return booleans must have a default
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -15441,10 +15623,13 @@ ToggleForm.defaultProps = {
 >>>>>>> 817ead3 (update build)
 =======
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
   deleteDisabled: function deleteDisabled() {
     return false;
   },
   forceOpen: function forceOpen() {
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -15470,6 +15655,8 @@ ToggleForm.defaultProps = {
 >>>>>>> 817ead3 (update build)
 =======
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
     return false;
   }
 };
@@ -15503,6 +15690,7 @@ ToggleForm.propTypes = {
   }).isRequired
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -15971,6 +16159,8 @@ class IcseFormTemplate extends React.Component {
 >>>>>>> f849341 (access group forms :100:)
 =======
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
   _inherits(IcseFormTemplate, _React$Component);
   var _super = _createSuper(IcseFormTemplate);
@@ -15981,17 +16171,21 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
     _this.state = {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 =======
 >>>>>>> 01e0136 (classNames now as default prop (#40))
 =======
 >>>>>>> f849341 (access group forms :100:)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
       showModal: false,
       shownArrayForms: [],
       // list of array forms to keep open on save
       shownChildForms: [] // list of child forms to keep open on save
     };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -16015,6 +16209,8 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
 =======
 =======
 >>>>>>> 01e0136 (classNames now as default prop (#40))
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
     _this.onChildToggle = _this.onChildToggle.bind(_assertThisInitialized(_this));
     _this.toggleModal = _this.toggleModal.bind(_assertThisInitialized(_this));
     _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
@@ -16027,12 +16223,15 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
     }
     return _this;
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 =======
 >>>>>>> 01e0136 (classNames now as default prop (#40))
 =======
     return _this;
 >>>>>>> f849341 (access group forms :100:)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
   }
 
   /**
@@ -16040,6 +16239,7 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
    * @param {number} index index to keep open
    * @param {number=} childIndex optional child index
    */
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -16056,6 +16256,8 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
         // remove index from list
         shownChildForms[index].splice(index, 1);
 =======
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
   _createClass(IcseFormTemplate, [{
     key: "onChildToggle",
     value: function onChildToggle(index, childIndex) {
@@ -16077,7 +16279,10 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
         this.setState({
           shownChildForms: shownChildForms
         });
+<<<<<<< HEAD
 >>>>>>> f849341 (access group forms :100:)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
       } else {
         // if only parent index
         var shownForms = _toConsumableArray(this.state.shownArrayForms); // all forms
@@ -16199,6 +16404,7 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
               this.props.disableModal();
             }
           }
+<<<<<<< HEAD
 <<<<<<< HEAD
         }
       }))),
@@ -16352,6 +16558,8 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
           }
 =======
 >>>>>>> f849341 (access group forms :100:)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
         })))),
         hideFormTitleButton: this.props.hideFormTitleButton
       }));
@@ -16361,11 +16569,14 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
 }(React.Component);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 =======
 >>>>>>> 01e0136 (classNames now as default prop (#40))
 =======
 >>>>>>> f849341 (access group forms :100:)
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 IcseFormTemplate.defaultProps = {
   hideFormTitleButton: false,
   subHeading: false,
@@ -16409,6 +16620,7 @@ IcseFormTemplate.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 export { AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, VpnGatewayForm, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> 82a5f28 (Issue 681: IcseFormTemplate (#38))
 =======
@@ -16430,6 +16642,8 @@ var AccessGroupForm = /*#__PURE__*/function (_React$Component) {
     buildFormDefaultInputMethods(_assertThisInitialized(_this));
     _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
 =======
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 var services = {
   hpcs: "Hyper Protect Crypto Services",
   kms: "Key Protect",
@@ -16459,12 +16673,264 @@ var VpeForm = /*#__PURE__*/function (_Component) {
     _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
     buildFormFunctions(_assertThisInitialized(_this));
     buildFormDefaultInputMethods(_assertThisInitialized(_this));
+<<<<<<< HEAD
 >>>>>>> 74e4b37 (Issue 713: **NEW** VPE Form  (#41))
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
     return _this;
   }
 
   /**
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+   * Handle input change
+   * @param {event} event
+   */
+  _createClass(VpeForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+
+    /**
+     * handle service dropdown
+     * @param {event} event event
+     */
+  }, {
+    key: "handleServiceDropdown",
+    value: function handleServiceDropdown(event) {
+      this.setState({
+        service: services[event.target.value]
+      });
+    }
+
+    /**
+     * Toggle on and off param in state at name
+     * @param {string} name name of the object key to change
+     */
+  }, {
+    key: "handleToggle",
+    value: function handleToggle(name) {
+      this.setState(_defineProperty({}, name, !this.state[name]));
+    }
+
+    /**
+     * handle multiselects
+     * @param {event} event
+     */
+  }, {
+    key: "handleMultiSelect",
+    value: function handleMultiSelect(name, event) {
+      this.setState(_defineProperty({}, name, event));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+        componentName: "Vpe",
+        field: "vpc",
+        labelText: "VPC Name",
+        className: "fieldWidthSmaller",
+        value: this.state.vpc,
+        onChange: function onChange() {} // nothing
+        ,
+        readOnly: true,
+        id: "vpe-vpc-name",
+        invalid: false
+      }), /*#__PURE__*/React.createElement(IcseSelect, {
+        name: "service",
+        formName: "vpe",
+        groups: serviceGroups,
+        value: services[this.state.service],
+        labelText: "Service Type",
+        handleInputChange: this.handleServiceDropdown,
+        className: "fieldWidthSmaller"
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+        formName: "resource_group",
+        name: "resource_group",
+        labelText: "Resource Group",
+        groups: this.props.resourceGroups,
+        value: this.state.resource_group,
+        handleInputChange: this.handleInputChange,
+        className: "fieldWidthSmaller"
+      }), /*#__PURE__*/React.createElement(SecurityGroupMultiSelect, {
+        id: "vpe-security-groups",
+        initialSelectedItems: this.state.security_groups,
+        vpc_name: this.state.vpc,
+        onChange: function onChange(event) {
+          return _this2.handleMultiSelect("security_groups", event);
+        },
+        securityGroups: this.props.securityGroups,
+        className: "fieldWidthSmaller",
+        invalid: this.state.security_groups.length === 0
+      }), /*#__PURE__*/React.createElement(SubnetMultiSelect, {
+        id: "vpe-subnets",
+        initialSelectedItems: this.state.subnets,
+        vpc_name: this.state.vpc,
+        onChange: function onChange(event) {
+          return _this2.handleMultiSelect("subnets", event);
+        },
+        subnets: this.props.subnetList,
+        className: "fieldWidthSmaller"
+      })));
+    }
+  }]);
+  return VpeForm;
+}(Component);
+VpeForm.defaultProps = {
+  data: {
+    vpc: "",
+    service: "kms",
+    resource_group: "",
+    security_groups: [],
+    subnets: []
+  },
+  resourceGroups: [],
+  subnetList: [],
+  securityGroups: [],
+  isModal: false
+};
+VpeForm.propTypes = {
+  data: PropTypes.shape({
+    vpc: PropTypes.string.isRequired,
+    service: PropTypes.string.isRequired,
+    resource_group: PropTypes.string.isRequired,
+    security_groups: PropTypes.arrayOf(PropTypes.string).isRequired,
+    subnets: PropTypes.arrayOf(PropTypes.string).isRequired
+  }),
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  subnetList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  securityGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  isModal: PropTypes.bool.isRequired
+};
+
+var css_248z = ".about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n";
+styleInject(css_248z);
+
+var DocTextField = function DocTextField(props) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: props.text === "_default_includes" ? "marginBottomSmall" : props.className
+  }, props.text === "_default_includes" ? "The default configuration includes:" : props.text);
+};
+DocTextField.defaultProps = {
+  className: "marginBottom"
+};
+DocTextField.propTypes = {
+  className: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired
+};
+var StructuredList = function StructuredList(props) {
+  return /*#__PURE__*/React.createElement(StructuredListWrapper, {
+    className: "marginBottom"
+  }, props.headers && /*#__PURE__*/React.createElement(StructuredListHead, null, /*#__PURE__*/React.createElement(StructuredListRow, null, props.headers.map(function (cell, index) {
+    return /*#__PURE__*/React.createElement(StructuredListCell, {
+      head: true,
+      key: index
+    }, cell);
+  }))), /*#__PURE__*/React.createElement(StructuredListBody, null, props.list.map(function (row, rowIndex) {
+    return /*#__PURE__*/React.createElement(StructuredListRow, {
+      key: rowIndex
+    }, row.map(function (cell, colIndex) {
+      return /*#__PURE__*/React.createElement(StructuredListCell, {
+        key: colIndex
+      }, cell);
+    }));
+  })));
+};
+StructuredList.propTypes = {
+  headers: PropTypes.array,
+  list: PropTypes.array.isRequired
+};
+var DocTable = function DocTable(props) {
+  var headers = [];
+  var list = _toConsumableArray(props.list); // copy list, required due to reference errors
+
+  if (props.list[0][0] === "_headers") {
+    headers = _toConsumableArray(props.list[0]); // copy header row
+    headers.shift(); // remove _header
+
+    list.shift(); // remove heaer row from list
+  }
+
+  return /*#__PURE__*/React.createElement(StructuredList, {
+    list: list,
+    headers: headers
+  });
+};
+DocTable.propTypes = {
+  list: PropTypes.array.isRequired
+};
+var RelatedLinks = function RelatedLinks(props) {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+    className: "smallerText"
+  }, "Related Links"), props.links.map(function (link, index) {
+    return /*#__PURE__*/React.createElement("div", {
+      key: "related-link-" + index
+    }, /*#__PURE__*/React.createElement("a", {
+      href: link[0],
+      target: "_blank",
+      rel: "noreferrer",
+      className: "smallerText"
+    }, link.length === 1 ? "Docs" : link[1]));
+  }));
+};
+RelatedLinks.propTypes = {
+  links: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string.isRequired).isRequired).isRequired
+};
+var Docs = function Docs(props) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "subForm leftTextAlign about"
+  }, props.content.map(function (field, index) {
+    return field.text ?
+    /*#__PURE__*/
+    // text field
+    React.createElement(DocTextField, _extends({
+      key: index
+    }, field)) : field.subHeading ?
+    /*#__PURE__*/
+    // subheading
+    React.createElement("h6", {
+      className: "marginBottomSmall",
+      key: index
+    }, field.subHeading) :
+    /*#__PURE__*/
+    // table
+    React.createElement(DocTable, {
+      key: index,
+      list: _toConsumableArray(field.table)
+    });
+  }), props.relatedLinks && /*#__PURE__*/React.createElement(RelatedLinks, {
+    links: props.relatedLinks
+  }));
+};
+Docs.propTypes = {
+  content: PropTypes.arrayOf(PropTypes.shape({
+    text: PropTypes.string,
+    className: PropTypes.string,
+    table: PropTypes.array,
+    subHeading: PropTypes.string
+  })).isRequired,
+  relatedLinks: PropTypes.array
+};
+
+var AccessGroupForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(AccessGroupForm, _React$Component);
+  var _super = _createSuper(AccessGroupForm);
+  function AccessGroupForm(props) {
+    var _this;
+    _classCallCheck(this, AccessGroupForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
    * handle input change
    * @param {string} name key to change in state
    * @param {*} value value to update
@@ -16543,12 +17009,15 @@ var AccessGroupPolicyForm = /*#__PURE__*/function (_React$Component) {
    * @param {*} value value to update
    */
   _createClass(AccessGroupPolicyForm, [{
+<<<<<<< HEAD
 =======
    * Handle input change
    * @param {event} event
    */
   _createClass(VpeForm, [{
 >>>>>>> 74e4b37 (Issue 713: **NEW** VPE Form  (#41))
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
     key: "handleInputChange",
     value: function handleInputChange(event) {
       this.setState(this.eventTargetToNameAndValue(event));
@@ -16556,6 +17025,9 @@ var AccessGroupPolicyForm = /*#__PURE__*/function (_React$Component) {
 
     /**
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
      * handle input change
      * @param {string} name key to change in state
      * @param {*} value value to update
@@ -16572,6 +17044,7 @@ var AccessGroupPolicyForm = /*#__PURE__*/function (_React$Component) {
         resources: resources
       });
     }
+<<<<<<< HEAD
 =======
      * handle service dropdown
      * @param {event} event event
@@ -16604,11 +17077,16 @@ var AccessGroupPolicyForm = /*#__PURE__*/function (_React$Component) {
       this.setState(_defineProperty({}, name, event));
     }
 >>>>>>> 74e4b37 (Issue 713: **NEW** VPE Form  (#41))
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
   }, {
     key: "render",
     value: function render() {
       var _this2 = this;
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
       return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
         id: "name",
         componentName: "policies",
@@ -16906,6 +17384,7 @@ AccessGroupDynamicPolicyForm.propTypes = {
   helperTextCallback: PropTypes.func.isRequired
 };
 
+<<<<<<< HEAD
 export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, VpnGatewayForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> f849341 (access group forms :100:)
 =======
@@ -16998,3 +17477,6 @@ VpeForm.propTypes = {
 
 export { AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, ObjectStorageBucketForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> 74e4b37 (Issue 713: **NEW** VPE Form  (#41))
+=======
+export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, ObjectStorageBucketForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+>>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
