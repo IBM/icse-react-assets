@@ -107,7 +107,6 @@ ObjectStorageBucketForm.defaultProps = {
     kms_key: "",
   },
   encryptionKeys: [],
-  parentHasRandomSuffix: true,
 };
 
 ObjectStorageBucketForm.propTypes = {
@@ -118,7 +117,6 @@ ObjectStorageBucketForm.propTypes = {
     kms_key: PropTypes.string,
   }).isRequired,
   encryptionKeys: PropTypes.array.isRequired,
-  parentHasRandomSuffix: PropTypes.bool.isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
   composedNameCallback: PropTypes.func.isRequired,

@@ -31,7 +31,6 @@ export const ObjectStorageBucketFormExample = () => {
         kms_key: "key1",
       }}
       encryptionKeys={["key1", "key2"]}
-      parentHasRandomSuffix={true}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
       composedNameCallback={composedNameCallback}
