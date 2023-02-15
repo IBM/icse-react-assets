@@ -57,7 +57,9 @@ class AtrackerForm extends Component {
             labelText="Name"
             className="fieldWidth"
             value={this.props.prefix + "-atracker"}
-            onChange={this.handleInputChange}
+            onChange={() => {
+              /** does not change **/
+            }}
             readOnly
             id="atracker-name"
             invalid={false}

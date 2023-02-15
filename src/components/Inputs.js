@@ -114,7 +114,7 @@ IcseTextInput.propTypes = {
   componentName: PropTypes.string,
   placeholder: PropTypes.string,
   field: PropTypes.string.isRequired,
-  value: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   onChange: PropTypes.func.isRequired,
   helperText: PropTypes.string,
   tooltip: PropTypes.shape({
