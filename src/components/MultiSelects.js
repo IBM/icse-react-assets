@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { FilterableMultiSelect, MultiSelect } from "@carbon/react";
+import { FilterableMultiSelect } from "@carbon/react";
 import { addClassName } from "../lib";
 import "./styles/MultiSelects.css";
 import "./styles/Modals.css";
@@ -96,7 +96,7 @@ export const SecurityGroupMultiSelect = (props) => {
     );
   }
   return (
-    <MultiSelect
+    <IcseMultiSelect
       id={props.id + "-security-group-multiselect"}
       label={props.label}
       titleText="Security Groups"
@@ -104,12 +104,12 @@ export const SecurityGroupMultiSelect = (props) => {
       initialSelectedItems={props.initialSelectedItems}
       vpc_name={props.vpc_name}
       invalid={props.invalid}
-      invalidText="Invalid Selection"
+      invalidText={props.invalidText}
       onChange={(event) => {
         props.onChange(event.selectedItems);
       }}
       disabled={props.disabled}
-      items={props.vpc_name === "" ? [] : props.securityGroups[props.vpc_name]}
+      items={props.vpc_name === "" ? [] : props.securityGroups}
       itemToString={(item) => (item ? item : "")}
     />
   );
@@ -120,6 +120,7 @@ SecurityGroupMultiSelect.defaultProps = {
   label: "Select Security Groups",
   invalid: false,
   className: "fieldWidthSmaller",
+  invalidText: "Select at least one security group.",
 };
 
 SecurityGroupMultiSelect.propTypes = {
@@ -130,8 +131,9 @@ SecurityGroupMultiSelect.propTypes = {
   onChange: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
   disabled: PropTypes.bool.isRequired,
-  securityGroups: PropTypes.object.isRequired,
+  securityGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   invalid: PropTypes.bool.isRequired,
+  invalidText: PropTypes.string.isRequired,
 };
 
 /**

@@ -34,9 +34,7 @@ function MultiSelectExamples() {
           onChange={(selectedItems) => {
             console.log(selectedItems);
           }}
-          securityGroups={{
-            test: ["one", "two"],
-          }}
+          securityGroups={["one", "two"]}
         />
         <SubnetMultiSelect
           id="test"

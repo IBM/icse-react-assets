@@ -18,6 +18,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import { Popover, PopoverContent, FilterableMultiSelect, MultiSelect, Tile, Toggletip, ToggletipButton, ToggletipContent, Link, Modal, TextInput, Toggle, Button } from '@carbon/react';
 >>>>>>> 04bfb65 (added button examples)
@@ -682,6 +683,9 @@ var _require2 = require("../src/lib/method-functions"),
   setNameToValue$2 = _require2.setNameToValue;
 =======
 import { Popover, PopoverContent, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Toggletip, ToggletipButton, ToggletipContent, Link, Select, SelectItem, Tile, Modal, Toggle, TextInput, NumberInput, TextArea, Dropdown, FilterableMultiSelect, MultiSelect, Tabs, TabList, Tab, TabPanels, TabPanel } from '@carbon/react';
+=======
+import { Popover, PopoverContent, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Toggletip, ToggletipButton, ToggletipContent, Link, Select, SelectItem, Tile, Modal, Toggle, TextInput, NumberInput, TextArea, Dropdown, FilterableMultiSelect, Tabs, TabList, Tab, TabPanels, TabPanel } from '@carbon/react';
+>>>>>>> 74e4b37 (Issue 713: **NEW** VPE Form  (#41))
 import lazyZ, { isNullOrEmptyString as isNullOrEmptyString$1, kebabCase as kebabCase$1, isEmpty, buildNumberDropdownList, snakeCase, titleCase, isBoolean, capitalize, prettyJSON, parseIntFromZone, isFunction as isFunction$1, contains } from 'lazy-z';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -10978,7 +10982,7 @@ var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
     // undefined error that happens as part of MultiSelect
     throw new Error("SecurityGroupMultiselect requires a securityGroups object. Got " + prettyJSON(props.securityGroups));
   }
-  return /*#__PURE__*/React.createElement(MultiSelect, {
+  return /*#__PURE__*/React.createElement(IcseMultiSelect, {
     id: props.id + "-security-group-multiselect",
     label: props.label,
     titleText: "Security Groups",
@@ -10986,12 +10990,12 @@ var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
     initialSelectedItems: props.initialSelectedItems,
     vpc_name: props.vpc_name,
     invalid: props.invalid,
-    invalidText: "Invalid Selection",
+    invalidText: props.invalidText,
     onChange: function onChange(event) {
       props.onChange(event.selectedItems);
     },
     disabled: props.disabled,
-    items: props.vpc_name === "" ? [] : props.securityGroups[props.vpc_name],
+    items: props.vpc_name === "" ? [] : props.securityGroups,
     itemToString: function itemToString(item) {
       return item ? item : "";
     }
@@ -11000,7 +11004,13 @@ var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
 SecurityGroupMultiSelect.defaultProps = {
   disabled: false,
   label: "Select Security Groups",
+<<<<<<< HEAD
   invalid: false
+=======
+  invalid: false,
+  className: "fieldWidthSmaller",
+  invalidText: "Select at least one security group."
+>>>>>>> 74e4b37 (Issue 713: **NEW** VPE Form  (#41))
 };
 SecurityGroupMultiSelect.propTypes = {
   id: PropTypes.string.isRequired,
@@ -11011,8 +11021,9 @@ SecurityGroupMultiSelect.propTypes = {
   onChange: PropTypes.func.isRequired,
   label: PropTypes.string.isRequired,
   disabled: PropTypes.bool.isRequired,
-  securityGroups: PropTypes.object.isRequired,
-  invalid: PropTypes.bool.isRequired
+  securityGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  invalid: PropTypes.bool.isRequired,
+  invalidText: PropTypes.string.isRequired
 };
 
 /**
@@ -16397,6 +16408,7 @@ IcseFormTemplate.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 export { AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, VpnGatewayForm, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> 82a5f28 (Issue 681: IcseFormTemplate (#38))
 =======
@@ -16417,10 +16429,42 @@ var AccessGroupForm = /*#__PURE__*/function (_React$Component) {
     buildFormFunctions(_assertThisInitialized(_this));
     buildFormDefaultInputMethods(_assertThisInitialized(_this));
     _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+=======
+var services = {
+  hpcs: "Hyper Protect Crypto Services",
+  kms: "Key Protect",
+  cos: "Object Storage",
+  icr: "Container Registry",
+  "Hyper Protect Crypto Services": "hpcs",
+  "Key Protect": "kms",
+  "Object Storage": "cos",
+  "Container Registry": "icr"
+};
+var serviceGroups = ["Hyper Protect Crypto Services", "Key Protect", "Object Storage", "Container Registry"];
+
+/**
+ * Vpe Form
+ */
+var VpeForm = /*#__PURE__*/function (_Component) {
+  _inherits(VpeForm, _Component);
+  var _super = _createSuper(VpeForm);
+  function VpeForm(props) {
+    var _this;
+    _classCallCheck(this, VpeForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleServiceDropdown = _this.handleServiceDropdown.bind(_assertThisInitialized(_this));
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleMultiSelect = _this.handleMultiSelect.bind(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+>>>>>>> 74e4b37 (Issue 713: **NEW** VPE Form  (#41))
     return _this;
   }
 
   /**
+<<<<<<< HEAD
    * handle input change
    * @param {string} name key to change in state
    * @param {*} value value to update
@@ -16499,12 +16543,19 @@ var AccessGroupPolicyForm = /*#__PURE__*/function (_React$Component) {
    * @param {*} value value to update
    */
   _createClass(AccessGroupPolicyForm, [{
+=======
+   * Handle input change
+   * @param {event} event
+   */
+  _createClass(VpeForm, [{
+>>>>>>> 74e4b37 (Issue 713: **NEW** VPE Form  (#41))
     key: "handleInputChange",
     value: function handleInputChange(event) {
       this.setState(this.eventTargetToNameAndValue(event));
     }
 
     /**
+<<<<<<< HEAD
      * handle input change
      * @param {string} name key to change in state
      * @param {*} value value to update
@@ -16521,10 +16572,43 @@ var AccessGroupPolicyForm = /*#__PURE__*/function (_React$Component) {
         resources: resources
       });
     }
+=======
+     * handle service dropdown
+     * @param {event} event event
+     */
+  }, {
+    key: "handleServiceDropdown",
+    value: function handleServiceDropdown(event) {
+      this.setState({
+        service: services[event.target.value]
+      });
+    }
+
+    /**
+     * Toggle on and off param in state at name
+     * @param {string} name name of the object key to change
+     */
+  }, {
+    key: "handleToggle",
+    value: function handleToggle(name) {
+      this.setState(_defineProperty({}, name, !this.state[name]));
+    }
+
+    /**
+     * handle multiselects
+     * @param {event} event
+     */
+  }, {
+    key: "handleMultiSelect",
+    value: function handleMultiSelect(name, event) {
+      this.setState(_defineProperty({}, name, event));
+    }
+>>>>>>> 74e4b37 (Issue 713: **NEW** VPE Form  (#41))
   }, {
     key: "render",
     value: function render() {
       var _this2 = this;
+<<<<<<< HEAD
       return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
         id: "name",
         componentName: "policies",
@@ -16833,3 +16917,84 @@ export { AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRen
 =======
 export { AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, ObjectStorageBucketForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpnGatewayForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
+=======
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+        componentName: "Vpe",
+        field: "vpc",
+        labelText: "VPC Name",
+        className: "fieldWidthSmaller",
+        value: this.state.vpc,
+        onChange: function onChange() {} // nothing
+        ,
+        readOnly: true,
+        id: "vpe-vpc-name",
+        invalid: false
+      }), /*#__PURE__*/React.createElement(IcseSelect, {
+        name: "service",
+        formName: "vpe",
+        groups: serviceGroups,
+        value: services[this.state.service],
+        labelText: "Service Type",
+        handleInputChange: this.handleServiceDropdown,
+        className: "fieldWidthSmaller"
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+        formName: "resource_group",
+        name: "resource_group",
+        labelText: "Resource Group",
+        groups: this.props.resourceGroups,
+        value: this.state.resource_group,
+        handleInputChange: this.handleInputChange,
+        className: "fieldWidthSmaller"
+      }), /*#__PURE__*/React.createElement(SecurityGroupMultiSelect, {
+        id: "vpe-security-groups",
+        initialSelectedItems: this.state.security_groups,
+        vpc_name: this.state.vpc,
+        onChange: function onChange(event) {
+          return _this2.handleMultiSelect("security_groups", event);
+        },
+        securityGroups: this.props.securityGroups,
+        className: "fieldWidthSmaller",
+        invalid: this.state.security_groups.length === 0
+      }), /*#__PURE__*/React.createElement(SubnetMultiSelect, {
+        id: "vpe-subnets",
+        initialSelectedItems: this.state.subnets,
+        vpc_name: this.state.vpc,
+        onChange: function onChange(event) {
+          return _this2.handleMultiSelect("subnets", event);
+        },
+        subnets: this.props.subnetList,
+        className: "fieldWidthSmaller"
+      })));
+    }
+  }]);
+  return VpeForm;
+}(Component);
+VpeForm.defaultProps = {
+  data: {
+    vpc: "",
+    service: "kms",
+    resource_group: "",
+    security_groups: [],
+    subnets: []
+  },
+  resourceGroups: [],
+  subnetList: [],
+  securityGroups: [],
+  isModal: false
+};
+VpeForm.propTypes = {
+  data: PropTypes.shape({
+    vpc: PropTypes.string.isRequired,
+    service: PropTypes.string.isRequired,
+    resource_group: PropTypes.string.isRequired,
+    security_groups: PropTypes.arrayOf(PropTypes.string).isRequired,
+    subnets: PropTypes.arrayOf(PropTypes.string).isRequired
+  }),
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  subnetList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  securityGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  isModal: PropTypes.bool.isRequired
+};
+
+export { AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, ObjectStorageBucketForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+>>>>>>> 74e4b37 (Issue 713: **NEW** VPE Form  (#41))
