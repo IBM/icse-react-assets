@@ -3,7 +3,7 @@ import {
   buildFormFunctions,
   buildFormDefaultInputMethods,
 } from "../../component-utils";
-import { eachKey } from "lazy-z";
+import { eachKey, snakeCase } from "lazy-z";
 import { IcseFormGroup, IcseHeading } from "../../Utils";
 import { IcseNameInput, IcseTextInput } from "../../Inputs";
 import { IcseSelect, IcseNumberSelect } from "../../Dropdowns";
@@ -21,7 +21,7 @@ const conditionOperators = {
 class AccessGroupDynamicPolicyForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.props;
+    this.state = this.props.data;
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -63,13 +63,14 @@ class AccessGroupDynamicPolicyForm extends React.Component {
         <IcseFormGroup>
           <IcseNameInput
             id="name"
-            component="dynamic_policies"
+            componentName="dynamic_policies"
             field="name"
             labelText="Name"
             value={this.state.name}
             onChange={this.handleInputChange}
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
             invalid={this.props.invalidCallback(this.state, this.props)}
+            helperTextCallback={() => this.props.helperTextCallback(this.state)}
           />
           <IcseNumberSelect
             tooltip={{
@@ -97,7 +98,7 @@ class AccessGroupDynamicPolicyForm extends React.Component {
             isModal={this.props.isModal}
             labelText="Identity Provider"
             value={this.state.identity_provider}
-            invalid={"sixOrMore"}
+            invalid={false}
             onChange={this.handleInputChange}
             className="textInputWide"
           />
@@ -123,7 +124,7 @@ class AccessGroupDynamicPolicyForm extends React.Component {
         </IcseFormGroup>
         <IcseFormGroup>
           <IcseSelect
-            component="operator"
+            formName="dynamic_policies"
             tooltip={{
               content: "The operation to perform on the claim.",
             }}
@@ -133,7 +134,7 @@ class AccessGroupDynamicPolicyForm extends React.Component {
             isModal={this.props.isModal}
             name="operator"
             disableInvalid
-            labelText="Conditon Operator"
+            labelText="Condition Operator"
             handleInputChange={this.handleInputCondition}
           />
         </IcseFormGroup>
@@ -181,6 +182,9 @@ AccessGroupDynamicPolicyForm.propTypes = {
     }).isRequired,
   }).isRequired,
   isModal: PropTypes.bool.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  helperTextCallback: PropTypes.func.isRequired,
 };
 
 export default AccessGroupDynamicPolicyForm;

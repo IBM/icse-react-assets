@@ -3,16 +3,14 @@ import {
   buildFormDefaultInputMethods,
   buildFormFunctions,
 } from "../../component-utils";
-import { AccessGroupPolicyForm } from "./AccessGroupPolicyForm";
-import { AccessGroupDynamicPolicyForm } from "./AccessGroupDynamicPolicyForm";
 import { IcseFormGroup } from "../../Utils";
-import { IcseNameInput } from "../../Inputs";
+import { IcseNameInput, IcseTextInput } from "../../Inputs";
 import PropTypes from "prop-types";
 
 class AccessGroupForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.props;
+    this.state = this.props.data;
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -39,10 +37,13 @@ class AccessGroupForm extends React.Component {
             value={this.state.name}
             onChange={this.handleInputChange}
             className="fieldWidthSmaller"
+            hideHelperText
+            invalid={this.props.invalidCallback(this.state, this.props)}
+            invalidText={this.props.invalidTextCallback(this.state, this.props)}
           />
         </IcseFormGroup>
         <IcseFormGroup>
-          <IcseNameInput
+          <IcseTextInput
             id="description"
             componentName="description"
             tooltip={{
@@ -53,22 +54,11 @@ class AccessGroupForm extends React.Component {
             value={this.state.description}
             onChange={this.handleInputChange}
             isModal={this.props.isModal}
-            invalid={false}
             className="textInputWide"
+            hideHelperText
+            invalid={false}
           />
         </IcseFormGroup>
-        {!this.props.isModal && (
-          <>
-            {/* <AccessGroupPolicies
-              slz={this.props.slz}
-              arrayParentName={this.props.data.name}
-            />
-            <AccessGroupDynamicPolicies
-              slz={this.props.slz}
-              arrayParentName={this.props.data.name}
-            /> */}
-          </>
-        )}
       </>
     );
   }
@@ -88,6 +78,8 @@ AccessGroupForm.propTypes = {
     description: PropTypes.string.isRequired,
   }).isRequired,
   isModal: PropTypes.bool.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
 };
 
 export default AccessGroupForm;

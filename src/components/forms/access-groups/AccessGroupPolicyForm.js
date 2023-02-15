@@ -1,4 +1,5 @@
 import React from "react";
+import { kebabCase } from "lazy-z";
 import {
   buildFormFunctions,
   buildFormDefaultInputMethods,
@@ -11,7 +12,7 @@ import PropTypes from "prop-types";
 class AccessGroupPolicyForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.props;
+    this.state = this.props.data;
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -52,7 +53,7 @@ class AccessGroupPolicyForm extends React.Component {
             labelText="Name"
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
             invalid={this.props.invalidCallback(this.state, this.props)}
-            hideHelperText
+            helperTextCallback={() => this.props.helperTextCallback(this.state)}
           />
         </IcseFormGroup>
         <IcseFormGroup className="marginBottomSmall">
@@ -174,6 +175,9 @@ AccessGroupPolicyForm.propTypes = {
   }).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   isModal: PropTypes.bool.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  helperTextCallback: PropTypes.func.isRequired,
 };
 
 export default AccessGroupPolicyForm;

@@ -103,6 +103,7 @@ class IcseFormTemplate extends React.Component {
           }
           tooltip={this.props.tooltip}
           about={this.props.docs ? this.props.docs() : false}
+          hideAbout={this.props.hideAbout}
           form={
             <>
               <EmptyResourceTile

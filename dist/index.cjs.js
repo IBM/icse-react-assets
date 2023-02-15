@@ -2475,6 +2475,7 @@ var SaveIcon = function SaveIcon(props) {
  * @returns Save add button
  */
 var SaveAddButton = function SaveAddButton(props) {
+<<<<<<< HEAD
 =======
 >>>>>>> b18f05c (added documentation for KeyManagementForm)
 =======
@@ -2483,6 +2484,8 @@ var SaveAddButton = function SaveAddButton(props) {
 >>>>>>> 7d02243 (fix merge)
 =======
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+>>>>>>> f849341 (access group forms :100:)
   return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
     hoverText: props.type === "add" && props.hoverText === "Save Changes" ? "Add Resource" : props.hoverText,
     className: (props.disabled ? "inlineBlock cursorNotAllowed" : "") + (props.inline ? " alignItemsCenter marginTopLarge inLineFormButton" : ""),
@@ -2955,9 +2958,14 @@ var IcseToggle = function IcseToggle(props) {
 var css_248z$7 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
 styleInject(css_248z$7);
 
+<<<<<<< HEAD
 const IcseToggle = props => {
   let toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
 >>>>>>> 01e0136 (classNames now as default prop (#40))
+=======
+var IcseToggle = function IcseToggle(props) {
+  var toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
+>>>>>>> f849341 (access group forms :100:)
   return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React__default["default"].createElement(react.Toggle, {
     labelA: props.useOnOff ? "Off" : "False",
     labelB: props.useOnOff ? "On" : "True",
@@ -2966,6 +2974,7 @@ const IcseToggle = props => {
     className: lib_2("leftTextAlign", props) + (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
     ,
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -2991,6 +3000,9 @@ const IcseToggle = props => {
 =======
     onToggle: event => {
 >>>>>>> 01e0136 (classNames now as default prop (#40))
+=======
+    onToggle: function onToggle(event) {
+>>>>>>> f849341 (access group forms :100:)
       props.onToggle(toggleName, event);
     },
     defaultToggled: props.defaultToggled,
@@ -3068,8 +3080,8 @@ IcseToggle.propTypes = {
  * @param {string=} props.labelText override label text
  * @returns <IcseTextInput/> component
  */
-const IcseTextInput = props => {
-  let fieldName = lazyZ.titleCase(props.field);
+var IcseTextInput = function IcseTextInput(props) {
+  var fieldName = lazyZ.titleCase(props.field);
   return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React__default["default"].createElement(react.TextInput, {
     id: props.id,
     className: lib_2("leftTextAlign", props),
@@ -3100,7 +3112,7 @@ const IcseTextInput = props => {
     invalid: lazyZ.isBoolean(props.invalid) ? props.invalid : props.invalidCallback(),
     onChange: props.onChange,
     helperText: props.helperText,
-    invalidText: props.invalidText ? props.invalidText : `Invalid ${props.field} value.`,
+    invalidText: props.invalidText ? props.invalidText : "Invalid ".concat(props.field, " value."),
     maxLength: props.maxLength,
     disabled: props.disabled,
     readOnly: props.readOnly
@@ -3149,8 +3161,8 @@ IcseTextInput.propTypes = {
  * @param {func} props.invalidCallback
  * @returns <IcseNameInput />
  */
-const IcseNameInput = props => {
-  let helperText = "";
+var IcseNameInput = function IcseNameInput(props) {
+  var helperText = "";
   // if helper text is not hidden
   if (!props.hideHelperText && !props.useData) {
     helperText = props.helperTextCallback();
@@ -3186,6 +3198,7 @@ IcseNameInput.propTypes = {
   invalidCallback: PropTypes__default["default"].func
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -3540,9 +3553,13 @@ const IcseSelect = props => {
 const IcseSelect = props => {
   let invalid =
 >>>>>>> 01e0136 (classNames now as default prop (#40))
+=======
+var IcseSelect = function IcseSelect(props) {
+  var invalid =
+>>>>>>> f849341 (access group forms :100:)
   // automatically set to invalid is is null or empty string and invalid not disabled
   props.disableInvalid !== true && lazyZ.isNullOrEmptyString(props.value) ? true : props.invalid;
-  let groups = props.groups.length === 0 ? [] // if no groups, empty array
+  var groups = props.groups.length === 0 ? [] // if no groups, empty array
   : lib_3(
   // otherwise try and prepend empty string if null
   props.value, props.groups);
@@ -3553,7 +3570,7 @@ const IcseSelect = props => {
   }
   return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, _extends({
     id: lazyZ.kebabCase(props.name) + "-dropdown-tooltip",
-    innerForm: () => {
+    innerForm: function innerForm() {
       return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
         hoverText: props.value || ""
         // inherit classnames from tooltip
@@ -3570,11 +3587,13 @@ const IcseSelect = props => {
         invalidText: props.invalidText,
         readOnly: props.readOnly,
         onChange: props.handleInputChange
-      }, groups.map(value => /*#__PURE__*/React__default["default"].createElement(react.SelectItem, {
-        key: `${props.id}-${value}`,
-        text: value,
-        value: value
-      }))));
+      }, groups.map(function (value) {
+        return /*#__PURE__*/React__default["default"].createElement(react.SelectItem, {
+          key: "".concat(props.id, "-").concat(value),
+          text: value,
+          value: value
+        });
+      })));
     }
   }, props));
 };
@@ -3611,16 +3630,30 @@ IcseSelect.propTypes = {
     align: PropTypes__default["default"].string
   })
 };
+<<<<<<< HEAD
 class FetchSelect extends React__default["default"].Component {
   _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
 <<<<<<< HEAD
+=======
+var FetchSelect = /*#__PURE__*/function (_React$Component) {
+  _inherits(FetchSelect, _React$Component);
+  var _super = _createSuper(FetchSelect);
+  function FetchSelect(props) {
+    var _this;
+    _classCallCheck(this, FetchSelect);
+    _this = _super.call(this, props);
+    _defineProperty(_assertThisInitialized(_this), "_isMounted", false);
+    _this.state = {
+>>>>>>> f849341 (access group forms :100:)
       data: []
     };
-    this.dataToGroups = this.dataToGroups.bind(this);
+    _this.dataToGroups = _this.dataToGroups.bind(_assertThisInitialized(_this));
+    return _this;
   }
+<<<<<<< HEAD
   componentDidMount() {
     this._isMounted = true;
     if (lazyZ.isEmpty(this.state.data)) fetch(this.props.apiEndpoint).then(res => res.json()).then(data => {
@@ -3740,33 +3773,56 @@ SccForm.propTypes = {
       if (this._isMounted) this.setState({
         data: data
 >>>>>>> 061a17e (removed resourceGroups from state, added proptypes, removed ResourceGroupSelect)
+=======
+  _createClass(FetchSelect, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+      this._isMounted = true;
+      if (lazyZ.isEmpty(this.state.data)) fetch(this.props.apiEndpoint).then(function (res) {
+        return res.json();
+      }).then(function (data) {
+        if (_this2.props.onReturnFunction) {
+          _this2.props.onReturnFunction(data);
+        }
+        if (_this2._isMounted) _this2.setState({
+          data: data
+        });
+      }).catch(function (err) {
+        console.error(err);
+>>>>>>> f849341 (access group forms :100:)
       });
-    }).catch(err => {
-      console.error(err);
-    });
-  }
-  componentWillUnmount() {
-    this._isMounted = false;
-  }
-  dataToGroups() {
-    if (this.props.filter) {
-      return this.state.data.filter(this.props.filter);
-    } else {
-      return this.state.data;
     }
-  }
-  render() {
-    return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      labelText: this.props.labelText,
-      handleInputChange: this.props.handleInputChange,
-      name: this.props.name,
-      className: this.props.className,
-      formName: this.props.formName,
-      groups: this.dataToGroups(),
-      value: this.props.value || "null"
-    });
-  }
-}
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this._isMounted = false;
+    }
+  }, {
+    key: "dataToGroups",
+    value: function dataToGroups() {
+      if (this.props.filter) {
+        return this.state.data.filter(this.props.filter);
+      } else {
+        return this.state.data;
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        labelText: this.props.labelText,
+        handleInputChange: this.props.handleInputChange,
+        name: this.props.name,
+        className: this.props.className,
+        formName: this.props.formName,
+        groups: this.dataToGroups(),
+        value: this.props.value || "null"
+      });
+    }
+  }]);
+  return FetchSelect;
+}(React__default["default"].Component);
 FetchSelect.propTypes = {
   labelText: PropTypes__default["default"].string.isRequired,
   handleInputChange: PropTypes__default["default"].func.isRequired,
@@ -3782,16 +3838,16 @@ FetchSelect.propTypes = {
   name: PropTypes__default["default"].string.isRequired,
   formName: PropTypes__default["default"].string.isRequired
 };
-const IcseNumberSelect = props => {
+var IcseNumberSelect = function IcseNumberSelect(props) {
   return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
     formName: props.formName,
     groups: lazyZ.buildNumberDropdownList(props.max, props.min),
     value: props.value.toString(),
     name: props.name || "Icse Number Select",
     className: props.className,
-    handleInputChange: event => {
+    handleInputChange: function handleInputChange(event) {
       // set name target value and parse int
-      let sendEvent = {
+      var sendEvent = {
         target: {
           name: event.target.name,
           value: parseInt(event.target.value)
@@ -3831,7 +3887,7 @@ IcseNumberSelect.propTypes = {
   labelText: PropTypes__default["default"].string.isRequired,
   isModal: PropTypes__default["default"].bool.isRequired
 };
-const EntitlementSelect = props => {
+var EntitlementSelect = function EntitlementSelect(props) {
   return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
     name: props.name,
     labelText: "Entitlement",
@@ -6591,7 +6647,10 @@ var IcseMultiSelect = function IcseMultiSelect(props) {
     itemToString: function itemToString(item) {
       return item ? item : "";
     },
+<<<<<<< HEAD
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+>>>>>>> f849341 (access group forms :100:)
     invalid: props.invalid,
     invalidText: props.invalidText,
     initialSelectedItems: props.initialSelectedItems,
@@ -6626,10 +6685,14 @@ IcseMultiSelect.propTypes = {
  * ssh key multiselect
  */
 <<<<<<< HEAD
+<<<<<<< HEAD
 const SshKeyMultiSelect = props => {
 =======
 var SshKeyMultiSelect = function SshKeyMultiSelect(props) {
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+var SshKeyMultiSelect = function SshKeyMultiSelect(props) {
+>>>>>>> f849341 (access group forms :100:)
   return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
     id: props.id + "-ssh-key-multiselect",
     useTitleInItem: true,
@@ -6640,10 +6703,14 @@ var SshKeyMultiSelect = function SshKeyMultiSelect(props) {
     items: props.sshKeys,
     initialSelectedItems: props.initialSelectedItems || [],
 <<<<<<< HEAD
+<<<<<<< HEAD
     onChange: event => {
 =======
     onChange: function onChange(event) {
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+    onChange: function onChange(event) {
+>>>>>>> f849341 (access group forms :100:)
       props.onChange(event.selectedItems);
     },
     className: "fieldWidthSmaller cds--form-item"
@@ -6663,10 +6730,14 @@ SshKeyMultiSelect.propTypes = {
  * sg multiselect
  */
 <<<<<<< HEAD
+<<<<<<< HEAD
 const SecurityGroupMultiSelect = props => {
 =======
 var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
+>>>>>>> f849341 (access group forms :100:)
   if (props.vpc_name && !props.securityGroups) {
     // checking props.securityGroups[props.vpc_name] will result in an
     // undefined error that happens as part of MultiSelect
@@ -6682,14 +6753,19 @@ var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
     invalid: props.invalid,
     invalidText: "Invalid Selection",
 <<<<<<< HEAD
+<<<<<<< HEAD
     onChange: event => {
 =======
     onChange: function onChange(event) {
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+    onChange: function onChange(event) {
+>>>>>>> f849341 (access group forms :100:)
       props.onChange(event.selectedItems);
     },
     disabled: props.disabled,
     items: props.vpc_name === "" ? [] : props.securityGroups[props.vpc_name],
+<<<<<<< HEAD
 <<<<<<< HEAD
     itemToString: item => item ? item : ""
 =======
@@ -6697,6 +6773,11 @@ var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
       return item ? item : "";
     }
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+    itemToString: function itemToString(item) {
+      return item ? item : "";
+    }
+>>>>>>> f849341 (access group forms :100:)
   });
 };
 SecurityGroupMultiSelect.defaultProps = {
@@ -6721,10 +6802,14 @@ SecurityGroupMultiSelect.propTypes = {
  * vpc subnet multiselect
  */
 <<<<<<< HEAD
+<<<<<<< HEAD
 const SubnetMultiSelect = props => {
 =======
 var SubnetMultiSelect = function SubnetMultiSelect(props) {
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+var SubnetMultiSelect = function SubnetMultiSelect(props) {
+>>>>>>> f849341 (access group forms :100:)
   return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
     id: props.id + "-subnet-multiselect",
     className: props.className,
@@ -6737,12 +6822,18 @@ var SubnetMultiSelect = function SubnetMultiSelect(props) {
     invalid: props.initialSelectedItems.length === 0,
     disabled: props.disabled,
 <<<<<<< HEAD
+<<<<<<< HEAD
     onChange: event => props.onChange(event.selectedItems)
 =======
     onChange: function onChange(event) {
       return props.onChange(event.selectedItems);
     }
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+    onChange: function onChange(event) {
+      return props.onChange(event.selectedItems);
+    }
+>>>>>>> f849341 (access group forms :100:)
   });
 };
 SubnetMultiSelect.defaultProps = {
@@ -6773,10 +6864,14 @@ SubnetMultiSelect.propTypes = {
  * VPC List MultiSelect
  */
 <<<<<<< HEAD
+<<<<<<< HEAD
 const VpcListMultiSelect = props => {
 =======
 var VpcListMultiSelect = function VpcListMultiSelect(props) {
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+var VpcListMultiSelect = function VpcListMultiSelect(props) {
+>>>>>>> f849341 (access group forms :100:)
   // throw error here so that passing no vpc list prop will error here
   // instead of being passed to `FilterableMultiselect`
   if (!props.vpcList) {
@@ -6788,12 +6883,18 @@ var VpcListMultiSelect = function VpcListMultiSelect(props) {
     id: props.id + "-vpc-select",
     titleText: props.titleText,
 <<<<<<< HEAD
+<<<<<<< HEAD
     onChange: event => props.onChange(event.selectedItems),
 =======
     onChange: function onChange(event) {
       return props.onChange(event.selectedItems);
     },
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+    onChange: function onChange(event) {
+      return props.onChange(event.selectedItems);
+    },
+>>>>>>> f849341 (access group forms :100:)
     initialSelectedItems: props.initialSelectedItems,
     className: props.className,
     items: props.vpcList
@@ -6825,11 +6926,14 @@ var WorkerPoolForm = /*#__PURE__*/function (_Component) {
         flavor: _this.props.cluster.machine_type,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         subnetList: _this.props.cluster.subnetList,
 >>>>>>> 7d02243 (fix merge)
 =======
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+>>>>>>> f849341 (access group forms :100:)
         subnets: _this.props.cluster.subnets,
         vpc_name: _this.props.cluster.vpc_name,
         workers_per_subnet: _this.props.cluster.workers_per_subnet,
@@ -6905,6 +7009,7 @@ var WorkerPoolForm = /*#__PURE__*/function (_Component) {
         vpc_name: this.state.pool.vpc_name,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         subnets: this.props.data.subnets,
 =======
         initialSelectedItems: this.props.data.subnets,
@@ -6914,6 +7019,10 @@ var WorkerPoolForm = /*#__PURE__*/function (_Component) {
         initialSelectedItems: this.props.data.subnets,
         subnets: this.props.subnetList,
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+        initialSelectedItems: this.props.data.subnets,
+        subnets: this.props.subnetList,
+>>>>>>> f849341 (access group forms :100:)
         onChange: this.handleSubnetChange,
         component: this.props.data.name,
         className: "fieldWidthSmaller cds--form-item"
@@ -7463,6 +7572,7 @@ TeleportClaimToRoleForm.propTypes = {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$3 = ".fieldWidth {\r\n  width: 14rem;\r\n}\r\n\r\n.fieldWidthSmaller {\r\n  width: 11rem;\r\n}\r\n";
 styleInject(css_248z$3);
 =======
@@ -7660,6 +7770,8 @@ VpcListMultiSelect.propTypes = {
 
 =======
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+>>>>>>> f849341 (access group forms :100:)
 var TransitGatewayForm = /*#__PURE__*/function (_Component) {
   _inherits(TransitGatewayForm, _Component);
   var _super = _createSuper(TransitGatewayForm);
@@ -11310,6 +11422,7 @@ SshKeyForm.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 class IcseFormTemplate extends React__default["default"].Component {
   constructor(props) {
     super(props);
@@ -11317,6 +11430,8 @@ class IcseFormTemplate extends React__default["default"].Component {
 =======
 =======
 >>>>>>> 01e0136 (classNames now as default prop (#40))
+=======
+>>>>>>> f849341 (access group forms :100:)
 var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
   _inherits(IcseFormTemplate, _React$Component);
   var _super = _createSuper(IcseFormTemplate);
@@ -11326,9 +11441,12 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.state = {
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 =======
 >>>>>>> 01e0136 (classNames now as default prop (#40))
+=======
+>>>>>>> f849341 (access group forms :100:)
       showModal: false,
       shownArrayForms: [],
       // list of array forms to keep open on save
@@ -11337,22 +11455,29 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     this.onChildToggle = this.onChildToggle.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.shouldShow = this.shouldShow.bind(this);
 =======
+=======
+>>>>>>> f849341 (access group forms :100:)
     _this.onChildToggle = _this.onChildToggle.bind(_assertThisInitialized(_this));
     _this.toggleModal = _this.toggleModal.bind(_assertThisInitialized(_this));
     _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
     _this.shouldShow = _this.shouldShow.bind(_assertThisInitialized(_this));
+<<<<<<< HEAD
 >>>>>>> 01e0136 (classNames now as default prop (#40))
+=======
+>>>>>>> f849341 (access group forms :100:)
     // add an array to track middle forms
     if (_this.props.isMiddleForm) {
       _this.props.arrayData.forEach(function () {
         return _this.state.shownChildForms.push([]);
       });
     }
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
     _this.onChildToggle = _this.onChildToggle.bind(_assertThisInitialized(_this));
@@ -11370,6 +11495,9 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
 =======
     return _this;
 >>>>>>> 01e0136 (classNames now as default prop (#40))
+=======
+    return _this;
+>>>>>>> f849341 (access group forms :100:)
   }
 
   /**
@@ -11377,6 +11505,7 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
    * @param {number} index index to keep open
    * @param {number=} childIndex optional child index
    */
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   onChildToggle(index, childIndex) {
@@ -11392,6 +11521,8 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
         // remove index from list
         shownChildForms[index].splice(index, 1);
 =======
+=======
+>>>>>>> f849341 (access group forms :100:)
   _createClass(IcseFormTemplate, [{
     key: "onChildToggle",
     value: function onChildToggle(index, childIndex) {
@@ -11413,7 +11544,10 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
         this.setState({
           shownChildForms: shownChildForms
         });
+<<<<<<< HEAD
 >>>>>>> 01e0136 (classNames now as default prop (#40))
+=======
+>>>>>>> f849341 (access group forms :100:)
       } else {
         // if only parent index
         var shownForms = _toConsumableArray(this.state.shownArrayForms); // all forms
@@ -11477,6 +11611,10 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
         className: this.props.subHeading ? "subHeading marginBottomSmall" : "",
         tooltip: this.props.tooltip,
         about: this.props.docs ? this.props.docs() : false,
+<<<<<<< HEAD
+=======
+        hideAbout: this.props.hideAbout,
+>>>>>>> f849341 (access group forms :100:)
         form: /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(EmptyResourceTile, {
           name: this.props.name,
           showIfEmpty: this.props.arrayData
@@ -11534,6 +11672,7 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
               this.props.disableModal();
             }
           }
+<<<<<<< HEAD
 <<<<<<< HEAD
         }
       }))),
@@ -11685,6 +11824,8 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
           }
 =======
 >>>>>>> 01e0136 (classNames now as default prop (#40))
+=======
+>>>>>>> f849341 (access group forms :100:)
         })))),
         hideFormTitleButton: this.props.hideFormTitleButton
       }));
@@ -11693,9 +11834,12 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
   return IcseFormTemplate;
 }(React__default["default"].Component);
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 =======
 >>>>>>> 01e0136 (classNames now as default prop (#40))
+=======
+>>>>>>> f849341 (access group forms :100:)
 IcseFormTemplate.defaultProps = {
   hideFormTitleButton: false,
   subHeading: false,
@@ -11733,7 +11877,430 @@ IcseFormTemplate.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 82a5f28 (Issue 681: IcseFormTemplate (#38))
+=======
+var AccessGroupForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(AccessGroupForm, _React$Component);
+  var _super = _createSuper(AccessGroupForm);
+  function AccessGroupForm(props) {
+    var _this;
+    _classCallCheck(this, AccessGroupForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  _createClass(AccessGroupForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+        id: "name",
+        component: "access_groups",
+        componentName: "access_groups",
+        value: this.state.name,
+        onChange: this.handleInputChange,
+        className: "fieldWidthSmaller",
+        hideHelperText: true,
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props)
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+        id: "description",
+        componentName: "description",
+        tooltip: {
+          content: "Description of the access group"
+        },
+        field: "description",
+        labelText: "Description",
+        value: this.state.description,
+        onChange: this.handleInputChange,
+        isModal: this.props.isModal,
+        className: "textInputWide",
+        hideHelperText: true,
+        invalid: false
+      })));
+    }
+  }]);
+  return AccessGroupForm;
+}(React__default["default"].Component);
+AccessGroupForm.defaultProps = {
+  data: {
+    name: "",
+    description: ""
+  },
+  isModal: false
+};
+AccessGroupForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    description: PropTypes__default["default"].string.isRequired
+  }).isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired
+};
+
+var AccessGroupPolicyForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(AccessGroupPolicyForm, _React$Component);
+  var _super = _createSuper(AccessGroupPolicyForm);
+  function AccessGroupPolicyForm(props) {
+    var _this;
+    _classCallCheck(this, AccessGroupPolicyForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleInputResource = _this.handleInputResource.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  _createClass(AccessGroupPolicyForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+
+    /**
+     * handle input change
+     * @param {string} name key to change in state
+     * @param {*} value value to update
+     */
+  }, {
+    key: "handleInputResource",
+    value: function handleInputResource(event) {
+      var _event$target = event.target,
+        name = _event$target.name,
+        value = _event$target.value;
+      var resources = _objectSpread2({}, this.state.resources);
+      resources[name] = value;
+      this.setState({
+        resources: resources
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+        id: "name",
+        componentName: "policies",
+        value: this.state.name,
+        onChange: this.handleInputChange,
+        className: "marginRight",
+        labelText: "Name",
+        invalidText: this.props.invalidTextCallback(this.state, this.props),
+        invalid: this.props.invalidCallback(this.state, this.props),
+        helperTextCallback: function helperTextCallback() {
+          return _this2.props.helperTextCallback(_this2.state);
+        }
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+        className: "marginBottomSmall"
+      }, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+        name: "Resource Configuration",
+        type: "subHeading"
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+        id: "resource",
+        componentName: "resource",
+        tooltip: {
+          content: "The resource of the policy definition",
+          alignModal: "bottom-left"
+        },
+        isModal: this.props.isModal,
+        field: "resource",
+        value: this.state.resources.resource,
+        invalid: false,
+        onChange: this.handleInputResource,
+        labelText: "Resource"
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        name: "resource_group",
+        formName: "".concat(lazyZ.kebabCase(this.props.data.name), "-agp-rg-select"),
+        groups: this.props.resourceGroups,
+        value: this.state.resources.resource_group,
+        handleInputChange: this.handleInputResource,
+        invalidText: "Select a Resource Group",
+        labelText: "Resource Group",
+        tooltip: {
+          content: "Name of the resource group the policy will apply to",
+          alignModal: "bottom-left"
+        }
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+        id: "resource_instance_id",
+        componentName: "resource_instance_id",
+        isModal: this.props.isModal,
+        field: "resource_instance_id",
+        value: this.state.resources.resource_instance_id,
+        tooltip: {
+          content: "ID of a service instance to give permissions"
+        },
+        invalid: false,
+        labelText: "Resource Instance ID",
+        onChange: this.handleInputResource
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+        id: "service",
+        componentName: "service",
+        tooltip: {
+          content: 'Name of the service type for the policy ex. "cloud-object-storage"',
+          alignModal: "bottom-left",
+          align: "top-left"
+        },
+        labelText: "Service Type",
+        field: "service",
+        value: this.state.resources.service,
+        isModal: this.props.isModal,
+        onChange: this.handleInputResource,
+        invalid: false
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+        id: "resource_type",
+        componentName: "resource_type",
+        field: "resource_type",
+        tooltip: {
+          content: 'Name of the resource type for the policy ex. "resource-group"',
+          alignModal: "bottom-left"
+        },
+        invalid: false,
+        value: this.state.resources.resource_type,
+        isModal: this.props.isModal,
+        onChange: this.handleInputResource,
+        labelText: "Resource Type"
+      })));
+    }
+  }]);
+  return AccessGroupPolicyForm;
+}(React__default["default"].Component);
+AccessGroupPolicyForm.defaultProps = {
+  data: {
+    name: "",
+    resources: {
+      resource_group: "",
+      resource_type: "",
+      resource: "",
+      service: "",
+      resource_instance_id: ""
+    }
+  },
+  resourceGroups: [],
+  isModal: false
+};
+AccessGroupPolicyForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    resources: PropTypes__default["default"].shape({
+      resource_group: PropTypes__default["default"].string,
+      // can be null
+      resource_type: PropTypes__default["default"].string.isRequired,
+      resource: PropTypes__default["default"].string.isRequired,
+      service: PropTypes__default["default"].string.isRequired,
+      resource_instance_id: PropTypes__default["default"].string.isRequired
+    }).isRequired
+  }).isRequired,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  helperTextCallback: PropTypes__default["default"].func.isRequired
+};
+
+var conditionOperators = {
+  EQUALS: "Equals",
+  EQUALS_IGNORE_CASE: "Equals (Ignore Case)",
+  IN: "In",
+  NOT_EQUALS_IGNORE_CASE: "Not Equals (Ignore Case)",
+  NOT_EQUALS: "Not Equals",
+  CONTAINS: "Contains"
+};
+var AccessGroupDynamicPolicyForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(AccessGroupDynamicPolicyForm, _React$Component);
+  var _super = _createSuper(AccessGroupDynamicPolicyForm);
+  function AccessGroupDynamicPolicyForm(props) {
+    var _this;
+    _classCallCheck(this, AccessGroupDynamicPolicyForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleInputCondition = _this.handleInputCondition.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  _createClass(AccessGroupDynamicPolicyForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+
+    /**
+     * handle input change
+     * @param {string} name key to change in state
+     * @param {*} value value to update
+     */
+  }, {
+    key: "handleInputCondition",
+    value: function handleInputCondition(event) {
+      var _event$target = event.target,
+        name = _event$target.name,
+        value = _event$target.value;
+      var conditions = _objectSpread2({}, this.state.conditions);
+      if (name === "operator") {
+        conditions[name] = lazyZ.snakeCase(value.replace(/[()]/g, "")).toUpperCase(); // remove all parentheses
+      } else {
+        conditions[name] = value;
+      }
+      this.setState({
+        conditions: conditions
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      var conditionOperatorGroups = [];
+      lazyZ.eachKey(conditionOperators, function (key) {
+        conditionOperatorGroups.push(conditionOperators[key]);
+      });
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+        id: "name",
+        componentName: "dynamic_policies",
+        field: "name",
+        labelText: "Name",
+        value: this.state.name,
+        onChange: this.handleInputChange,
+        invalidText: this.props.invalidTextCallback(this.state, this.props),
+        invalid: this.props.invalidCallback(this.state, this.props),
+        helperTextCallback: function helperTextCallback() {
+          return _this2.props.helperTextCallback(_this2.state);
+        }
+      }), /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
+        tooltip: {
+          content: "How many hours authenticated users can work before refresh"
+        },
+        formName: "expiration",
+        max: 24,
+        value: this.state.expiration,
+        name: "expiration",
+        labelText: "Expiration Hours",
+        isModal: this.props.isModal,
+        handleInputChange: this.handleInputChange
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+        id: "identity_provider",
+        tooltip: {
+          content: "URI for identity provider",
+          alignModal: "bottom-left"
+        },
+        componentName: "identity_provider",
+        field: "identity_provider",
+        isModal: this.props.isModal,
+        labelText: "Identity Provider",
+        value: this.state.identity_provider,
+        invalid: false,
+        onChange: this.handleInputChange,
+        className: "textInputWide"
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+        className: "marginBottomSmall"
+      }, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+        name: "Condition Configuration",
+        type: "subHeading"
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+        id: "claim",
+        tooltip: {
+          content: "Key value to evaluate the condition against",
+          alignModal: "bottom-left"
+        },
+        componentName: "claim",
+        field: "claim",
+        isModal: this.props.isModal,
+        labelText: "Condition Claim",
+        value: this.state.conditions.claim,
+        invalid: false,
+        onChange: this.handleInputCondition
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: "dynamic_policies",
+        tooltip: {
+          content: "The operation to perform on the claim."
+        },
+        value: conditionOperators[this.state.conditions.operator],
+        groups: conditionOperatorGroups,
+        field: "operator",
+        isModal: this.props.isModal,
+        name: "operator",
+        disableInvalid: true,
+        labelText: "Condition Operator",
+        handleInputChange: this.handleInputCondition
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+        id: "value",
+        tooltip: {
+          content: "Value to be compared against"
+        },
+        componentName: "value",
+        field: "value",
+        isModal: this.props.isModal,
+        value: this.state.conditions.value,
+        labelText: "Condition Value",
+        invalid: false,
+        onChange: this.handleInputCondition
+      })));
+    }
+  }]);
+  return AccessGroupDynamicPolicyForm;
+}(React__default["default"].Component);
+AccessGroupDynamicPolicyForm.defaultProps = {
+  data: {
+    name: "",
+    identity_provider: "",
+    expiration: 1,
+    conditions: {
+      claim: "",
+      operator: "",
+      value: ""
+    }
+  },
+  isModal: false
+};
+AccessGroupDynamicPolicyForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    identity_provider: PropTypes__default["default"].string.isRequired,
+    expiration: PropTypes__default["default"].number.isRequired,
+    conditions: PropTypes__default["default"].shape({
+      claim: PropTypes__default["default"].string.isRequired,
+      operator: PropTypes__default["default"].string.isRequired,
+      value: PropTypes__default["default"].string.isRequired
+    }).isRequired
+  }).isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  helperTextCallback: PropTypes__default["default"].func.isRequired
+};
+
+exports.AccessGroupDynamicPolicyForm = AccessGroupDynamicPolicyForm;
+exports.AccessGroupForm = AccessGroupForm;
+exports.AccessGroupPolicyForm = AccessGroupPolicyForm;
+>>>>>>> f849341 (access group forms :100:)
 exports.AppIdKeyForm = AppIdKeyForm;
 exports.AtrackerForm = AtrackerForm;
 exports.DeleteButton = DeleteButton;
