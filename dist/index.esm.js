@@ -643,6 +643,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import lazyZ, { snakeCase, kebabCase as kebabCase$1, titleCase, isBoolean, isNullOrEmptyString, isEmpty, buildNumberDropdownList, prettyJSON, isFunction as isFunction$1 } from 'lazy-z';
 import { Toggletip, ToggletipButton, ToggletipContent, Link, Popover, PopoverContent, Button, Toggle, TextInput, Select, SelectItem, Tile, Dropdown, FilterableMultiSelect, MultiSelect, Modal, Tabs, TabList, Tab, TabPanels, TabPanel } from '@carbon/react';
 =======
@@ -666,6 +667,9 @@ import lazyZ, { snakeCase, kebabCase as kebabCase$1, titleCase, isBoolean, isNul
 =======
 import lazyZ, { snakeCase, kebabCase as kebabCase$1, titleCase, isBoolean, isEmpty, isNullOrEmptyString, buildNumberDropdownList, prettyJSON, parseIntFromZone, isFunction as isFunction$1, contains } from 'lazy-z';
 >>>>>>> 13e8562 (Migrated VpcForm + Documentation (Issue701) (#39))
+=======
+import lazyZ, { snakeCase, kebabCase as kebabCase$1, titleCase, isBoolean, isNullOrEmptyString, isEmpty, buildNumberDropdownList, capitalize, prettyJSON, parseIntFromZone, isFunction as isFunction$1, contains } from 'lazy-z';
+>>>>>>> 007ab0d (cos bucket form)
 import { Toggletip, ToggletipButton, ToggletipContent, Link, Popover, PopoverContent, Button, Toggle, TextInput, Select, SelectItem, Tile, Dropdown, FilterableMultiSelect, MultiSelect, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody } from '@carbon/react';
 import { Information, Save, Add, CloseFilled, Edit, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt } from '@carbon/icons-react';
 
@@ -1509,6 +1513,7 @@ function styleInject(css, ref) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$8 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$8);
 =======
@@ -2295,9 +2300,12 @@ styleInject(css_248z$a);
 
 =======
 var css_248z$b = ".displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
+=======
+var css_248z$b = ".displayFlex {\r\n  display: flex;\r\n}\r\n\r\n.fitContent {\r\n  width: fit-content;\r\n}\r\n\r\n.alignItemsCenter {\r\n  align-items: center;\r\n}\r\n\r\n.widthOneHundredPercent {\r\n  width: 100%;\r\n}\r\n\r\n.marginBottom {\r\n  margin-bottom: 2rem;\r\n}\r\n\r\n.marginBottomSmall {\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.evenSpacing {\r\n  gap: 3vw;\r\n}\r\n\r\n.positionRelative {\r\n  position: relative;\r\n}\r\n\r\n.formInSubForm {\r\n  margin-top: 0rem;\r\n  background: #fffdfd;\r\n  padding: 1rem;\r\n}\r\n\r\n.subForm {\r\n  background: #f4f4f4;\r\n  padding: 1rem;\r\n  margin-top: 1rem;\r\n  margin-bottom: 2rem;\r\n}\r\n\r\n.icseFormTitleMinHeight {\r\n  min-height: 32px;\r\n}\r\n\r\n.spaceBetween {\r\n  justify-content: space-between;\r\n}\r\n";
+>>>>>>> 007ab0d (cos bucket form)
 styleInject(css_248z$b);
 
-var css_248z$a = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+var css_248z$a = ".labelRow {\r\n  display: inline-flex !important;\r\n  align-items: center;\r\n}\r\n\r\n.tooltip > div div.cds--password-input-wrapper {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.cds--toggle {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.cds--text-input-wrapper {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.popover-obj {\r\n  margin-top: -8px;\r\n}\r\n\r\n.subHeadingTooltip {\r\n  margin: 0.2rem 0 0 0.2rem;\r\n}\r\n\r\n.tooltipMarginLeft {\r\n  margin-left: 3px;\r\n}\r\n";
 styleInject(css_248z$a);
 
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
@@ -2432,6 +2440,7 @@ DynamicToolTipWrapper.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$7 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  z-index: 9001;\n  top: 20px;\n}\n";
 >>>>>>> b9aa481 (feat: object storage key form)
 =======
@@ -2461,6 +2470,9 @@ styleInject(css_248z$8);
 
 =======
 var css_248z$9 = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  position: relative;\n  z-index: 9001;\n}";
+=======
+var css_248z$9 = ".popover-box {\r\n  padding: 5px;\r\n  position: relative;\r\n  font-size: 80%;\r\n  top: 20px;\r\n}\r\n\r\n.cds--popover--open .cds--popover-content {\r\n  position: relative;\r\n  z-index: 9001;\r\n}";
+>>>>>>> 007ab0d (cos bucket form)
 styleInject(css_248z$9);
 
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
@@ -2819,6 +2831,7 @@ PopoverWrapper.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$6 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  z-index: 9001; /* navbar is 9000 */\n  font-size: 80%;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
 =======
 var css_248z$6 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
@@ -2836,6 +2849,9 @@ styleInject(css_248z$7);
 >>>>>>> 817ead3 (update build)
 =======
 var css_248z$8 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important; \n}\n";
+=======
+var css_248z$8 = ".chevron {\r\n  margin-right: 1rem;\r\n  margin-top: 0.25rem;\r\n  cursor: pointer;\r\n}\r\n\r\n.tertiaryButtonColors {\r\n  color: #0f62fe !important;\r\n  fill: white !important;\r\n  border-color: #0f62fe !important;\r\n}\r\n\r\n.pointerEventsNone {\r\n  pointer-events: none;\r\n}\r\n\r\n.cursorNotAllowed {\r\n  cursor: not-allowed;\r\n}\r\n\r\n.forceTertiaryButtonStyles {\r\n  padding-right: 0.4375rem !important;\r\n  padding-left: 0.4375rem !important;\r\n}\r\n.inlineBlock {\r\n  display: inline-block;\r\n}\r\n\r\n.redFill {\r\n  fill: #da1e28 !important;\r\n}\r\n\r\n/* CSS for overriding default component styles */\r\n.cds--btn--ghost:focus {\r\n  outline: none;\r\n  border: none;\r\n  box-shadow: none;\r\n}\r\n\r\n.marginRightSmall {\r\n  margin-right: 0.5rem !important; \r\n}\r\n";
+>>>>>>> 007ab0d (cos bucket form)
 styleInject(css_248z$8);
 >>>>>>> 01e0136 (classNames now as default prop (#40))
 
@@ -3168,6 +3184,7 @@ StatelessToggleForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$5 = ".labelRow {\r\n  display: inline-flex !important;\r\n  align-items: center;\r\n}\r\n\r\n.tooltip > div div.cds--password-input-wrapper {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.cds--toggle {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.cds--text-input-wrapper {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.popover-obj {\r\n  margin-top: -8px;\r\n}\r\n\r\n.subHeadingTooltip {\r\n  margin: 0.2rem 0 0 0.2rem;\r\n}\r\n\r\n.tooltipMarginLeft {\r\n  margin-left: 3px;\r\n}\r\n";
 =======
 var css_248z$5 = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
@@ -3384,6 +3401,13 @@ var IcseToggle = function IcseToggle(props) {
 const IcseToggle = props => {
   let toggleName = props.toggleFieldName || snakeCase(props.labelText);
 >>>>>>> 13e8562 (Migrated VpcForm + Documentation (Issue701) (#39))
+=======
+var css_248z$7 = ".fieldWidth {\r\n  width: 14rem;\r\n}\r\n\r\n.leftTextAlign {\r\n  text-align: left;\r\n}";
+styleInject(css_248z$7);
+
+var IcseToggle = function IcseToggle(props) {
+  var toggleName = props.toggleFieldName || snakeCase(props.labelText);
+>>>>>>> 007ab0d (cos bucket form)
   return /*#__PURE__*/React.createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React.createElement(Toggle, {
     labelA: props.useOnOff ? "Off" : "False",
     labelB: props.useOnOff ? "On" : "True",
@@ -3392,6 +3416,7 @@ const IcseToggle = props => {
     className: lib_2("leftTextAlign", props) + (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
     ,
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -3429,6 +3454,9 @@ const IcseToggle = props => {
 =======
     onToggle: event => {
 >>>>>>> 13e8562 (Migrated VpcForm + Documentation (Issue701) (#39))
+=======
+    onToggle: function onToggle(event) {
+>>>>>>> 007ab0d (cos bucket form)
       props.onToggle(toggleName, event);
     },
     defaultToggled: props.defaultToggled,
@@ -3509,8 +3537,8 @@ IcseToggle.propTypes = {
  * @param {string=} props.labelText override label text
  * @returns <IcseTextInput/> component
  */
-const IcseTextInput = props => {
-  let fieldName = titleCase(props.field);
+var IcseTextInput = function IcseTextInput(props) {
+  var fieldName = titleCase(props.field);
   return /*#__PURE__*/React.createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React.createElement(TextInput, {
     id: props.id,
     className: lib_2("leftTextAlign", props),
@@ -3545,7 +3573,7 @@ const IcseTextInput = props => {
     invalid: isBoolean(props.invalid) ? props.invalid : props.invalidCallback(),
     onChange: props.onChange,
     helperText: props.helperText,
-    invalidText: props.invalidText ? props.invalidText : `Invalid ${props.field} value.`,
+    invalidText: props.invalidText ? props.invalidText : "Invalid ".concat(props.field, " value."),
     maxLength: props.maxLength,
     disabled: props.disabled,
     readOnly: props.readOnly
@@ -3594,8 +3622,8 @@ IcseTextInput.propTypes = {
  * @param {func} props.invalidCallback
  * @returns <IcseNameInput />
  */
-const IcseNameInput = props => {
-  let helperText = "";
+var IcseNameInput = function IcseNameInput(props) {
+  var helperText = "";
   // if helper text is not hidden
   if (!props.hideHelperText && !props.useData) {
     helperText = props.helperTextCallback();
@@ -3631,6 +3659,7 @@ IcseNameInput.propTypes = {
   invalidCallback: PropTypes.func
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -3884,9 +3913,13 @@ var IcseSelect = function IcseSelect(props) {
 const IcseSelect = props => {
   let invalid =
 >>>>>>> 13e8562 (Migrated VpcForm + Documentation (Issue701) (#39))
+=======
+var IcseSelect = function IcseSelect(props) {
+  var invalid =
+>>>>>>> 007ab0d (cos bucket form)
   // automatically set to invalid is is null or empty string and invalid not disabled
   props.disableInvalid !== true && isNullOrEmptyString(props.value) ? true : props.invalid;
-  let groups = props.groups.length === 0 ? [] // if no groups, empty array
+  var groups = props.groups.length === 0 ? [] // if no groups, empty array
   : lib_3(
   // otherwise try and prepend empty string if null
   props.value, props.groups);
@@ -3897,7 +3930,7 @@ const IcseSelect = props => {
   }
   return /*#__PURE__*/React.createElement(DynamicToolTipWrapper, _extends({
     id: kebabCase$1(props.name) + "-dropdown-tooltip",
-    innerForm: () => {
+    innerForm: function innerForm() {
       return /*#__PURE__*/React.createElement(PopoverWrapper, {
         hoverText: props.value || ""
         // inherit classnames from tooltip
@@ -3914,11 +3947,13 @@ const IcseSelect = props => {
         invalidText: props.invalidText,
         readOnly: props.readOnly,
         onChange: props.handleInputChange
-      }, groups.map(value => /*#__PURE__*/React.createElement(SelectItem, {
-        key: `${props.id}-${value}`,
-        text: value,
-        value: value
-      }))));
+      }, groups.map(function (value) {
+        return /*#__PURE__*/React.createElement(SelectItem, {
+          key: "".concat(props.id, "-").concat(value),
+          text: value,
+          value: value
+        });
+      })));
     }
   }, props));
 };
@@ -3955,50 +3990,68 @@ IcseSelect.propTypes = {
     align: PropTypes.string
   })
 };
-class FetchSelect extends React.Component {
-  _isMounted = false;
-  constructor(props) {
-    super(props);
-    this.state = {
+var FetchSelect = /*#__PURE__*/function (_React$Component) {
+  _inherits(FetchSelect, _React$Component);
+  var _super = _createSuper(FetchSelect);
+  function FetchSelect(props) {
+    var _this;
+    _classCallCheck(this, FetchSelect);
+    _this = _super.call(this, props);
+    _defineProperty(_assertThisInitialized(_this), "_isMounted", false);
+    _this.state = {
       data: []
     };
-    this.dataToGroups = this.dataToGroups.bind(this);
+    _this.dataToGroups = _this.dataToGroups.bind(_assertThisInitialized(_this));
+    return _this;
   }
-  componentDidMount() {
-    this._isMounted = true;
-    if (isEmpty(this.state.data)) fetch(this.props.apiEndpoint).then(res => res.json()).then(data => {
-      if (this.props.onReturnFunction) {
-        this.props.onReturnFunction(data);
-      }
-      if (this._isMounted) this.setState({
-        data: data
+  _createClass(FetchSelect, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+      this._isMounted = true;
+      if (isEmpty(this.state.data)) fetch(this.props.apiEndpoint).then(function (res) {
+        return res.json();
+      }).then(function (data) {
+        if (_this2.props.onReturnFunction) {
+          _this2.props.onReturnFunction(data);
+        }
+        if (_this2._isMounted) _this2.setState({
+          data: data
+        });
+      }).catch(function (err) {
+        console.error(err);
       });
-    }).catch(err => {
-      console.error(err);
-    });
-  }
-  componentWillUnmount() {
-    this._isMounted = false;
-  }
-  dataToGroups() {
-    if (this.props.filter) {
-      return this.state.data.filter(this.props.filter);
-    } else {
-      return this.state.data;
     }
-  }
-  render() {
-    return /*#__PURE__*/React.createElement(IcseSelect, {
-      labelText: this.props.labelText,
-      handleInputChange: this.props.handleInputChange,
-      name: this.props.name,
-      className: this.props.className,
-      formName: this.props.formName,
-      groups: this.dataToGroups(),
-      value: this.props.value || "null"
-    });
-  }
-}
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this._isMounted = false;
+    }
+  }, {
+    key: "dataToGroups",
+    value: function dataToGroups() {
+      if (this.props.filter) {
+        return this.state.data.filter(this.props.filter);
+      } else {
+        return this.state.data;
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement(IcseSelect, {
+        labelText: this.props.labelText,
+        handleInputChange: this.props.handleInputChange,
+        name: this.props.name,
+        className: this.props.className,
+        formName: this.props.formName,
+        groups: this.dataToGroups(),
+        value: this.props.value || "null"
+      });
+    }
+  }]);
+  return FetchSelect;
+}(React.Component);
 FetchSelect.propTypes = {
   labelText: PropTypes.string.isRequired,
   handleInputChange: PropTypes.func.isRequired,
@@ -4014,16 +4067,16 @@ FetchSelect.propTypes = {
   name: PropTypes.string.isRequired,
   formName: PropTypes.string.isRequired
 };
-const IcseNumberSelect = props => {
+var IcseNumberSelect = function IcseNumberSelect(props) {
   return /*#__PURE__*/React.createElement(IcseSelect, {
     formName: props.formName,
     groups: buildNumberDropdownList(props.max, props.min),
     value: props.value.toString(),
     name: props.name || "Icse Number Select",
     className: props.className,
-    handleInputChange: event => {
+    handleInputChange: function handleInputChange(event) {
       // set name target value and parse int
-      let sendEvent = {
+      var sendEvent = {
         target: {
           name: event.target.name,
           value: parseInt(event.target.value)
@@ -4063,7 +4116,7 @@ IcseNumberSelect.propTypes = {
   labelText: PropTypes.string.isRequired,
   isModal: PropTypes.bool.isRequired
 };
-const EntitlementSelect = props => {
+var EntitlementSelect = function EntitlementSelect(props) {
   return /*#__PURE__*/React.createElement(IcseSelect, {
     name: props.name,
     labelText: "Entitlement",
@@ -4196,6 +4249,7 @@ ObjectStorageKeyForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$4 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$4);
 =======
@@ -4207,6 +4261,107 @@ styleInject(css_248z$5);
 >>>>>>> 7d02243 (fix merge)
 =======
 var css_248z$6 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+=======
+class ObjectStorageBucketForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleStorageClassChange = this.handleStorageClassChange.bind(this);
+  }
+
+  /**
+   * Handler for toggle
+   */
+  handleToggle() {
+    this.setState(this.toggleStateBoolean("force_delete", this.state));
+  }
+
+  /**
+   * handle storage class change
+   * @param {event} event event
+   */
+  handleStorageClassChange(event) {
+    this.setState({
+      storage_class: event.target.value.toLowerCase()
+    });
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  render() {
+    // composed id for bucket
+    let composedId = `bucket-form-${this.props.data.name ? this.props.data.name : "new-bucket"}`;
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: this.state.name,
+      componentName: this.state.name,
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      helperTextCallback: () => this.props.composedNameCallback(this.state),
+      invalid: this.props.invalidCallback(this.state),
+      invalidText: this.props.invalidTextCallback(this.state)
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      component: this.state.name,
+      formName: "Object Storage Bucket",
+      name: "storage_class",
+      groups: ["Standard", "Vault", "Cold", "Smart"],
+      value: capitalize(this.state.storage_class),
+      labelText: "Bucket Class",
+      handleInputChange: this.handleStorageClassChange
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+      component: this.state.name,
+      formName: "Object Storage Bucket",
+      name: "kms_key",
+      groups: this.props.encryptionKeys,
+      value: this.state.kms_key,
+      labelText: "Encryption Key",
+      handleInputChange: this.handleInputChange
+    }), /*#__PURE__*/React.createElement(IcseToggle, {
+      tooltip: {
+        content: "Toggling this on will force delete contents of the bucket after the bucket is deleted"
+      },
+      id: composedId + "force-delete",
+      labelText: "Force Delete Contents",
+      defaultToggled: this.state.force_delete,
+      toggleFieldName: "force_delete",
+      onToggle: this.handleToggle
+    })));
+  }
+}
+ObjectStorageBucketForm.defaultProps = {
+  data: {
+    force_delete: false,
+    name: "",
+    storage_class: "Standard",
+    kms_key: ""
+  },
+  encryptionKeys: [],
+  parentHasRandomSuffix: true
+};
+ObjectStorageBucketForm.propTypes = {
+  data: PropTypes.shape({
+    force_delete: PropTypes.bool.isRequired,
+    name: PropTypes.string.isRequired,
+    storage_class: PropTypes.string.isRequired,
+    kms_key: PropTypes.string
+  }).isRequired,
+  encryptionKeys: PropTypes.array.isRequired,
+  parentHasRandomSuffix: PropTypes.bool.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  composedNameCallback: PropTypes.func.isRequired
+};
+
+var css_248z$6 = ".iconMargin {\r\n  margin: 0 0.5rem -0.4rem 0;\r\n}\r\n\r\n.inlineIconMargin {\r\n  margin: -0.4rem 0.05rem;\r\n}\r\n\r\n.marginBottomXs {\r\n  margin-bottom: 0.5rem;\r\n}\r\n\r\n.tileBackground {\r\n  background-color: #f4f4f4;\r\n}";
+>>>>>>> 007ab0d (cos bucket form)
 styleInject(css_248z$6);
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 =======
@@ -4245,6 +4400,7 @@ EmptyResourceTile.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> f433c72 (fix: remove unused params)
 var css_248z$3 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
 >>>>>>> f19dfef (merge)
@@ -4262,6 +4418,9 @@ styleInject(css_248z$4);
 >>>>>>> 7d02243 (fix merge)
 =======
 var css_248z$5 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
+=======
+var css_248z$5 = ".fieldWidthSmaller {\r\n  width: 11rem;\r\n}";
+>>>>>>> 007ab0d (cos bucket form)
 styleInject(css_248z$5);
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 
@@ -8895,23 +9054,33 @@ SecretsManagerForm.propTypes = {
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
+<<<<<<< HEAD
 var css_248z$2 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
 styleInject(css_248z$2);
 
 var css_248z$1 = ".leftTextAlign {\n  text-align: left;\n}\n";
 styleInject(css_248z$1);
+=======
+var css_248z$4 = ".fieldWidth {\r\n  width: 14rem;\r\n}\r\n\r\n.fieldWidthSmaller {\r\n  width: 11rem;\r\n}\r\n";
+styleInject(css_248z$4);
+
+var css_248z$3 = ".leftTextAlign {\r\n  text-align: left;\r\n}\r\n";
+styleInject(css_248z$3);
+>>>>>>> 007ab0d (cos bucket form)
 
 /**
 =======
 >>>>>>> 7d02243 (fix merge)
  * Icse multiselect template
  */
-const IcseMultiSelect = props => {
+var IcseMultiSelect = function IcseMultiSelect(props) {
   return /*#__PURE__*/React.createElement(FilterableMultiSelect, {
     id: props.id,
     className: lib_2("fieldWidth leftTextAlign cds--select", props),
     titleText: props.titleText,
-    itemToString: item => item ? item : "",
+    itemToString: function itemToString(item) {
+      return item ? item : "";
+    },
     invalid: props.invalid,
     invalidText: props.invalidText,
     initialSelectedItems: props.initialSelectedItems,
@@ -8945,7 +9114,7 @@ IcseMultiSelect.propTypes = {
 /**
  * ssh key multiselect
  */
-const SshKeyMultiSelect = props => {
+var SshKeyMultiSelect = function SshKeyMultiSelect(props) {
   return /*#__PURE__*/React.createElement(IcseMultiSelect, {
     id: props.id + "-ssh-key-multiselect",
     useTitleInItem: true,
@@ -8955,7 +9124,7 @@ const SshKeyMultiSelect = props => {
     invalid: props.initialSelectedItems.length === 0,
     items: props.sshKeys,
     initialSelectedItems: props.initialSelectedItems || [],
-    onChange: event => {
+    onChange: function onChange(event) {
       props.onChange(event.selectedItems);
     },
     className: "fieldWidthSmaller cds--form-item"
@@ -8974,7 +9143,7 @@ SshKeyMultiSelect.propTypes = {
 /**
  * sg multiselect
  */
-const SecurityGroupMultiSelect = props => {
+var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
   if (props.vpc_name && !props.securityGroups) {
     // checking props.securityGroups[props.vpc_name] will result in an
     // undefined error that happens as part of MultiSelect
@@ -8989,12 +9158,14 @@ const SecurityGroupMultiSelect = props => {
     vpc_name: props.vpc_name,
     invalid: props.invalid,
     invalidText: "Invalid Selection",
-    onChange: event => {
+    onChange: function onChange(event) {
       props.onChange(event.selectedItems);
     },
     disabled: props.disabled,
     items: props.vpc_name === "" ? [] : props.securityGroups[props.vpc_name],
-    itemToString: item => item ? item : ""
+    itemToString: function itemToString(item) {
+      return item ? item : "";
+    }
   });
 };
 SecurityGroupMultiSelect.defaultProps = {
@@ -9018,7 +9189,7 @@ SecurityGroupMultiSelect.propTypes = {
 /**
  * vpc subnet multiselect
  */
-const SubnetMultiSelect = props => {
+var SubnetMultiSelect = function SubnetMultiSelect(props) {
   return /*#__PURE__*/React.createElement(IcseMultiSelect, {
     id: props.id + "-subnet-multiselect",
     className: props.className,
@@ -9030,7 +9201,9 @@ const SubnetMultiSelect = props => {
     invalidText: isNullOrEmptyString(props.vpc_name) ? "Select a VPC." : "Select at least one subnet.",
     invalid: props.initialSelectedItems.length === 0,
     disabled: props.disabled,
-    onChange: event => props.onChange(event.selectedItems)
+    onChange: function onChange(event) {
+      return props.onChange(event.selectedItems);
+    }
   });
 };
 SubnetMultiSelect.defaultProps = {
@@ -9056,7 +9229,7 @@ SubnetMultiSelect.propTypes = {
 /**
  * VPC List MultiSelect
  */
-const VpcListMultiSelect = props => {
+var VpcListMultiSelect = function VpcListMultiSelect(props) {
   // throw error here so that passing no vpc list prop will error here
   // instead of being passed to `FilterableMultiselect`
   if (!props.vpcList) {
@@ -9067,7 +9240,9 @@ const VpcListMultiSelect = props => {
     invalid: props.invalid,
     id: props.id + "-vpc-select",
     titleText: props.titleText,
-    onChange: event => props.onChange(event.selectedItems),
+    onChange: function onChange(event) {
+      return props.onChange(event.selectedItems);
+    },
     initialSelectedItems: props.initialSelectedItems,
     className: props.className,
     items: props.vpcList
@@ -9088,10 +9263,13 @@ VpcListMultiSelect.propTypes = {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 =======
 >>>>>>> f849341 (access group forms :100:)
+=======
+>>>>>>> 007ab0d (cos bucket form)
 var WorkerPoolForm = /*#__PURE__*/function (_Component) {
   _inherits(WorkerPoolForm, _Component);
   var _super = _createSuper(WorkerPoolForm);
@@ -9101,6 +9279,7 @@ var WorkerPoolForm = /*#__PURE__*/function (_Component) {
     _this = _super.call(this, props);
     _this.state = {
       pool: _this.props.isModal ? {
+<<<<<<< HEAD
         name: "",
         flavor: _this.props.cluster.machine_type,
 <<<<<<< HEAD
@@ -9132,32 +9311,44 @@ class WorkerPoolForm extends Component {
         entitlement: this.props.cluster.entitlement
       } : this.props.data
 >>>>>>> 13e8562 (Migrated VpcForm + Documentation (Issue701) (#39))
+=======
+        name: "",
+        flavor: _this.props.cluster.machine_type,
+        subnets: _this.props.cluster.subnets,
+        vpc_name: _this.props.cluster.vpc_name,
+        workers_per_subnet: _this.props.cluster.workers_per_subnet,
+        entitlement: _this.props.cluster.entitlement
+      } : _this.props.data
+>>>>>>> 007ab0d (cos bucket form)
     };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubnetChange = this.handleSubnetChange.bind(this);
-    buildFormFunctions(this);
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleSubnetChange = _this.handleSubnetChange.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    return _this;
   }
 
   // Handle pool input change
-  handleInputChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    let pool = {
-      ...this.state.pool
-    };
-    if (name === "workers_per_subnet") {
-      pool[name] = Number(value);
-    } else {
-      pool[name] = value === "null" ? null : value;
+  _createClass(WorkerPoolForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      var _event$target = event.target,
+        name = _event$target.name,
+        value = _event$target.value;
+      var pool = _objectSpread2({}, this.state.pool);
+      if (name === "workers_per_subnet") {
+        pool[name] = Number(value);
+      } else {
+        pool[name] = value === "null" ? null : value;
+      }
+      this.setState({
+        pool: pool
+      });
     }
-    this.setState({
-      pool
-    });
-  }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 007ab0d (cos bucket form)
     // Handle subnet multiselect change
   }, {
     key: "handleSubnetChange",
@@ -9204,6 +9395,7 @@ class WorkerPoolForm extends Component {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         subnets: this.props.data.subnets,
 =======
         initialSelectedItems: this.props.data.subnets,
@@ -9217,6 +9409,10 @@ class WorkerPoolForm extends Component {
         initialSelectedItems: this.props.data.subnets,
         subnets: this.props.subnetList,
 >>>>>>> f849341 (access group forms :100:)
+=======
+        initialSelectedItems: this.props.data.subnets,
+        subnets: this.props.subnetList,
+>>>>>>> 007ab0d (cos bucket form)
         onChange: this.handleSubnetChange,
         component: this.props.data.name,
         className: "fieldWidthSmaller cds--form-item"
@@ -9235,6 +9431,7 @@ class WorkerPoolForm extends Component {
   }]);
   return WorkerPoolForm;
 }(Component);
+<<<<<<< HEAD
 =======
   // Handle subnet multiselect change
   handleSubnetChange(event) {
@@ -9296,6 +9493,8 @@ class WorkerPoolForm extends Component {
   }
 }
 >>>>>>> 13e8562 (Migrated VpcForm + Documentation (Issue701) (#39))
+=======
+>>>>>>> 007ab0d (cos bucket form)
 WorkerPoolForm.defaultProps = {
   data: {
     entitlement: "",
@@ -11166,6 +11365,7 @@ var UnderConstruction = function UnderConstruction() {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 =======
 var css_248z = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }";
@@ -12027,6 +12227,9 @@ styleInject(css_248z$1);
 >>>>>>> 817ead3 (update build)
 =======
 var css_248z$2 = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}";
+=======
+var css_248z$2 = ".cds--tab-content.doc {\r\n    padding: 0.5rem 0;\r\n  }\r\n\r\n.cds--tab-content:focus {\r\n  outline: none !important;\r\n  border: none !important;\r\n}";
+>>>>>>> 007ab0d (cos bucket form)
 styleInject(css_248z$2);
 >>>>>>> 82a5f28 (Issue 681: IcseFormTemplate (#38))
 =======
@@ -13208,6 +13411,7 @@ ToggleForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 export { AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TitleGroup, ToggleForm, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> f680a35 (almost done)
 =======
@@ -13222,6 +13426,9 @@ var css_248z = ".leftTextAlign {\r\n  text-align: left;\r\n}\r\n\r\n.fieldWidthB
 >>>>>>> ee08088 (issue 700: transit gateway form)
 =======
 var css_248z$1 = ".about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n";
+=======
+var css_248z$1 = ".about {\r\n  padding: 2rem 1rem;\r\n  line-height: 1.5;\r\n}\r\n\r\n.smallerText {\r\n  font-size: 0.9rem;\r\n  font-weight: 400;\r\n}\r\n";
+>>>>>>> 007ab0d (cos bucket form)
 styleInject(css_248z$1);
 
 var DocTextField = function DocTextField(props) {
@@ -13330,8 +13537,12 @@ Docs.propTypes = {
   relatedLinks: PropTypes.array
 };
 
+<<<<<<< HEAD
 var css_248z = ".leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidthBigger {\n  width: 30rem\n}\n";
 >>>>>>> 01e0136 (classNames now as default prop (#40))
+=======
+var css_248z = ".leftTextAlign {\r\n  text-align: left;\r\n}\r\n\r\n.fieldWidthBigger {\r\n  width: 30rem\r\n}\r\n";
+>>>>>>> 007ab0d (cos bucket form)
 styleInject(css_248z);
 
 /**
@@ -14091,6 +14302,7 @@ IcseFormTemplate.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 export { AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, VpnGatewayForm, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> 82a5f28 (Issue 681: IcseFormTemplate (#38))
 =======
@@ -14521,3 +14733,6 @@ export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, A
 =======
 export { AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpnGatewayForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> 13e8562 (Migrated VpcForm + Documentation (Issue701) (#39))
+=======
+export { AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, ObjectStorageBucketForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpnGatewayForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+>>>>>>> 007ab0d (cos bucket form)
