@@ -25,6 +25,10 @@ function composedNameCallback(stateData) {
   return `${stateData.name}-<random suffix>`;
 }
 
+function invalidIdpCallback(stateData) {
+  return !(stateData.identity_provider.length >= 6);
+}
+
 export const AccessGroupFormExample = () => {
   return (
     <AccessGroupForm
@@ -72,6 +76,7 @@ export const AccessGroupDynamicPolicyFormExample = () => {
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
       helperTextCallback={composedNameCallback}
+      invalidIdpCallback={invalidIdpCallback}
     />
   );
 };

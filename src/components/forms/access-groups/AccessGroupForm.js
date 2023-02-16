@@ -35,7 +35,7 @@ class AccessGroupForm extends React.Component {
             componentName="access_groups"
             value={this.state.name}
             onChange={this.handleInputChange}
-            className="fieldWidthSmaller"
+            className="fieldWidth"
             hideHelperText
             invalid={this.props.invalidCallback(this.state, this.props)}
             invalidText={this.props.invalidTextCallback(this.state, this.props)}

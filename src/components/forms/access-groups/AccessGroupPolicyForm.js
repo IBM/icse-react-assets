@@ -49,7 +49,6 @@ class AccessGroupPolicyForm extends React.Component {
             componentName="policies"
             value={this.state.name}
             onChange={this.handleInputChange}
-            className="marginRight"
             labelText="Name"
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
             invalid={this.props.invalidCallback(this.state, this.props)}

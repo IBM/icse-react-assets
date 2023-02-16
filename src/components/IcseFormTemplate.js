@@ -217,6 +217,7 @@ IcseFormTemplate.propTypes = {
     disableSave: PropTypes.func.isRequired,
     propsMatchState: PropTypes.func.isRequired,
   }).isRequired,
+  hideAbout: PropTypes.bool,
 };
 
 export default IcseFormTemplate;

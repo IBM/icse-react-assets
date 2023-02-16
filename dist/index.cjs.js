@@ -6742,10 +6742,14 @@ FormModal.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$5 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
 styleInject(css_248z$5);
 =======
 var css_248z$6 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
+=======
+var css_248z$6 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.textInputWide {\n  width: 30rem;\n}";
+>>>>>>> b26c811 (readme/example changes and new callback for "identity_provider")
 styleInject(css_248z$6);
 >>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 
@@ -14785,7 +14789,8 @@ IcseFormTemplate.propTypes = {
   toggleFormProps: PropTypes__default["default"].shape({
     disableSave: PropTypes__default["default"].func.isRequired,
     propsMatchState: PropTypes__default["default"].func.isRequired
-  }).isRequired
+  }).isRequired,
+  hideAbout: PropTypes__default["default"].bool
 };
 
 <<<<<<< HEAD
@@ -15112,7 +15117,7 @@ var AccessGroupForm = /*#__PURE__*/function (_React$Component) {
         componentName: "access_groups",
         value: this.state.name,
         onChange: this.handleInputChange,
-        className: "fieldWidthSmaller",
+        className: "fieldWidth",
         hideHelperText: true,
         invalid: this.props.invalidCallback(this.state, this.props),
         invalidText: this.props.invalidTextCallback(this.state, this.props)
@@ -15256,7 +15261,6 @@ var AccessGroupPolicyForm = /*#__PURE__*/function (_React$Component) {
         componentName: "policies",
         value: this.state.name,
         onChange: this.handleInputChange,
-        className: "marginRight",
         labelText: "Name",
         invalidText: this.props.invalidTextCallback(this.state, this.props),
         invalid: this.props.invalidCallback(this.state, this.props),
@@ -15467,7 +15471,7 @@ var AccessGroupDynamicPolicyForm = /*#__PURE__*/function (_React$Component) {
         isModal: this.props.isModal,
         labelText: "Identity Provider",
         value: this.state.identity_provider,
-        invalid: false,
+        invalid: this.props.invalidIdpCallback(this.state),
         onChange: this.handleInputChange,
         className: "textInputWide"
       })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
@@ -15545,7 +15549,8 @@ AccessGroupDynamicPolicyForm.propTypes = {
   isModal: PropTypes__default["default"].bool.isRequired,
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  helperTextCallback: PropTypes__default["default"].func.isRequired
+  helperTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidIdpCallback: PropTypes__default["default"].func.isRequired
 };
 
 exports.AccessGroupDynamicPolicyForm = AccessGroupDynamicPolicyForm;

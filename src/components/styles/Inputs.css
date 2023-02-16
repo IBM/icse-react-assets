@@ -5,3 +5,7 @@
 .leftTextAlign {
   text-align: left;
 }
+
+.textInputWide {
+  width: 30rem;
+}
