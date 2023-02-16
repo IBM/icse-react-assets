@@ -16585,7 +16585,8 @@ IcseFormTemplate.defaultProps = {
   hideFormTitleButton: false,
   subHeading: false,
   arrayParentName: null,
-  isMiddleForm: false
+  isMiddleForm: false,
+  hideAbout: false
 };
 IcseFormTemplate.propTypes = {
   name: PropTypes.string,
@@ -16993,19 +16994,14 @@ AccessGroupForm.propTypes = {
   invalidTextCallback: PropTypes.func.isRequired
 };
 
-var AccessGroupPolicyForm = /*#__PURE__*/function (_React$Component) {
-  _inherits(AccessGroupPolicyForm, _React$Component);
-  var _super = _createSuper(AccessGroupPolicyForm);
-  function AccessGroupPolicyForm(props) {
-    var _this;
-    _classCallCheck(this, AccessGroupPolicyForm);
-    _this = _super.call(this, props);
-    _this.state = _this.props.data;
-    buildFormFunctions(_assertThisInitialized(_this));
-    buildFormDefaultInputMethods(_assertThisInitialized(_this));
-    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
-    _this.handleInputResource = _this.handleInputResource.bind(_assertThisInitialized(_this));
-    return _this;
+class AccessGroupPolicyForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleInputResource = this.handleInputResource.bind(this);
   }
 
   /**
@@ -17013,6 +17009,7 @@ var AccessGroupPolicyForm = /*#__PURE__*/function (_React$Component) {
    * @param {string} name key to change in state
    * @param {*} value value to update
    */
+<<<<<<< HEAD
   _createClass(AccessGroupPolicyForm, [{
 <<<<<<< HEAD
 =======
@@ -17177,6 +17174,112 @@ var AccessGroupPolicyForm = /*#__PURE__*/function (_React$Component) {
   }]);
   return AccessGroupPolicyForm;
 }(React.Component);
+=======
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputResource(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    let resources = {
+      ...this.state.resources
+    };
+    resources[name] = value;
+    this.setState({
+      resources
+    });
+  }
+  render() {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: "name",
+      componentName: "policies",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      labelText: "Name",
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      invalid: this.props.invalidCallback(this.state, this.props),
+      helperTextCallback: () => this.props.helperTextCallback(this.state)
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, {
+      className: "marginBottomSmall"
+    }, /*#__PURE__*/React.createElement(IcseHeading, {
+      name: "Resource Configuration",
+      type: "subHeading"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: "resource",
+      componentName: "resource",
+      tooltip: {
+        content: "The resource of the policy definition",
+        alignModal: "bottom-left"
+      },
+      isModal: this.props.isModal,
+      field: "resource",
+      value: this.state.resources.resource,
+      invalid: false,
+      onChange: this.handleInputResource,
+      labelText: "Resource"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+      name: "resource_group",
+      formName: `${kebabCase$1(this.props.data.name)}-agp-rg-select`,
+      groups: this.props.resourceGroups,
+      value: this.state.resources.resource_group,
+      handleInputChange: this.handleInputResource,
+      invalidText: "Select a Resource Group",
+      labelText: "Resource Group",
+      tooltip: {
+        content: "Name of the resource group the policy will apply to",
+        alignModal: "bottom-left"
+      }
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: "resource_instance_id",
+      componentName: "resource_instance_id",
+      isModal: this.props.isModal,
+      field: "resource_instance_id",
+      value: this.state.resources.resource_instance_id,
+      tooltip: {
+        content: "ID of a service instance to give permissions"
+      },
+      invalid: false,
+      labelText: "Resource Instance ID",
+      onChange: this.handleInputResource
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: "service",
+      componentName: "service",
+      tooltip: {
+        content: 'Name of the service type for the policy ex. "cloud-object-storage"',
+        alignModal: "bottom-left",
+        align: "top-left"
+      },
+      labelText: "Service Type",
+      field: "service",
+      value: this.state.resources.service,
+      isModal: this.props.isModal,
+      onChange: this.handleInputResource,
+      invalid: false
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: "resource_type",
+      componentName: "resource_type",
+      field: "resource_type",
+      tooltip: {
+        content: 'Name of the resource type for the policy ex. "resource-group"',
+        alignModal: "bottom-left"
+      },
+      invalid: false,
+      value: this.state.resources.resource_type,
+      isModal: this.props.isModal,
+      onChange: this.handleInputResource,
+      labelText: "Resource Type"
+    })));
+  }
+}
+>>>>>>> 21a3131 (added default prop and removed extra lines)
 AccessGroupPolicyForm.defaultProps = {
   data: {
     name: "",

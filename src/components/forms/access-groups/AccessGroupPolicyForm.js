@@ -58,7 +58,6 @@ class AccessGroupPolicyForm extends React.Component {
         <IcseFormGroup className="marginBottomSmall">
           <IcseHeading name="Resource Configuration" type="subHeading" />
         </IcseFormGroup>
-
         <IcseFormGroup>
           <IcseTextInput
             id="resource"
@@ -123,7 +122,6 @@ class AccessGroupPolicyForm extends React.Component {
             invalid={false}
           />
         </IcseFormGroup>
-
         <IcseFormGroup>
           <IcseTextInput
             id="resource_type"

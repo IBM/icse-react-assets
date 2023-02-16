@@ -190,6 +190,7 @@ IcseFormTemplate.defaultProps = {
   subHeading: false,
   arrayParentName: null,
   isMiddleForm: false,
+  hideAbout: false,
 };
 
 IcseFormTemplate.propTypes = {
