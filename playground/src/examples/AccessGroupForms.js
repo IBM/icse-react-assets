@@ -11,8 +11,10 @@ function validName(str) {
   else return false;
 }
 
-function invalidCallback(stateData, componentProps) {
-  return !validName(stateData.name);
+function invalidCallback(field, stateData, componentProps) {
+  if (field === "identity_provider")
+    return !(stateData.identity_provider.length >= 6);
+  else return !validName(stateData.name);
 }
 
 function invalidTextCallback(stateData, componentProps) {
@@ -21,12 +23,8 @@ function invalidTextCallback(stateData, componentProps) {
     : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
 }
 
-function composedNameCallback(stateData) {
+function composedNameCallback(stateData, componentProps) {
   return `${stateData.name}-<random suffix>`;
-}
-
-function invalidIdpCallback(stateData) {
-  return !(stateData.identity_provider.length >= 6);
 }
 
 export const AccessGroupFormExample = () => {
@@ -76,7 +74,6 @@ export const AccessGroupDynamicPolicyFormExample = () => {
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
       helperTextCallback={composedNameCallback}
-      invalidIdpCallback={invalidIdpCallback}
     />
   );
 };

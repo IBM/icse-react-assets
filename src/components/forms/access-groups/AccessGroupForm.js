@@ -37,7 +37,7 @@ class AccessGroupForm extends React.Component {
             onChange={this.handleInputChange}
             className="fieldWidth"
             hideHelperText
-            invalid={this.props.invalidCallback(this.state, this.props)}
+            invalid={this.props.invalidCallback("name", this.state, this.props)}
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
           />
         </IcseFormGroup>

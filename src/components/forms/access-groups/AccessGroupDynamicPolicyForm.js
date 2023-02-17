@@ -69,8 +69,10 @@ class AccessGroupDynamicPolicyForm extends React.Component {
             value={this.state.name}
             onChange={this.handleInputChange}
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
-            invalid={this.props.invalidCallback(this.state, this.props)}
-            helperTextCallback={() => this.props.helperTextCallback(this.state)}
+            invalid={this.props.invalidCallback("name", this.state, this.props)}
+            helperTextCallback={() =>
+              this.props.helperTextCallback(this.state, this.props)
+            }
           />
           <IcseNumberSelect
             tooltip={{
@@ -98,7 +100,11 @@ class AccessGroupDynamicPolicyForm extends React.Component {
             isModal={this.props.isModal}
             labelText="Identity Provider"
             value={this.state.identity_provider}
-            invalid={this.props.invalidIdpCallback(this.state)}
+            invalid={this.props.invalidCallback(
+              "identity_provider",
+              this.state,
+              this.props
+            )}
             onChange={this.handleInputChange}
             className="textInputWide"
           />
@@ -185,7 +191,6 @@ AccessGroupDynamicPolicyForm.propTypes = {
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
   helperTextCallback: PropTypes.func.isRequired,
-  invalidIdpCallback: PropTypes.func.isRequired,
 };
 
 export default AccessGroupDynamicPolicyForm;

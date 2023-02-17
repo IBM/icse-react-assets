@@ -15120,7 +15120,7 @@ var AccessGroupForm = /*#__PURE__*/function (_React$Component) {
         onChange: this.handleInputChange,
         className: "fieldWidth",
         hideHelperText: true,
-        invalid: this.props.invalidCallback(this.state, this.props),
+        invalid: this.props.invalidCallback("name", this.state, this.props),
         invalidText: this.props.invalidTextCallback(this.state, this.props)
       })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
         id: "description",
@@ -15158,14 +15158,19 @@ AccessGroupForm.propTypes = {
   invalidTextCallback: PropTypes__default["default"].func.isRequired
 };
 
-class AccessGroupPolicyForm extends React__default["default"].Component {
-  constructor(props) {
-    super(props);
-    this.state = this.props.data;
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleInputResource = this.handleInputResource.bind(this);
+var AccessGroupPolicyForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(AccessGroupPolicyForm, _React$Component);
+  var _super = _createSuper(AccessGroupPolicyForm);
+  function AccessGroupPolicyForm(props) {
+    var _this;
+    _classCallCheck(this, AccessGroupPolicyForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleInputResource = _this.handleInputResource.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   /**
@@ -15173,6 +15178,7 @@ class AccessGroupPolicyForm extends React__default["default"].Component {
    * @param {string} name key to change in state
    * @param {*} value value to update
    */
+<<<<<<< HEAD
 <<<<<<< HEAD
   _createClass(AccessGroupPolicyForm, [{
 <<<<<<< HEAD
@@ -15184,10 +15190,14 @@ class AccessGroupPolicyForm extends React__default["default"].Component {
 >>>>>>> 74e4b37 (Issue 713: **NEW** VPE Form  (#41))
 =======
 >>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
+=======
+  _createClass(AccessGroupPolicyForm, [{
+>>>>>>> 1381471 (new invalidCallback)
     key: "handleInputChange",
     value: function handleInputChange(event) {
       this.setState(this.eventTargetToNameAndValue(event));
     }
+<<<<<<< HEAD
 
     /**
 <<<<<<< HEAD
@@ -15444,6 +15454,115 @@ class AccessGroupPolicyForm extends React__default["default"].Component {
   }
 }
 >>>>>>> 21a3131 (added default prop and removed extra lines)
+=======
+
+    /**
+     * handle input change
+     * @param {string} name key to change in state
+     * @param {*} value value to update
+     */
+  }, {
+    key: "handleInputResource",
+    value: function handleInputResource(event) {
+      var _event$target = event.target,
+        name = _event$target.name,
+        value = _event$target.value;
+      var resources = _objectSpread2({}, this.state.resources);
+      resources[name] = value;
+      this.setState({
+        resources: resources
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+        id: "name",
+        componentName: "policies",
+        value: this.state.name,
+        onChange: this.handleInputChange,
+        labelText: "Name",
+        invalidText: this.props.invalidTextCallback(this.state, this.props),
+        invalid: this.props.invalidCallback("name", this.state, this.props),
+        helperTextCallback: function helperTextCallback() {
+          return _this2.props.helperTextCallback(_this2.state, _this2.props);
+        }
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+        className: "marginBottomSmall"
+      }, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+        name: "Resource Configuration",
+        type: "subHeading"
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+        id: "resource",
+        componentName: "resource",
+        tooltip: {
+          content: "The resource of the policy definition",
+          alignModal: "bottom-left"
+        },
+        isModal: this.props.isModal,
+        field: "resource",
+        value: this.state.resources.resource,
+        invalid: false,
+        onChange: this.handleInputResource,
+        labelText: "Resource"
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        name: "resource_group",
+        formName: "".concat(lazyZ.kebabCase(this.props.data.name), "-agp-rg-select"),
+        groups: this.props.resourceGroups,
+        value: this.state.resources.resource_group,
+        handleInputChange: this.handleInputResource,
+        invalidText: "Select a Resource Group",
+        labelText: "Resource Group",
+        tooltip: {
+          content: "Name of the resource group the policy will apply to",
+          alignModal: "bottom-left"
+        }
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+        id: "resource_instance_id",
+        componentName: "resource_instance_id",
+        isModal: this.props.isModal,
+        field: "resource_instance_id",
+        value: this.state.resources.resource_instance_id,
+        tooltip: {
+          content: "ID of a service instance to give permissions"
+        },
+        invalid: false,
+        labelText: "Resource Instance ID",
+        onChange: this.handleInputResource
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+        id: "service",
+        componentName: "service",
+        tooltip: {
+          content: 'Name of the service type for the policy ex. "cloud-object-storage"',
+          alignModal: "bottom-left",
+          align: "top-left"
+        },
+        labelText: "Service Type",
+        field: "service",
+        value: this.state.resources.service,
+        isModal: this.props.isModal,
+        onChange: this.handleInputResource,
+        invalid: false
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+        id: "resource_type",
+        componentName: "resource_type",
+        field: "resource_type",
+        tooltip: {
+          content: 'Name of the resource type for the policy ex. "resource-group"',
+          alignModal: "bottom-left"
+        },
+        invalid: false,
+        value: this.state.resources.resource_type,
+        isModal: this.props.isModal,
+        onChange: this.handleInputResource,
+        labelText: "Resource Type"
+      })));
+    }
+  }]);
+  return AccessGroupPolicyForm;
+}(React__default["default"].Component);
+>>>>>>> 1381471 (new invalidCallback)
 AccessGroupPolicyForm.defaultProps = {
   data: {
     name: "",
@@ -15548,9 +15667,9 @@ var AccessGroupDynamicPolicyForm = /*#__PURE__*/function (_React$Component) {
         value: this.state.name,
         onChange: this.handleInputChange,
         invalidText: this.props.invalidTextCallback(this.state, this.props),
-        invalid: this.props.invalidCallback(this.state, this.props),
+        invalid: this.props.invalidCallback("name", this.state, this.props),
         helperTextCallback: function helperTextCallback() {
-          return _this2.props.helperTextCallback(_this2.state);
+          return _this2.props.helperTextCallback(_this2.state, _this2.props);
         }
       }), /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
         tooltip: {
@@ -15574,7 +15693,7 @@ var AccessGroupDynamicPolicyForm = /*#__PURE__*/function (_React$Component) {
         isModal: this.props.isModal,
         labelText: "Identity Provider",
         value: this.state.identity_provider,
-        invalid: this.props.invalidIdpCallback(this.state),
+        invalid: this.props.invalidCallback("identity_provider", this.state, this.props),
         onChange: this.handleInputChange,
         className: "textInputWide"
       })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
@@ -15652,8 +15771,7 @@ AccessGroupDynamicPolicyForm.propTypes = {
   isModal: PropTypes__default["default"].bool.isRequired,
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  helperTextCallback: PropTypes__default["default"].func.isRequired,
-  invalidIdpCallback: PropTypes__default["default"].func.isRequired
+  helperTextCallback: PropTypes__default["default"].func.isRequired
 };
 
 exports.AccessGroupDynamicPolicyForm = AccessGroupDynamicPolicyForm;
