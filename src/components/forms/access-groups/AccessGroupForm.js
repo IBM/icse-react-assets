@@ -58,6 +58,13 @@ class AccessGroupForm extends React.Component {
             invalid={false}
           />
         </IcseFormGroup>
+        {this.props.isModal !== true && (
+          <>
+            {this.props?.subForms.map((form, index) => {
+              return <div key={index}>{form}</div>;
+            })}
+          </>
+        )}
       </>
     );
   }
@@ -76,6 +83,7 @@ AccessGroupForm.propTypes = {
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
   }).isRequired,
+  subForms: PropTypes.arrayOf(PropTypes.form).isRequired,
   isModal: PropTypes.bool.isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,

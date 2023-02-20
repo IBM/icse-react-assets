@@ -27,16 +27,6 @@ function composedNameCallback(stateData, componentProps) {
   return `${stateData.name}-<random suffix>`;
 }
 
-export const AccessGroupFormExample = () => {
-  return (
-    <AccessGroupForm
-      data={{ name: "test", description: "foo" }}
-      invalidCallback={invalidCallback}
-      invalidTextCallback={invalidTextCallback}
-    />
-  );
-};
-
 export const AccessGroupPolicyFormExample = () => {
   return (
     <AccessGroupPolicyForm
@@ -74,6 +64,20 @@ export const AccessGroupDynamicPolicyFormExample = () => {
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
       helperTextCallback={composedNameCallback}
+    />
+  );
+};
+
+export const AccessGroupFormExample = () => {
+  return (
+    <AccessGroupForm
+      data={{ name: "test", description: "foo" }}
+      subForms={[
+        <AccessGroupPolicyFormExample />,
+        <AccessGroupDynamicPolicyFormExample />,
+      ]}
+      invalidCallback={invalidCallback}
+      invalidTextCallback={invalidTextCallback}
     />
   );
 };

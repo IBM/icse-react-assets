@@ -16949,6 +16949,7 @@ var AccessGroupForm = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this$props;
       return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
         id: "name",
         componentName: "access_groups",
@@ -16972,6 +16973,10 @@ var AccessGroupForm = /*#__PURE__*/function (_React$Component) {
         className: "textInputWide",
         hideHelperText: true,
         invalid: false
+      })), this.props.isModal !== true && /*#__PURE__*/React.createElement(React.Fragment, null, (_this$props = this.props) === null || _this$props === void 0 ? void 0 : _this$props.subForms.map(function (form, index) {
+        return /*#__PURE__*/React.createElement("div", {
+          key: index
+        }, form);
       })));
     }
   }]);
@@ -16989,6 +16994,7 @@ AccessGroupForm.propTypes = {
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired
   }).isRequired,
+  subForms: PropTypes.arrayOf(PropTypes.form).isRequired,
   isModal: PropTypes.bool.isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired
