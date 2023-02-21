@@ -19,7 +19,7 @@ import { isNullOrEmptyString } from "lazy-z";
 class SubnetForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { ...this.props.subnet };
+    this.state = { ...this.props.data };
     this.handleSave = this.handleSave.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
@@ -45,11 +45,11 @@ class SubnetForm extends React.Component {
   render() {
     return (
       <Tile
-        key={this.props.vpc_name + "-subnets-" + this.props.subnet.name}
+        key={this.props.vpc_name + "-subnets-" + this.props.data.name}
         className="marginRight fieldWidth"
       >
         <IcseHeading
-          name={this.props.subnet.name}
+          name={this.props.data.name}
           type="subHeading"
           className="marginBottomSmall"
           buttons={
@@ -71,10 +71,10 @@ class SubnetForm extends React.Component {
         <IcseFormGroup className="marginBottomSmall">
           {/* TextInput is used here as cidr is read only */}
           <TextInput
-            id={this.props.subnet.name + "-cidr"}
+            id={this.props.data.name + "-cidr"}
             invalidText="Invalid subnet CIDR."
             labelText="Subnet CIDR"
-            value={this.props.subnet.cidr}
+            value={this.props.data.cidr}
             className="fieldWidthSmaller"
             readOnly
           />
@@ -82,7 +82,7 @@ class SubnetForm extends React.Component {
         <IcseFormGroup className="marginBottomSmall">
           <IcseSelect
             name="acl_name"
-            formName={`${this.props.subnet.name}-subnet-acl`}
+            formName={`${this.props.data.name}-subnet-acl`}
             labelText="Network ACL"
             groups={this.props.networkAcls}
             value={this.state.acl_name}
@@ -99,7 +99,7 @@ class SubnetForm extends React.Component {
               content:
                 "A Public Gateway must be enabled in this zone to use. To enable public gateways, see the VPC page.",
             }}
-            id={"new-subnet-public-gateway-" + this.props.subnet.name}
+            id={"new-subnet-public-gateway-" + this.props.data.name}
             labelText="Use Public Gateway"
             toggleFieldName="public_gateway"
             defaultToggled={this.state.public_gateway}
@@ -123,7 +123,7 @@ SubnetForm.propTypes = {
   isModal: PropTypes.bool.isRequired,
   onSave: PropTypes.func,
   vpc_name: PropTypes.string.isRequired,
-  subnet: PropTypes.shape({
+  data: PropTypes.shape({
     name: PropTypes.string.isRequired,
     cidr: PropTypes.string.isRequired,
     public_gateway: PropTypes.bool,

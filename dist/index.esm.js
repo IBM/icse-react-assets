@@ -17123,109 +17123,126 @@ VsiForm.propTypes = {
  * @param {Object} props
  * @returns {SubnetTile} react component
  */
-class SubnetForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.subnet
-    };
-    this.handleSave = this.handleSave.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
+var SubnetForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(SubnetForm, _React$Component);
+  var _super = _createSuper(SubnetForm);
+  function SubnetForm(props) {
+    var _this;
+    _classCallCheck(this, SubnetForm);
+    _this = _super.call(this, props);
+    _this.state = _objectSpread2({}, _this.props.data);
+    _this.handleSave = _this.handleSave.bind(_assertThisInitialized(_this));
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    return _this;
   }
-  handleChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    this.setState({
-      [name]: value
-    });
-  }
-  componentDidUpdate() {
-    this.props.componentDidUpdateCallback(this.state, this.props);
-  }
-  handleSave() {
-    this.props.onSave(this.state, this.props);
-  }
-  handleToggle() {
-    this.setState({
-      public_gateway: !this.state.public_gateway
-    });
-  }
-  render() {
-    return /*#__PURE__*/React.createElement(Tile, {
-      key: this.props.vpc_name + "-subnets-" + this.props.subnet.name,
-      className: "marginRight fieldWidth"
-    }, /*#__PURE__*/React.createElement(IcseHeading, {
-      name: this.props.subnet.name,
-      type: "subHeading",
-      className: "marginBottomSmall",
-      buttons: /*#__PURE__*/React.createElement(DynamicRender, {
-        hide: this.props.isModal,
-        show: /*#__PURE__*/React.createElement(SaveAddButton, {
-          disabled: this.props.disableSaveCallback(this.state, this.propss),
-          onClick: this.handleSave,
-          noDeleteButton: true
+  _createClass(SubnetForm, [{
+    key: "handleChange",
+    value: function handleChange(event) {
+      var _event$target = event.target,
+        name = _event$target.name,
+        value = _event$target.value;
+      this.setState(_defineProperty({}, name, value));
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      this.props.componentDidUpdateCallback(this.state, this.props);
+    }
+  }, {
+    key: "handleSave",
+    value: function handleSave() {
+      this.props.onSave(this.state, this.props);
+    }
+  }, {
+    key: "handleToggle",
+    value: function handleToggle() {
+      this.setState({
+        public_gateway: !this.state.public_gateway
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement(Tile, {
+        key: this.props.vpc_name + "-subnets-" + this.props.data.name,
+        className: "marginRight fieldWidth"
+      }, /*#__PURE__*/React.createElement(IcseHeading, {
+        name: this.props.data.name,
+        type: "subHeading",
+        className: "marginBottomSmall",
+        buttons: /*#__PURE__*/React.createElement(DynamicRender, {
+          hide: this.props.isModal,
+          show: /*#__PURE__*/React.createElement(SaveAddButton, {
+            disabled: this.props.disableSaveCallback(this.state, this.propss),
+            onClick: this.handleSave,
+            noDeleteButton: true
+          })
         })
-      })
-    }), /*#__PURE__*/React.createElement(IcseFormGroup, {
-      className: "marginBottomSmall"
-    }, /*#__PURE__*/React.createElement(TextInput, {
-      id: this.props.subnet.name + "-cidr",
-      invalidText: "Invalid subnet CIDR.",
-      labelText: "Subnet CIDR",
-      value: this.props.subnet.cidr,
-      className: "fieldWidthSmaller",
-      readOnly: true
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, {
-      className: "marginBottomSmall"
-    }, /*#__PURE__*/React.createElement(IcseSelect, {
-      name: "acl_name",
-      formName: `${this.props.subnet.name}-subnet-acl`,
-      labelText: "Network ACL",
-      groups: this.props.networkAcls,
-      value: this.state.acl_name,
-      handleInputChange: this.handleChange,
-      className: "fieldWidthSmaller",
-      disabled: this.props.isModal,
-      invalid: isNullOrEmptyString$1(this.state.acl_name),
-      invalidText: "Select a Network ACL."
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, {
-      noMarginBottom: true
-    }, /*#__PURE__*/React.createElement(IcseToggle, {
-      tooltip: {
-        content: "A Public Gateway must be enabled in this zone to use. To enable public gateways, see the VPC page."
-      },
-      id: "new-subnet-public-gateway-" + this.props.subnet.name,
-      labelText: "Use Public Gateway",
-      toggleFieldName: "public_gateway",
-      defaultToggled: this.state.public_gateway,
-      onToggle: this.handleToggle,
-      disabled: this.props.isModal || this.props.shouldDisableGatewayToggle(this.state, this.props)
-    })));
-  }
-}
+      }), /*#__PURE__*/React.createElement(IcseFormGroup, {
+        className: "marginBottomSmall"
+      }, /*#__PURE__*/React.createElement(TextInput, {
+        id: this.props.data.name + "-cidr",
+        invalidText: "Invalid subnet CIDR.",
+        labelText: "Subnet CIDR",
+        value: this.props.data.cidr,
+        className: "fieldWidthSmaller",
+        readOnly: true
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, {
+        className: "marginBottomSmall"
+      }, /*#__PURE__*/React.createElement(IcseSelect, {
+        name: "acl_name",
+        formName: "".concat(this.props.data.name, "-subnet-acl"),
+        labelText: "Network ACL",
+        groups: this.props.networkAcls,
+        value: this.state.acl_name,
+        handleInputChange: this.handleChange,
+        className: "fieldWidthSmaller",
+        disabled: this.props.isModal,
+        invalid: isNullOrEmptyString$1(this.state.acl_name),
+        invalidText: "Select a Network ACL."
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, {
+        noMarginBottom: true
+      }, /*#__PURE__*/React.createElement(IcseToggle, {
+        tooltip: {
+          content: "A Public Gateway must be enabled in this zone to use. To enable public gateways, see the VPC page."
+        },
+        id: "new-subnet-public-gateway-" + this.props.data.name,
+        labelText: "Use Public Gateway",
+        toggleFieldName: "public_gateway",
+        defaultToggled: this.state.public_gateway,
+        onToggle: this.handleToggle,
+        disabled: this.props.isModal || this.props.shouldDisableGatewayToggle(this.state, this.props)
+      })));
+    }
+  }]);
+  return SubnetForm;
+}(React.Component);
 SubnetForm.defaultProps = {
   isModal: false
 };
-SubnetForm.propTypes = {
+SubnetForm.propTypes = _defineProperty({
   isModal: PropTypes.bool.isRequired,
   onSave: PropTypes.func,
   vpc_name: PropTypes.string.isRequired,
-  subnet: PropTypes.shape({
+  data: PropTypes.shape({
     name: PropTypes.string.isRequired,
     cidr: PropTypes.string.isRequired,
     public_gateway: PropTypes.bool,
     acl_name: PropTypes.string.isRequired
   }).isRequired,
-  disableSaveCallback: PropTypes.func.isRequired,
+  disableSaveCallback: PropTypes.func,
   shouldDisableGatewayToggle: PropTypes.func.isRequired,
   networkAcls: PropTypes.arrayOf(PropTypes.string).isRequired,
+<<<<<<< HEAD
   componentDidUpdateCallback: PropTypes.func.isRequired,
   onSave: PropTypes.func
 >>>>>>> 88a6242 (feat: subnet form)
 };
+=======
+  componentDidUpdateCallback: PropTypes.func.isRequired
+}, "onSave", PropTypes.func);
+>>>>>>> ed5fa5a (fix: subnet => data)
 
 var css_248z = ".about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n";
 styleInject(css_248z);

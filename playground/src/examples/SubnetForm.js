@@ -19,7 +19,7 @@ export const SubnetFormExample = () => {
   return (
     <SubnetForm
       vpc_name="example"
-      subnet={{
+      data={{
         name: "example-subnet-zone-1",
         cidr: "10.10.10.10/24",
         public_gateway: false,
