@@ -39,7 +39,6 @@ class VsiForm extends Component {
   }
 
   handleMultiSelectChange(name, value) {
-    console.log(name, value);
     this.setState(this.setNameToValue(name, value));
   }
 
@@ -141,8 +140,8 @@ class VsiForm extends Component {
             groups={this.props.imageList}
             value={this.state.image_name}
             handleInputChange={this.handleInputChange}
-            invalid={this.invalidCallback}
-            invalidText={this.invalidTextCallback}
+            invalid={this.props.invalidCallback(this.state)}
+            invalidText="Select a valid image."
           />
           <IcseSelect
             formName="vsi_form"
@@ -151,8 +150,8 @@ class VsiForm extends Component {
             groups={this.props.flavorList}
             value={this.state.machine_type}
             handleInputChange={this.handleInputChange}
-            invalid={this.invalidCallback}
-            invalidText={this.invalidTextCallback}
+            invalid={this.props.invalidCallback(this.state)}
+            invalidText="Select a valid flavor."
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -163,8 +162,8 @@ class VsiForm extends Component {
             groups={this.props.encryptionKeyList}
             value={this.state.boot_volume_encryption_key_name}
             handleInputChange={this.handleInputChange}
-            invalid={this.invalidCallback}
-            invalidText={this.invalidTextCallback}
+            invalid={this.props.invalidCallback(this.state)}
+            invalidText="Select a valid encryption key."
           />
           <IcseToggle
             id={composedId + "-fips-toggle"}
@@ -173,7 +172,6 @@ class VsiForm extends Component {
             onToggle={this.handleToggle}
           />
         </IcseFormGroup>
-
         {/* cloud init data, show if not f5 or teleport */}
         <DynamicRender
           hide={this.props.isTeleport}
@@ -181,12 +179,12 @@ class VsiForm extends Component {
             <IcseFormGroup>
               <TextArea
                 id={composedId + "-vsi-user-data"}
-                invalidText="Invalid error message."
                 placeholder="Cloud init data"
                 labelText="User Data"
                 name="user_data"
                 value={this.state.user_data || ""}
                 onChange={this.handleInputChange}
+                invalidText="Invalid error message."
                 className="fieldWidthBigger"
               />
             </IcseFormGroup>
@@ -223,8 +221,10 @@ VsiForm.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
   }).isRequired,
+  /* bools */
   isModal: PropTypes.bool.isRequired,
   isTeleport: PropTypes.bool.isRequired,
+  /* lists */
   resourceGroupList: PropTypes.array.isRequired,
   vpcList: PropTypes.array.isRequired,
   subnetList: PropTypes.array.isRequired,
@@ -232,6 +232,7 @@ VsiForm.propTypes = {
   encryptionKeyList: PropTypes.array.isRequired,
   imageList: PropTypes.array.isRequired,
   flavorList: PropTypes.array.isRequired,
+  /* callbacks */
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
 };
