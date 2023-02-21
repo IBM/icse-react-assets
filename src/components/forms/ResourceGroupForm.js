@@ -52,7 +52,7 @@ class ResourceGroupForm extends Component {
               content: "If true, get data from an existing resource group",
             }}
             labelText="Use Existing Instance"
-            toggleFieldName={this.props.toggleName || "use_data"}
+            toggleFieldName={this.props.toggleName}
             defaultToggled={!this.state.create}
             id={composedId + "-create-toggle"}
             onToggle={() => this.handleToggle("create")}
@@ -104,6 +104,7 @@ ResourceGroupForm.defaultProps = {
     name: "",
     use_prefix: true,
   },
+  toggleName: "use_data",
 };
 
 ResourceGroupForm.propTypes = {
