@@ -64,7 +64,6 @@ class ResourceGroupForm extends Component {
           <IcseNameInput
             id={composedId}
             componentName="resource_groups"
-            componentProps={this.props}
             value={this.state.name}
             onChange={this.handleTextInput}
             useData={
