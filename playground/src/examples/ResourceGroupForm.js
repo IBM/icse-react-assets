@@ -6,7 +6,6 @@ export const ResourceGroupFormExample = () => {
       data={{
         name: "example-form",
       }}
-      isModal={true}
     />
   );
 };
