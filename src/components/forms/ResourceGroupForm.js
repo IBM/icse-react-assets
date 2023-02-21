@@ -70,13 +70,13 @@ class ResourceGroupForm extends Component {
             useData={
               this.state.create === false || this.state.use_prefix === false
             }
-            helperTextCallback={() => {
-              return this.props.helperText || "Resource group name";
-            }}
-            invalidCallback={() => {
-              return this.state.name === "";
-            }}
-            invalidText={"Name cannot be empty"}
+            invalidCallback={() =>
+              this.props.invalidCallback(this.state, this.props)
+            }
+            invalidText={this.props.invalidTextCallback(this.state, this.props)}
+            helperTextCallback={() =>
+              this.props.helperTextCallback(this.state, this.props)
+            }
           />
           {/* use prefix only if create enabled */}
           {this.state.create && (
@@ -113,6 +113,9 @@ ResourceGroupForm.propTypes = {
     use_prefix: PropTypes.bool,
   }),
   isModal: PropTypes.bool.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  helperTextCallback: PropTypes.func.isRequired,
 };
 
 export default ResourceGroupForm;
