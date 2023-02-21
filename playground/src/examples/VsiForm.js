@@ -8,6 +8,7 @@ function validName(str) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 function invalidCallback(stateData) {
   return !validName(stateData.name) || contains(["foo", "bar"], stateData.name);
 }
@@ -20,6 +21,13 @@ function invalidCallback(stateData, componentProps) {
 
 function invalidTextCallback(stateData, componentProps) {
 >>>>>>> a8d076e (merge)
+=======
+function invalidCallback(stateData) {
+  return !validName(stateData.name) || contains(["foo", "bar"], stateData.name);
+}
+
+function invalidTextCallback(stateData) {
+>>>>>>> 71b28a3 (cleanup invalid text and remove log)
   return contains(["foo", "bar"], stateData.name)
     ? `Name ${stateData.name} already in use.`
     : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;

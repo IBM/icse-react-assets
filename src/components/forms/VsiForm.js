@@ -48,9 +48,12 @@ class VsiForm extends Component {
 
   handleMultiSelectChange(name, value) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     console.log(name, value);
 >>>>>>> a8d076e (merge)
+=======
+>>>>>>> 71b28a3 (cleanup invalid text and remove log)
     this.setState(this.setNameToValue(name, value));
   }
 
@@ -183,8 +186,8 @@ class VsiForm extends Component {
             groups={this.props.imageList}
             value={this.state.image_name}
             handleInputChange={this.handleInputChange}
-            invalid={this.invalidCallback}
-            invalidText={this.invalidTextCallback}
+            invalid={this.props.invalidCallback(this.state)}
+            invalidText="Select a valid image."
           />
           <IcseSelect
             formName="vsi_form"
@@ -193,9 +196,14 @@ class VsiForm extends Component {
             groups={this.props.flavorList}
             value={this.state.machine_type}
             handleInputChange={this.handleInputChange}
+<<<<<<< HEAD
             invalid={this.invalidCallback}
             invalidText={this.invalidTextCallback}
 >>>>>>> a8d076e (merge)
+=======
+            invalid={this.props.invalidCallback(this.state)}
+            invalidText="Select a valid flavor."
+>>>>>>> 71b28a3 (cleanup invalid text and remove log)
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -207,12 +215,17 @@ class VsiForm extends Component {
             value={this.state.boot_volume_encryption_key_name}
             handleInputChange={this.handleInputChange}
 <<<<<<< HEAD
+<<<<<<< HEAD
             invalid={this.props.invalidCallback(this.state)}
             invalidText="Select a valid encryption key."
 =======
             invalid={this.invalidCallback}
             invalidText={this.invalidTextCallback}
 >>>>>>> a8d076e (merge)
+=======
+            invalid={this.props.invalidCallback(this.state)}
+            invalidText="Select a valid encryption key."
+>>>>>>> 71b28a3 (cleanup invalid text and remove log)
           />
           <IcseToggle
             id={composedId + "-fips-toggle"}
@@ -222,9 +235,12 @@ class VsiForm extends Component {
           />
         </IcseFormGroup>
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 >>>>>>> a8d076e (merge)
+=======
+>>>>>>> 71b28a3 (cleanup invalid text and remove log)
         {/* cloud init data, show if not f5 or teleport */}
         <DynamicRender
           hide={this.props.isTeleport}
@@ -233,18 +249,25 @@ class VsiForm extends Component {
               <TextArea
                 id={composedId + "-vsi-user-data"}
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
                 invalidText="Invalid error message."
 >>>>>>> a8d076e (merge)
+=======
+>>>>>>> 71b28a3 (cleanup invalid text and remove log)
                 placeholder="Cloud init data"
                 labelText="User Data"
                 name="user_data"
                 value={this.state.user_data || ""}
                 onChange={this.handleInputChange}
 <<<<<<< HEAD
+<<<<<<< HEAD
                 invalidText="Invalid error message."
 =======
 >>>>>>> a8d076e (merge)
+=======
+                invalidText="Invalid error message."
+>>>>>>> 71b28a3 (cleanup invalid text and remove log)
                 className="fieldWidthBigger"
               />
             </IcseFormGroup>
@@ -310,9 +333,14 @@ VsiForm.propTypes = {
 =======
     name: PropTypes.string.isRequired,
   }).isRequired,
+  /* bools */
   isModal: PropTypes.bool.isRequired,
   isTeleport: PropTypes.bool.isRequired,
+<<<<<<< HEAD
 >>>>>>> a8d076e (merge)
+=======
+  /* lists */
+>>>>>>> 71b28a3 (cleanup invalid text and remove log)
   resourceGroupList: PropTypes.array.isRequired,
   vpcList: PropTypes.array.isRequired,
   subnetList: PropTypes.array.isRequired,
@@ -326,7 +354,11 @@ VsiForm.propTypes = {
 =======
   imageList: PropTypes.array.isRequired,
   flavorList: PropTypes.array.isRequired,
+<<<<<<< HEAD
 >>>>>>> a8d076e (merge)
+=======
+  /* callbacks */
+>>>>>>> 71b28a3 (cleanup invalid text and remove log)
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
 };
