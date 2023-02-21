@@ -9,7 +9,7 @@ import {
   IcseToggle,
 } from "../";
 import PropTypes from "prop-types";
-import { isNullOrEmptyString } from "lazy-z";
+import { deepEqual, isNullOrEmptyString } from "lazy-z";
 
 /**
  * create a tile for each subnet
@@ -59,7 +59,7 @@ class SubnetForm extends React.Component {
                 <SaveAddButton
                   disabled={this.props.disableSaveCallback(
                     this.state,
-                    this.propss
+                    this.props
                   )}
                   onClick={this.handleSave}
                   noDeleteButton
@@ -130,7 +130,7 @@ SubnetForm.propTypes = {
     acl_name: PropTypes.string.isRequired,
   }).isRequired,
   disableSaveCallback: PropTypes.func,
-  shouldDisableGatewayToggle: PropTypes.func.isRequired,
+  shouldDisableGatewayToggle: PropTypes.func,
   networkAcls: PropTypes.arrayOf(PropTypes.string).isRequired,
   componentDidUpdateCallback: PropTypes.func.isRequired,
   onSave: PropTypes.func,

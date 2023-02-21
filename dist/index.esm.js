@@ -691,11 +691,15 @@ import lazyZ, { isNullOrEmptyString as isNullOrEmptyString$1, kebabCase as kebab
 =======
 import { Popover, PopoverContent, Button, Toggletip, ToggletipButton, ToggletipContent, Link, Select, SelectItem, Tile, Modal, Toggle, TextInput, NumberInput, TextArea, Dropdown, FilterableMultiSelect, Tabs, TabList, Tab, TabPanels, TabPanel, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody } from '@carbon/react';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import lazyZ, { isNullOrEmptyString as isNullOrEmptyString$1, kebabCase as kebabCase$1, isEmpty, buildNumberDropdownList, snakeCase, titleCase, isBoolean, capitalize, prettyJSON, parseIntFromZone, isFunction as isFunction$1, contains, eachKey } from 'lazy-z';
 >>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 =======
 import lazyZ, { isNullOrEmptyString as isNullOrEmptyString$1, kebabCase as kebabCase$1, isEmpty, buildNumberDropdownList, snakeCase, titleCase, isBoolean, capitalize, prettyJSON, parseIntFromZone, isFunction as isFunction$1, contains, transpose, eachKey } from 'lazy-z';
 >>>>>>> 588fbfa (add vsiform and example)
+=======
+import lazyZ, { isNullOrEmptyString as isNullOrEmptyString$1, kebabCase as kebabCase$1, isEmpty, buildNumberDropdownList, snakeCase, titleCase, isBoolean, capitalize, prettyJSON, parseIntFromZone, isFunction as isFunction$1, contains, deepEqual, eachKey } from 'lazy-z';
+>>>>>>> 68bf364 (feat: subnet tile form)
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Save, Add, CloseFilled, Edit, TrashCan, ArrowUp, ArrowDown, Information, CloudAlerting, WarningAlt } from '@carbon/icons-react';
@@ -1690,6 +1694,7 @@ function styleInject(css, ref) {
   }
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -2951,6 +2956,10 @@ styleInject(css_248z$9);
 var css_248z$c = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  position: relative;\n  z-index: 9001;\n}";
 styleInject(css_248z$c);
 >>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
+=======
+var css_248z$d = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  position: relative;\n  z-index: 9001;\n}";
+styleInject(css_248z$d);
+>>>>>>> 68bf364 (feat: subnet tile form)
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -3028,6 +3037,7 @@ PopoverWrapper.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$6 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  z-index: 9001; /* navbar is 9000 */\n  font-size: 80%;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
 =======
 var css_248z$6 = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem;\n}\n";
@@ -3058,6 +3068,10 @@ styleInject(css_248z$b);
 var css_248z$b = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important; \n}\n";
 styleInject(css_248z$b);
 >>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
+=======
+var css_248z$c = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important; \n}\n";
+styleInject(css_248z$c);
+>>>>>>> 68bf364 (feat: subnet tile form)
 
 /**
  * generate save icon
@@ -3290,6 +3304,7 @@ function buildFormDefaultInputMethods(component) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$a = ".displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
 styleInject(css_248z$a);
 
@@ -3408,6 +3423,10 @@ styleInject(css_248z$8);
 =======
 var css_248z$a = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
 styleInject(css_248z$a);
+=======
+var css_248z$b = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+styleInject(css_248z$b);
+>>>>>>> 68bf364 (feat: subnet tile form)
 
 >>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 /**
@@ -3999,6 +4018,7 @@ DynamicToolTipWrapper.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$7 = ".textInputMedium {\n  width: 20rem;\n}";
 styleInject(css_248z$7);
 
@@ -4263,6 +4283,10 @@ var IcseSelect = function IcseSelect(props) {
 =======
 var css_248z$9 = ".textInputMedium {\n  width: 20rem;\n}";
 styleInject(css_248z$9);
+=======
+var css_248z$a = ".textInputMedium {\n  width: 20rem;\n}";
+styleInject(css_248z$a);
+>>>>>>> 68bf364 (feat: subnet tile form)
 
 var IcseSelect = function IcseSelect(props) {
   var invalid =
@@ -4490,12 +4514,17 @@ EntitlementSelect.defaultProps = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$6 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$6);
 =======
 var css_248z$8 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$8);
 >>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
+=======
+var css_248z$9 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z$9);
+>>>>>>> 68bf364 (feat: subnet tile form)
 
 /**
  * Empty Resource Tile
@@ -4525,9 +4554,14 @@ EmptyResourceTile.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 var css_248z$7 = ".displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
 styleInject(css_248z$7);
+=======
+var css_248z$8 = ".displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
+styleInject(css_248z$8);
+>>>>>>> 68bf364 (feat: subnet tile form)
 
 >>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 /**
@@ -4772,6 +4806,7 @@ FormModal.propTypes = {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$5 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
 styleInject(css_248z$5);
 =======
@@ -4781,6 +4816,10 @@ var css_248z$6 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-
 >>>>>>> b26c811 (readme/example changes and new callback for "identity_provider")
 styleInject(css_248z$6);
 >>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
+=======
+var css_248z$7 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.textInputWide {\n  width: 30rem;\n}";
+styleInject(css_248z$7);
+>>>>>>> 68bf364 (feat: subnet tile form)
 
 var IcseToggle = function IcseToggle(props) {
   var toggleName = props.toggleFieldName || snakeCase(props.labelText);
@@ -4937,12 +4976,17 @@ IcseNameInput.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$4 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
 styleInject(css_248z$4);
 =======
 var css_248z$5 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
 styleInject(css_248z$5);
 >>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
+=======
+var css_248z$6 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
+styleInject(css_248z$6);
+>>>>>>> 68bf364 (feat: subnet tile form)
 
 var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
   _inherits(AppIdKeyForm, _React$Component);
@@ -10820,6 +10864,7 @@ SecretsManagerForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$2 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
 styleInject(css_248z$2);
 
@@ -10844,6 +10889,10 @@ styleInject(css_248z$3);
 =======
 var css_248z$4 = ".leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidthBigger {\n  width: 30rem\n}\n";
 styleInject(css_248z$4);
+=======
+var css_248z$5 = ".leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidthBigger {\n  width: 30rem\n}\n";
+styleInject(css_248z$5);
+>>>>>>> 68bf364 (feat: subnet tile form)
 
 /**
 >>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
@@ -11002,6 +11051,7 @@ TeleportClaimToRoleForm.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$2 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
 styleInject(css_248z$2);
 
@@ -11013,9 +11063,13 @@ styleInject(css_248z$1);
 =======
 var css_248z$3 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
 styleInject(css_248z$3);
+=======
+var css_248z$4 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+styleInject(css_248z$4);
+>>>>>>> 68bf364 (feat: subnet tile form)
 
-var css_248z$2 = ".leftTextAlign {\n  text-align: left;\n}\n";
-styleInject(css_248z$2);
+var css_248z$3 = ".leftTextAlign {\n  text-align: left;\n}\n";
+styleInject(css_248z$3);
 
 /**
 >>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
@@ -13131,12 +13185,17 @@ var UnderConstruction = function UnderConstruction() {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}";
 styleInject(css_248z);
 =======
 var css_248z$1 = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}";
 styleInject(css_248z$1);
 >>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
+=======
+var css_248z$2 = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}";
+styleInject(css_248z$2);
+>>>>>>> 68bf364 (feat: subnet tile form)
 
 /**
  * StatefulTabPanel wrapper for non array forms
@@ -17123,105 +17182,93 @@ VsiForm.propTypes = {
  * @param {Object} props
  * @returns {SubnetTile} react component
  */
-var SubnetForm = /*#__PURE__*/function (_React$Component) {
-  _inherits(SubnetForm, _React$Component);
-  var _super = _createSuper(SubnetForm);
-  function SubnetForm(props) {
-    var _this;
-    _classCallCheck(this, SubnetForm);
-    _this = _super.call(this, props);
-    _this.state = _objectSpread2({}, _this.props.data);
-    _this.handleSave = _this.handleSave.bind(_assertThisInitialized(_this));
-    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
-    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
-    return _this;
+class SubnetForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleSave = this.handleSave.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
   }
-  _createClass(SubnetForm, [{
-    key: "handleChange",
-    value: function handleChange(event) {
-      var _event$target = event.target,
-        name = _event$target.name,
-        value = _event$target.value;
-      this.setState(_defineProperty({}, name, value));
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate() {
-      this.props.componentDidUpdateCallback(this.state, this.props);
-    }
-  }, {
-    key: "handleSave",
-    value: function handleSave() {
-      this.props.onSave(this.state, this.props);
-    }
-  }, {
-    key: "handleToggle",
-    value: function handleToggle() {
-      this.setState({
-        public_gateway: !this.state.public_gateway
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React.createElement(Tile, {
-        key: this.props.vpc_name + "-subnets-" + this.props.data.name,
-        className: "marginRight fieldWidth"
-      }, /*#__PURE__*/React.createElement(IcseHeading, {
-        name: this.props.data.name,
-        type: "subHeading",
-        className: "marginBottomSmall",
-        buttons: /*#__PURE__*/React.createElement(DynamicRender, {
-          hide: this.props.isModal,
-          show: /*#__PURE__*/React.createElement(SaveAddButton, {
-            disabled: this.props.disableSaveCallback(this.state, this.propss),
-            onClick: this.handleSave,
-            noDeleteButton: true
-          })
+  handleChange(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    this.setState({
+      [name]: value
+    });
+  }
+  componentDidUpdate() {
+    this.props.componentDidUpdateCallback(this.state, this.props);
+  }
+  handleSave() {
+    this.props.onSave(this.state, this.props);
+  }
+  handleToggle() {
+    this.setState({
+      public_gateway: !this.state.public_gateway
+    });
+  }
+  render() {
+    return /*#__PURE__*/React.createElement(Tile, {
+      key: this.props.vpc_name + "-subnets-" + this.props.data.name,
+      className: "marginRight fieldWidth"
+    }, /*#__PURE__*/React.createElement(IcseHeading, {
+      name: this.props.data.name,
+      type: "subHeading",
+      className: "marginBottomSmall",
+      buttons: /*#__PURE__*/React.createElement(DynamicRender, {
+        hide: this.props.isModal,
+        show: /*#__PURE__*/React.createElement(SaveAddButton, {
+          disabled: this.props.disableSaveCallback(this.state, this.props),
+          onClick: this.handleSave,
+          noDeleteButton: true
         })
-      }), /*#__PURE__*/React.createElement(IcseFormGroup, {
-        className: "marginBottomSmall"
-      }, /*#__PURE__*/React.createElement(TextInput, {
-        id: this.props.data.name + "-cidr",
-        invalidText: "Invalid subnet CIDR.",
-        labelText: "Subnet CIDR",
-        value: this.props.data.cidr,
-        className: "fieldWidthSmaller",
-        readOnly: true
-      })), /*#__PURE__*/React.createElement(IcseFormGroup, {
-        className: "marginBottomSmall"
-      }, /*#__PURE__*/React.createElement(IcseSelect, {
-        name: "acl_name",
-        formName: "".concat(this.props.data.name, "-subnet-acl"),
-        labelText: "Network ACL",
-        groups: this.props.networkAcls,
-        value: this.state.acl_name,
-        handleInputChange: this.handleChange,
-        className: "fieldWidthSmaller",
-        disabled: this.props.isModal,
-        invalid: isNullOrEmptyString$1(this.state.acl_name),
-        invalidText: "Select a Network ACL."
-      })), /*#__PURE__*/React.createElement(IcseFormGroup, {
-        noMarginBottom: true
-      }, /*#__PURE__*/React.createElement(IcseToggle, {
-        tooltip: {
-          content: "A Public Gateway must be enabled in this zone to use. To enable public gateways, see the VPC page."
-        },
-        id: "new-subnet-public-gateway-" + this.props.data.name,
-        labelText: "Use Public Gateway",
-        toggleFieldName: "public_gateway",
-        defaultToggled: this.state.public_gateway,
-        onToggle: this.handleToggle,
-        disabled: this.props.isModal || this.props.shouldDisableGatewayToggle(this.state, this.props)
-      })));
-    }
-  }]);
-  return SubnetForm;
-}(React.Component);
+      })
+    }), /*#__PURE__*/React.createElement(IcseFormGroup, {
+      className: "marginBottomSmall"
+    }, /*#__PURE__*/React.createElement(TextInput, {
+      id: this.props.data.name + "-cidr",
+      invalidText: "Invalid subnet CIDR.",
+      labelText: "Subnet CIDR",
+      value: this.props.data.cidr,
+      className: "fieldWidthSmaller",
+      readOnly: true
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, {
+      className: "marginBottomSmall"
+    }, /*#__PURE__*/React.createElement(IcseSelect, {
+      name: "acl_name",
+      formName: `${this.props.data.name}-subnet-acl`,
+      labelText: "Network ACL",
+      groups: this.props.networkAcls,
+      value: this.state.acl_name,
+      handleInputChange: this.handleChange,
+      className: "fieldWidthSmaller",
+      disabled: this.props.isModal,
+      invalid: isNullOrEmptyString$1(this.state.acl_name),
+      invalidText: "Select a Network ACL."
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, {
+      noMarginBottom: true
+    }, /*#__PURE__*/React.createElement(IcseToggle, {
+      tooltip: {
+        content: "A Public Gateway must be enabled in this zone to use. To enable public gateways, see the VPC page."
+      },
+      id: "new-subnet-public-gateway-" + this.props.data.name,
+      labelText: "Use Public Gateway",
+      toggleFieldName: "public_gateway",
+      defaultToggled: this.state.public_gateway,
+      onToggle: this.handleToggle,
+      disabled: this.props.isModal || this.props.shouldDisableGatewayToggle(this.state, this.props)
+    })));
+  }
+}
 SubnetForm.defaultProps = {
   isModal: false
 };
-SubnetForm.propTypes = _defineProperty({
+SubnetForm.propTypes = {
   isModal: PropTypes.bool.isRequired,
   onSave: PropTypes.func,
   vpc_name: PropTypes.string.isRequired,
@@ -17232,8 +17279,9 @@ SubnetForm.propTypes = _defineProperty({
     acl_name: PropTypes.string.isRequired
   }).isRequired,
   disableSaveCallback: PropTypes.func,
-  shouldDisableGatewayToggle: PropTypes.func.isRequired,
+  shouldDisableGatewayToggle: PropTypes.func,
   networkAcls: PropTypes.arrayOf(PropTypes.string).isRequired,
+<<<<<<< HEAD
 <<<<<<< HEAD
   componentDidUpdateCallback: PropTypes.func.isRequired,
   onSave: PropTypes.func
@@ -17243,6 +17291,99 @@ SubnetForm.propTypes = _defineProperty({
   componentDidUpdateCallback: PropTypes.func.isRequired
 }, "onSave", PropTypes.func);
 >>>>>>> ed5fa5a (fix: subnet => data)
+=======
+  componentDidUpdateCallback: PropTypes.func.isRequired,
+  onSave: PropTypes.func
+};
+
+var css_248z$1 = ".subnetTileFormMargin {\n  margin-bottom: -0.5rem !important;\n  margin-top: 0.5rem;\n}\n\n.marginRight {\n    margin-right: 10px;\n}";
+styleInject(css_248z$1);
+
+class SubnetTileForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      subnetData: {}
+    };
+    if (!this.props.isModal) {
+      this.props.data.forEach(subnet => {
+        this.state.subnetData[subnet.name] = true;
+      });
+    }
+    this.childSubnetHasChanged = this.childSubnetHasChanged.bind(this);
+  }
+
+  /**
+   * check if child subnet has changed
+   * @param {Object} stateData
+   * @param {string} stateData.name
+   * @param {Object} componentProps
+   * @param {Object} componentProps.data
+   */
+  childSubnetHasChanged(stateData, componentProps) {
+    let name = stateData.name;
+    if (this.state.subnetData[name] && !deepEqual(stateData, componentProps.data)) {
+      let subnetData = {
+        ...this.state.subnetData
+      };
+      subnetData[name] = false;
+      this.setState({
+        subnetData: subnetData
+      });
+    }
+  }
+  render() {
+    let subnetMap = [...this.props.data];
+    return /*#__PURE__*/React.createElement(IcseSubForm, {
+      id: `subnet-tile-${this.props.tier}-${this.props.vpc_name}`,
+      formInSubForm: true,
+      className: "popoverLeft subnetTileFormMargin"
+    }, /*#__PURE__*/React.createElement(IcseHeading, {
+      name: "Subnets",
+      type: "subHeading",
+      className: "marginBottomSmall"
+    }), /*#__PURE__*/React.createElement("div", {
+      className: "displayFlex"
+    }, subnetMap.map(subnet => /*#__PURE__*/React.createElement(SubnetForm // change so doesn't show buttons
+    , {
+      key: `${subnet.name}-tile-${this.props.tier}-${this.props.vpc_name}-${JSON.stringify(subnet)}`,
+      vpc_name: this.props.vpc_name,
+      data: subnet,
+      onSave: this.props.onSave,
+      isModal: this.props.isModal || this.props.readOnly,
+      componentDidUpdateCallback: this.childSubnetHasChanged,
+      networkAcls: this.props.networkAcls,
+      disableSaveCallback: this.props.disableSaveCallback,
+      shouldDisableGatewayToggle: (stateData, componentProps) => {
+        let zone = parseIntFromZone(stateData.name);
+        if (contains(this.props.enabledPublicGateways, zone)) {
+          return false;
+        } else return true;
+      }
+    }))));
+  }
+}
+SubnetTileForm.defaultProps = {
+  isModal: false,
+  readOnly: false
+};
+SubnetTileForm.propTypes = {
+  isModal: PropTypes.bool.isRequired,
+  disableSaveCallback: PropTypes.func,
+  vpc_name: PropTypes.string.isRequired,
+  tier: PropTypes.string.isRequired,
+  networkAcls: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onSave: PropTypes.func,
+  data: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    cidr: PropTypes.string.isRequired,
+    public_gateway: PropTypes.bool,
+    acl_name: PropTypes.string.isRequired
+  })),
+  readOnly: PropTypes.bool.isRequired,
+  enabledPublicGateways: PropTypes.arrayOf(PropTypes.number).isRequired
+};
+>>>>>>> 68bf364 (feat: subnet tile form)
 
 var css_248z = ".about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n";
 styleInject(css_248z);
@@ -18052,6 +18193,7 @@ AccessGroupDynamicPolicyForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, VpnGatewayForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> f849341 (access group forms :100:)
 =======
@@ -18156,3 +18298,6 @@ export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, A
 =======
 export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> 88a6242 (feat: subnet form)
+=======
+export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+>>>>>>> 68bf364 (feat: subnet tile form)
