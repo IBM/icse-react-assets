@@ -26,7 +26,6 @@ export const ResourceGroupFormExample = () => {
       data={{
         name: "example-form",
       }}
-      isModal={false}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
       helperTextCallback={helperTextCallback}

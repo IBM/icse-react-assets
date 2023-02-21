@@ -104,6 +104,7 @@ ResourceGroupForm.defaultProps = {
     use_prefix: true,
   },
   toggleName: "use_data",
+  isModal: false,
 };
 
 ResourceGroupForm.propTypes = {
