@@ -15085,6 +15085,7 @@ ObjectStorageInstancesForm.propTypes = {
   subForms: PropTypes__default["default"].arrayOf(PropTypes__default["default"].node)
 };
 
+<<<<<<< HEAD
 var VsiForm = /*#__PURE__*/function (_Component) {
   _inherits(VsiForm, _Component);
   var _super = _createSuper(VsiForm);
@@ -15276,6 +15277,114 @@ VsiForm.propTypes = {
   flavorList: PropTypes__default["default"].array.isRequired,
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired
+=======
+/**
+ * create a tile for each subnet
+ * @param {Object} props
+ * @returns {SubnetTile} react component
+ */
+class SubnetForm extends React__default["default"].Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.subnet
+    };
+    this.handleSave = this.handleSave.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+  }
+  handleChange(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    this.setState({
+      [name]: value
+    });
+  }
+  componentDidUpdate() {
+    this.props.componentDidUpdateCallback(this.state, this.props);
+  }
+  handleSave() {
+    this.props.onSave(this.state, this.props);
+  }
+  handleToggle() {
+    this.setState({
+      public_gateway: !this.state.public_gateway
+    });
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(react.Tile, {
+      key: this.props.vpc_name + "-subnets-" + this.props.subnet.name,
+      className: "marginRight fieldWidth"
+    }, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+      name: this.props.subnet.name,
+      type: "subHeading",
+      className: "marginBottomSmall",
+      buttons: /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+        hide: this.props.isModal,
+        show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+          disabled: this.props.disableSaveCallback(this.state, this.propss),
+          onClick: this.handleSave,
+          noDeleteButton: true
+        })
+      })
+    }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+      className: "marginBottomSmall"
+    }, /*#__PURE__*/React__default["default"].createElement(react.TextInput, {
+      id: this.props.subnet.name + "-cidr",
+      invalidText: "Invalid subnet CIDR.",
+      labelText: "Subnet CIDR",
+      value: this.props.subnet.cidr,
+      className: "fieldWidthSmaller",
+      readOnly: true
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+      className: "marginBottomSmall"
+    }, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      name: "acl_name",
+      formName: `${this.props.subnet.name}-subnet-acl`,
+      labelText: "Network ACL",
+      groups: this.props.networkAcls,
+      value: this.state.acl_name,
+      handleInputChange: this.handleChange,
+      className: "fieldWidthSmaller",
+      disabled: this.props.isModal,
+      invalid: lazyZ.isNullOrEmptyString(this.state.acl_name),
+      invalidText: "Select a Network ACL."
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+      noMarginBottom: true
+    }, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      tooltip: {
+        content: "A Public Gateway must be enabled in this zone to use. To enable public gateways, see the VPC page."
+      },
+      id: "new-subnet-public-gateway-" + this.props.subnet.name,
+      labelText: "Use Public Gateway",
+      toggleFieldName: "public_gateway",
+      defaultToggled: this.state.public_gateway,
+      onToggle: this.handleToggle,
+      disabled: this.props.isModal || this.props.shouldDisableGatewayToggle(this.state, this.props)
+    })));
+  }
+}
+SubnetForm.defaultProps = {
+  isModal: false
+};
+SubnetForm.propTypes = {
+  isModal: PropTypes__default["default"].bool.isRequired,
+  onSave: PropTypes__default["default"].func,
+  vpc_name: PropTypes__default["default"].string.isRequired,
+  subnet: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    cidr: PropTypes__default["default"].string.isRequired,
+    public_gateway: PropTypes__default["default"].bool,
+    acl_name: PropTypes__default["default"].string.isRequired
+  }).isRequired,
+  disableSaveCallback: PropTypes__default["default"].func.isRequired,
+  shouldDisableGatewayToggle: PropTypes__default["default"].func.isRequired,
+  networkAcls: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  componentDidUpdateCallback: PropTypes__default["default"].func.isRequired,
+  onSave: PropTypes__default["default"].func
+>>>>>>> 88a6242 (feat: subnet form)
 };
 
 var css_248z = ".about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n";
@@ -16334,6 +16443,7 @@ exports.SshKeyForm = SshKeyForm;
 exports.SshKeyMultiSelect = SshKeyMultiSelect;
 exports.StatefulTabPanel = StatefulTabPanel;
 exports.StatelessToggleForm = StatelessToggleForm;
+exports.SubnetForm = SubnetForm;
 exports.SubnetMultiSelect = SubnetMultiSelect;
 <<<<<<< HEAD
 <<<<<<< HEAD
