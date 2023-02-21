@@ -56,7 +56,6 @@ class ResourceGroupForm extends Component {
             defaultToggled={!this.state.create}
             id={composedId + "-create-toggle"}
             onToggle={() => this.handleToggle("create")}
-            className="leftTextAlign"
             isModal={this.props.isModal}
           />
         </IcseFormGroup>
