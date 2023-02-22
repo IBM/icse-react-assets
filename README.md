@@ -134,13 +134,20 @@ ResourceGroupForm is a form component that enables the use of a new or already e
 - `helperText`: String used for the helper text
 
 ```js
-import { ResourceGroupFormExample } from "./examples/ResourceGroupForm";
+import { ResourceGroupForm } from "icse-react-assets";
 
-function App() {
+export const ResourceGroupFormExample = () => {
   return (
-    <div className="App">
-      <ResourceGroupFormExample />
-    </div>
+    <ResourceGroupForm
+      data={{
+        name: "example-form",
+        create: true,
+        use_prefix: true,
+      }}
+      isModal={true}
+    />
   );
-}
+};
+
+
 ```
