@@ -16,6 +16,8 @@ class SubnetTileForm extends React.Component {
         this.state.subnetData[subnet.name] = true;
       });
     }
+    this.shouldDisableGatewayToggle =
+      this.shouldDisableGatewayToggle.bind(this);
     this.childSubnetHasChanged = this.childSubnetHasChanged.bind(this);
   }
 
@@ -36,6 +38,18 @@ class SubnetTileForm extends React.Component {
       subnetData[name] = false;
       this.setState({ subnetData: subnetData });
     }
+  }
+
+  /**
+   * check if gateway should be disabled
+   * @param {Object} stateData
+   * @param {string} stateData.name
+   */
+  shouldDisableGatewayToggle(stateData) {
+    let zone = parseIntFromZone(stateData.name);
+    if (contains(this.props.enabledPublicGateways, zone)) {
+      return false;
+    } else return true;
   }
 
   render() {
@@ -64,12 +78,7 @@ class SubnetTileForm extends React.Component {
               componentDidUpdateCallback={this.childSubnetHasChanged}
               networkAcls={this.props.networkAcls}
               disableSaveCallback={this.props.disableSaveCallback}
-              shouldDisableGatewayToggle={(stateData, componentProps) => {
-                let zone = parseIntFromZone(stateData.name);
-                if (contains(this.props.enabledPublicGateways, zone)) {
-                  return false;
-                } else return true;
-              }}
+              shouldDisableGatewayToggle={this.shouldDisableGatewayToggle}
             />
           ))}
         </div>

@@ -9,7 +9,7 @@ import {
   IcseToggle,
 } from "../";
 import PropTypes from "prop-types";
-import { deepEqual, isNullOrEmptyString } from "lazy-z";
+import { isNullOrEmptyString } from "lazy-z";
 
 /**
  * create a tile for each subnet

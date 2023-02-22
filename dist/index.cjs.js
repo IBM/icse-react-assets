@@ -15341,93 +15341,105 @@ VsiForm.propTypes = {
  * @param {Object} props
  * @returns {SubnetTile} react component
  */
-class SubnetForm extends React__default["default"].Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    this.handleSave = this.handleSave.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
+var SubnetForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(SubnetForm, _React$Component);
+  var _super = _createSuper(SubnetForm);
+  function SubnetForm(props) {
+    var _this;
+    _classCallCheck(this, SubnetForm);
+    _this = _super.call(this, props);
+    _this.state = _objectSpread2({}, _this.props.data);
+    _this.handleSave = _this.handleSave.bind(_assertThisInitialized(_this));
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    return _this;
   }
-  handleChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    this.setState({
-      [name]: value
-    });
-  }
-  componentDidUpdate() {
-    this.props.componentDidUpdateCallback(this.state, this.props);
-  }
-  handleSave() {
-    this.props.onSave(this.state, this.props);
-  }
-  handleToggle() {
-    this.setState({
-      public_gateway: !this.state.public_gateway
-    });
-  }
-  render() {
-    return /*#__PURE__*/React__default["default"].createElement(react.Tile, {
-      key: this.props.vpc_name + "-subnets-" + this.props.data.name,
-      className: "marginRight fieldWidth"
-    }, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
-      name: this.props.data.name,
-      type: "subHeading",
-      className: "marginBottomSmall",
-      buttons: /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
-        hide: this.props.isModal,
-        show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
-          disabled: this.props.disableSaveCallback(this.state, this.props),
-          onClick: this.handleSave,
-          noDeleteButton: true
+  _createClass(SubnetForm, [{
+    key: "handleChange",
+    value: function handleChange(event) {
+      var _event$target = event.target,
+        name = _event$target.name,
+        value = _event$target.value;
+      this.setState(_defineProperty({}, name, value));
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      this.props.componentDidUpdateCallback(this.state, this.props);
+    }
+  }, {
+    key: "handleSave",
+    value: function handleSave() {
+      this.props.onSave(this.state, this.props);
+    }
+  }, {
+    key: "handleToggle",
+    value: function handleToggle() {
+      this.setState({
+        public_gateway: !this.state.public_gateway
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React__default["default"].createElement(react.Tile, {
+        key: this.props.vpc_name + "-subnets-" + this.props.data.name,
+        className: "marginRight fieldWidth"
+      }, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+        name: this.props.data.name,
+        type: "subHeading",
+        className: "marginBottomSmall",
+        buttons: /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+          hide: this.props.isModal,
+          show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+            disabled: this.props.disableSaveCallback(this.state, this.props),
+            onClick: this.handleSave,
+            noDeleteButton: true
+          })
         })
-      })
-    }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
-      className: "marginBottomSmall"
-    }, /*#__PURE__*/React__default["default"].createElement(react.TextInput, {
-      id: this.props.data.name + "-cidr",
-      invalidText: "Invalid subnet CIDR.",
-      labelText: "Subnet CIDR",
-      value: this.props.data.cidr,
-      className: "fieldWidthSmaller",
-      readOnly: true
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
-      className: "marginBottomSmall"
-    }, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      name: "acl_name",
-      formName: `${this.props.data.name}-subnet-acl`,
-      labelText: "Network ACL",
-      groups: this.props.networkAcls,
-      value: this.state.acl_name,
-      handleInputChange: this.handleChange,
-      className: "fieldWidthSmaller",
-      disabled: this.props.isModal,
-      invalid: lazyZ.isNullOrEmptyString(this.state.acl_name),
-      invalidText: "Select a Network ACL."
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
-      noMarginBottom: true
-    }, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      tooltip: {
-        content: "A Public Gateway must be enabled in this zone to use. To enable public gateways, see the VPC page."
-      },
-      id: "new-subnet-public-gateway-" + this.props.data.name,
-      labelText: "Use Public Gateway",
-      toggleFieldName: "public_gateway",
-      defaultToggled: this.state.public_gateway,
-      onToggle: this.handleToggle,
-      disabled: this.props.isModal || this.props.shouldDisableGatewayToggle(this.state, this.props)
-    })));
-  }
-}
+      }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+        className: "marginBottomSmall"
+      }, /*#__PURE__*/React__default["default"].createElement(react.TextInput, {
+        id: this.props.data.name + "-cidr",
+        invalidText: "Invalid subnet CIDR.",
+        labelText: "Subnet CIDR",
+        value: this.props.data.cidr,
+        className: "fieldWidthSmaller",
+        readOnly: true
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+        className: "marginBottomSmall"
+      }, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        name: "acl_name",
+        formName: "".concat(this.props.data.name, "-subnet-acl"),
+        labelText: "Network ACL",
+        groups: this.props.networkAcls,
+        value: this.state.acl_name,
+        handleInputChange: this.handleChange,
+        className: "fieldWidthSmaller",
+        disabled: this.props.isModal,
+        invalid: lazyZ.isNullOrEmptyString(this.state.acl_name),
+        invalidText: "Select a Network ACL."
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+        noMarginBottom: true
+      }, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        tooltip: {
+          content: "A Public Gateway must be enabled in this zone to use. To enable public gateways, see the VPC page."
+        },
+        id: "new-subnet-public-gateway-" + this.props.data.name,
+        labelText: "Use Public Gateway",
+        toggleFieldName: "public_gateway",
+        defaultToggled: this.state.public_gateway,
+        onToggle: this.handleToggle,
+        disabled: this.props.isModal || this.props.shouldDisableGatewayToggle(this.state, this.props)
+      })));
+    }
+  }]);
+  return SubnetForm;
+}(React__default["default"].Component);
 SubnetForm.defaultProps = {
   isModal: false
 };
-SubnetForm.propTypes = {
+SubnetForm.propTypes = _defineProperty({
   isModal: PropTypes__default["default"].bool.isRequired,
   onSave: PropTypes__default["default"].func,
   vpc_name: PropTypes__default["default"].string.isRequired,
@@ -15442,6 +15454,7 @@ SubnetForm.propTypes = {
   networkAcls: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   componentDidUpdateCallback: PropTypes__default["default"].func.isRequired,
   onSave: PropTypes__default["default"].func
 >>>>>>> 88a6242 (feat: subnet form)
@@ -15454,22 +15467,32 @@ SubnetForm.propTypes = {
   componentDidUpdateCallback: PropTypes__default["default"].func.isRequired,
   onSave: PropTypes__default["default"].func
 };
+=======
+  componentDidUpdateCallback: PropTypes__default["default"].func.isRequired
+}, "onSave", PropTypes__default["default"].func);
+>>>>>>> 8845d68 (fix: move to compoenent method, styles)
 
-var css_248z$1 = ".subnetTileFormMargin {\n  margin-bottom: -0.5rem !important;\n  margin-top: 0.5rem;\n}\n\n.marginRight {\n    margin-right: 10px;\n}";
+var css_248z$1 = ".subnetTileFormMargin {\n  margin-bottom: -0.5rem;\n  margin-top: 0.5rem;\n}\n\n.marginRight {\n  margin-right: 10px;\n}\n";
 styleInject(css_248z$1);
 
-class SubnetTileForm extends React__default["default"].Component {
-  constructor(props) {
-    super(props);
-    this.state = {
+var SubnetTileForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(SubnetTileForm, _React$Component);
+  var _super = _createSuper(SubnetTileForm);
+  function SubnetTileForm(props) {
+    var _this;
+    _classCallCheck(this, SubnetTileForm);
+    _this = _super.call(this, props);
+    _this.state = {
       subnetData: {}
     };
-    if (!this.props.isModal) {
-      this.props.data.forEach(subnet => {
-        this.state.subnetData[subnet.name] = true;
+    if (!_this.props.isModal) {
+      _this.props.data.forEach(function (subnet) {
+        _this.state.subnetData[subnet.name] = true;
       });
     }
-    this.childSubnetHasChanged = this.childSubnetHasChanged.bind(this);
+    _this.shouldDisableGatewayToggle = _this.shouldDisableGatewayToggle.bind(_assertThisInitialized(_this));
+    _this.childSubnetHasChanged = _this.childSubnetHasChanged.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   /**
@@ -15479,49 +15502,65 @@ class SubnetTileForm extends React__default["default"].Component {
    * @param {Object} componentProps
    * @param {Object} componentProps.data
    */
-  childSubnetHasChanged(stateData, componentProps) {
-    let name = stateData.name;
-    if (this.state.subnetData[name] && !lazyZ.deepEqual(stateData, componentProps.data)) {
-      let subnetData = {
-        ...this.state.subnetData
-      };
-      subnetData[name] = false;
-      this.setState({
-        subnetData: subnetData
-      });
-    }
-  }
-  render() {
-    let subnetMap = [...this.props.data];
-    return /*#__PURE__*/React__default["default"].createElement(IcseSubForm, {
-      id: `subnet-tile-${this.props.tier}-${this.props.vpc_name}`,
-      formInSubForm: true,
-      className: "popoverLeft subnetTileFormMargin"
-    }, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
-      name: "Subnets",
-      type: "subHeading",
-      className: "marginBottomSmall"
-    }), /*#__PURE__*/React__default["default"].createElement("div", {
-      className: "displayFlex"
-    }, subnetMap.map(subnet => /*#__PURE__*/React__default["default"].createElement(SubnetForm // change so doesn't show buttons
-    , {
-      key: `${subnet.name}-tile-${this.props.tier}-${this.props.vpc_name}-${JSON.stringify(subnet)}`,
-      vpc_name: this.props.vpc_name,
-      data: subnet,
-      onSave: this.props.onSave,
-      isModal: this.props.isModal || this.props.readOnly,
-      componentDidUpdateCallback: this.childSubnetHasChanged,
-      networkAcls: this.props.networkAcls,
-      disableSaveCallback: this.props.disableSaveCallback,
-      shouldDisableGatewayToggle: (stateData, componentProps) => {
-        let zone = lazyZ.parseIntFromZone(stateData.name);
-        if (lazyZ.contains(this.props.enabledPublicGateways, zone)) {
-          return false;
-        } else return true;
+  _createClass(SubnetTileForm, [{
+    key: "childSubnetHasChanged",
+    value: function childSubnetHasChanged(stateData, componentProps) {
+      var name = stateData.name;
+      if (this.state.subnetData[name] && !lazyZ.deepEqual(stateData, componentProps.data)) {
+        var subnetData = _objectSpread2({}, this.state.subnetData);
+        subnetData[name] = false;
+        this.setState({
+          subnetData: subnetData
+        });
       }
-    }))));
-  }
-}
+    }
+
+    /**
+     * check if gateway should be disabled
+     * @param {Object} stateData
+     * @param {string} stateData.name
+     */
+  }, {
+    key: "shouldDisableGatewayToggle",
+    value: function shouldDisableGatewayToggle(stateData) {
+      var zone = lazyZ.parseIntFromZone(stateData.name);
+      if (lazyZ.contains(this.props.enabledPublicGateways, zone)) {
+        return false;
+      } else return true;
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      var subnetMap = _toConsumableArray(this.props.data);
+      return /*#__PURE__*/React__default["default"].createElement(IcseSubForm, {
+        id: "subnet-tile-".concat(this.props.tier, "-").concat(this.props.vpc_name),
+        formInSubForm: true,
+        className: "popoverLeft subnetTileFormMargin"
+      }, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+        name: "Subnets",
+        type: "subHeading",
+        className: "marginBottomSmall"
+      }), /*#__PURE__*/React__default["default"].createElement("div", {
+        className: "displayFlex"
+      }, subnetMap.map(function (subnet) {
+        return /*#__PURE__*/React__default["default"].createElement(SubnetForm // change so doesn't show buttons
+        , {
+          key: "".concat(subnet.name, "-tile-").concat(_this2.props.tier, "-").concat(_this2.props.vpc_name, "-").concat(JSON.stringify(subnet)),
+          vpc_name: _this2.props.vpc_name,
+          data: subnet,
+          onSave: _this2.props.onSave,
+          isModal: _this2.props.isModal || _this2.props.readOnly,
+          componentDidUpdateCallback: _this2.childSubnetHasChanged,
+          networkAcls: _this2.props.networkAcls,
+          disableSaveCallback: _this2.props.disableSaveCallback,
+          shouldDisableGatewayToggle: _this2.shouldDisableGatewayToggle
+        });
+      })));
+    }
+  }]);
+  return SubnetTileForm;
+}(React__default["default"].Component);
 SubnetTileForm.defaultProps = {
   isModal: false,
   readOnly: false
