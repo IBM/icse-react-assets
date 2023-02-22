@@ -123,7 +123,7 @@ npm run predeploy
 npm run deploy-storybook
 ```
 ### ResourceGroupForm
-ResourceGroupForm is a form component that enables the use of a new or already existing resource group. ResourceGroupForm accepts several arguments:
+ResourceGroupForm is a form component that allows for adding or editing resource groups. ResourceGroupForm accepts several arguments:
 
 - `data`: An object containing the following:
   - `name`: String value of resource group name (required)
