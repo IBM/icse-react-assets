@@ -15226,8 +15226,9 @@ var VsiForm = /*#__PURE__*/function (_Component) {
         invalidText: lib_4(this.state.vpc_name) ? "No VPC Selected." : "Select a Subnet."
       }) : /*#__PURE__*/React__default["default"].createElement(SubnetMultiSelect, {
         id: "subnet",
-        subnets: this.props.subnetList,
+        initialSelectedItems: this.state.subnet_names,
         vpc_name: this.state.vpc_name,
+        subnets: this.props.subnetList,
         onChange: function onChange(value) {
           return _this2.handleMultiSelectChange("subnet_names", value);
         }
@@ -15250,24 +15251,31 @@ var VsiForm = /*#__PURE__*/function (_Component) {
           return _this2.handleMultiSelectChange("ssh_keys", value);
         },
         initialSelectedItems: this.state.ssh_keys
-      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
         formName: "vsi_form",
-        name: "image_name",
         labelText: "Image",
-        groups: this.props.imageList,
-        value: this.state.image_name,
+        name: "image_name",
+        apiEndpoint: this.props.apiEndpointImages,
         handleInputChange: this.handleInputChange,
+<<<<<<< HEAD
         invalid: this.invalidCallback,
         invalidText: this.invalidTextCallback
       }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+=======
+        value: this.state.image_name
+      }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
+>>>>>>> c9d8670 (add fetch selects for flavor and image, update readme and example)
         formName: "vsi_form",
-        name: "machine_type",
         labelText: "Flavor",
-        groups: this.props.flavorList,
-        value: this.state.machine_type,
+        name: "machine_type",
+        apiEndpoint: this.props.apiEndpointFlavors,
         handleInputChange: this.handleInputChange,
+<<<<<<< HEAD
         invalid: this.invalidCallback,
         invalidText: this.invalidTextCallback
+=======
+        value: this.state.machine_type
+>>>>>>> c9d8670 (add fetch selects for flavor and image, update readme and example)
       })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
         formName: "vsi_form",
         name: "boot_volume_encryption_key_name",
@@ -15317,8 +15325,8 @@ VsiForm.defaultProps = {
   subnetList: [],
   sshKeyList: [],
   encryptionKeyList: [],
-  imageList: [],
-  flavorList: []
+  apiEndpointImages: "",
+  apiEndpointFlavors: ""
 };
 VsiForm.propTypes = {
   data: PropTypes__default["default"].shape({
@@ -15331,8 +15339,15 @@ VsiForm.propTypes = {
   subnetList: PropTypes__default["default"].array.isRequired,
   sshKeyList: PropTypes__default["default"].array.isRequired,
   encryptionKeyList: PropTypes__default["default"].array.isRequired,
+<<<<<<< HEAD
   imageList: PropTypes__default["default"].array.isRequired,
   flavorList: PropTypes__default["default"].array.isRequired,
+=======
+  /* api endpoints */
+  apiEndpointImages: PropTypes__default["default"].string.isRequired,
+  apiEndpointFlavors: PropTypes__default["default"].string.isRequired,
+  /* callbacks */
+>>>>>>> c9d8670 (add fetch selects for flavor and image, update readme and example)
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired
 =======

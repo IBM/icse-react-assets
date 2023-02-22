@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { TextArea, NumberInput } from "@carbon/react";
 import { IcseFormGroup, DynamicRender } from "../Utils";
 import { IcseToggle, IcseNameInput } from "../Inputs";
-import { IcseSelect } from "../Dropdowns";
+import { FetchSelect, IcseSelect } from "../Dropdowns";
 import { SshKeyMultiSelect, SubnetMultiSelect } from "../MultiSelects";
 import { checkNullorEmptyString } from "../../lib";
 import {
@@ -103,8 +103,9 @@ class VsiForm extends Component {
           ) : (
             <SubnetMultiSelect
               id="subnet"
-              subnets={this.props.subnetList}
+              initialSelectedItems={this.state.subnet_names}
               vpc_name={this.state.vpc_name}
+              subnets={this.props.subnetList}
               onChange={(value) =>
                 this.handleMultiSelectChange("subnet_names", value)
               }
@@ -133,25 +134,21 @@ class VsiForm extends Component {
             }
             initialSelectedItems={this.state.ssh_keys}
           />
-          <IcseSelect
+          <FetchSelect
             formName="vsi_form"
-            name="image_name"
             labelText="Image"
-            groups={this.props.imageList}
+            name="image_name"
+            apiEndpoint={this.props.apiEndpointImages}
+            handleInputChange={this.handleInputChange}
             value={this.state.image_name}
-            handleInputChange={this.handleInputChange}
-            invalid={this.props.invalidCallback(this.state)}
-            invalidText="Select a valid image."
           />
-          <IcseSelect
+          <FetchSelect
             formName="vsi_form"
-            name="machine_type"
             labelText="Flavor"
-            groups={this.props.flavorList}
-            value={this.state.machine_type}
+            name="machine_type"
+            apiEndpoint={this.props.apiEndpointFlavors}
             handleInputChange={this.handleInputChange}
-            invalid={this.props.invalidCallback(this.state)}
-            invalidText="Select a valid flavor."
+            value={this.state.machine_type}
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -213,8 +210,8 @@ VsiForm.defaultProps = {
   subnetList: [],
   sshKeyList: [],
   encryptionKeyList: [],
-  imageList: [],
-  flavorList: [],
+  apiEndpointImages: "",
+  apiEndpointFlavors: "",
 };
 
 VsiForm.propTypes = {
@@ -230,8 +227,9 @@ VsiForm.propTypes = {
   subnetList: PropTypes.array.isRequired,
   sshKeyList: PropTypes.array.isRequired,
   encryptionKeyList: PropTypes.array.isRequired,
-  imageList: PropTypes.array.isRequired,
-  flavorList: PropTypes.array.isRequired,
+  /* api endpoints */
+  apiEndpointImages: PropTypes.string.isRequired,
+  apiEndpointFlavors: PropTypes.string.isRequired,
   /* callbacks */
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,

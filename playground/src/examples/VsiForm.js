@@ -30,8 +30,8 @@ export const VsiFormExample = () => {
       subnetList={["sub1", "sub2"]}
       sshKeyList={["key1", "key2", "key3"]}
       encryptionKeyList={["ekey1", "ekey2", "ekey3"]}
-      imageList={["image1", "image2", "image3"]}
-      flavorList={["flav1", "flav2"]}
+      apiEndpointImages={"/mock/api/images"}
+      apiEndpointFlavors={"/mock/api/flavors"}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
     />
