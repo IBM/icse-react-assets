@@ -17157,7 +17157,10 @@ VsiForm.defaultProps = {
     enable_floating_ip: false,
     vpc_name: "",
     image_name: "",
-    machine_type: ""
+    machine_type: "",
+    resource_group: "",
+    boot_volume_encryption_key_name: "",
+    vsi_per_subnet: 0
   },
   isModal: false,
   isTeleport: false,
@@ -17171,7 +17174,17 @@ VsiForm.defaultProps = {
 };
 VsiForm.propTypes = {
   data: PropTypes.shape({
-    name: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired,
+    ssh_keys: PropTypes.array,
+    subnet_name: PropTypes.string,
+    subnet_names: PropTypes.array,
+    enable_floating_ip: PropTypes.bool,
+    vpc_name: PropTypes.string,
+    image_name: PropTypes.string,
+    machine_type: PropTypes.string,
+    resource_group: PropTypes.string,
+    boot_volume_encryption_key_name: PropTypes.string,
+    vsi_per_subnet: PropTypes.number
   }).isRequired,
   isModal: PropTypes.bool.isRequired,
   isTeleport: PropTypes.bool.isRequired,
