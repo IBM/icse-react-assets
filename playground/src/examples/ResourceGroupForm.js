@@ -25,6 +25,8 @@ export const ResourceGroupFormExample = () => {
     <ResourceGroupForm
       data={{
         name: "example-form",
+        create: true,
+        use_prefix: true,
       }}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
