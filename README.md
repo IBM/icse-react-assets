@@ -131,7 +131,9 @@ ResourceGroupForm is a form component that allows for adding or editing resource
   - `use_prefix`: Boolean representing whether or not to append your environment prefix to the beginning of the resource group when `create` is enabled
 - `toggleName`: String value representing the name of the toggle
 - `isModal`: Boolean representing whether or not the toggle is a modal
-- `helperText`: String used for the helper text
+- `helperTextCallback`: Function that determines the helper text for `name` field
+- `invalidCallback`: A function to determine if the value supplied is invalid and returns a single boolean
+- `invalidTextCallback`: A function to determine the invalid text displayed to the user and returns the string to display
 
 ```js
 import { ResourceGroupForm } from "icse-react-assets";
