@@ -304,11 +304,17 @@ VsiForm.defaultProps = {
     image_name: "",
     machine_type: "",
 <<<<<<< HEAD
+<<<<<<< HEAD
     resource_group: "",
     boot_volume_encryption_key_name: "",
     vsi_per_subnet: 1,
 =======
 >>>>>>> a8d076e (merge)
+=======
+    resource_group: "",
+    boot_volume_encryption_key_name: "",
+    vsi_per_subnet: 0,
+>>>>>>> 32b7a0b (fix: vsi form props and update readme)
   },
   isModal: false,
   isTeleport: false,
@@ -334,7 +340,11 @@ VsiForm.defaultProps = {
 VsiForm.propTypes = {
   data: PropTypes.shape({
 <<<<<<< HEAD
+<<<<<<< HEAD
     name: PropTypes.string,
+=======
+    name: PropTypes.string.isRequired,
+>>>>>>> 32b7a0b (fix: vsi form props and update readme)
     ssh_keys: PropTypes.array,
     subnet_name: PropTypes.string,
     subnet_names: PropTypes.array,
@@ -344,7 +354,11 @@ VsiForm.propTypes = {
     machine_type: PropTypes.string,
     resource_group: PropTypes.string,
     boot_volume_encryption_key_name: PropTypes.string,
+<<<<<<< HEAD
     vsi_per_subnet: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+=======
+    vsi_per_subnet: PropTypes.number,
+>>>>>>> 32b7a0b (fix: vsi form props and update readme)
   }).isRequired,
   /* bools */
   isModal: PropTypes.bool.isRequired,
