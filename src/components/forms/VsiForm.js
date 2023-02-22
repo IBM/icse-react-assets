@@ -3,10 +3,14 @@ import { TextArea, NumberInput } from "@carbon/react";
 import { IcseFormGroup, DynamicRender } from "../Utils";
 import { IcseToggle, IcseNameInput } from "../Inputs";
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { FetchSelect, IcseSelect } from "../Dropdowns";
 =======
 import { IcseSelect } from "../Dropdowns";
 >>>>>>> a8d076e (merge)
+=======
+import { FetchSelect, IcseSelect } from "../Dropdowns";
+>>>>>>> 4f1bde6 (add fetch selects for flavor and image, update readme and example)
 import { SshKeyMultiSelect, SubnetMultiSelect } from "../MultiSelects";
 import { checkNullorEmptyString } from "../../lib";
 import {
@@ -119,6 +123,7 @@ class VsiForm extends Component {
             <SubnetMultiSelect
               id="subnet"
 <<<<<<< HEAD
+<<<<<<< HEAD
               initialSelectedItems={this.state.subnet_names}
               vpc_name={this.state.vpc_name}
               subnets={this.props.subnetList}
@@ -126,6 +131,11 @@ class VsiForm extends Component {
               subnets={this.props.subnetList}
               vpc_name={this.state.vpc_name}
 >>>>>>> a8d076e (merge)
+=======
+              initialSelectedItems={this.state.subnet_names}
+              vpc_name={this.state.vpc_name}
+              subnets={this.props.subnetList}
+>>>>>>> 4f1bde6 (add fetch selects for flavor and image, update readme and example)
               onChange={(value) =>
                 this.handleMultiSelectChange("subnet_names", value)
               }
@@ -163,6 +173,7 @@ class VsiForm extends Component {
             initialSelectedItems={this.state.ssh_keys}
           />
 <<<<<<< HEAD
+<<<<<<< HEAD
           <FetchSelect
             formName="vsi_form"
             labelText="Image"
@@ -180,22 +191,23 @@ class VsiForm extends Component {
             value={this.state.machine_type}
 =======
           <IcseSelect
+=======
+          <FetchSelect
+>>>>>>> 4f1bde6 (add fetch selects for flavor and image, update readme and example)
             formName="vsi_form"
-            name="image_name"
             labelText="Image"
-            groups={this.props.imageList}
+            name="image_name"
+            apiEndpoint={this.props.apiEndpointImages}
+            handleInputChange={this.handleInputChange}
             value={this.state.image_name}
-            handleInputChange={this.handleInputChange}
-            invalid={this.props.invalidCallback(this.state)}
-            invalidText="Select a valid image."
           />
-          <IcseSelect
+          <FetchSelect
             formName="vsi_form"
-            name="machine_type"
             labelText="Flavor"
-            groups={this.props.flavorList}
-            value={this.state.machine_type}
+            name="machine_type"
+            apiEndpoint={this.props.apiEndpointFlavors}
             handleInputChange={this.handleInputChange}
+<<<<<<< HEAD
 <<<<<<< HEAD
             invalid={this.invalidCallback}
             invalidText={this.invalidTextCallback}
@@ -204,6 +216,9 @@ class VsiForm extends Component {
             invalid={this.props.invalidCallback(this.state)}
             invalidText="Select a valid flavor."
 >>>>>>> 71b28a3 (cleanup invalid text and remove log)
+=======
+            value={this.state.machine_type}
+>>>>>>> 4f1bde6 (add fetch selects for flavor and image, update readme and example)
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -303,12 +318,17 @@ VsiForm.defaultProps = {
   sshKeyList: [],
   encryptionKeyList: [],
 <<<<<<< HEAD
+<<<<<<< HEAD
   apiEndpointImages: "",
   apiEndpointFlavors: "",
 =======
   imageList: [],
   flavorList: [],
 >>>>>>> a8d076e (merge)
+=======
+  apiEndpointImages: "",
+  apiEndpointFlavors: "",
+>>>>>>> 4f1bde6 (add fetch selects for flavor and image, update readme and example)
 };
 
 VsiForm.propTypes = {
@@ -347,6 +367,7 @@ VsiForm.propTypes = {
   sshKeyList: PropTypes.array.isRequired,
   encryptionKeyList: PropTypes.array.isRequired,
 <<<<<<< HEAD
+<<<<<<< HEAD
   /* api endpoints */
   apiEndpointImages: PropTypes.string.isRequired,
   apiEndpointFlavors: PropTypes.string.isRequired,
@@ -357,6 +378,11 @@ VsiForm.propTypes = {
 <<<<<<< HEAD
 >>>>>>> a8d076e (merge)
 =======
+=======
+  /* api endpoints */
+  apiEndpointImages: PropTypes.string.isRequired,
+  apiEndpointFlavors: PropTypes.string.isRequired,
+>>>>>>> 4f1bde6 (add fetch selects for flavor and image, update readme and example)
   /* callbacks */
 >>>>>>> 71b28a3 (cleanup invalid text and remove log)
   invalidCallback: PropTypes.func.isRequired,

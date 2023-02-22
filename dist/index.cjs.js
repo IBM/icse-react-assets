@@ -6767,7 +6767,7 @@ styleInject(css_248z$9);
  * @returns tile if shown, empty string otherwise
  */
 
-const EmptyResourceTile = props => {
+var EmptyResourceTile = function EmptyResourceTile(props) {
   return !props.showIfEmpty || props.showIfEmpty.length === 0 ? /*#__PURE__*/React__default["default"].createElement(react.Tile, {
     className: "marginBottomXs tileBackground"
   }, /*#__PURE__*/React__default["default"].createElement(iconsReact.CloudAlerting, {
@@ -6811,6 +6811,7 @@ styleInject(css_248z$8);
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 2a431c4 (feat: better exports)
 =======
 var _StatelessToggleForm$;
@@ -6818,6 +6819,10 @@ var _StatelessToggleForm$;
 >>>>>>> 8d61926 (feat: stories for empty resource tile and under construction)
 =======
 >>>>>>> 9475638 (add vsiform documentation to readme)
+=======
+var _StatelessToggleForm$;
+
+>>>>>>> 4f1bde6 (add fetch selects for flavor and image, update readme and example)
 /**
  * Render a form
  * @param {*} form form element
@@ -6825,9 +6830,7 @@ var _StatelessToggleForm$;
  * @returns Form element
  */
 function RenderForm(form, formProps) {
-  return /*#__PURE__*/React__default["default"].createElement(form, {
-    ...formProps
-  });
+  return /*#__PURE__*/React__default["default"].createElement(form, _objectSpread2({}, formProps));
 }
 
 /**
@@ -6844,9 +6847,9 @@ function DynamicRender(props) {
 /**
  * wrapper for title groups
  */
-const TitleGroup = props => {
+var TitleGroup = function TitleGroup(props) {
   return /*#__PURE__*/React__default["default"].createElement("div", {
-    className: lib_2(`displayFlex alignItemsCenter widthOneHundredPercent ${lib_1(props.hide)}`, props)
+    className: lib_2("displayFlex alignItemsCenter widthOneHundredPercent ".concat(lib_1(props.hide)), props)
   }, props.children);
 };
 TitleGroup.defaultProps = {
@@ -6855,8 +6858,8 @@ TitleGroup.defaultProps = {
 TitleGroup.propTypes = {
   children: PropTypes__default["default"].node.isRequired
 };
-const IcseFormGroup = props => {
-  let formGroupClassName = "displayFlex marginBottom fitContent evenSpacing";
+var IcseFormGroup = function IcseFormGroup(props) {
+  var formGroupClassName = "displayFlex marginBottom fitContent evenSpacing";
   // remove margin bottom from formGroup for VPC
   if (props.noMarginBottom) {
     formGroupClassName = formGroupClassName.replace(/\smarginBottom/g, "");
@@ -6873,7 +6876,7 @@ IcseFormGroup.propTypes = {
   children: PropTypes__default["default"].node.isRequired,
   className: PropTypes__default["default"].string
 };
-const IcseSubForm = props => {
+var IcseSubForm = function IcseSubForm(props) {
   return /*#__PURE__*/React__default["default"].createElement("div", {
     className: lib_2(props.formInSubForm ? "formInSubForm positionRelative" : "subForm marginBottomSmall", props),
     id: props.id
@@ -6888,15 +6891,15 @@ IcseSubForm.propTypes = {
   className: PropTypes__default["default"].string,
   children: PropTypes__default["default"].node.isRequired
 };
-const IcseHeading = props => {
-  let titleFormDivClass = props.toggleFormTitle ? "" : props.name === "" ? "" : " icseFormTitleMinHeight";
+var IcseHeading = function IcseHeading(props) {
+  var titleFormDivClass = props.toggleFormTitle ? "" : props.name === "" ? "" : " icseFormTitleMinHeight";
   return /*#__PURE__*/React__default["default"].createElement("div", {
     className: lib_2("displayFlex spaceBetween widthOneHundredPercent alignItemsCenter", props) + titleFormDivClass
   }, /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, {
     tooltip: props.tooltip,
     noLabelText: true,
     id: props.name,
-    innerForm: () => {
+    innerForm: function innerForm() {
       return props.type === "subHeading" ? /*#__PURE__*/React__default["default"].createElement("h5", null, props.name) : props.type === "p" ? /*#__PURE__*/React__default["default"].createElement("p", null, props.name) : /*#__PURE__*/React__default["default"].createElement("h4", null, props.name);
     }
   }), /*#__PURE__*/React__default["default"].createElement("div", {
@@ -6923,7 +6926,7 @@ IcseHeading.propTypes = {
 /**
  * All of the toggle form functionality without injecting anything on render
  */
-const StatelessToggleForm = props => {
+var StatelessToggleForm = function StatelessToggleForm(props) {
   return props.hideTitle ? props.children : /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(TitleGroup, {
     hide: props.hide,
     props: props,
@@ -6944,15 +6947,13 @@ const StatelessToggleForm = props => {
     show: props.children
   }));
 };
-StatelessToggleForm.defaultProps = {
+StatelessToggleForm.defaultProps = (_StatelessToggleForm$ = {
   hide: true,
   iconType: "edit",
   name: "Stateless Toggle Form",
   hideTitle: false,
-  alwaysShowButtons: false,
-  hideTitle: false,
-  toggleFormTitle: false
-};
+  alwaysShowButtons: false
+}, _defineProperty(_StatelessToggleForm$, "hideTitle", false), _defineProperty(_StatelessToggleForm$, "toggleFormTitle", false), _StatelessToggleForm$);
 StatelessToggleForm.propTypes = {
   children: PropTypes__default["default"].node.isRequired,
   hide: PropTypes__default["default"].bool.isRequired,
@@ -7271,12 +7272,16 @@ styleInject(css_248z$6);
 >>>>>>> 2a431c4 (feat: better exports)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4f1bde6 (add fetch selects for flavor and image, update readme and example)
 var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
   _inherits(AppIdKeyForm, _React$Component);
   var _super = _createSuper(AppIdKeyForm);
   function AppIdKeyForm(props) {
     var _this;
     _classCallCheck(this, AppIdKeyForm);
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
@@ -7295,10 +7300,13 @@ var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
 =======
 >>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 =======
+=======
+>>>>>>> 4f1bde6 (add fetch selects for flavor and image, update readme and example)
     _this = _super.call(this, props);
     _this.state = _this.props.data;
     _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
     buildFormFunctions(_assertThisInitialized(_this));
+<<<<<<< HEAD
 >>>>>>> 2a431c4 (feat: better exports)
     return _this;
 =======
@@ -7309,6 +7317,9 @@ class AppIdKeyForm extends React__default["default"].Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     buildFormFunctions(this);
 >>>>>>> 9475638 (add vsiform documentation to readme)
+=======
+    return _this;
+>>>>>>> 4f1bde6 (add fetch selects for flavor and image, update readme and example)
   }
 
   /**
@@ -7317,6 +7328,9 @@ class AppIdKeyForm extends React__default["default"].Component {
    * @param {*} value value to update
    */
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 4f1bde6 (add fetch selects for flavor and image, update readme and example)
   _createClass(AppIdKeyForm, [{
     key: "handleInputChange",
     value: function handleInputChange(event) {
@@ -7332,6 +7346,7 @@ class AppIdKeyForm extends React__default["default"].Component {
         value: this.state.key_name,
         onChange: this.handleInputChange,
 <<<<<<< HEAD
+<<<<<<< HEAD
         field: "key_name",
         labelText: "App ID Key",
         componentName: "appid",
@@ -7339,18 +7354,24 @@ class AppIdKeyForm extends React__default["default"].Component {
         invalid: this.props.invalidCallback("key_name", this.state, this.props),
         invalidText: this.props.invalidTextCallback("key_name", this.state, this.props)
 =======
+=======
+>>>>>>> 4f1bde6 (add fetch selects for flavor and image, update readme and example)
         field: "appid_key",
         labelText: "App ID Key",
         componentName: "appid",
         className: "fieldWidthSmaller",
         invalid: this.props.invalidCallback(this.state, this.props),
         invalidText: this.props.invalidTextCallback(this.state, this.props)
+<<<<<<< HEAD
 >>>>>>> 2a431c4 (feat: better exports)
+=======
+>>>>>>> 4f1bde6 (add fetch selects for flavor and image, update readme and example)
       }));
     }
   }]);
   return AppIdKeyForm;
 }(React__default["default"].Component);
+<<<<<<< HEAD
 =======
   handleInputChange(event) {
     this.setState({
@@ -7372,6 +7393,8 @@ class AppIdKeyForm extends React__default["default"].Component {
   }
 }
 >>>>>>> 9475638 (add vsiform documentation to readme)
+=======
+>>>>>>> 4f1bde6 (add fetch selects for flavor and image, update readme and example)
 AppIdKeyForm.defaultProps = {
   data: {
 <<<<<<< HEAD
@@ -16714,143 +16737,157 @@ SubnetTileForm.propTypes = {
 =======
 >>>>>>> 2a431c4 (feat: better exports)
 
-class VsiForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = this.props.data;
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
+var VsiForm = /*#__PURE__*/function (_Component) {
+  _inherits(VsiForm, _Component);
+  var _super = _createSuper(VsiForm);
+  function VsiForm(props) {
+    var _this;
+    _classCallCheck(this, VsiForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleMultiSelectChange = _this.handleMultiSelectChange.bind(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    return _this;
   }
-  handleInputChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    let stateChangeParams = {
-      [name]: name === "vsi_per_subnet" ? Number(value) : value
-    };
-    if (name === "vpc_name") lazyZ.transpose({
-      subnet_names: [],
-      subnet_name: ""
-    }, stateChangeParams);
-    this.setState(stateChangeParams);
-  }
-  handleMultiSelectChange(name, value) {
-    this.setState(this.setNameToValue(name, value));
-  }
-  handleToggle(name) {
-    this.setState(this.toggleStateBoolean(name, this.state));
-  }
-  render() {
-    let composedId = `vsi-deployment-form-${this.props.data.name}`;
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: composedId,
-      componentName: "vsi",
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      invalid: this.props.invalidCallback(this.state),
-      invalidText: this.props.invalidTextCallback(this.state),
-      hideHelperText: true
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "vsi_form",
-      name: "resource_group",
-      labelText: "Resource Group",
-      groups: this.props.resourceGroupList,
-      value: this.state.resource_group,
-      handleInputChange: this.handleInputChange
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "vsi_form",
-      name: "vpc_name",
-      labelText: "VPC",
-      groups: this.props.vpcList,
-      value: this.state.vpc_name,
-      handleInputChange: this.handleInputChange,
-      invalid: lib_4(this.state.vpc_name),
-      invalidText: "Select a VPC."
-    }), this.props.isTeleport ?
-    /*#__PURE__*/
-    // render dropdown for teleport instance
-    React__default["default"].createElement(IcseSelect, {
-      formName: "vsi_form",
-      name: "subnet_name",
-      labelText: "Subnet",
-      groups: this.props.subnetList,
-      value: this.state.subnet_name,
-      handleInputChange: this.handleInputChange,
-      invalid: lib_4(this.state.vpc_name) || lib_4(this.state.subnet_name),
-      invalidText: lib_4(this.state.vpc_name) ? `No VPC Selected.` : `Select a Subnet.`
-    }) : /*#__PURE__*/React__default["default"].createElement(SubnetMultiSelect, {
-      id: "subnet",
-      subnets: this.props.subnetList,
-      vpc_name: this.state.vpc_name,
-      onChange: value => this.handleMultiSelectChange("subnet_names", value)
-    }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
-      label: "Instances per Subnet",
-      id: composedId + "-vsi-per-subnet",
-      allowEmpty: false,
-      value: this.state.vsi_per_subnet,
-      max: 10,
-      min: 1,
-      onChange: this.handleInputChange,
-      name: "vsi_per_subnet",
-      hideSteppers: true,
-      invalidText: "Please input a number 1-10",
-      className: "fieldWidthSmaller leftTextAlign"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(SshKeyMultiSelect, {
-      id: "sshkey",
-      sshKeys: this.props.sshKeyList,
-      onChange: value => this.handleMultiSelectChange("ssh_keys", value),
-      initialSelectedItems: this.state.ssh_keys
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "vsi_form",
-      name: "image_name",
-      labelText: "Image",
-      groups: this.props.imageList,
-      value: this.state.image_name,
-      handleInputChange: this.handleInputChange,
-      invalid: this.props.invalidCallback(this.state),
-      invalidText: "Select a valid image."
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "vsi_form",
-      name: "machine_type",
-      labelText: "Flavor",
-      groups: this.props.flavorList,
-      value: this.state.machine_type,
-      handleInputChange: this.handleInputChange,
-      invalid: this.props.invalidCallback(this.state),
-      invalidText: "Select a valid flavor."
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "vsi_form",
-      name: "boot_volume_encryption_key_name",
-      labelText: "Encryption Key",
-      groups: this.props.encryptionKeyList,
-      value: this.state.boot_volume_encryption_key_name,
-      handleInputChange: this.handleInputChange,
-      invalid: this.props.invalidCallback(this.state),
-      invalidText: "Select a valid encryption key."
-    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      id: composedId + "-fips-toggle",
-      labelText: "Enable Floating IP",
-      defaultToggled: this.state.enable_floating_ip,
-      onToggle: this.handleToggle
-    })), /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
-      hide: this.props.isTeleport,
-      show: /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
-        id: composedId + "-vsi-user-data",
-        placeholder: "Cloud init data",
-        labelText: "User Data",
-        name: "user_data",
-        value: this.state.user_data || "",
+  _createClass(VsiForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      var _event$target = event.target,
+        name = _event$target.name,
+        value = _event$target.value;
+      var stateChangeParams = _defineProperty({}, name, name === "vsi_per_subnet" ? Number(value) : value);
+      if (name === "vpc_name") lazyZ.transpose({
+        subnet_names: [],
+        subnet_name: ""
+      }, stateChangeParams);
+      this.setState(stateChangeParams);
+    }
+  }, {
+    key: "handleMultiSelectChange",
+    value: function handleMultiSelectChange(name, value) {
+      this.setState(this.setNameToValue(name, value));
+    }
+  }, {
+    key: "handleToggle",
+    value: function handleToggle(name) {
+      this.setState(this.toggleStateBoolean(name, this.state));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      var composedId = "vsi-deployment-form-".concat(this.props.data.name);
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+        id: composedId,
+        componentName: "vsi",
+        value: this.state.name,
         onChange: this.handleInputChange,
-        invalidText: "Invalid error message.",
-        className: "fieldWidthBigger"
-      }))
-    }));
-  }
-}
+        invalid: this.props.invalidCallback(this.state),
+        invalidText: this.props.invalidTextCallback(this.state),
+        hideHelperText: true
+      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: "vsi_form",
+        name: "resource_group",
+        labelText: "Resource Group",
+        groups: this.props.resourceGroupList,
+        value: this.state.resource_group,
+        handleInputChange: this.handleInputChange
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: "vsi_form",
+        name: "vpc_name",
+        labelText: "VPC",
+        groups: this.props.vpcList,
+        value: this.state.vpc_name,
+        handleInputChange: this.handleInputChange,
+        invalid: lib_4(this.state.vpc_name),
+        invalidText: "Select a VPC."
+      }), this.props.isTeleport ?
+      /*#__PURE__*/
+      // render dropdown for teleport instance
+      React__default["default"].createElement(IcseSelect, {
+        formName: "vsi_form",
+        name: "subnet_name",
+        labelText: "Subnet",
+        groups: this.props.subnetList,
+        value: this.state.subnet_name,
+        handleInputChange: this.handleInputChange,
+        invalid: lib_4(this.state.vpc_name) || lib_4(this.state.subnet_name),
+        invalidText: lib_4(this.state.vpc_name) ? "No VPC Selected." : "Select a Subnet."
+      }) : /*#__PURE__*/React__default["default"].createElement(SubnetMultiSelect, {
+        id: "subnet",
+        initialSelectedItems: this.state.subnet_names,
+        vpc_name: this.state.vpc_name,
+        subnets: this.props.subnetList,
+        onChange: function onChange(value) {
+          return _this2.handleMultiSelectChange("subnet_names", value);
+        }
+      }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+        label: "Instances per Subnet",
+        id: composedId + "-vsi-per-subnet",
+        allowEmpty: false,
+        value: this.state.vsi_per_subnet,
+        max: 10,
+        min: 1,
+        onChange: this.handleInputChange,
+        name: "vsi_per_subnet",
+        hideSteppers: true,
+        invalidText: "Please input a number 1-10",
+        className: "fieldWidthSmaller leftTextAlign"
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(SshKeyMultiSelect, {
+        id: "sshkey",
+        sshKeys: this.props.sshKeyList,
+        onChange: function onChange(value) {
+          return _this2.handleMultiSelectChange("ssh_keys", value);
+        },
+        initialSelectedItems: this.state.ssh_keys
+      }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
+        formName: "vsi_form",
+        labelText: "Image",
+        name: "image_name",
+        apiEndpoint: this.props.apiEndpointImages,
+        handleInputChange: this.handleInputChange,
+        value: this.state.image_name
+      }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
+        formName: "vsi_form",
+        labelText: "Flavor",
+        name: "machine_type",
+        apiEndpoint: this.props.apiEndpointFlavors,
+        handleInputChange: this.handleInputChange,
+        value: this.state.machine_type
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: "vsi_form",
+        name: "boot_volume_encryption_key_name",
+        labelText: "Encryption Key",
+        groups: this.props.encryptionKeyList,
+        value: this.state.boot_volume_encryption_key_name,
+        handleInputChange: this.handleInputChange,
+        invalid: this.props.invalidCallback(this.state),
+        invalidText: "Select a valid encryption key."
+      }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        id: composedId + "-fips-toggle",
+        labelText: "Enable Floating IP",
+        defaultToggled: this.state.enable_floating_ip,
+        onToggle: this.handleToggle
+      })), /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+        hide: this.props.isTeleport,
+        show: /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
+          id: composedId + "-vsi-user-data",
+          placeholder: "Cloud init data",
+          labelText: "User Data",
+          name: "user_data",
+          value: this.state.user_data || "",
+          onChange: this.handleInputChange,
+          invalidText: "Invalid error message.",
+          className: "fieldWidthBigger"
+        }))
+      }));
+    }
+  }]);
+  return VsiForm;
+}(React.Component);
 VsiForm.defaultProps = {
   data: {
     name: "",
@@ -16869,8 +16906,8 @@ VsiForm.defaultProps = {
   subnetList: [],
   sshKeyList: [],
   encryptionKeyList: [],
-  imageList: [],
-  flavorList: []
+  apiEndpointImages: "",
+  apiEndpointFlavors: ""
 };
 VsiForm.propTypes = {
   data: PropTypes__default["default"].shape({
@@ -16885,8 +16922,9 @@ VsiForm.propTypes = {
   subnetList: PropTypes__default["default"].array.isRequired,
   sshKeyList: PropTypes__default["default"].array.isRequired,
   encryptionKeyList: PropTypes__default["default"].array.isRequired,
-  imageList: PropTypes__default["default"].array.isRequired,
-  flavorList: PropTypes__default["default"].array.isRequired,
+  /* api endpoints */
+  apiEndpointImages: PropTypes__default["default"].string.isRequired,
+  apiEndpointFlavors: PropTypes__default["default"].string.isRequired,
   /* callbacks */
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired
