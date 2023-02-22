@@ -127,7 +127,7 @@ ResourceGroupForm is a form component that allows for adding or editing resource
 
 - `data`: An object containing the following:
   - `name`: String value of resource group name (required)
-  - `create`: Boolean representing wheter or not to create a new resource group
+  - `create`: Boolean representing whether or not to create a new resource group
   - `use_prefix`: Boolean representing whether or not to append your environment prefix to the beginning of the resource group when `create` is enabled
 - `toggleName`: String value representing the name of the toggle
 - `isModal`: Boolean representing whether or not the toggle is a modal
