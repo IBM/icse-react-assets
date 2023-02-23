@@ -31,7 +31,7 @@ export default {
         "A string value used to ensure button uniqueness when rendered as part of a list", // description
       type: { required: true }, // required prop or not
       table: { defaultValue: { summary: "false" } }, // default value
-      control: "string", // what type of value we can set
+      control: "text", // what type of value we can set
     },
     handleUp: {
       description:

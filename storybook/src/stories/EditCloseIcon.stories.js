@@ -29,7 +29,7 @@ export default {
       description:
         "An optional string that is displayed when the cursor is hovering over the button", // description
       type: { required: false }, // required prop or not
-      control: "string", // what type of value we can set
+      control: "text", // what type of value we can set
     },
     onClick: {
       description: "A function that is called each time the button is clicked",

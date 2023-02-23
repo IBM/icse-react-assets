@@ -20,12 +20,12 @@ export default {
       description:
         "An optional string that is displayed when the cursor is hovering over the button when the delete button is disabled", // description
       type: { required: false }, // required prop or not
-      control: "string", // what type of value we can set
+      control: "text", // what type of value we can set
     },
     hoverTextAlign: {
       description: "Alignment of the hover text", // description
       type: { required: true }, // required prop or not
-      control: "string", // what type of value we can set
+      control: "text", // what type of value we can set
       table: { defaultValue: { summary: "bottom" } }, // default value
     },
     onClick: {

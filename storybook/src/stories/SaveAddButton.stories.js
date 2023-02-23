@@ -29,18 +29,18 @@ export default {
       description: "Type of the button. Can be either `save` or `add`.", // description
       type: { required: true }, // required prop or not
       table: { defaultValue: { summary: "save" } }, // default value
-      control: "string", // what type of value we can set
+      control: "text", // what type of value we can set
     },
     hoverText: {
       description:
         "An optional string that is displayed when the cursor is hovering over the button", // description
       type: { required: false }, // required prop or not
-      control: "string", // what type of value we can set
+      control: "text", // what type of value we can set
     },
     hoverTextAlign: {
       description: "Alignment of the hover text", // description
       type: { required: true }, // required prop or not
-      control: "string", // what type of value we can set
+      control: "text", // what type of value we can set
       table: { defaultValue: { summary: "bottom" } }, // default value
     },
     onClick: {
