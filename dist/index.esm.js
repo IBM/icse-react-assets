@@ -18637,7 +18637,7 @@ var VsiForm = /*#__PURE__*/function (_Component) {
       var _event$target = event.target,
         name = _event$target.name,
         value = _event$target.value;
-      var stateChangeParams = _defineProperty({}, name, name === "vsi_per_subnet" ? Number(value) : value);
+      var stateChangeParams = _defineProperty({}, name, name === "vsi_per_subnet" && value !== "" ? Number(value) : value);
       if (name === "vpc_name") transpose({
         subnet_names: [],
         subnet_name: ""
@@ -18779,7 +18779,7 @@ VsiForm.defaultProps = {
     machine_type: "",
     resource_group: "",
     boot_volume_encryption_key_name: "",
-    vsi_per_subnet: 0
+    vsi_per_subnet: "1"
   },
   isModal: false,
   isTeleport: false,
@@ -18803,7 +18803,7 @@ VsiForm.propTypes = {
     machine_type: PropTypes.string,
     resource_group: PropTypes.string,
     boot_volume_encryption_key_name: PropTypes.string,
-    vsi_per_subnet: PropTypes.number
+    vsi_per_subnet: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   }).isRequired,
   /* bools */
   isModal: PropTypes.bool.isRequired,

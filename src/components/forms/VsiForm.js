@@ -39,10 +39,14 @@ class VsiForm extends Component {
 
     let stateChangeParams = {
 <<<<<<< HEAD
+<<<<<<< HEAD
       [name]: name === "vsi_per_subnet" && value !== "" ? Number(value) : value,
 =======
       [name]: name === "vsi_per_subnet" ? Number(value) : value,
 >>>>>>> a8d076e (merge)
+=======
+      [name]: name === "vsi_per_subnet" && value !== "" ? Number(value) : value,
+>>>>>>> 0537c69 (fix: vsi_per_subnet)
     };
     if (name === "vpc_name")
       transpose({ subnet_names: [], subnet_name: "" }, stateChangeParams);
@@ -313,8 +317,12 @@ VsiForm.defaultProps = {
 =======
     resource_group: "",
     boot_volume_encryption_key_name: "",
+<<<<<<< HEAD
     vsi_per_subnet: 0,
 >>>>>>> 32b7a0b (fix: vsi form props and update readme)
+=======
+    vsi_per_subnet: "1",
+>>>>>>> 0537c69 (fix: vsi_per_subnet)
   },
   isModal: false,
   isTeleport: false,
@@ -355,10 +363,14 @@ VsiForm.propTypes = {
     resource_group: PropTypes.string,
     boot_volume_encryption_key_name: PropTypes.string,
 <<<<<<< HEAD
+<<<<<<< HEAD
     vsi_per_subnet: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 =======
     vsi_per_subnet: PropTypes.number,
 >>>>>>> 32b7a0b (fix: vsi form props and update readme)
+=======
+    vsi_per_subnet: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+>>>>>>> 0537c69 (fix: vsi_per_subnet)
   }).isRequired,
   /* bools */
   isModal: PropTypes.bool.isRequired,
