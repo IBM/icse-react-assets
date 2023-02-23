@@ -15237,6 +15237,7 @@ var VsiForm = /*#__PURE__*/function (_Component) {
         id: composedId + "-vsi-per-subnet",
         allowEmpty: false,
         value: this.state.vsi_per_subnet,
+        defaultValue: 1,
         max: 10,
         min: 1,
         onChange: this.handleInputChange,
@@ -15319,7 +15320,7 @@ VsiForm.defaultProps = {
     machine_type: "",
     resource_group: "",
     boot_volume_encryption_key_name: "",
-    vsi_per_subnet: "1"
+    vsi_per_subnet: 1
   },
   isModal: false,
   isTeleport: false,
@@ -15333,7 +15334,7 @@ VsiForm.defaultProps = {
 };
 VsiForm.propTypes = {
   data: PropTypes__default["default"].shape({
-    name: PropTypes__default["default"].string.isRequired,
+    name: PropTypes__default["default"].string,
     ssh_keys: PropTypes__default["default"].array,
     subnet_name: PropTypes__default["default"].string,
     subnet_names: PropTypes__default["default"].array,
