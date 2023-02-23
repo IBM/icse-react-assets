@@ -123,7 +123,7 @@ class VsiForm extends Component {
             name="vsi_per_subnet"
             hideSteppers={true}
             invalidText="Please input a number 1-10"
-            className="fieldWidthSmaller leftTextAlign"
+            className="fieldWidth leftTextAlign"
           />
         </IcseFormGroup>
         <IcseFormGroup>
