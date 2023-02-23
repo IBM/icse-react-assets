@@ -130,17 +130,13 @@ EditCloseIcon.defaultProps = {
 /**
  * Delete button
  * @param {*} props
- * @param {boolean} props.disabled
- * @param {Function} props.onClick onclick function
- * @param {string} props.name classname
- *
  */
 export const DeleteButton = (props) => {
   return (
     <div className="delete-area">
       <PopoverWrapper
         hoverText={
-          props.disabled ? props.disableDeleteMessage : "Delete Resource"
+          props.disabled && props.disableDeleteMessage ? props.disableDeleteMessage : "Delete Resource"
         }
         align={props.hoverTextAlign}
         className={props.disabled ? "inlineBlock cursorNotAllowed" : ""}
@@ -170,19 +166,13 @@ DeleteButton.defaultProps = {
 DeleteButton.propTypes = {
   disabled: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
-  name: PropTypes.string.isRequired,
   hoverTextAlign: PropTypes.string.isRequired,
+  disableDeleteMessage: PropTypes.string
 };
 
 /**
  * Up/Down button
  * @param {*} props
- * @param {string} props.name
- * @param {boolean} props.disableUp
- * @param {boolean} props.disableDown
- * @param {Function} props.handleUp
- * @param {Function} props.handleDown
- *
  */
 export const UpDownButtons = (props) => {
   return (

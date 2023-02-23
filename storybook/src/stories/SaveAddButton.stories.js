@@ -1,6 +1,5 @@
 import React from "react";
 import { SaveAddButton } from "icse-react-assets";
-import { Save } from "@carbon/icons-react";
 
 export default {
   component: SaveAddButton,

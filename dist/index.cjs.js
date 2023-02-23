@@ -2699,11 +2699,6 @@ var SaveIcon = function SaveIcon(props) {
 /**
  * save add button
  * @param {*} props
- * @param {string} props.hoverText
- * @param {string} props.type can be `add` defaults to `save`
- * @param {Function} props.onClick onclick function
- * @param {string=} props.className
- * @param {boolean} props.disabled
  * @returns Save add button
  */
 var SaveAddButton = function SaveAddButton(props) {
@@ -2754,11 +2749,6 @@ SaveAddButton.propTypes = {
 /**
  * Edit close icon with popover
  * @param {*} props
- * @param {string=} props.hoverText text for popover hover
- * @param {string} props.type can be `edit` or `add`, defaults to add
- * @param {boolean} props.disabled
- * @param {Function} props.onClick onclick function
- * @param {boolean} props.open toggle is open, defaults to false
  * @returns edit close icon
  */
 var EditCloseIcon = function EditCloseIcon(props) {
@@ -2774,28 +2764,25 @@ var EditCloseIcon = function EditCloseIcon(props) {
 EditCloseIcon.propTypes = {
   hoverText: PropTypes__default["default"].string,
   onClick: PropTypes__default["default"].func.isRequired,
-  disabled: PropTypes__default["default"].bool,
-  type: PropTypes__default["default"].string,
-  open: PropTypes__default["default"].bool
+  disabled: PropTypes__default["default"].bool.isRequired,
+  type: PropTypes__default["default"].string.isRequired,
+  open: PropTypes__default["default"].bool.isRequired
 };
 EditCloseIcon.defaultProps = {
   type: "edit",
-  open: false
+  open: false,
+  disabled: false
 };
 
 /**
  * Delete button
  * @param {*} props
- * @param {boolean} props.disabled
- * @param {Function} props.onClick onclick function
- * @param {string} props.name classname
- *
  */
 var DeleteButton = function DeleteButton(props) {
   return /*#__PURE__*/React__default["default"].createElement("div", {
     className: "delete-area"
   }, /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
-    hoverText: props.disabled ? props.disableDeleteMessage : "Delete Resource",
+    hoverText: props.disabled && props.disableDeleteMessage ? props.disableDeleteMessage : "Delete Resource",
     align: props.hoverTextAlign,
     className: props.disabled ? "inlineBlock cursorNotAllowed" : ""
   }, /*#__PURE__*/React__default["default"].createElement(react.Button, {
@@ -2815,8 +2802,8 @@ DeleteButton.defaultProps = {
 DeleteButton.propTypes = {
   disabled: PropTypes__default["default"].bool.isRequired,
   onClick: PropTypes__default["default"].func.isRequired,
-  name: PropTypes__default["default"].string.isRequired,
-  hoverTextAlign: PropTypes__default["default"].string.isRequired
+  hoverTextAlign: PropTypes__default["default"].string.isRequired,
+  disableDeleteMessage: PropTypes__default["default"].string
 };
 
 /**

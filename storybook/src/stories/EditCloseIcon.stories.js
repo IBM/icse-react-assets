@@ -60,7 +60,7 @@ const EditCloseIconInputStory = ({ ...args }) => {
       <p>Edit Icon Open:</p>
       <div>
         <EditCloseIcon
-          hoverText="Edit Icon"
+          hoverText="Edit Icon Open"
           onClick={() => console.log("Edit toggle")}
           hoverTextAlign="right"
           open={true}
@@ -69,7 +69,7 @@ const EditCloseIconInputStory = ({ ...args }) => {
       <p>Add Icon Closed:</p>
       <div>
         <EditCloseIcon
-          hoverText="Disabled Save Button"
+          hoverText="Add Icon"
           onClick={() => console.log("Edit toggle")}
           disabled
           type="add"
@@ -79,7 +79,7 @@ const EditCloseIconInputStory = ({ ...args }) => {
       <p>Add Icon Open:</p>
       <div>
         <EditCloseIcon
-          hoverText="Disabled Save Button"
+          hoverText="Add Icon Open"
           onClick={() => console.log("Edit toggle")}
           disabled
           type="add"
