@@ -27,11 +27,6 @@ export const SaveIcon = (props) => {
 /**
  * save add button
  * @param {*} props
- * @param {string} props.hoverText
- * @param {string} props.type can be `add` defaults to `save`
- * @param {Function} props.onClick onclick function
- * @param {string=} props.className
- * @param {boolean} props.disabled
  * @returns Save add button
  */
 export const SaveAddButton = (props) => {

@@ -9,7 +9,7 @@ export default {
   },
   argTypes: {
     disabled: {
-      description: "A boolean value for if the Save ICon is disabled", // description
+      description: "A boolean value for if the SaveIcon is disabled", // description
       type: { required: true }, // required prop or not
       table: { defaultValue: { summary: "false" } }, // default value
       control: "boolean", // what type of value we can set
