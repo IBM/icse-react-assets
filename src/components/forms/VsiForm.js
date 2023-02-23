@@ -151,9 +151,13 @@ class VsiForm extends Component {
             allowEmpty={false}
             value={this.state.vsi_per_subnet}
 <<<<<<< HEAD
+<<<<<<< HEAD
             defaultValue={1}
 =======
 >>>>>>> a8d076e (merge)
+=======
+            defaultValue={1}
+>>>>>>> 1799f4e (simplify example)
             max={10}
             min={1}
             onChange={this.handleInputChange}
@@ -312,6 +316,7 @@ VsiForm.defaultProps = {
     resource_group: "",
     boot_volume_encryption_key_name: "",
     vsi_per_subnet: 1,
+<<<<<<< HEAD
 =======
 >>>>>>> a8d076e (merge)
 =======
@@ -323,6 +328,8 @@ VsiForm.defaultProps = {
 =======
     vsi_per_subnet: "1",
 >>>>>>> 0537c69 (fix: vsi_per_subnet)
+=======
+>>>>>>> 1799f4e (simplify example)
   },
   isModal: false,
   isTeleport: false,
@@ -349,10 +356,14 @@ VsiForm.propTypes = {
   data: PropTypes.shape({
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     name: PropTypes.string,
 =======
     name: PropTypes.string.isRequired,
 >>>>>>> 32b7a0b (fix: vsi form props and update readme)
+=======
+    name: PropTypes.string,
+>>>>>>> 1799f4e (simplify example)
     ssh_keys: PropTypes.array,
     subnet_name: PropTypes.string,
     subnet_names: PropTypes.array,
