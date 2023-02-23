@@ -54,6 +54,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 72d0b85 (merge)
 =======
 var lazyZ = require('lazy-z');
@@ -110,6 +111,9 @@ var react = require('@carbon/react');
 =======
 =======
 >>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
+=======
+require('@carbon/styles/css/styles.css');
+>>>>>>> 3b432fa (add carbon styles (#52))
 var react = require('@carbon/react');
 var lazyZ = require('lazy-z');
 var React = require('react');

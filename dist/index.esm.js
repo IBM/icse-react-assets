@@ -20,6 +20,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import { Popover, PopoverContent, FilterableMultiSelect, MultiSelect, Tile, Toggletip, ToggletipButton, ToggletipContent, Link, Modal, TextInput, Toggle, Button } from '@carbon/react';
 >>>>>>> 04bfb65 (added button examples)
@@ -689,6 +690,9 @@ import { Popover, PopoverContent, Button, StructuredListWrapper, StructuredListH
 >>>>>>> 74e4b37 (Issue 713: **NEW** VPE Form  (#41))
 import lazyZ, { isNullOrEmptyString as isNullOrEmptyString$1, kebabCase as kebabCase$1, isEmpty, buildNumberDropdownList, snakeCase, titleCase, isBoolean, capitalize, prettyJSON, parseIntFromZone, isFunction as isFunction$1, contains } from 'lazy-z';
 =======
+=======
+import '@carbon/styles/css/styles.css';
+>>>>>>> 3b432fa (add carbon styles (#52))
 import { Popover, PopoverContent, Button, Toggletip, ToggletipButton, ToggletipContent, Link, Select, SelectItem, Tile, Modal, Toggle, TextInput, NumberInput, TextArea, Dropdown, FilterableMultiSelect, Tabs, TabList, Tab, TabPanels, TabPanel, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody } from '@carbon/react';
 <<<<<<< HEAD
 <<<<<<< HEAD
