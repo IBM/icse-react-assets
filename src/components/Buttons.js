@@ -87,11 +87,6 @@ SaveAddButton.propTypes = {
 /**
  * Edit close icon with popover
  * @param {*} props
- * @param {string=} props.hoverText text for popover hover
- * @param {string} props.type can be `edit` or `add`, defaults to add
- * @param {boolean} props.disabled
- * @param {Function} props.onClick onclick function
- * @param {boolean} props.open toggle is open, defaults to false
  * @returns edit close icon
  */
 export const EditCloseIcon = (props) => {
@@ -121,14 +116,15 @@ export const EditCloseIcon = (props) => {
 EditCloseIcon.propTypes = {
   hoverText: PropTypes.string,
   onClick: PropTypes.func.isRequired,
-  disabled: PropTypes.bool,
-  type: PropTypes.string,
-  open: PropTypes.bool,
+  disabled: PropTypes.bool.isRequired,
+  type: PropTypes.string.isRequired,
+  open: PropTypes.bool.isRequired,
 };
 
 EditCloseIcon.defaultProps = {
   type: "edit",
   open: false,
+  disabled: false
 };
 
 /**
