@@ -18715,7 +18715,7 @@ var VsiForm = /*#__PURE__*/function (_Component) {
         name: "vsi_per_subnet",
         hideSteppers: true,
         invalidText: "Please input a number 1-10",
-        className: "fieldWidthSmaller leftTextAlign"
+        className: "fieldWidth leftTextAlign"
       })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(SshKeyMultiSelect, {
         id: "sshkey",
         sshKeys: this.props.sshKeyList,

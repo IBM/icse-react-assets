@@ -165,10 +165,14 @@ class VsiForm extends Component {
             hideSteppers={true}
             invalidText="Please input a number 1-10"
 <<<<<<< HEAD
+<<<<<<< HEAD
             className="fieldWidth leftTextAlign"
 =======
             className="fieldWidthSmaller leftTextAlign"
 >>>>>>> a8d076e (merge)
+=======
+            className="fieldWidth leftTextAlign"
+>>>>>>> 87075f4 (fix: set width for instances per subnet to fieldWidth)
           />
         </IcseFormGroup>
         <IcseFormGroup>
