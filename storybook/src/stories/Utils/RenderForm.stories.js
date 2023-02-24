@@ -25,17 +25,11 @@ export default {
   },
 };
 
-const RenderFormStory = ({ ...args }) => {
-  const TestForm = (props) => {
+const RenderFormStory = () => {
+  let TestForm = (props) => {
     return <h3>hello {props.name}</h3>;
   };
-  return (
-    <>
-      <div>TestForm: {"<h1>hello {props.name}</h1>"}</div><br/>
-      <div>RenderForm: {"RenderForm(TestForm, { name: \"world\" })"}</div><br/>
-      <div>Result:{RenderForm(TestForm, { name: "world" })}</div>
-    </>
-  );
+  return RenderForm(TestForm, { name: "world" });
 };
 
 export const Default = RenderFormStory.bind({});
