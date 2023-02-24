@@ -26,12 +26,13 @@ export default {
         "A boolean defining if the heading is a subHeading or not (defaults to `false`)", // description
       type: { required: true }, // required prop or not
       control: "boolean",
+      table: { defaultValue: { summary: "false" } },
     },
     hide: {
-      description:
-        "A boolean value defining if the children are hidden or not (defaults to `true`)", // description
+      description: "A boolean value defining if the children are hidden", // description
       type: { required: true }, // required prop or not
       control: "none",
+      table: { defaultValue: { summary: "false" } },
     },
     children: {
       description: "Child nodes to be displayed within the title group",
@@ -59,21 +60,23 @@ export default {
     },
     toggleFormTitle: {
       description:
-        "A boolean value defining if this is a title of a toggleForm (defaults to `false`)", // description
+        "A boolean value defining if this is a title of a toggleForm", // description
       type: { required: true }, // required prop or not
       control: "boolean",
+      table: { defaultValue: { summary: "false" } },
     },
     alwaysShowButtons: {
       description:
-        "A boolean value defining if the buttons should always be shown or only shown if the form is opened (defaults to `false`)", // description
+        "A boolean value defining if the buttons should always be shown or only shown if the form is opened ", // description
       type: { required: true }, // required prop or not
       control: "boolean",
+      table: { defaultValue: { summary: "false" } },
     },
     hideTitle: {
-      description:
-        "Hide the surrounding toggle form and render only children (defaults to `false`)", // description
+      description: "Hide the surrounding toggle form and render only children", // description
       type: { required: true }, // required prop or not
       control: "boolean",
+      table: { defaultValue: { summary: "false" } },
     },
     className: {
       description: "String of space separated class names to add to the group",

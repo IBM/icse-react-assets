@@ -3,7 +3,7 @@ import { EmptyResourceTile } from "icse-react-assets";
 
 export default {
   component: EmptyResourceTile,
-  title: "Components/Documentation/EmptyResourceTile",
+  title: "Components/Other/EmptyResourceTile",
   args: {
     name: "Example Component",
     showIfEmpty: [],
@@ -19,6 +19,7 @@ export default {
         "A boolean or array value which shows the tile only if false or if the given array is empty (indicating no resources)", // description
       type: { required: true }, // required prop or not
       control: "boolean",
+      table: { defaultValue: { summary: "false" } },
     },
     instructions: {
       description: "Optional instructions to use in place of default text", // description

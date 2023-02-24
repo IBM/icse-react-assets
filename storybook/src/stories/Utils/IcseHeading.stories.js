@@ -45,7 +45,7 @@ export default {
     },
     ["tooltip.link"]: {
       description:
-        "An optional string contaning a custom hyperlink to be displayed with the content of the tooltip",
+        "An optional string containing a custom hyperlink to be displayed with the content of the tooltip",
       control: "none",
       type: { required: false }, // required prop or not
     },

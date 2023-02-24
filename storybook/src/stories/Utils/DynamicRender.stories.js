@@ -12,6 +12,7 @@ export default {
       description: "A boolean value, when true the component will be hidden", // description
       type: { required: true }, // required prop or not
       control: "boolean",
+      table: { defaultValue: { summary: "false" } },
     },
     show: {
       description: "React Elements to be shown when `hide` is false",

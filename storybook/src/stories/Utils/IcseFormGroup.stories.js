@@ -11,9 +11,10 @@ export default {
   argTypes: {
     noMarginBottom: {
       description:
-        " A boolean value for if the form group should have a margin applied on the bottom (defaults to false)", // description
+        "A boolean value for if the form group should have a margin applied on the bottom", // description
       type: { required: true }, // required prop or not
       control: "boolean",
+      table: { defaultValue: { summary: "false" } },
     },
     className: {
       description: "String of space separated class names to add to the group",

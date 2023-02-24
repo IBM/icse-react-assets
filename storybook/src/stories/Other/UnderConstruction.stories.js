@@ -3,7 +3,7 @@ import { UnderConstruction } from "icse-react-assets";
 
 export default {
   component: UnderConstruction,
-  title: "Components/Documentation/UnderConstruction",
+  title: "Components/Other/UnderConstruction",
   parameters: {
     docs: {
       description: {

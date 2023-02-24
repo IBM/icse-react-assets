@@ -17,9 +17,10 @@ export default {
     },
     formInSubForm: {
       description:
-        "A boolean that represents if this subform is within another subform, which changes the background to white (defaults to false)", // description
+        "A boolean that represents if this subform is within another subform, which changes the background to white", // description
       type: { required: true }, // required prop or not
       control: "boolean",
+      table: {defaultValue: {summary: "false"}}
     },
     className: {
       description: "String of space separated class names to add to the group",
