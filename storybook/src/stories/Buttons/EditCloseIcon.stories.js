@@ -52,7 +52,6 @@ const EditCloseIconInputStory = ({ ...args }) => {
   return (
     <EditCloseIcon
       {...args}
-      hoverText="Edit Icon"
       open={value}
       onClick={() => setValue(!value)}
     />
@@ -65,7 +64,6 @@ const AddCloseIconInputStory = ({ ...args }) => {
     <EditCloseIcon
       {...args}
       type="add"
-      hoverText="Add Icon"
       open={value}
       onClick={() => setValue(!value)}
     />
