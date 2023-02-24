@@ -11607,6 +11607,7 @@ TransitGatewayForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 /**
  * Atracker
  * @param {Object} props
@@ -11985,136 +11986,143 @@ var VpcNetworkForm = /*#__PURE__*/function (_React$Component) {
     buildFormFunctions(_assertThisInitialized(_this));
     buildFormDefaultInputMethods(_assertThisInitialized(_this));
     return _this;
+=======
+const nameFields = ["default_network_acl_name", "default_routing_table_name", "default_security_group_name"];
+class VpcNetworkForm extends React__default["default"].Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    this.handPgwToggle = this.handPgwToggle.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+>>>>>>> f44a27c (fix: titlecase)
   }
 
   /**
    * handle input change
    * @param {event} event event
    */
-  _createClass(VpcNetworkForm, [{
-    key: "handleInputChange",
-    value: function handleInputChange(event) {
-      this.setState(this.eventTargetToNameAndValue(event));
-    }
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
 
-    /**
-     * Toggle on and off param in state at name
-     * @param {string} name name of the object key to change
-     */
-  }, {
-    key: "handleToggle",
-    value: function handleToggle(name) {
-      this.setState(_defineProperty({}, name, !this.state[name]));
-    }
+  /**
+   * Toggle on and off param in state at name
+   * @param {string} name name of the object key to change
+   */
+  handleToggle(name) {
+    this.setState({
+      [name]: !this.state[name]
+    });
+  }
 
-    /**
-     * handle change of public gateway by zone
-     * @param {string} zone zone-1, zone-2, or zone-3
-     */
-  }, {
-    key: "handPgwToggle",
-    value: function handPgwToggle(zone) {
-      var vpc = _objectSpread2({}, this.state);
-      var currentGw = _objectSpread2({}, this.state.use_public_gateways);
-      currentGw[zone] = !currentGw[zone];
-      vpc.use_public_gateways = currentGw;
-      this.setState(_objectSpread2({}, vpc));
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this2 = this;
-      var composedId = "".concat(this.props.data.name, "-vpc-form");
-      var classNameModalCheck = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
-      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-        tooltip: {
-          content: "This name will be prepended to all components within this VPC.",
-          alignModal: "bottom-left",
-          align: "bottom-left"
-        },
-        id: composedId + "-prefix",
-        componentProps: this.props,
-        component: "vpc",
-        componentName: this.props.data.name,
-        field: "name",
-        labelText: "Name",
-        placeholder: "my-vpc-name",
-        hideHelperText: true,
-        value: this.state.name,
+  /**
+   * handle change of public gateway by zone
+   * @param {string} zone zone-1, zone-2, or zone-3
+   */
+  handPgwToggle(zone) {
+    let vpc = {
+      ...this.state
+    };
+    let currentGw = {
+      ...this.state.use_public_gateways
+    };
+    currentGw[zone] = !currentGw[zone];
+    vpc.use_public_gateways = currentGw;
+    this.setState({
+      ...vpc
+    });
+  }
+  render() {
+    let composedId = `${this.props.data.name}-vpc-form`;
+    let classNameModalCheck = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      tooltip: {
+        content: "This name will be prepended to all components within this VPC.",
+        alignModal: "bottom-left",
+        align: "bottom-left"
+      },
+      id: composedId + "-prefix",
+      componentProps: this.props,
+      component: "vpc",
+      componentName: this.props.data.name,
+      field: "name",
+      labelText: "Name",
+      placeholder: "my-vpc-name",
+      hideHelperText: true,
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      invalid: this.props.invalidCallback("name", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("name", this.state, this.props),
+      className: classNameModalCheck
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      labelText: "Resource Group",
+      name: "resource_group",
+      formName: "resource_group",
+      groups: this.props.resourceGroups,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange,
+      invalid: lib_4(this.state.resource_group),
+      invalidText: "Select a Resource Group.",
+      className: classNameModalCheck
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      labelText: "Flow Logs Bucket Name",
+      name: "flow_logs_bucket_name",
+      formName: this.props.data.name + "-vpc",
+      groups: this.props.cosBuckets,
+      value: this.state.flow_logs_bucket_name || "",
+      handleInputChange: this.handleInputChange,
+      invalid: lib_4(this.state.flow_logs_bucket_name),
+      invalidText: "Select a Bucket.",
+      className: classNameModalCheck
+    })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+      name: "VPC Options",
+      type: "subHeading"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      id: this.props.data.name + "-classic-access",
+      labelText: "Classic Infrastructure Access",
+      toggleFieldName: "classic_access",
+      defaultToggled: this.state.classic_access,
+      onToggle: this.handleToggle,
+      className: classNameModalCheck + " leftTextAlign"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, nameFields.map(field => {
+      return /*#__PURE__*/React__default["default"].createElement("div", {
+        className: "fitContent",
+        key: this.props.data.name + "-" + lazyZ.kebabCase(field) + "-div"
+      }, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+        id: composedId + "-" + field,
+        componentName: "VPC Network",
+        field: field,
+        labelText: lazyZ.titleCase(field),
+        value: this.state[field],
         onChange: this.handleInputChange,
-        invalid: this.props.invalidCallback("name", this.state, this.props),
-        invalidText: this.props.invalidTextCallback("name", this.state, this.props),
+        invalid: this.props.invalidCallback(field, this.state, this.props),
+        invalidText: this.props.invalidTextCallback(field, this.state, this.props),
         className: classNameModalCheck
-      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-        labelText: "Resource Group",
-        name: "resource_group",
-        formName: "resource_group",
-        groups: this.props.resourceGroups,
-        value: this.state.resource_group,
-        handleInputChange: this.handleInputChange,
-        invalid: lib_4(this.state.resource_group),
-        invalidText: "Select a Resource Group.",
-        className: classNameModalCheck
-      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-        labelText: "Flow Logs Bucket Name",
-        name: "flow_logs_bucket_name",
-        formName: this.props.data.name + "-vpc",
-        groups: this.props.cosBuckets,
-        value: this.state.flow_logs_bucket_name || "",
-        handleInputChange: this.handleInputChange,
-        invalid: lib_4(this.state.flow_logs_bucket_name),
-        invalidText: "Select a Bucket.",
-        className: classNameModalCheck
-      })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
-        name: "VPC Options",
-        type: "subHeading"
-      }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-        id: this.props.data.name + "-classic-access",
-        labelText: "Classic Infrastructure Access",
-        toggleFieldName: "classic_access",
-        defaultToggled: this.state.classic_access,
-        onToggle: this.handleToggle,
-        className: classNameModalCheck + " leftTextAlign"
-      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, nameFields.map(function (field) {
-        return /*#__PURE__*/React__default["default"].createElement("div", {
-          className: "fitContent",
-          key: _this2.props.data.name + "-" + lazyZ.kebabCase(field) + "-div"
-        }, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-          id: composedId + "-" + field,
-          componentName: "VPC Network",
-          field: field,
-          labelText: field,
-          value: _this2.state[field],
-          onChange: _this2.handleInputChange,
-          invalid: _this2.props.invalidCallback(field, _this2.state, _this2.props),
-          invalidText: _this2.props.invalidTextCallback(field, _this2.state, _this2.props),
-          className: classNameModalCheck
-        }));
-      })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
-        name: "Public Gateways",
-        type: "subHeading",
-        noLabelText: true,
-        tooltip: {
-          content: "Public Gateways allow for all resources in a zone to communicate with the public internet. Public Gateways are not needed for subnets where a VPN gateway is created."
-        }
-      }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
-        noMarginBottom: true
-      }, ["zone-1", "zone-2", "zone-3"].map(function (zone) {
-        return /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-          key: _this2.props.data.name + "-gateway-toggle-" + zone,
-          id: _this2.props.data.name + "-pgw-" + zone,
-          labelText: "Create in Zone " + lazyZ.parseIntFromZone(zone),
-          defaultToggled: _this2.state.use_public_gateways[zone],
-          onToggle: function onToggle() {
-            return _this2.handPgwToggle(zone);
-          },
-          className: classNameModalCheck + " leftTextAlign"
-        });
-      })));
-    }
-  }]);
-  return VpcNetworkForm;
-}(React__default["default"].Component);
+      }));
+    })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+      name: "Public Gateways",
+      type: "subHeading",
+      noLabelText: true,
+      tooltip: {
+        content: "Public Gateways allow for all resources in a zone to communicate with the public internet. Public Gateways are not needed for subnets where a VPN gateway is created."
+      }
+    }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+      noMarginBottom: true
+    }, ["zone-1", "zone-2", "zone-3"].map(zone => /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      key: this.props.data.name + "-gateway-toggle-" + zone,
+      id: this.props.data.name + "-pgw-" + zone,
+      labelText: "Create in Zone " + lazyZ.parseIntFromZone(zone),
+      defaultToggled: this.state.use_public_gateways[zone],
+      onToggle: () => this.handPgwToggle(zone),
+      className: classNameModalCheck + " leftTextAlign"
+    }))));
+  }
+}
 VpcNetworkForm.defaultProps = {
   data: {
     name: "",

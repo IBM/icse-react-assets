@@ -7,7 +7,7 @@ import {
   buildFormDefaultInputMethods,
   buildFormFunctions,
 } from "../component-utils";
-import { kebabCase, parseIntFromZone } from "lazy-z";
+import { kebabCase, parseIntFromZone, titleCase } from "lazy-z";
 import PropTypes from "prop-types";
 
 const nameFields = [
@@ -136,7 +136,7 @@ class VpcNetworkForm extends React.Component {
                   id={composedId + "-" + field}
                   componentName="VPC Network"
                   field={field}
-                  labelText={field}
+                  labelText={titleCase(field)}
                   value={this.state[field]}
                   onChange={this.handleInputChange}
                   invalid={this.props.invalidCallback(
