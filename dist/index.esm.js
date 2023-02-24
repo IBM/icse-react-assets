@@ -1322,6 +1322,7 @@ import lazyZ, { snakeCase, titleCase, isBoolean, kebabCase as kebabCase$1, prett
 >>>>>>> 8655315 (changes (exports, readme, example))
 import { Information, WarningAlt, CloudAlerting, Add } from '@carbon/icons-react';
 
+<<<<<<< HEAD
 >>>>>>> 8db187e (form and documentation)
 =======
 =======
@@ -1339,6 +1340,230 @@ import PropTypes from 'prop-types';
 import lazyZ, { snakeCase, titleCase, isBoolean, kebabCase as kebabCase$1, prettyJSON, isNullOrEmptyString, isEmpty, buildNumberDropdownList } from 'lazy-z';
 >>>>>>> 72d0b85 (merge)
 =======
+=======
+  /**
+   * handle mouse over
+   */
+  _createClass(PopoverWrapper, [{
+    key: "handleMouseOver",
+    value: function handleMouseOver() {
+      this.setState({
+        isHovering: true
+      });
+    }
+
+    /**
+     * handle mouse out
+     */
+  }, {
+    key: "handleMouseOut",
+    value: function handleMouseOut() {
+      this.setState({
+        isHovering: false
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return this.props.noPopover === true || this.props.hoverText === "" ? this.props.children : /*#__PURE__*/React.createElement("div", {
+        className: lib_2("popover-obj", this.props),
+        onMouseEnter: this.handleMouseOver,
+        onMouseLeave: this.handleMouseOut
+      }, /*#__PURE__*/React.createElement(Popover, {
+        open: this.state.isHovering,
+        autoAlign: this.props.align ? false : true,
+        dropShadow: false,
+        highContrast: true,
+        caret: false,
+        align: this.props.align
+      }, this.props.children, /*#__PURE__*/React.createElement(PopoverContent, {
+        className: "popover-box" + (this.props.contentClassName ? " ".concat(this.props.contentClassName) : "")
+      }, this.props.hoverText)));
+    }
+  }]);
+  return PopoverWrapper;
+}(React.Component);
+PopoverWrapper.defaultProps = {
+  noPopover: false
+};
+PopoverWrapper.propTypes = {
+  noPopover: PropTypes.bool,
+  hoverText: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  contentClassName: PropTypes.string,
+  align: PropTypes.string,
+  children: PropTypes.node.isRequired
+};
+
+var css_248z$c = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important; \n}\n";
+styleInject(css_248z$c);
+
+/**
+ * generate save icon
+ * @param {object} props
+ * @param {boolean} props.saveIsDisabled true if disabled
+ * @returns Save Icon
+ */
+const SaveIcon = props => {
+  return /*#__PURE__*/React.createElement(Save, {
+    className: props.disabled ? "" : "tertiaryButtonColors"
+  });
+};
+
+/**
+ * save add button
+ * @param {*} props
+ * @param {string} props.hoverText
+ * @param {string} props.type can be `add` defaults to `save`
+ * @param {Function} props.onClick onclick function
+ * @param {string=} props.className
+ * @param {boolean} props.disabled
+ * @returns Save add button
+ */
+const SaveAddButton = props => {
+  return /*#__PURE__*/React.createElement(PopoverWrapper, {
+    hoverText: props.type === "add" && props.hoverText === "Save Changes" ? "Add Resource" : props.hoverText,
+    className: (props.disabled ? "inlineBlock cursorNotAllowed" : "") + (props.inline ? " alignItemsCenter marginTopLarge inLineFormButton" : ""),
+    align: props.hoverTextAlign
+  }, /*#__PURE__*/React.createElement(Button, {
+    kind: props.type === "add" ? "tertiary" : "primary",
+    onClick: props.onClick,
+    className: lib_6(props) + (props.disabled === true ? " pointerEventsNone " : " " + props.className),
+    disabled: props.disabled || false,
+    size: "sm"
+  }, props.type === "add" ? /*#__PURE__*/React.createElement(Add, null) : /*#__PURE__*/React.createElement(SaveIcon, {
+    saveIsDisabled: props.disabled
+  })));
+};
+SaveAddButton.defaultProps = {
+  type: "save",
+  hoverText: "Save Changes",
+  inline: false,
+  disabled: false,
+  hoverTextAlign: "bottom"
+};
+SaveAddButton.propTypes = {
+  hoverText: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
+  disabled: PropTypes.bool.isRequired,
+  type: PropTypes.string.isRequired,
+  inline: PropTypes.bool.isRequired,
+  hoverTextAlign: PropTypes.string.isRequired
+};
+
+/**
+ * Edit close icon with popover
+ * @param {*} props
+ * @param {string=} props.hoverText text for popover hover
+ * @param {string} props.type can be `edit` or `add`, defaults to add
+ * @param {boolean} props.disabled
+ * @param {Function} props.onClick onclick function
+ * @param {boolean} props.open toggle is open, defaults to false
+ * @returns edit close icon
+ */
+const EditCloseIcon = props => {
+  let hoverText = props.hoverText ? props.hoverText : props.open ? "Close" : props.type === "add" ? "Configure Resource" : "Edit Resource";
+  let icon = props.open ? /*#__PURE__*/React.createElement(CloseFilled, null) : props.type === "add" ? /*#__PURE__*/React.createElement(Add, null) : /*#__PURE__*/React.createElement(Edit, null);
+  return /*#__PURE__*/React.createElement(PopoverWrapper, {
+    hoverText: hoverText
+  }, /*#__PURE__*/React.createElement("i", {
+    onClick: props.onClick,
+    className: "chevron"
+  }, icon));
+};
+EditCloseIcon.propTypes = {
+  hoverText: PropTypes.string,
+  onClick: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
+  type: PropTypes.string,
+  open: PropTypes.bool
+};
+EditCloseIcon.defaultProps = {
+  type: "edit",
+  open: false
+};
+
+/**
+ * Delete button
+ * @param {*} props
+ * @param {boolean} props.disabled
+ * @param {Function} props.onClick onclick function
+ * @param {string} props.name classname
+ *
+ */
+const DeleteButton = props => {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "delete-area"
+  }, /*#__PURE__*/React.createElement(PopoverWrapper, {
+    hoverText: props.disabled ? props.disableDeleteMessage : "Delete Resource",
+    align: props.hoverTextAlign,
+    className: props.disabled ? "inlineBlock cursorNotAllowed" : ""
+  }, /*#__PURE__*/React.createElement(Button, {
+    className: "cds--btn--danger--tertiary forceTertiaryButtonStyles" + (props.disabled ? " pointerEventsNone" : ""),
+    kind: "ghost",
+    size: "sm",
+    onClick: props.onClick,
+    disabled: props.disabled === true
+  }, /*#__PURE__*/React.createElement(TrashCan, {
+    className: props.disabled ? "" : "redFill"
+  }))));
+};
+DeleteButton.defaultProps = {
+  disabled: false,
+  hoverTextAlign: "bottom"
+};
+DeleteButton.propTypes = {
+  disabled: PropTypes.bool.isRequired,
+  onClick: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
+  hoverTextAlign: PropTypes.string.isRequired
+};
+
+/**
+ * Up/Down button
+ * @param {*} props
+ * @param {string} props.name
+ * @param {boolean} props.disableUp
+ * @param {boolean} props.disableDown
+ * @param {Function} props.handleUp
+ * @param {Function} props.handleDown
+ *
+ */
+const UpDownButtons = props => {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Button, {
+    key: "rule-up-" + props.name,
+    disabled: props.disableUp,
+    kind: "ghost",
+    size: "sm",
+    id: props.name + "-up",
+    onClick: props.handleUp,
+    className: "focus forceTertiaryButtonStyles marginRightSmall"
+  }, /*#__PURE__*/React.createElement(ArrowUp, {
+    key: "up-" + props.name
+  })), /*#__PURE__*/React.createElement(Button, {
+    kind: "ghost",
+    disabled: props.disableDown,
+    key: "rule-down-" + props.name,
+    size: "sm",
+    id: props.name + "-down",
+    onClick: props.handleDown,
+    className: "focus forceTertiaryButtonStyles"
+  }, /*#__PURE__*/React.createElement(ArrowDown, {
+    key: "down-" + props.name
+  })));
+};
+UpDownButtons.defaultProps = {
+  disableUp: false,
+  disableDown: false
+};
+UpDownButtons.propTypes = {
+  disableUp: PropTypes.bool.isRequired,
+  disableDown: PropTypes.bool.isRequired,
+  name: PropTypes.string.isRequired,
+  handleUp: PropTypes.func.isRequired,
+  handleDown: PropTypes.func.isRequired
+};
+>>>>>>> b6bcf3f (feat: utils stories)
 
 =======
 >>>>>>> f19dfef (merge)
@@ -4675,7 +4900,9 @@ styleInject(css_248z$8);
  * @returns Form element
  */
 function RenderForm(form, formProps) {
-  return /*#__PURE__*/React.createElement(form, _objectSpread2({}, formProps));
+  return /*#__PURE__*/React.createElement(form, {
+    ...formProps
+  });
 }
 
 /**
@@ -4692,9 +4919,9 @@ function DynamicRender(props) {
 /**
  * wrapper for title groups
  */
-var TitleGroup = function TitleGroup(props) {
+const TitleGroup = props => {
   return /*#__PURE__*/React.createElement("div", {
-    className: lib_2("displayFlex alignItemsCenter widthOneHundredPercent ".concat(lib_1(props.hide)), props)
+    className: lib_2(`displayFlex alignItemsCenter widthOneHundredPercent ${lib_1(props.hide)}`, props)
   }, props.children);
 };
 TitleGroup.defaultProps = {
@@ -4703,8 +4930,8 @@ TitleGroup.defaultProps = {
 TitleGroup.propTypes = {
   children: PropTypes.node.isRequired
 };
-var IcseFormGroup = function IcseFormGroup(props) {
-  var formGroupClassName = "displayFlex marginBottom fitContent evenSpacing";
+const IcseFormGroup = props => {
+  let formGroupClassName = "displayFlex marginBottom fitContent evenSpacing";
   // remove margin bottom from formGroup for VPC
   if (props.noMarginBottom) {
     formGroupClassName = formGroupClassName.replace(/\smarginBottom/g, "");
@@ -4721,7 +4948,7 @@ IcseFormGroup.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string
 };
-var IcseSubForm = function IcseSubForm(props) {
+const IcseSubForm = props => {
   return /*#__PURE__*/React.createElement("div", {
     className: lib_2(props.formInSubForm ? "formInSubForm positionRelative" : "subForm marginBottomSmall", props),
     id: props.id
@@ -4736,15 +4963,15 @@ IcseSubForm.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node.isRequired
 };
-var IcseHeading = function IcseHeading(props) {
-  var titleFormDivClass = props.toggleFormTitle ? "" : props.name === "" ? "" : " icseFormTitleMinHeight";
+const IcseHeading = props => {
+  let titleFormDivClass = props.toggleFormTitle ? "" : props.name === "" ? "" : " icseFormTitleMinHeight";
   return /*#__PURE__*/React.createElement("div", {
     className: lib_2("displayFlex spaceBetween widthOneHundredPercent alignItemsCenter", props) + titleFormDivClass
   }, /*#__PURE__*/React.createElement(DynamicToolTipWrapper, {
     tooltip: props.tooltip,
-    noLabelText: props.noLabelText,
+    noLabelText: true,
     id: props.name,
-    innerForm: function innerForm() {
+    innerForm: () => {
       return props.type === "subHeading" ? /*#__PURE__*/React.createElement("h5", null, props.name) : props.type === "p" ? /*#__PURE__*/React.createElement("p", null, props.name) : /*#__PURE__*/React.createElement("h4", null, props.name);
     }
   }), /*#__PURE__*/React.createElement("div", {
@@ -4764,13 +4991,14 @@ IcseHeading.propTypes = {
     alignModal: PropTypes.string
   }),
   buttons: PropTypes.node,
-  className: PropTypes.string
+  className: PropTypes.string,
+  toggleFormTitle: PropTypes.bool
 };
 
 /**
  * All of the toggle form functionality without injecting anything on render
  */
-var StatelessToggleForm = function StatelessToggleForm(props) {
+const StatelessToggleForm = props => {
   return props.hideTitle ? props.children : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(TitleGroup, {
     hide: props.hide,
     props: props,
@@ -4794,7 +5022,11 @@ var StatelessToggleForm = function StatelessToggleForm(props) {
 StatelessToggleForm.defaultProps = {
   hide: true,
   iconType: "edit",
-  name: "Stateless Toggle Form"
+  name: "Stateless Toggle Form",
+  hideTitle: false,
+  alwaysShowButtons: false,
+  hideTitle: false,
+  toggleFormTitle: false
 };
 StatelessToggleForm.propTypes = {
   children: PropTypes.node.isRequired,
@@ -4804,8 +5036,9 @@ StatelessToggleForm.propTypes = {
   subHeading: PropTypes.bool,
   name: PropTypes.string.isRequired,
   buttons: PropTypes.node,
-  toggleFormTitle: PropTypes.bool,
-  alwaysShowButtons: PropTypes.bool
+  toggleFormTitle: PropTypes.bool.isRequired,
+  alwaysShowButtons: PropTypes.bool.isRequired,
+  hideTitle: PropTypes.bool.isRequired
 };
 
 /**

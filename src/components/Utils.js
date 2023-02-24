@@ -121,7 +121,7 @@ export const IcseHeading = (props) => {
     >
       <DynamicToolTipWrapper
         tooltip={props.tooltip}
-        noLabelText={props.noLabelText}
+        noLabelText={true}
         id={props.name}
         innerForm={() => {
           return props.type === "subHeading" ? (
@@ -153,6 +153,7 @@ IcseHeading.propTypes = {
   }),
   buttons: PropTypes.node,
   className: PropTypes.string,
+  toggleFormTitle: PropTypes.bool,
 };
 
 /**
@@ -197,6 +198,10 @@ StatelessToggleForm.defaultProps = {
   hide: true,
   iconType: "edit",
   name: "Stateless Toggle Form",
+  hideTitle: false,
+  alwaysShowButtons: false,
+  hideTitle: false,
+  toggleFormTitle: false,
 };
 
 StatelessToggleForm.propTypes = {
@@ -207,6 +212,7 @@ StatelessToggleForm.propTypes = {
   subHeading: PropTypes.bool,
   name: PropTypes.string.isRequired,
   buttons: PropTypes.node,
-  toggleFormTitle: PropTypes.bool,
-  alwaysShowButtons: PropTypes.bool,
+  toggleFormTitle: PropTypes.bool.isRequired,
+  alwaysShowButtons: PropTypes.bool.isRequired,
+  hideTitle: PropTypes.bool.isRequired,
 };
