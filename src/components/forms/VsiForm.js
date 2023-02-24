@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import { TextArea, NumberInput } from "@carbon/react";
 import { IcseFormGroup, DynamicRender } from "../Utils";
 import { IcseToggle, IcseNameInput } from "../Inputs";
+<<<<<<< HEAD
 import { FetchSelect, IcseSelect } from "../Dropdowns";
+=======
+import { IcseSelect } from "../Dropdowns";
+>>>>>>> a8d076e (merge)
 import { SshKeyMultiSelect, SubnetMultiSelect } from "../MultiSelects";
 import { checkNullorEmptyString } from "../../lib";
 import {
@@ -30,7 +34,11 @@ class VsiForm extends Component {
     let { name, value } = event.target;
 
     let stateChangeParams = {
+<<<<<<< HEAD
       [name]: name === "vsi_per_subnet" && value !== "" ? Number(value) : value,
+=======
+      [name]: name === "vsi_per_subnet" ? Number(value) : value,
+>>>>>>> a8d076e (merge)
     };
     if (name === "vpc_name")
       transpose({ subnet_names: [], subnet_name: "" }, stateChangeParams);
@@ -39,6 +47,10 @@ class VsiForm extends Component {
   }
 
   handleMultiSelectChange(name, value) {
+<<<<<<< HEAD
+=======
+    console.log(name, value);
+>>>>>>> a8d076e (merge)
     this.setState(this.setNameToValue(name, value));
   }
 
@@ -103,9 +115,14 @@ class VsiForm extends Component {
           ) : (
             <SubnetMultiSelect
               id="subnet"
+<<<<<<< HEAD
               initialSelectedItems={this.state.subnet_names}
               vpc_name={this.state.vpc_name}
               subnets={this.props.subnetList}
+=======
+              subnets={this.props.subnetList}
+              vpc_name={this.state.vpc_name}
+>>>>>>> a8d076e (merge)
               onChange={(value) =>
                 this.handleMultiSelectChange("subnet_names", value)
               }
@@ -116,14 +133,21 @@ class VsiForm extends Component {
             id={composedId + "-vsi-per-subnet"}
             allowEmpty={false}
             value={this.state.vsi_per_subnet}
+<<<<<<< HEAD
             defaultValue={1}
+=======
+>>>>>>> a8d076e (merge)
             max={10}
             min={1}
             onChange={this.handleInputChange}
             name="vsi_per_subnet"
             hideSteppers={true}
             invalidText="Please input a number 1-10"
+<<<<<<< HEAD
             className="fieldWidth leftTextAlign"
+=======
+            className="fieldWidthSmaller leftTextAlign"
+>>>>>>> a8d076e (merge)
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -135,6 +159,7 @@ class VsiForm extends Component {
             }
             initialSelectedItems={this.state.ssh_keys}
           />
+<<<<<<< HEAD
           <FetchSelect
             formName="vsi_form"
             labelText="Image"
@@ -150,6 +175,27 @@ class VsiForm extends Component {
             apiEndpoint={this.props.apiEndpointFlavors}
             handleInputChange={this.handleInputChange}
             value={this.state.machine_type}
+=======
+          <IcseSelect
+            formName="vsi_form"
+            name="image_name"
+            labelText="Image"
+            groups={this.props.imageList}
+            value={this.state.image_name}
+            handleInputChange={this.handleInputChange}
+            invalid={this.invalidCallback}
+            invalidText={this.invalidTextCallback}
+          />
+          <IcseSelect
+            formName="vsi_form"
+            name="machine_type"
+            labelText="Flavor"
+            groups={this.props.flavorList}
+            value={this.state.machine_type}
+            handleInputChange={this.handleInputChange}
+            invalid={this.invalidCallback}
+            invalidText={this.invalidTextCallback}
+>>>>>>> a8d076e (merge)
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -160,8 +206,13 @@ class VsiForm extends Component {
             groups={this.props.encryptionKeyList}
             value={this.state.boot_volume_encryption_key_name}
             handleInputChange={this.handleInputChange}
+<<<<<<< HEAD
             invalid={this.props.invalidCallback(this.state)}
             invalidText="Select a valid encryption key."
+=======
+            invalid={this.invalidCallback}
+            invalidText={this.invalidTextCallback}
+>>>>>>> a8d076e (merge)
           />
           <IcseToggle
             id={composedId + "-fips-toggle"}
@@ -170,6 +221,10 @@ class VsiForm extends Component {
             onToggle={this.handleToggle}
           />
         </IcseFormGroup>
+<<<<<<< HEAD
+=======
+
+>>>>>>> a8d076e (merge)
         {/* cloud init data, show if not f5 or teleport */}
         <DynamicRender
           hide={this.props.isTeleport}
@@ -177,12 +232,19 @@ class VsiForm extends Component {
             <IcseFormGroup>
               <TextArea
                 id={composedId + "-vsi-user-data"}
+<<<<<<< HEAD
+=======
+                invalidText="Invalid error message."
+>>>>>>> a8d076e (merge)
                 placeholder="Cloud init data"
                 labelText="User Data"
                 name="user_data"
                 value={this.state.user_data || ""}
                 onChange={this.handleInputChange}
+<<<<<<< HEAD
                 invalidText="Invalid error message."
+=======
+>>>>>>> a8d076e (merge)
                 className="fieldWidthBigger"
               />
             </IcseFormGroup>
@@ -203,9 +265,12 @@ VsiForm.defaultProps = {
     vpc_name: "",
     image_name: "",
     machine_type: "",
+<<<<<<< HEAD
     resource_group: "",
     boot_volume_encryption_key_name: "",
     vsi_per_subnet: 1,
+=======
+>>>>>>> a8d076e (merge)
   },
   isModal: false,
   isTeleport: false,
@@ -214,12 +279,18 @@ VsiForm.defaultProps = {
   subnetList: [],
   sshKeyList: [],
   encryptionKeyList: [],
+<<<<<<< HEAD
   apiEndpointImages: "",
   apiEndpointFlavors: "",
+=======
+  imageList: [],
+  flavorList: [],
+>>>>>>> a8d076e (merge)
 };
 
 VsiForm.propTypes = {
   data: PropTypes.shape({
+<<<<<<< HEAD
     name: PropTypes.string,
     ssh_keys: PropTypes.array,
     subnet_name: PropTypes.string,
@@ -236,15 +307,26 @@ VsiForm.propTypes = {
   isModal: PropTypes.bool.isRequired,
   isTeleport: PropTypes.bool.isRequired,
   /* lists */
+=======
+    name: PropTypes.string.isRequired,
+  }).isRequired,
+  isModal: PropTypes.bool.isRequired,
+  isTeleport: PropTypes.bool.isRequired,
+>>>>>>> a8d076e (merge)
   resourceGroupList: PropTypes.array.isRequired,
   vpcList: PropTypes.array.isRequired,
   subnetList: PropTypes.array.isRequired,
   sshKeyList: PropTypes.array.isRequired,
   encryptionKeyList: PropTypes.array.isRequired,
+<<<<<<< HEAD
   /* api endpoints */
   apiEndpointImages: PropTypes.string.isRequired,
   apiEndpointFlavors: PropTypes.string.isRequired,
   /* callbacks */
+=======
+  imageList: PropTypes.array.isRequired,
+  flavorList: PropTypes.array.isRequired,
+>>>>>>> a8d076e (merge)
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
 };

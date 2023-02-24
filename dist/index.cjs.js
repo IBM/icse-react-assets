@@ -6767,7 +6767,7 @@ styleInject(css_248z$9);
  * @returns tile if shown, empty string otherwise
  */
 
-const EmptyResourceTile = props => {
+var EmptyResourceTile = function EmptyResourceTile(props) {
   return !props.showIfEmpty || props.showIfEmpty.length === 0 ? /*#__PURE__*/React__default["default"].createElement(react.Tile, {
     className: "marginBottomXs tileBackground"
   }, /*#__PURE__*/React__default["default"].createElement(iconsReact.CloudAlerting, {
@@ -16676,6 +16676,199 @@ SubnetTileForm.propTypes = {
 =======
 >>>>>>> 2a431c4 (feat: better exports)
 
+var VsiForm = /*#__PURE__*/function (_Component) {
+  _inherits(VsiForm, _Component);
+  var _super = _createSuper(VsiForm);
+  function VsiForm(props) {
+    var _this;
+    _classCallCheck(this, VsiForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleMultiSelectChange = _this.handleMultiSelectChange.bind(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    return _this;
+  }
+  _createClass(VsiForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      var _event$target = event.target,
+        name = _event$target.name,
+        value = _event$target.value;
+      var stateChangeParams = _defineProperty({}, name, name === "vsi_per_subnet" ? Number(value) : value);
+      if (name === "vpc_name") lazyZ.transpose({
+        subnet_names: [],
+        subnet_name: ""
+      }, stateChangeParams);
+      this.setState(stateChangeParams);
+    }
+  }, {
+    key: "handleMultiSelectChange",
+    value: function handleMultiSelectChange(name, value) {
+      console.log(name, value);
+      this.setState(this.setNameToValue(name, value));
+    }
+  }, {
+    key: "handleToggle",
+    value: function handleToggle(name) {
+      this.setState(this.toggleStateBoolean(name, this.state));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      var composedId = "vsi-deployment-form-".concat(this.props.data.name);
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+        id: composedId,
+        componentName: "vsi",
+        value: this.state.name,
+        onChange: this.handleInputChange,
+        invalid: this.props.invalidCallback(this.state),
+        invalidText: this.props.invalidTextCallback(this.state),
+        hideHelperText: true
+      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: "vsi_form",
+        name: "resource_group",
+        labelText: "Resource Group",
+        groups: this.props.resourceGroupList,
+        value: this.state.resource_group,
+        handleInputChange: this.handleInputChange
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: "vsi_form",
+        name: "vpc_name",
+        labelText: "VPC",
+        groups: this.props.vpcList,
+        value: this.state.vpc_name,
+        handleInputChange: this.handleInputChange,
+        invalid: lib_4(this.state.vpc_name),
+        invalidText: "Select a VPC."
+      }), this.props.isTeleport ?
+      /*#__PURE__*/
+      // render dropdown for teleport instance
+      React__default["default"].createElement(IcseSelect, {
+        formName: "vsi_form",
+        name: "subnet_name",
+        labelText: "Subnet",
+        groups: this.props.subnetList,
+        value: this.state.subnet_name,
+        handleInputChange: this.handleInputChange,
+        invalid: lib_4(this.state.vpc_name) || lib_4(this.state.subnet_name),
+        invalidText: lib_4(this.state.vpc_name) ? "No VPC Selected." : "Select a Subnet."
+      }) : /*#__PURE__*/React__default["default"].createElement(SubnetMultiSelect, {
+        id: "subnet",
+        subnets: this.props.subnetList,
+        vpc_name: this.state.vpc_name,
+        onChange: function onChange(value) {
+          return _this2.handleMultiSelectChange("subnet_names", value);
+        }
+      }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+        label: "Instances per Subnet",
+        id: composedId + "-vsi-per-subnet",
+        allowEmpty: false,
+        value: this.state.vsi_per_subnet,
+        max: 10,
+        min: 1,
+        onChange: this.handleInputChange,
+        name: "vsi_per_subnet",
+        hideSteppers: true,
+        invalidText: "Please input a number 1-10",
+        className: "fieldWidthSmaller leftTextAlign"
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(SshKeyMultiSelect, {
+        id: "sshkey",
+        sshKeys: this.props.sshKeyList,
+        onChange: function onChange(value) {
+          return _this2.handleMultiSelectChange("ssh_keys", value);
+        },
+        initialSelectedItems: this.state.ssh_keys
+      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: "vsi_form",
+        name: "image_name",
+        labelText: "Image",
+        groups: this.props.imageList,
+        value: this.state.image_name,
+        handleInputChange: this.handleInputChange,
+        invalid: this.invalidCallback,
+        invalidText: this.invalidTextCallback
+      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: "vsi_form",
+        name: "machine_type",
+        labelText: "Flavor",
+        groups: this.props.flavorList,
+        value: this.state.machine_type,
+        handleInputChange: this.handleInputChange,
+        invalid: this.invalidCallback,
+        invalidText: this.invalidTextCallback
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: "vsi_form",
+        name: "boot_volume_encryption_key_name",
+        labelText: "Encryption Key",
+        groups: this.props.encryptionKeyList,
+        value: this.state.boot_volume_encryption_key_name,
+        handleInputChange: this.handleInputChange,
+        invalid: this.invalidCallback,
+        invalidText: this.invalidTextCallback
+      }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        id: composedId + "-fips-toggle",
+        labelText: "Enable Floating IP",
+        defaultToggled: this.state.enable_floating_ip,
+        onToggle: this.handleToggle
+      })), /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+        hide: this.props.isTeleport,
+        show: /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
+          id: composedId + "-vsi-user-data",
+          invalidText: "Invalid error message.",
+          placeholder: "Cloud init data",
+          labelText: "User Data",
+          name: "user_data",
+          value: this.state.user_data || "",
+          onChange: this.handleInputChange,
+          className: "fieldWidthBigger"
+        }))
+      }));
+    }
+  }]);
+  return VsiForm;
+}(React.Component);
+VsiForm.defaultProps = {
+  data: {
+    name: "",
+    ssh_keys: [],
+    subnet_name: "",
+    subnet_names: [],
+    enable_floating_ip: false,
+    vpc_name: "",
+    image_name: "",
+    machine_type: ""
+  },
+  isModal: false,
+  isTeleport: false,
+  resourceGroupList: [],
+  vpcList: [],
+  subnetList: [],
+  sshKeyList: [],
+  encryptionKeyList: [],
+  imageList: [],
+  flavorList: []
+};
+VsiForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired
+  }).isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired,
+  isTeleport: PropTypes__default["default"].bool.isRequired,
+  resourceGroupList: PropTypes__default["default"].array.isRequired,
+  vpcList: PropTypes__default["default"].array.isRequired,
+  subnetList: PropTypes__default["default"].array.isRequired,
+  sshKeyList: PropTypes__default["default"].array.isRequired,
+  encryptionKeyList: PropTypes__default["default"].array.isRequired,
+  imageList: PropTypes__default["default"].array.isRequired,
+  flavorList: PropTypes__default["default"].array.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired
+};
+
 var css_248z = ".about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n";
 styleInject(css_248z);
 
@@ -17839,6 +18032,7 @@ exports.VpcListMultiSelect = VpcListMultiSelect;
 <<<<<<< HEAD
 <<<<<<< HEAD
 exports.VpnGatewayForm = VpnGatewayForm;
+<<<<<<< HEAD
 =======
 exports.WorkerPoolForm = WorkerPoolForm;
 >>>>>>> 353b3a7 ($@)
@@ -17864,6 +18058,8 @@ exports.VpeForm = VpeForm;
 exports.VpeForm = VpeForm;
 >>>>>>> 2a431c4 (feat: better exports)
 exports.VpnGatewayForm = VpnGatewayForm;
+=======
+>>>>>>> a8d076e (merge)
 exports.VsiForm = VsiForm;
 exports.WorkerPoolForm = WorkerPoolForm;
 exports.buildFormDefaultInputMethods = buildFormDefaultInputMethods;

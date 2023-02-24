@@ -713,8 +713,12 @@ import lazyZ, { isNullOrEmptyString as isNullOrEmptyString$1, kebabCase as kebab
 =======
 import '@carbon/styles/css/styles.css';
 import { Popover, PopoverContent, Button, Toggletip, ToggletipButton, ToggletipContent, Link, Select, SelectItem, Tile, Modal, Toggle, TextInput, NumberInput, TextArea, Dropdown, FilterableMultiSelect, Tabs, TabList, Tab, TabPanels, TabPanel, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody } from '@carbon/react';
+<<<<<<< HEAD
 import lazyZ, { isNullOrEmptyString as isNullOrEmptyString$1, kebabCase as kebabCase$1, isEmpty, buildNumberDropdownList, snakeCase, titleCase, isBoolean, capitalize, prettyJSON, parseIntFromZone, isFunction as isFunction$1, contains, transpose, deepEqual, eachKey } from 'lazy-z';
 >>>>>>> 2a431c4 (feat: better exports)
+=======
+import lazyZ, { isNullOrEmptyString as isNullOrEmptyString$1, kebabCase as kebabCase$1, isEmpty, buildNumberDropdownList, snakeCase, titleCase, isBoolean, capitalize, prettyJSON, parseIntFromZone, isFunction as isFunction$1, contains, deepEqual, transpose, eachKey } from 'lazy-z';
+>>>>>>> a8d076e (merge)
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Save, Add, CloseFilled, Edit, TrashCan, ArrowUp, ArrowDown, Information, CloudAlerting, WarningAlt } from '@carbon/icons-react';
@@ -4852,7 +4856,7 @@ styleInject(css_248z$9);
  * @returns tile if shown, empty string otherwise
  */
 
-const EmptyResourceTile = props => {
+var EmptyResourceTile = function EmptyResourceTile(props) {
   return !props.showIfEmpty || props.showIfEmpty.length === 0 ? /*#__PURE__*/React.createElement(Tile, {
     className: "marginBottomXs tileBackground"
   }, /*#__PURE__*/React.createElement(CloudAlerting, {
@@ -18552,6 +18556,199 @@ SubnetTileForm.propTypes = {
 =======
 >>>>>>> 2a431c4 (feat: better exports)
 
+var VsiForm = /*#__PURE__*/function (_Component) {
+  _inherits(VsiForm, _Component);
+  var _super = _createSuper(VsiForm);
+  function VsiForm(props) {
+    var _this;
+    _classCallCheck(this, VsiForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleMultiSelectChange = _this.handleMultiSelectChange.bind(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    return _this;
+  }
+  _createClass(VsiForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      var _event$target = event.target,
+        name = _event$target.name,
+        value = _event$target.value;
+      var stateChangeParams = _defineProperty({}, name, name === "vsi_per_subnet" ? Number(value) : value);
+      if (name === "vpc_name") transpose({
+        subnet_names: [],
+        subnet_name: ""
+      }, stateChangeParams);
+      this.setState(stateChangeParams);
+    }
+  }, {
+    key: "handleMultiSelectChange",
+    value: function handleMultiSelectChange(name, value) {
+      console.log(name, value);
+      this.setState(this.setNameToValue(name, value));
+    }
+  }, {
+    key: "handleToggle",
+    value: function handleToggle(name) {
+      this.setState(this.toggleStateBoolean(name, this.state));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      var composedId = "vsi-deployment-form-".concat(this.props.data.name);
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+        id: composedId,
+        componentName: "vsi",
+        value: this.state.name,
+        onChange: this.handleInputChange,
+        invalid: this.props.invalidCallback(this.state),
+        invalidText: this.props.invalidTextCallback(this.state),
+        hideHelperText: true
+      }), /*#__PURE__*/React.createElement(IcseSelect, {
+        formName: "vsi_form",
+        name: "resource_group",
+        labelText: "Resource Group",
+        groups: this.props.resourceGroupList,
+        value: this.state.resource_group,
+        handleInputChange: this.handleInputChange
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+        formName: "vsi_form",
+        name: "vpc_name",
+        labelText: "VPC",
+        groups: this.props.vpcList,
+        value: this.state.vpc_name,
+        handleInputChange: this.handleInputChange,
+        invalid: lib_4(this.state.vpc_name),
+        invalidText: "Select a VPC."
+      }), this.props.isTeleport ?
+      /*#__PURE__*/
+      // render dropdown for teleport instance
+      React.createElement(IcseSelect, {
+        formName: "vsi_form",
+        name: "subnet_name",
+        labelText: "Subnet",
+        groups: this.props.subnetList,
+        value: this.state.subnet_name,
+        handleInputChange: this.handleInputChange,
+        invalid: lib_4(this.state.vpc_name) || lib_4(this.state.subnet_name),
+        invalidText: lib_4(this.state.vpc_name) ? "No VPC Selected." : "Select a Subnet."
+      }) : /*#__PURE__*/React.createElement(SubnetMultiSelect, {
+        id: "subnet",
+        subnets: this.props.subnetList,
+        vpc_name: this.state.vpc_name,
+        onChange: function onChange(value) {
+          return _this2.handleMultiSelectChange("subnet_names", value);
+        }
+      }), /*#__PURE__*/React.createElement(NumberInput, {
+        label: "Instances per Subnet",
+        id: composedId + "-vsi-per-subnet",
+        allowEmpty: false,
+        value: this.state.vsi_per_subnet,
+        max: 10,
+        min: 1,
+        onChange: this.handleInputChange,
+        name: "vsi_per_subnet",
+        hideSteppers: true,
+        invalidText: "Please input a number 1-10",
+        className: "fieldWidthSmaller leftTextAlign"
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(SshKeyMultiSelect, {
+        id: "sshkey",
+        sshKeys: this.props.sshKeyList,
+        onChange: function onChange(value) {
+          return _this2.handleMultiSelectChange("ssh_keys", value);
+        },
+        initialSelectedItems: this.state.ssh_keys
+      }), /*#__PURE__*/React.createElement(IcseSelect, {
+        formName: "vsi_form",
+        name: "image_name",
+        labelText: "Image",
+        groups: this.props.imageList,
+        value: this.state.image_name,
+        handleInputChange: this.handleInputChange,
+        invalid: this.invalidCallback,
+        invalidText: this.invalidTextCallback
+      }), /*#__PURE__*/React.createElement(IcseSelect, {
+        formName: "vsi_form",
+        name: "machine_type",
+        labelText: "Flavor",
+        groups: this.props.flavorList,
+        value: this.state.machine_type,
+        handleInputChange: this.handleInputChange,
+        invalid: this.invalidCallback,
+        invalidText: this.invalidTextCallback
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+        formName: "vsi_form",
+        name: "boot_volume_encryption_key_name",
+        labelText: "Encryption Key",
+        groups: this.props.encryptionKeyList,
+        value: this.state.boot_volume_encryption_key_name,
+        handleInputChange: this.handleInputChange,
+        invalid: this.invalidCallback,
+        invalidText: this.invalidTextCallback
+      }), /*#__PURE__*/React.createElement(IcseToggle, {
+        id: composedId + "-fips-toggle",
+        labelText: "Enable Floating IP",
+        defaultToggled: this.state.enable_floating_ip,
+        onToggle: this.handleToggle
+      })), /*#__PURE__*/React.createElement(DynamicRender, {
+        hide: this.props.isTeleport,
+        show: /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
+          id: composedId + "-vsi-user-data",
+          invalidText: "Invalid error message.",
+          placeholder: "Cloud init data",
+          labelText: "User Data",
+          name: "user_data",
+          value: this.state.user_data || "",
+          onChange: this.handleInputChange,
+          className: "fieldWidthBigger"
+        }))
+      }));
+    }
+  }]);
+  return VsiForm;
+}(Component);
+VsiForm.defaultProps = {
+  data: {
+    name: "",
+    ssh_keys: [],
+    subnet_name: "",
+    subnet_names: [],
+    enable_floating_ip: false,
+    vpc_name: "",
+    image_name: "",
+    machine_type: ""
+  },
+  isModal: false,
+  isTeleport: false,
+  resourceGroupList: [],
+  vpcList: [],
+  subnetList: [],
+  sshKeyList: [],
+  encryptionKeyList: [],
+  imageList: [],
+  flavorList: []
+};
+VsiForm.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired
+  }).isRequired,
+  isModal: PropTypes.bool.isRequired,
+  isTeleport: PropTypes.bool.isRequired,
+  resourceGroupList: PropTypes.array.isRequired,
+  vpcList: PropTypes.array.isRequired,
+  subnetList: PropTypes.array.isRequired,
+  sshKeyList: PropTypes.array.isRequired,
+  encryptionKeyList: PropTypes.array.isRequired,
+  imageList: PropTypes.array.isRequired,
+  flavorList: PropTypes.array.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired
+};
+
 var css_248z = ".about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n";
 styleInject(css_248z);
 
@@ -19376,6 +19573,7 @@ AccessGroupDynamicPolicyForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, VpnGatewayForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> f849341 (access group forms :100:)
 =======
@@ -19489,3 +19687,6 @@ export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, A
 =======
 export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VsiForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> 2a431c4 (feat: better exports)
+=======
+export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VsiForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+>>>>>>> a8d076e (merge)
