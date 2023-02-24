@@ -48,26 +48,6 @@ cd ..
 npm run storybook
 ```
 
-To get started with storybook, you will first need to install it and its dependencies:
-
-```bash
-cd storybook
-npm i
-```
-
-You may encounter an error with @mdx-js, if you do, run this command as well:
-
-```bash
-npm i @mdx-js/react@^1.6.22 -D --legacy-peer-deps
-```
-
-Test that storybook runs correctly:
-
-```bash
-cd ..
-npm run storybook
-```
-
 This stories file can be broken down into a few distinct parts:
 
 1.  Component Information/Documentation

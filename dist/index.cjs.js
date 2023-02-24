@@ -472,6 +472,15 @@ function _objectSpread2(target) {
   }
   return target;
 }
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
+    return typeof obj;
+  } : function (obj) {
+    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+  }, _typeof(obj);
+}
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -1102,8 +1111,13 @@ function styleInject(css, ref) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$8 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$8);
+=======
+var css_248z$e = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  position: relative;\n  z-index: 9001;\n}";
+styleInject(css_248z$e);
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
 
 /**
  * Empty Resource Tile
@@ -1151,8 +1165,68 @@ function addClassName(className, props) {
       composedClassName = composedClassName.replace(/\s?marginRight\b/g, "");
     }
   }
+<<<<<<< HEAD
   return composedClassName;
 }
+=======
+
+  /**
+   * handle mouse over
+   */
+  _createClass(PopoverWrapper, [{
+    key: "handleMouseOver",
+    value: function handleMouseOver() {
+      this.setState({
+        isHovering: true
+      });
+    }
+
+    /**
+     * handle mouse out
+     */
+  }, {
+    key: "handleMouseOut",
+    value: function handleMouseOut() {
+      this.setState({
+        isHovering: false
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return this.props.noPopover === true || this.props.hoverText === "" ? this.props.children : /*#__PURE__*/React__default["default"].createElement("div", {
+        className: lib_2("popover-obj", this.props),
+        onMouseEnter: this.handleMouseOver,
+        onMouseLeave: this.handleMouseOut
+      }, /*#__PURE__*/React__default["default"].createElement(react.Popover, {
+        open: this.state.isHovering,
+        autoAlign: this.props.align ? false : true,
+        dropShadow: false,
+        highContrast: true,
+        caret: false,
+        align: this.props.align
+      }, this.props.children, /*#__PURE__*/React__default["default"].createElement(react.PopoverContent, {
+        className: "popover-box" + (this.props.contentClassName ? " ".concat(this.props.contentClassName) : "")
+      }, this.props.hoverText)));
+    }
+  }]);
+  return PopoverWrapper;
+}(React__default["default"].Component);
+PopoverWrapper.defaultProps = {
+  noPopover: false
+};
+PopoverWrapper.propTypes = {
+  noPopover: PropTypes__default["default"].bool,
+  hoverText: PropTypes__default["default"].string.isRequired,
+  className: PropTypes__default["default"].string,
+  contentClassName: PropTypes__default["default"].string,
+  align: PropTypes__default["default"].string,
+  children: PropTypes__default["default"].node.isRequired
+};
+
+var css_248z$d = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important; \n}\n";
+styleInject(css_248z$d);
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
 
 /**
  * add margin bottom to subform chevron
@@ -1383,6 +1457,7 @@ var lib_10 = lib.invalidRegex;
 var lib_10 = lib.invalidRegex;
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 
+<<<<<<< HEAD
 =======
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
 function styleInject(css, ref) {
@@ -1451,6 +1526,10 @@ var css_248z$b = ".displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width:
 var css_248z$b = ".displayFlex {\r\n  display: flex;\r\n}\r\n\r\n.fitContent {\r\n  width: fit-content;\r\n}\r\n\r\n.alignItemsCenter {\r\n  align-items: center;\r\n}\r\n\r\n.widthOneHundredPercent {\r\n  width: 100%;\r\n}\r\n\r\n.marginBottom {\r\n  margin-bottom: 2rem;\r\n}\r\n\r\n.marginBottomSmall {\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.evenSpacing {\r\n  gap: 3vw;\r\n}\r\n\r\n.positionRelative {\r\n  position: relative;\r\n}\r\n\r\n.formInSubForm {\r\n  margin-top: 0rem;\r\n  background: #fffdfd;\r\n  padding: 1rem;\r\n}\r\n\r\n.subForm {\r\n  background: #f4f4f4;\r\n  padding: 1rem;\r\n  margin-top: 1rem;\r\n  margin-bottom: 2rem;\r\n}\r\n\r\n.icseFormTitleMinHeight {\r\n  min-height: 32px;\r\n}\r\n\r\n.spaceBetween {\r\n  justify-content: space-between;\r\n}\r\n";
 >>>>>>> 007ab0d (cos bucket form)
 styleInject(css_248z$b);
+=======
+var css_248z$c = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+styleInject(css_248z$c);
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
 
 var css_248z$a = ".labelRow {\r\n  display: inline-flex !important;\r\n  align-items: center;\r\n}\r\n\r\n.tooltip > div div.cds--password-input-wrapper {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.cds--toggle {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.cds--text-input-wrapper {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.popover-obj {\r\n  margin-top: -8px;\r\n}\r\n\r\n.subHeadingTooltip {\r\n  margin: 0.2rem 0 0 0.2rem;\r\n}\r\n\r\n.tooltipMarginLeft {\r\n  margin-left: 3px;\r\n}\r\n";
 styleInject(css_248z$a);
@@ -1582,6 +1661,7 @@ DynamicToolTipWrapper.propTypes = {
   innerForm: PropTypes__default["default"].oneOfType([PropTypes__default["default"].object, PropTypes__default["default"].func])
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -4201,6 +4281,10 @@ var IcseSelect = function IcseSelect(props) {
 =======
 var css_248z$a = ".textInputMedium {\n  width: 20rem;\n}";
 styleInject(css_248z$a);
+=======
+var css_248z$b = ".textInputMedium {\n  width: 20rem;\n}";
+styleInject(css_248z$b);
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
 
 var IcseSelect = function IcseSelect(props) {
   var invalid =
@@ -6711,6 +6795,7 @@ EntitlementSelect.defaultProps = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> b345987 (fixes & heading/statelesstoggle form added)
 =======
@@ -6758,6 +6843,10 @@ styleInject(css_248z$a);
 var css_248z$9 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$9);
 >>>>>>> 2a431c4 (feat: better exports)
+=======
+var css_248z$a = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z$a);
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
 
 /**
  * Empty Resource Tile
@@ -6792,6 +6881,7 @@ EmptyResourceTile.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 var css_248z$7 = ".displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
 styleInject(css_248z$7);
@@ -6808,6 +6898,10 @@ styleInject(css_248z$9);
 =======
 var css_248z$8 = ".displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
 styleInject(css_248z$8);
+=======
+var css_248z$9 = ".displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
+styleInject(css_248z$9);
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -7072,6 +7166,7 @@ FormModal.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$5 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
 styleInject(css_248z$5);
 =======
@@ -7093,6 +7188,10 @@ styleInject(css_248z$8);
 var css_248z$7 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.textInputWide {\n  width: 30rem;\n}";
 styleInject(css_248z$7);
 >>>>>>> 2a431c4 (feat: better exports)
+=======
+var css_248z$8 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.textInputWide {\n  width: 30rem;\n}";
+styleInject(css_248z$8);
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
 
 var IcseToggle = function IcseToggle(props) {
   var toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
@@ -7252,6 +7351,7 @@ IcseNameInput.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$4 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
 styleInject(css_248z$4);
 =======
@@ -7270,6 +7370,10 @@ styleInject(css_248z$7);
 var css_248z$6 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
 styleInject(css_248z$6);
 >>>>>>> 2a431c4 (feat: better exports)
+=======
+var css_248z$7 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
+styleInject(css_248z$7);
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -7304,6 +7408,9 @@ var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
 >>>>>>> 4f1bde6 (add fetch selects for flavor and image, update readme and example)
     _this = _super.call(this, props);
     _this.state = _this.props.data;
+    var keyList = _this.props.keys.length === 0 ? [] // if no keys, empty array
+    : _this.props.keys;
+    _this.state.keys = keyList;
     _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
     buildFormFunctions(_assertThisInitialized(_this));
 <<<<<<< HEAD
@@ -7347,6 +7454,7 @@ class AppIdKeyForm extends React__default["default"].Component {
         onChange: this.handleInputChange,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         field: "key_name",
         labelText: "App ID Key",
         componentName: "appid",
@@ -7366,6 +7474,14 @@ class AppIdKeyForm extends React__default["default"].Component {
 >>>>>>> 2a431c4 (feat: better exports)
 =======
 >>>>>>> 4f1bde6 (add fetch selects for flavor and image, update readme and example)
+=======
+        field: "key_name",
+        labelText: "App ID Key",
+        componentName: "appid",
+        className: "fieldWidthSmaller",
+        invalid: this.props.invalidCallback("key_name", this.state, this.props),
+        invalidText: this.props.invalidTextCallback("key_name", this.state, this.props)
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
       }));
     }
   }]);
@@ -7398,11 +7514,16 @@ class AppIdKeyForm extends React__default["default"].Component {
 AppIdKeyForm.defaultProps = {
   data: {
 <<<<<<< HEAD
+<<<<<<< HEAD
     key_name: "",
     keys: []
 =======
     key_name: ""
 >>>>>>> 2a431c4 (feat: better exports)
+=======
+    key_name: "",
+    keys: []
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
   }
 };
 AppIdKeyForm.propTypes = {
@@ -7410,6 +7531,9 @@ AppIdKeyForm.propTypes = {
     key_name: PropTypes__default["default"].string.isRequired
   }),
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
   shouldDisableSubmit: PropTypes__default["default"].func
 };
 
@@ -7546,6 +7670,7 @@ styleInject(css_248z$5);
  * @param {configDotJson} props.configDotJson config dot json
  * @param {slz} props.slz slz state store
  */
+<<<<<<< HEAD
 class AppIdForm extends React.Component {
   constructor(props) {
     super(props);
@@ -7560,12 +7685,32 @@ class AppIdForm extends React.Component {
     this.handleKeyDelete = this.handleKeyDelete.bind(this);
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
+=======
+var AppIdForm = /*#__PURE__*/function (_Component) {
+  _inherits(AppIdForm, _Component);
+  var _super = _createSuper(AppIdForm);
+  function AppIdForm(props) {
+    var _this;
+    _classCallCheck(this, AppIdForm);
+    _this = _super.call(this, props);
+    _this.state = _objectSpread2({}, _this.props.data);
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    _this.toggleModal = _this.toggleModal.bind(_assertThisInitialized(_this));
+    _this.toggleDeleteModal = _this.toggleDeleteModal.bind(_assertThisInitialized(_this));
+    _this.handleKeyAdd = _this.handleKeyAdd.bind(_assertThisInitialized(_this));
+    _this.handleKeyDelete = _this.handleKeyDelete.bind(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    return _this;
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
   }
 
   /**
    * If the appid form has been updated, must update state accordingly
    * @param {Object} prevProps
    * */
+<<<<<<< HEAD
   componentDidUpdate(prevProps) {
     this.props.componentDidUpdateCallback(this.state, this.props);
   }
@@ -7758,6 +7903,224 @@ class AppIdForm extends React.Component {
     }));
   }
 }
+=======
+  _createClass(AppIdForm, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      this.props.componentDidUpdateCallback(this.state, this.props);
+    }
+
+    /**
+     * toggleModal modal for creating or editing AppId Key
+     * * @param name name of key to edit
+     */
+  }, {
+    key: "toggleModal",
+    value: function toggleModal(name) {
+      var tempValueState;
+      _typeof(name) !== "object" ? tempValueState = {
+        open: !this.state.open,
+        editKey: true,
+        keyNameToEdit: name
+      } : tempValueState = {
+        open: !this.state.open,
+        editKey: false
+      };
+      this.setState(tempValueState);
+    }
+
+    /**
+     * toggle delete appid key modal on and off
+     * @param name name of key to delete
+     */
+  }, {
+    key: "toggleDeleteModal",
+    value: function toggleDeleteModal(name) {
+      var tempValueState = {
+        showDeleteModal: !this.state.showDeleteModal,
+        keyNameToDelete: name
+      };
+      this.setState(tempValueState);
+    }
+
+    /**
+     * handle input change
+     * @param {event} event event
+     */
+  }, {
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      var newAppIdState = _objectSpread2({}, this.state);
+      var _event$target = event.target,
+        name = _event$target.name,
+        value = _event$target.value;
+      if (name === "name") {
+        newAppIdState.name = value;
+      } else newAppIdState.resource_group = value;
+      this.setState(newAppIdState);
+    }
+
+    /**
+     * Toggle on and off use_data param in state
+     */
+  }, {
+    key: "handleToggle",
+    value: function handleToggle() {
+      var newAppIdState = _objectSpread2({}, this.state);
+      newAppIdState.use_data = !newAppIdState.use_data;
+      this.setState(newAppIdState);
+    }
+
+    /**
+     * adds key to the appid keys list and closes the modal
+     * @param {object} data
+     * @param {object} data.key_name
+     */
+  }, {
+    key: "handleKeyAdd",
+    value: function handleKeyAdd(data) {
+      var _this2 = this;
+      var saveType = "";
+      var newAppIdState = _objectSpread2({}, this.state);
+      if (this.state.editKey === true) {
+        saveType = "edit";
+        newAppIdState.keys[newAppIdState.keys.indexOf(newAppIdState.keyNameToEdit)] = data.key_name;
+      } else {
+        saveType = "add";
+        newAppIdState.keys.push(data.key_name);
+      }
+      newAppIdState.open = false;
+      return new Promise(function (resolve, reject) {
+        _this2.props.saveCallback(saveType);
+        resolve();
+      }).then(function () {
+        //set state after save is run using promise
+        _this2.setState(newAppIdState);
+      });
+    }
+
+    /**
+     * removes key from the appid keys list and closes the modal
+     * @param name key which needs to be deleted
+     */
+  }, {
+    key: "handleKeyDelete",
+    value: function handleKeyDelete(name) {
+      var _this3 = this;
+      var newKeys = this.state.keys.filter(function (item) {
+        return item !== name;
+      });
+      var newAppIdState = _objectSpread2({}, this.state);
+      newAppIdState.keys = newKeys;
+      newAppIdState.showDeleteModal = false;
+      return new Promise(function (resolve, reject) {
+        _this3.props.saveCallback("delete");
+        resolve();
+      }).then(function () {
+        //set state after save is run using promise
+        _this3.setState(newAppIdState);
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this4 = this;
+      return /*#__PURE__*/React__default["default"].createElement(react.Form, {
+        id: "appid-form"
+      }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        labelText: "Use Existing Instance",
+        key: this.state.use_data,
+        defaultToggled: this.state.use_data,
+        toggleFieldName: "use_data",
+        onToggle: this.handleToggle,
+        className: "fieldWidthSmallest",
+        id: "app-id-existing-instance"
+      }), /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+        id: this.state.name + "-name",
+        componentName: this.state.name,
+        placeholder: "my-appid-name",
+        value: this.state.name,
+        onChange: this.handleInputChange,
+        hideHelperText: true,
+        invalid: this.props.invalidCallback("name", this.state, this.props),
+        invalidText: this.props.invalidTextCallback("name", this.state, this.props),
+        className: "fieldWidth"
+      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        labelText: "Resource Group",
+        name: "resource_group",
+        formName: "resource_group",
+        groups: this.props.resourceGroups,
+        value: this.state.resource_group,
+        handleInputChange: this.handleInputChange,
+        invalidText: "Select a Resource Group.",
+        className: "fieldWidth"
+      })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+        name: "App ID Keys",
+        type: "subHeading",
+        className: "marginBottomSmall",
+        noLabelText: true,
+        tooltip: {
+          content: "Keys can be added to connect an application to an IBM Cloud service."
+        },
+        buttons: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+          id: "appid-key-create",
+          type: "add",
+          onClick: this.toggleModal,
+          className: "forceTertiaryButtonStyles",
+          disabled: this.props.invalidCallback("name", this.state, this.props) || lib_4(this.state.resource_group) || this.state.use_appid === false,
+          noDeleteButton: true
+        })
+      }), /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(FormModal, {
+        name: (this.state.editKey ? "Edit" : "Add") + " an App ID Key",
+        show: this.state.open,
+        onRequestSubmit: this.handleKeyAdd,
+        onRequestClose: this.toggleModal,
+        size: "sm"
+      }, /*#__PURE__*/React__default["default"].createElement(AppIdKeyForm, {
+        shouldDisableSubmit: this.props.shouldDisableSubmitCallback(this.state, this.props),
+        keys: this.state.keys,
+        invalidCallback: this.props.invalidCallback,
+        invalidTextCallback: this.props.invalidTextCallback
+      }))), this.state.keys.length > 0 ? /*#__PURE__*/React__default["default"].createElement("div", null, this.state.keys.map(function (data, index) {
+        return /*#__PURE__*/React__default["default"].createElement("div", {
+          className: "positionRelative displayFlex formInSubForm marginBottomSmall alignItemsCenter spaceBetween",
+          key: "".concat(data, "-").concat(_this4.state.keys[index])
+        }, data, /*#__PURE__*/React__default["default"].createElement("div", {
+          className: "alignButtons"
+        }, /*#__PURE__*/React__default["default"].createElement(EditCloseIcon, {
+          hoverText: "Edit AppID Key",
+          type: "edit",
+          disabled: false,
+          onClick: function onClick() {
+            return _this4.toggleModal(data);
+          }
+        }), /*#__PURE__*/React__default["default"].createElement(DeleteButton, {
+          name: data,
+          onClick: function onClick() {
+            return _this4.toggleDeleteModal(data);
+          }
+        })));
+      }), /*#__PURE__*/React__default["default"].createElement(DeleteModal, {
+        name: this.state.keyNameToDelete || "",
+        modalOpen: this.state.showDeleteModal
+        //need to call toggleDeleteModal with "" name argument or else canceling deletion passes in the entire event to the name argument and causes the page to error
+        ,
+        onModalClose: function onModalClose() {
+          return _this4.toggleDeleteModal("");
+        },
+        onModalSubmit: function onModalSubmit() {
+          return _this4.handleKeyDelete(_this4.state.keyNameToDelete);
+        }
+      })) : /*#__PURE__*/React__default["default"].createElement(EmptyResourceTile, {
+        name: "App ID Keys",
+        instructions: this.state.use_appid === false ? "Enable App ID Service to create keys." : "",
+        showIfEmpty: this.state.keys
+      }));
+    }
+  }]);
+  return AppIdForm;
+}(React.Component);
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
 AppIdForm.defaultProps = {
   data: {
     use_appid: false,
@@ -7785,10 +8148,13 @@ AppIdForm.propTypes = {
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   invalidCallback: PropTypes__default["default"].func,
   invalidTextCallback: PropTypes__default["default"].func
+<<<<<<< HEAD
 =======
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired
 >>>>>>> 2a431c4 (feat: better exports)
+=======
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
 };
 
 /**
@@ -9436,6 +9802,7 @@ SecretsManagerForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$2 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
 styleInject(css_248z$2);
 
@@ -9487,6 +9854,10 @@ styleInject(css_248z$4);
 =======
 var css_248z$5 = ".leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidthBigger {\n  width: 30rem\n}\n";
 styleInject(css_248z$5);
+=======
+var css_248z$4 = ".leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidthBigger {\n  width: 30rem\n}\n";
+styleInject(css_248z$4);
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
 
 >>>>>>> 2a431c4 (feat: better exports)
 /**
@@ -9648,6 +10019,7 @@ TeleportClaimToRoleForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$2 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
 styleInject(css_248z$2);
 
@@ -9671,6 +10043,9 @@ var css_248z$3 = ".leftTextAlign {\n  text-align: left;\n}\n";
 =======
 var css_248z$3 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
 >>>>>>> 06b8a89 (Migrated AppIdForm + Documentation (Issue692) (#47))
+=======
+var css_248z$3 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
 styleInject(css_248z$3);
 >>>>>>> 68bf364 (feat: subnet tile form)
 =======
@@ -12153,6 +12528,7 @@ StatefulTabPanel.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$3 = ".leftTextAlign {\n  text-align: left;\n}\n";
 styleInject(css_248z$3);
 =======
@@ -14482,6 +14858,8 @@ class ToggleForm extends React__default["default"].Component {
 >>>>>>> 06b8a89 (Migrated AppIdForm + Documentation (Issue692) (#47))
 =======
 >>>>>>> 2a431c4 (feat: better exports)
+=======
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
 var ToggleForm = /*#__PURE__*/function (_React$Component) {
   _inherits(ToggleForm, _React$Component);
   var _super = _createSuper(ToggleForm);
@@ -17767,6 +18145,7 @@ exports.AccessGroupPolicyForm = AccessGroupPolicyForm;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> f849341 (access group forms :100:)
 =======
       return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
@@ -17851,6 +18230,9 @@ VpeForm.propTypes = {
 =======
 exports.AppIdForm = AppIdForm;
 >>>>>>> 06b8a89 (Migrated AppIdForm + Documentation (Issue692) (#47))
+=======
+exports.AppIdForm = AppIdForm;
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
 exports.AppIdKeyForm = AppIdKeyForm;
 exports.AtrackerForm = AtrackerForm;
 exports.DeleteButton = DeleteButton;

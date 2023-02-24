@@ -712,11 +712,15 @@ import lazyZ, { isNullOrEmptyString as isNullOrEmptyString$1, kebabCase as kebab
 >>>>>>> 06b8a89 (Migrated AppIdForm + Documentation (Issue692) (#47))
 =======
 import '@carbon/styles/css/styles.css';
+<<<<<<< HEAD
 import { Popover, PopoverContent, Button, Toggletip, ToggletipButton, ToggletipContent, Link, Select, SelectItem, Tile, Modal, Toggle, TextInput, NumberInput, TextArea, Dropdown, FilterableMultiSelect, Tabs, TabList, Tab, TabPanels, TabPanel, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody } from '@carbon/react';
 <<<<<<< HEAD
 import lazyZ, { isNullOrEmptyString as isNullOrEmptyString$1, kebabCase as kebabCase$1, isEmpty, buildNumberDropdownList, snakeCase, titleCase, isBoolean, capitalize, prettyJSON, parseIntFromZone, isFunction as isFunction$1, contains, transpose, deepEqual, eachKey } from 'lazy-z';
 >>>>>>> 2a431c4 (feat: better exports)
 =======
+=======
+import { Popover, PopoverContent, Button, Toggletip, ToggletipButton, ToggletipContent, Link, Select, SelectItem, Tile, Modal, Toggle, TextInput, Form, NumberInput, TextArea, Dropdown, FilterableMultiSelect, Tabs, TabList, Tab, TabPanels, TabPanel, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody } from '@carbon/react';
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
 import lazyZ, { isNullOrEmptyString as isNullOrEmptyString$1, kebabCase as kebabCase$1, isEmpty, buildNumberDropdownList, snakeCase, titleCase, isBoolean, capitalize, prettyJSON, parseIntFromZone, isFunction as isFunction$1, contains, deepEqual, transpose, eachKey } from 'lazy-z';
 >>>>>>> a8d076e (merge)
 import React, { Component } from 'react';
@@ -1003,6 +1007,7 @@ function _objectSpread2(target) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 2b8c07b (Documentation: Tooltips & Examples (Issue #675) (#12))
 =======
@@ -1019,6 +1024,17 @@ function _objectSpread2(target) {
 >>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 =======
 >>>>>>> 2a431c4 (feat: better exports)
+=======
+function _typeof(obj) {
+  "@babel/helpers - typeof";
+
+  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
+    return typeof obj;
+  } : function (obj) {
+    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
+  }, _typeof(obj);
+}
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -1273,6 +1289,12 @@ function addClassName(className, props) {
   return composedClassName;
 }
 
+<<<<<<< HEAD
+=======
+var css_248z$e = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  position: relative;\n  z-index: 9001;\n}";
+styleInject(css_248z$e);
+
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
 /**
  * add margin bottom to subform chevron
  * @param {*} componentProps
@@ -1399,8 +1421,8 @@ PopoverWrapper.propTypes = {
   children: PropTypes.node.isRequired
 };
 
-var css_248z$c = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important; \n}\n";
-styleInject(css_248z$c);
+var css_248z$d = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important; \n}\n";
+styleInject(css_248z$d);
 
 /**
  * generate save icon
@@ -2444,6 +2466,7 @@ function buildFormDefaultInputMethods$1(component) {
   component.setNameToValue = setNameToValue.bind(component);
 }
 
+<<<<<<< HEAD
 var componentUtils = /*#__PURE__*/Object.freeze({
   __proto__: null,
   buildFormFunctions: buildFormFunctions$1,
@@ -2752,6 +2775,10 @@ styleInject(css_248z$9);
 =======
 var css_248z$b = ".displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
 styleInject(css_248z$b);
+=======
+var css_248z$c = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+styleInject(css_248z$c);
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
 
 var css_248z$a = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
 styleInject(css_248z$a);
@@ -2894,6 +2921,7 @@ DynamicToolTipWrapper.propTypes = {
   innerForm: PropTypes.oneOfType([PropTypes.object, PropTypes.func])
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -4599,6 +4627,10 @@ var IcseSelect = function IcseSelect(props) {
 =======
 var css_248z$a = ".textInputMedium {\n  width: 20rem;\n}";
 styleInject(css_248z$a);
+=======
+var css_248z$b = ".textInputMedium {\n  width: 20rem;\n}";
+styleInject(css_248z$b);
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
 
 var IcseSelect = function IcseSelect(props) {
   var invalid =
@@ -4829,6 +4861,7 @@ EntitlementSelect.defaultProps = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$6 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$6);
 =======
@@ -4847,6 +4880,10 @@ styleInject(css_248z$a);
 var css_248z$9 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$9);
 >>>>>>> 2a431c4 (feat: better exports)
+=======
+var css_248z$a = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z$a);
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
 
 /**
  * Empty Resource Tile
@@ -4881,6 +4918,7 @@ EmptyResourceTile.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 var css_248z$7 = ".displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
 styleInject(css_248z$7);
@@ -4897,6 +4935,10 @@ styleInject(css_248z$9);
 =======
 var css_248z$8 = ".displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
 styleInject(css_248z$8);
+=======
+var css_248z$9 = ".displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
+styleInject(css_248z$9);
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -5161,6 +5203,7 @@ FormModal.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$5 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
 styleInject(css_248z$5);
 =======
@@ -5182,6 +5225,10 @@ styleInject(css_248z$8);
 var css_248z$7 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.textInputWide {\n  width: 30rem;\n}";
 styleInject(css_248z$7);
 >>>>>>> 2a431c4 (feat: better exports)
+=======
+var css_248z$8 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.textInputWide {\n  width: 30rem;\n}";
+styleInject(css_248z$8);
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
 
 var IcseToggle = function IcseToggle(props) {
   var toggleName = props.toggleFieldName || snakeCase(props.labelText);
@@ -5341,6 +5388,7 @@ IcseNameInput.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$4 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
 styleInject(css_248z$4);
 =======
@@ -5359,6 +5407,10 @@ styleInject(css_248z$7);
 var css_248z$6 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
 styleInject(css_248z$6);
 >>>>>>> 2a431c4 (feat: better exports)
+=======
+var css_248z$7 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
+styleInject(css_248z$7);
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -5374,11 +5426,17 @@ var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
     _this.state = _this.props.data;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     var keyList = _this.props.keys.length === 0 ? [] // if no keys, empty array
     : _this.props.keys;
     _this.state.keys = keyList;
 =======
 >>>>>>> 2a431c4 (feat: better exports)
+=======
+    var keyList = _this.props.keys.length === 0 ? [] // if no keys, empty array
+    : _this.props.keys;
+    _this.state.keys = keyList;
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
     _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
     buildFormFunctions(_assertThisInitialized(_this));
     return _this;
@@ -5422,6 +5480,7 @@ class AppIdKeyForm extends React.Component {
         onChange: this.handleInputChange,
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         field: "key_name",
         labelText: "App ID Key",
         componentName: "appid",
@@ -5441,6 +5500,14 @@ class AppIdKeyForm extends React.Component {
 >>>>>>> 2a431c4 (feat: better exports)
 =======
 >>>>>>> 4f1bde6 (add fetch selects for flavor and image, update readme and example)
+=======
+        field: "key_name",
+        labelText: "App ID Key",
+        componentName: "appid",
+        className: "fieldWidthSmaller",
+        invalid: this.props.invalidCallback("key_name", this.state, this.props),
+        invalidText: this.props.invalidTextCallback("key_name", this.state, this.props)
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
       }));
     }
   }]);
@@ -5473,11 +5540,16 @@ class AppIdKeyForm extends React.Component {
 AppIdKeyForm.defaultProps = {
   data: {
 <<<<<<< HEAD
+<<<<<<< HEAD
     key_name: "",
     keys: []
 =======
     key_name: ""
 >>>>>>> 2a431c4 (feat: better exports)
+=======
+    key_name: "",
+    keys: []
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
   }
 };
 AppIdKeyForm.propTypes = {
@@ -5485,6 +5557,9 @@ AppIdKeyForm.propTypes = {
     key_name: PropTypes.string.isRequired
   }),
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
   shouldDisableSubmit: PropTypes.func
 };
 
@@ -5621,6 +5696,7 @@ styleInject(css_248z$5);
  * @param {configDotJson} props.configDotJson config dot json
  * @param {slz} props.slz slz state store
  */
+<<<<<<< HEAD
 class AppIdForm extends Component {
   constructor(props) {
     super(props);
@@ -5635,12 +5711,32 @@ class AppIdForm extends Component {
     this.handleKeyDelete = this.handleKeyDelete.bind(this);
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
+=======
+var AppIdForm = /*#__PURE__*/function (_Component) {
+  _inherits(AppIdForm, _Component);
+  var _super = _createSuper(AppIdForm);
+  function AppIdForm(props) {
+    var _this;
+    _classCallCheck(this, AppIdForm);
+    _this = _super.call(this, props);
+    _this.state = _objectSpread2({}, _this.props.data);
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    _this.toggleModal = _this.toggleModal.bind(_assertThisInitialized(_this));
+    _this.toggleDeleteModal = _this.toggleDeleteModal.bind(_assertThisInitialized(_this));
+    _this.handleKeyAdd = _this.handleKeyAdd.bind(_assertThisInitialized(_this));
+    _this.handleKeyDelete = _this.handleKeyDelete.bind(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    return _this;
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
   }
 
   /**
    * If the appid form has been updated, must update state accordingly
    * @param {Object} prevProps
    * */
+<<<<<<< HEAD
   componentDidUpdate(prevProps) {
     this.props.componentDidUpdateCallback(this.state, this.props);
   }
@@ -5833,6 +5929,224 @@ class AppIdForm extends Component {
     }));
   }
 }
+=======
+  _createClass(AppIdForm, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      this.props.componentDidUpdateCallback(this.state, this.props);
+    }
+
+    /**
+     * toggleModal modal for creating or editing AppId Key
+     * * @param name name of key to edit
+     */
+  }, {
+    key: "toggleModal",
+    value: function toggleModal(name) {
+      var tempValueState;
+      _typeof(name) !== "object" ? tempValueState = {
+        open: !this.state.open,
+        editKey: true,
+        keyNameToEdit: name
+      } : tempValueState = {
+        open: !this.state.open,
+        editKey: false
+      };
+      this.setState(tempValueState);
+    }
+
+    /**
+     * toggle delete appid key modal on and off
+     * @param name name of key to delete
+     */
+  }, {
+    key: "toggleDeleteModal",
+    value: function toggleDeleteModal(name) {
+      var tempValueState = {
+        showDeleteModal: !this.state.showDeleteModal,
+        keyNameToDelete: name
+      };
+      this.setState(tempValueState);
+    }
+
+    /**
+     * handle input change
+     * @param {event} event event
+     */
+  }, {
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      var newAppIdState = _objectSpread2({}, this.state);
+      var _event$target = event.target,
+        name = _event$target.name,
+        value = _event$target.value;
+      if (name === "name") {
+        newAppIdState.name = value;
+      } else newAppIdState.resource_group = value;
+      this.setState(newAppIdState);
+    }
+
+    /**
+     * Toggle on and off use_data param in state
+     */
+  }, {
+    key: "handleToggle",
+    value: function handleToggle() {
+      var newAppIdState = _objectSpread2({}, this.state);
+      newAppIdState.use_data = !newAppIdState.use_data;
+      this.setState(newAppIdState);
+    }
+
+    /**
+     * adds key to the appid keys list and closes the modal
+     * @param {object} data
+     * @param {object} data.key_name
+     */
+  }, {
+    key: "handleKeyAdd",
+    value: function handleKeyAdd(data) {
+      var _this2 = this;
+      var saveType = "";
+      var newAppIdState = _objectSpread2({}, this.state);
+      if (this.state.editKey === true) {
+        saveType = "edit";
+        newAppIdState.keys[newAppIdState.keys.indexOf(newAppIdState.keyNameToEdit)] = data.key_name;
+      } else {
+        saveType = "add";
+        newAppIdState.keys.push(data.key_name);
+      }
+      newAppIdState.open = false;
+      return new Promise(function (resolve, reject) {
+        _this2.props.saveCallback(saveType);
+        resolve();
+      }).then(function () {
+        //set state after save is run using promise
+        _this2.setState(newAppIdState);
+      });
+    }
+
+    /**
+     * removes key from the appid keys list and closes the modal
+     * @param name key which needs to be deleted
+     */
+  }, {
+    key: "handleKeyDelete",
+    value: function handleKeyDelete(name) {
+      var _this3 = this;
+      var newKeys = this.state.keys.filter(function (item) {
+        return item !== name;
+      });
+      var newAppIdState = _objectSpread2({}, this.state);
+      newAppIdState.keys = newKeys;
+      newAppIdState.showDeleteModal = false;
+      return new Promise(function (resolve, reject) {
+        _this3.props.saveCallback("delete");
+        resolve();
+      }).then(function () {
+        //set state after save is run using promise
+        _this3.setState(newAppIdState);
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this4 = this;
+      return /*#__PURE__*/React.createElement(Form, {
+        id: "appid-form"
+      }, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
+        labelText: "Use Existing Instance",
+        key: this.state.use_data,
+        defaultToggled: this.state.use_data,
+        toggleFieldName: "use_data",
+        onToggle: this.handleToggle,
+        className: "fieldWidthSmallest",
+        id: "app-id-existing-instance"
+      }), /*#__PURE__*/React.createElement(IcseNameInput, {
+        id: this.state.name + "-name",
+        componentName: this.state.name,
+        placeholder: "my-appid-name",
+        value: this.state.name,
+        onChange: this.handleInputChange,
+        hideHelperText: true,
+        invalid: this.props.invalidCallback("name", this.state, this.props),
+        invalidText: this.props.invalidTextCallback("name", this.state, this.props),
+        className: "fieldWidth"
+      }), /*#__PURE__*/React.createElement(IcseSelect, {
+        labelText: "Resource Group",
+        name: "resource_group",
+        formName: "resource_group",
+        groups: this.props.resourceGroups,
+        value: this.state.resource_group,
+        handleInputChange: this.handleInputChange,
+        invalidText: "Select a Resource Group.",
+        className: "fieldWidth"
+      })), /*#__PURE__*/React.createElement(IcseHeading, {
+        name: "App ID Keys",
+        type: "subHeading",
+        className: "marginBottomSmall",
+        noLabelText: true,
+        tooltip: {
+          content: "Keys can be added to connect an application to an IBM Cloud service."
+        },
+        buttons: /*#__PURE__*/React.createElement(SaveAddButton, {
+          id: "appid-key-create",
+          type: "add",
+          onClick: this.toggleModal,
+          className: "forceTertiaryButtonStyles",
+          disabled: this.props.invalidCallback("name", this.state, this.props) || lib_4(this.state.resource_group) || this.state.use_appid === false,
+          noDeleteButton: true
+        })
+      }), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(FormModal, {
+        name: (this.state.editKey ? "Edit" : "Add") + " an App ID Key",
+        show: this.state.open,
+        onRequestSubmit: this.handleKeyAdd,
+        onRequestClose: this.toggleModal,
+        size: "sm"
+      }, /*#__PURE__*/React.createElement(AppIdKeyForm, {
+        shouldDisableSubmit: this.props.shouldDisableSubmitCallback(this.state, this.props),
+        keys: this.state.keys,
+        invalidCallback: this.props.invalidCallback,
+        invalidTextCallback: this.props.invalidTextCallback
+      }))), this.state.keys.length > 0 ? /*#__PURE__*/React.createElement("div", null, this.state.keys.map(function (data, index) {
+        return /*#__PURE__*/React.createElement("div", {
+          className: "positionRelative displayFlex formInSubForm marginBottomSmall alignItemsCenter spaceBetween",
+          key: "".concat(data, "-").concat(_this4.state.keys[index])
+        }, data, /*#__PURE__*/React.createElement("div", {
+          className: "alignButtons"
+        }, /*#__PURE__*/React.createElement(EditCloseIcon, {
+          hoverText: "Edit AppID Key",
+          type: "edit",
+          disabled: false,
+          onClick: function onClick() {
+            return _this4.toggleModal(data);
+          }
+        }), /*#__PURE__*/React.createElement(DeleteButton, {
+          name: data,
+          onClick: function onClick() {
+            return _this4.toggleDeleteModal(data);
+          }
+        })));
+      }), /*#__PURE__*/React.createElement(DeleteModal, {
+        name: this.state.keyNameToDelete || "",
+        modalOpen: this.state.showDeleteModal
+        //need to call toggleDeleteModal with "" name argument or else canceling deletion passes in the entire event to the name argument and causes the page to error
+        ,
+        onModalClose: function onModalClose() {
+          return _this4.toggleDeleteModal("");
+        },
+        onModalSubmit: function onModalSubmit() {
+          return _this4.handleKeyDelete(_this4.state.keyNameToDelete);
+        }
+      })) : /*#__PURE__*/React.createElement(EmptyResourceTile, {
+        name: "App ID Keys",
+        instructions: this.state.use_appid === false ? "Enable App ID Service to create keys." : "",
+        showIfEmpty: this.state.keys
+      }));
+    }
+  }]);
+  return AppIdForm;
+}(Component);
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
 AppIdForm.defaultProps = {
   data: {
     use_appid: false,
@@ -5860,10 +6174,13 @@ AppIdForm.propTypes = {
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   invalidCallback: PropTypes.func,
   invalidTextCallback: PropTypes.func
+<<<<<<< HEAD
 =======
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired
 >>>>>>> 2a431c4 (feat: better exports)
+=======
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
 };
 
 /**
@@ -11695,6 +12012,7 @@ SecretsManagerForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$2 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
 styleInject(css_248z$2);
 
@@ -11733,6 +12051,10 @@ styleInject(css_248z$5);
 =======
 var css_248z$5 = ".leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidthBigger {\n  width: 30rem\n}\n";
 styleInject(css_248z$5);
+=======
+var css_248z$4 = ".leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidthBigger {\n  width: 30rem\n}\n";
+styleInject(css_248z$4);
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
 
 /**
 >>>>>>> 2a431c4 (feat: better exports)
@@ -11894,6 +12216,7 @@ TeleportClaimToRoleForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$2 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
 styleInject(css_248z$2);
 
@@ -11923,6 +12246,9 @@ var css_248z$4 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  w
 styleInject(css_248z$4);
 
 var css_248z$3 = ".leftTextAlign {\n  text-align: left;\n}\n";
+=======
+var css_248z$3 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
 styleInject(css_248z$3);
 
 /**
@@ -14185,6 +14511,7 @@ StatefulTabPanel.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$3 = ".leftTextAlign {\n  text-align: left;\n}\n";
 styleInject(css_248z$3);
 =======
@@ -15616,6 +15943,8 @@ class ToggleForm extends React.Component {
 >>>>>>> 06b8a89 (Migrated AppIdForm + Documentation (Issue692) (#47))
 =======
 >>>>>>> 2a431c4 (feat: better exports)
+=======
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
 var ToggleForm = /*#__PURE__*/function (_React$Component) {
   _inherits(ToggleForm, _React$Component);
   var _super = _createSuper(ToggleForm);
@@ -19648,6 +19977,7 @@ AccessGroupDynamicPolicyForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, VpnGatewayForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> f849341 (access group forms :100:)
 =======
@@ -19764,3 +20094,6 @@ export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, A
 =======
 export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VsiForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> a8d076e (merge)
+=======
+export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VsiForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+>>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
