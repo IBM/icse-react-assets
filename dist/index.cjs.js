@@ -1076,6 +1076,7 @@ function styleInject(css, ref) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$8 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$8);
 
@@ -2566,6 +2567,10 @@ styleInject(css_248z$c);
 var css_248z$d = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  position: relative;\n  z-index: 9001;\n}";
 styleInject(css_248z$d);
 >>>>>>> 68bf364 (feat: subnet tile form)
+=======
+var css_248z$e = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  position: relative;\n  z-index: 9001;\n}";
+styleInject(css_248z$e);
+>>>>>>> 06b8a89 (Migrated AppIdForm + Documentation (Issue692) (#47))
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -2644,6 +2649,7 @@ PopoverWrapper.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> b9aa481 (feat: object storage key form)
 =======
@@ -2673,6 +2679,10 @@ styleInject(css_248z$b);
 var css_248z$c = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important; \n}\n";
 styleInject(css_248z$c);
 >>>>>>> 68bf364 (feat: subnet tile form)
+=======
+var css_248z$d = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important; \n}\n";
+styleInject(css_248z$d);
+>>>>>>> 06b8a89 (Migrated AppIdForm + Documentation (Issue692) (#47))
 
 /**
  * generate save icon
@@ -2903,6 +2913,7 @@ function buildFormDefaultInputMethods(component) {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$a = ".displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
 styleInject(css_248z$a);
 
@@ -3025,6 +3036,10 @@ styleInject(css_248z$a);
 var css_248z$b = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
 styleInject(css_248z$b);
 >>>>>>> 68bf364 (feat: subnet tile form)
+=======
+var css_248z$c = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+styleInject(css_248z$c);
+>>>>>>> 06b8a89 (Migrated AppIdForm + Documentation (Issue692) (#47))
 
 >>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 /**
@@ -3585,6 +3600,7 @@ DynamicToolTipWrapper.propTypes = {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$7 = ".textInputMedium {\n  width: 20rem;\n}";
 styleInject(css_248z$7);
 
@@ -3964,6 +3980,10 @@ styleInject(css_248z$9);
 var css_248z$a = ".textInputMedium {\n  width: 20rem;\n}";
 styleInject(css_248z$a);
 >>>>>>> 68bf364 (feat: subnet tile form)
+=======
+var css_248z$b = ".textInputMedium {\n  width: 20rem;\n}";
+styleInject(css_248z$b);
+>>>>>>> 06b8a89 (Migrated AppIdForm + Documentation (Issue692) (#47))
 
 var IcseSelect = function IcseSelect(props) {
   var invalid =
@@ -6457,6 +6477,7 @@ EntitlementSelect.defaultProps = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> b345987 (fixes & heading/statelesstoggle form added)
 =======
@@ -6496,6 +6517,10 @@ styleInject(css_248z$8);
 var css_248z$9 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$9);
 >>>>>>> 68bf364 (feat: subnet tile form)
+=======
+var css_248z$a = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z$a);
+>>>>>>> 06b8a89 (Migrated AppIdForm + Documentation (Issue692) (#47))
 
 /**
  * Empty Resource Tile
@@ -6526,6 +6551,7 @@ EmptyResourceTile.propTypes = {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 var css_248z$7 = ".displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
 styleInject(css_248z$7);
@@ -6533,6 +6559,10 @@ styleInject(css_248z$7);
 var css_248z$8 = ".displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
 styleInject(css_248z$8);
 >>>>>>> 68bf364 (feat: subnet tile form)
+=======
+var css_248z$9 = ".displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
+styleInject(css_248z$9);
+>>>>>>> 06b8a89 (Migrated AppIdForm + Documentation (Issue692) (#47))
 
 >>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 /**
@@ -6778,6 +6808,7 @@ FormModal.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$5 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
 styleInject(css_248z$5);
 =======
@@ -6791,6 +6822,10 @@ styleInject(css_248z$6);
 var css_248z$7 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.textInputWide {\n  width: 30rem;\n}";
 styleInject(css_248z$7);
 >>>>>>> 68bf364 (feat: subnet tile form)
+=======
+var css_248z$8 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.textInputWide {\n  width: 30rem;\n}";
+styleInject(css_248z$8);
+>>>>>>> 06b8a89 (Migrated AppIdForm + Documentation (Issue692) (#47))
 
 var IcseToggle = function IcseToggle(props) {
   var toggleName = props.toggleFieldName || lazyZ.snakeCase(props.labelText);
@@ -6948,6 +6983,7 @@ IcseNameInput.propTypes = {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$4 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
 styleInject(css_248z$4);
 =======
@@ -6958,6 +6994,10 @@ styleInject(css_248z$5);
 var css_248z$6 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
 styleInject(css_248z$6);
 >>>>>>> 68bf364 (feat: subnet tile form)
+=======
+var css_248z$7 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
+styleInject(css_248z$7);
+>>>>>>> 06b8a89 (Migrated AppIdForm + Documentation (Issue692) (#47))
 
 var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
   _inherits(AppIdKeyForm, _React$Component);
@@ -6971,6 +7011,9 @@ var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
 >>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
     _this = _super.call(this, props);
     _this.state = _this.props.data;
+    var keyList = _this.props.keys.length === 0 ? [] // if no keys, empty array
+    : _this.props.keys;
+    _this.state.keys = keyList;
     _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
     buildFormFunctions(_assertThisInitialized(_this));
 <<<<<<< HEAD
@@ -7000,12 +7043,12 @@ var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
         id: "app-id-key-name",
         value: this.state.key_name,
         onChange: this.handleInputChange,
-        field: "appid_key",
+        field: "key_name",
         labelText: "App ID Key",
         componentName: "appid",
         className: "fieldWidthSmaller",
-        invalid: this.props.invalidCallback(this.state, this.props),
-        invalidText: this.props.invalidTextCallback(this.state, this.props)
+        invalid: this.props.invalidCallback("key_name", this.state, this.props),
+        invalidText: this.props.invalidTextCallback("key_name", this.state, this.props)
       }));
     }
   }]);
@@ -7013,15 +7056,389 @@ var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
 }(React__default["default"].Component);
 AppIdKeyForm.defaultProps = {
   data: {
-    key_name: ""
+    key_name: "",
+    keys: []
   }
 };
 AppIdKeyForm.propTypes = {
   data: PropTypes__default["default"].shape({
     key_name: PropTypes__default["default"].string.isRequired
   }),
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired
+  shouldDisableSubmit: PropTypes__default["default"].func
+};
+
+var css_248z$6 = ".leftTextAlign {\n  text-align: left;\n}\n";
+styleInject(css_248z$6);
+
+/**
+ * Icse Modal Wrapper
+ * @param {*} props
+ * @param {string} props.name resource name
+ * @param {string} props.heading modal heading
+ * @param {boolean} props.open show modal
+ * @param {boolean=} props.danger danger, defaults to true
+ * @param {boolean=} props.alert alert, defaults to true
+ * @param {string=} props.primaryButtonText defaults to `Dismiss Changes`
+ * @param {string=} props.secondaryButtonText defaults to `Cancel`
+ * @param {Function} props.onRequestSubmit
+ * @param {Function} props.onRequestClose
+ * @param {boolean=} props.useAddButton use + button instead of edit
+ */
+var IcseModal = function IcseModal(props) {
+  /*#__PURE__*/React__default["default"].createElement("strong", null, props.name);
+  return /*#__PURE__*/React__default["default"].createElement(react.Modal, {
+    id: props.id,
+    className: "leftTextAlign",
+    modalHeading: props.heading,
+    open: props.open,
+    alert: props.alert,
+    danger: props.danger,
+    shouldSubmitOnEnter: true,
+    primaryButtonText: props.primaryButtonText,
+    secondaryButtonText: props.secondaryButtonText,
+    onRequestSubmit: props.onRequestSubmit,
+    onRequestClose: props.onRequestClose
+  }, props.children);
+};
+IcseModal.defaultProps = {
+  primaryButtonText: "Primary Button",
+  secondaryButtonText: "Cancel",
+  primaryButtonDisabled: false,
+  danger: false,
+  alert: true,
+  open: false,
+  heading: "Default Heading",
+  id: "default-icse-modal"
+};
+IcseModal.propTypes = {
+  primaryButtonText: PropTypes__default["default"].string.isRequired,
+  secondaryButtonText: PropTypes__default["default"].string.isRequired,
+  primaryButtonDisabled: PropTypes__default["default"].bool,
+  danger: PropTypes__default["default"].bool,
+  alert: PropTypes__default["default"].bool,
+  heading: PropTypes__default["default"].string.isRequired,
+  onRequestSubmit: PropTypes__default["default"].func.isRequired,
+  onRequestClose: PropTypes__default["default"].func.isRequired,
+  id: PropTypes__default["default"].string.isRequired,
+  open: PropTypes__default["default"].bool.isRequired,
+  children: PropTypes__default["default"].node.isRequired
+};
+
+/**
+ * Delete modal
+ * @param {*} props
+ * @param {string} props.name name of modal
+ * @param {boolean} props.modalOpen true if open
+ * @param {Function} props.onModalClose function for on close
+ * @param {Function} props.onModalSubmit function for on submit
+ */
+var DeleteModal = function DeleteModal(props) {
+  var name = /*#__PURE__*/React__default["default"].createElement("strong", null, props.name);
+  return /*#__PURE__*/React__default["default"].createElement(IcseModal, {
+    id: props.name + "-delete",
+    name: props.name,
+    heading: props.name,
+    open: props.modalOpen,
+    onRequestClose: props.onModalClose,
+    onRequestSubmit: props.onModalSubmit,
+    primaryButtonText: "Delete Resource",
+    danger: true
+  }, /*#__PURE__*/React__default["default"].createElement("span", null, "You are about to delete ", name, ". This cannot be undone."));
+};
+DeleteModal.defaultProps = {
+  modalOpen: false
+};
+DeleteModal.propTypes = {
+  name: PropTypes__default["default"].string.isRequired,
+  modalOpen: PropTypes__default["default"].bool.isRequired,
+  onModalClose: PropTypes__default["default"].func.isRequired,
+  onModalSubmit: PropTypes__default["default"].func.isRequired
+};
+
+/**
+ * unsaved changes modal modal
+ * @param {*} props
+ * @param {string} props.name name of modal
+ * @param {boolean} props.modalOpen true if open
+ * @param {Function} props.onModalClose function for on close
+ * @param {Function} props.onModalSubmit function for on submit
+ */
+
+var UnsavedChangesModal = function UnsavedChangesModal(props) {
+  var name = props.name;
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "unsaved-changes-modal-area"
+  }, /*#__PURE__*/React__default["default"].createElement(IcseModal, {
+    id: props.name + "-unsaved-changes",
+    open: props.modalOpen,
+    name: props.name,
+    onRequestClose: props.onModalClose,
+    onRequestSubmit: props.onModalSubmit,
+    heading: props.useDefaultUnsavedMessage ? "Missing Required Values" : "Unsaved Changes",
+    danger: true,
+    primaryButtonText: "Dismiss Changes"
+  }, props.useDefaultUnsavedMessage ? /*#__PURE__*/React__default["default"].createElement("span", null, "Resource ", name, " is missing required values.", " ", /*#__PURE__*/React__default["default"].createElement("strong", null, "Without these values, your configuration is invalid."), " ", "Are you sure you want to dismiss these changes?") : /*#__PURE__*/React__default["default"].createElement("span", null, "Resource ", name, " has unsaved changes. Are you sure you want to dismiss these changes?")));
+};
+UnsavedChangesModal.defaultProps = {
+  modalOpen: false,
+  useDefaultUnsavedMessage: true
+};
+UnsavedChangesModal.propTypes = {
+  name: PropTypes__default["default"].string.isRequired,
+  modalOpen: PropTypes__default["default"].bool.isRequired,
+  onModalClose: PropTypes__default["default"].func.isRequired,
+  onModalSubmit: PropTypes__default["default"].func.isRequired,
+  useDefaultUnsavedMessage: PropTypes__default["default"].bool
+};
+
+var css_248z$5 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmallest {\n  width: 8rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.displayFlex {\n  display: flex;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #f4f4f4;\n  padding: 1rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.alignButtons {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
+styleInject(css_248z$5);
+
+/**
+ * AppIdForm
+ * @param {Object} props
+ * @param {configDotJson} props.configDotJson config dot json
+ * @param {slz} props.slz slz state store
+ */
+class AppIdForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
+    this.toggleDeleteModal = this.toggleDeleteModal.bind(this);
+    this.handleKeyAdd = this.handleKeyAdd.bind(this);
+    this.handleKeyDelete = this.handleKeyDelete.bind(this);
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
+  }
+
+  /**
+   * If the appid form has been updated, must update state accordingly
+   * @param {Object} prevProps
+   * */
+  componentDidUpdate(prevProps) {
+    this.props.componentDidUpdateCallback(this.state, this.props);
+  }
+
+  /**
+   * toggleModal modal for creating or editing AppId Key
+   * * @param name name of key to edit
+   */
+  toggleModal(name) {
+    let tempValueState;
+    typeof name !== "object" ? tempValueState = {
+      open: !this.state.open,
+      editKey: true,
+      keyNameToEdit: name
+    } : tempValueState = {
+      open: !this.state.open,
+      editKey: false
+    };
+    this.setState(tempValueState);
+  }
+
+  /**
+   * toggle delete appid key modal on and off
+   * @param name name of key to delete
+   */
+  toggleDeleteModal(name) {
+    let tempValueState = {
+      showDeleteModal: !this.state.showDeleteModal,
+      keyNameToDelete: name
+    };
+    this.setState(tempValueState);
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  handleInputChange(event) {
+    let newAppIdState = {
+      ...this.state
+    };
+    let {
+      name,
+      value
+    } = event.target;
+    if (name === "name") {
+      newAppIdState.name = value;
+    } else newAppIdState.resource_group = value;
+    this.setState(newAppIdState);
+  }
+
+  /**
+   * Toggle on and off use_data param in state
+   */
+  handleToggle() {
+    let newAppIdState = {
+      ...this.state
+    };
+    newAppIdState.use_data = !newAppIdState.use_data;
+    this.setState(newAppIdState);
+  }
+
+  /**
+   * adds key to the appid keys list and closes the modal
+   * @param {object} data
+   * @param {object} data.key_name
+   */
+  handleKeyAdd(data) {
+    let saveType = ``;
+    let newAppIdState = {
+      ...this.state
+    };
+    if (this.state.editKey === true) {
+      saveType = "edit";
+      newAppIdState.keys[newAppIdState.keys.indexOf(newAppIdState.keyNameToEdit)] = data.key_name;
+    } else {
+      saveType = "add";
+      newAppIdState.keys.push(data.key_name);
+    }
+    newAppIdState.open = false;
+    return new Promise((resolve, reject) => {
+      this.props.saveCallback(saveType);
+      resolve();
+    }).then(() => {
+      //set state after save is run using promise
+      this.setState(newAppIdState);
+    });
+  }
+
+  /**
+   * removes key from the appid keys list and closes the modal
+   * @param name key which needs to be deleted
+   */
+  handleKeyDelete(name) {
+    let newKeys = this.state.keys.filter(item => item !== name);
+    let newAppIdState = {
+      ...this.state
+    };
+    newAppIdState.keys = newKeys;
+    newAppIdState.showDeleteModal = false;
+    return new Promise((resolve, reject) => {
+      this.props.saveCallback("delete");
+      resolve();
+    }).then(() => {
+      //set state after save is run using promise
+      this.setState(newAppIdState);
+    });
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(react.Form, {
+      id: "appid-form"
+    }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      labelText: "Use Existing Instance",
+      key: this.state.use_data,
+      defaultToggled: this.state.use_data,
+      toggleFieldName: "use_data",
+      onToggle: this.handleToggle,
+      className: "fieldWidthSmallest",
+      id: "app-id-existing-instance"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: this.state.name + "-name",
+      componentName: this.state.name,
+      placeholder: "my-appid-name",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      hideHelperText: true,
+      invalid: this.props.invalidCallback("name", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("name", this.state, this.props),
+      className: "fieldWidth"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      labelText: "Resource Group",
+      name: "resource_group",
+      formName: "resource_group",
+      groups: this.props.resourceGroups,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a Resource Group.",
+      className: "fieldWidth"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+      name: "App ID Keys",
+      type: "subHeading",
+      className: "marginBottomSmall",
+      noLabelText: true,
+      tooltip: {
+        content: "Keys can be added to connect an application to an IBM Cloud service."
+      },
+      buttons: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+        id: "appid-key-create",
+        type: "add",
+        onClick: this.toggleModal,
+        className: "forceTertiaryButtonStyles",
+        disabled: this.props.invalidCallback("name", this.state, this.props) || lib_4(this.state.resource_group) || this.state.use_appid === false,
+        noDeleteButton: true
+      })
+    }), /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(FormModal, {
+      name: (this.state.editKey ? "Edit" : "Add") + " an App ID Key",
+      show: this.state.open,
+      onRequestSubmit: this.handleKeyAdd,
+      onRequestClose: this.toggleModal,
+      size: "sm"
+    }, /*#__PURE__*/React__default["default"].createElement(AppIdKeyForm, {
+      shouldDisableSubmit: this.props.shouldDisableSubmitCallback(this.state, this.props),
+      keys: this.state.keys,
+      invalidCallback: this.props.invalidCallback,
+      invalidTextCallback: this.props.invalidTextCallback
+    }))), this.state.keys.length > 0 ? /*#__PURE__*/React__default["default"].createElement("div", null, this.state.keys.map((data, index) => /*#__PURE__*/React__default["default"].createElement("div", {
+      className: "positionRelative displayFlex formInSubForm marginBottomSmall alignItemsCenter spaceBetween",
+      key: `${data}-${this.state.keys[index]}`
+    }, data, /*#__PURE__*/React__default["default"].createElement("div", {
+      className: "alignButtons"
+    }, /*#__PURE__*/React__default["default"].createElement(EditCloseIcon, {
+      hoverText: "Edit AppID Key",
+      type: "edit",
+      disabled: false,
+      onClick: () => this.toggleModal(data)
+    }), /*#__PURE__*/React__default["default"].createElement(DeleteButton, {
+      name: data,
+      onClick: () => this.toggleDeleteModal(data)
+    })))), /*#__PURE__*/React__default["default"].createElement(DeleteModal, {
+      name: this.state.keyNameToDelete || "",
+      modalOpen: this.state.showDeleteModal
+      //need to call toggleDeleteModal with "" name argument or else canceling deletion passes in the entire event to the name argument and causes the page to error
+      ,
+      onModalClose: () => this.toggleDeleteModal(""),
+      onModalSubmit: () => this.handleKeyDelete(this.state.keyNameToDelete)
+    })) : /*#__PURE__*/React__default["default"].createElement(EmptyResourceTile, {
+      name: "App ID Keys",
+      instructions: this.state.use_appid === false ? "Enable App ID Service to create keys." : "",
+      showIfEmpty: this.state.keys
+    }));
+  }
+}
+AppIdForm.defaultProps = {
+  data: {
+    use_appid: false,
+    name: "",
+    resource_group: "",
+    use_data: false,
+    keys: []
+  },
+  key_name: "",
+  open: false,
+  editKey: false,
+  showDeleteModal: false,
+  keyNameToEdit: "",
+  keyNameToDelete: ""
+};
+AppIdForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    use_appid: PropTypes__default["default"].bool.isRequired,
+    name: PropTypes__default["default"].string,
+    resource_group: PropTypes__default["default"].string,
+    use_data: PropTypes__default["default"].bool,
+    keys: PropTypes__default["default"].array.isRequired
+  }).isRequired,
+  key_name: PropTypes__default["default"].string.isRequired,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  invalidCallback: PropTypes__default["default"].func,
+  invalidTextCallback: PropTypes__default["default"].func
 };
 
 /**
@@ -8637,6 +9054,7 @@ SecretsManagerForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$2 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
 styleInject(css_248z$2);
 
@@ -8679,6 +9097,10 @@ styleInject(css_248z$4);
 var css_248z$5 = ".leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidthBigger {\n  width: 30rem\n}\n";
 styleInject(css_248z$5);
 >>>>>>> 68bf364 (feat: subnet tile form)
+=======
+var css_248z$4 = ".leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidthBigger {\n  width: 30rem\n}\n";
+styleInject(css_248z$4);
+>>>>>>> 06b8a89 (Migrated AppIdForm + Documentation (Issue692) (#47))
 
 >>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 /**
@@ -8838,6 +9260,7 @@ TeleportClaimToRoleForm.propTypes = {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$2 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
 styleInject(css_248z$2);
 
@@ -8855,6 +9278,9 @@ var css_248z$4 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  w
 styleInject(css_248z$4);
 
 var css_248z$3 = ".leftTextAlign {\n  text-align: left;\n}\n";
+=======
+var css_248z$3 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+>>>>>>> 06b8a89 (Migrated AppIdForm + Documentation (Issue692) (#47))
 styleInject(css_248z$3);
 >>>>>>> 68bf364 (feat: subnet tile form)
 
@@ -11269,6 +11695,7 @@ StatefulTabPanel.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$3 = ".leftTextAlign {\n  text-align: left;\n}\n";
 styleInject(css_248z$3);
 =======
@@ -13591,6 +14018,8 @@ class ToggleForm extends React__default["default"].Component {
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
 =======
 >>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
+=======
+>>>>>>> 06b8a89 (Migrated AppIdForm + Documentation (Issue692) (#47))
 var ToggleForm = /*#__PURE__*/function (_React$Component) {
   _inherits(ToggleForm, _React$Component);
   var _super = _createSuper(ToggleForm);
@@ -15148,6 +15577,7 @@ ObjectStorageInstancesForm.propTypes = {
 };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 var VsiForm = /*#__PURE__*/function (_Component) {
   _inherits(VsiForm, _Component);
   var _super = _createSuper(VsiForm);
@@ -15312,6 +15742,143 @@ var VsiForm = /*#__PURE__*/function (_Component) {
   }]);
   return VsiForm;
 }(React.Component);
+=======
+class VsiForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+  handleInputChange(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    let stateChangeParams = {
+      [name]: name === "vsi_per_subnet" && value !== "" ? Number(value) : value
+    };
+    if (name === "vpc_name") lazyZ.transpose({
+      subnet_names: [],
+      subnet_name: ""
+    }, stateChangeParams);
+    this.setState(stateChangeParams);
+  }
+  handleMultiSelectChange(name, value) {
+    this.setState(this.setNameToValue(name, value));
+  }
+  handleToggle(name) {
+    this.setState(this.toggleStateBoolean(name, this.state));
+  }
+  render() {
+    let composedId = `vsi-deployment-form-${this.props.data.name}`;
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: composedId,
+      componentName: "vsi",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      invalid: this.props.invalidCallback(this.state),
+      invalidText: this.props.invalidTextCallback(this.state),
+      hideHelperText: true
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: "vsi_form",
+      name: "resource_group",
+      labelText: "Resource Group",
+      groups: this.props.resourceGroupList,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: "vsi_form",
+      name: "vpc_name",
+      labelText: "VPC",
+      groups: this.props.vpcList,
+      value: this.state.vpc_name,
+      handleInputChange: this.handleInputChange,
+      invalid: lib_4(this.state.vpc_name),
+      invalidText: "Select a VPC."
+    }), this.props.isTeleport ?
+    /*#__PURE__*/
+    // render dropdown for teleport instance
+    React__default["default"].createElement(IcseSelect, {
+      formName: "vsi_form",
+      name: "subnet_name",
+      labelText: "Subnet",
+      groups: this.props.subnetList,
+      value: this.state.subnet_name,
+      handleInputChange: this.handleInputChange,
+      invalid: lib_4(this.state.vpc_name) || lib_4(this.state.subnet_name),
+      invalidText: lib_4(this.state.vpc_name) ? `No VPC Selected.` : `Select a Subnet.`
+    }) : /*#__PURE__*/React__default["default"].createElement(SubnetMultiSelect, {
+      id: "subnet",
+      initialSelectedItems: this.state.subnet_names,
+      vpc_name: this.state.vpc_name,
+      subnets: this.props.subnetList,
+      onChange: value => this.handleMultiSelectChange("subnet_names", value)
+    }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      label: "Instances per Subnet",
+      id: composedId + "-vsi-per-subnet",
+      allowEmpty: false,
+      value: this.state.vsi_per_subnet,
+      defaultValue: 1,
+      max: 10,
+      min: 1,
+      onChange: this.handleInputChange,
+      name: "vsi_per_subnet",
+      hideSteppers: true,
+      invalidText: "Please input a number 1-10",
+      className: "fieldWidth leftTextAlign"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(SshKeyMultiSelect, {
+      id: "sshkey",
+      sshKeys: this.props.sshKeyList,
+      onChange: value => this.handleMultiSelectChange("ssh_keys", value),
+      initialSelectedItems: this.state.ssh_keys
+    }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
+      formName: "vsi_form",
+      labelText: "Image",
+      name: "image_name",
+      apiEndpoint: this.props.apiEndpointImages,
+      handleInputChange: this.handleInputChange,
+      value: this.state.image_name
+    }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
+      formName: "vsi_form",
+      labelText: "Flavor",
+      name: "machine_type",
+      apiEndpoint: this.props.apiEndpointFlavors,
+      handleInputChange: this.handleInputChange,
+      value: this.state.machine_type
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: "vsi_form",
+      name: "boot_volume_encryption_key_name",
+      labelText: "Encryption Key",
+      groups: this.props.encryptionKeyList,
+      value: this.state.boot_volume_encryption_key_name,
+      handleInputChange: this.handleInputChange,
+      invalid: this.props.invalidCallback(this.state),
+      invalidText: "Select a valid encryption key."
+    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      id: composedId + "-fips-toggle",
+      labelText: "Enable Floating IP",
+      defaultToggled: this.state.enable_floating_ip,
+      onToggle: this.handleToggle
+    })), /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+      hide: this.props.isTeleport,
+      show: /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
+        id: composedId + "-vsi-user-data",
+        placeholder: "Cloud init data",
+        labelText: "User Data",
+        name: "user_data",
+        value: this.state.user_data || "",
+        onChange: this.handleInputChange,
+        invalidText: "Invalid error message.",
+        className: "fieldWidthBigger"
+      }))
+    }));
+  }
+}
+>>>>>>> 06b8a89 (Migrated AppIdForm + Documentation (Issue692) (#47))
 VsiForm.defaultProps = {
   data: {
     name: "",
@@ -16424,6 +16991,7 @@ exports.AccessGroupDynamicPolicyForm = AccessGroupDynamicPolicyForm;
 exports.AccessGroupForm = AccessGroupForm;
 exports.AccessGroupPolicyForm = AccessGroupPolicyForm;
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> f849341 (access group forms :100:)
 =======
       return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
@@ -16505,6 +17073,9 @@ VpeForm.propTypes = {
 };
 
 >>>>>>> 74e4b37 (Issue 713: **NEW** VPE Form  (#41))
+=======
+exports.AppIdForm = AppIdForm;
+>>>>>>> 06b8a89 (Migrated AppIdForm + Documentation (Issue692) (#47))
 exports.AppIdKeyForm = AppIdKeyForm;
 exports.AtrackerForm = AtrackerForm;
 exports.DeleteButton = DeleteButton;
