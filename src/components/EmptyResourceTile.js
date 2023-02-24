@@ -13,7 +13,7 @@ import "./styles/EmptyResourceTile.css";
  */
 
 const EmptyResourceTile = (props) => {
-  return props.showIfEmpty === false || props.showIfEmpty.length === 0 ? (
+  return !props.showIfEmpty || props.showIfEmpty.length === 0 ? (
     <Tile className="marginBottomXs tileBackground">
       <CloudAlerting size="24" className="iconMargin" />
       No {props.name}.{" "}
@@ -32,12 +32,14 @@ const EmptyResourceTile = (props) => {
 
 EmptyResourceTile.defaultProps = {
   name: "items in this list",
+  showIfEmpty: false,
 };
 
 EmptyResourceTile.propTypes = {
   name: PropTypes.string.isRequired,
   showIfEmpty: PropTypes.oneOfType([PropTypes.array, PropTypes.bool])
     .isRequired,
+  instructions: PropTypes.string,
 };
 
 export default EmptyResourceTile;

@@ -1404,7 +1404,7 @@ styleInject(css_248z$c);
  * @param {boolean} props.saveIsDisabled true if disabled
  * @returns Save Icon
  */
-const SaveIcon = props => {
+var SaveIcon = function SaveIcon(props) {
   return /*#__PURE__*/React.createElement(Save, {
     className: props.disabled ? "" : "tertiaryButtonColors"
   });
@@ -1420,7 +1420,7 @@ const SaveIcon = props => {
  * @param {boolean} props.disabled
  * @returns Save add button
  */
-const SaveAddButton = props => {
+var SaveAddButton = function SaveAddButton(props) {
   return /*#__PURE__*/React.createElement(PopoverWrapper, {
     hoverText: props.type === "add" && props.hoverText === "Save Changes" ? "Add Resource" : props.hoverText,
     className: (props.disabled ? "inlineBlock cursorNotAllowed" : "") + (props.inline ? " alignItemsCenter marginTopLarge inLineFormButton" : ""),
@@ -1461,9 +1461,9 @@ SaveAddButton.propTypes = {
  * @param {boolean} props.open toggle is open, defaults to false
  * @returns edit close icon
  */
-const EditCloseIcon = props => {
-  let hoverText = props.hoverText ? props.hoverText : props.open ? "Close" : props.type === "add" ? "Configure Resource" : "Edit Resource";
-  let icon = props.open ? /*#__PURE__*/React.createElement(CloseFilled, null) : props.type === "add" ? /*#__PURE__*/React.createElement(Add, null) : /*#__PURE__*/React.createElement(Edit, null);
+var EditCloseIcon = function EditCloseIcon(props) {
+  var hoverText = props.hoverText ? props.hoverText : props.open ? "Close" : props.type === "add" ? "Configure Resource" : "Edit Resource";
+  var icon = props.open ? /*#__PURE__*/React.createElement(CloseFilled, null) : props.type === "add" ? /*#__PURE__*/React.createElement(Add, null) : /*#__PURE__*/React.createElement(Edit, null);
   return /*#__PURE__*/React.createElement(PopoverWrapper, {
     hoverText: hoverText
   }, /*#__PURE__*/React.createElement("i", {
@@ -1491,7 +1491,7 @@ EditCloseIcon.defaultProps = {
  * @param {string} props.name classname
  *
  */
-const DeleteButton = props => {
+var DeleteButton = function DeleteButton(props) {
   return /*#__PURE__*/React.createElement("div", {
     className: "delete-area"
   }, /*#__PURE__*/React.createElement(PopoverWrapper, {
@@ -1529,7 +1529,7 @@ DeleteButton.propTypes = {
  * @param {Function} props.handleDown
  *
  */
-const UpDownButtons = props => {
+var UpDownButtons = function UpDownButtons(props) {
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Button, {
     key: "rule-up-" + props.name,
     disabled: props.disableUp,
@@ -4852,8 +4852,8 @@ styleInject(css_248z$9);
  * @returns tile if shown, empty string otherwise
  */
 
-var EmptyResourceTile = function EmptyResourceTile(props) {
-  return props.showIfEmpty === false || props.showIfEmpty.length === 0 ? /*#__PURE__*/React.createElement(Tile, {
+const EmptyResourceTile = props => {
+  return !props.showIfEmpty || props.showIfEmpty.length === 0 ? /*#__PURE__*/React.createElement(Tile, {
     className: "marginBottomXs tileBackground"
   }, /*#__PURE__*/React.createElement(CloudAlerting, {
     size: "24",
@@ -4864,11 +4864,13 @@ var EmptyResourceTile = function EmptyResourceTile(props) {
   }), "button to add one.")) : "";
 };
 EmptyResourceTile.defaultProps = {
-  name: "items in this list"
+  name: "items in this list",
+  showIfEmpty: false
 };
 EmptyResourceTile.propTypes = {
   name: PropTypes.string.isRequired,
-  showIfEmpty: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]).isRequired
+  showIfEmpty: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]).isRequired,
+  instructions: PropTypes.string
 };
 
 <<<<<<< HEAD
@@ -4892,7 +4894,12 @@ styleInject(css_248z$9);
 var css_248z$8 = ".displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
 styleInject(css_248z$8);
 
+<<<<<<< HEAD
 >>>>>>> 2a431c4 (feat: better exports)
+=======
+var _StatelessToggleForm$;
+
+>>>>>>> 8d61926 (feat: stories for empty resource tile and under construction)
 /**
  * Render a form
  * @param {*} form form element
@@ -4900,9 +4907,7 @@ styleInject(css_248z$8);
  * @returns Form element
  */
 function RenderForm(form, formProps) {
-  return /*#__PURE__*/React.createElement(form, {
-    ...formProps
-  });
+  return /*#__PURE__*/React.createElement(form, _objectSpread2({}, formProps));
 }
 
 /**
@@ -4919,9 +4924,9 @@ function DynamicRender(props) {
 /**
  * wrapper for title groups
  */
-const TitleGroup = props => {
+var TitleGroup = function TitleGroup(props) {
   return /*#__PURE__*/React.createElement("div", {
-    className: lib_2(`displayFlex alignItemsCenter widthOneHundredPercent ${lib_1(props.hide)}`, props)
+    className: lib_2("displayFlex alignItemsCenter widthOneHundredPercent ".concat(lib_1(props.hide)), props)
   }, props.children);
 };
 TitleGroup.defaultProps = {
@@ -4930,8 +4935,8 @@ TitleGroup.defaultProps = {
 TitleGroup.propTypes = {
   children: PropTypes.node.isRequired
 };
-const IcseFormGroup = props => {
-  let formGroupClassName = "displayFlex marginBottom fitContent evenSpacing";
+var IcseFormGroup = function IcseFormGroup(props) {
+  var formGroupClassName = "displayFlex marginBottom fitContent evenSpacing";
   // remove margin bottom from formGroup for VPC
   if (props.noMarginBottom) {
     formGroupClassName = formGroupClassName.replace(/\smarginBottom/g, "");
@@ -4948,7 +4953,7 @@ IcseFormGroup.propTypes = {
   children: PropTypes.node.isRequired,
   className: PropTypes.string
 };
-const IcseSubForm = props => {
+var IcseSubForm = function IcseSubForm(props) {
   return /*#__PURE__*/React.createElement("div", {
     className: lib_2(props.formInSubForm ? "formInSubForm positionRelative" : "subForm marginBottomSmall", props),
     id: props.id
@@ -4963,15 +4968,15 @@ IcseSubForm.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node.isRequired
 };
-const IcseHeading = props => {
-  let titleFormDivClass = props.toggleFormTitle ? "" : props.name === "" ? "" : " icseFormTitleMinHeight";
+var IcseHeading = function IcseHeading(props) {
+  var titleFormDivClass = props.toggleFormTitle ? "" : props.name === "" ? "" : " icseFormTitleMinHeight";
   return /*#__PURE__*/React.createElement("div", {
     className: lib_2("displayFlex spaceBetween widthOneHundredPercent alignItemsCenter", props) + titleFormDivClass
   }, /*#__PURE__*/React.createElement(DynamicToolTipWrapper, {
     tooltip: props.tooltip,
     noLabelText: true,
     id: props.name,
-    innerForm: () => {
+    innerForm: function innerForm() {
       return props.type === "subHeading" ? /*#__PURE__*/React.createElement("h5", null, props.name) : props.type === "p" ? /*#__PURE__*/React.createElement("p", null, props.name) : /*#__PURE__*/React.createElement("h4", null, props.name);
     }
   }), /*#__PURE__*/React.createElement("div", {
@@ -4998,7 +5003,7 @@ IcseHeading.propTypes = {
 /**
  * All of the toggle form functionality without injecting anything on render
  */
-const StatelessToggleForm = props => {
+var StatelessToggleForm = function StatelessToggleForm(props) {
   return props.hideTitle ? props.children : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(TitleGroup, {
     hide: props.hide,
     props: props,
@@ -5019,15 +5024,13 @@ const StatelessToggleForm = props => {
     show: props.children
   }));
 };
-StatelessToggleForm.defaultProps = {
+StatelessToggleForm.defaultProps = (_StatelessToggleForm$ = {
   hide: true,
   iconType: "edit",
   name: "Stateless Toggle Form",
   hideTitle: false,
-  alwaysShowButtons: false,
-  hideTitle: false,
-  toggleFormTitle: false
-};
+  alwaysShowButtons: false
+}, _defineProperty(_StatelessToggleForm$, "hideTitle", false), _defineProperty(_StatelessToggleForm$, "toggleFormTitle", false), _StatelessToggleForm$);
 StatelessToggleForm.propTypes = {
   children: PropTypes.node.isRequired,
   hide: PropTypes.bool.isRequired,
