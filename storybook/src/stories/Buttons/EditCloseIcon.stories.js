@@ -1,12 +1,13 @@
 import React from "react";
 import { EditCloseIcon } from "icse-react-assets";
+import { useState } from "react";
 
 export default {
   component: EditCloseIcon,
   title: "Components/Buttons/EditCloseIcon",
   args: {
     disabled: false,
-    hoverText: "EditCloseICon",
+    hoverText: "EditCloseIcon",
     open: false,
     onClick: () => {},
     type: "edit",
@@ -47,48 +48,31 @@ export default {
 };
 
 const EditCloseIconInputStory = ({ ...args }) => {
+  const [value, setValue] = useState(false);
   return (
-    <>
-      <p>Edit Icon Closed:</p>
-      <div>
-        <EditCloseIcon
-          hoverText="Edit Icon"
-          onClick={() => console.log("Edit toggle")}
-          hoverTextAlign="right"
-        />
-      </div>
-      <p>Edit Icon Open:</p>
-      <div>
-        <EditCloseIcon
-          hoverText="Edit Icon Open"
-          onClick={() => console.log("Edit toggle")}
-          hoverTextAlign="right"
-          open={true}
-        />
-      </div>
-      <p>Add Icon Closed:</p>
-      <div>
-        <EditCloseIcon
-          hoverText="Add Icon"
-          onClick={() => console.log("Edit toggle")}
-          disabled
-          type="add"
-          hoverTextAlign="right"
-        />
-      </div>
-      <p>Add Icon Open:</p>
-      <div>
-        <EditCloseIcon
-          hoverText="Add Icon Open"
-          onClick={() => console.log("Edit toggle")}
-          disabled
-          type="add"
-          hoverTextAlign="right"
-          open={true}
-        />
-      </div>
-    </>
+    <EditCloseIcon
+      {...args}
+      hoverText="Edit Icon"
+      open={value}
+      onClick={() => setValue(!value)}
+      hoverTextAlign="right"
+    />
+  );
+};
+
+const AddCloseIconInputStory = ({ ...args }) => {
+  const [value, setValue] = useState(false);
+  return (
+    <EditCloseIcon
+      {...args}
+      type="add"
+      hoverText="Add Icon"
+      open={value}
+      onClick={() => setValue(!value)}
+      hoverTextAlign="right"
+    />
   );
 };
 
 export const Default = EditCloseIconInputStory.bind({});
+export const Add = AddCloseIconInputStory.bind({});

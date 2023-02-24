@@ -6,7 +6,6 @@ export default {
   title: "Components/Buttons/DeleteButton",
   args: {
     disabled: false,
-    disableDeleteMessage: "Example disabled message",
     onClick: () => {},
   },
   argTypes: {
@@ -45,37 +44,29 @@ export default {
 
 const DeleteButtonInputStory = ({ ...args }) => {
   return (
-    <>
-      <p>Delete Button:</p>
-      <div>
-        <DeleteButton
-          onClick={() => {
-            console.log("Delete action");
-          }}
-        />
-      </div>
-      <p>Disabled Delete Button:</p>
-      <div>
-        <DeleteButton
-          disabled={true}
-          onClick={() => {
-            console.log("Delete action");
-          }}
-        />
-      </div>
-      <p>Disabled Delete Button With Custom Message:</p>
-      <div>
-        <DeleteButton
-          disabled={true}
-          onClick={() => {
-            console.log("Delete action");
-          }}
-          disableDeleteMessage="My custom delete message"
-          hoverTextAlign="right"
-        />
-      </div>
-    </>
+    <DeleteButton
+      {...args}
+      onClick={() => {
+        console.log("Delete action");
+      }}
+    />
+  );
+};
+
+const DisabledDeleteCustomMessageButtonStory = ({ ...args }) => {
+  return (
+    <DeleteButton
+      {...args}
+      disabled={true}
+      onClick={() => {
+        console.log("Delete action");
+      }}
+      disableDeleteMessage="My custom delete message"
+      hoverTextAlign="right"
+    />
   );
 };
 
 export const Default = DeleteButtonInputStory.bind({});
+export const DisabledWithCustomMessage =
+  DisabledDeleteCustomMessageButtonStory.bind({});

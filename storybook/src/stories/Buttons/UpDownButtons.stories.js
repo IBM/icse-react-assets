@@ -59,7 +59,7 @@ const UpDownButtonsInputStory = () => {
   return (
     <>
       {order.map((i) => (
-        <div>
+        <div key={"example-" + i}>
           <span>{i}</span>
           <UpDownButtons
             name={i + "-buttons"}

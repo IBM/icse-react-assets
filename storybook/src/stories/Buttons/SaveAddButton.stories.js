@@ -60,45 +60,24 @@ export default {
 
 const SaveAddButtonInputStory = ({ ...args }) => {
   return (
-    <>
-      <p>Save Button:</p>
-      <div>
-        <SaveAddButton
-          hoverText="Disabled Save Button"
-          onClick={() => console.log("Save action")}
-          hoverTextAlign="right"
-        />
-      </div>
-      <p>Disabled Save Button:</p>
-      <div>
-        <SaveAddButton
-          hoverText="Disabled Save Button"
-          onClick={() => console.log("Save action")}
-          disabled
-          hoverTextAlign="right"
-        />
-      </div>
-      <p>Add Button:</p>
-      <div>
-        <SaveAddButton
-          hoverText="Add Button"
-          onClick={() => console.log("Save action")}
-          hoverTextAlign="right"
-          type="add"
-        />
-      </div>
-      <p>Disabled Add Button:</p>
-      <div>
-        <SaveAddButton
-          hoverText="Disabled Add Button"
-          onClick={() => console.log("Save action")}
-          disabled
-          hoverTextAlign="right"
-          type="add"
-        />
-      </div>
-    </>
+    <SaveAddButton
+      {...args}
+      onClick={() => console.log("Save action")}
+      hoverTextAlign="right"
+    />
+  );
+};
+
+const AddButtonInputStory = ({ ...args }) => {
+  return (
+    <SaveAddButton
+      {...args}
+      onClick={() => console.log("Save action")}
+      hoverTextAlign="right"
+      type="add"
+    />
   );
 };
 
 export const Default = SaveAddButtonInputStory.bind({});
+export const Add = AddButtonInputStory.bind({});
