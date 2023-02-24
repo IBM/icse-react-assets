@@ -17,21 +17,18 @@ export default {
         "A boolean value for if the UpDownButtons up button is disabled", // description
       type: { required: true }, // required prop or not
       table: { defaultValue: { summary: "false" } }, // default value
-      control: "boolean", // what type of value we can set
     },
     disableDown: {
       description:
         "A boolean value for if the UpDownButtons up button is disabled", // description
       type: { required: true }, // required prop or not
       table: { defaultValue: { summary: "false" } }, // default value
-      control: "boolean", // what type of value we can set
     },
     name: {
       description:
         "A string value used to ensure button uniqueness when rendered as part of a list", // description
       type: { required: true }, // required prop or not
       table: { defaultValue: { summary: "false" } }, // default value
-      control: "text", // what type of value we can set
     },
     handleUp: {
       description:

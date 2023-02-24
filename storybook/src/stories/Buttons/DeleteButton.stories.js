@@ -62,7 +62,6 @@ const DisabledDeleteCustomMessageButtonStory = ({ ...args }) => {
         console.log("Delete action");
       }}
       disableDeleteMessage="My custom delete message"
-      hoverTextAlign="right"
     />
   );
 };

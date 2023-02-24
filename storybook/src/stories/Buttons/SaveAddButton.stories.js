@@ -63,7 +63,6 @@ const SaveAddButtonInputStory = ({ ...args }) => {
     <SaveAddButton
       {...args}
       onClick={() => console.log("Save action")}
-      hoverTextAlign="right"
     />
   );
 };
@@ -73,7 +72,6 @@ const AddButtonInputStory = ({ ...args }) => {
     <SaveAddButton
       {...args}
       onClick={() => console.log("Save action")}
-      hoverTextAlign="right"
       type="add"
     />
   );

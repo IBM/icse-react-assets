@@ -55,7 +55,6 @@ const EditCloseIconInputStory = ({ ...args }) => {
       hoverText="Edit Icon"
       open={value}
       onClick={() => setValue(!value)}
-      hoverTextAlign="right"
     />
   );
 };
@@ -69,7 +68,6 @@ const AddCloseIconInputStory = ({ ...args }) => {
       hoverText="Add Icon"
       open={value}
       onClick={() => setValue(!value)}
-      hoverTextAlign="right"
     />
   );
 };
