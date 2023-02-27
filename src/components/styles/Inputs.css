@@ -1,9 +1,15 @@
+.leftTextAlign {
+  text-align: left;
+}
+
+/******** FIELD WIDTHS ********/
+
 .fieldWidth {
   width: 14rem;
 }
 
-.leftTextAlign {
-  text-align: left;
+.fieldWidthSmaller {
+  width: 12rem;
 }
 
 .textInputWide {

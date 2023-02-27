@@ -133,6 +133,7 @@ var PropTypes = require('prop-types');
 =======
 >>>>>>> 2a431c4 (feat: better exports)
 var iconsReact = require('@carbon/icons-react');
+var icseReactAssets = require('icse-react-assets');
 var regexButWithWords = require('regex-but-with-words');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
@@ -1112,12 +1113,17 @@ function styleInject(css, ref) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$8 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$8);
 =======
 var css_248z$e = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  position: relative;\n  z-index: 9001;\n}";
 styleInject(css_248z$e);
 >>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
+=======
+var css_248z$f = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  position: relative;\n  z-index: 9001;\n}";
+styleInject(css_248z$f);
+>>>>>>> 81d03a4 (Issue 718: F5VsiTemplateForm (#45))
 
 /**
  * Empty Resource Tile
@@ -1224,9 +1230,14 @@ PopoverWrapper.propTypes = {
   children: PropTypes__default["default"].node.isRequired
 };
 
+<<<<<<< HEAD
 var css_248z$d = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important; \n}\n";
 styleInject(css_248z$d);
 >>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
+=======
+var css_248z$e = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important; \n}\n";
+styleInject(css_248z$e);
+>>>>>>> 81d03a4 (Issue 718: F5VsiTemplateForm (#45))
 
 /**
  * add margin bottom to subform chevron
@@ -1466,6 +1477,7 @@ var lib_10 = lib.invalidRegex;
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
 function styleInject(css, ref) {
@@ -1536,13 +1548,131 @@ var css_248z$b = ".displayFlex {\r\n  display: flex;\r\n}\r\n\r\n.fitContent {\r
 styleInject(css_248z$b);
 =======
 var css_248z$c = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+=======
+var css_248z$d = ".displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
+styleInject(css_248z$d);
+
+var css_248z$c = ".about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n";
+>>>>>>> 81d03a4 (Issue 718: F5VsiTemplateForm (#45))
 styleInject(css_248z$c);
 >>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
 
+<<<<<<< HEAD
 var css_248z$a = ".labelRow {\r\n  display: inline-flex !important;\r\n  align-items: center;\r\n}\r\n\r\n.tooltip > div div.cds--password-input-wrapper {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.cds--toggle {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.cds--text-input-wrapper {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.popover-obj {\r\n  margin-top: -8px;\r\n}\r\n\r\n.subHeadingTooltip {\r\n  margin: 0.2rem 0 0 0.2rem;\r\n}\r\n\r\n.tooltipMarginLeft {\r\n  margin-left: 3px;\r\n}\r\n";
 styleInject(css_248z$a);
 
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
+=======
+var DocTextField = function DocTextField(props) {
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: props.text === "_default_includes" ? "marginBottomSmall" : props.className
+  }, props.text === "_default_includes" ? "The default configuration includes:" : props.text);
+};
+DocTextField.defaultProps = {
+  className: "marginBottom"
+};
+DocTextField.propTypes = {
+  className: PropTypes__default["default"].string.isRequired,
+  text: PropTypes__default["default"].string.isRequired
+};
+var StructuredList = function StructuredList(props) {
+  return /*#__PURE__*/React__default["default"].createElement(react.StructuredListWrapper, {
+    className: "marginBottom"
+  }, props.headers && /*#__PURE__*/React__default["default"].createElement(react.StructuredListHead, null, /*#__PURE__*/React__default["default"].createElement(react.StructuredListRow, null, props.headers.map(function (cell, index) {
+    return /*#__PURE__*/React__default["default"].createElement(react.StructuredListCell, {
+      head: true,
+      key: index
+    }, cell);
+  }))), /*#__PURE__*/React__default["default"].createElement(react.StructuredListBody, null, props.list.map(function (row, rowIndex) {
+    return /*#__PURE__*/React__default["default"].createElement(react.StructuredListRow, {
+      key: rowIndex
+    }, row.map(function (cell, colIndex) {
+      return /*#__PURE__*/React__default["default"].createElement(react.StructuredListCell, {
+        key: colIndex
+      }, cell);
+    }));
+  })));
+};
+StructuredList.propTypes = {
+  headers: PropTypes__default["default"].array,
+  list: PropTypes__default["default"].array.isRequired
+};
+var DocTable = function DocTable(props) {
+  var headers = [];
+  var list = _toConsumableArray(props.list); // copy list, required due to reference errors
+
+  if (props.list[0][0] === "_headers") {
+    headers = _toConsumableArray(props.list[0]); // copy header row
+    headers.shift(); // remove _header
+
+    list.shift(); // remove heaer row from list
+  }
+
+  return /*#__PURE__*/React__default["default"].createElement(StructuredList, {
+    list: list,
+    headers: headers
+  });
+};
+DocTable.propTypes = {
+  list: PropTypes__default["default"].array.isRequired
+};
+var RelatedLinks = function RelatedLinks(props) {
+  return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "smallerText"
+  }, "Related Links"), props.links.map(function (link, index) {
+    return /*#__PURE__*/React__default["default"].createElement("div", {
+      key: "related-link-" + index
+    }, /*#__PURE__*/React__default["default"].createElement("a", {
+      href: link[0],
+      target: "_blank",
+      rel: "noreferrer",
+      className: "smallerText"
+    }, link.length === 1 ? "Docs" : link[1]));
+  }));
+};
+RelatedLinks.propTypes = {
+  links: PropTypes__default["default"].arrayOf(PropTypes__default["default"].arrayOf(PropTypes__default["default"].string.isRequired).isRequired).isRequired
+};
+var Docs = function Docs(props) {
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "subForm leftTextAlign about"
+  }, props.content.map(function (field, index) {
+    return field.text ?
+    /*#__PURE__*/
+    // text field
+    React__default["default"].createElement(DocTextField, _extends({
+      key: index
+    }, field)) : field.subHeading ?
+    /*#__PURE__*/
+    // subheading
+    React__default["default"].createElement("h6", {
+      className: "marginBottomSmall",
+      key: index
+    }, field.subHeading) :
+    /*#__PURE__*/
+    // table
+    React__default["default"].createElement(DocTable, {
+      key: index,
+      list: _toConsumableArray(field.table)
+    });
+  }), props.relatedLinks && /*#__PURE__*/React__default["default"].createElement(RelatedLinks, {
+    links: props.relatedLinks
+  }));
+};
+Docs.propTypes = {
+  content: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({
+    text: PropTypes__default["default"].string,
+    className: PropTypes__default["default"].string,
+    table: PropTypes__default["default"].array,
+    subHeading: PropTypes__default["default"].string
+  })).isRequired,
+  relatedLinks: PropTypes__default["default"].array
+};
+
+var css_248z$b = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+styleInject(css_248z$b);
+
+>>>>>>> 81d03a4 (Issue 718: F5VsiTemplateForm (#45))
 /**
  * Render a form (duplicate from utils to prevent circular dependencies)
  * @param {*} form form element
@@ -1669,6 +1799,7 @@ DynamicToolTipWrapper.propTypes = {
   innerForm: PropTypes__default["default"].oneOfType([PropTypes__default["default"].object, PropTypes__default["default"].func])
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -4282,6 +4413,10 @@ styleInject(css_248z$a);
 var css_248z$b = ".textInputMedium {\n  width: 20rem;\n}";
 styleInject(css_248z$b);
 >>>>>>> 06b8a89 (Migrated AppIdForm + Documentation (Issue692) (#47))
+=======
+var css_248z$a = ".textInputMedium {\n  width: 20rem;\n}";
+styleInject(css_248z$a);
+>>>>>>> 81d03a4 (Issue 718: F5VsiTemplateForm (#45))
 
 var IcseSelect = function IcseSelect(props) {
   var invalid =
@@ -6804,6 +6939,7 @@ EntitlementSelect.defaultProps = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> b345987 (fixes & heading/statelesstoggle form added)
 =======
@@ -6855,6 +6991,10 @@ styleInject(css_248z$9);
 var css_248z$a = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$a);
 >>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
+=======
+var css_248z$9 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z$9);
+>>>>>>> 81d03a4 (Issue 718: F5VsiTemplateForm (#45))
 
 /**
  * Empty Resource Tile
@@ -6890,6 +7030,7 @@ EmptyResourceTile.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 var css_248z$7 = ".displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
 styleInject(css_248z$7);
@@ -6916,6 +7057,8 @@ styleInject(css_248z$9);
 <<<<<<< HEAD
 >>>>>>> 2a431c4 (feat: better exports)
 =======
+=======
+>>>>>>> 81d03a4 (Issue 718: F5VsiTemplateForm (#45))
 var _StatelessToggleForm$;
 
 >>>>>>> 8d61926 (feat: stories for empty resource tile and under construction)
@@ -7175,6 +7318,7 @@ FormModal.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$5 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
 styleInject(css_248z$5);
 =======
@@ -7190,6 +7334,9 @@ styleInject(css_248z$7);
 >>>>>>> 68bf364 (feat: subnet tile form)
 =======
 var css_248z$8 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.textInputWide {\n  width: 30rem;\n}";
+=======
+var css_248z$8 = ".leftTextAlign {\n  text-align: left;\n}\n\n/******** FIELD WIDTHS ********/\n\n.fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 12rem;\n}\n\n.textInputWide {\n  width: 30rem;\n}\n";
+>>>>>>> 81d03a4 (Issue 718: F5VsiTemplateForm (#45))
 styleInject(css_248z$8);
 >>>>>>> 06b8a89 (Migrated AppIdForm + Documentation (Issue692) (#47))
 =======
@@ -7360,6 +7507,7 @@ IcseNameInput.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$4 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
 styleInject(css_248z$4);
 =======
@@ -7371,6 +7519,391 @@ var css_248z$6 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
 styleInject(css_248z$6);
 >>>>>>> 68bf364 (feat: subnet tile form)
 =======
+=======
+class AccessGroupForm extends React__default["default"].Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: "name",
+      componentName: "access_groups",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      className: "fieldWidth",
+      hideHelperText: true,
+      invalid: this.props.invalidCallback("name", this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: "description",
+      componentName: "description",
+      tooltip: {
+        content: "Description of the access group"
+      },
+      field: "description",
+      labelText: "Description",
+      value: this.state.description,
+      onChange: this.handleInputChange,
+      isModal: this.props.isModal,
+      className: "textInputWide",
+      hideHelperText: true,
+      invalid: false
+    })), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, this.props?.subForms.map((form, index) => {
+      return /*#__PURE__*/React__default["default"].createElement("div", {
+        key: index
+      }, form);
+    })));
+  }
+}
+AccessGroupForm.defaultProps = {
+  data: {
+    name: "",
+    description: ""
+  },
+  isModal: false
+};
+AccessGroupForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    description: PropTypes__default["default"].string.isRequired
+  }).isRequired,
+  subForms: PropTypes__default["default"].arrayOf(PropTypes__default["default"].form).isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired
+};
+
+class AccessGroupPolicyForm extends React__default["default"].Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleInputResource = this.handleInputResource.bind(this);
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputResource(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    let resources = {
+      ...this.state.resources
+    };
+    resources[name] = value;
+    this.setState({
+      resources
+    });
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: "name",
+      componentName: "policies",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      labelText: "Name",
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      invalid: this.props.invalidCallback("name", this.state, this.props),
+      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props)
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+      className: "marginBottomSmall"
+    }, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+      name: "Resource Configuration",
+      type: "subHeading"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: "resource",
+      componentName: "resource",
+      tooltip: {
+        content: "The resource of the policy definition",
+        alignModal: "bottom-left"
+      },
+      isModal: this.props.isModal,
+      field: "resource",
+      value: this.state.resources.resource,
+      invalid: false,
+      onChange: this.handleInputResource,
+      labelText: "Resource"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      name: "resource_group",
+      formName: `${lazyZ.kebabCase(this.props.data.name)}-agp-rg-select`,
+      groups: this.props.resourceGroups,
+      value: this.state.resources.resource_group,
+      handleInputChange: this.handleInputResource,
+      invalidText: "Select a Resource Group",
+      labelText: "Resource Group",
+      tooltip: {
+        content: "Name of the resource group the policy will apply to",
+        alignModal: "bottom-left"
+      }
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: "resource_instance_id",
+      componentName: "resource_instance_id",
+      isModal: this.props.isModal,
+      field: "resource_instance_id",
+      value: this.state.resources.resource_instance_id,
+      tooltip: {
+        content: "ID of a service instance to give permissions"
+      },
+      invalid: false,
+      labelText: "Resource Instance ID",
+      onChange: this.handleInputResource
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: "service",
+      componentName: "service",
+      tooltip: {
+        content: 'Name of the service type for the policy ex. "cloud-object-storage"',
+        alignModal: "bottom-left",
+        align: "top-left"
+      },
+      labelText: "Service Type",
+      field: "service",
+      value: this.state.resources.service,
+      isModal: this.props.isModal,
+      onChange: this.handleInputResource,
+      invalid: false
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: "resource_type",
+      componentName: "resource_type",
+      field: "resource_type",
+      tooltip: {
+        content: 'Name of the resource type for the policy ex. "resource-group"',
+        alignModal: "bottom-left"
+      },
+      invalid: false,
+      value: this.state.resources.resource_type,
+      isModal: this.props.isModal,
+      onChange: this.handleInputResource,
+      labelText: "Resource Type"
+    })));
+  }
+}
+AccessGroupPolicyForm.defaultProps = {
+  data: {
+    name: "",
+    resources: {
+      resource_group: "",
+      resource_type: "",
+      resource: "",
+      service: "",
+      resource_instance_id: ""
+    }
+  },
+  resourceGroups: [],
+  isModal: false
+};
+AccessGroupPolicyForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    resources: PropTypes__default["default"].shape({
+      resource_group: PropTypes__default["default"].string,
+      // can be null
+      resource_type: PropTypes__default["default"].string.isRequired,
+      resource: PropTypes__default["default"].string.isRequired,
+      service: PropTypes__default["default"].string.isRequired,
+      resource_instance_id: PropTypes__default["default"].string.isRequired
+    }).isRequired
+  }).isRequired,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  helperTextCallback: PropTypes__default["default"].func.isRequired
+};
+
+const conditionOperators = {
+  EQUALS: "Equals",
+  EQUALS_IGNORE_CASE: "Equals (Ignore Case)",
+  IN: "In",
+  NOT_EQUALS_IGNORE_CASE: "Not Equals (Ignore Case)",
+  NOT_EQUALS: "Not Equals",
+  CONTAINS: "Contains"
+};
+class AccessGroupDynamicPolicyForm extends React__default["default"].Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleInputCondition = this.handleInputCondition.bind(this);
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputCondition(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    let conditions = {
+      ...this.state.conditions
+    };
+    if (name === "operator") {
+      conditions[name] = lazyZ.snakeCase(value.replace(/[()]/g, "")).toUpperCase(); // remove all parentheses
+    } else {
+      conditions[name] = value;
+    }
+    this.setState({
+      conditions
+    });
+  }
+  render() {
+    let conditionOperatorGroups = [];
+    lazyZ.eachKey(conditionOperators, key => {
+      conditionOperatorGroups.push(conditionOperators[key]);
+    });
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: "name",
+      componentName: "dynamic_policies",
+      field: "name",
+      labelText: "Name",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      invalid: this.props.invalidCallback("name", this.state, this.props),
+      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
+      tooltip: {
+        content: "How many hours authenticated users can work before refresh"
+      },
+      formName: "expiration",
+      max: 24,
+      value: this.state.expiration,
+      name: "expiration",
+      labelText: "Expiration Hours",
+      isModal: this.props.isModal,
+      handleInputChange: this.handleInputChange
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: "identity_provider",
+      tooltip: {
+        content: "URI for identity provider",
+        alignModal: "bottom-left"
+      },
+      componentName: "identity_provider",
+      field: "identity_provider",
+      isModal: this.props.isModal,
+      labelText: "Identity Provider",
+      value: this.state.identity_provider,
+      invalid: this.props.invalidCallback("identity_provider", this.state, this.props),
+      onChange: this.handleInputChange,
+      className: "textInputWide"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+      className: "marginBottomSmall"
+    }, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+      name: "Condition Configuration",
+      type: "subHeading"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: "claim",
+      tooltip: {
+        content: "Key value to evaluate the condition against",
+        alignModal: "bottom-left"
+      },
+      componentName: "claim",
+      field: "claim",
+      isModal: this.props.isModal,
+      labelText: "Condition Claim",
+      value: this.state.conditions.claim,
+      invalid: false,
+      onChange: this.handleInputCondition
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: "dynamic_policies",
+      tooltip: {
+        content: "The operation to perform on the claim."
+      },
+      value: conditionOperators[this.state.conditions.operator],
+      groups: conditionOperatorGroups,
+      field: "operator",
+      isModal: this.props.isModal,
+      name: "operator",
+      disableInvalid: true,
+      labelText: "Condition Operator",
+      handleInputChange: this.handleInputCondition
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: "value",
+      tooltip: {
+        content: "Value to be compared against"
+      },
+      componentName: "value",
+      field: "value",
+      isModal: this.props.isModal,
+      value: this.state.conditions.value,
+      labelText: "Condition Value",
+      invalid: false,
+      onChange: this.handleInputCondition
+    })));
+  }
+}
+AccessGroupDynamicPolicyForm.defaultProps = {
+  data: {
+    name: "",
+    identity_provider: "",
+    expiration: 1,
+    conditions: {
+      claim: "",
+      operator: "",
+      value: ""
+    }
+  },
+  isModal: false
+};
+AccessGroupDynamicPolicyForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    identity_provider: PropTypes__default["default"].string.isRequired,
+    expiration: PropTypes__default["default"].number.isRequired,
+    conditions: PropTypes__default["default"].shape({
+      claim: PropTypes__default["default"].string.isRequired,
+      operator: PropTypes__default["default"].string.isRequired,
+      value: PropTypes__default["default"].string.isRequired
+    }).isRequired
+  }).isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  helperTextCallback: PropTypes__default["default"].func.isRequired
+};
+
+>>>>>>> 81d03a4 (Issue 718: F5VsiTemplateForm (#45))
 var css_248z$7 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
 styleInject(css_248z$7);
 >>>>>>> 06b8a89 (Migrated AppIdForm + Documentation (Issue692) (#47))
@@ -8496,6 +9029,523 @@ EncryptionKeyForm.propTypes = {
 };
 
 const {
+  RegexButWithWords: RegexButWithWords$1
+} = regexButWithWords__default["default"];
+const urlValidationExp = new RegexButWithWords$1().group(exp => {
+  exp.literal("ftp").or().literal("http").literal("s").lazy();
+}).literal("://").group("www.").lazy().group(exp => {
+  exp.negatedSet('"\\/').oneOrMore().literal(".");
+}).group(exp => {
+  exp.negatedSet('"\\/').oneOrMore().literal(".");
+}).oneOrMore().negatedSet('"\\/.').oneOrMore().literal("/").negatedSet(' "').anyNumber().stringEnd().done("g");
+const tmosAdminPasswordValidationExp = new RegexButWithWords$1().stringBegin().look.ahead(exp => {
+  exp.any().anyNumber().set("a-z");
+}).look.ahead(exp => {
+  exp.any().anyNumber().set("A-Z");
+}).look.ahead(exp => {
+  exp.any().anyNumber().set("0-9");
+}).any(15, "*").stringEnd().done("");
+
+/**
+ * return true if value is not null or empty string
+ * @param {*} value
+ * @returns {boolean} true if not null or empty string
+ */
+function isNullOrEmptyString$1(value) {
+  return value === null || value === "";
+}
+
+/**
+ * url value is valid and not empty
+ * @param {str} url
+ * @returns {boolean} true when url is valid and not empty, false when invalid
+ */
+function isValidUrl(url) {
+  if (isNullOrEmptyString$1(url)) return false;
+  return url.match(urlValidationExp) !== null;
+}
+
+/**
+ * verifies tmos admin password
+ * @param {str} password
+ * @returns {boolean} true when password is valid
+ */
+function isValidTmosAdminPassword(password) {
+  if (isNullOrEmptyString$1(password)) return true;else return password.match(tmosAdminPasswordValidationExp) !== null;
+}
+
+/**
+ * securely generates a random byte to be transformed into a character
+ * @returns {byte} random byte
+ */
+function getRandomByte() {
+  var result = new Uint8Array(1);
+  result = window.crypto.getRandomValues(result); // cryptographically secure random number generation
+  return result[0];
+}
+
+/**
+ * Checks if the random byte character generated is a valid character in the charset
+ * if it is, return the char, add it to the password String
+ * @param {int} length
+ * @returns {char} a valid char to go into the password
+ */
+function generatePassword(length) {
+  const charset = /[a-zA-Z0-9_\-+!$%^&*#]/; // valid chars for the password string
+  return Array.apply(null, {
+    length: length
+  }) // create an array of null of length specified
+  .map(function () {
+    // on each element
+    var result;
+    while (true) {
+      result = String.fromCharCode(getRandomByte()); // generate a char until it is a valid char in the charset
+      if (charset.test(result)) {
+        return result; // char is in the charset
+      }
+    }
+  }, this).join(""); // join all array elements into a single string
+}
+
+/**
+ * generates the password until it fits the validation expression
+ * @param {int} length
+ * @returns {string} password that fits the requirements of the validation expression
+ */
+function getValidAdminPassword(length) {
+  let invalid = true;
+  let count = 0;
+  let result;
+  do {
+    result = generatePassword(length); // generate a password until it is valid
+    if (tmosAdminPasswordValidationExp.test(result)) {
+      // we are valid if this test passes
+      invalid = false;
+    } else {
+      result = ""; // reset result
+      count++;
+    }
+  } while (invalid && count <= 5); // only be more than 5 times if you specified an invalid length. dummy counter for unit
+  return result;
+}
+var f5Utils = {
+  getValidAdminPassword,
+  isNullOrEmptyString: isNullOrEmptyString$1,
+  isValidTmosAdminPassword,
+  isValidUrl
+};
+var f5Utils_1 = f5Utils.getValidAdminPassword;
+var f5Utils_2 = f5Utils.isNullOrEmptyString;
+var f5Utils_3 = f5Utils.isValidTmosAdminPassword;
+var f5Utils_4 = f5Utils.isValidUrl;
+
+var css_248z$4 = ".wide {\n  width: 20rem !important;\n}\n\n.tight {\n  width: min-content; /* force invalid text to split line */\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n\n.passwordGenerateButton {\n  margin-top: 1.25rem;\n  margin-left: calc(-4rem - 3vw);\n}\n\n.passwordGenerateButton svg {\n  fill: var(--cds-icon-secondary, #525252) !important;\n}\n\n.passwordGenerateButton.invalid {\n  margin-left: calc(-5.75rem - 3vw);\n}\n";
+styleInject(css_248z$4);
+
+/**
+ * F5VsiTemplateForm
+ */
+class F5VsiTemplateForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = props.data;
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleTextInput = this.handleTextInput.bind(this);
+    this.handleLicenseChange = this.handleLicenseChange.bind(this);
+    this.generateAdminPassword = this.generateAdminPassword.bind(this);
+  }
+
+  /**
+   * set state to event value
+   * @param {event} event
+   */
+  handleTextInput(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * set conditional fields to null on license type change
+   * @param {event} event
+   */
+  handleLicenseChange(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    let reset = {};
+    let pool = ["license_username", "license_password", "license_host", "license_pool"];
+    let conditionalFields = {
+      none: [],
+      byol: ["byol_license_basekey"],
+      regkeypool: pool,
+      utilitypool: ["license_unit_of_measure", "license_sku_keyword_1", "license_sku_keyword_2", ...pool]
+    };
+    this.setState(prevState => {
+      conditionalFields[prevState.license_type].forEach(field => {
+        if (!conditionalFields[value].includes(field)) {
+          reset[field] = "";
+        }
+      });
+      return {
+        [name]: value,
+        ...reset
+      };
+    });
+  }
+
+  /**
+   * get a valid admin password between 15-20 characters
+   */
+  generateAdminPassword() {
+    let length = Math.floor(Math.random() * 6 + 15); // between 15-20 chars, inclusive (20 - 15 + 1)
+    let password = f5Utils_1(length); // get a valid password
+    this.setState({
+      tmos_admin_password: password
+    }); // set password
+  }
+
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(icseReactAssets.IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(icseReactAssets.IcseSelect, {
+      formName: "F5 VSI Template",
+      tooltip: {
+        content: "The type of license.",
+        align: "right"
+      },
+      labelText: "License Type",
+      component: "f5-license-type",
+      name: "license_type",
+      groups: ["none", "byol", "regkeypool", "utilitypool"],
+      value: this.state.license_type,
+      className: "fieldWidth",
+      handleInputChange: this.handleLicenseChange
+    }), /*#__PURE__*/React__default["default"].createElement("div", {
+      className: "tooltip tight"
+    }, /*#__PURE__*/React__default["default"].createElement(icseReactAssets.ToolTipWrapper, {
+      tooltip: {
+        content: "The admin account password for the F5 BIG-IP instance.",
+        align: "right"
+      },
+      innerForm: react.PasswordInput,
+      className: "wide",
+      id: "tmos_admin_password",
+      labelText: "TMOS Admin Password",
+      name: "tmos_admin_password",
+      value: this.state.tmos_admin_password || "",
+      invalid: this.props.invalidCallback("tmos_admin_password", this.state, this.props) || !f5Utils_3(this.state.tmos_admin_password),
+      invalidText: "Password must be at least 15 characters, contain one numeric, one uppercase, and one lowercase character.",
+      onChange: this.handleTextInput
+    })), /*#__PURE__*/React__default["default"].createElement(icseReactAssets.PopoverWrapper, {
+      hoverText: "Generate Password",
+      className: "passwordGenerateButton" + (f5Utils_3(this.state.tmos_admin_password) ? "" : " invalid")
+    }, /*#__PURE__*/React__default["default"].createElement(react.Button, {
+      kind: "ghost",
+      onClick: this.generateAdminPassword,
+      className: "forceTertiaryButtonStyles"
+    }, /*#__PURE__*/React__default["default"].createElement(iconsReact.Password, null)))), this.state.license_type != "none" && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, this.state.license_type != "regkeypool" && this.state.license_type == "byol" && /*#__PURE__*/React__default["default"].createElement(icseReactAssets.IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(icseReactAssets.ToolTipWrapper, {
+      tooltip: {
+        content: "Bring your own license registration key for the F5 BIG-IP instance."
+      },
+      id: "byol_license_basekey",
+      field: "byol_license_basekey",
+      className: "textInputWide",
+      labelText: "BYOL License Basekey",
+      innerForm: icseReactAssets.IcseTextInput,
+      value: this.state.byol_license_basekey || "",
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("byol_license_basekey", this.state, this.props) || f5Utils_2(this.state.byol_license_basekey),
+      invalidText: this.props.invalidTextCallback("byol_license_basekey", this.state, this.props)
+    })), this.state.license_type != "byol" && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(icseReactAssets.IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(icseReactAssets.ToolTipWrapper, {
+      tooltip: {
+        content: "BIGIQ username to use for the pool based licensing of the F5 BIG-IP instance.",
+        align: "top-left"
+      },
+      id: "license_username",
+      field: "license_username",
+      className: "fieldWidth",
+      labelText: "License Username",
+      innerForm: icseReactAssets.IcseTextInput,
+      value: this.state.license_username || "",
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("license_username", this.state, this.props) || f5Utils_2(this.state.license_username),
+      invalidText: this.props.invalidTextCallback("license_username", this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement("div", {
+      className: "leftTextAlign tooltip"
+    }, /*#__PURE__*/React__default["default"].createElement(icseReactAssets.ToolTipWrapper, {
+      tooltip: {
+        content: "BIGIQ password to use for the pool based licensing of the F5 BIG-IP instance."
+      },
+      id: "license_password",
+      className: "wide",
+      labelText: "License Password",
+      innerForm: react.PasswordInput,
+      name: "license_password",
+      value: this.state.license_password || "",
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("license_password", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("license_password", this.state, this.props)
+    }))), /*#__PURE__*/React__default["default"].createElement(icseReactAssets.IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(icseReactAssets.ToolTipWrapper, {
+      tooltip: {
+        content: "BIGIQ IP or hostname to use for pool based licensing of the F5 BIG-IP instance.",
+        align: "top-left"
+      },
+      id: "license_host",
+      field: "license_host",
+      className: "fieldWidth",
+      labelText: "License Host",
+      innerForm: icseReactAssets.IcseTextInput,
+      value: this.state.license_host || "",
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("license_host", this.state, this.props) || f5Utils_2(this.state.license_host),
+      invalidText: this.props.invalidTextCallback("license_host", this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(icseReactAssets.ToolTipWrapper, {
+      tooltip: {
+        content: "BIGIQ license pool name for the licensing of the F5 BIG-IP instance."
+      },
+      id: "license_pool",
+      field: "license_pool",
+      className: "wide",
+      labelText: "License Pool",
+      innerForm: icseReactAssets.IcseTextInput,
+      value: this.state.license_pool || "",
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("license_pool", this.state, this.props) || f5Utils_2(this.state.license_pool),
+      invalidText: this.props.invalidTextCallback("license_pool", this.state, this.props)
+    })), this.state.license_type == "utilitypool" && /*#__PURE__*/React__default["default"].createElement(icseReactAssets.IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(icseReactAssets.ToolTipWrapper, {
+      tooltip: {
+        content: "BIGIQ utility pool unit of measurement."
+      },
+      id: "license_unit_of_measure",
+      field: "license_unit_of_measure",
+      className: "fieldWidthSmaller",
+      labelText: "License Unit of Measure",
+      innerForm: icseReactAssets.IcseTextInput,
+      value: this.state.license_unit_of_measure || "",
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("license_unit_of_measure", this.state, this.props) || f5Utils_2(this.state.license_unit_of_measure),
+      invalidText: this.props.invalidTextCallback("license_unit_of_measure", this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(icseReactAssets.ToolTipWrapper, {
+      tooltip: {
+        content: "BIGIQ primary SKU for ELA utility licensing of the F5 BIG-IP instance."
+      },
+      id: "license_sku_keyword_1",
+      field: "license_sku_keyword_1",
+      className: "fieldWidthSmaller",
+      labelText: "License SKU Keyword 1",
+      innerForm: icseReactAssets.IcseTextInput,
+      value: this.state.license_sku_keyword_1 || "",
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("license_sku_keyword_1", this.state, this.props) || f5Utils_2(this.state.license_sku_keyword_1),
+      invalidText: this.props.invalidTextCallback("license_sku_keyword_1", this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(icseReactAssets.ToolTipWrapper, {
+      tooltip: {
+        content: "BIGIQ secondary SKU for ELA utility licensing of the F5 BIG-IP instance"
+      },
+      id: "license_sku_keyword_2",
+      field: "license_sku_keyword_2",
+      className: "fieldWidthSmaller",
+      labelText: "License SKU Keyword 2",
+      innerForm: icseReactAssets.IcseTextInput,
+      value: this.state.license_sku_keyword_2 || "",
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("license_sku_keyword_2", this.state, this.props) || f5Utils_2(this.state.license_sku_keyword_2),
+      invalidText: this.props.invalidTextCallback("license_sku_keyword_2", this.state, this.props)
+    })))), /*#__PURE__*/React__default["default"].createElement(icseReactAssets.IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(icseReactAssets.ToolTipWrapper, {
+      tooltip: {
+        content: "The terraform template version for phone_home_url_metadata.",
+        align: "top-left"
+      },
+      id: "template_version",
+      field: "template_version",
+      className: "fieldWidth",
+      labelText: "Template Version",
+      innerForm: icseReactAssets.IcseTextInput,
+      value: this.state.template_version,
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("template_version", this.state, this.props) || f5Utils_2(this.state.template_version),
+      invalidText: this.props.invalidTextCallback("template_version", this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(icseReactAssets.ToolTipWrapper, {
+      tooltip: {
+        content: "The terraform template source for phone_home_url_metadata."
+      },
+      id: "template_source",
+      field: "template_source",
+      className: "wide",
+      labelText: "Template Source",
+      innerForm: icseReactAssets.IcseTextInput,
+      value: this.state.template_source,
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("template_source", this.state, this.props) || f5Utils_2(this.state.template_source),
+      invalidText: this.props.invalidTextCallback("template_source", this.state, this.props)
+    })), /*#__PURE__*/React__default["default"].createElement(icseReactAssets.IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(icseReactAssets.ToolTipWrapper, {
+      tooltip: {
+        content: "The terraform application id for phone_home_url_metadata."
+      },
+      id: "app_id",
+      field: "app_id",
+      className: "fieldWidth",
+      labelText: "App ID",
+      innerForm: icseReactAssets.IcseTextInput,
+      value: this.state.app_id,
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("app_id", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("app_id", this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(icseReactAssets.ToolTipWrapper, {
+      tooltip: {
+        content: "The URL to POST status when BIG-IP is finished onboarding.",
+        align: "top-left"
+      },
+      id: "phone_home_url",
+      field: "phone_home_url",
+      className: "fieldWidth",
+      labelText: "Phone Home URL",
+      innerForm: icseReactAssets.IcseTextInput,
+      value: this.state.phone_home_url,
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("phone_home_url", this.state, this.props) || !f5Utils_4(this.state.phone_home_url),
+      invalidText: this.props.invalidTextCallback("phone_home_url", this.state, this.props)
+    })), /*#__PURE__*/React__default["default"].createElement(icseReactAssets.IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(icseReactAssets.ToolTipWrapper, {
+      tooltip: {
+        content: "The URL to retrieve the f5-declarative-onboarding JSON declaration.",
+        align: "top-left"
+      },
+      id: "do_declaration_url",
+      field: "do_declaration_url",
+      className: "fieldWidth",
+      labelText: "DO Declaration URL",
+      innerForm: icseReactAssets.IcseTextInput,
+      value: this.state.do_declaration_url,
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("do_declaration_url", this.state, this.props) || !f5Utils_4(this.state.do_declaration_url),
+      invalidText: this.props.invalidTextCallback("do_declaration_url", this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(icseReactAssets.ToolTipWrapper, {
+      tooltip: {
+        content: "The URL to retrieve the f5-appsvcs-extension JSON declaration."
+      },
+      id: "as3_declaration_url",
+      field: "as3_declaration_url",
+      className: "fieldWidth",
+      labelText: "AS3 Declaration URL",
+      innerForm: icseReactAssets.IcseTextInput,
+      value: this.state.as3_declaration_url,
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("as3_declaration_url", this.state, this.props) || !f5Utils_4(this.state.as3_declaration_url),
+      invalidText: this.props.invalidTextCallback("as3_declaration_url", this.state, this.props)
+    })), /*#__PURE__*/React__default["default"].createElement(icseReactAssets.IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(icseReactAssets.ToolTipWrapper, {
+      tooltip: {
+        content: "The URL to retrieve the f5-telemetry-streaming JSON declaration.",
+        align: "top-left"
+      },
+      id: "ts_declaration_url",
+      field: "ts_declaration_url",
+      className: "fieldWidth",
+      labelText: "TS Declaration URL",
+      innerForm: icseReactAssets.IcseTextInput,
+      value: this.state.ts_declaration_url,
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("ts_declaration_url", this.state, this.props) || !f5Utils_4(this.state.ts_declaration_url),
+      invalidText: this.props.invalidTextCallback("ts_declaration_url", this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(icseReactAssets.ToolTipWrapper, {
+      tooltip: {
+        content: "The URL to POST L3 addresses when tgstandby is triggered."
+      },
+      id: "tgstandby_url",
+      field: "tgstandby_url",
+      className: "fieldWidth",
+      labelText: "TGStandby URL",
+      innerForm: icseReactAssets.IcseTextInput,
+      value: this.state.tgstandby_url,
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("tgstandby_url", this.state, this.props) || !f5Utils_4(this.state.tgstandby_url),
+      invalidText: this.props.invalidTextCallback("tgstandby_url", this.state, this.props)
+    })), /*#__PURE__*/React__default["default"].createElement(icseReactAssets.IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(icseReactAssets.ToolTipWrapper, {
+      tooltip: {
+        content: "The URL to POST L3 addresses when tgrefresh is triggered.",
+        align: "top-left"
+      },
+      id: "tgrefresh_url",
+      field: "tgrefresh_url",
+      className: "fieldWidth",
+      labelText: "TGRefresh URL",
+      innerForm: icseReactAssets.IcseTextInput,
+      value: this.state.tgrefresh_url,
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("tgrefresh_url", this.state, this.props) || !f5Utils_4(this.state.tgrefresh_url),
+      invalidText: this.props.invalidTextCallback("tgrefresh_url", this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(icseReactAssets.ToolTipWrapper, {
+      tooltip: {
+        content: "The URL to POST L3 addresses when tgactive is triggered."
+      },
+      id: "tgactive_url",
+      field: "tgactive_url",
+      className: "fieldWidth",
+      labelText: "TGActive URL",
+      innerForm: icseReactAssets.IcseTextInput,
+      value: this.state.tgactive_url,
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("tgactive_url", this.state, this.props) || !f5Utils_4(this.state.tgactive_url),
+      invalidText: this.props.invalidTextCallback("tgactive_url", this.state, this.props)
+    })));
+  }
+}
+F5VsiTemplateForm.defaultProps = {
+  data: {
+    license_type: "none",
+    tmos_admin_password: "",
+    byol_license_basekey: "",
+    license_username: "",
+    license_password: "",
+    license_host: "",
+    license_pool: "",
+    license_unit_of_measure: "",
+    license_sku_keyword_1: "",
+    license_sku_keyword_2: "",
+    template_version: "",
+    template_source: "",
+    app_id: "",
+    phone_home_url: "",
+    do_declaration_url: "",
+    as3_declaration_url: "",
+    ts_declaration_url: "",
+    tgstandby_url: "",
+    tgrefresh_url: "",
+    tgactive_url: ""
+  },
+  invalidCallback: () => {
+    return false;
+  },
+  invalidTextCallback: field => {
+    return `Invalid ${field} value`;
+  }
+};
+F5VsiTemplateForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    license_type: PropTypes__default["default"].string.isRequired,
+    tmos_admin_password: PropTypes__default["default"].string.isRequired,
+    byol_license_basekey: PropTypes__default["default"].string.isRequired,
+    license_username: PropTypes__default["default"].string.isRequired,
+    license_password: PropTypes__default["default"].string.isRequired,
+    license_host: PropTypes__default["default"].string.isRequired,
+    license_pool: PropTypes__default["default"].string.isRequired,
+    license_unit_of_measure: PropTypes__default["default"].string.isRequired,
+    license_sku_keyword_1: PropTypes__default["default"].string.isRequired,
+    license_sku_keyword_2: PropTypes__default["default"].string.isRequired,
+    template_version: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].string]).isRequired,
+    template_source: PropTypes__default["default"].string.isRequired,
+    app_id: PropTypes__default["default"].string.isRequired,
+    phone_home_url: PropTypes__default["default"].string.isRequired,
+    do_declaration_url: PropTypes__default["default"].string.isRequired,
+    as3_declaration_url: PropTypes__default["default"].string.isRequired,
+    ts_declaration_url: PropTypes__default["default"].string.isRequired,
+    tgstandby_url: PropTypes__default["default"].string.isRequired,
+    tgrefresh_url: PropTypes__default["default"].string.isRequired,
+    tgactive_url: PropTypes__default["default"].string.isRequired
+  }),
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired
+};
+
+const {
   isWholeNumber,
   isInRange
 } = lazyZ__default["default"];
@@ -9201,11 +10251,123 @@ ObjectStorageBucketForm.propTypes = {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> d0c2ed2 (Issue 687: IamAccountSettingsForm (#34))
 =======
 >>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 =======
 >>>>>>> 2a431c4 (feat: better exports)
+=======
+/**
+ * Object storage
+ */
+var ObjectStorageInstancesForm = /*#__PURE__*/function (_Component) {
+  _inherits(ObjectStorageInstancesForm, _Component);
+  var _super = _createSuper(ObjectStorageInstancesForm);
+  function ObjectStorageInstancesForm(props) {
+    var _this;
+    _classCallCheck(this, ObjectStorageInstancesForm);
+    _this = _super.call(this, props);
+    _this.state = _objectSpread2({}, _this.props.data);
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in the instance
+   * @param {*} value value
+   */
+  _createClass(ObjectStorageInstancesForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(name, value) {
+      var inst = _objectSpread2({}, this.state);
+      inst[name] = value;
+      this.setState(_objectSpread2({}, inst));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this,
+        _this$props;
+      var composedId = "object-storage-form-".concat(this.props.data.name, "-");
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        tooltip: {
+          content: "Service credentials and buckets will be created for your environment even when using an existing Object Storage instance."
+        },
+        id: composedId + "use-data",
+        toggleFieldName: "use_data",
+        labelText: "Use Existing Instance",
+        defaultToggled: this.state.use_data,
+        onToggle: this.handleInputChange,
+        isModal: this.props.isModal
+      }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        tooltip: {
+          content: "Object storage bucket names must be unique across an account. Append a random suffix to maintain unique names across deployments."
+        },
+        id: composedId + "random-suffix",
+        labelText: "Append Random Suffix to Names",
+        toggleFieldName: "random_suffix",
+        defaultToggled: this.state.random_suffix,
+        onToggle: this.handleInputChange,
+        isModal: this.props.isModal
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+        id: this.state.name + "-name",
+        componentName: this.props.data.name,
+        value: this.state.name,
+        onChange: function onChange(event) {
+          return _this2.handleInputChange("name", event.target.value);
+        },
+        helperTextCallback: function helperTextCallback() {
+          return _this2.props.composedNameCallback(_this2.state, _this2.props);
+        },
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props)
+      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: "resource_group",
+        name: "resource_group",
+        labelText: "Resource Group",
+        groups: this.props.resourceGroups,
+        value: this.state.resource_group,
+        handleInputChange: function handleInputChange(event) {
+          return _this2.handleInputChange("resource_group", event.target.value);
+        }
+      })), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, (_this$props = this.props) === null || _this$props === void 0 ? void 0 : _this$props.subForms.map(function (form, index) {
+        return /*#__PURE__*/React__default["default"].createElement("div", {
+          key: index
+        }, form);
+      })));
+    }
+  }]);
+  return ObjectStorageInstancesForm;
+}(React.Component);
+ObjectStorageInstancesForm.defaultProps = {
+  data: {
+    name: "",
+    use_data: false,
+    resource_group: "",
+    random_suffix: true
+  },
+  resourceGroups: []
+};
+ObjectStorageInstancesForm.propTypes = {
+  isModal: PropTypes__default["default"].bool,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    use_data: PropTypes__default["default"].bool.isRequired,
+    resource_group: PropTypes__default["default"].string,
+    random_suffix: PropTypes__default["default"].bool.isRequired
+  }),
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  composedNameCallback: PropTypes__default["default"].func.isRequired,
+  subForms: PropTypes__default["default"].arrayOf(PropTypes__default["default"].node)
+};
+
+>>>>>>> 81d03a4 (Issue 718: F5VsiTemplateForm (#45))
 var ObjectStorageKeyForm = /*#__PURE__*/function (_Component) {
   _inherits(ObjectStorageKeyForm, _Component);
   var _super = _createSuper(ObjectStorageKeyForm);
@@ -9312,6 +10474,7 @@ ObjectStorageKeyForm.propTypes = {
   composedNameCallback: PropTypes__default["default"].func.isRequired
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -9522,10 +10685,54 @@ var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
       this.setState({
         key_name: event.target.value
       });
+=======
+/** Resource Groups
+ * @param {Object} props
+ */
+var ResourceGroupForm = /*#__PURE__*/function (_Component) {
+  _inherits(ResourceGroupForm, _Component);
+  var _super = _createSuper(ResourceGroupForm);
+  function ResourceGroupForm(props) {
+    var _this;
+    _classCallCheck(this, ResourceGroupForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleTextInput = _this.handleTextInput.bind(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    return _this;
+  }
+  /**
+   * Toggle on and off param in state at name
+   * @param {string} name name of the object key to change
+   */
+  _createClass(ResourceGroupForm, [{
+    key: "handleToggle",
+    value: function handleToggle(name) {
+      // Turn off the use_prefix toggle when create is turned off.
+      if (name === "create" && this.state.create === true) {
+        var _this$setState;
+        this.setState((_this$setState = {}, _defineProperty(_this$setState, name, !this.state[name]), _defineProperty(_this$setState, "use_prefix", false), _this$setState));
+      } else {
+        this.setState(_defineProperty({}, name, !this.state[name]));
+      }
+    }
+
+    /**
+     * Handle input change for a text field
+     * @param {event} event
+     */
+  }, {
+    key: "handleTextInput",
+    value: function handleTextInput(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+>>>>>>> 81d03a4 (Issue 718: F5VsiTemplateForm (#45))
     }
   }, {
     key: "render",
     value: function render() {
+<<<<<<< HEAD
       return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
         id: "app-id-key-name",
         value: this.state.key_name,
@@ -9560,6 +10767,72 @@ AppIdKeyForm.propTypes = {
 >>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 =======
 >>>>>>> 2a431c4 (feat: better exports)
+=======
+      var _this2 = this;
+      var composedId = "resource-group-".concat(this.props.data.name, "-");
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        tooltip: {
+          content: "If true, get data from an existing resource group"
+        },
+        labelText: "Use Existing Instance",
+        toggleFieldName: this.props.toggleName,
+        defaultToggled: !this.state.create,
+        id: composedId + "-create-toggle",
+        onToggle: function onToggle() {
+          return _this2.handleToggle("create");
+        },
+        isModal: this.props.isModal
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+        noMarginBottom: true
+      }, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+        id: composedId,
+        componentName: "resource_groups",
+        value: this.state.name,
+        onChange: this.handleTextInput,
+        useData: this.state.create === false || this.state.use_prefix === false,
+        invalidCallback: function invalidCallback() {
+          return _this2.props.invalidCallback(_this2.state, _this2.props);
+        },
+        invalidText: this.props.invalidTextCallback(this.state, this.props),
+        helperTextCallback: function helperTextCallback() {
+          return _this2.props.helperTextCallback(_this2.state, _this2.props);
+        }
+      }), this.state.create && /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        tooltip: {
+          content: "Append your environment prefix to the beginning of the resource group."
+        },
+        labelText: "Use Prefix",
+        defaultToggled: this.state.use_prefix,
+        id: composedId + "-use-prefix-toggle",
+        onToggle: this.handleToggle,
+        isModal: this.props.isModal
+      })));
+    }
+  }]);
+  return ResourceGroupForm;
+}(React.Component);
+ResourceGroupForm.defaultProps = {
+  data: {
+    create: false,
+    name: "",
+    use_prefix: true
+  },
+  toggleName: "use_data",
+  isModal: false
+};
+ResourceGroupForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    create: PropTypes__default["default"].bool,
+    name: PropTypes__default["default"].string.isRequired,
+    use_prefix: PropTypes__default["default"].bool
+  }),
+  isModal: PropTypes__default["default"].bool.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  helperTextCallback: PropTypes__default["default"].func.isRequired
+};
+
+>>>>>>> 81d03a4 (Issue 718: F5VsiTemplateForm (#45))
 var sccRegions = [{
   id: "us",
   label: "us"
@@ -9812,6 +11085,7 @@ SecretsManagerForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$2 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
 styleInject(css_248z$2);
 
@@ -9840,6 +11114,10 @@ var css_248z$4 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  w
 var css_248z$4 = ".fieldWidth {\r\n  width: 14rem;\r\n}\r\n\r\n.fieldWidthSmaller {\r\n  width: 11rem;\r\n}\r\n";
 >>>>>>> 007ab0d (cos bucket form)
 styleInject(css_248z$4);
+=======
+var css_248z$3 = ".leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidthBigger {\n  width: 30rem\n}\n";
+styleInject(css_248z$3);
+>>>>>>> 81d03a4 (Issue 718: F5VsiTemplateForm (#45))
 
 var css_248z$3 = ".leftTextAlign {\r\n  text-align: left;\r\n}\r\n";
 =======
@@ -9952,6 +11230,235 @@ SshKeyForm.propTypes = {
   invalidKeyCallback: PropTypes__default["default"].func.isRequired
 };
 
+/**
+ * create a tile for each subnet
+ * @param {Object} props
+ * @returns {SubnetTile} react component
+ */
+var SubnetForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(SubnetForm, _React$Component);
+  var _super = _createSuper(SubnetForm);
+  function SubnetForm(props) {
+    var _this;
+    _classCallCheck(this, SubnetForm);
+    _this = _super.call(this, props);
+    _this.state = _objectSpread2({}, _this.props.data);
+    _this.handleSave = _this.handleSave.bind(_assertThisInitialized(_this));
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+  _createClass(SubnetForm, [{
+    key: "handleChange",
+    value: function handleChange(event) {
+      var _event$target = event.target,
+        name = _event$target.name,
+        value = _event$target.value;
+      this.setState(_defineProperty({}, name, value));
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      this.props.componentDidUpdateCallback(this.state, this.props);
+    }
+  }, {
+    key: "handleSave",
+    value: function handleSave() {
+      this.props.onSave(this.state, this.props);
+    }
+  }, {
+    key: "handleToggle",
+    value: function handleToggle() {
+      this.setState({
+        public_gateway: !this.state.public_gateway
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React__default["default"].createElement(react.Tile, {
+        key: this.props.vpc_name + "-subnets-" + this.props.data.name,
+        className: "marginRight fieldWidth"
+      }, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+        name: this.props.data.name,
+        type: "subHeading",
+        className: "marginBottomSmall",
+        buttons: /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+          hide: this.props.isModal,
+          show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+            disabled: this.props.disableSaveCallback(this.state, this.props),
+            onClick: this.handleSave,
+            noDeleteButton: true
+          })
+        })
+      }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+        className: "marginBottomSmall"
+      }, /*#__PURE__*/React__default["default"].createElement(react.TextInput, {
+        id: this.props.data.name + "-cidr",
+        invalidText: "Invalid subnet CIDR.",
+        labelText: "Subnet CIDR",
+        value: this.props.data.cidr,
+        className: "fieldWidthSmaller",
+        readOnly: true
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+        className: "marginBottomSmall"
+      }, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        name: "acl_name",
+        formName: "".concat(this.props.data.name, "-subnet-acl"),
+        labelText: "Network ACL",
+        groups: this.props.networkAcls,
+        value: this.state.acl_name,
+        handleInputChange: this.handleChange,
+        className: "fieldWidthSmaller",
+        disabled: this.props.isModal,
+        invalid: lazyZ.isNullOrEmptyString(this.state.acl_name),
+        invalidText: "Select a Network ACL."
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+        noMarginBottom: true
+      }, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        tooltip: {
+          content: "A Public Gateway must be enabled in this zone to use. To enable public gateways, see the VPC page."
+        },
+        id: "new-subnet-public-gateway-" + this.props.data.name,
+        labelText: "Use Public Gateway",
+        toggleFieldName: "public_gateway",
+        defaultToggled: this.state.public_gateway,
+        onToggle: this.handleToggle,
+        disabled: this.props.isModal || this.props.shouldDisableGatewayToggle(this.state, this.props)
+      })));
+    }
+  }]);
+  return SubnetForm;
+}(React__default["default"].Component);
+SubnetForm.defaultProps = {
+  isModal: false
+};
+SubnetForm.propTypes = _defineProperty({
+  isModal: PropTypes__default["default"].bool.isRequired,
+  onSave: PropTypes__default["default"].func,
+  vpc_name: PropTypes__default["default"].string.isRequired,
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    cidr: PropTypes__default["default"].string.isRequired,
+    public_gateway: PropTypes__default["default"].bool,
+    acl_name: PropTypes__default["default"].string.isRequired
+  }).isRequired,
+  disableSaveCallback: PropTypes__default["default"].func,
+  shouldDisableGatewayToggle: PropTypes__default["default"].func,
+  networkAcls: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  componentDidUpdateCallback: PropTypes__default["default"].func.isRequired
+}, "onSave", PropTypes__default["default"].func);
+
+var css_248z$2 = ".subnetTileFormMargin {\n  margin-bottom: -0.5rem;\n  margin-top: 0.5rem;\n}\n\n.marginRight {\n  margin-right: 10px;\n}\n";
+styleInject(css_248z$2);
+
+var SubnetTileForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(SubnetTileForm, _React$Component);
+  var _super = _createSuper(SubnetTileForm);
+  function SubnetTileForm(props) {
+    var _this;
+    _classCallCheck(this, SubnetTileForm);
+    _this = _super.call(this, props);
+    _this.state = {
+      subnetData: {}
+    };
+    if (!_this.props.isModal) {
+      _this.props.data.forEach(function (subnet) {
+        _this.state.subnetData[subnet.name] = true;
+      });
+    }
+    _this.shouldDisableGatewayToggle = _this.shouldDisableGatewayToggle.bind(_assertThisInitialized(_this));
+    _this.childSubnetHasChanged = _this.childSubnetHasChanged.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * check if child subnet has changed
+   * @param {Object} stateData
+   * @param {string} stateData.name
+   * @param {Object} componentProps
+   * @param {Object} componentProps.data
+   */
+  _createClass(SubnetTileForm, [{
+    key: "childSubnetHasChanged",
+    value: function childSubnetHasChanged(stateData, componentProps) {
+      var name = stateData.name;
+      if (this.state.subnetData[name] && !lazyZ.deepEqual(stateData, componentProps.data)) {
+        var subnetData = _objectSpread2({}, this.state.subnetData);
+        subnetData[name] = false;
+        this.setState({
+          subnetData: subnetData
+        });
+      }
+    }
+
+    /**
+     * check if gateway should be disabled
+     * @param {Object} stateData
+     * @param {string} stateData.name
+     */
+  }, {
+    key: "shouldDisableGatewayToggle",
+    value: function shouldDisableGatewayToggle(stateData) {
+      var zone = lazyZ.parseIntFromZone(stateData.name);
+      if (lazyZ.contains(this.props.enabledPublicGateways, zone)) {
+        return false;
+      } else return true;
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      var subnetMap = _toConsumableArray(this.props.data);
+      return /*#__PURE__*/React__default["default"].createElement(IcseSubForm, {
+        id: "subnet-tile-".concat(this.props.tier, "-").concat(this.props.vpc_name),
+        formInSubForm: true,
+        className: "popoverLeft subnetTileFormMargin"
+      }, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+        name: "Subnets",
+        type: "subHeading",
+        className: "marginBottomSmall"
+      }), /*#__PURE__*/React__default["default"].createElement("div", {
+        className: "displayFlex"
+      }, subnetMap.map(function (subnet) {
+        return /*#__PURE__*/React__default["default"].createElement(SubnetForm // change so doesn't show buttons
+        , {
+          key: "".concat(subnet.name, "-tile-").concat(_this2.props.tier, "-").concat(_this2.props.vpc_name, "-").concat(JSON.stringify(subnet)),
+          vpc_name: _this2.props.vpc_name,
+          data: subnet,
+          onSave: _this2.props.onSave,
+          isModal: _this2.props.isModal || _this2.props.readOnly,
+          componentDidUpdateCallback: _this2.childSubnetHasChanged,
+          networkAcls: _this2.props.networkAcls,
+          disableSaveCallback: _this2.props.disableSaveCallback,
+          shouldDisableGatewayToggle: _this2.shouldDisableGatewayToggle
+        });
+      })));
+    }
+  }]);
+  return SubnetTileForm;
+}(React__default["default"].Component);
+SubnetTileForm.defaultProps = {
+  isModal: false,
+  readOnly: false
+};
+SubnetTileForm.propTypes = {
+  isModal: PropTypes__default["default"].bool.isRequired,
+  disableSaveCallback: PropTypes__default["default"].func,
+  vpc_name: PropTypes__default["default"].string.isRequired,
+  tier: PropTypes__default["default"].string.isRequired,
+  networkAcls: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  onSave: PropTypes__default["default"].func,
+  data: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    cidr: PropTypes__default["default"].string.isRequired,
+    public_gateway: PropTypes__default["default"].bool,
+    acl_name: PropTypes__default["default"].string.isRequired
+  })),
+  readOnly: PropTypes__default["default"].bool.isRequired,
+  enabledPublicGateways: PropTypes__default["default"].arrayOf(PropTypes__default["default"].number).isRequired
+};
+
 var emailRegex = /^[\w-_\.]+@([\w-_]+\.)+[\w]{1,4}$/g;
 var TeleportClaimToRoleForm = /*#__PURE__*/function (_Component) {
   _inherits(TeleportClaimToRoleForm, _Component);
@@ -10029,6 +11536,7 @@ TeleportClaimToRoleForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$2 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
 styleInject(css_248z$2);
 
@@ -10037,6 +11545,10 @@ styleInject(css_248z$1);
 =======
 var css_248z$3 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
 styleInject(css_248z$3);
+=======
+var css_248z$1 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+styleInject(css_248z$1);
+>>>>>>> 81d03a4 (Issue 718: F5VsiTemplateForm (#45))
 
 var css_248z$2 = ".leftTextAlign {\n  text-align: left;\n}\n";
 styleInject(css_248z$2);
@@ -12182,6 +13694,161 @@ VpcNetworkForm.propTypes = {
   isModal: PropTypes__default["default"].bool.isRequired
 };
 
+var services = {
+  hpcs: "Hyper Protect Crypto Services",
+  kms: "Key Protect",
+  cos: "Object Storage",
+  icr: "Container Registry",
+  "Hyper Protect Crypto Services": "hpcs",
+  "Key Protect": "kms",
+  "Object Storage": "cos",
+  "Container Registry": "icr"
+};
+var serviceGroups = ["Hyper Protect Crypto Services", "Key Protect", "Object Storage", "Container Registry"];
+
+/**
+ * Vpe Form
+ */
+var VpeForm = /*#__PURE__*/function (_Component) {
+  _inherits(VpeForm, _Component);
+  var _super = _createSuper(VpeForm);
+  function VpeForm(props) {
+    var _this;
+    _classCallCheck(this, VpeForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleServiceDropdown = _this.handleServiceDropdown.bind(_assertThisInitialized(_this));
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleMultiSelect = _this.handleMultiSelect.bind(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * Handle input change
+   * @param {event} event
+   */
+  _createClass(VpeForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+
+    /**
+     * handle service dropdown
+     * @param {event} event event
+     */
+  }, {
+    key: "handleServiceDropdown",
+    value: function handleServiceDropdown(event) {
+      this.setState({
+        service: services[event.target.value]
+      });
+    }
+
+    /**
+     * Toggle on and off param in state at name
+     * @param {string} name name of the object key to change
+     */
+  }, {
+    key: "handleToggle",
+    value: function handleToggle(name) {
+      this.setState(_defineProperty({}, name, !this.state[name]));
+    }
+
+    /**
+     * handle multiselects
+     * @param {event} event
+     */
+  }, {
+    key: "handleMultiSelect",
+    value: function handleMultiSelect(name, event) {
+      this.setState(_defineProperty({}, name, event));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+        componentName: "Vpe",
+        field: "vpc",
+        labelText: "VPC Name",
+        className: "fieldWidthSmaller",
+        value: this.state.vpc,
+        onChange: function onChange() {} // nothing
+        ,
+        readOnly: true,
+        id: "vpe-vpc-name",
+        invalid: false
+      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        name: "service",
+        formName: "vpe",
+        groups: serviceGroups,
+        value: services[this.state.service],
+        labelText: "Service Type",
+        handleInputChange: this.handleServiceDropdown,
+        className: "fieldWidthSmaller"
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: "resource_group",
+        name: "resource_group",
+        labelText: "Resource Group",
+        groups: this.props.resourceGroups,
+        value: this.state.resource_group,
+        handleInputChange: this.handleInputChange,
+        className: "fieldWidthSmaller"
+      }), /*#__PURE__*/React__default["default"].createElement(SecurityGroupMultiSelect, {
+        id: "vpe-security-groups",
+        initialSelectedItems: this.state.security_groups,
+        vpc_name: this.state.vpc,
+        onChange: function onChange(event) {
+          return _this2.handleMultiSelect("security_groups", event);
+        },
+        securityGroups: this.props.securityGroups,
+        className: "fieldWidthSmaller",
+        invalid: this.state.security_groups.length === 0
+      }), /*#__PURE__*/React__default["default"].createElement(SubnetMultiSelect, {
+        id: "vpe-subnets",
+        initialSelectedItems: this.state.subnets,
+        vpc_name: this.state.vpc,
+        onChange: function onChange(event) {
+          return _this2.handleMultiSelect("subnets", event);
+        },
+        subnets: this.props.subnetList,
+        className: "fieldWidthSmaller"
+      })));
+    }
+  }]);
+  return VpeForm;
+}(React.Component);
+VpeForm.defaultProps = {
+  data: {
+    vpc: "",
+    service: "kms",
+    resource_group: "",
+    security_groups: [],
+    subnets: []
+  },
+  resourceGroups: [],
+  subnetList: [],
+  securityGroups: [],
+  isModal: false
+};
+VpeForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    vpc: PropTypes__default["default"].string.isRequired,
+    service: PropTypes__default["default"].string.isRequired,
+    resource_group: PropTypes__default["default"].string.isRequired,
+    security_groups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+    subnets: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+  }),
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  subnetList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  securityGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired
+};
+
 /**
  * vpn gateway form
  */
@@ -12295,6 +13962,213 @@ VpnGatewayForm.propTypes = {
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
   isModal: PropTypes__default["default"].bool.isRequired
+};
+
+var VsiForm = /*#__PURE__*/function (_Component) {
+  _inherits(VsiForm, _Component);
+  var _super = _createSuper(VsiForm);
+  function VsiForm(props) {
+    var _this;
+    _classCallCheck(this, VsiForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleMultiSelectChange = _this.handleMultiSelectChange.bind(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    return _this;
+  }
+  _createClass(VsiForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      var _event$target = event.target,
+        name = _event$target.name,
+        value = _event$target.value;
+      var stateChangeParams = _defineProperty({}, name, name === "vsi_per_subnet" && value !== "" ? Number(value) : value);
+      if (name === "vpc_name") lazyZ.transpose({
+        subnet_names: [],
+        subnet_name: ""
+      }, stateChangeParams);
+      this.setState(stateChangeParams);
+    }
+  }, {
+    key: "handleMultiSelectChange",
+    value: function handleMultiSelectChange(name, value) {
+      this.setState(this.setNameToValue(name, value));
+    }
+  }, {
+    key: "handleToggle",
+    value: function handleToggle(name) {
+      this.setState(this.toggleStateBoolean(name, this.state));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      var composedId = "vsi-deployment-form-".concat(this.props.data.name);
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+        id: composedId,
+        componentName: "vsi",
+        value: this.state.name,
+        onChange: this.handleInputChange,
+        invalid: this.props.invalidCallback(this.state),
+        invalidText: this.props.invalidTextCallback(this.state),
+        hideHelperText: true
+      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: "vsi_form",
+        name: "resource_group",
+        labelText: "Resource Group",
+        groups: this.props.resourceGroupList,
+        value: this.state.resource_group,
+        handleInputChange: this.handleInputChange
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: "vsi_form",
+        name: "vpc_name",
+        labelText: "VPC",
+        groups: this.props.vpcList,
+        value: this.state.vpc_name,
+        handleInputChange: this.handleInputChange,
+        invalid: lib_4(this.state.vpc_name),
+        invalidText: "Select a VPC."
+      }), this.props.isTeleport ?
+      /*#__PURE__*/
+      // render dropdown for teleport instance
+      React__default["default"].createElement(IcseSelect, {
+        formName: "vsi_form",
+        name: "subnet_name",
+        labelText: "Subnet",
+        groups: this.props.subnetList,
+        value: this.state.subnet_name,
+        handleInputChange: this.handleInputChange,
+        invalid: lib_4(this.state.vpc_name) || lib_4(this.state.subnet_name),
+        invalidText: lib_4(this.state.vpc_name) ? "No VPC Selected." : "Select a Subnet."
+      }) : /*#__PURE__*/React__default["default"].createElement(SubnetMultiSelect, {
+        id: "subnet",
+        initialSelectedItems: this.state.subnet_names,
+        vpc_name: this.state.vpc_name,
+        subnets: this.props.subnetList,
+        onChange: function onChange(value) {
+          return _this2.handleMultiSelectChange("subnet_names", value);
+        }
+      }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+        label: "Instances per Subnet",
+        id: composedId + "-vsi-per-subnet",
+        allowEmpty: false,
+        value: this.state.vsi_per_subnet,
+        defaultValue: 1,
+        max: 10,
+        min: 1,
+        onChange: this.handleInputChange,
+        name: "vsi_per_subnet",
+        hideSteppers: true,
+        invalidText: "Please input a number 1-10",
+        className: "fieldWidth leftTextAlign"
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(SshKeyMultiSelect, {
+        id: "sshkey",
+        sshKeys: this.props.sshKeyList,
+        onChange: function onChange(value) {
+          return _this2.handleMultiSelectChange("ssh_keys", value);
+        },
+        initialSelectedItems: this.state.ssh_keys
+      }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
+        formName: "vsi_form",
+        labelText: "Image",
+        name: "image_name",
+        apiEndpoint: this.props.apiEndpointImages,
+        handleInputChange: this.handleInputChange,
+        value: this.state.image_name
+      }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
+        formName: "vsi_form",
+        labelText: "Flavor",
+        name: "machine_type",
+        apiEndpoint: this.props.apiEndpointFlavors,
+        handleInputChange: this.handleInputChange,
+        value: this.state.machine_type
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: "vsi_form",
+        name: "boot_volume_encryption_key_name",
+        labelText: "Encryption Key",
+        groups: this.props.encryptionKeyList,
+        value: this.state.boot_volume_encryption_key_name,
+        handleInputChange: this.handleInputChange,
+        invalid: this.props.invalidCallback(this.state),
+        invalidText: "Select a valid encryption key."
+      }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        id: composedId + "-fips-toggle",
+        labelText: "Enable Floating IP",
+        defaultToggled: this.state.enable_floating_ip,
+        onToggle: this.handleToggle
+      })), /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+        hide: this.props.isTeleport,
+        show: /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
+          id: composedId + "-vsi-user-data",
+          placeholder: "Cloud init data",
+          labelText: "User Data",
+          name: "user_data",
+          value: this.state.user_data || "",
+          onChange: this.handleInputChange,
+          invalidText: "Invalid error message.",
+          className: "fieldWidthBigger"
+        }))
+      }));
+    }
+  }]);
+  return VsiForm;
+}(React.Component);
+VsiForm.defaultProps = {
+  data: {
+    name: "",
+    ssh_keys: [],
+    subnet_name: "",
+    subnet_names: [],
+    enable_floating_ip: false,
+    vpc_name: "",
+    image_name: "",
+    machine_type: "",
+    resource_group: "",
+    boot_volume_encryption_key_name: "",
+    vsi_per_subnet: 1
+  },
+  isModal: false,
+  isTeleport: false,
+  resourceGroupList: [],
+  vpcList: [],
+  subnetList: [],
+  sshKeyList: [],
+  encryptionKeyList: [],
+  apiEndpointImages: "",
+  apiEndpointFlavors: ""
+};
+VsiForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string,
+    ssh_keys: PropTypes__default["default"].array,
+    subnet_name: PropTypes__default["default"].string,
+    subnet_names: PropTypes__default["default"].array,
+    enable_floating_ip: PropTypes__default["default"].bool,
+    vpc_name: PropTypes__default["default"].string,
+    image_name: PropTypes__default["default"].string,
+    machine_type: PropTypes__default["default"].string,
+    resource_group: PropTypes__default["default"].string,
+    boot_volume_encryption_key_name: PropTypes__default["default"].string,
+    vsi_per_subnet: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].string])
+  }).isRequired,
+  /* bools */
+  isModal: PropTypes__default["default"].bool.isRequired,
+  isTeleport: PropTypes__default["default"].bool.isRequired,
+  /* lists */
+  resourceGroupList: PropTypes__default["default"].array.isRequired,
+  vpcList: PropTypes__default["default"].array.isRequired,
+  subnetList: PropTypes__default["default"].array.isRequired,
+  sshKeyList: PropTypes__default["default"].array.isRequired,
+  encryptionKeyList: PropTypes__default["default"].array.isRequired,
+  /* api endpoints */
+  apiEndpointImages: PropTypes__default["default"].string.isRequired,
+  apiEndpointFlavors: PropTypes__default["default"].string.isRequired,
+  /* callbacks */
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired
 };
 
 var WorkerPoolForm = /*#__PURE__*/function (_Component) {
@@ -12446,6 +14320,7 @@ var UnderConstruction = function UnderConstruction() {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}";
 styleInject(css_248z);
 =======
@@ -12460,6 +14335,10 @@ styleInject(css_248z$2);
 var css_248z$2 = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}";
 styleInject(css_248z$2);
 >>>>>>> 2a431c4 (feat: better exports)
+=======
+var css_248z = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}";
+styleInject(css_248z);
+>>>>>>> 81d03a4 (Issue 718: F5VsiTemplateForm (#45))
 
 /**
  * StatefulTabPanel wrapper for non array forms
@@ -16188,6 +18067,7 @@ IcseFormTemplate.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 82a5f28 (Issue 681: IcseFormTemplate (#38))
 =======
 var AccessGroupForm = /*#__PURE__*/function (_React$Component) {
@@ -18278,6 +20158,8 @@ AccessGroupDynamicPolicyForm.propTypes = {
   helperTextCallback: PropTypes__default["default"].func.isRequired
 };
 
+=======
+>>>>>>> 81d03a4 (Issue 718: F5VsiTemplateForm (#45))
 exports.AccessGroupDynamicPolicyForm = AccessGroupDynamicPolicyForm;
 exports.AccessGroupForm = AccessGroupForm;
 exports.AccessGroupPolicyForm = AccessGroupPolicyForm;
@@ -18449,6 +20331,7 @@ exports.EditCloseIcon = EditCloseIcon;
 exports.EmptyResourceTile = EmptyResourceTile;
 exports.EncryptionKeyForm = EncryptionKeyForm;
 exports.EntitlementSelect = EntitlementSelect;
+exports.F5VsiTemplateForm = F5VsiTemplateForm;
 exports.FetchSelect = FetchSelect;
 exports.FormModal = FormModal;
 exports.IamAccountSettingsForm = IamAccountSettingsForm;
