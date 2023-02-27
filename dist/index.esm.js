@@ -1430,7 +1430,7 @@ styleInject(css_248z$d);
  * @param {boolean} props.saveIsDisabled true if disabled
  * @returns Save Icon
  */
-var SaveIcon = function SaveIcon(props) {
+const SaveIcon = props => {
   return /*#__PURE__*/React.createElement(Save, {
     className: props.disabled ? "" : "tertiaryButtonColors"
   });
@@ -1446,7 +1446,7 @@ var SaveIcon = function SaveIcon(props) {
  * @param {boolean} props.disabled
  * @returns Save add button
  */
-var SaveAddButton = function SaveAddButton(props) {
+const SaveAddButton = props => {
   return /*#__PURE__*/React.createElement(PopoverWrapper, {
     hoverText: props.type === "add" && props.hoverText === "Save Changes" ? "Add Resource" : props.hoverText,
     className: (props.disabled ? "inlineBlock cursorNotAllowed" : "") + (props.inline ? " alignItemsCenter marginTopLarge inLineFormButton" : ""),
@@ -1487,9 +1487,9 @@ SaveAddButton.propTypes = {
  * @param {boolean} props.open toggle is open, defaults to false
  * @returns edit close icon
  */
-var EditCloseIcon = function EditCloseIcon(props) {
-  var hoverText = props.hoverText ? props.hoverText : props.open ? "Close" : props.type === "add" ? "Configure Resource" : "Edit Resource";
-  var icon = props.open ? /*#__PURE__*/React.createElement(CloseFilled, null) : props.type === "add" ? /*#__PURE__*/React.createElement(Add, null) : /*#__PURE__*/React.createElement(Edit, null);
+const EditCloseIcon = props => {
+  let hoverText = props.hoverText ? props.hoverText : props.open ? "Close" : props.type === "add" ? "Configure Resource" : "Edit Resource";
+  let icon = props.open ? /*#__PURE__*/React.createElement(CloseFilled, null) : props.type === "add" ? /*#__PURE__*/React.createElement(Add, null) : /*#__PURE__*/React.createElement(Edit, null);
   return /*#__PURE__*/React.createElement(PopoverWrapper, {
     hoverText: hoverText
   }, /*#__PURE__*/React.createElement("i", {
@@ -1517,7 +1517,7 @@ EditCloseIcon.defaultProps = {
  * @param {string} props.name classname
  *
  */
-var DeleteButton = function DeleteButton(props) {
+const DeleteButton = props => {
   return /*#__PURE__*/React.createElement("div", {
     className: "delete-area"
   }, /*#__PURE__*/React.createElement(PopoverWrapper, {
@@ -1555,7 +1555,7 @@ DeleteButton.propTypes = {
  * @param {Function} props.handleDown
  *
  */
-var UpDownButtons = function UpDownButtons(props) {
+const UpDownButtons = props => {
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Button, {
     key: "rule-up-" + props.name,
     disabled: props.disableUp,

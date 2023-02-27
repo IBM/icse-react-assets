@@ -1236,6 +1236,7 @@ styleInject(css_248z$d);
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var UnderConstruction = function UnderConstruction() {
   return /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(iconsReact.WarningAlt, {
     size: "128"
@@ -1247,6 +1248,9 @@ const SaveIcon = props => {
 =======
 var SaveIcon = function SaveIcon(props) {
 >>>>>>> 8d61926 (feat: stories for empty resource tile and under construction)
+=======
+const SaveIcon = props => {
+>>>>>>> 44e3e9d (Issue 747, 746, 738, 737, 763 (#59))
   return /*#__PURE__*/React__default["default"].createElement(iconsReact.Save, {
     className: props.disabled ? "" : "tertiaryButtonColors"
   });
@@ -1262,7 +1266,7 @@ var SaveIcon = function SaveIcon(props) {
  * @param {boolean} props.disabled
  * @returns Save add button
  */
-var SaveAddButton = function SaveAddButton(props) {
+const SaveAddButton = props => {
   return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
     hoverText: props.type === "add" && props.hoverText === "Save Changes" ? "Add Resource" : props.hoverText,
     className: (props.disabled ? "inlineBlock cursorNotAllowed" : "") + (props.inline ? " alignItemsCenter marginTopLarge inLineFormButton" : ""),
@@ -1303,9 +1307,9 @@ SaveAddButton.propTypes = {
  * @param {boolean} props.open toggle is open, defaults to false
  * @returns edit close icon
  */
-var EditCloseIcon = function EditCloseIcon(props) {
-  var hoverText = props.hoverText ? props.hoverText : props.open ? "Close" : props.type === "add" ? "Configure Resource" : "Edit Resource";
-  var icon = props.open ? /*#__PURE__*/React__default["default"].createElement(iconsReact.CloseFilled, null) : props.type === "add" ? /*#__PURE__*/React__default["default"].createElement(iconsReact.Add, null) : /*#__PURE__*/React__default["default"].createElement(iconsReact.Edit, null);
+const EditCloseIcon = props => {
+  let hoverText = props.hoverText ? props.hoverText : props.open ? "Close" : props.type === "add" ? "Configure Resource" : "Edit Resource";
+  let icon = props.open ? /*#__PURE__*/React__default["default"].createElement(iconsReact.CloseFilled, null) : props.type === "add" ? /*#__PURE__*/React__default["default"].createElement(iconsReact.Add, null) : /*#__PURE__*/React__default["default"].createElement(iconsReact.Edit, null);
   return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
     hoverText: hoverText
   }, /*#__PURE__*/React__default["default"].createElement("i", {
@@ -1333,7 +1337,7 @@ EditCloseIcon.defaultProps = {
  * @param {string} props.name classname
  *
  */
-var DeleteButton = function DeleteButton(props) {
+const DeleteButton = props => {
   return /*#__PURE__*/React__default["default"].createElement("div", {
     className: "delete-area"
   }, /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
@@ -1371,7 +1375,7 @@ DeleteButton.propTypes = {
  * @param {Function} props.handleDown
  *
  */
-var UpDownButtons = function UpDownButtons(props) {
+const UpDownButtons = props => {
   return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(react.Button, {
     key: "rule-up-" + props.name,
     disabled: props.disableUp,
