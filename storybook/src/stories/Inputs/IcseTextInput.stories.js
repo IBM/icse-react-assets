@@ -55,9 +55,33 @@ export default {
       type: { required: false },
     },
     tooltip: {
+      summary: "An optional object describing the tooltip for the input",
+      type: { required: false }, // required prop or not
+      control: "none",
+    },
+    ["tooltip.content"]: {
       description:
-        "An optional object to add a tooltip to the text input. Refer to the tooltip component for its args.",
-      type: { required: false },
+        "A string containing brief, supplemental information for the component it is tied to",
+      control: "none",
+      type: { required: true }, // required prop or not
+    },
+    ["tooltip.link"]: {
+      description:
+        "An optional string containing a custom hyperlink to be displayed with the content of the tooltip",
+      control: "none",
+      type: { required: false }, // required prop or not
+    },
+    ["tooltip.align"]: {
+      description:
+        'An optional string for tooltip alignment _(`align="top"` default value if no align prop is included)_. For all possible alignment directions refer to carbon components',
+      control: "none",
+      type: { required: false }, // required prop or not
+    },
+    ["tooltip.alignModal"]: {
+      description:
+        "An optional string used to dynamically alternate direction for tooltip text when rendered in modals",
+      control: "none",
+      type: { required: false }, // required prop or not
     },
     className: {
       description: "A string of classNames that can be added to the text input",
@@ -117,4 +141,21 @@ const IcseTextInputStory = ({ ...args }) => {
   );
 };
 
+const IcseTextInputWithTooltipStory = ({ ...args }) => {
+  const [value, setValue] = useState("");
+  const invalidCallback = function () {
+    return value === "";
+  };
+  return (
+    <IcseTextInput
+      {...args}
+      value={value}
+      onChange={(event) => setValue(event.target.value)}
+      invalidCallback={invalidCallback}
+      tooltip={{ content: "Optional tooltip example", align: "top" }}
+    />
+  );
+};
+
 export const Default = IcseTextInputStory.bind({});
+export const WithTooltip = IcseTextInputWithTooltipStory.bind({});
