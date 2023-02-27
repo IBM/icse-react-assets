@@ -7564,6 +7564,7 @@ var IcseModal = function IcseModal(props) {
     alert: props.alert,
     danger: props.danger,
     shouldSubmitOnEnter: true,
+    primaryButtonDisabled: props.primaryButtonDisabled,
     primaryButtonText: props.primaryButtonText,
     secondaryButtonText: props.secondaryButtonText,
     onRequestSubmit: props.onRequestSubmit,
