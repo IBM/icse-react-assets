@@ -5,10 +5,6 @@ import { VpcForm } from "icse-react-assets";
 export default {
   component: VpcForm,
   title: "Components/Forms/VpcForm",
-  args: {
-    name: "Example Heading",
-    type: "heading",
-  },
   argTypes: {
     data: {
       summary: "An optional object describing the tooltip for a title",
