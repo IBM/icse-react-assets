@@ -111,11 +111,7 @@ export default {
     },
   },
   decorators: [
-    (Story) => (
-      <div style={{ width: "95vw", height: "95vh" }}>
-        <Story />
-      </div>
-    ),
+    (Story) => <div style={{ width: "80vw", height: "95vh" }}>{Story()}</div>,
   ],
 };
 
