@@ -13337,7 +13337,7 @@ var StatefulTabPanel = /*#__PURE__*/function (_React$Component) {
             disabled: this.props.shouldDisableSave ? this.props.shouldDisableSave() : false
           })
         })
-      }), this.props.hideAbout && !this.props.about ? this.props.form : /*#__PURE__*/React__default["default"].createElement(react.Tabs, {
+      }), this.props.hideAbout ? this.props.form : /*#__PURE__*/React__default["default"].createElement(react.Tabs, {
         onChange: this.setSelectedIndex
       }, /*#__PURE__*/React__default["default"].createElement(react.TabList, {
         "aria-label": "formTabs"

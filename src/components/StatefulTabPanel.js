@@ -65,7 +65,7 @@ class StatefulTabPanel extends React.Component {
             }
           />
         )}
-        {this.props.hideAbout && !this.props.about ? (
+        {this.props.hideAbout ? (
           this.props.form
         ) : (
           <Tabs onChange={this.setSelectedIndex}>
