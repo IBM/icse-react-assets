@@ -149,6 +149,11 @@ export const IcseNameInput = (props) => {
   let helperText = "";
   // if helper text is not hidden
   if (!props.hideHelperText && !props.useData) {
+    if (!props.helperTextCallback) {
+      throw new Error(
+        "IcseNameInput expects either a function `helperTextCallback` that returns a string or `hideHelperText` as a prop, got neither."
+      );
+    }
     helperText = props.helperTextCallback();
   }
   return (

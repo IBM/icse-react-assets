@@ -47,7 +47,6 @@ const AppIdKeyFormStory = () => {
   }
 
   function invalidCallback(stateData, componentProps) {
-    console.log(stateData)
     return (
       validName(stateData.key_name) === false ||
       contains(["example-key"], stateData.key_name)
