@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { buildFormFunctions } from "../component-utils";
-import { prependEmptyStringWhenNull } from "../../lib";
 import { IcseTextInput } from "../Inputs";
 import "../styles/AppIdKeyForm.css";
 
@@ -9,11 +8,6 @@ class AppIdKeyForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.props.data;
-    let keyList =
-      this.props.keys.length === 0
-        ? [] // if no keys, empty array
-        : this.props.keys;
-    this.state.keys = keyList;
     this.handleInputChange = this.handleInputChange.bind(this);
     buildFormFunctions(this);
   }
@@ -38,16 +32,8 @@ class AppIdKeyForm extends React.Component {
           labelText="App ID Key"
           componentName="appid"
           className="fieldWidthSmaller"
-          invalid={this.props.invalidCallback(
-            "key_name",
-            this.state,
-            this.props
-          )}
-          invalidText={this.props.invalidTextCallback(
-            "key_name",
-            this.state,
-            this.props
-          )}
+          invalid={this.props.invalidCallback(this.state, this.props)}
+          invalidText={this.props.invalidTextCallback(this.state, this.props)}
         />
       </>
     );
@@ -57,7 +43,6 @@ class AppIdKeyForm extends React.Component {
 AppIdKeyForm.defaultProps = {
   data: {
     key_name: "",
-    keys: [],
   },
 };
 

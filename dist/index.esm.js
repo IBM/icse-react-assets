@@ -5999,6 +5999,7 @@ var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     var keyList = _this.props.keys.length === 0 ? [] // if no keys, empty array
     : _this.props.keys;
     _this.state.keys = keyList;
@@ -6009,6 +6010,8 @@ var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
     : _this.props.keys;
     _this.state.keys = keyList;
 >>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
+=======
+>>>>>>> 2e191c6 (Issue 750: AppIdForm, AppIdKeyForm, IamAccountSettingsForm (#78))
     _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
     buildFormFunctions(_assertThisInitialized(_this));
     return _this;
@@ -6057,6 +6060,7 @@ class AppIdKeyForm extends React.Component {
         labelText: "App ID Key",
         componentName: "appid",
         className: "fieldWidthSmaller",
+<<<<<<< HEAD
         invalid: this.props.invalidCallback("key_name", this.state, this.props),
         invalidText: this.props.invalidTextCallback("key_name", this.state, this.props)
 =======
@@ -6080,6 +6084,10 @@ class AppIdKeyForm extends React.Component {
         invalid: this.props.invalidCallback("key_name", this.state, this.props),
         invalidText: this.props.invalidTextCallback("key_name", this.state, this.props)
 >>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
+=======
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props)
+>>>>>>> 2e191c6 (Issue 750: AppIdForm, AppIdKeyForm, IamAccountSettingsForm (#78))
       }));
     }
   }]);
@@ -6113,6 +6121,7 @@ AppIdKeyForm.defaultProps = {
   data: {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     key_name: "",
     keys: []
 =======
@@ -6122,6 +6131,9 @@ AppIdKeyForm.defaultProps = {
     key_name: "",
     keys: []
 >>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
+=======
+    key_name: ""
+>>>>>>> 2e191c6 (Issue 750: AppIdForm, AppIdKeyForm, IamAccountSettingsForm (#78))
   }
 };
 AppIdKeyForm.propTypes = {

@@ -7545,6 +7545,7 @@ IcseNameInput.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$4 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
 styleInject(css_248z$4);
 =======
@@ -7564,6 +7565,22 @@ class AccessGroupForm extends React__default["default"].Component {
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+=======
+var css_248z$7 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
+styleInject(css_248z$7);
+
+var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(AppIdKeyForm, _React$Component);
+  var _super = _createSuper(AppIdKeyForm);
+  function AppIdKeyForm(props) {
+    var _this;
+    _classCallCheck(this, AppIdKeyForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    return _this;
+>>>>>>> 2e191c6 (Issue 750: AppIdForm, AppIdKeyForm, IamAccountSettingsForm (#78))
   }
 
   /**
@@ -8039,6 +8056,7 @@ class AppIdKeyForm extends React__default["default"].Component {
         labelText: "App ID Key",
         componentName: "appid",
         className: "fieldWidthSmaller",
+<<<<<<< HEAD
         invalid: this.props.invalidCallback("key_name", this.state, this.props),
         invalidText: this.props.invalidTextCallback("key_name", this.state, this.props)
 =======
@@ -8062,6 +8080,10 @@ class AppIdKeyForm extends React__default["default"].Component {
         invalid: this.props.invalidCallback("key_name", this.state, this.props),
         invalidText: this.props.invalidTextCallback("key_name", this.state, this.props)
 >>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
+=======
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props)
+>>>>>>> 2e191c6 (Issue 750: AppIdForm, AppIdKeyForm, IamAccountSettingsForm (#78))
       }));
     }
   }]);
@@ -8095,6 +8117,7 @@ AppIdKeyForm.defaultProps = {
   data: {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     key_name: "",
     keys: []
 =======
@@ -8104,6 +8127,9 @@ AppIdKeyForm.defaultProps = {
     key_name: "",
     keys: []
 >>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
+=======
+    key_name: ""
+>>>>>>> 2e191c6 (Issue 750: AppIdForm, AppIdKeyForm, IamAccountSettingsForm (#78))
   }
 };
 AppIdKeyForm.propTypes = {
