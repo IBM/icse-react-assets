@@ -337,7 +337,7 @@ var formUtils = {
 };
 
 const {
-  kebabCase
+  kebabCase: kebabCase$1
 } = lazyZ__default["default"];
 
 /**
@@ -347,7 +347,7 @@ const {
  * @returns {string} placeholder name
  */
 function formatInputPlaceholder$1(componentName, fieldName) {
-  return `my-${kebabCase(componentName)}-${kebabCase(fieldName)}`;
+  return `my-${kebabCase$1(componentName)}-${kebabCase$1(fieldName)}`;
 }
 var textUtils = {
   formatInputPlaceholder: formatInputPlaceholder$1
@@ -1434,9 +1434,18 @@ UpDownButtons.propTypes = {
   handleDown: PropTypes__default["default"].func.isRequired
 };
 
+<<<<<<< HEAD
 >>>>>>> b6bcf3f (feat: utils stories)
 var _require = require("lazy-z"),
   isFunction = _require.isFunction;
+=======
+var _require$1 = require("lazy-z"),
+  isFunction = _require$1.isFunction;
+var _require2 = require("../src/lib/method-functions"),
+  eventTargetToNameAndValue = _require2.eventTargetToNameAndValue,
+  toggleStateBoolean = _require2.toggleStateBoolean,
+  setNameToValue = _require2.setNameToValue;
+>>>>>>> 9774a8a (Issue 698: Networking Rule Form (#86))
 
 /**
  * build functions for modal forms
@@ -9140,7 +9149,7 @@ const commaSeparatedIpListExp = new RegexButWithWords().stringBegin().group(exp 
  * @param {*} value
  * @returns {boolean} true if null or empty string
  */
-function isNullOrEmptyString(value) {
+function isNullOrEmptyString$1(value) {
   return value === null || value === "";
 }
 
@@ -9152,7 +9161,7 @@ function isNullOrEmptyString(value) {
  * @returns {boolean} true if invalid
  */
 function isRangeInvalid(value, min, max) {
-  if (isNullOrEmptyString(value)) return false;
+  if (isNullOrEmptyString$1(value)) return false;
   value = parseFloat(value);
   if (!isWholeNumber(value) || !isInRange(value, min, max)) {
     return true;
@@ -9166,7 +9175,7 @@ function isRangeInvalid(value, min, max) {
  * @returns {boolean} true if invalid
  */
 function isIpStringInvalid(value) {
-  if (!isNullOrEmptyString(value) && value.match(commaSeparatedIpListExp) === null) {
+  if (!isNullOrEmptyString$1(value) && value.match(commaSeparatedIpListExp) === null) {
     return true;
   }
   return false;
@@ -18723,6 +18732,369 @@ SubnetTierForm.propTypes = {
   disableModal: PropTypes__default["default"].func
 };
 
+var _require = require("lazy-z"),
+  capitalize = _require.capitalize,
+  titleCase = _require.titleCase,
+  kebabCase = _require.kebabCase,
+  isIpv4CidrOrAddress = _require.isIpv4CidrOrAddress,
+  validPortRange = _require.validPortRange,
+  isNullOrEmptyString = _require.isNullOrEmptyString,
+  contains = _require.contains;
+
+/** NetworkingRuleForm
+ * @param {Object} props
+ * @param {configDotJson} props.configDotJson config dot json
+ * @param {slz} props.slz slz state store
+ */
+var NetworkingRuleForm = /*#__PURE__*/function (_Component) {
+  _inherits(NetworkingRuleForm, _Component);
+  var _super = _createSuper(NetworkingRuleForm);
+  function NetworkingRuleForm(props) {
+    var _this;
+    _classCallCheck(this, NetworkingRuleForm);
+    _this = _super.call(this, props);
+    _this.state = _objectSpread2({}, _this.props.data);
+    _this.handleInput = _this.handleInput.bind(_assertThisInitialized(_this));
+    _this.handleRuleUpdate = _this.handleRuleUpdate.bind(_assertThisInitialized(_this));
+    _this.handleRuleDelete = _this.handleRuleDelete.bind(_assertThisInitialized(_this));
+    _this.handleRuleDataUpdate = _this.handleRuleDataUpdate.bind(_assertThisInitialized(_this));
+    _this.toggleDeleteModal = _this.toggleDeleteModal.bind(_assertThisInitialized(_this));
+    _this.shouldDisableSave = _this.shouldDisableSave.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * Handle input change for a text field
+   * @param {String} inputName name of the field to set state
+   * @param {event} event
+   * @param {boolean=} lowercase set value to lowercase
+   */
+  _createClass(NetworkingRuleForm, [{
+    key: "handleInput",
+    value: function handleInput(inputName, event, lowercase) {
+      var newValue = lowercase ? event.target.value.toLowerCase() : event.target.value;
+      this.setState(_defineProperty({}, inputName, newValue));
+    }
+
+    /**
+     * Handler function for the rule updates
+     * @param {String} inputName name of the field to set state in Rule
+     * @param event event
+     */
+  }, {
+    key: "handleRuleDataUpdate",
+    value: function handleRuleDataUpdate(inputName, event) {
+      var value = parseInt(event.target.value) || null;
+      this.setState(function (prevState) {
+        return {
+          rule: _objectSpread2(_objectSpread2({}, prevState.rule), {}, _defineProperty({}, inputName, value))
+        };
+      });
+    }
+
+    /**
+     * update a network rule
+     */
+  }, {
+    key: "handleRuleUpdate",
+    value: function handleRuleUpdate() {
+      this.props.onSave(this.state, this.props);
+    }
+
+    /**
+     * delete a network rule
+     */
+  }, {
+    key: "handleRuleDelete",
+    value: function handleRuleDelete() {
+      this.props.onDelete(this.state, this.props);
+    }
+
+    /**
+     * toggle delete modal
+     */
+  }, {
+    key: "toggleDeleteModal",
+    value: function toggleDeleteModal() {
+      this.setState({
+        showDeleteModal: !this.state.showDeleteModal
+      });
+    }
+
+    /**
+     * Returns true if save should be disabled or if props match state (save disabled)
+     * @returns {boolean} if save is disabled
+     */
+  }, {
+    key: "shouldDisableSave",
+    value: function shouldDisableSave() {
+      return this.props.shouldDisableSave(this.state, this.props);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      var ruleName = this.props.isModal ? "new-rule" : this.props.data.name;
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement("div", {
+        key: "rule-div-" + ruleName,
+        className: "alignItemsCenter spaceBetween " + (!this.props.show ? "" : "marginBottomSmall") // add margin bottom small if shown
+      }, this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(DeleteModal, {
+        name: ruleName,
+        modalOpen: this.state.showDeleteModal,
+        onModalClose: this.toggleDeleteModal,
+        onModalSubmit: this.handleRuleDelete
+      }), /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+        hide: this.props.hide && this.props.isModal === true,
+        show: /*#__PURE__*/React__default["default"].createElement(StatelessToggleForm, {
+          key: "rule-name-" + ruleName,
+          name: this.props.isModal ? "" : ruleName // do not show name when modal
+          ,
+          onIconClick: this.props.onToggle,
+          toggleFormTitle: true,
+          hide: this.props.hide && this.props.isModal !== true,
+          hideIcon: this.props.isModal,
+          alwaysShowButtons: true,
+          buttons: this.props.isModal ? "" : this.props.hide === false ? /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+            onClick: this.handleRuleUpdate,
+            disabled: this.shouldDisableSave()
+          }), /*#__PURE__*/React__default["default"].createElement(DeleteButton, {
+            onClick: this.toggleDeleteModal,
+            name: ruleName
+          })) : /*#__PURE__*/React__default["default"].createElement(UpDownButtons, {
+            name: ruleName,
+            handleUp: this.props.handleUp,
+            handleDown: this.props.handleDown,
+            disableUp: this.props.disableUp,
+            disableDown: this.props.disableDown
+          })
+        }, /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+          id: this.state.name + "-name",
+          componentName: this.props.data.name + "-rule",
+          value: this.state.name,
+          onChange: function onChange(event) {
+            return _this2.handleInput("name", event);
+          },
+          invalidCallback: function invalidCallback() {
+            return _this2.props.invalidCallback(_this2.state, _this2.props);
+          },
+          invalidTextCallback: function invalidTextCallback() {
+            return _this2.props.invalidCallback(_this2.state, _this2.props);
+          },
+          hideHelperText: true,
+          className: "fieldWidthSmall"
+        }), !this.props.isSecurityGroup && /*#__PURE__*/React__default["default"].createElement(NetworkingRuleSelect, {
+          state: this.state,
+          name: "action",
+          onChange: this.handleInput,
+          groups: ["Allow", "Deny"],
+          props: this.props
+        }), /*#__PURE__*/React__default["default"].createElement(NetworkingRuleSelect, {
+          name: "direction",
+          state: this.state,
+          onChange: this.handleInput,
+          groups: ["Inbound", "Outbound"],
+          props: this.props
+        }), this.props.isSecurityGroup && /*#__PURE__*/React__default["default"].createElement(NetworkingRuleTextField, {
+          name: "source",
+          state: this.state,
+          onChange: this.handleInput
+        })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, !this.props.isSecurityGroup && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(NetworkingRuleTextField, {
+          name: "source",
+          state: this.state,
+          onChange: this.handleInput
+        }), /*#__PURE__*/React__default["default"].createElement(NetworkingRuleTextField, {
+          name: "destination",
+          state: this.state,
+          onChange: this.handleInput
+        })), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+          formName: ruleName + "-protocol",
+          groups: ["ALL", "TCP", "UDP", "ICMP"],
+          value: this.state.ruleProtocol.toUpperCase(),
+          labelText: "Protocol",
+          name: "ruleProtocol",
+          handleInputChange: function handleInputChange(event) {
+            return _this2.handleInput("ruleProtocol", event, true);
+          },
+          className: "fieldWidthSmaller"
+        })), (this.state.ruleProtocol === "tcp" || this.state.ruleProtocol === "udp") && /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(NetworkingRuleProtocolTextField, {
+          name: "port_min",
+          state: this.state,
+          onChange: this.handleRuleDataUpdate
+        }), /*#__PURE__*/React__default["default"].createElement(NetworkingRuleProtocolTextField, {
+          name: "port_max",
+          state: this.state,
+          onChange: this.handleRuleDataUpdate
+        })), !this.props.isSecurityGroup && /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(NetworkingRuleProtocolTextField, {
+          name: "source_port_min",
+          state: this.state,
+          onChange: this.handleRuleDataUpdate
+        }), /*#__PURE__*/React__default["default"].createElement(NetworkingRuleProtocolTextField, {
+          name: "source_port_max",
+          state: this.state,
+          onChange: this.handleRuleDataUpdate
+        }))), this.state.ruleProtocol === "icmp" && /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(NetworkingRuleProtocolTextField, {
+          name: "type",
+          state: this.state,
+          onChange: this.handleRuleDataUpdate
+        }), /*#__PURE__*/React__default["default"].createElement(NetworkingRuleProtocolTextField, {
+          name: "code",
+          state: this.state,
+          onChange: this.handleRuleDataUpdate
+        }))))
+      })));
+    }
+  }]);
+  return NetworkingRuleForm;
+}(React.Component);
+NetworkingRuleForm.defaultProps = {
+  isSecurityGroup: false,
+  isModal: false,
+  disableUp: false,
+  disableDown: false,
+  data: {
+    name: "",
+    action: "allow",
+    direction: "inbound",
+    source: "",
+    destination: "",
+    ruleProtocol: "all",
+    rule: {
+      port_max: null,
+      port_min: null,
+      source_port_max: null,
+      source_port_min: null,
+      type: null,
+      code: null
+    }
+  },
+  hide: false
+};
+NetworkingRuleForm.propTypes = {
+  isModal: PropTypes__default["default"].bool.isRequired,
+  // functions only used when not modal
+  onSave: PropTypes__default["default"].func,
+  onDelete: PropTypes__default["default"].func,
+  onToggle: PropTypes__default["default"].func,
+  disableDown: PropTypes__default["default"].bool,
+  disableUp: PropTypes__default["default"].bool,
+  handleDown: PropTypes__default["default"].func,
+  handleUp: PropTypes__default["default"].func,
+  // functions for components
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  hide: PropTypes__default["default"].bool.isRequired,
+  data: PropTypes__default["default"].shape({
+    action: PropTypes__default["default"].string,
+    // not required for sg
+    destination: PropTypes__default["default"].string,
+    // not required for sg
+    direction: PropTypes__default["default"].string.isRequired,
+    name: PropTypes__default["default"].string.isRequired,
+    rule: PropTypes__default["default"].shape({
+      // can be null
+      port_min: PropTypes__default["default"].number,
+      port_max: PropTypes__default["default"].number,
+      source_port_min: PropTypes__default["default"].number,
+      source_port_max: PropTypes__default["default"].number,
+      type: PropTypes__default["default"].number,
+      code: PropTypes__default["default"].number
+    }).isRequired,
+    source: PropTypes__default["default"].string.isRequired
+  }),
+  isSecurityGroup: PropTypes__default["default"].bool.isRequired
+};
+
+/**
+ * readability shortcut for nw rules
+ * @param {*} props
+ * @param {string} props.name field to update
+ * @param {Object} props.state parent state
+ * @param {Function} props.onChange onchange function
+ */
+var NetworkingRuleTextField = function NetworkingRuleTextField(props) {
+  return /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+    id: "".concat(props.state.name, "-nw-").concat(kebabCase(props.name), "-input"),
+    field: props.name,
+    labelText: titleCase(props.name),
+    value: String(props.state[props.name]),
+    onChange: function onChange(e) {
+      return props.onChange(props.name, e);
+    },
+    className: "fieldWidthSmaller",
+    placeholder: "x.x.x.x",
+    invalidText: "Please provide a valid IPV4 IP address or CIDR notation.",
+    invalidCallback: function invalidCallback() {
+      return isIpv4CidrOrAddress(props.state[props.name]) === false;
+    }
+  });
+};
+NetworkingRuleTextField.propTypes = {
+  name: PropTypes__default["default"].string.isRequired,
+  state: PropTypes__default["default"].shape({}).isRequired,
+  onChange: PropTypes__default["default"].func.isRequired
+};
+
+/**
+ * rule protocol text field
+ * @param {*} props
+ * @param {string} props.name field to update
+ * @param {Object} props.state parent state
+ * @param {Function} props.onChange onchange function
+ */
+var NetworkingRuleProtocolTextField = function NetworkingRuleProtocolTextField(props) {
+  return /*#__PURE__*/React__default["default"].createElement(react.TextInput, {
+    id: "".concat(props.state.name, "-nw-").concat(kebabCase(props.name), "-input"),
+    labelText: titleCase(props.name),
+    placeholder: String(props.state.rule[props.name] || ""),
+    value: props.state.rule[props.name] || "",
+    onChange: function onChange(e) {
+      return props.onChange(props.name, e);
+    },
+    invalid: validPortRange(props.name, props.state.rule[props.name] || -1) === false && isNullOrEmptyString(props.state.rule[props.name]) === false,
+    invalidText: contains(["type", "code"], props.name) ? "0 to ".concat(props.name === "type" ? 254 : 255) : "1 to 65535",
+    className: "fieldWidthSmaller"
+  });
+};
+NetworkingRuleProtocolTextField.propTypes = {
+  name: PropTypes__default["default"].string.isRequired,
+  state: PropTypes__default["default"].shape({
+    rule: PropTypes__default["default"].shape({}).isRequired
+  }).isRequired,
+  onChange: PropTypes__default["default"].func.isRequired
+};
+
+/**
+ * readability shortcut for nw rules
+ * @param {*} props
+ * @param {string} props.name field to update
+ * @param {Object} props.state parent state
+ * @param {Function} props.onChange onchange function
+ * @param {Array<string>} props.groups list of groups for select
+ */
+var NetworkingRuleSelect = function NetworkingRuleSelect(props) {
+  return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+    formName: props.state.name + "-nw-rule-" + props.name,
+    name: props.name,
+    groups: props.groups,
+    value: capitalize(props.state[props.name]),
+    labelText: capitalize(props.name),
+    handleInputChange: function handleInputChange(e) {
+      return props.onChange(props.name, e, true);
+    },
+    className: "fieldWidthSmaller"
+  });
+};
+NetworkingRuleSelect.propTypes = {
+  name: PropTypes__default["default"].string.isRequired,
+  state: PropTypes__default["default"].shape({
+    rule: PropTypes__default["default"].shape({}).isRequired,
+    name: PropTypes__default["default"].string
+  }).isRequired,
+  onChange: PropTypes__default["default"].func.isRequired,
+  groups: PropTypes__default["default"].array.isRequired
+};
+
 var AccessGroupForm = /*#__PURE__*/function (_React$Component) {
   _inherits(AccessGroupForm, _React$Component);
   var _super = _createSuper(AccessGroupForm);
@@ -19655,6 +20027,7 @@ exports.IcseTextInput = IcseTextInput;
 exports.IcseToggle = IcseToggle;
 exports.IcseToolTip = IcseToolTip;
 exports.KeyManagementForm = KeyManagementForm;
+exports.NetworkingRuleForm = NetworkingRuleForm;
 exports.ObjectStorageBucketForm = ObjectStorageBucketForm;
 exports.ObjectStorageForm = ObjectStorageInstancesForm;
 exports.ObjectStorageKeyForm = ObjectStorageKeyForm;

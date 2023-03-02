@@ -710,6 +710,7 @@ import lazyZ, { isNullOrEmptyString as isNullOrEmptyString$1, kebabCase as kebab
 >>>>>>> 68bf364 (feat: subnet tile form)
 =======
 import { Popover, PopoverContent, Button, Toggletip, ToggletipButton, ToggletipContent, Link, Select, SelectItem, Tile, Modal, Toggle, TextInput, Form, NumberInput, TextArea, Dropdown, FilterableMultiSelect, Tabs, TabList, Tab, TabPanels, TabPanel, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody } from '@carbon/react';
+<<<<<<< HEAD
 import lazyZ, { isNullOrEmptyString as isNullOrEmptyString$1, kebabCase as kebabCase$1, isEmpty, buildNumberDropdownList, snakeCase, titleCase, isBoolean, capitalize, prettyJSON, parseIntFromZone, isFunction as isFunction$1, contains, transpose, deepEqual, eachKey } from 'lazy-z';
 >>>>>>> 06b8a89 (Migrated AppIdForm + Documentation (Issue692) (#47))
 =======
@@ -733,6 +734,9 @@ import lazyZ, { isNullOrEmptyString as isNullOrEmptyString$2, kebabCase as kebab
 import { Popover, PopoverContent, Button, Toggletip, ToggletipButton, ToggletipContent, Link, Select, SelectItem, Tile, Modal, Toggle, TextInput, Form, NumberInput, TextArea, Dropdown, FilterableMultiSelect, Tabs, TabList, Tab, TabPanels, TabPanel, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody } from '@carbon/react';
 import lazyZ, { isNullOrEmptyString as isNullOrEmptyString$1, kebabCase as kebabCase$1, isEmpty, buildNumberDropdownList, snakeCase, titleCase, isBoolean, capitalize, prettyJSON, parseIntFromZone, isFunction as isFunction$1, contains, transpose, deepEqual, eachKey } from 'lazy-z';
 >>>>>>> dc96cd8 (Revert "Issue 718: F5VsiTemplateForm (#45)" (#69))
+=======
+import lazyZ, { isNullOrEmptyString as isNullOrEmptyString$2, kebabCase as kebabCase$2, isEmpty, buildNumberDropdownList, snakeCase, titleCase as titleCase$1, isBoolean, capitalize as capitalize$1, prettyJSON, parseIntFromZone, isFunction as isFunction$1, contains as contains$1, transpose, deepEqual, eachKey } from 'lazy-z';
+>>>>>>> 9774a8a (Issue 698: Networking Rule Form (#86))
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Save, Add, CloseFilled, Edit, TrashCan, ArrowUp, ArrowDown, Information, CloudAlerting, WarningAlt } from '@carbon/icons-react';
@@ -876,7 +880,7 @@ var formUtils = {
 };
 
 const {
-  kebabCase
+  kebabCase: kebabCase$1
 } = lazyZ;
 
 /**
@@ -886,7 +890,7 @@ const {
  * @returns {string} placeholder name
  */
 function formatInputPlaceholder$1(componentName, fieldName) {
-  return `my-${kebabCase(componentName)}-${kebabCase(fieldName)}`;
+  return `my-${kebabCase$1(componentName)}-${kebabCase$1(fieldName)}`;
 }
 var textUtils = {
   formatInputPlaceholder: formatInputPlaceholder$1
@@ -1611,6 +1615,7 @@ UpDownButtons.propTypes = {
 };
 >>>>>>> b6bcf3f (feat: utils stories)
 
+<<<<<<< HEAD
 =======
 >>>>>>> f19dfef (merge)
 =======
@@ -1620,6 +1625,10 @@ UpDownButtons.propTypes = {
 >>>>>>> ee08088 (issue 700: transit gateway form)
 var _require = require("lazy-z"),
   isFunction = _require.isFunction;
+=======
+var _require$1 = require("lazy-z"),
+  isFunction = _require$1.isFunction;
+>>>>>>> 9774a8a (Issue 698: Networking Rule Form (#86))
 var _require2 = require("../src/lib/method-functions"),
   eventTargetToNameAndValue$2 = _require2.eventTargetToNameAndValue,
   toggleStateBoolean$2 = _require2.toggleStateBoolean,
@@ -4792,7 +4801,7 @@ var IcseSelect = function IcseSelect(props) {
   var invalid =
 >>>>>>> 2a431c4 (feat: better exports)
   // automatically set to invalid is is null or empty string and invalid not disabled
-  props.disableInvalid !== true && isNullOrEmptyString$1(props.value) ? true : props.invalid;
+  props.disableInvalid !== true && isNullOrEmptyString$2(props.value) ? true : props.invalid;
   var groups = props.groups.length === 0 ? [] // if no groups, empty array
   : lib_3(
   // otherwise try and prepend empty string if null
@@ -4803,7 +4812,7 @@ var IcseSelect = function IcseSelect(props) {
     console.log("GROUPS: ", groups);
   }
   return /*#__PURE__*/React.createElement(DynamicToolTipWrapper, _extends({
-    id: kebabCase$1(props.name) + "-dropdown-tooltip",
+    id: kebabCase$2(props.name) + "-dropdown-tooltip",
     innerForm: function innerForm() {
       return /*#__PURE__*/React.createElement(PopoverWrapper, {
         hoverText: props.value || ""
@@ -4811,7 +4820,7 @@ var IcseSelect = function IcseSelect(props) {
         ,
         className: props.tooltip ? "cds--form-item tooltip" : "cds--form-item"
       }, /*#__PURE__*/React.createElement(Select, {
-        id: kebabCase$1(props.formName + " " + props.name),
+        id: kebabCase$2(props.formName + " " + props.name),
         name: props.name,
         labelText: props.tooltip ? null : props.labelText,
         value: props.value || undefined,
@@ -5419,7 +5428,7 @@ var IcseToggle = function IcseToggle(props) {
     labelA: props.useOnOff ? "Off" : "False",
     labelB: props.useOnOff ? "On" : "True",
     labelText: props.tooltip ? " " : props.labelText,
-    id: kebabCase$1(toggleName) + "-icse-toggle-" + props.id,
+    id: kebabCase$2(toggleName) + "-icse-toggle-" + props.id,
     className: lib_2("leftTextAlign", props) + (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
     ,
 
@@ -5470,11 +5479,11 @@ IcseToggle.propTypes = {
  * @returns <IcseTextInput/> component
  */
 var IcseTextInput = function IcseTextInput(props) {
-  var fieldName = titleCase(props.field);
+  var fieldName = titleCase$1(props.field);
   return /*#__PURE__*/React.createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React.createElement(TextInput, {
     id: props.id,
     className: lib_2("leftTextAlign", props),
-    labelText: props.labelText ? props.labelText : titleCase(props.field),
+    labelText: props.labelText ? props.labelText : titleCase$1(props.field),
     placeholder: props.placeholder || lib_5(props.componentName, fieldName),
     name: props.field,
     value: props.value || "",
@@ -7088,7 +7097,7 @@ const commaSeparatedIpListExp = new RegexButWithWords().stringBegin().group(exp 
  * @param {*} value
  * @returns {boolean} true if null or empty string
  */
-function isNullOrEmptyString(value) {
+function isNullOrEmptyString$1(value) {
   return value === null || value === "";
 }
 
@@ -7100,7 +7109,7 @@ function isNullOrEmptyString(value) {
  * @returns {boolean} true if invalid
  */
 function isRangeInvalid(value, min, max) {
-  if (isNullOrEmptyString(value)) return false;
+  if (isNullOrEmptyString$1(value)) return false;
   value = parseFloat(value);
   if (!isWholeNumber(value) || !isInRange(value, min, max)) {
     return true;
@@ -7114,7 +7123,7 @@ function isRangeInvalid(value, min, max) {
  * @returns {boolean} true if invalid
  */
 function isIpStringInvalid(value) {
-  if (!isNullOrEmptyString(value) && value.match(commaSeparatedIpListExp) === null) {
+  if (!isNullOrEmptyString$1(value) && value.match(commaSeparatedIpListExp) === null) {
     return true;
   }
   return false;
@@ -7617,7 +7626,7 @@ var ObjectStorageBucketForm = /*#__PURE__*/function (_Component) {
         formName: "Object Storage Bucket",
         name: "storage_class",
         groups: ["Standard", "Vault", "Cold", "Smart"],
-        value: capitalize(this.state.storage_class),
+        value: capitalize$1(this.state.storage_class),
         labelText: "Bucket Class",
         handleInputChange: this.handleStorageClassChange
       })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
@@ -12802,7 +12811,7 @@ var SshKeyForm = /*#__PURE__*/function (_Component) {
         hideHelperText: true
       }), /*#__PURE__*/React.createElement(IcseSelect, {
         name: "resource_group",
-        formName: "".concat(kebabCase$1(this.props.data.name), "-ssh-rg-select"),
+        formName: "".concat(kebabCase$2(this.props.data.name), "-ssh-rg-select"),
         groups: this.props.resourceGroups,
         value: this.state.resource_group,
         handleInputChange: this.handleInputChange,
@@ -13147,9 +13156,9 @@ var SubnetMultiSelect = function SubnetMultiSelect(props) {
     titleText: "Subnets",
     name: props.name,
     label: props.label,
-    items: isNullOrEmptyString$1(props.vpc_name) ? [] : props.subnets,
+    items: isNullOrEmptyString$2(props.vpc_name) ? [] : props.subnets,
     initialSelectedItems: props.initialSelectedItems,
-    invalidText: isNullOrEmptyString$1(props.vpc_name) ? "Select a VPC." : "Select at least one subnet.",
+    invalidText: isNullOrEmptyString$2(props.vpc_name) ? "Select a VPC." : "Select at least one subnet.",
     invalid: props.initialSelectedItems.length === 0,
     disabled: props.disabled,
     onChange: function onChange(event) {
@@ -14799,12 +14808,12 @@ class VpcNetworkForm extends React.Component {
       })), /*#__PURE__*/React.createElement(IcseFormGroup, null, nameFields.map(function (field) {
         return /*#__PURE__*/React.createElement("div", {
           className: "fitContent",
-          key: _this2.props.data.name + "-" + kebabCase$1(field) + "-div"
+          key: _this2.props.data.name + "-" + kebabCase$2(field) + "-div"
         }, /*#__PURE__*/React.createElement(IcseTextInput, {
           id: composedId + "-" + field,
           componentName: "VPC Network",
           field: field,
-          labelText: titleCase(field),
+          labelText: titleCase$1(field),
           value: _this2.state[field],
           onChange: _this2.handleInputChange,
           invalid: _this2.props.invalidCallback(field, _this2.state, _this2.props),
@@ -18364,7 +18373,7 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
         // if a second param is passed
         var shownChildForms = _toConsumableArray(this.state.shownChildForms); // all forms
         // if contains index
-        if (contains(this.state.shownChildForms[index], childIndex)) {
+        if (contains$1(this.state.shownChildForms[index], childIndex)) {
           // remove index from list
           shownChildForms[index].splice(index, 1);
         } else {
@@ -18384,7 +18393,7 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
       } else {
         // if only parent index
         var shownForms = _toConsumableArray(this.state.shownArrayForms); // all forms
-        if (contains(this.state.shownArrayForms, index)) {
+        if (contains$1(this.state.shownArrayForms, index)) {
           // remove if contains
           shownForms.splice(index, 1);
         } else shownForms.push(index);
@@ -18423,14 +18432,14 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "shouldShow",
     value: function shouldShow(index) {
-      return this.props.parentToggle ? contains(this.props.parentToggle.shownChildren[this.props.parentToggle.index], index) // show children
-      : contains(this.state.shownArrayForms, index);
+      return this.props.parentToggle ? contains$1(this.props.parentToggle.shownChildren[this.props.parentToggle.index], index) // show children
+      : contains$1(this.state.shownArrayForms, index);
     }
   }, {
     key: "render",
     value: function render() {
       var _this2 = this;
-      var formattedName = kebabCase$1(this.props.name); // formatted component name
+      var formattedName = kebabCase$2(this.props.name); // formatted component name
       // enable submit field here is set to variable value to allow for passing to
       // child array components without needing to reference `this` directly
       return /*#__PURE__*/React.createElement("div", {
@@ -19959,8 +19968,240 @@ VsiForm.propTypes = {
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired
 };
+<<<<<<< HEAD
 =======
 >>>>>>> dc96cd8 (Revert "Issue 718: F5VsiTemplateForm (#45)" (#69))
+=======
+
+/**
+ * create a tile for each subnet
+ * @param {Object} props
+ * @returns {SubnetTile} react component
+ */
+var SubnetForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(SubnetForm, _React$Component);
+  var _super = _createSuper(SubnetForm);
+  function SubnetForm(props) {
+    var _this;
+    _classCallCheck(this, SubnetForm);
+    _this = _super.call(this, props);
+    _this.state = _objectSpread2({}, _this.props.data);
+    _this.handleSave = _this.handleSave.bind(_assertThisInitialized(_this));
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+  _createClass(SubnetForm, [{
+    key: "handleChange",
+    value: function handleChange(event) {
+      var _event$target = event.target,
+        name = _event$target.name,
+        value = _event$target.value;
+      this.setState(_defineProperty({}, name, value));
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      this.props.componentDidUpdateCallback(this.state, this.props);
+    }
+  }, {
+    key: "handleSave",
+    value: function handleSave() {
+      this.props.onSave(this.state, this.props);
+    }
+  }, {
+    key: "handleToggle",
+    value: function handleToggle() {
+      this.setState({
+        public_gateway: !this.state.public_gateway
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement(Tile, {
+        key: this.props.vpc_name + "-subnets-" + this.props.data.name,
+        className: "marginRight fieldWidth"
+      }, /*#__PURE__*/React.createElement(IcseHeading, {
+        name: this.props.data.name,
+        type: "subHeading",
+        className: "marginBottomSmall",
+        buttons: /*#__PURE__*/React.createElement(DynamicRender, {
+          hide: this.props.isModal,
+          show: /*#__PURE__*/React.createElement(SaveAddButton, {
+            disabled: this.props.disableSaveCallback(this.state, this.props),
+            onClick: this.handleSave,
+            noDeleteButton: true
+          })
+        })
+      }), /*#__PURE__*/React.createElement(IcseFormGroup, {
+        className: "marginBottomSmall"
+      }, /*#__PURE__*/React.createElement(TextInput, {
+        id: this.props.data.name + "-cidr",
+        invalidText: "Invalid subnet CIDR.",
+        labelText: "Subnet CIDR",
+        value: this.props.data.cidr,
+        className: "fieldWidthSmaller",
+        readOnly: true
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, {
+        className: "marginBottomSmall"
+      }, /*#__PURE__*/React.createElement(IcseSelect, {
+        name: "acl_name",
+        formName: "".concat(this.props.data.name, "-subnet-acl"),
+        labelText: "Network ACL",
+        groups: this.props.networkAcls,
+        value: this.state.acl_name,
+        handleInputChange: this.handleChange,
+        className: "fieldWidthSmaller",
+        disabled: this.props.isModal,
+        invalid: isNullOrEmptyString$2(this.state.acl_name),
+        invalidText: "Select a Network ACL."
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, {
+        noMarginBottom: true
+      }, /*#__PURE__*/React.createElement(IcseToggle, {
+        tooltip: {
+          content: "A Public Gateway must be enabled in this zone to use. To enable public gateways, see the VPC page."
+        },
+        id: "new-subnet-public-gateway-" + this.props.data.name,
+        labelText: "Use Public Gateway",
+        toggleFieldName: "public_gateway",
+        defaultToggled: this.state.public_gateway,
+        onToggle: this.handleToggle,
+        disabled: this.props.isModal || this.props.shouldDisableGatewayToggle(this.state, this.props)
+      })));
+    }
+  }]);
+  return SubnetForm;
+}(React.Component);
+SubnetForm.defaultProps = {
+  isModal: false
+};
+SubnetForm.propTypes = _defineProperty({
+  isModal: PropTypes.bool.isRequired,
+  onSave: PropTypes.func,
+  vpc_name: PropTypes.string.isRequired,
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    cidr: PropTypes.string.isRequired,
+    public_gateway: PropTypes.bool,
+    acl_name: PropTypes.string.isRequired
+  }).isRequired,
+  disableSaveCallback: PropTypes.func,
+  shouldDisableGatewayToggle: PropTypes.func,
+  networkAcls: PropTypes.arrayOf(PropTypes.string).isRequired,
+  componentDidUpdateCallback: PropTypes.func.isRequired
+}, "onSave", PropTypes.func);
+
+var css_248z$1 = ".subnetTileFormMargin {\n  margin-bottom: -0.5rem;\n  margin-top: 0.5rem;\n}\n\n.marginRight {\n  margin-right: 10px;\n}\n";
+styleInject(css_248z$1);
+
+var SubnetTileForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(SubnetTileForm, _React$Component);
+  var _super = _createSuper(SubnetTileForm);
+  function SubnetTileForm(props) {
+    var _this;
+    _classCallCheck(this, SubnetTileForm);
+    _this = _super.call(this, props);
+    _this.state = {
+      subnetData: {}
+    };
+    if (!_this.props.isModal) {
+      _this.props.data.forEach(function (subnet) {
+        _this.state.subnetData[subnet.name] = true;
+      });
+    }
+    _this.shouldDisableGatewayToggle = _this.shouldDisableGatewayToggle.bind(_assertThisInitialized(_this));
+    _this.childSubnetHasChanged = _this.childSubnetHasChanged.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * check if child subnet has changed
+   * @param {Object} stateData
+   * @param {string} stateData.name
+   * @param {Object} componentProps
+   * @param {Object} componentProps.data
+   */
+  _createClass(SubnetTileForm, [{
+    key: "childSubnetHasChanged",
+    value: function childSubnetHasChanged(stateData, componentProps) {
+      var name = stateData.name;
+      if (this.state.subnetData[name] && !deepEqual(stateData, componentProps.data)) {
+        var subnetData = _objectSpread2({}, this.state.subnetData);
+        subnetData[name] = false;
+        this.setState({
+          subnetData: subnetData
+        });
+      }
+    }
+
+    /**
+     * check if gateway should be disabled
+     * @param {Object} stateData
+     * @param {string} stateData.name
+     */
+  }, {
+    key: "shouldDisableGatewayToggle",
+    value: function shouldDisableGatewayToggle(stateData) {
+      var zone = parseIntFromZone(stateData.name);
+      if (contains$1(this.props.enabledPublicGateways, zone)) {
+        return false;
+      } else return true;
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      var subnetMap = _toConsumableArray(this.props.data);
+      return /*#__PURE__*/React.createElement(IcseSubForm, {
+        id: "subnet-tile-".concat(this.props.tier, "-").concat(this.props.vpc_name),
+        formInSubForm: true,
+        className: "popoverLeft subnetTileFormMargin"
+      }, /*#__PURE__*/React.createElement(IcseHeading, {
+        name: "Subnets",
+        type: "subHeading",
+        className: "marginBottomSmall"
+      }), /*#__PURE__*/React.createElement("div", {
+        className: "displayFlex"
+      }, subnetMap.map(function (subnet) {
+        return /*#__PURE__*/React.createElement(SubnetForm // change so doesn't show buttons
+        , {
+          key: "".concat(subnet.name, "-tile-").concat(_this2.props.tier, "-").concat(_this2.props.vpc_name, "-").concat(JSON.stringify(subnet)),
+          vpc_name: _this2.props.vpc_name,
+          data: subnet,
+          onSave: _this2.props.onSave,
+          isModal: _this2.props.isModal || _this2.props.readOnly,
+          componentDidUpdateCallback: _this2.childSubnetHasChanged,
+          networkAcls: _this2.props.networkAcls,
+          disableSaveCallback: _this2.props.disableSaveCallback,
+          shouldDisableGatewayToggle: _this2.shouldDisableGatewayToggle
+        });
+      })));
+    }
+  }]);
+  return SubnetTileForm;
+}(React.Component);
+SubnetTileForm.defaultProps = {
+  isModal: false,
+  readOnly: false
+};
+SubnetTileForm.propTypes = {
+  isModal: PropTypes.bool.isRequired,
+  disableSaveCallback: PropTypes.func,
+  vpc_name: PropTypes.string.isRequired,
+  tier: PropTypes.string.isRequired,
+  networkAcls: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onSave: PropTypes.func,
+  data: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    cidr: PropTypes.string.isRequired,
+    public_gateway: PropTypes.bool,
+    acl_name: PropTypes.string.isRequired
+  })),
+  readOnly: PropTypes.bool.isRequired,
+  enabledPublicGateways: PropTypes.arrayOf(PropTypes.number).isRequired
+};
+>>>>>>> 9774a8a (Issue 698: Networking Rule Form (#86))
 
 var css_248z = ".about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n";
 styleInject(css_248z);
@@ -20279,7 +20520,7 @@ var SubnetTierForm = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var composedId = "".concat(this.props.vpc_name, "-tier-").concat(this.props.data.name === "" ? "new-subnet-tier" : this.props.data.name);
       var formName = this.props.data.name + "-subnet-tier";
-      var tierName = this.props.data.name === "" ? "New Subnet Tier" : titleCase(formName).replace(/Vsi/g, "VSI").replace(/Vpe/g, "VPE").replace(/Vpn/g, "VPN");
+      var tierName = this.props.data.name === "" ? "New Subnet Tier" : titleCase$1(formName).replace(/Vsi/g, "VSI").replace(/Vpe/g, "VPE").replace(/Vpn/g, "VPN");
       return /*#__PURE__*/React.createElement(IcseSubForm, {
         formInSubForm: true,
         id: composedId,
@@ -20408,6 +20649,369 @@ SubnetTierForm.propTypes = {
   subnetListCallback: PropTypes.func.isRequired,
   enableModal: PropTypes.func,
   disableModal: PropTypes.func
+};
+
+var _require = require("lazy-z"),
+  capitalize = _require.capitalize,
+  titleCase = _require.titleCase,
+  kebabCase = _require.kebabCase,
+  isIpv4CidrOrAddress = _require.isIpv4CidrOrAddress,
+  validPortRange = _require.validPortRange,
+  isNullOrEmptyString = _require.isNullOrEmptyString,
+  contains = _require.contains;
+
+/** NetworkingRuleForm
+ * @param {Object} props
+ * @param {configDotJson} props.configDotJson config dot json
+ * @param {slz} props.slz slz state store
+ */
+var NetworkingRuleForm = /*#__PURE__*/function (_Component) {
+  _inherits(NetworkingRuleForm, _Component);
+  var _super = _createSuper(NetworkingRuleForm);
+  function NetworkingRuleForm(props) {
+    var _this;
+    _classCallCheck(this, NetworkingRuleForm);
+    _this = _super.call(this, props);
+    _this.state = _objectSpread2({}, _this.props.data);
+    _this.handleInput = _this.handleInput.bind(_assertThisInitialized(_this));
+    _this.handleRuleUpdate = _this.handleRuleUpdate.bind(_assertThisInitialized(_this));
+    _this.handleRuleDelete = _this.handleRuleDelete.bind(_assertThisInitialized(_this));
+    _this.handleRuleDataUpdate = _this.handleRuleDataUpdate.bind(_assertThisInitialized(_this));
+    _this.toggleDeleteModal = _this.toggleDeleteModal.bind(_assertThisInitialized(_this));
+    _this.shouldDisableSave = _this.shouldDisableSave.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * Handle input change for a text field
+   * @param {String} inputName name of the field to set state
+   * @param {event} event
+   * @param {boolean=} lowercase set value to lowercase
+   */
+  _createClass(NetworkingRuleForm, [{
+    key: "handleInput",
+    value: function handleInput(inputName, event, lowercase) {
+      var newValue = lowercase ? event.target.value.toLowerCase() : event.target.value;
+      this.setState(_defineProperty({}, inputName, newValue));
+    }
+
+    /**
+     * Handler function for the rule updates
+     * @param {String} inputName name of the field to set state in Rule
+     * @param event event
+     */
+  }, {
+    key: "handleRuleDataUpdate",
+    value: function handleRuleDataUpdate(inputName, event) {
+      var value = parseInt(event.target.value) || null;
+      this.setState(function (prevState) {
+        return {
+          rule: _objectSpread2(_objectSpread2({}, prevState.rule), {}, _defineProperty({}, inputName, value))
+        };
+      });
+    }
+
+    /**
+     * update a network rule
+     */
+  }, {
+    key: "handleRuleUpdate",
+    value: function handleRuleUpdate() {
+      this.props.onSave(this.state, this.props);
+    }
+
+    /**
+     * delete a network rule
+     */
+  }, {
+    key: "handleRuleDelete",
+    value: function handleRuleDelete() {
+      this.props.onDelete(this.state, this.props);
+    }
+
+    /**
+     * toggle delete modal
+     */
+  }, {
+    key: "toggleDeleteModal",
+    value: function toggleDeleteModal() {
+      this.setState({
+        showDeleteModal: !this.state.showDeleteModal
+      });
+    }
+
+    /**
+     * Returns true if save should be disabled or if props match state (save disabled)
+     * @returns {boolean} if save is disabled
+     */
+  }, {
+    key: "shouldDisableSave",
+    value: function shouldDisableSave() {
+      return this.props.shouldDisableSave(this.state, this.props);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      var ruleName = this.props.isModal ? "new-rule" : this.props.data.name;
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
+        key: "rule-div-" + ruleName,
+        className: "alignItemsCenter spaceBetween " + (!this.props.show ? "" : "marginBottomSmall") // add margin bottom small if shown
+      }, this.props.isModal !== true && /*#__PURE__*/React.createElement(DeleteModal, {
+        name: ruleName,
+        modalOpen: this.state.showDeleteModal,
+        onModalClose: this.toggleDeleteModal,
+        onModalSubmit: this.handleRuleDelete
+      }), /*#__PURE__*/React.createElement(DynamicRender, {
+        hide: this.props.hide && this.props.isModal === true,
+        show: /*#__PURE__*/React.createElement(StatelessToggleForm, {
+          key: "rule-name-" + ruleName,
+          name: this.props.isModal ? "" : ruleName // do not show name when modal
+          ,
+          onIconClick: this.props.onToggle,
+          toggleFormTitle: true,
+          hide: this.props.hide && this.props.isModal !== true,
+          hideIcon: this.props.isModal,
+          alwaysShowButtons: true,
+          buttons: this.props.isModal ? "" : this.props.hide === false ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(SaveAddButton, {
+            onClick: this.handleRuleUpdate,
+            disabled: this.shouldDisableSave()
+          }), /*#__PURE__*/React.createElement(DeleteButton, {
+            onClick: this.toggleDeleteModal,
+            name: ruleName
+          })) : /*#__PURE__*/React.createElement(UpDownButtons, {
+            name: ruleName,
+            handleUp: this.props.handleUp,
+            handleDown: this.props.handleDown,
+            disableUp: this.props.disableUp,
+            disableDown: this.props.disableDown
+          })
+        }, /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+          id: this.state.name + "-name",
+          componentName: this.props.data.name + "-rule",
+          value: this.state.name,
+          onChange: function onChange(event) {
+            return _this2.handleInput("name", event);
+          },
+          invalidCallback: function invalidCallback() {
+            return _this2.props.invalidCallback(_this2.state, _this2.props);
+          },
+          invalidTextCallback: function invalidTextCallback() {
+            return _this2.props.invalidCallback(_this2.state, _this2.props);
+          },
+          hideHelperText: true,
+          className: "fieldWidthSmall"
+        }), !this.props.isSecurityGroup && /*#__PURE__*/React.createElement(NetworkingRuleSelect, {
+          state: this.state,
+          name: "action",
+          onChange: this.handleInput,
+          groups: ["Allow", "Deny"],
+          props: this.props
+        }), /*#__PURE__*/React.createElement(NetworkingRuleSelect, {
+          name: "direction",
+          state: this.state,
+          onChange: this.handleInput,
+          groups: ["Inbound", "Outbound"],
+          props: this.props
+        }), this.props.isSecurityGroup && /*#__PURE__*/React.createElement(NetworkingRuleTextField, {
+          name: "source",
+          state: this.state,
+          onChange: this.handleInput
+        })), /*#__PURE__*/React.createElement(IcseFormGroup, null, !this.props.isSecurityGroup && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(NetworkingRuleTextField, {
+          name: "source",
+          state: this.state,
+          onChange: this.handleInput
+        }), /*#__PURE__*/React.createElement(NetworkingRuleTextField, {
+          name: "destination",
+          state: this.state,
+          onChange: this.handleInput
+        })), /*#__PURE__*/React.createElement(IcseSelect, {
+          formName: ruleName + "-protocol",
+          groups: ["ALL", "TCP", "UDP", "ICMP"],
+          value: this.state.ruleProtocol.toUpperCase(),
+          labelText: "Protocol",
+          name: "ruleProtocol",
+          handleInputChange: function handleInputChange(event) {
+            return _this2.handleInput("ruleProtocol", event, true);
+          },
+          className: "fieldWidthSmaller"
+        })), (this.state.ruleProtocol === "tcp" || this.state.ruleProtocol === "udp") && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NetworkingRuleProtocolTextField, {
+          name: "port_min",
+          state: this.state,
+          onChange: this.handleRuleDataUpdate
+        }), /*#__PURE__*/React.createElement(NetworkingRuleProtocolTextField, {
+          name: "port_max",
+          state: this.state,
+          onChange: this.handleRuleDataUpdate
+        })), !this.props.isSecurityGroup && /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NetworkingRuleProtocolTextField, {
+          name: "source_port_min",
+          state: this.state,
+          onChange: this.handleRuleDataUpdate
+        }), /*#__PURE__*/React.createElement(NetworkingRuleProtocolTextField, {
+          name: "source_port_max",
+          state: this.state,
+          onChange: this.handleRuleDataUpdate
+        }))), this.state.ruleProtocol === "icmp" && /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NetworkingRuleProtocolTextField, {
+          name: "type",
+          state: this.state,
+          onChange: this.handleRuleDataUpdate
+        }), /*#__PURE__*/React.createElement(NetworkingRuleProtocolTextField, {
+          name: "code",
+          state: this.state,
+          onChange: this.handleRuleDataUpdate
+        }))))
+      })));
+    }
+  }]);
+  return NetworkingRuleForm;
+}(Component);
+NetworkingRuleForm.defaultProps = {
+  isSecurityGroup: false,
+  isModal: false,
+  disableUp: false,
+  disableDown: false,
+  data: {
+    name: "",
+    action: "allow",
+    direction: "inbound",
+    source: "",
+    destination: "",
+    ruleProtocol: "all",
+    rule: {
+      port_max: null,
+      port_min: null,
+      source_port_max: null,
+      source_port_min: null,
+      type: null,
+      code: null
+    }
+  },
+  hide: false
+};
+NetworkingRuleForm.propTypes = {
+  isModal: PropTypes.bool.isRequired,
+  // functions only used when not modal
+  onSave: PropTypes.func,
+  onDelete: PropTypes.func,
+  onToggle: PropTypes.func,
+  disableDown: PropTypes.bool,
+  disableUp: PropTypes.bool,
+  handleDown: PropTypes.func,
+  handleUp: PropTypes.func,
+  // functions for components
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  hide: PropTypes.bool.isRequired,
+  data: PropTypes.shape({
+    action: PropTypes.string,
+    // not required for sg
+    destination: PropTypes.string,
+    // not required for sg
+    direction: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    rule: PropTypes.shape({
+      // can be null
+      port_min: PropTypes.number,
+      port_max: PropTypes.number,
+      source_port_min: PropTypes.number,
+      source_port_max: PropTypes.number,
+      type: PropTypes.number,
+      code: PropTypes.number
+    }).isRequired,
+    source: PropTypes.string.isRequired
+  }),
+  isSecurityGroup: PropTypes.bool.isRequired
+};
+
+/**
+ * readability shortcut for nw rules
+ * @param {*} props
+ * @param {string} props.name field to update
+ * @param {Object} props.state parent state
+ * @param {Function} props.onChange onchange function
+ */
+var NetworkingRuleTextField = function NetworkingRuleTextField(props) {
+  return /*#__PURE__*/React.createElement(IcseTextInput, {
+    id: "".concat(props.state.name, "-nw-").concat(kebabCase(props.name), "-input"),
+    field: props.name,
+    labelText: titleCase(props.name),
+    value: String(props.state[props.name]),
+    onChange: function onChange(e) {
+      return props.onChange(props.name, e);
+    },
+    className: "fieldWidthSmaller",
+    placeholder: "x.x.x.x",
+    invalidText: "Please provide a valid IPV4 IP address or CIDR notation.",
+    invalidCallback: function invalidCallback() {
+      return isIpv4CidrOrAddress(props.state[props.name]) === false;
+    }
+  });
+};
+NetworkingRuleTextField.propTypes = {
+  name: PropTypes.string.isRequired,
+  state: PropTypes.shape({}).isRequired,
+  onChange: PropTypes.func.isRequired
+};
+
+/**
+ * rule protocol text field
+ * @param {*} props
+ * @param {string} props.name field to update
+ * @param {Object} props.state parent state
+ * @param {Function} props.onChange onchange function
+ */
+var NetworkingRuleProtocolTextField = function NetworkingRuleProtocolTextField(props) {
+  return /*#__PURE__*/React.createElement(TextInput, {
+    id: "".concat(props.state.name, "-nw-").concat(kebabCase(props.name), "-input"),
+    labelText: titleCase(props.name),
+    placeholder: String(props.state.rule[props.name] || ""),
+    value: props.state.rule[props.name] || "",
+    onChange: function onChange(e) {
+      return props.onChange(props.name, e);
+    },
+    invalid: validPortRange(props.name, props.state.rule[props.name] || -1) === false && isNullOrEmptyString(props.state.rule[props.name]) === false,
+    invalidText: contains(["type", "code"], props.name) ? "0 to ".concat(props.name === "type" ? 254 : 255) : "1 to 65535",
+    className: "fieldWidthSmaller"
+  });
+};
+NetworkingRuleProtocolTextField.propTypes = {
+  name: PropTypes.string.isRequired,
+  state: PropTypes.shape({
+    rule: PropTypes.shape({}).isRequired
+  }).isRequired,
+  onChange: PropTypes.func.isRequired
+};
+
+/**
+ * readability shortcut for nw rules
+ * @param {*} props
+ * @param {string} props.name field to update
+ * @param {Object} props.state parent state
+ * @param {Function} props.onChange onchange function
+ * @param {Array<string>} props.groups list of groups for select
+ */
+var NetworkingRuleSelect = function NetworkingRuleSelect(props) {
+  return /*#__PURE__*/React.createElement(IcseSelect, {
+    formName: props.state.name + "-nw-rule-" + props.name,
+    name: props.name,
+    groups: props.groups,
+    value: capitalize(props.state[props.name]),
+    labelText: capitalize(props.name),
+    handleInputChange: function handleInputChange(e) {
+      return props.onChange(props.name, e, true);
+    },
+    className: "fieldWidthSmaller"
+  });
+};
+NetworkingRuleSelect.propTypes = {
+  name: PropTypes.string.isRequired,
+  state: PropTypes.shape({
+    rule: PropTypes.shape({}).isRequired,
+    name: PropTypes.string
+  }).isRequired,
+  onChange: PropTypes.func.isRequired,
+  groups: PropTypes.array.isRequired
 };
 
 var AccessGroupForm = /*#__PURE__*/function (_React$Component) {
@@ -20859,7 +21463,7 @@ var AccessGroupPolicyForm = /*#__PURE__*/function (_React$Component) {
         labelText: "Resource"
       })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
         name: "resource_group",
-        formName: "".concat(kebabCase$1(this.props.data.name), "-agp-rg-select"),
+        formName: "".concat(kebabCase$2(this.props.data.name), "-agp-rg-select"),
         groups: this.props.resourceGroups,
         value: this.state.resources.resource_group,
         handleInputChange: this.handleInputResource,
@@ -21143,6 +21747,7 @@ AccessGroupDynamicPolicyForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, VpnGatewayForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> f849341 (access group forms :100:)
 =======
@@ -21274,3 +21879,6 @@ export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, A
 =======
 export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VsiForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> 617d5ce (Issue 711: SubnetTierForm (#85))
+=======
+export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, NetworkingRuleForm, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VsiForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+>>>>>>> 9774a8a (Issue 698: Networking Rule Form (#86))
