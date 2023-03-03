@@ -91,7 +91,7 @@ class NetworkingRuleForm extends Component {
    * @returns {boolean} if save is disabled
    */
   shouldDisableSave() {
-    return this.props.shouldDisableSave(this.state, this.props);
+    return this.props.disableSaveCallback(this.state, this.props);
   }
 
   render() {
@@ -312,6 +312,7 @@ NetworkingRuleForm.propTypes = {
   disableUp: PropTypes.bool,
   handleDown: PropTypes.func,
   handleUp: PropTypes.func,
+  disableSaveCallback: PropTypes.func,
   // functions for components
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,

@@ -711,6 +711,7 @@ import lazyZ, { isNullOrEmptyString as isNullOrEmptyString$1, kebabCase as kebab
 =======
 import { Popover, PopoverContent, Button, Toggletip, ToggletipButton, ToggletipContent, Link, Select, SelectItem, Tile, Modal, Toggle, TextInput, Form, NumberInput, TextArea, Dropdown, FilterableMultiSelect, Tabs, TabList, Tab, TabPanels, TabPanel, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody } from '@carbon/react';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import lazyZ, { isNullOrEmptyString as isNullOrEmptyString$1, kebabCase as kebabCase$1, isEmpty, buildNumberDropdownList, snakeCase, titleCase, isBoolean, capitalize, prettyJSON, parseIntFromZone, isFunction as isFunction$1, contains, transpose, deepEqual, eachKey } from 'lazy-z';
 >>>>>>> 06b8a89 (Migrated AppIdForm + Documentation (Issue692) (#47))
 =======
@@ -737,6 +738,9 @@ import lazyZ, { isNullOrEmptyString as isNullOrEmptyString$1, kebabCase as kebab
 =======
 import lazyZ, { isNullOrEmptyString as isNullOrEmptyString$2, kebabCase as kebabCase$2, isEmpty, buildNumberDropdownList, snakeCase, titleCase as titleCase$1, isBoolean, capitalize as capitalize$1, prettyJSON, parseIntFromZone, isFunction as isFunction$1, contains as contains$1, transpose, deepEqual, eachKey } from 'lazy-z';
 >>>>>>> 9774a8a (Issue 698: Networking Rule Form (#86))
+=======
+import lazyZ, { isNullOrEmptyString as isNullOrEmptyString$2, kebabCase as kebabCase$2, isEmpty, buildNumberDropdownList, snakeCase, titleCase as titleCase$1, isBoolean, capitalize as capitalize$1, prettyJSON, parseIntFromZone, isFunction as isFunction$1, contains as contains$1, transpose as transpose$1, deepEqual, allFieldsNull, containsKeys, eachKey } from 'lazy-z';
+>>>>>>> ecca896 (Issue 707: NetworkingRuleOrderCard (#87))
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Save, Add, CloseFilled, Edit, TrashCan, ArrowUp, ArrowDown, Information, CloudAlerting, WarningAlt } from '@carbon/icons-react';
@@ -1306,6 +1310,7 @@ function addClassName(className, props) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 var css_248z$e = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  position: relative;\n  z-index: 9001;\n}";
 styleInject(css_248z$e);
@@ -1317,6 +1322,10 @@ styleInject(css_248z$f);
 var css_248z$e = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  position: relative;\n  z-index: 9001;\n}";
 styleInject(css_248z$e);
 >>>>>>> dc96cd8 (Revert "Issue 718: F5VsiTemplateForm (#45)" (#69))
+=======
+var css_248z$f = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  position: relative;\n  z-index: 9001;\n}";
+styleInject(css_248z$f);
+>>>>>>> ecca896 (Issue 707: NetworkingRuleOrderCard (#87))
 
 >>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
 /**
@@ -1445,8 +1454,8 @@ PopoverWrapper.propTypes = {
   children: PropTypes.node.isRequired
 };
 
-var css_248z$d = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important; \n}\n";
-styleInject(css_248z$d);
+var css_248z$e = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important; \n}\n";
+styleInject(css_248z$e);
 
 /**
  * generate save icon
@@ -2498,6 +2507,7 @@ function buildFormDefaultInputMethods$1(component) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var componentUtils = /*#__PURE__*/Object.freeze({
   __proto__: null,
   buildFormFunctions: buildFormFunctions$1,
@@ -2507,6 +2517,10 @@ var componentUtils = /*#__PURE__*/Object.freeze({
 =======
 };
 >>>>>>> 8655315 (changes (exports, readme, example))
+=======
+var css_248z$d = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+styleInject(css_248z$d);
+>>>>>>> ecca896 (Issue 707: NetworkingRuleOrderCard (#87))
 
 =======
 >>>>>>> b5b1ac6 (fixed build)
@@ -3076,6 +3090,7 @@ DynamicToolTipWrapper.propTypes = {
   innerForm: PropTypes.oneOfType([PropTypes.object, PropTypes.func])
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -4785,6 +4800,10 @@ styleInject(css_248z$a);
 var css_248z$b = ".textInputMedium {\n  width: 20rem;\n}";
 styleInject(css_248z$b);
 >>>>>>> dc96cd8 (Revert "Issue 718: F5VsiTemplateForm (#45)" (#69))
+=======
+var css_248z$c = ".textInputMedium {\n  width: 20rem;\n}";
+styleInject(css_248z$c);
+>>>>>>> ecca896 (Issue 707: NetworkingRuleOrderCard (#87))
 
 var IcseSelect = function IcseSelect(props) {
   var invalid =
@@ -5029,6 +5048,7 @@ EntitlementSelect.defaultProps = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$6 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$6);
 =======
@@ -5059,6 +5079,10 @@ styleInject(css_248z$9);
 var css_248z$a = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$a);
 >>>>>>> dc96cd8 (Revert "Issue 718: F5VsiTemplateForm (#45)" (#69))
+=======
+var css_248z$b = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z$b);
+>>>>>>> ecca896 (Issue 707: NetworkingRuleOrderCard (#87))
 
 /**
  * Empty Resource Tile
@@ -5089,6 +5113,7 @@ EmptyResourceTile.propTypes = {
   instructions: PropTypes.string
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -5127,6 +5152,10 @@ styleInject(css_248z$9);
 =======
 var css_248z$9 = ".displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
 styleInject(css_248z$9);
+=======
+var css_248z$a = ".displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
+styleInject(css_248z$a);
+>>>>>>> ecca896 (Issue 707: NetworkingRuleOrderCard (#87))
 
 >>>>>>> dc96cd8 (Revert "Issue 718: F5VsiTemplateForm (#45)" (#69))
 var _StatelessToggleForm$;
@@ -5390,6 +5419,7 @@ FormModal.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$5 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}";
 styleInject(css_248z$5);
 =======
@@ -5421,6 +5451,10 @@ styleInject(css_248z$7);
 var css_248z$8 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.textInputWide {\n  width: 30rem;\n}";
 styleInject(css_248z$8);
 >>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
+=======
+var css_248z$9 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.textInputWide {\n  width: 30rem;\n}";
+styleInject(css_248z$9);
+>>>>>>> ecca896 (Issue 707: NetworkingRuleOrderCard (#87))
 
 var IcseToggle = function IcseToggle(props) {
   var toggleName = props.toggleFieldName || snakeCase(props.labelText);
@@ -5579,6 +5613,7 @@ IcseNameInput.propTypes = {
   invalidCallback: PropTypes.func
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -5995,6 +6030,10 @@ styleInject(css_248z$6);
 var css_248z$7 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
 styleInject(css_248z$7);
 >>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
+=======
+var css_248z$8 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
+styleInject(css_248z$8);
+>>>>>>> ecca896 (Issue 707: NetworkingRuleOrderCard (#87))
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -6159,8 +6198,8 @@ AppIdKeyForm.propTypes = {
   shouldDisableSubmit: PropTypes.func
 };
 
-var css_248z$6 = ".leftTextAlign {\n  text-align: left;\n}\n";
-styleInject(css_248z$6);
+var css_248z$7 = ".leftTextAlign {\n  text-align: left;\n}\n";
+styleInject(css_248z$7);
 
 /**
  * Icse Modal Wrapper
@@ -6284,8 +6323,8 @@ UnsavedChangesModal.propTypes = {
   useDefaultUnsavedMessage: PropTypes.bool
 };
 
-var css_248z$5 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmallest {\n  width: 8rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.displayFlex {\n  display: flex;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #f4f4f4;\n  padding: 1rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.alignButtons {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
-styleInject(css_248z$5);
+var css_248z$6 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmallest {\n  width: 8rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.displayFlex {\n  display: flex;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #f4f4f4;\n  padding: 1rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.alignButtons {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
+styleInject(css_248z$6);
 
 /**
  * AppIdForm
@@ -12720,6 +12759,7 @@ SecretsManagerForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$2 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
 styleInject(css_248z$2);
 
@@ -12747,6 +12787,10 @@ styleInject(css_248z$4);
 var css_248z$4 = ".leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidthBigger {\n  width: 30rem\n}\n";
 styleInject(css_248z$4);
 >>>>>>> dc96cd8 (Revert "Issue 718: F5VsiTemplateForm (#45)" (#69))
+=======
+var css_248z$5 = ".leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidthBigger {\n  width: 30rem\n}\n";
+styleInject(css_248z$5);
+>>>>>>> ecca896 (Issue 707: NetworkingRuleOrderCard (#87))
 
 /**
 <<<<<<< HEAD
@@ -12934,6 +12978,7 @@ TeleportClaimToRoleForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$2 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
 styleInject(css_248z$2);
 
@@ -12975,6 +13020,10 @@ var css_248z$3 = ".leftTextAlign {\n  text-align: left;\n}\n";
 var css_248z$3 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
 >>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
 styleInject(css_248z$3);
+=======
+var css_248z$4 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+styleInject(css_248z$4);
+>>>>>>> ecca896 (Issue 707: NetworkingRuleOrderCard (#87))
 
 /**
 >>>>>>> 2a431c4 (feat: better exports)
@@ -15148,6 +15197,7 @@ var UnderConstruction = function UnderConstruction() {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}";
 styleInject(css_248z);
 =======
@@ -15170,6 +15220,10 @@ styleInject(css_248z);
 var css_248z$2 = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}";
 styleInject(css_248z$2);
 >>>>>>> dc96cd8 (Revert "Issue 718: F5VsiTemplateForm (#45)" (#69))
+=======
+var css_248z$3 = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}";
+styleInject(css_248z$3);
+>>>>>>> ecca896 (Issue 707: NetworkingRuleOrderCard (#87))
 
 /**
  * StatefulTabPanel wrapper for non array forms
@@ -19784,7 +19838,7 @@ var VsiForm = /*#__PURE__*/function (_Component) {
         name = _event$target.name,
         value = _event$target.value;
       var stateChangeParams = _defineProperty({}, name, name === "vsi_per_subnet" && value !== "" ? Number(value) : value);
-      if (name === "vpc_name") transpose({
+      if (name === "vpc_name") transpose$1({
         subnet_names: [],
         subnet_name: ""
       }, stateChangeParams);
@@ -20092,8 +20146,8 @@ SubnetForm.propTypes = _defineProperty({
   componentDidUpdateCallback: PropTypes.func.isRequired
 }, "onSave", PropTypes.func);
 
-var css_248z$1 = ".subnetTileFormMargin {\n  margin-bottom: -0.5rem;\n  margin-top: 0.5rem;\n}\n\n.marginRight {\n  margin-right: 10px;\n}\n";
-styleInject(css_248z$1);
+var css_248z$2 = ".subnetTileFormMargin {\n  margin-bottom: -0.5rem;\n  margin-top: 0.5rem;\n}\n\n.marginRight {\n  margin-right: 10px;\n}\n";
+styleInject(css_248z$2);
 
 var SubnetTileForm = /*#__PURE__*/function (_React$Component) {
   _inherits(SubnetTileForm, _React$Component);
@@ -20203,8 +20257,8 @@ SubnetTileForm.propTypes = {
 };
 >>>>>>> 9774a8a (Issue 698: Networking Rule Form (#86))
 
-var css_248z = ".about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n";
-styleInject(css_248z);
+var css_248z$1 = ".about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n";
+styleInject(css_248z$1);
 
 var DocTextField = function DocTextField(props) {
   return /*#__PURE__*/React.createElement("div", {
@@ -20651,6 +20705,9 @@ SubnetTierForm.propTypes = {
   disableModal: PropTypes.func
 };
 
+var css_248z = ".marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.positionRelative {\n  position: relative;\n}\n";
+styleInject(css_248z);
+
 var _require = require("lazy-z"),
   capitalize = _require.capitalize,
   titleCase = _require.titleCase,
@@ -20748,7 +20805,7 @@ var NetworkingRuleForm = /*#__PURE__*/function (_Component) {
   }, {
     key: "shouldDisableSave",
     value: function shouldDisableSave() {
-      return this.props.shouldDisableSave(this.state, this.props);
+      return this.props.disableSaveCallback(this.state, this.props);
     }
   }, {
     key: "render",
@@ -20757,7 +20814,7 @@ var NetworkingRuleForm = /*#__PURE__*/function (_Component) {
       var ruleName = this.props.isModal ? "new-rule" : this.props.data.name;
       return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
         key: "rule-div-" + ruleName,
-        className: "alignItemsCenter spaceBetween " + (!this.props.show ? "" : "marginBottomSmall") // add margin bottom small if shown
+        className: this.props.hide ? "" : "marginBottomSmall" // add margin bottom small if shown
       }, this.props.isModal !== true && /*#__PURE__*/React.createElement(DeleteModal, {
         name: ruleName,
         modalOpen: this.state.showDeleteModal,
@@ -20801,7 +20858,7 @@ var NetworkingRuleForm = /*#__PURE__*/function (_Component) {
             return _this2.props.invalidCallback(_this2.state, _this2.props);
           },
           hideHelperText: true,
-          className: "fieldWidthSmall"
+          className: "fieldWidthSmaller"
         }), !this.props.isSecurityGroup && /*#__PURE__*/React.createElement(NetworkingRuleSelect, {
           state: this.state,
           name: "action",
@@ -20899,6 +20956,7 @@ NetworkingRuleForm.propTypes = {
   disableUp: PropTypes.bool,
   handleDown: PropTypes.func,
   handleUp: PropTypes.func,
+  disableSaveCallback: PropTypes.func,
   // functions for components
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
@@ -21012,6 +21070,274 @@ NetworkingRuleSelect.propTypes = {
   }).isRequired,
   onChange: PropTypes.func.isRequired,
   groups: PropTypes.array.isRequired
+};
+
+var NetworkingRulesOrderCard = /*#__PURE__*/function (_Component) {
+  _inherits(NetworkingRulesOrderCard, _Component);
+  var _super = _createSuper(NetworkingRulesOrderCard);
+  function NetworkingRulesOrderCard(props) {
+    var _this;
+    _classCallCheck(this, NetworkingRulesOrderCard);
+    _this = _super.call(this, props);
+    _this.state = {
+      rules: _toConsumableArray(_this.props.rules),
+      collapse: {},
+      allCollapsed: false,
+      showModal: false
+    };
+    _this.swapArrayElements = _this.swapArrayElements.bind(_assertThisInitialized(_this));
+    _this.handleUp = _this.handleUp.bind(_assertThisInitialized(_this));
+    _this.handleDown = _this.handleDown.bind(_assertThisInitialized(_this));
+    _this.toggleCollapse = _this.toggleCollapse.bind(_assertThisInitialized(_this));
+    _this.collapseAll = _this.collapseAll.bind(_assertThisInitialized(_this));
+    _this.toggleModal = _this.toggleModal.bind(_assertThisInitialized(_this));
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.getRuleProtocol = _this.getRuleProtocol.bind(_assertThisInitialized(_this));
+    _this.getSubRule = _this.getSubRule.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+  _createClass(NetworkingRulesOrderCard, [{
+    key: "getRuleProtocol",
+    value: function getRuleProtocol(rule) {
+      var protocol = "all";
+      // for each possible protocol
+      ["icmp", "tcp", "udp"].forEach(function (field) {
+        // set protocol to that field if not all fields are null
+        if (allFieldsNull(rule[field]) === false) {
+          protocol = field;
+        }
+      });
+      return protocol;
+    }
+
+    /**
+     * create sub rule
+     * @param {*} rule rule object
+     * @param {string} protocol all, tcp, icmp, or udp
+     * @returns {Object} default rule object
+     */
+  }, {
+    key: "getSubRule",
+    value: function getSubRule(rule) {
+      var defaultRule = {
+        port_max: null,
+        port_min: null,
+        source_port_max: null,
+        source_port_min: null,
+        type: null,
+        code: null
+      };
+      if (this.props.isSecurityGroup) {
+        delete defaultRule.source_port_min;
+        delete defaultRule.source_port_max;
+      }
+      if (this.getRuleProtocol(rule) !== "all") {
+        transpose(rule[protocol], defaultRule);
+      }
+      return defaultRule;
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      if (this.state.allCollapsed === false && this.props.expandAll === false) this.collapseAll();
+    }
+  }, {
+    key: "toggleModal",
+    value: function toggleModal() {
+      this.setState({
+        showModal: !this.state.showModal
+      });
+    }
+
+    /**
+     * toggle collapse rule
+     * @param {string} ruleName rule name
+     */
+  }, {
+    key: "toggleCollapse",
+    value: function toggleCollapse(ruleName) {
+      var collapse = this.state.collapse;
+      collapse[ruleName] = !containsKeys(this.state.collapse, ruleName) // if rule dies not exist
+      ? true // set to true
+      : !this.state.collapse[ruleName]; // otherwise set to opposite
+      this.setState({
+        collapse: collapse
+      });
+    }
+
+    /**
+     * collapse each rule
+     */
+  }, {
+    key: "collapseAll",
+    value: function collapseAll() {
+      var _this2 = this;
+      var collapse = this.state.collapse;
+      this.state.rules.forEach(function (rule) {
+        collapse[rule.name] = !_this2.state.allCollapsed;
+      });
+      this.setState({
+        collapse: collapse,
+        allCollapsed: !this.state.allCollapsed
+      });
+    }
+
+    /**
+     * Helper function to move items up and down in the list so they can be rendered properly
+     * @param {Array} arr
+     * @param {number} indexA
+     * @param {number} indexB
+     */
+  }, {
+    key: "swapArrayElements",
+    value: function swapArrayElements(arr, indexA, indexB) {
+      var temp = arr[indexA];
+      arr[indexA] = arr[indexB];
+      arr[indexB] = temp;
+    }
+
+    /**
+     * Move the card up
+     * @param {number} index
+     */
+  }, {
+    key: "handleUp",
+    value: function handleUp(index) {
+      var prevRulesState = _toConsumableArray(this.state.rules);
+      if (index !== 0) {
+        this.swapArrayElements(prevRulesState, index, index - 1);
+      }
+      this.props.networkRuleOrderDidChange(prevRulesState);
+      this.setState({
+        rules: prevRulesState
+      });
+    }
+
+    /**
+     * Move the card down
+     * @param {number} index
+     */
+  }, {
+    key: "handleDown",
+    value: function handleDown(index) {
+      var prevRulesState = _toConsumableArray(this.state.rules);
+      var maxLen = prevRulesState.length - 1;
+      if (index !== maxLen) {
+        this.swapArrayElements(prevRulesState, index, index + 1);
+      }
+      this.props.networkRuleOrderDidChange(prevRulesState);
+      this.setState({
+        rules: prevRulesState
+      });
+    }
+
+    /**
+     * @param {Object} modalData data from the modal form passed back from instanceFormModal
+     */
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(modalData) {
+      this.props.onSubmitCallback(modalData, this.props);
+      this.toggleModal();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this3 = this;
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseHeading, {
+        name: "Rules",
+        className: "marginBottomSmall",
+        type: "subHeading",
+        buttons: /*#__PURE__*/React.createElement(DynamicRender, {
+          hide: this.props.hideCreate,
+          show: /*#__PURE__*/React.createElement(SaveAddButton, {
+            type: "add",
+            onClick: this.toggleModal
+          })
+        })
+      }), /*#__PURE__*/React.createElement(FormModal, {
+        name: "Create a Network Rule",
+        show: this.state.showModal,
+        onRequestSubmit: this.handleSubmit,
+        onRequestClose: this.toggleModal
+      }, /*#__PURE__*/React.createElement(NetworkingRuleForm, {
+        isSecurityGroup: this.props.isSecurityGroup,
+        invalidCallback: this.props.invalidCallback,
+        invalidTextCallback: this.props.invalidTextCallback,
+        parent_name: this.props.parent_name,
+        disableModalSubmit: function disableModalSubmit() {
+          //set modal form enable submit
+          if (this.props.disableModalSubmitCallback(this.state, this.props) === false) {
+            this.props.enableModal();
+          } else {
+            this.props.disableModal();
+          }
+        }
+      })), /*#__PURE__*/React.createElement(EmptyResourceTile, {
+        name: "Network Rules",
+        showIfEmpty: this.state.rules
+      }), this.state.rules.map(function (rule, index) {
+        return /*#__PURE__*/React.createElement("div", {
+          key: "rule-div-" + rule.name + "-wrapper",
+          className: "marginBottomSmall positionRelative formInSubForm"
+        }, /*#__PURE__*/React.createElement(NetworkingRuleForm, {
+          hide: _this3.state.collapse[rule.name],
+          onToggle: function onToggle() {
+            return _this3.toggleCollapse(rule.name);
+          },
+          disableUp: index === 0,
+          handleUp: function handleUp() {
+            return _this3.handleUp(index);
+          },
+          disableDown: index === _this3.state.rules.length - 1,
+          handleDown: function handleDown() {
+            return _this3.handleDown(index);
+          },
+          key: _this3.props.vpc_name + "-nw-rule-" + rule.name,
+          id: _this3.props.vpc_name + "-nw-rule-form-" + rule.name,
+          invalidCallback: _this3.props.invalidCallback,
+          invalidTextCallback: _this3.props.invalidTextCallback,
+          data: {
+            name: rule.name,
+            action: rule.action || null,
+            direction: rule.direction,
+            source: rule.source,
+            destination: rule.destination || null,
+            ruleProtocol: _this3.getRuleProtocol(rule),
+            rule: _this3.getSubRule(rule)
+          },
+          disableSaveCallback: _this3.props.disableSaveCallback,
+          isSecurityGroup: _this3.props.isSecurityGroup,
+          onSave: _this3.props.onRuleSave,
+          onDelete: _this3.props.onRuleDelete,
+          parent_name: _this3.props.parent_name
+        }));
+      }));
+    }
+  }]);
+  return NetworkingRulesOrderCard;
+}(Component);
+NetworkingRulesOrderCard.defaultProps = {
+  rules: [],
+  hideCreate: false,
+  isSecurityGroup: false,
+  expandAll: false
+};
+NetworkingRulesOrderCard.propTypes = {
+  isSecurityGroup: PropTypes.bool.isRequired,
+  rules: PropTypes.array.isRequired,
+  hideCreate: PropTypes.bool.isRequired,
+  expandAll: PropTypes.bool.isRequired,
+  disableModalSubmitCallback: PropTypes.func.isRequired,
+  disableSaveCallback: PropTypes.func.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  vpc_name: PropTypes.string.isRequired,
+  networkRuleOrderDidChange: PropTypes.func.isRequired,
+  onSubmitCallback: PropTypes.func.isRequired,
+  onRuleSave: PropTypes.func.isRequired,
+  onRuleDelete: PropTypes.func.isRequired,
+  parent_name: PropTypes.string.isRequired
 };
 
 var AccessGroupForm = /*#__PURE__*/function (_React$Component) {
@@ -21748,6 +22074,7 @@ AccessGroupDynamicPolicyForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, VpnGatewayForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> f849341 (access group forms :100:)
 =======
@@ -21882,3 +22209,6 @@ export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, A
 =======
 export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, NetworkingRuleForm, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VsiForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> 9774a8a (Issue 698: Networking Rule Form (#86))
+=======
+export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VsiForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+>>>>>>> ecca896 (Issue 707: NetworkingRuleOrderCard (#87))

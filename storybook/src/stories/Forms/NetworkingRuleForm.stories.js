@@ -75,6 +75,12 @@ export default {
       control: "none",
       table: { defaultValue: { summary: "false" } }, // default value
     },
+    disableSaveCallback: {
+      description:
+        "Callback function that accepts two parameters `stateData` and `componentProps`. `disableSaveCallback` is used only in non-modal rule forms. Returns a boolean",
+      type: { required: false }, // required prop or not
+      control: "none",
+    },
     data: {
       summary: "An optional object",
       type: { required: false }, // required prop or not
