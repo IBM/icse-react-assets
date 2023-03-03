@@ -18682,75 +18682,91 @@ Docs.propTypes = {
 /** Resource Groups
  * @param {Object} props
  */
-class ResourceGroupForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = this.props.data;
-    this.handleTextInput = this.handleTextInput.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
+var ResourceGroupForm = /*#__PURE__*/function (_Component) {
+  _inherits(ResourceGroupForm, _Component);
+  var _super = _createSuper(ResourceGroupForm);
+  function ResourceGroupForm(props) {
+    var _this;
+    _classCallCheck(this, ResourceGroupForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleTextInput = _this.handleTextInput.bind(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    return _this;
   }
   /**
    * Toggle on and off param in state at name
    * @param {string} name name of the object key to change
    */
-  handleToggle(name) {
-    // Turn off the use_prefix toggle when create is turned off.
-    if (name === "create" && this.state.create === true) {
-      this.setState({
-        [name]: !this.state[name],
-        use_prefix: false
-      });
-    } else {
-      this.setState({
-        [name]: !this.state[name]
-      });
+  _createClass(ResourceGroupForm, [{
+    key: "handleToggle",
+    value: function handleToggle(name) {
+      // Turn off the use_prefix toggle when create is turned off.
+      if (name === "create" && this.state.create === true) {
+        var _this$setState;
+        this.setState((_this$setState = {}, _defineProperty(_this$setState, name, !this.state[name]), _defineProperty(_this$setState, "use_prefix", false), _this$setState));
+      } else {
+        this.setState(_defineProperty({}, name, !this.state[name]));
+      }
     }
-  }
 
-  /**
-   * Handle input change for a text field
-   * @param {event} event
-   */
-  handleTextInput(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-  render() {
-    let composedId = `resource-group-${this.props.data.name}-`;
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      tooltip: {
-        content: "If true, get data from an existing resource group"
-      },
-      labelText: "Use Existing Instance",
-      toggleFieldName: this.props.toggleName,
-      defaultToggled: !this.state.create,
-      id: composedId + "-create-toggle",
-      onToggle: () => this.handleToggle("create"),
-      isModal: this.props.isModal
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
-      noMarginBottom: true
-    }, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: composedId,
-      componentName: "resource_groups",
-      value: this.state.name,
-      onChange: this.handleTextInput,
-      useData: this.state.create === false || this.state.use_prefix === false,
-      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props),
-      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props)
-    }), this.state.create && /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      tooltip: {
-        content: "Append your environment prefix to the beginning of the resource group."
-      },
-      labelText: "Use Prefix",
-      defaultToggled: this.state.use_prefix,
-      id: composedId + "-use-prefix-toggle",
-      onToggle: this.handleToggle,
-      isModal: this.props.isModal
-    })));
-  }
-}
+    /**
+     * Handle input change for a text field
+     * @param {event} event
+     */
+  }, {
+    key: "handleTextInput",
+    value: function handleTextInput(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      var composedId = "resource-group-".concat(this.props.data.name, "-");
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        tooltip: {
+          content: "If true, get data from an existing resource group"
+        },
+        labelText: "Use Existing Instance",
+        toggleFieldName: this.props.toggleName,
+        defaultToggled: !this.state.create,
+        id: composedId + "-create-toggle",
+        onToggle: function onToggle() {
+          return _this2.handleToggle("create");
+        },
+        isModal: this.props.isModal
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+        noMarginBottom: true
+      }, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+        id: composedId,
+        componentName: "resource_groups",
+        value: this.state.name,
+        onChange: this.handleTextInput,
+        useData: this.state.create === false || this.state.use_prefix === false,
+        invalidCallback: function invalidCallback() {
+          return _this2.props.invalidCallback(_this2.state, _this2.props);
+        },
+        invalidText: this.props.invalidTextCallback(this.state, this.props),
+        helperTextCallback: function helperTextCallback() {
+          return _this2.props.helperTextCallback(_this2.state, _this2.props);
+        }
+      }), this.state.create && /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        tooltip: {
+          content: "Append your environment prefix to the beginning of the resource group."
+        },
+        labelText: "Use Prefix",
+        defaultToggled: this.state.use_prefix,
+        id: composedId + "-use-prefix-toggle",
+        onToggle: this.handleToggle,
+        isModal: this.props.isModal
+      })));
+    }
+  }]);
+  return ResourceGroupForm;
+}(React.Component);
 ResourceGroupForm.defaultProps = {
   data: {
     create: false,
@@ -19640,88 +19656,108 @@ NetworkingRulesOrderCard.propTypes = {
 /** NetworkAclForm
  * @param {Object} props
  */
-class NetworkAclForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = this.props.data;
-    this.handleTextInput = this.handleTextInput.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
-    this.networkRuleOrderDidChange = this.networkRuleOrderDidChange.bind(this);
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
+var NetworkAclForm = /*#__PURE__*/function (_Component) {
+  _inherits(NetworkAclForm, _Component);
+  var _super = _createSuper(NetworkAclForm);
+  function NetworkAclForm(props) {
+    var _this;
+    _classCallCheck(this, NetworkAclForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleTextInput = _this.handleTextInput.bind(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    _this.networkRuleOrderDidChange = _this.networkRuleOrderDidChange.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    return _this;
   }
 
   /**
    * Handle input change for a text field
    * @param {event} event
    */
-  handleTextInput(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
+  _createClass(NetworkAclForm, [{
+    key: "handleTextInput",
+    value: function handleTextInput(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
 
-  /**
-   * Toggle on and off param in state at name
-   * @param {string} name name of the toggle to change
-   */
-  handleToggle(name) {
-    this.setState(this.toggleStateBoolean(name, this.state));
-  }
-  /**
-   * Check if the order of network rules updated - then update state to allow save
-   * @param {Array} rules list of rule objects
-   */
-  networkRuleOrderDidChange(rules) {
-    this.props.networkRuleOrderDidChange(this.state, this.props);
-    this.setState({
-      rules: rules
-    }); // update rules state when an update occurs
-  }
-
-  render() {
-    return /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: this.state.name + "-name",
-      componentName: this.props.data.name,
-      value: this.state.name,
-      onChange: this.handleTextInput,
-      placeholder: "my-network-acl-name",
-      component: "network_acls",
-      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props),
-      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props)
-    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      tooltip: {
-        content: "Automatically add to ACL rules needed to allow cluster provisioning from private service endpoints.",
-        link: "https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-acls"
-      },
-      labelText: "Use Cluster Rules",
-      toggleFieldName: "add_cluster_rules",
-      defaultToggled: this.state.add_cluster_rules,
-      id: this.state.name + "acl-add-rules-toggle",
-      onToggle: this.handleToggle,
-      isModal: this.props.isModal
-    })), !this.props.isModal &&
-    /*#__PURE__*/
-    // ability to move rules up and down
-    React__default["default"].createElement(NetworkingRulesOrderCard, {
-      rules: this.state.rules,
-      vpc_name: this.props.arrayParentName,
-      parent_name: this.props.data.name,
-      networkRuleOrderDidChange: this.networkRuleOrderDidChange,
-      isAclForm: true,
-      invalidCallback: this.props.invalidCallback,
-      invalidTextCallback: this.props.invalidTextCallback,
-      onSubmitCallback: this.props.onSubmitCallback,
-      onRuleSave: this.props.onRuleSave,
-      onRuleDelete: this.props.onRuleDelete,
-      disableModalSubmitCallback: this.props.disableModalSubmitCallback,
-      disableSaveCallback: this.props.disableSaveCallback
-    }));
-  }
-}
+    /**
+     * Toggle on and off param in state at name
+     * @param {string} name name of the toggle to change
+     */
+  }, {
+    key: "handleToggle",
+    value: function handleToggle(name) {
+      this.setState(this.toggleStateBoolean(name, this.state));
+    }
+    /**
+     * Check if the order of network rules updated - then update state to allow save
+     * @param {Array} rules list of rule objects
+     */
+  }, {
+    key: "networkRuleOrderDidChange",
+    value: function networkRuleOrderDidChange(rules) {
+      this.props.networkRuleOrderDidChange(this.state, this.props);
+      this.setState({
+        rules: rules
+      }); // update rules state when an update occurs
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      return /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+        id: this.state.name + "-name",
+        componentName: this.props.data.name,
+        value: this.state.name,
+        onChange: this.handleTextInput,
+        placeholder: "my-network-acl-name",
+        component: "network_acls",
+        helperTextCallback: function helperTextCallback() {
+          return _this2.props.helperTextCallback(_this2.state, _this2.props);
+        },
+        invalidCallback: function invalidCallback() {
+          return _this2.props.invalidCallback(_this2.state, _this2.props);
+        },
+        invalidText: this.props.invalidTextCallback(this.state, this.props)
+      }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        tooltip: {
+          content: "Automatically add to ACL rules needed to allow cluster provisioning from private service endpoints.",
+          link: "https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-acls"
+        },
+        labelText: "Use Cluster Rules",
+        toggleFieldName: "add_cluster_rules",
+        defaultToggled: this.state.add_cluster_rules,
+        id: this.state.name + "acl-add-rules-toggle",
+        onToggle: this.handleToggle,
+        isModal: this.props.isModal
+      })), !this.props.isModal &&
+      /*#__PURE__*/
+      // ability to move rules up and down
+      React__default["default"].createElement(NetworkingRulesOrderCard, {
+        rules: this.state.rules,
+        vpc_name: this.props.arrayParentName,
+        parent_name: this.props.data.name,
+        networkRuleOrderDidChange: this.networkRuleOrderDidChange,
+        isAclForm: true,
+        invalidCallback: this.props.invalidCallback,
+        invalidTextCallback: this.props.invalidTextCallback,
+        onSubmitCallback: this.props.onSubmitCallback,
+        onRuleSave: this.props.onRuleSave,
+        onRuleDelete: this.props.onRuleDelete,
+        disableModalSubmitCallback: this.props.disableModalSubmitCallback,
+        disableSaveCallback: this.props.disableSaveCallback
+      }));
+    }
+  }]);
+  return NetworkAclForm;
+}(React.Component);
 NetworkAclForm.defaultProps = {
   data: {
     name: "",
-    add_cluster_rules: false
+    add_cluster_rules: false,
+    rules: []
   },
   isModal: false
 };
@@ -19742,6 +19778,138 @@ NetworkAclForm.propTypes = {
   onRuleDelete: PropTypes__default["default"].func.isRequired,
   disableModalSubmitCallback: PropTypes__default["default"].func.isRequired,
   disableSaveCallback: PropTypes__default["default"].func.isRequired
+};
+
+/**
+ * security group form
+ */
+var SecurityGroupForm = /*#__PURE__*/function (_Component) {
+  _inherits(SecurityGroupForm, _Component);
+  var _super = _createSuper(SecurityGroupForm);
+  function SecurityGroupForm(props) {
+    var _this;
+    _classCallCheck(this, SecurityGroupForm);
+    _this = _super.call(this, props);
+    _this.state = _objectSpread2(_objectSpread2({}, _this.props.data), {}, {
+      show: false
+    });
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    _this.handleShowToggle = _this.handleShowToggle.bind(_assertThisInitialized(_this));
+    _this.networkRuleOrderDidChange = _this.networkRuleOrderDidChange.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * handle input change
+   * @param {event} event
+   */
+  _createClass(SecurityGroupForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+  }, {
+    key: "handleShowToggle",
+    value: function handleShowToggle() {
+      this.setState(this.toggleStateBoolean("show", this.state));
+    }
+
+    /**
+     * Check if the order of network rules updated - then update state to allow save
+     * @param {Array} rules list of rule objects
+     */
+  }, {
+    key: "networkRuleOrderDidChange",
+    value: function networkRuleOrderDidChange(rules) {
+      this.props.networkRuleOrderDidChange(this.state, this.props);
+      this.setState({
+        rules: rules
+      }); // if the order of the rules changed, update rules state
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      var composedId = "security-group-form-".concat(this.props.data.name);
+      var className = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+        id: composedId,
+        componentName: "security_groups",
+        value: this.state.name,
+        onChange: this.handleInputChange,
+        hideHelperText: true,
+        className: className,
+        invalidCallback: function invalidCallback() {
+          return _this2.props.invalidCallback(_this2.state, _this2.props);
+        },
+        invalidText: this.props.invalidTextCallback(this.state, this.props)
+      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: "security_Group",
+        name: "resource_group",
+        labelText: "Resource Group",
+        groups: this.props.resourceGroups,
+        value: this.state.resource_group,
+        handleInputChange: this.handleInputChange,
+        className: className
+      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: "security_Group",
+        name: "vpc_name",
+        labelText: "VPC",
+        groups: this.props.vpcList,
+        value: this.state.vpc_name,
+        handleInputChange: this.handleInputChange,
+        className: className
+      })), (!this.props.isModal || this.props.isTeleport) && /*#__PURE__*/React__default["default"].createElement(NetworkingRulesOrderCard, {
+        rules: this.state.rules,
+        vpc_name: this.state.vpc_name,
+        parent_name: this.props.data.name,
+        isSecurityGroup: true,
+        isTeleport: this.props.isTeleport,
+        networkRuleOrderDidChange: this.networkRuleOrderDidChange,
+        invalidCallback: this.props.invalidCallback,
+        invalidTextCallback: this.props.invalidTextCallback,
+        onSubmitCallback: this.props.onSubmitCallback,
+        onRuleSave: this.props.onRuleSave,
+        onRuleDelete: this.props.onRuleDelete,
+        disableModalSubmitCallback: this.props.disableModalSubmitCallback,
+        disableSaveCallback: this.props.disableSaveCallback
+      }));
+    }
+  }]);
+  return SecurityGroupForm;
+}(React.Component);
+SecurityGroupForm.defaultProps = {
+  data: {
+    name: "",
+    resource_group: "",
+    vpc_name: "",
+    rules: []
+  },
+  isModal: false,
+  isTeleport: false
+};
+SecurityGroupForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    vpc_name: PropTypes__default["default"].string,
+    resource_group: PropTypes__default["default"].string,
+    rules: PropTypes__default["default"].array
+  }).isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired,
+  isTeleport: PropTypes__default["default"].bool.isRequired,
+  networkRuleOrderDidChange: PropTypes__default["default"].func,
+  // can be undefined
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  onSubmitCallback: PropTypes__default["default"].func.isRequired,
+  onRuleSave: PropTypes__default["default"].func.isRequired,
+  onRuleDelete: PropTypes__default["default"].func.isRequired,
+  disableModalSubmitCallback: PropTypes__default["default"].func.isRequired,
+  disableSaveCallback: PropTypes__default["default"].func.isRequired,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
 };
 
 var AccessGroupForm = /*#__PURE__*/function (_React$Component) {
@@ -20740,6 +20908,7 @@ exports.SecretsManagerForm = SecretsManagerForm;
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 7d02243 (fix merge)
 =======
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
@@ -20747,6 +20916,9 @@ exports.SecretsManagerForm = SecretsManagerForm;
 >>>>>>> 3d9c171 (fix exports and update examples/readme :smile:)
 =======
 >>>>>>> 2a431c4 (feat: better exports)
+=======
+exports.SecurityGroupForm = SecurityGroupForm;
+>>>>>>> 1eee3c9 (Issue 709: Security Group Form (#89))
 exports.SecurityGroupMultiSelect = SecurityGroupMultiSelect;
 exports.SshKeyForm = SshKeyForm;
 exports.SshKeyMultiSelect = SshKeyMultiSelect;

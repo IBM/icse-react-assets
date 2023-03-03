@@ -1,20 +1,15 @@
 import React from "react";
-import { NetworkAclForm } from "icse-react-assets";
+import { SecurityGroupForm } from "icse-react-assets";
 
 export default {
-  component: NetworkAclForm,
-  title: "Components/Forms/NetworkAclForm",
+  component: SecurityGroupForm,
+  title: "Components/Forms/SecurityGroupForm",
   argTypes: {
     isModal: {
       description: "Boolean value for if the form is a modal or not",
       type: { required: true }, // required prop or not
       control: "none",
       table: { defaultValue: { summary: "false" } }, // default value
-    },
-    helperTextCallback: {
-      description: "Function that determines helperText text for `name` field",
-      type: { required: true }, // required prop or not
-      control: "none",
     },
     invalidCallback: {
       description: "Function that determines invalid state for `name` field",
@@ -63,39 +58,52 @@ export default {
       control: "none",
     },
     data: {
-      summary: "An optional object",
+      description: "An optional object",
       type: { required: false }, // required prop or not
       control: "none",
     },
     ["data.name"]: {
-      description: "A string specifying the name of the network acl",
+      description: "A string specifying the name of the security group",
       control: "none",
       type: { required: true }, // required prop or not
     },
-    ["data.add_cluster_rules"]: {
-      description:
-        "Boolean that determines if cluster rules should be added or not",
+    ["data.vpc_name"]: {
+      description: "A string specifying the name of the vpc",
       control: "none",
       type: { required: true }, // required prop or not
-      table: { defaultValue: { summary: false } },
+    },
+    ["data.resource_group"]: {
+      description: "A string specifying the selected resource group",
+      control: "none",
+      type: { required: true }, // required prop or not
     },
     ["data.rules"]: {
-      description: "Array of rule objects",
+      description: "An array of rule objects",
       control: "none",
       type: { required: true }, // required prop or not
+    },
+    resourceGroups: {
+      description: "An array of string resource group names",
+      type: { required: false }, // required prop or not
+      control: "none",
+    },
+    vpcList: {
+      description: "An array of string vpc names",
+      type: { required: false }, // required prop or not
+      control: "none",
     },
   },
   parameters: {
     docs: {
       description: {
         component:
-          "NetworkAclForm allows for the editing and creation of network access control lists",
+          "SecurityGroupForm allows for the editing and creation of security groups",
       },
     },
   },
 };
 
-const NetworkAclFormStory = () => {
+const SecurityGroupFormStory = () => {
   function validName(str) {
     const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
     if (str) return str.match(regex) !== null;
@@ -110,9 +118,6 @@ const NetworkAclFormStory = () => {
     if (stateData.name === "") return "Name cannot be empty";
     else
       return "Name must follow the regex pattern: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i";
-  }
-  function helperTextCallback(stateData, componentProps) {
-    return `Composed Name: <prefix>-${stateData.name}`;
   }
   function onSubmitCallback(newRulesOrder) {
     // add logic here to create new rule
@@ -138,13 +143,13 @@ const NetworkAclFormStory = () => {
   }
 
   return (
-    <NetworkAclForm
+    <SecurityGroupForm
       data={{
-        name: "example-acl",
-        add_cluster_rules: false,
+        name: "example-sg",
+        resource_group: "foo",
+        vpc_name: "bar",
         rules: [],
       }}
-      helperTextCallback={helperTextCallback}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
       disableSaveCallback={shouldDisableSave}
@@ -153,8 +158,10 @@ const NetworkAclFormStory = () => {
       onRuleSave={onRuleSave}
       onRuleDelete={onRuleDelete}
       networkRuleOrderDidChange={networkRuleOrderDidChange}
+      resourceGroups={["foo", "foo-2", "foo-3"]}
+      vpcList={["bar", "bar-2", "bar-3"]}
     />
   );
 };
 
-export const Default = NetworkAclFormStory.bind({});
+export const Default = SecurityGroupFormStory.bind({});
