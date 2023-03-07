@@ -19912,6 +19912,202 @@ SecurityGroupForm.propTypes = {
   vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
 };
 
+class F5VsiForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
+    this.handleVsiSave = this.handleVsiSave.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  handleMultiSelectChange(name, value) {
+    this.setState(this.setNameToValue(name, value));
+  }
+  handleVsiSave(stateData) {
+    this.props.saveVsiCallback(stateData);
+  }
+  render() {
+    let vsis = [...this.props.vsis];
+    while (vsis.length < this.state.zones) {
+      // add a new vsi to display
+      vsis.push(this.props.initVsiCallback(this.props.edge_pattern, `zone-${vsis.length + 1}`, this.props.f5_on_management, {
+        f5_image_name: this.state.f5_image_name,
+        resource_group: this.state.resource_group,
+        ssh_keys: this.state.ssh_keys,
+        machine_type: this.state.machine_type
+      }));
+    }
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: "f5_vsi_form",
+      name: "zones",
+      labelText: "F5 Instance Zones",
+      groups: lazyZ.buildNumberDropdownList(4) // 0-3 Zones
+      ,
+      value: this.state.zones.toString(),
+      handleInputChange: this.handleInputChange
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: "f5_vsi_form",
+      name: "resource_group",
+      labelText: "Resource Group",
+      groups: this.props.resourceGroupList,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange
+    }), /*#__PURE__*/React__default["default"].createElement(SshKeyMultiSelect, {
+      id: "sshkey",
+      sshKeys: this.props.sshKeyList,
+      initialSelectedItems: this.state.ssh_keys,
+      onChange: value => this.handleMultiSelectChange("ssh_keys", value)
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: "f5_vsi_form",
+      name: "f5_image_name",
+      labelText: "F5 Image",
+      groups: ["f5-bigip-15-1-5-1-0-0-14-all-1slot", "f5-bigip-15-1-5-1-0-0-14-ltm-1slot", "f5-bigip-16-1-2-2-0-0-28-ltm-1slot", "f5-bigip-16-1-2-2-0-0-28-all-1slot", "f5-bigip-16-1-3-2-0-0-4-ltm-1slot", "f5-bigip-16-1-3-2-0-0-4-all-1slot", "f5-bigip-17-0-0-1-0-0-4-ltm-1slot", "f5-bigip-17-0-0-1-0-0-4-all-1slot"],
+      value: this.state.f5_image_name,
+      handleInputChange: this.handleInputChange
+    }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
+      formName: "f5_vsi_form",
+      labelText: "Flavor",
+      name: "machine_type",
+      apiEndpoint: this.props.apiEndpointFlavors,
+      handleInputChange: this.handleInputChange,
+      value: this.state.machine_type
+    })), vsis.length > 0 && /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+      name: "F5 Big IP Virtual Servers",
+      type: "subHeading",
+      className: "marginBottomSmall"
+    }), /*#__PURE__*/React__default["default"].createElement("div", {
+      className: "displayFlex"
+    }, vsis.map((instance, index) => {
+      if (index < this.state.zones) return /*#__PURE__*/React__default["default"].createElement(F5VsiTile, {
+        key: "f5-vsi-tile" + JSON.stringify(instance) + index,
+        data: instance,
+        hide: false,
+        onSave: this.handleVsiSave,
+        totalZones: this.state.zones,
+        index: index,
+        resourceGroupList: this.props.resourceGroupList,
+        encryptionKeyList: this.props.encryptionKeyList,
+        hideSaveCallback: this.props.hideSaveCallback,
+        disableSaveCallback: this.props.disableSaveCallback
+      });
+    }))));
+  }
+}
+class F5VsiTile extends React__default["default"].Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.shouldHideSave = this.shouldHideSave.bind(this);
+    this.shouldDisableSave = this.shouldDisableSave.bind(this);
+  }
+  handleInputChange(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    this.setState({
+      [name]: value
+    });
+  }
+  shouldHideSave() {
+    return this.props.hideSaveCallback(this.state, this.props);
+  }
+  shouldDisableSave() {
+    return this.props.disableSaveCallback(this.state, this.props);
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(react.Tile, {
+      className: "marginRight fieldWidth"
+    }, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+      name: this.state.name,
+      type: "subHeading",
+      className: "marginBottomSmall",
+      buttons: /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+        hide: this.shouldHideSave(this.state, this.props),
+        show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+          onClick: () => this.props.onSave(this.state),
+          noDeleteButton: true,
+          disabled: this.shouldDisableSave()
+        })
+      })
+    }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+      className: "marginBottomSmall"
+    }, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: this.state.name,
+      componentName: "f5_vsi_form",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      useData: true,
+      readOnly: true,
+      invalidCallback: () => {},
+      invalidText: "",
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+      className: "marginBottomSmall"
+    }, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: "f5_vsi_form",
+      name: "resource_group",
+      labelText: "Resource Group",
+      groups: this.props.resourceGroupList,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+      className: "marginBottomSmall"
+    }, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: "f5_vsi_form",
+      name: "boot_volume_encryption_key_name",
+      labelText: "Encryption Key",
+      groups: this.props.encryptionKeyList,
+      value: this.state.boot_volume_encryption_key_name,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    })));
+  }
+}
+F5VsiForm.defaultProps = {
+  data: {
+    zones: 0,
+    resource_group: "",
+    ssh_keys: [],
+    f5_image_name: "",
+    machine_type: ""
+  },
+  vsis: [],
+  edge_pattern: "vpn-and-waf",
+  f5_on_management: true
+};
+F5VsiForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    zones: PropTypes__default["default"].number,
+    resource_group: PropTypes__default["default"].string,
+    ssh_keys: PropTypes__default["default"].array,
+    f5_image_name: PropTypes__default["default"].string,
+    machine_type: PropTypes__default["default"].string
+  }).isRequired,
+  vsis: PropTypes__default["default"].array.isRequired,
+  edge_pattern: PropTypes__default["default"].string,
+  f5_on_management: PropTypes__default["default"].bool,
+  // use management
+  /* api endpoints */
+  apiEndpointFlavors: PropTypes__default["default"].string.isRequired,
+  /* lists */
+  resourceGroupList: PropTypes__default["default"].array.isRequired,
+  sshKeyList: PropTypes__default["default"].array.isRequired,
+  encryptionKeyList: PropTypes__default["default"].array.isRequired,
+  /* callbacks */
+  initVsiCallback: PropTypes__default["default"].func.isRequired,
+  saveVsiCallback: PropTypes__default["default"].func.isRequired,
+  hideSaveCallback: PropTypes__default["default"].func.isRequired,
+  disableSaveCallback: PropTypes__default["default"].func.isRequired
+};
+
 var AccessGroupForm = /*#__PURE__*/function (_React$Component) {
   _inherits(AccessGroupForm, _React$Component);
   var _super = _createSuper(AccessGroupForm);
@@ -20809,6 +21005,7 @@ exports.EditCloseIcon = EditCloseIcon;
 exports.EmptyResourceTile = EmptyResourceTile;
 exports.EncryptionKeyForm = EncryptionKeyForm;
 exports.EntitlementSelect = EntitlementSelect;
+exports.F5VsiForm = F5VsiForm;
 exports.FetchSelect = FetchSelect;
 exports.FormModal = FormModal;
 exports.IamAccountSettingsForm = IamAccountSettingsForm;

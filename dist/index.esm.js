@@ -21599,6 +21599,202 @@ SecurityGroupForm.propTypes = {
   vpcList: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
+class F5VsiForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
+    this.handleVsiSave = this.handleVsiSave.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  handleMultiSelectChange(name, value) {
+    this.setState(this.setNameToValue(name, value));
+  }
+  handleVsiSave(stateData) {
+    this.props.saveVsiCallback(stateData);
+  }
+  render() {
+    let vsis = [...this.props.vsis];
+    while (vsis.length < this.state.zones) {
+      // add a new vsi to display
+      vsis.push(this.props.initVsiCallback(this.props.edge_pattern, `zone-${vsis.length + 1}`, this.props.f5_on_management, {
+        f5_image_name: this.state.f5_image_name,
+        resource_group: this.state.resource_group,
+        ssh_keys: this.state.ssh_keys,
+        machine_type: this.state.machine_type
+      }));
+    }
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: "f5_vsi_form",
+      name: "zones",
+      labelText: "F5 Instance Zones",
+      groups: buildNumberDropdownList(4) // 0-3 Zones
+      ,
+      value: this.state.zones.toString(),
+      handleInputChange: this.handleInputChange
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: "f5_vsi_form",
+      name: "resource_group",
+      labelText: "Resource Group",
+      groups: this.props.resourceGroupList,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange
+    }), /*#__PURE__*/React.createElement(SshKeyMultiSelect, {
+      id: "sshkey",
+      sshKeys: this.props.sshKeyList,
+      initialSelectedItems: this.state.ssh_keys,
+      onChange: value => this.handleMultiSelectChange("ssh_keys", value)
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: "f5_vsi_form",
+      name: "f5_image_name",
+      labelText: "F5 Image",
+      groups: ["f5-bigip-15-1-5-1-0-0-14-all-1slot", "f5-bigip-15-1-5-1-0-0-14-ltm-1slot", "f5-bigip-16-1-2-2-0-0-28-ltm-1slot", "f5-bigip-16-1-2-2-0-0-28-all-1slot", "f5-bigip-16-1-3-2-0-0-4-ltm-1slot", "f5-bigip-16-1-3-2-0-0-4-all-1slot", "f5-bigip-17-0-0-1-0-0-4-ltm-1slot", "f5-bigip-17-0-0-1-0-0-4-all-1slot"],
+      value: this.state.f5_image_name,
+      handleInputChange: this.handleInputChange
+    }), /*#__PURE__*/React.createElement(FetchSelect, {
+      formName: "f5_vsi_form",
+      labelText: "Flavor",
+      name: "machine_type",
+      apiEndpoint: this.props.apiEndpointFlavors,
+      handleInputChange: this.handleInputChange,
+      value: this.state.machine_type
+    })), vsis.length > 0 && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(IcseHeading, {
+      name: "F5 Big IP Virtual Servers",
+      type: "subHeading",
+      className: "marginBottomSmall"
+    }), /*#__PURE__*/React.createElement("div", {
+      className: "displayFlex"
+    }, vsis.map((instance, index) => {
+      if (index < this.state.zones) return /*#__PURE__*/React.createElement(F5VsiTile, {
+        key: "f5-vsi-tile" + JSON.stringify(instance) + index,
+        data: instance,
+        hide: false,
+        onSave: this.handleVsiSave,
+        totalZones: this.state.zones,
+        index: index,
+        resourceGroupList: this.props.resourceGroupList,
+        encryptionKeyList: this.props.encryptionKeyList,
+        hideSaveCallback: this.props.hideSaveCallback,
+        disableSaveCallback: this.props.disableSaveCallback
+      });
+    }))));
+  }
+}
+class F5VsiTile extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.shouldHideSave = this.shouldHideSave.bind(this);
+    this.shouldDisableSave = this.shouldDisableSave.bind(this);
+  }
+  handleInputChange(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    this.setState({
+      [name]: value
+    });
+  }
+  shouldHideSave() {
+    return this.props.hideSaveCallback(this.state, this.props);
+  }
+  shouldDisableSave() {
+    return this.props.disableSaveCallback(this.state, this.props);
+  }
+  render() {
+    return /*#__PURE__*/React.createElement(Tile, {
+      className: "marginRight fieldWidth"
+    }, /*#__PURE__*/React.createElement(IcseHeading, {
+      name: this.state.name,
+      type: "subHeading",
+      className: "marginBottomSmall",
+      buttons: /*#__PURE__*/React.createElement(DynamicRender, {
+        hide: this.shouldHideSave(this.state, this.props),
+        show: /*#__PURE__*/React.createElement(SaveAddButton, {
+          onClick: () => this.props.onSave(this.state),
+          noDeleteButton: true,
+          disabled: this.shouldDisableSave()
+        })
+      })
+    }), /*#__PURE__*/React.createElement(IcseFormGroup, {
+      className: "marginBottomSmall"
+    }, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: this.state.name,
+      componentName: "f5_vsi_form",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      useData: true,
+      readOnly: true,
+      invalidCallback: () => {},
+      invalidText: "",
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, {
+      className: "marginBottomSmall"
+    }, /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: "f5_vsi_form",
+      name: "resource_group",
+      labelText: "Resource Group",
+      groups: this.props.resourceGroupList,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, {
+      className: "marginBottomSmall"
+    }, /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: "f5_vsi_form",
+      name: "boot_volume_encryption_key_name",
+      labelText: "Encryption Key",
+      groups: this.props.encryptionKeyList,
+      value: this.state.boot_volume_encryption_key_name,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    })));
+  }
+}
+F5VsiForm.defaultProps = {
+  data: {
+    zones: 0,
+    resource_group: "",
+    ssh_keys: [],
+    f5_image_name: "",
+    machine_type: ""
+  },
+  vsis: [],
+  edge_pattern: "vpn-and-waf",
+  f5_on_management: true
+};
+F5VsiForm.propTypes = {
+  data: PropTypes.shape({
+    zones: PropTypes.number,
+    resource_group: PropTypes.string,
+    ssh_keys: PropTypes.array,
+    f5_image_name: PropTypes.string,
+    machine_type: PropTypes.string
+  }).isRequired,
+  vsis: PropTypes.array.isRequired,
+  edge_pattern: PropTypes.string,
+  f5_on_management: PropTypes.bool,
+  // use management
+  /* api endpoints */
+  apiEndpointFlavors: PropTypes.string.isRequired,
+  /* lists */
+  resourceGroupList: PropTypes.array.isRequired,
+  sshKeyList: PropTypes.array.isRequired,
+  encryptionKeyList: PropTypes.array.isRequired,
+  /* callbacks */
+  initVsiCallback: PropTypes.func.isRequired,
+  saveVsiCallback: PropTypes.func.isRequired,
+  hideSaveCallback: PropTypes.func.isRequired,
+  disableSaveCallback: PropTypes.func.isRequired
+};
+
 var AccessGroupForm = /*#__PURE__*/function (_React$Component) {
   _inherits(AccessGroupForm, _React$Component);
   var _super = _createSuper(AccessGroupForm);
@@ -22336,6 +22532,7 @@ AccessGroupDynamicPolicyForm.propTypes = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetMultiSelect, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcListMultiSelect, VpnGatewayForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> f849341 (access group forms :100:)
 =======
@@ -22479,3 +22676,6 @@ export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, A
 =======
 export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VsiForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> 1eee3c9 (Issue 709: Security Group Form (#89))
+=======
+export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, F5VsiForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VsiForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+>>>>>>> e26f4ca (add f5 vsi form)
