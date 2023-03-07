@@ -21684,7 +21684,7 @@ var F5VsiForm = /*#__PURE__*/function (_Component) {
         type: "subHeading",
         className: "marginBottomSmall"
       }), /*#__PURE__*/React.createElement("div", {
-        className: "displayFlex"
+        className: "displayFlex evenSpacing"
       }, vsis.map(function (instance, index) {
         if (index < _this2.state.zones) return /*#__PURE__*/React.createElement(F5VsiTile, {
           key: "f5-vsi-tile" + JSON.stringify(instance) + index,
@@ -21739,7 +21739,7 @@ var F5VsiTile = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       var _this4 = this;
       return /*#__PURE__*/React.createElement(Tile, {
-        className: "marginRight fieldWidth"
+        className: "fieldWidth"
       }, /*#__PURE__*/React.createElement(IcseHeading, {
         name: this.state.name,
         type: "subHeading",

@@ -122,7 +122,7 @@ class F5VsiForm extends Component {
               type="subHeading"
               className="marginBottomSmall"
             />
-            <div className="displayFlex">
+            <div className="displayFlex evenSpacing">
               {vsis.map((instance, index) => {
                 if (index < this.state.zones)
                   return (
@@ -174,7 +174,7 @@ class F5VsiTile extends React.Component {
 
   render() {
     return (
-      <Tile className="marginRight fieldWidth">
+      <Tile className="fieldWidth">
         <IcseHeading
           name={this.state.name}
           type="subHeading"
