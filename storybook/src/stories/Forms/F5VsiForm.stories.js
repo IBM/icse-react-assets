@@ -153,7 +153,7 @@ const F5VsiFormStory = () => {
         secondarySubnetNames.push(tier + "-" + zone);
         secondarySecurityGroupNames.push({
           group_name: tier + "-sg",
-          interface_name: `slz-${vpcName}-${tier}-${zone}`,
+          interface_name: `${vpcName}-${tier}-${zone}`,
         });
       }
     });
