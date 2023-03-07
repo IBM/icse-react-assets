@@ -19912,165 +19912,198 @@ SecurityGroupForm.propTypes = {
   vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
 };
 
-class F5VsiForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = this.props.data;
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
-    this.handleVsiSave = this.handleVsiSave.bind(this);
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
+var F5VsiForm = /*#__PURE__*/function (_Component) {
+  _inherits(F5VsiForm, _Component);
+  var _super = _createSuper(F5VsiForm);
+  function F5VsiForm(props) {
+    var _this;
+    _classCallCheck(this, F5VsiForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleMultiSelectChange = _this.handleMultiSelectChange.bind(_assertThisInitialized(_this));
+    _this.handleVsiSave = _this.handleVsiSave.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    return _this;
   }
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-  handleMultiSelectChange(name, value) {
-    this.setState(this.setNameToValue(name, value));
-  }
-  handleVsiSave(stateData) {
-    this.props.saveVsiCallback(stateData);
-  }
-  render() {
-    let vsis = [...this.props.vsis];
-    while (vsis.length < this.state.zones) {
-      // add a new vsi to display
-      vsis.push(this.props.initVsiCallback(this.props.edge_pattern, `zone-${vsis.length + 1}`, this.props.f5_on_management, {
-        f5_image_name: this.state.f5_image_name,
-        resource_group: this.state.resource_group,
-        ssh_keys: this.state.ssh_keys,
-        machine_type: this.state.machine_type
-      }));
+  _createClass(F5VsiForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
     }
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "f5_vsi_form",
-      name: "zones",
-      labelText: "F5 Instance Zones",
-      groups: lazyZ.buildNumberDropdownList(4) // 0-3 Zones
-      ,
-      value: this.state.zones.toString(),
-      handleInputChange: this.handleInputChange
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "f5_vsi_form",
-      name: "resource_group",
-      labelText: "Resource Group",
-      groups: this.props.resourceGroupList,
-      value: this.state.resource_group,
-      handleInputChange: this.handleInputChange
-    }), /*#__PURE__*/React__default["default"].createElement(SshKeyMultiSelect, {
-      id: "sshkey",
-      sshKeys: this.props.sshKeyList,
-      initialSelectedItems: this.state.ssh_keys,
-      onChange: value => this.handleMultiSelectChange("ssh_keys", value)
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "f5_vsi_form",
-      name: "f5_image_name",
-      labelText: "F5 Image",
-      groups: ["f5-bigip-15-1-5-1-0-0-14-all-1slot", "f5-bigip-15-1-5-1-0-0-14-ltm-1slot", "f5-bigip-16-1-2-2-0-0-28-ltm-1slot", "f5-bigip-16-1-2-2-0-0-28-all-1slot", "f5-bigip-16-1-3-2-0-0-4-ltm-1slot", "f5-bigip-16-1-3-2-0-0-4-all-1slot", "f5-bigip-17-0-0-1-0-0-4-ltm-1slot", "f5-bigip-17-0-0-1-0-0-4-all-1slot"],
-      value: this.state.f5_image_name,
-      handleInputChange: this.handleInputChange
-    }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
-      formName: "f5_vsi_form",
-      labelText: "Flavor",
-      name: "machine_type",
-      apiEndpoint: this.props.apiEndpointFlavors,
-      handleInputChange: this.handleInputChange,
-      value: this.state.machine_type
-    })), vsis.length > 0 && /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
-      name: "F5 Big IP Virtual Servers",
-      type: "subHeading",
-      className: "marginBottomSmall"
-    }), /*#__PURE__*/React__default["default"].createElement("div", {
-      className: "displayFlex"
-    }, vsis.map((instance, index) => {
-      if (index < this.state.zones) return /*#__PURE__*/React__default["default"].createElement(F5VsiTile, {
-        key: "f5-vsi-tile" + JSON.stringify(instance) + index,
-        data: instance,
-        hide: false,
-        onSave: this.handleVsiSave,
-        totalZones: this.state.zones,
-        index: index,
-        resourceGroupList: this.props.resourceGroupList,
-        encryptionKeyList: this.props.encryptionKeyList,
-        hideSaveCallback: this.props.hideSaveCallback,
-        disableSaveCallback: this.props.disableSaveCallback
-      });
-    }))));
+  }, {
+    key: "handleMultiSelectChange",
+    value: function handleMultiSelectChange(name, value) {
+      this.setState(this.setNameToValue(name, value));
+    }
+  }, {
+    key: "handleVsiSave",
+    value: function handleVsiSave(stateData) {
+      this.props.saveVsiCallback(stateData);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      var vsis = _toConsumableArray(this.props.vsis);
+      while (vsis.length < this.state.zones) {
+        // add a new vsi to display
+        vsis.push(this.props.initVsiCallback(this.props.edge_pattern, "zone-".concat(vsis.length + 1), this.props.f5_on_management, {
+          f5_image_name: this.state.f5_image_name,
+          resource_group: this.state.resource_group,
+          ssh_keys: this.state.ssh_keys,
+          machine_type: this.state.machine_type
+        }));
+      }
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: "f5_vsi_form",
+        name: "zones",
+        labelText: "F5 Instance Zones",
+        groups: lazyZ.buildNumberDropdownList(4) // 0-3 Zones
+        ,
+        value: this.state.zones.toString(),
+        handleInputChange: this.handleInputChange
+      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: "f5_vsi_form",
+        name: "resource_group",
+        labelText: "Resource Group",
+        groups: this.props.resourceGroupList,
+        value: this.state.resource_group,
+        handleInputChange: this.handleInputChange
+      }), /*#__PURE__*/React__default["default"].createElement(SshKeyMultiSelect, {
+        id: "sshkey",
+        sshKeys: this.props.sshKeyList,
+        initialSelectedItems: this.state.ssh_keys,
+        onChange: function onChange(value) {
+          return _this2.handleMultiSelectChange("ssh_keys", value);
+        }
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: "f5_vsi_form",
+        name: "f5_image_name",
+        labelText: "F5 Image",
+        groups: ["f5-bigip-15-1-5-1-0-0-14-all-1slot", "f5-bigip-15-1-5-1-0-0-14-ltm-1slot", "f5-bigip-16-1-2-2-0-0-28-ltm-1slot", "f5-bigip-16-1-2-2-0-0-28-all-1slot", "f5-bigip-16-1-3-2-0-0-4-ltm-1slot", "f5-bigip-16-1-3-2-0-0-4-all-1slot", "f5-bigip-17-0-0-1-0-0-4-ltm-1slot", "f5-bigip-17-0-0-1-0-0-4-all-1slot"],
+        value: this.state.f5_image_name,
+        handleInputChange: this.handleInputChange
+      }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
+        formName: "f5_vsi_form",
+        labelText: "Flavor",
+        name: "machine_type",
+        apiEndpoint: this.props.apiEndpointFlavors,
+        handleInputChange: this.handleInputChange,
+        value: this.state.machine_type
+      })), vsis.length > 0 && /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+        name: "F5 Big IP Virtual Servers",
+        type: "subHeading",
+        className: "marginBottomSmall"
+      }), /*#__PURE__*/React__default["default"].createElement("div", {
+        className: "displayFlex"
+      }, vsis.map(function (instance, index) {
+        if (index < _this2.state.zones) return /*#__PURE__*/React__default["default"].createElement(F5VsiTile, {
+          key: "f5-vsi-tile" + JSON.stringify(instance) + index,
+          data: instance,
+          hide: false,
+          onSave: _this2.handleVsiSave,
+          totalZones: _this2.state.zones,
+          index: index,
+          resourceGroupList: _this2.props.resourceGroupList,
+          encryptionKeyList: _this2.props.encryptionKeyList,
+          hideSaveCallback: _this2.props.hideSaveCallback,
+          disableSaveCallback: _this2.props.disableSaveCallback
+        });
+      }))));
+    }
+  }]);
+  return F5VsiForm;
+}(React.Component);
+var F5VsiTile = /*#__PURE__*/function (_React$Component) {
+  _inherits(F5VsiTile, _React$Component);
+  var _super2 = _createSuper(F5VsiTile);
+  function F5VsiTile(props) {
+    var _this3;
+    _classCallCheck(this, F5VsiTile);
+    _this3 = _super2.call(this, props);
+    _this3.state = _this3.props.data;
+    _this3.handleInputChange = _this3.handleInputChange.bind(_assertThisInitialized(_this3));
+    _this3.shouldHideSave = _this3.shouldHideSave.bind(_assertThisInitialized(_this3));
+    _this3.shouldDisableSave = _this3.shouldDisableSave.bind(_assertThisInitialized(_this3));
+    return _this3;
   }
-}
-class F5VsiTile extends React__default["default"].Component {
-  constructor(props) {
-    super(props);
-    this.state = this.props.data;
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.shouldHideSave = this.shouldHideSave.bind(this);
-    this.shouldDisableSave = this.shouldDisableSave.bind(this);
-  }
-  handleInputChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    this.setState({
-      [name]: value
-    });
-  }
-  shouldHideSave() {
-    return this.props.hideSaveCallback(this.state, this.props);
-  }
-  shouldDisableSave() {
-    return this.props.disableSaveCallback(this.state, this.props);
-  }
-  render() {
-    return /*#__PURE__*/React__default["default"].createElement(react.Tile, {
-      className: "marginRight fieldWidth"
-    }, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
-      name: this.state.name,
-      type: "subHeading",
-      className: "marginBottomSmall",
-      buttons: /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
-        hide: this.shouldHideSave(this.state, this.props),
-        show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
-          onClick: () => this.props.onSave(this.state),
-          noDeleteButton: true,
-          disabled: this.shouldDisableSave()
+  _createClass(F5VsiTile, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      var _event$target = event.target,
+        name = _event$target.name,
+        value = _event$target.value;
+      this.setState(_defineProperty({}, name, value));
+    }
+  }, {
+    key: "shouldHideSave",
+    value: function shouldHideSave() {
+      return this.props.hideSaveCallback(this.state, this.props);
+    }
+  }, {
+    key: "shouldDisableSave",
+    value: function shouldDisableSave() {
+      return this.props.disableSaveCallback(this.state, this.props);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this4 = this;
+      return /*#__PURE__*/React__default["default"].createElement(react.Tile, {
+        className: "marginRight fieldWidth"
+      }, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+        name: this.state.name,
+        type: "subHeading",
+        className: "marginBottomSmall",
+        buttons: /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+          hide: this.shouldHideSave(this.state, this.props),
+          show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+            onClick: function onClick() {
+              return _this4.props.onSave(_this4.state);
+            },
+            noDeleteButton: true,
+            disabled: this.shouldDisableSave()
+          })
         })
-      })
-    }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
-      className: "marginBottomSmall"
-    }, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: this.state.name,
-      componentName: "f5_vsi_form",
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      useData: true,
-      readOnly: true,
-      invalidCallback: () => {},
-      invalidText: "",
-      className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
-      className: "marginBottomSmall"
-    }, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "f5_vsi_form",
-      name: "resource_group",
-      labelText: "Resource Group",
-      groups: this.props.resourceGroupList,
-      value: this.state.resource_group,
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
-      className: "marginBottomSmall"
-    }, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "f5_vsi_form",
-      name: "boot_volume_encryption_key_name",
-      labelText: "Encryption Key",
-      groups: this.props.encryptionKeyList,
-      value: this.state.boot_volume_encryption_key_name,
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    })));
-  }
-}
+      }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+        className: "marginBottomSmall"
+      }, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+        id: this.state.name,
+        componentName: "f5_vsi_form",
+        value: this.state.name,
+        onChange: this.handleInputChange,
+        useData: true,
+        readOnly: true,
+        invalidCallback: function invalidCallback() {},
+        invalidText: "",
+        className: "fieldWidthSmaller"
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+        className: "marginBottomSmall"
+      }, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: "f5_vsi_form",
+        name: "resource_group",
+        labelText: "Resource Group",
+        groups: this.props.resourceGroupList,
+        value: this.state.resource_group,
+        handleInputChange: this.handleInputChange,
+        className: "fieldWidthSmaller"
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+        className: "marginBottomSmall"
+      }, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: "f5_vsi_form",
+        name: "boot_volume_encryption_key_name",
+        labelText: "Encryption Key",
+        groups: this.props.encryptionKeyList,
+        value: this.state.boot_volume_encryption_key_name,
+        handleInputChange: this.handleInputChange,
+        className: "fieldWidthSmaller"
+      })));
+    }
+  }]);
+  return F5VsiTile;
+}(React__default["default"].Component);
 F5VsiForm.defaultProps = {
   data: {
     zones: 0,
@@ -20085,15 +20118,15 @@ F5VsiForm.defaultProps = {
 };
 F5VsiForm.propTypes = {
   data: PropTypes__default["default"].shape({
-    zones: PropTypes__default["default"].number,
-    resource_group: PropTypes__default["default"].string,
+    zones: PropTypes__default["default"].number.isRequired,
+    resource_group: PropTypes__default["default"].string.isRequired,
     ssh_keys: PropTypes__default["default"].array,
-    f5_image_name: PropTypes__default["default"].string,
-    machine_type: PropTypes__default["default"].string
+    f5_image_name: PropTypes__default["default"].string.isRequired,
+    machine_type: PropTypes__default["default"].string.isRequired
   }).isRequired,
   vsis: PropTypes__default["default"].array.isRequired,
-  edge_pattern: PropTypes__default["default"].string,
-  f5_on_management: PropTypes__default["default"].bool,
+  edge_pattern: PropTypes__default["default"].string.isRequired,
+  f5_on_management: PropTypes__default["default"].bool.isRequired,
   // use management
   /* api endpoints */
   apiEndpointFlavors: PropTypes__default["default"].string.isRequired,

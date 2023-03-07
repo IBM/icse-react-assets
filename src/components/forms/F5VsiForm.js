@@ -247,15 +247,15 @@ F5VsiForm.defaultProps = {
 
 F5VsiForm.propTypes = {
   data: PropTypes.shape({
-    zones: PropTypes.number,
-    resource_group: PropTypes.string,
+    zones: PropTypes.number.isRequired,
+    resource_group: PropTypes.string.isRequired,
     ssh_keys: PropTypes.array,
-    f5_image_name: PropTypes.string,
-    machine_type: PropTypes.string,
+    f5_image_name: PropTypes.string.isRequired,
+    machine_type: PropTypes.string.isRequired,
   }).isRequired,
   vsis: PropTypes.array.isRequired,
-  edge_pattern: PropTypes.string,
-  f5_on_management: PropTypes.bool, // use management
+  edge_pattern: PropTypes.string.isRequired,
+  f5_on_management: PropTypes.bool.isRequired, // use management
   /* api endpoints */
   apiEndpointFlavors: PropTypes.string.isRequired,
   /* lists */
