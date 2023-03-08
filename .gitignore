@@ -24,7 +24,12 @@ yarn-error.log*
 
 .nyc_output
 <<<<<<< HEAD
+<<<<<<< HEAD
 dev.*
 =======
 *.x
 >>>>>>> be1d84d (Issue 741: Multiselect Stories (#62))
+=======
+*.x
+dev.*
+>>>>>>> cd6a682 (fix: gitignore)
