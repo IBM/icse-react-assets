@@ -328,12 +328,42 @@ function invalidRegex$1(name, value, regex) {
     invalidText: `Invalid ${name}. Must match regular expression: ${regex}`
   };
 }
+
+/**
+ * Function that handles cluster input change
+ * @param {string} name field name
+ * @param {string} value field value
+ * @returns {object} updated cluster object
+ */
+function handleClusterInputChange$1(name, value, stateData) {
+  const kubeTypes = {
+    OpenShift: "openshift",
+    "IBM Kubernetes Service": "iks"
+  };
+  let cluster = stateData;
+  if (name === "kms_config") {
+    cluster[name].crk_name = value;
+  } else if (name === "kube_type") {
+    cluster[name] = kubeTypes[value];
+    cluster.cos_name = "";
+    cluster.kube_version = ""; // reset kube version on change
+  } else if (name === "workers_per_subnet") {
+    cluster[name] = Number(value);
+  } else if (name === "vpc_name") {
+    cluster[name] = value;
+    cluster.subnets = [];
+  } else {
+    cluster[name] = value === "null" ? null : value;
+  }
+  return cluster;
+}
 var formUtils = {
   addClassName: addClassName$1,
   toggleMarginBottom: toggleMarginBottom$1,
   prependEmptyStringWhenNull: prependEmptyStringWhenNull$1,
   checkNullorEmptyString: checkNullorEmptyString$1,
-  invalidRegex: invalidRegex$1
+  invalidRegex: invalidRegex$1,
+  handleClusterInputChange: handleClusterInputChange$1
 };
 
 const {
@@ -411,7 +441,8 @@ const {
   addClassName,
   prependEmptyStringWhenNull,
   checkNullorEmptyString,
-  invalidRegex
+  invalidRegex,
+  handleClusterInputChange
 } = formUtils;
 const {
   formatInputPlaceholder
@@ -434,7 +465,8 @@ var lib = {
   eventTargetToNameAndValue: eventTargetToNameAndValue$1,
   toggleStateBoolean: toggleStateBoolean$1,
   setNameToValue: setNameToValue$1,
-  invalidRegex
+  invalidRegex,
+  handleClusterInputChange
 };
 var lib_1 = lib.toggleMarginBottom;
 var lib_2 = lib.addClassName;
@@ -443,6 +475,7 @@ var lib_4 = lib.checkNullorEmptyString;
 var lib_5 = lib.formatInputPlaceholder;
 var lib_6 = lib.saveChangeButtonClass;
 var lib_10 = lib.invalidRegex;
+var lib_11 = lib.handleClusterInputChange;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -9720,361 +9753,351 @@ styleInject(css_248z$4);
 /**
  * F5VsiTemplateForm
  */
-var F5VsiTemplateForm = /*#__PURE__*/function (_Component) {
-  _inherits(F5VsiTemplateForm, _Component);
-  var _super = _createSuper(F5VsiTemplateForm);
-  function F5VsiTemplateForm(props) {
-    var _this;
-    _classCallCheck(this, F5VsiTemplateForm);
-    _this = _super.call(this, props);
-    _this.state = props.data;
-    buildFormFunctions(_assertThisInitialized(_this));
-    buildFormDefaultInputMethods(_assertThisInitialized(_this));
-    _this.handleTextInput = _this.handleTextInput.bind(_assertThisInitialized(_this));
-    _this.handleLicenseChange = _this.handleLicenseChange.bind(_assertThisInitialized(_this));
-    _this.generateAdminPassword = _this.generateAdminPassword.bind(_assertThisInitialized(_this));
-    return _this;
+class F5VsiTemplateForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = props.data;
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleTextInput = this.handleTextInput.bind(this);
+    this.handleLicenseChange = this.handleLicenseChange.bind(this);
+    this.generateAdminPassword = this.generateAdminPassword.bind(this);
   }
 
   /**
    * set state to event value
    * @param {event} event
    */
-  _createClass(F5VsiTemplateForm, [{
-    key: "handleTextInput",
-    value: function handleTextInput(event) {
-      this.setState(this.eventTargetToNameAndValue(event));
-    }
+  handleTextInput(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
 
-    /**
-     * set conditional fields to null on license type change
-     * @param {event} event
-     */
-  }, {
-    key: "handleLicenseChange",
-    value: function handleLicenseChange(event) {
-      var _event$target = event.target,
-        name = _event$target.name,
-        value = _event$target.value;
-      var reset = {};
-      var pool = ["license_username", "license_password", "license_host", "license_pool"];
-      var conditionalFields = {
-        none: [],
-        byol: ["byol_license_basekey"],
-        regkeypool: pool,
-        utilitypool: ["license_unit_of_measure", "license_sku_keyword_1", "license_sku_keyword_2"].concat(pool)
-      };
-      this.setState(function (prevState) {
-        conditionalFields[prevState.license_type].forEach(function (field) {
-          if (!conditionalFields[value].includes(field)) {
-            reset[field] = "";
-          }
-        });
-        return _objectSpread2(_defineProperty({}, name, value), reset);
+  /**
+   * set conditional fields to null on license type change
+   * @param {event} event
+   */
+  handleLicenseChange(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    let reset = {};
+    let pool = ["license_username", "license_password", "license_host", "license_pool"];
+    let conditionalFields = {
+      none: [],
+      byol: ["byol_license_basekey"],
+      regkeypool: pool,
+      utilitypool: ["license_unit_of_measure", "license_sku_keyword_1", "license_sku_keyword_2", ...pool]
+    };
+    this.setState(prevState => {
+      conditionalFields[prevState.license_type].forEach(field => {
+        if (!conditionalFields[value].includes(field)) {
+          reset[field] = "";
+        }
       });
-    }
+      return {
+        [name]: value,
+        ...reset
+      };
+    });
+  }
 
-    /**
-     * get a valid admin password between 15-20 characters
-     */
-  }, {
-    key: "generateAdminPassword",
-    value: function generateAdminPassword() {
-      var length = Math.floor(Math.random() * 6 + 15); // between 15-20 chars, inclusive (20 - 15 + 1)
-      var password = f5Utils_1(length); // get a valid password
-      this.setState({
-        tmos_admin_password: password
-      }); // set password
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-        formName: "F5 VSI Template",
-        tooltip: {
-          content: "The type of license.",
-          align: "right"
-        },
-        labelText: "License Type",
-        component: "f5-license-type",
-        name: "license_type",
-        groups: ["none", "byol", "regkeypool", "utilitypool"],
-        value: this.state.license_type,
-        className: "fieldWidth",
-        handleInputChange: this.handleLicenseChange
-      }), /*#__PURE__*/React__default["default"].createElement("div", {
-        className: "tooltip tight"
-      }, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
-        tooltip: {
-          content: "The admin account password for the F5 BIG-IP instance.",
-          align: "right"
-        },
-        innerForm: react.PasswordInput,
-        className: "wide",
-        id: "tmos_admin_password",
-        labelText: "TMOS Admin Password",
-        name: "tmos_admin_password",
-        value: this.state.tmos_admin_password || "",
-        invalid: this.props.invalidCallback("tmos_admin_password", this.state, this.props) || !f5Utils_3(this.state.tmos_admin_password),
-        invalidText: "Password must be at least 15 characters, contain one numeric, one uppercase, and one lowercase character.",
-        onChange: this.handleTextInput
-      })), /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
-        hoverText: "Generate Password",
-        className: "passwordGenerateButton" + (f5Utils_3(this.state.tmos_admin_password) ? "" : " invalid")
-      }, /*#__PURE__*/React__default["default"].createElement(react.Button, {
-        kind: "ghost",
-        onClick: this.generateAdminPassword,
-        className: "forceTertiaryButtonStyles"
-      }, /*#__PURE__*/React__default["default"].createElement(iconsReact.Password, null)))), this.state.license_type != "none" && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, this.state.license_type != "regkeypool" && this.state.license_type == "byol" && /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
-        tooltip: {
-          content: "Bring your own license registration key for the F5 BIG-IP instance.",
-          align: "top-right"
-        },
-        id: "byol_license_basekey",
-        field: "byol_license_basekey",
-        className: "textInputWide",
-        labelText: "BYOL License Basekey",
-        innerForm: IcseTextInput,
-        value: this.state.byol_license_basekey || "",
-        onChange: this.handleTextInput,
-        invalid: this.props.invalidCallback("byol_license_basekey", this.state, this.props) || f5Utils_2(this.state.byol_license_basekey),
-        invalidText: this.props.invalidTextCallback("byol_license_basekey", this.state, this.props)
-      })), this.state.license_type != "byol" && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
-        tooltip: {
-          content: "BIGIQ username to use for the pool based licensing of the F5 BIG-IP instance.",
-          align: "top-left"
-        },
-        id: "license_username",
-        field: "license_username",
-        className: "fieldWidth",
-        labelText: "License Username",
-        innerForm: IcseTextInput,
-        value: this.state.license_username || "",
-        onChange: this.handleTextInput,
-        invalid: this.props.invalidCallback("license_username", this.state, this.props) || f5Utils_2(this.state.license_username),
-        invalidText: this.props.invalidTextCallback("license_username", this.state, this.props)
-      }), /*#__PURE__*/React__default["default"].createElement("div", {
-        className: "leftTextAlign tooltip"
-      }, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
-        tooltip: {
-          content: "BIGIQ password to use for the pool based licensing of the F5 BIG-IP instance."
-        },
-        id: "license_password",
-        className: "wide",
-        labelText: "License Password",
-        innerForm: react.PasswordInput,
-        name: "license_password",
-        value: this.state.license_password || "",
-        onChange: this.handleTextInput,
-        invalid: this.props.invalidCallback("license_password", this.state, this.props),
-        invalidText: this.props.invalidTextCallback("license_password", this.state, this.props)
-      }))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
-        tooltip: {
-          content: "BIGIQ IP or hostname to use for pool based licensing of the F5 BIG-IP instance.",
-          align: "top-left"
-        },
-        id: "license_host",
-        field: "license_host",
-        className: "fieldWidth",
-        labelText: "License Host",
-        innerForm: IcseTextInput,
-        value: this.state.license_host || "",
-        onChange: this.handleTextInput,
-        invalid: this.props.invalidCallback("license_host", this.state, this.props) || f5Utils_2(this.state.license_host),
-        invalidText: this.props.invalidTextCallback("license_host", this.state, this.props)
-      }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
-        tooltip: {
-          content: "BIGIQ license pool name for the licensing of the F5 BIG-IP instance."
-        },
-        id: "license_pool",
-        field: "license_pool",
-        className: "wide",
-        labelText: "License Pool",
-        innerForm: IcseTextInput,
-        value: this.state.license_pool || "",
-        onChange: this.handleTextInput,
-        invalid: this.props.invalidCallback("license_pool", this.state, this.props) || f5Utils_2(this.state.license_pool),
-        invalidText: this.props.invalidTextCallback("license_pool", this.state, this.props)
-      })), this.state.license_type == "utilitypool" && /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
-        tooltip: {
-          content: "BIGIQ utility pool unit of measurement.",
-          align: "top-right"
-        },
-        id: "license_unit_of_measure",
-        field: "license_unit_of_measure",
-        className: "fieldWidthSmaller",
-        labelText: "License Unit of Measure",
-        innerForm: IcseTextInput,
-        value: this.state.license_unit_of_measure || "",
-        onChange: this.handleTextInput,
-        invalid: this.props.invalidCallback("license_unit_of_measure", this.state, this.props) || f5Utils_2(this.state.license_unit_of_measure),
-        invalidText: this.props.invalidTextCallback("license_unit_of_measure", this.state, this.props)
-      }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
-        tooltip: {
-          content: "BIGIQ primary SKU for ELA utility licensing of the F5 BIG-IP instance."
-        },
-        id: "license_sku_keyword_1",
-        field: "license_sku_keyword_1",
-        className: "fieldWidthSmaller",
-        labelText: "License SKU Keyword 1",
-        innerForm: IcseTextInput,
-        value: this.state.license_sku_keyword_1 || "",
-        onChange: this.handleTextInput,
-        invalid: this.props.invalidCallback("license_sku_keyword_1", this.state, this.props) || f5Utils_2(this.state.license_sku_keyword_1),
-        invalidText: this.props.invalidTextCallback("license_sku_keyword_1", this.state, this.props)
-      }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
-        tooltip: {
-          content: "BIGIQ secondary SKU for ELA utility licensing of the F5 BIG-IP instance"
-        },
-        id: "license_sku_keyword_2",
-        field: "license_sku_keyword_2",
-        className: "fieldWidthSmaller",
-        labelText: "License SKU Keyword 2",
-        innerForm: IcseTextInput,
-        value: this.state.license_sku_keyword_2 || "",
-        onChange: this.handleTextInput,
-        invalid: this.props.invalidCallback("license_sku_keyword_2", this.state, this.props) || f5Utils_2(this.state.license_sku_keyword_2),
-        invalidText: this.props.invalidTextCallback("license_sku_keyword_2", this.state, this.props)
-      })))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
-        tooltip: {
-          content: "The terraform template version for phone_home_url_metadata.",
-          align: "top-left"
-        },
-        id: "template_version",
-        field: "template_version",
-        className: "fieldWidth",
-        labelText: "Template Version",
-        innerForm: IcseTextInput,
-        value: this.state.template_version,
-        onChange: this.handleTextInput,
-        invalid: this.props.invalidCallback("template_version", this.state, this.props) || f5Utils_2(this.state.template_version),
-        invalidText: this.props.invalidTextCallback("template_version", this.state, this.props)
-      }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
-        tooltip: {
-          content: "The terraform template source for phone_home_url_metadata."
-        },
-        id: "template_source",
-        field: "template_source",
-        className: "wide",
-        labelText: "Template Source",
-        innerForm: IcseTextInput,
-        value: this.state.template_source,
-        onChange: this.handleTextInput,
-        invalid: this.props.invalidCallback("template_source", this.state, this.props) || f5Utils_2(this.state.template_source),
-        invalidText: this.props.invalidTextCallback("template_source", this.state, this.props)
-      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
-        tooltip: {
-          content: "The terraform application id for phone_home_url_metadata.",
-          align: "top-right"
-        },
-        id: "app_id",
-        field: "app_id",
-        className: "fieldWidth",
-        labelText: "App ID",
-        innerForm: IcseTextInput,
-        value: this.state.app_id,
-        onChange: this.handleTextInput,
-        invalid: this.props.invalidCallback("app_id", this.state, this.props),
-        invalidText: this.props.invalidTextCallback("app_id", this.state, this.props)
-      }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
-        tooltip: {
-          content: "The URL to POST status when BIG-IP is finished onboarding."
-        },
-        id: "phone_home_url",
-        field: "phone_home_url",
-        className: "fieldWidth",
-        labelText: "Phone Home URL",
-        innerForm: IcseTextInput,
-        value: this.state.phone_home_url,
-        onChange: this.handleTextInput,
-        invalid: this.props.invalidCallback("phone_home_url", this.state, this.props) || !f5Utils_4(this.state.phone_home_url),
-        invalidText: this.props.invalidTextCallback("phone_home_url", this.state, this.props)
-      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
-        tooltip: {
-          content: "The URL to retrieve the f5-declarative-onboarding JSON declaration.",
-          align: "top-left"
-        },
-        id: "do_declaration_url",
-        field: "do_declaration_url",
-        className: "fieldWidth",
-        labelText: "DO Declaration URL",
-        innerForm: IcseTextInput,
-        value: this.state.do_declaration_url,
-        onChange: this.handleTextInput,
-        invalid: this.props.invalidCallback("do_declaration_url", this.state, this.props) || !f5Utils_4(this.state.do_declaration_url),
-        invalidText: this.props.invalidTextCallback("do_declaration_url", this.state, this.props)
-      }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
-        tooltip: {
-          content: "The URL to retrieve the f5-appsvcs-extension JSON declaration."
-        },
-        id: "as3_declaration_url",
-        field: "as3_declaration_url",
-        className: "fieldWidth",
-        labelText: "AS3 Declaration URL",
-        innerForm: IcseTextInput,
-        value: this.state.as3_declaration_url,
-        onChange: this.handleTextInput,
-        invalid: this.props.invalidCallback("as3_declaration_url", this.state, this.props) || !f5Utils_4(this.state.as3_declaration_url),
-        invalidText: this.props.invalidTextCallback("as3_declaration_url", this.state, this.props)
-      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
-        tooltip: {
-          content: "The URL to retrieve the f5-telemetry-streaming JSON declaration.",
-          align: "top-left"
-        },
-        id: "ts_declaration_url",
-        field: "ts_declaration_url",
-        className: "fieldWidth",
-        labelText: "TS Declaration URL",
-        innerForm: IcseTextInput,
-        value: this.state.ts_declaration_url,
-        onChange: this.handleTextInput,
-        invalid: this.props.invalidCallback("ts_declaration_url", this.state, this.props) || !f5Utils_4(this.state.ts_declaration_url),
-        invalidText: this.props.invalidTextCallback("ts_declaration_url", this.state, this.props)
-      }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
-        tooltip: {
-          content: "The URL to POST L3 addresses when tgstandby is triggered."
-        },
-        id: "tgstandby_url",
-        field: "tgstandby_url",
-        className: "fieldWidth",
-        labelText: "TGStandby URL",
-        innerForm: IcseTextInput,
-        value: this.state.tgstandby_url,
-        onChange: this.handleTextInput,
-        invalid: this.props.invalidCallback("tgstandby_url", this.state, this.props) || !f5Utils_4(this.state.tgstandby_url),
-        invalidText: this.props.invalidTextCallback("tgstandby_url", this.state, this.props)
-      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
-        tooltip: {
-          content: "The URL to POST L3 addresses when tgrefresh is triggered.",
-          align: "top-left"
-        },
-        id: "tgrefresh_url",
-        field: "tgrefresh_url",
-        className: "fieldWidth",
-        labelText: "TGRefresh URL",
-        innerForm: IcseTextInput,
-        value: this.state.tgrefresh_url,
-        onChange: this.handleTextInput,
-        invalid: this.props.invalidCallback("tgrefresh_url", this.state, this.props) || !f5Utils_4(this.state.tgrefresh_url),
-        invalidText: this.props.invalidTextCallback("tgrefresh_url", this.state, this.props)
-      }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
-        tooltip: {
-          content: "The URL to POST L3 addresses when tgactive is triggered."
-        },
-        id: "tgactive_url",
-        field: "tgactive_url",
-        className: "fieldWidth",
-        labelText: "TGActive URL",
-        innerForm: IcseTextInput,
-        value: this.state.tgactive_url,
-        onChange: this.handleTextInput,
-        invalid: this.props.invalidCallback("tgactive_url", this.state, this.props) || !f5Utils_4(this.state.tgactive_url),
-        invalidText: this.props.invalidTextCallback("tgactive_url", this.state, this.props)
-      })));
-    }
-  }]);
-  return F5VsiTemplateForm;
-}(React.Component);
+  /**
+   * get a valid admin password between 15-20 characters
+   */
+  generateAdminPassword() {
+    let length = Math.floor(Math.random() * 6 + 15); // between 15-20 chars, inclusive (20 - 15 + 1)
+    let password = f5Utils_1(length); // get a valid password
+    this.setState({
+      tmos_admin_password: password
+    }); // set password
+  }
+
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: "F5 VSI Template",
+      tooltip: {
+        content: "The type of license.",
+        align: "right"
+      },
+      labelText: "License Type",
+      component: "f5-license-type",
+      name: "license_type",
+      groups: ["none", "byol", "regkeypool", "utilitypool"],
+      value: this.state.license_type,
+      className: "fieldWidth",
+      handleInputChange: this.handleLicenseChange
+    }), /*#__PURE__*/React__default["default"].createElement("div", {
+      className: "tooltip tight"
+    }, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
+      tooltip: {
+        content: "The admin account password for the F5 BIG-IP instance.",
+        align: "right"
+      },
+      innerForm: react.PasswordInput,
+      className: "wide",
+      id: "tmos_admin_password",
+      labelText: "TMOS Admin Password",
+      name: "tmos_admin_password",
+      value: this.state.tmos_admin_password || "",
+      invalid: this.props.invalidCallback("tmos_admin_password", this.state, this.props) || !f5Utils_3(this.state.tmos_admin_password),
+      invalidText: "Password must be at least 15 characters, contain one numeric, one uppercase, and one lowercase character.",
+      onChange: this.handleTextInput
+    })), /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
+      hoverText: "Generate Password",
+      className: "passwordGenerateButton" + (f5Utils_3(this.state.tmos_admin_password) ? "" : " invalid")
+    }, /*#__PURE__*/React__default["default"].createElement(react.Button, {
+      kind: "ghost",
+      onClick: this.generateAdminPassword,
+      className: "forceTertiaryButtonStyles"
+    }, /*#__PURE__*/React__default["default"].createElement(iconsReact.Password, null)))), this.state.license_type != "none" && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, this.state.license_type != "regkeypool" && this.state.license_type == "byol" && /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
+      tooltip: {
+        content: "Bring your own license registration key for the F5 BIG-IP instance.",
+        align: "top-right"
+      },
+      id: "byol_license_basekey",
+      field: "byol_license_basekey",
+      className: "textInputWide",
+      labelText: "BYOL License Basekey",
+      innerForm: IcseTextInput,
+      value: this.state.byol_license_basekey || "",
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("byol_license_basekey", this.state, this.props) || f5Utils_2(this.state.byol_license_basekey),
+      invalidText: this.props.invalidTextCallback("byol_license_basekey", this.state, this.props)
+    })), this.state.license_type != "byol" && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
+      tooltip: {
+        content: "BIGIQ username to use for the pool based licensing of the F5 BIG-IP instance.",
+        align: "top-left"
+      },
+      id: "license_username",
+      field: "license_username",
+      className: "fieldWidth",
+      labelText: "License Username",
+      innerForm: IcseTextInput,
+      value: this.state.license_username || "",
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("license_username", this.state, this.props) || f5Utils_2(this.state.license_username),
+      invalidText: this.props.invalidTextCallback("license_username", this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement("div", {
+      className: "leftTextAlign tooltip"
+    }, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
+      tooltip: {
+        content: "BIGIQ password to use for the pool based licensing of the F5 BIG-IP instance."
+      },
+      id: "license_password",
+      className: "wide",
+      labelText: "License Password",
+      innerForm: react.PasswordInput,
+      name: "license_password",
+      value: this.state.license_password || "",
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("license_password", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("license_password", this.state, this.props)
+    }))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
+      tooltip: {
+        content: "BIGIQ IP or hostname to use for pool based licensing of the F5 BIG-IP instance.",
+        align: "top-left"
+      },
+      id: "license_host",
+      field: "license_host",
+      className: "fieldWidth",
+      labelText: "License Host",
+      innerForm: IcseTextInput,
+      value: this.state.license_host || "",
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("license_host", this.state, this.props) || f5Utils_2(this.state.license_host),
+      invalidText: this.props.invalidTextCallback("license_host", this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
+      tooltip: {
+        content: "BIGIQ license pool name for the licensing of the F5 BIG-IP instance."
+      },
+      id: "license_pool",
+      field: "license_pool",
+      className: "wide",
+      labelText: "License Pool",
+      innerForm: IcseTextInput,
+      value: this.state.license_pool || "",
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("license_pool", this.state, this.props) || f5Utils_2(this.state.license_pool),
+      invalidText: this.props.invalidTextCallback("license_pool", this.state, this.props)
+    })), this.state.license_type == "utilitypool" && /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
+      tooltip: {
+        content: "BIGIQ utility pool unit of measurement.",
+        align: "top-right"
+      },
+      id: "license_unit_of_measure",
+      field: "license_unit_of_measure",
+      className: "fieldWidthSmaller",
+      labelText: "License Unit of Measure",
+      innerForm: IcseTextInput,
+      value: this.state.license_unit_of_measure || "",
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("license_unit_of_measure", this.state, this.props) || f5Utils_2(this.state.license_unit_of_measure),
+      invalidText: this.props.invalidTextCallback("license_unit_of_measure", this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
+      tooltip: {
+        content: "BIGIQ primary SKU for ELA utility licensing of the F5 BIG-IP instance."
+      },
+      id: "license_sku_keyword_1",
+      field: "license_sku_keyword_1",
+      className: "fieldWidthSmaller",
+      labelText: "License SKU Keyword 1",
+      innerForm: IcseTextInput,
+      value: this.state.license_sku_keyword_1 || "",
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("license_sku_keyword_1", this.state, this.props) || f5Utils_2(this.state.license_sku_keyword_1),
+      invalidText: this.props.invalidTextCallback("license_sku_keyword_1", this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
+      tooltip: {
+        content: "BIGIQ secondary SKU for ELA utility licensing of the F5 BIG-IP instance"
+      },
+      id: "license_sku_keyword_2",
+      field: "license_sku_keyword_2",
+      className: "fieldWidthSmaller",
+      labelText: "License SKU Keyword 2",
+      innerForm: IcseTextInput,
+      value: this.state.license_sku_keyword_2 || "",
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("license_sku_keyword_2", this.state, this.props) || f5Utils_2(this.state.license_sku_keyword_2),
+      invalidText: this.props.invalidTextCallback("license_sku_keyword_2", this.state, this.props)
+    })))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
+      tooltip: {
+        content: "The terraform template version for phone_home_url_metadata.",
+        align: "top-left"
+      },
+      id: "template_version",
+      field: "template_version",
+      className: "fieldWidth",
+      labelText: "Template Version",
+      innerForm: IcseTextInput,
+      value: this.state.template_version,
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("template_version", this.state, this.props) || f5Utils_2(this.state.template_version),
+      invalidText: this.props.invalidTextCallback("template_version", this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
+      tooltip: {
+        content: "The terraform template source for phone_home_url_metadata."
+      },
+      id: "template_source",
+      field: "template_source",
+      className: "wide",
+      labelText: "Template Source",
+      innerForm: IcseTextInput,
+      value: this.state.template_source,
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("template_source", this.state, this.props) || f5Utils_2(this.state.template_source),
+      invalidText: this.props.invalidTextCallback("template_source", this.state, this.props)
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
+      tooltip: {
+        content: "The terraform application id for phone_home_url_metadata.",
+        align: "top-right"
+      },
+      id: "app_id",
+      field: "app_id",
+      className: "fieldWidth",
+      labelText: "App ID",
+      innerForm: IcseTextInput,
+      value: this.state.app_id,
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("app_id", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("app_id", this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
+      tooltip: {
+        content: "The URL to POST status when BIG-IP is finished onboarding."
+      },
+      id: "phone_home_url",
+      field: "phone_home_url",
+      className: "fieldWidth",
+      labelText: "Phone Home URL",
+      innerForm: IcseTextInput,
+      value: this.state.phone_home_url,
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("phone_home_url", this.state, this.props) || !f5Utils_4(this.state.phone_home_url),
+      invalidText: this.props.invalidTextCallback("phone_home_url", this.state, this.props)
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
+      tooltip: {
+        content: "The URL to retrieve the f5-declarative-onboarding JSON declaration.",
+        align: "top-left"
+      },
+      id: "do_declaration_url",
+      field: "do_declaration_url",
+      className: "fieldWidth",
+      labelText: "DO Declaration URL",
+      innerForm: IcseTextInput,
+      value: this.state.do_declaration_url,
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("do_declaration_url", this.state, this.props) || !f5Utils_4(this.state.do_declaration_url),
+      invalidText: this.props.invalidTextCallback("do_declaration_url", this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
+      tooltip: {
+        content: "The URL to retrieve the f5-appsvcs-extension JSON declaration."
+      },
+      id: "as3_declaration_url",
+      field: "as3_declaration_url",
+      className: "fieldWidth",
+      labelText: "AS3 Declaration URL",
+      innerForm: IcseTextInput,
+      value: this.state.as3_declaration_url,
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("as3_declaration_url", this.state, this.props) || !f5Utils_4(this.state.as3_declaration_url),
+      invalidText: this.props.invalidTextCallback("as3_declaration_url", this.state, this.props)
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
+      tooltip: {
+        content: "The URL to retrieve the f5-telemetry-streaming JSON declaration.",
+        align: "top-left"
+      },
+      id: "ts_declaration_url",
+      field: "ts_declaration_url",
+      className: "fieldWidth",
+      labelText: "TS Declaration URL",
+      innerForm: IcseTextInput,
+      value: this.state.ts_declaration_url,
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("ts_declaration_url", this.state, this.props) || !f5Utils_4(this.state.ts_declaration_url),
+      invalidText: this.props.invalidTextCallback("ts_declaration_url", this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
+      tooltip: {
+        content: "The URL to POST L3 addresses when tgstandby is triggered."
+      },
+      id: "tgstandby_url",
+      field: "tgstandby_url",
+      className: "fieldWidth",
+      labelText: "TGStandby URL",
+      innerForm: IcseTextInput,
+      value: this.state.tgstandby_url,
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("tgstandby_url", this.state, this.props) || !f5Utils_4(this.state.tgstandby_url),
+      invalidText: this.props.invalidTextCallback("tgstandby_url", this.state, this.props)
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
+      tooltip: {
+        content: "The URL to POST L3 addresses when tgrefresh is triggered.",
+        align: "top-left"
+      },
+      id: "tgrefresh_url",
+      field: "tgrefresh_url",
+      className: "fieldWidth",
+      labelText: "TGRefresh URL",
+      innerForm: IcseTextInput,
+      value: this.state.tgrefresh_url,
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("tgrefresh_url", this.state, this.props) || !f5Utils_4(this.state.tgrefresh_url),
+      invalidText: this.props.invalidTextCallback("tgrefresh_url", this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
+      tooltip: {
+        content: "The URL to POST L3 addresses when tgactive is triggered."
+      },
+      id: "tgactive_url",
+      field: "tgactive_url",
+      className: "fieldWidth",
+      labelText: "TGActive URL",
+      innerForm: IcseTextInput,
+      value: this.state.tgactive_url,
+      onChange: this.handleTextInput,
+      invalid: this.props.invalidCallback("tgactive_url", this.state, this.props) || !f5Utils_4(this.state.tgactive_url),
+      invalidText: this.props.invalidTextCallback("tgactive_url", this.state, this.props)
+    })));
+  }
+}
 F5VsiTemplateForm.defaultProps = {
   data: {
     license_type: "none",
@@ -23065,6 +23088,245 @@ VsiForm.propTypes = {
   invalidTextCallback: PropTypes__default["default"].func.isRequired
 };
 
+class ClusterForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleToggleChange = this.handleToggleChange.bind(this);
+    this.handleMultiSelect = this.handleMultiSelect.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+
+  // Handle cluster input change
+  handleInputChange = event => {
+    let {
+      name,
+      value
+    } = event.target;
+    let cluster = {
+      ...this.state
+    };
+    this.setState(lib_11(name, value, cluster));
+  };
+
+  /**
+   * handle toggle change
+   * @param {*} event event
+   */
+  handleToggleChange = () => {
+    let cluster = {
+      ...this.state
+    };
+    cluster.update_all_workers = !cluster.update_all_workers;
+    this.setState(cluster);
+  };
+
+  /**
+   * handle subnet multiselect
+   * @param {event} event
+   */
+  handleMultiSelect(name, event) {
+    this.setState({
+      [name]: event
+    });
+  }
+  render() {
+    let clusterComponent = this.props.isModal ? "new-cluster" : this.props.data.name;
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: this.state.name + "-name",
+      labelText: "Cluster Name",
+      componentName: clusterComponent,
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props),
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      labelText: "Resource Group",
+      name: "resource_group",
+      formName: "resource_group",
+      groups: this.props.resourceGroups,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a Resource Group.",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      name: "kube_type",
+      formName: "kube_type",
+      labelText: "Kube Type",
+      groups: ["OpenShift", "IBM Kubernetes Service"],
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a cluster type.",
+      value: this.state.kube_type === "" ? "" : this.state.kube_type === "openshift" ? "OpenShift" : "IBM Kubernetes Service",
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(EntitlementSelect, {
+      name: "entitlement",
+      formName: "entitlement",
+      labelText: "Entitlement",
+      value: this.state.entitlement,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      name: "kms_config",
+      formName: "kms_config",
+      labelText: "Encryption Key",
+      groups: this.props.encryptionKeys,
+      value: this.state.kms_config.crk_name,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), this.state.kube_type === "openshift" && /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      name: "cos_name",
+      formName: "cos_name",
+      labelText: "Cloud Object Storage Instance",
+      groups: this.props.cosNames,
+      value: this.state.cos_name,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select an Object Storage instance",
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      id: clusterComponent + "-vpc-name",
+      name: "vpc_name",
+      formName: "vpc_name",
+      labelText: "VPC",
+      groups: this.props.vpcList,
+      value: this.state.vpc_name,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(SubnetMultiSelect, {
+      id: clusterComponent,
+      key: this.state.vpc_name,
+      vpc_name: this.state.vpc_name,
+      subnets: this.props.subnetList,
+      initialSelectedItems: this.state.subnets,
+      onChange: event => this.handleMultiSelect("subnets", event),
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
+      max: 10,
+      name: "workers_per_subnet",
+      formName: "workers_per_subnet",
+      labelText: "Workers per Subnet",
+      value: this.state.workers_per_subnet,
+      handleInputChange: this.handleInputChange,
+      isModal: this.props.isModal,
+      className: "fieldWidthSmaller",
+      invalid: this.state.kube_type === "openshift" && this.state.subnets.length * this.state.workers_per_subnet < 2,
+      invalidText: "OpenShift clusters require at least 2 worker nodes across any number of subnets"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
+      name: "machine_type",
+      formName: "machine_type",
+      labelText: "Instance Profile",
+      value: this.state.machine_type,
+      apiEndpoint: this.props.flavorApiEndpoint,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
+      name: "kube_version",
+      formName: "kube_version",
+      labelText: "Kube Version",
+      value: this.state.kube_version,
+      apiEndpoint: this.props.kubeVersionApiEndpoint,
+      filter: version => {
+        if (this.state.kube_type === "openshift" && version.indexOf("openshift") !== -1 ||
+        // is openshift and contains openshift
+        this.state.kube_type !== "openshift" && version.indexOf("openshift") === -1 ||
+        // is not openshift and does not contain openshift
+        version === "default" // or is default
+        ) {
+          return version.replace(/\s\(Default\)/g, ""); // replace default with empty string
+        }
+      },
+
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      id: clusterComponent + "-update-all",
+      labelText: "Update All Workers",
+      toggleFieldName: "update_all_workers",
+      defaultToggled: this.state.update_all_workers,
+      onToggle: this.handleToggleChange
+    })), /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+      name: "Worker Pools",
+      type: "subHeading",
+      className: "marginBottomSmall",
+      noLabelText: true,
+      noDeleteButton: true
+    }), RenderForm(this.props.workerPoolForms, {
+      cluster: this.props.data,
+      subnetList: this.props.subnetList,
+      invalidCallback: this.props.invalidWorkerPoolsCallback,
+      invalidTextCallback: this.props.invalidWorkerPoolsTextCallback
+    })));
+  }
+}
+ClusterForm.defaultProps = {
+  data: {
+    name: "",
+    resource_group: "",
+    kube_type: "openshift",
+    entitlement: "null",
+    kms_config: {
+      crk_name: ""
+    },
+    cos_name: "",
+    vpc_name: "",
+    subnets: [],
+    workers_per_subnet: 2,
+    machine_type: "",
+    kube_version: "default",
+    update_all_workers: false,
+    worker_pools: []
+  },
+  resourceGroups: [],
+  encryptionKeys: [],
+  cosNames: [],
+  vpcList: [],
+  subnetList: [],
+  isModal: false
+};
+ClusterForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    resource_group: PropTypes__default["default"].string,
+    kube_type: PropTypes__default["default"].string.isRequired,
+    entitlement: PropTypes__default["default"].string,
+    // can be null
+    // crk name can now be null to allow for imported clusters to not have key
+    kms_config: PropTypes__default["default"].shape({
+      crk_name: PropTypes__default["default"].string
+    }).isRequired,
+    cos_name: PropTypes__default["default"].string.isRequired,
+    subnets: PropTypes__default["default"].array.isRequired,
+    workers_per_subnet: PropTypes__default["default"].number.isRequired,
+    vpc_name: PropTypes__default["default"].string.isRequired,
+    kube_version: PropTypes__default["default"].string.isRequired,
+    machine_type: PropTypes__default["default"].string.isRequired,
+    update_all_workers: PropTypes__default["default"].bool.isRequired,
+    worker_pools: PropTypes__default["default"].array.isRequired
+  }),
+  /* bools */
+  isModal: PropTypes__default["default"].bool.isRequired,
+  /* lists */
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  encryptionKeys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string),
+  cosNames: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string),
+  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string),
+  subnetList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  /* api endpoints */
+  kubeVersionApiEndpoint: PropTypes__default["default"].string.isRequired,
+  flavorApiEndpoint: PropTypes__default["default"].string.isRequired,
+  /* callbacks */
+  invalidCallback: PropTypes__default["default"].func,
+  invalidTextCallback: PropTypes__default["default"].func,
+  helperTextCallback: PropTypes__default["default"].func,
+  /* forms */
+  workerPoolForms: PropTypes__default["default"].func
+};
+
 var WorkerPoolForm = /*#__PURE__*/function (_Component) {
   _inherits(WorkerPoolForm, _Component);
   var _super = _createSuper(WorkerPoolForm);
@@ -24444,6 +24706,7 @@ exports.AppIdForm = AppIdForm;
 >>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
 exports.AppIdKeyForm = AppIdKeyForm;
 exports.AtrackerForm = AtrackerForm;
+exports.ClusterForm = ClusterForm;
 exports.DeleteButton = DeleteButton;
 <<<<<<< HEAD
 >>>>>>> b5b1ac6 (fixed build)

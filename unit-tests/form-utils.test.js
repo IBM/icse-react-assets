@@ -5,6 +5,7 @@ const {
   checkNullorEmptyString,
   prependEmptyStringWhenNull,
   invalidRegex,
+  handleClusterInputChange,
 } = require("../src/lib/form-utils");
 
 describe("form-utils", () => {
@@ -99,6 +100,66 @@ describe("form-utils", () => {
           invalidText: `Invalid scope_name. Must match regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`,
         }
       );
+    });
+  });
+  describe("handleClusterInputChange", () => {
+    let testCluster = {
+      name: "",
+      resource_group: "",
+      kube_type: "openshift",
+      entitlement: "null",
+      kms_config: { crk_name: "" },
+      cos_name: "",
+      vpc_name: "",
+      subnets: [],
+      workers_per_subnet: 2,
+      machine_type: "",
+      kube_version: "4.10.52_openshift (Default)",
+      update_all_workers: false,
+      worker_pools: [],
+    };
+    it("should return testCluster with new name: `foo`", () => {
+      handleClusterInputChange("name", "foo", testCluster);
+      assert.deepEqual(testCluster.name, "foo", "it should return true");
+    });
+    it("should return testCluster with new kube type: `IBM Kubernetes Service` (should reset cos_name and kube version)", () => {
+      handleClusterInputChange(
+        "kube_type",
+        "IBM Kubernetes Service",
+        testCluster
+      );
+      assert.deepEqual(testCluster.kube_type, "iks", "it should return true");
+      assert.deepEqual(testCluster.cos_name, "", "it should return true");
+      assert.deepEqual(testCluster.kube_version, "", "it should return true");
+    });
+    it("should return testCluster with new encryption key: `slz-slz-key`", () => {
+      handleClusterInputChange("kms_config", "slz-slz-key", testCluster);
+      assert.deepEqual(
+        testCluster.kms_config.crk_name,
+        "slz-slz-key",
+        "it should return true"
+      );
+    });
+    it("should return testCluster with new workers per subnet: `4`", () => {
+      handleClusterInputChange("workers_per_subnet", "4", testCluster);
+      assert.deepEqual(
+        testCluster.workers_per_subnet,
+        4,
+        "it should return true"
+      );
+    });
+    it("should return testCluster with new vpc name: `management` (should reset subnets)", () => {
+      handleClusterInputChange("vpc_name", "management", testCluster);
+      assert.deepEqual(
+        testCluster.vpc_name,
+        "management",
+        "it should return true"
+      );
+      assert.deepEqual(testCluster.subnets, [], "it should return true");
+    });
+    it("should return testCluster with entitlement: `null`", () => {
+      handleClusterInputChange("entitlement", "null", testCluster);
+      assert.deepEqual(testCluster.entitlement, null, "it should return true");
     });
   });
 });

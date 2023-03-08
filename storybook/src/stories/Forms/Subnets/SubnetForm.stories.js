@@ -110,7 +110,7 @@ const SubnetFormStory = () => {
         public_gateway: false,
         acl_name: "example-acl",
       }}
-      onSave={()=>{}}
+      onSave={() => {}}
       disableSaveCallback={disableSaveCallback}
       networkAcls={["example-acl", "example-acl-2"]}
       shouldDisableGatewayToggle={shouldDisableGatewayToggle}
