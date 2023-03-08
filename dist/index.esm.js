@@ -696,6 +696,7 @@ import '@carbon/styles/css/styles.css';
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 3b432fa (add carbon styles (#52))
 import { Popover, PopoverContent, Button, Toggletip, ToggletipButton, ToggletipContent, Link, Select, SelectItem, Tile, Modal, Toggle, TextInput, NumberInput, TextArea, Dropdown, FilterableMultiSelect, Tabs, TabList, Tab, TabPanels, TabPanel, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody } from '@carbon/react';
 <<<<<<< HEAD
@@ -741,9 +742,13 @@ import lazyZ, { isNullOrEmptyString as isNullOrEmptyString$2, kebabCase as kebab
 =======
 import lazyZ, { isNullOrEmptyString as isNullOrEmptyString$2, kebabCase as kebabCase$2, isEmpty, buildNumberDropdownList, snakeCase, titleCase as titleCase$1, isBoolean, capitalize as capitalize$1, prettyJSON, parseIntFromZone, isFunction as isFunction$1, contains as contains$1, transpose as transpose$1, deepEqual, allFieldsNull, containsKeys, eachKey } from 'lazy-z';
 >>>>>>> ecca896 (Issue 707: NetworkingRuleOrderCard (#87))
+=======
+import { Popover, PopoverContent, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Toggletip, ToggletipButton, ToggletipContent, Link, Select, SelectItem, Tile, Modal, Toggle, TextInput, Form, FilterableMultiSelect, PasswordInput, NumberInput, TextArea, Dropdown, Tabs, TabList, Tab, TabPanels, TabPanel } from '@carbon/react';
+import lazyZ, { isNullOrEmptyString as isNullOrEmptyString$3, kebabCase as kebabCase$2, isEmpty, buildNumberDropdownList, snakeCase, titleCase as titleCase$1, isBoolean, prettyJSON, allFieldsNull, containsKeys, capitalize as capitalize$1, deepEqual, parseIntFromZone, contains as contains$1, transpose as transpose$1, isFunction as isFunction$1 } from 'lazy-z';
+>>>>>>> c412340 (Issue 718: F5 Vsi Template Form with storybook (#92))
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Save, Add, CloseFilled, Edit, TrashCan, ArrowUp, ArrowDown, Information, CloudAlerting, WarningAlt } from '@carbon/icons-react';
+import { Save, Add, CloseFilled, Edit, TrashCan, ArrowUp, ArrowDown, Information, CloudAlerting, Password, WarningAlt } from '@carbon/icons-react';
 import regexButWithWords from 'regex-but-with-words';
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1311,6 +1316,7 @@ function addClassName(className, props) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 var css_248z$e = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  position: relative;\n  z-index: 9001;\n}";
 styleInject(css_248z$e);
@@ -1326,6 +1332,10 @@ styleInject(css_248z$e);
 var css_248z$f = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  position: relative;\n  z-index: 9001;\n}";
 styleInject(css_248z$f);
 >>>>>>> ecca896 (Issue 707: NetworkingRuleOrderCard (#87))
+=======
+var css_248z$g = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  position: relative;\n  z-index: 9001;\n}";
+styleInject(css_248z$g);
+>>>>>>> c412340 (Issue 718: F5 Vsi Template Form with storybook (#92))
 
 >>>>>>> a53fa37 (Migrated AppIdForm + Documentation (Issue692) (#47))
 /**
@@ -1454,8 +1464,8 @@ PopoverWrapper.propTypes = {
   children: PropTypes.node.isRequired
 };
 
-var css_248z$e = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important; \n}\n";
-styleInject(css_248z$e);
+var css_248z$f = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important; \n}\n";
+styleInject(css_248z$f);
 
 /**
  * generate save icon
@@ -2508,6 +2518,7 @@ function buildFormDefaultInputMethods$1(component) {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var componentUtils = /*#__PURE__*/Object.freeze({
   __proto__: null,
   buildFormFunctions: buildFormFunctions$1,
@@ -2519,9 +2530,16 @@ var componentUtils = /*#__PURE__*/Object.freeze({
 >>>>>>> 8655315 (changes (exports, readme, example))
 =======
 var css_248z$d = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+=======
+var css_248z$e = ".displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
+styleInject(css_248z$e);
+
+var css_248z$d = ".about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n";
+>>>>>>> c412340 (Issue 718: F5 Vsi Template Form with storybook (#92))
 styleInject(css_248z$d);
 >>>>>>> ecca896 (Issue 707: NetworkingRuleOrderCard (#87))
 
+<<<<<<< HEAD
 =======
 >>>>>>> b5b1ac6 (fixed build)
 const {
@@ -2852,6 +2870,8 @@ styleInject(css_248z$a);
 
 >>>>>>> 78a9078 (move subnetList out of objects and alter subnetMultiSelect)
 =======
+=======
+>>>>>>> c412340 (Issue 718: F5 Vsi Template Form with storybook (#92))
 var DocTextField = function DocTextField(props) {
   return /*#__PURE__*/React.createElement("div", {
     className: props.text === "_default_includes" ? "marginBottomSmall" : props.className
@@ -2958,12 +2978,18 @@ Docs.propTypes = {
   relatedLinks: PropTypes.array
 };
 
+<<<<<<< HEAD
 var css_248z$b = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
 styleInject(css_248z$b);
 
 >>>>>>> 81d03a4 (Issue 718: F5VsiTemplateForm (#45))
 =======
 >>>>>>> dc96cd8 (Revert "Issue 718: F5VsiTemplateForm (#45)" (#69))
+=======
+var css_248z$c = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+styleInject(css_248z$c);
+
+>>>>>>> c412340 (Issue 718: F5 Vsi Template Form with storybook (#92))
 /**
  * Render a form (duplicate from utils to prevent circular dependencies)
  * @param {*} form form element
@@ -3090,6 +3116,7 @@ DynamicToolTipWrapper.propTypes = {
   innerForm: PropTypes.oneOfType([PropTypes.object, PropTypes.func])
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -4804,6 +4831,10 @@ styleInject(css_248z$b);
 var css_248z$c = ".textInputMedium {\n  width: 20rem;\n}";
 styleInject(css_248z$c);
 >>>>>>> ecca896 (Issue 707: NetworkingRuleOrderCard (#87))
+=======
+var css_248z$b = ".textInputMedium {\n  width: 20rem;\n}";
+styleInject(css_248z$b);
+>>>>>>> c412340 (Issue 718: F5 Vsi Template Form with storybook (#92))
 
 var IcseSelect = function IcseSelect(props) {
   var invalid =
@@ -4820,7 +4851,7 @@ var IcseSelect = function IcseSelect(props) {
   var invalid =
 >>>>>>> 2a431c4 (feat: better exports)
   // automatically set to invalid is is null or empty string and invalid not disabled
-  props.disableInvalid !== true && isNullOrEmptyString$2(props.value) ? true : props.invalid;
+  props.disableInvalid !== true && isNullOrEmptyString$3(props.value) ? true : props.invalid;
   var groups = props.groups.length === 0 ? [] // if no groups, empty array
   : lib_3(
   // otherwise try and prepend empty string if null
@@ -5049,6 +5080,7 @@ EntitlementSelect.defaultProps = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 var css_248z$6 = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$6);
 =======
@@ -5083,6 +5115,10 @@ styleInject(css_248z$a);
 var css_248z$b = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$b);
 >>>>>>> ecca896 (Issue 707: NetworkingRuleOrderCard (#87))
+=======
+var css_248z$a = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+styleInject(css_248z$a);
+>>>>>>> c412340 (Issue 718: F5 Vsi Template Form with storybook (#92))
 
 /**
  * Empty Resource Tile
@@ -5113,6 +5149,7 @@ EmptyResourceTile.propTypes = {
   instructions: PropTypes.string
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -5158,6 +5195,8 @@ styleInject(css_248z$a);
 >>>>>>> ecca896 (Issue 707: NetworkingRuleOrderCard (#87))
 
 >>>>>>> dc96cd8 (Revert "Issue 718: F5VsiTemplateForm (#45)" (#69))
+=======
+>>>>>>> c412340 (Issue 718: F5 Vsi Template Form with storybook (#92))
 var _StatelessToggleForm$;
 
 >>>>>>> 8d61926 (feat: stories for empty resource tile and under construction)
@@ -7092,6 +7131,950 @@ EncryptionKeyForm.propTypes = {
   isModal: PropTypes.bool.isRequired
 };
 
+var css_248z$5 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+styleInject(css_248z$5);
+
+/**
+ * Icse multiselect template
+ */
+var IcseMultiSelect = function IcseMultiSelect(props) {
+  return /*#__PURE__*/React.createElement(FilterableMultiSelect, {
+    id: props.id,
+    className: lib_2("leftTextAlign", props),
+    titleText: props.titleText,
+    itemToString: function itemToString(item) {
+      return item ? item : "";
+    },
+    invalid: props.invalid,
+    invalidText: props.invalidText,
+    initialSelectedItems: props.initialSelectedItems,
+    onChange: props.onChange,
+    items: props.items,
+    useTitleInItem: props.useTitleInItem,
+    label: props.label,
+    disabled: props.disabled
+  });
+};
+IcseMultiSelect.defaultProps = {
+  disabled: false,
+  useTitleInItem: false,
+  invalid: false,
+  invalidText: "Invalid value",
+  className: "fieldWidth"
+};
+IcseMultiSelect.propTypes = {
+  id: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  titleText: PropTypes.string.isRequired,
+  invalid: PropTypes.bool.isRequired,
+  invalidText: PropTypes.string.isRequired,
+  initialSelectedItems: PropTypes.array.isRequired,
+  onChange: PropTypes.func.isRequired,
+  items: PropTypes.arrayOf(PropTypes.string).isRequired,
+  useTitleInItem: PropTypes.bool.isRequired,
+  label: PropTypes.string,
+  disabled: PropTypes.bool.isRequired
+};
+
+/**
+ * ssh key multiselect
+ */
+var SshKeyMultiSelect = function SshKeyMultiSelect(props) {
+  return /*#__PURE__*/React.createElement(IcseMultiSelect, {
+    id: props.id + "-ssh-key-multiselect",
+    useTitleInItem: true,
+    label: "SSH Keys",
+    titleText: "SSH Keys",
+    invalidText: "At least one SSH Key is required",
+    invalid: props.initialSelectedItems.length === 0,
+    items: props.sshKeys,
+    initialSelectedItems: props.initialSelectedItems || [],
+    onChange: function onChange(event) {
+      props.onChange(event.selectedItems);
+    },
+    className: props.className
+  });
+};
+SshKeyMultiSelect.defaultProps = {
+  initialSelectedItems: []
+};
+SshKeyMultiSelect.propTypes = {
+  id: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  sshKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
+  initialSelectedItems: PropTypes.arrayOf(PropTypes.string).isRequired
+};
+
+/**
+ * sg multiselect
+ */
+var SecurityGroupMultiSelect = function SecurityGroupMultiSelect(props) {
+  if (props.vpc_name && !props.securityGroups) {
+    // checking props.securityGroups[props.vpc_name] will result in an
+    // undefined error that happens as part of MultiSelect
+    throw new Error("SecurityGroupMultiselect requires a securityGroups object. Got " + prettyJSON(props.securityGroups));
+  }
+  return /*#__PURE__*/React.createElement(IcseMultiSelect, {
+    id: props.id + "-security-group-multiselect",
+    label: props.label,
+    titleText: "Security Groups",
+    className: props.className,
+    initialSelectedItems: props.initialSelectedItems,
+    vpc_name: props.vpc_name,
+    invalid: props.invalid,
+    invalidText: props.invalidText,
+    onChange: function onChange(event) {
+      props.onChange(event.selectedItems);
+    },
+    disabled: props.disabled,
+    items: props.vpc_name === "" ? [] : props.securityGroups,
+    itemToString: function itemToString(item) {
+      return item ? item : "";
+    }
+  });
+};
+SecurityGroupMultiSelect.defaultProps = {
+  disabled: false,
+  label: "Select Security Groups",
+  invalid: false,
+  className: "fieldWidthSmaller",
+  invalidText: "Select at least one security group."
+};
+SecurityGroupMultiSelect.propTypes = {
+  id: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  initialSelectedItems: PropTypes.array.isRequired,
+  vpc_name: PropTypes.string,
+  // not required, null value should be valid
+  onChange: PropTypes.func.isRequired,
+  label: PropTypes.string.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  securityGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  invalid: PropTypes.bool.isRequired,
+  invalidText: PropTypes.string.isRequired
+};
+
+/**
+ * vpc subnet multiselect
+ */
+var SubnetMultiSelect = function SubnetMultiSelect(props) {
+  return /*#__PURE__*/React.createElement(IcseMultiSelect, {
+    id: props.id + "-subnet-multiselect",
+    className: props.className,
+    titleText: "Subnets",
+    name: props.name,
+    label: props.label,
+    items: isNullOrEmptyString$3(props.vpc_name) ? [] : props.subnets,
+    initialSelectedItems: props.initialSelectedItems,
+    invalidText: isNullOrEmptyString$3(props.vpc_name) ? "Select a VPC." : "Select at least one subnet.",
+    invalid: props.initialSelectedItems.length === 0,
+    disabled: props.disabled,
+    onChange: function onChange(event) {
+      return props.onChange(event.selectedItems);
+    }
+  });
+};
+SubnetMultiSelect.defaultProps = {
+  name: "subnet_names",
+  label: "Subnets",
+  disabled: false,
+  vpc_name: "",
+  initialSelectedItems: []
+};
+SubnetMultiSelect.propTypes = {
+  id: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  vpc_name: PropTypes.string,
+  // not required, `null` needs to be passed here
+  subnets: PropTypes.array.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  initialSelectedItems: PropTypes.array.isRequired,
+  onChange: PropTypes.func.isRequired
+};
+
+/**
+ * VPC List MultiSelect
+ */
+var VpcListMultiSelect = function VpcListMultiSelect(props) {
+  // throw error here so that passing no vpc list prop will error here
+  // instead of being passed to `FilterableMultiselect`
+  if (!props.vpcList) {
+    throw new Error("VpcListMultiSelect requires a list of VPCs using the prop `vpcList`. Got " + prettyJSON(props.vpcList));
+  }
+  return /*#__PURE__*/React.createElement(IcseMultiSelect, {
+    invalidText: "At least one VPC must be selected.",
+    invalid: props.invalid,
+    id: props.id + "-vpc-select",
+    titleText: props.titleText,
+    onChange: function onChange(event) {
+      return props.onChange(event.selectedItems);
+    },
+    initialSelectedItems: props.initialSelectedItems,
+    className: props.className,
+    items: props.vpcList
+  });
+};
+VpcListMultiSelect.defaultProps = {
+  invalid: false,
+  titleText: "VPCs",
+  initialSelectedItems: []
+};
+VpcListMultiSelect.propTypes = {
+  invalid: PropTypes.bool.isRequired,
+  id: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  initialSelectedItems: PropTypes.array.isRequired,
+  vpcList: PropTypes.arrayOf(PropTypes.string).isRequired
+};
+
+var F5VsiForm = /*#__PURE__*/function (_Component) {
+  _inherits(F5VsiForm, _Component);
+  var _super = _createSuper(F5VsiForm);
+  function F5VsiForm(props) {
+    var _this;
+    _classCallCheck(this, F5VsiForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleMultiSelectChange = _this.handleMultiSelectChange.bind(_assertThisInitialized(_this));
+    _this.handleVsiSave = _this.handleVsiSave.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    return _this;
+  }
+  _createClass(F5VsiForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+  }, {
+    key: "handleMultiSelectChange",
+    value: function handleMultiSelectChange(name, value) {
+      this.setState(this.setNameToValue(name, value));
+    }
+  }, {
+    key: "handleVsiSave",
+    value: function handleVsiSave(stateData) {
+      this.props.saveVsiCallback(stateData);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      var vsis = _toConsumableArray(this.props.vsis);
+      while (vsis.length < this.state.zones) {
+        // add a new vsi to display
+        vsis.push(this.props.initVsiCallback(this.props.edge_pattern, "zone-".concat(vsis.length + 1), this.props.f5_on_management, {
+          f5_image_name: this.state.f5_image_name,
+          resource_group: this.state.resource_group,
+          ssh_keys: this.state.ssh_keys,
+          machine_type: this.state.machine_type
+        }));
+      }
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+        formName: "f5_vsi_form",
+        name: "zones",
+        labelText: "F5 Instance Zones",
+        groups: buildNumberDropdownList(4) // 0-3 Zones
+        ,
+        value: this.state.zones.toString(),
+        handleInputChange: this.handleInputChange
+      }), /*#__PURE__*/React.createElement(IcseSelect, {
+        formName: "f5_vsi_form",
+        name: "resource_group",
+        labelText: "Resource Group",
+        groups: this.props.resourceGroupList,
+        value: this.state.resource_group,
+        handleInputChange: this.handleInputChange
+      }), /*#__PURE__*/React.createElement(SshKeyMultiSelect, {
+        id: "sshkey",
+        sshKeys: this.props.sshKeyList,
+        initialSelectedItems: this.state.ssh_keys,
+        onChange: function onChange(value) {
+          return _this2.handleMultiSelectChange("ssh_keys", value);
+        }
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+        formName: "f5_vsi_form",
+        name: "f5_image_name",
+        labelText: "F5 Image",
+        groups: ["f5-bigip-15-1-5-1-0-0-14-all-1slot", "f5-bigip-15-1-5-1-0-0-14-ltm-1slot", "f5-bigip-16-1-2-2-0-0-28-ltm-1slot", "f5-bigip-16-1-2-2-0-0-28-all-1slot", "f5-bigip-16-1-3-2-0-0-4-ltm-1slot", "f5-bigip-16-1-3-2-0-0-4-all-1slot", "f5-bigip-17-0-0-1-0-0-4-ltm-1slot", "f5-bigip-17-0-0-1-0-0-4-all-1slot"],
+        value: this.state.f5_image_name,
+        handleInputChange: this.handleInputChange
+      }), /*#__PURE__*/React.createElement(FetchSelect, {
+        formName: "f5_vsi_form",
+        labelText: "Flavor",
+        name: "machine_type",
+        apiEndpoint: this.props.apiEndpointFlavors,
+        handleInputChange: this.handleInputChange,
+        value: this.state.machine_type
+      })), vsis.length > 0 && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(IcseHeading, {
+        name: "F5 Big IP Virtual Servers",
+        type: "subHeading",
+        className: "marginBottomSmall"
+      }), /*#__PURE__*/React.createElement("div", {
+        className: "displayFlex evenSpacing"
+      }, vsis.map(function (instance, index) {
+        if (index < _this2.state.zones) return /*#__PURE__*/React.createElement(F5VsiTile, {
+          key: "f5-vsi-tile" + JSON.stringify(instance) + index,
+          data: instance,
+          hide: false,
+          onSave: _this2.handleVsiSave,
+          totalZones: _this2.state.zones,
+          index: index,
+          resourceGroupList: _this2.props.resourceGroupList,
+          encryptionKeyList: _this2.props.encryptionKeyList,
+          hideSaveCallback: _this2.props.hideSaveCallback,
+          disableSaveCallback: _this2.props.disableSaveCallback
+        });
+      }))));
+    }
+  }]);
+  return F5VsiForm;
+}(Component);
+var F5VsiTile = /*#__PURE__*/function (_React$Component) {
+  _inherits(F5VsiTile, _React$Component);
+  var _super2 = _createSuper(F5VsiTile);
+  function F5VsiTile(props) {
+    var _this3;
+    _classCallCheck(this, F5VsiTile);
+    _this3 = _super2.call(this, props);
+    _this3.state = _this3.props.data;
+    _this3.handleInputChange = _this3.handleInputChange.bind(_assertThisInitialized(_this3));
+    _this3.shouldHideSave = _this3.shouldHideSave.bind(_assertThisInitialized(_this3));
+    _this3.shouldDisableSave = _this3.shouldDisableSave.bind(_assertThisInitialized(_this3));
+    return _this3;
+  }
+  _createClass(F5VsiTile, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      var _event$target = event.target,
+        name = _event$target.name,
+        value = _event$target.value;
+      this.setState(_defineProperty({}, name, value));
+    }
+  }, {
+    key: "shouldHideSave",
+    value: function shouldHideSave() {
+      return this.props.hideSaveCallback(this.state, this.props);
+    }
+  }, {
+    key: "shouldDisableSave",
+    value: function shouldDisableSave() {
+      return this.props.disableSaveCallback(this.state, this.props);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this4 = this;
+      return /*#__PURE__*/React.createElement(Tile, {
+        className: "fieldWidth"
+      }, /*#__PURE__*/React.createElement(IcseHeading, {
+        name: this.state.name,
+        type: "subHeading",
+        className: "marginBottomSmall",
+        buttons: /*#__PURE__*/React.createElement(DynamicRender, {
+          hide: this.shouldHideSave(this.state, this.props),
+          show: /*#__PURE__*/React.createElement(SaveAddButton, {
+            onClick: function onClick() {
+              return _this4.props.onSave(_this4.state);
+            },
+            noDeleteButton: true,
+            disabled: this.shouldDisableSave()
+          })
+        })
+      }), /*#__PURE__*/React.createElement(IcseFormGroup, {
+        className: "marginBottomSmall"
+      }, /*#__PURE__*/React.createElement(IcseNameInput, {
+        id: this.state.name,
+        componentName: "f5_vsi_form",
+        value: this.state.name,
+        onChange: this.handleInputChange,
+        useData: true,
+        readOnly: true,
+        invalidCallback: function invalidCallback() {},
+        invalidText: "",
+        className: "fieldWidthSmaller"
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, {
+        className: "marginBottomSmall"
+      }, /*#__PURE__*/React.createElement(IcseSelect, {
+        formName: "f5_vsi_form",
+        name: "resource_group",
+        labelText: "Resource Group",
+        groups: this.props.resourceGroupList,
+        value: this.state.resource_group,
+        handleInputChange: this.handleInputChange,
+        className: "fieldWidthSmaller"
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, {
+        className: "marginBottomSmall"
+      }, /*#__PURE__*/React.createElement(IcseSelect, {
+        formName: "f5_vsi_form",
+        name: "boot_volume_encryption_key_name",
+        labelText: "Encryption Key",
+        groups: this.props.encryptionKeyList,
+        value: this.state.boot_volume_encryption_key_name,
+        handleInputChange: this.handleInputChange,
+        className: "fieldWidthSmaller"
+      })));
+    }
+  }]);
+  return F5VsiTile;
+}(React.Component);
+F5VsiForm.defaultProps = {
+  data: {
+    zones: 0,
+    resource_group: "",
+    ssh_keys: [],
+    f5_image_name: "",
+    machine_type: ""
+  },
+  vsis: [],
+  edge_pattern: "vpn-and-waf",
+  f5_on_management: true
+};
+F5VsiForm.propTypes = {
+  data: PropTypes.shape({
+    zones: PropTypes.number.isRequired,
+    resource_group: PropTypes.string.isRequired,
+    ssh_keys: PropTypes.array,
+    f5_image_name: PropTypes.string.isRequired,
+    machine_type: PropTypes.string.isRequired
+  }).isRequired,
+  vsis: PropTypes.array.isRequired,
+  edge_pattern: PropTypes.string.isRequired,
+  f5_on_management: PropTypes.bool.isRequired,
+  // use management
+  /* api endpoints */
+  apiEndpointFlavors: PropTypes.string.isRequired,
+  /* lists */
+  resourceGroupList: PropTypes.array.isRequired,
+  sshKeyList: PropTypes.array.isRequired,
+  encryptionKeyList: PropTypes.array.isRequired,
+  /* callbacks */
+  initVsiCallback: PropTypes.func.isRequired,
+  saveVsiCallback: PropTypes.func.isRequired,
+  hideSaveCallback: PropTypes.func.isRequired,
+  disableSaveCallback: PropTypes.func.isRequired
+};
+
+const {
+  RegexButWithWords: RegexButWithWords$1
+} = regexButWithWords;
+const {
+  isNullOrEmptyString: isNullOrEmptyString$2
+} = lazyZ;
+const urlValidationExp = new RegexButWithWords$1().group(exp => {
+  exp.literal("ftp").or().literal("http").literal("s").lazy();
+}).literal("://").group("www.").lazy().group(exp => {
+  exp.negatedSet('"\\/').oneOrMore().literal(".");
+}).group(exp => {
+  exp.negatedSet('"\\/').oneOrMore().literal(".");
+}).oneOrMore().negatedSet('"\\/.').oneOrMore().literal("/").negatedSet(' "').anyNumber().stringEnd().done("g");
+const tmosAdminPasswordValidationExp = new RegexButWithWords$1().stringBegin().look.ahead(exp => {
+  exp.any().anyNumber().set("a-z");
+}).look.ahead(exp => {
+  exp.any().anyNumber().set("A-Z");
+}).look.ahead(exp => {
+  exp.any().anyNumber().set("0-9");
+}).any(15, "*").stringEnd().done("");
+
+/**
+ * url value is valid and not empty
+ * @param {str} url
+ * @returns {boolean} true when url is valid and not empty, false when invalid
+ */
+function isValidUrl(url) {
+  if (isNullOrEmptyString$2(url)) return false;
+  return url.match(urlValidationExp) !== null;
+}
+
+/**
+ * verifies tmos admin password
+ * @param {str} password
+ * @returns {boolean} true when password is valid
+ */
+function isValidTmosAdminPassword(password) {
+  if (isNullOrEmptyString$2(password)) return true;else return password.match(tmosAdminPasswordValidationExp) !== null;
+}
+
+/**
+ * securely generates a random byte to be transformed into a character
+ * @returns {byte} random byte
+ */
+function getRandomByte() {
+  var result = new Uint8Array(1);
+  result = window.crypto.getRandomValues(result); // cryptographically secure random number generation
+  return result[0];
+}
+
+/**
+ * Checks if the random byte character generated is a valid character in the charset
+ * if it is, return the char, add it to the password String
+ * @param {int} length
+ * @returns {char} a valid char to go into the password
+ */
+function generatePassword(length) {
+  const charset = /[a-zA-Z0-9_\-+!$%^&*#]/; // valid chars for the password string
+  return Array.apply(null, {
+    length: length
+  }) // create an array of null of length specified
+  .map(function () {
+    // on each element
+    var result;
+    while (true) {
+      result = String.fromCharCode(getRandomByte()); // generate a char until it is a valid char in the charset
+      if (charset.test(result)) {
+        return result; // char is in the charset
+      }
+    }
+  }, this).join(""); // join all array elements into a single string
+}
+
+/**
+ * generates the password until it fits the validation expression
+ * @param {int} length
+ * @returns {string} password that fits the requirements of the validation expression
+ */
+function getValidAdminPassword(length) {
+  let invalid = true;
+  let count = 0;
+  let result;
+  do {
+    result = generatePassword(length); // generate a password until it is valid
+    if (tmosAdminPasswordValidationExp.test(result)) {
+      // we are valid if this test passes
+      invalid = false;
+    } else {
+      result = ""; // reset result
+      count++;
+    }
+  } while (invalid && count <= 5); // only be more than 5 times if you specified an invalid length. dummy counter for unit
+  return result;
+}
+var f5Utils = {
+  getValidAdminPassword,
+  isNullOrEmptyString: isNullOrEmptyString$2,
+  isValidTmosAdminPassword,
+  isValidUrl
+};
+var f5Utils_1 = f5Utils.getValidAdminPassword;
+var f5Utils_2 = f5Utils.isNullOrEmptyString;
+var f5Utils_3 = f5Utils.isValidTmosAdminPassword;
+var f5Utils_4 = f5Utils.isValidUrl;
+
+var css_248z$4 = ".wide {\n  width: 20rem !important;\n}\n\n.tight {\n  width: min-content; /* force invalid text to split line */\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n\n.passwordGenerateButton {\n  margin-top: 1.25rem;\n  margin-left: calc(-4rem - 3vw);\n}\n\n.passwordGenerateButton svg {\n  fill: var(--cds-icon-secondary, #525252) !important;\n}\n\n.passwordGenerateButton.invalid {\n  margin-left: calc(-5.75rem - 3vw);\n}\n";
+styleInject(css_248z$4);
+
+/**
+ * F5VsiTemplateForm
+ */
+var F5VsiTemplateForm = /*#__PURE__*/function (_Component) {
+  _inherits(F5VsiTemplateForm, _Component);
+  var _super = _createSuper(F5VsiTemplateForm);
+  function F5VsiTemplateForm(props) {
+    var _this;
+    _classCallCheck(this, F5VsiTemplateForm);
+    _this = _super.call(this, props);
+    _this.state = props.data;
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    _this.handleTextInput = _this.handleTextInput.bind(_assertThisInitialized(_this));
+    _this.handleLicenseChange = _this.handleLicenseChange.bind(_assertThisInitialized(_this));
+    _this.generateAdminPassword = _this.generateAdminPassword.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * set state to event value
+   * @param {event} event
+   */
+  _createClass(F5VsiTemplateForm, [{
+    key: "handleTextInput",
+    value: function handleTextInput(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+
+    /**
+     * set conditional fields to null on license type change
+     * @param {event} event
+     */
+  }, {
+    key: "handleLicenseChange",
+    value: function handleLicenseChange(event) {
+      var _event$target = event.target,
+        name = _event$target.name,
+        value = _event$target.value;
+      var reset = {};
+      var pool = ["license_username", "license_password", "license_host", "license_pool"];
+      var conditionalFields = {
+        none: [],
+        byol: ["byol_license_basekey"],
+        regkeypool: pool,
+        utilitypool: ["license_unit_of_measure", "license_sku_keyword_1", "license_sku_keyword_2"].concat(pool)
+      };
+      this.setState(function (prevState) {
+        conditionalFields[prevState.license_type].forEach(function (field) {
+          if (!conditionalFields[value].includes(field)) {
+            reset[field] = "";
+          }
+        });
+        return _objectSpread2(_defineProperty({}, name, value), reset);
+      });
+    }
+
+    /**
+     * get a valid admin password between 15-20 characters
+     */
+  }, {
+    key: "generateAdminPassword",
+    value: function generateAdminPassword() {
+      var length = Math.floor(Math.random() * 6 + 15); // between 15-20 chars, inclusive (20 - 15 + 1)
+      var password = f5Utils_1(length); // get a valid password
+      this.setState({
+        tmos_admin_password: password
+      }); // set password
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+        formName: "F5 VSI Template",
+        tooltip: {
+          content: "The type of license.",
+          align: "right"
+        },
+        labelText: "License Type",
+        component: "f5-license-type",
+        name: "license_type",
+        groups: ["none", "byol", "regkeypool", "utilitypool"],
+        value: this.state.license_type,
+        className: "fieldWidth",
+        handleInputChange: this.handleLicenseChange
+      }), /*#__PURE__*/React.createElement("div", {
+        className: "tooltip tight"
+      }, /*#__PURE__*/React.createElement(ToolTipWrapper, {
+        tooltip: {
+          content: "The admin account password for the F5 BIG-IP instance.",
+          align: "right"
+        },
+        innerForm: PasswordInput,
+        className: "wide",
+        id: "tmos_admin_password",
+        labelText: "TMOS Admin Password",
+        name: "tmos_admin_password",
+        value: this.state.tmos_admin_password || "",
+        invalid: this.props.invalidCallback("tmos_admin_password", this.state, this.props) || !f5Utils_3(this.state.tmos_admin_password),
+        invalidText: "Password must be at least 15 characters, contain one numeric, one uppercase, and one lowercase character.",
+        onChange: this.handleTextInput
+      })), /*#__PURE__*/React.createElement(PopoverWrapper, {
+        hoverText: "Generate Password",
+        className: "passwordGenerateButton" + (f5Utils_3(this.state.tmos_admin_password) ? "" : " invalid")
+      }, /*#__PURE__*/React.createElement(Button, {
+        kind: "ghost",
+        onClick: this.generateAdminPassword,
+        className: "forceTertiaryButtonStyles"
+      }, /*#__PURE__*/React.createElement(Password, null)))), this.state.license_type != "none" && /*#__PURE__*/React.createElement(React.Fragment, null, this.state.license_type != "regkeypool" && this.state.license_type == "byol" && /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(ToolTipWrapper, {
+        tooltip: {
+          content: "Bring your own license registration key for the F5 BIG-IP instance.",
+          align: "top-right"
+        },
+        id: "byol_license_basekey",
+        field: "byol_license_basekey",
+        className: "textInputWide",
+        labelText: "BYOL License Basekey",
+        innerForm: IcseTextInput,
+        value: this.state.byol_license_basekey || "",
+        onChange: this.handleTextInput,
+        invalid: this.props.invalidCallback("byol_license_basekey", this.state, this.props) || f5Utils_2(this.state.byol_license_basekey),
+        invalidText: this.props.invalidTextCallback("byol_license_basekey", this.state, this.props)
+      })), this.state.license_type != "byol" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(ToolTipWrapper, {
+        tooltip: {
+          content: "BIGIQ username to use for the pool based licensing of the F5 BIG-IP instance.",
+          align: "top-left"
+        },
+        id: "license_username",
+        field: "license_username",
+        className: "fieldWidth",
+        labelText: "License Username",
+        innerForm: IcseTextInput,
+        value: this.state.license_username || "",
+        onChange: this.handleTextInput,
+        invalid: this.props.invalidCallback("license_username", this.state, this.props) || f5Utils_2(this.state.license_username),
+        invalidText: this.props.invalidTextCallback("license_username", this.state, this.props)
+      }), /*#__PURE__*/React.createElement("div", {
+        className: "leftTextAlign tooltip"
+      }, /*#__PURE__*/React.createElement(ToolTipWrapper, {
+        tooltip: {
+          content: "BIGIQ password to use for the pool based licensing of the F5 BIG-IP instance."
+        },
+        id: "license_password",
+        className: "wide",
+        labelText: "License Password",
+        innerForm: PasswordInput,
+        name: "license_password",
+        value: this.state.license_password || "",
+        onChange: this.handleTextInput,
+        invalid: this.props.invalidCallback("license_password", this.state, this.props),
+        invalidText: this.props.invalidTextCallback("license_password", this.state, this.props)
+      }))), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(ToolTipWrapper, {
+        tooltip: {
+          content: "BIGIQ IP or hostname to use for pool based licensing of the F5 BIG-IP instance.",
+          align: "top-left"
+        },
+        id: "license_host",
+        field: "license_host",
+        className: "fieldWidth",
+        labelText: "License Host",
+        innerForm: IcseTextInput,
+        value: this.state.license_host || "",
+        onChange: this.handleTextInput,
+        invalid: this.props.invalidCallback("license_host", this.state, this.props) || f5Utils_2(this.state.license_host),
+        invalidText: this.props.invalidTextCallback("license_host", this.state, this.props)
+      }), /*#__PURE__*/React.createElement(ToolTipWrapper, {
+        tooltip: {
+          content: "BIGIQ license pool name for the licensing of the F5 BIG-IP instance."
+        },
+        id: "license_pool",
+        field: "license_pool",
+        className: "wide",
+        labelText: "License Pool",
+        innerForm: IcseTextInput,
+        value: this.state.license_pool || "",
+        onChange: this.handleTextInput,
+        invalid: this.props.invalidCallback("license_pool", this.state, this.props) || f5Utils_2(this.state.license_pool),
+        invalidText: this.props.invalidTextCallback("license_pool", this.state, this.props)
+      })), this.state.license_type == "utilitypool" && /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(ToolTipWrapper, {
+        tooltip: {
+          content: "BIGIQ utility pool unit of measurement.",
+          align: "top-right"
+        },
+        id: "license_unit_of_measure",
+        field: "license_unit_of_measure",
+        className: "fieldWidthSmaller",
+        labelText: "License Unit of Measure",
+        innerForm: IcseTextInput,
+        value: this.state.license_unit_of_measure || "",
+        onChange: this.handleTextInput,
+        invalid: this.props.invalidCallback("license_unit_of_measure", this.state, this.props) || f5Utils_2(this.state.license_unit_of_measure),
+        invalidText: this.props.invalidTextCallback("license_unit_of_measure", this.state, this.props)
+      }), /*#__PURE__*/React.createElement(ToolTipWrapper, {
+        tooltip: {
+          content: "BIGIQ primary SKU for ELA utility licensing of the F5 BIG-IP instance."
+        },
+        id: "license_sku_keyword_1",
+        field: "license_sku_keyword_1",
+        className: "fieldWidthSmaller",
+        labelText: "License SKU Keyword 1",
+        innerForm: IcseTextInput,
+        value: this.state.license_sku_keyword_1 || "",
+        onChange: this.handleTextInput,
+        invalid: this.props.invalidCallback("license_sku_keyword_1", this.state, this.props) || f5Utils_2(this.state.license_sku_keyword_1),
+        invalidText: this.props.invalidTextCallback("license_sku_keyword_1", this.state, this.props)
+      }), /*#__PURE__*/React.createElement(ToolTipWrapper, {
+        tooltip: {
+          content: "BIGIQ secondary SKU for ELA utility licensing of the F5 BIG-IP instance"
+        },
+        id: "license_sku_keyword_2",
+        field: "license_sku_keyword_2",
+        className: "fieldWidthSmaller",
+        labelText: "License SKU Keyword 2",
+        innerForm: IcseTextInput,
+        value: this.state.license_sku_keyword_2 || "",
+        onChange: this.handleTextInput,
+        invalid: this.props.invalidCallback("license_sku_keyword_2", this.state, this.props) || f5Utils_2(this.state.license_sku_keyword_2),
+        invalidText: this.props.invalidTextCallback("license_sku_keyword_2", this.state, this.props)
+      })))), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(ToolTipWrapper, {
+        tooltip: {
+          content: "The terraform template version for phone_home_url_metadata.",
+          align: "top-left"
+        },
+        id: "template_version",
+        field: "template_version",
+        className: "fieldWidth",
+        labelText: "Template Version",
+        innerForm: IcseTextInput,
+        value: this.state.template_version,
+        onChange: this.handleTextInput,
+        invalid: this.props.invalidCallback("template_version", this.state, this.props) || f5Utils_2(this.state.template_version),
+        invalidText: this.props.invalidTextCallback("template_version", this.state, this.props)
+      }), /*#__PURE__*/React.createElement(ToolTipWrapper, {
+        tooltip: {
+          content: "The terraform template source for phone_home_url_metadata."
+        },
+        id: "template_source",
+        field: "template_source",
+        className: "wide",
+        labelText: "Template Source",
+        innerForm: IcseTextInput,
+        value: this.state.template_source,
+        onChange: this.handleTextInput,
+        invalid: this.props.invalidCallback("template_source", this.state, this.props) || f5Utils_2(this.state.template_source),
+        invalidText: this.props.invalidTextCallback("template_source", this.state, this.props)
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(ToolTipWrapper, {
+        tooltip: {
+          content: "The terraform application id for phone_home_url_metadata.",
+          align: "top-right"
+        },
+        id: "app_id",
+        field: "app_id",
+        className: "fieldWidth",
+        labelText: "App ID",
+        innerForm: IcseTextInput,
+        value: this.state.app_id,
+        onChange: this.handleTextInput,
+        invalid: this.props.invalidCallback("app_id", this.state, this.props),
+        invalidText: this.props.invalidTextCallback("app_id", this.state, this.props)
+      }), /*#__PURE__*/React.createElement(ToolTipWrapper, {
+        tooltip: {
+          content: "The URL to POST status when BIG-IP is finished onboarding."
+        },
+        id: "phone_home_url",
+        field: "phone_home_url",
+        className: "fieldWidth",
+        labelText: "Phone Home URL",
+        innerForm: IcseTextInput,
+        value: this.state.phone_home_url,
+        onChange: this.handleTextInput,
+        invalid: this.props.invalidCallback("phone_home_url", this.state, this.props) || !f5Utils_4(this.state.phone_home_url),
+        invalidText: this.props.invalidTextCallback("phone_home_url", this.state, this.props)
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(ToolTipWrapper, {
+        tooltip: {
+          content: "The URL to retrieve the f5-declarative-onboarding JSON declaration.",
+          align: "top-left"
+        },
+        id: "do_declaration_url",
+        field: "do_declaration_url",
+        className: "fieldWidth",
+        labelText: "DO Declaration URL",
+        innerForm: IcseTextInput,
+        value: this.state.do_declaration_url,
+        onChange: this.handleTextInput,
+        invalid: this.props.invalidCallback("do_declaration_url", this.state, this.props) || !f5Utils_4(this.state.do_declaration_url),
+        invalidText: this.props.invalidTextCallback("do_declaration_url", this.state, this.props)
+      }), /*#__PURE__*/React.createElement(ToolTipWrapper, {
+        tooltip: {
+          content: "The URL to retrieve the f5-appsvcs-extension JSON declaration."
+        },
+        id: "as3_declaration_url",
+        field: "as3_declaration_url",
+        className: "fieldWidth",
+        labelText: "AS3 Declaration URL",
+        innerForm: IcseTextInput,
+        value: this.state.as3_declaration_url,
+        onChange: this.handleTextInput,
+        invalid: this.props.invalidCallback("as3_declaration_url", this.state, this.props) || !f5Utils_4(this.state.as3_declaration_url),
+        invalidText: this.props.invalidTextCallback("as3_declaration_url", this.state, this.props)
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(ToolTipWrapper, {
+        tooltip: {
+          content: "The URL to retrieve the f5-telemetry-streaming JSON declaration.",
+          align: "top-left"
+        },
+        id: "ts_declaration_url",
+        field: "ts_declaration_url",
+        className: "fieldWidth",
+        labelText: "TS Declaration URL",
+        innerForm: IcseTextInput,
+        value: this.state.ts_declaration_url,
+        onChange: this.handleTextInput,
+        invalid: this.props.invalidCallback("ts_declaration_url", this.state, this.props) || !f5Utils_4(this.state.ts_declaration_url),
+        invalidText: this.props.invalidTextCallback("ts_declaration_url", this.state, this.props)
+      }), /*#__PURE__*/React.createElement(ToolTipWrapper, {
+        tooltip: {
+          content: "The URL to POST L3 addresses when tgstandby is triggered."
+        },
+        id: "tgstandby_url",
+        field: "tgstandby_url",
+        className: "fieldWidth",
+        labelText: "TGStandby URL",
+        innerForm: IcseTextInput,
+        value: this.state.tgstandby_url,
+        onChange: this.handleTextInput,
+        invalid: this.props.invalidCallback("tgstandby_url", this.state, this.props) || !f5Utils_4(this.state.tgstandby_url),
+        invalidText: this.props.invalidTextCallback("tgstandby_url", this.state, this.props)
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(ToolTipWrapper, {
+        tooltip: {
+          content: "The URL to POST L3 addresses when tgrefresh is triggered.",
+          align: "top-left"
+        },
+        id: "tgrefresh_url",
+        field: "tgrefresh_url",
+        className: "fieldWidth",
+        labelText: "TGRefresh URL",
+        innerForm: IcseTextInput,
+        value: this.state.tgrefresh_url,
+        onChange: this.handleTextInput,
+        invalid: this.props.invalidCallback("tgrefresh_url", this.state, this.props) || !f5Utils_4(this.state.tgrefresh_url),
+        invalidText: this.props.invalidTextCallback("tgrefresh_url", this.state, this.props)
+      }), /*#__PURE__*/React.createElement(ToolTipWrapper, {
+        tooltip: {
+          content: "The URL to POST L3 addresses when tgactive is triggered."
+        },
+        id: "tgactive_url",
+        field: "tgactive_url",
+        className: "fieldWidth",
+        labelText: "TGActive URL",
+        innerForm: IcseTextInput,
+        value: this.state.tgactive_url,
+        onChange: this.handleTextInput,
+        invalid: this.props.invalidCallback("tgactive_url", this.state, this.props) || !f5Utils_4(this.state.tgactive_url),
+        invalidText: this.props.invalidTextCallback("tgactive_url", this.state, this.props)
+      })));
+    }
+  }]);
+  return F5VsiTemplateForm;
+}(Component);
+F5VsiTemplateForm.defaultProps = {
+  data: {
+    license_type: "none",
+    tmos_admin_password: "",
+    byol_license_basekey: "",
+    license_username: "",
+    license_password: "",
+    license_host: "",
+    license_pool: "",
+    license_unit_of_measure: "",
+    license_sku_keyword_1: "",
+    license_sku_keyword_2: "",
+    template_version: "",
+    template_source: "",
+    app_id: "",
+    phone_home_url: "",
+    do_declaration_url: "",
+    as3_declaration_url: "",
+    ts_declaration_url: "",
+    tgstandby_url: "",
+    tgrefresh_url: "",
+    tgactive_url: ""
+  }
+};
+F5VsiTemplateForm.propTypes = {
+  data: PropTypes.shape({
+    license_type: PropTypes.string.isRequired,
+    tmos_admin_password: PropTypes.string.isRequired,
+    byol_license_basekey: PropTypes.string.isRequired,
+    license_username: PropTypes.string.isRequired,
+    license_password: PropTypes.string.isRequired,
+    license_host: PropTypes.string.isRequired,
+    license_pool: PropTypes.string.isRequired,
+    license_unit_of_measure: PropTypes.string.isRequired,
+    license_sku_keyword_1: PropTypes.string.isRequired,
+    license_sku_keyword_2: PropTypes.string.isRequired,
+    template_version: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    template_source: PropTypes.string.isRequired,
+    app_id: PropTypes.string.isRequired,
+    phone_home_url: PropTypes.string.isRequired,
+    do_declaration_url: PropTypes.string.isRequired,
+    as3_declaration_url: PropTypes.string.isRequired,
+    ts_declaration_url: PropTypes.string.isRequired,
+    tgstandby_url: PropTypes.string.isRequired,
+    tgrefresh_url: PropTypes.string.isRequired,
+    tgactive_url: PropTypes.string.isRequired
+  }),
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired
+};
+
 const {
   isWholeNumber,
   isInRange
@@ -7598,6 +8581,7 @@ KeyManagementForm.propTypes = {
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
+<<<<<<< HEAD
 var ObjectStorageBucketForm = /*#__PURE__*/function (_Component) {
   _inherits(ObjectStorageBucketForm, _Component);
   var _super = _createSuper(ObjectStorageBucketForm);
@@ -15222,9 +16206,13 @@ styleInject(css_248z$2);
 >>>>>>> dc96cd8 (Revert "Issue 718: F5VsiTemplateForm (#45)" (#69))
 =======
 var css_248z$3 = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}";
+=======
+var css_248z$3 = ".marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.positionRelative {\n  position: relative;\n}\n";
+>>>>>>> c412340 (Issue 718: F5 Vsi Template Form with storybook (#92))
 styleInject(css_248z$3);
 >>>>>>> ecca896 (Issue 707: NetworkingRuleOrderCard (#87))
 
+<<<<<<< HEAD
 /**
  * StatefulTabPanel wrapper for non array forms
  * @param {*} props props
@@ -20708,6 +21696,8 @@ SubnetTierForm.propTypes = {
 var css_248z = ".marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.positionRelative {\n  position: relative;\n}\n";
 styleInject(css_248z);
 
+=======
+>>>>>>> c412340 (Issue 718: F5 Vsi Template Form with storybook (#92))
 var _require = require("lazy-z"),
   capitalize = _require.capitalize,
   titleCase = _require.titleCase,
@@ -21467,6 +22457,674 @@ NetworkAclForm.propTypes = {
   disableSaveCallback: PropTypes.func.isRequired
 };
 
+var ObjectStorageBucketForm = /*#__PURE__*/function (_Component) {
+  _inherits(ObjectStorageBucketForm, _Component);
+  var _super = _createSuper(ObjectStorageBucketForm);
+  function ObjectStorageBucketForm(props) {
+    var _this;
+    _classCallCheck(this, ObjectStorageBucketForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleStorageClassChange = _this.handleStorageClassChange.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * Handler for toggle
+   */
+  _createClass(ObjectStorageBucketForm, [{
+    key: "handleToggle",
+    value: function handleToggle() {
+      this.setState(this.toggleStateBoolean("force_delete", this.state));
+    }
+
+    /**
+     * handle storage class change and convert to lowercase for value
+     * @param {event} event event
+     */
+  }, {
+    key: "handleStorageClassChange",
+    value: function handleStorageClassChange(event) {
+      this.setState({
+        storage_class: event.target.value.toLowerCase()
+      });
+    }
+
+    /**
+     * handle input change
+     * @param {event} event event
+     */
+  }, {
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      // composed id for bucket
+      var composedId = "bucket-form-".concat(this.props.data.name ? this.props.data.name : "new-bucket");
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+        id: this.state.name,
+        componentName: this.state.name,
+        value: this.state.name,
+        onChange: this.handleInputChange,
+        helperTextCallback: function helperTextCallback() {
+          return _this2.props.composedNameCallback(_this2.state);
+        },
+        invalid: this.props.invalidCallback(this.state),
+        invalidText: this.props.invalidTextCallback(this.state)
+      }), /*#__PURE__*/React.createElement(IcseSelect, {
+        component: this.state.name,
+        formName: "Object Storage Bucket",
+        name: "storage_class",
+        groups: ["Standard", "Vault", "Cold", "Smart"],
+        value: capitalize$1(this.state.storage_class),
+        labelText: "Bucket Class",
+        handleInputChange: this.handleStorageClassChange
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+        component: this.state.name,
+        formName: "Object Storage Bucket",
+        name: "kms_key",
+        groups: this.props.encryptionKeys,
+        value: this.state.kms_key,
+        labelText: "Encryption Key",
+        handleInputChange: this.handleInputChange
+      }), /*#__PURE__*/React.createElement(IcseToggle, {
+        tooltip: {
+          content: "Toggling this on will force delete contents of the bucket after the bucket is deleted"
+        },
+        id: composedId + "force-delete",
+        labelText: "Force Delete Contents",
+        defaultToggled: this.state.force_delete,
+        toggleFieldName: "force_delete",
+        onToggle: this.handleToggle
+      })));
+    }
+  }]);
+  return ObjectStorageBucketForm;
+}(Component);
+ObjectStorageBucketForm.defaultProps = {
+  data: {
+    force_delete: false,
+    name: "",
+    storage_class: "Standard",
+    kms_key: ""
+  },
+  encryptionKeys: []
+};
+ObjectStorageBucketForm.propTypes = {
+  data: PropTypes.shape({
+    force_delete: PropTypes.bool.isRequired,
+    name: PropTypes.string.isRequired,
+    storage_class: PropTypes.string.isRequired,
+    kms_key: PropTypes.string
+  }).isRequired,
+  encryptionKeys: PropTypes.array.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  composedNameCallback: PropTypes.func.isRequired
+};
+
+/**
+ * Object storage
+ */
+var ObjectStorageInstancesForm = /*#__PURE__*/function (_Component) {
+  _inherits(ObjectStorageInstancesForm, _Component);
+  var _super = _createSuper(ObjectStorageInstancesForm);
+  function ObjectStorageInstancesForm(props) {
+    var _this;
+    _classCallCheck(this, ObjectStorageInstancesForm);
+    _this = _super.call(this, props);
+    _this.state = _objectSpread2({}, _this.props.data);
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in the instance
+   * @param {*} value value
+   */
+  _createClass(ObjectStorageInstancesForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(name, value) {
+      var inst = _objectSpread2({}, this.state);
+      inst[name] = value;
+      this.setState(_objectSpread2({}, inst));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this,
+        _this$props;
+      var composedId = "object-storage-form-".concat(this.props.data.name, "-");
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
+        tooltip: {
+          content: "Service credentials and buckets will be created for your environment even when using an existing Object Storage instance."
+        },
+        id: composedId + "use-data",
+        toggleFieldName: "use_data",
+        labelText: "Use Existing Instance",
+        defaultToggled: this.state.use_data,
+        onToggle: this.handleInputChange,
+        isModal: this.props.isModal
+      }), /*#__PURE__*/React.createElement(IcseToggle, {
+        tooltip: {
+          content: "Object storage bucket names must be unique across an account. Append a random suffix to maintain unique names across deployments."
+        },
+        id: composedId + "random-suffix",
+        labelText: "Append Random Suffix to Names",
+        toggleFieldName: "random_suffix",
+        defaultToggled: this.state.random_suffix,
+        onToggle: this.handleInputChange,
+        isModal: this.props.isModal
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+        id: this.state.name + "-name",
+        componentName: this.props.data.name,
+        value: this.state.name,
+        onChange: function onChange(event) {
+          return _this2.handleInputChange("name", event.target.value);
+        },
+        helperTextCallback: function helperTextCallback() {
+          return _this2.props.composedNameCallback(_this2.state, _this2.props);
+        },
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props)
+      }), /*#__PURE__*/React.createElement(IcseSelect, {
+        formName: "resource_group",
+        name: "resource_group",
+        labelText: "Resource Group",
+        groups: this.props.resourceGroups,
+        value: this.state.resource_group,
+        handleInputChange: function handleInputChange(event) {
+          return _this2.handleInputChange("resource_group", event.target.value);
+        }
+      })), this.props.isModal !== true && /*#__PURE__*/React.createElement(React.Fragment, null, (_this$props = this.props) === null || _this$props === void 0 ? void 0 : _this$props.subForms.map(function (form, index) {
+        return /*#__PURE__*/React.createElement("div", {
+          key: index
+        }, form);
+      })));
+    }
+  }]);
+  return ObjectStorageInstancesForm;
+}(Component);
+ObjectStorageInstancesForm.defaultProps = {
+  data: {
+    name: "",
+    use_data: false,
+    resource_group: "",
+    random_suffix: true
+  },
+  resourceGroups: []
+};
+ObjectStorageInstancesForm.propTypes = {
+  isModal: PropTypes.bool,
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    use_data: PropTypes.bool.isRequired,
+    resource_group: PropTypes.string,
+    random_suffix: PropTypes.bool.isRequired
+  }),
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  composedNameCallback: PropTypes.func.isRequired,
+  subForms: PropTypes.arrayOf(PropTypes.node)
+};
+
+var ObjectStorageKeyForm = /*#__PURE__*/function (_Component) {
+  _inherits(ObjectStorageKeyForm, _Component);
+  var _super = _createSuper(ObjectStorageKeyForm);
+  function ObjectStorageKeyForm(props) {
+    var _this;
+    _classCallCheck(this, ObjectStorageKeyForm);
+    _this = _super.call(this, props);
+    _this.state = {
+      name: _this.props.data.name,
+      role: _this.props.data.role || "Writer",
+      enable_hmac: _this.props.data.enable_hmac
+    };
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * Handler for toggle
+   * @param {String} name specifies the name of the state value you wish to change
+   */
+  _createClass(ObjectStorageKeyForm, [{
+    key: "handleToggle",
+    value: function handleToggle() {
+      this.setState(this.toggleStateBoolean("enable_hmac", this.state));
+    }
+
+    /**
+     * handle input change
+     * @param {event} event event
+     */
+  }, {
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      // composed id
+      var composedId = "key-form-".concat(this.props.data.name ? this.props.data.name : "new-key");
+      var inputSize = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, {
+        noMarginBottom: true
+      }, /*#__PURE__*/React.createElement(IcseNameInput, {
+        id: this.state.name + "-name",
+        componentName: this.props.data.name,
+        value: this.state.name,
+        onChange: this.handleInputChange,
+        componentProps: this.props,
+        placeholder: "my-cos-key-name",
+        className: inputSize,
+        helperTextCallback: function helperTextCallback() {
+          return _this2.props.composedNameCallback(_this2.state);
+        },
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props)
+      }), /*#__PURE__*/React.createElement(IcseSelect, {
+        name: "role",
+        groups: ["Object Writer", "Object Reader", "Content Reader", "Reader", "Writer", "Manager"],
+        value: this.state.role,
+        labelText: "Role",
+        handleInputChange: this.handleInputChange,
+        className: inputSize,
+        formName: this.state.data + "-cos-key"
+      }), /*#__PURE__*/React.createElement(IcseToggle, {
+        tooltip: {
+          link: "https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-uhc-hmac-credentials-main",
+          content: "HMAC (hash-based message authentication code) is required for Teleport VSI instances."
+        },
+        id: composedId + "cos-instance-key-hmac",
+        labelText: "Enable HMAC",
+        defaultToggled: this.props.forceEnableHmac,
+        onToggle: this.handleToggle,
+        isModal: this.props.isModal,
+        disabled: this.props.forceEnableHmac
+      })));
+    }
+  }]);
+  return ObjectStorageKeyForm;
+}(Component);
+ObjectStorageKeyForm.defaultProps = {
+  data: {
+    name: "",
+    enable_hmac: false
+  },
+  forceEnableHmac: false
+};
+ObjectStorageKeyForm.propTypes = {
+  isModal: PropTypes.bool,
+  data: PropTypes.shape({
+    enable_hmac: PropTypes.bool.isRequired,
+    name: PropTypes.string.isRequired,
+    role: PropTypes.string
+  }),
+  shouldDisableSave: PropTypes.func,
+  shouldDisableSubmit: PropTypes.func,
+  forceEnableHmac: PropTypes.bool.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  composedNameCallback: PropTypes.func.isRequired
+};
+
+/** Resource Groups
+ * @param {Object} props
+ */
+var ResourceGroupForm = /*#__PURE__*/function (_Component) {
+  _inherits(ResourceGroupForm, _Component);
+  var _super = _createSuper(ResourceGroupForm);
+  function ResourceGroupForm(props) {
+    var _this;
+    _classCallCheck(this, ResourceGroupForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleTextInput = _this.handleTextInput.bind(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    return _this;
+  }
+  /**
+   * Toggle on and off param in state at name
+   * @param {string} name name of the object key to change
+   */
+  _createClass(ResourceGroupForm, [{
+    key: "handleToggle",
+    value: function handleToggle(name) {
+      // Turn off the use_prefix toggle when create is turned off.
+      if (name === "create" && this.state.create === true) {
+        var _this$setState;
+        this.setState((_this$setState = {}, _defineProperty(_this$setState, name, !this.state[name]), _defineProperty(_this$setState, "use_prefix", false), _this$setState));
+      } else {
+        this.setState(_defineProperty({}, name, !this.state[name]));
+      }
+    }
+
+    /**
+     * Handle input change for a text field
+     * @param {event} event
+     */
+  }, {
+    key: "handleTextInput",
+    value: function handleTextInput(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      var composedId = "resource-group-".concat(this.props.data.name, "-");
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
+        tooltip: {
+          content: "If true, get data from an existing resource group"
+        },
+        labelText: "Use Existing Instance",
+        toggleFieldName: this.props.toggleName,
+        defaultToggled: !this.state.create,
+        id: composedId + "-create-toggle",
+        onToggle: function onToggle() {
+          return _this2.handleToggle("create");
+        },
+        isModal: this.props.isModal
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, {
+        noMarginBottom: true
+      }, /*#__PURE__*/React.createElement(IcseNameInput, {
+        id: composedId,
+        componentName: "resource_groups",
+        value: this.state.name,
+        onChange: this.handleTextInput,
+        useData: this.state.create === false || this.state.use_prefix === false,
+        invalidCallback: function invalidCallback() {
+          return _this2.props.invalidCallback(_this2.state, _this2.props);
+        },
+        invalidText: this.props.invalidTextCallback(this.state, this.props),
+        helperTextCallback: function helperTextCallback() {
+          return _this2.props.helperTextCallback(_this2.state, _this2.props);
+        }
+      }), this.state.create && /*#__PURE__*/React.createElement(IcseToggle, {
+        tooltip: {
+          content: "Append your environment prefix to the beginning of the resource group."
+        },
+        labelText: "Use Prefix",
+        defaultToggled: this.state.use_prefix,
+        id: composedId + "-use-prefix-toggle",
+        onToggle: this.handleToggle,
+        isModal: this.props.isModal
+      })));
+    }
+  }]);
+  return ResourceGroupForm;
+}(Component);
+ResourceGroupForm.defaultProps = {
+  data: {
+    create: false,
+    name: "",
+    use_prefix: true
+  },
+  toggleName: "use_data",
+  isModal: false
+};
+ResourceGroupForm.propTypes = {
+  data: PropTypes.shape({
+    create: PropTypes.bool,
+    name: PropTypes.string.isRequired,
+    use_prefix: PropTypes.bool
+  }),
+  isModal: PropTypes.bool.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  helperTextCallback: PropTypes.func.isRequired
+};
+
+var sccRegions = [{
+  id: "us",
+  label: "us"
+}, {
+  id: "eu",
+  label: "eu"
+}, {
+  id: "uk",
+  label: "uk"
+}];
+
+/**
+ * SccForm
+ * @param {Object} props
+ */
+var SccForm = /*#__PURE__*/function (_Component) {
+  _inherits(SccForm, _Component);
+  var _super = _createSuper(SccForm);
+  function SccForm(props) {
+    var _this;
+    _classCallCheck(this, SccForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleLocationChange = _this.handleLocationChange.bind(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    _this.state.enable_scc = true;
+    return _this;
+  }
+
+  /**
+   * Handle input change for scope_name field
+   * @param {event} event
+   */
+  _createClass(SccForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+
+    /**
+     * handle input change
+     * @param {event} event event
+     */
+  }, {
+    key: "handleLocationChange",
+    value: function handleLocationChange(selectedItem) {
+      this.setState({
+        location_id: selectedItem.selectedItem.label
+      });
+    }
+
+    /**
+     * Toggle on and off param in state at name
+     * @param {string} name name of the object key to change
+     * @param {bool} setDefaults set default values, default is false
+     */
+  }, {
+    key: "handleToggle",
+    value: function handleToggle(name) {
+      this.setState(this.toggleStateBoolean(name, this.state));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(Dropdown, {
+        ariaLabel: "Dropdown",
+        id: "location_id",
+        items: sccRegions,
+        label: "SCC Region Options",
+        titleText: "Region",
+        onChange: function onChange(selectedItem) {
+          _this2.handleLocationChange(selectedItem);
+        },
+        className: "leftTextAlign fieldWidth"
+      }), /*#__PURE__*/React.createElement(IcseToggle, {
+        tooltip: {
+          content: "Determines whether the collector endpoint is accessible on a public network."
+        },
+        labelText: "Is Public",
+        defaultToggled: this.state.is_public,
+        className: "leftTextAlign",
+        onToggle: this.handleToggle,
+        id: "scc-is-public"
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+        id: "scc_scope_name",
+        tooltip: {
+          content: "A unique name for your scope. A scope narrows the focus of the scan.",
+          align: "top-left"
+        },
+        componentName: "SCC",
+        field: "scope_name",
+        labelText: "Scope Name",
+        value: this.state.scope_name,
+        onChange: this.handleInputChange,
+        maxLength: 50,
+        invalid: lib_10("scope_name", this.state.scope_name, this.props.scopeNameRegex).invalid,
+        invalidText: lib_10("scope_name", this.state.scope_name, this.props.scopeNameRegex).invalidText
+      }), /*#__PURE__*/React.createElement(IcseTextInput, {
+        id: "scc_scope_description",
+        tooltip: {
+          content: "A detailed description of the scope."
+        },
+        componentName: "SCC",
+        field: "scope_description",
+        labelText: "Scope Description",
+        value: this.state.scope_description,
+        onChange: this.handleInputChange,
+        maxLength: 255,
+        invalid: lib_10("scope_description", this.state.scope_description, this.props.descriptionRegex).invalid,
+        invalidText: lib_10("scope_description", this.state.scope_description, this.props.descriptionRegex).invalidText
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, {
+        noMarginBottom: true
+      }, /*#__PURE__*/React.createElement(IcseTextInput, {
+        id: "scc_collector",
+        tooltip: {
+          content: "A detailed description of the collector.",
+          align: "top-left"
+        },
+        labelText: "Collector Description",
+        field: "collector_description",
+        value: this.state.collector_description,
+        onChange: this.handleInputChange,
+        componentName: "SCC",
+        maxLength: 1000,
+        invalid: lib_10("collector_description", this.state.collector_description, this.props.descriptionRegex).invalid,
+        invalidText: lib_10("collector_description", this.state.collector_description, this.props.descriptionRegex).invalidText
+      })));
+    }
+  }]);
+  return SccForm;
+}(Component);
+SccForm.defaultProps = {
+  data: {
+    enable_scc: false
+  },
+  scopeNameRegex: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i,
+  descriptionRegex: /^[A-z][a-zA-Z0-9-\._,\s]*$/i
+};
+SccForm.propTypes = {
+  data: PropTypes.shape({
+    enable_scc: PropTypes.bool.isRequired,
+    collector_description: PropTypes.string,
+    is_public: PropTypes.bool,
+    location_id: PropTypes.string,
+    scope_description: PropTypes.string,
+    scope_name: PropTypes.string,
+    collector_passphrase: PropTypes.string
+  }),
+  scopeNameRegex: PropTypes.instanceOf(RegExp).isRequired,
+  descriptionRegex: PropTypes.instanceOf(RegExp).isRequired
+};
+
+/**
+ * SecretsManagerForm
+ * @param {Object} props
+ */
+var SecretsManagerForm = /*#__PURE__*/function (_Component) {
+  _inherits(SecretsManagerForm, _Component);
+  var _super = _createSuper(SecretsManagerForm);
+  function SecretsManagerForm(props) {
+    var _this;
+    _classCallCheck(this, SecretsManagerForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    _this.state.use_secrets_manager = true;
+    return _this;
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  _createClass(SecretsManagerForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+        id: this.state.name + "-name",
+        componentName: "Secrets Manager",
+        component: "secrets_manager",
+        value: this.state.name,
+        onChange: this.handleInputChange,
+        componentProps: this.props,
+        hideHelperText: true,
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props)
+      }), /*#__PURE__*/React.createElement(IcseSelect, {
+        formName: "Secrets Manager",
+        value: this.state.resource_group,
+        groups: this.props.resourceGroups,
+        handleInputChange: this.handleInputChange,
+        className: "fieldWidth",
+        name: "resource_group",
+        labelText: "Resource Group"
+      })), /*#__PURE__*/React.createElement("div", {
+        className: "fieldWidth"
+      }, /*#__PURE__*/React.createElement(IcseSelect, {
+        value: this.state.kms_key_name,
+        groups: this.props.encryptionKeys,
+        formName: "Secrets Manager",
+        name: "kms_key_name",
+        className: "fieldWidth",
+        labelText: "Encryption Key",
+        handleInputChange: this.handleInputChange
+      })));
+    }
+  }]);
+  return SecretsManagerForm;
+}(Component);
+SecretsManagerForm.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string,
+    resource_group: PropTypes.string,
+    kms_key_name: PropTypes.string
+  }).isRequired,
+  encryptionKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired
+};
+
 /**
  * security group form
  */
@@ -21599,25 +23257,1212 @@ SecurityGroupForm.propTypes = {
   vpcList: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
-var F5VsiForm = /*#__PURE__*/function (_Component) {
-  _inherits(F5VsiForm, _Component);
-  var _super = _createSuper(F5VsiForm);
-  function F5VsiForm(props) {
+var css_248z$2 = ".leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidthBigger {\n  width: 30rem\n}\n";
+styleInject(css_248z$2);
+
+/**
+ * ssh key form
+ */
+var SshKeyForm = /*#__PURE__*/function (_Component) {
+  _inherits(SshKeyForm, _Component);
+  var _super = _createSuper(SshKeyForm);
+  function SshKeyForm(props) {
     var _this;
-    _classCallCheck(this, F5VsiForm);
+    _classCallCheck(this, SshKeyForm);
     _this = _super.call(this, props);
     _this.state = _this.props.data;
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
     _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
-    _this.handleMultiSelectChange = _this.handleMultiSelectChange.bind(_assertThisInitialized(_this));
-    _this.handleVsiSave = _this.handleVsiSave.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * handle other input events
+   * @param {*} event
+   */
+  _createClass(SshKeyForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+        id: this.state.name + "-name",
+        componentName: this.props.data.name + "-ssh-key-name",
+        value: this.state.name,
+        onChange: this.handleInputChange,
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props),
+        hideHelperText: true
+      }), /*#__PURE__*/React.createElement(IcseSelect, {
+        name: "resource_group",
+        formName: "".concat(kebabCase$2(this.props.data.name), "-ssh-rg-select"),
+        groups: this.props.resourceGroups,
+        value: this.state.resource_group,
+        handleInputChange: this.handleInputChange,
+        invalidText: "Select a Resource Group.",
+        labelText: "Resource Group"
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, {
+        noMarginBottom: true
+      }, /*#__PURE__*/React.createElement("div", {
+        className: "fieldWidthBigger leftTextAlign"
+      }, /*#__PURE__*/React.createElement(TextInput.PasswordInput, {
+        labelText: "Public Key",
+        name: "public_key",
+        id: this.props.data.name + "-ssh-public-key",
+        value: this.state.public_key,
+        onChange: this.handleInputChange,
+        invalid: this.props.invalidKeyCallback(this.state.public_key).invalid,
+        invalidText: this.props.invalidKeyCallback(this.state.public_key).invalidText
+      }))));
+    }
+  }]);
+  return SshKeyForm;
+}(Component);
+SshKeyForm.defaultProps = {
+  data: {
+    name: "",
+    public_key: ""
+  },
+  resourceGroups: [],
+  isModal: false
+};
+SshKeyForm.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    resource_group: PropTypes.string,
+    public_key: PropTypes.string.isRequired
+  }).isRequired,
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  isModal: PropTypes.bool.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  invalidKeyCallback: PropTypes.func.isRequired
+};
+
+/**
+ * create a tile for each subnet
+ * @param {Object} props
+ * @returns {SubnetTile} react component
+ */
+var SubnetForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(SubnetForm, _React$Component);
+  var _super = _createSuper(SubnetForm);
+  function SubnetForm(props) {
+    var _this;
+    _classCallCheck(this, SubnetForm);
+    _this = _super.call(this, props);
+    _this.state = _objectSpread2({}, _this.props.data);
+    _this.handleSave = _this.handleSave.bind(_assertThisInitialized(_this));
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+  _createClass(SubnetForm, [{
+    key: "handleChange",
+    value: function handleChange(event) {
+      var _event$target = event.target,
+        name = _event$target.name,
+        value = _event$target.value;
+      this.setState(_defineProperty({}, name, value));
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      this.props.componentDidUpdateCallback(this.state, this.props);
+    }
+  }, {
+    key: "handleSave",
+    value: function handleSave() {
+      this.props.onSave(this.state, this.props);
+    }
+  }, {
+    key: "handleToggle",
+    value: function handleToggle() {
+      this.setState({
+        public_gateway: !this.state.public_gateway
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement(Tile, {
+        key: this.props.vpc_name + "-subnets-" + this.props.data.name,
+        className: "marginRight fieldWidth"
+      }, /*#__PURE__*/React.createElement(IcseHeading, {
+        name: this.props.data.name,
+        type: "subHeading",
+        className: "marginBottomSmall",
+        buttons: /*#__PURE__*/React.createElement(DynamicRender, {
+          hide: this.props.isModal,
+          show: /*#__PURE__*/React.createElement(SaveAddButton, {
+            disabled: this.props.disableSaveCallback(this.state, this.props),
+            onClick: this.handleSave,
+            noDeleteButton: true
+          })
+        })
+      }), /*#__PURE__*/React.createElement(IcseFormGroup, {
+        className: "marginBottomSmall"
+      }, /*#__PURE__*/React.createElement(TextInput, {
+        id: this.props.data.name + "-cidr",
+        invalidText: "Invalid subnet CIDR.",
+        labelText: "Subnet CIDR",
+        value: this.props.data.cidr,
+        className: "fieldWidthSmaller",
+        readOnly: true
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, {
+        className: "marginBottomSmall"
+      }, /*#__PURE__*/React.createElement(IcseSelect, {
+        name: "acl_name",
+        formName: "".concat(this.props.data.name, "-subnet-acl"),
+        labelText: "Network ACL",
+        groups: this.props.networkAcls,
+        value: this.state.acl_name,
+        handleInputChange: this.handleChange,
+        className: "fieldWidthSmaller",
+        disabled: this.props.isModal,
+        invalid: isNullOrEmptyString$3(this.state.acl_name),
+        invalidText: "Select a Network ACL."
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, {
+        noMarginBottom: true
+      }, /*#__PURE__*/React.createElement(IcseToggle, {
+        tooltip: {
+          content: "A Public Gateway must be enabled in this zone to use. To enable public gateways, see the VPC page."
+        },
+        id: "new-subnet-public-gateway-" + this.props.data.name,
+        labelText: "Use Public Gateway",
+        toggleFieldName: "public_gateway",
+        defaultToggled: this.state.public_gateway,
+        onToggle: this.handleToggle,
+        disabled: this.props.isModal || this.props.shouldDisableGatewayToggle(this.state, this.props)
+      })));
+    }
+  }]);
+  return SubnetForm;
+}(React.Component);
+SubnetForm.defaultProps = {
+  isModal: false
+};
+SubnetForm.propTypes = _defineProperty({
+  isModal: PropTypes.bool.isRequired,
+  onSave: PropTypes.func,
+  vpc_name: PropTypes.string.isRequired,
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    cidr: PropTypes.string.isRequired,
+    public_gateway: PropTypes.bool,
+    acl_name: PropTypes.string.isRequired
+  }).isRequired,
+  disableSaveCallback: PropTypes.func,
+  shouldDisableGatewayToggle: PropTypes.func,
+  networkAcls: PropTypes.arrayOf(PropTypes.string).isRequired,
+  componentDidUpdateCallback: PropTypes.func.isRequired
+}, "onSave", PropTypes.func);
+
+var css_248z$1 = ".subnetTileFormMargin {\n  margin-bottom: -0.5rem;\n  margin-top: 0.5rem;\n}\n\n.marginRight {\n  margin-right: 10px;\n}\n";
+styleInject(css_248z$1);
+
+var SubnetTileForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(SubnetTileForm, _React$Component);
+  var _super = _createSuper(SubnetTileForm);
+  function SubnetTileForm(props) {
+    var _this;
+    _classCallCheck(this, SubnetTileForm);
+    _this = _super.call(this, props);
+    _this.state = {
+      subnetData: {}
+    };
+    if (!_this.props.isModal) {
+      _this.props.data.forEach(function (subnet) {
+        _this.state.subnetData[subnet.name] = true;
+      });
+    }
+    _this.shouldDisableGatewayToggle = _this.shouldDisableGatewayToggle.bind(_assertThisInitialized(_this));
+    _this.childSubnetHasChanged = _this.childSubnetHasChanged.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * check if child subnet has changed
+   * @param {Object} stateData
+   * @param {string} stateData.name
+   * @param {Object} componentProps
+   * @param {Object} componentProps.data
+   */
+  _createClass(SubnetTileForm, [{
+    key: "childSubnetHasChanged",
+    value: function childSubnetHasChanged(stateData, componentProps) {
+      var name = stateData.name;
+      if (this.state.subnetData[name] && !deepEqual(stateData, componentProps.data)) {
+        var subnetData = _objectSpread2({}, this.state.subnetData);
+        subnetData[name] = false;
+        this.setState({
+          subnetData: subnetData
+        });
+      }
+    }
+
+    /**
+     * check if gateway should be disabled
+     * @param {Object} stateData
+     * @param {string} stateData.name
+     */
+  }, {
+    key: "shouldDisableGatewayToggle",
+    value: function shouldDisableGatewayToggle(stateData) {
+      var zone = parseIntFromZone(stateData.name);
+      if (contains$1(this.props.enabledPublicGateways, zone)) {
+        return false;
+      } else return true;
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      var subnetMap = _toConsumableArray(this.props.data);
+      return /*#__PURE__*/React.createElement(IcseSubForm, {
+        id: "subnet-tile-".concat(this.props.tier, "-").concat(this.props.vpc_name),
+        formInSubForm: true,
+        className: "popoverLeft subnetTileFormMargin"
+      }, /*#__PURE__*/React.createElement(IcseHeading, {
+        name: "Subnets",
+        type: "subHeading",
+        className: "marginBottomSmall"
+      }), /*#__PURE__*/React.createElement("div", {
+        className: "displayFlex"
+      }, subnetMap.map(function (subnet) {
+        return /*#__PURE__*/React.createElement(SubnetForm // change so doesn't show buttons
+        , {
+          key: "".concat(subnet.name, "-tile-").concat(_this2.props.tier, "-").concat(_this2.props.vpc_name, "-").concat(JSON.stringify(subnet)),
+          vpc_name: _this2.props.vpc_name,
+          data: subnet,
+          onSave: _this2.props.onSave,
+          isModal: _this2.props.isModal || _this2.props.readOnly,
+          componentDidUpdateCallback: _this2.childSubnetHasChanged,
+          networkAcls: _this2.props.networkAcls,
+          disableSaveCallback: _this2.props.disableSaveCallback,
+          shouldDisableGatewayToggle: _this2.shouldDisableGatewayToggle
+        });
+      })));
+    }
+  }]);
+  return SubnetTileForm;
+}(React.Component);
+SubnetTileForm.defaultProps = {
+  isModal: false,
+  readOnly: false
+};
+SubnetTileForm.propTypes = {
+  isModal: PropTypes.bool.isRequired,
+  disableSaveCallback: PropTypes.func,
+  vpc_name: PropTypes.string.isRequired,
+  tier: PropTypes.string.isRequired,
+  networkAcls: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onSave: PropTypes.func,
+  data: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    cidr: PropTypes.string.isRequired,
+    public_gateway: PropTypes.bool,
+    acl_name: PropTypes.string.isRequired
+  })),
+  readOnly: PropTypes.bool.isRequired,
+  enabledPublicGateways: PropTypes.arrayOf(PropTypes.number).isRequired
+};
+
+var SubnetTierForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(SubnetTierForm, _React$Component);
+  var _super = _createSuper(SubnetTierForm);
+  function SubnetTierForm(props) {
+    var _this;
+    _classCallCheck(this, SubnetTierForm);
+    _this = _super.call(this, props);
+    _this.state = _objectSpread2({}, _this.props.data);
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    _this.onSave = _this.onSave.bind(_assertThisInitialized(_this));
+    _this.onDelete = _this.onDelete.bind(_assertThisInitialized(_this));
+    _this.handleShowToggle = _this.handleShowToggle.bind(_assertThisInitialized(_this));
+    _this.shouldDisableSubmit = _this.shouldDisableSubmit.bind(_assertThisInitialized(_this));
+    _this.toggleDeleteModal = _this.toggleDeleteModal.bind(_assertThisInitialized(_this));
+    _this.onSubnetSave = _this.onSubnetSave.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+  /**
+   * Handle input change
+   * @param {event} event
+   */
+  _createClass(SubnetTierForm, [{
+    key: "handleChange",
+    value: function handleChange(event) {
+      var _event$target = event.target,
+        name = _event$target.name,
+        value = _event$target.value;
+      this.setState(_defineProperty({}, name, value));
+    }
+
+    /**
+     * handle toggle
+     */
+  }, {
+    key: "handleToggle",
+    value: function handleToggle() {
+      this.setState({
+        addPublicGateway: !this.state.addPublicGateway
+      });
+    }
+    /**
+     * toggle delete modal
+     */
+  }, {
+    key: "toggleDeleteModal",
+    value: function toggleDeleteModal() {
+      this.setState({
+        showDeleteModal: !this.state.showDeleteModal
+      });
+    }
+
+    /**
+     * handle hide/show form data
+     */
+  }, {
+    key: "handleShowToggle",
+    value: function handleShowToggle() {
+      this.setState({
+        hide: !this.state.hide
+      });
+    }
+  }, {
+    key: "onSave",
+    value: function onSave() {
+      this.props.onSave(this.state, this.props);
+    }
+  }, {
+    key: "onSubnetSave",
+    value: function onSubnetSave(stateData, componentProps) {
+      this.props.onSubnetSave(stateData, componentProps);
+    }
+  }, {
+    key: "onDelete",
+    value: function onDelete() {
+      this.props.onDelete(this.state, this.props);
+    }
+  }, {
+    key: "shouldDisableSubmit",
+    value: function shouldDisableSubmit() {
+      if (this.props.isModal) {
+        if (this.props.shouldDisableSubmit(this.state, this.props) === false) this.props.enableModal();else this.props.disableModal();
+      }
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      this.shouldDisableSubmit();
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.shouldDisableSubmit();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var composedId = "".concat(this.props.vpc_name, "-tier-").concat(this.props.data.name === "" ? "new-subnet-tier" : this.props.data.name);
+      var formName = this.props.data.name + "-subnet-tier";
+      var tierName = this.props.data.name === "" ? "New Subnet Tier" : titleCase$1(formName).replace(/Vsi/g, "VSI").replace(/Vpe/g, "VPE").replace(/Vpn/g, "VPN");
+      return /*#__PURE__*/React.createElement(IcseSubForm, {
+        formInSubForm: true,
+        id: composedId,
+        className: "marginBottomSmall"
+      }, /*#__PURE__*/React.createElement(DeleteModal, {
+        name: tierName,
+        modalOpen: this.state.showDeleteModal,
+        onModalClose: this.toggleDeleteModal,
+        onModalSubmit: this.onDelete
+      }), /*#__PURE__*/React.createElement(StatelessToggleForm, {
+        hideTitle: this.props.isModal === true,
+        hide: this.state.hide,
+        name: tierName,
+        onIconClick: this.handleShowToggle,
+        toggleFormTitle: true,
+        buttons: /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(SaveAddButton, {
+          onClick: this.onSave,
+          noDeleteButton: this.props.noDeleteButton,
+          disabled: this.props.shouldDisableSave(this.state, this.props)
+        }), /*#__PURE__*/React.createElement(DynamicRender, {
+          hide: this.props.noDeleteButton,
+          show: /*#__PURE__*/React.createElement(DeleteButton, {
+            name: tierName,
+            onClick: this.toggleDeleteModal
+          })
+        }))
+      }, /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+        id: this.props.isModal ? "new-tier-name" : this.props.data.name + "-tier-name",
+        value: this.state.name,
+        componentName: formName,
+        onChange: this.handleChange,
+        className: "fieldWidthSmaller",
+        readOnly: this.props.readOnly,
+        invalidCallback: this.props.invalidCallback,
+        invalidText: this.props.invalidTextCallback(this.state, this.props),
+        hideHelperText: true
+      }), /*#__PURE__*/React.createElement(IcseNumberSelect, {
+        max: 3,
+        value: this.state.zones,
+        labelText: "Subnet Tier Zones",
+        name: "zones",
+        handleInputChange: this.handleChange,
+        className: "fieldWidthSmaller",
+        invalid: this.state.zones === 0,
+        invalidText: "At least one zone must be selected.",
+        formName: formName
+      }), /*#__PURE__*/React.createElement(IcseSelect, {
+        tooltip: {
+          content: "Changing this field will overwrite existing Network ACL changes to subnets in this data."
+        },
+        className: "fieldWidthSmaller",
+        field: "networkAcl",
+        name: "networkAcl",
+        value: this.state.networkAcl || "",
+        vpcName: this.props.vpc_name,
+        labelText: "Network ACL",
+        groups: this.props.networkAcls,
+        handleInputChange: this.handleChange,
+        isModal: this.props.isModal,
+        formName: formName
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, {
+        className: "marginBottomSmall"
+      }, /*#__PURE__*/React.createElement(IcseToggle, {
+        tooltip: {
+          content: this.props.enabledPublicGateways.length === 0 ? "This VPC has no public gateways enabled. To add public gateways, return to the VPC page." : "Changing this field will overwrite existing Public Gateway changes to subnets in this data."
+        },
+        id: composedId + "-public-gateway",
+        labelText: "Use Public Gateways",
+        defaultToggled: this.state.addPublicGateway,
+        onToggle: this.handleToggle,
+        isModal: this.props.isModal,
+        disabled: this.props.enabledPublicGateways.length === 0
+      })), /*#__PURE__*/React.createElement(SubnetTileForm, {
+        tier: this.props.data.name,
+        vpc_name: this.props.vpc_name,
+        onSave: this.onSubnetSave,
+        isModal: this.props.isModal,
+        data: this.props.subnetListCallback(this.state, this.props),
+        key: this.state.zones,
+        enabledPublicGateways: this.props.enabledPublicGateways,
+        networkAcls: this.props.networkAcls,
+        disableSaveCallback: this.props.disableSubnetSaveCallback
+      }))));
+    }
+  }]);
+  return SubnetTierForm;
+}(React.Component);
+SubnetTierForm.defaultProps = {
+  isModal: false,
+  hide: true,
+  readOnly: false,
+  noDeleteButton: false,
+  data: {
+    hide: false,
+    name: "",
+    zones: 3,
+    networkAcl: null,
+    addPublicGateway: false
+  }
+};
+SubnetTierForm.propTypes = {
+  data: PropTypes.shape({
+    hide: PropTypes.bool,
+    name: PropTypes.string.isRequired,
+    zones: PropTypes.number.isRequired,
+    networkAcl: PropTypes.string,
+    addPublicGateway: PropTypes.bool
+  }),
+  // save and delete functions can be null when form rendered as modal
+  onSave: PropTypes.func,
+  onSubnetSave: PropTypes.func,
+  onDelete: PropTypes.func,
+  disableSubnetSaveCallback: PropTypes.func,
+  // can be null when modal
+  shouldDisableSave: PropTypes.func,
+  shouldDisableSubmit: PropTypes.func,
+  // can be null when not modal
+  noDeleteButton: PropTypes.bool,
+  // can be null when modal
+  isModal: PropTypes.bool.isRequired,
+  readOnly: PropTypes.bool.isRequired,
+  networkAcls: PropTypes.arrayOf(PropTypes.string).isRequired,
+  enabledPublicGateways: PropTypes.arrayOf(PropTypes.number).isRequired,
+  hide: PropTypes.bool.isRequired,
+  vpc_name: PropTypes.string.isRequired,
+  subnetListCallback: PropTypes.func.isRequired,
+  enableModal: PropTypes.func,
+  disableModal: PropTypes.func
+};
+
+var emailRegex = /^[\w-_\.]+@([\w-_]+\.)+[\w]{1,4}$/g;
+var TeleportClaimToRoleForm = /*#__PURE__*/function (_Component) {
+  _inherits(TeleportClaimToRoleForm, _Component);
+  var _super = _createSuper(TeleportClaimToRoleForm);
+  function TeleportClaimToRoleForm(props) {
+    var _this;
+    _classCallCheck(this, TeleportClaimToRoleForm);
+    _this = _super.call(this, props);
+    _this.state = {
+      email: _this.props.data.email,
+      roles: _this.props.data.roles
+    };
+    _this.onChangeTextInput = _this.onChangeTextInput.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   *
+   * @param {String} name specifies name of state value to change
+   * @param {String} value value to set it to
+   */
+  _createClass(TeleportClaimToRoleForm, [{
+    key: "onChangeTextInput",
+    value: function onChangeTextInput(name, value) {
+      if (name === "roles") {
+        this.setState(_defineProperty({}, name, [value]));
+      } else this.setState(_defineProperty({}, name, value));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      var composedId = "teleport-claim-form-".concat(this.props.data.email);
+      return /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+        id: composedId + "-email",
+        componentName: "teleport-claim",
+        field: "email",
+        invalid: !this.state.email.match(emailRegex),
+        value: this.state.email,
+        onChange: function onChange(event) {
+          return _this2.onChangeTextInput("email", event.target.value);
+        },
+        className: "fieldWidth"
+      }), /*#__PURE__*/React.createElement(IcseTextInput, {
+        id: composedId + "roles",
+        componentName: "teleport-claim",
+        field: "roles",
+        value: this.state.roles[0] || "",
+        onChange: function onChange(event) {
+          return _this2.onChangeTextInput("roles", event.target.value);
+        },
+        invalid: this.props.invalidRolesCallback(this.state),
+        className: "fieldWidth"
+      }));
+    }
+  }]);
+  return TeleportClaimToRoleForm;
+}(Component);
+TeleportClaimToRoleForm.defaultProps = {
+  data: {
+    email: "",
+    roles: []
+  }
+};
+TeleportClaimToRoleForm.propTypes = {
+  data: PropTypes.shape({
+    email: PropTypes.string.isRequired,
+    roles: PropTypes.array.isRequired
+  }).isRequired
+};
+
+var TransitGatewayForm = /*#__PURE__*/function (_Component) {
+  _inherits(TransitGatewayForm, _Component);
+  var _super = _createSuper(TransitGatewayForm);
+  function TransitGatewayForm(props) {
+    var _this;
+    _classCallCheck(this, TransitGatewayForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    _this.handleVpcSelect = _this.handleVpcSelect.bind(_assertThisInitialized(_this));
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
     buildFormFunctions(_assertThisInitialized(_this));
     buildFormDefaultInputMethods(_assertThisInitialized(_this));
     return _this;
   }
-  _createClass(F5VsiForm, [{
+
+  /**
+   * Toggle on and off param in state at name
+   * @param {string} name name of the object key to change
+   */
+  _createClass(TransitGatewayForm, [{
+    key: "handleToggle",
+    value: function handleToggle(name) {
+      this.setState(_defineProperty({}, name, !this.state[name]));
+    }
+
+    /**
+     * handle vpc selection
+     * @param {event} event
+     */
+  }, {
+    key: "handleVpcSelect",
+    value: function handleVpcSelect(event) {
+      this.setState({
+        transit_gateway_connections: event
+      });
+    }
+
+    /**
+     * Handle input change
+     * @param {event} event
+     */
+  }, {
     key: "handleInputChange",
     value: function handleInputChange(event) {
       this.setState(this.eventTargetToNameAndValue(event));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
+        labelText: "Use Transit Gateway",
+        toggleFieldName: "enable_transit_gateway",
+        id: "tg-enable",
+        onToggle: this.handleToggle,
+        defaultToggled: this.state.enable_transit_gateway
+      }), /*#__PURE__*/React.createElement(IcseTextInput, {
+        onChange: this.handleInputChange,
+        componentName: "Transit Gateway",
+        field: "name",
+        value: this.state.name,
+        readOnly: this.props.readOnlyName,
+        id: "tg-name",
+        invalid: this.props.invalidCallback(this.state),
+        invalidText: this.props.invalidTextCallback(this.state)
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+        formName: "Transit Gateway",
+        value: this.state.transit_gateway_resource_group,
+        groups: this.props.resourceGroups,
+        handleInputChange: this.handleInputChange,
+        name: "transit_gateway_resource_group",
+        labelText: "Resource Group"
+      }), /*#__PURE__*/React.createElement(VpcListMultiSelect, {
+        id: "tg-vpc-multiselect",
+        titleText: "Connected VPCs",
+        initialSelectedItems: this.state.transit_gateway_connections,
+        vpcList: this.props.vpcList,
+        onChange: this.handleVpcSelect,
+        invalid: this.state.transit_gateway_connections.length === 0 && this.state.enable_transit_gateway,
+        invalidText: "At least one VPC must be connected"
+      })));
+    }
+  }]);
+  return TransitGatewayForm;
+}(Component);
+TransitGatewayForm.defaultProps = {
+  data: {
+    enable_transit_gateway: true,
+    transit_gateway_connections: [],
+    transit_gateway_resource_group: "",
+    name: ""
+  },
+  readOnlyName: true,
+  vpcList: [],
+  resourceGroups: []
+};
+TransitGatewayForm.propTypes = {
+  data: PropTypes.shape({
+    enable_transit_gateway: PropTypes.bool.isRequired,
+    transit_gateway_connections: PropTypes.array.isRequired,
+    transit_gateway_resource_group: PropTypes.string.isRequired,
+    name: PropTypes.string
+  }).isRequired,
+  readOnlyName: PropTypes.bool.isRequired,
+  vpcList: PropTypes.array.isRequired,
+  resourceGroups: PropTypes.array.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired
+};
+
+var nameFields = ["default_network_acl_name", "default_routing_table_name", "default_security_group_name"];
+var VpcNetworkForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(VpcNetworkForm, _React$Component);
+  var _super = _createSuper(VpcNetworkForm);
+  function VpcNetworkForm(props) {
+    var _this;
+    _classCallCheck(this, VpcNetworkForm);
+    _this = _super.call(this, props);
+    _this.state = _objectSpread2({}, _this.props.data);
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    _this.handPgwToggle = _this.handPgwToggle.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  _createClass(VpcNetworkForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+
+    /**
+     * Toggle on and off param in state at name
+     * @param {string} name name of the object key to change
+     */
+  }, {
+    key: "handleToggle",
+    value: function handleToggle(name) {
+      this.setState(_defineProperty({}, name, !this.state[name]));
+    }
+
+    /**
+     * handle change of public gateway by zone
+     * @param {string} zone zone-1, zone-2, or zone-3
+     */
+  }, {
+    key: "handPgwToggle",
+    value: function handPgwToggle(zone) {
+      var vpc = _objectSpread2({}, this.state);
+      var currentGw = _objectSpread2({}, this.state.use_public_gateways);
+      currentGw[zone] = !currentGw[zone];
+      vpc.use_public_gateways = currentGw;
+      this.setState(_objectSpread2({}, vpc));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      var composedId = "".concat(this.props.data.name, "-vpc-form");
+      var classNameModalCheck = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+        tooltip: {
+          content: "This name will be prepended to all components within this VPC.",
+          alignModal: "bottom-left",
+          align: "bottom-left"
+        },
+        id: composedId + "-prefix",
+        componentProps: this.props,
+        component: "vpc",
+        componentName: this.props.data.name,
+        field: "name",
+        labelText: "Name",
+        placeholder: "my-vpc-name",
+        hideHelperText: true,
+        value: this.state.name,
+        onChange: this.handleInputChange,
+        invalid: this.props.invalidCallback("name", this.state, this.props),
+        invalidText: this.props.invalidTextCallback("name", this.state, this.props),
+        className: classNameModalCheck
+      }), /*#__PURE__*/React.createElement(IcseSelect, {
+        labelText: "Resource Group",
+        name: "resource_group",
+        formName: "resource_group",
+        groups: this.props.resourceGroups,
+        value: this.state.resource_group,
+        handleInputChange: this.handleInputChange,
+        invalid: lib_4(this.state.resource_group),
+        invalidText: "Select a Resource Group.",
+        className: classNameModalCheck
+      }), /*#__PURE__*/React.createElement(IcseSelect, {
+        labelText: "Flow Logs Bucket Name",
+        name: "flow_logs_bucket_name",
+        formName: this.props.data.name + "-vpc",
+        groups: this.props.cosBuckets,
+        value: this.state.flow_logs_bucket_name || "",
+        handleInputChange: this.handleInputChange,
+        invalid: lib_4(this.state.flow_logs_bucket_name),
+        invalidText: "Select a Bucket.",
+        className: classNameModalCheck
+      })), /*#__PURE__*/React.createElement(IcseHeading, {
+        name: "VPC Options",
+        type: "subHeading"
+      }), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
+        id: this.props.data.name + "-classic-access",
+        labelText: "Classic Infrastructure Access",
+        toggleFieldName: "classic_access",
+        defaultToggled: this.state.classic_access,
+        onToggle: this.handleToggle,
+        className: classNameModalCheck + " leftTextAlign"
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, nameFields.map(function (field) {
+        return /*#__PURE__*/React.createElement("div", {
+          className: "fitContent",
+          key: _this2.props.data.name + "-" + kebabCase$2(field) + "-div"
+        }, /*#__PURE__*/React.createElement(IcseTextInput, {
+          id: composedId + "-" + field,
+          componentName: "VPC Network",
+          field: field,
+          labelText: titleCase$1(field),
+          value: _this2.state[field],
+          onChange: _this2.handleInputChange,
+          invalid: _this2.props.invalidCallback(field, _this2.state, _this2.props),
+          invalidText: _this2.props.invalidTextCallback(field, _this2.state, _this2.props),
+          className: classNameModalCheck
+        }));
+      })), /*#__PURE__*/React.createElement(IcseHeading, {
+        name: "Public Gateways",
+        type: "subHeading",
+        noLabelText: true,
+        tooltip: {
+          content: "Public Gateways allow for all resources in a zone to communicate with the public internet. Public Gateways are not needed for subnets where a VPN gateway is created."
+        }
+      }), /*#__PURE__*/React.createElement(IcseFormGroup, {
+        noMarginBottom: true
+      }, ["zone-1", "zone-2", "zone-3"].map(function (zone) {
+        return /*#__PURE__*/React.createElement(IcseToggle, {
+          key: _this2.props.data.name + "-gateway-toggle-" + zone,
+          id: _this2.props.data.name + "-pgw-" + zone,
+          labelText: "Create in Zone " + parseIntFromZone(zone),
+          defaultToggled: _this2.state.use_public_gateways[zone],
+          onToggle: function onToggle() {
+            return _this2.handPgwToggle(zone);
+          },
+          className: classNameModalCheck + " leftTextAlign"
+        });
+      })));
+    }
+  }]);
+  return VpcNetworkForm;
+}(React.Component);
+VpcNetworkForm.defaultProps = {
+  data: {
+    name: "",
+    resource_group: "",
+    flow_logs_bucket_name: "",
+    default_network_acl_name: "",
+    default_routing_table_name: "",
+    default_security_group_name: "",
+    classic_access: false,
+    use_manual_address_prefixes: false,
+    use_public_gateways: {
+      "zone-1": false,
+      "zone-2": false,
+      "zone-3": false
+    }
+  },
+  isModal: false
+};
+VpcNetworkForm.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    resource_group: PropTypes.string,
+    flow_logs_bucket_name: PropTypes.string,
+    default_network_acl_name: PropTypes.string,
+    default_security_group_name: PropTypes.string,
+    default_routing_table_name: PropTypes.string,
+    classic_access: PropTypes.bool.isRequired,
+    use_manual_address_prefixes: PropTypes.bool.isRequired,
+    use_public_gateways: PropTypes.object.isRequired
+  }),
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  cosBuckets: PropTypes.arrayOf(PropTypes.string).isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  isModal: PropTypes.bool.isRequired
+};
+
+var services = {
+  hpcs: "Hyper Protect Crypto Services",
+  kms: "Key Protect",
+  cos: "Object Storage",
+  icr: "Container Registry",
+  "Hyper Protect Crypto Services": "hpcs",
+  "Key Protect": "kms",
+  "Object Storage": "cos",
+  "Container Registry": "icr"
+};
+var serviceGroups = ["Hyper Protect Crypto Services", "Key Protect", "Object Storage", "Container Registry"];
+
+/**
+ * Vpe Form
+ */
+var VpeForm = /*#__PURE__*/function (_Component) {
+  _inherits(VpeForm, _Component);
+  var _super = _createSuper(VpeForm);
+  function VpeForm(props) {
+    var _this;
+    _classCallCheck(this, VpeForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleServiceDropdown = _this.handleServiceDropdown.bind(_assertThisInitialized(_this));
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleMultiSelect = _this.handleMultiSelect.bind(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * Handle input change
+   * @param {event} event
+   */
+  _createClass(VpeForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+
+    /**
+     * handle service dropdown
+     * @param {event} event event
+     */
+  }, {
+    key: "handleServiceDropdown",
+    value: function handleServiceDropdown(event) {
+      this.setState({
+        service: services[event.target.value]
+      });
+    }
+
+    /**
+     * Toggle on and off param in state at name
+     * @param {string} name name of the object key to change
+     */
+  }, {
+    key: "handleToggle",
+    value: function handleToggle(name) {
+      this.setState(_defineProperty({}, name, !this.state[name]));
+    }
+
+    /**
+     * handle multiselects
+     * @param {event} event
+     */
+  }, {
+    key: "handleMultiSelect",
+    value: function handleMultiSelect(name, event) {
+      this.setState(_defineProperty({}, name, event));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+        componentName: "Vpe",
+        field: "vpc",
+        labelText: "VPC Name",
+        className: "fieldWidthSmaller",
+        value: this.state.vpc,
+        onChange: function onChange() {} // nothing
+        ,
+        readOnly: true,
+        id: "vpe-vpc-name",
+        invalid: false
+      }), /*#__PURE__*/React.createElement(IcseSelect, {
+        name: "service",
+        formName: "vpe",
+        groups: serviceGroups,
+        value: services[this.state.service],
+        labelText: "Service Type",
+        handleInputChange: this.handleServiceDropdown,
+        className: "fieldWidthSmaller"
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+        formName: "resource_group",
+        name: "resource_group",
+        labelText: "Resource Group",
+        groups: this.props.resourceGroups,
+        value: this.state.resource_group,
+        handleInputChange: this.handleInputChange,
+        className: "fieldWidthSmaller"
+      }), /*#__PURE__*/React.createElement(SecurityGroupMultiSelect, {
+        id: "vpe-security-groups",
+        initialSelectedItems: this.state.security_groups,
+        vpc_name: this.state.vpc,
+        onChange: function onChange(event) {
+          return _this2.handleMultiSelect("security_groups", event);
+        },
+        securityGroups: this.props.securityGroups,
+        className: "fieldWidthSmaller",
+        invalid: this.state.security_groups.length === 0
+      }), /*#__PURE__*/React.createElement(SubnetMultiSelect, {
+        id: "vpe-subnets",
+        initialSelectedItems: this.state.subnets,
+        vpc_name: this.state.vpc,
+        onChange: function onChange(event) {
+          return _this2.handleMultiSelect("subnets", event);
+        },
+        subnets: this.props.subnetList,
+        className: "fieldWidthSmaller"
+      })));
+    }
+  }]);
+  return VpeForm;
+}(Component);
+VpeForm.defaultProps = {
+  data: {
+    vpc: "",
+    service: "kms",
+    resource_group: "",
+    security_groups: [],
+    subnets: []
+  },
+  resourceGroups: [],
+  subnetList: [],
+  securityGroups: [],
+  isModal: false
+};
+VpeForm.propTypes = {
+  data: PropTypes.shape({
+    vpc: PropTypes.string.isRequired,
+    service: PropTypes.string.isRequired,
+    resource_group: PropTypes.string.isRequired,
+    security_groups: PropTypes.arrayOf(PropTypes.string).isRequired,
+    subnets: PropTypes.arrayOf(PropTypes.string).isRequired
+  }),
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  subnetList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  securityGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  isModal: PropTypes.bool.isRequired
+};
+
+/**
+ * vpn gateway form
+ */
+var VpnGatewayForm = /*#__PURE__*/function (_Component) {
+  _inherits(VpnGatewayForm, _Component);
+  var _super = _createSuper(VpnGatewayForm);
+  function VpnGatewayForm(props) {
+    var _this;
+    _classCallCheck(this, VpnGatewayForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * handle input change
+   * @param {event} event
+   */
+  _createClass(VpnGatewayForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      if (event.target.name === "vpc_name") {
+        this.setState({
+          vpc_name: event.target.value,
+          subnet_name: ""
+        });
+      } else if (event.target.name === "subnet_name" && lib_4(this.state.vpc_name)) {
+        this.setState({
+          subnet_name: ""
+        });
+      } else {
+        this.setState(this.eventTargetToNameAndValue(event));
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var composedId = "vpn-gateway-form-".concat(this.props.data.name, "-");
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+        id: composedId,
+        component: "vpn_gateways",
+        componentName: this.props.data.name,
+        componentProps: this.props,
+        value: this.state.name,
+        onChange: this.handleInputChange,
+        placeholder: "my-vpn-gateway-name",
+        hideHelperText: true,
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props)
+      }), /*#__PURE__*/React.createElement(IcseSelect, {
+        formName: "resource_group",
+        name: "resource_group",
+        labelText: "Resource Group",
+        groups: this.props.resourceGroups,
+        value: this.state.resource_group,
+        handleInputChange: this.handleInputChange,
+        invalid: lib_4(this.state.resource_group),
+        invalidText: "Select a Resource Group.",
+        className: "fieldWidth"
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+        id: composedId,
+        formName: "vpc_name",
+        name: "vpc_name",
+        labelText: "VPC",
+        groups: this.props.vpcList,
+        value: this.state.vpc_name,
+        handleInputChange: this.handleInputChange,
+        invalid: lib_4(this.state.vpc_name),
+        invalidText: "Select a VPC.",
+        className: "fieldWidth"
+      }), /*#__PURE__*/React.createElement(IcseSelect, {
+        id: composedId,
+        formName: "subnet_name",
+        name: "subnet_name",
+        labelText: "Subnet",
+        groups: this.props.subnetList,
+        value: this.state.subnet_name,
+        handleInputChange: this.handleInputChange,
+        invalid: lib_4(this.state.vpc_name) || lib_4(this.state.subnet_name),
+        invalidText: lib_4(this.state.vpc_name) ? "No VPC Selected." : "Select a Subnet.",
+        className: "fieldWidth"
+      })));
+    }
+  }]);
+  return VpnGatewayForm;
+}(Component);
+VpnGatewayForm.defaultProps = {
+  data: {
+    name: "",
+    resource_group: "",
+    vpc_name: "",
+    subnet_name: null
+  },
+  isModal: false
+};
+VpnGatewayForm.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    resource_group: PropTypes.string,
+    // can be null
+    vpc_name: PropTypes.string,
+    // can be null
+    subnet_name: PropTypes.string // can be null
+  }).isRequired,
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  vpcList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  subnetList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  isModal: PropTypes.bool.isRequired
+};
+
+var VsiForm = /*#__PURE__*/function (_Component) {
+  _inherits(VsiForm, _Component);
+  var _super = _createSuper(VsiForm);
+  function VsiForm(props) {
+    var _this;
+    _classCallCheck(this, VsiForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleMultiSelectChange = _this.handleMultiSelectChange.bind(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    return _this;
+  }
+  _createClass(VsiForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      var _event$target = event.target,
+        name = _event$target.name,
+        value = _event$target.value;
+      var stateChangeParams = _defineProperty({}, name, name === "vsi_per_subnet" && value !== "" ? Number(value) : value);
+      if (name === "vpc_name") transpose$1({
+        subnet_names: [],
+        subnet_name: ""
+      }, stateChangeParams);
+      this.setState(stateChangeParams);
     }
   }, {
     key: "handleMultiSelectChange",
@@ -21625,170 +24470,123 @@ var F5VsiForm = /*#__PURE__*/function (_Component) {
       this.setState(this.setNameToValue(name, value));
     }
   }, {
-    key: "handleVsiSave",
-    value: function handleVsiSave(stateData) {
-      this.props.saveVsiCallback(stateData);
+    key: "handleToggle",
+    value: function handleToggle(name) {
+      this.setState(this.toggleStateBoolean(name, this.state));
     }
   }, {
     key: "render",
     value: function render() {
       var _this2 = this;
-      var vsis = _toConsumableArray(this.props.vsis);
-      while (vsis.length < this.state.zones) {
-        // add a new vsi to display
-        vsis.push(this.props.initVsiCallback(this.props.edge_pattern, "zone-".concat(vsis.length + 1), this.props.f5_on_management, {
-          f5_image_name: this.state.f5_image_name,
-          resource_group: this.state.resource_group,
-          ssh_keys: this.state.ssh_keys,
-          machine_type: this.state.machine_type
-        }));
-      }
-      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
-        formName: "f5_vsi_form",
-        name: "zones",
-        labelText: "F5 Instance Zones",
-        groups: buildNumberDropdownList(4) // 0-3 Zones
-        ,
-        value: this.state.zones.toString(),
-        handleInputChange: this.handleInputChange
+      var composedId = "vsi-deployment-form-".concat(this.props.data.name);
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+        id: composedId,
+        componentName: "vsi",
+        value: this.state.name,
+        onChange: this.handleInputChange,
+        invalid: this.props.invalidCallback(this.state),
+        invalidText: this.props.invalidTextCallback(this.state),
+        hideHelperText: true
       }), /*#__PURE__*/React.createElement(IcseSelect, {
-        formName: "f5_vsi_form",
+        formName: "vsi_form",
         name: "resource_group",
         labelText: "Resource Group",
         groups: this.props.resourceGroupList,
         value: this.state.resource_group,
         handleInputChange: this.handleInputChange
-      }), /*#__PURE__*/React.createElement(SshKeyMultiSelect, {
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+        formName: "vsi_form",
+        name: "vpc_name",
+        labelText: "VPC",
+        groups: this.props.vpcList,
+        value: this.state.vpc_name,
+        handleInputChange: this.handleInputChange,
+        invalid: lib_4(this.state.vpc_name),
+        invalidText: "Select a VPC."
+      }), this.props.isTeleport ?
+      /*#__PURE__*/
+      // render dropdown for teleport instance
+      React.createElement(IcseSelect, {
+        formName: "vsi_form",
+        name: "subnet_name",
+        labelText: "Subnet",
+        groups: this.props.subnetList,
+        value: this.state.subnet_name,
+        handleInputChange: this.handleInputChange,
+        invalid: lib_4(this.state.vpc_name) || lib_4(this.state.subnet_name),
+        invalidText: lib_4(this.state.vpc_name) ? "No VPC Selected." : "Select a Subnet."
+      }) : /*#__PURE__*/React.createElement(SubnetMultiSelect, {
+        id: "subnet",
+        initialSelectedItems: this.state.subnet_names,
+        vpc_name: this.state.vpc_name,
+        subnets: this.props.subnetList,
+        onChange: function onChange(value) {
+          return _this2.handleMultiSelectChange("subnet_names", value);
+        }
+      }), /*#__PURE__*/React.createElement(NumberInput, {
+        label: "Instances per Subnet",
+        id: composedId + "-vsi-per-subnet",
+        allowEmpty: false,
+        value: this.state.vsi_per_subnet,
+        defaultValue: 1,
+        max: 10,
+        min: 1,
+        onChange: this.handleInputChange,
+        name: "vsi_per_subnet",
+        hideSteppers: true,
+        invalidText: "Please input a number 1-10",
+        className: "fieldWidth leftTextAlign"
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(SshKeyMultiSelect, {
         id: "sshkey",
         sshKeys: this.props.sshKeyList,
-        initialSelectedItems: this.state.ssh_keys,
         onChange: function onChange(value) {
           return _this2.handleMultiSelectChange("ssh_keys", value);
-        }
-      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
-        formName: "f5_vsi_form",
-        name: "f5_image_name",
-        labelText: "F5 Image",
-        groups: ["f5-bigip-15-1-5-1-0-0-14-all-1slot", "f5-bigip-15-1-5-1-0-0-14-ltm-1slot", "f5-bigip-16-1-2-2-0-0-28-ltm-1slot", "f5-bigip-16-1-2-2-0-0-28-all-1slot", "f5-bigip-16-1-3-2-0-0-4-ltm-1slot", "f5-bigip-16-1-3-2-0-0-4-all-1slot", "f5-bigip-17-0-0-1-0-0-4-ltm-1slot", "f5-bigip-17-0-0-1-0-0-4-all-1slot"],
-        value: this.state.f5_image_name,
-        handleInputChange: this.handleInputChange
+        },
+        initialSelectedItems: this.state.ssh_keys
       }), /*#__PURE__*/React.createElement(FetchSelect, {
-        formName: "f5_vsi_form",
+        formName: "vsi_form",
+        labelText: "Image",
+        name: "image_name",
+        apiEndpoint: this.props.apiEndpointImages,
+        handleInputChange: this.handleInputChange,
+        value: this.state.image_name
+      }), /*#__PURE__*/React.createElement(FetchSelect, {
+        formName: "vsi_form",
         labelText: "Flavor",
         name: "machine_type",
         apiEndpoint: this.props.apiEndpointFlavors,
         handleInputChange: this.handleInputChange,
         value: this.state.machine_type
-      })), vsis.length > 0 && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(IcseHeading, {
-        name: "F5 Big IP Virtual Servers",
-        type: "subHeading",
-        className: "marginBottomSmall"
-      }), /*#__PURE__*/React.createElement("div", {
-        className: "displayFlex evenSpacing"
-      }, vsis.map(function (instance, index) {
-        if (index < _this2.state.zones) return /*#__PURE__*/React.createElement(F5VsiTile, {
-          key: "f5-vsi-tile" + JSON.stringify(instance) + index,
-          data: instance,
-          hide: false,
-          onSave: _this2.handleVsiSave,
-          totalZones: _this2.state.zones,
-          index: index,
-          resourceGroupList: _this2.props.resourceGroupList,
-          encryptionKeyList: _this2.props.encryptionKeyList,
-          hideSaveCallback: _this2.props.hideSaveCallback,
-          disableSaveCallback: _this2.props.disableSaveCallback
-        });
-      }))));
-    }
-  }]);
-  return F5VsiForm;
-}(Component);
-var F5VsiTile = /*#__PURE__*/function (_React$Component) {
-  _inherits(F5VsiTile, _React$Component);
-  var _super2 = _createSuper(F5VsiTile);
-  function F5VsiTile(props) {
-    var _this3;
-    _classCallCheck(this, F5VsiTile);
-    _this3 = _super2.call(this, props);
-    _this3.state = _this3.props.data;
-    _this3.handleInputChange = _this3.handleInputChange.bind(_assertThisInitialized(_this3));
-    _this3.shouldHideSave = _this3.shouldHideSave.bind(_assertThisInitialized(_this3));
-    _this3.shouldDisableSave = _this3.shouldDisableSave.bind(_assertThisInitialized(_this3));
-    return _this3;
-  }
-  _createClass(F5VsiTile, [{
-    key: "handleInputChange",
-    value: function handleInputChange(event) {
-      var _event$target = event.target,
-        name = _event$target.name,
-        value = _event$target.value;
-      this.setState(_defineProperty({}, name, value));
-    }
-  }, {
-    key: "shouldHideSave",
-    value: function shouldHideSave() {
-      return this.props.hideSaveCallback(this.state, this.props);
-    }
-  }, {
-    key: "shouldDisableSave",
-    value: function shouldDisableSave() {
-      return this.props.disableSaveCallback(this.state, this.props);
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this4 = this;
-      return /*#__PURE__*/React.createElement(Tile, {
-        className: "fieldWidth"
-      }, /*#__PURE__*/React.createElement(IcseHeading, {
-        name: this.state.name,
-        type: "subHeading",
-        className: "marginBottomSmall",
-        buttons: /*#__PURE__*/React.createElement(DynamicRender, {
-          hide: this.shouldHideSave(this.state, this.props),
-          show: /*#__PURE__*/React.createElement(SaveAddButton, {
-            onClick: function onClick() {
-              return _this4.props.onSave(_this4.state);
-            },
-            noDeleteButton: true,
-            disabled: this.shouldDisableSave()
-          })
-        })
-      }), /*#__PURE__*/React.createElement(IcseFormGroup, {
-        className: "marginBottomSmall"
-      }, /*#__PURE__*/React.createElement(IcseNameInput, {
-        id: this.state.name,
-        componentName: "f5_vsi_form",
-        value: this.state.name,
-        onChange: this.handleInputChange,
-        useData: true,
-        readOnly: true,
-        invalidCallback: function invalidCallback() {},
-        invalidText: "",
-        className: "fieldWidthSmaller"
-      })), /*#__PURE__*/React.createElement(IcseFormGroup, {
-        className: "marginBottomSmall"
-      }, /*#__PURE__*/React.createElement(IcseSelect, {
-        formName: "f5_vsi_form",
-        name: "resource_group",
-        labelText: "Resource Group",
-        groups: this.props.resourceGroupList,
-        value: this.state.resource_group,
-        handleInputChange: this.handleInputChange,
-        className: "fieldWidthSmaller"
-      })), /*#__PURE__*/React.createElement(IcseFormGroup, {
-        className: "marginBottomSmall"
-      }, /*#__PURE__*/React.createElement(IcseSelect, {
-        formName: "f5_vsi_form",
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+        formName: "vsi_form",
         name: "boot_volume_encryption_key_name",
         labelText: "Encryption Key",
         groups: this.props.encryptionKeyList,
         value: this.state.boot_volume_encryption_key_name,
         handleInputChange: this.handleInputChange,
-        className: "fieldWidthSmaller"
-      })));
+        invalid: this.props.invalidCallback(this.state),
+        invalidText: "Select a valid encryption key."
+      }), /*#__PURE__*/React.createElement(IcseToggle, {
+        id: composedId + "-fips-toggle",
+        labelText: "Enable Floating IP",
+        defaultToggled: this.state.enable_floating_ip,
+        onToggle: this.handleToggle
+      })), /*#__PURE__*/React.createElement(DynamicRender, {
+        hide: this.props.isTeleport,
+        show: /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
+          id: composedId + "-vsi-user-data",
+          placeholder: "Cloud init data",
+          labelText: "User Data",
+          name: "user_data",
+          value: this.state.user_data || "",
+          onChange: this.handleInputChange,
+          invalidText: "Invalid error message.",
+          className: "fieldWidthBigger"
+        }))
+      }));
     }
   }]);
+<<<<<<< HEAD
   return F5VsiTile;
 }(React.Component);
 F5VsiForm.defaultProps = {
@@ -21896,38 +24694,89 @@ var AccessGroupForm = /*#__PURE__*/function (_React$Component) {
   return AccessGroupForm;
 }(React.Component);
 AccessGroupForm.defaultProps = {
+=======
+  return VsiForm;
+}(Component);
+VsiForm.defaultProps = {
+>>>>>>> c412340 (Issue 718: F5 Vsi Template Form with storybook (#92))
   data: {
     name: "",
-    description: ""
+    ssh_keys: [],
+    subnet_name: "",
+    subnet_names: [],
+    enable_floating_ip: false,
+    vpc_name: "",
+    image_name: "",
+    machine_type: "",
+    resource_group: "",
+    boot_volume_encryption_key_name: "",
+    vsi_per_subnet: 1
   },
-  isModal: false
+  isModal: false,
+  isTeleport: false,
+  resourceGroupList: [],
+  vpcList: [],
+  subnetList: [],
+  sshKeyList: [],
+  encryptionKeyList: [],
+  apiEndpointImages: "",
+  apiEndpointFlavors: ""
 };
-AccessGroupForm.propTypes = {
+VsiForm.propTypes = {
   data: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired
+    name: PropTypes.string,
+    ssh_keys: PropTypes.array,
+    subnet_name: PropTypes.string,
+    subnet_names: PropTypes.array,
+    enable_floating_ip: PropTypes.bool,
+    vpc_name: PropTypes.string,
+    image_name: PropTypes.string,
+    machine_type: PropTypes.string,
+    resource_group: PropTypes.string,
+    boot_volume_encryption_key_name: PropTypes.string,
+    vsi_per_subnet: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   }).isRequired,
-  subForms: PropTypes.arrayOf(PropTypes.form).isRequired,
+  /* bools */
   isModal: PropTypes.bool.isRequired,
+  isTeleport: PropTypes.bool.isRequired,
+  /* lists */
+  resourceGroupList: PropTypes.array.isRequired,
+  vpcList: PropTypes.array.isRequired,
+  subnetList: PropTypes.array.isRequired,
+  sshKeyList: PropTypes.array.isRequired,
+  encryptionKeyList: PropTypes.array.isRequired,
+  /* api endpoints */
+  apiEndpointImages: PropTypes.string.isRequired,
+  apiEndpointFlavors: PropTypes.string.isRequired,
+  /* callbacks */
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired
 };
 
-var AccessGroupPolicyForm = /*#__PURE__*/function (_React$Component) {
-  _inherits(AccessGroupPolicyForm, _React$Component);
-  var _super = _createSuper(AccessGroupPolicyForm);
-  function AccessGroupPolicyForm(props) {
+var WorkerPoolForm = /*#__PURE__*/function (_Component) {
+  _inherits(WorkerPoolForm, _Component);
+  var _super = _createSuper(WorkerPoolForm);
+  function WorkerPoolForm(props) {
     var _this;
-    _classCallCheck(this, AccessGroupPolicyForm);
+    _classCallCheck(this, WorkerPoolForm);
     _this = _super.call(this, props);
-    _this.state = _this.props.data;
-    buildFormFunctions(_assertThisInitialized(_this));
-    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    _this.state = {
+      pool: _this.props.isModal ? {
+        name: "",
+        flavor: _this.props.cluster.machine_type,
+        subnets: _this.props.cluster.subnets,
+        vpc_name: _this.props.cluster.vpc_name,
+        workers_per_subnet: _this.props.cluster.workers_per_subnet,
+        entitlement: _this.props.cluster.entitlement
+      } : _this.props.data
+    };
     _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
-    _this.handleInputResource = _this.handleInputResource.bind(_assertThisInitialized(_this));
+    _this.handleSubnetChange = _this.handleSubnetChange.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
     return _this;
   }
 
+<<<<<<< HEAD
   /**
    * handle input change
    * @param {string} name key to change in state
@@ -22419,136 +25268,123 @@ var AccessGroupDynamicPolicyForm = /*#__PURE__*/function (_React$Component) {
       var conditions = _objectSpread2({}, this.state.conditions);
       if (name === "operator") {
         conditions[name] = snakeCase(value.replace(/[()]/g, "")).toUpperCase(); // remove all parentheses
+=======
+  // Handle pool input change
+  _createClass(WorkerPoolForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      var _event$target = event.target,
+        name = _event$target.name,
+        value = _event$target.value;
+      var pool = _objectSpread2({}, this.state.pool);
+      if (name === "workers_per_subnet") {
+        pool[name] = Number(value);
+>>>>>>> c412340 (Issue 718: F5 Vsi Template Form with storybook (#92))
       } else {
-        conditions[name] = value;
+        pool[name] = value === "null" ? null : value;
       }
       this.setState({
-        conditions: conditions
+        pool: pool
+      });
+    }
+
+    // Handle subnet multiselect change
+  }, {
+    key: "handleSubnetChange",
+    value: function handleSubnetChange(event) {
+      var pool = _objectSpread2({}, this.state.pool);
+      pool.subnets = event.selectedItems;
+      this.setState({
+        pool: pool
       });
     }
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
-      var conditionOperatorGroups = [];
-      eachKey(conditionOperators, function (key) {
-        conditionOperatorGroups.push(conditionOperators[key]);
-      });
       return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
-        id: "name",
-        componentName: "dynamic_policies",
-        field: "name",
-        labelText: "Name",
-        value: this.state.name,
+        id: this.state.name + "-name",
+        componentName: "Worker Pools",
         onChange: this.handleInputChange,
-        invalidText: this.props.invalidTextCallback(this.state, this.props),
-        invalid: this.props.invalidCallback("name", this.state, this.props),
-        helperTextCallback: function helperTextCallback() {
-          return _this2.props.helperTextCallback(_this2.state, _this2.props);
-        }
+        componentProps: this.props,
+        value: this.state.pool.name,
+        className: "fieldWidthSmaller",
+        placeholder: "my-worker-pool-name",
+        hideHelperText: true,
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props)
+      }), /*#__PURE__*/React.createElement(EntitlementSelect, {
+        name: "entitlement",
+        value: this.state.pool.entitlement,
+        handleInputChange: this.handleInputChange,
+        component: this.props.data.name,
+        formName: "Worker Pools"
+      }), /*#__PURE__*/React.createElement(IcseSelect, {
+        formName: "Worker Pools",
+        name: "flavor",
+        labelText: "Flavor Select",
+        value: this.state.pool.flavor,
+        groups: ["bx2.16x64", "bx2.2x8"],
+        handleInputChange: this.handleInputChange,
+        className: "fieldWidthSmaller"
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(SubnetMultiSelect, {
+        id: this.props.data.name,
+        slz: this.props.slz,
+        disabled: this.state.pool.vpc_name === null,
+        vpc_name: this.state.pool.vpc_name,
+        initialSelectedItems: this.props.data.subnets,
+        subnets: this.props.subnetList,
+        onChange: this.handleSubnetChange,
+        component: this.props.data.name,
+        className: "fieldWidthSmaller cds--form-item"
       }), /*#__PURE__*/React.createElement(IcseNumberSelect, {
-        tooltip: {
-          content: "How many hours authenticated users can work before refresh"
-        },
-        formName: "expiration",
-        max: 24,
-        value: this.state.expiration,
-        name: "expiration",
-        labelText: "Expiration Hours",
-        isModal: this.props.isModal,
-        handleInputChange: this.handleInputChange
-      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
-        id: "identity_provider",
-        tooltip: {
-          content: "URI for identity provider",
-          alignModal: "bottom-left"
-        },
-        componentName: "identity_provider",
-        field: "identity_provider",
-        isModal: this.props.isModal,
-        labelText: "Identity Provider",
-        value: this.state.identity_provider,
-        invalid: this.props.invalidCallback("identity_provider", this.state, this.props),
-        onChange: this.handleInputChange,
-        className: "textInputWide"
-      })), /*#__PURE__*/React.createElement(IcseFormGroup, {
-        className: "marginBottomSmall"
-      }, /*#__PURE__*/React.createElement(IcseHeading, {
-        name: "Condition Configuration",
-        type: "subHeading"
-      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
-        id: "claim",
-        tooltip: {
-          content: "Key value to evaluate the condition against",
-          alignModal: "bottom-left"
-        },
-        componentName: "claim",
-        field: "claim",
-        isModal: this.props.isModal,
-        labelText: "Condition Claim",
-        value: this.state.conditions.claim,
-        invalid: false,
-        onChange: this.handleInputCondition
-      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
-        formName: "dynamic_policies",
-        tooltip: {
-          content: "The operation to perform on the claim."
-        },
-        value: conditionOperators[this.state.conditions.operator],
-        groups: conditionOperatorGroups,
-        field: "operator",
-        isModal: this.props.isModal,
-        name: "operator",
-        disableInvalid: true,
-        labelText: "Condition Operator",
-        handleInputChange: this.handleInputCondition
-      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
-        id: "value",
-        tooltip: {
-          content: "Value to be compared against"
-        },
-        componentName: "value",
-        field: "value",
-        isModal: this.props.isModal,
-        value: this.state.conditions.value,
-        labelText: "Condition Value",
-        invalid: false,
-        onChange: this.handleInputCondition
+        name: "workers_per_subnet",
+        formName: "Worker Pools",
+        labelText: "Workers Per Subnet",
+        value: this.state.pool.workers_per_subnet,
+        max: 10,
+        min: 0,
+        handleInputChange: this.handleInputChange,
+        component: this.props.data.name,
+        className: "fieldWidthSmaller"
       })));
     }
   }]);
-  return AccessGroupDynamicPolicyForm;
-}(React.Component);
-AccessGroupDynamicPolicyForm.defaultProps = {
+  return WorkerPoolForm;
+}(Component);
+WorkerPoolForm.defaultProps = {
   data: {
+    entitlement: "",
+    flavor: "bx2.16x64",
     name: "",
-    identity_provider: "",
-    expiration: 1,
-    conditions: {
-      claim: "",
-      operator: "",
-      value: ""
-    }
+    subnets: [],
+    vpc_name: "",
+    workers_per_subnet: 2
   },
   isModal: false
 };
-AccessGroupDynamicPolicyForm.propTypes = {
-  data: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    identity_provider: PropTypes.string.isRequired,
-    expiration: PropTypes.number.isRequired,
-    conditions: PropTypes.shape({
-      claim: PropTypes.string.isRequired,
-      operator: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired
-    }).isRequired
-  }).isRequired,
+WorkerPoolForm.propTypes = {
+  subnetList: PropTypes.array.isRequired,
   isModal: PropTypes.bool.isRequired,
-  invalidCallback: PropTypes.func.isRequired,
-  invalidTextCallback: PropTypes.func.isRequired,
-  helperTextCallback: PropTypes.func.isRequired
+  cluster: PropTypes.shape({
+    entitlement: PropTypes.string,
+    // can be null
+    machine_type: PropTypes.string.isRequired,
+    vpc_name: PropTypes.string.isRequired,
+    workers_per_subnet: PropTypes.number.isRequired,
+    subnets: PropTypes.array.isRequired
+  }),
+  // can be null
+  data: PropTypes.shape({
+    entitlement: PropTypes.string.isRequired,
+    flavor: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    vpc_name: PropTypes.string.isRequired,
+    workers_per_subnet: PropTypes.number.isRequired,
+    subnets: PropTypes.array.isRequired
+  }).isRequired
 };
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -22712,3 +25548,650 @@ export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, A
 =======
 export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, F5VsiForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VsiForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
 >>>>>>> e26f4ca (add f5 vsi form)
+=======
+/**
+ * Under Construction Page
+ */
+var UnderConstruction = function UnderConstruction() {
+  return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(WarningAlt, {
+    size: "128"
+  }), /*#__PURE__*/React.createElement("h4", null, "Page Under Construction"));
+};
+
+var css_248z = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}";
+styleInject(css_248z);
+
+/**
+ * StatefulTabPanel wrapper for non array forms
+ * @param {*} props props
+ * @param {*} props.form form to put in the create tab
+ * @param {*} props.about docs to put in the about tab
+ */
+var StatefulTabPanel = /*#__PURE__*/function (_React$Component) {
+  _inherits(StatefulTabPanel, _React$Component);
+  var _super = _createSuper(StatefulTabPanel);
+  function StatefulTabPanel(props) {
+    var _this;
+    _classCallCheck(this, StatefulTabPanel);
+    _this = _super.call(this, props);
+    _this.state = {
+      tabIndex: 0
+    };
+    _this.setSelectedIndex = _this.setSelectedIndex.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+  _createClass(StatefulTabPanel, [{
+    key: "setSelectedIndex",
+    value: function setSelectedIndex(event) {
+      // if the index is being set to a new tab
+      if (this.props.toggleShowChildren && event.selectedIndex !== this.state.tabIndex) this.props.toggleShowChildren();
+      this.setState({
+        tabIndex: event.selectedIndex
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement(React.Fragment, null, this.props.name && !this.props.hasBuiltInHeading && /*#__PURE__*/React.createElement(IcseHeading, {
+        name: this.props.name,
+        type: this.props.subHeading ? "subHeading" : "heading",
+        className: this.props.className,
+        tooltip: this.props.tooltip,
+        buttons: /*#__PURE__*/React.createElement(DynamicRender, {
+          hide: this.props.hideFormTitleButton || this.state.tabIndex !== 0 || !isFunction$1(this.props.onClick) || this.props.hasBuiltInHeading,
+          show: /*#__PURE__*/React.createElement(SaveAddButton, {
+            type: "add",
+            noDeleteButton: true,
+            onClick: this.props.onClick,
+            disabled: this.props.shouldDisableSave ? this.props.shouldDisableSave() : false
+          })
+        })
+      }), this.props.hideAbout ? this.props.form : /*#__PURE__*/React.createElement(Tabs, {
+        onChange: this.setSelectedIndex
+      }, /*#__PURE__*/React.createElement(TabList, {
+        "aria-label": "formTabs"
+      }, /*#__PURE__*/React.createElement(Tab, null, "Create"), /*#__PURE__*/React.createElement(Tab, null, "About")), /*#__PURE__*/React.createElement(TabPanels, null, /*#__PURE__*/React.createElement(TabPanel, {
+        className: "doc"
+      }, this.props.form), /*#__PURE__*/React.createElement(TabPanel, {
+        className: "doc"
+      }, this.props.about ? this.props.about : /*#__PURE__*/React.createElement(UnderConstruction, null)))));
+    }
+  }]);
+  return StatefulTabPanel;
+}(React.Component);
+StatefulTabPanel.defaultProps = {
+  subHeading: false,
+  hideFormTitleButton: false,
+  hideAbout: false,
+  hasBuiltInHeading: false
+};
+StatefulTabPanel.propTypes = {
+  name: PropTypes.string,
+  // can be null
+  subHeading: PropTypes.bool.isRequired,
+  className: PropTypes.string,
+  // can be null
+  tooltip: PropTypes.shape({
+    content: PropTypes.string.isRequired,
+    link: PropTypes.string,
+    align: PropTypes.string,
+    alignModal: PropTypes.string
+  }),
+  hideFormTitleButton: PropTypes.bool.isRequired,
+  onClick: PropTypes.func,
+  // can be null
+  shouldDisableSave: PropTypes.func,
+  // can be null
+  about: PropTypes.node,
+  // can be null
+  form: PropTypes.node.isRequired,
+  hideAbout: PropTypes.bool.isRequired,
+  hasBuiltInHeading: PropTypes.bool.isRequired
+};
+
+var ToggleForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(ToggleForm, _React$Component);
+  var _super = _createSuper(ToggleForm);
+  function ToggleForm(props) {
+    var _this;
+    _classCallCheck(this, ToggleForm);
+    _this = _super.call(this, props);
+    _this.state = {
+      hide: _this.props.hide,
+      showDeleteModal: false,
+      showUnsavedChangeModal: false,
+      disableSave: true,
+      disableDelete: false,
+      showChildren: true,
+      showSubModal: false,
+      propsMatchState: true,
+      useDefaultUnsavedMessage: true,
+      ruleOrderChange: false
+    };
+    _this.toggleChildren = _this.toggleChildren.bind(_assertThisInitialized(_this));
+    _this.toggleDeleteModal = _this.toggleDeleteModal.bind(_assertThisInitialized(_this));
+    _this.toggleUnsavedChangeModal = _this.toggleUnsavedChangeModal.bind(_assertThisInitialized(_this));
+    _this.dismissChangesAndClose = _this.dismissChangesAndClose.bind(_assertThisInitialized(_this));
+    _this.onSave = _this.onSave.bind(_assertThisInitialized(_this));
+    _this.onDelete = _this.onDelete.bind(_assertThisInitialized(_this));
+    _this.shouldDisableSave = _this.shouldDisableSave.bind(_assertThisInitialized(_this));
+    _this.shouldShow = _this.shouldShow.bind(_assertThisInitialized(_this));
+    _this.networkRuleOrderDidChange = _this.networkRuleOrderDidChange.bind(_assertThisInitialized(_this));
+    _this.toggleShowChildren = _this.toggleShowChildren.bind(_assertThisInitialized(_this));
+    _this.onToggleSubModal = _this.onToggleSubModal.bind(_assertThisInitialized(_this));
+    _this.childRef = /*#__PURE__*/React.createRef();
+    return _this;
+  }
+
+  /**
+   * toggle sub modal
+   */
+  _createClass(ToggleForm, [{
+    key: "onToggleSubModal",
+    value: function onToggleSubModal() {
+      this.setState({
+        showSubModal: !this.state.showSubModal
+      });
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      if (this.state.hide === true && this.shouldShow() === true) {
+        this.setState({
+          hide: false
+        });
+      }
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState) {
+      if (prevState.hide !== this.state.hide && this.props.onShowToggle) {
+        this.props.onShowToggle(this.props.index);
+      }
+    }
+
+    /**
+     * toggle children rendered by form
+     */
+  }, {
+    key: "toggleChildren",
+    value: function toggleChildren() {
+      var _this$childRef$curren;
+      if ((_this$childRef$curren = this.childRef.current) !== null && _this$childRef$curren !== void 0 && _this$childRef$curren.state) {
+        var stateData = this.childRef.current.state;
+        var componentProps = this.childRef.current.props;
+        var propsDoNotMatch = this.props.propsMatchState(this.props.submissionFieldName, stateData, componentProps) === false;
+        if (propsDoNotMatch || this.state.useDefaultUnsavedMessage === false) {
+          this.toggleUnsavedChangeModal();
+        } else {
+          this.setState({
+            hide: !this.state.hide
+          });
+        }
+      } else {
+        this.setState({
+          hide: !this.state.hide
+        });
+      }
+    }
+
+    /**
+     * toggle delete modal
+     */
+  }, {
+    key: "toggleDeleteModal",
+    value: function toggleDeleteModal() {
+      this.setState({
+        showDeleteModal: !this.state.showDeleteModal
+      });
+    }
+
+    /**
+     * toggle unsaved changes modal
+     */
+  }, {
+    key: "toggleUnsavedChangeModal",
+    value: function toggleUnsavedChangeModal() {
+      this.setState({
+        showUnsavedChangeModal: !this.state.showUnsavedChangeModal
+      });
+    }
+
+    /**
+     * Dismiss changes and close
+     */
+  }, {
+    key: "dismissChangesAndClose",
+    value: function dismissChangesAndClose() {
+      this.setState({
+        showUnsavedChangeModal: false,
+        hide: true
+      });
+    }
+
+    /**
+     * on save
+     */
+  }, {
+    key: "onSave",
+    value: function onSave() {
+      this.props.onSave(this.childRef.current.state, this.childRef.current.props);
+      this.setState({
+        useDefaultUnsavedMessage: true
+      });
+    }
+
+    /**
+     * on delete
+     */
+  }, {
+    key: "onDelete",
+    value: function onDelete() {
+      var _this$childRef$curren2, _this$childRef$curren3;
+      this.props.onShowToggle(this.props.index);
+      this.props.onDelete((_this$childRef$curren2 = this.childRef.current) === null || _this$childRef$curren2 === void 0 ? void 0 : _this$childRef$curren2.state, (_this$childRef$curren3 = this.childRef.current) === null || _this$childRef$curren3 === void 0 ? void 0 : _this$childRef$curren3.props);
+      this.setState({
+        hide: true,
+        showDeleteModal: false
+      });
+    }
+
+    /**
+     * should disable save
+     * @param {*} stateData state data
+     * @param {*} componentProps component props
+     */
+  }, {
+    key: "shouldDisableSave",
+    value: function shouldDisableSave(stateData, componentProps) {
+      var enableSave = this.props.disableSave(this.props.submissionFieldName, stateData, componentProps) === false;
+      var propsDoNotMatch = this.props.propsMatchState(this.props.submissionFieldName, stateData, componentProps) === false;
+      if (enableSave === false && this.state.useDefaultUnsavedMessage && propsDoNotMatch === false) {
+        this.setState({
+          useDefaultUnsavedMessage: false
+        });
+      } else if (enableSave && propsDoNotMatch && this.state.disableSave) {
+        this.setState({
+          disableSave: false,
+          propsMatchState: false
+        });
+      } else if (!this.state.disableSave && (!enableSave || !propsDoNotMatch)) {
+        this.setState({
+          disableSave: true,
+          propsMatchState: !propsDoNotMatch
+        });
+      }
+    }
+  }, {
+    key: "shouldShow",
+    value: function shouldShow() {
+      return this.props.forceOpen(this.state, this.props);
+    }
+  }, {
+    key: "networkRuleOrderDidChange",
+    value: function networkRuleOrderDidChange(didNotChange) {
+      var didChange = !didNotChange;
+      if (this.state.ruleOrderChange !== didChange) {
+        this.setState({
+          ruleOrderChange: didChange
+        });
+      }
+    }
+  }, {
+    key: "toggleShowChildren",
+    value: function toggleShowChildren() {
+      this.setState({
+        showChildren: !this.state.showChildren
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this,
+        _objectSpread2$1;
+      if (this.props.noDeleteButton !== true && !this.props.onDelete) {
+        throw new Error("ToggleForm expects onDelete Function to be passed when a delete button is rendered");
+      }
+      if (this.props.noSaveButton !== true && !this.props.onSave) {
+        throw new Error("ToggleForm expects onSave Function to be passed when a save button is rendered");
+      }
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(StatefulTabPanel, _extends({}, this.props.tabPanel ? this.props.tabPanel : {}, {
+        toggleShowChildren: this.toggleShowChildren,
+        form: /*#__PURE__*/React.createElement(React.Fragment, null, this.props.name && !this.props.hideName && /*#__PURE__*/React.createElement(IcseHeading, {
+          name: this.props.name,
+          hideButton: true
+        }), /*#__PURE__*/React.createElement("div", {
+          className: lib_2(this.props.type === "formInSubForm" ? "formInSubForm positionRelative marginBottomSmall" : "subForm marginBottomSmall")
+        }, /*#__PURE__*/React.createElement(StatelessToggleForm, {
+          hide: this.state.hide,
+          iconType: this.props.useAddButton ? "add" : "edit",
+          onIconClick: this.toggleChildren,
+          toggleFormTitle: true,
+          name: this.props.name,
+          buttons: /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DynamicRender, {
+            hide: this.props.addButtonAtFormTitle !== true,
+            show: /*#__PURE__*/React.createElement(SaveAddButton, {
+              type: "add",
+              onClick: this.onToggleSubModal,
+              noDeleteButton: true
+            })
+          }), /*#__PURE__*/React.createElement(DynamicRender, {
+            hide: this.props.noSaveButton || this.props.addButtonAtFormTitle,
+            show: /*#__PURE__*/React.createElement(SaveAddButton, {
+              onClick: this.onSave,
+              disabled: this.state.disableSave,
+              noDeleteButton: this.props.noDeleteButton
+            })
+          }), /*#__PURE__*/React.createElement(DynamicRender, {
+            hide: this.props.noDeleteButton,
+            show: /*#__PURE__*/React.createElement(DeleteButton, {
+              onClick: this.toggleDeleteModal,
+              name: this.props.name,
+              disabled: this.props.deleteDisabled(this.props),
+              disableDeleteMessage: function disableDeleteMessage() {
+                return _this2.props.disableDeleteMessage(_this2.props);
+              }
+            })
+          }))
+        }, /*#__PURE__*/React.createElement(UnsavedChangesModal, {
+          name:
+          // use tab panel name if passed
+          this.props.tabPanel ? this.props.tabPanel.name : this.props.name,
+          modalOpen: this.state.showUnsavedChangeModal,
+          onModalClose: this.toggleUnsavedChangeModal,
+          onModalSubmit: this.dismissChangesAndClose,
+          useDefaultUnsavedMessage: this.state.useDefaultUnsavedMessage
+        }), /*#__PURE__*/React.createElement(DeleteModal, {
+          name:
+          // use tab panel name if passed
+          this.props.tabPanel ? this.props.tabPanel.name : this.props.name,
+          modalOpen: this.state.showDeleteModal,
+          onModalClose: this.toggleDeleteModal,
+          onModalSubmit: this.onDelete
+        }), RenderForm(this.props.innerForm, _objectSpread2(_objectSpread2({}, this.props.innerFormProps), {}, (_objectSpread2$1 = {
+          ref: this.props.nullRef ? null : this.childRef,
+          shouldDisableSave: this.shouldDisableSave,
+          showSubModal: this.state.showSubModal,
+          networkRuleOrderDidChange: this.networkRuleOrderDidChange,
+          onChildShowToggle: this.props.onChildShowToggle,
+          shownChildren: this.props.shownChildren,
+          handleModalToggle: this.onToggleSubModal
+        }, _defineProperty(_objectSpread2$1, "showSubModal", this.state.showSubModal), _defineProperty(_objectSpread2$1, "saveFromChildForm", {
+          onSave: this.onSave,
+          disableSave: this.state.disableSave
+        }), _objectSpread2$1)))))),
+        about: this.props.about || false
+      })), this.state.showChildren && this.props.children ? this.props.children : "");
+    }
+  }]);
+  return ToggleForm;
+}(React.Component);
+ToggleForm.defaultProps = {
+  hide: true,
+  unsavedChanges: false,
+  index: 0,
+  type: "subForm",
+  nullRef: false,
+  noDeleteButton: false,
+  noSaveButton: false,
+  useAddButton: false,
+  hideName: false,
+  // functions that return booleans must have a default
+  deleteDisabled: function deleteDisabled() {
+    return false;
+  },
+  forceOpen: function forceOpen() {
+    return false;
+  }
+};
+ToggleForm.propTypes = {
+  name: PropTypes.string,
+  hideName: PropTypes.bool.isRequired,
+  onDelete: PropTypes.func,
+  onSave: PropTypes.func,
+  onShowToggle: PropTypes.func,
+  index: PropTypes.number.isRequired,
+  hide: PropTypes.bool.isRequired,
+  submissionFieldName: PropTypes.string.isRequired,
+  propsMatchState: PropTypes.func.isRequired,
+  disableSave: PropTypes.func.isRequired,
+  forceOpen: PropTypes.func,
+  // can be null
+  deleteDisabled: PropTypes.func,
+  // can be null
+  disableDeleteMessage: PropTypes.func,
+  // can be null
+  type: PropTypes.string.isRequired,
+  nullRef: PropTypes.bool.isRequired,
+  innerFormProps: PropTypes.object,
+  // can be null
+  noDeleteButton: PropTypes.bool.isRequired,
+  noSaveButton: PropTypes.bool.isRequired,
+  useAddButton: PropTypes.bool.isRequired,
+  tabPanel: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    hideFormTitleButton: PropTypes.bool // can be null
+  }).isRequired
+};
+
+var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
+  _inherits(IcseFormTemplate, _React$Component);
+  var _super = _createSuper(IcseFormTemplate);
+  function IcseFormTemplate(props) {
+    var _this;
+    _classCallCheck(this, IcseFormTemplate);
+    _this = _super.call(this, props);
+    _this.state = {
+      showModal: false,
+      shownArrayForms: [],
+      // list of array forms to keep open on save
+      shownChildForms: [] // list of child forms to keep open on save
+    };
+
+    _this.onChildToggle = _this.onChildToggle.bind(_assertThisInitialized(_this));
+    _this.toggleModal = _this.toggleModal.bind(_assertThisInitialized(_this));
+    _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
+    _this.shouldShow = _this.shouldShow.bind(_assertThisInitialized(_this));
+    // add an array to track middle forms
+    if (_this.props.isMiddleForm) {
+      _this.props.arrayData.forEach(function () {
+        return _this.state.shownChildForms.push([]);
+      });
+    }
+    return _this;
+  }
+
+  /**
+   * keep update forms open
+   * @param {number} index index to keep open
+   * @param {number=} childIndex optional child index
+   */
+  _createClass(IcseFormTemplate, [{
+    key: "onChildToggle",
+    value: function onChildToggle(index, childIndex) {
+      if (this.props.parentToggle) {
+        // if the parent toggle is passed, run the callback (this function on parent form)
+        // with parent index and current index
+        this.props.parentToggle.callback(this.props.parentToggle.index, index);
+      } else if (arguments.length !== 1) {
+        // if a second param is passed
+        var shownChildForms = _toConsumableArray(this.state.shownChildForms); // all forms
+        // if contains index
+        if (contains$1(this.state.shownChildForms[index], childIndex)) {
+          // remove index from list
+          shownChildForms[index].splice(index, 1);
+        } else {
+          // otherwise add
+          shownChildForms[index].push(childIndex);
+        }
+        this.setState({
+          shownChildForms: shownChildForms
+        });
+      } else {
+        // if only parent index
+        var shownForms = _toConsumableArray(this.state.shownArrayForms); // all forms
+        if (contains$1(this.state.shownArrayForms, index)) {
+          // remove if contains
+          shownForms.splice(index, 1);
+        } else shownForms.push(index);
+        this.setState({
+          shownArrayForms: shownForms
+        });
+      }
+    }
+
+    /**
+     * on modal submit
+     * @param {*} data arbitrary data
+     */
+  }, {
+    key: "onSubmit",
+    value: function onSubmit(data) {
+      this.props.onSubmit(data, this.props);
+      this.toggleModal();
+    }
+
+    /**
+     * toggle modal on and off
+     */
+  }, {
+    key: "toggleModal",
+    value: function toggleModal() {
+      this.setState({
+        showModal: !this.state.showModal
+      });
+    }
+
+    /**
+     * check if form should show
+     * @returns {bool} if the child forms should show
+     */
+  }, {
+    key: "shouldShow",
+    value: function shouldShow(index) {
+      return this.props.parentToggle ? contains$1(this.props.parentToggle.shownChildren[this.props.parentToggle.index], index) // show children
+      : contains$1(this.state.shownArrayForms, index);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      var formattedName = kebabCase$2(this.props.name); // formatted component name
+      // enable submit field here is set to variable value to allow for passing to
+      // child array components without needing to reference `this` directly
+      return /*#__PURE__*/React.createElement("div", {
+        id: formattedName
+      }, /*#__PURE__*/React.createElement(StatefulTabPanel, {
+        name: this.props.name,
+        onClick: this.toggleModal,
+        addText: this.props.addText,
+        hideButton: this.props.hideFormTitleButton,
+        subHeading: this.props.subHeading,
+        className: this.props.subHeading ? "subHeading marginBottomSmall" : "",
+        tooltip: this.props.tooltip,
+        about: this.props.docs ? this.props.docs() : false,
+        hideAbout: this.props.hideAbout,
+        form: /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(EmptyResourceTile, {
+          name: this.props.name,
+          showIfEmpty: this.props.arrayData
+        }), this.props.arrayData.map(function (data, index) {
+          var _this2$props, _this2$props2;
+          // return a form with the index and props
+          return /*#__PURE__*/React.createElement(ToggleForm, _extends({}, _this2.props.toggleFormProps, {
+            tabPanel: {
+              name: _this2.props.name,
+              hideAbout: true,
+              // passed to ignore second tab panel
+              hasBuiltInHeading: true // passed to ignore second tabPanel
+            },
+
+            key: _this2.props.name + "-" + index,
+            innerForm: _this2.props.innerForm,
+            innerFormProps: _objectSpread2(_objectSpread2({}, _this2.props.innerFormProps), {}, {
+              data: _objectSpread2({}, data)
+            }) // merge data into innerForm props
+            ,
+            arrayParentName: _this2.props.arrayParentName,
+            onShowToggle: _this2.onChildToggle,
+            onChildShowToggle: _this2.props.isMiddleForm ? _this2.onChildToggle // pass through to child component if middle form
+            : false,
+            index: index,
+            show: _this2.shouldShow(index),
+            shownChildren: _this2.state.shownChildForms,
+            onSave: (_this2$props = _this2.props) === null || _this2$props === void 0 ? void 0 : _this2$props.onSave,
+            onDelete: (_this2$props2 = _this2.props) === null || _this2$props2 === void 0 ? void 0 : _this2$props2.onDelete
+          }));
+        }), /*#__PURE__*/React.createElement(FormModal, {
+          name: this.props.addText,
+          show: this.state.showModal,
+          onRequestSubmit: this.onSubmit,
+          onRequestClose: this.toggleModal,
+          arrayParentName: this.props.arrayParentName
+        },
+        // render the form inside the modal
+        RenderForm(this.props.innerForm, _objectSpread2(_objectSpread2({}, this.props.innerFormProps), {}, {
+          arrayParentName: this.props.arrayParentName,
+          isModal: true,
+          shouldDisableSubmit: function shouldDisableSubmit() {
+            // references to `this` in function are intentionally vague
+            // in order to pass the correct functions and field values to the
+            // child modal component
+            // by passing `this` in a function that it scoped to the component
+            // we allow the function to be successfully bound to the modal form
+            // while still referencing the local value `enableSubmitField`
+            // to use it's own values for state and props including enableModal
+            // and disableModal, which are dynamically added to the component
+            // at time of render
+            if (this.props.disableSave(this.state, this.props) === false) {
+              this.props.enableModal();
+            } else {
+              this.props.disableModal();
+            }
+          }
+        })))),
+        hideFormTitleButton: this.props.hideFormTitleButton
+      }));
+    }
+  }]);
+  return IcseFormTemplate;
+}(React.Component);
+IcseFormTemplate.defaultProps = {
+  hideFormTitleButton: false,
+  subHeading: false,
+  arrayParentName: null,
+  isMiddleForm: false,
+  hideAbout: false
+};
+IcseFormTemplate.propTypes = {
+  name: PropTypes.string,
+  // can be null
+  arrayData: PropTypes.array.isRequired,
+  parentToggle: PropTypes.shape({
+    // used to track open and closed middle forms
+    callback: PropTypes.func.isRequired,
+    shownChildren: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)).isRequired
+  }),
+  onSubmit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+  addText: PropTypes.string,
+  hideFormTitleButton: PropTypes.bool.isRequired,
+  subHeading: PropTypes.bool.isRequired,
+  docs: PropTypes.func,
+  // only used on top level components
+  tooltip: PropTypes.object,
+  // used only for cos keys
+  arrayParentName: PropTypes.string,
+  isMiddleForm: PropTypes.bool.isRequired,
+  innerFormProps: PropTypes.shape({
+    disableSave: PropTypes.func.isRequired
+  }).isRequired,
+  toggleFormProps: PropTypes.shape({
+    disableSave: PropTypes.func.isRequired,
+    propsMatchState: PropTypes.func.isRequired
+  }).isRequired,
+  hideAbout: PropTypes.bool
+};
+
+export { AppIdForm, AppIdKeyForm, AtrackerForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VsiForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+>>>>>>> c412340 (Issue 718: F5 Vsi Template Form with storybook (#92))
