@@ -24,8 +24,8 @@ class ResourceGroupForm extends Component {
    * @param {string} name name of the object key to change
    */
   handleToggle(name) {
-    // Turn off the use_prefix toggle when create is turned off.
-    if (name === "create" && this.state.create === true) {
+    // Turn off the use_prefix toggle when not using data.
+    if (name === "use_data" && this.state.use_data === false) {
       this.setState({ [name]: !this.state[name], use_prefix: false });
     } else {
       this.setState({ [name]: !this.state[name] });
@@ -46,16 +46,16 @@ class ResourceGroupForm extends Component {
       <>
         {/*  Inputs */}
         <IcseFormGroup>
-          {/* create */}
+          {/* use data */}
           <IcseToggle
             tooltip={{
               content: "If true, get data from an existing resource group",
             }}
             labelText="Use Existing Instance"
             toggleFieldName={this.props.toggleName}
-            defaultToggled={!this.state.create}
-            id={composedId + "-create-toggle"}
-            onToggle={() => this.handleToggle("create")}
+            defaultToggled={this.state.use_data}
+            id={composedId + "-use-data-toggle"}
+            onToggle={() => this.handleToggle("use_data")}
             isModal={this.props.isModal}
           />
         </IcseFormGroup>
@@ -65,9 +65,7 @@ class ResourceGroupForm extends Component {
             componentName="resource_groups"
             value={this.state.name}
             onChange={this.handleTextInput}
-            useData={
-              this.state.create === false || this.state.use_prefix === false
-            }
+            useData={this.state.use_data || this.state.use_prefix === false}
             invalidCallback={() =>
               this.props.invalidCallback(this.state, this.props)
             }
@@ -76,8 +74,8 @@ class ResourceGroupForm extends Component {
               this.props.helperTextCallback(this.state, this.props)
             }
           />
-          {/* use prefix only if create enabled */}
-          {this.state.create && (
+          {/* use prefix only if use_data is false */}
+          {this.state.use_data === false && (
             <IcseToggle
               tooltip={{
                 content:
@@ -98,7 +96,7 @@ class ResourceGroupForm extends Component {
 
 ResourceGroupForm.defaultProps = {
   data: {
-    create: false,
+    use_data: false,
     name: "",
     use_prefix: true,
   },
@@ -108,7 +106,7 @@ ResourceGroupForm.defaultProps = {
 
 ResourceGroupForm.propTypes = {
   data: PropTypes.shape({
-    create: PropTypes.bool,
+    use_data: PropTypes.bool,
     name: PropTypes.string.isRequired,
     use_prefix: PropTypes.bool,
   }),

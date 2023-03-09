@@ -15,15 +15,15 @@ export default {
       control: "none",
       type: { required: true }, // required prop or not
     },
-    ["data.create"]: {
+    ["data.use_data"]: {
       description:
-        "Boolean representing whether or not to create a new resource group",
+        "Boolean representing whether or not to get a resource group from data",
       control: "none",
       type: { required: true }, // required prop or not
     },
     ["data.use_prefix"]: {
       description:
-        "Boolean representing whether or not to append your environment prefix to the beginning of the resource group when `create` is enabled",
+        "Boolean representing whether or not to append your environment prefix to the beginning of the resource group when use_data is false",
       control: "none",
       type: { required: true }, // required prop or not
     },
@@ -87,7 +87,7 @@ const ResourceGroupStory = () => {
     <ResourceGroupForm
       data={{
         name: "example-form",
-        create: true,
+        use_data: false,
         use_prefix: true,
       }}
       invalidCallback={invalidCallback}
@@ -97,4 +97,38 @@ const ResourceGroupStory = () => {
   );
 };
 
+const ResourceGroupFromDataStory = () => {
+  function validName(str) {
+    const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
+    if (str) return str.match(regex) !== null;
+    else return false;
+  }
+
+  function invalidCallback(stateData, componentProps) {
+    return !validName(stateData.name);
+  }
+
+  function invalidTextCallback(stateData, componentProps) {
+    if (stateData.name === "") return "Cannot be an empty string";
+    else
+      return "String must follow the regex pattern: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i";
+  }
+
+  function helperTextCallback(stateData, componentProps) {
+    return "<prefix>-" + stateData.name;
+  }
+  return (
+    <ResourceGroupForm
+      data={{
+        name: "example-form",
+        use_data: true,
+      }}
+      invalidCallback={invalidCallback}
+      invalidTextCallback={invalidTextCallback}
+      helperTextCallback={helperTextCallback}
+    />
+  );
+};
+
 export const Default = ResourceGroupStory.bind({});
+export const ResourceGroupFromData = ResourceGroupFromDataStory.bind({});
