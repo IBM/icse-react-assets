@@ -74,10 +74,10 @@ class KeyManagementForm extends Component {
             onToggle={this.handleToggle}
             disabled={this.state.use_hs_crypto === true}
             className="fieldWidth"
-            id="kms-existing"
+            id={this.props.data.name + "-use-existing"}
           />
         </IcseFormGroup>
-        <IcseFormGroup noMarginBottom>
+        <IcseFormGroup>
           <IcseNameInput
             id={this.state.name + "-name"}
             value={this.state.name}
@@ -100,6 +100,20 @@ class KeyManagementForm extends Component {
             className="fieldWidth"
           />
         </IcseFormGroup>
+        <IcseFormGroup noMarginBottom>
+          <IcseToggle
+            tooltip={{
+              content: "Allow for IAM Authorization policies to be created to allow this Key Management service to encrypt VPC block storage volumes. This should be false only if these policies already exist within your account.",
+              align: "bottom-left",
+            }}
+            labelText="Authorize VPC Reader Role"
+            key={this.state.authorize_vpc_reader_role}
+            defaultToggled={this.state.authorize_vpc_reader_role}
+            onToggle={() => this.handleToggle("authorize_vpc_reader_role")}
+            className="fieldWidth"
+            id={this.props.data.name + "-kms-vpc-reader-role"}
+          />
+        </IcseFormGroup>
       </>
     );
   }
@@ -111,6 +125,7 @@ KeyManagementForm.defaultProps = {
     use_data: false,
     name: "test-key-protect",
     resource_group: "service-rg",
+    authorize_vpc_reader_role: false,
   },
   resourceGroups: ["service-rg", "management-rg", "workload-rg"],
 };
@@ -121,6 +136,7 @@ KeyManagementForm.propTypes = {
     use_data: PropTypes.bool.isRequired,
     name: PropTypes.string.isRequired,
     resource_group: PropTypes.string.isRequired,
+    authorize_vpc_reader_role: PropTypes.bool.isRequired,
   }).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
 };

@@ -3734,6 +3734,7 @@ var KeyManagementForm = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
       return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
         component: "km-system-dropdown",
         name: "system",
@@ -3754,10 +3755,8 @@ var KeyManagementForm = /*#__PURE__*/function (_Component) {
         onToggle: this.handleToggle,
         disabled: this.state.use_hs_crypto === true,
         className: "fieldWidth",
-        id: "kms-existing"
-      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
-        noMarginBottom: true
-      }, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+        id: this.props.data.name + "-use-existing"
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
         id: this.state.name + "-name",
         value: this.state.name,
         componentProps: this.props,
@@ -3776,6 +3775,21 @@ var KeyManagementForm = /*#__PURE__*/function (_Component) {
         value: this.state.resource_group,
         handleInputChange: this.handleInputChange,
         className: "fieldWidth"
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+        noMarginBottom: true
+      }, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        tooltip: {
+          content: "Allow for IAM Authorization policies to be created to allow this Key Management service to encrypt VPC block storage volumes. This should be false only if these policies already exist within your account.",
+          align: "bottom-left"
+        },
+        labelText: "Authorize VPC Reader Role",
+        key: this.state.authorize_vpc_reader_role,
+        defaultToggled: this.state.authorize_vpc_reader_role,
+        onToggle: function onToggle() {
+          return _this2.handleToggle("authorize_vpc_reader_role");
+        },
+        className: "fieldWidth",
+        id: this.props.data.name + "-kms-vpc-reader-role"
       })));
     }
   }]);
@@ -3786,7 +3800,8 @@ KeyManagementForm.defaultProps = {
     use_hs_crypto: false,
     use_data: false,
     name: "test-key-protect",
-    resource_group: "service-rg"
+    resource_group: "service-rg",
+    authorize_vpc_reader_role: false
   },
   resourceGroups: ["service-rg", "management-rg", "workload-rg"]
 };
@@ -3795,7 +3810,8 @@ KeyManagementForm.propTypes = {
     use_hs_crypto: PropTypes__default["default"].bool.isRequired,
     use_data: PropTypes__default["default"].bool.isRequired,
     name: PropTypes__default["default"].string.isRequired,
-    resource_group: PropTypes__default["default"].string.isRequired
+    resource_group: PropTypes__default["default"].string.isRequired,
+    authorize_vpc_reader_role: PropTypes__default["default"].bool.isRequired
   }).isRequired,
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
 };
