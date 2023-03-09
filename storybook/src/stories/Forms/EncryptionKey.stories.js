@@ -17,7 +17,19 @@ export default {
       control: "none",
       type: { required: true }, // required prop or not
     },
-    ["data.interval_month"]: {
+    ["data.endpoints"]: {
+      description:
+        "A string specifying the available endpoints for the encryption key",
+      control: "none",
+      type: { required: true }, // required prop or not
+    },
+    ["data.key_ring"]: {
+      description:
+        "An optional string specifying the name of the key ring where the encryption key will be added",
+      control: "none",
+      type: { required: false }, // required prop or not
+    },
+    ["data.rotation"]: {
       description:
         "An integer specifying the rotation interval in months, can be 1-12",
       control: "none",
@@ -30,6 +42,12 @@ export default {
     },
     ["data.force_delete"]: {
       description: "A boolean for allowing the forced deletion of a KMS key",
+      control: "none",
+      type: { required: false }, // required prop or not
+    },
+    ["data.dual_auth_delete"]: {
+      description:
+        "A boolean for allowing key to be deleted only with dual authorization",
       control: "none",
       type: { required: false }, // required prop or not
     },
@@ -58,7 +76,7 @@ export default {
 
 const EncryptionKeyFormStory = () => {
   function validName(str) {
-    const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
+    const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/s;
     if (str) return str.match(regex) !== null;
     else return false;
   }
@@ -69,22 +87,32 @@ const EncryptionKeyFormStory = () => {
     );
   }
 
+  function invalidRingCallback(stateData, componentProps) {
+    return stateData.key_ring === "" ? false : !validName(stateData.key_ring);
+  }
+
   function invalidTextCallback(stateData, componentProps) {
     return contains(["foo", "bar"], stateData.name)
       ? `Key name ${stateData.name} already in use.`
-      : `Invalid Key Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
+      : `Invalid Key Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])*$/s`;
   }
+
+  let invalidRingText = `Invalid Key Ring Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])*$/s`;
 
   return (
     <EncryptionKeyForm
       data={{
         name: "test-encryption-key",
-        interval_month: 12,
+        rotation: 12,
         root_key: false,
         force_delete: false,
+        dual_auth_delete: true,
+        key_ring: "",
       }}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
+      invalidRingCallback={invalidRingCallback}
+      invalidRingText={invalidRingText}
     />
   );
 };
