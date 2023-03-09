@@ -1,6 +1,6 @@
 {
   "name": "icse-react-assets",
-  "homepage": "http://pages.github.ibm.com/icse/icse-react-assets",
+  "homepage": "http://ibm.github.io/icse-react-assets",
   "version": "0.1.5",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
