@@ -82,7 +82,7 @@ export default {
       control: "none",
       table: { defaultValue: { summary: "() => { return false; }" } },
     },
-    disableDeleteMessage: {
+    deleteDisabledMessage: {
       description:
         "A string message that should be shown when hovering over a disabled delete button", // description
       type: { required: false }, // required prop or not

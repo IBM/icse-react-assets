@@ -5149,55 +5149,66 @@ SccForm.propTypes = {
  * SecretsManagerForm
  * @param {Object} props
  */
-class SecretsManagerForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = this.props.data;
-    this.handleInputChange = this.handleInputChange.bind(this);
-    buildFormDefaultInputMethods(this);
-    buildFormFunctions(this);
-    this.state.use_secrets_manager = true;
+var SecretsManagerForm = /*#__PURE__*/function (_Component) {
+  _inherits(SecretsManagerForm, _Component);
+  var _super = _createSuper(SecretsManagerForm);
+  function SecretsManagerForm(props) {
+    var _this;
+    _classCallCheck(this, SecretsManagerForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    _this.state.use_secrets_manager = true;
+    return _this;
   }
 
   /**
    * handle input change
    * @param {event} event event
    */
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-  render() {
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
-      id: this.state.name + "-name",
-      componentName: "Secrets Manager",
-      component: "secrets_manager",
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      componentProps: this.props,
-      hideHelperText: true,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props)
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: "Secrets Manager",
-      value: this.state.resource_group,
-      groups: this.props.resourceGroups,
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidth",
-      name: "resource_group",
-      labelText: "Resource Group"
-    })), /*#__PURE__*/React.createElement("div", {
-      className: "fieldWidth"
-    }, /*#__PURE__*/React.createElement(IcseSelect, {
-      value: this.state.kms_key_name,
-      groups: this.props.encryptionKeys,
-      formName: "Secrets Manager",
-      name: "kms_key_name",
-      className: "fieldWidth",
-      labelText: "Encryption Key",
-      handleInputChange: this.handleInputChange
-    })));
-  }
-}
+  _createClass(SecretsManagerForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+        id: this.state.name + "-name",
+        componentName: "Secrets Manager",
+        component: "secrets_manager",
+        value: this.state.name,
+        onChange: this.handleInputChange,
+        componentProps: this.props,
+        hideHelperText: true,
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props)
+      }), /*#__PURE__*/React.createElement(IcseSelect, {
+        formName: "Secrets Manager",
+        value: this.state.resource_group,
+        groups: this.props.resourceGroups,
+        handleInputChange: this.handleInputChange,
+        className: "fieldWidth",
+        name: "resource_group",
+        labelText: "Resource Group"
+      })), /*#__PURE__*/React.createElement("div", {
+        className: "fieldWidth"
+      }, /*#__PURE__*/React.createElement(IcseSelect, {
+        value: this.state.kms_key_name,
+        groups: this.props.encryptionKeys,
+        formName: "Secrets Manager",
+        name: "kms_key_name",
+        className: "fieldWidth",
+        labelText: "Encryption Key",
+        handleInputChange: this.handleInputChange
+      })));
+    }
+  }]);
+  return SecretsManagerForm;
+}(Component);
 SecretsManagerForm.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string,
@@ -7450,7 +7461,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
               onClick: this.toggleDeleteModal,
               name: this.props.name,
               disabled: this.props.deleteDisabled(this.props),
-              disableDeleteMessage: this.props.disableDeleteMessage(this.props)
+              disableDeleteMessage: this.props.deleteDisabledMessage
             })
           }))
         }, /*#__PURE__*/React.createElement(UnsavedChangesModal, {
@@ -7462,9 +7473,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
           onModalSubmit: this.dismissChangesAndClose,
           useDefaultUnsavedMessage: this.state.useDefaultUnsavedMessage
         }), /*#__PURE__*/React.createElement(DeleteModal, {
-          name:
-          // use tab panel name if passed
-          this.props.tabPanel ? this.props.tabPanel.name : this.props.name,
+          name: this.props.name,
           modalOpen: this.state.showDeleteModal,
           onModalClose: this.toggleDeleteModal,
           onModalSubmit: this.onDelete
@@ -7655,9 +7664,11 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
           name: this.props.name,
           showIfEmpty: this.props.arrayData
         }), this.props.arrayData.map(function (data, index) {
-          var _this2$props, _this2$props2;
+          var _this2$props, _this2$props2, _this2$props3, _this2$props4;
           // return a form with the index and props
           return /*#__PURE__*/React.createElement(ToggleForm, _extends({}, _this2.props.toggleFormProps, {
+            propsMatchState: _this2.props.propsMatchState,
+            disableSave: _this2.props.disableSave,
             name: data[_this2.props.toggleFormFieldName],
             tabPanel: {
               name: _this2.props.name,
@@ -7680,7 +7691,9 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
             show: _this2.shouldShow(index),
             shownChildren: _this2.state.shownChildForms,
             onSave: (_this2$props = _this2.props) === null || _this2$props === void 0 ? void 0 : _this2$props.onSave,
-            onDelete: (_this2$props2 = _this2.props) === null || _this2$props2 === void 0 ? void 0 : _this2$props2.onDelete
+            onDelete: (_this2$props2 = _this2.props) === null || _this2$props2 === void 0 ? void 0 : _this2$props2.onDelete,
+            deleteDisabled: (_this2$props3 = _this2.props) === null || _this2$props3 === void 0 ? void 0 : _this2$props3.deleteDisabled,
+            deleteDisabledMessage: (_this2$props4 = _this2.props) === null || _this2$props4 === void 0 ? void 0 : _this2$props4.deleteDisabledMessage
           }));
         }), /*#__PURE__*/React.createElement(FormModal, {
           name: this.props.addText,
@@ -7691,6 +7704,7 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
         },
         // render the form inside the modal
         RenderForm(this.props.innerForm, _objectSpread2(_objectSpread2({}, this.props.innerFormProps), {}, {
+          disableSave: this.props.disableSave,
           arrayParentName: this.props.arrayParentName,
           isModal: true,
           shouldDisableSubmit: function shouldDisableSubmit() {
@@ -7745,15 +7759,12 @@ IcseFormTemplate.propTypes = {
   // used only for cos keys
   arrayParentName: PropTypes.string,
   isMiddleForm: PropTypes.bool.isRequired,
-  innerFormProps: PropTypes.shape({
-    disableSave: PropTypes.func.isRequired
-  }).isRequired,
-  toggleFormProps: PropTypes.shape({
-    disableSave: PropTypes.func.isRequired,
-    propsMatchState: PropTypes.func.isRequired
-  }).isRequired,
+  innerFormProps: PropTypes.object.isRequired,
+  toggleFormProps: PropTypes.object.isRequired,
   toggleFormFieldName: PropTypes.string.isRequired,
-  hideAbout: PropTypes.bool
+  hideAbout: PropTypes.bool,
+  deleteDisabled: PropTypes.func.isRequired,
+  deleteDisabledMessage: PropTypes.string.isRequired
 };
 
 export { AppIdForm, AppIdKeyForm, AtrackerForm, ClusterForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EntitlementSelect, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VsiForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
