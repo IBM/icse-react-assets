@@ -248,9 +248,9 @@ class ToggleForm extends React.Component {
                             onClick={this.toggleDeleteModal}
                             name={this.props.name}
                             disabled={this.props.deleteDisabled(this.props)}
-                            disableDeleteMessage={this.props.disableDeleteMessage(
-                              this.props
-                            )}
+                            disableDeleteMessage={
+                              this.props.deleteDisabledMessage
+                            }
                           />
                         }
                       />
@@ -274,12 +274,7 @@ class ToggleForm extends React.Component {
                   />
                   {/* delete resource */}
                   <DeleteModal
-                    name={
-                      // use tab panel name if passed
-                      this.props.tabPanel
-                        ? this.props.tabPanel.name
-                        : this.props.name
-                    }
+                    name={this.props.name}
                     modalOpen={this.state.showDeleteModal}
                     onModalClose={this.toggleDeleteModal}
                     onModalSubmit={this.onDelete}

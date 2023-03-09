@@ -116,6 +116,8 @@ class IcseFormTemplate extends React.Component {
                 return (
                   <ToggleForm
                     {...this.props.toggleFormProps}
+                    propsMatchState={this.props.propsMatchState}
+                    disableSave={this.props.disableSave}
                     name={data[this.props.toggleFormFieldName]}
                     tabPanel={{
                       name: this.props.name,
@@ -140,6 +142,8 @@ class IcseFormTemplate extends React.Component {
                     shownChildren={this.state.shownChildForms}
                     onSave={this.props?.onSave}
                     onDelete={this.props?.onDelete}
+                    deleteDisabled={this.props?.deleteDisabled}
+                    deleteDisabledMessage={this.props?.deleteDisabledMessage}
                   />
                 );
               })}
@@ -154,6 +158,7 @@ class IcseFormTemplate extends React.Component {
                   // render the form inside the modal
                   RenderForm(this.props.innerForm, {
                     ...this.props.innerFormProps,
+                    disableSave: this.props.disableSave,
                     arrayParentName: this.props.arrayParentName,
                     isModal: true,
                     shouldDisableSubmit: function () {
@@ -214,14 +219,12 @@ IcseFormTemplate.propTypes = {
   tooltip: PropTypes.object, // used only for cos keys
   arrayParentName: PropTypes.string,
   isMiddleForm: PropTypes.bool.isRequired,
-  innerFormProps: PropTypes.shape({ disableSave: PropTypes.func.isRequired })
-    .isRequired,
-  toggleFormProps: PropTypes.shape({
-    disableSave: PropTypes.func.isRequired,
-    propsMatchState: PropTypes.func.isRequired,
-  }).isRequired,
+  innerFormProps: PropTypes.object.isRequired,
+  toggleFormProps: PropTypes.object.isRequired,
   toggleFormFieldName: PropTypes.string.isRequired,
   hideAbout: PropTypes.bool,
+  deleteDisabled: PropTypes.func.isRequired,
+  deleteDisabledMessage: PropTypes.string.isRequired,
 };
 
 export default IcseFormTemplate;

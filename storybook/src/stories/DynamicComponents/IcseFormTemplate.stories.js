@@ -4,46 +4,7 @@ import { IcseFormTemplate, SshKeyForm } from "icse-react-assets";
 export default {
   component: IcseFormTemplate,
   title: "Components/Dynamic Components/IcseFormTemplate",
-  args: {
-    name: "SSH Keys",
-    hideName: true,
-    addText: "Create an SSH Key",
-    subHeading: false,
-    hideFormTitleButton: false,
-    hideAbout: false,
-    arrayData: [
-      {
-        name: "ssh-key",
-        resource_group: "rg1",
-        public_key: "test-key",
-      },
-    ],
-    innerForm: SshKeyForm,
-    innerFormProps: {
-      resourceGroups: ["rg1", "rg2", "rg3"],
-      disableSave: () => {},
-      invalidCallback: () => {
-        return false;
-      },
-      invalidTextCallback: () => {},
-      invalidKeyCallback: () => {
-        return { invalid: false, invalidText: "" };
-      },
-    },
-    toggleFormProps: {
-      propsMatchState: () => {},
-      disableSave: () => {},
-      hideName: true,
-      name: "ssh-key",
-      submissionFieldName: "ssh_keys",
-      disableDeleteMessage: () => {
-        return "";
-      },
-    },
-    onSave: () => {},
-    onDelete: () => {},
-    onSubmit: () => {},
-  },
+  args: {},
   argTypes: {
     name: {
       description:
@@ -102,6 +63,18 @@ export default {
         "A function that defines what occurs when the resource is deleted",
       type: { required: true },
     },
+    deleteDisabled: {
+      description:
+        "A function returns a boolean if the delete button should be disabled",
+      type: { required: false },
+      control: "none",
+    },
+    deleteDisabledMessage: {
+      description:
+        "A function that returns the message that should be displayed on a disabled delete button",
+      type: { required: false },
+      control: "none",
+    },
     docs: {
       description:
         "A function that returns a docs component for the About tab, otherwise renders UnderConstruction component",
@@ -149,33 +122,27 @@ export default {
       control: "none",
       table: { defaultValue: { summary: "false" } },
     },
+    propsMatchState: {
+      description:
+        "A function that returns a single boolean describing whether the form props and the form's state match",
+      type: { required: true },
+      control: "none",
+    },
+    disableSave: {
+      description:
+        "A function that returns a single boolean describing whether the save button should be disabled",
+      type: { required: true },
+      control: "none",
+    },
     innerFormProps: {
       description:
         "An object containing props to be passed to the form being rendered. Must contain disableSave and any callback functions the form requires.",
       control: "none",
       type: { required: true },
     },
-    ["innerFormProps.disableSave"]: {
-      description:
-        "A function that returns a single boolean describing whether the save button should be disabled or not",
-      type: { required: true },
-      control: "none",
-    },
     toggleFormProps: {
       description:
         "An object containing props to be passed to the ToggleForm (refer to DynamicComponents/ToggleForm). Must contain disableSave function and propsMatchState function, and any other form props",
-      type: { required: true },
-      control: "none",
-    },
-    ["toggleFormProps.disableSave"]: {
-      description:
-        "A function that returns a single boolean describing whether the save button should be disabled or not",
-      type: { required: true },
-      control: "none",
-    },
-    ["toggleFormProps.propsMatchState"]: {
-      description:
-        "A function that returns a single boolean describing whether the form props and the form's state match",
       type: { required: true },
       control: "none",
     },
@@ -209,8 +176,53 @@ export default {
   ],
 };
 
-const IcseFormTemplateStory = ({ ...args }) => {
-  return <IcseFormTemplate {...args} />;
+const IcseFormTemplateStory = () => {
+  return (
+    <IcseFormTemplate
+      name="SSH Keys"
+      hideName={true}
+      addText="Create an SSH Key"
+      subHeading={false}
+      hideFormTitleButton={false}
+      hideAbout={false}
+      arrayData={[
+        {
+          name: "ssh-key",
+          resource_group: "rg1",
+          public_key: "test-key",
+        },
+      ]}
+      innerForm={SshKeyForm}
+      innerFormProps={{
+        resourceGroups: ["rg1", "rg2", "rg3"],
+        invalidCallback: () => {
+          return false;
+        },
+        invalidTextCallback: () => {},
+        invalidKeyCallback: () => {
+          return { invalid: false, invalidText: "" };
+        },
+      }}
+      toggleFormProps={{
+        hideName: true,
+        name: "ssh-key",
+        submissionFieldName: "ssh_keys",
+      }}
+      onSave={() => {}}
+      onDelete={() => {}}
+      onSubmit={() => {}}
+      disableSave={function (stateData, componentProps) {
+        return false;
+      }}
+      propsMatchState={function (stateData, componentProps) {
+        return false;
+      }}
+      deleteDisabledMessage={"Example delete message"}
+      deleteDisabled={() => {
+        return false;
+      }}
+    />
+  );
 };
 
 export const Default = IcseFormTemplateStory.bind({});
