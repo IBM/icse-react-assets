@@ -116,6 +116,7 @@ class IcseFormTemplate extends React.Component {
                 return (
                   <ToggleForm
                     {...this.props.toggleFormProps}
+                    name={data[this.props.toggleFormFieldName]}
                     tabPanel={{
                       name: this.props.name,
                       hideAbout: true, // passed to ignore second tab panel
@@ -191,6 +192,7 @@ IcseFormTemplate.defaultProps = {
   arrayParentName: null,
   isMiddleForm: false,
   hideAbout: false,
+  toggleFormFieldName: "name",
 };
 
 IcseFormTemplate.propTypes = {
@@ -218,6 +220,7 @@ IcseFormTemplate.propTypes = {
     disableSave: PropTypes.func.isRequired,
     propsMatchState: PropTypes.func.isRequired,
   }).isRequired,
+  toggleFormFieldName: PropTypes.string.isRequired,
   hideAbout: PropTypes.bool,
 };
 

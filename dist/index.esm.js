@@ -5149,66 +5149,55 @@ SccForm.propTypes = {
  * SecretsManagerForm
  * @param {Object} props
  */
-var SecretsManagerForm = /*#__PURE__*/function (_Component) {
-  _inherits(SecretsManagerForm, _Component);
-  var _super = _createSuper(SecretsManagerForm);
-  function SecretsManagerForm(props) {
-    var _this;
-    _classCallCheck(this, SecretsManagerForm);
-    _this = _super.call(this, props);
-    _this.state = _this.props.data;
-    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
-    buildFormDefaultInputMethods(_assertThisInitialized(_this));
-    buildFormFunctions(_assertThisInitialized(_this));
-    _this.state.use_secrets_manager = true;
-    return _this;
+class SecretsManagerForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    this.handleInputChange = this.handleInputChange.bind(this);
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
+    this.state.use_secrets_manager = true;
   }
 
   /**
    * handle input change
    * @param {event} event event
    */
-  _createClass(SecretsManagerForm, [{
-    key: "handleInputChange",
-    value: function handleInputChange(event) {
-      this.setState(this.eventTargetToNameAndValue(event));
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
-        id: this.state.name + "-name",
-        componentName: "Secrets Manager",
-        component: "secrets_manager",
-        value: this.state.name,
-        onChange: this.handleInputChange,
-        componentProps: this.props,
-        hideHelperText: true,
-        invalid: this.props.invalidCallback(this.state, this.props),
-        invalidText: this.props.invalidTextCallback(this.state, this.props)
-      }), /*#__PURE__*/React.createElement(IcseSelect, {
-        formName: "Secrets Manager",
-        value: this.state.resource_group,
-        groups: this.props.resourceGroups,
-        handleInputChange: this.handleInputChange,
-        className: "fieldWidth",
-        name: "resource_group",
-        labelText: "Resource Group"
-      })), /*#__PURE__*/React.createElement("div", {
-        className: "fieldWidth"
-      }, /*#__PURE__*/React.createElement(IcseSelect, {
-        value: this.state.kms_key_name,
-        groups: this.props.encryptionKeys,
-        formName: "Secrets Manager",
-        name: "kms_key_name",
-        className: "fieldWidth",
-        labelText: "Encryption Key",
-        handleInputChange: this.handleInputChange
-      })));
-    }
-  }]);
-  return SecretsManagerForm;
-}(Component);
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  render() {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: this.state.name + "-name",
+      componentName: "Secrets Manager",
+      component: "secrets_manager",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      componentProps: this.props,
+      hideHelperText: true,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: "Secrets Manager",
+      value: this.state.resource_group,
+      groups: this.props.resourceGroups,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidth",
+      name: "resource_group",
+      labelText: "Resource Group"
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "fieldWidth"
+    }, /*#__PURE__*/React.createElement(IcseSelect, {
+      value: this.state.kms_key_name,
+      groups: this.props.encryptionKeys,
+      formName: "Secrets Manager",
+      name: "kms_key_name",
+      className: "fieldWidth",
+      labelText: "Encryption Key",
+      handleInputChange: this.handleInputChange
+    })));
+  }
+}
 SecretsManagerForm.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string,
@@ -7669,6 +7658,7 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
           var _this2$props, _this2$props2;
           // return a form with the index and props
           return /*#__PURE__*/React.createElement(ToggleForm, _extends({}, _this2.props.toggleFormProps, {
+            name: data[_this2.props.toggleFormFieldName],
             tabPanel: {
               name: _this2.props.name,
               hideAbout: true,
@@ -7731,7 +7721,8 @@ IcseFormTemplate.defaultProps = {
   subHeading: false,
   arrayParentName: null,
   isMiddleForm: false,
-  hideAbout: false
+  hideAbout: false,
+  toggleFormFieldName: "name"
 };
 IcseFormTemplate.propTypes = {
   name: PropTypes.string,
@@ -7761,6 +7752,7 @@ IcseFormTemplate.propTypes = {
     disableSave: PropTypes.func.isRequired,
     propsMatchState: PropTypes.func.isRequired
   }).isRequired,
+  toggleFormFieldName: PropTypes.string.isRequired,
   hideAbout: PropTypes.bool
 };
 

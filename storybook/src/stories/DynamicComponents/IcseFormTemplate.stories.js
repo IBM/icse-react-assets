@@ -36,6 +36,9 @@ export default {
       hideName: true,
       name: "ssh-key",
       submissionFieldName: "ssh_keys",
+      disableDeleteMessage: () => {
+        return "";
+      },
     },
     onSave: () => {},
     onDelete: () => {},
@@ -182,6 +185,13 @@ export default {
       type: { required: true },
       control: "boolean",
       table: { defaultValue: { summary: "false" } },
+    },
+    toggleFormFieldName: {
+      description:
+        "A string determining the dynamic value to render as the name for the toggle form for each array item",
+      type: { required: true },
+      control: "boolean",
+      table: { defaultValue: { summary: "name" } },
     },
   },
   parameters: {
