@@ -50,7 +50,9 @@ class ToggleForm extends React.Component {
   }
 
   componentDidMount() {
-    console.log(this.props)
+    if (this.props.devMode) {
+      console.log(this.props);
+    }
     if (this.state.hide === true && this.shouldShow() === true) {
       this.setState({ hide: false });
     }

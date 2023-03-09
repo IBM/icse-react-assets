@@ -7267,7 +7267,9 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
-      console.log(this.props);
+      if (this.props.devMode) {
+        console.log(this.props);
+      }
       if (this.state.hide === true && this.shouldShow() === true) {
         this.setState({
           hide: false
