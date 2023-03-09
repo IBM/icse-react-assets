@@ -4,8 +4,8 @@ import {
   buildFormFunctions,
 } from "../component-utils";
 import { IcseFormGroup } from "../Utils";
-import { IcseNameInput, IcseToggle } from "../Inputs";
-import { IcseNumberSelect } from "../Dropdowns";
+import { IcseNameInput, IcseToggle, IcseTextInput } from "../Inputs";
+import { EndpointSelect, IcseNumberSelect } from "../Dropdowns";
 import PropTypes from "prop-types";
 
 /**
@@ -45,7 +45,7 @@ class EncryptionKeyForm extends Component {
    * @param {event} event
    */
   handleTextInput(event) {
-    this.setState({ name: event.target.value });
+    this.setState({ [event.target.name]: event.target.value });
   }
 
   // Handle toggle for showing/hiding details of keys
@@ -71,6 +71,19 @@ class EncryptionKeyForm extends Component {
             invalid={this.props.invalidCallback(this.state, this.props)}
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
           />
+          {/* edit key ring */}
+          <IcseTextInput
+            componentName={this.props.data.name}
+            field="key_ring"
+            labelText="Key Ring Name"
+            value={this.state.key_ring || ""}
+            onChange={this.handleTextInput} // nothing
+            id={this.props.data.name + "-key-ring"}
+            invalid={this.props.invalidRingCallback(this.state, this.props)}
+            invalidText={this.props.invalidRingText}
+          />
+        </IcseFormGroup>
+        <IcseFormGroup>
           <IcseNumberSelect
             tooltip={{
               content:
@@ -79,11 +92,46 @@ class EncryptionKeyForm extends Component {
             }}
             component={this.props.data.name}
             max={12}
-            value={this.state.interval_month}
-            formName="interval_month"
-            name="interval_month"
+            value={this.state.rotation}
+            formName="rotation"
+            name="rotation"
             labelText="Rotation Interval (Months)"
             handleInputChange={this.handleInputChange}
+            isModal={this.props.isModal}
+          />
+          <EndpointSelect
+            formName={this.props.data.name}
+            handleInputChange={this.handleInputChange}
+            value={this.state.endpoint}
+          />
+        </IcseFormGroup>
+        <IcseFormGroup>
+          {/* force delete */}
+          <IcseToggle
+            tooltip={{
+              content:
+                "Force deletion of a key refers to the deletion of any key that's actively protecting any registered cloud resources. KMS keys can be force-deleted by managers of the instance. However, the force-delete won't succeed if the key's associated resource is non-erasable due to a retention policy.",
+              align: "bottom-left",
+            }}
+            id={composedId + "kms-key-force-delete"}
+            labelText="Force Deletion of KMS Key"
+            toggleFieldName="force_delete"
+            defaultToggled={this.state.force_delete}
+            onToggle={this.handleToggle}
+            isModal={this.props.isModal}
+          />
+          {/* force delete */}
+          <IcseToggle
+            tooltip={{
+              content:
+                "Allow key to be deleted only by two users. One user can schedule the key for deletion, a second user must confirm it before the key will be destroyed.",
+              align: "bottom-left",
+            }}
+            id={composedId + "kms-key-dual-auth-delete"}
+            labelText="Dual Authorization Deletion Policy"
+            toggleFieldName="dual_auth_delete"
+            defaultToggled={this.state.dual_auth_delete}
+            onToggle={this.handleToggle}
             isModal={this.props.isModal}
           />
         </IcseFormGroup>
@@ -103,20 +151,6 @@ class EncryptionKeyForm extends Component {
             defaultToggled={this.state.root_key}
             isModal={this.props.isModal}
           />
-          {/* force delete */}
-          <IcseToggle
-            tooltip={{
-              content:
-                "Force deletion of a key refers to the deletion of any key that's actively protecting any registered cloud resources. KMS keys can be force-deleted by managers of the instance. However, the force-delete won't succeed if the key's associated resource is non-erasable due to a retention policy.",
-              align: "bottom-left",
-            }}
-            id={composedId + "kms-key-force-delete"}
-            labelText="Force Deletion of KMS Key"
-            toggleFieldName="force_delete"
-            defaultToggled={this.state.force_delete}
-            onToggle={this.handleToggle}
-            isModal={this.props.isModal}
-          />
         </IcseFormGroup>
       </>
     );
@@ -126,9 +160,12 @@ class EncryptionKeyForm extends Component {
 EncryptionKeyForm.defaultProps = {
   data: {
     name: "",
-    interval_month: 12,
+    rotation: 12,
     root_key: false,
     force_delete: false,
+    dual_auth_delete: false,
+    key_ring: "",
+    endpoint: "private",
   },
   isModal: false,
 };
@@ -136,11 +173,14 @@ EncryptionKeyForm.defaultProps = {
 EncryptionKeyForm.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    interval_month: PropTypes.number.isRequired,
+    rotation: PropTypes.number.isRequired,
     root_key: PropTypes.bool.isRequired,
+    dual_auth_delete: PropTypes.bool.isRequired,
     force_delete: PropTypes.bool,
+    key_ring: PropTypes.string,
   }).isRequired,
   isModal: PropTypes.bool.isRequired,
+  invalidRingCallback: PropTypes.func.isRequired,
 };
 
 export default EncryptionKeyForm;
