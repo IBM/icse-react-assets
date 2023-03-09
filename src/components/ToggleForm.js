@@ -50,6 +50,7 @@ class ToggleForm extends React.Component {
   }
 
   componentDidMount() {
+    console.log(this.props)
     if (this.state.hide === true && this.shouldShow() === true) {
       this.setState({ hide: false });
     }
@@ -245,9 +246,9 @@ class ToggleForm extends React.Component {
                             onClick={this.toggleDeleteModal}
                             name={this.props.name}
                             disabled={this.props.deleteDisabled(this.props)}
-                            disableDeleteMessage={() =>
-                              this.props.disableDeleteMessage(this.props)
-                            }
+                            disableDeleteMessage={this.props.disableDeleteMessage(
+                              this.props
+                            )}
                           />
                         }
                       />

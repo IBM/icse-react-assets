@@ -901,7 +901,7 @@ var ToolTipWrapper = function ToolTipWrapper(props) {
   allProps.className = lib_2("tooltip", _objectSpread2({}, props));
   return /*#__PURE__*/React__default["default"].createElement("div", {
     className: "cds--form-item"
-  }, console.log(props.field), props.noLabelText ?
+  }, props.noLabelText ?
   /*#__PURE__*/
   // No label- this is usually a title
   React__default["default"].createElement("div", {
@@ -7278,6 +7278,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "componentDidMount",
     value: function componentDidMount() {
+      console.log(this.props);
       if (this.state.hide === true && this.shouldShow() === true) {
         this.setState({
           hide: false
@@ -7429,8 +7430,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this,
-        _objectSpread2$1;
+      var _objectSpread2$1;
       if (this.props.noDeleteButton !== true && !this.props.onDelete) {
         throw new Error("ToggleForm expects onDelete Function to be passed when a delete button is rendered");
       }
@@ -7470,9 +7470,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
               onClick: this.toggleDeleteModal,
               name: this.props.name,
               disabled: this.props.deleteDisabled(this.props),
-              disableDeleteMessage: function disableDeleteMessage() {
-                return _this2.props.disableDeleteMessage(_this2.props);
-              }
+              disableDeleteMessage: this.props.disableDeleteMessage(this.props)
             })
           }))
         }, /*#__PURE__*/React__default["default"].createElement(UnsavedChangesModal, {
