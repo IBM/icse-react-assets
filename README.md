@@ -1,5 +1,9 @@
 # icse-react-assets
 
+## Documentation
+
+Documentation for all components is available on storybook: http://ibm.github.io/icse-react-assets
+
 ## Getting Started
 
 1. `git clone https://github.ibm.com/icse/icse-react-assets.git && cd icse-react-assets`
@@ -25,7 +29,7 @@ export { default as UnderConstruction } from "./components/UnderConstruction";
 
 ## Documenting Components in Storybook
 
-Storybook is a documentation tool for component libraries that allows us to more thoroughly document and test components. A live version of our storybook is available here: https://pages.github.ibm.com/icse/icse-react-assets/
+Storybook is a documentation tool for component libraries that allows us to more thoroughly document and test components. A live version of our storybook is available here: http://ibm.github.io/icse-react-assets
 After migrating a component, please document your component in `/storybook/src/stories/<component name>.stories.js`. You can follow `IcseTextInput.stories.js` as an example.
 
 To get started with storybook, you will first need to install it and its dependencies:
