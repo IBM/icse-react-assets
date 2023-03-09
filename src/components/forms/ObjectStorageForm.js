@@ -74,13 +74,23 @@ class ObjectStorageInstancesForm extends Component {
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
           />
           <IcseSelect
-            formName="resource_group"
+            formName="object_storage"
             name="resource_group"
             labelText="Resource Group"
             groups={this.props.resourceGroups}
             value={this.state.resource_group}
             handleInputChange={(event) =>
               this.handleInputChange("resource_group", event.target.value)
+            }
+          />
+          <IcseSelect
+            formName="object_storage"
+            name="kms"
+            labelText="Key Management Instance"
+            groups={this.props.kmsList}
+            value={this.state.kms}
+            handleInputChange={(event) =>
+              this.handleInputChange("kms", event.target.value)
             }
           />
         </IcseFormGroup>
@@ -105,6 +115,7 @@ ObjectStorageInstancesForm.defaultProps = {
     random_suffix: true,
   },
   resourceGroups: [],
+  kmsList: [],
 };
 
 ObjectStorageInstancesForm.propTypes = {
@@ -117,6 +128,7 @@ ObjectStorageInstancesForm.propTypes = {
     random_suffix: PropTypes.bool.isRequired,
   }),
   invalidCallback: PropTypes.func.isRequired,
+  kmsList: PropTypes.arrayOf(PropTypes.string).isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
   composedNameCallback: PropTypes.func.isRequired,
   subForms: PropTypes.arrayOf(PropTypes.node),

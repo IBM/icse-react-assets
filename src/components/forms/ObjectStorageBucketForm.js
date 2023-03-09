@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { capitalize } from "lazy-z";
+import { capitalize, titleCase } from "lazy-z";
 import { IcseNameInput, IcseToggle } from "../Inputs";
 import { IcseSelect } from "../Dropdowns";
 import { IcseFormGroup } from "../Utils";
@@ -93,6 +93,14 @@ class ObjectStorageBucketForm extends Component {
             toggleFieldName="force_delete"
             onToggle={this.handleToggle}
           />
+          <IcseSelect
+            formName="object_storage_bucket"
+            name="endpoint"
+            labelText="Endpoint"
+            groups={["Public", "Private", "Public And Private"]}
+            value={titleCase(this.state.endpoint)}
+            handleInputChange={this.handleInputChange}
+          />
         </IcseFormGroup>
       </>
     );
@@ -105,6 +113,7 @@ ObjectStorageBucketForm.defaultProps = {
     name: "",
     storage_class: "Standard",
     kms_key: "",
+    endpoint: "public",
   },
   encryptionKeys: [],
 };
@@ -115,6 +124,7 @@ ObjectStorageBucketForm.propTypes = {
     name: PropTypes.string.isRequired,
     storage_class: PropTypes.string.isRequired,
     kms_key: PropTypes.string,
+    endpoint: PropTypes.string,
   }).isRequired,
   encryptionKeys: PropTypes.array.isRequired,
   invalidCallback: PropTypes.func.isRequired,

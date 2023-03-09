@@ -4562,104 +4562,94 @@ NetworkAclForm.propTypes = {
   disableSaveCallback: PropTypes__default["default"].func.isRequired
 };
 
-var ObjectStorageBucketForm = /*#__PURE__*/function (_Component) {
-  _inherits(ObjectStorageBucketForm, _Component);
-  var _super = _createSuper(ObjectStorageBucketForm);
-  function ObjectStorageBucketForm(props) {
-    var _this;
-    _classCallCheck(this, ObjectStorageBucketForm);
-    _this = _super.call(this, props);
-    _this.state = _this.props.data;
-    buildFormFunctions(_assertThisInitialized(_this));
-    buildFormDefaultInputMethods(_assertThisInitialized(_this));
-    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
-    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
-    _this.handleStorageClassChange = _this.handleStorageClassChange.bind(_assertThisInitialized(_this));
-    return _this;
+class ObjectStorageBucketForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleStorageClassChange = this.handleStorageClassChange.bind(this);
   }
 
   /**
    * Handler for toggle
    */
-  _createClass(ObjectStorageBucketForm, [{
-    key: "handleToggle",
-    value: function handleToggle() {
-      this.setState(this.toggleStateBoolean("force_delete", this.state));
-    }
+  handleToggle() {
+    this.setState(this.toggleStateBoolean("force_delete", this.state));
+  }
 
-    /**
-     * handle storage class change and convert to lowercase for value
-     * @param {event} event event
-     */
-  }, {
-    key: "handleStorageClassChange",
-    value: function handleStorageClassChange(event) {
-      this.setState({
-        storage_class: event.target.value.toLowerCase()
-      });
-    }
+  /**
+   * handle storage class change and convert to lowercase for value
+   * @param {event} event event
+   */
+  handleStorageClassChange(event) {
+    this.setState({
+      storage_class: event.target.value.toLowerCase()
+    });
+  }
 
-    /**
-     * handle input change
-     * @param {event} event event
-     */
-  }, {
-    key: "handleInputChange",
-    value: function handleInputChange(event) {
-      this.setState(this.eventTargetToNameAndValue(event));
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this2 = this;
-      // composed id for bucket
-      var composedId = "bucket-form-".concat(this.props.data.name ? this.props.data.name : "new-bucket");
-      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-        id: this.state.name,
-        componentName: this.state.name,
-        value: this.state.name,
-        onChange: this.handleInputChange,
-        helperTextCallback: function helperTextCallback() {
-          return _this2.props.composedNameCallback(_this2.state);
-        },
-        invalid: this.props.invalidCallback(this.state),
-        invalidText: this.props.invalidTextCallback(this.state)
-      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-        component: this.state.name,
-        formName: "Object Storage Bucket",
-        name: "storage_class",
-        groups: ["Standard", "Vault", "Cold", "Smart"],
-        value: lazyZ.capitalize(this.state.storage_class),
-        labelText: "Bucket Class",
-        handleInputChange: this.handleStorageClassChange
-      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-        component: this.state.name,
-        formName: "Object Storage Bucket",
-        name: "kms_key",
-        groups: this.props.encryptionKeys,
-        value: this.state.kms_key,
-        labelText: "Encryption Key",
-        handleInputChange: this.handleInputChange
-      }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-        tooltip: {
-          content: "Toggling this on will force delete contents of the bucket after the bucket is deleted"
-        },
-        id: composedId + "force-delete",
-        labelText: "Force Delete Contents",
-        defaultToggled: this.state.force_delete,
-        toggleFieldName: "force_delete",
-        onToggle: this.handleToggle
-      })));
-    }
-  }]);
-  return ObjectStorageBucketForm;
-}(React.Component);
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  render() {
+    // composed id for bucket
+    let composedId = `bucket-form-${this.props.data.name ? this.props.data.name : "new-bucket"}`;
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: this.state.name,
+      componentName: this.state.name,
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      helperTextCallback: () => this.props.composedNameCallback(this.state),
+      invalid: this.props.invalidCallback(this.state),
+      invalidText: this.props.invalidTextCallback(this.state)
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      component: this.state.name,
+      formName: "Object Storage Bucket",
+      name: "storage_class",
+      groups: ["Standard", "Vault", "Cold", "Smart"],
+      value: lazyZ.capitalize(this.state.storage_class),
+      labelText: "Bucket Class",
+      handleInputChange: this.handleStorageClassChange
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      component: this.state.name,
+      formName: "Object Storage Bucket",
+      name: "kms_key",
+      groups: this.props.encryptionKeys,
+      value: this.state.kms_key,
+      labelText: "Encryption Key",
+      handleInputChange: this.handleInputChange
+    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      tooltip: {
+        content: "Toggling this on will force delete contents of the bucket after the bucket is deleted"
+      },
+      id: composedId + "force-delete",
+      labelText: "Force Delete Contents",
+      defaultToggled: this.state.force_delete,
+      toggleFieldName: "force_delete",
+      onToggle: this.handleToggle
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: "object_storage_bucket",
+      name: "endpoint",
+      labelText: "Endpoint",
+      groups: ["Public", "Private", "Public And Private"],
+      value: lazyZ.titleCase(this.state.endpoint),
+      handleInputChange: this.handleInputChange
+    })));
+  }
+}
 ObjectStorageBucketForm.defaultProps = {
   data: {
     force_delete: false,
     name: "",
     storage_class: "Standard",
-    kms_key: ""
+    kms_key: "",
+    endpoint: "public"
   },
   encryptionKeys: []
 };
@@ -4668,7 +4658,8 @@ ObjectStorageBucketForm.propTypes = {
     force_delete: PropTypes__default["default"].bool.isRequired,
     name: PropTypes__default["default"].string.isRequired,
     storage_class: PropTypes__default["default"].string.isRequired,
-    kms_key: PropTypes__default["default"].string
+    kms_key: PropTypes__default["default"].string,
+    endpoint: PropTypes__default["default"].string
   }).isRequired,
   encryptionKeys: PropTypes__default["default"].array.isRequired,
   invalidCallback: PropTypes__default["default"].func.isRequired,
@@ -4744,13 +4735,22 @@ var ObjectStorageInstancesForm = /*#__PURE__*/function (_Component) {
         invalid: this.props.invalidCallback(this.state, this.props),
         invalidText: this.props.invalidTextCallback(this.state, this.props)
       }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-        formName: "resource_group",
+        formName: "object_storage",
         name: "resource_group",
         labelText: "Resource Group",
         groups: this.props.resourceGroups,
         value: this.state.resource_group,
         handleInputChange: function handleInputChange(event) {
           return _this2.handleInputChange("resource_group", event.target.value);
+        }
+      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: "object_storage",
+        name: "kms",
+        labelText: "Key Management Instance",
+        groups: this.props.kmsList,
+        value: this.state.kms,
+        handleInputChange: function handleInputChange(event) {
+          return _this2.handleInputChange("kms", event.target.value);
         }
       })), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, (_this$props = this.props) === null || _this$props === void 0 ? void 0 : _this$props.subForms.map(function (form, index) {
         return /*#__PURE__*/React__default["default"].createElement("div", {
@@ -4768,7 +4768,8 @@ ObjectStorageInstancesForm.defaultProps = {
     resource_group: "",
     random_suffix: true
   },
-  resourceGroups: []
+  resourceGroups: [],
+  kmsList: []
 };
 ObjectStorageInstancesForm.propTypes = {
   isModal: PropTypes__default["default"].bool,
@@ -4780,6 +4781,7 @@ ObjectStorageInstancesForm.propTypes = {
     random_suffix: PropTypes__default["default"].bool.isRequired
   }),
   invalidCallback: PropTypes__default["default"].func.isRequired,
+  kmsList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
   composedNameCallback: PropTypes__default["default"].func.isRequired,
   subForms: PropTypes__default["default"].arrayOf(PropTypes__default["default"].node)
