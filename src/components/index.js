@@ -15,6 +15,7 @@ export {
   FetchSelect,
   IcseNumberSelect,
   IcseSelect,
+  EndpointSelect
 } from "./Dropdowns";
 export { default as EmptyResourceTile } from "./EmptyResourceTile";
 export { default as FormModal } from "./FormModal";

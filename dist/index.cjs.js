@@ -1178,6 +1178,42 @@ EntitlementSelect.propTypes = {
 EntitlementSelect.defaultProps = {
   className: "fieldWidthSmaller"
 };
+var EndpointSelect = function EndpointSelect(props) {
+  var titleCaseGroups = [];
+  props.groups.forEach(function (group) {
+    titleCaseGroups.push(lazyZ.titleCase(group).replace(/And/g, "and"));
+  });
+  return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+    name: "endpoint",
+    labelText: "Endpoint Type",
+    groups: titleCaseGroups,
+    value: lazyZ.titleCase(props.value).replace(/And/g, "and"),
+    handleInputChange: function handleInputChange(event) {
+      var _event$target = event.target,
+        name = _event$target.name,
+        value = _event$target.value;
+      props.handleInputChange({
+        target: {
+          name: name,
+          value: lazyZ.kebabCase(value)
+        }
+      });
+    },
+    className: props.className,
+    formName: props.formName
+  });
+};
+EndpointSelect.propTypes = {
+  value: PropTypes__default["default"].string,
+  // can be null
+  handleInputChange: PropTypes__default["default"].func.isRequired,
+  formName: PropTypes__default["default"].string.isRequired,
+  className: PropTypes__default["default"].string,
+  groups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+};
+EndpointSelect.defaultProps = {
+  groups: ["private", "public", "public-and-private"]
+};
 
 var css_248z$a = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$a);
@@ -2260,9 +2296,7 @@ var EncryptionKeyForm = /*#__PURE__*/function (_Component) {
   }, {
     key: "handleTextInput",
     value: function handleTextInput(event) {
-      this.setState({
-        name: event.target.value
-      });
+      this.setState(_defineProperty({}, event.target.name, event.target.value));
     }
 
     // Handle toggle for showing/hiding details of keys
@@ -2288,18 +2322,54 @@ var EncryptionKeyForm = /*#__PURE__*/function (_Component) {
         hideHelperText: true,
         invalid: this.props.invalidCallback(this.state, this.props),
         invalidText: this.props.invalidTextCallback(this.state, this.props)
-      }), /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
+      }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+        componentName: this.props.data.name,
+        field: "key_ring",
+        labelText: "Key Ring Name",
+        value: this.state.key_ring || "",
+        onChange: this.handleTextInput // nothing
+        ,
+        id: this.props.data.name + "-key-ring",
+        invalid: this.props.invalidRingCallback(this.state, this.props),
+        invalidText: this.props.invalidRingText
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
         tooltip: {
           content: "Setting a rotation policy shortens the lifetime of the key at regular intervals. When it's time to rotate the key based on the rotation interval that you specify, the root key will be automatically replaced with new key material.",
           align: "bottom-left"
         },
         component: this.props.data.name,
         max: 12,
-        value: this.state.interval_month,
-        formName: "interval_month",
-        name: "interval_month",
+        value: this.state.rotation,
+        formName: "rotation",
+        name: "rotation",
         labelText: "Rotation Interval (Months)",
         handleInputChange: this.handleInputChange,
+        isModal: this.props.isModal
+      }), /*#__PURE__*/React__default["default"].createElement(EndpointSelect, {
+        formName: this.props.data.name,
+        handleInputChange: this.handleInputChange,
+        value: this.state.endpoint
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        tooltip: {
+          content: "Force deletion of a key refers to the deletion of any key that's actively protecting any registered cloud resources. KMS keys can be force-deleted by managers of the instance. However, the force-delete won't succeed if the key's associated resource is non-erasable due to a retention policy.",
+          align: "bottom-left"
+        },
+        id: composedId + "kms-key-force-delete",
+        labelText: "Force Deletion of KMS Key",
+        toggleFieldName: "force_delete",
+        defaultToggled: this.state.force_delete,
+        onToggle: this.handleToggle,
+        isModal: this.props.isModal
+      }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        tooltip: {
+          content: "Allow key to be deleted only by two users. One user can schedule the key for deletion, a second user must confirm it before the key will be destroyed.",
+          align: "bottom-left"
+        },
+        id: composedId + "kms-key-dual-auth-delete",
+        labelText: "Dual Authorization Deletion Policy",
+        toggleFieldName: "dual_auth_delete",
+        defaultToggled: this.state.dual_auth_delete,
+        onToggle: this.handleToggle,
         isModal: this.props.isModal
       })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
         noMarginBottom: true
@@ -2315,17 +2385,6 @@ var EncryptionKeyForm = /*#__PURE__*/function (_Component) {
         onToggle: this.handleToggle,
         defaultToggled: this.state.root_key,
         isModal: this.props.isModal
-      }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-        tooltip: {
-          content: "Force deletion of a key refers to the deletion of any key that's actively protecting any registered cloud resources. KMS keys can be force-deleted by managers of the instance. However, the force-delete won't succeed if the key's associated resource is non-erasable due to a retention policy.",
-          align: "bottom-left"
-        },
-        id: composedId + "kms-key-force-delete",
-        labelText: "Force Deletion of KMS Key",
-        toggleFieldName: "force_delete",
-        defaultToggled: this.state.force_delete,
-        onToggle: this.handleToggle,
-        isModal: this.props.isModal
       })));
     }
   }]);
@@ -2334,20 +2393,26 @@ var EncryptionKeyForm = /*#__PURE__*/function (_Component) {
 EncryptionKeyForm.defaultProps = {
   data: {
     name: "",
-    interval_month: 12,
+    rotation: 12,
     root_key: false,
-    force_delete: false
+    force_delete: false,
+    dual_auth_delete: false,
+    key_ring: "",
+    endpoint: "private"
   },
   isModal: false
 };
 EncryptionKeyForm.propTypes = {
   data: PropTypes__default["default"].shape({
     name: PropTypes__default["default"].string.isRequired,
-    interval_month: PropTypes__default["default"].number.isRequired,
+    rotation: PropTypes__default["default"].number.isRequired,
     root_key: PropTypes__default["default"].bool.isRequired,
-    force_delete: PropTypes__default["default"].bool
+    dual_auth_delete: PropTypes__default["default"].bool.isRequired,
+    force_delete: PropTypes__default["default"].bool,
+    key_ring: PropTypes__default["default"].string
   }).isRequired,
-  isModal: PropTypes__default["default"].bool.isRequired
+  isModal: PropTypes__default["default"].bool.isRequired,
+  invalidRingCallback: PropTypes__default["default"].func.isRequired
 };
 
 var css_248z$5 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
@@ -3734,6 +3799,7 @@ var KeyManagementForm = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
       return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
         component: "km-system-dropdown",
         name: "system",
@@ -3754,10 +3820,8 @@ var KeyManagementForm = /*#__PURE__*/function (_Component) {
         onToggle: this.handleToggle,
         disabled: this.state.use_hs_crypto === true,
         className: "fieldWidth",
-        id: "kms-existing"
-      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
-        noMarginBottom: true
-      }, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+        id: this.props.data.name + "-use-existing"
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
         id: this.state.name + "-name",
         value: this.state.name,
         componentProps: this.props,
@@ -3776,6 +3840,21 @@ var KeyManagementForm = /*#__PURE__*/function (_Component) {
         value: this.state.resource_group,
         handleInputChange: this.handleInputChange,
         className: "fieldWidth"
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+        noMarginBottom: true
+      }, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        tooltip: {
+          content: "Allow for IAM Authorization policies to be created to allow this Key Management service to encrypt VPC block storage volumes. This should be false only if these policies already exist within your account.",
+          align: "bottom-left"
+        },
+        labelText: "Authorize VPC Reader Role",
+        key: this.state.authorize_vpc_reader_role,
+        defaultToggled: this.state.authorize_vpc_reader_role,
+        onToggle: function onToggle() {
+          return _this2.handleToggle("authorize_vpc_reader_role");
+        },
+        className: "fieldWidth",
+        id: this.props.data.name + "-kms-vpc-reader-role"
       })));
     }
   }]);
@@ -3786,7 +3865,8 @@ KeyManagementForm.defaultProps = {
     use_hs_crypto: false,
     use_data: false,
     name: "test-key-protect",
-    resource_group: "service-rg"
+    resource_group: "service-rg",
+    authorize_vpc_reader_role: false
   },
   resourceGroups: ["service-rg", "management-rg", "workload-rg"]
 };
@@ -3795,7 +3875,8 @@ KeyManagementForm.propTypes = {
     use_hs_crypto: PropTypes__default["default"].bool.isRequired,
     use_data: PropTypes__default["default"].bool.isRequired,
     name: PropTypes__default["default"].string.isRequired,
-    resource_group: PropTypes__default["default"].string.isRequired
+    resource_group: PropTypes__default["default"].string.isRequired,
+    authorize_vpc_reader_role: PropTypes__default["default"].bool.isRequired
   }).isRequired,
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
 };
@@ -7790,6 +7871,7 @@ exports.DynamicToolTipWrapper = DynamicToolTipWrapper;
 exports.EditCloseIcon = EditCloseIcon;
 exports.EmptyResourceTile = EmptyResourceTile;
 exports.EncryptionKeyForm = EncryptionKeyForm;
+exports.EndpointSelect = EndpointSelect;
 exports.EntitlementSelect = EntitlementSelect;
 exports.F5VsiForm = F5VsiForm;
 exports.F5VsiTemplateForm = F5VsiTemplateForm;

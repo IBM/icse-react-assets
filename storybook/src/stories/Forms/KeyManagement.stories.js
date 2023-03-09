@@ -17,6 +17,12 @@ export default {
       control: "none",
       type: { required: true }, // required prop or not
     },
+    ["data.authorize_vpc_reader_role"]: {
+      description:
+        "A boolean specifying if a VPC Reader role should be created to allow VSI volumes to be encrypted with Key Management service",
+      control: "none",
+      type: { required: true }, // required prop or not
+    },
     ["data.use_data"]: {
       description:
         "A boolean specifying if an existing key management instance should be used (defaults to `true` if HPCS solution is selected)",
@@ -88,6 +94,7 @@ const KeyManagementFormStory = () => {
         use_data: false,
         name: "test-key-protect",
         resource_group: "service-rg",
+        authorize_vpc_reader_role: false
       }}
       resourceGroups={["service-rg", "management-rg", "workload-rg"]}
       invalidCallback={invalidCallback}

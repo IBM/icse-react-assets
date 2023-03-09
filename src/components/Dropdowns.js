@@ -4,6 +4,7 @@ import {
   isNullOrEmptyString,
   kebabCase,
   buildNumberDropdownList,
+  titleCase,
 } from "lazy-z";
 import PopoverWrapper from "./PopoverWrapper";
 import PropTypes from "prop-types";
@@ -246,4 +247,42 @@ EntitlementSelect.propTypes = {
 
 EntitlementSelect.defaultProps = {
   className: "fieldWidthSmaller",
+};
+
+export const EndpointSelect = (props) => {
+  let titleCaseGroups = [];
+  props.groups.forEach((group) => {
+    titleCaseGroups.push(titleCase(group).replace(/And/g, "and"));
+  });
+  return (
+    <IcseSelect
+      name="endpoint"
+      labelText="Endpoint Type"
+      groups={titleCaseGroups}
+      value={titleCase(props.value).replace(/And/g, "and")}
+      handleInputChange={(event) => {
+        let { name, value } = event.target;
+        props.handleInputChange({
+          target: {
+            name: name,
+            value: kebabCase(value),
+          },
+        });
+      }}
+      className={props.className}
+      formName={props.formName}
+    />
+  );
+};
+
+EndpointSelect.propTypes = {
+  value: PropTypes.string, // can be null
+  handleInputChange: PropTypes.func.isRequired,
+  formName: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  groups: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
+
+EndpointSelect.defaultProps = {
+  groups: ["private", "public", "public-and-private"],
 };
