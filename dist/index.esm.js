@@ -4904,8 +4904,8 @@ var ResourceGroupForm = /*#__PURE__*/function (_Component) {
   _createClass(ResourceGroupForm, [{
     key: "handleToggle",
     value: function handleToggle(name) {
-      // Turn off the use_prefix toggle when create is turned off.
-      if (name === "create" && this.state.create === true) {
+      // Turn off the use_prefix toggle when not using data.
+      if (name === "use_data" && this.state.use_data === false) {
         var _this$setState;
         this.setState((_this$setState = {}, _defineProperty(_this$setState, name, !this.state[name]), _defineProperty(_this$setState, "use_prefix", false), _this$setState));
       } else {
@@ -4933,10 +4933,10 @@ var ResourceGroupForm = /*#__PURE__*/function (_Component) {
         },
         labelText: "Use Existing Instance",
         toggleFieldName: this.props.toggleName,
-        defaultToggled: !this.state.create,
-        id: composedId + "-create-toggle",
+        defaultToggled: this.state.use_data,
+        id: composedId + "-use-data-toggle",
         onToggle: function onToggle() {
-          return _this2.handleToggle("create");
+          return _this2.handleToggle("use_data");
         },
         isModal: this.props.isModal
       })), /*#__PURE__*/React.createElement(IcseFormGroup, {
@@ -4946,7 +4946,7 @@ var ResourceGroupForm = /*#__PURE__*/function (_Component) {
         componentName: "resource_groups",
         value: this.state.name,
         onChange: this.handleTextInput,
-        useData: this.state.create === false || this.state.use_prefix === false,
+        useData: this.state.use_data || this.state.use_prefix === false,
         invalidCallback: function invalidCallback() {
           return _this2.props.invalidCallback(_this2.state, _this2.props);
         },
@@ -4954,7 +4954,7 @@ var ResourceGroupForm = /*#__PURE__*/function (_Component) {
         helperTextCallback: function helperTextCallback() {
           return _this2.props.helperTextCallback(_this2.state, _this2.props);
         }
-      }), this.state.create && /*#__PURE__*/React.createElement(IcseToggle, {
+      }), this.state.use_data === false && /*#__PURE__*/React.createElement(IcseToggle, {
         tooltip: {
           content: "Append your environment prefix to the beginning of the resource group."
         },
@@ -4970,7 +4970,7 @@ var ResourceGroupForm = /*#__PURE__*/function (_Component) {
 }(Component);
 ResourceGroupForm.defaultProps = {
   data: {
-    create: false,
+    use_data: false,
     name: "",
     use_prefix: true
   },
@@ -4979,7 +4979,7 @@ ResourceGroupForm.defaultProps = {
 };
 ResourceGroupForm.propTypes = {
   data: PropTypes.shape({
-    create: PropTypes.bool,
+    use_data: PropTypes.bool,
     name: PropTypes.string.isRequired,
     use_prefix: PropTypes.bool
   }),
