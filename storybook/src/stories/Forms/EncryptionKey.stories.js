@@ -17,9 +17,9 @@ export default {
       control: "none",
       type: { required: true }, // required prop or not
     },
-    ["data.endpoints"]: {
+    ["data.endpoint"]: {
       description:
-        "A string specifying the available endpoints for the encryption key",
+        "A string specifying the available endpoint or endpoints for the encryption key",
       control: "none",
       type: { required: true }, // required prop or not
     },
@@ -108,6 +108,7 @@ const EncryptionKeyFormStory = () => {
         force_delete: false,
         dual_auth_delete: true,
         key_ring: "",
+        endpoint: "private"
       }}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}

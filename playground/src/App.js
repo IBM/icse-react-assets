@@ -37,6 +37,7 @@ const EncryptionKeyFormStory = () => {
         force_delete: false,
         dual_auth_delete: true,
         key_ring: "",
+        endpoint: "private"
       }}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}

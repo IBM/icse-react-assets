@@ -256,7 +256,7 @@ export const EndpointSelect = (props) => {
   });
   return (
     <IcseSelect
-      name="endpoints"
+      name="endpoint"
       labelText="Endpoint Type"
       groups={titleCaseGroups}
       value={titleCase(props.value).replace(/And/g, "and")}
@@ -284,6 +284,5 @@ EndpointSelect.propTypes = {
 };
 
 EndpointSelect.defaultProps = {
-  className: "fieldWidthSmaller",
   groups: ["private", "public", "public-and-private"],
 };
