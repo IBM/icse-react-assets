@@ -201,8 +201,7 @@ class AppIdForm extends Component {
               className="forceTertiaryButtonStyles"
               disabled={
                 this.props.invalidCallback("name", this.state, this.props) ||
-                checkNullorEmptyString(this.state.resource_group) ||
-                this.state.use_appid === false
+                checkNullorEmptyString(this.state.resource_group)
               }
               noDeleteButton
             />
@@ -227,53 +226,41 @@ class AppIdForm extends Component {
             />
           </FormModal>
         </div>
-        {this.state.keys.length > 0 ? (
-          <div>
-            {/* render each appid key */}
-            {this.state.keys.map((data, index) => (
-              <div
-                className={
-                  "positionRelative displayFlex formInSubForm marginBottomSmall alignItemsCenter spaceBetween"
-                }
-                key={`${data}-${this.state.keys[index]}`}
-              >
-                {data}
-                <div className="alignButtons">
-                  <EditCloseIcon
-                    hoverText="Edit AppID Key"
-                    type="edit"
-                    disabled={false}
-                    onClick={() => this.toggleModal(data)}
-                  />
-                  <DeleteButton
-                    name={data}
-                    onClick={() => this.toggleDeleteModal(data)}
-                  />
-                </div>
-              </div>
-            ))}
-            {/* confirm deletion modal */}
-            <DeleteModal
-              name={this.state.keyNameToDelete || ""}
-              modalOpen={this.state.showDeleteModal}
-              //need to call toggleDeleteModal with "" name argument or else canceling deletion passes in the entire event to the name argument and causes the page to error
-              onModalClose={() => this.toggleDeleteModal("")}
-              onModalSubmit={() =>
-                this.handleKeyDelete(this.state.keyNameToDelete)
+        <div>
+          {/* render each appid key */}
+          {this.state.keys.map((data, index) => (
+            <div
+              className={
+                "positionRelative displayFlex formInSubForm marginBottomSmall alignItemsCenter spaceBetween"
               }
-            />
-          </div>
-        ) : (
-          <EmptyResourceTile
-            name="App ID Keys"
-            instructions={
-              this.state.use_appid === false
-                ? "Enable App ID Service to create keys."
-                : ""
+              key={`${data}-${this.state.keys[index]}`}
+            >
+              {data}
+              <div className="alignButtons">
+                <EditCloseIcon
+                  hoverText="Edit AppID Key"
+                  type="edit"
+                  disabled={false}
+                  onClick={() => this.toggleModal(data)}
+                />
+                <DeleteButton
+                  name={data}
+                  onClick={() => this.toggleDeleteModal(data)}
+                />
+              </div>
+            </div>
+          ))}
+          {/* confirm deletion modal */}
+          <DeleteModal
+            name={this.state.keyNameToDelete || ""}
+            modalOpen={this.state.showDeleteModal}
+            //need to call toggleDeleteModal with "" name argument or else canceling deletion passes in the entire event to the name argument and causes the page to error
+            onModalClose={() => this.toggleDeleteModal("")}
+            onModalSubmit={() =>
+              this.handleKeyDelete(this.state.keyNameToDelete)
             }
-            showIfEmpty={this.state.keys}
           />
-        )}
+        </div>
       </Form>
     );
   }
@@ -281,7 +268,6 @@ class AppIdForm extends Component {
 
 AppIdForm.defaultProps = {
   data: {
-    use_appid: false,
     name: "",
     resource_group: "",
     use_data: false,
@@ -297,7 +283,6 @@ AppIdForm.defaultProps = {
 
 AppIdForm.propTypes = {
   data: PropTypes.shape({
-    use_appid: PropTypes.bool.isRequired,
     name: PropTypes.string,
     resource_group: PropTypes.string,
     use_data: PropTypes.bool,
