@@ -34,4 +34,7 @@ jobs:
       - name: "Build storybook"
         run: npm run predeploy
       - name: "Deploy storybook"
-        run: npm run deploy-storybook
+        uses: JamesIves/github-pages-deploy-action@3.6.2 # gh-pages deploy action
+        with:
+          branch: gh-pages
+          folder: storybook/storybook-static # output folder from `npm run build-storybook`
