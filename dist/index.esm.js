@@ -2020,7 +2020,7 @@ var AppIdForm = /*#__PURE__*/function (_Component) {
           type: "add",
           onClick: this.toggleModal,
           className: "forceTertiaryButtonStyles",
-          disabled: this.props.invalidCallback("name", this.state, this.props) || lib_4(this.state.resource_group) || this.state.use_appid === false,
+          disabled: this.props.invalidCallback("name", this.state, this.props) || lib_4(this.state.resource_group),
           noDeleteButton: true
         })
       }), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(FormModal, {
@@ -2034,7 +2034,7 @@ var AppIdForm = /*#__PURE__*/function (_Component) {
         keys: this.state.keys,
         invalidCallback: this.props.invalidCallback,
         invalidTextCallback: this.props.invalidTextCallback
-      }))), this.state.keys.length > 0 ? /*#__PURE__*/React.createElement("div", null, this.state.keys.map(function (data, index) {
+      }))), /*#__PURE__*/React.createElement("div", null, this.state.keys.map(function (data, index) {
         return /*#__PURE__*/React.createElement("div", {
           className: "positionRelative displayFlex formInSubForm marginBottomSmall alignItemsCenter spaceBetween",
           key: "".concat(data, "-").concat(_this4.state.keys[index])
@@ -2064,18 +2064,13 @@ var AppIdForm = /*#__PURE__*/function (_Component) {
         onModalSubmit: function onModalSubmit() {
           return _this4.handleKeyDelete(_this4.state.keyNameToDelete);
         }
-      })) : /*#__PURE__*/React.createElement(EmptyResourceTile, {
-        name: "App ID Keys",
-        instructions: this.state.use_appid === false ? "Enable App ID Service to create keys." : "",
-        showIfEmpty: this.state.keys
-      }));
+      })));
     }
   }]);
   return AppIdForm;
 }(Component);
 AppIdForm.defaultProps = {
   data: {
-    use_appid: false,
     name: "",
     resource_group: "",
     use_data: false,
@@ -2090,7 +2085,6 @@ AppIdForm.defaultProps = {
 };
 AppIdForm.propTypes = {
   data: PropTypes.shape({
-    use_appid: PropTypes.bool.isRequired,
     name: PropTypes.string,
     resource_group: PropTypes.string,
     use_data: PropTypes.bool,

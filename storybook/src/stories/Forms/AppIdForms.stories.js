@@ -11,12 +11,6 @@ export default {
       type: { required: false }, // required prop or not
       control: "none",
     },
-    ["data.use_appid"]: {
-      description:
-        "A boolean value that defaults to true if the AppID service is enabled",
-      control: "none",
-      type: { required: true }, // required prop or not
-    },
     ["data.name"]: {
       description: "A string specifying the name of the AppID instance",
       control: "none",
@@ -153,7 +147,6 @@ const AppIdFormStory = () => {
   return (
     <AppIdForm
       data={{
-        use_appid: true,
         name: "",
         resource_group: "",
         use_data: false,
