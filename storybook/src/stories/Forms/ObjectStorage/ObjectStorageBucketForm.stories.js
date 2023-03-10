@@ -32,6 +32,12 @@ export default {
       control: "none",
       type: { required: true }, // required prop or not
     },
+    ["data.endpoint"]: {
+      description:
+        "A string value of the endpoint. Can be `public`, `private`, or `public-and-private`",
+      control: "none",
+      type: { required: true }, // required prop or not
+    },
     invalidCallback: {
       description:
         "Function that determines invalid state for the `name` field",
@@ -99,6 +105,7 @@ export const ObjectStorageBucketFormStory = () => {
         name: "test-bucket",
         storage_class: "Standard",
         kms_key: "key1",
+        endpoint: "public",
       }}
       encryptionKeys={["key1", "key2"]}
       invalidCallback={invalidCallback}

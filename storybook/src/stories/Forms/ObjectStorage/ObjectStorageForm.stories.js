@@ -35,6 +35,17 @@ export default {
       control: "none",
       type: { required: true }, // required prop or not
     },
+    ["data.kms"]: {
+      description:
+        "A string of the key management instance name used to encrypt buckets",
+      control: "none",
+      type: { required: true }, // required prop or not
+    },
+    kmsList: {
+      description: "An array of string key management instance names",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
     subForms: {
       description:
         "An array react nodes containing forms to render beneath this form",
@@ -109,11 +120,13 @@ const ObjectStorageFormStory = () => {
         use_data: false,
         resource_group: "rg1",
         random_suffix: true,
+        kms: "kms-1",
       }}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
       composedNameCallback={composedNameCallback}
       resourceGroups={["rg1", "rg2", "rg3"]}
+      kmsList={["kms-1", "kms-2"]}
       subForms={[
         <ObjectStorageKeyFormStory />,
         <ObjectStorageBucketFormStory />,

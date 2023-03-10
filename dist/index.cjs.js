@@ -4707,6 +4707,10 @@ var ObjectStorageBucketForm = /*#__PURE__*/function (_Component) {
         value: lazyZ.capitalize(this.state.storage_class),
         labelText: "Bucket Class",
         handleInputChange: this.handleStorageClassChange
+      }), /*#__PURE__*/React__default["default"].createElement(EndpointSelect, {
+        formName: "Object Storage Bucket",
+        handleInputChange: this.handleInputChange,
+        value: this.state.endpoint
       })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
         component: this.state.name,
         formName: "Object Storage Bucket",
@@ -4734,7 +4738,8 @@ ObjectStorageBucketForm.defaultProps = {
     force_delete: false,
     name: "",
     storage_class: "Standard",
-    kms_key: ""
+    kms_key: "",
+    endpoint: "public"
   },
   encryptionKeys: []
 };
@@ -4743,7 +4748,8 @@ ObjectStorageBucketForm.propTypes = {
     force_delete: PropTypes__default["default"].bool.isRequired,
     name: PropTypes__default["default"].string.isRequired,
     storage_class: PropTypes__default["default"].string.isRequired,
-    kms_key: PropTypes__default["default"].string
+    kms_key: PropTypes__default["default"].string.isRequired,
+    endpoint: PropTypes__default["default"].string.isRequired
   }).isRequired,
   encryptionKeys: PropTypes__default["default"].array.isRequired,
   invalidCallback: PropTypes__default["default"].func.isRequired,
@@ -4806,6 +4812,15 @@ var ObjectStorageInstancesForm = /*#__PURE__*/function (_Component) {
         defaultToggled: this.state.random_suffix,
         onToggle: this.handleInputChange,
         isModal: this.props.isModal
+      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: "object_storage",
+        name: "kms",
+        labelText: "Key Management Instance",
+        groups: this.props.kmsList,
+        value: this.state.kms,
+        handleInputChange: function handleInputChange(event) {
+          return _this2.handleInputChange("kms", event.target.value);
+        }
       })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
         id: this.state.name + "-name",
         componentName: this.props.data.name,
@@ -4819,7 +4834,7 @@ var ObjectStorageInstancesForm = /*#__PURE__*/function (_Component) {
         invalid: this.props.invalidCallback(this.state, this.props),
         invalidText: this.props.invalidTextCallback(this.state, this.props)
       }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-        formName: "resource_group",
+        formName: "object_storage",
         name: "resource_group",
         labelText: "Resource Group",
         groups: this.props.resourceGroups,
