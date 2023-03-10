@@ -58,6 +58,7 @@ class KeyManagementForm extends Component {
       invalidTextCallback: this.props.invalidKeyTextCallback,
       invalidRingCallback: this.props.invalidRingCallback,
       invalidRingText: this.props.invalidRingText,
+      arrayParentName: this.props.data.name,
     };
     transpose(innerFormProps, { ...this.props.encryptionKeyProps });
     return (
@@ -159,7 +160,7 @@ KeyManagementForm.defaultProps = {
     name: "",
     resource_group: "",
     authorize_vpc_reader_role: false,
-    keys: []
+    keys: [],
   },
   resourceGroups: ["service-rg", "management-rg", "workload-rg"],
   isModal: false,
