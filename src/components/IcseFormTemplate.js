@@ -6,6 +6,7 @@ import { RenderForm } from "./Utils";
 import EmptyResourceTile from "./EmptyResourceTile";
 import React from "react";
 import ToggleForm from "./ToggleForm";
+
 class IcseFormTemplate extends React.Component {
   constructor(props) {
     super(props);
@@ -223,8 +224,8 @@ IcseFormTemplate.propTypes = {
   toggleFormProps: PropTypes.object.isRequired,
   toggleFormFieldName: PropTypes.string.isRequired,
   hideAbout: PropTypes.bool,
-  deleteDisabled: PropTypes.func.isRequired,
-  deleteDisabledMessage: PropTypes.string.isRequired,
+  deleteDisabled: PropTypes.func,
+  deleteDisabledMessage: PropTypes.string,
 };
 
 export default IcseFormTemplate;

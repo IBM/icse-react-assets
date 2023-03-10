@@ -261,9 +261,7 @@ class ToggleForm extends React.Component {
                   <UnsavedChangesModal
                     name={
                       // use tab panel name if passed
-                      this.props.tabPanel
-                        ? this.props.tabPanel.name
-                        : this.props.name
+                      this.props.name
                     }
                     modalOpen={this.state.showUnsavedChangeModal}
                     onModalClose={this.toggleUnsavedChangeModal}
