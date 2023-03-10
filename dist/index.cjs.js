@@ -4082,7 +4082,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
         }, /*#__PURE__*/React__default["default"].createElement(UnsavedChangesModal, {
           name:
           // use tab panel name if passed
-          this.props.tabPanel ? this.props.tabPanel.name : this.props.name,
+          this.props.name,
           modalOpen: this.state.showUnsavedChangeModal,
           onModalClose: this.toggleUnsavedChangeModal,
           onModalSubmit: this.dismissChangesAndClose,
