@@ -9,6 +9,7 @@ import { IcseSelect } from "../Dropdowns";
 import IcseFormTemplate from "../IcseFormTemplate";
 import EncryptionKeyForm from "./EncryptionKeyForm";
 import PropTypes from "prop-types";
+import { transpose } from "lazy-z";
 
 /**
  * Key Management
@@ -52,6 +53,13 @@ class KeyManagementForm extends Component {
   }
 
   render() {
+    let innerFormProps = {
+      invalidCallback: this.props.invalidKeyCallback,
+      invalidTextCallback: this.props.invalidKeyTextCallback,
+      invalidRingCallback: this.props.invalidRingCallback,
+      invalidRingText: this.props.invalidRingText,
+    };
+    transpose(innerFormProps, { ...this.props.encryptionKeyProps });
     return (
       <>
         <IcseFormGroup>
@@ -129,18 +137,13 @@ class KeyManagementForm extends Component {
             onSave={this.props.encryptionKeyProps.onSave}
             onSubmit={this.props.encryptionKeyProps.onSubmit}
             propsMatchState={this.props.propsMatchState}
-            innerFormProps={{
-              invalidCallback: this.props.invalidKeyCallback,
-              invalidTextCallback: this.props.invalidKeyTextCallback,
-              invalidRingCallback: this.props.invalidRingCallback,
-              invalidRingText: this.props.invalidRingText,
-            }}
+            innerFormProps={{ ...innerFormProps }}
             hideAbout
             toggleFormProps={{
               hideName: true,
               submissionFieldName: "key_management",
               disableSave: this.props.encryptionKeyProps.disableSave,
-              type: "formInSubForm"
+              type: "formInSubForm",
             }}
           />
         )}

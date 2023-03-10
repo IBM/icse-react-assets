@@ -413,14 +413,15 @@ function _toPropertyKey(arg) {
 }
 
 function styleInject(css, ref) {
-  if (ref === void 0) ref = {};
+  if ( ref === void 0 ) ref = {};
   var insertAt = ref.insertAt;
-  if (!css || typeof document === 'undefined') {
-    return;
-  }
+
+  if (!css || typeof document === 'undefined') { return; }
+
   var head = document.head || document.getElementsByTagName('head')[0];
   var style = document.createElement('style');
   style.type = 'text/css';
+
   if (insertAt === 'top') {
     if (head.firstChild) {
       head.insertBefore(style, head.firstChild);
@@ -430,6 +431,7 @@ function styleInject(css, ref) {
   } else {
     head.appendChild(style);
   }
+
   if (style.styleSheet) {
     style.styleSheet.cssText = css;
   } else {
@@ -437,7 +439,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$g = ".popover-box {\r\n  padding: 5px;\r\n  position: relative;\r\n  font-size: 80%;\r\n  top: 20px;\r\n}\r\n\r\n.cds--popover--open .cds--popover-content {\r\n  position: relative;\r\n  z-index: 9001;\r\n}";
+var css_248z$g = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  position: relative;\n  z-index: 9001;\n}";
 styleInject(css_248z$g);
 
 /**
@@ -512,7 +514,7 @@ PopoverWrapper.propTypes = {
   children: PropTypes__default["default"].node.isRequired
 };
 
-var css_248z$f = ".chevron {\r\n  margin-right: 1rem;\r\n  margin-top: 0.25rem;\r\n  cursor: pointer;\r\n}\r\n\r\n.tertiaryButtonColors {\r\n  color: #0f62fe !important;\r\n  fill: white !important;\r\n  border-color: #0f62fe !important;\r\n}\r\n\r\n.pointerEventsNone {\r\n  pointer-events: none;\r\n}\r\n\r\n.cursorNotAllowed {\r\n  cursor: not-allowed;\r\n}\r\n\r\n.forceTertiaryButtonStyles {\r\n  padding-right: 0.4375rem !important;\r\n  padding-left: 0.4375rem !important;\r\n}\r\n.inlineBlock {\r\n  display: inline-block;\r\n}\r\n\r\n.redFill {\r\n  fill: #da1e28 !important;\r\n}\r\n\r\n/* CSS for overriding default component styles */\r\n.cds--btn--ghost:focus {\r\n  outline: none;\r\n  border: none;\r\n  box-shadow: none;\r\n}\r\n\r\n.marginRightSmall {\r\n  margin-right: 0.5rem !important; \r\n}\r\n";
+var css_248z$f = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important; \n}\n";
 styleInject(css_248z$f);
 
 /**
@@ -709,10 +711,10 @@ function buildFormDefaultInputMethods(component) {
   component.setNameToValue = setNameToValue.bind(component);
 }
 
-var css_248z$e = ".displayFlex {\r\n  display: flex;\r\n}\r\n\r\n.fitContent {\r\n  width: fit-content;\r\n}\r\n\r\n.alignItemsCenter {\r\n  align-items: center;\r\n}\r\n\r\n.widthOneHundredPercent {\r\n  width: 100%;\r\n}\r\n\r\n.marginBottom {\r\n  margin-bottom: 2rem;\r\n}\r\n\r\n.marginBottomSmall {\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.evenSpacing {\r\n  gap: 3vw;\r\n}\r\n\r\n.positionRelative {\r\n  position: relative;\r\n}\r\n\r\n.formInSubForm {\r\n  margin-top: 0rem;\r\n  background: #fffdfd;\r\n  padding: 1rem;\r\n}\r\n\r\n.subForm {\r\n  background: #f4f4f4;\r\n  padding: 1rem;\r\n  margin-top: 1rem;\r\n  margin-bottom: 2rem;\r\n}\r\n\r\n.icseFormTitleMinHeight {\r\n  min-height: 32px;\r\n}\r\n\r\n.spaceBetween {\r\n  justify-content: space-between;\r\n}\r\n";
+var css_248z$e = ".displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
 styleInject(css_248z$e);
 
-var css_248z$d = ".about {\r\n  padding: 2rem 1rem;\r\n  line-height: 1.5;\r\n}\r\n\r\n.smallerText {\r\n  font-size: 0.9rem;\r\n  font-weight: 400;\r\n}\r\n";
+var css_248z$d = ".about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n";
 styleInject(css_248z$d);
 
 var DocTextField = function DocTextField(props) {
@@ -821,7 +823,7 @@ Docs.propTypes = {
   relatedLinks: PropTypes__default["default"].array
 };
 
-var css_248z$c = ".labelRow {\r\n  display: inline-flex !important;\r\n  align-items: center;\r\n}\r\n\r\n.tooltip > div div.cds--password-input-wrapper {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.cds--toggle {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.cds--text-input-wrapper {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.popover-obj {\r\n  margin-top: -8px;\r\n}\r\n\r\n.subHeadingTooltip {\r\n  margin: 0.2rem 0 0 0.2rem;\r\n}\r\n\r\n.tooltipMarginLeft {\r\n  margin-left: 3px;\r\n}\r\n";
+var css_248z$c = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
 styleInject(css_248z$c);
 
 /**
@@ -950,7 +952,7 @@ DynamicToolTipWrapper.propTypes = {
   innerForm: PropTypes__default["default"].oneOfType([PropTypes__default["default"].object, PropTypes__default["default"].func])
 };
 
-var css_248z$b = ".textInputMedium {\r\n  width: 20rem;\r\n}";
+var css_248z$b = ".textInputMedium {\n  width: 20rem;\n}";
 styleInject(css_248z$b);
 
 var IcseSelect = function IcseSelect(props) {
@@ -1213,7 +1215,7 @@ EndpointSelect.defaultProps = {
   groups: ["private", "public", "public-and-private"]
 };
 
-var css_248z$a = ".iconMargin {\r\n  margin: 0 0.5rem -0.4rem 0;\r\n}\r\n\r\n.inlineIconMargin {\r\n  margin: -0.4rem 0.05rem;\r\n}\r\n\r\n.marginBottomXs {\r\n  margin-bottom: 0.5rem;\r\n}\r\n\r\n.tileBackground {\r\n  background-color: #f4f4f4;\r\n}";
+var css_248z$a = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
 styleInject(css_248z$a);
 
 /**
@@ -1491,7 +1493,7 @@ FormModal.propTypes = {
   children: PropTypes__default["default"].node.isRequired
 };
 
-var css_248z$9 = ".fieldWidth {\r\n  width: 14rem;\r\n}\r\n\r\n.leftTextAlign {\r\n  text-align: left;\r\n}\r\n\r\n.textInputWide {\r\n  width: 30rem;\r\n}";
+var css_248z$9 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.textInputWide {\n  width: 30rem;\n}";
 styleInject(css_248z$9);
 
 var IcseToggle = function IcseToggle(props) {
@@ -1651,7 +1653,7 @@ IcseNameInput.propTypes = {
   invalidCallback: PropTypes__default["default"].func
 };
 
-var css_248z$8 = ".fieldWidthSmaller {\r\n  width: 11rem;\r\n}";
+var css_248z$8 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
 styleInject(css_248z$8);
 
 var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
@@ -1709,7 +1711,7 @@ AppIdKeyForm.propTypes = {
   shouldDisableSubmit: PropTypes__default["default"].func
 };
 
-var css_248z$7 = ".leftTextAlign {\r\n  text-align: left;\r\n}\r\n";
+var css_248z$7 = ".leftTextAlign {\n  text-align: left;\n}\n";
 styleInject(css_248z$7);
 
 /**
@@ -1834,7 +1836,7 @@ UnsavedChangesModal.propTypes = {
   useDefaultUnsavedMessage: PropTypes__default["default"].bool
 };
 
-var css_248z$6 = ".fieldWidth {\r\n  width: 14rem;\r\n}\r\n\r\n.fieldWidthSmallest {\r\n  width: 8rem;\r\n}\r\n\r\n.marginBottomSmall {\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.forceTertiaryButtonStyles {\r\n  padding-right: 0.4375rem !important;\r\n  padding-left: 0.4375rem !important;\r\n}\r\n\r\n.positionRelative {\r\n  position: relative;\r\n}\r\n\r\n.displayFlex {\r\n  display: flex;\r\n}\r\n\r\n.formInSubForm {\r\n  margin-top: 0rem;\r\n  background: #f4f4f4;\r\n  padding: 1rem;\r\n}\r\n\r\n.marginBottomSmall {\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.alignButtons {\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n}\r\n\r\n.alignItemsCenter {\r\n  align-items: center;\r\n}\r\n\r\n.spaceBetween {\r\n  justify-content: space-between;\r\n}\r\n";
+var css_248z$6 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmallest {\n  width: 8rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.displayFlex {\n  display: flex;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #f4f4f4;\n  padding: 1rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.alignButtons {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
 styleInject(css_248z$6);
 
 /**
@@ -2407,7 +2409,7 @@ EncryptionKeyForm.propTypes = {
   invalidRingCallback: PropTypes__default["default"].func.isRequired
 };
 
-var css_248z$5 = ".fieldWidth {\r\n  width: 14rem;\r\n}\r\n\r\n.fieldWidthSmaller {\r\n  width: 11rem;\r\n}\r\n";
+var css_248z$5 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
 styleInject(css_248z$5);
 
 /**
@@ -2939,7 +2941,7 @@ var f5Utils_2 = f5Utils.isNullOrEmptyString;
 var f5Utils_3 = f5Utils.isValidTmosAdminPassword;
 var f5Utils_4 = f5Utils.isValidUrl;
 
-var css_248z$4 = ".wide {\r\n  width: 20rem !important;\r\n}\r\n\r\n.tight {\r\n  width: min-content; /* force invalid text to split line */\r\n}\r\n\r\n.forceTertiaryButtonStyles {\r\n  padding-right: 0.4375rem !important;\r\n  padding-left: 0.4375rem !important;\r\n}\r\n\r\n.passwordGenerateButton {\r\n  margin-top: 1.25rem;\r\n  margin-left: calc(-4rem - 3vw);\r\n}\r\n\r\n.passwordGenerateButton svg {\r\n  fill: var(--cds-icon-secondary, #525252) !important;\r\n}\r\n\r\n.passwordGenerateButton.invalid {\r\n  margin-left: calc(-5.75rem - 3vw);\r\n}\r\n";
+var css_248z$4 = ".wide {\n  width: 20rem !important;\n}\n\n.tight {\n  width: min-content; /* force invalid text to split line */\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n\n.passwordGenerateButton {\n  margin-top: 1.25rem;\n  margin-left: calc(-4rem - 3vw);\n}\n\n.passwordGenerateButton svg {\n  fill: var(--cds-icon-secondary, #525252) !important;\n}\n\n.passwordGenerateButton.invalid {\n  margin-left: calc(-5.75rem - 3vw);\n}\n";
 styleInject(css_248z$4);
 
 /**
@@ -3742,7 +3744,7 @@ var UnderConstruction = function UnderConstruction() {
   }), /*#__PURE__*/React__default["default"].createElement("h4", null, "Page Under Construction"));
 };
 
-var css_248z$3 = ".cds--tab-content.doc {\r\n    padding: 0.5rem 0;\r\n  }\r\n\r\n.cds--tab-content:focus {\r\n  outline: none !important;\r\n  border: none !important;\r\n}";
+var css_248z$3 = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}";
 styleInject(css_248z$3);
 
 /**
@@ -4383,146 +4385,136 @@ IcseFormTemplate.propTypes = {
 /**
  * Key Management
  */
-var KeyManagementForm = /*#__PURE__*/function (_Component) {
-  _inherits(KeyManagementForm, _Component);
-  var _super = _createSuper(KeyManagementForm);
-  function KeyManagementForm(props) {
-    var _this;
-    _classCallCheck(this, KeyManagementForm);
-    _this = _super.call(this, props);
-    _this.state = _this.props.data;
-    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
-    _this.handleSystemDropdown = _this.handleSystemDropdown.bind(_assertThisInitialized(_this));
-    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
-    buildFormFunctions(_assertThisInitialized(_this));
-    buildFormDefaultInputMethods(_assertThisInitialized(_this));
-    return _this;
+class KeyManagementForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSystemDropdown = this.handleSystemDropdown.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
   }
 
   /**
    * handle input change
    * @param {event} event event
    */
-  _createClass(KeyManagementForm, [{
-    key: "handleInputChange",
-    value: function handleInputChange(event) {
-      this.setState(this.eventTargetToNameAndValue(event));
-    }
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
 
-    /**
-     * handle dropdown for key management system
-     * @param {event} event event
-     */
-  }, {
-    key: "handleSystemDropdown",
-    value: function handleSystemDropdown(event) {
-      var selection = event.target.value; // selected value in dropdown
-      selection === "HPCS" ? this.setState({
-        use_hs_crypto: true,
-        use_data: true
-      }) : this.setState({
-        use_hs_crypto: false,
-        use_data: false
-      });
-    }
+  /**
+   * handle dropdown for key management system
+   * @param {event} event event
+   */
+  handleSystemDropdown(event) {
+    let selection = event.target.value; // selected value in dropdown
+    selection === "HPCS" ? this.setState({
+      use_hs_crypto: true,
+      use_data: true
+    }) : this.setState({
+      use_hs_crypto: false,
+      use_data: false
+    });
+  }
 
-    /**
-     * Toggle on and off param in state at name
-     * @param {string} name name of the object key to change
-     */
-  }, {
-    key: "handleToggle",
-    value: function handleToggle(name) {
-      this.setState(_defineProperty({}, name, !this.state[name]));
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this2 = this;
-      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-        component: "km-system-dropdown",
-        name: "system",
-        formName: "system",
-        groups: ["Key Protect", "HPCS"],
-        value: this.state.use_hs_crypto ? "HPCS" : "Key Protect",
-        labelText: "Key Management System",
-        handleInputChange: this.handleSystemDropdown,
-        className: "fieldWidth"
-      }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-        tooltip: {
-          content: "Get Key Management from Data Source",
-          align: "bottom-left"
-        },
-        labelText: "Use Existing Instance",
-        key: this.state.use_data,
-        defaultToggled: this.state.use_data,
-        onToggle: this.handleToggle,
-        disabled: this.state.use_hs_crypto === true,
-        className: "fieldWidth",
-        id: this.props.data.name + "-use-existing"
-      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-        id: this.state.name + "-name",
-        value: this.state.name,
-        componentProps: this.props,
-        component: "key_management",
-        componentName: this.props.data.name,
-        onChange: this.handleInputChange,
-        className: "fieldWidth",
-        hideHelperText: true,
-        invalid: this.props.invalidCallback(this.state, this.props),
-        invalidText: this.props.invalidTextCallback(this.state, this.props)
-      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-        formName: "resource_group",
-        name: "resource_group",
-        labelText: "Resource Group",
-        groups: this.props.resourceGroups,
-        value: this.state.resource_group,
-        handleInputChange: this.handleInputChange,
-        className: "fieldWidth"
-      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
-        noMarginBottom: this.props.isModal
-      }, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-        tooltip: {
-          content: "Allow for IAM Authorization policies to be created to allow this Key Management service to encrypt VPC block storage volumes. This should be false only if these policies already exist within your account.",
-          align: "bottom-left"
-        },
-        labelText: "Authorize VPC Reader Role",
-        key: this.state.authorize_vpc_reader_role,
-        defaultToggled: this.state.authorize_vpc_reader_role,
-        onToggle: function onToggle() {
-          return _this2.handleToggle("authorize_vpc_reader_role");
-        },
-        className: "fieldWidth",
-        id: this.props.data.name + "-kms-vpc-reader-role"
-      })), this.props.isModal === false && /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
-        name: "Encryption Keys",
-        subHeading: true,
-        addText: "Create an Encryption Key",
-        arrayData: this.props.data.keys,
-        innerForm: EncryptionKeyForm,
+  /**
+   * Toggle on and off param in state at name
+   * @param {string} name name of the object key to change
+   */
+  handleToggle(name) {
+    this.setState({
+      [name]: !this.state[name]
+    });
+  }
+  render() {
+    let innerFormProps = {
+      invalidCallback: this.props.invalidKeyCallback,
+      invalidTextCallback: this.props.invalidKeyTextCallback,
+      invalidRingCallback: this.props.invalidRingCallback,
+      invalidRingText: this.props.invalidRingText
+    };
+    lazyZ.transpose(innerFormProps, {
+      ...this.props.encryptionKeyProps
+    });
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      component: "km-system-dropdown",
+      name: "system",
+      formName: "system",
+      groups: ["Key Protect", "HPCS"],
+      value: this.state.use_hs_crypto ? "HPCS" : "Key Protect",
+      labelText: "Key Management System",
+      handleInputChange: this.handleSystemDropdown,
+      className: "fieldWidth"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      tooltip: {
+        content: "Get Key Management from Data Source",
+        align: "bottom-left"
+      },
+      labelText: "Use Existing Instance",
+      key: this.state.use_data,
+      defaultToggled: this.state.use_data,
+      onToggle: this.handleToggle,
+      disabled: this.state.use_hs_crypto === true,
+      className: "fieldWidth",
+      id: this.props.data.name + "-use-existing"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: this.state.name + "-name",
+      value: this.state.name,
+      componentProps: this.props,
+      component: "key_management",
+      componentName: this.props.data.name,
+      onChange: this.handleInputChange,
+      className: "fieldWidth",
+      hideHelperText: true,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: "resource_group",
+      name: "resource_group",
+      labelText: "Resource Group",
+      groups: this.props.resourceGroups,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidth"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+      noMarginBottom: this.props.isModal
+    }, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      tooltip: {
+        content: "Allow for IAM Authorization policies to be created to allow this Key Management service to encrypt VPC block storage volumes. This should be false only if these policies already exist within your account.",
+        align: "bottom-left"
+      },
+      labelText: "Authorize VPC Reader Role",
+      key: this.state.authorize_vpc_reader_role,
+      defaultToggled: this.state.authorize_vpc_reader_role,
+      onToggle: () => this.handleToggle("authorize_vpc_reader_role"),
+      className: "fieldWidth",
+      id: this.props.data.name + "-kms-vpc-reader-role"
+    })), this.props.isModal === false && /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+      name: "Encryption Keys",
+      subHeading: true,
+      addText: "Create an Encryption Key",
+      arrayData: this.props.data.keys,
+      innerForm: EncryptionKeyForm,
+      disableSave: this.props.encryptionKeyProps.disableSave,
+      onDelete: this.props.encryptionKeyProps.onDelete,
+      onSave: this.props.encryptionKeyProps.onSave,
+      onSubmit: this.props.encryptionKeyProps.onSubmit,
+      propsMatchState: this.props.propsMatchState,
+      innerFormProps: {
+        ...innerFormProps
+      },
+      hideAbout: true,
+      toggleFormProps: {
+        hideName: true,
+        submissionFieldName: "key_management",
         disableSave: this.props.encryptionKeyProps.disableSave,
-        onDelete: this.props.encryptionKeyProps.onDelete,
-        onSave: this.props.encryptionKeyProps.onSave,
-        onSubmit: this.props.encryptionKeyProps.onSubmit,
-        propsMatchState: this.props.propsMatchState,
-        innerFormProps: {
-          invalidCallback: this.props.invalidKeyCallback,
-          invalidTextCallback: this.props.invalidKeyTextCallback,
-          invalidRingCallback: this.props.invalidRingCallback,
-          invalidRingText: this.props.invalidRingText
-        },
-        hideAbout: true,
-        toggleFormProps: {
-          hideName: true,
-          submissionFieldName: "key_management",
-          disableSave: this.props.encryptionKeyProps.disableSave,
-          type: "formInSubForm"
-        }
-      }));
-    }
-  }]);
-  return KeyManagementForm;
-}(React.Component);
+        type: "formInSubForm"
+      }
+    }));
+  }
+}
 KeyManagementForm.defaultProps = {
   data: {
     use_hs_crypto: false,
@@ -4558,7 +4550,7 @@ KeyManagementForm.propTypes = {
   }).isRequired
 };
 
-var css_248z$2 = ".marginBottomSmall {\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.formInSubForm {\r\n  margin-top: 0rem;\r\n  background: #fffdfd;\r\n  padding: 1rem;\r\n}\r\n\r\n.positionRelative {\r\n  position: relative;\r\n}\r\n";
+var css_248z$2 = ".marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.positionRelative {\n  position: relative;\n}\n";
 styleInject(css_248z$2);
 
 var _require = require("lazy-z"),
@@ -6135,7 +6127,7 @@ SecurityGroupForm.propTypes = {
   vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
 };
 
-var css_248z$1 = ".leftTextAlign {\r\n  text-align: left;\r\n}\r\n\r\n.fieldWidthBigger {\r\n  width: 30rem\r\n}\r\n";
+var css_248z$1 = ".leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidthBigger {\n  width: 30rem\n}\n";
 styleInject(css_248z$1);
 
 /**
@@ -6340,7 +6332,7 @@ SubnetForm.propTypes = _defineProperty({
   componentDidUpdateCallback: PropTypes__default["default"].func.isRequired
 }, "onSave", PropTypes__default["default"].func);
 
-var css_248z = ".subnetTileFormMargin {\r\n  margin-bottom: -0.5rem;\r\n  margin-top: 0.5rem;\r\n}\r\n\r\n.marginRight {\r\n  margin-right: 10px;\r\n}\r\n";
+var css_248z = ".subnetTileFormMargin {\n  margin-bottom: -0.5rem;\n  margin-top: 0.5rem;\n}\n\n.marginRight {\n  margin-right: 10px;\n}\n";
 styleInject(css_248z);
 
 var SubnetTileForm = /*#__PURE__*/function (_React$Component) {
@@ -7528,6 +7520,7 @@ var ClusterForm = /*#__PURE__*/function (_Component) {
     var _this;
     _classCallCheck(this, ClusterForm);
     _this = _super.call(this, props);
+    // Handle cluster input change
     _defineProperty(_assertThisInitialized(_this), "handleInputChange", function (event) {
       var _event$target = event.target,
         name = _event$target.name,
@@ -7535,6 +7528,10 @@ var ClusterForm = /*#__PURE__*/function (_Component) {
       var cluster = _objectSpread2({}, _this.state);
       _this.setState(lib_11(name, value, cluster));
     });
+    /**
+     * handle toggle change
+     * @param {*} event event
+     */
     _defineProperty(_assertThisInitialized(_this), "handleToggleChange", function () {
       var cluster = _objectSpread2({}, _this.state);
       cluster.update_all_workers = !cluster.update_all_workers;
@@ -7548,8 +7545,6 @@ var ClusterForm = /*#__PURE__*/function (_Component) {
     buildFormDefaultInputMethods(_assertThisInitialized(_this));
     return _this;
   }
-
-  // Handle cluster input change
   _createClass(ClusterForm, [{
     key: "handleMultiSelect",
     value:
