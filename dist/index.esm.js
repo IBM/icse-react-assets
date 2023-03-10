@@ -4374,143 +4374,156 @@ IcseFormTemplate.propTypes = {
 /**
  * Key Management
  */
-class KeyManagementForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = this.props.data;
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSystemDropdown = this.handleSystemDropdown.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
+var KeyManagementForm = /*#__PURE__*/function (_Component) {
+  _inherits(KeyManagementForm, _Component);
+  var _super = _createSuper(KeyManagementForm);
+  function KeyManagementForm(props) {
+    var _this;
+    _classCallCheck(this, KeyManagementForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleSystemDropdown = _this.handleSystemDropdown.bind(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    return _this;
   }
 
   /**
    * handle input change
    * @param {event} event event
    */
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
+  _createClass(KeyManagementForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
 
-  /**
-   * handle dropdown for key management system
-   * @param {event} event event
-   */
-  handleSystemDropdown(event) {
-    let selection = event.target.value; // selected value in dropdown
-    selection === "HPCS" ? this.setState({
-      use_hs_crypto: true,
-      use_data: true
-    }) : this.setState({
-      use_hs_crypto: false,
-      use_data: false
-    });
-  }
+    /**
+     * handle dropdown for key management system
+     * @param {event} event event
+     */
+  }, {
+    key: "handleSystemDropdown",
+    value: function handleSystemDropdown(event) {
+      var selection = event.target.value; // selected value in dropdown
+      selection === "HPCS" ? this.setState({
+        use_hs_crypto: true,
+        use_data: true
+      }) : this.setState({
+        use_hs_crypto: false,
+        use_data: false
+      });
+    }
 
-  /**
-   * Toggle on and off param in state at name
-   * @param {string} name name of the object key to change
-   */
-  handleToggle(name) {
-    this.setState({
-      [name]: !this.state[name]
-    });
-  }
-  render() {
-    let innerFormProps = {
-      invalidCallback: this.props.invalidKeyCallback,
-      invalidTextCallback: this.props.invalidKeyTextCallback,
-      invalidRingCallback: this.props.invalidRingCallback,
-      invalidRingText: this.props.invalidRingText
-    };
-    transpose$1(innerFormProps, {
-      ...this.props.encryptionKeyProps
-    });
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
-      component: "km-system-dropdown",
-      name: "system",
-      formName: "system",
-      groups: ["Key Protect", "HPCS"],
-      value: this.state.use_hs_crypto ? "HPCS" : "Key Protect",
-      labelText: "Key Management System",
-      handleInputChange: this.handleSystemDropdown,
-      className: "fieldWidth"
-    }), /*#__PURE__*/React.createElement(IcseToggle, {
-      tooltip: {
-        content: "Get Key Management from Data Source",
-        align: "bottom-left"
-      },
-      labelText: "Use Existing Instance",
-      key: this.state.use_data,
-      defaultToggled: this.state.use_data,
-      onToggle: this.handleToggle,
-      disabled: this.state.use_hs_crypto === true,
-      className: "fieldWidth",
-      id: this.props.data.name + "-use-existing"
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
-      id: this.state.name + "-name",
-      value: this.state.name,
-      componentProps: this.props,
-      component: "key_management",
-      componentName: this.props.data.name,
-      onChange: this.handleInputChange,
-      className: "fieldWidth",
-      hideHelperText: true,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props)
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: "resource_group",
-      name: "resource_group",
-      labelText: "Resource Group",
-      groups: this.props.resourceGroups,
-      value: this.state.resource_group,
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidth"
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, {
-      noMarginBottom: this.props.isModal
-    }, /*#__PURE__*/React.createElement(IcseToggle, {
-      tooltip: {
-        content: "Allow for IAM Authorization policies to be created to allow this Key Management service to encrypt VPC block storage volumes. This should be false only if these policies already exist within your account.",
-        align: "bottom-left"
-      },
-      labelText: "Authorize VPC Reader Role",
-      key: this.state.authorize_vpc_reader_role,
-      defaultToggled: this.state.authorize_vpc_reader_role,
-      onToggle: () => this.handleToggle("authorize_vpc_reader_role"),
-      className: "fieldWidth",
-      id: this.props.data.name + "-kms-vpc-reader-role"
-    })), this.props.isModal === false && /*#__PURE__*/React.createElement(IcseFormTemplate, {
-      name: "Encryption Keys",
-      subHeading: true,
-      addText: "Create an Encryption Key",
-      arrayData: this.props.data.keys,
-      innerForm: EncryptionKeyForm,
-      disableSave: this.props.encryptionKeyProps.disableSave,
-      onDelete: this.props.encryptionKeyProps.onDelete,
-      onSave: this.props.encryptionKeyProps.onSave,
-      onSubmit: this.props.encryptionKeyProps.onSubmit,
-      propsMatchState: this.props.propsMatchState,
-      innerFormProps: {
-        ...innerFormProps
-      },
-      hideAbout: true,
-      toggleFormProps: {
-        hideName: true,
-        submissionFieldName: "key_management",
+    /**
+     * Toggle on and off param in state at name
+     * @param {string} name name of the object key to change
+     */
+  }, {
+    key: "handleToggle",
+    value: function handleToggle(name) {
+      this.setState(_defineProperty({}, name, !this.state[name]));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      var innerFormProps = {
+        invalidCallback: this.props.invalidKeyCallback,
+        invalidTextCallback: this.props.invalidKeyTextCallback,
+        invalidRingCallback: this.props.invalidRingCallback,
+        invalidRingText: this.props.invalidRingText
+      };
+      transpose$1(innerFormProps, _objectSpread2({}, this.props.encryptionKeyProps));
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+        component: "km-system-dropdown",
+        name: "system",
+        formName: "system",
+        groups: ["Key Protect", "HPCS"],
+        value: this.state.use_hs_crypto ? "HPCS" : "Key Protect",
+        labelText: "Key Management System",
+        handleInputChange: this.handleSystemDropdown,
+        className: "fieldWidth"
+      }), /*#__PURE__*/React.createElement(IcseToggle, {
+        tooltip: {
+          content: "Get Key Management from Data Source",
+          align: "bottom-left"
+        },
+        labelText: "Use Existing Instance",
+        key: this.state.use_data,
+        defaultToggled: this.state.use_data,
+        onToggle: this.handleToggle,
+        disabled: this.state.use_hs_crypto === true,
+        className: "fieldWidth",
+        id: this.props.data.name + "-use-existing"
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+        id: this.state.name + "-name",
+        value: this.state.name,
+        componentProps: this.props,
+        component: "key_management",
+        componentName: this.props.data.name,
+        onChange: this.handleInputChange,
+        className: "fieldWidth",
+        hideHelperText: true,
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props)
+      }), /*#__PURE__*/React.createElement(IcseSelect, {
+        formName: "resource_group",
+        name: "resource_group",
+        labelText: "Resource Group",
+        groups: this.props.resourceGroups,
+        value: this.state.resource_group,
+        handleInputChange: this.handleInputChange,
+        className: "fieldWidth"
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, {
+        noMarginBottom: this.props.isModal
+      }, /*#__PURE__*/React.createElement(IcseToggle, {
+        tooltip: {
+          content: "Allow for IAM Authorization policies to be created to allow this Key Management service to encrypt VPC block storage volumes. This should be false only if these policies already exist within your account.",
+          align: "bottom-left"
+        },
+        labelText: "Authorize VPC Reader Role",
+        key: this.state.authorize_vpc_reader_role,
+        defaultToggled: this.state.authorize_vpc_reader_role,
+        onToggle: function onToggle() {
+          return _this2.handleToggle("authorize_vpc_reader_role");
+        },
+        className: "fieldWidth",
+        id: this.props.data.name + "-kms-vpc-reader-role"
+      })), this.props.isModal === false && /*#__PURE__*/React.createElement(IcseFormTemplate, {
+        name: "Encryption Keys",
+        subHeading: true,
+        addText: "Create an Encryption Key",
+        arrayData: this.props.data.keys,
+        innerForm: EncryptionKeyForm,
         disableSave: this.props.encryptionKeyProps.disableSave,
-        type: "formInSubForm"
-      }
-    }));
-  }
-}
+        onDelete: this.props.encryptionKeyProps.onDelete,
+        onSave: this.props.encryptionKeyProps.onSave,
+        onSubmit: this.props.encryptionKeyProps.onSubmit,
+        propsMatchState: this.props.propsMatchState,
+        innerFormProps: _objectSpread2({}, innerFormProps),
+        hideAbout: true,
+        toggleFormProps: {
+          hideName: true,
+          submissionFieldName: "key_management",
+          disableSave: this.props.encryptionKeyProps.disableSave,
+          type: "formInSubForm"
+        }
+      }));
+    }
+  }]);
+  return KeyManagementForm;
+}(Component);
 KeyManagementForm.defaultProps = {
   data: {
     use_hs_crypto: false,
     use_data: false,
-    name: "test-key-protect",
-    resource_group: "service-rg",
-    authorize_vpc_reader_role: false
+    name: "",
+    resource_group: "",
+    authorize_vpc_reader_role: false,
+    keys: []
   },
   resourceGroups: ["service-rg", "management-rg", "workload-rg"],
   isModal: false

@@ -156,9 +156,10 @@ KeyManagementForm.defaultProps = {
   data: {
     use_hs_crypto: false,
     use_data: false,
-    name: "test-key-protect",
-    resource_group: "service-rg",
+    name: "",
+    resource_group: "",
     authorize_vpc_reader_role: false,
+    keys: []
   },
   resourceGroups: ["service-rg", "management-rg", "workload-rg"],
   isModal: false,
