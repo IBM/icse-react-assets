@@ -60,7 +60,7 @@ class KeyManagementForm extends Component {
       invalidRingText: this.props.invalidRingText,
       arrayParentName: this.props.data.name,
     };
-    transpose(innerFormProps, { ...this.props.encryptionKeyProps });
+    transpose({ ...this.props.encryptionKeyProps }, innerFormProps);
     return (
       <>
         <IcseFormGroup>
@@ -142,7 +142,7 @@ class KeyManagementForm extends Component {
             hideAbout
             toggleFormProps={{
               hideName: true,
-              submissionFieldName: "key_management",
+              submissionFieldName: "encryption_keys",
               disableSave: this.props.encryptionKeyProps.disableSave,
               type: "formInSubForm",
             }}
