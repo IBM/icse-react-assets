@@ -52,7 +52,7 @@ class ObjectStorageBucketForm extends Component {
       <>
         <IcseFormGroup>
           <IcseNameInput
-            id={this.state.name}
+            id={this.props.data.name + "-object-storage-bucket-name"}
             componentName={this.state.name}
             value={this.state.name}
             onChange={this.handleInputChange}
@@ -64,7 +64,7 @@ class ObjectStorageBucketForm extends Component {
           />
           <IcseSelect
             component={this.state.name}
-            formName="Object Storage Bucket"
+            formName={this.props.data.name + "-object-storage-bucket-class"}
             name="storage_class"
             groups={["Standard", "Vault", "Cold", "Smart"]}
             value={capitalize(this.state.storage_class)}
@@ -80,7 +80,7 @@ class ObjectStorageBucketForm extends Component {
         <IcseFormGroup>
           <IcseSelect
             component={this.state.name}
-            formName="Object Storage Bucket"
+            formName={this.props.data.name + "-object-storage-bucket-key"}
             name="kms_key"
             groups={this.props.encryptionKeys}
             value={this.state.kms_key}

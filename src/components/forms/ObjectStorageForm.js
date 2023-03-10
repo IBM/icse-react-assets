@@ -59,7 +59,7 @@ class ObjectStorageInstancesForm extends Component {
             isModal={this.props.isModal}
           />
           <IcseSelect
-            formName="object_storage"
+            formName={this.props.data.name + "-object-storage-kms"}
             name="kms"
             labelText="Key Management Instance"
             groups={this.props.kmsList}
@@ -71,7 +71,7 @@ class ObjectStorageInstancesForm extends Component {
         </IcseFormGroup>
         <IcseFormGroup>
           <IcseNameInput
-            id={this.state.name + "-name"}
+            id={this.props.data.name + "-object-storage-name"}
             componentName={this.props.data.name}
             value={this.state.name}
             onChange={(event) =>
@@ -84,7 +84,7 @@ class ObjectStorageInstancesForm extends Component {
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
           />
           <IcseSelect
-            formName="object_storage"
+            formName={this.props.data.name + "-object-storage-rg"}
             name="resource_group"
             labelText="Resource Group"
             groups={this.props.resourceGroups}

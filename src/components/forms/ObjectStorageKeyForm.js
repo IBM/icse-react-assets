@@ -14,7 +14,7 @@ class ObjectStorageKeyForm extends Component {
     this.state = {
       name: this.props.data.name,
       role: this.props.data.role || "Writer",
-      enable_hmac: this.props.data.enable_hmac
+      enable_hmac: this.props.data.enable_hmac,
     };
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
@@ -56,7 +56,9 @@ class ObjectStorageKeyForm extends Component {
             componentProps={this.props}
             placeholder="my-cos-key-name"
             className={inputSize}
-            helperTextCallback={() => this.props.composedNameCallback(this.state)}
+            helperTextCallback={() =>
+              this.props.composedNameCallback(this.state)
+            }
             invalid={this.props.invalidCallback(this.state, this.props)}
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
           />
@@ -69,21 +71,20 @@ class ObjectStorageKeyForm extends Component {
               "Content Reader",
               "Reader",
               "Writer",
-              "Manager"
+              "Manager",
             ]}
             value={this.state.role}
             labelText="Role"
             handleInputChange={this.handleInputChange}
             className={inputSize}
-            formName={this.state.data + "-cos-key"}
+            formName={this.props.data.name + "-object-storage-key-role"}
           />
           {/* use hmac */}
           <IcseToggle
             tooltip={{
-              link:
-                "https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-uhc-hmac-credentials-main",
+              link: "https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-uhc-hmac-credentials-main",
               content:
-                "HMAC (hash-based message authentication code) is required for Teleport VSI instances."
+                "HMAC (hash-based message authentication code) is required for Teleport VSI instances.",
             }}
             id={composedId + "cos-instance-key-hmac"}
             labelText="Enable HMAC"
@@ -101,9 +102,9 @@ class ObjectStorageKeyForm extends Component {
 ObjectStorageKeyForm.defaultProps = {
   data: {
     name: "",
-    enable_hmac: false
+    enable_hmac: false,
   },
-  forceEnableHmac: false
+  forceEnableHmac: false,
 };
 
 ObjectStorageKeyForm.propTypes = {
@@ -111,14 +112,14 @@ ObjectStorageKeyForm.propTypes = {
   data: PropTypes.shape({
     enable_hmac: PropTypes.bool.isRequired,
     name: PropTypes.string.isRequired,
-    role: PropTypes.string
+    role: PropTypes.string,
   }),
   shouldDisableSave: PropTypes.func,
   shouldDisableSubmit: PropTypes.func,
   forceEnableHmac: PropTypes.bool.isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
-  composedNameCallback: PropTypes.func.isRequired
+  composedNameCallback: PropTypes.func.isRequired,
 };
 
 export default ObjectStorageKeyForm;
