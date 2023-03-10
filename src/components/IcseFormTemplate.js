@@ -162,6 +162,8 @@ class IcseFormTemplate extends React.Component {
                     disableSave: this.props.disableSave,
                     arrayParentName: this.props.arrayParentName,
                     isModal: true,
+                    submissionFieldName:
+                      this.props.toggleFormProps.submissionFieldName,
                     shouldDisableSubmit: function () {
                       // references to `this` in function are intentionally vague
                       // in order to pass the correct functions and field values to the
@@ -173,7 +175,11 @@ class IcseFormTemplate extends React.Component {
                       // and disableModal, which are dynamically added to the component
                       // at time of render
                       if (
-                        this.props.disableSave(this.state, this.props) === false
+                        this.props.disableSave(
+                          this.props.submissionFieldName,
+                          this.state,
+                          this.props
+                        ) === false
                       ) {
                         this.props.enableModal();
                       } else {
