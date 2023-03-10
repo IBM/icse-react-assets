@@ -6,6 +6,8 @@ import {
 import { IcseFormGroup } from "../Utils";
 import { IcseNameInput, IcseToggle } from "../Inputs";
 import { IcseSelect } from "../Dropdowns";
+import IcseFormTemplate from "../IcseFormTemplate";
+import EncryptionKeyForm from "./EncryptionKeyForm";
 import PropTypes from "prop-types";
 
 /**
@@ -100,10 +102,11 @@ class KeyManagementForm extends Component {
             className="fieldWidth"
           />
         </IcseFormGroup>
-        <IcseFormGroup noMarginBottom>
+        <IcseFormGroup noMarginBottom={this.props.isModal}>
           <IcseToggle
             tooltip={{
-              content: "Allow for IAM Authorization policies to be created to allow this Key Management service to encrypt VPC block storage volumes. This should be false only if these policies already exist within your account.",
+              content:
+                "Allow for IAM Authorization policies to be created to allow this Key Management service to encrypt VPC block storage volumes. This should be false only if these policies already exist within your account.",
               align: "bottom-left",
             }}
             labelText="Authorize VPC Reader Role"
@@ -114,6 +117,33 @@ class KeyManagementForm extends Component {
             id={this.props.data.name + "-kms-vpc-reader-role"}
           />
         </IcseFormGroup>
+        {this.props.isModal === false && (
+          <IcseFormTemplate
+            name="Encryption Keys"
+            subHeading
+            addText="Create an Encryption Key"
+            arrayData={this.props.data.keys}
+            innerForm={EncryptionKeyForm}
+            disableSave={this.props.encryptionKeyProps.disableSave}
+            onDelete={this.props.encryptionKeyProps.onDelete}
+            onSave={this.props.encryptionKeyProps.onSave}
+            onSubmit={this.props.encryptionKeyProps.onSubmit}
+            propsMatchState={this.props.propsMatchState}
+            innerFormProps={{
+              invalidCallback: this.props.invalidKeyCallback,
+              invalidTextCallback: this.props.invalidKeyTextCallback,
+              invalidRingCallback: this.props.invalidRingCallback,
+              invalidRingText: this.props.invalidRingText,
+            }}
+            hideAbout
+            toggleFormProps={{
+              hideName: true,
+              submissionFieldName: "key_management",
+              disableSave: this.props.encryptionKeyProps.disableSave,
+              type: "formInSubForm"
+            }}
+          />
+        )}
       </>
     );
   }
@@ -128,6 +158,7 @@ KeyManagementForm.defaultProps = {
     authorize_vpc_reader_role: false,
   },
   resourceGroups: ["service-rg", "management-rg", "workload-rg"],
+  isModal: false,
 };
 
 KeyManagementForm.propTypes = {
@@ -137,8 +168,21 @@ KeyManagementForm.propTypes = {
     name: PropTypes.string.isRequired,
     resource_group: PropTypes.string.isRequired,
     authorize_vpc_reader_role: PropTypes.bool.isRequired,
+    keys: PropTypes.array.isRequired,
   }).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  isModal: PropTypes.bool.isRequired,
+  invalidKeyCallback: PropTypes.func.isRequired,
+  invalidKeyTextCallback: PropTypes.func.isRequired,
+  invalidRingCallback: PropTypes.func.isRequired,
+  invalidRingText: PropTypes.string.isRequired,
+  propsMatchState: PropTypes.func.isRequired,
+  encryptionKeyProps: PropTypes.shape({
+    onSave: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    disableSave: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default KeyManagementForm;
