@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { capitalize } from "lazy-z";
 import { IcseNameInput, IcseToggle } from "../Inputs";
-import { IcseSelect } from "../Dropdowns";
+import { IcseSelect, EndpointSelect } from "../Dropdowns";
 import { IcseFormGroup } from "../Utils";
 import {
   buildFormDefaultInputMethods,
@@ -52,7 +52,7 @@ class ObjectStorageBucketForm extends Component {
       <>
         <IcseFormGroup>
           <IcseNameInput
-            id={this.state.name}
+            id={this.props.data.name + "-object-storage-bucket-name"}
             componentName={this.state.name}
             value={this.state.name}
             onChange={this.handleInputChange}
@@ -64,18 +64,23 @@ class ObjectStorageBucketForm extends Component {
           />
           <IcseSelect
             component={this.state.name}
-            formName="Object Storage Bucket"
+            formName={this.props.data.name + "-object-storage-bucket-class"}
             name="storage_class"
             groups={["Standard", "Vault", "Cold", "Smart"]}
             value={capitalize(this.state.storage_class)}
             labelText="Bucket Class"
             handleInputChange={this.handleStorageClassChange}
           />
+          <EndpointSelect
+            formName={"Object Storage Bucket"}
+            handleInputChange={this.handleInputChange}
+            value={this.state.endpoint}
+          />
         </IcseFormGroup>
         <IcseFormGroup>
           <IcseSelect
             component={this.state.name}
-            formName="Object Storage Bucket"
+            formName={this.props.data.name + "-object-storage-bucket-key"}
             name="kms_key"
             groups={this.props.encryptionKeys}
             value={this.state.kms_key}
@@ -105,6 +110,7 @@ ObjectStorageBucketForm.defaultProps = {
     name: "",
     storage_class: "Standard",
     kms_key: "",
+    endpoint: "public",
   },
   encryptionKeys: [],
 };
@@ -114,7 +120,8 @@ ObjectStorageBucketForm.propTypes = {
     force_delete: PropTypes.bool.isRequired,
     name: PropTypes.string.isRequired,
     storage_class: PropTypes.string.isRequired,
-    kms_key: PropTypes.string,
+    kms_key: PropTypes.string.isRequired,
+    endpoint: PropTypes.string.isRequired,
   }).isRequired,
   encryptionKeys: PropTypes.array.isRequired,
   invalidCallback: PropTypes.func.isRequired,
