@@ -10,18 +10,18 @@ export default {
       type: { required: false }, // required prop or not
       control: "none",
     },
-    ["data.enable_transit_gateway"]: {
-      description: "A boolean to indicate whether to enable transit gateway",
+    ["data.global"]: {
+      description: "A boolean to indicate whether the gateway has global route to connect to the networks outside their associated region.",
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.transit_gateway_connections"]: {
+    ["data.connections"]: {
       description:
         "An array (string) of VPCs that connect to the transit gateway",
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.transit_gateway_resource_group"]: {
+    ["data.resource_group"]: {
       description: "A string value of the resource group",
       control: "none",
       type: { required: false }, // required prop or not
@@ -92,9 +92,9 @@ const TransitGatewayFormStory = () => {
   return (
     <TransitGatewayForm
       data={{
-        enable_transit_gateway: true,
-        transit_gateway_connections: ["management"],
-        transit_gateway_resource_group: "service-rg",
+        global: true,
+        connections: ["management"],
+        resource_group: "service-rg",
         name: "transit-gateway",
       }}
       readOnlyName={true}
