@@ -33,7 +33,7 @@ class TransitGatewayForm extends Component {
    * @param {event} event
    */
   handleVpcSelect(event) {
-    this.setState({ transit_gateway_connections: event });
+    this.setState({ connections: event });
   }
 
   /**
@@ -49,11 +49,11 @@ class TransitGatewayForm extends Component {
       <>
         <IcseFormGroup>
           <IcseToggle
-            labelText="Use Transit Gateway"
-            toggleFieldName="enable_transit_gateway"
-            id="tg-enable"
+            labelText="Global"
+            toggleFieldName="global"
+            id="tg-global"
             onToggle={this.handleToggle}
-            defaultToggled={this.state.enable_transit_gateway}
+            defaultToggled={this.state.global}
           />
           <IcseTextInput
             onChange={this.handleInputChange}
@@ -69,22 +69,19 @@ class TransitGatewayForm extends Component {
         <IcseFormGroup>
           <IcseSelect
             formName="Transit Gateway"
-            value={this.state.transit_gateway_resource_group}
+            value={this.state.resource_group}
             groups={this.props.resourceGroups}
             handleInputChange={this.handleInputChange}
-            name="transit_gateway_resource_group"
+            name="resource_group"
             labelText="Resource Group"
           />
           <VpcListMultiSelect
             id="tg-vpc-multiselect"
             titleText="Connected VPCs"
-            initialSelectedItems={this.state.transit_gateway_connections}
+            initialSelectedItems={this.state.connections}
             vpcList={this.props.vpcList}
             onChange={this.handleVpcSelect}
-            invalid={
-              this.state.transit_gateway_connections.length === 0 &&
-              this.state.enable_transit_gateway
-            }
+            invalid={this.state.connections.length === 0}
             invalidText="At least one VPC must be connected"
           />
         </IcseFormGroup>
@@ -95,9 +92,9 @@ class TransitGatewayForm extends Component {
 
 TransitGatewayForm.defaultProps = {
   data: {
-    enable_transit_gateway: true,
-    transit_gateway_connections: [],
-    transit_gateway_resource_group: "",
+    global: true,
+    connections: [],
+    resource_group: "",
     name: "",
   },
   readOnlyName: true,
@@ -107,9 +104,9 @@ TransitGatewayForm.defaultProps = {
 
 TransitGatewayForm.propTypes = {
   data: PropTypes.shape({
-    enable_transit_gateway: PropTypes.bool.isRequired,
-    transit_gateway_connections: PropTypes.array.isRequired,
-    transit_gateway_resource_group: PropTypes.string.isRequired,
+    global: PropTypes.bool.isRequired,
+    connections: PropTypes.array.isRequired,
+    resource_group: PropTypes.string.isRequired,
     name: PropTypes.string,
   }).isRequired,
   readOnlyName: PropTypes.bool.isRequired,
