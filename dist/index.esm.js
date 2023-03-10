@@ -402,15 +402,14 @@ function _toPropertyKey(arg) {
 }
 
 function styleInject(css, ref) {
-  if ( ref === void 0 ) ref = {};
+  if (ref === void 0) ref = {};
   var insertAt = ref.insertAt;
-
-  if (!css || typeof document === 'undefined') { return; }
-
+  if (!css || typeof document === 'undefined') {
+    return;
+  }
   var head = document.head || document.getElementsByTagName('head')[0];
   var style = document.createElement('style');
   style.type = 'text/css';
-
   if (insertAt === 'top') {
     if (head.firstChild) {
       head.insertBefore(style, head.firstChild);
@@ -420,7 +419,6 @@ function styleInject(css, ref) {
   } else {
     head.appendChild(style);
   }
-
   if (style.styleSheet) {
     style.styleSheet.cssText = css;
   } else {
@@ -428,7 +426,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$g = ".popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  position: relative;\n  z-index: 9001;\n}";
+var css_248z$g = ".popover-box {\r\n  padding: 5px;\r\n  position: relative;\r\n  font-size: 80%;\r\n  top: 20px;\r\n}\r\n\r\n.cds--popover--open .cds--popover-content {\r\n  position: relative;\r\n  z-index: 9001;\r\n}";
 styleInject(css_248z$g);
 
 /**
@@ -503,7 +501,7 @@ PopoverWrapper.propTypes = {
   children: PropTypes.node.isRequired
 };
 
-var css_248z$f = ".chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: #0f62fe !important;\n  fill: white !important;\n  border-color: #0f62fe !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: #da1e28 !important;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important; \n}\n";
+var css_248z$f = ".chevron {\r\n  margin-right: 1rem;\r\n  margin-top: 0.25rem;\r\n  cursor: pointer;\r\n}\r\n\r\n.tertiaryButtonColors {\r\n  color: #0f62fe !important;\r\n  fill: white !important;\r\n  border-color: #0f62fe !important;\r\n}\r\n\r\n.pointerEventsNone {\r\n  pointer-events: none;\r\n}\r\n\r\n.cursorNotAllowed {\r\n  cursor: not-allowed;\r\n}\r\n\r\n.forceTertiaryButtonStyles {\r\n  padding-right: 0.4375rem !important;\r\n  padding-left: 0.4375rem !important;\r\n}\r\n.inlineBlock {\r\n  display: inline-block;\r\n}\r\n\r\n.redFill {\r\n  fill: #da1e28 !important;\r\n}\r\n\r\n/* CSS for overriding default component styles */\r\n.cds--btn--ghost:focus {\r\n  outline: none;\r\n  border: none;\r\n  box-shadow: none;\r\n}\r\n\r\n.marginRightSmall {\r\n  margin-right: 0.5rem !important; \r\n}\r\n";
 styleInject(css_248z$f);
 
 /**
@@ -700,10 +698,10 @@ function buildFormDefaultInputMethods(component) {
   component.setNameToValue = setNameToValue.bind(component);
 }
 
-var css_248z$e = ".displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.subForm {\n  background: #f4f4f4;\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
+var css_248z$e = ".displayFlex {\r\n  display: flex;\r\n}\r\n\r\n.fitContent {\r\n  width: fit-content;\r\n}\r\n\r\n.alignItemsCenter {\r\n  align-items: center;\r\n}\r\n\r\n.widthOneHundredPercent {\r\n  width: 100%;\r\n}\r\n\r\n.marginBottom {\r\n  margin-bottom: 2rem;\r\n}\r\n\r\n.marginBottomSmall {\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.evenSpacing {\r\n  gap: 3vw;\r\n}\r\n\r\n.positionRelative {\r\n  position: relative;\r\n}\r\n\r\n.formInSubForm {\r\n  margin-top: 0rem;\r\n  background: #fffdfd;\r\n  padding: 1rem;\r\n}\r\n\r\n.subForm {\r\n  background: #f4f4f4;\r\n  padding: 1rem;\r\n  margin-top: 1rem;\r\n  margin-bottom: 2rem;\r\n}\r\n\r\n.icseFormTitleMinHeight {\r\n  min-height: 32px;\r\n}\r\n\r\n.spaceBetween {\r\n  justify-content: space-between;\r\n}\r\n";
 styleInject(css_248z$e);
 
-var css_248z$d = ".about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n";
+var css_248z$d = ".about {\r\n  padding: 2rem 1rem;\r\n  line-height: 1.5;\r\n}\r\n\r\n.smallerText {\r\n  font-size: 0.9rem;\r\n  font-weight: 400;\r\n}\r\n";
 styleInject(css_248z$d);
 
 var DocTextField = function DocTextField(props) {
@@ -812,7 +810,7 @@ Docs.propTypes = {
   relatedLinks: PropTypes.array
 };
 
-var css_248z$c = ".labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n";
+var css_248z$c = ".labelRow {\r\n  display: inline-flex !important;\r\n  align-items: center;\r\n}\r\n\r\n.tooltip > div div.cds--password-input-wrapper {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.cds--toggle {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.cds--text-input-wrapper {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.popover-obj {\r\n  margin-top: -8px;\r\n}\r\n\r\n.subHeadingTooltip {\r\n  margin: 0.2rem 0 0 0.2rem;\r\n}\r\n\r\n.tooltipMarginLeft {\r\n  margin-left: 3px;\r\n}\r\n";
 styleInject(css_248z$c);
 
 /**
@@ -941,7 +939,7 @@ DynamicToolTipWrapper.propTypes = {
   innerForm: PropTypes.oneOfType([PropTypes.object, PropTypes.func])
 };
 
-var css_248z$b = ".textInputMedium {\n  width: 20rem;\n}";
+var css_248z$b = ".textInputMedium {\r\n  width: 20rem;\r\n}";
 styleInject(css_248z$b);
 
 var IcseSelect = function IcseSelect(props) {
@@ -1204,7 +1202,7 @@ EndpointSelect.defaultProps = {
   groups: ["private", "public", "public-and-private"]
 };
 
-var css_248z$a = ".iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: #f4f4f4;\n}";
+var css_248z$a = ".iconMargin {\r\n  margin: 0 0.5rem -0.4rem 0;\r\n}\r\n\r\n.inlineIconMargin {\r\n  margin: -0.4rem 0.05rem;\r\n}\r\n\r\n.marginBottomXs {\r\n  margin-bottom: 0.5rem;\r\n}\r\n\r\n.tileBackground {\r\n  background-color: #f4f4f4;\r\n}";
 styleInject(css_248z$a);
 
 /**
@@ -1482,7 +1480,7 @@ FormModal.propTypes = {
   children: PropTypes.node.isRequired
 };
 
-var css_248z$9 = ".fieldWidth {\n  width: 14rem;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.textInputWide {\n  width: 30rem;\n}";
+var css_248z$9 = ".fieldWidth {\r\n  width: 14rem;\r\n}\r\n\r\n.leftTextAlign {\r\n  text-align: left;\r\n}\r\n\r\n.textInputWide {\r\n  width: 30rem;\r\n}";
 styleInject(css_248z$9);
 
 var IcseToggle = function IcseToggle(props) {
@@ -1642,7 +1640,7 @@ IcseNameInput.propTypes = {
   invalidCallback: PropTypes.func
 };
 
-var css_248z$8 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
+var css_248z$8 = ".fieldWidthSmaller {\r\n  width: 11rem;\r\n}";
 styleInject(css_248z$8);
 
 var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
@@ -1700,7 +1698,7 @@ AppIdKeyForm.propTypes = {
   shouldDisableSubmit: PropTypes.func
 };
 
-var css_248z$7 = ".leftTextAlign {\n  text-align: left;\n}\n";
+var css_248z$7 = ".leftTextAlign {\r\n  text-align: left;\r\n}\r\n";
 styleInject(css_248z$7);
 
 /**
@@ -1825,7 +1823,7 @@ UnsavedChangesModal.propTypes = {
   useDefaultUnsavedMessage: PropTypes.bool
 };
 
-var css_248z$6 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmallest {\n  width: 8rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.displayFlex {\n  display: flex;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #f4f4f4;\n  padding: 1rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.alignButtons {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
+var css_248z$6 = ".fieldWidth {\r\n  width: 14rem;\r\n}\r\n\r\n.fieldWidthSmallest {\r\n  width: 8rem;\r\n}\r\n\r\n.marginBottomSmall {\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.forceTertiaryButtonStyles {\r\n  padding-right: 0.4375rem !important;\r\n  padding-left: 0.4375rem !important;\r\n}\r\n\r\n.positionRelative {\r\n  position: relative;\r\n}\r\n\r\n.displayFlex {\r\n  display: flex;\r\n}\r\n\r\n.formInSubForm {\r\n  margin-top: 0rem;\r\n  background: #f4f4f4;\r\n  padding: 1rem;\r\n}\r\n\r\n.marginBottomSmall {\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.alignButtons {\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n}\r\n\r\n.alignItemsCenter {\r\n  align-items: center;\r\n}\r\n\r\n.spaceBetween {\r\n  justify-content: space-between;\r\n}\r\n";
 styleInject(css_248z$6);
 
 /**
@@ -2398,7 +2396,7 @@ EncryptionKeyForm.propTypes = {
   invalidRingCallback: PropTypes.func.isRequired
 };
 
-var css_248z$5 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+var css_248z$5 = ".fieldWidth {\r\n  width: 14rem;\r\n}\r\n\r\n.fieldWidthSmaller {\r\n  width: 11rem;\r\n}\r\n";
 styleInject(css_248z$5);
 
 /**
@@ -2930,7 +2928,7 @@ var f5Utils_2 = f5Utils.isNullOrEmptyString;
 var f5Utils_3 = f5Utils.isValidTmosAdminPassword;
 var f5Utils_4 = f5Utils.isValidUrl;
 
-var css_248z$4 = ".wide {\n  width: 20rem !important;\n}\n\n.tight {\n  width: min-content; /* force invalid text to split line */\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n\n.passwordGenerateButton {\n  margin-top: 1.25rem;\n  margin-left: calc(-4rem - 3vw);\n}\n\n.passwordGenerateButton svg {\n  fill: var(--cds-icon-secondary, #525252) !important;\n}\n\n.passwordGenerateButton.invalid {\n  margin-left: calc(-5.75rem - 3vw);\n}\n";
+var css_248z$4 = ".wide {\r\n  width: 20rem !important;\r\n}\r\n\r\n.tight {\r\n  width: min-content; /* force invalid text to split line */\r\n}\r\n\r\n.forceTertiaryButtonStyles {\r\n  padding-right: 0.4375rem !important;\r\n  padding-left: 0.4375rem !important;\r\n}\r\n\r\n.passwordGenerateButton {\r\n  margin-top: 1.25rem;\r\n  margin-left: calc(-4rem - 3vw);\r\n}\r\n\r\n.passwordGenerateButton svg {\r\n  fill: var(--cds-icon-secondary, #525252) !important;\r\n}\r\n\r\n.passwordGenerateButton.invalid {\r\n  margin-left: calc(-5.75rem - 3vw);\r\n}\r\n";
 styleInject(css_248z$4);
 
 /**
@@ -3864,7 +3862,7 @@ KeyManagementForm.propTypes = {
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
-var css_248z$3 = ".marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #fffdfd;\n  padding: 1rem;\n}\n\n.positionRelative {\n  position: relative;\n}\n";
+var css_248z$3 = ".marginBottomSmall {\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.formInSubForm {\r\n  margin-top: 0rem;\r\n  background: #fffdfd;\r\n  padding: 1rem;\r\n}\r\n\r\n.positionRelative {\r\n  position: relative;\r\n}\r\n";
 styleInject(css_248z$3);
 
 var _require = require("lazy-z"),
@@ -4679,7 +4677,7 @@ var ObjectStorageBucketForm = /*#__PURE__*/function (_Component) {
       // composed id for bucket
       var composedId = "bucket-form-".concat(this.props.data.name ? this.props.data.name : "new-bucket");
       return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
-        id: this.state.name,
+        id: this.props.data.name + "-object-storage-bucket-name",
         componentName: this.state.name,
         value: this.state.name,
         onChange: this.handleInputChange,
@@ -4690,7 +4688,7 @@ var ObjectStorageBucketForm = /*#__PURE__*/function (_Component) {
         invalidText: this.props.invalidTextCallback(this.state)
       }), /*#__PURE__*/React.createElement(IcseSelect, {
         component: this.state.name,
-        formName: "Object Storage Bucket",
+        formName: this.props.data.name + "-object-storage-bucket-class",
         name: "storage_class",
         groups: ["Standard", "Vault", "Cold", "Smart"],
         value: capitalize$1(this.state.storage_class),
@@ -4702,7 +4700,7 @@ var ObjectStorageBucketForm = /*#__PURE__*/function (_Component) {
         value: this.state.endpoint
       })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
         component: this.state.name,
-        formName: "Object Storage Bucket",
+        formName: this.props.data.name + "-object-storage-bucket-key",
         name: "kms_key",
         groups: this.props.encryptionKeys,
         value: this.state.kms_key,
@@ -4802,7 +4800,7 @@ var ObjectStorageInstancesForm = /*#__PURE__*/function (_Component) {
         onToggle: this.handleInputChange,
         isModal: this.props.isModal
       }), /*#__PURE__*/React.createElement(IcseSelect, {
-        formName: "object_storage",
+        formName: this.props.data.name + "-object-storage-kms",
         name: "kms",
         labelText: "Key Management Instance",
         groups: this.props.kmsList,
@@ -4811,7 +4809,7 @@ var ObjectStorageInstancesForm = /*#__PURE__*/function (_Component) {
           return _this2.handleInputChange("kms", event.target.value);
         }
       })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
-        id: this.state.name + "-name",
+        id: this.props.data.name + "-object-storage-name",
         componentName: this.props.data.name,
         value: this.state.name,
         onChange: function onChange(event) {
@@ -4823,7 +4821,7 @@ var ObjectStorageInstancesForm = /*#__PURE__*/function (_Component) {
         invalid: this.props.invalidCallback(this.state, this.props),
         invalidText: this.props.invalidTextCallback(this.state, this.props)
       }), /*#__PURE__*/React.createElement(IcseSelect, {
-        formName: "object_storage",
+        formName: this.props.data.name + "-object-storage-rg",
         name: "resource_group",
         labelText: "Resource Group",
         groups: this.props.resourceGroups,
@@ -4931,7 +4929,7 @@ var ObjectStorageKeyForm = /*#__PURE__*/function (_Component) {
         labelText: "Role",
         handleInputChange: this.handleInputChange,
         className: inputSize,
-        formName: this.state.data + "-cos-key"
+        formName: this.props.data.name + "-object-storage-key-role"
       }), /*#__PURE__*/React.createElement(IcseToggle, {
         tooltip: {
           link: "https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-uhc-hmac-credentials-main",
@@ -5441,7 +5439,7 @@ SecurityGroupForm.propTypes = {
   vpcList: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
-var css_248z$2 = ".leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidthBigger {\n  width: 30rem\n}\n";
+var css_248z$2 = ".leftTextAlign {\r\n  text-align: left;\r\n}\r\n\r\n.fieldWidthBigger {\r\n  width: 30rem\r\n}\r\n";
 styleInject(css_248z$2);
 
 /**
@@ -5646,7 +5644,7 @@ SubnetForm.propTypes = _defineProperty({
   componentDidUpdateCallback: PropTypes.func.isRequired
 }, "onSave", PropTypes.func);
 
-var css_248z$1 = ".subnetTileFormMargin {\n  margin-bottom: -0.5rem;\n  margin-top: 0.5rem;\n}\n\n.marginRight {\n  margin-right: 10px;\n}\n";
+var css_248z$1 = ".subnetTileFormMargin {\r\n  margin-bottom: -0.5rem;\r\n  margin-top: 0.5rem;\r\n}\r\n\r\n.marginRight {\r\n  margin-right: 10px;\r\n}\r\n";
 styleInject(css_248z$1);
 
 var SubnetTileForm = /*#__PURE__*/function (_React$Component) {
@@ -6092,7 +6090,7 @@ var TransitGatewayForm = /*#__PURE__*/function (_Component) {
     key: "handleVpcSelect",
     value: function handleVpcSelect(event) {
       this.setState({
-        transit_gateway_connections: event
+        connections: event
       });
     }
 
@@ -6109,11 +6107,11 @@ var TransitGatewayForm = /*#__PURE__*/function (_Component) {
     key: "render",
     value: function render() {
       return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
-        labelText: "Use Transit Gateway",
-        toggleFieldName: "enable_transit_gateway",
-        id: "tg-enable",
+        labelText: "Global",
+        toggleFieldName: "global",
+        id: "tg-global",
         onToggle: this.handleToggle,
-        defaultToggled: this.state.enable_transit_gateway
+        defaultToggled: this.state.global
       }), /*#__PURE__*/React.createElement(IcseTextInput, {
         onChange: this.handleInputChange,
         componentName: "Transit Gateway",
@@ -6125,18 +6123,18 @@ var TransitGatewayForm = /*#__PURE__*/function (_Component) {
         invalidText: this.props.invalidTextCallback(this.state)
       })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
         formName: "Transit Gateway",
-        value: this.state.transit_gateway_resource_group,
+        value: this.state.resource_group,
         groups: this.props.resourceGroups,
         handleInputChange: this.handleInputChange,
-        name: "transit_gateway_resource_group",
+        name: "resource_group",
         labelText: "Resource Group"
       }), /*#__PURE__*/React.createElement(VpcListMultiSelect, {
         id: "tg-vpc-multiselect",
         titleText: "Connected VPCs",
-        initialSelectedItems: this.state.transit_gateway_connections,
+        initialSelectedItems: this.state.connections,
         vpcList: this.props.vpcList,
         onChange: this.handleVpcSelect,
-        invalid: this.state.transit_gateway_connections.length === 0 && this.state.enable_transit_gateway,
+        invalid: this.state.connections.length === 0,
         invalidText: "At least one VPC must be connected"
       })));
     }
@@ -6145,9 +6143,9 @@ var TransitGatewayForm = /*#__PURE__*/function (_Component) {
 }(Component);
 TransitGatewayForm.defaultProps = {
   data: {
-    enable_transit_gateway: true,
-    transit_gateway_connections: [],
-    transit_gateway_resource_group: "",
+    global: true,
+    connections: [],
+    resource_group: "",
     name: ""
   },
   readOnlyName: true,
@@ -6156,9 +6154,9 @@ TransitGatewayForm.defaultProps = {
 };
 TransitGatewayForm.propTypes = {
   data: PropTypes.shape({
-    enable_transit_gateway: PropTypes.bool.isRequired,
-    transit_gateway_connections: PropTypes.array.isRequired,
-    transit_gateway_resource_group: PropTypes.string.isRequired,
+    global: PropTypes.bool.isRequired,
+    connections: PropTypes.array.isRequired,
+    resource_group: PropTypes.string.isRequired,
     name: PropTypes.string
   }).isRequired,
   readOnlyName: PropTypes.bool.isRequired,
@@ -6834,7 +6832,6 @@ var ClusterForm = /*#__PURE__*/function (_Component) {
     var _this;
     _classCallCheck(this, ClusterForm);
     _this = _super.call(this, props);
-    // Handle cluster input change
     _defineProperty(_assertThisInitialized(_this), "handleInputChange", function (event) {
       var _event$target = event.target,
         name = _event$target.name,
@@ -6842,10 +6839,6 @@ var ClusterForm = /*#__PURE__*/function (_Component) {
       var cluster = _objectSpread2({}, _this.state);
       _this.setState(lib_11(name, value, cluster));
     });
-    /**
-     * handle toggle change
-     * @param {*} event event
-     */
     _defineProperty(_assertThisInitialized(_this), "handleToggleChange", function () {
       var cluster = _objectSpread2({}, _this.state);
       cluster.update_all_workers = !cluster.update_all_workers;
@@ -6859,6 +6852,8 @@ var ClusterForm = /*#__PURE__*/function (_Component) {
     buildFormDefaultInputMethods(_assertThisInitialized(_this));
     return _this;
   }
+
+  // Handle cluster input change
   _createClass(ClusterForm, [{
     key: "handleMultiSelect",
     value:
@@ -7219,7 +7214,7 @@ var UnderConstruction = function UnderConstruction() {
   }), /*#__PURE__*/React.createElement("h4", null, "Page Under Construction"));
 };
 
-var css_248z = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}";
+var css_248z = ".cds--tab-content.doc {\r\n    padding: 0.5rem 0;\r\n  }\r\n\r\n.cds--tab-content:focus {\r\n  outline: none !important;\r\n  border: none !important;\r\n}";
 styleInject(css_248z);
 
 /**
