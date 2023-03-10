@@ -140,6 +140,7 @@ class KeyManagementForm extends Component {
               hideName: true,
               submissionFieldName: "key_management",
               disableSave: this.props.encryptionKeyProps.disableSave,
+              type: "formInSubForm"
             }}
           />
         )}
