@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { capitalize, titleCase } from "lazy-z";
+import { capitalize } from "lazy-z";
 import { IcseNameInput, IcseToggle } from "../Inputs";
-import { IcseSelect } from "../Dropdowns";
+import { IcseSelect, EndpointSelect } from "../Dropdowns";
 import { IcseFormGroup } from "../Utils";
 import {
   buildFormDefaultInputMethods,
@@ -71,6 +71,11 @@ class ObjectStorageBucketForm extends Component {
             labelText="Bucket Class"
             handleInputChange={this.handleStorageClassChange}
           />
+          <EndpointSelect
+            formName={"Object Storage Bucket"}
+            handleInputChange={this.handleInputChange}
+            value={this.state.endpoint}
+          />
         </IcseFormGroup>
         <IcseFormGroup>
           <IcseSelect
@@ -92,14 +97,6 @@ class ObjectStorageBucketForm extends Component {
             defaultToggled={this.state.force_delete}
             toggleFieldName="force_delete"
             onToggle={this.handleToggle}
-          />
-          <IcseSelect
-            formName="object_storage_bucket"
-            name="endpoint"
-            labelText="Endpoint"
-            groups={["Public", "Private", "Public And Private"]}
-            value={titleCase(this.state.endpoint)}
-            handleInputChange={this.handleInputChange}
           />
         </IcseFormGroup>
       </>
