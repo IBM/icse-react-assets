@@ -2,6 +2,14 @@
   text-align: left;
 }
 
+.fieldWidth {
+  width: 14rem;
+}
+
+.fieldWidthSmallest {
+  width: 8rem;
+}
+
 .fieldWidthBigger {
-  width: 30rem
+  width: 40rem;
 }
