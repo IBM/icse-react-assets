@@ -7624,111 +7624,99 @@ VsiForm.propTypes = {
   invalidTextCallback: PropTypes.func.isRequired
 };
 
-var WorkerPoolForm = /*#__PURE__*/function (_Component) {
-  _inherits(WorkerPoolForm, _Component);
-  var _super = _createSuper(WorkerPoolForm);
-  function WorkerPoolForm(props) {
-    var _this;
-    _classCallCheck(this, WorkerPoolForm);
-    _this = _super.call(this, props);
-    _this.state = _this.props.isModal ? {
+class WorkerPoolForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.isModal ? {
       name: "",
-      flavor: _this.props.cluster.flavor,
-      subnets: _this.props.cluster.subnets,
-      vpc: _this.props.cluster.vpc,
-      workers_per_subnet: _this.props.cluster.workers_per_subnet,
-      entitlement: _this.props.cluster.entitlement
-    } : _this.props.data, _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
-    _this.handleSubnetChange = _this.handleSubnetChange.bind(_assertThisInitialized(_this));
-    buildFormFunctions(_assertThisInitialized(_this));
-    return _this;
+      flavor: this.props.cluster.flavor,
+      subnets: this.props.cluster.subnets,
+      vpc: this.props.cluster.vpc,
+      workers_per_subnet: this.props.cluster.workers_per_subnet,
+      entitlement: this.props.cluster.entitlement
+    } : this.props.data, this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubnetChange = this.handleSubnetChange.bind(this);
+    buildFormFunctions(this);
   }
 
   // Handle pool input change
-  _createClass(WorkerPoolForm, [{
-    key: "handleInputChange",
-    value: function handleInputChange(event) {
-      var _event$target = event.target,
-        name = _event$target.name,
-        value = _event$target.value;
-      var pool = _objectSpread2({}, this.state);
-      if (name === "workers_per_subnet") {
-        pool[name] = Number(value);
-      } else {
-        pool[name] = value === "null" ? null : value;
-      }
-      this.setState({
-        pool: pool
-      });
+  handleInputChange(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    let pool = {
+      ...this.state
+    };
+    if (name === "workers_per_subnet") {
+      pool[name] = Number(value);
+    } else {
+      pool[name] = value === "null" ? null : value;
     }
+    this.setState({
+      pool
+    });
+  }
 
-    // Handle subnet multiselect change
-  }, {
-    key: "handleSubnetChange",
-    value: function handleSubnetChange(event) {
-      var pool = _objectSpread2({}, this.state);
-      pool.subnets = event.selectedItems;
-      this.setState({
-        pool: pool
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      if (this.props.isModal) {
-        console.log(this.state);
-        console.log(this.props);
-      }
-      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
-        id: this.state.name + "-name",
-        componentName: "Worker Pools",
-        onChange: this.handleInputChange,
-        componentProps: this.props,
-        value: this.state.name,
-        className: "fieldWidthSmaller",
-        placeholder: "my-worker-pool-name",
-        hideHelperText: true,
-        invalid: this.props.invalidCallback(this.state, this.props),
-        invalidText: this.props.invalidTextCallback(this.state, this.props)
-      }), /*#__PURE__*/React.createElement(EntitlementSelect, {
-        name: "entitlement",
-        value: this.state.entitlement,
-        handleInputChange: this.handleInputChange,
-        component: this.props.data.name,
-        formName: "Worker Pools"
-      }), /*#__PURE__*/React.createElement(IcseSelect, {
-        formName: "Worker Pools",
-        name: "flavor",
-        labelText: "Flavor Select",
-        value: this.state.flavor,
-        groups: ["bx2.16x64", "bx2.2x8"],
-        handleInputChange: this.handleInputChange,
-        className: "fieldWidthSmaller"
-      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(SubnetMultiSelect, {
-        id: this.props.data.name,
-        slz: this.props.slz,
-        disabled: this.props.cluster.vpc === null,
-        vpc_name: this.state.vpc,
-        initialSelectedItems: this.props.data.subnets,
-        subnets: this.props.subnetList,
-        onChange: this.handleSubnetChange,
-        component: this.props.data.name,
-        className: "fieldWidthSmaller cds--form-item"
-      }), /*#__PURE__*/React.createElement(IcseNumberSelect, {
-        name: "workers_per_subnet",
-        formName: "Worker Pools",
-        labelText: "Workers Per Subnet",
-        value: this.state.workers_per_subnet,
-        max: 10,
-        min: 0,
-        handleInputChange: this.handleInputChange,
-        component: this.props.data.name,
-        className: "fieldWidthSmaller"
-      })));
-    }
-  }]);
-  return WorkerPoolForm;
-}(Component);
+  // Handle subnet multiselect change
+  handleSubnetChange(event) {
+    let pool = {
+      ...this.state
+    };
+    pool.subnets = event.selectedItems;
+    this.setState({
+      pool
+    });
+  }
+  render() {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: this.state.name + "-name",
+      componentName: "Worker Pools",
+      onChange: this.handleInputChange,
+      componentProps: this.props,
+      value: this.state.name,
+      className: "fieldWidthSmaller",
+      placeholder: "my-worker-pool-name",
+      hideHelperText: true,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React.createElement(EntitlementSelect, {
+      name: "entitlement",
+      value: this.state.entitlement,
+      handleInputChange: this.handleInputChange,
+      component: this.props.data.name,
+      formName: "Worker Pools"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: "Worker Pools",
+      name: "flavor",
+      labelText: "Flavor Select",
+      value: this.state.flavor,
+      groups: ["bx2.16x64", "bx2.2x8"],
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(SubnetMultiSelect, {
+      id: this.props.data.name,
+      slz: this.props.slz,
+      disabled: this.props.cluster.vpc === null,
+      vpc_name: this.state.vpc,
+      initialSelectedItems: this.props.data.subnets,
+      subnets: this.props.subnetList,
+      onChange: this.handleSubnetChange,
+      component: this.props.data.name,
+      className: "fieldWidthSmaller cds--form-item"
+    }), /*#__PURE__*/React.createElement(IcseNumberSelect, {
+      name: "workers_per_subnet",
+      formName: "Worker Pools",
+      labelText: "Workers Per Subnet",
+      value: this.state.workers_per_subnet,
+      max: 10,
+      min: 0,
+      handleInputChange: this.handleInputChange,
+      component: this.props.data.name,
+      className: "fieldWidthSmaller"
+    })));
+  }
+}
 WorkerPoolForm.defaultProps = {
   data: {
     entitlement: "",
