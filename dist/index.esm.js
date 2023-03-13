@@ -4459,6 +4459,7 @@ var KeyManagementForm = /*#__PURE__*/function (_Component) {
         onToggle: this.handleToggle,
         disabled: this.state.use_hs_crypto === true,
         className: "fieldWidth",
+        toggleFieldName: "use_data",
         id: this.props.data.name + "-use-existing"
       })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
         id: this.state.name + "-name",
