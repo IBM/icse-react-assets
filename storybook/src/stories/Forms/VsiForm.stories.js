@@ -21,7 +21,7 @@ export default {
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.subnet_name"]: {
+    ["data.subnet"]: {
       description:
         "A string value representing the VSI subnet (required for Teleport VSIs)",
       control: "none",
@@ -33,7 +33,7 @@ export default {
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.vpc_name"]: {
+    ["data.vpc"]: {
       description:
         "A string value representing the VPC where the VSI will be deployed to",
       control: "none",
@@ -45,7 +45,7 @@ export default {
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.machine_type"]: {
+    ["data.profile"]: {
       description:
         "A string value representing the type of machine requested for the VSI",
       control: "none",
@@ -56,7 +56,7 @@ export default {
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.boot_volume_encryption_key_name"]: {
+    ["data.encryption_key"]: {
       description:
         "A string value representing the boot volume encryption key name for the VSI",
       control: "none",

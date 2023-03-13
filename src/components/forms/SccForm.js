@@ -37,11 +37,11 @@ class SccForm extends Component {
     this.handleLocationChange = this.handleLocationChange.bind(this);
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
-    this.state.enable_scc = true;
+    this.state.enable = true;
   }
 
   /**
-   * Handle input change for scope_name field
+   * Handle input change
    * @param {event} event
    */
   handleInputChange(event) {
@@ -53,7 +53,7 @@ class SccForm extends Component {
    * @param {event} event event
    */
   handleLocationChange(selectedItem) {
-    this.setState({ location_id: selectedItem.selectedItem.label });
+    this.setState({ location: selectedItem.selectedItem.label });
   }
 
   /**
@@ -71,7 +71,7 @@ class SccForm extends Component {
         <IcseFormGroup>
           <Dropdown
             ariaLabel="Dropdown"
-            id="location_id"
+            id="location"
             items={sccRegions}
             label="SCC Region Options"
             titleText="Region"
@@ -94,35 +94,6 @@ class SccForm extends Component {
           />
         </IcseFormGroup>
         <IcseFormGroup>
-          {/* scope-name text input */}
-          <IcseTextInput
-            id="scc_scope_name"
-            tooltip={{
-              content:
-                "A unique name for your scope. A scope narrows the focus of the scan.",
-              align: "top-left",
-            }}
-            componentName="SCC"
-            field="scope_name"
-            labelText="Scope Name"
-            value={this.state.scope_name}
-            onChange={this.handleInputChange}
-            maxLength={50}
-            invalid={
-              invalidRegex(
-                "scope_name",
-                this.state.scope_name,
-                this.props.scopeNameRegex
-              ).invalid
-            }
-            invalidText={
-              invalidRegex(
-                "scope_name",
-                this.state.scope_name,
-                this.props.scopeNameRegex
-              ).invalidText
-            }
-          />
           {/* scope-description text input */}
           <IcseTextInput
             id="scc_scope_description"
@@ -148,8 +119,6 @@ class SccForm extends Component {
               ).invalidText
             }
           />
-        </IcseFormGroup>
-        <IcseFormGroup noMarginBottom>
           {/* collector-description text input */}
           <IcseTextInput
             id="scc_collector"
@@ -186,23 +155,20 @@ class SccForm extends Component {
 
 SccForm.defaultProps = {
   data: {
-    enable_scc: false,
+    enable: false,
   },
-  scopeNameRegex: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i,
   descriptionRegex: /^[A-z][a-zA-Z0-9-\._,\s]*$/i,
 };
 
 SccForm.propTypes = {
   data: PropTypes.shape({
-    enable_scc: PropTypes.bool.isRequired,
+    enable: PropTypes.bool.isRequired,
     collector_description: PropTypes.string,
     is_public: PropTypes.bool,
-    location_id: PropTypes.string,
+    location: PropTypes.string,
     scope_description: PropTypes.string,
-    scope_name: PropTypes.string,
-    collector_passphrase: PropTypes.string,
+    passphrase: PropTypes.string,
   }),
-  scopeNameRegex: PropTypes.instanceOf(RegExp).isRequired,
   descriptionRegex: PropTypes.instanceOf(RegExp).isRequired,
 };
 
