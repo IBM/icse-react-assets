@@ -5,7 +5,8 @@ import {
 } from "../component-utils";
 import { handleClusterInputChange } from "../../lib";
 import { IcseNameInput, IcseToggle } from "../Inputs";
-import { IcseHeading, IcseFormGroup, RenderForm } from "../Utils";
+import { IcseFormGroup } from "../Utils";
+import WorkerPoolForm from "./WorkerPoolForm";
 import {
   IcseSelect,
   IcseNumberSelect,
@@ -13,7 +14,9 @@ import {
   FetchSelect,
 } from "../Dropdowns";
 import { SubnetMultiSelect } from "../MultiSelects";
+import IcseFormTemplate from "../IcseFormTemplate";
 import PropTypes from "prop-types";
+import { transpose } from "lazy-z";
 
 class ClusterForm extends Component {
   constructor(props) {
@@ -55,6 +58,14 @@ class ClusterForm extends Component {
     let clusterComponent = this.props.isModal
       ? "new-cluster"
       : this.props.data.name;
+    let innerFormProps = {
+      arrayParentName: this.props.data.name,
+      cluster: this.props.data,
+      invalidTextCallback: this.props.invalidPoolTextCallback,
+      invalidCallback: this.props.invalidPoolCallback,
+      subnetList: this.props.subnetList,
+    };
+    transpose({ ...this.props.workerPoolProps }, innerFormProps);
     return (
       <>
         <IcseFormGroup>
@@ -79,7 +90,7 @@ class ClusterForm extends Component {
           <IcseSelect
             labelText="Resource Group"
             name="resource_group"
-            formName="resource_group"
+            formName={clusterComponent + "resource_group"}
             groups={this.props.resourceGroups}
             value={this.state.resource_group}
             handleInputChange={this.handleInputChange}
@@ -90,7 +101,7 @@ class ClusterForm extends Component {
           {/* kube type */}
           <IcseSelect
             name="kube_type"
-            formName="kube_type"
+            formName={clusterComponent + "kube_type"}
             labelText="Kube Type"
             groups={["OpenShift", "IBM Kubernetes Service"]}
             handleInputChange={this.handleInputChange}
@@ -109,32 +120,30 @@ class ClusterForm extends Component {
           {/* entitlement */}
           <EntitlementSelect
             name="entitlement"
-            formName="entitlement"
+            formName={clusterComponent + "entitlement"}
             labelText="Entitlement"
             value={this.state.entitlement}
             handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"
           />
-
-          {/* encryption key */}
-          <IcseSelect
-            name="kms_config"
-            formName="kms_config"
-            labelText="Encryption Key"
-            groups={this.props.encryptionKeys}
-            value={this.state.kms_config.crk_name}
+          {/* Machine Type */}
+          <FetchSelect
+            name="flavor"
+            formName={clusterComponent + "flavor"}
+            labelText="Instance Profile"
+            value={this.state.flavor}
+            apiEndpoint={this.props.flavorApiEndpoint}
             handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"
           />
-
           {/* cos */}
           {this.state.kube_type === "openshift" && (
             <IcseSelect
-              name="cos_name"
-              formName="cos_name"
+              name="cos"
+              formName={clusterComponent + "cos"}
               labelText="Cloud Object Storage Instance"
               groups={this.props.cosNames}
-              value={this.state.cos_name}
+              value={this.state.cos}
               handleInputChange={this.handleInputChange}
               invalidText="Select an Object Storage instance"
               className="fieldWidthSmaller"
@@ -145,19 +154,19 @@ class ClusterForm extends Component {
           {/* vpc */}
           <IcseSelect
             id={clusterComponent + "-vpc-name"}
-            name="vpc_name"
-            formName="vpc_name"
+            name="vpc"
+            formName={clusterComponent + "vpc"}
             labelText="VPC"
             groups={this.props.vpcList}
-            value={this.state.vpc_name}
+            value={this.state.vpc}
             handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"
           />
           {/* subnets */}
           <SubnetMultiSelect
             id={clusterComponent}
-            key={this.state.vpc_name}
-            vpc_name={this.state.vpc_name}
+            key={this.state.vpc}
+            vpc_name={this.state.vpc}
             subnets={this.props.subnetList}
             initialSelectedItems={this.state.subnets}
             onChange={(event) => this.handleMultiSelect("subnets", event)}
@@ -167,7 +176,7 @@ class ClusterForm extends Component {
           <IcseNumberSelect
             max={10}
             name="workers_per_subnet"
-            formName="workers_per_subnet"
+            formName={clusterComponent + "workers_per_subnet"}
             labelText="Workers per Subnet"
             value={this.state.workers_per_subnet}
             handleInputChange={this.handleInputChange}
@@ -181,20 +190,10 @@ class ClusterForm extends Component {
           />
         </IcseFormGroup>
         <IcseFormGroup>
-          {/* Machine Type */}
-          <FetchSelect
-            name="machine_type"
-            formName="machine_type"
-            labelText="Instance Profile"
-            value={this.state.machine_type}
-            apiEndpoint={this.props.flavorApiEndpoint}
-            handleInputChange={this.handleInputChange}
-            className="fieldWidthSmaller"
-          />
           {/* Kube Version */}
           <FetchSelect
             name="kube_version"
-            formName="kube_version"
+            formName={clusterComponent + "kube_version"}
             labelText="Kube Version"
             value={this.state.kube_version}
             apiEndpoint={this.props.kubeVersionApiEndpoint}
@@ -221,20 +220,52 @@ class ClusterForm extends Component {
             onToggle={this.handleToggleChange}
           />
         </IcseFormGroup>
-        <>
-          <IcseHeading
-            name="Worker Pools"
-            type="subHeading"
-            className="marginBottomSmall"
-            noLabelText
-            noDeleteButton
+        <IcseFormGroup>
+          {/* encryption key */}
+          <IcseSelect
+            name="encryption_key"
+            formName={clusterComponent + "encryption_key"}
+            labelText="Encryption Key"
+            groups={this.props.encryptionKeys}
+            value={this.state.encryption_key}
+            handleInputChange={this.handleInputChange}
+            className="fieldWidthSmaller"
           />
-          {RenderForm(this.props.workerPoolForms, {
-            cluster: this.props.data,
-            subnetList: this.props.subnetList,
-            invalidCallback: this.props.invalidWorkerPoolsCallback,
-            invalidTextCallback: this.props.invalidWorkerPoolsTextCallback,
-          })}
+          {/* service endpoint */}
+          <IcseToggle
+            id={clusterComponent + "-service-endpoint"}
+            tooltip={{
+              content: "Use private service endpoint for Encryption Key",
+            }}
+            labelText="Private Endpoint"
+            toggleFieldName="private_endpoint"
+            defaultToggled={this.state.private_endpoint}
+            onToggle={this.handleToggleChange}
+          />
+        </IcseFormGroup>
+        <>
+          {this.props.isModal === false && (
+            <IcseFormTemplate
+              name="Worker Pools"
+              subHeading
+              addText="Create a Worker Pool"
+              arrayData={this.props.data.worker_pools}
+              innerForm={WorkerPoolForm}
+              disableSave={this.props.workerPoolProps.disableSave}
+              onDelete={this.props.workerPoolProps.onDelete}
+              onSave={this.props.workerPoolProps.onSave}
+              onSubmit={this.props.workerPoolProps.onSubmit}
+              propsMatchState={this.props.propsMatchState}
+              innerFormProps={{ ...innerFormProps }}
+              hideAbout
+              toggleFormProps={{
+                hideName: true,
+                submissionFieldName: "worker_pools",
+                disableSave: this.props.workerPoolProps.disableSave,
+                type: "formInSubForm",
+              }}
+            />
+          )}
         </>
       </>
     );
@@ -247,12 +278,12 @@ ClusterForm.defaultProps = {
     resource_group: "",
     kube_type: "openshift",
     entitlement: "null",
-    kms_config: { crk_name: "" },
-    cos_name: "",
-    vpc_name: "",
+    encryption_key: null,
+    cos: "",
+    vpc: "",
     subnets: [],
     workers_per_subnet: 2,
-    machine_type: "",
+    flavor: "",
     kube_version: "default",
     update_all_workers: false,
     worker_pools: [],
@@ -271,14 +302,13 @@ ClusterForm.propTypes = {
     resource_group: PropTypes.string,
     kube_type: PropTypes.string.isRequired,
     entitlement: PropTypes.string, // can be null
-    // crk name can now be null to allow for imported clusters to not have key
-    kms_config: PropTypes.shape({ crk_name: PropTypes.string }).isRequired,
-    cos_name: PropTypes.string.isRequired,
+    encryption_key: PropTypes.string,
+    cos: PropTypes.string.isRequired,
     subnets: PropTypes.array.isRequired,
     workers_per_subnet: PropTypes.number.isRequired,
-    vpc_name: PropTypes.string.isRequired,
+    vpc: PropTypes.string.isRequired,
     kube_version: PropTypes.string.isRequired,
-    machine_type: PropTypes.string.isRequired,
+    flavor: PropTypes.string.isRequired,
     update_all_workers: PropTypes.bool.isRequired,
     worker_pools: PropTypes.array.isRequired,
   }),
@@ -297,8 +327,15 @@ ClusterForm.propTypes = {
   invalidCallback: PropTypes.func,
   invalidTextCallback: PropTypes.func,
   helperTextCallback: PropTypes.func,
+  invalidPoolCallback: PropTypes.func,
+  invalidPoolTextCallback: PropTypes.func,
   /* forms */
-  workerPoolForms: PropTypes.func,
+  workerPoolProps: PropTypes.shape({
+    onSave: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    disableSave: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default ClusterForm;

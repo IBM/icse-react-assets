@@ -88,9 +88,7 @@ function handleClusterInputChange$1(name, value, stateData) {
     "IBM Kubernetes Service": "iks"
   };
   let cluster = stateData;
-  if (name === "kms_config") {
-    cluster[name].crk_name = value;
-  } else if (name === "kube_type") {
+  if (name === "kube_type") {
     cluster[name] = kubeTypes[value];
     cluster.cos_name = "";
     cluster.kube_version = ""; // reset kube version on change
@@ -4539,7 +4537,6 @@ KeyManagementForm.defaultProps = {
     authorize_vpc_reader_role: false,
     keys: []
   },
-  resourceGroups: ["service-rg", "management-rg", "workload-rg"],
   isModal: false
 };
 KeyManagementForm.propTypes = {
@@ -5389,7 +5386,8 @@ var ObjectStorageBucketForm = /*#__PURE__*/function (_Component) {
           return _this2.props.composedNameCallback(_this2.state);
         },
         invalid: this.props.invalidCallback(this.state),
-        invalidText: this.props.invalidTextCallback(this.state)
+        invalidText: this.props.invalidTextCallback(this.state),
+        className: "fieldWidthSmaller"
       }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
         component: this.state.name,
         formName: this.props.data.name + "-object-storage-bucket-class",
@@ -5397,11 +5395,13 @@ var ObjectStorageBucketForm = /*#__PURE__*/function (_Component) {
         groups: ["Standard", "Vault", "Cold", "Smart"],
         value: lazyZ.capitalize(this.state.storage_class),
         labelText: "Bucket Class",
-        handleInputChange: this.handleStorageClassChange
+        handleInputChange: this.handleStorageClassChange,
+        className: "fieldWidthSmaller"
       }), /*#__PURE__*/React__default["default"].createElement(EndpointSelect, {
         formName: "Object Storage Bucket",
         handleInputChange: this.handleInputChange,
-        value: this.state.endpoint
+        value: this.state.endpoint,
+        className: "fieldWidthSmaller"
       })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
         component: this.state.name,
         formName: this.props.data.name + "-object-storage-bucket-key",
@@ -5409,7 +5409,8 @@ var ObjectStorageBucketForm = /*#__PURE__*/function (_Component) {
         groups: this.props.encryptionKeys,
         value: this.state.kms_key,
         labelText: "Encryption Key",
-        handleInputChange: this.handleInputChange
+        handleInputChange: this.handleInputChange,
+        className: "fieldWidthSmaller"
       }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
         tooltip: {
           content: "Toggling this on will force delete contents of the bucket after the bucket is deleted"
@@ -5446,124 +5447,6 @@ ObjectStorageBucketForm.propTypes = {
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
   composedNameCallback: PropTypes__default["default"].func.isRequired
-};
-
-/**
- * Object storage
- */
-var ObjectStorageInstancesForm = /*#__PURE__*/function (_Component) {
-  _inherits(ObjectStorageInstancesForm, _Component);
-  var _super = _createSuper(ObjectStorageInstancesForm);
-  function ObjectStorageInstancesForm(props) {
-    var _this;
-    _classCallCheck(this, ObjectStorageInstancesForm);
-    _this = _super.call(this, props);
-    _this.state = _objectSpread2({}, _this.props.data);
-    buildFormFunctions(_assertThisInitialized(_this));
-    buildFormDefaultInputMethods(_assertThisInitialized(_this));
-    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
-    return _this;
-  }
-
-  /**
-   * handle input change
-   * @param {string} name key to change in the instance
-   * @param {*} value value
-   */
-  _createClass(ObjectStorageInstancesForm, [{
-    key: "handleInputChange",
-    value: function handleInputChange(name, value) {
-      var inst = _objectSpread2({}, this.state);
-      inst[name] = value;
-      this.setState(_objectSpread2({}, inst));
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this2 = this,
-        _this$props;
-      var composedId = "object-storage-form-".concat(this.props.data.name, "-");
-      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-        tooltip: {
-          content: "Service credentials and buckets will be created for your environment even when using an existing Object Storage instance."
-        },
-        id: composedId + "use-data",
-        toggleFieldName: "use_data",
-        labelText: "Use Existing Instance",
-        defaultToggled: this.state.use_data,
-        onToggle: this.handleInputChange,
-        isModal: this.props.isModal
-      }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-        tooltip: {
-          content: "Object storage bucket names must be unique across an account. Append a random suffix to maintain unique names across deployments."
-        },
-        id: composedId + "random-suffix",
-        labelText: "Append Random Suffix to Names",
-        toggleFieldName: "random_suffix",
-        defaultToggled: this.state.random_suffix,
-        onToggle: this.handleInputChange,
-        isModal: this.props.isModal
-      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-        formName: this.props.data.name + "-object-storage-kms",
-        name: "kms",
-        labelText: "Key Management Instance",
-        groups: this.props.kmsList,
-        value: this.state.kms,
-        handleInputChange: function handleInputChange(event) {
-          return _this2.handleInputChange("kms", event.target.value);
-        }
-      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-        id: this.props.data.name + "-object-storage-name",
-        componentName: this.props.data.name,
-        value: this.state.name,
-        onChange: function onChange(event) {
-          return _this2.handleInputChange("name", event.target.value);
-        },
-        helperTextCallback: function helperTextCallback() {
-          return _this2.props.composedNameCallback(_this2.state, _this2.props);
-        },
-        invalid: this.props.invalidCallback(this.state, this.props),
-        invalidText: this.props.invalidTextCallback(this.state, this.props)
-      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-        formName: this.props.data.name + "-object-storage-rg",
-        name: "resource_group",
-        labelText: "Resource Group",
-        groups: this.props.resourceGroups,
-        value: this.state.resource_group,
-        handleInputChange: function handleInputChange(event) {
-          return _this2.handleInputChange("resource_group", event.target.value);
-        }
-      })), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, (_this$props = this.props) === null || _this$props === void 0 ? void 0 : _this$props.subForms.map(function (form, index) {
-        return /*#__PURE__*/React__default["default"].createElement("div", {
-          key: index
-        }, form);
-      })));
-    }
-  }]);
-  return ObjectStorageInstancesForm;
-}(React.Component);
-ObjectStorageInstancesForm.defaultProps = {
-  data: {
-    name: "",
-    use_data: false,
-    resource_group: "",
-    random_suffix: true
-  },
-  resourceGroups: []
-};
-ObjectStorageInstancesForm.propTypes = {
-  isModal: PropTypes__default["default"].bool,
-  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  data: PropTypes__default["default"].shape({
-    name: PropTypes__default["default"].string.isRequired,
-    use_data: PropTypes__default["default"].bool.isRequired,
-    resource_group: PropTypes__default["default"].string,
-    random_suffix: PropTypes__default["default"].bool.isRequired
-  }),
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  composedNameCallback: PropTypes__default["default"].func.isRequired,
-  subForms: PropTypes__default["default"].arrayOf(PropTypes__default["default"].node)
 };
 
 var ObjectStorageKeyForm = /*#__PURE__*/function (_Component) {
@@ -5670,6 +5553,175 @@ ObjectStorageKeyForm.propTypes = {
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
   composedNameCallback: PropTypes__default["default"].func.isRequired
+};
+
+/**
+ * Object storage
+ */
+var ObjectStorageInstancesForm = /*#__PURE__*/function (_Component) {
+  _inherits(ObjectStorageInstancesForm, _Component);
+  var _super = _createSuper(ObjectStorageInstancesForm);
+  function ObjectStorageInstancesForm(props) {
+    var _this;
+    _classCallCheck(this, ObjectStorageInstancesForm);
+    _this = _super.call(this, props);
+    _this.state = _objectSpread2({}, _this.props.data);
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in the instance
+   * @param {*} value value
+   */
+  _createClass(ObjectStorageInstancesForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(name, value) {
+      var inst = _objectSpread2({}, this.state);
+      inst[name] = value;
+      this.setState(_objectSpread2({}, inst));
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      var composedId = "object-storage-form-".concat(this.props.data.name, "-");
+      var bucketInnerFormProps = {
+        invalidCallback: this.props.invalidBucketCallback,
+        invalidTextCallback: this.props.invalidBucketTextCallback,
+        composedNameCallback: this.props.composedBucketNameCallback,
+        arrayParentName: this.props.data.name
+      };
+      lazyZ.transpose(_objectSpread2({}, this.props.bucketProps), bucketInnerFormProps);
+      var keyInnerFormProps = {
+        invalidCallback: this.props.invalidBucketCallback,
+        invalidTextCallback: this.props.invalidBucketTextCallback,
+        composedNameCallback: this.props.composedBucketNameCallback,
+        arrayParentName: this.props.data.name
+      };
+      lazyZ.transpose(_objectSpread2({}, this.props.keyProps), keyInnerFormProps);
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        tooltip: {
+          content: "Service credentials and buckets will be created for your environment even when using an existing Object Storage instance."
+        },
+        id: composedId + "use-data",
+        toggleFieldName: "use_data",
+        labelText: "Use Existing Instance",
+        defaultToggled: this.state.use_data,
+        onToggle: this.handleInputChange,
+        isModal: this.props.isModal
+      }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        tooltip: {
+          content: "Object storage bucket names must be unique across an account. Append a random suffix to maintain unique names across deployments."
+        },
+        id: composedId + "random-suffix",
+        labelText: "Append Random Suffix to Names",
+        toggleFieldName: "random_suffix",
+        defaultToggled: this.state.random_suffix,
+        onToggle: this.handleInputChange,
+        isModal: this.props.isModal
+      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: this.props.data.name + "-object-storage-kms",
+        name: "kms",
+        labelText: "Key Management Instance",
+        groups: this.props.kmsList,
+        value: this.state.kms,
+        handleInputChange: function handleInputChange(event) {
+          return _this2.handleInputChange("kms", event.target.value);
+        }
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+        id: this.props.data.name + "-object-storage-name",
+        componentName: this.props.data.name,
+        value: this.state.name,
+        onChange: function onChange(event) {
+          return _this2.handleInputChange("name", event.target.value);
+        },
+        helperTextCallback: function helperTextCallback() {
+          return _this2.props.composedNameCallback(_this2.state, _this2.props);
+        },
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props)
+      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: this.props.data.name + "-object-storage-rg",
+        name: "resource_group",
+        labelText: "Resource Group",
+        groups: this.props.resourceGroups,
+        value: this.state.resource_group,
+        handleInputChange: function handleInputChange(event) {
+          return _this2.handleInputChange("resource_group", event.target.value);
+        }
+      })), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+        name: "Service Credentials",
+        subHeading: true,
+        tooltip: {
+          content: "A service credential allows for a service instance to connect to Object Storage.",
+          link: "https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-service-credentials"
+        },
+        addText: "Create a Service Credential",
+        arrayData: this.props.data.keys,
+        innerForm: ObjectStorageKeyForm,
+        disableSave: this.props.keyProps.disableSave,
+        onDelete: this.props.keyProps.onDelete,
+        onSave: this.props.keyProps.onSave,
+        onSubmit: this.props.keyProps.onSubmit,
+        propsMatchState: this.props.propsMatchState,
+        innerFormProps: _objectSpread2({}, keyInnerFormProps),
+        hideAbout: true,
+        toggleFormProps: {
+          hideName: true,
+          submissionFieldName: "keys",
+          disableSave: this.props.keyProps.disableSave,
+          type: "formInSubForm"
+        }
+      }), /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+        name: "Buckets",
+        subHeading: true,
+        addText: "Create a Bucket",
+        arrayData: this.props.data.buckets,
+        innerForm: ObjectStorageBucketForm,
+        disableSave: this.props.bucketProps.disableSave,
+        onDelete: this.props.bucketProps.onDelete,
+        onSave: this.props.bucketProps.onSave,
+        onSubmit: this.props.bucketProps.onSubmit,
+        propsMatchState: this.props.propsMatchState,
+        innerFormProps: _objectSpread2({}, bucketInnerFormProps),
+        hideAbout: true,
+        toggleFormProps: {
+          hideName: true,
+          submissionFieldName: "buckets",
+          disableSave: this.props.bucketProps.disableSave,
+          type: "formInSubForm"
+        }
+      })));
+    }
+  }]);
+  return ObjectStorageInstancesForm;
+}(React.Component);
+ObjectStorageInstancesForm.defaultProps = {
+  data: {
+    name: "",
+    use_data: false,
+    resource_group: "",
+    random_suffix: true
+  },
+  resourceGroups: []
+};
+ObjectStorageInstancesForm.propTypes = {
+  isModal: PropTypes__default["default"].bool,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    use_data: PropTypes__default["default"].bool.isRequired,
+    resource_group: PropTypes__default["default"].string,
+    random_suffix: PropTypes__default["default"].bool.isRequired
+  }),
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  composedNameCallback: PropTypes__default["default"].func.isRequired,
+  subForms: PropTypes__default["default"].arrayOf(PropTypes__default["default"].node)
 };
 
 /** Resource Groups
@@ -7529,6 +7581,142 @@ VsiForm.propTypes = {
   invalidTextCallback: PropTypes__default["default"].func.isRequired
 };
 
+var WorkerPoolForm = /*#__PURE__*/function (_Component) {
+  _inherits(WorkerPoolForm, _Component);
+  var _super = _createSuper(WorkerPoolForm);
+  function WorkerPoolForm(props) {
+    var _this;
+    _classCallCheck(this, WorkerPoolForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.isModal ? {
+      name: "",
+      flavor: _this.props.cluster.flavor,
+      subnets: _this.props.cluster.subnets,
+      vpc: _this.props.cluster.vpc,
+      workers_per_subnet: _this.props.cluster.workers_per_subnet,
+      entitlement: _this.props.cluster.entitlement
+    } : _this.props.data, _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
+    _this.handleSubnetChange = _this.handleSubnetChange.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  // Handle pool input change
+  _createClass(WorkerPoolForm, [{
+    key: "handleInputChange",
+    value: function handleInputChange(event) {
+      var _event$target = event.target,
+        name = _event$target.name,
+        value = _event$target.value;
+      var pool = _objectSpread2({}, this.state);
+      if (name === "workers_per_subnet") {
+        pool[name] = Number(value);
+      } else {
+        pool[name] = value === "null" ? null : value;
+      }
+      this.setState({
+        pool: pool
+      });
+    }
+
+    // Handle subnet multiselect change
+  }, {
+    key: "handleSubnetChange",
+    value: function handleSubnetChange(event) {
+      var pool = _objectSpread2({}, this.state);
+      pool.subnets = event.selectedItems;
+      this.setState({
+        pool: pool
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+        id: this.state.name + "-name",
+        componentName: "Worker Pools",
+        onChange: this.handleInputChange,
+        componentProps: this.props,
+        value: this.state.name,
+        className: "fieldWidthSmaller",
+        placeholder: "my-worker-pool-name",
+        hideHelperText: true,
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props)
+      }), /*#__PURE__*/React__default["default"].createElement(EntitlementSelect, {
+        name: "entitlement",
+        value: this.state.entitlement,
+        handleInputChange: this.handleInputChange,
+        component: this.props.data.name,
+        formName: "Worker Pools"
+      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: "Worker Pools",
+        name: "flavor",
+        labelText: "Flavor Select",
+        value: this.state.flavor,
+        groups: ["bx2.16x64", "bx2.2x8"],
+        handleInputChange: this.handleInputChange,
+        className: "fieldWidthSmaller"
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(SubnetMultiSelect, {
+        id: this.props.data.name,
+        slz: this.props.slz,
+        disabled: this.props.cluster.vpc === null,
+        vpc_name: this.state.vpc,
+        initialSelectedItems: this.props.data.subnets,
+        subnets: this.props.subnetList,
+        onChange: this.handleSubnetChange,
+        component: this.props.data.name,
+        className: "fieldWidthSmaller cds--form-item"
+      }), /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
+        name: "workers_per_subnet",
+        formName: "Worker Pools",
+        labelText: "Workers Per Subnet",
+        value: this.state.workers_per_subnet,
+        max: 10,
+        min: 0,
+        handleInputChange: this.handleInputChange,
+        component: this.props.data.name,
+        className: "fieldWidthSmaller"
+      })));
+    }
+  }]);
+  return WorkerPoolForm;
+}(React.Component);
+WorkerPoolForm.defaultProps = {
+  data: {
+    entitlement: "",
+    flavor: "bx2.16x64",
+    name: "",
+    subnets: [],
+    vpc: "",
+    workers_per_subnet: 2
+  },
+  isModal: false
+};
+WorkerPoolForm.propTypes = {
+  subnetList: PropTypes__default["default"].array.isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired,
+  cluster: PropTypes__default["default"].shape({
+    entitlement: PropTypes__default["default"].string,
+    // can be null
+    flavor: PropTypes__default["default"].string.isRequired,
+    vpc: PropTypes__default["default"].string.isRequired,
+    workers_per_subnet: PropTypes__default["default"].number.isRequired,
+    subnets: PropTypes__default["default"].array.isRequired
+  }),
+  // can be null
+  data: PropTypes__default["default"].shape({
+    entitlement: PropTypes__default["default"].string.isRequired,
+    flavor: PropTypes__default["default"].string.isRequired,
+    name: PropTypes__default["default"].string.isRequired,
+    vpc: PropTypes__default["default"].string.isRequired,
+    workers_per_subnet: PropTypes__default["default"].number.isRequired,
+    subnets: PropTypes__default["default"].array.isRequired
+  }).isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired
+};
+
 var ClusterForm = /*#__PURE__*/function (_Component) {
   _inherits(ClusterForm, _Component);
   var _super = _createSuper(ClusterForm);
@@ -7576,6 +7764,14 @@ var ClusterForm = /*#__PURE__*/function (_Component) {
     value: function render() {
       var _this2 = this;
       var clusterComponent = this.props.isModal ? "new-cluster" : this.props.data.name;
+      var innerFormProps = {
+        arrayParentName: this.props.data.name,
+        cluster: this.props.data,
+        invalidTextCallback: this.props.invalidPoolTextCallback,
+        invalidCallback: this.props.invalidPoolCallback,
+        subnetList: this.props.subnetList
+      };
+      lazyZ.transpose(_objectSpread2({}, this.props.workerPoolProps), innerFormProps);
       return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
         id: this.state.name + "-name",
         labelText: "Cluster Name",
@@ -7593,7 +7789,7 @@ var ClusterForm = /*#__PURE__*/function (_Component) {
       }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
         labelText: "Resource Group",
         name: "resource_group",
-        formName: "resource_group",
+        formName: clusterComponent + "resource_group",
         groups: this.props.resourceGroups,
         value: this.state.resource_group,
         handleInputChange: this.handleInputChange,
@@ -7601,7 +7797,7 @@ var ClusterForm = /*#__PURE__*/function (_Component) {
         className: "fieldWidthSmaller"
       }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
         name: "kube_type",
-        formName: "kube_type",
+        formName: clusterComponent + "kube_type",
         labelText: "Kube Type",
         groups: ["OpenShift", "IBM Kubernetes Service"],
         handleInputChange: this.handleInputChange,
@@ -7610,41 +7806,41 @@ var ClusterForm = /*#__PURE__*/function (_Component) {
         className: "fieldWidthSmaller"
       })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(EntitlementSelect, {
         name: "entitlement",
-        formName: "entitlement",
+        formName: clusterComponent + "entitlement",
         labelText: "Entitlement",
         value: this.state.entitlement,
         handleInputChange: this.handleInputChange,
         className: "fieldWidthSmaller"
-      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-        name: "kms_config",
-        formName: "kms_config",
-        labelText: "Encryption Key",
-        groups: this.props.encryptionKeys,
-        value: this.state.kms_config.crk_name,
+      }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
+        name: "flavor",
+        formName: clusterComponent + "flavor",
+        labelText: "Instance Profile",
+        value: this.state.flavor,
+        apiEndpoint: this.props.flavorApiEndpoint,
         handleInputChange: this.handleInputChange,
         className: "fieldWidthSmaller"
       }), this.state.kube_type === "openshift" && /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-        name: "cos_name",
-        formName: "cos_name",
+        name: "cos",
+        formName: clusterComponent + "cos",
         labelText: "Cloud Object Storage Instance",
         groups: this.props.cosNames,
-        value: this.state.cos_name,
+        value: this.state.cos,
         handleInputChange: this.handleInputChange,
         invalidText: "Select an Object Storage instance",
         className: "fieldWidthSmaller"
       })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
         id: clusterComponent + "-vpc-name",
-        name: "vpc_name",
-        formName: "vpc_name",
+        name: "vpc",
+        formName: clusterComponent + "vpc",
         labelText: "VPC",
         groups: this.props.vpcList,
-        value: this.state.vpc_name,
+        value: this.state.vpc,
         handleInputChange: this.handleInputChange,
         className: "fieldWidthSmaller"
       }), /*#__PURE__*/React__default["default"].createElement(SubnetMultiSelect, {
         id: clusterComponent,
-        key: this.state.vpc_name,
-        vpc_name: this.state.vpc_name,
+        key: this.state.vpc,
+        vpc_name: this.state.vpc,
         subnets: this.props.subnetList,
         initialSelectedItems: this.state.subnets,
         onChange: function onChange(event) {
@@ -7654,7 +7850,7 @@ var ClusterForm = /*#__PURE__*/function (_Component) {
       }), /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
         max: 10,
         name: "workers_per_subnet",
-        formName: "workers_per_subnet",
+        formName: clusterComponent + "workers_per_subnet",
         labelText: "Workers per Subnet",
         value: this.state.workers_per_subnet,
         handleInputChange: this.handleInputChange,
@@ -7663,16 +7859,8 @@ var ClusterForm = /*#__PURE__*/function (_Component) {
         invalid: this.state.kube_type === "openshift" && this.state.subnets.length * this.state.workers_per_subnet < 2,
         invalidText: "OpenShift clusters require at least 2 worker nodes across any number of subnets"
       })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
-        name: "machine_type",
-        formName: "machine_type",
-        labelText: "Instance Profile",
-        value: this.state.machine_type,
-        apiEndpoint: this.props.flavorApiEndpoint,
-        handleInputChange: this.handleInputChange,
-        className: "fieldWidthSmaller"
-      }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
         name: "kube_version",
-        formName: "kube_version",
+        formName: clusterComponent + "kube_version",
         labelText: "Kube Version",
         value: this.state.kube_version,
         apiEndpoint: this.props.kubeVersionApiEndpoint,
@@ -7695,17 +7883,42 @@ var ClusterForm = /*#__PURE__*/function (_Component) {
         toggleFieldName: "update_all_workers",
         defaultToggled: this.state.update_all_workers,
         onToggle: this.handleToggleChange
-      })), /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        name: "encryption_key",
+        formName: clusterComponent + "encryption_key",
+        labelText: "Encryption Key",
+        groups: this.props.encryptionKeys,
+        value: this.state.encryption_key,
+        handleInputChange: this.handleInputChange,
+        className: "fieldWidthSmaller"
+      }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        id: clusterComponent + "-service-endpoint",
+        tooltip: {
+          content: "Use private service endpoint for Encryption Key"
+        },
+        labelText: "Private Endpoint",
+        toggleFieldName: "private_endpoint",
+        defaultToggled: this.state.private_endpoint,
+        onToggle: this.handleToggleChange
+      })), /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, this.props.isModal === false && /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
         name: "Worker Pools",
-        type: "subHeading",
-        className: "marginBottomSmall",
-        noLabelText: true,
-        noDeleteButton: true
-      }), RenderForm(this.props.workerPoolForms, {
-        cluster: this.props.data,
-        subnetList: this.props.subnetList,
-        invalidCallback: this.props.invalidWorkerPoolsCallback,
-        invalidTextCallback: this.props.invalidWorkerPoolsTextCallback
+        subHeading: true,
+        addText: "Create a Worker Pool",
+        arrayData: this.props.data.worker_pools,
+        innerForm: WorkerPoolForm,
+        disableSave: this.props.workerPoolProps.disableSave,
+        onDelete: this.props.workerPoolProps.onDelete,
+        onSave: this.props.workerPoolProps.onSave,
+        onSubmit: this.props.workerPoolProps.onSubmit,
+        propsMatchState: this.props.propsMatchState,
+        innerFormProps: _objectSpread2({}, innerFormProps),
+        hideAbout: true,
+        toggleFormProps: {
+          hideName: true,
+          submissionFieldName: "worker_pools",
+          disableSave: this.props.workerPoolProps.disableSave,
+          type: "formInSubForm"
+        }
       })));
     }
   }]);
@@ -7717,14 +7930,12 @@ ClusterForm.defaultProps = {
     resource_group: "",
     kube_type: "openshift",
     entitlement: "null",
-    kms_config: {
-      crk_name: ""
-    },
-    cos_name: "",
-    vpc_name: "",
+    encryption_key: null,
+    cos: "",
+    vpc: "",
     subnets: [],
     workers_per_subnet: 2,
-    machine_type: "",
+    flavor: "",
     kube_version: "default",
     update_all_workers: false,
     worker_pools: []
@@ -7743,16 +7954,13 @@ ClusterForm.propTypes = {
     kube_type: PropTypes__default["default"].string.isRequired,
     entitlement: PropTypes__default["default"].string,
     // can be null
-    // crk name can now be null to allow for imported clusters to not have key
-    kms_config: PropTypes__default["default"].shape({
-      crk_name: PropTypes__default["default"].string
-    }).isRequired,
-    cos_name: PropTypes__default["default"].string.isRequired,
+    encryption_key: PropTypes__default["default"].string,
+    cos: PropTypes__default["default"].string.isRequired,
     subnets: PropTypes__default["default"].array.isRequired,
     workers_per_subnet: PropTypes__default["default"].number.isRequired,
-    vpc_name: PropTypes__default["default"].string.isRequired,
+    vpc: PropTypes__default["default"].string.isRequired,
     kube_version: PropTypes__default["default"].string.isRequired,
-    machine_type: PropTypes__default["default"].string.isRequired,
+    flavor: PropTypes__default["default"].string.isRequired,
     update_all_workers: PropTypes__default["default"].bool.isRequired,
     worker_pools: PropTypes__default["default"].array.isRequired
   }),
@@ -7771,144 +7979,14 @@ ClusterForm.propTypes = {
   invalidCallback: PropTypes__default["default"].func,
   invalidTextCallback: PropTypes__default["default"].func,
   helperTextCallback: PropTypes__default["default"].func,
+  invalidPoolCallback: PropTypes__default["default"].func,
+  invalidPoolTextCallback: PropTypes__default["default"].func,
   /* forms */
-  workerPoolForms: PropTypes__default["default"].func
-};
-
-var WorkerPoolForm = /*#__PURE__*/function (_Component) {
-  _inherits(WorkerPoolForm, _Component);
-  var _super = _createSuper(WorkerPoolForm);
-  function WorkerPoolForm(props) {
-    var _this;
-    _classCallCheck(this, WorkerPoolForm);
-    _this = _super.call(this, props);
-    _this.state = {
-      pool: _this.props.isModal ? {
-        name: "",
-        flavor: _this.props.cluster.machine_type,
-        subnets: _this.props.cluster.subnets,
-        vpc_name: _this.props.cluster.vpc_name,
-        workers_per_subnet: _this.props.cluster.workers_per_subnet,
-        entitlement: _this.props.cluster.entitlement
-      } : _this.props.data
-    };
-    _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
-    _this.handleSubnetChange = _this.handleSubnetChange.bind(_assertThisInitialized(_this));
-    buildFormFunctions(_assertThisInitialized(_this));
-    return _this;
-  }
-
-  // Handle pool input change
-  _createClass(WorkerPoolForm, [{
-    key: "handleInputChange",
-    value: function handleInputChange(event) {
-      var _event$target = event.target,
-        name = _event$target.name,
-        value = _event$target.value;
-      var pool = _objectSpread2({}, this.state.pool);
-      if (name === "workers_per_subnet") {
-        pool[name] = Number(value);
-      } else {
-        pool[name] = value === "null" ? null : value;
-      }
-      this.setState({
-        pool: pool
-      });
-    }
-
-    // Handle subnet multiselect change
-  }, {
-    key: "handleSubnetChange",
-    value: function handleSubnetChange(event) {
-      var pool = _objectSpread2({}, this.state.pool);
-      pool.subnets = event.selectedItems;
-      this.setState({
-        pool: pool
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-        id: this.state.name + "-name",
-        componentName: "Worker Pools",
-        onChange: this.handleInputChange,
-        componentProps: this.props,
-        value: this.state.pool.name,
-        className: "fieldWidthSmaller",
-        placeholder: "my-worker-pool-name",
-        hideHelperText: true,
-        invalid: this.props.invalidCallback(this.state, this.props),
-        invalidText: this.props.invalidTextCallback(this.state, this.props)
-      }), /*#__PURE__*/React__default["default"].createElement(EntitlementSelect, {
-        name: "entitlement",
-        value: this.state.pool.entitlement,
-        handleInputChange: this.handleInputChange,
-        component: this.props.data.name,
-        formName: "Worker Pools"
-      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-        formName: "Worker Pools",
-        name: "flavor",
-        labelText: "Flavor Select",
-        value: this.state.pool.flavor,
-        groups: ["bx2.16x64", "bx2.2x8"],
-        handleInputChange: this.handleInputChange,
-        className: "fieldWidthSmaller"
-      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(SubnetMultiSelect, {
-        id: this.props.data.name,
-        slz: this.props.slz,
-        disabled: this.state.pool.vpc_name === null,
-        vpc_name: this.state.pool.vpc_name,
-        initialSelectedItems: this.props.data.subnets,
-        subnets: this.props.subnetList,
-        onChange: this.handleSubnetChange,
-        component: this.props.data.name,
-        className: "fieldWidthSmaller cds--form-item"
-      }), /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
-        name: "workers_per_subnet",
-        formName: "Worker Pools",
-        labelText: "Workers Per Subnet",
-        value: this.state.pool.workers_per_subnet,
-        max: 10,
-        min: 0,
-        handleInputChange: this.handleInputChange,
-        component: this.props.data.name,
-        className: "fieldWidthSmaller"
-      })));
-    }
-  }]);
-  return WorkerPoolForm;
-}(React.Component);
-WorkerPoolForm.defaultProps = {
-  data: {
-    entitlement: "",
-    flavor: "bx2.16x64",
-    name: "",
-    subnets: [],
-    vpc_name: "",
-    workers_per_subnet: 2
-  },
-  isModal: false
-};
-WorkerPoolForm.propTypes = {
-  subnetList: PropTypes__default["default"].array.isRequired,
-  isModal: PropTypes__default["default"].bool.isRequired,
-  cluster: PropTypes__default["default"].shape({
-    entitlement: PropTypes__default["default"].string,
-    // can be null
-    machine_type: PropTypes__default["default"].string.isRequired,
-    vpc_name: PropTypes__default["default"].string.isRequired,
-    workers_per_subnet: PropTypes__default["default"].number.isRequired,
-    subnets: PropTypes__default["default"].array.isRequired
-  }),
-  // can be null
-  data: PropTypes__default["default"].shape({
-    entitlement: PropTypes__default["default"].string.isRequired,
-    flavor: PropTypes__default["default"].string.isRequired,
-    name: PropTypes__default["default"].string.isRequired,
-    vpc_name: PropTypes__default["default"].string.isRequired,
-    workers_per_subnet: PropTypes__default["default"].number.isRequired,
-    subnets: PropTypes__default["default"].array.isRequired
+  workerPoolProps: PropTypes__default["default"].shape({
+    onSave: PropTypes__default["default"].func.isRequired,
+    onDelete: PropTypes__default["default"].func.isRequired,
+    onSubmit: PropTypes__default["default"].func.isRequired,
+    disableSave: PropTypes__default["default"].func.isRequired
   }).isRequired
 };
 

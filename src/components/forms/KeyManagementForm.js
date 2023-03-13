@@ -6,9 +6,9 @@ import {
 import { IcseFormGroup } from "../Utils";
 import { IcseNameInput, IcseToggle } from "../Inputs";
 import { IcseSelect } from "../Dropdowns";
-import IcseFormTemplate from "../IcseFormTemplate";
 import EncryptionKeyForm from "./EncryptionKeyForm";
 import PropTypes from "prop-types";
+import IcseFormTemplate from "../IcseFormTemplate";
 import { transpose } from "lazy-z";
 
 /**
@@ -163,7 +163,6 @@ KeyManagementForm.defaultProps = {
     authorize_vpc_reader_role: false,
     keys: [],
   },
-  resourceGroups: ["service-rg", "management-rg", "workload-rg"],
   isModal: false,
 };
 
