@@ -6173,18 +6173,17 @@ var SecurityGroupForm = /*#__PURE__*/function (_Component) {
         className: className
       }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
         formName: "security_Group",
-        name: "vpc_name",
+        name: "vpc",
         labelText: "VPC",
         groups: this.props.vpcList,
-        value: this.state.vpc_name,
+        value: this.state.vpc,
         handleInputChange: this.handleInputChange,
         className: className
-      })), (!this.props.isModal || this.props.isTeleport) && /*#__PURE__*/React__default["default"].createElement(NetworkingRulesOrderCard, {
+      })), !this.props.isModal && /*#__PURE__*/React__default["default"].createElement(NetworkingRulesOrderCard, {
         rules: this.state.rules,
-        vpc_name: this.state.vpc_name,
+        vpc_name: this.state.vpc,
         parent_name: this.props.data.name,
         isSecurityGroup: true,
-        isTeleport: this.props.isTeleport,
         networkRuleOrderDidChange: this.networkRuleOrderDidChange,
         invalidCallback: this.props.invalidCallback,
         invalidTextCallback: this.props.invalidTextCallback,
@@ -6202,21 +6201,19 @@ SecurityGroupForm.defaultProps = {
   data: {
     name: "",
     resource_group: "",
-    vpc_name: "",
+    vpc: "",
     rules: []
   },
-  isModal: false,
-  isTeleport: false
+  isModal: false
 };
 SecurityGroupForm.propTypes = {
   data: PropTypes__default["default"].shape({
     name: PropTypes__default["default"].string.isRequired,
-    vpc_name: PropTypes__default["default"].string,
+    vpc: PropTypes__default["default"].string,
     resource_group: PropTypes__default["default"].string,
     rules: PropTypes__default["default"].array
   }).isRequired,
   isModal: PropTypes__default["default"].bool.isRequired,
-  isTeleport: PropTypes__default["default"].bool.isRequired,
   networkRuleOrderDidChange: PropTypes__default["default"].func,
   // can be undefined
   invalidCallback: PropTypes__default["default"].func.isRequired,
