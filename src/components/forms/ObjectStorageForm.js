@@ -5,6 +5,10 @@ import {
 } from "../component-utils";
 import PropTypes from "prop-types";
 import { IcseSelect, IcseFormGroup, IcseToggle, IcseNameInput } from "../";
+import IcseFormTemplate from "../IcseFormTemplate";
+import ObjectStorageBucketForm from "./ObjectStorageBucketForm";
+import ObjectStorageKeyForm from "./ObjectStorageKeyForm";
+import { transpose } from "lazy-z";
 
 /**
  * Object storage
@@ -31,6 +35,13 @@ class ObjectStorageInstancesForm extends Component {
 
   render() {
     let composedId = `object-storage-form-${this.props.data.name}-`;
+    let bucketInnerFormProps = {
+      invalidCallback: this.props.invalidBucketCallback,
+      invalidTextCallback: this.props.invalidBucketTextCallback,
+      composedNameCallback: this.props.composedBucketNameCallback,
+      arrayParentName: this.props.data.name,
+    };
+    transpose({ ...this.props.bucketProps }, bucketInnerFormProps);
     return (
       <>
         <IcseFormGroup>
@@ -97,9 +108,7 @@ class ObjectStorageInstancesForm extends Component {
         {/* show keys and buckets if not modal */}
         {this.props.isModal !== true && (
           <>
-            {this.props?.subForms.map((form, index) => {
-              return <div key={index}>{form}</div>;
-            })}
+
           </>
         )}
       </>
