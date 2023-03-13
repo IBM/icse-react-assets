@@ -5,7 +5,7 @@ import {
 } from "../component-utils";
 import { handleClusterInputChange } from "../../lib";
 import { IcseNameInput, IcseToggle } from "../Inputs";
-import { IcseHeading, IcseFormGroup } from "../Utils";
+import { IcseFormGroup } from "../Utils";
 import WorkerPoolForm from "./WorkerPoolForm";
 import {
   IcseSelect,
@@ -63,7 +63,7 @@ class ClusterForm extends Component {
       cluster: this.props.data,
       invalidTextCallback: this.props.invalidPoolTextCallback,
       invalidCallback: this.props.invalidPoolCallback,
-      subnetList: this.props.subnetList
+      subnetList: this.props.subnetList,
     };
     transpose({ ...this.props.workerPoolProps }, innerFormProps);
     return (
@@ -126,18 +126,16 @@ class ClusterForm extends Component {
             handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"
           />
-
-          {/* encryption key */}
-          <IcseSelect
-            name="encryption_key"
-            formName={clusterComponent + "encryption_key"}
-            labelText="Encryption Key"
-            groups={this.props.encryptionKeys}
-            value={this.state.encryption_key}
+          {/* Machine Type */}
+          <FetchSelect
+            name="flavor"
+            formName={clusterComponent + "flavor"}
+            labelText="Instance Profile"
+            value={this.state.flavor}
+            apiEndpoint={this.props.flavorApiEndpoint}
             handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"
           />
-
           {/* cos */}
           {this.state.kube_type === "openshift" && (
             <IcseSelect
@@ -192,16 +190,6 @@ class ClusterForm extends Component {
           />
         </IcseFormGroup>
         <IcseFormGroup>
-          {/* Machine Type */}
-          <FetchSelect
-            name="flavor"
-            formName={clusterComponent + "flavor"}
-            labelText="Instance Profile"
-            value={this.state.flavor}
-            apiEndpoint={this.props.flavorApiEndpoint}
-            handleInputChange={this.handleInputChange}
-            className="fieldWidthSmaller"
-          />
           {/* Kube Version */}
           <FetchSelect
             name="kube_version"
@@ -229,6 +217,29 @@ class ClusterForm extends Component {
             labelText="Update All Workers"
             toggleFieldName="update_all_workers"
             defaultToggled={this.state.update_all_workers}
+            onToggle={this.handleToggleChange}
+          />
+        </IcseFormGroup>
+        <IcseFormGroup>
+          {/* encryption key */}
+          <IcseSelect
+            name="encryption_key"
+            formName={clusterComponent + "encryption_key"}
+            labelText="Encryption Key"
+            groups={this.props.encryptionKeys}
+            value={this.state.encryption_key}
+            handleInputChange={this.handleInputChange}
+            className="fieldWidthSmaller"
+          />
+          {/* service endpoint */}
+          <IcseToggle
+            id={clusterComponent + "-service-endpoint"}
+            tooltip={{
+              content: "Use private service endpoint for Encryption Key",
+            }}
+            labelText="Private Endpoint"
+            toggleFieldName="private_endpoint"
+            defaultToggled={this.state.private_endpoint}
             onToggle={this.handleToggleChange}
           />
         </IcseFormGroup>

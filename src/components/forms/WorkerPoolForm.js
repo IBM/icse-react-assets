@@ -44,10 +44,6 @@ class WorkerPoolForm extends Component {
   }
 
   render() {
-    if(this.props.isModal) {
-      console.log(this.state)
-      console.log(this.props)
-    }
     return (
       <>
         <IcseFormGroup>

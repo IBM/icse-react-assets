@@ -7621,10 +7621,6 @@ var WorkerPoolForm = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      if (this.props.isModal) {
-        console.log(this.state);
-        console.log(this.props);
-      }
       return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
         id: this.state.name + "-name",
         componentName: "Worker Pools",
@@ -7804,12 +7800,12 @@ var ClusterForm = /*#__PURE__*/function (_Component) {
         value: this.state.entitlement,
         handleInputChange: this.handleInputChange,
         className: "fieldWidthSmaller"
-      }), /*#__PURE__*/React.createElement(IcseSelect, {
-        name: "encryption_key",
-        formName: clusterComponent + "encryption_key",
-        labelText: "Encryption Key",
-        groups: this.props.encryptionKeys,
-        value: this.state.encryption_key,
+      }), /*#__PURE__*/React.createElement(FetchSelect, {
+        name: "flavor",
+        formName: clusterComponent + "flavor",
+        labelText: "Instance Profile",
+        value: this.state.flavor,
+        apiEndpoint: this.props.flavorApiEndpoint,
         handleInputChange: this.handleInputChange,
         className: "fieldWidthSmaller"
       }), this.state.kube_type === "openshift" && /*#__PURE__*/React.createElement(IcseSelect, {
@@ -7852,14 +7848,6 @@ var ClusterForm = /*#__PURE__*/function (_Component) {
         invalid: this.state.kube_type === "openshift" && this.state.subnets.length * this.state.workers_per_subnet < 2,
         invalidText: "OpenShift clusters require at least 2 worker nodes across any number of subnets"
       })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(FetchSelect, {
-        name: "flavor",
-        formName: clusterComponent + "flavor",
-        labelText: "Instance Profile",
-        value: this.state.flavor,
-        apiEndpoint: this.props.flavorApiEndpoint,
-        handleInputChange: this.handleInputChange,
-        className: "fieldWidthSmaller"
-      }), /*#__PURE__*/React.createElement(FetchSelect, {
         name: "kube_version",
         formName: clusterComponent + "kube_version",
         labelText: "Kube Version",
@@ -7883,6 +7871,23 @@ var ClusterForm = /*#__PURE__*/function (_Component) {
         labelText: "Update All Workers",
         toggleFieldName: "update_all_workers",
         defaultToggled: this.state.update_all_workers,
+        onToggle: this.handleToggleChange
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+        name: "encryption_key",
+        formName: clusterComponent + "encryption_key",
+        labelText: "Encryption Key",
+        groups: this.props.encryptionKeys,
+        value: this.state.encryption_key,
+        handleInputChange: this.handleInputChange,
+        className: "fieldWidthSmaller"
+      }), /*#__PURE__*/React.createElement(IcseToggle, {
+        id: clusterComponent + "-service-endpoint",
+        tooltip: {
+          content: "Use private service endpoint for Encryption Key"
+        },
+        labelText: "Private Endpoint",
+        toggleFieldName: "private_endpoint",
+        defaultToggled: this.state.private_endpoint,
         onToggle: this.handleToggleChange
       })), /*#__PURE__*/React.createElement(React.Fragment, null, this.props.isModal === false && /*#__PURE__*/React.createElement(IcseFormTemplate, {
         name: "Worker Pools",
