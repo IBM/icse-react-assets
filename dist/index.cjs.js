@@ -2128,6 +2128,7 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
     _this.state = _this.props.data;
     _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
     _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    _this.handleMultiSelect = _this.handleMultiSelect.bind(_assertThisInitialized(_this));
     buildFormFunctions(_assertThisInitialized(_this));
     buildFormDefaultInputMethods(_assertThisInitialized(_this));
     return _this;
@@ -2141,6 +2142,13 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
     key: "handleInputChange",
     value: function handleInputChange(event) {
       this.setState(this.eventTargetToNameAndValue(event));
+    }
+  }, {
+    key: "handleMultiSelect",
+    value: function handleMultiSelect(event) {
+      this.setState({
+        locations: event
+      });
     }
 
     /**
@@ -2170,7 +2178,7 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
         id: "atracker-name",
         invalid: false
       }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-        formName: "Activity Tracker",
+        formName: this.props.data.name + "-activity-tracker-rg",
         value: this.state.resource_group,
         groups: this.props.resourceGroups,
         handleInputChange: this.handleInputChange,
@@ -2182,10 +2190,10 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
           content: "The bucket name under the Cloud Object Storage instance where Activity Tracker logs will be stored"
         },
         groups: this.props.cosBuckets,
-        formName: "Activity Tracker",
-        field: "collector_bucket_name",
-        name: "collector_bucket_name",
-        value: this.state.collector_bucket_name,
+        formName: this.props.data.name + "-activity-tracker-bucket",
+        field: "bucket",
+        name: "bucket",
+        value: this.state.bucket,
         handleInputChange: this.handleInputChange,
         className: "fieldWidth",
         labelText: "Object Storage Log Bucket",
@@ -2205,14 +2213,20 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
         tooltip: {
           content: "The IAM API key that has writer access to the Cloud Object Storage instance"
         },
-        formName: "Activity Tracker",
-        name: "atracker_key",
+        formName: this.props.data.name + "-activity-tracker-cos-key",
+        name: "cos_key",
         groups: this.props.cosKeys,
-        value: this.state.atracker_key,
+        value: this.state.cos_key,
         labelText: "Privileged IAM Object Storage Key",
         handleInputChange: this.handleInputChange,
         className: "fieldWidth",
         invalidText: "Select an Object Storage key."
+      }), /*#__PURE__*/React__default["default"].createElement(LocationsMultiSelect, {
+        id: this.props.data.name + "-activity-tracker-location",
+        region: this.props.data.region,
+        onChange: this.handleMultiSelect,
+        invalid: this.state.locations.length === 0,
+        invalidText: "Select at least one location."
       })));
     }
   }]);
@@ -2221,18 +2235,22 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
 AtrackerForm.defaultProps = {
   isModal: false,
   data: {
-    collector_bucket_name: "",
-    atracker_key: "",
+    bucket: "",
+    cos_key: "",
     resource_group: "",
-    add_route: false
+    add_route: false,
+    region: "",
+    locations: []
   }
 };
 AtrackerForm.propTypes = {
   data: PropTypes__default["default"].shape({
-    collector_bucket_name: PropTypes__default["default"].string.isRequired,
-    atracker_key: PropTypes__default["default"].string.isRequired,
+    bucket: PropTypes__default["default"].string.isRequired,
+    cos_key: PropTypes__default["default"].string.isRequired,
     resource_group: PropTypes__default["default"].string.isRequired,
-    add_route: PropTypes__default["default"].bool.isRequired
+    add_route: PropTypes__default["default"].bool.isRequired,
+    region: PropTypes__default["default"].string.isRequired,
+    locations: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
   }).isRequired,
   prefix: PropTypes__default["default"].string.isRequired,
   cosKeys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
@@ -2603,6 +2621,42 @@ VpcListMultiSelect.propTypes = {
   onChange: PropTypes__default["default"].func.isRequired,
   initialSelectedItems: PropTypes__default["default"].array.isRequired,
   vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+};
+var LocationsMultiSelect = function LocationsMultiSelect(props) {
+  // throw error here so that passing no vpc list prop will error here
+  // instead of being passed to `FilterableMultiselect`
+  if (!props.region) {
+    throw new Error("LocationsMultiSelect requires a region using the prop `region`. Got " + props.region);
+  }
+  return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+    id: props.id + "-locations-multiselect",
+    label: props.label,
+    titleText: "Locations",
+    className: props.className,
+    initialSelectedItems: props.initialSelectedItems,
+    invalid: props.invalid,
+    invalidText: props.invalidText,
+    onChange: function onChange(event) {
+      props.onChange(event.selectedItems);
+    },
+    disabled: props.disabled,
+    items: ["global"].concat(props.region),
+    itemToString: function itemToString(item) {
+      return item ? item : "";
+    }
+  });
+};
+LocationsMultiSelect.defaultProps = {
+  invalid: false,
+  initialSelectedItems: [],
+  invalidText: "Select at least one location."
+};
+LocationsMultiSelect.propTypes = {
+  invalid: PropTypes__default["default"].bool.isRequired,
+  id: PropTypes__default["default"].string.isRequired,
+  onChange: PropTypes__default["default"].func.isRequired,
+  initialSelectedItems: PropTypes__default["default"].array.isRequired,
+  region: PropTypes__default["default"].string.isRequired
 };
 
 var F5VsiForm = /*#__PURE__*/function (_Component) {
@@ -8017,6 +8071,7 @@ exports.IcseTextInput = IcseTextInput;
 exports.IcseToggle = IcseToggle;
 exports.IcseToolTip = IcseToolTip;
 exports.KeyManagementForm = KeyManagementForm;
+exports.LocationsMultiSelect = LocationsMultiSelect;
 exports.NetworkAclForm = NetworkAclForm;
 exports.NetworkingRuleForm = NetworkingRuleForm;
 exports.NetworkingRulesOrderCard = NetworkingRulesOrderCard;

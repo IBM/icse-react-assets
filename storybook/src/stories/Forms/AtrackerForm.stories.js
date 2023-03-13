@@ -9,12 +9,12 @@ export default {
       type: { required: false },
       control: "none",
     },
-    ["data.collector_bucket_name"]: {
+    ["data.bucket"]: {
       description: "A string value of the cos bucket name",
       control: "none",
       type: { required: true },
     },
-    ["data.atracker_key"]: {
+    ["data.cos_key"]: {
       description: "A string value of the cos key name",
       control: "none",
       type: { required: true },
@@ -29,6 +29,18 @@ export default {
       control: "none",
       type: { required: true },
       table: { defaultValue: { summary: false } },
+    },
+    ["data.region"]: {
+      description: "A string representing the region",
+      control: "none",
+      type: { required: true },
+    },
+    ["data.locations"]: {
+      description:
+        "Logs from these locations (array of strings) will be sent to the targets specified",
+      control: "none",
+      type: { required: true },
+      table: { defaultValue: { summary: `[]` } },
     },
     resourceGroups: {
       description:
@@ -76,9 +88,11 @@ const AtrackerFormStory = () => {
     <AtrackerForm
       data={{
         resource_group: "default",
-        collector_bucket_name: "default_bucket",
-        atracker_key: "default_key",
+        bucket: "default_bucket",
+        cos_key: "default_key",
         add_route: false,
+        region: "us-south",
+        locations: [],
       }}
       resourceGroups={["default", "foo", "bar"]}
       cosBuckets={["default_bucket", "foo"]}

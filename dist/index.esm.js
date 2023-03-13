@@ -2117,6 +2117,7 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
     _this.state = _this.props.data;
     _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
     _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    _this.handleMultiSelect = _this.handleMultiSelect.bind(_assertThisInitialized(_this));
     buildFormFunctions(_assertThisInitialized(_this));
     buildFormDefaultInputMethods(_assertThisInitialized(_this));
     return _this;
@@ -2130,6 +2131,13 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
     key: "handleInputChange",
     value: function handleInputChange(event) {
       this.setState(this.eventTargetToNameAndValue(event));
+    }
+  }, {
+    key: "handleMultiSelect",
+    value: function handleMultiSelect(event) {
+      this.setState({
+        locations: event
+      });
     }
 
     /**
@@ -2159,7 +2167,7 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
         id: "atracker-name",
         invalid: false
       }), /*#__PURE__*/React.createElement(IcseSelect, {
-        formName: "Activity Tracker",
+        formName: this.props.data.name + "-activity-tracker-rg",
         value: this.state.resource_group,
         groups: this.props.resourceGroups,
         handleInputChange: this.handleInputChange,
@@ -2171,10 +2179,10 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
           content: "The bucket name under the Cloud Object Storage instance where Activity Tracker logs will be stored"
         },
         groups: this.props.cosBuckets,
-        formName: "Activity Tracker",
-        field: "collector_bucket_name",
-        name: "collector_bucket_name",
-        value: this.state.collector_bucket_name,
+        formName: this.props.data.name + "-activity-tracker-bucket",
+        field: "bucket",
+        name: "bucket",
+        value: this.state.bucket,
         handleInputChange: this.handleInputChange,
         className: "fieldWidth",
         labelText: "Object Storage Log Bucket",
@@ -2194,14 +2202,20 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
         tooltip: {
           content: "The IAM API key that has writer access to the Cloud Object Storage instance"
         },
-        formName: "Activity Tracker",
-        name: "atracker_key",
+        formName: this.props.data.name + "-activity-tracker-cos-key",
+        name: "cos_key",
         groups: this.props.cosKeys,
-        value: this.state.atracker_key,
+        value: this.state.cos_key,
         labelText: "Privileged IAM Object Storage Key",
         handleInputChange: this.handleInputChange,
         className: "fieldWidth",
         invalidText: "Select an Object Storage key."
+      }), /*#__PURE__*/React.createElement(LocationsMultiSelect, {
+        id: this.props.data.name + "-activity-tracker-location",
+        region: this.props.data.region,
+        onChange: this.handleMultiSelect,
+        invalid: this.state.locations.length === 0,
+        invalidText: "Select at least one location."
       })));
     }
   }]);
@@ -2210,18 +2224,22 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
 AtrackerForm.defaultProps = {
   isModal: false,
   data: {
-    collector_bucket_name: "",
-    atracker_key: "",
+    bucket: "",
+    cos_key: "",
     resource_group: "",
-    add_route: false
+    add_route: false,
+    region: "",
+    locations: []
   }
 };
 AtrackerForm.propTypes = {
   data: PropTypes.shape({
-    collector_bucket_name: PropTypes.string.isRequired,
-    atracker_key: PropTypes.string.isRequired,
+    bucket: PropTypes.string.isRequired,
+    cos_key: PropTypes.string.isRequired,
     resource_group: PropTypes.string.isRequired,
-    add_route: PropTypes.bool.isRequired
+    add_route: PropTypes.bool.isRequired,
+    region: PropTypes.string.isRequired,
+    locations: PropTypes.arrayOf(PropTypes.string).isRequired
   }).isRequired,
   prefix: PropTypes.string.isRequired,
   cosKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -2592,6 +2610,42 @@ VpcListMultiSelect.propTypes = {
   onChange: PropTypes.func.isRequired,
   initialSelectedItems: PropTypes.array.isRequired,
   vpcList: PropTypes.arrayOf(PropTypes.string).isRequired
+};
+var LocationsMultiSelect = function LocationsMultiSelect(props) {
+  // throw error here so that passing no vpc list prop will error here
+  // instead of being passed to `FilterableMultiselect`
+  if (!props.region) {
+    throw new Error("LocationsMultiSelect requires a region using the prop `region`. Got " + props.region);
+  }
+  return /*#__PURE__*/React.createElement(IcseMultiSelect, {
+    id: props.id + "-locations-multiselect",
+    label: props.label,
+    titleText: "Locations",
+    className: props.className,
+    initialSelectedItems: props.initialSelectedItems,
+    invalid: props.invalid,
+    invalidText: props.invalidText,
+    onChange: function onChange(event) {
+      props.onChange(event.selectedItems);
+    },
+    disabled: props.disabled,
+    items: ["global"].concat(props.region),
+    itemToString: function itemToString(item) {
+      return item ? item : "";
+    }
+  });
+};
+LocationsMultiSelect.defaultProps = {
+  invalid: false,
+  initialSelectedItems: [],
+  invalidText: "Select at least one location."
+};
+LocationsMultiSelect.propTypes = {
+  invalid: PropTypes.bool.isRequired,
+  id: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  initialSelectedItems: PropTypes.array.isRequired,
+  region: PropTypes.string.isRequired
 };
 
 var F5VsiForm = /*#__PURE__*/function (_Component) {
@@ -7974,4 +8028,4 @@ ClusterForm.propTypes = {
   }).isRequired
 };
 
-export { AppIdForm, AppIdKeyForm, AtrackerForm, ClusterForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VsiForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+export { AppIdForm, AppIdKeyForm, AtrackerForm, ClusterForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, LocationsMultiSelect, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VsiForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
