@@ -29,7 +29,7 @@ export default {
       control: "none",
       type: { required: true }, // required prop or not
     },
-    ["data.random_suffix"]: {
+    ["data.use_random_suffix"]: {
       description:
         "A boolean describing whether or not to add a random suffix to the end of the instance name",
       control: "none",
@@ -123,6 +123,7 @@ const ObjectStorageFormStory = () => {
             kms_key: "atracker-key",
             name: "atracker-bucket",
             storage_class: "standard",
+            use_random_suffix: false,
           },
         ],
         keys: [
@@ -130,6 +131,7 @@ const ObjectStorageFormStory = () => {
             name: "cos-bind-key",
             role: "Writer",
             enable_hmac: false,
+            use_random_suffix: false
           },
         ],
         name: "atracker-cos",

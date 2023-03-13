@@ -172,7 +172,7 @@ ObjectStorageInstancesForm.defaultProps = {
     name: "",
     use_data: false,
     resource_group: "",
-    random_suffix: true,
+    use_random_suffix: true
   },
   resourceGroups: [],
 };
@@ -184,7 +184,7 @@ ObjectStorageInstancesForm.propTypes = {
     name: PropTypes.string.isRequired,
     use_data: PropTypes.bool.isRequired,
     resource_group: PropTypes.string,
-    random_suffix: PropTypes.bool.isRequired,
+    use_random_suffix: PropTypes.bool.isRequired,
   }),
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
