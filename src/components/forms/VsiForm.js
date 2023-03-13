@@ -32,7 +32,7 @@ class VsiForm extends Component {
     let stateChangeParams = {
       [name]: name === "vsi_per_subnet" && value !== "" ? Number(value) : value,
     };
-    if (name === "vpc_name")
+    if (name === "vpc")
       transpose({ subnets: [], subnet: "" }, stateChangeParams);
 
     this.setState(stateChangeParams);
@@ -72,12 +72,12 @@ class VsiForm extends Component {
         <IcseFormGroup>
           <IcseSelect
             formName="vsi_form"
-            name="vpc_name"
+            name="vpc"
             labelText="VPC"
             groups={this.props.vpcList}
-            value={this.state.vpc_name}
+            value={this.state.vpc}
             handleInputChange={this.handleInputChange}
-            invalid={checkNullorEmptyString(this.state.vpc_name)}
+            invalid={checkNullorEmptyString(this.state.vpc)}
             invalidText="Select a VPC."
           />
           {/* subnets */}
@@ -91,11 +91,11 @@ class VsiForm extends Component {
               value={this.state.subnet}
               handleInputChange={this.handleInputChange}
               invalid={
-                checkNullorEmptyString(this.state.vpc_name) ||
+                checkNullorEmptyString(this.state.vpc) ||
                 checkNullorEmptyString(this.state.subnet)
               }
               invalidText={
-                checkNullorEmptyString(this.state.vpc_name)
+                checkNullorEmptyString(this.state.vpc)
                   ? `No VPC Selected.`
                   : `Select a Subnet.`
               }
@@ -104,7 +104,7 @@ class VsiForm extends Component {
             <SubnetMultiSelect
               id="subnet"
               initialSelectedItems={this.state.subnets}
-              vpc_name={this.state.vpc_name}
+              vpc_name={this.state.vpc}
               subnets={this.props.subnetList}
               onChange={(value) =>
                 this.handleMultiSelectChange("subnets", value)
@@ -200,7 +200,7 @@ VsiForm.defaultProps = {
     subnet: "",
     subnets: [],
     enable_floating_ip: false,
-    vpc_name: "",
+    vpc: "",
     image_name: "",
     profile: "",
     resource_group: "",
@@ -225,7 +225,7 @@ VsiForm.propTypes = {
     subnet: PropTypes.string,
     subnets: PropTypes.array,
     enable_floating_ip: PropTypes.bool,
-    vpc_name: PropTypes.string,
+    vpc: PropTypes.string,
     image_name: PropTypes.string,
     profile: PropTypes.string,
     resource_group: PropTypes.string,

@@ -33,7 +33,7 @@ export default {
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.vpc_name"]: {
+    ["data.vpc"]: {
       description:
         "A string value representing the VPC where the VSI will be deployed to",
       control: "none",
