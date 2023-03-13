@@ -10,7 +10,7 @@ export default {
       type: { required: false }, // required prop or not
       control: "none",
     },
-    ["data.enable_scc"]: {
+    ["data.enable"]: {
       description: "A boolean of whether or not an SCC instance is created",
       control: "none",
       type: { required: true }, // required prop or not
@@ -26,7 +26,7 @@ export default {
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.location_id"]: {
+    ["data.location"]: {
       description: "A string determining the location (`us`, `eu`, or `uk`)",
       control: "none",
       type: { required: false }, // required prop or not
@@ -36,21 +36,10 @@ export default {
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.scope_name"]: {
-      description: "A string for your scope name",
-      control: "none",
-      type: { required: false }, // required prop or not
-    },
-    ["data.collector_passphrase"]: {
+    ["data.passphrase"]: {
       description: "A string passphrase for the collector",
       control: "none",
       type: { required: false }, // required prop or not
-    },
-    scopeNameRegex: {
-      description:
-        "A regular expression to determine invalid status for `scope_name`",
-      type: { required: true }, // required prop or not
-      control: "none",
     },
     descriptionRegex: {
       description:
@@ -73,15 +62,13 @@ const SccFormStory = () => {
   return (
     <SccForm
       data={{
-        enable_scc: true,
+        enable: true,
         collector_description: "test collector description",
         is_public: true,
         scope_description: "test scope description",
-        scope_name: "test-scope-name",
-        collector_passphrase: "test-passphrase",
-        location_id: "us",
+        passphrase: "test-passphrase",
+        location: "us",
       }}
-      scopeNameRegex={/^[A-z]([a-z0-9-]*[a-z0-9])?$/i}
       descriptionRegex={/^[A-z][a-zA-Z0-9-\._,\s]*$/i}
     />
   );
