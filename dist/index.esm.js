@@ -6064,10 +6064,10 @@ var SecretsManagerForm = /*#__PURE__*/function (_Component) {
       })), /*#__PURE__*/React.createElement("div", {
         className: "fieldWidth"
       }, /*#__PURE__*/React.createElement(IcseSelect, {
-        value: this.state.kms_key_name,
+        value: this.state.encryption_key,
         groups: this.props.encryptionKeys,
         formName: "Secrets Manager",
-        name: "kms_key_name",
+        name: "encryption_key",
         className: "fieldWidth",
         labelText: "Encryption Key",
         handleInputChange: this.handleInputChange
@@ -6080,7 +6080,7 @@ SecretsManagerForm.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string,
     resource_group: PropTypes.string,
-    kms_key_name: PropTypes.string
+    encryption_key: PropTypes.string
   }).isRequired,
   encryptionKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired
