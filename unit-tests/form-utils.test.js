@@ -110,7 +110,7 @@ describe("form-utils", () => {
       entitlement: "null",
       kms_config: { crk_name: "" },
       cos_name: "",
-      vpc_name: "",
+      vpc: "",
       subnets: [],
       workers_per_subnet: 2,
       machine_type: "",
@@ -132,14 +132,6 @@ describe("form-utils", () => {
       assert.deepEqual(testCluster.cos_name, "", "it should return true");
       assert.deepEqual(testCluster.kube_version, "", "it should return true");
     });
-    it("should return testCluster with new encryption key: `slz-slz-key`", () => {
-      handleClusterInputChange("kms_config", "slz-slz-key", testCluster);
-      assert.deepEqual(
-        testCluster.kms_config.crk_name,
-        "slz-slz-key",
-        "it should return true"
-      );
-    });
     it("should return testCluster with new workers per subnet: `4`", () => {
       handleClusterInputChange("workers_per_subnet", "4", testCluster);
       assert.deepEqual(
@@ -149,9 +141,9 @@ describe("form-utils", () => {
       );
     });
     it("should return testCluster with new vpc name: `management` (should reset subnets)", () => {
-      handleClusterInputChange("vpc_name", "management", testCluster);
+      handleClusterInputChange("vpc", "management", testCluster);
       assert.deepEqual(
-        testCluster.vpc_name,
+        testCluster.vpc,
         "management",
         "it should return true"
       );

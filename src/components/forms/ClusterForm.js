@@ -79,7 +79,7 @@ class ClusterForm extends Component {
           <IcseSelect
             labelText="Resource Group"
             name="resource_group"
-            formName="resource_group"
+            formName={clusterComponent + "resource_group"}
             groups={this.props.resourceGroups}
             value={this.state.resource_group}
             handleInputChange={this.handleInputChange}
@@ -90,7 +90,7 @@ class ClusterForm extends Component {
           {/* kube type */}
           <IcseSelect
             name="kube_type"
-            formName="kube_type"
+            formName={clusterComponent + "kube_type"}
             labelText="Kube Type"
             groups={["OpenShift", "IBM Kubernetes Service"]}
             handleInputChange={this.handleInputChange}
@@ -109,7 +109,7 @@ class ClusterForm extends Component {
           {/* entitlement */}
           <EntitlementSelect
             name="entitlement"
-            formName="entitlement"
+            formName={clusterComponent + "entitlement"}
             labelText="Entitlement"
             value={this.state.entitlement}
             handleInputChange={this.handleInputChange}
@@ -118,11 +118,11 @@ class ClusterForm extends Component {
 
           {/* encryption key */}
           <IcseSelect
-            name="kms_config"
-            formName="kms_config"
+            name="encryption_key"
+            formName={clusterComponent + "encryption_key"}
             labelText="Encryption Key"
             groups={this.props.encryptionKeys}
-            value={this.state.kms_config.crk_name}
+            value={this.state.encryption_key}
             handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"
           />
@@ -130,11 +130,11 @@ class ClusterForm extends Component {
           {/* cos */}
           {this.state.kube_type === "openshift" && (
             <IcseSelect
-              name="cos_name"
-              formName="cos_name"
+              name="cos"
+              formName={clusterComponent + "cos"}
               labelText="Cloud Object Storage Instance"
               groups={this.props.cosNames}
-              value={this.state.cos_name}
+              value={this.state.cos}
               handleInputChange={this.handleInputChange}
               invalidText="Select an Object Storage instance"
               className="fieldWidthSmaller"
@@ -145,19 +145,19 @@ class ClusterForm extends Component {
           {/* vpc */}
           <IcseSelect
             id={clusterComponent + "-vpc-name"}
-            name="vpc_name"
-            formName="vpc_name"
+            name="vpc"
+            formName={clusterComponent + "vpc"}
             labelText="VPC"
             groups={this.props.vpcList}
-            value={this.state.vpc_name}
+            value={this.state.vpc}
             handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"
           />
           {/* subnets */}
           <SubnetMultiSelect
             id={clusterComponent}
-            key={this.state.vpc_name}
-            vpc_name={this.state.vpc_name}
+            key={this.state.vpc}
+            vpc={this.state.vpc}
             subnets={this.props.subnetList}
             initialSelectedItems={this.state.subnets}
             onChange={(event) => this.handleMultiSelect("subnets", event)}
@@ -167,7 +167,7 @@ class ClusterForm extends Component {
           <IcseNumberSelect
             max={10}
             name="workers_per_subnet"
-            formName="workers_per_subnet"
+            formName={clusterComponent + "workers_per_subnet"}
             labelText="Workers per Subnet"
             value={this.state.workers_per_subnet}
             handleInputChange={this.handleInputChange}
@@ -183,10 +183,10 @@ class ClusterForm extends Component {
         <IcseFormGroup>
           {/* Machine Type */}
           <FetchSelect
-            name="machine_type"
-            formName="machine_type"
+            name="flavor"
+            formName={clusterComponent + "flavor"}
             labelText="Instance Profile"
-            value={this.state.machine_type}
+            value={this.state.flavor}
             apiEndpoint={this.props.flavorApiEndpoint}
             handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"
@@ -194,7 +194,7 @@ class ClusterForm extends Component {
           {/* Kube Version */}
           <FetchSelect
             name="kube_version"
-            formName="kube_version"
+            formName={clusterComponent + "kube_version"}
             labelText="Kube Version"
             value={this.state.kube_version}
             apiEndpoint={this.props.kubeVersionApiEndpoint}
@@ -248,11 +248,11 @@ ClusterForm.defaultProps = {
     kube_type: "openshift",
     entitlement: "null",
     kms_config: { crk_name: "" },
-    cos_name: "",
-    vpc_name: "",
+    cos: "",
+    vpc: "",
     subnets: [],
     workers_per_subnet: 2,
-    machine_type: "",
+    flavor: "",
     kube_version: "default",
     update_all_workers: false,
     worker_pools: [],
@@ -273,12 +273,12 @@ ClusterForm.propTypes = {
     entitlement: PropTypes.string, // can be null
     // crk name can now be null to allow for imported clusters to not have key
     kms_config: PropTypes.shape({ crk_name: PropTypes.string }).isRequired,
-    cos_name: PropTypes.string.isRequired,
+    cos: PropTypes.string.isRequired,
     subnets: PropTypes.array.isRequired,
     workers_per_subnet: PropTypes.number.isRequired,
-    vpc_name: PropTypes.string.isRequired,
+    vpc: PropTypes.string.isRequired,
     kube_version: PropTypes.string.isRequired,
-    machine_type: PropTypes.string.isRequired,
+    flavor: PropTypes.string.isRequired,
     update_all_workers: PropTypes.bool.isRequired,
     worker_pools: PropTypes.array.isRequired,
   }),

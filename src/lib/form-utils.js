@@ -68,9 +68,7 @@ function invalidRegex(name, value, regex) {
 function handleClusterInputChange(name, value, stateData) {
   const kubeTypes = { OpenShift: "openshift", "IBM Kubernetes Service": "iks" };
   let cluster = stateData;
-  if (name === "kms_config") {
-    cluster[name].crk_name = value;
-  } else if (name === "kube_type") {
+  if (name === "kube_type") {
     cluster[name] = kubeTypes[value];
     cluster.cos_name = "";
     cluster.kube_version = ""; // reset kube version on change

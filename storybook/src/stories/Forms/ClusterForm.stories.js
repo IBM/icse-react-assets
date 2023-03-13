@@ -38,7 +38,7 @@ export default {
       control: "none",
       type: { required: true }, // required prop or not
     },
-    "data.cos_name": {
+    "data.cos": {
       description:
         "A string value of the Cloud Object Storage Instance selected",
       control: "none",
@@ -59,7 +59,7 @@ export default {
       control: "none",
       type: { required: true }, // required prop or not
     },
-    "data.machine_type": {
+    "data.flavor": {
       description:
         "A string for selecting the flavor (machine type) of the worker nodes",
       control: "none",
@@ -185,11 +185,11 @@ const ClusterFormStory = () => {
         kube_type: "openshift",
         entitlement: "null",
         kms_config: { crk_name: "" },
-        cos_name: "",
+        cos: "",
         vpc_name: "",
         subnets: [],
         workers_per_subnet: 2,
-        machine_type: "bx2.16x64",
+        flavor: "bx2.16x64",
         kube_version: "4.10.52_openshift (Default)",
         update_all_workers: false,
         worker_pools: [],
