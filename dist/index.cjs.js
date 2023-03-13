@@ -5646,14 +5646,14 @@ var ObjectStorageInstancesForm = /*#__PURE__*/function (_Component) {
       var bucketInnerFormProps = {
         invalidCallback: this.props.invalidBucketCallback,
         invalidTextCallback: this.props.invalidBucketTextCallback,
-        composedNameCallback: this.props.composedBucketNameCallback,
+        composedNameCallback: this.props.composedNameCallback,
         arrayParentName: this.props.data.name
       };
       lazyZ.transpose(_objectSpread2({}, this.props.bucketProps), bucketInnerFormProps);
       var keyInnerFormProps = {
-        invalidCallback: this.props.invalidBucketCallback,
-        invalidTextCallback: this.props.invalidBucketTextCallback,
-        composedNameCallback: this.props.composedBucketNameCallback,
+        invalidCallback: this.props.invalidKeyCallback,
+        invalidTextCallback: this.props.invalidKeyTextCallback,
+        composedNameCallback: this.props.composedNameCallback,
         arrayParentName: this.props.data.name
       };
       lazyZ.transpose(_objectSpread2({}, this.props.keyProps), keyInnerFormProps);
@@ -5726,7 +5726,7 @@ var ObjectStorageInstancesForm = /*#__PURE__*/function (_Component) {
         hideAbout: true,
         toggleFormProps: {
           hideName: true,
-          submissionFieldName: "keys",
+          submissionFieldName: "cos_keys",
           disableSave: this.props.keyProps.disableSave,
           type: "formInSubForm"
         }

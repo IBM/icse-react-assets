@@ -38,14 +38,14 @@ class ObjectStorageInstancesForm extends Component {
     let bucketInnerFormProps = {
       invalidCallback: this.props.invalidBucketCallback,
       invalidTextCallback: this.props.invalidBucketTextCallback,
-      composedNameCallback: this.props.composedBucketNameCallback,
+      composedNameCallback: this.props.composedNameCallback,
       arrayParentName: this.props.data.name,
     };
     transpose({ ...this.props.bucketProps }, bucketInnerFormProps);
     let keyInnerFormProps = {
-      invalidCallback: this.props.invalidBucketCallback,
-      invalidTextCallback: this.props.invalidBucketTextCallback,
-      composedNameCallback: this.props.composedBucketNameCallback,
+      invalidCallback: this.props.invalidKeyCallback,
+      invalidTextCallback: this.props.invalidKeyTextCallback,
+      composedNameCallback: this.props.composedNameCallback,
       arrayParentName: this.props.data.name,
     };
     transpose({ ...this.props.keyProps }, keyInnerFormProps);
@@ -135,7 +135,7 @@ class ObjectStorageInstancesForm extends Component {
               hideAbout
               toggleFormProps={{
                 hideName: true,
-                submissionFieldName: "keys",
+                submissionFieldName: "cos_keys",
                 disableSave: this.props.keyProps.disableSave,
                 type: "formInSubForm",
               }}
