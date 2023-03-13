@@ -67,7 +67,7 @@ export default {
       control: "none",
       type: { required: true }, // required prop or not
     },
-    ["data.vpc_name"]: {
+    ["data.vpc"]: {
       description: "A string specifying the name of the vpc",
       control: "none",
       type: { required: true }, // required prop or not
@@ -147,7 +147,7 @@ const SecurityGroupFormStory = () => {
       data={{
         name: "example-sg",
         resource_group: "foo",
-        vpc_name: "bar",
+        vpc: "bar",
         rules: [],
       }}
       invalidCallback={invalidCallback}
