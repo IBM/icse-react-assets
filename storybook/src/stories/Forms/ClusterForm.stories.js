@@ -33,7 +33,7 @@ export default {
       control: "none",
       type: { required: false }, // required prop or not
     },
-    "data.kms_config.crk_name": {
+    "data.encryption_key": {
       description: "A string value of the Encryption Key selected",
       control: "none",
       type: { required: true }, // required prop or not
@@ -44,7 +44,7 @@ export default {
       control: "none",
       type: { required: true }, // required prop or not
     },
-    "data.vpc_name": {
+    "data.vpc": {
       description: "A string for the VPC where your cluster is provisioned",
       control: "none",
       type: { required: true }, // required prop or not
@@ -184,9 +184,9 @@ const ClusterFormStory = () => {
         resource_group: "",
         kube_type: "openshift",
         entitlement: "null",
-        kms_config: { crk_name: "" },
+        encryption_key: "",
         cos: "",
-        vpc_name: "",
+        vpc: "",
         subnets: [],
         workers_per_subnet: 2,
         flavor: "bx2.16x64",

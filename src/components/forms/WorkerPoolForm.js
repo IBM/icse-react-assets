@@ -9,19 +9,17 @@ import PropTypes from "prop-types";
 class WorkerPoolForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      pool: this.props.isModal
-        ? {
-            name: "",
-            flavor: this.props.cluster.machine_type,
-            subnets: this.props.cluster.subnets,
-            vpc_name: this.props.cluster.vpc_name,
-            workers_per_subnet: this.props.cluster.workers_per_subnet,
-            entitlement: this.props.cluster.entitlement,
-          }
-        : this.props.data,
-    };
-    this.handleInputChange = this.handleInputChange.bind(this);
+    (this.state = this.props.isModal
+      ? {
+          name: "",
+          flavor: this.props.cluster.flavor,
+          subnets: this.props.cluster.subnets,
+          vpc: this.props.cluster.vpc,
+          workers_per_subnet: this.props.cluster.workers_per_subnet,
+          entitlement: this.props.cluster.entitlement,
+        }
+      : this.props.data),
+      (this.handleInputChange = this.handleInputChange.bind(this));
     this.handleSubnetChange = this.handleSubnetChange.bind(this);
     buildFormFunctions(this);
   }
@@ -29,7 +27,7 @@ class WorkerPoolForm extends Component {
   // Handle pool input change
   handleInputChange(event) {
     let { name, value } = event.target;
-    let pool = { ...this.state.pool };
+    let pool = { ...this.state };
     if (name === "workers_per_subnet") {
       pool[name] = Number(value);
     } else {
@@ -40,12 +38,16 @@ class WorkerPoolForm extends Component {
 
   // Handle subnet multiselect change
   handleSubnetChange(event) {
-    let pool = { ...this.state.pool };
+    let pool = { ...this.state };
     pool.subnets = event.selectedItems;
     this.setState({ pool });
   }
 
   render() {
+    if(this.props.isModal) {
+      console.log(this.state)
+      console.log(this.props)
+    }
     return (
       <>
         <IcseFormGroup>
@@ -55,7 +57,7 @@ class WorkerPoolForm extends Component {
             componentName="Worker Pools"
             onChange={this.handleInputChange}
             componentProps={this.props}
-            value={this.state.pool.name}
+            value={this.state.name}
             className="fieldWidthSmaller"
             placeholder="my-worker-pool-name"
             hideHelperText
@@ -65,7 +67,7 @@ class WorkerPoolForm extends Component {
           {/* entitlement */}
           <EntitlementSelect
             name="entitlement"
-            value={this.state.pool.entitlement}
+            value={this.state.entitlement}
             handleInputChange={this.handleInputChange}
             component={this.props.data.name}
             formName="Worker Pools"
@@ -75,7 +77,7 @@ class WorkerPoolForm extends Component {
             formName="Worker Pools"
             name="flavor"
             labelText="Flavor Select"
-            value={this.state.pool.flavor}
+            value={this.state.flavor}
             groups={["bx2.16x64", "bx2.2x8"]}
             handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"
@@ -86,8 +88,8 @@ class WorkerPoolForm extends Component {
           <SubnetMultiSelect
             id={this.props.data.name}
             slz={this.props.slz}
-            disabled={this.state.pool.vpc_name === null}
-            vpc_name={this.state.pool.vpc_name}
+            disabled={this.props.cluster.vpc === null}
+            vpc_name={this.state.vpc}
             initialSelectedItems={this.props.data.subnets}
             subnets={this.props.subnetList}
             onChange={this.handleSubnetChange}
@@ -99,7 +101,7 @@ class WorkerPoolForm extends Component {
             name="workers_per_subnet"
             formName="Worker Pools"
             labelText="Workers Per Subnet"
-            value={this.state.pool.workers_per_subnet}
+            value={this.state.workers_per_subnet}
             max={10}
             min={0}
             handleInputChange={this.handleInputChange}
@@ -118,7 +120,7 @@ WorkerPoolForm.defaultProps = {
     flavor: "bx2.16x64",
     name: "",
     subnets: [],
-    vpc_name: "",
+    vpc: "",
     workers_per_subnet: 2,
   },
   isModal: false,
@@ -129,8 +131,8 @@ WorkerPoolForm.propTypes = {
   isModal: PropTypes.bool.isRequired,
   cluster: PropTypes.shape({
     entitlement: PropTypes.string, // can be null
-    machine_type: PropTypes.string.isRequired,
-    vpc_name: PropTypes.string.isRequired,
+    flavor: PropTypes.string.isRequired,
+    vpc: PropTypes.string.isRequired,
     workers_per_subnet: PropTypes.number.isRequired,
     subnets: PropTypes.array.isRequired,
   }), // can be null
@@ -138,10 +140,12 @@ WorkerPoolForm.propTypes = {
     entitlement: PropTypes.string.isRequired,
     flavor: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    vpc_name: PropTypes.string.isRequired,
+    vpc: PropTypes.string.isRequired,
     workers_per_subnet: PropTypes.number.isRequired,
     subnets: PropTypes.array.isRequired,
   }).isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
 };
 
 export default WorkerPoolForm;
