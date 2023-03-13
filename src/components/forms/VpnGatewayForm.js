@@ -26,17 +26,17 @@ class VpnGatewayForm extends Component {
    * @param {event} event
    */
   handleInputChange(event) {
-    if (event.target.name === "vpc_name") {
+    if (event.target.name === "vpc") {
       this.setState({
-        vpc_name: event.target.value,
-        subnet_name: "",
+        vpc: event.target.value,
+        subnet: "",
       });
     } else if (
-      event.target.name === "subnet_name" &&
-      checkNullorEmptyString(this.state.vpc_name)
+      event.target.name === "subnet" &&
+      checkNullorEmptyString(this.state.vpc)
     ) {
       this.setState({
-        subnet_name: "",
+        subnet: "",
       });
     } else {
       this.setState(this.eventTargetToNameAndValue(event));
@@ -75,30 +75,30 @@ class VpnGatewayForm extends Component {
         <IcseFormGroup>
           <IcseSelect
             id={composedId}
-            formName="vpc_name"
-            name="vpc_name"
+            formName="vpc"
+            name="vpc"
             labelText="VPC"
             groups={this.props.vpcList}
-            value={this.state.vpc_name}
+            value={this.state.vpc}
             handleInputChange={this.handleInputChange}
-            invalid={checkNullorEmptyString(this.state.vpc_name)}
+            invalid={checkNullorEmptyString(this.state.vpc)}
             invalidText="Select a VPC."
             className="fieldWidth"
           />
           <IcseSelect
             id={composedId}
-            formName="subnet_name"
-            name="subnet_name"
+            formName="subnet"
+            name="subnet"
             labelText="Subnet"
             groups={this.props.subnetList}
-            value={this.state.subnet_name}
+            value={this.state.subnet}
             handleInputChange={this.handleInputChange}
             invalid={
-              checkNullorEmptyString(this.state.vpc_name) ||
-              checkNullorEmptyString(this.state.subnet_name)
+              checkNullorEmptyString(this.state.vpc) ||
+              checkNullorEmptyString(this.state.subnet)
             }
             invalidText={
-              checkNullorEmptyString(this.state.vpc_name)
+              checkNullorEmptyString(this.state.vpc)
                 ? `No VPC Selected.`
                 : `Select a Subnet.`
             }
@@ -114,8 +114,8 @@ VpnGatewayForm.defaultProps = {
   data: {
     name: "",
     resource_group: "",
-    vpc_name: "",
-    subnet_name: null,
+    vpc: "",
+    subnet: null,
   },
   isModal: false,
 };
@@ -124,8 +124,8 @@ VpnGatewayForm.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
     resource_group: PropTypes.string, // can be null
-    vpc_name: PropTypes.string, // can be null
-    subnet_name: PropTypes.string, // can be null
+    vpc: PropTypes.string, // can be null
+    subnet: PropTypes.string, // can be null
   }).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   vpcList: PropTypes.arrayOf(PropTypes.string).isRequired,

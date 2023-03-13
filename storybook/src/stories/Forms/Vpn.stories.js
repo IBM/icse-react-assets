@@ -22,13 +22,13 @@ export default {
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.vpc_name"]: {
+    ["data.vpc"]: {
       description:
         "A string specifying the VPC the VPN Gateway service is attached to",
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.subnet_name"]: {
+    ["data.subnet"]: {
       description:
         "A string specifying the subnet of the selected VPC the VPN Gateway service is attached to",
       control: "none",
@@ -98,8 +98,8 @@ const VpnGatewayFormStory = () => {
       data={{
         name: "",
         resource_group: "",
-        vpc_name: "",
-        subnet_name: null,
+        vpc: "",
+        subnet: null,
       }}
       resourceGroups={["service-rg", "management-rg", "workload-rg"]}
       vpcList={["management", "workload"]}

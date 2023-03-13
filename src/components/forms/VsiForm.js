@@ -33,7 +33,7 @@ class VsiForm extends Component {
       [name]: name === "vsi_per_subnet" && value !== "" ? Number(value) : value,
     };
     if (name === "vpc_name")
-      transpose({ subnet_names: [], subnet_name: "" }, stateChangeParams);
+      transpose({ subnets: [], subnet: "" }, stateChangeParams);
 
     this.setState(stateChangeParams);
   }
@@ -85,14 +85,14 @@ class VsiForm extends Component {
             // render dropdown for teleport instance
             <IcseSelect
               formName="vsi_form"
-              name="subnet_name"
+              name="subnet"
               labelText="Subnet"
               groups={this.props.subnetList}
-              value={this.state.subnet_name}
+              value={this.state.subnet}
               handleInputChange={this.handleInputChange}
               invalid={
                 checkNullorEmptyString(this.state.vpc_name) ||
-                checkNullorEmptyString(this.state.subnet_name)
+                checkNullorEmptyString(this.state.subnet)
               }
               invalidText={
                 checkNullorEmptyString(this.state.vpc_name)
@@ -103,11 +103,11 @@ class VsiForm extends Component {
           ) : (
             <SubnetMultiSelect
               id="subnet"
-              initialSelectedItems={this.state.subnet_names}
+              initialSelectedItems={this.state.subnets}
               vpc_name={this.state.vpc_name}
               subnets={this.props.subnetList}
               onChange={(value) =>
-                this.handleMultiSelectChange("subnet_names", value)
+                this.handleMultiSelectChange("subnets", value)
               }
             />
           )}
@@ -146,19 +146,19 @@ class VsiForm extends Component {
           <FetchSelect
             formName="vsi_form"
             labelText="Flavor"
-            name="machine_type"
+            name="profile"
             apiEndpoint={this.props.apiEndpointFlavors}
             handleInputChange={this.handleInputChange}
-            value={this.state.machine_type}
+            value={this.state.profile}
           />
         </IcseFormGroup>
         <IcseFormGroup>
           <IcseSelect
             formName="vsi_form"
-            name="boot_volume_encryption_key_name"
+            name="encryption_key"
             labelText="Encryption Key"
             groups={this.props.encryptionKeyList}
-            value={this.state.boot_volume_encryption_key_name}
+            value={this.state.encryption_key}
             handleInputChange={this.handleInputChange}
             invalid={this.props.invalidCallback(this.state)}
             invalidText="Select a valid encryption key."
@@ -197,14 +197,14 @@ VsiForm.defaultProps = {
   data: {
     name: "",
     ssh_keys: [],
-    subnet_name: "",
-    subnet_names: [],
+    subnet: "",
+    subnets: [],
     enable_floating_ip: false,
     vpc_name: "",
     image_name: "",
-    machine_type: "",
+    profile: "",
     resource_group: "",
-    boot_volume_encryption_key_name: "",
+    encryption_key: "",
     vsi_per_subnet: 1,
   },
   isModal: false,
@@ -222,14 +222,14 @@ VsiForm.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string,
     ssh_keys: PropTypes.array,
-    subnet_name: PropTypes.string,
-    subnet_names: PropTypes.array,
+    subnet: PropTypes.string,
+    subnets: PropTypes.array,
     enable_floating_ip: PropTypes.bool,
     vpc_name: PropTypes.string,
     image_name: PropTypes.string,
-    machine_type: PropTypes.string,
+    profile: PropTypes.string,
     resource_group: PropTypes.string,
-    boot_volume_encryption_key_name: PropTypes.string,
+    encryption_key: PropTypes.string,
     vsi_per_subnet: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   }).isRequired,
   /* bools */
