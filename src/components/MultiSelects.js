@@ -220,3 +220,45 @@ VpcListMultiSelect.propTypes = {
   initialSelectedItems: PropTypes.array.isRequired,
   vpcList: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
+
+export const LocationsMultiSelect = (props) => {
+  // throw error here so that passing no vpc list prop will error here
+  // instead of being passed to `FilterableMultiselect`
+  if (!props.region) {
+    throw new Error(
+      "LocationsMultiSelect requires a region using the prop `region`. Got " +
+        props.region
+    );
+  }
+  return (
+    <IcseMultiSelect
+      id={props.id + "-locations-multiselect"}
+      label={props.label}
+      titleText="Locations"
+      className={props.className}
+      initialSelectedItems={props.initialSelectedItems}
+      invalid={props.invalid}
+      invalidText={props.invalidText}
+      onChange={(event) => {
+        props.onChange(event.selectedItems);
+      }}
+      disabled={props.disabled}
+      items={["global"].concat(props.region)}
+      itemToString={(item) => (item ? item : "")}
+    />
+  );
+};
+
+LocationsMultiSelect.defaultProps = {
+  invalid: false,
+  initialSelectedItems: [],
+  invalidText: "Select at least one location.",
+};
+
+LocationsMultiSelect.propTypes = {
+  invalid: PropTypes.bool.isRequired,
+  id: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+  initialSelectedItems: PropTypes.array.isRequired,
+  region: PropTypes.string.isRequired,
+};

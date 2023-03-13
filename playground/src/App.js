@@ -51,6 +51,12 @@ const ClusterFormStory = () => {
             workers_per_subnet: 2,
           },
         ],
+        name: "atracker-cos",
+        plan: "standard",
+        resource_group: "slz-service-rg",
+        use_data: false,
+        use_random_suffix: false,
+        kms: "slz-kms",
       }}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}

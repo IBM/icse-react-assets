@@ -60,7 +60,6 @@
     ]
   },
   "devDependencies": {
-    "@mdx-js/react": "^1.6.22",
     "@storybook/addon-actions": "^6.5.7",
     "@storybook/addon-essentials": "^6.5.16",
     "@storybook/addon-interactions": "^6.5.16",

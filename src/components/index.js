@@ -15,7 +15,7 @@ export {
   FetchSelect,
   IcseNumberSelect,
   IcseSelect,
-  EndpointSelect
+  EndpointSelect,
 } from "./Dropdowns";
 export { default as EmptyResourceTile } from "./EmptyResourceTile";
 export { default as FormModal } from "./FormModal";
@@ -58,6 +58,7 @@ export {
   SshKeyMultiSelect,
   SubnetMultiSelect,
   VpcListMultiSelect,
+  LocationsMultiSelect,
 } from "./MultiSelects";
 export { default as PopoverWrapper } from "./PopoverWrapper";
 export { default as StatefulTabPanel } from "./StatefulTabPanel";

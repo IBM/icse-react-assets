@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import { IcseTextInput, IcseToggle } from "../Inputs";
 import { IcseFormGroup } from "../Utils";
 import { IcseSelect } from "../Dropdowns";
+import { LocationsMultiSelect } from "..";
 
 /**
  * Atracker
@@ -27,6 +28,7 @@ class AtrackerForm extends Component {
     this.state = this.props.data;
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
+    this.handleMultiSelect = this.handleMultiSelect.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
@@ -37,6 +39,10 @@ class AtrackerForm extends Component {
    */
   handleInputChange(event) {
     this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  handleMultiSelect(event) {
+    this.setState({ locations: event });
   }
 
   /**
@@ -65,7 +71,7 @@ class AtrackerForm extends Component {
             invalid={false}
           />
           <IcseSelect
-            formName="Activity Tracker"
+            formName={this.props.data.name + "-activity-tracker-rg"}
             value={this.state.resource_group}
             groups={this.props.resourceGroups}
             handleInputChange={this.handleInputChange}
@@ -81,10 +87,10 @@ class AtrackerForm extends Component {
                 "The bucket name under the Cloud Object Storage instance where Activity Tracker logs will be stored",
             }}
             groups={this.props.cosBuckets}
-            formName="Activity Tracker"
-            field="collector_bucket_name"
-            name="collector_bucket_name"
-            value={this.state.collector_bucket_name}
+            formName={this.props.data.name + "-activity-tracker-bucket"}
+            field="bucket"
+            name="bucket"
+            value={this.state.bucket}
             handleInputChange={this.handleInputChange}
             className="fieldWidth"
             labelText="Object Storage Log Bucket"
@@ -108,14 +114,21 @@ class AtrackerForm extends Component {
               content:
                 "The IAM API key that has writer access to the Cloud Object Storage instance",
             }}
-            formName="Activity Tracker"
-            name="atracker_key"
+            formName={this.props.data.name + "-activity-tracker-cos-key"}
+            name="cos_key"
             groups={this.props.cosKeys}
-            value={this.state.atracker_key}
+            value={this.state.cos_key}
             labelText="Privileged IAM Object Storage Key"
             handleInputChange={this.handleInputChange}
             className="fieldWidth"
             invalidText="Select an Object Storage key."
+          />
+          <LocationsMultiSelect
+            id={this.props.data.name + "-activity-tracker-location"}
+            region={this.props.region}
+            onChange={this.handleMultiSelect}
+            invalid={this.state.locations.length === 0}
+            invalidText="Select at least one location."
           />
         </IcseFormGroup>
       </div>
@@ -128,20 +141,23 @@ export default AtrackerForm;
 AtrackerForm.defaultProps = {
   isModal: false,
   data: {
-    collector_bucket_name: "",
-    atracker_key: "",
+    bucket: "",
+    cos_key: "",
     resource_group: "",
     add_route: false,
+    locations: [],
   },
 };
 
 AtrackerForm.propTypes = {
   data: PropTypes.shape({
-    collector_bucket_name: PropTypes.string.isRequired,
-    atracker_key: PropTypes.string.isRequired,
+    bucket: PropTypes.string.isRequired,
+    cos_key: PropTypes.string.isRequired,
     resource_group: PropTypes.string.isRequired,
     add_route: PropTypes.bool.isRequired,
+    locations: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
+  region: PropTypes.string.isRequired,
   prefix: PropTypes.string.isRequired,
   cosKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
   cosBuckets: PropTypes.arrayOf(PropTypes.string).isRequired,
