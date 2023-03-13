@@ -125,7 +125,7 @@ class AtrackerForm extends Component {
           />
           <LocationsMultiSelect
             id={this.props.data.name + "-activity-tracker-location"}
-            region={this.props.data.region}
+            region={this.props.region}
             onChange={this.handleMultiSelect}
             invalid={this.state.locations.length === 0}
             invalidText="Select at least one location."
@@ -145,7 +145,6 @@ AtrackerForm.defaultProps = {
     cos_key: "",
     resource_group: "",
     add_route: false,
-    region: "",
     locations: [],
   },
 };
@@ -156,9 +155,9 @@ AtrackerForm.propTypes = {
     cos_key: PropTypes.string.isRequired,
     resource_group: PropTypes.string.isRequired,
     add_route: PropTypes.bool.isRequired,
-    region: PropTypes.string.isRequired,
     locations: PropTypes.arrayOf(PropTypes.string).isRequired,
   }).isRequired,
+  region: PropTypes.string.isRequired,
   prefix: PropTypes.string.isRequired,
   cosKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
   cosBuckets: PropTypes.arrayOf(PropTypes.string).isRequired,

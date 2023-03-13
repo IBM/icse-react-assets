@@ -30,17 +30,17 @@ export default {
       type: { required: true },
       table: { defaultValue: { summary: false } },
     },
-    ["data.region"]: {
-      description: "A string representing the region",
-      control: "none",
-      type: { required: true },
-    },
     ["data.locations"]: {
       description:
         "Logs from these locations (array of strings) will be sent to the targets specified",
       control: "none",
       type: { required: true },
       table: { defaultValue: { summary: `[]` } },
+    },
+    region: {
+      description: "A string representing the region",
+      control: "none",
+      type: { required: true },
     },
     resourceGroups: {
       description:
@@ -91,13 +91,13 @@ const AtrackerFormStory = () => {
         bucket: "default_bucket",
         cos_key: "default_key",
         add_route: false,
-        region: "us-south",
         locations: [],
       }}
       resourceGroups={["default", "foo", "bar"]}
       cosBuckets={["default_bucket", "foo"]}
       cosKeys={["default_key", "bar"]}
       prefix="icse"
+      region="us-south"
     />
   );
 };
