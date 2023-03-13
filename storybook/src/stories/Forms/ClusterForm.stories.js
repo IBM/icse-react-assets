@@ -123,13 +123,38 @@ export default {
       type: { required: true }, // required prop or not
       control: "none",
     },
-    invalidWorkerPoolsCallback: {
+    workerPoolProps: {
+      description: "Pass through props for encryption key forms",
+      type: { required: true },
+      control: "none",
+    },
+    "workerPoolProps.onSubmit": {
+      description:
+        "A function that defines what occurs when a modal is submitted",
+      type: { required: true },
+    },
+    "workerPoolProps.onSave": {
+      description: "A function that defines what occurs when the form is saved",
+      type: { required: true },
+    },
+    "workerPoolProps.onDelete": {
+      description:
+        "A function that defines what occurs when the resource is deleted",
+      type: { required: true },
+    },
+    "workerPoolProps.disableSave": {
+      description:
+        "A function that returns a single boolean describing whether the save button should be disabled",
+      type: { required: true },
+      control: "none",
+    },
+    invalidPoolCallback: {
       description:
         "A function to determine if the value supplied is invalid and returns a single boolean",
       type: { required: true }, // required prop or not
       control: "none",
     },
-    invalidWorkerPoolsTextCallback: {
+    invalidPoolTextCallback: {
       description:
         "A function to determine the invalid text displayed to the user and returns the string to display",
       type: { required: true }, // required prop or not
@@ -148,7 +173,7 @@ export default {
 
 const ClusterFormStory = () => {
   function validName(str) {
-    const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
+    const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/s;
     if (str) return str.match(regex) !== null;
     else return false;
   }
@@ -167,16 +192,6 @@ const ClusterFormStory = () => {
       : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
   }
 
-  function invalidWorkerPoolsCallback(stateData, componentProps) {
-    return !validName(stateData.pool.name);
-  }
-
-  function invalidWorkerPoolsTextCallback(stateData, componentProps) {
-    return contains(["foo", "bar"], stateData.pool.name)
-      ? `Cluster name ${stateData.pool.name} already in use.`
-      : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
-  }
-
   return (
     <ClusterForm
       data={{
@@ -186,13 +201,24 @@ const ClusterFormStory = () => {
         entitlement: "null",
         encryption_key: "",
         cos: "",
-        vpc: "",
+        vpc: "management",
         subnets: [],
         workers_per_subnet: 2,
         flavor: "bx2.16x64",
         kube_version: "4.10.52_openshift (Default)",
         update_all_workers: false,
-        worker_pools: [],
+        worker_pools: [
+          {
+            entitlement: "cloud_pak",
+            cluster: "workload",
+            flavor: "bx2.16x64",
+            name: "logging-pool",
+            resource_group: "slz-workload-rg",
+            subnets: ["vsi-zone-1", "vsi-zone-2", "vsi-zone-3"],
+            vpc: "workload",
+            workers_per_subnet: 2,
+          },
+        ],
       }}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
@@ -211,9 +237,15 @@ const ClusterFormStory = () => {
       ]}
       kubeVersionApiEndpoint={"/mock/api/kubeVersions"}
       flavorApiEndpoint={"/mock/api/machineTypes"}
-      workerPoolForms={WorkerPoolForm}
-      invalidWorkerPoolsCallback={invalidWorkerPoolsCallback}
-      invalidWorkerPoolsTextCallback={invalidWorkerPoolsTextCallback}
+      propsMatchState={() => {}}
+      workerPoolProps={{
+        onSave: () => {},
+        onDelete: () => {},
+        onSubmit: () => {},
+        disableSave: () => {},
+      }}
+      invalidPoolCallback={invalidCallback}
+      invalidPoolTextCallback={invalidTextCallback}
     />
   );
 };

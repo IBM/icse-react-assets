@@ -316,6 +316,8 @@ ClusterForm.propTypes = {
   invalidCallback: PropTypes.func,
   invalidTextCallback: PropTypes.func,
   helperTextCallback: PropTypes.func,
+  invalidPoolCallback: PropTypes.func,
+  invalidPoolTextCallback: PropTypes.func,
   /* forms */
   workerPoolProps: PropTypes.shape({
     onSave: PropTypes.func.isRequired,
