@@ -6,9 +6,9 @@ import {
 import { IcseFormGroup } from "../Utils";
 import { IcseNameInput, IcseToggle } from "../Inputs";
 import { IcseSelect } from "../Dropdowns";
-import IcseFormTemplate from "../IcseFormTemplate";
 import EncryptionKeyForm from "./EncryptionKeyForm";
 import PropTypes from "prop-types";
+import IcseFormTemplate from "../IcseFormTemplate";
 import { transpose } from "lazy-z";
 
 /**
@@ -58,8 +58,9 @@ class KeyManagementForm extends Component {
       invalidTextCallback: this.props.invalidKeyTextCallback,
       invalidRingCallback: this.props.invalidRingCallback,
       invalidRingText: this.props.invalidRingText,
+      arrayParentName: this.props.data.name,
     };
-    transpose(innerFormProps, { ...this.props.encryptionKeyProps });
+    transpose({ ...this.props.encryptionKeyProps }, innerFormProps);
     return (
       <>
         <IcseFormGroup>
@@ -84,6 +85,7 @@ class KeyManagementForm extends Component {
             onToggle={this.handleToggle}
             disabled={this.state.use_hs_crypto === true}
             className="fieldWidth"
+            toggleFieldName="use_data"
             id={this.props.data.name + "-use-existing"}
           />
         </IcseFormGroup>
@@ -141,7 +143,7 @@ class KeyManagementForm extends Component {
             hideAbout
             toggleFormProps={{
               hideName: true,
-              submissionFieldName: "key_management",
+              submissionFieldName: "encryption_keys",
               disableSave: this.props.encryptionKeyProps.disableSave,
               type: "formInSubForm",
             }}
@@ -159,9 +161,8 @@ KeyManagementForm.defaultProps = {
     name: "",
     resource_group: "",
     authorize_vpc_reader_role: false,
-    keys: []
+    keys: [],
   },
-  resourceGroups: ["service-rg", "management-rg", "workload-rg"],
   isModal: false,
 };
 

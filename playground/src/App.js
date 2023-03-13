@@ -1,97 +1,83 @@
 import React, { useState } from "react";
 import { contains } from "lazy-z";
-import { KeyManagementForm } from "icse-react-assets";
+import { ClusterForm } from "icse-react-assets";
 import "./App.css";
 
-const KeyManagementFormStory = () => {
+const ClusterFormStory = () => {
   function validName(str) {
-    const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
+    const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/s;
     if (str) return str.match(regex) !== null;
     else return false;
   }
 
-  function invalidCallback(stateData) {
-    return (
-      !validName(stateData.name) || contains(["foo", "bar"], stateData.name)
-    );
+  function invalidCallback(stateData, componentProps) {
+    return !validName(stateData.name);
   }
 
-  function invalidTextCallback(stateData) {
+  function helperTextCallback(stateData, componentProps) {
+    return "<prefix>-" + stateData.name;
+  }
+
+  function invalidTextCallback(stateData, componentProps) {
     return contains(["foo", "bar"], stateData.name)
-      ? `Key name ${stateData.name} already in use.`
-      : `Invalid Key Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
+      ? `Cluster name ${stateData.name} already in use.`
+      : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
   }
-
-  function invalidKeyCallback(stateData, componentProps) {
-    return (
-      !validName(stateData.name) || contains(["foo", "bar"], stateData.name)
-    );
-  }
-
-  function invalidKeyTextCallback(stateData, componentProps) {
-    return contains(["foo", "bar"], stateData.name)
-      ? `Key name ${stateData.name} already in use.`
-      : `Invalid Key Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])*$/s`;
-  }
-
-  function invalidRingCallback(stateData, componentProps) {
-    return stateData.key_ring === "" ? false : !validName(stateData.key_ring);
-  }
-
-  let invalidRingText = `Invalid Key Ring Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])*$/s`;
 
   return (
-    <KeyManagementForm
+    <ClusterForm
       data={{
-        use_hs_crypto: false,
-        use_data: false,
-        name: "test-key-protect",
-        resource_group: "service-rg",
-        authorize_vpc_reader_role: false,
-        keys: [
+        name: "",
+        resource_group: "",
+        kube_type: "openshift",
+        entitlement: "null",
+        encryption_key: "",
+        cos: "",
+        vpc: "management",
+        subnets: [],
+        workers_per_subnet: 2,
+        flavor: "bx2.16x64",
+        kube_version: "4.10.52_openshift (Default)",
+        update_all_workers: false,
+        worker_pools: [
           {
-            key_ring: "slz-slz-ring",
-            name: "slz-slz-key",
-            root_key: true,
-            force_delete: true,
-            endpoint: "public",
-            rotation: 12,
-            dual_auth_delete: false,
-          },
-          {
-            key_ring: "slz-slz-ring",
-            name: "slz-atracker-key",
-            root_key: true,
-            force_delete: true,
-            endpoint: "public",
-            rotation: 12,
-            dual_auth_delete: false,
-          },
-          {
-            key_ring: "slz-slz-ring",
-            name: "slz-vsi-volume-key",
-            root_key: true,
-            force_delete: true,
-            endpoint: "public",
-            rotation: 12,
-            dual_auth_delete: false,
+            entitlement: "cloud_pak",
+            cluster: "workload",
+            flavor: "bx2.16x64",
+            name: "logging-pool",
+            resource_group: "workload-rg",
+            subnets: ["vsi-zone-1", "vsi-zone-2", "vsi-zone-3"],
+            vpc: "workload",
+            workers_per_subnet: 2,
           },
         ],
       }}
-      resourceGroups={["service-rg", "management-rg", "workload-rg"]}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
-      invalidKeyCallback={invalidKeyCallback}
-      invalidKeyTextCallback={invalidKeyTextCallback}
-      invalidRingCallback={invalidRingCallback}
-      invalidRingText={invalidRingText}
-      propsMatchState={()=>{}}
-      encryptionKeyProps={{
+      helperTextCallback={helperTextCallback}
+      resourceGroups={["service-rg", "management-rg", "workload-rg"]}
+      encryptionKeys={["atracker-key", "key", "roks-key"]}
+      cosNames={["atracker-cos", "cos"]}
+      vpcList={["management", "workload"]}
+      subnetList={[
+        "vpe-zone-1",
+        "vpe-zone-2",
+        "vpe-zone-3",
+        "vsi-zone-1",
+        "vsi-zone-2",
+        "vsi-zone-3",
+      ]}
+      kubeVersionApiEndpoint={"/mock/api/kubeVersions"}
+      flavorApiEndpoint={"/mock/api/machineTypes"}
+      propsMatchState={() => {}}
+      workerPoolProps={{
         onSave: () => {},
         onDelete: () => {},
         onSubmit: () => {},
         disableSave: () => {},
       }}
+      invalidPoolCallback={invalidCallback}
+      invalidPoolTextCallback={invalidTextCallback}
     />
   );
 };
@@ -99,7 +85,7 @@ const KeyManagementFormStory = () => {
 function App() {
   return (
     <div className="App">
-      <KeyManagementFormStory />
+      <ClusterFormStory />
     </div>
   );
 }
