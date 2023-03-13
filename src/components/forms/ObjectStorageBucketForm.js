@@ -61,6 +61,7 @@ class ObjectStorageBucketForm extends Component {
             }
             invalid={this.props.invalidCallback(this.state)}
             invalidText={this.props.invalidTextCallback(this.state)}
+            className="fieldWidthSmaller"
           />
           <IcseSelect
             component={this.state.name}
@@ -70,11 +71,13 @@ class ObjectStorageBucketForm extends Component {
             value={capitalize(this.state.storage_class)}
             labelText="Bucket Class"
             handleInputChange={this.handleStorageClassChange}
+            className="fieldWidthSmaller"
           />
           <EndpointSelect
             formName={"Object Storage Bucket"}
             handleInputChange={this.handleInputChange}
             value={this.state.endpoint}
+            className="fieldWidthSmaller"
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -86,6 +89,7 @@ class ObjectStorageBucketForm extends Component {
             value={this.state.kms_key}
             labelText="Encryption Key"
             handleInputChange={this.handleInputChange}
+            className="fieldWidthSmaller"
           />
           <IcseToggle
             tooltip={{

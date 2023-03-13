@@ -42,6 +42,13 @@ class ObjectStorageInstancesForm extends Component {
       arrayParentName: this.props.data.name,
     };
     transpose({ ...this.props.bucketProps }, bucketInnerFormProps);
+    let keyInnerFormProps = {
+      invalidCallback: this.props.invalidBucketCallback,
+      invalidTextCallback: this.props.invalidBucketTextCallback,
+      composedNameCallback: this.props.composedBucketNameCallback,
+      arrayParentName: this.props.data.name,
+    };
+    transpose({ ...this.props.keyProps }, keyInnerFormProps);
     return (
       <>
         <IcseFormGroup>
@@ -108,7 +115,51 @@ class ObjectStorageInstancesForm extends Component {
         {/* show keys and buckets if not modal */}
         {this.props.isModal !== true && (
           <>
-
+            <IcseFormTemplate
+              name="Service Credentials"
+              subHeading
+              tooltip={{
+                content:
+                  "A service credential allows for a service instance to connect to Object Storage.",
+                link: "https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-service-credentials",
+              }}
+              addText="Create a Service Credential"
+              arrayData={this.props.data.keys}
+              innerForm={ObjectStorageKeyForm}
+              disableSave={this.props.keyProps.disableSave}
+              onDelete={this.props.keyProps.onDelete}
+              onSave={this.props.keyProps.onSave}
+              onSubmit={this.props.keyProps.onSubmit}
+              propsMatchState={this.props.propsMatchState}
+              innerFormProps={{ ...keyInnerFormProps }}
+              hideAbout
+              toggleFormProps={{
+                hideName: true,
+                submissionFieldName: "keys",
+                disableSave: this.props.keyProps.disableSave,
+                type: "formInSubForm",
+              }}
+            />
+            <IcseFormTemplate
+              name="Buckets"
+              subHeading
+              addText="Create a Bucket"
+              arrayData={this.props.data.buckets}
+              innerForm={ObjectStorageBucketForm}
+              disableSave={this.props.bucketProps.disableSave}
+              onDelete={this.props.bucketProps.onDelete}
+              onSave={this.props.bucketProps.onSave}
+              onSubmit={this.props.bucketProps.onSubmit}
+              propsMatchState={this.props.propsMatchState}
+              innerFormProps={{ ...bucketInnerFormProps }}
+              hideAbout
+              toggleFormProps={{
+                hideName: true,
+                submissionFieldName: "buckets",
+                disableSave: this.props.bucketProps.disableSave,
+                type: "formInSubForm",
+              }}
+            />
           </>
         )}
       </>

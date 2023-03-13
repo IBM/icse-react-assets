@@ -116,21 +116,53 @@ const ObjectStorageFormStory = () => {
   return (
     <ObjectStorageForm
       data={{
-        name: "cos",
+        buckets: [
+          {
+            endpoint: "public",
+            force_delete: true,
+            kms_key: "slz-atracker-key",
+            name: "atracker-bucket",
+            storage_class: "standard",
+          },
+        ],
+        keys: [
+          {
+            name: "cos-bind-key",
+            role: "Writer",
+            enable_hmac: false,
+          },
+        ],
+        name: "atracker-cos",
+        plan: "standard",
+        resource_group: "slz-service-rg",
         use_data: false,
-        resource_group: "rg1",
-        random_suffix: true,
-        kms: "kms-1",
+        use_random_suffix: false,
+        kms: "slz-kms",
       }}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
       composedNameCallback={composedNameCallback}
       resourceGroups={["rg1", "rg2", "rg3"]}
       kmsList={["kms-1", "kms-2"]}
-      subForms={[
-        <ObjectStorageKeyFormStory />,
-        <ObjectStorageBucketFormStory />,
-      ]}
+      propsMatchState={() => {}}
+      invalidBucketCallback={invalidCallback}
+      invalidBucketTextCallback={invalidTextCallback}
+      composedBucketNameCallback={composedNameCallback}
+      bucketProps={{
+        onSave: () => {},
+        onDelete: () => {},
+        onSubmit: () => {},
+        disableSave: () => {},
+      }}
+      invalidKeyCallback={invalidCallback}
+      invalidKeyTextCallback={invalidTextCallback}
+      composedKeyNameCallback={composedNameCallback}
+      keyProps={{
+        onSave: () => {},
+        onDelete: () => {},
+        onSubmit: () => {},
+        disableSave: () => {},
+      }}
     />
   );
 };

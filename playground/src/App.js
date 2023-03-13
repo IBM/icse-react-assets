@@ -56,6 +56,25 @@ const ObjectStorageFormStory = () => {
       composedNameCallback={composedNameCallback}
       resourceGroups={["rg1", "rg2", "rg3"]}
       kmsList={["kms-1", "kms-2"]}
+      propsMatchState={() => {}}
+      invalidBucketCallback={invalidCallback}
+      invalidBucketTextCallback={invalidTextCallback}
+      composedBucketNameCallback={composedNameCallback}
+      bucketProps={{
+        onSave: () => {},
+        onDelete: () => {},
+        onSubmit: () => {},
+        disableSave: () => {},
+      }}
+      invalidKeyCallback={invalidCallback}
+      invalidKeyTextCallback={invalidTextCallback}
+      composedKeyNameCallback={composedNameCallback}
+      keyProps={{
+        onSave: () => {},
+        onDelete: () => {},
+        onSubmit: () => {},
+        disableSave: () => {},
+      }}
     />
   );
 };

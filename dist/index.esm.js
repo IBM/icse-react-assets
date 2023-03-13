@@ -5375,7 +5375,8 @@ var ObjectStorageBucketForm = /*#__PURE__*/function (_Component) {
           return _this2.props.composedNameCallback(_this2.state);
         },
         invalid: this.props.invalidCallback(this.state),
-        invalidText: this.props.invalidTextCallback(this.state)
+        invalidText: this.props.invalidTextCallback(this.state),
+        className: "fieldWidthSmaller"
       }), /*#__PURE__*/React.createElement(IcseSelect, {
         component: this.state.name,
         formName: this.props.data.name + "-object-storage-bucket-class",
@@ -5383,11 +5384,13 @@ var ObjectStorageBucketForm = /*#__PURE__*/function (_Component) {
         groups: ["Standard", "Vault", "Cold", "Smart"],
         value: capitalize$1(this.state.storage_class),
         labelText: "Bucket Class",
-        handleInputChange: this.handleStorageClassChange
+        handleInputChange: this.handleStorageClassChange,
+        className: "fieldWidthSmaller"
       }), /*#__PURE__*/React.createElement(EndpointSelect, {
         formName: "Object Storage Bucket",
         handleInputChange: this.handleInputChange,
-        value: this.state.endpoint
+        value: this.state.endpoint,
+        className: "fieldWidthSmaller"
       })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
         component: this.state.name,
         formName: this.props.data.name + "-object-storage-bucket-key",
@@ -5395,7 +5398,8 @@ var ObjectStorageBucketForm = /*#__PURE__*/function (_Component) {
         groups: this.props.encryptionKeys,
         value: this.state.kms_key,
         labelText: "Encryption Key",
-        handleInputChange: this.handleInputChange
+        handleInputChange: this.handleInputChange,
+        className: "fieldWidthSmaller"
       }), /*#__PURE__*/React.createElement(IcseToggle, {
         tooltip: {
           content: "Toggling this on will force delete contents of the bucket after the bucket is deleted"
@@ -5581,6 +5585,13 @@ var ObjectStorageInstancesForm = /*#__PURE__*/function (_Component) {
         arrayParentName: this.props.data.name
       };
       transpose$1(_objectSpread2({}, this.props.bucketProps), bucketInnerFormProps);
+      var keyInnerFormProps = {
+        invalidCallback: this.props.invalidBucketCallback,
+        invalidTextCallback: this.props.invalidBucketTextCallback,
+        composedNameCallback: this.props.composedBucketNameCallback,
+        arrayParentName: this.props.data.name
+      };
+      transpose$1(_objectSpread2({}, this.props.keyProps), keyInnerFormProps);
       return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
         tooltip: {
           content: "Service credentials and buckets will be created for your environment even when using an existing Object Storage instance."
@@ -5631,7 +5642,49 @@ var ObjectStorageInstancesForm = /*#__PURE__*/function (_Component) {
         handleInputChange: function handleInputChange(event) {
           return _this2.handleInputChange("resource_group", event.target.value);
         }
-      })), this.props.isModal !== true && /*#__PURE__*/React.createElement(React.Fragment, null));
+      })), this.props.isModal !== true && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormTemplate, {
+        name: "Service Credentials",
+        subHeading: true,
+        tooltip: {
+          content: "A service credential allows for a service instance to connect to Object Storage.",
+          link: "https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-service-credentials"
+        },
+        addText: "Create a Service Credential",
+        arrayData: this.props.data.keys,
+        innerForm: ObjectStorageKeyForm,
+        disableSave: this.props.keyProps.disableSave,
+        onDelete: this.props.keyProps.onDelete,
+        onSave: this.props.keyProps.onSave,
+        onSubmit: this.props.keyProps.onSubmit,
+        propsMatchState: this.props.propsMatchState,
+        innerFormProps: _objectSpread2({}, keyInnerFormProps),
+        hideAbout: true,
+        toggleFormProps: {
+          hideName: true,
+          submissionFieldName: "keys",
+          disableSave: this.props.keyProps.disableSave,
+          type: "formInSubForm"
+        }
+      }), /*#__PURE__*/React.createElement(IcseFormTemplate, {
+        name: "Buckets",
+        subHeading: true,
+        addText: "Create a Bucket",
+        arrayData: this.props.data.buckets,
+        innerForm: ObjectStorageBucketForm,
+        disableSave: this.props.bucketProps.disableSave,
+        onDelete: this.props.bucketProps.onDelete,
+        onSave: this.props.bucketProps.onSave,
+        onSubmit: this.props.bucketProps.onSubmit,
+        propsMatchState: this.props.propsMatchState,
+        innerFormProps: _objectSpread2({}, bucketInnerFormProps),
+        hideAbout: true,
+        toggleFormProps: {
+          hideName: true,
+          submissionFieldName: "buckets",
+          disableSave: this.props.bucketProps.disableSave,
+          type: "formInSubForm"
+        }
+      })));
     }
   }]);
   return ObjectStorageInstancesForm;
