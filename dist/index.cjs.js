@@ -5512,7 +5512,8 @@ var ObjectStorageKeyForm = /*#__PURE__*/function (_Component) {
     _this.state = {
       name: _this.props.data.name,
       role: _this.props.data.role || "Writer",
-      enable_hmac: _this.props.data.enable_hmac
+      enable_hmac: _this.props.data.enable_hmac,
+      use_random_suffix: _this.props.data.use_random_suffix
     };
     buildFormFunctions(_assertThisInitialized(_this));
     buildFormDefaultInputMethods(_assertThisInitialized(_this));

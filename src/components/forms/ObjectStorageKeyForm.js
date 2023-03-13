@@ -15,6 +15,7 @@ class ObjectStorageKeyForm extends Component {
       name: this.props.data.name,
       role: this.props.data.role || "Writer",
       enable_hmac: this.props.data.enable_hmac,
+      use_random_suffix: this.props.data.use_random_suffix,
     };
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
