@@ -4310,7 +4310,8 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this2 = this;
+      var _this2 = this,
+        _objectSpread2$1;
       var formattedName = lazyZ.kebabCase(this.props.name); // formatted component name
       // enable submit field here is set to variable value to allow for passing to
       // child array components without needing to reference `this` directly
@@ -4369,28 +4370,26 @@ var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
           arrayParentName: this.props.arrayParentName
         },
         // render the form inside the modal
-        RenderForm(this.props.innerForm, _objectSpread2(_objectSpread2({}, this.props.innerFormProps), {}, {
+        RenderForm(this.props.innerForm, _objectSpread2(_objectSpread2({}, this.props.innerFormProps), {}, (_objectSpread2$1 = {
           disableSave: this.props.disableSave,
           arrayParentName: this.props.arrayParentName,
-          isModal: true,
-          submissionFieldName: this.props.toggleFormProps.submissionFieldName,
-          shouldDisableSubmit: function shouldDisableSubmit() {
-            // references to `this` in function are intentionally vague
-            // in order to pass the correct functions and field values to the
-            // child modal component
-            // by passing `this` in a function that it scoped to the component
-            // we allow the function to be successfully bound to the modal form
-            // while still referencing the local value `enableSubmitField`
-            // to use it's own values for state and props including enableModal
-            // and disableModal, which are dynamically added to the component
-            // at time of render
-            if (this.props.disableSave(this.props.submissionFieldName, this.state, this.props) === false) {
-              this.props.enableModal();
-            } else {
-              this.props.disableModal();
-            }
+          isModal: true
+        }, _defineProperty(_objectSpread2$1, "arrayParentName", this.props.arrayParentName), _defineProperty(_objectSpread2$1, "submissionFieldName", this.props.toggleFormProps.submissionFieldName), _defineProperty(_objectSpread2$1, "shouldDisableSubmit", function shouldDisableSubmit() {
+          // references to `this` in function are intentionally vague
+          // in order to pass the correct functions and field values to the
+          // child modal component
+          // by passing `this` in a function that it scoped to the component
+          // we allow the function to be successfully bound to the modal form
+          // while still referencing the local value `enableSubmitField`
+          // to use it's own values for state and props including enableModal
+          // and disableModal, which are dynamically added to the component
+          // at time of render
+          if (this.props.disableSave(this.props.submissionFieldName, this.state, this.props) === false) {
+            this.props.enableModal();
+          } else {
+            this.props.disableModal();
           }
-        })))),
+        }), _objectSpread2$1))))),
         hideFormTitleButton: this.props.hideFormTitleButton
       }));
     }
@@ -5759,7 +5758,7 @@ ObjectStorageInstancesForm.defaultProps = {
     name: "",
     use_data: false,
     resource_group: "",
-    random_suffix: true
+    use_random_suffix: true
   },
   resourceGroups: []
 };
@@ -5770,7 +5769,7 @@ ObjectStorageInstancesForm.propTypes = {
     name: PropTypes__default["default"].string.isRequired,
     use_data: PropTypes__default["default"].bool.isRequired,
     resource_group: PropTypes__default["default"].string,
-    random_suffix: PropTypes__default["default"].bool.isRequired
+    use_random_suffix: PropTypes__default["default"].bool.isRequired
   }),
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
