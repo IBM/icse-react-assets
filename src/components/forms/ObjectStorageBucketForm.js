@@ -57,10 +57,10 @@ class ObjectStorageBucketForm extends Component {
             value={this.state.name}
             onChange={this.handleInputChange}
             helperTextCallback={() =>
-              this.props.composedNameCallback(this.state)
+              this.props.composedNameCallback(this.state, this.props)
             }
-            invalid={this.props.invalidCallback(this.state)}
-            invalidText={this.props.invalidTextCallback(this.state)}
+            invalid={this.props.invalidCallback(this.state, this.props)}
+            invalidText={this.props.invalidTextCallback(this.state, this.props)}
             className="fieldWidthSmaller"
           />
           <IcseSelect

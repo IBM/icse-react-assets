@@ -5425,10 +5425,10 @@ var ObjectStorageBucketForm = /*#__PURE__*/function (_Component) {
         value: this.state.name,
         onChange: this.handleInputChange,
         helperTextCallback: function helperTextCallback() {
-          return _this2.props.composedNameCallback(_this2.state);
+          return _this2.props.composedNameCallback(_this2.state, _this2.props);
         },
-        invalid: this.props.invalidCallback(this.state),
-        invalidText: this.props.invalidTextCallback(this.state),
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props),
         className: "fieldWidthSmaller"
       }), /*#__PURE__*/React.createElement(IcseSelect, {
         component: this.state.name,
@@ -5547,7 +5547,7 @@ var ObjectStorageKeyForm = /*#__PURE__*/function (_Component) {
         placeholder: "my-cos-key-name",
         className: inputSize,
         helperTextCallback: function helperTextCallback() {
-          return _this2.props.composedNameCallback(_this2.state);
+          return _this2.props.composedNameCallback(_this2.state, _this2.props);
         },
         invalid: this.props.invalidCallback(this.state, this.props),
         invalidText: this.props.invalidTextCallback(this.state, this.props)
