@@ -120,7 +120,7 @@ const ObjectStorageFormStory = () => {
           {
             endpoint: "public",
             force_delete: true,
-            kms_key: "slz-atracker-key",
+            kms_key: "atracker-key",
             name: "atracker-bucket",
             storage_class: "standard",
           },
@@ -134,10 +134,10 @@ const ObjectStorageFormStory = () => {
         ],
         name: "atracker-cos",
         plan: "standard",
-        resource_group: "slz-service-rg",
+        resource_group: "service-rg",
         use_data: false,
         use_random_suffix: false,
-        kms: "slz-kms",
+        kms: "kms",
       }}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}

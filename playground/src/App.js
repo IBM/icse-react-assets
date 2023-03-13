@@ -1,47 +1,54 @@
 import React, { useState } from "react";
 import { contains } from "lazy-z";
-import { ObjectStorageForm } from "icse-react-assets";
+import { ClusterForm } from "icse-react-assets";
 import "./App.css";
 
-const ObjectStorageFormStory = () => {
+const ClusterFormStory = () => {
   function validName(str) {
-    const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
+    const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/s;
     if (str) return str.match(regex) !== null;
     else return false;
   }
 
   function invalidCallback(stateData, componentProps) {
-    return (
-      !validName(stateData.name) || contains(["foo", "bar"], stateData.name)
-    );
+    return !validName(stateData.name);
+  }
+
+  function helperTextCallback(stateData, componentProps) {
+    return "<prefix>-" + stateData.name;
   }
 
   function invalidTextCallback(stateData, componentProps) {
     return contains(["foo", "bar"], stateData.name)
-      ? `Name ${stateData.name} already in use.`
+      ? `Cluster name ${stateData.name} already in use.`
       : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
   }
 
-  function composedNameCallback(stateData, componentProps) {
-    return `${stateData.name}-<random suffix>`;
-  }
   return (
-    <ObjectStorageForm
+    <ClusterForm
       data={{
-        buckets: [
+        name: "",
+        resource_group: "",
+        kube_type: "openshift",
+        entitlement: "null",
+        encryption_key: "",
+        cos: "",
+        vpc: "management",
+        subnets: [],
+        workers_per_subnet: 2,
+        flavor: "bx2.16x64",
+        kube_version: "4.10.52_openshift (Default)",
+        update_all_workers: false,
+        worker_pools: [
           {
-            endpoint: "public",
-            force_delete: true,
-            kms_key: "slz-atracker-key",
-            name: "atracker-bucket",
-            storage_class: "standard",
-          },
-        ],
-        keys: [
-          {
-            name: "cos-bind-key",
-            role: "Writer",
-            enable_hmac: false,
+            entitlement: "cloud_pak",
+            cluster: "workload",
+            flavor: "bx2.16x64",
+            name: "logging-pool",
+            resource_group: "workload-rg",
+            subnets: ["vsi-zone-1", "vsi-zone-2", "vsi-zone-3"],
+            vpc: "workload",
+            workers_per_subnet: 2,
           },
         ],
         name: "atracker-cos",
@@ -53,28 +60,30 @@ const ObjectStorageFormStory = () => {
       }}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
-      composedNameCallback={composedNameCallback}
-      resourceGroups={["rg1", "rg2", "rg3"]}
-      kmsList={["kms-1", "kms-2"]}
+      helperTextCallback={helperTextCallback}
+      resourceGroups={["service-rg", "management-rg", "workload-rg"]}
+      encryptionKeys={["atracker-key", "key", "roks-key"]}
+      cosNames={["atracker-cos", "cos"]}
+      vpcList={["management", "workload"]}
+      subnetList={[
+        "vpe-zone-1",
+        "vpe-zone-2",
+        "vpe-zone-3",
+        "vsi-zone-1",
+        "vsi-zone-2",
+        "vsi-zone-3",
+      ]}
+      kubeVersionApiEndpoint={"/mock/api/kubeVersions"}
+      flavorApiEndpoint={"/mock/api/machineTypes"}
       propsMatchState={() => {}}
-      invalidBucketCallback={invalidCallback}
-      invalidBucketTextCallback={invalidTextCallback}
-      composedBucketNameCallback={composedNameCallback}
-      bucketProps={{
+      workerPoolProps={{
         onSave: () => {},
         onDelete: () => {},
         onSubmit: () => {},
         disableSave: () => {},
       }}
-      invalidKeyCallback={invalidCallback}
-      invalidKeyTextCallback={invalidTextCallback}
-      composedKeyNameCallback={composedNameCallback}
-      keyProps={{
-        onSave: () => {},
-        onDelete: () => {},
-        onSubmit: () => {},
-        disableSave: () => {},
-      }}
+      invalidPoolCallback={invalidCallback}
+      invalidPoolTextCallback={invalidTextCallback}
     />
   );
 };
@@ -82,7 +91,7 @@ const ObjectStorageFormStory = () => {
 function App() {
   return (
     <div className="App">
-      <ObjectStorageFormStory />
+      <ClusterFormStory />
     </div>
   );
 }

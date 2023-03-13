@@ -213,7 +213,7 @@ const ClusterFormStory = () => {
             cluster: "workload",
             flavor: "bx2.16x64",
             name: "logging-pool",
-            resource_group: "slz-workload-rg",
+            resource_group: "workload-rg",
             subnets: ["vsi-zone-1", "vsi-zone-2", "vsi-zone-3"],
             vpc: "workload",
             workers_per_subnet: 2,
@@ -224,7 +224,7 @@ const ClusterFormStory = () => {
       invalidTextCallback={invalidTextCallback}
       helperTextCallback={helperTextCallback}
       resourceGroups={["service-rg", "management-rg", "workload-rg"]}
-      encryptionKeys={["slz-atracker-key", "slz-slz-key", "slz-roks-key"]}
+      encryptionKeys={["atracker-key", "key", "roks-key"]}
       cosNames={["atracker-cos", "cos"]}
       vpcList={["management", "workload"]}
       subnetList={[
