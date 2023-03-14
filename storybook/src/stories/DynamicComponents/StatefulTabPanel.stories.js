@@ -131,7 +131,17 @@ const StatefulTabPanelComponentStory = () => {
       form={
         <AtrackerForm
           prefix="example"
-          data={{ key_name: "test-key", keys: ["foo", "bar"] }}
+          region="us-south"
+          resourceGroups={["default", "foo", "bar"]}
+          cosKeys={["default_key", "foo", "bar"]}
+          cosBuckets={["default_bucket", "foo", "bar"]}
+          data={{
+            resource_group: "default",
+            bucket: "default_bucket",
+            cos_key: "default_key",
+            add_route: false,
+            locations: [],
+          }}
           invalidCallback={() => {
             return false;
           }}
@@ -159,7 +169,17 @@ const StatefulTabPanelStory = ({ ...args }) => {
       form={
         <AtrackerForm
           prefix="example"
-          data={{ key_name: "test-key", keys: ["foo", "bar"] }}
+          region="us-south"
+          resourceGroups={["default", "foo", "bar"]}
+          cosKeys={["default_key", "foo", "bar"]}
+          cosBuckets={["default_bucket", "foo", "bar"]}
+          data={{
+            resource_group: "default",
+            bucket: "default_bucket",
+            cos_key: "default_key",
+            add_route: false,
+            locations: [],
+          }}
           invalidCallback={() => {
             return false;
           }}

@@ -2223,11 +2223,11 @@ AtrackerForm.defaultProps = {
 };
 AtrackerForm.propTypes = {
   data: PropTypes.shape({
-    bucket: PropTypes.string.isRequired,
-    cos_key: PropTypes.string.isRequired,
-    resource_group: PropTypes.string.isRequired,
-    add_route: PropTypes.bool.isRequired,
-    locations: PropTypes.arrayOf(PropTypes.string).isRequired
+    bucket: PropTypes.string,
+    cos_key: PropTypes.string,
+    resource_group: PropTypes.string,
+    add_route: PropTypes.bool,
+    locations: PropTypes.arrayOf(PropTypes.string)
   }).isRequired,
   region: PropTypes.string.isRequired,
   prefix: PropTypes.string.isRequired,
@@ -7653,9 +7653,7 @@ var WorkerPoolForm = /*#__PURE__*/function (_Component) {
       } else {
         pool[name] = value === "null" ? null : value;
       }
-      this.setState({
-        pool: pool
-      });
+      this.setState(pool);
     }
 
     // Handle subnet multiselect change
@@ -7664,9 +7662,7 @@ var WorkerPoolForm = /*#__PURE__*/function (_Component) {
     value: function handleSubnetChange(event) {
       var pool = _objectSpread2({}, this.state);
       pool.subnets = event.selectedItems;
-      this.setState({
-        pool: pool
-      });
+      this.setState(pool);
     }
   }, {
     key: "render",
