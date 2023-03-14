@@ -28,9 +28,7 @@ class SshKeyForm extends Component {
    * toggle on and off use_data param in state
    */
   handleToggle() {
-    let state = { ...this.state };
-    state.use_data = !state.use_data;
-    this.setState(state);
+    this.setState({ use_data: !this.state.use_data });
   }
 
   /**
