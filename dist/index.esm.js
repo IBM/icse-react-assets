@@ -1,6 +1,6 @@
 import '@carbon/styles/css/styles.css';
 import { Popover, PopoverContent, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Toggletip, ToggletipButton, ToggletipContent, Link, Select, SelectItem, Tile, Modal, Toggle, TextInput, Form, FilterableMultiSelect, PasswordInput, NumberInput, TextArea, Tabs, TabList, Tab, TabPanels, TabPanel, Dropdown } from '@carbon/react';
-import lazyZ, { isNullOrEmptyString as isNullOrEmptyString$3, kebabCase as kebabCase$2, isEmpty, buildNumberDropdownList, titleCase as titleCase$1, snakeCase, isBoolean, prettyJSON, isFunction as isFunction$1, contains as contains$1, transpose as transpose$1, allFieldsNull, containsKeys, capitalize as capitalize$1, deepEqual, parseIntFromZone } from 'lazy-z';
+import lazyZ, { isNullOrEmptyString as isNullOrEmptyString$3, kebabCase as kebabCase$2, isEmpty, buildNumberDropdownList, titleCase as titleCase$1, snakeCase, isBoolean, prettyJSON, isFunction as isFunction$1, contains as contains$1, transpose as transpose$1, allFieldsNull, containsKeys, capitalize as capitalize$1, deepEqual, parseIntFromZone, eachKey } from 'lazy-z';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Save, Add, CloseFilled, Edit, TrashCan, ArrowUp, ArrowDown, Information, CloudAlerting, Password, WarningAlt } from '@carbon/icons-react';
@@ -8082,4 +8082,446 @@ ClusterForm.propTypes = {
   }).isRequired
 };
 
-export { AppIdForm, AppIdKeyForm, AtrackerForm, ClusterForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, LocationsMultiSelect, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VsiForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+class AccessGroupPolicyForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleInputResource = this.handleInputResource.bind(this);
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputResource(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    let resources = {
+      ...this.state.resources
+    };
+    resources[name] = value;
+    this.setState({
+      resources
+    });
+  }
+  render() {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: "name",
+      componentName: "policies",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      labelText: "Name",
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      invalid: this.props.invalidCallback("name", this.state, this.props),
+      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props)
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, {
+      className: "marginBottomSmall"
+    }, /*#__PURE__*/React.createElement(IcseHeading, {
+      name: "Resource Configuration",
+      type: "subHeading"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: "resource",
+      componentName: "resource",
+      tooltip: {
+        content: "The resource of the policy definition",
+        alignModal: "bottom-left"
+      },
+      isModal: this.props.isModal,
+      field: "resource",
+      value: this.state.resources.resource,
+      invalid: false,
+      onChange: this.handleInputResource,
+      labelText: "Resource"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+      name: "resource_group",
+      formName: `${kebabCase$2(this.props.data.name)}-agp-rg-select`,
+      groups: this.props.resourceGroups,
+      value: this.state.resources.resource_group,
+      handleInputChange: this.handleInputResource,
+      invalidText: "Select a Resource Group",
+      labelText: "Resource Group",
+      tooltip: {
+        content: "Name of the resource group the policy will apply to",
+        alignModal: "bottom-left"
+      }
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: "resource_instance_id",
+      componentName: "resource_instance_id",
+      isModal: this.props.isModal,
+      field: "resource_instance_id",
+      value: this.state.resources.resource_instance_id,
+      tooltip: {
+        content: "ID of a service instance to give permissions"
+      },
+      invalid: false,
+      labelText: "Resource Instance ID",
+      onChange: this.handleInputResource
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: "service",
+      componentName: "service",
+      tooltip: {
+        content: 'Name of the service type for the policy ex. "cloud-object-storage"',
+        alignModal: "bottom-left",
+        align: "top-left"
+      },
+      labelText: "Service Type",
+      field: "service",
+      value: this.state.resources.service,
+      isModal: this.props.isModal,
+      onChange: this.handleInputResource,
+      invalid: false
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: "resource_type",
+      componentName: "resource_type",
+      field: "resource_type",
+      tooltip: {
+        content: 'Name of the resource type for the policy ex. "resource-group"',
+        alignModal: "bottom-left"
+      },
+      invalid: false,
+      value: this.state.resources.resource_type,
+      isModal: this.props.isModal,
+      onChange: this.handleInputResource,
+      labelText: "Resource Type"
+    })));
+  }
+}
+AccessGroupPolicyForm.defaultProps = {
+  data: {
+    name: "",
+    resources: {
+      resource_group: "",
+      resource_type: "",
+      resource: "",
+      service: "",
+      resource_instance_id: ""
+    }
+  },
+  resourceGroups: [],
+  isModal: false
+};
+AccessGroupPolicyForm.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    resources: PropTypes.shape({
+      resource_group: PropTypes.string,
+      // can be null
+      resource_type: PropTypes.string.isRequired,
+      resource: PropTypes.string.isRequired,
+      service: PropTypes.string.isRequired,
+      resource_instance_id: PropTypes.string.isRequired
+    }).isRequired
+  }).isRequired,
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  isModal: PropTypes.bool.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  helperTextCallback: PropTypes.func.isRequired
+};
+
+const conditionOperators = {
+  EQUALS: "Equals",
+  EQUALS_IGNORE_CASE: "Equals (Ignore Case)",
+  IN: "In",
+  NOT_EQUALS_IGNORE_CASE: "Not Equals (Ignore Case)",
+  NOT_EQUALS: "Not Equals",
+  CONTAINS: "Contains"
+};
+class AccessGroupDynamicPolicyForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleInputCondition = this.handleInputCondition.bind(this);
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputCondition(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    let conditions = {
+      ...this.state.conditions
+    };
+    if (name === "operator") {
+      conditions[name] = snakeCase(value.replace(/[()]/g, "")).toUpperCase(); // remove all parentheses
+    } else {
+      conditions[name] = value;
+    }
+    this.setState({
+      conditions
+    });
+  }
+  render() {
+    let conditionOperatorGroups = [];
+    eachKey(conditionOperators, key => {
+      conditionOperatorGroups.push(conditionOperators[key]);
+    });
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: "name",
+      componentName: "dynamic_policies",
+      field: "name",
+      labelText: "Name",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      invalid: this.props.invalidCallback("name", this.state, this.props),
+      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React.createElement(IcseNumberSelect, {
+      tooltip: {
+        content: "How many hours authenticated users can work before refresh"
+      },
+      formName: "expiration",
+      max: 24,
+      value: this.state.expiration,
+      name: "expiration",
+      labelText: "Expiration Hours",
+      isModal: this.props.isModal,
+      handleInputChange: this.handleInputChange
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: "identity_provider",
+      tooltip: {
+        content: "URI for identity provider",
+        alignModal: "bottom-left"
+      },
+      componentName: "identity_provider",
+      field: "identity_provider",
+      isModal: this.props.isModal,
+      labelText: "Identity Provider",
+      value: this.state.identity_provider,
+      invalid: this.props.invalidCallback("identity_provider", this.state, this.props),
+      onChange: this.handleInputChange,
+      className: "textInputWide"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, {
+      className: "marginBottomSmall"
+    }, /*#__PURE__*/React.createElement(IcseHeading, {
+      name: "Condition Configuration",
+      type: "subHeading"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: "claim",
+      tooltip: {
+        content: "Key value to evaluate the condition against",
+        alignModal: "bottom-left"
+      },
+      componentName: "claim",
+      field: "claim",
+      isModal: this.props.isModal,
+      labelText: "Condition Claim",
+      value: this.state.conditions.claim,
+      invalid: false,
+      onChange: this.handleInputCondition
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: "dynamic_policies",
+      tooltip: {
+        content: "The operation to perform on the claim."
+      },
+      value: conditionOperators[this.state.conditions.operator],
+      groups: conditionOperatorGroups,
+      field: "operator",
+      isModal: this.props.isModal,
+      name: "operator",
+      disableInvalid: true,
+      labelText: "Condition Operator",
+      handleInputChange: this.handleInputCondition
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: "value",
+      tooltip: {
+        content: "Value to be compared against"
+      },
+      componentName: "value",
+      field: "value",
+      isModal: this.props.isModal,
+      value: this.state.conditions.value,
+      labelText: "Condition Value",
+      invalid: false,
+      onChange: this.handleInputCondition
+    })));
+  }
+}
+AccessGroupDynamicPolicyForm.defaultProps = {
+  data: {
+    name: "",
+    identity_provider: "",
+    expiration: 1,
+    conditions: {
+      claim: "",
+      operator: "",
+      value: ""
+    }
+  },
+  isModal: false
+};
+AccessGroupDynamicPolicyForm.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    identity_provider: PropTypes.string.isRequired,
+    expiration: PropTypes.number.isRequired,
+    conditions: PropTypes.shape({
+      claim: PropTypes.string.isRequired,
+      operator: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired
+    }).isRequired
+  }).isRequired,
+  isModal: PropTypes.bool.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  helperTextCallback: PropTypes.func.isRequired
+};
+
+class AccessGroupForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  render() {
+    let dynamicPolicyProps = {
+      invalidCallback: this.props.invalidDynamicPolicyCallback,
+      invalidTextCallback: this.props.invalidDynamicPolicyTextCallback,
+      arrayParentName: this.props.data.name,
+      helperTextCallback: this.props.dynamicPolicyHelperTextCallback
+    };
+    transpose$1({
+      ...this.props.dynamicPolicyProps
+    }, dynamicPolicyProps);
+    let policyProps = {
+      invalidCallback: this.props.invalidPolicyCallback,
+      invalidTextCallback: this.props.invalidPolicyTextCallback,
+      arrayParentName: this.props.data.name,
+      helperTextCallback: this.props.policyHelperTextCallback
+    };
+    transpose$1({
+      ...this.props.policyProps
+    }, policyProps);
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: "name",
+      componentName: "access_groups",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      className: "fieldWidth",
+      hideHelperText: true,
+      invalid: this.props.invalidCallback("name", this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: "description",
+      componentName: "description",
+      tooltip: {
+        content: "Description of the access group"
+      },
+      field: "description",
+      labelText: "Description",
+      value: this.state.description,
+      onChange: this.handleInputChange,
+      isModal: this.props.isModal,
+      className: "textInputWide",
+      hideHelperText: true,
+      invalid: false
+    })), this.props.isModal === false && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormTemplate, {
+      name: "Policies",
+      subHeading: true,
+      addText: "Create a Policy",
+      arrayData: this.props.data.policies,
+      innerForm: AccessGroupPolicyForm,
+      disableSave: this.props.policyProps.disableSave,
+      onDelete: this.props.policyProps.onDelete,
+      onSave: this.props.policyProps.onSave,
+      onSubmit: this.props.policyProps.onSubmit,
+      propsMatchState: this.props.propsMatchState,
+      innerFormProps: {
+        ...policyProps
+      },
+      hideAbout: true,
+      toggleFormProps: {
+        hideName: true,
+        submissionFieldName: "policies",
+        disableSave: () => {
+          return false;
+        },
+        type: "formInSubForm"
+      }
+    }), /*#__PURE__*/React.createElement(IcseFormTemplate, {
+      name: "Dynamic Policies",
+      subHeading: true,
+      addText: "Create a Dynamic Policy",
+      arrayData: this.props.data.dynamic_policies,
+      innerForm: AccessGroupDynamicPolicyForm,
+      disableSave: this.props.dynamicPolicyProps.disableSave,
+      onDelete: this.props.dynamicPolicyProps.onDelete,
+      onSave: this.props.dynamicPolicyProps.onSave,
+      onSubmit: this.props.dynamicPolicyProps.onSubmit,
+      propsMatchState: this.props.propsMatchState,
+      innerFormProps: {
+        ...dynamicPolicyProps
+      },
+      hideAbout: true,
+      toggleFormProps: {
+        hideName: true,
+        submissionFieldName: "dynamic_policies",
+        disableSave: () => {
+          return false;
+        },
+        type: "formInSubForm"
+      }
+    })));
+  }
+}
+AccessGroupForm.defaultProps = {
+  data: {
+    name: "",
+    description: ""
+  },
+  isModal: false
+};
+AccessGroupForm.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired
+  }).isRequired,
+  isModal: PropTypes.bool.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired
+};
+
+export { AccessGroupForm, AppIdForm, AppIdKeyForm, AtrackerForm, ClusterForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, LocationsMultiSelect, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VsiForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };

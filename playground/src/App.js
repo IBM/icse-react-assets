@@ -1,50 +1,66 @@
 import React, { useState } from "react";
 import { contains } from "lazy-z";
-import { SccForm } from "icse-react-assets";
+import { AccessGroupForm } from "icse-react-assets";
 import "./App.css";
 
-const SccFormStory = () => {
+const AccessGroupFormStory = () => {
   function validName(str) {
     const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
     if (str) return str.match(regex) !== null;
     else return false;
   }
 
-  function invalidCallback(stateData, componentProps) {
-    return (
-      !validName(stateData.name) || contains(["foo", "bar"], stateData.name)
-    );
+  function invalidCallback(field, stateData, componentProps) {
+    if (field === "identity_provider")
+      return !(stateData.identity_provider.length >= 6);
+    else return !validName(stateData.name);
   }
 
   function invalidTextCallback(stateData, componentProps) {
-    return contains(["foo", "bar"], stateData.name)
-      ? `Name ${stateData.name} already in use.`
+    return !validName(stateData.name)
+      ? `Name ${stateData.name} is invalid.`
       : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
   }
 
+  function composedNameCallback(stateData, componentProps) {
+    return `${stateData.name}-<random suffix>`;
+  }
+
   return (
-    <SccForm
+    <AccessGroupForm
       data={{
-        enable: true,
-        collector_description: "test collector description",
-        is_public: true,
-        scope_description: "test scope description",
-        passphrase: "test-passphrase",
-        location: "us",
-        credential_description: "my credential description",
-        name: "collector",
-        id: "my-group-id",
+        name: "test",
+        description: "foo",
+        policies: [],
+        dynamic_policies: [],
       }}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
-      descriptionRegex={/^[A-z][a-zA-Z0-9-._,\s]*$/i}
+      invalidPolicyCallback={invalidCallback}
+      invalidPolicyTextCallback={invalidTextCallback}
+      invalidDynamicPolicyCallback={invalidCallback}
+      invalidDynamicPolicyTextCallback={invalidTextCallback}
+      policyHelperTextCallback={composedNameCallback}
+      dynamicPolicyHelperTextCallback={composedNameCallback}
+      policyProps={{
+        onSave: () => {},
+        onDelete: () => {},
+        onSubmit: () => {},
+        disableSave: () => {},
+      }}
+      dynamicPolicyProps={{
+        onSave: () => {},
+        onDelete: () => {},
+        onSubmit: () => {},
+        disableSave: () => {},
+      }}
     />
   );
 };
 function App() {
   return (
     <div className="App">
-      <SccFormStory />
+      <AccessGroupFormStory />
     </div>
   );
 }
