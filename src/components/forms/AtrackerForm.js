@@ -141,11 +141,11 @@ AtrackerForm.defaultProps = {
 
 AtrackerForm.propTypes = {
   data: PropTypes.shape({
-    bucket: PropTypes.string.isRequired,
-    cos_key: PropTypes.string.isRequired,
-    resource_group: PropTypes.string.isRequired,
-    add_route: PropTypes.bool.isRequired,
-    locations: PropTypes.arrayOf(PropTypes.string).isRequired,
+    bucket: PropTypes.string,
+    cos_key: PropTypes.string,
+    resource_group: PropTypes.string,
+    add_route: PropTypes.bool,
+    locations: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
   region: PropTypes.string.isRequired,
   prefix: PropTypes.string.isRequired,

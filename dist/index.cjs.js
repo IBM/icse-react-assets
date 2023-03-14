@@ -2234,11 +2234,11 @@ AtrackerForm.defaultProps = {
 };
 AtrackerForm.propTypes = {
   data: PropTypes__default["default"].shape({
-    bucket: PropTypes__default["default"].string.isRequired,
-    cos_key: PropTypes__default["default"].string.isRequired,
-    resource_group: PropTypes__default["default"].string.isRequired,
-    add_route: PropTypes__default["default"].bool.isRequired,
-    locations: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+    bucket: PropTypes__default["default"].string,
+    cos_key: PropTypes__default["default"].string,
+    resource_group: PropTypes__default["default"].string,
+    add_route: PropTypes__default["default"].bool,
+    locations: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string)
   }).isRequired,
   region: PropTypes__default["default"].string.isRequired,
   prefix: PropTypes__default["default"].string.isRequired,
@@ -7664,9 +7664,7 @@ var WorkerPoolForm = /*#__PURE__*/function (_Component) {
       } else {
         pool[name] = value === "null" ? null : value;
       }
-      this.setState({
-        pool: pool
-      });
+      this.setState(pool);
     }
 
     // Handle subnet multiselect change
@@ -7675,9 +7673,7 @@ var WorkerPoolForm = /*#__PURE__*/function (_Component) {
     value: function handleSubnetChange(event) {
       var pool = _objectSpread2({}, this.state);
       pool.subnets = event.selectedItems;
-      this.setState({
-        pool: pool
-      });
+      this.setState(pool);
     }
   }, {
     key: "render",
