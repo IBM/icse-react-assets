@@ -161,7 +161,7 @@ export const IcseNameInput = (props) => {
       {...props}
       className={addClassName("leftTextAlign", props)}
       field="name"
-      labelText="Name"
+      labelText={props.labelText}
       helperText={helperText}
     />
   );
@@ -172,6 +172,7 @@ IcseNameInput.defaultProps = {
   hideHelperText: false,
   invalidText: "",
   className: "fieldWidth",
+  labelText: "Name"
 };
 
 IcseNameInput.propTypes = {
@@ -190,4 +191,5 @@ IcseNameInput.propTypes = {
   helperTextCallback: PropTypes.func,
   invalidText: PropTypes.string.isRequired,
   invalidCallback: PropTypes.func,
+  labelText: PropTypes.string.isRequired
 };

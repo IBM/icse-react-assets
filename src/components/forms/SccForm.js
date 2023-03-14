@@ -5,7 +5,7 @@ import {
   buildFormFunctions,
 } from "../component-utils";
 import { invalidRegex } from "../../lib";
-import { IcseTextInput, IcseToggle } from "../Inputs";
+import { IcseTextInput, IcseToggle, IcseNameInput } from "../Inputs";
 import { IcseFormGroup } from "../Utils";
 import PropTypes from "prop-types";
 
@@ -69,6 +69,102 @@ class SccForm extends Component {
     return (
       <>
         <IcseFormGroup>
+          {/* group id */}
+          <IcseTextInput
+            id="scc_group_id"
+            tooltip={{
+              content: "The group ID for Security and Compliance Center.",
+            }}
+            componentName="SCC"
+            field="id"
+            labelText="Group ID"
+            value={this.state.id}
+            onChange={this.handleInputChange}
+            maxLength={255}
+            invalid={
+              invalidRegex(
+                "id",
+                this.state.scope_description,
+                this.props.descriptionRegex
+              ).invalid
+            }
+            invalidText={
+              invalidRegex(
+                "id",
+                this.state.scope_description,
+                this.props.descriptionRegex
+              ).invalidText
+            }
+          />
+          {/* collector-description text input */}
+          <IcseTextInput
+            id="scc_passphrase"
+            tooltip={{
+              content: "Security and Compliance Center group passphrase.",
+            }}
+            labelText="Group Passphrase"
+            field="passphrase"
+            value={this.state.passphrase}
+            onChange={this.handleInputChange}
+            componentName="SCC"
+            maxLength={1000}
+            invalid={
+              invalidRegex(
+                "passphrase",
+                this.state.passphrase,
+                this.props.descriptionRegex
+              ).invalid
+            }
+            invalidText={
+              invalidRegex(
+                "passphrase",
+                this.state.passphrase,
+                this.props.descriptionRegex
+              ).invalidText
+            }
+          />
+        </IcseFormGroup>
+        <IcseFormGroup>
+          <IcseNameInput
+            id={this.props.data.name + "-scc-name"}
+            componentName="scc-collector"
+            labelText="Collector Name"
+            value={this.state.name}
+            onChange={this.handleInputChange}
+            invalid={this.props.invalidCallback(this.state, this.props)}
+            invalidText={this.props.invalidTextCallback(this.state, this.props)}
+            hideHelperText
+          />
+          {/* credential text input */}
+          <IcseTextInput
+            id="scc_credential_description"
+            tooltip={{
+              content:
+                "A detailed description of the credential to be created.",
+            }}
+            componentName="SCC"
+            field="credential_description"
+            labelText="Credential Description"
+            value={this.state.scope_description}
+            onChange={this.handleInputChange}
+            maxLength={255}
+            invalid={
+              invalidRegex(
+                "credential_description",
+                this.state.credential_description,
+                this.props.descriptionRegex
+              ).invalid
+            }
+            invalidText={
+              invalidRegex(
+                "credential_description",
+                this.state.credential_description,
+                this.props.descriptionRegex
+              ).invalidText
+            }
+          />
+        </IcseFormGroup>
+        <IcseFormGroup>
           <Dropdown
             ariaLabel="Dropdown"
             id="location"
@@ -93,7 +189,7 @@ class SccForm extends Component {
             id="scc-is-public"
           />
         </IcseFormGroup>
-        <IcseFormGroup>
+        <IcseFormGroup noMarginBottom>
           {/* scope-description text input */}
           <IcseTextInput
             id="scc_scope_description"
@@ -168,7 +264,12 @@ SccForm.propTypes = {
     location: PropTypes.string,
     scope_description: PropTypes.string,
     passphrase: PropTypes.string,
+    credential_description: PropTypes.string,
+    name: PropTypes.string,
+    id: PropTypes.string,
   }),
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
   descriptionRegex: PropTypes.instanceOf(RegExp).isRequired,
 };
 

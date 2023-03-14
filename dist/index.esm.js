@@ -1612,7 +1612,7 @@ var IcseNameInput = function IcseNameInput(props) {
   return /*#__PURE__*/React.createElement(IcseTextInput, _extends({}, props, {
     className: lib_2("leftTextAlign", props),
     field: "name",
-    labelText: "Name",
+    labelText: props.labelText,
     helperText: helperText
   }));
 };
@@ -1620,7 +1620,8 @@ IcseNameInput.defaultProps = {
   useData: false,
   hideHelperText: false,
   invalidText: "",
-  className: "fieldWidth"
+  className: "fieldWidth",
+  labelText: "Name"
 };
 IcseNameInput.propTypes = {
   id: PropTypes.string.isRequired,
@@ -1637,7 +1638,8 @@ IcseNameInput.propTypes = {
   useData: PropTypes.bool.isRequired,
   helperTextCallback: PropTypes.func,
   invalidText: PropTypes.string.isRequired,
-  invalidCallback: PropTypes.func
+  invalidCallback: PropTypes.func,
+  labelText: PropTypes.string.isRequired
 };
 
 var css_248z$8 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
@@ -4112,7 +4114,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
         }, /*#__PURE__*/React.createElement(UnsavedChangesModal, {
           name:
           // use tab panel name if passed
-          this.props.name,
+          this.props.tabPanel ? this.props.tabPanel.name : this.props.name,
           modalOpen: this.state.showUnsavedChangeModal,
           onModalClose: this.toggleUnsavedChangeModal,
           onModalSubmit: this.dismissChangesAndClose,
@@ -5933,7 +5935,55 @@ var SccForm = /*#__PURE__*/function (_Component) {
     key: "render",
     value: function render() {
       var _this2 = this;
-      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(Dropdown, {
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+        id: "scc_group_id",
+        tooltip: {
+          content: "The group ID for Security and Compliance Center."
+        },
+        componentName: "SCC",
+        field: "id",
+        labelText: "Group ID",
+        value: this.state.id,
+        onChange: this.handleInputChange,
+        maxLength: 255,
+        invalid: lib_10("id", this.state.scope_description, this.props.descriptionRegex).invalid,
+        invalidText: lib_10("id", this.state.scope_description, this.props.descriptionRegex).invalidText
+      }), /*#__PURE__*/React.createElement(IcseTextInput, {
+        id: "scc_passphrase",
+        tooltip: {
+          content: "Security and Compliance Center group passphrase."
+        },
+        labelText: "Group Passphrase",
+        field: "passphrase",
+        value: this.state.passphrase,
+        onChange: this.handleInputChange,
+        componentName: "SCC",
+        maxLength: 1000,
+        invalid: lib_10("passphrase", this.state.passphrase, this.props.descriptionRegex).invalid,
+        invalidText: lib_10("passphrase", this.state.passphrase, this.props.descriptionRegex).invalidText
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+        id: this.props.data.name + "-scc-name",
+        componentName: "scc-collector",
+        labelText: "Collector Name",
+        value: this.state.name,
+        onChange: this.handleInputChange,
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props),
+        hideHelperText: true
+      }), /*#__PURE__*/React.createElement(IcseTextInput, {
+        id: "scc_credential_description",
+        tooltip: {
+          content: "A detailed description of the credential to be created."
+        },
+        componentName: "SCC",
+        field: "credential_description",
+        labelText: "Credential Description",
+        value: this.state.scope_description,
+        onChange: this.handleInputChange,
+        maxLength: 255,
+        invalid: lib_10("credential_description", this.state.credential_description, this.props.descriptionRegex).invalid,
+        invalidText: lib_10("credential_description", this.state.credential_description, this.props.descriptionRegex).invalidText
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(Dropdown, {
         ariaLabel: "Dropdown",
         id: "location",
         items: sccRegions,
@@ -5952,7 +6002,9 @@ var SccForm = /*#__PURE__*/function (_Component) {
         className: "leftTextAlign",
         onToggle: this.handleToggle,
         id: "scc-is-public"
-      })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+      })), /*#__PURE__*/React.createElement(IcseFormGroup, {
+        noMarginBottom: true
+      }, /*#__PURE__*/React.createElement(IcseTextInput, {
         id: "scc_scope_description",
         tooltip: {
           content: "A detailed description of the scope."
@@ -5997,8 +6049,13 @@ SccForm.propTypes = {
     is_public: PropTypes.bool,
     location: PropTypes.string,
     scope_description: PropTypes.string,
-    passphrase: PropTypes.string
+    passphrase: PropTypes.string,
+    credential_description: PropTypes.string,
+    name: PropTypes.string,
+    id: PropTypes.string
   }),
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
   descriptionRegex: PropTypes.instanceOf(RegExp).isRequired
 };
 

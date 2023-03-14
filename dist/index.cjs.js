@@ -1623,7 +1623,7 @@ var IcseNameInput = function IcseNameInput(props) {
   return /*#__PURE__*/React__default["default"].createElement(IcseTextInput, _extends({}, props, {
     className: lib_2("leftTextAlign", props),
     field: "name",
-    labelText: "Name",
+    labelText: props.labelText,
     helperText: helperText
   }));
 };
@@ -1631,7 +1631,8 @@ IcseNameInput.defaultProps = {
   useData: false,
   hideHelperText: false,
   invalidText: "",
-  className: "fieldWidth"
+  className: "fieldWidth",
+  labelText: "Name"
 };
 IcseNameInput.propTypes = {
   id: PropTypes__default["default"].string.isRequired,
@@ -1648,7 +1649,8 @@ IcseNameInput.propTypes = {
   useData: PropTypes__default["default"].bool.isRequired,
   helperTextCallback: PropTypes__default["default"].func,
   invalidText: PropTypes__default["default"].string.isRequired,
-  invalidCallback: PropTypes__default["default"].func
+  invalidCallback: PropTypes__default["default"].func,
+  labelText: PropTypes__default["default"].string.isRequired
 };
 
 var css_248z$8 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
@@ -4123,7 +4125,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
         }, /*#__PURE__*/React__default["default"].createElement(UnsavedChangesModal, {
           name:
           // use tab panel name if passed
-          this.props.name,
+          this.props.tabPanel ? this.props.tabPanel.name : this.props.name,
           modalOpen: this.state.showUnsavedChangeModal,
           onModalClose: this.toggleUnsavedChangeModal,
           onModalSubmit: this.dismissChangesAndClose,
@@ -5944,7 +5946,55 @@ var SccForm = /*#__PURE__*/function (_Component) {
     key: "render",
     value: function render() {
       var _this2 = this;
-      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.Dropdown, {
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+        id: "scc_group_id",
+        tooltip: {
+          content: "The group ID for Security and Compliance Center."
+        },
+        componentName: "SCC",
+        field: "id",
+        labelText: "Group ID",
+        value: this.state.id,
+        onChange: this.handleInputChange,
+        maxLength: 255,
+        invalid: lib_10("id", this.state.scope_description, this.props.descriptionRegex).invalid,
+        invalidText: lib_10("id", this.state.scope_description, this.props.descriptionRegex).invalidText
+      }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+        id: "scc_passphrase",
+        tooltip: {
+          content: "Security and Compliance Center group passphrase."
+        },
+        labelText: "Group Passphrase",
+        field: "passphrase",
+        value: this.state.passphrase,
+        onChange: this.handleInputChange,
+        componentName: "SCC",
+        maxLength: 1000,
+        invalid: lib_10("passphrase", this.state.passphrase, this.props.descriptionRegex).invalid,
+        invalidText: lib_10("passphrase", this.state.passphrase, this.props.descriptionRegex).invalidText
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+        id: this.props.data.name + "-scc-name",
+        componentName: "scc-collector",
+        labelText: "Collector Name",
+        value: this.state.name,
+        onChange: this.handleInputChange,
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props),
+        hideHelperText: true
+      }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+        id: "scc_credential_description",
+        tooltip: {
+          content: "A detailed description of the credential to be created."
+        },
+        componentName: "SCC",
+        field: "credential_description",
+        labelText: "Credential Description",
+        value: this.state.scope_description,
+        onChange: this.handleInputChange,
+        maxLength: 255,
+        invalid: lib_10("credential_description", this.state.credential_description, this.props.descriptionRegex).invalid,
+        invalidText: lib_10("credential_description", this.state.credential_description, this.props.descriptionRegex).invalidText
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.Dropdown, {
         ariaLabel: "Dropdown",
         id: "location",
         items: sccRegions,
@@ -5963,7 +6013,9 @@ var SccForm = /*#__PURE__*/function (_Component) {
         className: "leftTextAlign",
         onToggle: this.handleToggle,
         id: "scc-is-public"
-      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+        noMarginBottom: true
+      }, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
         id: "scc_scope_description",
         tooltip: {
           content: "A detailed description of the scope."
@@ -6008,8 +6060,13 @@ SccForm.propTypes = {
     is_public: PropTypes__default["default"].bool,
     location: PropTypes__default["default"].string,
     scope_description: PropTypes__default["default"].string,
-    passphrase: PropTypes__default["default"].string
+    passphrase: PropTypes__default["default"].string,
+    credential_description: PropTypes__default["default"].string,
+    name: PropTypes__default["default"].string,
+    id: PropTypes__default["default"].string
   }),
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
   descriptionRegex: PropTypes__default["default"].instanceOf(RegExp).isRequired
 };
 
