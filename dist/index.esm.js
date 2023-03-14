@@ -1570,7 +1570,7 @@ IcseTextInput.propTypes = {
   placeholder: PropTypes.string,
   field: PropTypes.string.isRequired,
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
   helperText: PropTypes.string,
   tooltip: PropTypes.shape({
     content: PropTypes.string.isRequired,
@@ -2160,20 +2160,16 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
         labelText: "Name",
         className: "fieldWidth",
         value: this.props.prefix + "-atracker",
-        onChange: function onChange() {
-          /** does not change **/
-        },
         readOnly: true,
         id: "atracker-name",
         invalid: false
-      }), /*#__PURE__*/React.createElement(IcseSelect, {
-        formName: this.props.data.name + "-activity-tracker-rg",
-        value: this.state.resource_group,
-        groups: this.props.resourceGroups,
-        handleInputChange: this.handleInputChange,
-        className: "fieldWidth",
-        name: "resource_group",
-        labelText: "Resource Group"
+      }), /*#__PURE__*/React.createElement(LocationsMultiSelect, {
+        id: this.props.data.name + "-activity-tracker-location",
+        region: this.props.region,
+        onChange: this.handleMultiSelect,
+        invalid: this.state.locations.length === 0,
+        invalidText: "Select at least one location.",
+        initialSelectedItems: this.props.data.locations
       })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
         tooltip: {
           content: "The bucket name under the Cloud Object Storage instance where Activity Tracker logs will be stored"
@@ -2210,12 +2206,6 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
         handleInputChange: this.handleInputChange,
         className: "fieldWidth",
         invalidText: "Select an Object Storage key."
-      }), /*#__PURE__*/React.createElement(LocationsMultiSelect, {
-        id: this.props.data.name + "-activity-tracker-location",
-        region: this.props.region,
-        onChange: this.handleMultiSelect,
-        invalid: this.state.locations.length === 0,
-        invalidText: "Select at least one location."
       })));
     }
   }]);

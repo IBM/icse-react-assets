@@ -1581,7 +1581,7 @@ IcseTextInput.propTypes = {
   placeholder: PropTypes__default["default"].string,
   field: PropTypes__default["default"].string.isRequired,
   value: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].string]),
-  onChange: PropTypes__default["default"].func.isRequired,
+  onChange: PropTypes__default["default"].func,
   helperText: PropTypes__default["default"].string,
   tooltip: PropTypes__default["default"].shape({
     content: PropTypes__default["default"].string.isRequired,
@@ -2171,20 +2171,16 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
         labelText: "Name",
         className: "fieldWidth",
         value: this.props.prefix + "-atracker",
-        onChange: function onChange() {
-          /** does not change **/
-        },
         readOnly: true,
         id: "atracker-name",
         invalid: false
-      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-        formName: this.props.data.name + "-activity-tracker-rg",
-        value: this.state.resource_group,
-        groups: this.props.resourceGroups,
-        handleInputChange: this.handleInputChange,
-        className: "fieldWidth",
-        name: "resource_group",
-        labelText: "Resource Group"
+      }), /*#__PURE__*/React__default["default"].createElement(LocationsMultiSelect, {
+        id: this.props.data.name + "-activity-tracker-location",
+        region: this.props.region,
+        onChange: this.handleMultiSelect,
+        invalid: this.state.locations.length === 0,
+        invalidText: "Select at least one location.",
+        initialSelectedItems: this.props.data.locations
       })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
         tooltip: {
           content: "The bucket name under the Cloud Object Storage instance where Activity Tracker logs will be stored"
@@ -2221,12 +2217,6 @@ var AtrackerForm = /*#__PURE__*/function (_Component) {
         handleInputChange: this.handleInputChange,
         className: "fieldWidth",
         invalidText: "Select an Object Storage key."
-      }), /*#__PURE__*/React__default["default"].createElement(LocationsMultiSelect, {
-        id: this.props.data.name + "-activity-tracker-location",
-        region: this.props.region,
-        onChange: this.handleMultiSelect,
-        invalid: this.state.locations.length === 0,
-        invalidText: "Select at least one location."
       })));
     }
   }]);

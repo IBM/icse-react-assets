@@ -63,23 +63,20 @@ class AtrackerForm extends Component {
             labelText="Name"
             className="fieldWidth"
             value={this.props.prefix + "-atracker"}
-            onChange={() => {
-              /** does not change **/
-            }}
             readOnly
             id="atracker-name"
             invalid={false}
           />
-          <IcseSelect
-            formName={this.props.data.name + "-activity-tracker-rg"}
-            value={this.state.resource_group}
-            groups={this.props.resourceGroups}
-            handleInputChange={this.handleInputChange}
-            className="fieldWidth"
-            name="resource_group"
-            labelText="Resource Group"
+          <LocationsMultiSelect
+            id={this.props.data.name + "-activity-tracker-location"}
+            region={this.props.region}
+            onChange={this.handleMultiSelect}
+            invalid={this.state.locations.length === 0}
+            invalidText="Select at least one location."
+            initialSelectedItems={this.props.data.locations}
           />
         </IcseFormGroup>
+
         <IcseFormGroup>
           <IcseSelect
             tooltip={{
@@ -122,13 +119,6 @@ class AtrackerForm extends Component {
             handleInputChange={this.handleInputChange}
             className="fieldWidth"
             invalidText="Select an Object Storage key."
-          />
-          <LocationsMultiSelect
-            id={this.props.data.name + "-activity-tracker-location"}
-            region={this.props.region}
-            onChange={this.handleMultiSelect}
-            invalid={this.state.locations.length === 0}
-            invalidText="Select at least one location."
           />
         </IcseFormGroup>
       </div>
