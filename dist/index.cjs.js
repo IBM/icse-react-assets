@@ -6087,6 +6087,13 @@ var SecretsManagerForm = /*#__PURE__*/function (_Component) {
   }]);
   return SecretsManagerForm;
 }(React.Component);
+SecretsManagerForm.defaultProps = {
+  data: {
+    name: "",
+    resource_group: null,
+    encryption_key: null
+  }
+};
 SecretsManagerForm.propTypes = {
   data: PropTypes__default["default"].shape({
     name: PropTypes__default["default"].string,
