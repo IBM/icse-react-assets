@@ -6233,7 +6233,7 @@ SecurityGroupForm.propTypes = {
   vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
 };
 
-var css_248z$1 = ".leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidthBigger {\n  width: 30rem\n}\n";
+var css_248z$1 = ".leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmallest {\n  width: 8rem;\n}\n\n.fieldWidthBigger {\n  width: 40rem;\n}\n";
 styleInject(css_248z$1);
 
 /**
@@ -6249,15 +6249,27 @@ var SshKeyForm = /*#__PURE__*/function (_Component) {
     _this.state = _this.props.data;
     buildFormFunctions(_assertThisInitialized(_this));
     buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
     _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   /**
-   * handle other input events
-   * @param {*} event
+   * toggle on and off use_data param in state
    */
   _createClass(SshKeyForm, [{
+    key: "handleToggle",
+    value: function handleToggle() {
+      this.setState({
+        use_data: !this.state.use_data
+      });
+    }
+
+    /**
+     * handle other input events
+     * @param {*} event
+     */
+  }, {
     key: "handleInputChange",
     value: function handleInputChange(event) {
       this.setState(this.eventTargetToNameAndValue(event));
@@ -6265,7 +6277,15 @@ var SshKeyForm = /*#__PURE__*/function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        labelText: "Use Existing Instance",
+        key: this.state.use_data,
+        defaultToggled: this.state.use_data,
+        toggleFieldName: "use_data",
+        onToggle: this.handleToggle,
+        className: "fieldWidthSmallest",
+        id: this.state.name + "-use-existing-instance"
+      }), /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
         id: this.state.name + "-name",
         componentName: this.props.data.name + "-ssh-key-name",
         value: this.state.name,
@@ -6281,7 +6301,7 @@ var SshKeyForm = /*#__PURE__*/function (_Component) {
         handleInputChange: this.handleInputChange,
         invalidText: "Select a Resource Group.",
         labelText: "Resource Group"
-      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+      })), !this.state.use_data && /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
         noMarginBottom: true
       }, /*#__PURE__*/React__default["default"].createElement("div", {
         className: "fieldWidthBigger leftTextAlign"
@@ -6301,7 +6321,8 @@ var SshKeyForm = /*#__PURE__*/function (_Component) {
 SshKeyForm.defaultProps = {
   data: {
     name: "",
-    public_key: ""
+    public_key: "",
+    use_data: false
   },
   resourceGroups: [],
   isModal: false
@@ -6310,7 +6331,8 @@ SshKeyForm.propTypes = {
   data: PropTypes__default["default"].shape({
     name: PropTypes__default["default"].string.isRequired,
     resource_group: PropTypes__default["default"].string,
-    public_key: PropTypes__default["default"].string.isRequired
+    public_key: PropTypes__default["default"].string.isRequired,
+    use_data: PropTypes__default["default"].bool
   }).isRequired,
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   isModal: PropTypes__default["default"].bool.isRequired,

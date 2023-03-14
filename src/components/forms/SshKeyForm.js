@@ -5,7 +5,7 @@ import {
   buildFormFunctions,
 } from "../component-utils";
 import { IcseFormGroup } from "../Utils";
-import { IcseNameInput } from "../Inputs";
+import { IcseNameInput, IcseToggle } from "../Inputs";
 import { IcseSelect } from "../Dropdowns";
 import PropTypes from "prop-types";
 import { kebabCase } from "lazy-z";
@@ -20,7 +20,15 @@ class SshKeyForm extends Component {
     this.state = this.props.data;
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
+    this.handleToggle = this.handleToggle.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  /**
+   * toggle on and off use_data param in state
+   */
+  handleToggle() {
+    this.setState({ use_data: !this.state.use_data });
   }
 
   /**
@@ -35,6 +43,16 @@ class SshKeyForm extends Component {
     return (
       <>
         <IcseFormGroup>
+          {/* use data */}
+          <IcseToggle
+            labelText="Use Existing Instance"
+            key={this.state.use_data}
+            defaultToggled={this.state.use_data}
+            toggleFieldName="use_data"
+            onToggle={this.handleToggle}
+            className="fieldWidthSmallest"
+            id={this.state.name + "-use-existing-instance"}
+          />
           {/* name */}
           <IcseNameInput
             id={this.state.name + "-name"}
@@ -56,23 +74,27 @@ class SshKeyForm extends Component {
             labelText="Resource Group"
           />
         </IcseFormGroup>
-        <IcseFormGroup noMarginBottom>
-          <div className="fieldWidthBigger leftTextAlign">
-            <TextInput.PasswordInput
-              labelText="Public Key"
-              name="public_key"
-              id={this.props.data.name + "-ssh-public-key"}
-              value={this.state.public_key}
-              onChange={this.handleInputChange}
-              invalid={
-                this.props.invalidKeyCallback(this.state.public_key).invalid
-              }
-              invalidText={
-                this.props.invalidKeyCallback(this.state.public_key).invalidText
-              }
-            />
-          </div>
-        </IcseFormGroup>
+        {/* do not render public key input if not use_data */}
+        {!this.state.use_data && (
+          <IcseFormGroup noMarginBottom>
+            <div className="fieldWidthBigger leftTextAlign">
+              <TextInput.PasswordInput
+                labelText="Public Key"
+                name="public_key"
+                id={this.props.data.name + "-ssh-public-key"}
+                value={this.state.public_key}
+                onChange={this.handleInputChange}
+                invalid={
+                  this.props.invalidKeyCallback(this.state.public_key).invalid
+                }
+                invalidText={
+                  this.props.invalidKeyCallback(this.state.public_key)
+                    .invalidText
+                }
+              />
+            </div>
+          </IcseFormGroup>
+        )}
       </>
     );
   }
@@ -82,6 +104,7 @@ SshKeyForm.defaultProps = {
   data: {
     name: "",
     public_key: "",
+    use_data: false,
   },
   resourceGroups: [],
   isModal: false,
@@ -92,6 +115,7 @@ SshKeyForm.propTypes = {
     name: PropTypes.string.isRequired,
     resource_group: PropTypes.string,
     public_key: PropTypes.string.isRequired,
+    use_data: PropTypes.bool,
   }).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   isModal: PropTypes.bool.isRequired,
