@@ -6253,9 +6253,9 @@ var SshKeyForm = /*#__PURE__*/function (_Component) {
   _createClass(SshKeyForm, [{
     key: "handleToggle",
     value: function handleToggle() {
-      var state = _objectSpread2({}, this.state);
-      state.use_data = !state.use_data;
-      this.setState(state);
+      this.setState({
+        use_data: !this.state.use_data
+      });
     }
 
     /**
