@@ -6076,6 +6076,13 @@ var SecretsManagerForm = /*#__PURE__*/function (_Component) {
   }]);
   return SecretsManagerForm;
 }(Component);
+SecretsManagerForm.defaultProps = {
+  data: {
+    name: "",
+    resource_group: null,
+    encryption_key: null
+  }
+};
 SecretsManagerForm.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string,
