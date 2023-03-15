@@ -106,7 +106,7 @@ SubnetTileForm.propTypes = {
       name: PropTypes.string.isRequired,
       cidr: PropTypes.string.isRequired,
       public_gateway: PropTypes.bool,
-      acl_name: PropTypes.string.isRequired,
+      network_acl: PropTypes.string.isRequired,
     })
   ),
   readOnly: PropTypes.bool.isRequired,

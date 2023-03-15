@@ -4,10 +4,11 @@ import {
   buildFormDefaultInputMethods,
   buildFormFunctions,
 } from "../component-utils";
-import { splat, deepEqual } from "lazy-z";
+import { checkNullorEmptyString } from "../../lib";
 import PropTypes from "prop-types";
 import { IcseNameInput, IcseToggle } from "../Inputs";
 import { IcseFormGroup } from "../Utils";
+import { IcseSelect } from "../Dropdowns";
 
 /** NetworkAclForm
  * @param {Object} props
@@ -67,6 +68,16 @@ class NetworkAclForm extends Component {
             }
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
           />
+          <IcseSelect
+            labelText="Resource Group"
+            name="resource_group"
+            formName="resource_group"
+            groups={this.props.resourceGroups}
+            value={this.state.resource_group}
+            handleInputChange={this.handleTextInput}
+            invalid={checkNullorEmptyString(this.state.resource_group)}
+            invalidText="Select a Resource Group."
+          />
           <IcseToggle
             tooltip={{
               content:
@@ -118,7 +129,9 @@ NetworkAclForm.propTypes = {
     name: PropTypes.string.isRequired,
     add_cluster_rules: PropTypes.bool.isRequired,
     rules: PropTypes.array,
+    resource_group: PropTypes.string,
   }),
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   isModal: PropTypes.bool.isRequired,
   networkRuleOrderDidChange: PropTypes.func, // can be undefined
   invalidCallback: PropTypes.func.isRequired,
