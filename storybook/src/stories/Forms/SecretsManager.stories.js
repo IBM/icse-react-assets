@@ -22,7 +22,7 @@ export default {
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.kms_key_name"]: {
+    ["data.encryption_key"]: {
       description: "A string value of the KMS Key",
       control: "none",
       type: { required: false }, // required prop or not
@@ -84,7 +84,7 @@ const SecretsManagerFormStory = () => {
       data={{
         name: "Example",
         resource_group: "default",
-        kms_key_name: "key1",
+        encryption_key: "key1",
       }}
       resourceGroups={["default_group", "foo", "bar"]}
       encryptionKeys={["default_key", "foo"]}

@@ -63,23 +63,20 @@ class AtrackerForm extends Component {
             labelText="Name"
             className="fieldWidth"
             value={this.props.prefix + "-atracker"}
-            onChange={() => {
-              /** does not change **/
-            }}
             readOnly
             id="atracker-name"
             invalid={false}
           />
-          <IcseSelect
-            formName={this.props.data.name + "-activity-tracker-rg"}
-            value={this.state.resource_group}
-            groups={this.props.resourceGroups}
-            handleInputChange={this.handleInputChange}
-            className="fieldWidth"
-            name="resource_group"
-            labelText="Resource Group"
+          <LocationsMultiSelect
+            id={this.props.data.name + "-activity-tracker-location"}
+            region={this.props.region}
+            onChange={this.handleMultiSelect}
+            invalid={this.state.locations.length === 0}
+            invalidText="Select at least one location."
+            initialSelectedItems={this.props.data.locations}
           />
         </IcseFormGroup>
+
         <IcseFormGroup>
           <IcseSelect
             tooltip={{
@@ -123,13 +120,6 @@ class AtrackerForm extends Component {
             className="fieldWidth"
             invalidText="Select an Object Storage key."
           />
-          <LocationsMultiSelect
-            id={this.props.data.name + "-activity-tracker-location"}
-            region={this.props.region}
-            onChange={this.handleMultiSelect}
-            invalid={this.state.locations.length === 0}
-            invalidText="Select at least one location."
-          />
         </IcseFormGroup>
       </div>
     );
@@ -151,11 +141,11 @@ AtrackerForm.defaultProps = {
 
 AtrackerForm.propTypes = {
   data: PropTypes.shape({
-    bucket: PropTypes.string.isRequired,
-    cos_key: PropTypes.string.isRequired,
-    resource_group: PropTypes.string.isRequired,
-    add_route: PropTypes.bool.isRequired,
-    locations: PropTypes.arrayOf(PropTypes.string).isRequired,
+    bucket: PropTypes.string,
+    cos_key: PropTypes.string,
+    resource_group: PropTypes.string,
+    add_route: PropTypes.bool,
+    locations: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
   region: PropTypes.string.isRequired,
   prefix: PropTypes.string.isRequired,

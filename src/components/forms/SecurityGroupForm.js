@@ -76,21 +76,20 @@ class SecurityGroupForm extends Component {
           {/* vpc name */}
           <IcseSelect
             formName="security_Group"
-            name="vpc_name"
+            name="vpc"
             labelText="VPC"
             groups={this.props.vpcList}
-            value={this.state.vpc_name}
+            value={this.state.vpc}
             handleInputChange={this.handleInputChange}
             className={className}
           />
         </IcseFormGroup>
-        {(!this.props.isModal || this.props.isTeleport) && (
+        {!this.props.isModal && (
           <NetworkingRulesOrderCard
             rules={this.state.rules}
-            vpc_name={this.state.vpc_name}
+            vpc_name={this.state.vpc}
             parent_name={this.props.data.name}
             isSecurityGroup={true}
-            isTeleport={this.props.isTeleport}
             networkRuleOrderDidChange={this.networkRuleOrderDidChange}
             invalidCallback={this.props.invalidCallback}
             invalidTextCallback={this.props.invalidTextCallback}
@@ -110,22 +109,20 @@ SecurityGroupForm.defaultProps = {
   data: {
     name: "",
     resource_group: "",
-    vpc_name: "",
+    vpc: "",
     rules: [],
   },
   isModal: false,
-  isTeleport: false,
 };
 
 SecurityGroupForm.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    vpc_name: PropTypes.string,
+    vpc: PropTypes.string,
     resource_group: PropTypes.string,
     rules: PropTypes.array,
   }).isRequired,
   isModal: PropTypes.bool.isRequired,
-  isTeleport: PropTypes.bool.isRequired,
   networkRuleOrderDidChange: PropTypes.func, // can be undefined
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,

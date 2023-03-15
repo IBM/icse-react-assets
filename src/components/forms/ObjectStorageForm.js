@@ -38,14 +38,14 @@ class ObjectStorageInstancesForm extends Component {
     let bucketInnerFormProps = {
       invalidCallback: this.props.invalidBucketCallback,
       invalidTextCallback: this.props.invalidBucketTextCallback,
-      composedNameCallback: this.props.composedBucketNameCallback,
+      composedNameCallback: this.props.composedNameCallback,
       arrayParentName: this.props.data.name,
     };
     transpose({ ...this.props.bucketProps }, bucketInnerFormProps);
     let keyInnerFormProps = {
-      invalidCallback: this.props.invalidBucketCallback,
-      invalidTextCallback: this.props.invalidBucketTextCallback,
-      composedNameCallback: this.props.composedBucketNameCallback,
+      invalidCallback: this.props.invalidKeyCallback,
+      invalidTextCallback: this.props.invalidKeyTextCallback,
+      composedNameCallback: this.props.composedNameCallback,
       arrayParentName: this.props.data.name,
     };
     transpose({ ...this.props.keyProps }, keyInnerFormProps);
@@ -135,7 +135,7 @@ class ObjectStorageInstancesForm extends Component {
               hideAbout
               toggleFormProps={{
                 hideName: true,
-                submissionFieldName: "keys",
+                submissionFieldName: "cos_keys",
                 disableSave: this.props.keyProps.disableSave,
                 type: "formInSubForm",
               }}
@@ -172,7 +172,7 @@ ObjectStorageInstancesForm.defaultProps = {
     name: "",
     use_data: false,
     resource_group: "",
-    random_suffix: true,
+    use_random_suffix: true
   },
   resourceGroups: [],
 };
@@ -184,7 +184,7 @@ ObjectStorageInstancesForm.propTypes = {
     name: PropTypes.string.isRequired,
     use_data: PropTypes.bool.isRequired,
     resource_group: PropTypes.string,
-    random_suffix: PropTypes.bool.isRequired,
+    use_random_suffix: PropTypes.bool.isRequired,
   }),
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,

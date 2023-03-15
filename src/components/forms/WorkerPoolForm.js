@@ -33,14 +33,14 @@ class WorkerPoolForm extends Component {
     } else {
       pool[name] = value === "null" ? null : value;
     }
-    this.setState({ pool });
+    this.setState(pool);
   }
 
   // Handle subnet multiselect change
   handleSubnetChange(event) {
     let pool = { ...this.state };
     pool.subnets = event.selectedItems;
-    this.setState({ pool });
+    this.setState(pool);
   }
 
   render() {

@@ -117,12 +117,12 @@ const WorkerPoolFormStory = () => {
   }
 
   function invalidCallback(stateData, componentProps) {
-    return !validName(stateData.pool.name);
+    return !validName(stateData.name);
   }
 
   function invalidTextCallback(stateData, componentProps) {
-    return !validName(stateData.pool.name)
-      ? `Name ${stateData.pool.name} is invalid.`
+    return !validName(stateData.name)
+      ? `Name ${stateData.name} is invalid.`
       : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
   }
 
@@ -132,9 +132,9 @@ const WorkerPoolFormStory = () => {
       invalidTextCallback={invalidTextCallback}
       subnetList={["a", "b", "c", "d", "e"]}
       cluster={{
-        machine_type: "bx2.16x64",
+        flavor: "bx2.16x64",
         subnets: ["a", "b", "c"],
-        vpc_name: "test",
+        vpc: "test",
         workers_per_subnet: 2,
         entitlement: "null",
       }}
@@ -142,7 +142,7 @@ const WorkerPoolFormStory = () => {
         entitlement: "null",
         name: "testWorkerPool",
         subnets: ["a", "b", "c"],
-        vpc_name: "test",
+        vpc: "test",
         flavor: "bx2.16x64",
         workers_per_subnet: 2,
       }}

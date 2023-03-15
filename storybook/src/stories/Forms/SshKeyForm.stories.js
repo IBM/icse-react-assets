@@ -15,6 +15,12 @@ export default {
       control: "none",
       type: { required: false }, // required prop or not
     },
+    ["data.use_data"]: {
+      description:
+        "A boolean describing whether or not to use an existing instance",
+      control: "none",
+      type: { required: true }, // required prop or not
+    },
     ["data.resource_group"]: {
       description: "A string specifying the name of the resource group",
       control: "none",
@@ -91,6 +97,7 @@ const SshKeyFormStory = () => {
         name: "SshKeyFormTest",
         resource_group: "rg1",
         public_key: "test-key",
+        use_data: false,
       }}
       resourceGroups={["rg1", "rg2", "rg3"]}
       invalidCallback={invalidCallback}
