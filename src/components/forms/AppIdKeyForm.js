@@ -29,7 +29,7 @@ class AppIdKeyForm extends React.Component {
           value={this.state.name}
           onChange={this.handleInputChange}
           field="name"
-          labelText="App ID Key"
+          labelText="Name"
           componentName="appid"
           className="fieldWidthSmaller"
           invalid={this.props.invalidCallback(this.state, this.props)}

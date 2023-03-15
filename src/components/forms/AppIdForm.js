@@ -54,6 +54,7 @@ class AppIdForm extends Component {
     let keyProps = {
       invalidCallback: this.props.invalidKeyCallback,
       invalidTextCallback: this.props.invalidKeyTextCallback,
+      arrayParentName: this.props.data.name,
     };
     transpose({ ...this.props.keyProps }, keyProps);
     return (

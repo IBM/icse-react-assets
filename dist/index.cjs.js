@@ -1681,7 +1681,7 @@ var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
         value: this.state.name,
         onChange: this.handleInputChange,
         field: "name",
-        labelText: "App ID Key",
+        labelText: "Name",
         componentName: "appid",
         className: "fieldWidthSmaller",
         invalid: this.props.invalidCallback(this.state, this.props),
@@ -2531,7 +2531,8 @@ var AppIdForm = /*#__PURE__*/function (_Component) {
     value: function render() {
       var keyProps = {
         invalidCallback: this.props.invalidKeyCallback,
-        invalidTextCallback: this.props.invalidKeyTextCallback
+        invalidTextCallback: this.props.invalidKeyTextCallback,
+        arrayParentName: this.props.data.name
       };
       lazyZ.transpose(_objectSpread2({}, this.props.keyProps), keyProps);
       return /*#__PURE__*/React__default["default"].createElement("div", {
