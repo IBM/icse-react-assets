@@ -22,7 +22,7 @@ export default {
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.flow_logs_bucket_name"]: {
+    ["data.bucket"]: {
       description:
         "A string specifying the name of the COS bucket where a flow logs collector for the VPC will be attached",
       control: "none",
@@ -49,9 +49,9 @@ export default {
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.use_public_gateways"]: {
+    ["data.publicGateways"]: {
       description:
-        'An object which maps each zone to a boolean value specifying if a public gateway should be created in that zone. ex: `{"zone-1": false,"zone-2": false,"zone-3": false}`',
+        "An array which holds a number that corresponds to a zone specifying if a public gateway should be created in that zone. ex: `[1, 2, 3]`",
       control: "none",
       type: { required: false }, // required prop or not
     },
@@ -77,6 +77,12 @@ export default {
       description:
         "A function to determine the invalid text displayed to the user and returns the string to display",
       type: { required: true }, // required prop or not
+      control: "none",
+    },
+    disableManualPrefixToggle: {
+      description:
+        "A boolean when true disables the manual toggle for address prefix management",
+      type: { required: true },
       control: "none",
     },
   },
@@ -205,17 +211,13 @@ const VpcFormStory = () => {
       data={{
         name: "",
         resource_group: "",
-        flow_logs_bucket_name: "",
+        bucket: "",
         default_network_acl_name: "",
         default_routing_table_name: "",
         default_security_group_name: "",
         classic_access: false,
-        use_manual_address_prefixes: false,
-        use_public_gateways: {
-          "zone-1": false,
-          "zone-2": false,
-          "zone-3": false,
-        },
+        manual_address_prefix_management: false,
+        publicGateways: [1, 2, 3],
       }}
       resourceGroups={["service-rg", "management-rg", "workload-rg"]}
       cosBuckets={["atracker-bucket", "management-bucket", "workload-bucket"]}
