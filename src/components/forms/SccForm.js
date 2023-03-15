@@ -127,8 +127,8 @@ class SccForm extends Component {
         <IcseFormGroup>
           <IcseNameInput
             id={this.props.data.name + "-scc-name"}
-            componentName="scc-collector"
-            labelText="Collector Name"
+            componentName="scc-cred"
+            labelText="Credential Name"
             value={this.state.name}
             onChange={this.handleInputChange}
             invalid={this.props.invalidCallback(this.state, this.props)}
@@ -145,7 +145,7 @@ class SccForm extends Component {
             componentName="SCC"
             field="credential_description"
             labelText="Credential Description"
-            value={this.state.scope_description}
+            value={this.state.credential_description}
             onChange={this.handleInputChange}
             maxLength={255}
             invalid={
@@ -165,12 +165,12 @@ class SccForm extends Component {
           />
         </IcseFormGroup>
         <IcseFormGroup>
-          <Dropdown
+        <Dropdown
             ariaLabel="Dropdown"
             id="location"
             items={sccRegions}
-            label="SCC Region Options"
             titleText="Region"
+            initialSelectedItem={this.state.location}
             onChange={(selectedItem) => {
               this.handleLocationChange(selectedItem);
             }}

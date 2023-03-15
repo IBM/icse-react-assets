@@ -4125,7 +4125,7 @@ var ToggleForm = /*#__PURE__*/function (_React$Component) {
         }, /*#__PURE__*/React__default["default"].createElement(UnsavedChangesModal, {
           name:
           // use tab panel name if passed
-          this.props.tabPanel ? this.props.tabPanel.name : this.props.name,
+          this.props.name,
           modalOpen: this.state.showUnsavedChangeModal,
           onModalClose: this.toggleUnsavedChangeModal,
           onModalSubmit: this.dismissChangesAndClose,
@@ -5974,8 +5974,8 @@ var SccForm = /*#__PURE__*/function (_Component) {
         invalidText: lib_10("passphrase", this.state.passphrase, this.props.descriptionRegex).invalidText
       })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
         id: this.props.data.name + "-scc-name",
-        componentName: "scc-collector",
-        labelText: "Collector Name",
+        componentName: "scc-cred",
+        labelText: "Credential Name",
         value: this.state.name,
         onChange: this.handleInputChange,
         invalid: this.props.invalidCallback(this.state, this.props),
@@ -5989,7 +5989,7 @@ var SccForm = /*#__PURE__*/function (_Component) {
         componentName: "SCC",
         field: "credential_description",
         labelText: "Credential Description",
-        value: this.state.scope_description,
+        value: this.state.credential_description,
         onChange: this.handleInputChange,
         maxLength: 255,
         invalid: lib_10("credential_description", this.state.credential_description, this.props.descriptionRegex).invalid,
@@ -5998,8 +5998,8 @@ var SccForm = /*#__PURE__*/function (_Component) {
         ariaLabel: "Dropdown",
         id: "location",
         items: sccRegions,
-        label: "SCC Region Options",
         titleText: "Region",
+        initialSelectedItem: this.state.location,
         onChange: function onChange(selectedItem) {
           _this2.handleLocationChange(selectedItem);
         },

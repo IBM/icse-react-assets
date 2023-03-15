@@ -88,6 +88,7 @@ export default {
           "SccForm is a form component that provides functionality for enabling/editing an Security Compliance Center instance.",
       },
     },
+    decorators: [(Story) => <div style={{ padding: "4.5rem" }}>{Story()}</div>],
   },
 };
 
