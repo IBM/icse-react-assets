@@ -8535,7 +8535,9 @@ AccessGroupForm.propTypes = {
   invalidTextCallback: PropTypes__default["default"].func.isRequired
 };
 
+exports.AccessGroupDynamicPolicyForm = AccessGroupDynamicPolicyForm;
 exports.AccessGroupForm = AccessGroupForm;
+exports.AccessGroupPolicyForm = AccessGroupPolicyForm;
 exports.AppIdForm = AppIdForm;
 exports.AppIdKeyForm = AppIdKeyForm;
 exports.AtrackerForm = AtrackerForm;
