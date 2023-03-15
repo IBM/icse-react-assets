@@ -4,10 +4,11 @@ import {
   buildFormDefaultInputMethods,
   buildFormFunctions,
 } from "../component-utils";
-import { splat, deepEqual } from "lazy-z";
+import { checkNullorEmptyString } from "../../lib";
 import PropTypes from "prop-types";
 import { IcseNameInput, IcseToggle } from "../Inputs";
 import { IcseFormGroup } from "../Utils";
+import { IcseSelect } from "../Dropdowns";
 
 /** NetworkAclForm
  * @param {Object} props
@@ -67,18 +68,15 @@ class NetworkAclForm extends Component {
             }
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
           />
-          <IcseToggle
-            tooltip={{
-              content:
-                "Automatically add to ACL rules needed to allow cluster provisioning from private service endpoints.",
-              link: "https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-acls",
-            }}
-            labelText="Use Cluster Rules"
-            toggleFieldName="add_cluster_rules"
-            defaultToggled={this.state.add_cluster_rules}
-            id={this.state.name + "acl-add-rules-toggle"}
-            onToggle={this.handleToggle}
-            isModal={this.props.isModal}
+          <IcseSelect
+            labelText="Resource Group"
+            name="resource_group"
+            formName="resource_group"
+            groups={this.props.resourceGroups}
+            value={this.state.resource_group}
+            handleInputChange={this.handleTextInput}
+            invalid={checkNullorEmptyString(this.state.resource_group)}
+            invalidText="Select a Resource Group."
           />
         </IcseFormGroup>
         {/* Networking Rules & update/delete should not be shown within the ACL create modal */}
@@ -107,7 +105,6 @@ class NetworkAclForm extends Component {
 NetworkAclForm.defaultProps = {
   data: {
     name: "",
-    add_cluster_rules: false,
     rules: [],
   },
   isModal: false,
@@ -116,9 +113,10 @@ NetworkAclForm.defaultProps = {
 NetworkAclForm.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    add_cluster_rules: PropTypes.bool.isRequired,
     rules: PropTypes.array,
+    resource_group: PropTypes.string,
   }),
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   isModal: PropTypes.bool.isRequired,
   networkRuleOrderDidChange: PropTypes.func, // can be undefined
   invalidCallback: PropTypes.func.isRequired,

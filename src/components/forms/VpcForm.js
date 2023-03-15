@@ -9,6 +9,7 @@ import {
 } from "../component-utils";
 import { kebabCase, parseIntFromZone, titleCase } from "lazy-z";
 import PropTypes from "prop-types";
+import { contains } from "regex-but-with-words/lib/utils";
 
 const nameFields = [
   "default_network_acl_name",
@@ -49,9 +50,16 @@ class VpcNetworkForm extends React.Component {
    */
   handPgwToggle(zone) {
     let vpc = { ...this.state };
-    let currentGw = { ...this.state.use_public_gateways };
-    currentGw[zone] = !currentGw[zone];
-    vpc.use_public_gateways = currentGw;
+    let currentGw = this.state.publicGateways;
+    let zoneNumber = parseIntFromZone(zone);
+    // check if zone is already present
+    if (contains(currentGw, zoneNumber)) {
+      let index = currentGw.indexOf(zoneNumber);
+      currentGw.splice(index, 1);
+    } else {
+      currentGw.push(zoneNumber);
+    }
+    vpc.publicGateways = currentGw;
     this.setState({ ...vpc });
   }
 
@@ -103,12 +111,12 @@ class VpcNetworkForm extends React.Component {
           />
           <IcseSelect
             labelText="Flow Logs Bucket Name"
-            name="flow_logs_bucket_name"
+            name="bucket"
             formName={this.props.data.name + "-vpc"}
             groups={this.props.cosBuckets}
-            value={this.state.flow_logs_bucket_name || ""}
+            value={this.state.bucket || ""}
             handleInputChange={this.handleInputChange}
-            invalid={checkNullorEmptyString(this.state.flow_logs_bucket_name)}
+            invalid={checkNullorEmptyString(this.state.bucket)}
             invalidText="Select a Bucket."
             className={classNameModalCheck}
           />
@@ -122,6 +130,7 @@ class VpcNetworkForm extends React.Component {
             toggleFieldName="classic_access"
             defaultToggled={this.state.classic_access}
             onToggle={this.handleToggle}
+            disabled={this.props.disableManualPrefixToggle}
             className={classNameModalCheck + " leftTextAlign"}
           />
         </IcseFormGroup>
@@ -172,7 +181,10 @@ class VpcNetworkForm extends React.Component {
               key={this.props.data.name + "-gateway-toggle-" + zone}
               id={this.props.data.name + "-pgw-" + zone}
               labelText={"Create in Zone " + parseIntFromZone(zone)}
-              defaultToggled={this.state.use_public_gateways[zone]}
+              defaultToggled={contains(
+                this.state.publicGateways,
+                parseIntFromZone(zone)
+              )}
               onToggle={() => this.handPgwToggle(zone)}
               className={classNameModalCheck + " leftTextAlign"}
             />
@@ -187,38 +199,36 @@ VpcNetworkForm.defaultProps = {
   data: {
     name: "",
     resource_group: "",
-    flow_logs_bucket_name: "",
+    bucket: "",
     default_network_acl_name: "",
     default_routing_table_name: "",
     default_security_group_name: "",
     classic_access: false,
-    use_manual_address_prefixes: false,
-    use_public_gateways: {
-      "zone-1": false,
-      "zone-2": false,
-      "zone-3": false,
-    },
+    manual_address_prefix_management: false,
+    publicGateways: [],
   },
   isModal: false,
+  disableManualPrefixToggle: false,
 };
 
 VpcNetworkForm.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
     resource_group: PropTypes.string,
-    flow_logs_bucket_name: PropTypes.string,
+    bucket: PropTypes.string,
     default_network_acl_name: PropTypes.string,
     default_security_group_name: PropTypes.string,
     default_routing_table_name: PropTypes.string,
     classic_access: PropTypes.bool.isRequired,
-    use_manual_address_prefixes: PropTypes.bool.isRequired,
-    use_public_gateways: PropTypes.object.isRequired,
+    manual_address_prefix_management: PropTypes.bool.isRequired,
+    publicGateways: PropTypes.arrayOf(PropTypes.number).isRequired,
   }),
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   cosBuckets: PropTypes.arrayOf(PropTypes.string).isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
   isModal: PropTypes.bool.isRequired,
+  disableManualPrefixToggle: PropTypes.bool.isRequired,
 };
 
 export default VpcNetworkForm;

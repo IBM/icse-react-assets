@@ -9,6 +9,7 @@ var React = require('react');
 var PropTypes = require('prop-types');
 var iconsReact = require('@carbon/icons-react');
 var regexButWithWords = require('regex-but-with-words');
+var utils = require('regex-but-with-words/lib/utils');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -5164,17 +5165,15 @@ var NetworkAclForm = /*#__PURE__*/function (_Component) {
           return _this2.props.invalidCallback(_this2.state, _this2.props);
         },
         invalidText: this.props.invalidTextCallback(this.state, this.props)
-      }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-        tooltip: {
-          content: "Automatically add to ACL rules needed to allow cluster provisioning from private service endpoints.",
-          link: "https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-acls"
-        },
-        labelText: "Use Cluster Rules",
-        toggleFieldName: "add_cluster_rules",
-        defaultToggled: this.state.add_cluster_rules,
-        id: this.state.name + "acl-add-rules-toggle",
-        onToggle: this.handleToggle,
-        isModal: this.props.isModal
+      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        labelText: "Resource Group",
+        name: "resource_group",
+        formName: "resource_group",
+        groups: this.props.resourceGroups,
+        value: this.state.resource_group,
+        handleInputChange: this.handleTextInput,
+        invalid: lib_4(this.state.resource_group),
+        invalidText: "Select a Resource Group."
       })), !this.props.isModal &&
       /*#__PURE__*/
       // ability to move rules up and down
@@ -5199,7 +5198,6 @@ var NetworkAclForm = /*#__PURE__*/function (_Component) {
 NetworkAclForm.defaultProps = {
   data: {
     name: "",
-    add_cluster_rules: false,
     rules: []
   },
   isModal: false
@@ -5207,9 +5205,10 @@ NetworkAclForm.defaultProps = {
 NetworkAclForm.propTypes = {
   data: PropTypes__default["default"].shape({
     name: PropTypes__default["default"].string.isRequired,
-    add_cluster_rules: PropTypes__default["default"].bool.isRequired,
-    rules: PropTypes__default["default"].array
+    rules: PropTypes__default["default"].array,
+    resource_group: PropTypes__default["default"].string
   }),
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   isModal: PropTypes__default["default"].bool.isRequired,
   networkRuleOrderDidChange: PropTypes__default["default"].func,
   // can be undefined
@@ -6465,7 +6464,7 @@ SubnetTileForm.propTypes = {
     name: PropTypes__default["default"].string.isRequired,
     cidr: PropTypes__default["default"].string.isRequired,
     public_gateway: PropTypes__default["default"].bool,
-    acl_name: PropTypes__default["default"].string.isRequired
+    network_acl: PropTypes__default["default"].string.isRequired
   })),
   readOnly: PropTypes__default["default"].bool.isRequired,
   enabledPublicGateways: PropTypes__default["default"].arrayOf(PropTypes__default["default"].number).isRequired
@@ -6928,9 +6927,16 @@ var VpcNetworkForm = /*#__PURE__*/function (_React$Component) {
     key: "handPgwToggle",
     value: function handPgwToggle(zone) {
       var vpc = _objectSpread2({}, this.state);
-      var currentGw = _objectSpread2({}, this.state.use_public_gateways);
-      currentGw[zone] = !currentGw[zone];
-      vpc.use_public_gateways = currentGw;
+      var currentGw = this.state.publicGateways;
+      var zoneNumber = lazyZ.parseIntFromZone(zone);
+      // check if zone is already present
+      if (utils.contains(currentGw, zoneNumber)) {
+        var index = currentGw.indexOf(zoneNumber);
+        currentGw.splice(index, 1);
+      } else {
+        currentGw.push(zoneNumber);
+      }
+      vpc.publicGateways = currentGw;
       this.setState(_objectSpread2({}, vpc));
     }
   }, {
@@ -6970,12 +6976,12 @@ var VpcNetworkForm = /*#__PURE__*/function (_React$Component) {
         className: classNameModalCheck
       }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
         labelText: "Flow Logs Bucket Name",
-        name: "flow_logs_bucket_name",
+        name: "bucket",
         formName: this.props.data.name + "-vpc",
         groups: this.props.cosBuckets,
-        value: this.state.flow_logs_bucket_name || "",
+        value: this.state.bucket || "",
         handleInputChange: this.handleInputChange,
-        invalid: lib_4(this.state.flow_logs_bucket_name),
+        invalid: lib_4(this.state.bucket),
         invalidText: "Select a Bucket.",
         className: classNameModalCheck
       })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
@@ -6987,6 +6993,7 @@ var VpcNetworkForm = /*#__PURE__*/function (_React$Component) {
         toggleFieldName: "classic_access",
         defaultToggled: this.state.classic_access,
         onToggle: this.handleToggle,
+        disabled: this.props.disableManualPrefixToggle,
         className: classNameModalCheck + " leftTextAlign"
       })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, nameFields.map(function (field) {
         return /*#__PURE__*/React__default["default"].createElement("div", {
@@ -7017,7 +7024,7 @@ var VpcNetworkForm = /*#__PURE__*/function (_React$Component) {
           key: _this2.props.data.name + "-gateway-toggle-" + zone,
           id: _this2.props.data.name + "-pgw-" + zone,
           labelText: "Create in Zone " + lazyZ.parseIntFromZone(zone),
-          defaultToggled: _this2.state.use_public_gateways[zone],
+          defaultToggled: utils.contains(_this2.state.publicGateways, lazyZ.parseIntFromZone(zone)),
           onToggle: function onToggle() {
             return _this2.handPgwToggle(zone);
           },
@@ -7032,37 +7039,35 @@ VpcNetworkForm.defaultProps = {
   data: {
     name: "",
     resource_group: "",
-    flow_logs_bucket_name: "",
+    bucket: "",
     default_network_acl_name: "",
     default_routing_table_name: "",
     default_security_group_name: "",
     classic_access: false,
-    use_manual_address_prefixes: false,
-    use_public_gateways: {
-      "zone-1": false,
-      "zone-2": false,
-      "zone-3": false
-    }
+    manual_address_prefix_management: false,
+    publicGateways: []
   },
-  isModal: false
+  isModal: false,
+  disableManualPrefixToggle: false
 };
 VpcNetworkForm.propTypes = {
   data: PropTypes__default["default"].shape({
     name: PropTypes__default["default"].string.isRequired,
     resource_group: PropTypes__default["default"].string,
-    flow_logs_bucket_name: PropTypes__default["default"].string,
+    bucket: PropTypes__default["default"].string,
     default_network_acl_name: PropTypes__default["default"].string,
     default_security_group_name: PropTypes__default["default"].string,
     default_routing_table_name: PropTypes__default["default"].string,
     classic_access: PropTypes__default["default"].bool.isRequired,
-    use_manual_address_prefixes: PropTypes__default["default"].bool.isRequired,
-    use_public_gateways: PropTypes__default["default"].object.isRequired
+    manual_address_prefix_management: PropTypes__default["default"].bool.isRequired,
+    publicGateways: PropTypes__default["default"].arrayOf(PropTypes__default["default"].number).isRequired
   }),
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   cosBuckets: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  isModal: PropTypes__default["default"].bool.isRequired
+  isModal: PropTypes__default["default"].bool.isRequired,
+  disableManualPrefixToggle: PropTypes__default["default"].bool.isRequired
 };
 
 var services = {
