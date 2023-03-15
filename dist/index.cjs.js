@@ -5255,93 +5255,112 @@ NetworkingRulesOrderCard.propTypes = {
 /** NetworkAclForm
  * @param {Object} props
  */
-class NetworkAclForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = this.props.data;
-    this.handleTextInput = this.handleTextInput.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
-    this.networkRuleOrderDidChange = this.networkRuleOrderDidChange.bind(this);
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
+var NetworkAclForm = /*#__PURE__*/function (_Component) {
+  _inherits(NetworkAclForm, _Component);
+  var _super = _createSuper(NetworkAclForm);
+  function NetworkAclForm(props) {
+    var _this;
+    _classCallCheck(this, NetworkAclForm);
+    _this = _super.call(this, props);
+    _this.state = _this.props.data;
+    _this.handleTextInput = _this.handleTextInput.bind(_assertThisInitialized(_this));
+    _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
+    _this.networkRuleOrderDidChange = _this.networkRuleOrderDidChange.bind(_assertThisInitialized(_this));
+    buildFormFunctions(_assertThisInitialized(_this));
+    buildFormDefaultInputMethods(_assertThisInitialized(_this));
+    return _this;
   }
 
   /**
    * Handle input change for a text field
    * @param {event} event
    */
-  handleTextInput(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
+  _createClass(NetworkAclForm, [{
+    key: "handleTextInput",
+    value: function handleTextInput(event) {
+      this.setState(this.eventTargetToNameAndValue(event));
+    }
 
-  /**
-   * Toggle on and off param in state at name
-   * @param {string} name name of the toggle to change
-   */
-  handleToggle(name) {
-    this.setState(this.toggleStateBoolean(name, this.state));
-  }
-  /**
-   * Check if the order of network rules updated - then update state to allow save
-   * @param {Array} rules list of rule objects
-   */
-  networkRuleOrderDidChange(rules) {
-    this.props.networkRuleOrderDidChange(this.state, this.props);
-    this.setState({
-      rules: rules
-    }); // update rules state when an update occurs
-  }
-
-  render() {
-    return /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: this.state.name + "-name",
-      componentName: this.props.data.name,
-      value: this.state.name,
-      onChange: this.handleTextInput,
-      placeholder: "my-network-acl-name",
-      component: "network_acls",
-      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props),
-      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props)
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      labelText: "Resource Group",
-      name: "resource_group",
-      formName: "resource_group",
-      groups: this.props.resourceGroups,
-      value: this.state.resource_group,
-      handleInputChange: this.handleTextInput,
-      invalid: lib_4(this.state.resource_group),
-      invalidText: "Select a Resource Group."
-    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      tooltip: {
-        content: "Automatically add to ACL rules needed to allow cluster provisioning from private service endpoints.",
-        link: "https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-acls"
-      },
-      labelText: "Use Cluster Rules",
-      toggleFieldName: "add_cluster_rules",
-      defaultToggled: this.state.add_cluster_rules,
-      id: this.state.name + "acl-add-rules-toggle",
-      onToggle: this.handleToggle,
-      isModal: this.props.isModal
-    })), !this.props.isModal &&
-    /*#__PURE__*/
-    // ability to move rules up and down
-    React__default["default"].createElement(NetworkingRulesOrderCard, {
-      rules: this.state.rules,
-      vpc_name: this.props.arrayParentName,
-      parent_name: this.props.data.name,
-      networkRuleOrderDidChange: this.networkRuleOrderDidChange,
-      isAclForm: true,
-      invalidCallback: this.props.invalidCallback,
-      invalidTextCallback: this.props.invalidTextCallback,
-      onSubmitCallback: this.props.onSubmitCallback,
-      onRuleSave: this.props.onRuleSave,
-      onRuleDelete: this.props.onRuleDelete,
-      disableModalSubmitCallback: this.props.disableModalSubmitCallback,
-      disableSaveCallback: this.props.disableSaveCallback
-    }));
-  }
-}
+    /**
+     * Toggle on and off param in state at name
+     * @param {string} name name of the toggle to change
+     */
+  }, {
+    key: "handleToggle",
+    value: function handleToggle(name) {
+      this.setState(this.toggleStateBoolean(name, this.state));
+    }
+    /**
+     * Check if the order of network rules updated - then update state to allow save
+     * @param {Array} rules list of rule objects
+     */
+  }, {
+    key: "networkRuleOrderDidChange",
+    value: function networkRuleOrderDidChange(rules) {
+      this.props.networkRuleOrderDidChange(this.state, this.props);
+      this.setState({
+        rules: rules
+      }); // update rules state when an update occurs
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+      return /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+        id: this.state.name + "-name",
+        componentName: this.props.data.name,
+        value: this.state.name,
+        onChange: this.handleTextInput,
+        placeholder: "my-network-acl-name",
+        component: "network_acls",
+        helperTextCallback: function helperTextCallback() {
+          return _this2.props.helperTextCallback(_this2.state, _this2.props);
+        },
+        invalidCallback: function invalidCallback() {
+          return _this2.props.invalidCallback(_this2.state, _this2.props);
+        },
+        invalidText: this.props.invalidTextCallback(this.state, this.props)
+      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        labelText: "Resource Group",
+        name: "resource_group",
+        formName: "resource_group",
+        groups: this.props.resourceGroups,
+        value: this.state.resource_group,
+        handleInputChange: this.handleTextInput,
+        invalid: lib_4(this.state.resource_group),
+        invalidText: "Select a Resource Group."
+      }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        tooltip: {
+          content: "Automatically add to ACL rules needed to allow cluster provisioning from private service endpoints.",
+          link: "https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-acls"
+        },
+        labelText: "Use Cluster Rules",
+        toggleFieldName: "add_cluster_rules",
+        defaultToggled: this.state.add_cluster_rules,
+        id: this.state.name + "acl-add-rules-toggle",
+        onToggle: this.handleToggle,
+        isModal: this.props.isModal
+      })), !this.props.isModal &&
+      /*#__PURE__*/
+      // ability to move rules up and down
+      React__default["default"].createElement(NetworkingRulesOrderCard, {
+        rules: this.state.rules,
+        vpc_name: this.props.arrayParentName,
+        parent_name: this.props.data.name,
+        networkRuleOrderDidChange: this.networkRuleOrderDidChange,
+        isAclForm: true,
+        invalidCallback: this.props.invalidCallback,
+        invalidTextCallback: this.props.invalidTextCallback,
+        onSubmitCallback: this.props.onSubmitCallback,
+        onRuleSave: this.props.onRuleSave,
+        onRuleDelete: this.props.onRuleDelete,
+        disableModalSubmitCallback: this.props.disableModalSubmitCallback,
+        disableSaveCallback: this.props.disableSaveCallback
+      }));
+    }
+  }]);
+  return NetworkAclForm;
+}(React.Component);
 NetworkAclForm.defaultProps = {
   data: {
     name: "",

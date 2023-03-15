@@ -81,7 +81,7 @@ export default {
     },
     disableManualPrefixToggle: {
       description:
-        "A boolean when true disables the manual toggle for address prefix management",
+        "A boolean to determine if the manual address prefix management should be disabled",
       type: { required: true },
       control: "none",
     },
