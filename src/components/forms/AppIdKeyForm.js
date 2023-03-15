@@ -18,7 +18,7 @@ class AppIdKeyForm extends React.Component {
    * @param {*} value value to update
    */
   handleInputChange(event) {
-    this.setState({ key_name: event.target.value });
+    this.setState({ name: event.target.value });
   }
 
   render() {
@@ -26,9 +26,9 @@ class AppIdKeyForm extends React.Component {
       <>
         <IcseTextInput
           id={"app-id-key-name"}
-          value={this.state.key_name}
+          value={this.state.name}
           onChange={this.handleInputChange}
-          field="key_name"
+          field="name"
           labelText="App ID Key"
           componentName="appid"
           className="fieldWidthSmaller"
@@ -42,13 +42,13 @@ class AppIdKeyForm extends React.Component {
 
 AppIdKeyForm.defaultProps = {
   data: {
-    key_name: "",
+    name: "",
   },
 };
 
 AppIdKeyForm.propTypes = {
   data: PropTypes.shape({
-    key_name: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
   }),
   shouldDisableSubmit: PropTypes.func,
 };

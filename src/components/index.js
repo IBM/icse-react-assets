@@ -66,6 +66,11 @@ export { default as ToggleForm } from "./ToggleForm";
 export { DynamicToolTipWrapper, IcseToolTip, ToolTipWrapper } from "./Tooltips";
 export { default as UnderConstruction } from "./UnderConstruction";
 export {
+  AccessGroupForm,
+  AccessGroupDynamicPolicyForm,
+  AccessGroupPolicyForm,
+} from "./forms/access-groups";
+export {
   DynamicRender,
   IcseFormGroup,
   IcseHeading,

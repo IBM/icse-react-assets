@@ -5,6 +5,10 @@ import {
 } from "../../component-utils";
 import { IcseFormGroup } from "../../Utils";
 import { IcseNameInput, IcseTextInput } from "../../Inputs";
+import IcseFormTemplate from "../../IcseFormTemplate";
+import AccessGroupPolicyForm from "./AccessGroupPolicyForm";
+import AccessGroupDynamicPolicyForm from "./AccessGroupDynamicPolicyForm";
+import { transpose } from "lazy-z";
 import PropTypes from "prop-types";
 
 class AccessGroupForm extends React.Component {
@@ -26,6 +30,20 @@ class AccessGroupForm extends React.Component {
   }
 
   render() {
+    let dynamicPolicyProps = {
+      invalidCallback: this.props.invalidDynamicPolicyCallback,
+      invalidTextCallback: this.props.invalidDynamicPolicyTextCallback,
+      arrayParentName: this.props.data.name,
+      helperTextCallback: this.props.dynamicPolicyHelperTextCallback,
+    };
+    transpose({ ...this.props.dynamicPolicyProps }, dynamicPolicyProps);
+    let policyProps = {
+      invalidCallback: this.props.invalidPolicyCallback,
+      invalidTextCallback: this.props.invalidPolicyTextCallback,
+      arrayParentName: this.props.data.name,
+      helperTextCallback: this.props.policyHelperTextCallback,
+    };
+    transpose({ ...this.props.policyProps }, policyProps);
     return (
       <>
         <IcseFormGroup>
@@ -58,11 +76,52 @@ class AccessGroupForm extends React.Component {
             invalid={false}
           />
         </IcseFormGroup>
-        {this.props.isModal !== true && (
+        {this.props.isModal === false && (
           <>
-            {this.props?.subForms.map((form, index) => {
-              return <div key={index}>{form}</div>;
-            })}
+            <IcseFormTemplate
+              name="Policies"
+              subHeading
+              addText="Create a Policy"
+              arrayData={this.props.data.policies}
+              innerForm={AccessGroupPolicyForm}
+              disableSave={this.props.policyProps.disableSave}
+              onDelete={this.props.policyProps.onDelete}
+              onSave={this.props.policyProps.onSave}
+              onSubmit={this.props.policyProps.onSubmit}
+              propsMatchState={this.props.propsMatchState}
+              innerFormProps={{ ...policyProps }}
+              hideAbout
+              toggleFormProps={{
+                hideName: true,
+                submissionFieldName: "policies",
+                disableSave: () => {
+                  return false;
+                },
+                type: "formInSubForm",
+              }}
+            />
+            <IcseFormTemplate
+              name="Dynamic Policies"
+              subHeading
+              addText="Create a Dynamic Policy"
+              arrayData={this.props.data.dynamic_policies}
+              innerForm={AccessGroupDynamicPolicyForm}
+              disableSave={this.props.dynamicPolicyProps.disableSave}
+              onDelete={this.props.dynamicPolicyProps.onDelete}
+              onSave={this.props.dynamicPolicyProps.onSave}
+              onSubmit={this.props.dynamicPolicyProps.onSubmit}
+              propsMatchState={this.props.propsMatchState}
+              innerFormProps={{ ...dynamicPolicyProps }}
+              hideAbout
+              toggleFormProps={{
+                hideName: true,
+                submissionFieldName: "dynamic_policies",
+                disableSave: () => {
+                  return false;
+                },
+                type: "formInSubForm",
+              }}
+            />
           </>
         )}
       </>
@@ -83,7 +142,6 @@ AccessGroupForm.propTypes = {
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
   }).isRequired,
-  subForms: PropTypes.arrayOf(PropTypes.form).isRequired,
   isModal: PropTypes.bool.isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,

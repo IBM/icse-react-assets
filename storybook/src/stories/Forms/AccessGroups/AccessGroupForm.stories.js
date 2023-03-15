@@ -75,12 +75,38 @@ const AccessGroupFormStory = () => {
       : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
   }
 
+  function composedNameCallback(stateData, componentProps) {
+    return `${stateData.name}-<random suffix>`;
+  }
+
   return (
     <AccessGroupForm
-      data={{ name: "test", description: "foo" }}
-      subForms={[<AccessGroupPolicyStory />, <AccessGroupDynamicPolicyStory />]}
+      data={{
+        name: "test",
+        description: "foo",
+        policies: [],
+        dynamic_policies: [],
+      }}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
+      invalidPolicyCallback={invalidCallback}
+      invalidPolicyTextCallback={invalidTextCallback}
+      invalidDynamicPolicyCallback={invalidCallback}
+      invalidDynamicPolicyTextCallback={invalidTextCallback}
+      policyHelperTextCallback={composedNameCallback}
+      dynamicPolicyHelperTextCallback={composedNameCallback}
+      policyProps={{
+        onSave: () => {},
+        onDelete: () => {},
+        onSubmit: () => {},
+        disableSave: () => {},
+      }}
+      dynamicPolicyProps={{
+        onSave: () => {},
+        onDelete: () => {},
+        onSubmit: () => {},
+        disableSave: () => {},
+      }}
     />
   );
 };

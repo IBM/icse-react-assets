@@ -1,6 +1,4 @@
 import { ObjectStorageForm } from "icse-react-assets";
-import { ObjectStorageBucketFormStory } from "./ObjectStorageBucketForm.stories";
-import { ObjectStorageKeyFormStory } from "./ObjectStorageKeyForm.stories";
 import React from "react";
 import { contains } from "lazy-z";
 

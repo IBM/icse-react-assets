@@ -11,7 +11,7 @@ export default {
       type: { required: false }, // required prop or not
       control: "none",
     },
-    ["data.key_name"]: {
+    ["data.name"]: {
       description: "A string value of the key name",
       control: "none",
       type: { required: true }, // required prop or not
@@ -48,19 +48,19 @@ const AppIdKeyFormStory = () => {
 
   function invalidCallback(stateData, componentProps) {
     return (
-      !validName(stateData.key_name) ||
-      contains(["example-key"], stateData.key_name)
+      !validName(stateData.name) ||
+      contains(["example-key"], stateData.name)
     );
   }
 
   function invalidTextCallback(stateData, componentProps) {
-    return contains(["example-key"], stateData.key_name)
-      ? `Key name ${stateData.key_name} already in use.`
+    return contains(["example-key"], stateData.name)
+      ? `Key name ${stateData.name} already in use.`
       : `Invalid Key Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
   }
   return (
     <AppIdKeyForm
-      data={{ key_name: "test-key", keys: ["foo", "bar"] }}
+      data={{ name: "test-key", keys: ["foo", "bar"] }}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
     />

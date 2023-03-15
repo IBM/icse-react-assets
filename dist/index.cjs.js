@@ -243,15 +243,6 @@ function _objectSpread2(target) {
   }
   return target;
 }
-function _typeof(obj) {
-  "@babel/helpers - typeof";
-
-  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) {
-    return typeof obj;
-  } : function (obj) {
-    return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj;
-  }, _typeof(obj);
-}
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -1623,7 +1614,7 @@ var IcseNameInput = function IcseNameInput(props) {
   return /*#__PURE__*/React__default["default"].createElement(IcseTextInput, _extends({}, props, {
     className: lib_2("leftTextAlign", props),
     field: "name",
-    labelText: "Name",
+    labelText: props.labelText,
     helperText: helperText
   }));
 };
@@ -1631,7 +1622,8 @@ IcseNameInput.defaultProps = {
   useData: false,
   hideHelperText: false,
   invalidText: "",
-  className: "fieldWidth"
+  className: "fieldWidth",
+  labelText: "Name"
 };
 IcseNameInput.propTypes = {
   id: PropTypes__default["default"].string.isRequired,
@@ -1648,7 +1640,8 @@ IcseNameInput.propTypes = {
   useData: PropTypes__default["default"].bool.isRequired,
   helperTextCallback: PropTypes__default["default"].func,
   invalidText: PropTypes__default["default"].string.isRequired,
-  invalidCallback: PropTypes__default["default"].func
+  invalidCallback: PropTypes__default["default"].func,
+  labelText: PropTypes__default["default"].string.isRequired
 };
 
 var css_248z$8 = ".fieldWidthSmaller {\n  width: 11rem;\n}";
@@ -1676,7 +1669,7 @@ var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
     key: "handleInputChange",
     value: function handleInputChange(event) {
       this.setState({
-        key_name: event.target.value
+        name: event.target.value
       });
     }
   }, {
@@ -1684,9 +1677,9 @@ var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
     value: function render() {
       return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
         id: "app-id-key-name",
-        value: this.state.key_name,
+        value: this.state.name,
         onChange: this.handleInputChange,
-        field: "key_name",
+        field: "name",
         labelText: "App ID Key",
         componentName: "appid",
         className: "fieldWidthSmaller",
@@ -1699,18 +1692,118 @@ var AppIdKeyForm = /*#__PURE__*/function (_React$Component) {
 }(React__default["default"].Component);
 AppIdKeyForm.defaultProps = {
   data: {
-    key_name: ""
+    name: ""
   }
 };
 AppIdKeyForm.propTypes = {
   data: PropTypes__default["default"].shape({
-    key_name: PropTypes__default["default"].string.isRequired
+    name: PropTypes__default["default"].string.isRequired
   }),
   shouldDisableSubmit: PropTypes__default["default"].func
 };
 
-var css_248z$7 = ".leftTextAlign {\n  text-align: left;\n}\n";
+/**
+ * Under Construction Page
+ */
+var UnderConstruction = function UnderConstruction() {
+  return /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(iconsReact.WarningAlt, {
+    size: "128"
+  }), /*#__PURE__*/React__default["default"].createElement("h4", null, "Page Under Construction"));
+};
+
+var css_248z$7 = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}";
 styleInject(css_248z$7);
+
+/**
+ * StatefulTabPanel wrapper for non array forms
+ * @param {*} props props
+ * @param {*} props.form form to put in the create tab
+ * @param {*} props.about docs to put in the about tab
+ */
+var StatefulTabPanel = /*#__PURE__*/function (_React$Component) {
+  _inherits(StatefulTabPanel, _React$Component);
+  var _super = _createSuper(StatefulTabPanel);
+  function StatefulTabPanel(props) {
+    var _this;
+    _classCallCheck(this, StatefulTabPanel);
+    _this = _super.call(this, props);
+    _this.state = {
+      tabIndex: 0
+    };
+    _this.setSelectedIndex = _this.setSelectedIndex.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+  _createClass(StatefulTabPanel, [{
+    key: "setSelectedIndex",
+    value: function setSelectedIndex(event) {
+      // if the index is being set to a new tab
+      if (this.props.toggleShowChildren && event.selectedIndex !== this.state.tabIndex) this.props.toggleShowChildren();
+      this.setState({
+        tabIndex: event.selectedIndex
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, this.props.name && !this.props.hasBuiltInHeading && /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+        name: this.props.name,
+        type: this.props.subHeading ? "subHeading" : "heading",
+        className: this.props.className,
+        tooltip: this.props.tooltip,
+        buttons: /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+          hide: this.props.hideFormTitleButton || this.state.tabIndex !== 0 || !lazyZ.isFunction(this.props.onClick) || this.props.hasBuiltInHeading,
+          show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+            type: "add",
+            noDeleteButton: true,
+            onClick: this.props.onClick,
+            disabled: this.props.shouldDisableSave ? this.props.shouldDisableSave() : false
+          })
+        })
+      }), this.props.hideAbout ? this.props.form : /*#__PURE__*/React__default["default"].createElement(react.Tabs, {
+        onChange: this.setSelectedIndex
+      }, /*#__PURE__*/React__default["default"].createElement(react.TabList, {
+        "aria-label": "formTabs"
+      }, /*#__PURE__*/React__default["default"].createElement(react.Tab, null, "Create"), /*#__PURE__*/React__default["default"].createElement(react.Tab, null, "About")), /*#__PURE__*/React__default["default"].createElement(react.TabPanels, null, /*#__PURE__*/React__default["default"].createElement(react.TabPanel, {
+        className: "doc"
+      }, this.props.form), /*#__PURE__*/React__default["default"].createElement(react.TabPanel, {
+        className: "doc"
+      }, this.props.about ? this.props.about : /*#__PURE__*/React__default["default"].createElement(UnderConstruction, null)))));
+    }
+  }]);
+  return StatefulTabPanel;
+}(React__default["default"].Component);
+StatefulTabPanel.defaultProps = {
+  subHeading: false,
+  hideFormTitleButton: false,
+  hideAbout: false,
+  hasBuiltInHeading: false
+};
+StatefulTabPanel.propTypes = {
+  name: PropTypes__default["default"].string,
+  // can be null
+  subHeading: PropTypes__default["default"].bool.isRequired,
+  className: PropTypes__default["default"].string,
+  // can be null
+  tooltip: PropTypes__default["default"].shape({
+    content: PropTypes__default["default"].string.isRequired,
+    link: PropTypes__default["default"].string,
+    align: PropTypes__default["default"].string,
+    alignModal: PropTypes__default["default"].string
+  }),
+  hideFormTitleButton: PropTypes__default["default"].bool.isRequired,
+  onClick: PropTypes__default["default"].func,
+  // can be null
+  shouldDisableSave: PropTypes__default["default"].func,
+  // can be null
+  about: PropTypes__default["default"].node,
+  // can be null
+  form: PropTypes__default["default"].node.isRequired,
+  hideAbout: PropTypes__default["default"].bool.isRequired,
+  hasBuiltInHeading: PropTypes__default["default"].bool.isRequired
+};
+
+var css_248z$6 = ".leftTextAlign {\n  text-align: left;\n}\n";
+styleInject(css_248z$6);
 
 /**
  * Icse Modal Wrapper
@@ -1834,8 +1927,555 @@ UnsavedChangesModal.propTypes = {
   useDefaultUnsavedMessage: PropTypes__default["default"].bool
 };
 
-var css_248z$6 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmallest {\n  width: 8rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.displayFlex {\n  display: flex;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #f4f4f4;\n  padding: 1rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.alignButtons {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
-styleInject(css_248z$6);
+var ToggleForm = /*#__PURE__*/function (_React$Component) {
+  _inherits(ToggleForm, _React$Component);
+  var _super = _createSuper(ToggleForm);
+  function ToggleForm(props) {
+    var _this;
+    _classCallCheck(this, ToggleForm);
+    _this = _super.call(this, props);
+    _this.state = {
+      hide: _this.props.hide,
+      showDeleteModal: false,
+      showUnsavedChangeModal: false,
+      disableSave: true,
+      disableDelete: false,
+      showChildren: true,
+      showSubModal: false,
+      propsMatchState: true,
+      useDefaultUnsavedMessage: true,
+      ruleOrderChange: false
+    };
+    _this.toggleChildren = _this.toggleChildren.bind(_assertThisInitialized(_this));
+    _this.toggleDeleteModal = _this.toggleDeleteModal.bind(_assertThisInitialized(_this));
+    _this.toggleUnsavedChangeModal = _this.toggleUnsavedChangeModal.bind(_assertThisInitialized(_this));
+    _this.dismissChangesAndClose = _this.dismissChangesAndClose.bind(_assertThisInitialized(_this));
+    _this.onSave = _this.onSave.bind(_assertThisInitialized(_this));
+    _this.onDelete = _this.onDelete.bind(_assertThisInitialized(_this));
+    _this.shouldDisableSave = _this.shouldDisableSave.bind(_assertThisInitialized(_this));
+    _this.shouldShow = _this.shouldShow.bind(_assertThisInitialized(_this));
+    _this.networkRuleOrderDidChange = _this.networkRuleOrderDidChange.bind(_assertThisInitialized(_this));
+    _this.toggleShowChildren = _this.toggleShowChildren.bind(_assertThisInitialized(_this));
+    _this.onToggleSubModal = _this.onToggleSubModal.bind(_assertThisInitialized(_this));
+    _this.childRef = /*#__PURE__*/React__default["default"].createRef();
+    return _this;
+  }
+
+  /**
+   * toggle sub modal
+   */
+  _createClass(ToggleForm, [{
+    key: "onToggleSubModal",
+    value: function onToggleSubModal() {
+      this.setState({
+        showSubModal: !this.state.showSubModal
+      });
+    }
+  }, {
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      if (this.props.devMode) {
+        console.log(this.props);
+      }
+      if (this.state.hide === true && this.shouldShow() === true) {
+        this.setState({
+          hide: false
+        });
+      }
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState) {
+      if (prevState.hide !== this.state.hide && this.props.onShowToggle) {
+        this.props.onShowToggle(this.props.index);
+      }
+    }
+
+    /**
+     * toggle children rendered by form
+     */
+  }, {
+    key: "toggleChildren",
+    value: function toggleChildren() {
+      var _this$childRef$curren;
+      if ((_this$childRef$curren = this.childRef.current) !== null && _this$childRef$curren !== void 0 && _this$childRef$curren.state) {
+        var stateData = this.childRef.current.state;
+        var componentProps = this.childRef.current.props;
+        var propsDoNotMatch = this.props.propsMatchState(this.props.submissionFieldName, stateData, componentProps) === false;
+        if (propsDoNotMatch || this.state.useDefaultUnsavedMessage === false) {
+          this.toggleUnsavedChangeModal();
+        } else {
+          this.setState({
+            hide: !this.state.hide
+          });
+        }
+      } else {
+        this.setState({
+          hide: !this.state.hide
+        });
+      }
+    }
+
+    /**
+     * toggle delete modal
+     */
+  }, {
+    key: "toggleDeleteModal",
+    value: function toggleDeleteModal() {
+      this.setState({
+        showDeleteModal: !this.state.showDeleteModal
+      });
+    }
+
+    /**
+     * toggle unsaved changes modal
+     */
+  }, {
+    key: "toggleUnsavedChangeModal",
+    value: function toggleUnsavedChangeModal() {
+      this.setState({
+        showUnsavedChangeModal: !this.state.showUnsavedChangeModal
+      });
+    }
+
+    /**
+     * Dismiss changes and close
+     */
+  }, {
+    key: "dismissChangesAndClose",
+    value: function dismissChangesAndClose() {
+      this.setState({
+        showUnsavedChangeModal: false,
+        hide: true
+      });
+    }
+
+    /**
+     * on save
+     */
+  }, {
+    key: "onSave",
+    value: function onSave() {
+      this.props.onSave(this.childRef.current.state, this.childRef.current.props);
+      this.setState({
+        useDefaultUnsavedMessage: true
+      });
+    }
+
+    /**
+     * on delete
+     */
+  }, {
+    key: "onDelete",
+    value: function onDelete() {
+      var _this$childRef$curren2, _this$childRef$curren3;
+      this.props.onShowToggle(this.props.index);
+      this.props.onDelete((_this$childRef$curren2 = this.childRef.current) === null || _this$childRef$curren2 === void 0 ? void 0 : _this$childRef$curren2.state, (_this$childRef$curren3 = this.childRef.current) === null || _this$childRef$curren3 === void 0 ? void 0 : _this$childRef$curren3.props);
+      this.setState({
+        hide: true,
+        showDeleteModal: false
+      });
+    }
+
+    /**
+     * should disable save
+     * @param {*} stateData state data
+     * @param {*} componentProps component props
+     */
+  }, {
+    key: "shouldDisableSave",
+    value: function shouldDisableSave(stateData, componentProps) {
+      var enableSave = this.props.disableSave(this.props.submissionFieldName, stateData, componentProps) === false;
+      var propsDoNotMatch = this.props.propsMatchState(this.props.submissionFieldName, stateData, componentProps) === false;
+      if (enableSave === false && this.state.useDefaultUnsavedMessage && propsDoNotMatch === false) {
+        this.setState({
+          useDefaultUnsavedMessage: false
+        });
+      } else if (enableSave && propsDoNotMatch && this.state.disableSave) {
+        this.setState({
+          disableSave: false,
+          propsMatchState: false
+        });
+      } else if (!this.state.disableSave && (!enableSave || !propsDoNotMatch)) {
+        this.setState({
+          disableSave: true,
+          propsMatchState: !propsDoNotMatch
+        });
+      }
+    }
+  }, {
+    key: "shouldShow",
+    value: function shouldShow() {
+      return this.props.forceOpen(this.state, this.props);
+    }
+  }, {
+    key: "networkRuleOrderDidChange",
+    value: function networkRuleOrderDidChange(didNotChange) {
+      var didChange = !didNotChange;
+      if (this.state.ruleOrderChange !== didChange) {
+        this.setState({
+          ruleOrderChange: didChange
+        });
+      }
+    }
+  }, {
+    key: "toggleShowChildren",
+    value: function toggleShowChildren() {
+      this.setState({
+        showChildren: !this.state.showChildren
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _objectSpread2$1;
+      if (this.props.noDeleteButton !== true && !this.props.onDelete) {
+        throw new Error("ToggleForm expects onDelete Function to be passed when a delete button is rendered");
+      }
+      if (this.props.noSaveButton !== true && !this.props.onSave) {
+        throw new Error("ToggleForm expects onSave Function to be passed when a save button is rendered");
+      }
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(StatefulTabPanel, _extends({}, this.props.tabPanel ? this.props.tabPanel : {}, {
+        toggleShowChildren: this.toggleShowChildren,
+        form: /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, this.props.name && !this.props.hideName && /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+          name: this.props.name,
+          hideButton: true
+        }), /*#__PURE__*/React__default["default"].createElement("div", {
+          className: lib_2(this.props.type === "formInSubForm" ? "formInSubForm positionRelative marginBottomSmall" : "subForm marginBottomSmall")
+        }, /*#__PURE__*/React__default["default"].createElement(StatelessToggleForm, {
+          hide: this.state.hide,
+          iconType: this.props.useAddButton ? "add" : "edit",
+          onIconClick: this.toggleChildren,
+          toggleFormTitle: true,
+          name: this.props.name,
+          buttons: /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+            hide: this.props.addButtonAtFormTitle !== true,
+            show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+              type: "add",
+              onClick: this.onToggleSubModal,
+              noDeleteButton: true
+            })
+          }), /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+            hide: this.props.noSaveButton || this.props.addButtonAtFormTitle,
+            show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+              onClick: this.onSave,
+              disabled: this.state.disableSave,
+              noDeleteButton: this.props.noDeleteButton
+            })
+          }), /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+            hide: this.props.noDeleteButton,
+            show: /*#__PURE__*/React__default["default"].createElement(DeleteButton, {
+              onClick: this.toggleDeleteModal,
+              name: this.props.name,
+              disabled: this.props.deleteDisabled(this.props),
+              disableDeleteMessage: this.props.deleteDisabledMessage
+            })
+          }))
+        }, /*#__PURE__*/React__default["default"].createElement(UnsavedChangesModal, {
+          name:
+          // use tab panel name if passed
+          this.props.name,
+          modalOpen: this.state.showUnsavedChangeModal,
+          onModalClose: this.toggleUnsavedChangeModal,
+          onModalSubmit: this.dismissChangesAndClose,
+          useDefaultUnsavedMessage: this.state.useDefaultUnsavedMessage
+        }), /*#__PURE__*/React__default["default"].createElement(DeleteModal, {
+          name: this.props.name,
+          modalOpen: this.state.showDeleteModal,
+          onModalClose: this.toggleDeleteModal,
+          onModalSubmit: this.onDelete
+        }), RenderForm(this.props.innerForm, _objectSpread2(_objectSpread2({}, this.props.innerFormProps), {}, (_objectSpread2$1 = {
+          ref: this.props.nullRef ? null : this.childRef,
+          shouldDisableSave: this.shouldDisableSave,
+          showSubModal: this.state.showSubModal,
+          networkRuleOrderDidChange: this.networkRuleOrderDidChange,
+          onChildShowToggle: this.props.onChildShowToggle,
+          shownChildren: this.props.shownChildren,
+          handleModalToggle: this.onToggleSubModal
+        }, _defineProperty(_objectSpread2$1, "showSubModal", this.state.showSubModal), _defineProperty(_objectSpread2$1, "saveFromChildForm", {
+          onSave: this.onSave,
+          disableSave: this.state.disableSave
+        }), _objectSpread2$1)))))),
+        about: this.props.about || false
+      })), this.state.showChildren && this.props.children ? this.props.children : "");
+    }
+  }]);
+  return ToggleForm;
+}(React__default["default"].Component);
+ToggleForm.defaultProps = {
+  hide: true,
+  unsavedChanges: false,
+  index: 0,
+  type: "subForm",
+  nullRef: false,
+  noDeleteButton: false,
+  noSaveButton: false,
+  useAddButton: false,
+  hideName: false,
+  // functions that return booleans must have a default
+  deleteDisabled: function deleteDisabled() {
+    return false;
+  },
+  forceOpen: function forceOpen() {
+    return false;
+  }
+};
+ToggleForm.propTypes = {
+  name: PropTypes__default["default"].string,
+  hideName: PropTypes__default["default"].bool.isRequired,
+  onDelete: PropTypes__default["default"].func,
+  onSave: PropTypes__default["default"].func,
+  onShowToggle: PropTypes__default["default"].func,
+  index: PropTypes__default["default"].number.isRequired,
+  hide: PropTypes__default["default"].bool.isRequired,
+  submissionFieldName: PropTypes__default["default"].string.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  forceOpen: PropTypes__default["default"].func,
+  // can be null
+  deleteDisabled: PropTypes__default["default"].func,
+  // can be null
+  disableDeleteMessage: PropTypes__default["default"].func,
+  // can be null
+  type: PropTypes__default["default"].string.isRequired,
+  nullRef: PropTypes__default["default"].bool.isRequired,
+  innerFormProps: PropTypes__default["default"].object,
+  // can be null
+  noDeleteButton: PropTypes__default["default"].bool.isRequired,
+  noSaveButton: PropTypes__default["default"].bool.isRequired,
+  useAddButton: PropTypes__default["default"].bool.isRequired,
+  tabPanel: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    hideFormTitleButton: PropTypes__default["default"].bool // can be null
+  }).isRequired
+};
+
+var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
+  _inherits(IcseFormTemplate, _React$Component);
+  var _super = _createSuper(IcseFormTemplate);
+  function IcseFormTemplate(props) {
+    var _this;
+    _classCallCheck(this, IcseFormTemplate);
+    _this = _super.call(this, props);
+    _this.state = {
+      showModal: false,
+      shownArrayForms: [],
+      // list of array forms to keep open on save
+      shownChildForms: [] // list of child forms to keep open on save
+    };
+
+    _this.onChildToggle = _this.onChildToggle.bind(_assertThisInitialized(_this));
+    _this.toggleModal = _this.toggleModal.bind(_assertThisInitialized(_this));
+    _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
+    _this.shouldShow = _this.shouldShow.bind(_assertThisInitialized(_this));
+    // add an array to track middle forms
+    if (_this.props.isMiddleForm) {
+      _this.props.arrayData.forEach(function () {
+        return _this.state.shownChildForms.push([]);
+      });
+    }
+    return _this;
+  }
+
+  /**
+   * keep update forms open
+   * @param {number} index index to keep open
+   * @param {number=} childIndex optional child index
+   */
+  _createClass(IcseFormTemplate, [{
+    key: "onChildToggle",
+    value: function onChildToggle(index, childIndex) {
+      if (this.props.parentToggle) {
+        // if the parent toggle is passed, run the callback (this function on parent form)
+        // with parent index and current index
+        this.props.parentToggle.callback(this.props.parentToggle.index, index);
+      } else if (arguments.length !== 1) {
+        // if a second param is passed
+        var shownChildForms = _toConsumableArray(this.state.shownChildForms); // all forms
+        // if contains index
+        if (lazyZ.contains(this.state.shownChildForms[index], childIndex)) {
+          // remove index from list
+          shownChildForms[index].splice(index, 1);
+        } else {
+          // otherwise add
+          shownChildForms[index].push(childIndex);
+        }
+        this.setState({
+          shownChildForms: shownChildForms
+        });
+      } else {
+        // if only parent index
+        var shownForms = _toConsumableArray(this.state.shownArrayForms); // all forms
+        if (lazyZ.contains(this.state.shownArrayForms, index)) {
+          // remove if contains
+          shownForms.splice(index, 1);
+        } else shownForms.push(index);
+        this.setState({
+          shownArrayForms: shownForms
+        });
+      }
+    }
+
+    /**
+     * on modal submit
+     * @param {*} data arbitrary data
+     */
+  }, {
+    key: "onSubmit",
+    value: function onSubmit(data) {
+      this.props.onSubmit(data, this.props);
+      this.toggleModal();
+    }
+
+    /**
+     * toggle modal on and off
+     */
+  }, {
+    key: "toggleModal",
+    value: function toggleModal() {
+      this.setState({
+        showModal: !this.state.showModal
+      });
+    }
+
+    /**
+     * check if form should show
+     * @returns {bool} if the child forms should show
+     */
+  }, {
+    key: "shouldShow",
+    value: function shouldShow(index) {
+      return this.props.parentToggle ? lazyZ.contains(this.props.parentToggle.shownChildren[this.props.parentToggle.index], index) // show children
+      : lazyZ.contains(this.state.shownArrayForms, index);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this,
+        _objectSpread2$1;
+      var formattedName = lazyZ.kebabCase(this.props.name); // formatted component name
+      // enable submit field here is set to variable value to allow for passing to
+      // child array components without needing to reference `this` directly
+      return /*#__PURE__*/React__default["default"].createElement("div", {
+        id: formattedName
+      }, /*#__PURE__*/React__default["default"].createElement(StatefulTabPanel, {
+        name: this.props.name,
+        onClick: this.toggleModal,
+        addText: this.props.addText,
+        hideButton: this.props.hideFormTitleButton,
+        subHeading: this.props.subHeading,
+        className: this.props.subHeading ? "subHeading marginBottomSmall" : "",
+        tooltip: this.props.tooltip,
+        about: this.props.docs ? this.props.docs() : false,
+        hideAbout: this.props.hideAbout,
+        form: /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(EmptyResourceTile, {
+          name: this.props.name,
+          showIfEmpty: this.props.arrayData
+        }), this.props.arrayData.map(function (data, index) {
+          var _this2$props, _this2$props2, _this2$props3, _this2$props4;
+          // return a form with the index and props
+          return /*#__PURE__*/React__default["default"].createElement(ToggleForm, _extends({}, _this2.props.toggleFormProps, {
+            propsMatchState: _this2.props.propsMatchState,
+            disableSave: _this2.props.disableSave,
+            name: data[_this2.props.toggleFormFieldName],
+            tabPanel: {
+              name: _this2.props.name,
+              hideAbout: true,
+              // passed to ignore second tab panel
+              hasBuiltInHeading: true // passed to ignore second tabPanel
+            },
+
+            key: _this2.props.name + "-" + index,
+            innerForm: _this2.props.innerForm,
+            innerFormProps: _objectSpread2(_objectSpread2({}, _this2.props.innerFormProps), {}, {
+              data: _objectSpread2({}, data)
+            }) // merge data into innerForm props
+            ,
+            arrayParentName: _this2.props.arrayParentName,
+            onShowToggle: _this2.onChildToggle,
+            onChildShowToggle: _this2.props.isMiddleForm ? _this2.onChildToggle // pass through to child component if middle form
+            : false,
+            index: index,
+            show: _this2.shouldShow(index),
+            shownChildren: _this2.state.shownChildForms,
+            onSave: (_this2$props = _this2.props) === null || _this2$props === void 0 ? void 0 : _this2$props.onSave,
+            onDelete: (_this2$props2 = _this2.props) === null || _this2$props2 === void 0 ? void 0 : _this2$props2.onDelete,
+            deleteDisabled: (_this2$props3 = _this2.props) === null || _this2$props3 === void 0 ? void 0 : _this2$props3.deleteDisabled,
+            deleteDisabledMessage: (_this2$props4 = _this2.props) === null || _this2$props4 === void 0 ? void 0 : _this2$props4.deleteDisabledMessage
+          }));
+        }), /*#__PURE__*/React__default["default"].createElement(FormModal, {
+          name: this.props.addText,
+          show: this.state.showModal,
+          onRequestSubmit: this.onSubmit,
+          onRequestClose: this.toggleModal,
+          arrayParentName: this.props.arrayParentName
+        },
+        // render the form inside the modal
+        RenderForm(this.props.innerForm, _objectSpread2(_objectSpread2({}, this.props.innerFormProps), {}, (_objectSpread2$1 = {
+          disableSave: this.props.disableSave,
+          arrayParentName: this.props.arrayParentName,
+          isModal: true
+        }, _defineProperty(_objectSpread2$1, "arrayParentName", this.props.arrayParentName), _defineProperty(_objectSpread2$1, "submissionFieldName", this.props.toggleFormProps.submissionFieldName), _defineProperty(_objectSpread2$1, "shouldDisableSubmit", function shouldDisableSubmit() {
+          // references to `this` in function are intentionally vague
+          // in order to pass the correct functions and field values to the
+          // child modal component
+          // by passing `this` in a function that it scoped to the component
+          // we allow the function to be successfully bound to the modal form
+          // while still referencing the local value `enableSubmitField`
+          // to use it's own values for state and props including enableModal
+          // and disableModal, which are dynamically added to the component
+          // at time of render
+          if (this.props.disableSave(this.props.submissionFieldName, this.state, this.props) === false) {
+            this.props.enableModal();
+          } else {
+            this.props.disableModal();
+          }
+        }), _objectSpread2$1))))),
+        hideFormTitleButton: this.props.hideFormTitleButton
+      }));
+    }
+  }]);
+  return IcseFormTemplate;
+}(React__default["default"].Component);
+IcseFormTemplate.defaultProps = {
+  hideFormTitleButton: false,
+  subHeading: false,
+  arrayParentName: null,
+  isMiddleForm: false,
+  hideAbout: false,
+  toggleFormFieldName: "name"
+};
+IcseFormTemplate.propTypes = {
+  name: PropTypes__default["default"].string,
+  // can be null
+  arrayData: PropTypes__default["default"].array.isRequired,
+  parentToggle: PropTypes__default["default"].shape({
+    // used to track open and closed middle forms
+    callback: PropTypes__default["default"].func.isRequired,
+    shownChildren: PropTypes__default["default"].arrayOf(PropTypes__default["default"].arrayOf(PropTypes__default["default"].number)).isRequired
+  }),
+  onSubmit: PropTypes__default["default"].func.isRequired,
+  onDelete: PropTypes__default["default"].func.isRequired,
+  onSave: PropTypes__default["default"].func.isRequired,
+  addText: PropTypes__default["default"].string,
+  hideFormTitleButton: PropTypes__default["default"].bool.isRequired,
+  subHeading: PropTypes__default["default"].bool.isRequired,
+  docs: PropTypes__default["default"].func,
+  // only used on top level components
+  tooltip: PropTypes__default["default"].object,
+  // used only for cos keys
+  arrayParentName: PropTypes__default["default"].string,
+  isMiddleForm: PropTypes__default["default"].bool.isRequired,
+  innerFormProps: PropTypes__default["default"].object.isRequired,
+  toggleFormProps: PropTypes__default["default"].object.isRequired,
+  toggleFormFieldName: PropTypes__default["default"].string.isRequired,
+  hideAbout: PropTypes__default["default"].bool,
+  deleteDisabled: PropTypes__default["default"].func,
+  deleteDisabledMessage: PropTypes__default["default"].string
+};
+
+var css_248z$5 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmallest {\n  width: 8rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.displayFlex {\n  display: flex;\n}\n\n.formInSubForm {\n  margin-top: 0rem;\n  background: #f4f4f4;\n  padding: 1rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.alignButtons {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n";
+styleInject(css_248z$5);
 
 /**
  * AppIdForm
@@ -1853,63 +2493,16 @@ var AppIdForm = /*#__PURE__*/function (_Component) {
     _this.state = _objectSpread2({}, _this.props.data);
     _this.handleInputChange = _this.handleInputChange.bind(_assertThisInitialized(_this));
     _this.handleToggle = _this.handleToggle.bind(_assertThisInitialized(_this));
-    _this.toggleModal = _this.toggleModal.bind(_assertThisInitialized(_this));
-    _this.toggleDeleteModal = _this.toggleDeleteModal.bind(_assertThisInitialized(_this));
-    _this.handleKeyAdd = _this.handleKeyAdd.bind(_assertThisInitialized(_this));
-    _this.handleKeyDelete = _this.handleKeyDelete.bind(_assertThisInitialized(_this));
     buildFormDefaultInputMethods(_assertThisInitialized(_this));
     buildFormFunctions(_assertThisInitialized(_this));
     return _this;
   }
 
   /**
-   * If the appid form has been updated, must update state accordingly
-   * @param {Object} prevProps
-   * */
+   * handle input change
+   * @param {event} event event
+   */
   _createClass(AppIdForm, [{
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      this.props.componentDidUpdateCallback(this.state, this.props);
-    }
-
-    /**
-     * toggleModal modal for creating or editing AppId Key
-     * * @param name name of key to edit
-     */
-  }, {
-    key: "toggleModal",
-    value: function toggleModal(name) {
-      var tempValueState;
-      _typeof(name) !== "object" ? tempValueState = {
-        open: !this.state.open,
-        editKey: true,
-        keyNameToEdit: name
-      } : tempValueState = {
-        open: !this.state.open,
-        editKey: false
-      };
-      this.setState(tempValueState);
-    }
-
-    /**
-     * toggle delete appid key modal on and off
-     * @param name name of key to delete
-     */
-  }, {
-    key: "toggleDeleteModal",
-    value: function toggleDeleteModal(name) {
-      var tempValueState = {
-        showDeleteModal: !this.state.showDeleteModal,
-        keyNameToDelete: name
-      };
-      this.setState(tempValueState);
-    }
-
-    /**
-     * handle input change
-     * @param {event} event event
-     */
-  }, {
     key: "handleInputChange",
     value: function handleInputChange(event) {
       var newAppIdState = _objectSpread2({}, this.state);
@@ -1932,62 +2525,15 @@ var AppIdForm = /*#__PURE__*/function (_Component) {
       newAppIdState.use_data = !newAppIdState.use_data;
       this.setState(newAppIdState);
     }
-
-    /**
-     * adds key to the appid keys list and closes the modal
-     * @param {object} data
-     * @param {object} data.key_name
-     */
-  }, {
-    key: "handleKeyAdd",
-    value: function handleKeyAdd(data) {
-      var _this2 = this;
-      var saveType = "";
-      var newAppIdState = _objectSpread2({}, this.state);
-      if (this.state.editKey === true) {
-        saveType = "edit";
-        newAppIdState.keys[newAppIdState.keys.indexOf(newAppIdState.keyNameToEdit)] = data.key_name;
-      } else {
-        saveType = "add";
-        newAppIdState.keys.push(data.key_name);
-      }
-      newAppIdState.open = false;
-      return new Promise(function (resolve, reject) {
-        _this2.props.saveCallback(saveType);
-        resolve();
-      }).then(function () {
-        //set state after save is run using promise
-        _this2.setState(newAppIdState);
-      });
-    }
-
-    /**
-     * removes key from the appid keys list and closes the modal
-     * @param name key which needs to be deleted
-     */
-  }, {
-    key: "handleKeyDelete",
-    value: function handleKeyDelete(name) {
-      var _this3 = this;
-      var newKeys = this.state.keys.filter(function (item) {
-        return item !== name;
-      });
-      var newAppIdState = _objectSpread2({}, this.state);
-      newAppIdState.keys = newKeys;
-      newAppIdState.showDeleteModal = false;
-      return new Promise(function (resolve, reject) {
-        _this3.props.saveCallback("delete");
-        resolve();
-      }).then(function () {
-        //set state after save is run using promise
-        _this3.setState(newAppIdState);
-      });
-    }
   }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
-      return /*#__PURE__*/React__default["default"].createElement(react.Form, {
+      var keyProps = {
+        invalidCallback: this.props.invalidKeyCallback,
+        invalidTextCallback: this.props.invalidKeyTextCallback
+      };
+      lazyZ.transpose(_objectSpread2({}, this.props.keyProps), keyProps);
+      return /*#__PURE__*/React__default["default"].createElement("div", {
         id: "appid-form"
       }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
         labelText: "Use Existing Instance",
@@ -1998,82 +2544,44 @@ var AppIdForm = /*#__PURE__*/function (_Component) {
         className: "fieldWidthSmallest",
         id: "app-id-existing-instance"
       }), /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-        id: this.state.name + "-name",
-        componentName: this.state.name,
+        id: this.props.data.name + "-appid-name",
+        componentName: this.props.data.name + "-appid-name",
         placeholder: "my-appid-name",
         value: this.state.name,
         onChange: this.handleInputChange,
         hideHelperText: true,
-        invalid: this.props.invalidCallback("name", this.state, this.props),
-        invalidText: this.props.invalidTextCallback("name", this.state, this.props),
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props),
         className: "fieldWidth"
       }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
         labelText: "Resource Group",
         name: "resource_group",
-        formName: "resource_group",
+        formName: this.props.data.name + "-appid-rg",
         groups: this.props.resourceGroups,
         value: this.state.resource_group,
         handleInputChange: this.handleInputChange,
         invalidText: "Select a Resource Group.",
         className: "fieldWidth"
-      })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
-        name: "App ID Keys",
-        type: "subHeading",
-        className: "marginBottomSmall",
-        noLabelText: true,
-        tooltip: {
-          content: "Keys can be added to connect an application to an IBM Cloud service."
-        },
-        buttons: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
-          id: "appid-key-create",
-          type: "add",
-          onClick: this.toggleModal,
-          className: "forceTertiaryButtonStyles",
-          disabled: this.props.invalidCallback("name", this.state, this.props) || lib_4(this.state.resource_group),
-          noDeleteButton: true
-        })
-      }), /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(FormModal, {
-        name: (this.state.editKey ? "Edit" : "Add") + " an App ID Key",
-        show: this.state.open,
-        onRequestSubmit: this.handleKeyAdd,
-        onRequestClose: this.toggleModal,
-        size: "sm"
-      }, /*#__PURE__*/React__default["default"].createElement(AppIdKeyForm, {
-        shouldDisableSubmit: this.props.shouldDisableSubmitCallback(this.state, this.props),
-        keys: this.state.keys,
-        invalidCallback: this.props.invalidCallback,
-        invalidTextCallback: this.props.invalidTextCallback
-      }))), /*#__PURE__*/React__default["default"].createElement("div", null, this.state.keys.map(function (data, index) {
-        return /*#__PURE__*/React__default["default"].createElement("div", {
-          className: "positionRelative displayFlex formInSubForm marginBottomSmall alignItemsCenter spaceBetween",
-          key: "".concat(data, "-").concat(_this4.state.keys[index])
-        }, data, /*#__PURE__*/React__default["default"].createElement("div", {
-          className: "alignButtons"
-        }, /*#__PURE__*/React__default["default"].createElement(EditCloseIcon, {
-          hoverText: "Edit AppID Key",
-          type: "edit",
-          disabled: false,
-          onClick: function onClick() {
-            return _this4.toggleModal(data);
-          }
-        }), /*#__PURE__*/React__default["default"].createElement(DeleteButton, {
-          name: data,
-          onClick: function onClick() {
-            return _this4.toggleDeleteModal(data);
-          }
-        })));
-      }), /*#__PURE__*/React__default["default"].createElement(DeleteModal, {
-        name: this.state.keyNameToDelete || "",
-        modalOpen: this.state.showDeleteModal
-        //need to call toggleDeleteModal with "" name argument or else canceling deletion passes in the entire event to the name argument and causes the page to error
-        ,
-        onModalClose: function onModalClose() {
-          return _this4.toggleDeleteModal("");
-        },
-        onModalSubmit: function onModalSubmit() {
-          return _this4.handleKeyDelete(_this4.state.keyNameToDelete);
+      })), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+        name: "AppID Keys",
+        subHeading: true,
+        addText: "Create an AppID Key",
+        arrayData: this.props.data.keys,
+        innerForm: AppIdKeyForm,
+        disableSave: this.props.keyProps.disableSave,
+        onDelete: this.props.keyProps.onDelete,
+        onSave: this.props.keyProps.onSave,
+        onSubmit: this.props.keyProps.onSubmit,
+        propsMatchState: this.props.propsMatchState,
+        innerFormProps: _objectSpread2({}, keyProps),
+        hideAbout: true,
+        toggleFormProps: {
+          hideName: true,
+          submissionFieldName: "appid_key",
+          disableSave: this.props.keyProps.disableSave,
+          type: "formInSubForm"
         }
-      })));
+      }));
     }
   }]);
   return AppIdForm;
@@ -2085,21 +2593,16 @@ AppIdForm.defaultProps = {
     use_data: false,
     keys: []
   },
-  key_name: "",
-  open: false,
-  editKey: false,
-  showDeleteModal: false,
-  keyNameToEdit: "",
-  keyNameToDelete: ""
+  isModal: false
 };
 AppIdForm.propTypes = {
+  isModal: PropTypes__default["default"].bool.isRequired,
   data: PropTypes__default["default"].shape({
     name: PropTypes__default["default"].string,
     resource_group: PropTypes__default["default"].string,
     use_data: PropTypes__default["default"].bool,
     keys: PropTypes__default["default"].array.isRequired
   }).isRequired,
-  key_name: PropTypes__default["default"].string.isRequired,
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   invalidCallback: PropTypes__default["default"].func,
   invalidTextCallback: PropTypes__default["default"].func
@@ -2414,8 +2917,8 @@ EncryptionKeyForm.propTypes = {
   invalidRingCallback: PropTypes__default["default"].func.isRequired
 };
 
-var css_248z$5 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
-styleInject(css_248z$5);
+var css_248z$4 = ".fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n";
+styleInject(css_248z$4);
 
 /**
  * Icse multiselect template
@@ -2982,8 +3485,8 @@ var f5Utils_2 = f5Utils.isNullOrEmptyString;
 var f5Utils_3 = f5Utils.isValidTmosAdminPassword;
 var f5Utils_4 = f5Utils.isValidUrl;
 
-var css_248z$4 = ".wide {\n  width: 20rem !important;\n}\n\n.tight {\n  width: min-content; /* force invalid text to split line */\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n\n.passwordGenerateButton {\n  margin-top: 1.25rem;\n  margin-left: calc(-4rem - 3vw);\n}\n\n.passwordGenerateButton svg {\n  fill: var(--cds-icon-secondary, #525252) !important;\n}\n\n.passwordGenerateButton.invalid {\n  margin-left: calc(-5.75rem - 3vw);\n}\n";
-styleInject(css_248z$4);
+var css_248z$3 = ".wide {\n  width: 20rem !important;\n}\n\n.tight {\n  width: min-content; /* force invalid text to split line */\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n\n.passwordGenerateButton {\n  margin-top: 1.25rem;\n  margin-left: calc(-4rem - 3vw);\n}\n\n.passwordGenerateButton svg {\n  fill: var(--cds-icon-secondary, #525252) !important;\n}\n\n.passwordGenerateButton.invalid {\n  margin-left: calc(-5.75rem - 3vw);\n}\n";
+styleInject(css_248z$3);
 
 /**
  * F5VsiTemplateForm
@@ -3774,653 +4277,6 @@ IamAccountSettingsForm.propTypes = {
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
   isModal: PropTypes__default["default"].bool.isRequired
-};
-
-/**
- * Under Construction Page
- */
-var UnderConstruction = function UnderConstruction() {
-  return /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(iconsReact.WarningAlt, {
-    size: "128"
-  }), /*#__PURE__*/React__default["default"].createElement("h4", null, "Page Under Construction"));
-};
-
-var css_248z$3 = ".cds--tab-content.doc {\n    padding: 0.5rem 0;\n  }\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}";
-styleInject(css_248z$3);
-
-/**
- * StatefulTabPanel wrapper for non array forms
- * @param {*} props props
- * @param {*} props.form form to put in the create tab
- * @param {*} props.about docs to put in the about tab
- */
-var StatefulTabPanel = /*#__PURE__*/function (_React$Component) {
-  _inherits(StatefulTabPanel, _React$Component);
-  var _super = _createSuper(StatefulTabPanel);
-  function StatefulTabPanel(props) {
-    var _this;
-    _classCallCheck(this, StatefulTabPanel);
-    _this = _super.call(this, props);
-    _this.state = {
-      tabIndex: 0
-    };
-    _this.setSelectedIndex = _this.setSelectedIndex.bind(_assertThisInitialized(_this));
-    return _this;
-  }
-  _createClass(StatefulTabPanel, [{
-    key: "setSelectedIndex",
-    value: function setSelectedIndex(event) {
-      // if the index is being set to a new tab
-      if (this.props.toggleShowChildren && event.selectedIndex !== this.state.tabIndex) this.props.toggleShowChildren();
-      this.setState({
-        tabIndex: event.selectedIndex
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, this.props.name && !this.props.hasBuiltInHeading && /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
-        name: this.props.name,
-        type: this.props.subHeading ? "subHeading" : "heading",
-        className: this.props.className,
-        tooltip: this.props.tooltip,
-        buttons: /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
-          hide: this.props.hideFormTitleButton || this.state.tabIndex !== 0 || !lazyZ.isFunction(this.props.onClick) || this.props.hasBuiltInHeading,
-          show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
-            type: "add",
-            noDeleteButton: true,
-            onClick: this.props.onClick,
-            disabled: this.props.shouldDisableSave ? this.props.shouldDisableSave() : false
-          })
-        })
-      }), this.props.hideAbout ? this.props.form : /*#__PURE__*/React__default["default"].createElement(react.Tabs, {
-        onChange: this.setSelectedIndex
-      }, /*#__PURE__*/React__default["default"].createElement(react.TabList, {
-        "aria-label": "formTabs"
-      }, /*#__PURE__*/React__default["default"].createElement(react.Tab, null, "Create"), /*#__PURE__*/React__default["default"].createElement(react.Tab, null, "About")), /*#__PURE__*/React__default["default"].createElement(react.TabPanels, null, /*#__PURE__*/React__default["default"].createElement(react.TabPanel, {
-        className: "doc"
-      }, this.props.form), /*#__PURE__*/React__default["default"].createElement(react.TabPanel, {
-        className: "doc"
-      }, this.props.about ? this.props.about : /*#__PURE__*/React__default["default"].createElement(UnderConstruction, null)))));
-    }
-  }]);
-  return StatefulTabPanel;
-}(React__default["default"].Component);
-StatefulTabPanel.defaultProps = {
-  subHeading: false,
-  hideFormTitleButton: false,
-  hideAbout: false,
-  hasBuiltInHeading: false
-};
-StatefulTabPanel.propTypes = {
-  name: PropTypes__default["default"].string,
-  // can be null
-  subHeading: PropTypes__default["default"].bool.isRequired,
-  className: PropTypes__default["default"].string,
-  // can be null
-  tooltip: PropTypes__default["default"].shape({
-    content: PropTypes__default["default"].string.isRequired,
-    link: PropTypes__default["default"].string,
-    align: PropTypes__default["default"].string,
-    alignModal: PropTypes__default["default"].string
-  }),
-  hideFormTitleButton: PropTypes__default["default"].bool.isRequired,
-  onClick: PropTypes__default["default"].func,
-  // can be null
-  shouldDisableSave: PropTypes__default["default"].func,
-  // can be null
-  about: PropTypes__default["default"].node,
-  // can be null
-  form: PropTypes__default["default"].node.isRequired,
-  hideAbout: PropTypes__default["default"].bool.isRequired,
-  hasBuiltInHeading: PropTypes__default["default"].bool.isRequired
-};
-
-var ToggleForm = /*#__PURE__*/function (_React$Component) {
-  _inherits(ToggleForm, _React$Component);
-  var _super = _createSuper(ToggleForm);
-  function ToggleForm(props) {
-    var _this;
-    _classCallCheck(this, ToggleForm);
-    _this = _super.call(this, props);
-    _this.state = {
-      hide: _this.props.hide,
-      showDeleteModal: false,
-      showUnsavedChangeModal: false,
-      disableSave: true,
-      disableDelete: false,
-      showChildren: true,
-      showSubModal: false,
-      propsMatchState: true,
-      useDefaultUnsavedMessage: true,
-      ruleOrderChange: false
-    };
-    _this.toggleChildren = _this.toggleChildren.bind(_assertThisInitialized(_this));
-    _this.toggleDeleteModal = _this.toggleDeleteModal.bind(_assertThisInitialized(_this));
-    _this.toggleUnsavedChangeModal = _this.toggleUnsavedChangeModal.bind(_assertThisInitialized(_this));
-    _this.dismissChangesAndClose = _this.dismissChangesAndClose.bind(_assertThisInitialized(_this));
-    _this.onSave = _this.onSave.bind(_assertThisInitialized(_this));
-    _this.onDelete = _this.onDelete.bind(_assertThisInitialized(_this));
-    _this.shouldDisableSave = _this.shouldDisableSave.bind(_assertThisInitialized(_this));
-    _this.shouldShow = _this.shouldShow.bind(_assertThisInitialized(_this));
-    _this.networkRuleOrderDidChange = _this.networkRuleOrderDidChange.bind(_assertThisInitialized(_this));
-    _this.toggleShowChildren = _this.toggleShowChildren.bind(_assertThisInitialized(_this));
-    _this.onToggleSubModal = _this.onToggleSubModal.bind(_assertThisInitialized(_this));
-    _this.childRef = /*#__PURE__*/React__default["default"].createRef();
-    return _this;
-  }
-
-  /**
-   * toggle sub modal
-   */
-  _createClass(ToggleForm, [{
-    key: "onToggleSubModal",
-    value: function onToggleSubModal() {
-      this.setState({
-        showSubModal: !this.state.showSubModal
-      });
-    }
-  }, {
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      if (this.props.devMode) {
-        console.log(this.props);
-      }
-      if (this.state.hide === true && this.shouldShow() === true) {
-        this.setState({
-          hide: false
-        });
-      }
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps, prevState) {
-      if (prevState.hide !== this.state.hide && this.props.onShowToggle) {
-        this.props.onShowToggle(this.props.index);
-      }
-    }
-
-    /**
-     * toggle children rendered by form
-     */
-  }, {
-    key: "toggleChildren",
-    value: function toggleChildren() {
-      var _this$childRef$curren;
-      if ((_this$childRef$curren = this.childRef.current) !== null && _this$childRef$curren !== void 0 && _this$childRef$curren.state) {
-        var stateData = this.childRef.current.state;
-        var componentProps = this.childRef.current.props;
-        var propsDoNotMatch = this.props.propsMatchState(this.props.submissionFieldName, stateData, componentProps) === false;
-        if (propsDoNotMatch || this.state.useDefaultUnsavedMessage === false) {
-          this.toggleUnsavedChangeModal();
-        } else {
-          this.setState({
-            hide: !this.state.hide
-          });
-        }
-      } else {
-        this.setState({
-          hide: !this.state.hide
-        });
-      }
-    }
-
-    /**
-     * toggle delete modal
-     */
-  }, {
-    key: "toggleDeleteModal",
-    value: function toggleDeleteModal() {
-      this.setState({
-        showDeleteModal: !this.state.showDeleteModal
-      });
-    }
-
-    /**
-     * toggle unsaved changes modal
-     */
-  }, {
-    key: "toggleUnsavedChangeModal",
-    value: function toggleUnsavedChangeModal() {
-      this.setState({
-        showUnsavedChangeModal: !this.state.showUnsavedChangeModal
-      });
-    }
-
-    /**
-     * Dismiss changes and close
-     */
-  }, {
-    key: "dismissChangesAndClose",
-    value: function dismissChangesAndClose() {
-      this.setState({
-        showUnsavedChangeModal: false,
-        hide: true
-      });
-    }
-
-    /**
-     * on save
-     */
-  }, {
-    key: "onSave",
-    value: function onSave() {
-      this.props.onSave(this.childRef.current.state, this.childRef.current.props);
-      this.setState({
-        useDefaultUnsavedMessage: true
-      });
-    }
-
-    /**
-     * on delete
-     */
-  }, {
-    key: "onDelete",
-    value: function onDelete() {
-      var _this$childRef$curren2, _this$childRef$curren3;
-      this.props.onShowToggle(this.props.index);
-      this.props.onDelete((_this$childRef$curren2 = this.childRef.current) === null || _this$childRef$curren2 === void 0 ? void 0 : _this$childRef$curren2.state, (_this$childRef$curren3 = this.childRef.current) === null || _this$childRef$curren3 === void 0 ? void 0 : _this$childRef$curren3.props);
-      this.setState({
-        hide: true,
-        showDeleteModal: false
-      });
-    }
-
-    /**
-     * should disable save
-     * @param {*} stateData state data
-     * @param {*} componentProps component props
-     */
-  }, {
-    key: "shouldDisableSave",
-    value: function shouldDisableSave(stateData, componentProps) {
-      var enableSave = this.props.disableSave(this.props.submissionFieldName, stateData, componentProps) === false;
-      var propsDoNotMatch = this.props.propsMatchState(this.props.submissionFieldName, stateData, componentProps) === false;
-      if (enableSave === false && this.state.useDefaultUnsavedMessage && propsDoNotMatch === false) {
-        this.setState({
-          useDefaultUnsavedMessage: false
-        });
-      } else if (enableSave && propsDoNotMatch && this.state.disableSave) {
-        this.setState({
-          disableSave: false,
-          propsMatchState: false
-        });
-      } else if (!this.state.disableSave && (!enableSave || !propsDoNotMatch)) {
-        this.setState({
-          disableSave: true,
-          propsMatchState: !propsDoNotMatch
-        });
-      }
-    }
-  }, {
-    key: "shouldShow",
-    value: function shouldShow() {
-      return this.props.forceOpen(this.state, this.props);
-    }
-  }, {
-    key: "networkRuleOrderDidChange",
-    value: function networkRuleOrderDidChange(didNotChange) {
-      var didChange = !didNotChange;
-      if (this.state.ruleOrderChange !== didChange) {
-        this.setState({
-          ruleOrderChange: didChange
-        });
-      }
-    }
-  }, {
-    key: "toggleShowChildren",
-    value: function toggleShowChildren() {
-      this.setState({
-        showChildren: !this.state.showChildren
-      });
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _objectSpread2$1;
-      if (this.props.noDeleteButton !== true && !this.props.onDelete) {
-        throw new Error("ToggleForm expects onDelete Function to be passed when a delete button is rendered");
-      }
-      if (this.props.noSaveButton !== true && !this.props.onSave) {
-        throw new Error("ToggleForm expects onSave Function to be passed when a save button is rendered");
-      }
-      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(StatefulTabPanel, _extends({}, this.props.tabPanel ? this.props.tabPanel : {}, {
-        toggleShowChildren: this.toggleShowChildren,
-        form: /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, this.props.name && !this.props.hideName && /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
-          name: this.props.name,
-          hideButton: true
-        }), /*#__PURE__*/React__default["default"].createElement("div", {
-          className: lib_2(this.props.type === "formInSubForm" ? "formInSubForm positionRelative marginBottomSmall" : "subForm marginBottomSmall")
-        }, /*#__PURE__*/React__default["default"].createElement(StatelessToggleForm, {
-          hide: this.state.hide,
-          iconType: this.props.useAddButton ? "add" : "edit",
-          onIconClick: this.toggleChildren,
-          toggleFormTitle: true,
-          name: this.props.name,
-          buttons: /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
-            hide: this.props.addButtonAtFormTitle !== true,
-            show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
-              type: "add",
-              onClick: this.onToggleSubModal,
-              noDeleteButton: true
-            })
-          }), /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
-            hide: this.props.noSaveButton || this.props.addButtonAtFormTitle,
-            show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
-              onClick: this.onSave,
-              disabled: this.state.disableSave,
-              noDeleteButton: this.props.noDeleteButton
-            })
-          }), /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
-            hide: this.props.noDeleteButton,
-            show: /*#__PURE__*/React__default["default"].createElement(DeleteButton, {
-              onClick: this.toggleDeleteModal,
-              name: this.props.name,
-              disabled: this.props.deleteDisabled(this.props),
-              disableDeleteMessage: this.props.deleteDisabledMessage
-            })
-          }))
-        }, /*#__PURE__*/React__default["default"].createElement(UnsavedChangesModal, {
-          name:
-          // use tab panel name if passed
-          this.props.name,
-          modalOpen: this.state.showUnsavedChangeModal,
-          onModalClose: this.toggleUnsavedChangeModal,
-          onModalSubmit: this.dismissChangesAndClose,
-          useDefaultUnsavedMessage: this.state.useDefaultUnsavedMessage
-        }), /*#__PURE__*/React__default["default"].createElement(DeleteModal, {
-          name: this.props.name,
-          modalOpen: this.state.showDeleteModal,
-          onModalClose: this.toggleDeleteModal,
-          onModalSubmit: this.onDelete
-        }), RenderForm(this.props.innerForm, _objectSpread2(_objectSpread2({}, this.props.innerFormProps), {}, (_objectSpread2$1 = {
-          ref: this.props.nullRef ? null : this.childRef,
-          shouldDisableSave: this.shouldDisableSave,
-          showSubModal: this.state.showSubModal,
-          networkRuleOrderDidChange: this.networkRuleOrderDidChange,
-          onChildShowToggle: this.props.onChildShowToggle,
-          shownChildren: this.props.shownChildren,
-          handleModalToggle: this.onToggleSubModal
-        }, _defineProperty(_objectSpread2$1, "showSubModal", this.state.showSubModal), _defineProperty(_objectSpread2$1, "saveFromChildForm", {
-          onSave: this.onSave,
-          disableSave: this.state.disableSave
-        }), _objectSpread2$1)))))),
-        about: this.props.about || false
-      })), this.state.showChildren && this.props.children ? this.props.children : "");
-    }
-  }]);
-  return ToggleForm;
-}(React__default["default"].Component);
-ToggleForm.defaultProps = {
-  hide: true,
-  unsavedChanges: false,
-  index: 0,
-  type: "subForm",
-  nullRef: false,
-  noDeleteButton: false,
-  noSaveButton: false,
-  useAddButton: false,
-  hideName: false,
-  // functions that return booleans must have a default
-  deleteDisabled: function deleteDisabled() {
-    return false;
-  },
-  forceOpen: function forceOpen() {
-    return false;
-  }
-};
-ToggleForm.propTypes = {
-  name: PropTypes__default["default"].string,
-  hideName: PropTypes__default["default"].bool.isRequired,
-  onDelete: PropTypes__default["default"].func,
-  onSave: PropTypes__default["default"].func,
-  onShowToggle: PropTypes__default["default"].func,
-  index: PropTypes__default["default"].number.isRequired,
-  hide: PropTypes__default["default"].bool.isRequired,
-  submissionFieldName: PropTypes__default["default"].string.isRequired,
-  propsMatchState: PropTypes__default["default"].func.isRequired,
-  disableSave: PropTypes__default["default"].func.isRequired,
-  forceOpen: PropTypes__default["default"].func,
-  // can be null
-  deleteDisabled: PropTypes__default["default"].func,
-  // can be null
-  disableDeleteMessage: PropTypes__default["default"].func,
-  // can be null
-  type: PropTypes__default["default"].string.isRequired,
-  nullRef: PropTypes__default["default"].bool.isRequired,
-  innerFormProps: PropTypes__default["default"].object,
-  // can be null
-  noDeleteButton: PropTypes__default["default"].bool.isRequired,
-  noSaveButton: PropTypes__default["default"].bool.isRequired,
-  useAddButton: PropTypes__default["default"].bool.isRequired,
-  tabPanel: PropTypes__default["default"].shape({
-    name: PropTypes__default["default"].string.isRequired,
-    hideFormTitleButton: PropTypes__default["default"].bool // can be null
-  }).isRequired
-};
-
-var IcseFormTemplate = /*#__PURE__*/function (_React$Component) {
-  _inherits(IcseFormTemplate, _React$Component);
-  var _super = _createSuper(IcseFormTemplate);
-  function IcseFormTemplate(props) {
-    var _this;
-    _classCallCheck(this, IcseFormTemplate);
-    _this = _super.call(this, props);
-    _this.state = {
-      showModal: false,
-      shownArrayForms: [],
-      // list of array forms to keep open on save
-      shownChildForms: [] // list of child forms to keep open on save
-    };
-
-    _this.onChildToggle = _this.onChildToggle.bind(_assertThisInitialized(_this));
-    _this.toggleModal = _this.toggleModal.bind(_assertThisInitialized(_this));
-    _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
-    _this.shouldShow = _this.shouldShow.bind(_assertThisInitialized(_this));
-    // add an array to track middle forms
-    if (_this.props.isMiddleForm) {
-      _this.props.arrayData.forEach(function () {
-        return _this.state.shownChildForms.push([]);
-      });
-    }
-    return _this;
-  }
-
-  /**
-   * keep update forms open
-   * @param {number} index index to keep open
-   * @param {number=} childIndex optional child index
-   */
-  _createClass(IcseFormTemplate, [{
-    key: "onChildToggle",
-    value: function onChildToggle(index, childIndex) {
-      if (this.props.parentToggle) {
-        // if the parent toggle is passed, run the callback (this function on parent form)
-        // with parent index and current index
-        this.props.parentToggle.callback(this.props.parentToggle.index, index);
-      } else if (arguments.length !== 1) {
-        // if a second param is passed
-        var shownChildForms = _toConsumableArray(this.state.shownChildForms); // all forms
-        // if contains index
-        if (lazyZ.contains(this.state.shownChildForms[index], childIndex)) {
-          // remove index from list
-          shownChildForms[index].splice(index, 1);
-        } else {
-          // otherwise add
-          shownChildForms[index].push(childIndex);
-        }
-        this.setState({
-          shownChildForms: shownChildForms
-        });
-      } else {
-        // if only parent index
-        var shownForms = _toConsumableArray(this.state.shownArrayForms); // all forms
-        if (lazyZ.contains(this.state.shownArrayForms, index)) {
-          // remove if contains
-          shownForms.splice(index, 1);
-        } else shownForms.push(index);
-        this.setState({
-          shownArrayForms: shownForms
-        });
-      }
-    }
-
-    /**
-     * on modal submit
-     * @param {*} data arbitrary data
-     */
-  }, {
-    key: "onSubmit",
-    value: function onSubmit(data) {
-      this.props.onSubmit(data, this.props);
-      this.toggleModal();
-    }
-
-    /**
-     * toggle modal on and off
-     */
-  }, {
-    key: "toggleModal",
-    value: function toggleModal() {
-      this.setState({
-        showModal: !this.state.showModal
-      });
-    }
-
-    /**
-     * check if form should show
-     * @returns {bool} if the child forms should show
-     */
-  }, {
-    key: "shouldShow",
-    value: function shouldShow(index) {
-      return this.props.parentToggle ? lazyZ.contains(this.props.parentToggle.shownChildren[this.props.parentToggle.index], index) // show children
-      : lazyZ.contains(this.state.shownArrayForms, index);
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this2 = this,
-        _objectSpread2$1;
-      var formattedName = lazyZ.kebabCase(this.props.name); // formatted component name
-      // enable submit field here is set to variable value to allow for passing to
-      // child array components without needing to reference `this` directly
-      return /*#__PURE__*/React__default["default"].createElement("div", {
-        id: formattedName
-      }, /*#__PURE__*/React__default["default"].createElement(StatefulTabPanel, {
-        name: this.props.name,
-        onClick: this.toggleModal,
-        addText: this.props.addText,
-        hideButton: this.props.hideFormTitleButton,
-        subHeading: this.props.subHeading,
-        className: this.props.subHeading ? "subHeading marginBottomSmall" : "",
-        tooltip: this.props.tooltip,
-        about: this.props.docs ? this.props.docs() : false,
-        hideAbout: this.props.hideAbout,
-        form: /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(EmptyResourceTile, {
-          name: this.props.name,
-          showIfEmpty: this.props.arrayData
-        }), this.props.arrayData.map(function (data, index) {
-          var _this2$props, _this2$props2, _this2$props3, _this2$props4;
-          // return a form with the index and props
-          return /*#__PURE__*/React__default["default"].createElement(ToggleForm, _extends({}, _this2.props.toggleFormProps, {
-            propsMatchState: _this2.props.propsMatchState,
-            disableSave: _this2.props.disableSave,
-            name: data[_this2.props.toggleFormFieldName],
-            tabPanel: {
-              name: _this2.props.name,
-              hideAbout: true,
-              // passed to ignore second tab panel
-              hasBuiltInHeading: true // passed to ignore second tabPanel
-            },
-
-            key: _this2.props.name + "-" + index,
-            innerForm: _this2.props.innerForm,
-            innerFormProps: _objectSpread2(_objectSpread2({}, _this2.props.innerFormProps), {}, {
-              data: _objectSpread2({}, data)
-            }) // merge data into innerForm props
-            ,
-            arrayParentName: _this2.props.arrayParentName,
-            onShowToggle: _this2.onChildToggle,
-            onChildShowToggle: _this2.props.isMiddleForm ? _this2.onChildToggle // pass through to child component if middle form
-            : false,
-            index: index,
-            show: _this2.shouldShow(index),
-            shownChildren: _this2.state.shownChildForms,
-            onSave: (_this2$props = _this2.props) === null || _this2$props === void 0 ? void 0 : _this2$props.onSave,
-            onDelete: (_this2$props2 = _this2.props) === null || _this2$props2 === void 0 ? void 0 : _this2$props2.onDelete,
-            deleteDisabled: (_this2$props3 = _this2.props) === null || _this2$props3 === void 0 ? void 0 : _this2$props3.deleteDisabled,
-            deleteDisabledMessage: (_this2$props4 = _this2.props) === null || _this2$props4 === void 0 ? void 0 : _this2$props4.deleteDisabledMessage
-          }));
-        }), /*#__PURE__*/React__default["default"].createElement(FormModal, {
-          name: this.props.addText,
-          show: this.state.showModal,
-          onRequestSubmit: this.onSubmit,
-          onRequestClose: this.toggleModal,
-          arrayParentName: this.props.arrayParentName
-        },
-        // render the form inside the modal
-        RenderForm(this.props.innerForm, _objectSpread2(_objectSpread2({}, this.props.innerFormProps), {}, (_objectSpread2$1 = {
-          disableSave: this.props.disableSave,
-          arrayParentName: this.props.arrayParentName,
-          isModal: true
-        }, _defineProperty(_objectSpread2$1, "arrayParentName", this.props.arrayParentName), _defineProperty(_objectSpread2$1, "submissionFieldName", this.props.toggleFormProps.submissionFieldName), _defineProperty(_objectSpread2$1, "shouldDisableSubmit", function shouldDisableSubmit() {
-          // references to `this` in function are intentionally vague
-          // in order to pass the correct functions and field values to the
-          // child modal component
-          // by passing `this` in a function that it scoped to the component
-          // we allow the function to be successfully bound to the modal form
-          // while still referencing the local value `enableSubmitField`
-          // to use it's own values for state and props including enableModal
-          // and disableModal, which are dynamically added to the component
-          // at time of render
-          if (this.props.disableSave(this.props.submissionFieldName, this.state, this.props) === false) {
-            this.props.enableModal();
-          } else {
-            this.props.disableModal();
-          }
-        }), _objectSpread2$1))))),
-        hideFormTitleButton: this.props.hideFormTitleButton
-      }));
-    }
-  }]);
-  return IcseFormTemplate;
-}(React__default["default"].Component);
-IcseFormTemplate.defaultProps = {
-  hideFormTitleButton: false,
-  subHeading: false,
-  arrayParentName: null,
-  isMiddleForm: false,
-  hideAbout: false,
-  toggleFormFieldName: "name"
-};
-IcseFormTemplate.propTypes = {
-  name: PropTypes__default["default"].string,
-  // can be null
-  arrayData: PropTypes__default["default"].array.isRequired,
-  parentToggle: PropTypes__default["default"].shape({
-    // used to track open and closed middle forms
-    callback: PropTypes__default["default"].func.isRequired,
-    shownChildren: PropTypes__default["default"].arrayOf(PropTypes__default["default"].arrayOf(PropTypes__default["default"].number)).isRequired
-  }),
-  onSubmit: PropTypes__default["default"].func.isRequired,
-  onDelete: PropTypes__default["default"].func.isRequired,
-  onSave: PropTypes__default["default"].func.isRequired,
-  addText: PropTypes__default["default"].string,
-  hideFormTitleButton: PropTypes__default["default"].bool.isRequired,
-  subHeading: PropTypes__default["default"].bool.isRequired,
-  docs: PropTypes__default["default"].func,
-  // only used on top level components
-  tooltip: PropTypes__default["default"].object,
-  // used only for cos keys
-  arrayParentName: PropTypes__default["default"].string,
-  isMiddleForm: PropTypes__default["default"].bool.isRequired,
-  innerFormProps: PropTypes__default["default"].object.isRequired,
-  toggleFormProps: PropTypes__default["default"].object.isRequired,
-  toggleFormFieldName: PropTypes__default["default"].string.isRequired,
-  hideAbout: PropTypes__default["default"].bool,
-  deleteDisabled: PropTypes__default["default"].func,
-  deleteDisabledMessage: PropTypes__default["default"].string
 };
 
 /**
@@ -5944,12 +5800,60 @@ var SccForm = /*#__PURE__*/function (_Component) {
     key: "render",
     value: function render() {
       var _this2 = this;
-      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.Dropdown, {
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+        id: "scc_group_id",
+        tooltip: {
+          content: "The group ID for Security and Compliance Center."
+        },
+        componentName: "SCC",
+        field: "id",
+        labelText: "Group ID",
+        value: this.state.id,
+        onChange: this.handleInputChange,
+        maxLength: 255,
+        invalid: lib_10("id", this.state.id, this.props.descriptionRegex).invalid,
+        invalidText: lib_10("id", this.state.id, this.props.descriptionRegex).invalidText
+      }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+        id: "scc_passphrase",
+        tooltip: {
+          content: "Security and Compliance Center group passphrase."
+        },
+        labelText: "Group Passphrase",
+        field: "passphrase",
+        value: this.state.passphrase,
+        onChange: this.handleInputChange,
+        componentName: "SCC",
+        maxLength: 1000,
+        invalid: lib_10("passphrase", this.state.passphrase, this.props.descriptionRegex).invalid,
+        invalidText: lib_10("passphrase", this.state.passphrase, this.props.descriptionRegex).invalidText
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+        id: this.props.data.name + "-scc-name",
+        componentName: "scc-cred",
+        labelText: "Credential Name",
+        value: this.state.name,
+        onChange: this.handleInputChange,
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props),
+        hideHelperText: true
+      }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+        id: "scc_credential_description",
+        tooltip: {
+          content: "A detailed description of the credential to be created."
+        },
+        componentName: "SCC",
+        field: "credential_description",
+        labelText: "Credential Description",
+        value: this.state.credential_description,
+        onChange: this.handleInputChange,
+        maxLength: 255,
+        invalid: lib_10("credential_description", this.state.credential_description, this.props.descriptionRegex).invalid,
+        invalidText: lib_10("credential_description", this.state.credential_description, this.props.descriptionRegex).invalidText
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.Dropdown, {
         ariaLabel: "Dropdown",
         id: "location",
         items: sccRegions,
-        label: "SCC Region Options",
         titleText: "Region",
+        initialSelectedItem: this.state.location,
         onChange: function onChange(selectedItem) {
           _this2.handleLocationChange(selectedItem);
         },
@@ -5963,7 +5867,9 @@ var SccForm = /*#__PURE__*/function (_Component) {
         className: "leftTextAlign",
         onToggle: this.handleToggle,
         id: "scc-is-public"
-      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+        noMarginBottom: true
+      }, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
         id: "scc_scope_description",
         tooltip: {
           content: "A detailed description of the scope."
@@ -6008,8 +5914,13 @@ SccForm.propTypes = {
     is_public: PropTypes__default["default"].bool,
     location: PropTypes__default["default"].string,
     scope_description: PropTypes__default["default"].string,
-    passphrase: PropTypes__default["default"].string
+    passphrase: PropTypes__default["default"].string,
+    credential_description: PropTypes__default["default"].string,
+    name: PropTypes__default["default"].string,
+    id: PropTypes__default["default"].string
   }),
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
   descriptionRegex: PropTypes__default["default"].instanceOf(RegExp).isRequired
 };
 
@@ -8036,6 +7947,451 @@ ClusterForm.propTypes = {
   }).isRequired
 };
 
+class AccessGroupPolicyForm extends React__default["default"].Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleInputResource = this.handleInputResource.bind(this);
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputResource(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    let resources = {
+      ...this.state.resources
+    };
+    resources[name] = value;
+    this.setState({
+      resources
+    });
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: "name",
+      componentName: "policies",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      labelText: "Name",
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      invalid: this.props.invalidCallback("name", this.state, this.props),
+      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props)
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+      className: "marginBottomSmall"
+    }, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+      name: "Resource Configuration",
+      type: "subHeading"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: "resource",
+      componentName: "resource",
+      tooltip: {
+        content: "The resource of the policy definition",
+        alignModal: "bottom-left"
+      },
+      isModal: this.props.isModal,
+      field: "resource",
+      value: this.state.resources.resource,
+      invalid: false,
+      onChange: this.handleInputResource,
+      labelText: "Resource"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      name: "resource_group",
+      formName: `${lazyZ.kebabCase(this.props.data.name)}-agp-rg-select`,
+      groups: this.props.resourceGroups,
+      value: this.state.resources.resource_group,
+      handleInputChange: this.handleInputResource,
+      invalidText: "Select a Resource Group",
+      labelText: "Resource Group",
+      tooltip: {
+        content: "Name of the resource group the policy will apply to",
+        alignModal: "bottom-left"
+      }
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: "resource_instance_id",
+      componentName: "resource_instance_id",
+      isModal: this.props.isModal,
+      field: "resource_instance_id",
+      value: this.state.resources.resource_instance_id,
+      tooltip: {
+        content: "ID of a service instance to give permissions"
+      },
+      invalid: false,
+      labelText: "Resource Instance ID",
+      onChange: this.handleInputResource
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: "service",
+      componentName: "service",
+      tooltip: {
+        content: 'Name of the service type for the policy ex. "cloud-object-storage"',
+        alignModal: "bottom-left",
+        align: "top-left"
+      },
+      labelText: "Service Type",
+      field: "service",
+      value: this.state.resources.service,
+      isModal: this.props.isModal,
+      onChange: this.handleInputResource,
+      invalid: false
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: "resource_type",
+      componentName: "resource_type",
+      field: "resource_type",
+      tooltip: {
+        content: 'Name of the resource type for the policy ex. "resource-group"',
+        alignModal: "bottom-left"
+      },
+      invalid: false,
+      value: this.state.resources.resource_type,
+      isModal: this.props.isModal,
+      onChange: this.handleInputResource,
+      labelText: "Resource Type"
+    })));
+  }
+}
+AccessGroupPolicyForm.defaultProps = {
+  data: {
+    name: "",
+    resources: {
+      resource_group: "",
+      resource_type: "",
+      resource: "",
+      service: "",
+      resource_instance_id: ""
+    }
+  },
+  resourceGroups: [],
+  isModal: false
+};
+AccessGroupPolicyForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    resources: PropTypes__default["default"].shape({
+      resource_group: PropTypes__default["default"].string,
+      // can be null
+      resource_type: PropTypes__default["default"].string.isRequired,
+      resource: PropTypes__default["default"].string.isRequired,
+      service: PropTypes__default["default"].string.isRequired,
+      resource_instance_id: PropTypes__default["default"].string.isRequired
+    }).isRequired
+  }).isRequired,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  helperTextCallback: PropTypes__default["default"].func.isRequired
+};
+
+const conditionOperators = {
+  EQUALS: "Equals",
+  EQUALS_IGNORE_CASE: "Equals (Ignore Case)",
+  IN: "In",
+  NOT_EQUALS_IGNORE_CASE: "Not Equals (Ignore Case)",
+  NOT_EQUALS: "Not Equals",
+  CONTAINS: "Contains"
+};
+class AccessGroupDynamicPolicyForm extends React__default["default"].Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleInputCondition = this.handleInputCondition.bind(this);
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputCondition(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    let conditions = {
+      ...this.state.conditions
+    };
+    if (name === "operator") {
+      conditions[name] = lazyZ.snakeCase(value.replace(/[()]/g, "")).toUpperCase(); // remove all parentheses
+    } else {
+      conditions[name] = value;
+    }
+    this.setState({
+      conditions
+    });
+  }
+  render() {
+    let conditionOperatorGroups = [];
+    lazyZ.eachKey(conditionOperators, key => {
+      conditionOperatorGroups.push(conditionOperators[key]);
+    });
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: "name",
+      componentName: "dynamic_policies",
+      field: "name",
+      labelText: "Name",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      invalid: this.props.invalidCallback("name", this.state, this.props),
+      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
+      tooltip: {
+        content: "How many hours authenticated users can work before refresh"
+      },
+      formName: "expiration",
+      max: 24,
+      value: this.state.expiration,
+      name: "expiration",
+      labelText: "Expiration Hours",
+      isModal: this.props.isModal,
+      handleInputChange: this.handleInputChange
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: "identity_provider",
+      tooltip: {
+        content: "URI for identity provider",
+        alignModal: "bottom-left"
+      },
+      componentName: "identity_provider",
+      field: "identity_provider",
+      isModal: this.props.isModal,
+      labelText: "Identity Provider",
+      value: this.state.identity_provider,
+      invalid: this.props.invalidCallback("identity_provider", this.state, this.props),
+      onChange: this.handleInputChange,
+      className: "textInputWide"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+      className: "marginBottomSmall"
+    }, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+      name: "Condition Configuration",
+      type: "subHeading"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: "claim",
+      tooltip: {
+        content: "Key value to evaluate the condition against",
+        alignModal: "bottom-left"
+      },
+      componentName: "claim",
+      field: "claim",
+      isModal: this.props.isModal,
+      labelText: "Condition Claim",
+      value: this.state.conditions.claim,
+      invalid: false,
+      onChange: this.handleInputCondition
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: "dynamic_policies",
+      tooltip: {
+        content: "The operation to perform on the claim."
+      },
+      value: conditionOperators[this.state.conditions.operator],
+      groups: conditionOperatorGroups,
+      field: "operator",
+      isModal: this.props.isModal,
+      name: "operator",
+      disableInvalid: true,
+      labelText: "Condition Operator",
+      handleInputChange: this.handleInputCondition
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: "value",
+      tooltip: {
+        content: "Value to be compared against"
+      },
+      componentName: "value",
+      field: "value",
+      isModal: this.props.isModal,
+      value: this.state.conditions.value,
+      labelText: "Condition Value",
+      invalid: false,
+      onChange: this.handleInputCondition
+    })));
+  }
+}
+AccessGroupDynamicPolicyForm.defaultProps = {
+  data: {
+    name: "",
+    identity_provider: "",
+    expiration: 1,
+    conditions: {
+      claim: "",
+      operator: "",
+      value: ""
+    }
+  },
+  isModal: false
+};
+AccessGroupDynamicPolicyForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    identity_provider: PropTypes__default["default"].string.isRequired,
+    expiration: PropTypes__default["default"].number.isRequired,
+    conditions: PropTypes__default["default"].shape({
+      claim: PropTypes__default["default"].string.isRequired,
+      operator: PropTypes__default["default"].string.isRequired,
+      value: PropTypes__default["default"].string.isRequired
+    }).isRequired
+  }).isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  helperTextCallback: PropTypes__default["default"].func.isRequired
+};
+
+class AccessGroupForm extends React__default["default"].Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  render() {
+    let dynamicPolicyProps = {
+      invalidCallback: this.props.invalidDynamicPolicyCallback,
+      invalidTextCallback: this.props.invalidDynamicPolicyTextCallback,
+      arrayParentName: this.props.data.name,
+      helperTextCallback: this.props.dynamicPolicyHelperTextCallback
+    };
+    lazyZ.transpose({
+      ...this.props.dynamicPolicyProps
+    }, dynamicPolicyProps);
+    let policyProps = {
+      invalidCallback: this.props.invalidPolicyCallback,
+      invalidTextCallback: this.props.invalidPolicyTextCallback,
+      arrayParentName: this.props.data.name,
+      helperTextCallback: this.props.policyHelperTextCallback
+    };
+    lazyZ.transpose({
+      ...this.props.policyProps
+    }, policyProps);
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: "name",
+      componentName: "access_groups",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      className: "fieldWidth",
+      hideHelperText: true,
+      invalid: this.props.invalidCallback("name", this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: "description",
+      componentName: "description",
+      tooltip: {
+        content: "Description of the access group"
+      },
+      field: "description",
+      labelText: "Description",
+      value: this.state.description,
+      onChange: this.handleInputChange,
+      isModal: this.props.isModal,
+      className: "textInputWide",
+      hideHelperText: true,
+      invalid: false
+    })), this.props.isModal === false && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+      name: "Policies",
+      subHeading: true,
+      addText: "Create a Policy",
+      arrayData: this.props.data.policies,
+      innerForm: AccessGroupPolicyForm,
+      disableSave: this.props.policyProps.disableSave,
+      onDelete: this.props.policyProps.onDelete,
+      onSave: this.props.policyProps.onSave,
+      onSubmit: this.props.policyProps.onSubmit,
+      propsMatchState: this.props.propsMatchState,
+      innerFormProps: {
+        ...policyProps
+      },
+      hideAbout: true,
+      toggleFormProps: {
+        hideName: true,
+        submissionFieldName: "policies",
+        disableSave: () => {
+          return false;
+        },
+        type: "formInSubForm"
+      }
+    }), /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+      name: "Dynamic Policies",
+      subHeading: true,
+      addText: "Create a Dynamic Policy",
+      arrayData: this.props.data.dynamic_policies,
+      innerForm: AccessGroupDynamicPolicyForm,
+      disableSave: this.props.dynamicPolicyProps.disableSave,
+      onDelete: this.props.dynamicPolicyProps.onDelete,
+      onSave: this.props.dynamicPolicyProps.onSave,
+      onSubmit: this.props.dynamicPolicyProps.onSubmit,
+      propsMatchState: this.props.propsMatchState,
+      innerFormProps: {
+        ...dynamicPolicyProps
+      },
+      hideAbout: true,
+      toggleFormProps: {
+        hideName: true,
+        submissionFieldName: "dynamic_policies",
+        disableSave: () => {
+          return false;
+        },
+        type: "formInSubForm"
+      }
+    })));
+  }
+}
+AccessGroupForm.defaultProps = {
+  data: {
+    name: "",
+    description: ""
+  },
+  isModal: false
+};
+AccessGroupForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    description: PropTypes__default["default"].string.isRequired
+  }).isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired
+};
+
+exports.AccessGroupDynamicPolicyForm = AccessGroupDynamicPolicyForm;
+exports.AccessGroupForm = AccessGroupForm;
+exports.AccessGroupPolicyForm = AccessGroupPolicyForm;
 exports.AppIdForm = AppIdForm;
 exports.AppIdKeyForm = AppIdKeyForm;
 exports.AtrackerForm = AtrackerForm;

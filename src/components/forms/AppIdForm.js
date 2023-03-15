@@ -1,20 +1,16 @@
 import React, { Component } from "react";
-import { Form } from "@carbon/react";
-import { checkNullorEmptyString } from "../../lib";
 import {
   buildFormDefaultInputMethods,
   buildFormFunctions,
 } from "../component-utils";
 import AppIdKeyForm from "./AppIdKeyForm";
-import FormModal from "../FormModal";
-import EmptyResourceTile from "../EmptyResourceTile";
 import { IcseNameInput, IcseToggle } from "../Inputs";
-import { IcseHeading, IcseFormGroup } from "../Utils";
+import { IcseFormGroup } from "../Utils";
 import { IcseSelect } from "../Dropdowns";
-import { DeleteModal } from "../Modals";
-import { DeleteButton, SaveAddButton, EditCloseIcon } from "../Buttons";
+import IcseFormTemplate from "../IcseFormTemplate";
 import "../styles/AppIdForm.css";
 import PropTypes from "prop-types";
+import { transpose } from "lazy-z";
 
 /**
  * AppIdForm
@@ -28,51 +24,8 @@ class AppIdForm extends Component {
     this.state = { ...this.props.data };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
-    this.toggleModal = this.toggleModal.bind(this);
-    this.toggleDeleteModal = this.toggleDeleteModal.bind(this);
-    this.handleKeyAdd = this.handleKeyAdd.bind(this);
-    this.handleKeyDelete = this.handleKeyDelete.bind(this);
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
-  }
-
-  /**
-   * If the appid form has been updated, must update state accordingly
-   * @param {Object} prevProps
-   * */
-  componentDidUpdate(prevProps) {
-    this.props.componentDidUpdateCallback(this.state, this.props);
-  }
-
-  /**
-   * toggleModal modal for creating or editing AppId Key
-   * * @param name name of key to edit
-   */
-  toggleModal(name) {
-    let tempValueState;
-    typeof name !== "object"
-      ? (tempValueState = {
-          open: !this.state.open,
-          editKey: true,
-          keyNameToEdit: name,
-        })
-      : (tempValueState = {
-          open: !this.state.open,
-          editKey: false,
-        });
-    this.setState(tempValueState);
-  }
-
-  /**
-   * toggle delete appid key modal on and off
-   * @param name name of key to delete
-   */
-  toggleDeleteModal(name) {
-    let tempValueState = {
-      showDeleteModal: !this.state.showDeleteModal,
-      keyNameToDelete: name,
-    };
-    this.setState(tempValueState);
   }
 
   /**
@@ -97,54 +50,14 @@ class AppIdForm extends Component {
     this.setState(newAppIdState);
   }
 
-  /**
-   * adds key to the appid keys list and closes the modal
-   * @param {object} data
-   * @param {object} data.key_name
-   */
-  handleKeyAdd(data) {
-    let saveType = ``;
-    let newAppIdState = { ...this.state };
-    if (this.state.editKey === true) {
-      saveType = "edit";
-      newAppIdState.keys[
-        newAppIdState.keys.indexOf(newAppIdState.keyNameToEdit)
-      ] = data.key_name;
-    } else {
-      saveType = "add";
-      newAppIdState.keys.push(data.key_name);
-    }
-    newAppIdState.open = false;
-    return new Promise((resolve, reject) => {
-      this.props.saveCallback(saveType);
-      resolve();
-    }).then(() => {
-      //set state after save is run using promise
-      this.setState(newAppIdState);
-    });
-  }
-
-  /**
-   * removes key from the appid keys list and closes the modal
-   * @param name key which needs to be deleted
-   */
-  handleKeyDelete(name) {
-    let newKeys = this.state.keys.filter((item) => item !== name);
-    let newAppIdState = { ...this.state };
-    newAppIdState.keys = newKeys;
-    newAppIdState.showDeleteModal = false;
-    return new Promise((resolve, reject) => {
-      this.props.saveCallback("delete");
-      resolve();
-    }).then(() => {
-      //set state after save is run using promise
-      this.setState(newAppIdState);
-    });
-  }
-
   render() {
+    let keyProps = {
+      invalidCallback: this.props.invalidKeyCallback,
+      invalidTextCallback: this.props.invalidKeyTextCallback,
+    };
+    transpose({ ...this.props.keyProps }, keyProps);
     return (
-      <Form id="appid-form">
+      <div id="appid-form">
         <IcseFormGroup>
           {/* use data toggle */}
           <IcseToggle
@@ -158,25 +71,21 @@ class AppIdForm extends Component {
           />
           {/* name text input */}
           <IcseNameInput
-            id={this.state.name + "-name"}
-            componentName={this.state.name}
+            id={this.props.data.name + "-appid-name"}
+            componentName={this.props.data.name + "-appid-name"}
             placeholder="my-appid-name"
             value={this.state.name}
             onChange={this.handleInputChange}
             hideHelperText
-            invalid={this.props.invalidCallback("name", this.state, this.props)}
-            invalidText={this.props.invalidTextCallback(
-              "name",
-              this.state,
-              this.props
-            )}
+            invalid={this.props.invalidCallback(this.state, this.props)}
+            invalidText={this.props.invalidTextCallback(this.state, this.props)}
             className="fieldWidth"
           />
           {/* Select Resource Group */}
           <IcseSelect
             labelText="Resource Group"
             name="resource_group"
-            formName="resource_group"
+            formName={this.props.data.name + "-appid-rg"}
             groups={this.props.resourceGroups}
             value={this.state.resource_group}
             handleInputChange={this.handleInputChange}
@@ -184,84 +93,29 @@ class AppIdForm extends Component {
             className="fieldWidth"
           />
         </IcseFormGroup>
-        <IcseHeading
-          name="App ID Keys"
-          type="subHeading"
-          className="marginBottomSmall"
-          noLabelText
-          tooltip={{
-            content:
-              "Keys can be added to connect an application to an IBM Cloud service.",
-          }}
-          buttons={
-            <SaveAddButton
-              id="appid-key-create"
-              type="add"
-              onClick={this.toggleModal}
-              className="forceTertiaryButtonStyles"
-              disabled={
-                this.props.invalidCallback("name", this.state, this.props) ||
-                checkNullorEmptyString(this.state.resource_group)
-              }
-              noDeleteButton
-            />
-          }
-        />
-        <div>
-          <FormModal
-            name={(this.state.editKey ? "Edit" : "Add") + " an App ID Key"}
-            show={this.state.open}
-            onRequestSubmit={this.handleKeyAdd}
-            onRequestClose={this.toggleModal}
-            size="sm"
-          >
-            <AppIdKeyForm
-              shouldDisableSubmit={this.props.shouldDisableSubmitCallback(
-                this.state,
-                this.props
-              )}
-              keys={this.state.keys}
-              invalidCallback={this.props.invalidCallback}
-              invalidTextCallback={this.props.invalidTextCallback}
-            />
-          </FormModal>
-        </div>
-        <div>
-          {/* render each appid key */}
-          {this.state.keys.map((data, index) => (
-            <div
-              className={
-                "positionRelative displayFlex formInSubForm marginBottomSmall alignItemsCenter spaceBetween"
-              }
-              key={`${data}-${this.state.keys[index]}`}
-            >
-              {data}
-              <div className="alignButtons">
-                <EditCloseIcon
-                  hoverText="Edit AppID Key"
-                  type="edit"
-                  disabled={false}
-                  onClick={() => this.toggleModal(data)}
-                />
-                <DeleteButton
-                  name={data}
-                  onClick={() => this.toggleDeleteModal(data)}
-                />
-              </div>
-            </div>
-          ))}
-          {/* confirm deletion modal */}
-          <DeleteModal
-            name={this.state.keyNameToDelete || ""}
-            modalOpen={this.state.showDeleteModal}
-            //need to call toggleDeleteModal with "" name argument or else canceling deletion passes in the entire event to the name argument and causes the page to error
-            onModalClose={() => this.toggleDeleteModal("")}
-            onModalSubmit={() =>
-              this.handleKeyDelete(this.state.keyNameToDelete)
-            }
+        {this.props.isModal !== true && (
+          <IcseFormTemplate
+            name="AppID Keys"
+            subHeading
+            addText="Create an AppID Key"
+            arrayData={this.props.data.keys}
+            innerForm={AppIdKeyForm}
+            disableSave={this.props.keyProps.disableSave}
+            onDelete={this.props.keyProps.onDelete}
+            onSave={this.props.keyProps.onSave}
+            onSubmit={this.props.keyProps.onSubmit}
+            propsMatchState={this.props.propsMatchState}
+            innerFormProps={{ ...keyProps }}
+            hideAbout
+            toggleFormProps={{
+              hideName: true,
+              submissionFieldName: "appid_key",
+              disableSave: this.props.keyProps.disableSave,
+              type: "formInSubForm",
+            }}
           />
-        </div>
-      </Form>
+        )}
+      </div>
     );
   }
 }
@@ -273,22 +127,17 @@ AppIdForm.defaultProps = {
     use_data: false,
     keys: [],
   },
-  key_name: "",
-  open: false,
-  editKey: false,
-  showDeleteModal: false,
-  keyNameToEdit: "",
-  keyNameToDelete: "",
+  isModal: false,
 };
 
 AppIdForm.propTypes = {
+  isModal: PropTypes.bool.isRequired,
   data: PropTypes.shape({
     name: PropTypes.string,
     resource_group: PropTypes.string,
     use_data: PropTypes.bool,
     keys: PropTypes.array.isRequired,
   }).isRequired,
-  key_name: PropTypes.string.isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   invalidCallback: PropTypes.func,
   invalidTextCallback: PropTypes.func,
