@@ -85,10 +85,10 @@ class SshKeyForm extends Component {
                 value={this.state.public_key}
                 onChange={this.handleInputChange}
                 invalid={
-                  this.props.invalidKeyCallback(this.state.public_key).invalid
+                  this.props.invalidKeyCallback(this.state, this.props).invalid
                 }
                 invalidText={
-                  this.props.invalidKeyCallback(this.state.public_key)
+                  this.props.invalidKeyCallback(this.state, this.props)
                     .invalidText
                 }
               />
