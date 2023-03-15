@@ -5849,6 +5849,7 @@ var SccForm = /*#__PURE__*/function (_Component) {
         invalidText: lib_10("credential_description", this.state.credential_description, this.props.descriptionRegex).invalidText
       })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.Dropdown, {
         ariaLabel: "Dropdown",
+        label: "Region",
         id: "location",
         items: sccRegions,
         titleText: "Region",

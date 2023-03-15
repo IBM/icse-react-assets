@@ -82,18 +82,12 @@ class SccForm extends Component {
             onChange={this.handleInputChange}
             maxLength={255}
             invalid={
-              invalidRegex(
-                "id",
-                this.state.id,
-                this.props.descriptionRegex
-              ).invalid
+              invalidRegex("id", this.state.id, this.props.descriptionRegex)
+                .invalid
             }
             invalidText={
-              invalidRegex(
-                "id",
-                this.state.id,
-                this.props.descriptionRegex
-              ).invalidText
+              invalidRegex("id", this.state.id, this.props.descriptionRegex)
+                .invalidText
             }
           />
           {/* collector-description text input */}
@@ -165,8 +159,9 @@ class SccForm extends Component {
           />
         </IcseFormGroup>
         <IcseFormGroup>
-        <Dropdown
+          <Dropdown
             ariaLabel="Dropdown"
+            label="Region"
             id="location"
             items={sccRegions}
             titleText="Region"
