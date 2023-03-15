@@ -78,19 +78,6 @@ class NetworkAclForm extends Component {
             invalid={checkNullorEmptyString(this.state.resource_group)}
             invalidText="Select a Resource Group."
           />
-          <IcseToggle
-            tooltip={{
-              content:
-                "Automatically add to ACL rules needed to allow cluster provisioning from private service endpoints.",
-              link: "https://cloud.ibm.com/docs/openshift?topic=openshift-vpc-acls",
-            }}
-            labelText="Use Cluster Rules"
-            toggleFieldName="add_cluster_rules"
-            defaultToggled={this.state.add_cluster_rules}
-            id={this.state.name + "acl-add-rules-toggle"}
-            onToggle={this.handleToggle}
-            isModal={this.props.isModal}
-          />
         </IcseFormGroup>
         {/* Networking Rules & update/delete should not be shown within the ACL create modal */}
         {!this.props.isModal && (
@@ -118,7 +105,6 @@ class NetworkAclForm extends Component {
 NetworkAclForm.defaultProps = {
   data: {
     name: "",
-    add_cluster_rules: false,
     rules: [],
   },
   isModal: false,
@@ -127,7 +113,6 @@ NetworkAclForm.defaultProps = {
 NetworkAclForm.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    add_cluster_rules: PropTypes.bool.isRequired,
     rules: PropTypes.array,
     resource_group: PropTypes.string,
   }),

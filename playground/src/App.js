@@ -181,7 +181,6 @@ const NetworkAclFormStory = () => {
     <NetworkAclForm
       data={{
         name: "example-acl",
-        add_cluster_rules: false,
         rules: [],
         resource_group: "",
       }}

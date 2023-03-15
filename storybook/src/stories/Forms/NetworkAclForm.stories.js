@@ -78,13 +78,6 @@ export default {
       control: "none",
       type: { required: true }, // required prop or not
     },
-    ["data.add_cluster_rules"]: {
-      description:
-        "Boolean that determines if cluster rules should be added or not",
-      control: "none",
-      type: { required: true }, // required prop or not
-      table: { defaultValue: { summary: false } },
-    },
     ["data.rules"]: {
       description: "Array of rule objects",
       control: "none",
@@ -153,7 +146,6 @@ const NetworkAclFormStory = () => {
     <NetworkAclForm
       data={{
         name: "example-acl",
-        add_cluster_rules: false,
         rules: [],
         resource_group: "",
       }}
