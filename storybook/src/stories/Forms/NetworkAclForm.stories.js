@@ -62,6 +62,12 @@ export default {
       type: { required: true },
       control: "none",
     },
+    resourceGroups: {
+      description:
+        "An array of strings containing the names of resource groups to select",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
     data: {
       summary: "An optional object",
       type: { required: false }, // required prop or not
@@ -72,17 +78,16 @@ export default {
       control: "none",
       type: { required: true }, // required prop or not
     },
-    ["data.add_cluster_rules"]: {
-      description:
-        "Boolean that determines if cluster rules should be added or not",
-      control: "none",
-      type: { required: true }, // required prop or not
-      table: { defaultValue: { summary: false } },
-    },
     ["data.rules"]: {
       description: "Array of rule objects",
       control: "none",
       type: { required: true }, // required prop or not
+    },
+    ["data.resource_group"]: {
+      description:
+        "A string specifying the name of the VPC resource group selected",
+      control: "none",
+      type: { required: false }, // required prop or not
     },
   },
   parameters: {
@@ -141,9 +146,10 @@ const NetworkAclFormStory = () => {
     <NetworkAclForm
       data={{
         name: "example-acl",
-        add_cluster_rules: false,
         rules: [],
+        resource_group: "",
       }}
+      resourceGroups={["service-rg", "management-rg", "workload-rg"]}
       helperTextCallback={helperTextCallback}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}

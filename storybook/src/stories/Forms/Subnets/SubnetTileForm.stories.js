@@ -56,7 +56,7 @@ export default {
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.acl_name"]: {
+    ["data.network_acl"]: {
       description: "String, subnet network ACL",
       control: "none",
       type: { required: false }, // required prop or not
@@ -102,7 +102,7 @@ export default {
 const SubnetTileFormStory = ({ ...args }) => {
   function disableSaveCallback(stateData, componentProps) {
     return (
-      stateData.acl_name === "" || deepEqual(stateData, componentProps.data)
+      stateData.network_acl === "" || deepEqual(stateData, componentProps.data)
     );
   }
   return (
@@ -115,23 +115,23 @@ const SubnetTileFormStory = ({ ...args }) => {
           name: "example-subnet-zone-1",
           cidr: "10.10.10.10/24",
           public_gateway: false,
-          acl_name: "example-acl",
+          network_acl: "example-acl",
         },
         {
           name: "example-subnet-zone-2",
           cidr: "10.20.10.10/24",
           public_gateway: false,
-          acl_name: "example-acl",
+          network_acl: "example-acl",
         },
         {
           name: "example-subnet-zone-3",
           cidr: "10.30.10.10/24",
           public_gateway: false,
-          acl_name: "example-acl",
+          network_acl: "example-acl",
         },
       ]}
       enabledPublicGateways={[1, 2]}
-      onSave={()=>{}}
+      onSave={() => {}}
     />
   );
 };
