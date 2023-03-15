@@ -84,14 +84,14 @@ class SccForm extends Component {
             invalid={
               invalidRegex(
                 "id",
-                this.state.scope_description,
+                this.state.id,
                 this.props.descriptionRegex
               ).invalid
             }
             invalidText={
               invalidRegex(
                 "id",
-                this.state.scope_description,
+                this.state.id,
                 this.props.descriptionRegex
               ).invalidText
             }

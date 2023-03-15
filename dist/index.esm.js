@@ -5800,8 +5800,8 @@ var SccForm = /*#__PURE__*/function (_Component) {
         value: this.state.id,
         onChange: this.handleInputChange,
         maxLength: 255,
-        invalid: lib_10("id", this.state.scope_description, this.props.descriptionRegex).invalid,
-        invalidText: lib_10("id", this.state.scope_description, this.props.descriptionRegex).invalidText
+        invalid: lib_10("id", this.state.id, this.props.descriptionRegex).invalid,
+        invalidText: lib_10("id", this.state.id, this.props.descriptionRegex).invalidText
       }), /*#__PURE__*/React.createElement(IcseTextInput, {
         id: "scc_passphrase",
         tooltip: {
