@@ -39,7 +39,7 @@ export default {
     },
     invalidKeyCallback: {
       description:
-        "An array of strings containing the names of KMS keys to select",
+        "Callback function that takes in stateData and componentProps and returns an object of invalid status and invalid text",
       type: { required: true }, // required prop or not
       control: "none",
     },
@@ -83,10 +83,10 @@ const SshKeyFormStory = () => {
       : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
   }
 
-  function invalidKeyCallback(str) {
+  function invalidKeyCallback(stateData, componentProps) {
     const regex = /^ssh-rsa AAAA[0-9A-Za-z+\/]+([=]{0,3}([^@]+@[^@]+))?$/g;
     return {
-      invalid: str.match(regex) === null,
+      invalid: stateData.public_key.match(regex) === null,
       invalidText: `Provide a unique SSH public key that matches ${regex} and does not exist in the IBM Cloud account in your region`,
     };
   }
