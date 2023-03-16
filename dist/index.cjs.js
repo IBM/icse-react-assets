@@ -5037,7 +5037,7 @@ var NetworkingRulesOrderCard = /*#__PURE__*/function (_Component) {
       }), this.state.rules.map(function (rule, index) {
         return /*#__PURE__*/React__default["default"].createElement("div", {
           key: "rule-div-" + rule.name + "-wrapper",
-          className: "marginBottomSmall positionRelative"
+          className: "marginBottomSmall positionRelative formInSubForm"
         }, /*#__PURE__*/React__default["default"].createElement(NetworkingRuleForm, {
           hide: _this3.state.collapse[rule.name],
           onToggle: function onToggle() {

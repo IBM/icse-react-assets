@@ -195,7 +195,7 @@ class NetworkingRulesOrderCard extends Component {
         {this.state.rules.map((rule, index) => (
           <div
             key={"rule-div-" + rule.name + "-wrapper"}
-            className="marginBottomSmall positionRelative"
+            className="marginBottomSmall positionRelative formInSubForm"
           >
             <NetworkingRuleForm
               hide={this.state.collapse[rule.name]}
