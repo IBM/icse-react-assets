@@ -6224,7 +6224,8 @@ SshKeyForm.defaultProps = {
   data: {
     name: "",
     public_key: "",
-    use_data: false
+    use_data: false,
+    resource_group: ""
   },
   resourceGroups: [],
   isModal: false
