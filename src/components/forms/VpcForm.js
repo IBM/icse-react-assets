@@ -181,10 +181,7 @@ class VpcNetworkForm extends React.Component {
               key={this.props.data.name + "-gateway-toggle-" + zone}
               id={this.props.data.name + "-pgw-" + zone}
               labelText={"Create in Zone " + parseIntFromZone(zone)}
-              defaultToggled={contains(
-                this.state.publicGateways,
-                parseIntFromZone(zone)
-              )}
+              defaultToggled={contains(this.state.publicGateways, zone)}
               onToggle={() => this.handPgwToggle(zone)}
               className={classNameModalCheck + " leftTextAlign"}
             />
