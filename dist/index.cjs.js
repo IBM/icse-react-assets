@@ -2246,7 +2246,6 @@ ToggleForm.propTypes = {
   noSaveButton: PropTypes__default["default"].bool.isRequired,
   useAddButton: PropTypes__default["default"].bool.isRequired,
   tabPanel: PropTypes__default["default"].shape({
-    name: PropTypes__default["default"].string.isRequired,
     hideFormTitleButton: PropTypes__default["default"].bool // can be null
   }).isRequired
 };
@@ -5180,7 +5179,7 @@ var NetworkAclForm = /*#__PURE__*/function (_Component) {
       // ability to move rules up and down
       React__default["default"].createElement(NetworkingRulesOrderCard, {
         rules: this.state.rules,
-        vpc_name: this.props.arrayParentName,
+        vpc_name: this.props.vpc_name,
         parent_name: this.props.data.name,
         networkRuleOrderDidChange: this.networkRuleOrderDidChange,
         isAclForm: true,
