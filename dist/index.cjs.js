@@ -7026,7 +7026,7 @@ var VpcNetworkForm = /*#__PURE__*/function (_React$Component) {
           key: _this2.props.data.name + "-gateway-toggle-" + zone,
           id: _this2.props.data.name + "-pgw-" + zone,
           labelText: "Create in Zone " + lazyZ.parseIntFromZone(zone),
-          defaultToggled: utils.contains(_this2.state.publicGateways, zone),
+          defaultToggled: _this2.state.publicGateways.indexOf(lazyZ.parseIntFromZone(zone)) !== -1,
           onToggle: function onToggle() {
             return _this2.handPgwToggle(zone);
           },
