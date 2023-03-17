@@ -16,7 +16,6 @@ import { DynamicRender, IcseFormGroup, StatelessToggleForm } from "../Utils";
 import { DeleteButton, SaveAddButton, UpDownButtons } from "../Buttons";
 import { IcseNameInput, IcseTextInput } from "../Inputs";
 import { IcseSelect } from "../Dropdowns";
-import "../styles/NetworkingRuleForm.css";
 
 /** NetworkingRuleForm
  * @param {Object} props

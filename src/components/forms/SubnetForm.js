@@ -46,7 +46,7 @@ class SubnetForm extends React.Component {
     return (
       <Tile
         key={this.props.vpc_name + "-subnets-" + this.props.data.name}
-        className="marginRight fieldWidth"
+        className="marginRightSubnetTile fieldWidth"
       >
         <IcseHeading
           name={this.props.data.name}

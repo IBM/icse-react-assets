@@ -7,10 +7,8 @@ import {
   StructuredListCell,
 } from "@carbon/react";
 import PropTypes from "prop-types";
-import "./styles/Utils.css";
-import "./styles/Docs.css";
 
-const DocTextField = props => {
+const DocTextField = (props) => {
   return (
     <div
       className={
@@ -35,7 +33,7 @@ DocTextField.propTypes = {
   text: PropTypes.string.isRequired,
 };
 
-const StructuredList = props => {
+const StructuredList = (props) => {
   return (
     <StructuredListWrapper className="marginBottom">
       {props.headers && (
@@ -67,7 +65,7 @@ StructuredList.propTypes = {
   list: PropTypes.array.isRequired,
 };
 
-const DocTable = props => {
+const DocTable = (props) => {
   let headers = [];
   let list = [...props.list]; // copy list, required due to reference errors
 
@@ -85,7 +83,7 @@ DocTable.propTypes = {
   list: PropTypes.array.isRequired,
 };
 
-const RelatedLinks = props => {
+const RelatedLinks = (props) => {
   return (
     <>
       <div className="smallerText">Related Links</div>
@@ -111,7 +109,7 @@ RelatedLinks.propTypes = {
   ).isRequired,
 };
 
-const Docs = props => {
+const Docs = (props) => {
   return (
     <div className="subForm leftTextAlign about">
       {props.content.map((field, index) =>

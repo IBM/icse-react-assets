@@ -2,8 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { FilterableMultiSelect } from "@carbon/react";
 import { addClassName } from "../lib";
-import "./styles/MultiSelects.css";
-import "./styles/Modals.css";
 import { isNullOrEmptyString, prettyJSON } from "lazy-z";
 
 /**

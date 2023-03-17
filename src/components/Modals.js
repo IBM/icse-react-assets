@@ -1,6 +1,5 @@
 import { Modal } from "@carbon/react";
 import PropTypes from "prop-types";
-import "./styles/Modals.css";
 import React from "react";
 
 /**

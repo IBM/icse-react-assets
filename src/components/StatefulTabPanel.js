@@ -5,7 +5,6 @@ import { DynamicRender, IcseHeading } from "./Utils";
 import { SaveAddButton } from "./Buttons";
 import { isFunction } from "lazy-z";
 import PropTypes from "prop-types";
-import "./styles/StatefulTabPanel.css";
 
 /**
  * StatefulTabPanel wrapper for non array forms
