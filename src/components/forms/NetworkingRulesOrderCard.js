@@ -222,6 +222,7 @@ class NetworkingRulesOrderCard extends Component {
               onSave={this.props.onRuleSave}
               onDelete={this.props.onRuleDelete}
               parent_name={this.props.parent_name}
+              {...this.props}
             />
           </div>
         ))}
