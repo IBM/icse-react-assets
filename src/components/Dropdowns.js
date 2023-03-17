@@ -11,7 +11,6 @@ import PropTypes from "prop-types";
 import { addClassName, prependEmptyStringWhenNull } from "../lib";
 import { DynamicToolTipWrapper } from "./Tooltips";
 import React from "react";
-import "./styles/Dropdowns.css";
 
 export const IcseSelect = (props) => {
   let invalid = // automatically set to invalid is is null or empty string and invalid not disabled

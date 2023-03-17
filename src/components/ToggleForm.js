@@ -10,7 +10,6 @@ import {
 } from "./Utils";
 import PropTypes from "prop-types";
 import StatefulTabPanel from "./StatefulTabPanel";
-import "./styles/Utils.css";
 
 class ToggleForm extends React.Component {
   constructor(props) {

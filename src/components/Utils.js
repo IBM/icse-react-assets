@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { addClassName, toggleMarginBottom } from "../lib/index";
-import "./styles/Utils.css";
 import { DynamicToolTipWrapper } from "./Tooltips";
 import { EditCloseIcon } from "./Buttons";
 

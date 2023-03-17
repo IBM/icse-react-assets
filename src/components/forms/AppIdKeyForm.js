@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { buildFormFunctions } from "../component-utils";
 import { IcseTextInput } from "../Inputs";
-import "../styles/AppIdKeyForm.css";
 
 class AppIdKeyForm extends React.Component {
   constructor(props) {

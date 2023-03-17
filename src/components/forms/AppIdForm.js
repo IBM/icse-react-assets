@@ -8,7 +8,6 @@ import { IcseNameInput, IcseToggle } from "../Inputs";
 import { IcseFormGroup } from "../Utils";
 import { IcseSelect } from "../Dropdowns";
 import IcseFormTemplate from "../IcseFormTemplate";
-import "../styles/AppIdForm.css";
 import PropTypes from "prop-types";
 import { transpose } from "lazy-z";
 

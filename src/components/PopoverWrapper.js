@@ -2,7 +2,6 @@ import { Popover, PopoverContent } from "@carbon/react";
 import React from "react";
 import PropTypes from "prop-types";
 import { addClassName } from "../lib/index";
-import "./styles/PopoverWrapper.css";
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover

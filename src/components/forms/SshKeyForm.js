@@ -9,7 +9,6 @@ import { IcseNameInput, IcseToggle } from "../Inputs";
 import { IcseSelect } from "../Dropdowns";
 import PropTypes from "prop-types";
 import { kebabCase } from "lazy-z";
-import "../styles/SshKeyForm.css";
 
 /**
  * ssh key form

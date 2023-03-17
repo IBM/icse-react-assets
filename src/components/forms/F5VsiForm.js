@@ -11,7 +11,6 @@ import { FetchSelect, IcseSelect } from "../Dropdowns";
 import { IcseNameInput } from "../Inputs";
 import { SshKeyMultiSelect } from "../MultiSelects";
 import { SaveAddButton } from "../Buttons";
-import "../styles/Utils.css";
 
 class F5VsiForm extends Component {
   constructor(props) {

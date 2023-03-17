@@ -1,0 +1,320 @@
+/* vars and themes */
+:root {
+  --background: #ffffff;
+  --subForm: #f4f4f4;
+  --formInSubForm: #fffdfd;
+  --cds-text-primary: #161616;
+  --cds-text-secondary: #525252;
+  --cds-field: #f4f4f4;
+  --cds-border-strong: #8d8d8d;
+  --blue: #0f62fe;
+  --red: #da1e28;
+}
+
+.dark {
+  --background: #161616;
+  --subForm: #262626;
+  --formInSubForm: #414141;
+  --cds-text-primary: #f4f4f4;
+  --cds-text-secondary: #c6c6c6;
+  --cds-field: #363636;
+  --cds-border-strong: #8897a2;
+  --cds-layer: #262626;
+  --cds-layer-hover: #363636;
+  --cds-field-02: #363636;
+  --cds-icon-secondary: #c6c6c6;
+  --cds-icon-primary: #c6c6c6;
+  --placeholder: #565656;
+  --cds-field-hover: #464646;
+  --cds-layer-selected: #525252;
+  --cds-background-inverse: #f4f4f4;
+  --cds-text-inverse: #262626;
+}
+
+.dark {
+  background-color: var(--background);
+}
+
+.dark p {
+  color: #f4f4f4;
+}
+
+.dark i.chevron > svg {
+  fill: #f4f4f4;
+}
+
+.dark h4 {
+  color: #f4f4f4;
+}
+
+.dark .underConstruction > svg {
+  fill: #ffffff;
+}
+
+.dark ::placeholder {
+  color: var(--placeholder);
+}
+
+/* general alignment classes */
+
+.displayFlex {
+  display: flex;
+}
+
+.fitContent {
+  width: fit-content;
+}
+
+.alignItemsCenter {
+  align-items: center;
+}
+
+.widthOneHundredPercent {
+  width: 100%;
+}
+
+.marginBottom {
+  margin-bottom: 2rem;
+}
+
+.marginBottomSmall {
+  margin-bottom: 1rem;
+}
+
+.evenSpacing {
+  gap: 3vw;
+}
+
+.positionRelative {
+  position: relative;
+}
+
+.icseFormTitleMinHeight {
+  min-height: 32px;
+}
+
+.spaceBetween {
+  justify-content: space-between;
+}
+
+.leftTextAlign {
+  text-align: left;
+}
+
+.fieldWidth {
+  width: 14rem;
+}
+
+.fieldWidthSmaller {
+  width: 11rem;
+}
+
+.fieldWidthSmallest {
+  width: 8rem;
+}
+
+.fieldWidthBigger {
+  width: 40rem;
+}
+
+.textInputWide {
+  width: 30rem;
+}
+
+.textInputMedium {
+  width: 20rem;
+}
+
+/* backhground classes */
+.formInSubForm {
+  margin-top: 0rem;
+  background: var(--formInSubForm);
+  padding: 1rem;
+}
+
+.subForm {
+  background: var(--subForm);
+  padding: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Tooltips */
+.labelRow {
+  display: inline-flex !important;
+  align-items: center;
+}
+
+.tooltip > div div.cds--password-input-wrapper {
+  margin-top: -8px;
+}
+
+.tooltip.cds--toggle {
+  margin-top: -8px;
+}
+
+.tooltip.cds--text-input-wrapper {
+  margin-top: -8px;
+}
+
+.tooltip.popover-obj {
+  margin-top: -8px;
+}
+
+.subHeadingTooltip {
+  margin: 0.2rem 0 0 0.2rem;
+}
+
+.tooltipMarginLeft {
+  margin-left: 3px;
+}
+
+/* subnet tile form */
+
+.subnetTileFormMargin {
+  margin-bottom: -0.5rem;
+  margin-top: 0.5rem;
+}
+
+.marginRightSubnetTile {
+  margin-right: 10px;
+}
+
+/* StatefulTabPanel */
+
+.cds--tab-content.doc {
+  padding: 0.5rem 0;
+}
+
+.cds--tab-content:focus {
+  outline: none !important;
+  border: none !important;
+}
+
+/* popover wrappers */
+
+.popover-box {
+  padding: 5px;
+  position: relative;
+  font-size: 80%;
+  top: 20px;
+}
+
+.cds--popover--open .cds--popover-content {
+  position: relative;
+  z-index: 9001;
+}
+
+/* buttons */
+
+.chevron {
+  margin-right: 1rem;
+  margin-top: 0.25rem;
+  cursor: pointer;
+}
+
+.tertiaryButtonColors {
+  color: var(--blue) !important;
+  fill: white !important;
+  border-color: var(--blue) !important;
+}
+
+.pointerEventsNone {
+  pointer-events: none;
+}
+
+.cursorNotAllowed {
+  cursor: not-allowed;
+}
+
+.forceTertiaryButtonStyles {
+  padding-right: 0.4375rem !important;
+  padding-left: 0.4375rem !important;
+}
+
+.inlineBlock {
+  display: inline-block;
+}
+
+.redFill {
+  fill: var(--red) !important;
+}
+
+.alignButtons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* CSS for overriding default component styles */
+.cds--btn--ghost:focus {
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.marginRightSmall {
+  margin-right: 0.5rem !important;
+}
+
+/* docs */
+.about {
+  padding: 2rem 1rem;
+  line-height: 1.5;
+}
+
+.smallerText {
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+/* empty resource tile */
+.iconMargin {
+  margin: 0 0.5rem -0.4rem 0;
+}
+
+.inlineIconMargin {
+  margin: -0.4rem 0.05rem;
+}
+
+.marginBottomXs {
+  margin-bottom: 0.5rem;
+}
+
+.tileBackground {
+  background-color: var(--formInSubForm);
+}
+
+/* under construction */
+
+.underConstruction {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flexDirectionColumn {
+  flex-direction: column;
+}
+
+/* f5 vsi */
+.wide {
+  width: 20rem !important;
+}
+
+.tight {
+  width: min-content; /* force invalid text to split line */
+}
+
+.passwordGenerateButton {
+  margin-top: 1.25rem;
+  margin-left: calc(-4rem - 3vw);
+}
+
+.passwordGenerateButton svg {
+  fill: var(--cds-icon-secondary, #525252) !important;
+}
+
+.passwordGenerateButton.invalid {
+  margin-left: calc(-5.75rem - 3vw);
+}

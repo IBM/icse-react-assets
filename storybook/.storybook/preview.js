@@ -1,3 +1,5 @@
+import "./docs.css";
+
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
   layout: "centered",
@@ -7,5 +9,12 @@ export const parameters = {
       date: /Date$/,
     },
     expanded: true,
+  },
+  backgrounds: {
+    disable: true,
+  },
+  darkMode: {
+    darkClass: "dark",
+    stylePreview: true,
   },
 };

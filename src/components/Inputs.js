@@ -3,8 +3,7 @@ import PropTypes from "prop-types";
 import { Toggle, TextInput } from "@carbon/react";
 import { kebabCase, snakeCase, isBoolean, titleCase } from "lazy-z";
 import { DynamicToolTipWrapper } from "./Tooltips";
-import "./styles/Inputs.css";
-import "./styles/Tooltips.css";
+
 import { addClassName, formatInputPlaceholder } from "../lib";
 
 export const IcseToggle = (props) => {
@@ -172,7 +171,7 @@ IcseNameInput.defaultProps = {
   hideHelperText: false,
   invalidText: "",
   className: "fieldWidth",
-  labelText: "Name"
+  labelText: "Name",
 };
 
 IcseNameInput.propTypes = {
@@ -191,5 +190,5 @@ IcseNameInput.propTypes = {
   helperTextCallback: PropTypes.func,
   invalidText: PropTypes.string.isRequired,
   invalidCallback: PropTypes.func,
-  labelText: PropTypes.string.isRequired
+  labelText: PropTypes.string.isRequired,
 };

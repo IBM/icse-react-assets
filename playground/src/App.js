@@ -1,6 +1,11 @@
 import React from "react";
 import { contains } from "lazy-z";
-import { VpcForm, NetworkAclForm } from "icse-react-assets";
+import {
+  VpcForm,
+  NetworkAclForm,
+  IcseFormTemplate,
+  SshKeyForm,
+} from "icse-react-assets";
 import "./App.css";
 
 const VpcFormStory = () => {
@@ -199,10 +204,51 @@ const NetworkAclFormStory = () => {
 };
 function App() {
   return (
-    <div className="App">
-      <VpcFormStory />
-      <hr />
-      <NetworkAclFormStory />
+    <div className="App dark">
+      <IcseFormTemplate
+        name="SSH Keys"
+        hideName={true}
+        addText="Create an SSH Key"
+        subHeading={false}
+        hideFormTitleButton={false}
+        hideAbout={false}
+        arrayData={[
+          {
+            name: "ssh-key",
+            resource_group: "rg1",
+            public_key: "test-key",
+          },
+        ]}
+        innerForm={SshKeyForm}
+        innerFormProps={{
+          resourceGroups: ["rg1", "rg2", "rg3"],
+          invalidCallback: () => {
+            return false;
+          },
+          invalidTextCallback: () => {},
+          invalidKeyCallback: () => {
+            return { invalid: false, invalidText: "" };
+          },
+        }}
+        toggleFormProps={{
+          hideName: true,
+          name: "ssh-key",
+          submissionFieldName: "ssh_keys",
+        }}
+        onSave={() => {}}
+        onDelete={() => {}}
+        onSubmit={() => {}}
+        disableSave={function (stateData, componentProps) {
+          return false;
+        }}
+        propsMatchState={function (stateData, componentProps) {
+          return false;
+        }}
+        deleteDisabledMessage={"Example delete message"}
+        deleteDisabled={() => {
+          return false;
+        }}
+      />
     </div>
   );
 }

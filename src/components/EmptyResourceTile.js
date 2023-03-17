@@ -2,7 +2,6 @@ import React from "react";
 import { CloudAlerting, Add } from "@carbon/icons-react";
 import { Tile } from "@carbon/react";
 import PropTypes from "prop-types";
-import "./styles/EmptyResourceTile.css";
 
 /**
  * Empty Resource Tile

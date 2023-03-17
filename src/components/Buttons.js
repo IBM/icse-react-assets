@@ -2,7 +2,6 @@ import { Button } from "@carbon/react";
 import { saveChangeButtonClass } from "../lib/index";
 import PopoverWrapper from "./PopoverWrapper";
 import PropTypes from "prop-types";
-import "./styles/Buttons.css";
 import {
   Save,
   Edit,
@@ -124,7 +123,7 @@ EditCloseIcon.propTypes = {
 EditCloseIcon.defaultProps = {
   type: "edit",
   open: false,
-  disabled: false
+  disabled: false,
 };
 
 /**
@@ -136,7 +135,9 @@ export const DeleteButton = (props) => {
     <div className="delete-area">
       <PopoverWrapper
         hoverText={
-          props.disabled && props.disableDeleteMessage ? props.disableDeleteMessage : "Delete Resource"
+          props.disabled && props.disableDeleteMessage
+            ? props.disableDeleteMessage
+            : "Delete Resource"
         }
         align={props.hoverTextAlign}
         className={props.disabled ? "inlineBlock cursorNotAllowed" : ""}
@@ -167,7 +168,7 @@ DeleteButton.propTypes = {
   disabled: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
   hoverTextAlign: PropTypes.string.isRequired,
-  disableDeleteMessage: PropTypes.string
+  disableDeleteMessage: PropTypes.string,
 };
 
 /**

@@ -11,7 +11,6 @@ import {
 } from "../component-utils";
 import { transpose } from "lazy-z";
 import PropTypes from "prop-types";
-import "../styles/Utils.css";
 
 class VsiForm extends Component {
   constructor(props) {

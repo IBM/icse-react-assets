@@ -8,7 +8,6 @@ import {
 } from "@carbon/react";
 import { Information } from "@carbon/icons-react";
 import PropTypes from "prop-types";
-import "./styles/Tooltips.css";
 
 /**
  * Render a form (duplicate from utils to prevent circular dependencies)

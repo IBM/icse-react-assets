@@ -3,7 +3,6 @@ import { contains, deepEqual, parseIntFromZone } from "lazy-z";
 import SubnetForm from "./SubnetForm";
 import { IcseHeading, IcseSubForm } from "../";
 import PropTypes from "prop-types";
-import "../styles/SubnetTileForm.css";
 
 class SubnetTileForm extends React.Component {
   constructor(props) {

@@ -17,7 +17,6 @@ import { IcseTextInput } from "../Inputs";
 import { default as PopoverWrapper } from "../PopoverWrapper";
 import { ToolTipWrapper } from "../Tooltips";
 import { IcseFormGroup } from "../Utils";
-import "../styles/F5VsiTemplateForm.css";
 
 /**
  * F5VsiTemplateForm

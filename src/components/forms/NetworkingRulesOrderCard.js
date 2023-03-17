@@ -3,7 +3,6 @@ import NetworkingRuleForm from "./NetworkingRuleForm";
 import { containsKeys, allFieldsNull } from "lazy-z";
 import PropTypes from "prop-types";
 import { DynamicRender, IcseHeading } from "../Utils";
-import "../styles/NetworkingRuleForm.css";
 import { SaveAddButton } from "../Buttons";
 import FormModal from "../FormModal";
 import EmptyResourceTile from "../EmptyResourceTile";
