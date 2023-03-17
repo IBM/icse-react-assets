@@ -95,6 +95,7 @@ class NetworkAclForm extends Component {
             onRuleDelete={this.props.onRuleDelete}
             disableModalSubmitCallback={this.props.disableModalSubmitCallback}
             disableSaveCallback={this.props.disableSaveCallback}
+            {...this.props}
           />
         )}
       </div>
