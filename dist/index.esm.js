@@ -5166,7 +5166,7 @@ var NetworkAclForm = /*#__PURE__*/function (_Component) {
       })), !this.props.isModal &&
       /*#__PURE__*/
       // ability to move rules up and down
-      React.createElement(NetworkingRulesOrderCard, _extends({
+      React.createElement(NetworkingRulesOrderCard, _extends({}, this.props, {
         rules: this.state.rules,
         vpc_name: this.props.vpc_name,
         parent_name: this.props.data.name,
@@ -5179,7 +5179,7 @@ var NetworkAclForm = /*#__PURE__*/function (_Component) {
         onRuleDelete: this.props.onRuleDelete,
         disableModalSubmitCallback: this.props.disableModalSubmitCallback,
         disableSaveCallback: this.props.disableSaveCallback
-      }, this.props)));
+      })));
     }
   }]);
   return NetworkAclForm;
