@@ -5037,7 +5037,7 @@ var NetworkingRulesOrderCard = /*#__PURE__*/function (_Component) {
         return /*#__PURE__*/React__default["default"].createElement("div", {
           key: "rule-div-" + rule.name + "-wrapper",
           className: "marginBottomSmall positionRelative formInSubForm"
-        }, /*#__PURE__*/React__default["default"].createElement(NetworkingRuleForm, _extends({
+        }, /*#__PURE__*/React__default["default"].createElement(NetworkingRuleForm, {
           hide: _this3.state.collapse[rule.name],
           onToggle: function onToggle() {
             return _this3.toggleCollapse(rule.name);
@@ -5067,8 +5067,9 @@ var NetworkingRulesOrderCard = /*#__PURE__*/function (_Component) {
           isSecurityGroup: _this3.props.isSecurityGroup,
           onSave: _this3.props.onRuleSave,
           onDelete: _this3.props.onRuleDelete,
-          parent_name: _this3.props.parent_name
-        }, _this3.props)));
+          parent_name: _this3.props.parent_name,
+          innerFormProps: _objectSpread2({}, _this3.props)
+        }));
       }));
     }
   }]);
