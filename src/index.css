@@ -1,174 +1,171 @@
-
 /* vars and themes */
 :root {
-    --background: #ffffff;
-    --subForm: #f4f4f4;
-    --formInSubForm: #fffdfd;
-    --cds-text-primary: #161616;
-    --cds-text-secondary: #525252;
-    --cds-field: #f4f4f4;
-    --cds-border-strong: #8d8d8d;
-    --blue: #0f62fe;
-    --red: #da1e28;
-  }
-  
-  .dark {
-    --background: #161616;
-    --subForm: #262626;
-    --formInSubForm: #414141;
-    --cds-text-primary: #f4f4f4;
-    --cds-text-secondary: #c6c6c6;
-    --cds-field: #363636;
-    --cds-border-strong: #8897a2;
-    --cds-layer: #262626;
-    --cds-layer-hover: #363636;
-    --cds-field-02: #363636;
-    --cds-icon-secondary: #c6c6c6;
-    --cds-icon-primary: #c6c6c6;
-    --placeholder: #565656;
-    --cds-field-hover: #464646;
-  }
+  --background: #ffffff;
+  --subForm: #f4f4f4;
+  --formInSubForm: #fffdfd;
+  --cds-text-primary: #161616;
+  --cds-text-secondary: #525252;
+  --cds-field: #f4f4f4;
+  --cds-border-strong: #8d8d8d;
+  --blue: #0f62fe;
+  --red: #da1e28;
+}
 
-  .dark {
-    background-color: var(--background);
-  }
-  
-  .dark p {
-    color: #f4f4f4;
-  }
-  
-  .dark i.chevron > svg {
-    fill: #f4f4f4;
-  }
+.dark {
+  --background: #161616;
+  --subForm: #262626;
+  --formInSubForm: #414141;
+  --cds-text-primary: #f4f4f4;
+  --cds-text-secondary: #c6c6c6;
+  --cds-field: #363636;
+  --cds-border-strong: #8897a2;
+  --cds-layer: #262626;
+  --cds-layer-hover: #363636;
+  --cds-field-02: #363636;
+  --cds-icon-secondary: #c6c6c6;
+  --cds-icon-primary: #c6c6c6;
+  --placeholder: #565656;
+  --cds-field-hover: #464646;
+}
 
-  .dark h4 {
-    color: #f4f4f4;
-  }
+.dark {
+  background-color: var(--background);
+}
 
-  .dark .underConstruction > svg {
-    fill: #ffffff;
-  }
+.dark p {
+  color: #f4f4f4;
+}
 
-  .dark ::placeholder {
-    color: var(--placeholder);
-  }
+.dark i.chevron > svg {
+  fill: #f4f4f4;
+}
 
-  /* general alignment classes */
+.dark h4 {
+  color: #f4f4f4;
+}
 
-  .displayFlex {
-    display: flex;
-  }
-  
-  .fitContent {
-    width: fit-content;
-  }
-  
-  .alignItemsCenter {
-    align-items: center;
-  }
-  
-  .widthOneHundredPercent {
-    width: 100%;
-  }
-  
-  .marginBottom {
-    margin-bottom: 2rem;
-  }
-  
-  .marginBottomSmall {
-    margin-bottom: 1rem;
-  }
-  
-  .evenSpacing {
-    gap: 3vw;
-  }
-  
-  .positionRelative {
-    position: relative;
-  }
-  
-  .icseFormTitleMinHeight {
-    min-height: 32px;
-  }
-  
-  .spaceBetween {
-    justify-content: space-between;
-  }
+.dark .underConstruction > svg {
+  fill: #ffffff;
+}
 
-  .leftTextAlign {
-    text-align: left;
-  }
-  
-  .fieldWidth {
-    width: 14rem;
-  }
+.dark ::placeholder {
+  color: var(--placeholder);
+}
 
-  .fieldWidthSmaller {
-    width: 11rem;
-  }
-  
-  .fieldWidthSmallest {
-    width: 8rem;
-  }
-  
-  .fieldWidthBigger {
-    width: 40rem;
-  }
+/* general alignment classes */
 
-  .textInputWide {
-    width: 30rem;
-  }
+.displayFlex {
+  display: flex;
+}
 
-  .textInputMedium {
-    width: 20rem;
-  }
+.fitContent {
+  width: fit-content;
+}
 
-  /* backhground classes */
-  .formInSubForm {
-    margin-top: 0rem;
-    background: var(--formInSubForm);
-    padding: 1rem;
-  }
-  
-  .subForm {
-    background: var(--subForm);
-    padding: 1rem;
-    margin-top: 1rem;
-    margin-bottom: 2rem;
-  }
-  
-  
-  /* Tooltips */
-  .labelRow {
-    display: inline-flex !important;
-    align-items: center;
-  }
-  
-  .tooltip > div div.cds--password-input-wrapper {
-    margin-top: -8px;
-  }
-  
-  .tooltip.cds--toggle {
-    margin-top: -8px;
-  }
-  
-  .tooltip.cds--text-input-wrapper {
-    margin-top: -8px;
-  }
-  
-  .tooltip.popover-obj {
-    margin-top: -8px;
-  }
-  
-  .subHeadingTooltip {
-    margin: 0.2rem 0 0 0.2rem;
-  }
-  
-  .tooltipMarginLeft {
-    margin-left: 3px;
-  }
-  
-  
+.alignItemsCenter {
+  align-items: center;
+}
+
+.widthOneHundredPercent {
+  width: 100%;
+}
+
+.marginBottom {
+  margin-bottom: 2rem;
+}
+
+.marginBottomSmall {
+  margin-bottom: 1rem;
+}
+
+.evenSpacing {
+  gap: 3vw;
+}
+
+.positionRelative {
+  position: relative;
+}
+
+.icseFormTitleMinHeight {
+  min-height: 32px;
+}
+
+.spaceBetween {
+  justify-content: space-between;
+}
+
+.leftTextAlign {
+  text-align: left;
+}
+
+.fieldWidth {
+  width: 14rem;
+}
+
+.fieldWidthSmaller {
+  width: 11rem;
+}
+
+.fieldWidthSmallest {
+  width: 8rem;
+}
+
+.fieldWidthBigger {
+  width: 40rem;
+}
+
+.textInputWide {
+  width: 30rem;
+}
+
+.textInputMedium {
+  width: 20rem;
+}
+
+/* backhground classes */
+.formInSubForm {
+  margin-top: 0rem;
+  background: var(--formInSubForm);
+  padding: 1rem;
+}
+
+.subForm {
+  background: var(--subForm);
+  padding: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Tooltips */
+.labelRow {
+  display: inline-flex !important;
+  align-items: center;
+}
+
+.tooltip > div div.cds--password-input-wrapper {
+  margin-top: -8px;
+}
+
+.tooltip.cds--toggle {
+  margin-top: -8px;
+}
+
+.tooltip.cds--text-input-wrapper {
+  margin-top: -8px;
+}
+
+.tooltip.popover-obj {
+  margin-top: -8px;
+}
+
+.subHeadingTooltip {
+  margin: 0.2rem 0 0 0.2rem;
+}
+
+.tooltipMarginLeft {
+  margin-left: 3px;
+}
+
 /* subnet tile form */
 
 .subnetTileFormMargin {
@@ -180,12 +177,11 @@
   margin-right: 10px;
 }
 
-
 /* StatefulTabPanel */
 
 .cds--tab-content.doc {
-    padding: 0.5rem 0;
-  }
+  padding: 0.5rem 0;
+}
 
 .cds--tab-content:focus {
   outline: none !important;
@@ -254,9 +250,8 @@
 }
 
 .marginRightSmall {
-  margin-right: 0.5rem !important; 
+  margin-right: 0.5rem !important;
 }
-
 
 /* docs */
 .about {
@@ -268,7 +263,6 @@
   font-size: 0.9rem;
   font-weight: 400;
 }
-
 
 /* empty resource tile */
 .iconMargin {
