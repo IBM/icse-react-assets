@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/main.ad0ba411.css","mappings":"AAAA;AACA;AACA;;AAEA;AACA;AACA","sources":["webpack://intro-storybook-react-template/./.storybook/docs.css"],"sourcesContent":[".dark .docs-story {\n  background: #161616;\n}\n\n.dark .sbdocs-p {\n  color: #161616;\n}\n"],"names":[],"sourceRoot":""}
