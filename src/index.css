@@ -26,6 +26,9 @@
   --cds-icon-primary: #c6c6c6;
   --placeholder: #565656;
   --cds-field-hover: #464646;
+  --cds-layer-selected: #525252;
+  --cds-background-inverse: #f4f4f4;
+  --cds-text-inverse: #262626;
 }
 
 .dark {
