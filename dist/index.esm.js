@@ -5011,6 +5011,7 @@ var NetworkingRulesOrderCard = /*#__PURE__*/function (_Component) {
         invalidCallback: this.props.invalidCallback,
         invalidTextCallback: this.props.invalidTextCallback,
         parent_name: this.props.parent_name,
+        innerFormProps: _objectSpread2({}, this.props),
         disableModalSubmit: function disableModalSubmit() {
           //set modal form enable submit
           if (this.props.disableModalSubmitCallback(this.state, this.props) === false) {
