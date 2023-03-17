@@ -75,6 +75,7 @@
     "msw": "^0.42.3",
     "msw-storybook-addon": "^1.8.0",
     "prop-types": "^15.8.1",
+    "storybook-dark-mode": "^2.1.1",
     "webpack": "^5.76.0"
   }
 }

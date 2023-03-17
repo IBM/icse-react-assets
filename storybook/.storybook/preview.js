@@ -8,4 +8,11 @@ export const parameters = {
     },
     expanded: true,
   },
+  backgrounds: {
+    disable: true,
+  },
+  darkMode: {
+    darkClass: "dark",
+    stylePreview: true,
+  },
 };
