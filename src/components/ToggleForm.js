@@ -349,7 +349,6 @@ ToggleForm.propTypes = {
   noSaveButton: PropTypes.bool.isRequired,
   useAddButton: PropTypes.bool.isRequired,
   tabPanel: PropTypes.shape({
-    name: PropTypes.string.isRequired,
     hideFormTitleButton: PropTypes.bool, // can be null
   }).isRequired,
 };

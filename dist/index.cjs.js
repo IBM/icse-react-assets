@@ -1945,7 +1945,6 @@ ToggleForm.propTypes = {
   noSaveButton: PropTypes__default["default"].bool.isRequired,
   useAddButton: PropTypes__default["default"].bool.isRequired,
   tabPanel: PropTypes__default["default"].shape({
-    name: PropTypes__default["default"].string.isRequired,
     hideFormTitleButton: PropTypes__default["default"].bool // can be null
   }).isRequired
 };
@@ -4566,7 +4565,10 @@ class NetworkingRulesOrderCard extends React.Component {
       isSecurityGroup: this.props.isSecurityGroup,
       onSave: this.props.onRuleSave,
       onDelete: this.props.onRuleDelete,
-      parent_name: this.props.parent_name
+      parent_name: this.props.parent_name,
+      innerFormProps: {
+        ...this.props
+      }
     }))));
   }
 }
@@ -4656,9 +4658,9 @@ class NetworkAclForm extends React.Component {
     })), !this.props.isModal &&
     /*#__PURE__*/
     // ability to move rules up and down
-    React__default["default"].createElement(NetworkingRulesOrderCard, {
+    React__default["default"].createElement(NetworkingRulesOrderCard, _extends({}, this.props, {
       rules: this.state.rules,
-      vpc_name: this.props.arrayParentName,
+      vpc_name: this.props.vpc_name,
       parent_name: this.props.data.name,
       networkRuleOrderDidChange: this.networkRuleOrderDidChange,
       isAclForm: true,
@@ -4669,7 +4671,7 @@ class NetworkAclForm extends React.Component {
       onRuleDelete: this.props.onRuleDelete,
       disableModalSubmitCallback: this.props.disableModalSubmitCallback,
       disableSaveCallback: this.props.disableSaveCallback
-    }));
+    })));
   }
 }
 NetworkAclForm.defaultProps = {
@@ -5585,7 +5587,8 @@ SshKeyForm.defaultProps = {
   data: {
     name: "",
     public_key: "",
-    use_data: false
+    use_data: false,
+    resource_group: ""
   },
   resourceGroups: [],
   isModal: false

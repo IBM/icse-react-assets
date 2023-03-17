@@ -83,8 +83,9 @@ class NetworkAclForm extends Component {
         {!this.props.isModal && (
           // ability to move rules up and down
           <NetworkingRulesOrderCard
+            {...this.props}
             rules={this.state.rules}
-            vpc_name={this.props.arrayParentName}
+            vpc_name={this.props.vpc_name}
             parent_name={this.props.data.name}
             networkRuleOrderDidChange={this.networkRuleOrderDidChange}
             isAclForm

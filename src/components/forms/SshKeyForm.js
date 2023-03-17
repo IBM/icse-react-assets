@@ -104,6 +104,7 @@ SshKeyForm.defaultProps = {
     name: "",
     public_key: "",
     use_data: false,
+    resource_group: "",
   },
   resourceGroups: [],
   isModal: false,
