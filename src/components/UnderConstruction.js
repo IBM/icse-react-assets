@@ -6,7 +6,7 @@ import { WarningAlt } from "@carbon/icons-react";
  */
 const UnderConstruction = () => {
   return (
-    <div className="underConstruction">
+    <div className="underConstruction flexDirectionColumn">
       <WarningAlt size="128" />
       <h4>Page Under Construction</h4>
     </div>

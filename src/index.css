@@ -231,6 +231,7 @@
   padding-right: 0.4375rem !important;
   padding-left: 0.4375rem !important;
 }
+
 .inlineBlock {
   display: inline-block;
 }
@@ -282,6 +283,18 @@
 
 .tileBackground {
   background-color: var(--formInSubForm);
+}
+
+/* under construction */
+
+.underConstruction {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flexDirectionColumn {
+  flex-direction: column;
 }
 
 /* f5 vsi */
