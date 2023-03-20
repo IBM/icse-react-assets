@@ -8,6 +8,7 @@ import {
   buildFormDefaultInputMethods,
 } from "../component-utils";
 import PropTypes from "prop-types";
+import { splat } from "lazy-z";
 
 class TransitGatewayForm extends Component {
   constructor(props) {
@@ -33,7 +34,13 @@ class TransitGatewayForm extends Component {
    * @param {event} event
    */
   handleVpcSelect(event) {
-    this.setState({ connections: event });
+    let connections = [];
+    event.forEach((vpc) => {
+      connections.push({ tgw: this.state.name, vpc: vpc });
+    });
+    this.setState({
+      connections: connections,
+    });
   }
 
   /**
@@ -78,7 +85,7 @@ class TransitGatewayForm extends Component {
           <VpcListMultiSelect
             id="tg-vpc-multiselect"
             titleText="Connected VPCs"
-            initialSelectedItems={this.state.connections}
+            initialSelectedItems={splat(this.state.connections, "vpc")}
             vpcList={this.props.vpcList}
             onChange={this.handleVpcSelect}
             invalid={this.state.connections.length === 0}

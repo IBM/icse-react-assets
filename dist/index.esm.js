@@ -1,6 +1,6 @@
 import '@carbon/styles/css/styles.css';
 import { Popover, PopoverContent, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Toggletip, ToggletipButton, ToggletipContent, Link, Select, SelectItem, Tile, Modal, Toggle, TextInput, Tabs, TabList, Tab, TabPanels, TabPanel, FilterableMultiSelect, PasswordInput, NumberInput, TextArea, Dropdown } from '@carbon/react';
-import lazyZ, { isEmpty, isNullOrEmptyString as isNullOrEmptyString$3, kebabCase as kebabCase$2, buildNumberDropdownList, titleCase as titleCase$1, snakeCase, isBoolean, isFunction as isFunction$1, contains as contains$1, transpose as transpose$1, prettyJSON, allFieldsNull, containsKeys, capitalize as capitalize$1, deepEqual, parseIntFromZone, eachKey } from 'lazy-z';
+import lazyZ, { isEmpty, isNullOrEmptyString as isNullOrEmptyString$3, kebabCase as kebabCase$2, buildNumberDropdownList, titleCase as titleCase$1, snakeCase, isBoolean, isFunction as isFunction$1, contains as contains$1, transpose as transpose$1, prettyJSON, allFieldsNull, containsKeys, capitalize as capitalize$1, deepEqual, parseIntFromZone, splat, eachKey } from 'lazy-z';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Save, Add, CloseFilled, Edit, TrashCan, ArrowUp, ArrowDown, Information, CloudAlerting, WarningAlt, Password } from '@carbon/icons-react';
@@ -6092,8 +6092,15 @@ class TransitGatewayForm extends Component {
    * @param {event} event
    */
   handleVpcSelect(event) {
+    let connections = [];
+    event.forEach(vpc => {
+      connections.push({
+        tgw: this.state.name,
+        vpc: vpc
+      });
+    });
     this.setState({
-      connections: event
+      connections: connections
     });
   }
 
@@ -6130,7 +6137,7 @@ class TransitGatewayForm extends Component {
     }), /*#__PURE__*/React.createElement(VpcListMultiSelect, {
       id: "tg-vpc-multiselect",
       titleText: "Connected VPCs",
-      initialSelectedItems: this.state.connections,
+      initialSelectedItems: splat(this.state.connections, "vpc"),
       vpcList: this.props.vpcList,
       onChange: this.handleVpcSelect,
       invalid: this.state.connections.length === 0,

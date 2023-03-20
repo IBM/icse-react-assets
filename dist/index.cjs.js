@@ -6103,8 +6103,15 @@ class TransitGatewayForm extends React.Component {
    * @param {event} event
    */
   handleVpcSelect(event) {
+    let connections = [];
+    event.forEach(vpc => {
+      connections.push({
+        tgw: this.state.name,
+        vpc: vpc
+      });
+    });
     this.setState({
-      connections: event
+      connections: connections
     });
   }
 
@@ -6141,7 +6148,7 @@ class TransitGatewayForm extends React.Component {
     }), /*#__PURE__*/React__default["default"].createElement(VpcListMultiSelect, {
       id: "tg-vpc-multiselect",
       titleText: "Connected VPCs",
-      initialSelectedItems: this.state.connections,
+      initialSelectedItems: lazyZ.splat(this.state.connections, "vpc"),
       vpcList: this.props.vpcList,
       onChange: this.handleVpcSelect,
       invalid: this.state.connections.length === 0,

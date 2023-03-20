@@ -11,7 +11,8 @@ export default {
       control: "none",
     },
     ["data.global"]: {
-      description: "A boolean to indicate whether the gateway has global route to connect to the networks outside their associated region.",
+      description:
+        "A boolean to indicate whether the gateway has global route to connect to the networks outside their associated region.",
       control: "none",
       type: { required: false }, // required prop or not
     },
@@ -93,7 +94,7 @@ const TransitGatewayFormStory = () => {
     <TransitGatewayForm
       data={{
         global: true,
-        connections: ["management"],
+        connections: [{ tgw: "transit-gateway", vpc: "management" }],
         resource_group: "service-rg",
         name: "transit-gateway",
       }}
