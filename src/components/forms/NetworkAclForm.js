@@ -90,12 +90,13 @@ class NetworkAclForm extends Component {
             networkRuleOrderDidChange={this.networkRuleOrderDidChange}
             isAclForm
             invalidCallback={this.props.invalidCallback}
-            invalidTextCallback={this.props.invalidRuleTextCallback}
+            invalidTextCallback={this.props.invalidTextCallback}
             onSubmitCallback={this.props.onSubmitCallback}
             onRuleSave={this.props.onRuleSave}
             onRuleDelete={this.props.onRuleDelete}
             disableModalSubmitCallback={this.props.disableModalSubmitCallback}
             disableSaveCallback={this.props.disableSaveCallback}
+            dev={this.props.dev}
           />
         )}
       </div>

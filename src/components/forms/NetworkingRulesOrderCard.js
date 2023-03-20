@@ -148,6 +148,9 @@ class NetworkingRulesOrderCard extends Component {
   }
 
   render() {
+    if(this.props.dev) {
+      console.log(this.props);
+    }
     return (
       <>
         <IcseHeading

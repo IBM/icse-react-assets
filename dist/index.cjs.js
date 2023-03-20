@@ -4506,6 +4506,9 @@ class NetworkingRulesOrderCard extends React.Component {
     this.toggleModal();
   }
   render() {
+    if (this.props.dev) {
+      console.log(this.props);
+    }
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
       name: "Rules",
       className: "marginBottomSmall",
@@ -4668,12 +4671,13 @@ class NetworkAclForm extends React.Component {
       networkRuleOrderDidChange: this.networkRuleOrderDidChange,
       isAclForm: true,
       invalidCallback: this.props.invalidCallback,
-      invalidTextCallback: this.props.invalidRuleTextCallback,
+      invalidTextCallback: this.props.invalidTextCallback,
       onSubmitCallback: this.props.onSubmitCallback,
       onRuleSave: this.props.onRuleSave,
       onRuleDelete: this.props.onRuleDelete,
       disableModalSubmitCallback: this.props.disableModalSubmitCallback,
-      disableSaveCallback: this.props.disableSaveCallback
+      disableSaveCallback: this.props.disableSaveCallback,
+      dev: this.props.dev
     })));
   }
 }
