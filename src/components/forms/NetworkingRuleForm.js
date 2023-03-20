@@ -157,7 +157,9 @@ class NetworkingRuleForm extends Component {
                       invalidCallback={() =>
                         this.props.invalidCallback(this.state, this.props)
                       }
-                      invalidTextCallback={this.props.invalidTextCallback(this.state, this.props)}
+                      invalidTextCallback={() =>
+                        this.props.invalidTextCallback(this.state, this.props)
+                      }
                       hideHelperText
                       className="fieldWidthSmaller"
                     />
