@@ -50,6 +50,10 @@
 .dark .underConstruction > svg {
   fill: #ffffff;
 }
+/* styling for tooltip content in dark mode */
+.dark .cds--toggletip-content > p {
+  color: #363636;
+}
 
 .dark ::placeholder {
   color: var(--placeholder);
