@@ -148,7 +148,7 @@ class NetworkingRulesOrderCard extends Component {
   }
 
   render() {
-    if(this.props.dev) {
+    if (this.props.dev) {
       console.log(this.props);
     }
     return (
@@ -175,7 +175,8 @@ class NetworkingRulesOrderCard extends Component {
             invalidCallback={this.props.invalidCallback}
             invalidTextCallback={this.props.invalidTextCallback}
             parent_name={this.props.parent_name}
-            innerFormProps={{...this.props}}
+            innerFormProps={{ ...this.props }}
+            disableModalSubmitCallback={this.props.disableModalSubmitCallback}
             disableModalSubmit={function () {
               //set modal form enable submit
               if (
@@ -225,7 +226,7 @@ class NetworkingRulesOrderCard extends Component {
               onSave={this.props.onRuleSave}
               onDelete={this.props.onRuleDelete}
               parent_name={this.props.parent_name}
-              innerFormProps={{...this.props}}
+              innerFormProps={{ ...this.props }}
             />
           </div>
         ))}
