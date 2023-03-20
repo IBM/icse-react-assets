@@ -211,7 +211,7 @@ class NetworkingRulesOrderCard extends Component {
               key={this.props.vpc_name + "-nw-rule-" + rule.name}
               id={this.props.vpc_name + "-nw-rule-form-" + rule.name}
               invalidCallback={this.props.invalidCallback}
-              invalidTextCallback={this.props.invalidTextCallback}
+              invalidTextCallback={this.props.invalidRuleTextCallback}
               data={{
                 name: rule.name,
                 action: rule.action || null,
