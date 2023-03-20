@@ -286,7 +286,7 @@
 }
 
 .tileBackground {
-  background-color: var(--formInSubForm);
+  background-color: var(--subForm);
 }
 
 /* under construction */
