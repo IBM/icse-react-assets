@@ -58,7 +58,7 @@ class TransitGatewayForm extends Component {
           <IcseToggle
             labelText="Global"
             toggleFieldName="global"
-            id="tg-global"
+            id={this.state.name + "-tg-global"}
             onToggle={this.handleToggle}
             defaultToggled={this.state.global}
           />
@@ -68,7 +68,7 @@ class TransitGatewayForm extends Component {
             field="name"
             value={this.state.name}
             readOnly={this.props.readOnlyName}
-            id="tg-name"
+            id={this.state.name + "-tg-name"}
             invalid={this.props.invalidCallback(this.state, this.props)}
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
           />
@@ -79,11 +79,11 @@ class TransitGatewayForm extends Component {
             value={this.state.resource_group}
             groups={this.props.resourceGroups}
             handleInputChange={this.handleInputChange}
-            name="resource_group"
+            name={this.state.name + "-resource_group"}
             labelText="Resource Group"
           />
           <VpcListMultiSelect
-            id="tg-vpc-multiselect"
+            id={this.state.name + "-tg-vpc-multiselect"}
             titleText="Connected VPCs"
             initialSelectedItems={splat(this.state.connections, "vpc")}
             vpcList={this.props.vpcList}
