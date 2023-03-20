@@ -1,6 +1,6 @@
 import '@carbon/styles/css/styles.css';
 import { Popover, PopoverContent, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Toggletip, ToggletipButton, ToggletipContent, Link, Select, SelectItem, Tile, Modal, Toggle, TextInput, Tabs, TabList, Tab, TabPanels, TabPanel, FilterableMultiSelect, PasswordInput, NumberInput, TextArea, Dropdown } from '@carbon/react';
-import lazyZ, { isEmpty, isNullOrEmptyString as isNullOrEmptyString$3, kebabCase as kebabCase$2, buildNumberDropdownList, titleCase as titleCase$1, snakeCase, isBoolean, isFunction as isFunction$1, contains as contains$1, transpose as transpose$1, prettyJSON, allFieldsNull, containsKeys, capitalize as capitalize$1, deepEqual, parseIntFromZone, splat, eachKey } from 'lazy-z';
+import lazyZ, { isEmpty, isNullOrEmptyString as isNullOrEmptyString$3, kebabCase as kebabCase$2, buildNumberDropdownList, titleCase as titleCase$1, snakeCase, isBoolean, isFunction as isFunction$1, contains as contains$1, transpose, prettyJSON, allFieldsNull, containsKeys, capitalize as capitalize$1, deepEqual, parseIntFromZone, splat, eachKey } from 'lazy-z';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Save, Add, CloseFilled, Edit, TrashCan, ArrowUp, ArrowDown, Information, CloudAlerting, WarningAlt, Password } from '@carbon/icons-react';
@@ -2199,7 +2199,7 @@ class AppIdForm extends Component {
       invalidTextCallback: this.props.invalidKeyTextCallback,
       arrayParentName: this.props.data.name
     };
-    transpose$1({
+    transpose({
       ...this.props.keyProps
     }, keyProps);
     return /*#__PURE__*/React.createElement("div", {
@@ -3900,7 +3900,7 @@ class KeyManagementForm extends Component {
       invalidRingText: this.props.invalidRingText,
       arrayParentName: this.props.data.name
     };
-    transpose$1({
+    transpose({
       ...this.props.encryptionKeyProps
     }, innerFormProps);
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
@@ -4657,7 +4657,7 @@ class NetworkAclForm extends Component {
       networkRuleOrderDidChange: this.networkRuleOrderDidChange,
       isAclForm: true,
       invalidCallback: this.props.invalidCallback,
-      invalidTextCallback: this.props.invalidTextCallback,
+      invalidTextCallback: this.props.invalidRuleTextCallback,
       onSubmitCallback: this.props.onSubmitCallback,
       onRuleSave: this.props.onRuleSave,
       onRuleDelete: this.props.onRuleDelete,
@@ -4926,7 +4926,7 @@ class ObjectStorageInstancesForm extends Component {
       composedNameCallback: this.props.composedNameCallback,
       arrayParentName: this.props.data.name
     };
-    transpose$1({
+    transpose({
       ...this.props.bucketProps
     }, bucketInnerFormProps);
     let keyInnerFormProps = {
@@ -4935,7 +4935,7 @@ class ObjectStorageInstancesForm extends Component {
       composedNameCallback: this.props.composedNameCallback,
       arrayParentName: this.props.data.name
     };
-    transpose$1({
+    transpose({
       ...this.props.keyProps
     }, keyInnerFormProps);
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
@@ -6606,7 +6606,7 @@ class VsiForm extends Component {
     let stateChangeParams = {
       [name]: name === "vsi_per_subnet" && value !== "" ? Number(value) : value
     };
-    if (name === "vpc") transpose$1({
+    if (name === "vpc") transpose({
       subnets: [],
       subnet: ""
     }, stateChangeParams);
@@ -6957,7 +6957,7 @@ class ClusterForm extends Component {
       invalidCallback: this.props.invalidPoolCallback,
       subnetList: this.props.subnetList
     };
-    transpose$1({
+    transpose({
       ...this.props.workerPoolProps
     }, innerFormProps);
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
@@ -7513,7 +7513,7 @@ class AccessGroupForm extends React.Component {
       arrayParentName: this.props.data.name,
       helperTextCallback: this.props.dynamicPolicyHelperTextCallback
     };
-    transpose$1({
+    transpose({
       ...this.props.dynamicPolicyProps
     }, dynamicPolicyProps);
     let policyProps = {
@@ -7522,7 +7522,7 @@ class AccessGroupForm extends React.Component {
       arrayParentName: this.props.data.name,
       helperTextCallback: this.props.policyHelperTextCallback
     };
-    transpose$1({
+    transpose({
       ...this.props.policyProps
     }, policyProps);
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import NetworkingRuleForm from "./NetworkingRuleForm";
-import { containsKeys, allFieldsNull } from "lazy-z";
+import { containsKeys, allFieldsNull, transpose } from "lazy-z";
 import PropTypes from "prop-types";
 import { DynamicRender, IcseHeading } from "../Utils";
 import { SaveAddButton } from "../Buttons";

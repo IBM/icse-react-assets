@@ -4414,7 +4414,7 @@ class NetworkingRulesOrderCard extends React.Component {
       delete defaultRule.source_port_max;
     }
     if (this.getRuleProtocol(rule) !== "all") {
-      transpose(rule[protocol], defaultRule);
+      lazyZ.transpose(rule[protocol], defaultRule);
     }
     return defaultRule;
   }
@@ -4668,7 +4668,7 @@ class NetworkAclForm extends React.Component {
       networkRuleOrderDidChange: this.networkRuleOrderDidChange,
       isAclForm: true,
       invalidCallback: this.props.invalidCallback,
-      invalidTextCallback: this.props.invalidTextCallback,
+      invalidTextCallback: this.props.invalidRuleTextCallback,
       onSubmitCallback: this.props.onSubmitCallback,
       onRuleSave: this.props.onRuleSave,
       onRuleDelete: this.props.onRuleDelete,
