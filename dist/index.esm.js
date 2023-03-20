@@ -4146,7 +4146,7 @@ class NetworkingRuleForm extends Component {
         value: this.state.name,
         onChange: event => this.handleInput("name", event),
         invalidCallback: () => this.props.invalidCallback(this.state, this.props),
-        invalidText: () => this.props.invalidTextCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props),
         hideHelperText: true,
         className: "fieldWidthSmaller"
       }), !this.props.isSecurityGroup && /*#__PURE__*/React.createElement(NetworkingRuleSelect, {
