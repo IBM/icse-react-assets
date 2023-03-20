@@ -4527,14 +4527,15 @@ class NetworkingRulesOrderCard extends React.Component {
       onRequestClose: this.toggleModal
     }, /*#__PURE__*/React__default["default"].createElement(NetworkingRuleForm, {
       isSecurityGroup: this.props.isSecurityGroup,
-      invalidCallback: this.props.invalidCallback,
-      invalidTextCallback: this.props.invalidTextCallback,
+      invalidCallback: this.props.invalidRuleText,
+      invalidTextCallback: this.props.invalidRuleTextCallback,
       parent_name: this.props.parent_name,
       innerFormProps: {
         ...this.props
       },
       disableSaveCallback: this.props.disableSaveCallback,
       disableModalSubmit: function () {
+        if (dev) console.log(this);
         //set modal form enable submit
         if (this.props.disableSaveCallback(this.state, this.props) === false) {
           this.props.enableModal();
@@ -4557,7 +4558,7 @@ class NetworkingRulesOrderCard extends React.Component {
       handleDown: () => this.handleDown(index),
       key: this.props.vpc_name + "-nw-rule-" + rule.name,
       id: this.props.vpc_name + "-nw-rule-form-" + rule.name,
-      invalidCallback: this.props.invalidCallback,
+      invalidCallback: this.props.invalidRuleText,
       invalidTextCallback: this.props.invalidRuleTextCallback,
       data: {
         name: rule.name,
