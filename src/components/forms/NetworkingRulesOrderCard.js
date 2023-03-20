@@ -176,11 +176,11 @@ class NetworkingRulesOrderCard extends Component {
             invalidTextCallback={this.props.invalidTextCallback}
             parent_name={this.props.parent_name}
             innerFormProps={{ ...this.props }}
-            disableModalSubmitCallback={this.props.disableModalSubmitCallback}
+            disableSaveCallback={this.props.disableSaveCallback}
             disableModalSubmit={function () {
               //set modal form enable submit
               if (
-                this.props.disableModalSubmitCallback(
+                this.props.disableSaveCallback(
                   this.state,
                   this.props
                 ) === false

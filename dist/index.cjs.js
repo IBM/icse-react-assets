@@ -4533,10 +4533,10 @@ class NetworkingRulesOrderCard extends React.Component {
       innerFormProps: {
         ...this.props
       },
-      disableModalSubmitCallback: this.props.disableModalSubmitCallback,
+      disableSaveCallback: this.props.disableSaveCallback,
       disableModalSubmit: function () {
         //set modal form enable submit
-        if (this.props.disableModalSubmitCallback(this.state, this.props) === false) {
+        if (this.props.disableSaveCallback(this.state, this.props) === false) {
           this.props.enableModal();
         } else {
           this.props.disableModal();
