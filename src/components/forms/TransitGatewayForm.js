@@ -62,8 +62,8 @@ class TransitGatewayForm extends Component {
             value={this.state.name}
             readOnly={this.props.readOnlyName}
             id="tg-name"
-            invalid={this.props.invalidCallback(this.state)}
-            invalidText={this.props.invalidTextCallback(this.state)}
+            invalid={this.props.invalidCallback(this.state, this.props)}
+            invalidText={this.props.invalidTextCallback(this.state, this.props)}
           />
         </IcseFormGroup>
         <IcseFormGroup>
