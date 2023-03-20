@@ -154,20 +154,12 @@ class NetworkingRuleForm extends Component {
                       componentName={this.props.data.name + "-rule"}
                       value={this.state.name}
                       onChange={(event) => this.handleInput("name", event)}
-                      invalidCallback={() => {
-                        if(this.props.dev) {
-                          console.log(this);
-                        } else {
-                          console.log("no dev", this)
-                        }
+                      invalidCallback={() =>
                         this.props.invalidCallback(this.state, this.props)
-                      }}
-                      invalidTextCallback={() =>{
-                        if(this.props.dev) {
-                          console.log(this);
-                        }
+                      }
+                      invalidText={() =>
                         this.props.invalidTextCallback(this.state, this.props)
-                      }}
+                      }
                       hideHelperText
                       className="fieldWidthSmaller"
                     />
