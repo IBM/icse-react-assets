@@ -80,7 +80,7 @@ class TransitGatewayForm extends Component {
             groups={this.props.resourceGroups}
             handleInputChange={this.handleInputChange}
             id={this.state.name + "-resource_group"}
-            name={"resource_group"}
+            name="resource_group"
             labelText="Resource Group"
           />
           <VpcListMultiSelect
