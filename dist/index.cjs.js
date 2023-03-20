@@ -4115,9 +4115,12 @@ class NetworkingRuleForm extends React.Component {
    * @returns {boolean} if save is disabled
    */
   shouldDisableSave() {
-    let shouldBeDisabled = this.props.disableSaveCallback(this.state, this.props);
-    if (this.props.dev) console.log("disabled save", this);
-    return shouldBeDisabled;
+    if (this.props.isModal) {
+      this.props.disableModalSubmit(this.state, this.props);
+    } else {
+      let shouldBeDisabled = this.props.disableSaveCallback(this.state, this.props);
+      return shouldBeDisabled;
+    }
   }
   render() {
     let ruleName = this.props.isModal ? "new-rule" : this.props.data.name;
@@ -4532,7 +4535,6 @@ class NetworkingRulesOrderCard extends React.Component {
       innerFormProps: {
         ...this.props
       },
-      disableSaveCallback: this.props.disableSaveCallback,
       disableModalSubmit: function () {
         if (this.props.dev) console.log(this);
         //set modal form enable submit
