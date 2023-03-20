@@ -154,9 +154,12 @@ class NetworkingRuleForm extends Component {
                       componentName={this.props.data.name + "-rule"}
                       value={this.state.name}
                       onChange={(event) => this.handleInput("name", event)}
-                      invalidCallback={() =>
+                      invalidCallback={() => {
+                        if(dev) {
+                          console.log(this);
+                        }
                         this.props.invalidCallback(this.state, this.props)
-                      }
+                      }}
                       invalidTextCallback={() =>
                         this.props.invalidTextCallback(this.state, this.props)
                       }

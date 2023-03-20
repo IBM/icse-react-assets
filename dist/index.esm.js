@@ -4145,8 +4145,13 @@ class NetworkingRuleForm extends Component {
         componentName: this.props.data.name + "-rule",
         value: this.state.name,
         onChange: event => this.handleInput("name", event),
-        invalidCallback: () => this.props.invalidCallback(this.state, this.props),
-        invalidTextCallback: this.props.invalidTextCallback(this.state, this.props),
+        invalidCallback: () => {
+          if (dev) {
+            console.log(this);
+          }
+          this.props.invalidCallback(this.state, this.props);
+        },
+        invalidTextCallback: () => this.props.invalidTextCallback(this.state, this.props),
         hideHelperText: true,
         className: "fieldWidthSmaller"
       }), !this.props.isSecurityGroup && /*#__PURE__*/React.createElement(NetworkingRuleSelect, {
@@ -4564,7 +4569,8 @@ class NetworkingRulesOrderCard extends Component {
       parent_name: this.props.parent_name,
       innerFormProps: {
         ...this.props
-      }
+      },
+      dev: this.props.dev
     }))));
   }
 }

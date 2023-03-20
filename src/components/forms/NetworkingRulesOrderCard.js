@@ -227,6 +227,7 @@ class NetworkingRulesOrderCard extends Component {
               onDelete={this.props.onRuleDelete}
               parent_name={this.props.parent_name}
               innerFormProps={{ ...this.props }}
+              dev={this.props.dev}
             />
           </div>
         ))}
