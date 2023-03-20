@@ -148,9 +148,6 @@ class NetworkingRulesOrderCard extends Component {
   }
 
   render() {
-    if (this.props.dev) {
-      console.log(this.props);
-    }
     return (
       <>
         <IcseHeading
@@ -178,7 +175,7 @@ class NetworkingRulesOrderCard extends Component {
             innerFormProps={{ ...this.props }}
             disableSaveCallback={this.props.disableSaveCallback}
             disableModalSubmit={function () {
-              if(dev) console.log(this);
+              if(this.props.dev) console.log(this);
               //set modal form enable submit
               if (
                 this.props.disableSaveCallback(

@@ -4115,7 +4115,9 @@ class NetworkingRuleForm extends React.Component {
    * @returns {boolean} if save is disabled
    */
   shouldDisableSave() {
-    return this.props.disableSaveCallback(this.state, this.props);
+    let shouldBeDisabled = this.props.disableSaveCallback(this.state, this.props);
+    if (this.props.dev) console.log("disabled save", this);
+    return shouldBeDisabled;
   }
   render() {
     let ruleName = this.props.isModal ? "new-rule" : this.props.data.name;
@@ -4506,9 +4508,6 @@ class NetworkingRulesOrderCard extends React.Component {
     this.toggleModal();
   }
   render() {
-    if (this.props.dev) {
-      console.log(this.props);
-    }
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
       name: "Rules",
       className: "marginBottomSmall",
@@ -4535,7 +4534,7 @@ class NetworkingRulesOrderCard extends React.Component {
       },
       disableSaveCallback: this.props.disableSaveCallback,
       disableModalSubmit: function () {
-        if (dev) console.log(this);
+        if (this.props.dev) console.log(this);
         //set modal form enable submit
         if (this.props.disableSaveCallback(this.state, this.props) === false) {
           this.props.enableModal();

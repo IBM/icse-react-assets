@@ -90,7 +90,12 @@ class NetworkingRuleForm extends Component {
    * @returns {boolean} if save is disabled
    */
   shouldDisableSave() {
-    return this.props.disableSaveCallback(this.state, this.props);
+    let shouldBeDisabled = this.props.disableSaveCallback(
+      this.state,
+      this.props
+    );
+    if(this.props.dev) console.log("disabled save", this)
+    return shouldBeDisabled;
   }
 
   render() {
@@ -157,7 +162,10 @@ class NetworkingRuleForm extends Component {
                       invalidCallback={() =>
                         this.props.invalidCallback(this.state, this.props)
                       }
-                      invalidText={this.props.invalidTextCallback(this.state, this.props)}
+                      invalidText={this.props.invalidTextCallback(
+                        this.state,
+                        this.props
+                      )}
                       hideHelperText
                       className="fieldWidthSmaller"
                     />
