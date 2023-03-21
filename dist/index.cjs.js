@@ -4538,19 +4538,8 @@ class NetworkingRulesOrderCard extends React.Component {
       disableSaveCallback: this.props.disableSaveCallback,
       dev: this.props.dev,
       disableModalSubmit: function () {
-        this.props.enableModal();
-        if (this.props.dev) console.log(this);
-        //set modal form enable submit
-        // if (
-        //   this.props.disableSaveCallback(
-        //     this.state,
-        //     this.props
-        //   ) === false
-        // ) {
-        //   this.props.enableModal();
-        // } else {
-        //   this.props.disableModal();
-        // }
+        console.log(this);
+        this.props.disableModal();
       }
     })), /*#__PURE__*/React__default["default"].createElement(EmptyResourceTile, {
       name: "Network Rules",
