@@ -173,19 +173,22 @@ class NetworkingRulesOrderCard extends Component {
             invalidTextCallback={this.props.invalidRuleTextCallback}
             parent_name={this.props.parent_name}
             innerFormProps={{ ...this.props }}
+            disableSaveCallback={this.props.disableSaveCallback}
+            dev={this.props.dev}
             disableModalSubmit={function () {
+              this.props.enableModal()
               if(this.props.dev) console.log(this);
               //set modal form enable submit
-              if (
-                this.props.disableSaveCallback(
-                  this.state,
-                  this.props
-                ) === false
-              ) {
-                this.props.enableModal();
-              } else {
-                this.props.disableModal();
-              }
+              // if (
+              //   this.props.disableSaveCallback(
+              //     this.state,
+              //     this.props
+              //   ) === false
+              // ) {
+              //   this.props.enableModal();
+              // } else {
+              //   this.props.disableModal();
+              // }
             }}
           />
         </FormModal>
