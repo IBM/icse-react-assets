@@ -4528,7 +4528,7 @@ class NetworkingRulesOrderCard extends React.Component {
       onRequestSubmit: this.handleSubmit,
       onRequestClose: this.toggleModal
     }, RenderForm(NetworkingRuleForm, {
-      ...this.props.innerFormProps,
+      ...this.props,
       isSecurityGroup: this.props.isSecurityGroup,
       invalidCallback: this.props.invalidRuleText,
       invalidTextCallback: this.props.invalidRuleTextCallback,
