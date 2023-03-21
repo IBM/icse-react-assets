@@ -4419,7 +4419,7 @@ class NetworkingRulesOrderCard extends React.Component {
       delete defaultRule.source_port_max;
     }
     if (this.getRuleProtocol(rule) !== "all") {
-      lazyZ.transpose(rule[protocol], defaultRule);
+      lazyZ.transpose(rule[this.getRuleProtocol(rule)], defaultRule);
     }
     return defaultRule;
   }

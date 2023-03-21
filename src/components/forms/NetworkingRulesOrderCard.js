@@ -60,7 +60,7 @@ class NetworkingRulesOrderCard extends Component {
       delete defaultRule.source_port_max;
     }
     if (this.getRuleProtocol(rule) !== "all") {
-      transpose(rule[protocol], defaultRule);
+      transpose(rule[this.getRuleProtocol(rule)], defaultRule);
     }
     return defaultRule;
   }
