@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import NetworkingRuleForm from "./NetworkingRuleForm";
 import { containsKeys, allFieldsNull, transpose } from "lazy-z";
 import PropTypes from "prop-types";
-import { DynamicRender, IcseHeading } from "../Utils";
+import { DynamicRender, IcseHeading, RenderForm } from "../Utils";
 import { SaveAddButton } from "../Buttons";
 import FormModal from "../FormModal";
 import EmptyResourceTile from "../EmptyResourceTile";
@@ -167,19 +167,35 @@ class NetworkingRulesOrderCard extends Component {
           onRequestSubmit={this.handleSubmit}
           onRequestClose={this.toggleModal}
         >
-          <NetworkingRuleForm
-            isSecurityGroup={this.props.isSecurityGroup}
-            invalidCallback={this.props.invalidRuleText}
-            invalidTextCallback={this.props.invalidRuleTextCallback}
-            parent_name={this.props.parent_name}
-            innerFormProps={{ ...this.props }}
-            disableSaveCallback={this.props.disableSaveCallback}
-            dev={this.props.dev}
-            disableModalSubmit={function () {
-              console.log(this);
-              this.props.disableModal();
-            }}
-          />
+          {RenderForm(NetworkingRuleForm, {
+            ...this.props.innerFormProps,
+            isSecurityGroup: this.props.isSecurityGroup,
+            invalidCallback: this.props.invalidRuleText,
+            invalidTextCallback: this.props.invalidRuleTextCallback,
+            parent_name: this.props.parent_name,
+            disableSave: this.props.disableSaveCallback,
+            shouldDisableSubmit: function () {
+              // references to `this` in function are intentionally vague
+              // in order to pass the correct functions and field values to the
+              // child modal component
+              // by passing `this` in a function that it scoped to the component
+              // we allow the function to be successfully bound to the modal form
+              // while still referencing the local value `enableSubmitField`
+              // to use it's own values for state and props including enableModal
+              // and disableModal, which are dynamically added to the component
+              // at time of render
+              if (
+                this.props.disableSave(
+                  this.state,
+                  this.props
+                ) === false
+              ) {
+                this.props.enableModal();
+              } else {
+                this.props.disableModal();
+              }
+            },
+          })}
         </FormModal>
         <EmptyResourceTile
           name="Network Rules"
