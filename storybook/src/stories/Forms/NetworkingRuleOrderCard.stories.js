@@ -44,13 +44,13 @@ export default {
       type: { required: false }, // required prop or not
       control: "none",
     },
-    invalidCallback: {
+    invalidRuleText: {
       description:
         "A function to determine a rule name is invalid that accepts two parameters `stateData` and `componentProps`. When true, the name for a rule will be invalid",
       type: { required: true }, // required prop or not
       control: "none",
     },
-    invalidTextCallback: {
+    invalidRuleTextCallback: {
       description:
         "A function to determine the invalid text to display when a rule name is invalid that accepts two parameters `stateData` and `componentProps`",
       type: { required: true }, // required prop or not
@@ -142,8 +142,8 @@ const NetworkingRulesOrderCardStory = () => {
     <NetworkingRulesOrderCard
       vpc_name="example-vpc"
       parent_name="example-acl"
-      invalidCallback={invalidCallback}
-      invalidTextCallback={invalidTextCallback}
+      invalidRuleText={invalidCallback}
+      invalidRuleTextCallback={invalidTextCallback}
       networkRuleOrderDidChange={networkRuleOrderDidChange}
       rules={[
         {
@@ -264,8 +264,8 @@ const NetworkingRulesOrderCardSgStory = () => {
     <NetworkingRulesOrderCard
       vpc_name="example-vpc"
       parent_name="example-security-group"
-      invalidCallback={invalidCallback}
-      invalidTextCallback={invalidTextCallback}
+      invalidRuleText={invalidCallback}
+      invalidRuleTextCallback={invalidTextCallback}
       networkRuleOrderDidChange={networkRuleOrderDidChange}
       isSecurityGroup
       rules={[

@@ -167,7 +167,7 @@ class ClusterForm extends Component {
             id={clusterComponent}
             key={this.state.vpc}
             vpc_name={this.state.vpc}
-            subnets={this.props.subnetList}
+            subnets={this.getSubnetList()}
             initialSelectedItems={this.state.subnets}
             onChange={(event) => this.handleMultiSelect("subnets", event)}
             className="fieldWidthSmaller"
@@ -319,7 +319,7 @@ ClusterForm.propTypes = {
   encryptionKeys: PropTypes.arrayOf(PropTypes.string),
   cosNames: PropTypes.arrayOf(PropTypes.string),
   vpcList: PropTypes.arrayOf(PropTypes.string),
-  subnetList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  subnetList: PropTypes.arrayOf(PropTypes.object).isRequired,
   /* api endpoints */
   kubeVersionApiEndpoint: PropTypes.string.isRequired,
   flavorApiEndpoint: PropTypes.string.isRequired,

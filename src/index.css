@@ -9,6 +9,7 @@
   --cds-border-strong: #8d8d8d;
   --blue: #0f62fe;
   --red: #da1e28;
+  --white: #ffffff;
 }
 
 .dark {
@@ -219,7 +220,7 @@
 
 .tertiaryButtonColors {
   color: var(--blue) !important;
-  fill: white !important;
+  fill: var(--white) !important;
   border-color: var(--blue) !important;
 }
 

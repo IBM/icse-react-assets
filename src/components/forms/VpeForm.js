@@ -126,7 +126,7 @@ class VpeForm extends Component {
             initialSelectedItems={this.state.subnets}
             vpc_name={this.state.vpc}
             onChange={(event) => this.handleMultiSelect("subnets", event)}
-            subnets={this.props.subnetList}
+            subnets={this.getSubnetList()}
             className="fieldWidthSmaller"
           />
         </IcseFormGroup>
@@ -158,7 +158,7 @@ VpeForm.propTypes = {
     subnets: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
-  subnetList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  subnetList: PropTypes.arrayOf(PropTypes.object).isRequired,
   securityGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   isModal: PropTypes.bool.isRequired,
 };

@@ -98,21 +98,43 @@ const VpnGatewayFormStory = () => {
       data={{
         name: "",
         resource_group: "",
-        vpc: "",
+        vpc: "management",
         subnet: null,
       }}
       resourceGroups={["service-rg", "management-rg", "workload-rg"]}
       vpcList={["management", "workload"]}
       subnetList={[
-        "vsi-zone-1",
-        "vsi-zone-2",
-        "vsi-zone-3",
-        "vpe-zone-1",
-        "vpe-zone-2",
-        "vpe-zone-3",
-        "vpn-zone-1",
-        "vpn-zone-2",
-        "vpn-zone-3",
+        {
+          vpc: "management",
+          zone: 1,
+          cidr: "10.10.10.0/24",
+          name: "vsi-zone-1",
+          network_acl: "management",
+          resource_group: "management-rg",
+          public_gateway: false,
+          has_prefix: true,
+        },
+        {
+          vpc: "management",
+          zone: 1,
+          cidr: "10.20.10.0/24",
+          name: "vpe-zone-1",
+          resource_group: "management-rg",
+          network_acl: "management",
+          public_gateway: false,
+          has_prefix: true,
+        },
+
+        {
+          vpc: "workload",
+          zone: 1,
+          cidr: "10.40.10.0/24",
+          name: "vsi-zone-1",
+          network_acl: "workload",
+          resource_group: "workload-rg",
+          public_gateway: false,
+          has_prefix: true,
+        },
       ]}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}

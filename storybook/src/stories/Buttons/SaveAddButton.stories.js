@@ -26,7 +26,8 @@ export default {
       control: "boolean", // what type of value we can set
     },
     type: {
-      description: "Type of the button. Can be either `save` or `add`.", // description
+      description:
+        "Type of the button. Can be either `save`, `add`, or `custom`. If using custom, must supply `customIcon` prop.", // description
       type: { required: true }, // required prop or not
       table: { defaultValue: { summary: "save" } }, // default value
       control: "text", // what type of value we can set
@@ -47,6 +48,10 @@ export default {
       description: "A function that is called each time the button is clicked",
       type: { required: true },
     },
+    customIcon: {
+      description: "A react node for a custom icon for the button",
+      type: { required: false },
+    },
   },
   parameters: {
     docs: {
@@ -59,12 +64,7 @@ export default {
 };
 
 const SaveAddButtonInputStory = ({ ...args }) => {
-  return (
-    <SaveAddButton
-      {...args}
-      onClick={() => console.log("Save action")}
-    />
-  );
+  return <SaveAddButton {...args} onClick={() => console.log("Save action")} />;
 };
 
 const AddButtonInputStory = ({ ...args }) => {

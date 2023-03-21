@@ -12,6 +12,7 @@ import {
   ArrowUp,
 } from "@carbon/icons-react";
 import React from "react";
+import { RenderForm } from "./Utils";
 
 /**
  * generate save icon
@@ -45,7 +46,11 @@ export const SaveAddButton = (props) => {
       align={props.hoverTextAlign}
     >
       <Button
-        kind={props.type === "add" ? "tertiary" : "primary"}
+        kind={
+          props.type === "add" || props.type === "custom"
+            ? "tertiary"
+            : "primary"
+        }
         onClick={props.onClick}
         className={
           saveChangeButtonClass(props) +
@@ -56,7 +61,9 @@ export const SaveAddButton = (props) => {
         disabled={props.disabled || false}
         size="sm"
       >
-        {props.type === "add" ? (
+        {props.type === "custom" ? (
+          RenderForm(props.customIcon)
+        ) : props.type === "add" ? (
           <Add />
         ) : (
           <SaveIcon saveIsDisabled={props.disabled} />
@@ -81,6 +88,7 @@ SaveAddButton.propTypes = {
   type: PropTypes.string.isRequired,
   inline: PropTypes.bool.isRequired,
   hoverTextAlign: PropTypes.string.isRequired,
+  customIcon: PropTypes.node,
 };
 
 /**
