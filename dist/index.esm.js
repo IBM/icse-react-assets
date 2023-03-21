@@ -4518,6 +4518,22 @@ class NetworkingRulesOrderCard extends Component {
       onRequestClose: this.toggleModal
     }, RenderForm(NetworkingRuleForm, {
       ...this.props,
+      data: {
+        name: "",
+        action: "allow",
+        direction: "inbound",
+        source: "",
+        destination: "",
+        ruleProtocol: "all",
+        rule: {
+          port_max: null,
+          port_min: null,
+          source_port_max: null,
+          source_port_min: null,
+          type: null,
+          code: null
+        }
+      },
       isSecurityGroup: this.props.isSecurityGroup,
       invalidCallback: this.props.invalidRuleText,
       invalidTextCallback: this.props.invalidRuleTextCallback,
