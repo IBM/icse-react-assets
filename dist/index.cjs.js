@@ -45,7 +45,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = "/* vars and themes */\n:root {\n  --background: #ffffff;\n  --subForm: #f4f4f4;\n  --formInSubForm: #fffdfd;\n  --cds-text-primary: #161616;\n  --cds-text-secondary: #525252;\n  --cds-field: #f4f4f4;\n  --cds-border-strong: #8d8d8d;\n  --blue: #0f62fe;\n  --red: #da1e28;\n}\n\n.dark {\n  --background: #161616;\n  --subForm: #262626;\n  --formInSubForm: #414141;\n  --cds-text-primary: #f4f4f4;\n  --cds-text-secondary: #c6c6c6;\n  --cds-field: #363636;\n  --cds-border-strong: #8897a2;\n  --cds-layer: #262626;\n  --cds-layer-hover: #363636;\n  --cds-field-02: #363636;\n  --cds-icon-secondary: #c6c6c6;\n  --cds-icon-primary: #c6c6c6;\n  --placeholder: #565656;\n  --cds-field-hover: #464646;\n  --cds-layer-selected: #525252;\n  --cds-background-inverse: #f4f4f4;\n  --cds-text-inverse: #262626;\n}\n\n.dark {\n  background-color: var(--background);\n}\n\n.dark p {\n  color: #f4f4f4;\n}\n\n.dark i.chevron > svg {\n  fill: #f4f4f4;\n}\n\n.dark h4 {\n  color: #f4f4f4;\n}\n\n.dark .underConstruction > svg {\n  fill: #ffffff;\n}\n/* styling for tooltip content in dark mode */\n.dark .cds--toggletip-content > p {\n  color: #363636;\n}\n\n.dark ::placeholder {\n  color: var(--placeholder);\n}\n\n/* general alignment classes */\n\n.displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n\n.fieldWidthSmallest {\n  width: 8rem;\n}\n\n.fieldWidthBigger {\n  width: 40rem;\n}\n\n.textInputWide {\n  width: 30rem;\n}\n\n.textInputMedium {\n  width: 20rem;\n}\n\n/* backhground classes */\n.formInSubForm {\n  margin-top: 0rem;\n  background: var(--formInSubForm);\n  padding: 1rem;\n}\n\n.subForm {\n  background: var(--subForm);\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n/* Tooltips */\n.labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n\n/* subnet tile form */\n\n.subnetTileFormMargin {\n  margin-bottom: -0.5rem;\n  margin-top: 0.5rem;\n}\n\n.marginRightSubnetTile {\n  margin-right: 10px;\n}\n\n/* StatefulTabPanel */\n\n.cds--tab-content.doc {\n  padding: 0.5rem 0;\n}\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}\n\n/* popover wrappers */\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  position: relative;\n  z-index: 9001;\n}\n\n/* buttons */\n\n.chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: var(--blue) !important;\n  fill: white !important;\n  border-color: var(--blue) !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: var(--red) !important;\n}\n\n.alignButtons {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important;\n}\n\n/* docs */\n.about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n\n/* empty resource tile */\n.iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: var(--subForm);\n}\n\n/* under construction */\n\n.underConstruction {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.flexDirectionColumn {\n  flex-direction: column;\n}\n\n/* f5 vsi */\n.wide {\n  width: 20rem !important;\n}\n\n.tight {\n  width: min-content; /* force invalid text to split line */\n}\n\n.passwordGenerateButton {\n  margin-top: 1.25rem;\n  margin-left: calc(-4rem - 3vw);\n}\n\n.passwordGenerateButton svg {\n  fill: var(--cds-icon-secondary, #525252) !important;\n}\n\n.passwordGenerateButton.invalid {\n  margin-left: calc(-5.75rem - 3vw);\n}\n";
+var css_248z = "/* vars and themes */\n:root {\n  --background: #ffffff;\n  --subForm: #f4f4f4;\n  --formInSubForm: #fffdfd;\n  --cds-text-primary: #161616;\n  --cds-text-secondary: #525252;\n  --cds-field: #f4f4f4;\n  --cds-border-strong: #8d8d8d;\n  --blue: #0f62fe;\n  --red: #da1e28;\n  --white: #ffffff;\n}\n\n.dark {\n  --background: #161616;\n  --subForm: #262626;\n  --formInSubForm: #414141;\n  --cds-text-primary: #f4f4f4;\n  --cds-text-secondary: #c6c6c6;\n  --cds-field: #363636;\n  --cds-border-strong: #8897a2;\n  --cds-layer: #262626;\n  --cds-layer-hover: #363636;\n  --cds-field-02: #363636;\n  --cds-icon-secondary: #c6c6c6;\n  --cds-icon-primary: #c6c6c6;\n  --placeholder: #565656;\n  --cds-field-hover: #464646;\n  --cds-layer-selected: #525252;\n  --cds-background-inverse: #f4f4f4;\n  --cds-text-inverse: #262626;\n}\n\n.dark {\n  background-color: var(--background);\n}\n\n.dark p {\n  color: #f4f4f4;\n}\n\n.dark i.chevron > svg {\n  fill: #f4f4f4;\n}\n\n.dark h4 {\n  color: #f4f4f4;\n}\n\n.dark .underConstruction > svg {\n  fill: #ffffff;\n}\n/* styling for tooltip content in dark mode */\n.dark .cds--toggletip-content > p {\n  color: #363636;\n}\n\n.dark ::placeholder {\n  color: var(--placeholder);\n}\n\n/* general alignment classes */\n\n.displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n\n.fieldWidthSmallest {\n  width: 8rem;\n}\n\n.fieldWidthBigger {\n  width: 40rem;\n}\n\n.textInputWide {\n  width: 30rem;\n}\n\n.textInputMedium {\n  width: 20rem;\n}\n\n/* backhground classes */\n.formInSubForm {\n  margin-top: 0rem;\n  background: var(--formInSubForm);\n  padding: 1rem;\n}\n\n.subForm {\n  background: var(--subForm);\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n/* Tooltips */\n.labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n\n/* subnet tile form */\n\n.subnetTileFormMargin {\n  margin-bottom: -0.5rem;\n  margin-top: 0.5rem;\n}\n\n.marginRightSubnetTile {\n  margin-right: 10px;\n}\n\n/* StatefulTabPanel */\n\n.cds--tab-content.doc {\n  padding: 0.5rem 0;\n}\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}\n\n/* popover wrappers */\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  position: relative;\n  z-index: 9001;\n}\n\n/* buttons */\n\n.chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: var(--blue) !important;\n  fill: var(--white) !important;\n  border-color: var(--blue) !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: var(--red) !important;\n}\n\n.alignButtons {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important;\n}\n\n/* docs */\n.about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n\n/* empty resource tile */\n.iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: var(--subForm);\n}\n\n/* under construction */\n\n.underConstruction {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.flexDirectionColumn {\n  flex-direction: column;\n}\n\n/* f5 vsi */\n.wide {\n  width: 20rem !important;\n}\n\n.tight {\n  width: min-content; /* force invalid text to split line */\n}\n\n.passwordGenerateButton {\n  margin-top: 1.25rem;\n  margin-left: calc(-4rem - 3vw);\n}\n\n.passwordGenerateButton svg {\n  fill: var(--cds-icon-secondary, #525252) !important;\n}\n\n.passwordGenerateButton.invalid {\n  margin-left: calc(-5.75rem - 3vw);\n}\n";
 styleInject(css_248z);
 
 /**
@@ -313,6 +313,283 @@ PopoverWrapper.propTypes = {
 };
 
 /**
+ * Render a form (duplicate from utils to prevent circular dependencies)
+ * @param {*} form form element
+ * @param {*} formProps props
+ * @returns Form element
+ */
+function RenderForm$1(form, formProps) {
+  return /*#__PURE__*/React__default["default"].createElement(form, {
+    ...formProps
+  });
+}
+
+/**
+ * render a tooltip around an input field
+ * @returns slz tooltip component
+ */
+const IcseToolTip = props => {
+  let link = /*#__PURE__*/React__default["default"].createElement(react.Link, {
+    onClick: () => window.open(props.link, "_blank")
+  }, "this link");
+  return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(react.Toggletip, {
+    align: props.align
+  }, /*#__PURE__*/React__default["default"].createElement(react.ToggletipButton, null, /*#__PURE__*/React__default["default"].createElement(iconsReact.Information, {
+    className: "tooltipMarginLeft"
+  })), /*#__PURE__*/React__default["default"].createElement(react.ToggletipContent, null, /*#__PURE__*/React__default["default"].createElement("p", null, props.content, props.link && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, " Visit ", link, " for more information. ")))));
+};
+IcseToolTip.defaultProps = {
+  content: "",
+  align: "top"
+};
+IcseToolTip.propTypes = {
+  content: PropTypes__default["default"].string.isRequired,
+  link: PropTypes__default["default"].string,
+  align: PropTypes__default["default"].string.isRequired
+};
+const BuildToolTip = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseToolTip, {
+    content: props.tooltip.content,
+    link: props.tooltip?.link,
+    align: props.isModal ? props.tooltip.alignModal : props.tooltip.align
+  });
+};
+BuildToolTip.defaultProps = {
+  tooltip: {
+    content: ""
+  },
+  isModal: false,
+  align: "top",
+  alignModal: "bottom"
+};
+BuildToolTip.propTypes = {
+  tooltip: PropTypes__default["default"].shape({
+    content: PropTypes__default["default"].string.isRequired,
+    link: PropTypes__default["default"].string
+  }).isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired,
+  align: PropTypes__default["default"].string.isRequired,
+  alignModal: PropTypes__default["default"].string.isRequired
+};
+const ToolTipWrapper = props => {
+  let allProps = {
+    ...props
+  };
+  let tooltip = BuildToolTip(props);
+  delete allProps.innerForm;
+  delete allProps.tooltip;
+  delete allProps.noLabelText;
+  //check for labelText prop for components where it is a valid param
+  if (!props.noLabelText && props.labelText === undefined) {
+    throw new Error("ToolTipWrapper expects `props.labelText` when rendering labelText to be provided, got neither. To not render label text, use the `noLabelText` prop.");
+  }
+  // remove label text from components where it is not valid param
+  if (props.noLabelText) delete allProps.labelText;else allProps.labelText = " ";
+  allProps.className = lib_2("tooltip", {
+    ...props
+  });
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "cds--form-item"
+  }, props.noLabelText ?
+  /*#__PURE__*/
+  // No label- this is usually a title
+  React__default["default"].createElement("div", {
+    className: "labelRow"
+  }, RenderForm$1(props.innerForm, allProps), tooltip) : /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "cds--label labelRow"
+  }, /*#__PURE__*/React__default["default"].createElement("label", {
+    htmlFor: props.id
+  }, props.labelText), tooltip), props.children ? /*#__PURE__*/React__default["default"].cloneElement(props.children, {
+    // adjust props
+    labelText: " ",
+    // set labelText to empty
+    className: props.children.props.className + " tooltip" // add tooltip class back
+  }) : RenderForm$1(props.innerForm, allProps)));
+};
+ToolTipWrapper.defaultProps = {
+  tooltip: {
+    content: ""
+  },
+  noLabelText: false
+};
+ToolTipWrapper.propTypes = {
+  tooltip: PropTypes__default["default"].shape({
+    content: PropTypes__default["default"].string.isRequired,
+    link: PropTypes__default["default"].string
+  }).isRequired,
+  isModal: PropTypes__default["default"].bool,
+  id: PropTypes__default["default"].string.isRequired,
+  labelText: PropTypes__default["default"].string,
+  noLabelText: PropTypes__default["default"].bool.isRequired,
+  children: PropTypes__default["default"].node,
+  innerForm: PropTypes__default["default"].oneOfType([PropTypes__default["default"].object, PropTypes__default["default"].func])
+};
+const DynamicToolTipWrapper = props => {
+  //make sure that either children or innerForm are passed as a prop
+  if (props.children === undefined && props.innerForm === undefined) {
+    throw new Error("DynamicToolTipWrapper expects either `props.children` or `props.innerForm` when rendering ToolTipWrapper, got neither.");
+  }
+  return props.tooltip ? /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, props) : props.children ? props.children : RenderForm$1(props.innerForm, {});
+};
+DynamicToolTipWrapper.propTypes = {
+  tooltip: PropTypes__default["default"].shape({
+    content: PropTypes__default["default"].string,
+    link: PropTypes__default["default"].string
+  }),
+  isModal: PropTypes__default["default"].bool,
+  children: PropTypes__default["default"].node,
+  innerForm: PropTypes__default["default"].oneOfType([PropTypes__default["default"].object, PropTypes__default["default"].func])
+};
+
+/**
+ * Render a form
+ * @param {*} form form element
+ * @param {*} formProps props
+ * @returns Form element
+ */
+function RenderForm(form, formProps) {
+  return /*#__PURE__*/React__default["default"].createElement(form, {
+    ...formProps
+  });
+}
+
+/**
+ * Dynamically render inner contents
+ * @param {*} props
+ * @param {boolean=} props.hide hide element
+ * @param {boolean=} props.show component to show when hide is false
+ * @returns empty string when hidden, component when visible
+ */
+function DynamicRender(props) {
+  return props.hide === true ? "" : props.show;
+}
+
+/**
+ * wrapper for title groups
+ */
+const TitleGroup = props => {
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: lib_2(`displayFlex alignItemsCenter widthOneHundredPercent ${lib_1(props.hide)}`, props)
+  }, props.children);
+};
+TitleGroup.defaultProps = {
+  hide: true
+};
+TitleGroup.propTypes = {
+  children: PropTypes__default["default"].node.isRequired
+};
+const IcseFormGroup = props => {
+  let formGroupClassName = "displayFlex marginBottom fitContent evenSpacing";
+  // remove margin bottom from formGroup for VPC
+  if (props.noMarginBottom) {
+    formGroupClassName = formGroupClassName.replace(/\smarginBottom/g, "");
+  }
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: lib_2(formGroupClassName, props)
+  }, props.children);
+};
+IcseFormGroup.defaultProps = {
+  noMarginBottom: false
+};
+IcseFormGroup.propTypes = {
+  noMarginBottom: PropTypes__default["default"].bool.isRequired,
+  children: PropTypes__default["default"].node.isRequired,
+  className: PropTypes__default["default"].string
+};
+const IcseSubForm = props => {
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: lib_2(props.formInSubForm ? "formInSubForm positionRelative" : "subForm marginBottomSmall", props),
+    id: props.id
+  }, props.children);
+};
+IcseSubForm.defaultProps = {
+  formInSubForm: false
+};
+IcseSubForm.propTypes = {
+  id: PropTypes__default["default"].string.isRequired,
+  formInSubForm: PropTypes__default["default"].bool.isRequired,
+  className: PropTypes__default["default"].string,
+  children: PropTypes__default["default"].node.isRequired
+};
+const IcseHeading = props => {
+  let titleFormDivClass = props.toggleFormTitle ? "" : props.name === "" ? "" : " icseFormTitleMinHeight";
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: lib_2("displayFlex spaceBetween widthOneHundredPercent alignItemsCenter", props) + titleFormDivClass
+  }, /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, {
+    tooltip: props.tooltip,
+    noLabelText: true,
+    id: props.name,
+    innerForm: () => {
+      return props.type === "subHeading" ? /*#__PURE__*/React__default["default"].createElement("h5", null, props.name) : props.type === "p" ? /*#__PURE__*/React__default["default"].createElement("p", null, props.name) : /*#__PURE__*/React__default["default"].createElement("h4", null, props.name);
+    }
+  }), /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "displayFlex"
+  }, props.buttons));
+};
+IcseHeading.defaultProps = {
+  type: "heading"
+};
+IcseHeading.propTypes = {
+  name: PropTypes__default["default"].string.isRequired,
+  type: PropTypes__default["default"].string,
+  tooltip: PropTypes__default["default"].shape({
+    content: PropTypes__default["default"].string.isRequired,
+    link: PropTypes__default["default"].string,
+    align: PropTypes__default["default"].string,
+    alignModal: PropTypes__default["default"].string
+  }),
+  buttons: PropTypes__default["default"].node,
+  className: PropTypes__default["default"].string,
+  toggleFormTitle: PropTypes__default["default"].bool
+};
+
+/**
+ * All of the toggle form functionality without injecting anything on render
+ */
+const StatelessToggleForm = props => {
+  return props.hideTitle ? props.children : /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(TitleGroup, {
+    hide: props.hide,
+    props: props,
+    className: props.className
+  }, props.hideIcon !== true && /*#__PURE__*/React__default["default"].createElement(EditCloseIcon, {
+    onClick: props.onIconClick,
+    type: props.iconType,
+    open: props.hide === false
+  }), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+    type: props.toggleFormTitle ? "p" : props.subHeading ? "subHeading" : "heading",
+    name: props.name,
+    buttons: /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+      hide: props.hide === true && props.alwaysShowButtons !== true,
+      show: props.buttons || ""
+    })
+  })), /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+    hide: props.hide,
+    show: props.children
+  }));
+};
+StatelessToggleForm.defaultProps = {
+  hide: true,
+  iconType: "edit",
+  name: "Stateless Toggle Form",
+  hideTitle: false,
+  alwaysShowButtons: false,
+  hideTitle: false,
+  toggleFormTitle: false
+};
+StatelessToggleForm.propTypes = {
+  children: PropTypes__default["default"].node.isRequired,
+  hide: PropTypes__default["default"].bool.isRequired,
+  iconType: PropTypes__default["default"].string.isRequired,
+  onIconClick: PropTypes__default["default"].func,
+  subHeading: PropTypes__default["default"].bool,
+  name: PropTypes__default["default"].string.isRequired,
+  buttons: PropTypes__default["default"].node,
+  toggleFormTitle: PropTypes__default["default"].bool.isRequired,
+  alwaysShowButtons: PropTypes__default["default"].bool.isRequired,
+  hideTitle: PropTypes__default["default"].bool.isRequired
+};
+
+/**
  * generate save icon
  * @param {object} props
  * @param {boolean} props.saveIsDisabled true if disabled
@@ -335,12 +612,12 @@ const SaveAddButton = props => {
     className: (props.disabled ? "inlineBlock cursorNotAllowed" : "") + (props.inline ? " alignItemsCenter marginTopLarge inLineFormButton" : ""),
     align: props.hoverTextAlign
   }, /*#__PURE__*/React__default["default"].createElement(react.Button, {
-    kind: props.type === "add" ? "tertiary" : "primary",
+    kind: props.type === "add" || props.type === "custom" ? "tertiary" : "primary",
     onClick: props.onClick,
     className: lib_6(props) + (props.disabled === true ? " pointerEventsNone " : " " + props.className),
     disabled: props.disabled || false,
     size: "sm"
-  }, props.type === "add" ? /*#__PURE__*/React__default["default"].createElement(iconsReact.Add, null) : /*#__PURE__*/React__default["default"].createElement(SaveIcon, {
+  }, props.type === "custom" ? RenderForm(props.customIcon) : props.type === "add" ? /*#__PURE__*/React__default["default"].createElement(iconsReact.Add, null) : /*#__PURE__*/React__default["default"].createElement(SaveIcon, {
     saveIsDisabled: props.disabled
   })));
 };
@@ -357,7 +634,8 @@ SaveAddButton.propTypes = {
   disabled: PropTypes__default["default"].bool.isRequired,
   type: PropTypes__default["default"].string.isRequired,
   inline: PropTypes__default["default"].bool.isRequired,
-  hoverTextAlign: PropTypes__default["default"].string.isRequired
+  hoverTextAlign: PropTypes__default["default"].string.isRequired,
+  customIcon: PropTypes__default["default"].node
 };
 
 /**
@@ -460,7 +738,8 @@ UpDownButtons.propTypes = {
 };
 
 const {
-  isFunction
+  isFunction,
+  splat
 } = require("lazy-z");
 const {
   eventTargetToNameAndValue,
@@ -475,8 +754,16 @@ const {
 function buildFormFunctions(component) {
   let disableSubmit = isFunction(component.props.shouldDisableSubmit);
   let disableSave = isFunction(component.props.shouldDisableSave);
+  let usesSubnetList = Array.isArray(component.props.subnetList);
   if (component.props.shouldDisableSave) component.shouldDisableSave = component.props.shouldDisableSave.bind(component);
   if (disableSubmit) component.shouldDisableSubmit = component.props.shouldDisableSubmit.bind(component);
+  if (usesSubnetList) {
+    component.getSubnetList = function () {
+      return splat(component.props.subnetList.filter(subnet => {
+        if (subnet.vpc === component.state.vpc) return subnet;
+      }), "name");
+    }.bind(component);
+  }
 
   // set update
   component.componentDidMount = function () {
@@ -617,135 +904,6 @@ Docs.propTypes = {
     subHeading: PropTypes__default["default"].string
   })).isRequired,
   relatedLinks: PropTypes__default["default"].array
-};
-
-/**
- * Render a form (duplicate from utils to prevent circular dependencies)
- * @param {*} form form element
- * @param {*} formProps props
- * @returns Form element
- */
-function RenderForm$1(form, formProps) {
-  return /*#__PURE__*/React__default["default"].createElement(form, {
-    ...formProps
-  });
-}
-
-/**
- * render a tooltip around an input field
- * @returns slz tooltip component
- */
-const IcseToolTip = props => {
-  let link = /*#__PURE__*/React__default["default"].createElement(react.Link, {
-    onClick: () => window.open(props.link, "_blank")
-  }, "this link");
-  return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(react.Toggletip, {
-    align: props.align
-  }, /*#__PURE__*/React__default["default"].createElement(react.ToggletipButton, null, /*#__PURE__*/React__default["default"].createElement(iconsReact.Information, {
-    className: "tooltipMarginLeft"
-  })), /*#__PURE__*/React__default["default"].createElement(react.ToggletipContent, null, /*#__PURE__*/React__default["default"].createElement("p", null, props.content, props.link && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, " Visit ", link, " for more information. ")))));
-};
-IcseToolTip.defaultProps = {
-  content: "",
-  align: "top"
-};
-IcseToolTip.propTypes = {
-  content: PropTypes__default["default"].string.isRequired,
-  link: PropTypes__default["default"].string,
-  align: PropTypes__default["default"].string.isRequired
-};
-const BuildToolTip = props => {
-  return /*#__PURE__*/React__default["default"].createElement(IcseToolTip, {
-    content: props.tooltip.content,
-    link: props.tooltip?.link,
-    align: props.isModal ? props.tooltip.alignModal : props.tooltip.align
-  });
-};
-BuildToolTip.defaultProps = {
-  tooltip: {
-    content: ""
-  },
-  isModal: false,
-  align: "top",
-  alignModal: "bottom"
-};
-BuildToolTip.propTypes = {
-  tooltip: PropTypes__default["default"].shape({
-    content: PropTypes__default["default"].string.isRequired,
-    link: PropTypes__default["default"].string
-  }).isRequired,
-  isModal: PropTypes__default["default"].bool.isRequired,
-  align: PropTypes__default["default"].string.isRequired,
-  alignModal: PropTypes__default["default"].string.isRequired
-};
-const ToolTipWrapper = props => {
-  let allProps = {
-    ...props
-  };
-  let tooltip = BuildToolTip(props);
-  delete allProps.innerForm;
-  delete allProps.tooltip;
-  delete allProps.noLabelText;
-  //check for labelText prop for components where it is a valid param
-  if (!props.noLabelText && props.labelText === undefined) {
-    throw new Error("ToolTipWrapper expects `props.labelText` when rendering labelText to be provided, got neither. To not render label text, use the `noLabelText` prop.");
-  }
-  // remove label text from components where it is not valid param
-  if (props.noLabelText) delete allProps.labelText;else allProps.labelText = " ";
-  allProps.className = lib_2("tooltip", {
-    ...props
-  });
-  return /*#__PURE__*/React__default["default"].createElement("div", {
-    className: "cds--form-item"
-  }, props.noLabelText ?
-  /*#__PURE__*/
-  // No label- this is usually a title
-  React__default["default"].createElement("div", {
-    className: "labelRow"
-  }, RenderForm$1(props.innerForm, allProps), tooltip) : /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement("div", {
-    className: "cds--label labelRow"
-  }, /*#__PURE__*/React__default["default"].createElement("label", {
-    htmlFor: props.id
-  }, props.labelText), tooltip), props.children ? /*#__PURE__*/React__default["default"].cloneElement(props.children, {
-    // adjust props
-    labelText: " ",
-    // set labelText to empty
-    className: props.children.props.className + " tooltip" // add tooltip class back
-  }) : RenderForm$1(props.innerForm, allProps)));
-};
-ToolTipWrapper.defaultProps = {
-  tooltip: {
-    content: ""
-  },
-  noLabelText: false
-};
-ToolTipWrapper.propTypes = {
-  tooltip: PropTypes__default["default"].shape({
-    content: PropTypes__default["default"].string.isRequired,
-    link: PropTypes__default["default"].string
-  }).isRequired,
-  isModal: PropTypes__default["default"].bool,
-  id: PropTypes__default["default"].string.isRequired,
-  labelText: PropTypes__default["default"].string,
-  noLabelText: PropTypes__default["default"].bool.isRequired,
-  children: PropTypes__default["default"].node,
-  innerForm: PropTypes__default["default"].oneOfType([PropTypes__default["default"].object, PropTypes__default["default"].func])
-};
-const DynamicToolTipWrapper = props => {
-  //make sure that either children or innerForm are passed as a prop
-  if (props.children === undefined && props.innerForm === undefined) {
-    throw new Error("DynamicToolTipWrapper expects either `props.children` or `props.innerForm` when rendering ToolTipWrapper, got neither.");
-  }
-  return props.tooltip ? /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, props) : props.children ? props.children : RenderForm$1(props.innerForm, {});
-};
-DynamicToolTipWrapper.propTypes = {
-  tooltip: PropTypes__default["default"].shape({
-    content: PropTypes__default["default"].string,
-    link: PropTypes__default["default"].string
-  }),
-  isModal: PropTypes__default["default"].bool,
-  children: PropTypes__default["default"].node,
-  innerForm: PropTypes__default["default"].oneOfType([PropTypes__default["default"].object, PropTypes__default["default"].func])
 };
 
 const IcseSelect = props => {
@@ -1016,154 +1174,6 @@ EmptyResourceTile.propTypes = {
   name: PropTypes__default["default"].string.isRequired,
   showIfEmpty: PropTypes__default["default"].oneOfType([PropTypes__default["default"].array, PropTypes__default["default"].bool]).isRequired,
   instructions: PropTypes__default["default"].string
-};
-
-/**
- * Render a form
- * @param {*} form form element
- * @param {*} formProps props
- * @returns Form element
- */
-function RenderForm(form, formProps) {
-  return /*#__PURE__*/React__default["default"].createElement(form, {
-    ...formProps
-  });
-}
-
-/**
- * Dynamically render inner contents
- * @param {*} props
- * @param {boolean=} props.hide hide element
- * @param {boolean=} props.show component to show when hide is false
- * @returns empty string when hidden, component when visible
- */
-function DynamicRender(props) {
-  return props.hide === true ? "" : props.show;
-}
-
-/**
- * wrapper for title groups
- */
-const TitleGroup = props => {
-  return /*#__PURE__*/React__default["default"].createElement("div", {
-    className: lib_2(`displayFlex alignItemsCenter widthOneHundredPercent ${lib_1(props.hide)}`, props)
-  }, props.children);
-};
-TitleGroup.defaultProps = {
-  hide: true
-};
-TitleGroup.propTypes = {
-  children: PropTypes__default["default"].node.isRequired
-};
-const IcseFormGroup = props => {
-  let formGroupClassName = "displayFlex marginBottom fitContent evenSpacing";
-  // remove margin bottom from formGroup for VPC
-  if (props.noMarginBottom) {
-    formGroupClassName = formGroupClassName.replace(/\smarginBottom/g, "");
-  }
-  return /*#__PURE__*/React__default["default"].createElement("div", {
-    className: lib_2(formGroupClassName, props)
-  }, props.children);
-};
-IcseFormGroup.defaultProps = {
-  noMarginBottom: false
-};
-IcseFormGroup.propTypes = {
-  noMarginBottom: PropTypes__default["default"].bool.isRequired,
-  children: PropTypes__default["default"].node.isRequired,
-  className: PropTypes__default["default"].string
-};
-const IcseSubForm = props => {
-  return /*#__PURE__*/React__default["default"].createElement("div", {
-    className: lib_2(props.formInSubForm ? "formInSubForm positionRelative" : "subForm marginBottomSmall", props),
-    id: props.id
-  }, props.children);
-};
-IcseSubForm.defaultProps = {
-  formInSubForm: false
-};
-IcseSubForm.propTypes = {
-  id: PropTypes__default["default"].string.isRequired,
-  formInSubForm: PropTypes__default["default"].bool.isRequired,
-  className: PropTypes__default["default"].string,
-  children: PropTypes__default["default"].node.isRequired
-};
-const IcseHeading = props => {
-  let titleFormDivClass = props.toggleFormTitle ? "" : props.name === "" ? "" : " icseFormTitleMinHeight";
-  return /*#__PURE__*/React__default["default"].createElement("div", {
-    className: lib_2("displayFlex spaceBetween widthOneHundredPercent alignItemsCenter", props) + titleFormDivClass
-  }, /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, {
-    tooltip: props.tooltip,
-    noLabelText: true,
-    id: props.name,
-    innerForm: () => {
-      return props.type === "subHeading" ? /*#__PURE__*/React__default["default"].createElement("h5", null, props.name) : props.type === "p" ? /*#__PURE__*/React__default["default"].createElement("p", null, props.name) : /*#__PURE__*/React__default["default"].createElement("h4", null, props.name);
-    }
-  }), /*#__PURE__*/React__default["default"].createElement("div", {
-    className: "displayFlex"
-  }, props.buttons));
-};
-IcseHeading.defaultProps = {
-  type: "heading"
-};
-IcseHeading.propTypes = {
-  name: PropTypes__default["default"].string.isRequired,
-  type: PropTypes__default["default"].string,
-  tooltip: PropTypes__default["default"].shape({
-    content: PropTypes__default["default"].string.isRequired,
-    link: PropTypes__default["default"].string,
-    align: PropTypes__default["default"].string,
-    alignModal: PropTypes__default["default"].string
-  }),
-  buttons: PropTypes__default["default"].node,
-  className: PropTypes__default["default"].string,
-  toggleFormTitle: PropTypes__default["default"].bool
-};
-
-/**
- * All of the toggle form functionality without injecting anything on render
- */
-const StatelessToggleForm = props => {
-  return props.hideTitle ? props.children : /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(TitleGroup, {
-    hide: props.hide,
-    props: props,
-    className: props.className
-  }, props.hideIcon !== true && /*#__PURE__*/React__default["default"].createElement(EditCloseIcon, {
-    onClick: props.onIconClick,
-    type: props.iconType,
-    open: props.hide === false
-  }), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
-    type: props.toggleFormTitle ? "p" : props.subHeading ? "subHeading" : "heading",
-    name: props.name,
-    buttons: /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
-      hide: props.hide === true && props.alwaysShowButtons !== true,
-      show: props.buttons || ""
-    })
-  })), /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
-    hide: props.hide,
-    show: props.children
-  }));
-};
-StatelessToggleForm.defaultProps = {
-  hide: true,
-  iconType: "edit",
-  name: "Stateless Toggle Form",
-  hideTitle: false,
-  alwaysShowButtons: false,
-  hideTitle: false,
-  toggleFormTitle: false
-};
-StatelessToggleForm.propTypes = {
-  children: PropTypes__default["default"].node.isRequired,
-  hide: PropTypes__default["default"].bool.isRequired,
-  iconType: PropTypes__default["default"].string.isRequired,
-  onIconClick: PropTypes__default["default"].func,
-  subHeading: PropTypes__default["default"].bool,
-  name: PropTypes__default["default"].string.isRequired,
-  buttons: PropTypes__default["default"].node,
-  toggleFormTitle: PropTypes__default["default"].bool.isRequired,
-  alwaysShowButtons: PropTypes__default["default"].bool.isRequired,
-  hideTitle: PropTypes__default["default"].bool.isRequired
 };
 
 /**
@@ -6493,7 +6503,7 @@ class VpeForm extends React.Component {
       initialSelectedItems: this.state.subnets,
       vpc_name: this.state.vpc,
       onChange: event => this.handleMultiSelect("subnets", event),
-      subnets: this.props.subnetList,
+      subnets: this.getSubnetList(),
       className: "fieldWidthSmaller"
     })));
   }
@@ -6520,7 +6530,7 @@ VpeForm.propTypes = {
     subnets: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
   }),
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  subnetList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  subnetList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].object).isRequired,
   securityGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   isModal: PropTypes__default["default"].bool.isRequired
 };
@@ -6566,7 +6576,7 @@ class VpnGatewayForm extends React.Component {
       onChange: this.handleInputChange,
       placeholder: "my-vpn-gateway-name",
       hideHelperText: true,
-      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props)
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       formName: "resource_group",
@@ -6594,7 +6604,7 @@ class VpnGatewayForm extends React.Component {
       formName: "subnet",
       name: "subnet",
       labelText: "Subnet",
-      groups: this.props.subnetList,
+      groups: this.getSubnetList(),
       value: this.state.subnet,
       handleInputChange: this.handleInputChange,
       invalid: lib_4(this.state.vpc) || lib_4(this.state.subnet),
@@ -6623,7 +6633,7 @@ VpnGatewayForm.propTypes = {
   }).isRequired,
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  subnetList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  subnetList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].object).isRequired,
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
   isModal: PropTypes__default["default"].bool.isRequired
@@ -6692,7 +6702,7 @@ class VsiForm extends React.Component {
       formName: "vsi_form",
       name: "subnet",
       labelText: "Subnet",
-      groups: this.props.subnetList,
+      groups: this.getSubnetList(),
       value: this.state.subnet,
       handleInputChange: this.handleInputChange,
       invalid: lib_4(this.state.vpc) || lib_4(this.state.subnet),
@@ -6701,7 +6711,7 @@ class VsiForm extends React.Component {
       id: "subnet",
       initialSelectedItems: this.state.subnets,
       vpc_name: this.state.vpc,
-      subnets: this.props.subnetList,
+      subnets: this.getSubnetList(),
       onChange: value => this.handleMultiSelectChange("subnets", value)
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
       label: "Instances per Subnet",
@@ -6891,7 +6901,7 @@ class WorkerPoolForm extends React.Component {
       disabled: this.props.cluster.vpc === null,
       vpc_name: this.state.vpc,
       initialSelectedItems: this.props.data.subnets,
-      subnets: this.props.subnetList,
+      subnets: this.getSubnetList(),
       onChange: this.handleSubnetChange,
       component: this.props.data.name,
       className: "fieldWidthSmaller cds--form-item"
@@ -7066,7 +7076,7 @@ class ClusterForm extends React.Component {
       id: clusterComponent,
       key: this.state.vpc,
       vpc_name: this.state.vpc,
-      subnets: this.props.subnetList,
+      subnets: this.getSubnetList(),
       initialSelectedItems: this.state.subnets,
       onChange: event => this.handleMultiSelect("subnets", event),
       className: "fieldWidthSmaller"
@@ -7194,7 +7204,7 @@ ClusterForm.propTypes = {
   encryptionKeys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string),
   cosNames: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string),
   vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string),
-  subnetList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  subnetList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].object).isRequired,
   /* api endpoints */
   kubeVersionApiEndpoint: PropTypes__default["default"].string.isRequired,
   flavorApiEndpoint: PropTypes__default["default"].string.isRequired,

@@ -87,7 +87,7 @@ class WorkerPoolForm extends Component {
             disabled={this.props.cluster.vpc === null}
             vpc_name={this.state.vpc}
             initialSelectedItems={this.props.data.subnets}
-            subnets={this.props.subnetList}
+            subnets={this.getSubnetList()}
             onChange={this.handleSubnetChange}
             component={this.props.data.name}
             className="fieldWidthSmaller cds--form-item"

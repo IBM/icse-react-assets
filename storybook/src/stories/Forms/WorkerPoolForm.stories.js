@@ -130,19 +130,51 @@ const WorkerPoolFormStory = () => {
     <WorkerPoolForm
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
-      subnetList={["a", "b", "c", "d", "e"]}
+      subnetList={[
+        {
+          vpc: "management",
+          zone: 1,
+          cidr: "10.10.10.0/24",
+          name: "vsi-zone-1",
+          network_acl: "management",
+          resource_group: "management-rg",
+          public_gateway: false,
+          has_prefix: true,
+        },
+        {
+          vpc: "management",
+          zone: 1,
+          cidr: "10.20.10.0/24",
+          name: "vpe-zone-1",
+          resource_group: "management-rg",
+          network_acl: "management",
+          public_gateway: false,
+          has_prefix: true,
+        },
+
+        {
+          vpc: "workload",
+          zone: 1,
+          cidr: "10.40.10.0/24",
+          name: "vsi-zone-1",
+          network_acl: "workload",
+          resource_group: "workload-rg",
+          public_gateway: false,
+          has_prefix: true,
+        },
+      ]}
       cluster={{
         flavor: "bx2.16x64",
-        subnets: ["a", "b", "c"],
-        vpc: "test",
+        subnets: ["vsi-zone-1"],
+        vpc: "management",
         workers_per_subnet: 2,
         entitlement: "null",
       }}
       data={{
         entitlement: "null",
         name: "testWorkerPool",
-        subnets: ["a", "b", "c"],
-        vpc: "test",
+        subnets: ["vsi-zone-1"],
+        vpc: "management",
         flavor: "bx2.16x64",
         workers_per_subnet: 2,
       }}

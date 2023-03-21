@@ -1,4 +1,4 @@
-const { isFunction } = require("lazy-z");
+const { isFunction, splat } = require("lazy-z");
 const {
   eventTargetToNameAndValue,
   toggleStateBoolean,
@@ -12,6 +12,7 @@ const {
 function buildFormFunctions(component) {
   let disableSubmit = isFunction(component.props.shouldDisableSubmit);
   let disableSave = isFunction(component.props.shouldDisableSave);
+  let usesSubnetList = Array.isArray(component.props.subnetList);
 
   if (component.props.shouldDisableSave)
     component.shouldDisableSave =
@@ -20,6 +21,17 @@ function buildFormFunctions(component) {
   if (disableSubmit)
     component.shouldDisableSubmit =
       component.props.shouldDisableSubmit.bind(component);
+
+  if (usesSubnetList) {
+    component.getSubnetList = function () {
+      return splat(
+        component.props.subnetList.filter((subnet) => {
+          if (subnet.vpc === component.state.vpc) return subnet;
+        }),
+        "name"
+      );
+    }.bind(component);
+  }
 
   // set update
   component.componentDidMount = function () {

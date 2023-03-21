@@ -166,8 +166,40 @@ const VsiFormStory = () => {
         name: "vsi",
       }}
       resourceGroupList={["rg1", "rg2", "rg3"]}
-      vpcList={["vpc1", "vpc2"]}
-      subnetList={["sub1", "sub2"]}
+      vpcList={["management", "workload"]}
+      subnetList={[
+        {
+          vpc: "management",
+          zone: 1,
+          cidr: "10.10.10.0/24",
+          name: "vsi-zone-1",
+          network_acl: "management",
+          resource_group: "management-rg",
+          public_gateway: false,
+          has_prefix: true,
+        },
+        {
+          vpc: "management",
+          zone: 1,
+          cidr: "10.20.10.0/24",
+          name: "vpe-zone-1",
+          resource_group: "management-rg",
+          network_acl: "management",
+          public_gateway: false,
+          has_prefix: true,
+        },
+
+        {
+          vpc: "workload",
+          zone: 1,
+          cidr: "10.40.10.0/24",
+          name: "vsi-zone-1",
+          network_acl: "workload",
+          resource_group: "workload-rg",
+          public_gateway: false,
+          has_prefix: true,
+        },
+      ]}
       sshKeyList={["key1", "key2", "key3"]}
       encryptionKeyList={["ekey1", "ekey2", "ekey3"]}
       apiEndpointImages={"/mock/api/images"}

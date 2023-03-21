@@ -8,6 +8,7 @@ import { IcseNameInput } from "../Inputs";
 import { IcseSelect } from "../Dropdowns";
 import PropTypes from "prop-types";
 import { checkNullorEmptyString } from "../../lib";
+import { splat } from "lazy-z";
 
 /**
  * vpn gateway form
@@ -57,7 +58,9 @@ class VpnGatewayForm extends Component {
             onChange={this.handleInputChange}
             placeholder="my-vpn-gateway-name"
             hideHelperText
-            invalid={this.props.invalidCallback(this.state, this.props)}
+            invalidCallback={() =>
+              this.props.invalidCallback(this.state, this.props)
+            }
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
           />
           <IcseSelect
@@ -90,7 +93,7 @@ class VpnGatewayForm extends Component {
             formName="subnet"
             name="subnet"
             labelText="Subnet"
-            groups={this.props.subnetList}
+            groups={this.getSubnetList()}
             value={this.state.subnet}
             handleInputChange={this.handleInputChange}
             invalid={
@@ -129,7 +132,7 @@ VpnGatewayForm.propTypes = {
   }).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   vpcList: PropTypes.arrayOf(PropTypes.string).isRequired,
-  subnetList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  subnetList: PropTypes.arrayOf(PropTypes.object).isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
   isModal: PropTypes.bool.isRequired,

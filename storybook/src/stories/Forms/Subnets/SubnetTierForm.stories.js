@@ -100,10 +100,10 @@ export default {
       type: { required: false }, // required prop or not
     },
     ["data.zones"]: {
-        description: "Number of zones, can be 1, 2, or 3",
-        control: "none",
-        type: { required: false }, // required prop or not
-      },
+      description: "Number of zones, can be 1, 2, or 3",
+      control: "none",
+      type: { required: false }, // required prop or not
+    },
     ["data.networkAcl"]: {
       description: "String, subnet tier network ACL",
       control: "none",

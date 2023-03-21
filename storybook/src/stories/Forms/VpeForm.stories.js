@@ -67,10 +67,42 @@ const VpeFormStory = () => {
         service: "kms",
         resource_group: "test",
         security_groups: ["1", "2", "3"],
-        subnets: ["a", "b", "c"],
+        subnets: ["vsi-zone-1"],
       }}
       resourceGroups={["test", "foo", "bar"]}
-      subnetList={["a", "b", "c", "d", "e"]}
+      subnetList={[
+        {
+          vpc: "management",
+          zone: 1,
+          cidr: "10.10.10.0/24",
+          name: "vsi-zone-1",
+          network_acl: "management",
+          resource_group: "management-rg",
+          public_gateway: false,
+          has_prefix: true,
+        },
+        {
+          vpc: "management",
+          zone: 1,
+          cidr: "10.20.10.0/24",
+          name: "vpe-zone-1",
+          resource_group: "management-rg",
+          network_acl: "management",
+          public_gateway: false,
+          has_prefix: true,
+        },
+
+        {
+          vpc: "workload",
+          zone: 1,
+          cidr: "10.40.10.0/24",
+          name: "vsi-zone-1",
+          network_acl: "workload",
+          resource_group: "workload-rg",
+          public_gateway: false,
+          has_prefix: true,
+        },
+      ]}
       securityGroups={["1", "2", "3", "4", "5"]}
     />
   );

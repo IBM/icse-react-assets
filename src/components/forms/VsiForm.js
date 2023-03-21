@@ -86,7 +86,7 @@ class VsiForm extends Component {
               formName="vsi_form"
               name="subnet"
               labelText="Subnet"
-              groups={this.props.subnetList}
+              groups={this.getSubnetList()}
               value={this.state.subnet}
               handleInputChange={this.handleInputChange}
               invalid={
@@ -104,7 +104,7 @@ class VsiForm extends Component {
               id="subnet"
               initialSelectedItems={this.state.subnets}
               vpc_name={this.state.vpc}
-              subnets={this.props.subnetList}
+              subnets={this.getSubnetList()}
               onChange={(value) =>
                 this.handleMultiSelectChange("subnets", value)
               }
