@@ -624,7 +624,7 @@ SaveAddButton.propTypes = {
   type: PropTypes.string.isRequired,
   inline: PropTypes.bool.isRequired,
   hoverTextAlign: PropTypes.string.isRequired,
-  customIcon: PropTypes.node
+  customIcon: PropTypes.oneOfType([PropTypes.func, PropTypes.object])
 };
 
 /**
@@ -4571,7 +4571,7 @@ class NetworkingRulesOrderCard extends Component {
       showIfEmpty: this.state.rules
     }), this.state.rules.map((rule, index) => /*#__PURE__*/React.createElement("div", {
       key: "rule-div-" + rule.name + "-wrapper",
-      className: "marginBottomSmall positionRelative formInSubForm"
+      className: "marginBottomSmall positionRelative " + (this.props.isSecurityGroup ? "formInSubForm" : "subForm")
     }, /*#__PURE__*/React.createElement(NetworkingRuleForm, {
       hide: this.state.collapse[rule.name],
       onToggle: () => this.toggleCollapse(rule.name),
