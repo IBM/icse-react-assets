@@ -88,7 +88,7 @@ SaveAddButton.propTypes = {
   type: PropTypes.string.isRequired,
   inline: PropTypes.bool.isRequired,
   hoverTextAlign: PropTypes.string.isRequired,
-  customIcon: PropTypes.node,
+  customIcon: PropTypes.oneOfType([PropTypes.func, PropTypes.object]),
 };
 
 /**
