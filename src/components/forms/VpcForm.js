@@ -50,7 +50,7 @@ class VpcNetworkForm extends React.Component {
    */
   handPgwToggle(zone) {
     let vpc = { ...this.state };
-    let currentGw = this.state.publicGateways;
+    let currentGw = [...this.state.publicGateways]; // new array
     let zoneNumber = parseIntFromZone(zone);
     // check if zone is already present
     if (contains(currentGw, zoneNumber)) {
