@@ -6263,7 +6263,7 @@ class VpcNetworkForm extends React__default["default"].Component {
     let vpc = {
       ...this.state
     };
-    let currentGw = this.state.publicGateways;
+    let currentGw = [...this.state.publicGateways]; // new array
     let zoneNumber = lazyZ.parseIntFromZone(zone);
     // check if zone is already present
     if (utils.contains(currentGw, zoneNumber)) {
