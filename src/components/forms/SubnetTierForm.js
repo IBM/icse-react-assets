@@ -141,7 +141,10 @@ class SubnetTierForm extends React.Component {
                 onChange={this.handleChange}
                 className="fieldWidthSmaller"
                 readOnly={this.props.readOnly}
-                invalidCallback={this.props.invalidCallback}
+                invalidCallback={this.props.invalidCallback(
+                  this.state,
+                  this.props
+                )}
                 invalidText={this.props.invalidTextCallback(
                   this.state,
                   this.props
@@ -230,7 +233,7 @@ SubnetTierForm.propTypes = {
     name: PropTypes.string.isRequired,
     zones: PropTypes.number.isRequired,
     networkAcl: PropTypes.string,
-    addPublicGateway: PropTypes.bool
+    addPublicGateway: PropTypes.bool,
   }),
   // save and delete functions can be null when form rendered as modal
   onSave: PropTypes.func,

@@ -5963,7 +5963,7 @@ class SubnetTierForm extends React__default["default"].Component {
       onChange: this.handleChange,
       className: "fieldWidthSmaller",
       readOnly: this.props.readOnly,
-      invalidCallback: this.props.invalidCallback,
+      invalidCallback: this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props),
       hideHelperText: true
     }), /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
