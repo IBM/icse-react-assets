@@ -1883,6 +1883,7 @@ class ToggleForm extends React.Component {
       }), RenderForm(this.props.innerForm, {
         ...this.props.innerFormProps,
         ref: this.props.nullRef ? null : this.childRef,
+        index: this.props.index,
         shouldDisableSave: this.shouldDisableSave,
         showSubModal: this.state.showSubModal,
         networkRuleOrderDidChange: this.networkRuleOrderDidChange,
