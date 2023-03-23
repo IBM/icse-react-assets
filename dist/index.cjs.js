@@ -3848,24 +3848,22 @@ IamAccountSettingsForm.defaultProps = {
   },
   invalidTextCallback: () => {
     return "Invalid";
-  },
-  isModal: false
+  }
 };
 IamAccountSettingsForm.propTypes = {
   data: PropTypes__default["default"].shape({
-    if_match: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].string]).isRequired,
-    mfa: PropTypes__default["default"].string.isRequired,
-    include_history: PropTypes__default["default"].bool.isRequired,
-    restrict_create_service_id: PropTypes__default["default"].oneOf(restrictMenuItems).isRequired,
-    restrict_create_platform_apikey: PropTypes__default["default"].oneOf(restrictMenuItems).isRequired,
-    max_sessions_per_identity: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].string]).isRequired,
-    session_expiration_in_seconds: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].string]).isRequired,
-    session_invalidation_in_seconds: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].string]).isRequired,
-    allowed_ip_addresses: PropTypes__default["default"].string.isRequired
+    if_match: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].string]),
+    mfa: PropTypes__default["default"].string,
+    include_history: PropTypes__default["default"].bool,
+    restrict_create_service_id: PropTypes__default["default"].oneOf(restrictMenuItems),
+    restrict_create_platform_apikey: PropTypes__default["default"].oneOf(restrictMenuItems),
+    max_sessions_per_identity: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].string]),
+    session_expiration_in_seconds: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].string]),
+    session_invalidation_in_seconds: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].string]),
+    allowed_ip_addresses: PropTypes__default["default"].string
   }),
   invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  isModal: PropTypes__default["default"].bool.isRequired
+  invalidTextCallback: PropTypes__default["default"].func.isRequired
 };
 
 /**
