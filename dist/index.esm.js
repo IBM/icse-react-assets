@@ -3837,24 +3837,22 @@ IamAccountSettingsForm.defaultProps = {
   },
   invalidTextCallback: () => {
     return "Invalid";
-  },
-  isModal: false
+  }
 };
 IamAccountSettingsForm.propTypes = {
   data: PropTypes.shape({
-    if_match: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-    mfa: PropTypes.string.isRequired,
-    include_history: PropTypes.bool.isRequired,
-    restrict_create_service_id: PropTypes.oneOf(restrictMenuItems).isRequired,
-    restrict_create_platform_apikey: PropTypes.oneOf(restrictMenuItems).isRequired,
-    max_sessions_per_identity: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-    session_expiration_in_seconds: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-    session_invalidation_in_seconds: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-    allowed_ip_addresses: PropTypes.string.isRequired
+    if_match: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    mfa: PropTypes.string,
+    include_history: PropTypes.bool,
+    restrict_create_service_id: PropTypes.oneOf(restrictMenuItems),
+    restrict_create_platform_apikey: PropTypes.oneOf(restrictMenuItems),
+    max_sessions_per_identity: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    session_expiration_in_seconds: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    session_invalidation_in_seconds: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    allowed_ip_addresses: PropTypes.string
   }),
   invalidCallback: PropTypes.func.isRequired,
-  invalidTextCallback: PropTypes.func.isRequired,
-  isModal: PropTypes.bool.isRequired
+  invalidTextCallback: PropTypes.func.isRequired
 };
 
 /**
