@@ -5707,11 +5707,11 @@ class SubnetForm extends React.Component {
       formName: `${this.props.data.name}-subnet-acl`,
       labelText: "Network ACL",
       groups: this.props.networkAcls,
-      value: this.state.acl_name,
+      value: this.state.network_acl,
       handleInputChange: this.handleChange,
       className: "fieldWidthSmaller",
       disabled: this.props.isModal,
-      invalid: isNullOrEmptyString$3(this.state.acl_name),
+      invalid: isNullOrEmptyString$3(this.state.network_acl),
       invalidText: "Select a Network ACL."
     })), /*#__PURE__*/React.createElement(IcseFormGroup, {
       noMarginBottom: true
@@ -5739,7 +5739,7 @@ SubnetForm.propTypes = {
     name: PropTypes.string.isRequired,
     cidr: PropTypes.string.isRequired,
     public_gateway: PropTypes.bool,
-    acl_name: PropTypes.string.isRequired
+    network_acl: PropTypes.string.isRequired
   }).isRequired,
   disableSaveCallback: PropTypes.func,
   shouldDisableGatewayToggle: PropTypes.func,
@@ -5952,7 +5952,7 @@ class SubnetTierForm extends React.Component {
       onChange: this.handleChange,
       className: "fieldWidthSmaller",
       readOnly: this.props.readOnly,
-      invalidCallback: this.props.invalidCallback(this.state, this.props),
+      invalid: this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props),
       hideHelperText: true
     }), /*#__PURE__*/React.createElement(IcseNumberSelect, {

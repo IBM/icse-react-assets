@@ -5718,11 +5718,11 @@ class SubnetForm extends React__default["default"].Component {
       formName: `${this.props.data.name}-subnet-acl`,
       labelText: "Network ACL",
       groups: this.props.networkAcls,
-      value: this.state.acl_name,
+      value: this.state.network_acl,
       handleInputChange: this.handleChange,
       className: "fieldWidthSmaller",
       disabled: this.props.isModal,
-      invalid: lazyZ.isNullOrEmptyString(this.state.acl_name),
+      invalid: lazyZ.isNullOrEmptyString(this.state.network_acl),
       invalidText: "Select a Network ACL."
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
       noMarginBottom: true
@@ -5750,7 +5750,7 @@ SubnetForm.propTypes = {
     name: PropTypes__default["default"].string.isRequired,
     cidr: PropTypes__default["default"].string.isRequired,
     public_gateway: PropTypes__default["default"].bool,
-    acl_name: PropTypes__default["default"].string.isRequired
+    network_acl: PropTypes__default["default"].string.isRequired
   }).isRequired,
   disableSaveCallback: PropTypes__default["default"].func,
   shouldDisableGatewayToggle: PropTypes__default["default"].func,
@@ -5963,7 +5963,7 @@ class SubnetTierForm extends React__default["default"].Component {
       onChange: this.handleChange,
       className: "fieldWidthSmaller",
       readOnly: this.props.readOnly,
-      invalidCallback: this.props.invalidCallback(this.state, this.props),
+      invalid: this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props),
       hideHelperText: true
     }), /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {

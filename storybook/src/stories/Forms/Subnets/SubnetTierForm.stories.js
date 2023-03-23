@@ -166,19 +166,19 @@ const SubnetTierFormStory = () => {
         name: stateData.name + "-subnet-zone-1",
         cidr: "10.10.10.10/24",
         public_gateway: stateData.addPublicGateway,
-        acl_name: stateData.networkAcl,
+        network_acl: stateData.networkAcl,
       },
       {
         name: stateData.name + "-subnet-zone-2",
         cidr: "10.20.10.10/24",
         public_gateway: stateData.addPublicGateway,
-        acl_name: stateData.networkAcl,
+        network_acl: stateData.networkAcl,
       },
       {
         name: stateData.name + "-subnet-zone-3",
         cidr: "10.30.10.10/24",
         public_gateway: stateData.addPublicGateway,
-        acl_name: stateData.networkAcl,
+        network_acl: stateData.networkAcl,
       },
     ];
     while (tierSubnets.length > stateData.zones) {

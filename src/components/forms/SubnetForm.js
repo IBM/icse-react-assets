@@ -85,11 +85,11 @@ class SubnetForm extends React.Component {
             formName={`${this.props.data.name}-subnet-acl`}
             labelText="Network ACL"
             groups={this.props.networkAcls}
-            value={this.state.acl_name}
+            value={this.state.network_acl}
             handleInputChange={this.handleChange}
             className="fieldWidthSmaller"
             disabled={this.props.isModal}
-            invalid={isNullOrEmptyString(this.state.acl_name)}
+            invalid={isNullOrEmptyString(this.state.network_acl)}
             invalidText="Select a Network ACL."
           />
         </IcseFormGroup>
@@ -127,7 +127,7 @@ SubnetForm.propTypes = {
     name: PropTypes.string.isRequired,
     cidr: PropTypes.string.isRequired,
     public_gateway: PropTypes.bool,
-    acl_name: PropTypes.string.isRequired,
+    network_acl: PropTypes.string.isRequired,
   }).isRequired,
   disableSaveCallback: PropTypes.func,
   shouldDisableGatewayToggle: PropTypes.func,

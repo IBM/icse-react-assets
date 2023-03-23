@@ -3,218 +3,134 @@ import {
   IcseFormTemplate,
   VpnGatewayForm,
   SaveAddButton,
+  SubnetTierForm,
+  FormModal,
 } from "icse-react-assets";
 
 import "./App.css";
 import { Copy } from "@carbon/icons-react";
+import { contains } from "lazy-z";
 
 function none() {}
 
+function invalidCallback(stateData, componentProps) {
+  return false;
+}
+
+function invalidTextCallback(stateData, componentProps) {
+  return contains(["foo", "bar"], stateData.name)
+    ? `Subnet tier name ${stateData.name} already in use.`
+    : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
+}
+
+function shouldDisableSave(stateData, componentProps) {
+  return true;
+}
+
+function disableSubnetSaveCallback(stateData, componentProps) {
+  return true;
+}
+
+function subnetListCallback(stateData, componentProps) {
+  let tierSubnets = [
+    {
+      name: stateData.name + "-subnet-zone-1",
+      cidr: "10.10.10.10/24",
+      public_gateway: stateData.addPublicGateway,
+      acl_name: stateData.networkAcl || "",
+    },
+    {
+      name: stateData.name + "-subnet-zone-2",
+      cidr: "10.20.10.10/24",
+      public_gateway: stateData.addPublicGateway,
+      acl_name: stateData.networkAcl || "",
+    },
+    {
+      name: stateData.name + "-subnet-zone-3",
+      cidr: "10.30.10.10/24",
+      public_gateway: stateData.addPublicGateway,
+      acl_name: stateData.networkAcl || "",
+    },
+  ];
+  while (tierSubnets.length > stateData.zones) {
+    tierSubnets.pop();
+  }
+  return tierSubnets;
+}
+
 function App() {
-  let args = {
-    disabled: false,
-    hoverText: "Example hover text",
-    onClick: () => {},
-    inline: false,
-    type: "save",
-  };
-  let props = {
-    name: "VPN Gateways",
-    addText: "Create a VPN Gateway",
-    arrayData: [
+  function invalidCallback(stateData, componentProps) {
+    return false;
+  }
+
+  function invalidTextCallback(stateData, componentProps) {
+    return contains(["foo", "bar"], stateData.name)
+      ? `Subnet tier name ${stateData.name} already in use.`
+      : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
+  }
+
+  function shouldDisableSave(stateData, componentProps) {
+    return true;
+  }
+
+  function disableSubnetSaveCallback(stateData, componentProps) {
+    return true;
+  }
+
+  function subnetListCallback(stateData, componentProps) {
+    let tierSubnets = [
       {
-        name: "",
-        resource_group: "",
-        vpc: "management",
-        subnet: null,
+        name: stateData.name + "-subnet-zone-1",
+        cidr: "10.10.10.10/24",
+        public_gateway: stateData.addPublicGateway,
+        network_acl: stateData.networkAcl || "",
       },
-    ],
-    innerForm: VpnGatewayForm,
-    disableSave: none,
-    onDelete: none,
-    onSave: none,
-    onSubmit: none,
-    propsMatchState: none,
-    innerFormProps: {
-      craig: {
-        store: {
-          vpcs: ["management", "workload"],
-          subnets: {
-            management: [
-              "vsi-zone-1",
-              "vsi-zone-2",
-              "vsi-zone-3",
-              "vpe-zone-1",
-              "vpe-zone-2",
-              "vpe-zone-3",
-              "vpn-zone-1",
-              "vpn-zone-2",
-              "vpn-zone-3",
-            ],
-            workload: [
-              "vsi-zone-1",
-              "vsi-zone-2",
-              "vsi-zone-3",
-              "vpe-zone-1",
-              "vpe-zone-2",
-              "vpn-zone-3",
-            ],
-          },
-        },
+      {
+        name: stateData.name + "-subnet-zone-2",
+        cidr: "10.20.10.10/24",
+        public_gateway: stateData.addPublicGateway,
+        network_acl: stateData.networkAcl || "",
       },
-      resourceGroups: ["service-rg", "management-rg", "workload-rg"],
-      vpcList: ["management", "workload"],
-      subnetList: [
-        {
-          vpc: "management",
-          zone: 1,
-          cidr: "10.10.10.0/24",
-          name: "vsi-zone-1",
-          network_acl: "management",
-          resource_group: "management-rg",
-          public_gateway: false,
-          has_prefix: true,
-        },
-        {
-          vpc: "management",
-          zone: 1,
-          cidr: "10.10.30.0/24",
-          name: "vpn-zone-1",
-          network_acl: "management",
-          resource_group: "management-rg",
-          public_gateway: false,
-          has_prefix: true,
-        },
-        {
-          vpc: "management",
-          zone: 2,
-          cidr: "10.10.20.0/24",
-          name: "vsi-zone-2",
-          network_acl: "management",
-          resource_group: "management-rg",
-          public_gateway: false,
-          has_prefix: true,
-        },
-        {
-          vpc: "management",
-          zone: 3,
-          cidr: "10.10.30.0/24",
-          name: "vsi-zone-3",
-          network_acl: "management",
-          resource_group: "management-rg",
-          public_gateway: false,
-          has_prefix: true,
-        },
-        {
-          vpc: "management",
-          zone: 1,
-          cidr: "10.20.10.0/24",
-          name: "vpe-zone-1",
-          resource_group: "management-rg",
-          network_acl: "management",
-          public_gateway: false,
-          has_prefix: true,
-        },
-        {
-          vpc: "management",
-          zone: 2,
-          cidr: "10.20.20.0/24",
-          name: "vpe-zone-2",
-          network_acl: "management",
-          resource_group: "management-rg",
-          public_gateway: false,
-          has_prefix: true,
-        },
-        {
-          vpc: "management",
-          zone: 3,
-          cidr: "10.20.30.0/24",
-          name: "vpe-zone-3",
-          network_acl: "management",
-          resource_group: "management-rg",
-          public_gateway: false,
-          has_prefix: true,
-        },
-        {
-          vpc: "workload",
-          zone: 1,
-          cidr: "10.40.10.0/24",
-          name: "vsi-zone-1",
-          network_acl: "workload",
-          resource_group: "workload-rg",
-          public_gateway: false,
-          has_prefix: true,
-        },
-        {
-          vpc: "workload",
-          zone: 2,
-          cidr: "10.50.20.0/24",
-          name: "vsi-zone-2",
-          network_acl: "workload",
-          resource_group: "workload-rg",
-          public_gateway: false,
-          has_prefix: true,
-        },
-        {
-          vpc: "workload",
-          zone: 3,
-          cidr: "10.60.30.0/24",
-          name: "vsi-zone-3",
-          network_acl: "workload",
-          resource_group: "workload-rg",
-          public_gateway: false,
-          has_prefix: true,
-        },
-        {
-          vpc: "workload",
-          zone: 1,
-          cidr: "10.20.10.0/24",
-          name: "vpe-zone-1",
-          network_acl: "workload",
-          resource_group: "workload-rg",
-          public_gateway: false,
-          has_prefix: true,
-        },
-        {
-          vpc: "workload",
-          zone: 2,
-          cidr: "10.20.20.0/24",
-          name: "vpe-zone-2",
-          network_acl: "workload",
-          resource_group: "workload-rg",
-          public_gateway: false,
-          has_prefix: true,
-        },
-        {
-          vpc: "workload",
-          zone: 3,
-          cidr: "10.20.30.0/24",
-          name: "vpe-zone-3",
-          network_acl: "workload",
-          resource_group: "workload-rg",
-          public_gateway: false,
-          has_prefix: true,
-        },
-      ], // initial
-      disableSave: none,
-      invalidCallback: none,
-      invalidTextCallback: none,
-      propsMatchState: none,
-    },
-    toggleFormProps: {
-      hideName: true,
-      submissionFieldName: "vpn_gateways",
-    },
-  };
+      {
+        name: stateData.name + "-subnet-zone-3",
+        cidr: "10.30.10.10/24",
+        public_gateway: stateData.addPublicGateway,
+        network_acl: stateData.networkAcl || "",
+      },
+    ];
+    while (tierSubnets.length > stateData.zones) {
+      tierSubnets.pop();
+    }
+    return tierSubnets;
+  }
   return (
     <>
-      <SaveAddButton
-        {...args}
-        onClick={() => console.log("Save action")}
-        customIcon={Copy}
-        type="custom"
-      />
-      <IcseFormTemplate {...props} />
+      <FormModal
+        show
+        onRequestSubmit={none}
+        onRequestClose={none}
+        shouldDisableSubmit={none}
+        disableSave={none}
+      >
+        <SubnetTierForm
+          vpc_name="example-vpc"
+          data={{
+            hide: false,
+            name: "example-tier",
+            zones: 3,
+            networkAcl: "",
+            addPublicGateway: false,
+          }}
+          shouldDisableSave={shouldDisableSave}
+          disableSubnetSaveCallback={disableSubnetSaveCallback}
+          invalidCallback={invalidCallback}
+          invalidTextCallback={invalidTextCallback}
+          networkAcls={["example-acl-1", "example-acl-2"]}
+          enabledPublicGateways={[1, 2, 3]}
+          subnetListCallback={subnetListCallback}
+          shouldDisableSubmit={none}
+        />
+      </FormModal>
     </>
   );
 }
