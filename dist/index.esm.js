@@ -5891,12 +5891,24 @@ class SubnetTierForm extends React.Component {
    * handle hide/show form data
    */
   handleShowToggle() {
-    this.setState({
-      hide: !this.state.hide
-    });
+    if (this.props.propsMatchState(this.state, this.props) && this.state.hide === false && !this.state.showUnsavedChangesModal) {
+      this.setState({
+        showUnsavedChangesModal: true
+      });
+    } else {
+      this.setState({
+        hide: !this.state.hide,
+        showUnsavedChangesModal: false
+      });
+    }
   }
   onSave() {
-    this.props.onSave(this.state, this.props);
+    let noToggleState = {
+      ...this.state
+    };
+    delete noToggleState.hide;
+    delete noToggleState.showUnsavedChangesModal;
+    this.props.onSave(noToggleState, this.props);
   }
   onSubnetSave(stateData, componentProps) {
     this.props.onSubnetSave(stateData, componentProps);
@@ -5928,6 +5940,15 @@ class SubnetTierForm extends React.Component {
       modalOpen: this.state.showDeleteModal,
       onModalClose: this.toggleDeleteModal,
       onModalSubmit: this.onDelete
+    }), /*#__PURE__*/React.createElement(UnsavedChangesModal, {
+      name: this.props.name + " Subnet Tier",
+      modalOpen: this.state.showUnsavedChangesModal,
+      onModalSubmit: this.handleShowToggle,
+      onModalClose: () => {
+        this.setState({
+          showUnsavedChangesModal: false
+        });
+      }
     }), /*#__PURE__*/React.createElement(StatelessToggleForm, {
       hideTitle: this.props.isModal === true,
       hide: this.state.hide,
@@ -6044,7 +6065,8 @@ SubnetTierForm.propTypes = {
   vpc_name: PropTypes.string.isRequired,
   subnetListCallback: PropTypes.func.isRequired,
   enableModal: PropTypes.func,
-  disableModal: PropTypes.func
+  disableModal: PropTypes.func,
+  propsMatchState: PropTypes.func
 };
 
 const emailRegex = /^[\w-_\.]+@([\w-_]+\.)+[\w]{1,4}$/g;

@@ -1,5 +1,5 @@
 import React from "react";
-import { DeleteModal } from "../Modals";
+import { DeleteModal, UnsavedChangesModal } from "../Modals";
 import {
   DynamicRender,
   IcseFormGroup,
@@ -52,11 +52,22 @@ class SubnetTierForm extends React.Component {
    * handle hide/show form data
    */
   handleShowToggle() {
-    this.setState({ hide: !this.state.hide });
+    if (
+      this.props.propsMatchState(this.state, this.props) &&
+      this.state.hide === false &&
+      !this.state.showUnsavedChangesModal
+    ) {
+      this.setState({ showUnsavedChangesModal: true });
+    } else {
+      this.setState({ hide: !this.state.hide, showUnsavedChangesModal: false });
+    }
   }
 
   onSave() {
-    this.props.onSave(this.state, this.props);
+    let noToggleState = {...this.state};
+    delete noToggleState.hide;
+    delete noToggleState.showUnsavedChangesModal;
+    this.props.onSave(noToggleState, this.props);
   }
 
   onSubnetSave(stateData, componentProps) {
@@ -102,6 +113,14 @@ class SubnetTierForm extends React.Component {
           modalOpen={this.state.showDeleteModal}
           onModalClose={this.toggleDeleteModal}
           onModalSubmit={this.onDelete}
+        />
+        <UnsavedChangesModal
+          name={this.props.name + " Subnet Tier"}
+          modalOpen={this.state.showUnsavedChangesModal}
+          onModalSubmit={this.handleShowToggle}
+          onModalClose={() => {
+            this.setState({ showUnsavedChangesModal: false });
+          }}
         />
         <StatelessToggleForm
           hideTitle={this.props.isModal === true}
@@ -249,6 +268,7 @@ SubnetTierForm.propTypes = {
   subnetListCallback: PropTypes.func.isRequired,
   enableModal: PropTypes.func,
   disableModal: PropTypes.func,
+  propsMatchState: PropTypes.func,
 };
 
 export default SubnetTierForm;
