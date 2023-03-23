@@ -160,6 +160,10 @@ const SubnetTierFormStory = () => {
     return true;
   }
 
+  function propsMatchState(stateData, componentProps) {
+    return true;
+  }
+
   function subnetListCallback(stateData, componentProps) {
     let tierSubnets = [
       {
@@ -204,6 +208,7 @@ const SubnetTierFormStory = () => {
       networkAcls={["example-acl-1", "example-acl-2"]}
       enabledPublicGateways={[1, 2, 3]}
       subnetListCallback={subnetListCallback}
+      propsMatchState={propsMatchState}
     />
   );
 };

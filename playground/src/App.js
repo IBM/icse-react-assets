@@ -105,32 +105,25 @@ function App() {
   }
   return (
     <>
-      <FormModal
-        show
-        onRequestSubmit={none}
-        onRequestClose={none}
+      <SubnetTierForm
+        vpc_name="example-vpc"
+        data={{
+          hide: false,
+          name: "example-tier",
+          zones: 3,
+          networkAcl: "",
+          addPublicGateway: false,
+        }}
+        shouldDisableSave={shouldDisableSave}
+        disableSubnetSaveCallback={disableSubnetSaveCallback}
+        invalidCallback={invalidCallback}
+        invalidTextCallback={invalidTextCallback}
+        networkAcls={["example-acl-1", "example-acl-2"]}
+        enabledPublicGateways={[1, 2, 3]}
+        subnetListCallback={subnetListCallback}
         shouldDisableSubmit={none}
-        disableSave={none}
-      >
-        <SubnetTierForm
-          vpc_name="example-vpc"
-          data={{
-            hide: false,
-            name: "example-tier",
-            zones: 3,
-            networkAcl: "",
-            addPublicGateway: false,
-          }}
-          shouldDisableSave={shouldDisableSave}
-          disableSubnetSaveCallback={disableSubnetSaveCallback}
-          invalidCallback={invalidCallback}
-          invalidTextCallback={invalidTextCallback}
-          networkAcls={["example-acl-1", "example-acl-2"]}
-          enabledPublicGateways={[1, 2, 3]}
-          subnetListCallback={subnetListCallback}
-          shouldDisableSubmit={none}
-        />
-      </FormModal>
+        propsMatchState={()=>{return false}}
+      />
     </>
   );
 }
