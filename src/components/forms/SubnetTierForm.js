@@ -141,10 +141,7 @@ class SubnetTierForm extends React.Component {
                 onChange={this.handleChange}
                 className="fieldWidthSmaller"
                 readOnly={this.props.readOnly}
-                invalidCallback={this.props.invalidCallback(
-                  this.state,
-                  this.props
-                )}
+                invalid={this.props.invalidCallback(this.state, this.props)}
                 invalidText={this.props.invalidTextCallback(
                   this.state,
                   this.props
