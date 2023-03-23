@@ -5846,7 +5846,7 @@ SubnetTileForm.propTypes = {
     name: PropTypes__default["default"].string.isRequired,
     cidr: PropTypes__default["default"].string.isRequired,
     public_gateway: PropTypes__default["default"].bool,
-    network_acl: PropTypes__default["default"].string.isRequired
+    network_acl: PropTypes__default["default"].string
   })),
   readOnly: PropTypes__default["default"].bool.isRequired,
   enabledPublicGateways: PropTypes__default["default"].arrayOf(PropTypes__default["default"].number).isRequired
