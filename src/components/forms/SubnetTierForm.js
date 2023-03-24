@@ -53,7 +53,7 @@ class SubnetTierForm extends React.Component {
    */
   handleShowToggle() {
     if (
-      this.props.propsMatchState(this.state, this.props) &&
+      this.props.propsMatchState(this.state, this.props) === false &&
       this.state.hide === false &&
       !this.state.showUnsavedChangesModal
     ) {
@@ -64,7 +64,7 @@ class SubnetTierForm extends React.Component {
   }
 
   onSave() {
-    let noToggleState = {...this.state};
+    let noToggleState = { ...this.state };
     delete noToggleState.hide;
     delete noToggleState.showUnsavedChangesModal;
     this.props.onSave(noToggleState, this.props);

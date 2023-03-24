@@ -5889,7 +5889,7 @@ class SubnetTierForm extends React.Component {
    * handle hide/show form data
    */
   handleShowToggle() {
-    if (this.props.propsMatchState(this.state, this.props) && this.state.hide === false && !this.state.showUnsavedChangesModal) {
+    if (this.props.propsMatchState(this.state, this.props) === false && this.state.hide === false && !this.state.showUnsavedChangesModal) {
       this.setState({
         showUnsavedChangesModal: true
       });
