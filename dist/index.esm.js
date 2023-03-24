@@ -4389,6 +4389,8 @@ class NetworkingRulesOrderCard extends Component {
     if (prevProps.rules.length !== this.state.rules.length) {
       this.setState({
         rules: [...this.props.rules]
+      }, () => {
+        this.collapseAll();
       });
     }
   }
