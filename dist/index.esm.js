@@ -5510,6 +5510,7 @@ class SecurityGroupForm extends Component {
       isSecurityGroup: true,
       networkRuleOrderDidChange: this.networkRuleOrderDidChange,
       invalidCallback: this.props.invalidCallback,
+      invalidTextCallback: this.props.invalidTextCallback,
       onSubmitCallback: this.props.onSubmitCallback,
       onRuleSave: this.props.onRuleSave,
       onRuleDelete: this.props.onRuleDelete,
