@@ -113,9 +113,10 @@ class SubnetTierForm extends React.Component {
           modalOpen={this.state.showDeleteModal}
           onModalClose={this.toggleDeleteModal}
           onModalSubmit={this.onDelete}
+          useDefaultUnsavedMessage={false}
         />
         <UnsavedChangesModal
-          name={this.props.name + " Subnet Tier"}
+          name={this.props.data.name + " Subnet Tier"}
           modalOpen={this.state.showUnsavedChangesModal}
           onModalSubmit={this.handleShowToggle}
           onModalClose={() => {
