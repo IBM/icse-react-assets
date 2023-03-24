@@ -4459,11 +4459,11 @@ class NetworkingRulesOrderCard extends Component {
   collapseAll() {
     let collapse = this.state.collapse;
     this.state.rules.forEach(rule => {
-      collapse[rule.name] = !this.state.allCollapsed;
+      collapse[rule.name] = true;
     });
     this.setState({
       collapse: collapse,
-      allCollapsed: !this.state.allCollapsed
+      allCollapsed: true
     });
   }
 
