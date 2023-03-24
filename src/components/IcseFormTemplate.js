@@ -125,11 +125,7 @@ class IcseFormTemplate extends React.Component {
                       hideAbout: true, // passed to ignore second tab panel
                       hasBuiltInHeading: true, // passed to ignore second tabPanel
                     }}
-                    key={
-                      this.props.isSecurityGroup
-                        ? JSON.stringify({...data})
-                        : this.props.name + "-" + index
-                    }
+                    key={this.props.name + "-" + index}
                     innerForm={this.props.innerForm}
                     innerFormProps={{
                       ...this.props.innerFormProps,
@@ -210,7 +206,6 @@ IcseFormTemplate.defaultProps = {
   isMiddleForm: false,
   hideAbout: false,
   toggleFormFieldName: "name",
-  isSecurityGroup: false,
 };
 
 IcseFormTemplate.propTypes = {
@@ -238,7 +233,6 @@ IcseFormTemplate.propTypes = {
   hideAbout: PropTypes.bool,
   deleteDisabled: PropTypes.func,
   deleteDisabledMessage: PropTypes.string,
-  isSecurityGroup: PropTypes.bool.isRequired,
 };
 
 export default IcseFormTemplate;
