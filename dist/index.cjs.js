@@ -5512,7 +5512,7 @@ class SecurityGroupForm extends React.Component {
       className: className
     })), !this.props.isModal && /*#__PURE__*/React__default["default"].createElement(NetworkingRulesOrderCard, {
       key: JSON.stringify(this.props.rules),
-      rules: this.props.rules,
+      rules: this.props.data.rules,
       vpc_name: this.state.vpc,
       parent_name: this.props.data.name,
       isSecurityGroup: true,

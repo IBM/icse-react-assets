@@ -87,7 +87,7 @@ class SecurityGroupForm extends Component {
         {!this.props.isModal && (
           <NetworkingRulesOrderCard
             key={JSON.stringify(this.props.rules)}
-            rules={this.props.rules}
+            rules={this.props.data.rules}
             vpc_name={this.state.vpc}
             parent_name={this.props.data.name}
             isSecurityGroup
