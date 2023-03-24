@@ -227,7 +227,7 @@ class NetworkingRulesOrderCard extends Component {
               handleUp={() => this.handleUp(index)}
               disableDown={index === this.state.rules.length - 1}
               handleDown={() => this.handleDown(index)}
-              key={this.props.vpc_name + "-nw-rule-" + rule.name}
+              key={JSON.stringify(rule)}
               id={this.props.vpc_name + "-nw-rule-form-" + rule.name}
               invalidCallback={this.props.invalidRuleText}
               invalidTextCallback={this.props.invalidRuleTextCallback}

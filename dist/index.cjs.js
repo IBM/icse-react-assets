@@ -4588,7 +4588,7 @@ class NetworkingRulesOrderCard extends React.Component {
       handleUp: () => this.handleUp(index),
       disableDown: index === this.state.rules.length - 1,
       handleDown: () => this.handleDown(index),
-      key: this.props.vpc_name + "-nw-rule-" + rule.name,
+      key: JSON.stringify(rule),
       id: this.props.vpc_name + "-nw-rule-form-" + rule.name,
       invalidCallback: this.props.invalidRuleText,
       invalidTextCallback: this.props.invalidRuleTextCallback,
@@ -5511,6 +5511,7 @@ class SecurityGroupForm extends React.Component {
       handleInputChange: this.handleInputChange,
       className: className
     })), !this.props.isModal && /*#__PURE__*/React__default["default"].createElement(NetworkingRulesOrderCard, {
+      key: this.props.isSecurityGroup ? JSON.stringify(this.props.data.rules) : null,
       rules: this.state.rules,
       vpc_name: this.state.vpc,
       parent_name: this.props.data.name,
