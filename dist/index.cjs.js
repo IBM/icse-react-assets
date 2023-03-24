@@ -5511,8 +5511,8 @@ class SecurityGroupForm extends React.Component {
       handleInputChange: this.handleInputChange,
       className: className
     })), !this.props.isModal && /*#__PURE__*/React__default["default"].createElement(NetworkingRulesOrderCard, {
-      key: this.props.isSecurityGroup ? JSON.stringify(this.props.data.rules) : null,
-      rules: this.state.rules,
+      key: JSON.stringify(this.props.rules),
+      rules: this.props.rules,
       vpc_name: this.state.vpc,
       parent_name: this.props.data.name,
       isSecurityGroup: true,
