@@ -89,15 +89,15 @@ class SecurityGroupForm extends Component {
             rules={this.state.rules}
             vpc_name={this.state.vpc}
             parent_name={this.props.data.name}
-            isSecurityGroup={true}
+            isSecurityGroup
             networkRuleOrderDidChange={this.networkRuleOrderDidChange}
             invalidCallback={this.props.invalidCallback}
-            invalidTextCallback={this.props.invalidTextCallback}
             onSubmitCallback={this.props.onSubmitCallback}
             onRuleSave={this.props.onRuleSave}
             onRuleDelete={this.props.onRuleDelete}
             disableModalSubmitCallback={this.props.disableModalSubmitCallback}
             disableSaveCallback={this.props.disableSaveCallback}
+            invalidRuleTextCallback={this.props.invalidRuleTextCallback}
           />
         )}
       </>
