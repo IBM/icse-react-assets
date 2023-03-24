@@ -4397,7 +4397,7 @@ class NetworkingRulesOrderCard extends React.Component {
     this.getSubRule = this.getSubRule.bind(this);
   }
   componentDidUpdate(prevProps) {
-    if (prevProps.rules.length !== this.props.rules.length) {
+    if (prevProps.rules.length !== this.state.rules.length) {
       this.setState({
         rules: [...this.props.rules]
       });

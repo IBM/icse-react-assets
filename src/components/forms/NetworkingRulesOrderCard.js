@@ -29,7 +29,7 @@ class NetworkingRulesOrderCard extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.rules.length !== this.props.rules.length) {
+    if (prevProps.rules.length !== this.state.rules.length) {
       this.setState({ rules: [...this.props.rules] });
     }
   }
