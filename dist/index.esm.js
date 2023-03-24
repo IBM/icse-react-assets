@@ -3844,12 +3844,8 @@ IamAccountSettingsForm.propTypes = {
     if_match: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     mfa: PropTypes.string,
     include_history: PropTypes.bool,
-    restrict_create_service_id: PropTypes.oneOf(restrictMenuItems.forEach(item => {
-      return iamItems[item].value;
-    })),
-    restrict_create_platform_apikey: PropTypes.oneOf(restrictMenuItems.forEach(item => {
-      return iamItems[item].value;
-    })),
+    restrict_create_service_id: PropTypes.oneOf(restrictMenuItems),
+    restrict_create_platform_apikey: PropTypes.oneOf(restrictMenuItems),
     max_sessions_per_identity: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     session_expiration_in_seconds: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     session_invalidation_in_seconds: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
