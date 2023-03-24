@@ -2075,7 +2075,9 @@ class IcseFormTemplate extends React__default["default"].Component {
             hasBuiltInHeading: true // passed to ignore second tabPanel
           },
 
-          key: this.props.isSecurityGroup ? JSON.stringify(data) : this.props.name + "-" + index,
+          key: this.props.isSecurityGroup ? JSON.stringify({
+            ...data
+          }) : this.props.name + "-" + index,
           innerForm: this.props.innerForm,
           innerFormProps: {
             ...this.props.innerFormProps,

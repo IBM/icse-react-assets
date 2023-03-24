@@ -127,7 +127,7 @@ class IcseFormTemplate extends React.Component {
                     }}
                     key={
                       this.props.isSecurityGroup
-                        ? JSON.stringify(data)
+                        ? JSON.stringify({...data})
                         : this.props.name + "-" + index
                     }
                     innerForm={this.props.innerForm}
