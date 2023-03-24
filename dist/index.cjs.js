@@ -3836,8 +3836,8 @@ IamAccountSettingsForm.defaultProps = {
     if_match: "",
     mfa: mfaMenuItems[0],
     include_history: false,
-    restrict_create_service_id: restrictMenuItems[0],
-    restrict_create_platform_apikey: restrictMenuItems[0],
+    restrict_create_service_id: iamItems[restrictMenuItems[0]].value,
+    restrict_create_platform_apikey: iamItems[restrictMenuItems[0]].value,
     max_sessions_per_identity: "",
     session_expiration_in_seconds: "",
     session_invalidation_in_seconds: "",
@@ -3855,8 +3855,12 @@ IamAccountSettingsForm.propTypes = {
     if_match: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].string]),
     mfa: PropTypes__default["default"].string,
     include_history: PropTypes__default["default"].bool,
-    restrict_create_service_id: PropTypes__default["default"].oneOf(restrictMenuItems),
-    restrict_create_platform_apikey: PropTypes__default["default"].oneOf(restrictMenuItems),
+    restrict_create_service_id: PropTypes__default["default"].oneOf(restrictMenuItems.map(item => {
+      return iamItems[item].value;
+    })),
+    restrict_create_platform_apikey: PropTypes__default["default"].oneOf(restrictMenuItems.map(item => {
+      return iamItems[item].value;
+    })),
     max_sessions_per_identity: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].string]),
     session_expiration_in_seconds: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].string]),
     session_invalidation_in_seconds: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].string]),
