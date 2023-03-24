@@ -4389,6 +4389,13 @@ class NetworkingRulesOrderCard extends Component {
     this.getRuleProtocol = this.getRuleProtocol.bind(this);
     this.getSubRule = this.getSubRule.bind(this);
   }
+  componentDidUpdate(prevProps) {
+    if (prevProps.rules.length !== this.props.rules.length) {
+      this.setState({
+        rules: [...this.props.rules]
+      });
+    }
+  }
   getRuleProtocol(rule) {
     let protocol = "all";
     // for each possible protocol
