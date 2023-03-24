@@ -5515,7 +5515,8 @@ class SecurityGroupForm extends Component {
       onRuleDelete: this.props.onRuleDelete,
       disableModalSubmitCallback: this.props.disableModalSubmitCallback,
       disableSaveCallback: this.props.disableSaveCallback,
-      invalidRuleTextCallback: this.props.invalidRuleTextCallback
+      invalidRuleTextCallback: this.props.invalidRuleTextCallback,
+      invalidRuleText: this.props.invalidRuleText
     }));
   }
 }
