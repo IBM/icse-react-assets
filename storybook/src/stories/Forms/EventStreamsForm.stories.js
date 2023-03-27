@@ -1,8 +1,7 @@
 import React from "react";
 import { EventStreamsForm } from "icse-react-assets";
-import "./App.css";
 
-function App() {
+const EventStreamsFormStory = () => {
   function validName(str) {
     const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
     if (str) return str.match(regex) !== null;
@@ -26,6 +25,4 @@ function App() {
       invalidTextCallback={invalidTextCallback}
     />
   );
-}
-
-export default App;
+};
