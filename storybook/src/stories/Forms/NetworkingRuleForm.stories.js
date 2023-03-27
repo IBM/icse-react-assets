@@ -207,7 +207,7 @@ const NetworkingRuleFormStory = () => {
         action: "allow",
         direction: "inbound",
         rule: {
-          port_min: 8080,
+          port_min: null,
           port_max: 8080,
           source_port_min: 8080,
           source_port_max: null,

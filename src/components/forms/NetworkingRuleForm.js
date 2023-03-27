@@ -388,7 +388,15 @@ const NetworkingRuleProtocolTextField = (props) => {
       id={`${props.state.name}-nw-${kebabCase(props.name)}-input`}
       labelText={titleCase(props.name)}
       placeholder={String(props.state.rule[props.name] || "")}
-      value={props.state.rule[props.name] || ""}
+      value={
+        props.state.rule[props.name]
+          ? props.state.rule[props.name]
+          : contains(["port_min", "port_max"], props.name)
+          ? "1"
+          : contains(["source_port_min", "source_port_max"], props.name)
+          ? "65535"
+          : "0"
+      }
       onChange={(e) => props.onChange(props.name, e)}
       invalid={
         validPortRange(props.name, props.state.rule[props.name] || -1) ===
