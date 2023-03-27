@@ -7812,9 +7812,9 @@ EventStreamsForm.propTypes = {
     private_ip_allowlist: PropTypes.string
   }),
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
-  // plans: PropTypes.arrayOf(PropTypes.string),
-  // throughputs: PropTypes.arrayOf(PropTypes.string),
-  // storageSizes: PropTypes.arrayOf(PropTypes.string),
+  plans: PropTypes.arrayOf(PropTypes.string),
+  throughputs: PropTypes.arrayOf(PropTypes.string),
+  storageSizes: PropTypes.arrayOf(PropTypes.string),
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired
 };

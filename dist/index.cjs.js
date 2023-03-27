@@ -7823,9 +7823,9 @@ EventStreamsForm.propTypes = {
     private_ip_allowlist: PropTypes__default["default"].string
   }),
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  // plans: PropTypes.arrayOf(PropTypes.string),
-  // throughputs: PropTypes.arrayOf(PropTypes.string),
-  // storageSizes: PropTypes.arrayOf(PropTypes.string),
+  plans: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string),
+  throughputs: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string),
+  storageSizes: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string),
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired
 };
