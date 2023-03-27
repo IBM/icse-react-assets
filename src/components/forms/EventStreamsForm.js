@@ -35,7 +35,7 @@ class EventStreamsForm extends Component {
     // removing white space and checking for empty value
     let value = event.target.value.replace(/\s*/g, "");
     if (value === "") value = null;
-    this.setState({ allowed_ip_addresses: value });
+    this.setState({ private_ip_allowlist: value });
   }
 
   /**

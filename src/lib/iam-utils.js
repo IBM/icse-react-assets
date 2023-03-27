@@ -131,6 +131,7 @@ function isRangeInvalid(value, min, max) {
  * @returns {boolean} true if invalid
  */
 function isIpStringInvalid(value) {
+  console.log(value);
   if (
     !isNullOrEmptyString(value) &&
     value.match(commaSeparatedIpListExp) === null

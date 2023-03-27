@@ -3571,6 +3571,7 @@ function isRangeInvalid(value, min, max) {
  * @returns {boolean} true if invalid
  */
 function isIpStringInvalid(value) {
+  console.log(value);
   if (!isNullOrEmptyString$1(value) && value.match(commaSeparatedIpListExp) === null) {
     return true;
   }
@@ -7713,7 +7714,7 @@ class EventStreamsForm extends React.Component {
     let value = event.target.value.replace(/\s*/g, "");
     if (value === "") value = null;
     this.setState({
-      allowed_ip_addresses: value
+      private_ip_allowlist: value
     });
   }
 
