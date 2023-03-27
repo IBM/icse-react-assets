@@ -3825,8 +3825,8 @@ IamAccountSettingsForm.defaultProps = {
     if_match: "",
     mfa: mfaMenuItems[0],
     include_history: false,
-    restrict_create_service_id: restrictMenuItems[0],
-    restrict_create_platform_apikey: restrictMenuItems[0],
+    restrict_create_service_id: iamItems[restrictMenuItems[0]].value,
+    restrict_create_platform_apikey: iamItems[restrictMenuItems[0]].value,
     max_sessions_per_identity: "",
     session_expiration_in_seconds: "",
     session_invalidation_in_seconds: "",
@@ -3844,8 +3844,12 @@ IamAccountSettingsForm.propTypes = {
     if_match: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     mfa: PropTypes.string,
     include_history: PropTypes.bool,
-    restrict_create_service_id: PropTypes.oneOf(restrictMenuItems),
-    restrict_create_platform_apikey: PropTypes.oneOf(restrictMenuItems),
+    restrict_create_service_id: PropTypes.oneOf(restrictMenuItems.map(item => {
+      return iamItems[item].value;
+    })),
+    restrict_create_platform_apikey: PropTypes.oneOf(restrictMenuItems.map(item => {
+      return iamItems[item].value;
+    })),
     max_sessions_per_identity: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     session_expiration_in_seconds: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     session_invalidation_in_seconds: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
