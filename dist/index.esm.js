@@ -7732,18 +7732,19 @@ class EventStreamsForm extends Component {
    * @param {event} event
    */
   handlePlanChange(event) {
-    let item = event.target.value.toLowerCase();
-    this.setState({
-      plan: item
-    });
+    let tempState = {
+      plan: event.target.value.toLowerCase()
+    };
     if (item !== "enterprise") {
-      this.setState({
+      tempState = {
+        ...tempState,
         throughput: "",
         storage_size: "",
         endpoint: "",
         private_ip_allowlist: ""
-      });
+      };
     }
+    this.setState(tempState);
   }
   render() {
     let composedId = `event-streams-form-${this.props.data.name}`;
