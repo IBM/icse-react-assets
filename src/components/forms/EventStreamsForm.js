@@ -8,7 +8,6 @@ import { EndpointSelect, IcseSelect } from "../Dropdowns";
 import { IcseFormGroup } from "../Utils";
 import { ToolTipWrapper } from "../Tooltips";
 import { isIpStringInvalid } from "../../lib/iam-utils";
-import { throughputAndStorageOptions } from "../../lib/es-utils";
 import { TextArea } from "@carbon/react";
 import { titleCase } from "lazy-z";
 import PropTypes from "prop-types";
@@ -51,8 +50,16 @@ class EventStreamsForm extends Component {
    * @param {event} event
    */
   handlePlanChange(event) {
-    let item = event.target.value;
-    this.setState({ plan: item.toLowerCase() });
+    let item = event.target.value.toLowerCase();
+    this.setState({ plan: item });
+    if (item !== "enterprise") {
+      this.setState({
+        throughput: "",
+        storage_size: "",
+        endpoint: "",
+        private_ip_allowlist: "",
+      });
+    }
   }
 
   render() {
@@ -63,7 +70,7 @@ class EventStreamsForm extends Component {
           {/* name */}
           <IcseNameInput
             id={composedId}
-            componentName={"event_streams"}
+            componentName={this.props.data.name + "-event-streams"}
             value={this.state.name}
             onChange={this.handleInputChange}
             hideHelperText
@@ -72,9 +79,9 @@ class EventStreamsForm extends Component {
           />
           {/* plan */}
           <IcseSelect
-            formName="Event Streams"
+            formName={this.props.data.name + "-event-streams"}
             value={titleCase(this.state.plan)}
-            groups={this.props.plans}
+            groups={["Lite", "Standard", "Enterprise"]}
             handleInputChange={this.handlePlanChange}
             className="fieldWidth"
             name="plan"
@@ -82,7 +89,7 @@ class EventStreamsForm extends Component {
           />
           {/* resource group */}
           <IcseSelect
-            formName="Event Streams"
+            formName={this.props.data.name + "-event-streams"}
             value={this.state.resource_group}
             groups={this.props.resourceGroups}
             handleInputChange={this.handleInputChange}
@@ -96,24 +103,16 @@ class EventStreamsForm extends Component {
             <IcseFormGroup>
               {/* endpoints */}
               <EndpointSelect
-                formName="Event Streams"
+                formName={this.props.data.name + "-event-streams"}
                 handleInputChange={this.handleInputChange}
                 value={this.state.endpoint}
                 className="fieldWidth"
               />
               {/* throughput */}
               <IcseSelect
-                formName="Event Streams"
-                value={
-                  this.state.plan !== "enterprise"
-                    ? throughputAndStorageOptions(this.state.plan).throughput[0]
-                    : this.state.throughput
-                }
-                groups={
-                  this.props.throughputs === null
-                    ? throughputAndStorageOptions(this.state.plan).throughput
-                    : this.props.throughputs
-                }
+                formName={this.props.data.name + "-event-streams"}
+                value={this.state.throughput}
+                groups={["150MB/s", "300MB/s", "450MB/s"]}
                 handleInputChange={this.handleInputChange}
                 className="fieldWidth"
                 name="throughput"
@@ -121,17 +120,9 @@ class EventStreamsForm extends Component {
               />
               {/* storage size */}
               <IcseSelect
-                formName="Event Streams"
-                value={
-                  this.state.plan !== "enterprise"
-                    ? throughputAndStorageOptions(this.state.plan).storage[0]
-                    : this.state.storage_size
-                }
-                groups={
-                  this.props.storageSizes === null
-                    ? throughputAndStorageOptions(this.state.plan).storage
-                    : this.props.storageSizes
-                }
+                formName={this.props.data.name + "-event-streams"}
+                value={this.state.storage_size}
+                groups={["2TB", "4TB", "6TB", "8TB", "10TB", "12TB"]}
                 handleInputChange={this.handleInputChange}
                 className="fieldWidth"
                 name="storage_size"
@@ -174,25 +165,19 @@ EventStreamsForm.defaultProps = {
     storage_size: "",
     private_ip_allowlist: "",
   },
-  plans: ["Lite", "Standard", "Enterprise"],
-  throughputs: null,
-  storageSizes: null,
 };
 
 EventStreamsForm.propTypes = {
   data: PropTypes.shape({
-    name: PropTypes.string,
-    plan: PropTypes.string,
-    resource_group: PropTypes.string,
+    name: PropTypes.string.isRequired,
+    plan: PropTypes.string.isRequired,
+    resource_group: PropTypes.string.isRequired,
     endpoint: PropTypes.string,
     throughput: PropTypes.string,
     storage_size: PropTypes.string,
     private_ip_allowlist: PropTypes.string,
   }),
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
-  plans: PropTypes.arrayOf(PropTypes.string),
-  throughputs: PropTypes.arrayOf(PropTypes.string),
-  storageSizes: PropTypes.arrayOf(PropTypes.string),
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
 };

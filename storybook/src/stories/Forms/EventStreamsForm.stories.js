@@ -56,25 +56,6 @@ export default {
       type: { required: true },
       control: "none",
     },
-    plans: {
-      description:
-        "An array of strings containing the names of plans to select",
-      type: { required: false },
-      control: "none",
-      table: { defaultValue: { summary: ['["Lite, Standard, Enterprise"]'] } },
-    },
-    throughputs: {
-      description:
-        "An array of strings containing the throughput amounts to select",
-      type: { required: false },
-      control: "none",
-    },
-    storageSizes: {
-      description:
-        "An array of strings containing the storage sizes amounts to select",
-      type: { required: false },
-      control: "none",
-    },
     invalidCallback: {
       description:
         "A function to determine if the value supplied is invalid and returns a single boolean",
