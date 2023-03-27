@@ -29,13 +29,13 @@ export default {
     },
     ["data.restrict_create_service_id"]: {
       description:
-        "A string value to restrict creation of service ids. Can be `Yes`, `No`, or `Unset`",
+        "A string value to restrict creation of service ids. Can be `NOT_SET`, `RESTRICTED`, or `NOT_RESTRICTED`",
       control: "none",
       type: { required: false }, // required prop or not
     },
     ["data.restrict_create_platform_apikey"]: {
       description:
-        "A string value to restrict creation of platform API keys. Can be `Yes`, `No`, or `Unset`",
+        "A string value to restrict creation of platform API keys. Can be `NOT_SET`, `RESTRICTED`, or `NOT_RESTRICTED`",
       control: "none",
       type: { required: false }, // required prop or not
     },
@@ -116,8 +116,8 @@ const IamAccountSettingsFormStory = () => {
         include_history: true,
         if_match: 2,
         mfa: "NONE",
-        restrict_create_service_id: "Yes",
-        restrict_create_platform_apikey: "Yes",
+        restrict_create_service_id: "NOT_RESTRICTED",
+        restrict_create_platform_apikey: "RESTRICTED",
         max_sessions_per_identity: 1,
         session_expiration_in_seconds: 1000,
         session_invalidation_in_seconds: 1000,

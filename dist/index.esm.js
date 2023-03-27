@@ -3825,8 +3825,8 @@ IamAccountSettingsForm.defaultProps = {
     if_match: "",
     mfa: mfaMenuItems[0],
     include_history: false,
-    restrict_create_service_id: restrictMenuItems[0],
-    restrict_create_platform_apikey: restrictMenuItems[0],
+    restrict_create_service_id: iamItems[restrictMenuItems[0]].value,
+    restrict_create_platform_apikey: iamItems[restrictMenuItems[0]].value,
     max_sessions_per_identity: "",
     session_expiration_in_seconds: "",
     session_invalidation_in_seconds: "",
@@ -3837,24 +3837,26 @@ IamAccountSettingsForm.defaultProps = {
   },
   invalidTextCallback: () => {
     return "Invalid";
-  },
-  isModal: false
+  }
 };
 IamAccountSettingsForm.propTypes = {
   data: PropTypes.shape({
-    if_match: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-    mfa: PropTypes.string.isRequired,
-    include_history: PropTypes.bool.isRequired,
-    restrict_create_service_id: PropTypes.oneOf(restrictMenuItems).isRequired,
-    restrict_create_platform_apikey: PropTypes.oneOf(restrictMenuItems).isRequired,
-    max_sessions_per_identity: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-    session_expiration_in_seconds: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-    session_invalidation_in_seconds: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-    allowed_ip_addresses: PropTypes.string.isRequired
+    if_match: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    mfa: PropTypes.string,
+    include_history: PropTypes.bool,
+    restrict_create_service_id: PropTypes.oneOf(restrictMenuItems.map(item => {
+      return iamItems[item].value;
+    })),
+    restrict_create_platform_apikey: PropTypes.oneOf(restrictMenuItems.map(item => {
+      return iamItems[item].value;
+    })),
+    max_sessions_per_identity: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    session_expiration_in_seconds: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    session_invalidation_in_seconds: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    allowed_ip_addresses: PropTypes.string
   }),
   invalidCallback: PropTypes.func.isRequired,
-  invalidTextCallback: PropTypes.func.isRequired,
-  isModal: PropTypes.bool.isRequired
+  invalidTextCallback: PropTypes.func.isRequired
 };
 
 /**
@@ -4323,7 +4325,7 @@ const NetworkingRuleProtocolTextField = props => {
   return /*#__PURE__*/React.createElement(TextInput, {
     id: `${props.state.name}-nw-${kebabCase(props.name)}-input`,
     labelText: titleCase(props.name),
-    placeholder: String(props.state.rule[props.name] || ""),
+    placeholder: String(props.state.rule[props.name]),
     value: props.state.rule[props.name] || "",
     onChange: e => props.onChange(props.name, e),
     invalid: validPortRange(props.name, props.state.rule[props.name] || -1) === false && isNullOrEmptyString(props.state.rule[props.name]) === false,
@@ -4386,6 +4388,15 @@ class NetworkingRulesOrderCard extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getRuleProtocol = this.getRuleProtocol.bind(this);
     this.getSubRule = this.getSubRule.bind(this);
+  }
+  componentDidUpdate(prevProps) {
+    if (prevProps.rules.length !== this.state.rules.length) {
+      this.setState({
+        rules: [...this.props.rules]
+      }, () => {
+        this.collapseAll();
+      });
+    }
   }
   getRuleProtocol(rule) {
     let protocol = "all";
@@ -4452,11 +4463,11 @@ class NetworkingRulesOrderCard extends Component {
   collapseAll() {
     let collapse = this.state.collapse;
     this.state.rules.forEach(rule => {
-      collapse[rule.name] = !this.state.allCollapsed;
+      collapse[rule.name] = true;
     });
     this.setState({
       collapse: collapse,
-      allCollapsed: !this.state.allCollapsed
+      allCollapsed: true
     });
   }
 
@@ -4579,7 +4590,7 @@ class NetworkingRulesOrderCard extends Component {
       handleUp: () => this.handleUp(index),
       disableDown: index === this.state.rules.length - 1,
       handleDown: () => this.handleDown(index),
-      key: this.props.vpc_name + "-nw-rule-" + rule.name,
+      key: JSON.stringify(rule),
       id: this.props.vpc_name + "-nw-rule-form-" + rule.name,
       invalidCallback: this.props.invalidRuleText,
       invalidTextCallback: this.props.invalidRuleTextCallback,
@@ -5502,7 +5513,8 @@ class SecurityGroupForm extends Component {
       handleInputChange: this.handleInputChange,
       className: className
     })), !this.props.isModal && /*#__PURE__*/React.createElement(NetworkingRulesOrderCard, {
-      rules: this.state.rules,
+      key: JSON.stringify(this.props.rules),
+      rules: this.props.data.rules,
       vpc_name: this.state.vpc,
       parent_name: this.props.data.name,
       isSecurityGroup: true,
@@ -5513,7 +5525,9 @@ class SecurityGroupForm extends Component {
       onRuleSave: this.props.onRuleSave,
       onRuleDelete: this.props.onRuleDelete,
       disableModalSubmitCallback: this.props.disableModalSubmitCallback,
-      disableSaveCallback: this.props.disableSaveCallback
+      disableSaveCallback: this.props.disableSaveCallback,
+      invalidRuleTextCallback: this.props.invalidRuleTextCallback,
+      invalidRuleText: this.props.invalidRuleText
     }));
   }
 }
@@ -5835,7 +5849,7 @@ SubnetTileForm.propTypes = {
     name: PropTypes.string.isRequired,
     cidr: PropTypes.string.isRequired,
     public_gateway: PropTypes.bool,
-    network_acl: PropTypes.string.isRequired
+    network_acl: PropTypes.string
   })),
   readOnly: PropTypes.bool.isRequired,
   enabledPublicGateways: PropTypes.arrayOf(PropTypes.number).isRequired
@@ -5891,12 +5905,24 @@ class SubnetTierForm extends React.Component {
    * handle hide/show form data
    */
   handleShowToggle() {
-    this.setState({
-      hide: !this.state.hide
-    });
+    if (this.props.propsMatchState(this.state, this.props) === false && this.state.hide === false && !this.state.showUnsavedChangesModal) {
+      this.setState({
+        showUnsavedChangesModal: true
+      });
+    } else {
+      this.setState({
+        hide: !this.state.hide,
+        showUnsavedChangesModal: false
+      });
+    }
   }
   onSave() {
-    this.props.onSave(this.state, this.props);
+    let noToggleState = {
+      ...this.state
+    };
+    delete noToggleState.hide;
+    delete noToggleState.showUnsavedChangesModal;
+    this.props.onSave(noToggleState, this.props);
   }
   onSubnetSave(stateData, componentProps) {
     this.props.onSubnetSave(stateData, componentProps);
@@ -5927,7 +5953,17 @@ class SubnetTierForm extends React.Component {
       name: tierName,
       modalOpen: this.state.showDeleteModal,
       onModalClose: this.toggleDeleteModal,
-      onModalSubmit: this.onDelete
+      onModalSubmit: this.onDelete,
+      useDefaultUnsavedMessage: false
+    }), /*#__PURE__*/React.createElement(UnsavedChangesModal, {
+      name: this.props.data.name + " Subnet Tier",
+      modalOpen: this.state.showUnsavedChangesModal,
+      onModalSubmit: this.handleShowToggle,
+      onModalClose: () => {
+        this.setState({
+          showUnsavedChangesModal: false
+        });
+      }
     }), /*#__PURE__*/React.createElement(StatelessToggleForm, {
       hideTitle: this.props.isModal === true,
       hide: this.state.hide,
@@ -6044,7 +6080,8 @@ SubnetTierForm.propTypes = {
   vpc_name: PropTypes.string.isRequired,
   subnetListCallback: PropTypes.func.isRequired,
   enableModal: PropTypes.func,
-  disableModal: PropTypes.func
+  disableModal: PropTypes.func,
+  propsMatchState: PropTypes.func
 };
 
 const emailRegex = /^[\w-_\.]+@([\w-_]+\.)+[\w]{1,4}$/g;

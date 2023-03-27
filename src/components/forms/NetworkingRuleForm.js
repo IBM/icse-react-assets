@@ -387,7 +387,7 @@ const NetworkingRuleProtocolTextField = (props) => {
     <TextInput
       id={`${props.state.name}-nw-${kebabCase(props.name)}-input`}
       labelText={titleCase(props.name)}
-      placeholder={String(props.state.rule[props.name] || "")}
+      placeholder={String(props.state.rule[props.name])}
       value={props.state.rule[props.name] || ""}
       onChange={(e) => props.onChange(props.name, e)}
       invalid={

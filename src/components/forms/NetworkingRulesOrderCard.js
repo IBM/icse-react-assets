@@ -28,6 +28,14 @@ class NetworkingRulesOrderCard extends Component {
     this.getSubRule = this.getSubRule.bind(this);
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.rules.length !== this.state.rules.length) {
+      this.setState({ rules: [...this.props.rules] }, () => {
+        this.collapseAll();
+      });
+    }
+  }
+
   getRuleProtocol(rule) {
     let protocol = "all";
     // for each possible protocol
@@ -92,11 +100,11 @@ class NetworkingRulesOrderCard extends Component {
   collapseAll() {
     let collapse = this.state.collapse;
     this.state.rules.forEach((rule) => {
-      collapse[rule.name] = !this.state.allCollapsed;
+      collapse[rule.name] = true;
     });
     this.setState({
       collapse: collapse,
-      allCollapsed: !this.state.allCollapsed,
+      allCollapsed: true,
     });
   }
 
@@ -227,7 +235,7 @@ class NetworkingRulesOrderCard extends Component {
               handleUp={() => this.handleUp(index)}
               disableDown={index === this.state.rules.length - 1}
               handleDown={() => this.handleDown(index)}
-              key={this.props.vpc_name + "-nw-rule-" + rule.name}
+              key={JSON.stringify(rule)}
               id={this.props.vpc_name + "-nw-rule-form-" + rule.name}
               invalidCallback={this.props.invalidRuleText}
               invalidTextCallback={this.props.invalidRuleTextCallback}

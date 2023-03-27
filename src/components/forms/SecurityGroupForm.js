@@ -86,10 +86,11 @@ class SecurityGroupForm extends Component {
         </IcseFormGroup>
         {!this.props.isModal && (
           <NetworkingRulesOrderCard
-            rules={this.state.rules}
+            key={JSON.stringify(this.props.rules)}
+            rules={this.props.data.rules}
             vpc_name={this.state.vpc}
             parent_name={this.props.data.name}
-            isSecurityGroup={true}
+            isSecurityGroup
             networkRuleOrderDidChange={this.networkRuleOrderDidChange}
             invalidCallback={this.props.invalidCallback}
             invalidTextCallback={this.props.invalidTextCallback}
@@ -98,6 +99,8 @@ class SecurityGroupForm extends Component {
             onRuleDelete={this.props.onRuleDelete}
             disableModalSubmitCallback={this.props.disableModalSubmitCallback}
             disableSaveCallback={this.props.disableSaveCallback}
+            invalidRuleTextCallback={this.props.invalidRuleTextCallback}
+            invalidRuleText={this.props.invalidRuleText}
           />
         )}
       </>
