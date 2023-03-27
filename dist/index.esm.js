@@ -4325,8 +4325,8 @@ const NetworkingRuleProtocolTextField = props => {
   return /*#__PURE__*/React.createElement(TextInput, {
     id: `${props.state.name}-nw-${kebabCase(props.name)}-input`,
     labelText: titleCase(props.name),
-    placeholder: String(props.state.rule[props.name] || ""),
-    value: props.state.rule[props.name],
+    placeholder: String(props.state.rule[props.name]),
+    value: props.state.rule[props.name] || "",
     onChange: e => props.onChange(props.name, e),
     invalid: validPortRange(props.name, props.state.rule[props.name] || -1) === false && isNullOrEmptyString(props.state.rule[props.name]) === false,
     invalidText: contains(["type", "code"], props.name) ? `0 to ${props.name === "type" ? 254 : 255}` : "1 to 65535",
