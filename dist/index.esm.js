@@ -6942,7 +6942,7 @@ class WorkerPoolForm extends Component {
       labelText: "Instance Profile",
       value: this.state.flavor,
       apiEndpoint: this.props.flavorApiEndpoint,
-      handleInputChange: this.handleSubnetChange,
+      handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(SubnetMultiSelect, {
       id: this.props.data.name,
