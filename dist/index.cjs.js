@@ -6893,11 +6893,13 @@ class WorkerPoolForm extends React.Component {
     this.state = this.props.isModal ? {
       name: "",
       flavor: this.props.cluster.flavor,
-      subnets: this.props.cluster.subnets,
+      subnets: this.props.cluster.subnets || [],
       vpc: this.props.cluster.vpc,
       workers_per_subnet: this.props.cluster.workers_per_subnet,
       entitlement: this.props.cluster.entitlement
-    } : this.props.data, this.handleInputChange = this.handleInputChange.bind(this);
+    } : {
+      ...this.props.data
+    }, this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubnetChange = this.handleSubnetChange.bind(this);
     buildFormFunctions(this);
   }
@@ -6951,7 +6953,7 @@ class WorkerPoolForm extends React.Component {
       labelText: "Instance Profile",
       value: this.state.flavor,
       apiEndpoint: this.props.flavorApiEndpoint,
-      handleInputChange: this.handleInputChange,
+      handleInputChange: this.handleSubnetChange,
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(SubnetMultiSelect, {
       id: this.props.data.name,

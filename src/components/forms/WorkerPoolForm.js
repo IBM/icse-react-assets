@@ -13,12 +13,12 @@ class WorkerPoolForm extends Component {
       ? {
           name: "",
           flavor: this.props.cluster.flavor,
-          subnets: this.props.cluster.subnets,
+          subnets: this.props.cluster.subnets || [],
           vpc: this.props.cluster.vpc,
           workers_per_subnet: this.props.cluster.workers_per_subnet,
           entitlement: this.props.cluster.entitlement,
         }
-      : this.props.data),
+      : { ...this.props.data }),
       (this.handleInputChange = this.handleInputChange.bind(this));
     this.handleSubnetChange = this.handleSubnetChange.bind(this);
     buildFormFunctions(this);
@@ -75,7 +75,7 @@ class WorkerPoolForm extends Component {
             labelText="Instance Profile"
             value={this.state.flavor}
             apiEndpoint={this.props.flavorApiEndpoint}
-            handleInputChange={this.handleInputChange}
+            handleInputChange={this.handleSubnetChange}
             className="fieldWidthSmaller"
           />
         </IcseFormGroup>
@@ -95,7 +95,7 @@ class WorkerPoolForm extends Component {
           {/* Workers per Subnet */}
           <IcseNumberSelect
             name="workers_per_subnet"
-            formName={this.props.data.name  + "Worker Pools"}
+            formName={this.props.data.name + "Worker Pools"}
             labelText="Workers Per Subnet"
             value={this.state.workers_per_subnet}
             max={10}
