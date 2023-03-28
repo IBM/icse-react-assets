@@ -7709,7 +7709,9 @@ AccessGroupForm.propTypes = {
 class EventStreamsForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = {
+      ...this.props.data
+    };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleAllowedIps = this.handleAllowedIps.bind(this);
     this.handlePlanChange = this.handlePlanChange.bind(this);
@@ -7743,10 +7745,12 @@ class EventStreamsForm extends React.Component {
    * @param {event} event
    */
   handlePlanChange(event) {
+    let value = event.target.value.toLowerCase();
     let tempState = {
-      plan: event.target.value.toLowerCase()
+      ...this.state
     };
-    if (item !== "enterprise") {
+    tempState.plan = value;
+    if (value !== "enterprise") {
       tempState = {
         ...tempState,
         throughput: "",
@@ -7835,7 +7839,7 @@ EventStreamsForm.propTypes = {
   data: PropTypes__default["default"].shape({
     name: PropTypes__default["default"].string.isRequired,
     plan: PropTypes__default["default"].string.isRequired,
-    resource_group: PropTypes__default["default"].string.isRequired,
+    resource_group: PropTypes__default["default"].string,
     endpoint: PropTypes__default["default"].string,
     throughput: PropTypes__default["default"].string,
     storage_size: PropTypes__default["default"].string,

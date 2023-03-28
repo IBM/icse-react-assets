@@ -18,7 +18,7 @@ import PropTypes from "prop-types";
 class EventStreamsForm extends Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = { ...this.props.data };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleAllowedIps = this.handleAllowedIps.bind(this);
     this.handlePlanChange = this.handlePlanChange.bind(this);
@@ -50,8 +50,10 @@ class EventStreamsForm extends Component {
    * @param {event} event
    */
   handlePlanChange(event) {
-    let tempState = { plan: event.target.value.toLowerCase() };
-    if (item !== "enterprise") {
+    let value = event.target.value.toLowerCase();
+    let tempState = { ...this.state };
+    tempState.plan = value;
+    if (value !== "enterprise") {
       tempState = {
         ...tempState,
         throughput: "",
@@ -172,7 +174,7 @@ EventStreamsForm.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
     plan: PropTypes.string.isRequired,
-    resource_group: PropTypes.string.isRequired,
+    resource_group: PropTypes.string,
     endpoint: PropTypes.string,
     throughput: PropTypes.string,
     storage_size: PropTypes.string,

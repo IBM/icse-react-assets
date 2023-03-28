@@ -7698,7 +7698,9 @@ AccessGroupForm.propTypes = {
 class EventStreamsForm extends Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = {
+      ...this.props.data
+    };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleAllowedIps = this.handleAllowedIps.bind(this);
     this.handlePlanChange = this.handlePlanChange.bind(this);
@@ -7732,10 +7734,12 @@ class EventStreamsForm extends Component {
    * @param {event} event
    */
   handlePlanChange(event) {
+    let value = event.target.value.toLowerCase();
     let tempState = {
-      plan: event.target.value.toLowerCase()
+      ...this.state
     };
-    if (item !== "enterprise") {
+    tempState.plan = value;
+    if (value !== "enterprise") {
       tempState = {
         ...tempState,
         throughput: "",
@@ -7824,7 +7828,7 @@ EventStreamsForm.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
     plan: PropTypes.string.isRequired,
-    resource_group: PropTypes.string.isRequired,
+    resource_group: PropTypes.string,
     endpoint: PropTypes.string,
     throughput: PropTypes.string,
     storage_size: PropTypes.string,
