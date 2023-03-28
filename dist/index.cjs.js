@@ -979,7 +979,7 @@ IcseSelect.propTypes = {
     align: PropTypes__default["default"].string
   })
 };
-class FetchSelect$1 extends React__default["default"].Component {
+class FetchSelect extends React__default["default"].Component {
   _isMounted = false;
   constructor(props) {
     super(props);
@@ -1028,7 +1028,7 @@ class FetchSelect$1 extends React__default["default"].Component {
     });
   }
 }
-FetchSelect$1.propTypes = {
+FetchSelect.propTypes = {
   labelText: PropTypes__default["default"].string.isRequired,
   handleInputChange: PropTypes__default["default"].func.isRequired,
   filterArr: PropTypes__default["default"].array,
@@ -2863,7 +2863,7 @@ class F5VsiForm extends React.Component {
       groups: ["f5-bigip-15-1-5-1-0-0-14-all-1slot", "f5-bigip-15-1-5-1-0-0-14-ltm-1slot", "f5-bigip-16-1-2-2-0-0-28-ltm-1slot", "f5-bigip-16-1-2-2-0-0-28-all-1slot", "f5-bigip-16-1-3-2-0-0-4-ltm-1slot", "f5-bigip-16-1-3-2-0-0-4-all-1slot", "f5-bigip-17-0-0-1-0-0-4-ltm-1slot", "f5-bigip-17-0-0-1-0-0-4-all-1slot"],
       value: this.state.f5_image_name,
       handleInputChange: this.handleInputChange
-    }), /*#__PURE__*/React__default["default"].createElement(FetchSelect$1, {
+    }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
       formName: "f5_vsi_form",
       labelText: "Flavor",
       name: "machine_type",
@@ -6789,14 +6789,14 @@ class VsiForm extends React.Component {
       sshKeys: this.props.sshKeyList,
       onChange: value => this.handleMultiSelectChange("ssh_keys", value),
       initialSelectedItems: this.state.ssh_keys
-    }), /*#__PURE__*/React__default["default"].createElement(FetchSelect$1, {
+    }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
       formName: "vsi_form",
       labelText: "Image",
       name: "image_name",
       apiEndpoint: this.props.apiEndpointImages,
       handleInputChange: this.handleInputChange,
       value: this.state.image_name
-    }), /*#__PURE__*/React__default["default"].createElement(FetchSelect$1, {
+    }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
       formName: "vsi_form",
       labelText: "Flavor",
       name: "profile",
@@ -7104,7 +7104,7 @@ class ClusterForm extends React.Component {
       value: this.state.entitlement,
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React__default["default"].createElement(FetchSelect$1, {
+    }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
       name: "flavor",
       formName: clusterComponent + "flavor",
       labelText: "Instance Profile",
@@ -7149,7 +7149,7 @@ class ClusterForm extends React.Component {
       className: "fieldWidthSmaller",
       invalid: this.state.kube_type === "openshift" && this.state.subnets.length * this.state.workers_per_subnet < 2,
       invalidText: "OpenShift clusters require at least 2 worker nodes across any number of subnets"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(FetchSelect$1, {
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
       name: "kube_version",
       formName: clusterComponent + "kube_version",
       labelText: "Kube Version",
@@ -7889,7 +7889,7 @@ exports.EntitlementSelect = EntitlementSelect;
 exports.EventStreamsForm = EventStreamsForm;
 exports.F5VsiForm = F5VsiForm;
 exports.F5VsiTemplateForm = F5VsiTemplateForm;
-exports.FetchSelect = FetchSelect$1;
+exports.FetchSelect = FetchSelect;
 exports.FormModal = FormModal;
 exports.IamAccountSettingsForm = IamAccountSettingsForm;
 exports.IcseFormGroup = IcseFormGroup;
