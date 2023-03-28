@@ -7810,7 +7810,7 @@ class EventStreamsForm extends React.Component {
     })), this.state.plan === "enterprise" && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(EndpointSelect, {
       formName: this.props.data.name + "-event-streams",
       handleInputChange: this.handleInputChange,
-      value: this.state.endpoint,
+      value: this.state.endpoints,
       className: "fieldWidth"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       formName: this.props.data.name + "-event-streams",
@@ -7849,7 +7849,7 @@ EventStreamsForm.defaultProps = {
     name: "",
     plan: "lite",
     resource_group: "",
-    endpoint: "",
+    endpoints: "",
     throughput: "",
     storage_size: "",
     private_ip_allowlist: ""
@@ -7860,7 +7860,7 @@ EventStreamsForm.propTypes = {
     name: PropTypes__default["default"].string.isRequired,
     plan: PropTypes__default["default"].string.isRequired,
     resource_group: PropTypes__default["default"].string,
-    endpoint: PropTypes__default["default"].string,
+    endpoints: PropTypes__default["default"].string,
     throughput: PropTypes__default["default"].string,
     storage_size: PropTypes__default["default"].string,
     private_ip_allowlist: PropTypes__default["default"].string
