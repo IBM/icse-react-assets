@@ -4,7 +4,7 @@ import {
   buildFormFunctions,
 } from "../component-utils";
 import { IcseFormGroup } from "../Utils";
-import { IcseTextInput } from "../Inputs";
+import { IcseNameInput, IcseTextInput } from "../Inputs";
 import { IcseSelect } from "../Dropdowns";
 import { SecurityGroupMultiSelect, SubnetMultiSelect } from "../MultiSelects";
 import PropTypes from "prop-types";
@@ -79,6 +79,20 @@ class VpeForm extends Component {
     return (
       <>
         <IcseFormGroup>
+          <IcseNameInput
+            id={this.props.data.name + "-name"}
+            component="vpe"
+            componentName={this.props.data.name}
+            value={this.state.name}
+            onChange={this.handleInputChange}
+            placeholder="my-vpe-name"
+            hideHelperText
+            invalidCallback={() =>
+              this.props.invalidCallback(this.state, this.props)
+            }
+            invalidText={this.props.invalidTextCallback(this.state, this.props)}
+            className="fieldWidthSmaller"
+          />
           <IcseTextInput
             componentName="Vpe"
             field="vpc"
@@ -137,6 +151,7 @@ class VpeForm extends Component {
 
 VpeForm.defaultProps = {
   data: {
+    name: "",
     vpc: "",
     service: "kms",
     resource_group: "",
@@ -151,6 +166,7 @@ VpeForm.defaultProps = {
 
 VpeForm.propTypes = {
   data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
     vpc: PropTypes.string.isRequired,
     service: PropTypes.string.isRequired,
     resource_group: PropTypes.string.isRequired,
@@ -160,6 +176,8 @@ VpeForm.propTypes = {
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   subnetList: PropTypes.arrayOf(PropTypes.object).isRequired,
   securityGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
   isModal: PropTypes.bool.isRequired,
 };
 

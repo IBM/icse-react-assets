@@ -6501,7 +6501,18 @@ class VpeForm extends React.Component {
     });
   }
   render() {
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: this.props.data.name + "-name",
+      component: "vpe",
+      componentName: this.props.data.name,
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      placeholder: "my-vpe-name",
+      hideHelperText: true,
+      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       componentName: "Vpe",
       field: "vpc",
       labelText: "VPC Name",
@@ -6548,6 +6559,7 @@ class VpeForm extends React.Component {
 }
 VpeForm.defaultProps = {
   data: {
+    name: "",
     vpc: "",
     service: "kms",
     resource_group: "",
@@ -6561,6 +6573,7 @@ VpeForm.defaultProps = {
 };
 VpeForm.propTypes = {
   data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
     vpc: PropTypes__default["default"].string.isRequired,
     service: PropTypes__default["default"].string.isRequired,
     resource_group: PropTypes__default["default"].string.isRequired,
@@ -6570,6 +6583,8 @@ VpeForm.propTypes = {
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   subnetList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].object).isRequired,
   securityGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
   isModal: PropTypes__default["default"].bool.isRequired
 };
 
