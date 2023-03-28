@@ -195,7 +195,7 @@ class ClusterForm extends Component {
             name="kube_version"
             formName={clusterComponent + "kube_version"}
             labelText="Kube Version"
-            value={this.state.kube_version}
+            value={this.state.kube_version || ""}
             apiEndpoint={this.props.kubeVersionApiEndpoint}
             filter={(version) => {
               if (
@@ -284,7 +284,7 @@ ClusterForm.defaultProps = {
     subnets: [],
     workers_per_subnet: 2,
     flavor: "",
-    kube_version: "default",
+    kube_version: "",
     update_all_workers: false,
     worker_pools: [],
   },

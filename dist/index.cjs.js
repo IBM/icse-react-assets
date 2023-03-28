@@ -1012,14 +1012,19 @@ class FetchSelect extends React__default["default"].Component {
     }
   }
   render() {
+    let groups = this.dataToGroups();
+    if (this.props.value === "") {
+      groups = [""].concat(groups);
+    }
     return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       labelText: this.props.labelText,
       handleInputChange: this.props.handleInputChange,
       name: this.props.name,
       className: this.props.className,
       formName: this.props.formName,
-      groups: this.dataToGroups(),
-      value: this.props.value || "null"
+      groups: groups,
+      value: this.props.value || "null",
+      invalid: this.props.value === ""
     });
   }
 }
@@ -6888,11 +6893,13 @@ class WorkerPoolForm extends React.Component {
     this.state = this.props.isModal ? {
       name: "",
       flavor: this.props.cluster.flavor,
-      subnets: this.props.cluster.subnets,
+      subnets: this.props.cluster.subnets || [],
       vpc: this.props.cluster.vpc,
       workers_per_subnet: this.props.cluster.workers_per_subnet,
       entitlement: this.props.cluster.entitlement
-    } : this.props.data, this.handleInputChange = this.handleInputChange.bind(this);
+    } : {
+      ...this.props.data
+    }, this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubnetChange = this.handleSubnetChange.bind(this);
     buildFormFunctions(this);
   }
@@ -6940,12 +6947,12 @@ class WorkerPoolForm extends React.Component {
       handleInputChange: this.handleInputChange,
       component: this.props.data.name,
       formName: "Worker Pools"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "Worker Pools",
+    }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
       name: "flavor",
-      labelText: "Flavor Select",
+      formName: this.props.data.name + "flavor",
+      labelText: "Instance Profile",
       value: this.state.flavor,
-      groups: ["bx2.16x64", "bx2.2x8"],
+      apiEndpoint: this.props.flavorApiEndpoint,
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(SubnetMultiSelect, {
@@ -6959,7 +6966,7 @@ class WorkerPoolForm extends React.Component {
       className: "fieldWidthSmaller cds--form-item"
     }), /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
       name: "workers_per_subnet",
-      formName: "Worker Pools",
+      formName: this.props.data.name + "Worker Pools",
       labelText: "Workers Per Subnet",
       value: this.state.workers_per_subnet,
       max: 10,
@@ -6973,7 +6980,7 @@ class WorkerPoolForm extends React.Component {
 WorkerPoolForm.defaultProps = {
   data: {
     entitlement: "",
-    flavor: "bx2.16x64",
+    flavor: "",
     name: "",
     subnets: [],
     vpc: "",
@@ -7147,7 +7154,7 @@ class ClusterForm extends React.Component {
       name: "kube_version",
       formName: clusterComponent + "kube_version",
       labelText: "Kube Version",
-      value: this.state.kube_version,
+      value: this.state.kube_version || "",
       apiEndpoint: this.props.kubeVersionApiEndpoint,
       filter: version => {
         if (this.state.kube_type === "openshift" && version.indexOf("openshift") !== -1 ||
@@ -7221,7 +7228,7 @@ ClusterForm.defaultProps = {
     subnets: [],
     workers_per_subnet: 2,
     flavor: "",
-    kube_version: "default",
+    kube_version: "",
     update_all_workers: false,
     worker_pools: []
   },

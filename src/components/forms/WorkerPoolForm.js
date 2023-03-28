@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { buildFormFunctions } from "../component-utils";
 import { IcseNameInput } from "../Inputs";
-import { EntitlementSelect, IcseSelect, IcseNumberSelect } from "../Dropdowns";
+import { EntitlementSelect, FetchSelect, IcseNumberSelect } from "../Dropdowns";
 import { SubnetMultiSelect } from "../MultiSelects";
 import { IcseFormGroup } from "../Utils";
 import PropTypes from "prop-types";
@@ -13,12 +13,12 @@ class WorkerPoolForm extends Component {
       ? {
           name: "",
           flavor: this.props.cluster.flavor,
-          subnets: this.props.cluster.subnets,
+          subnets: this.props.cluster.subnets || [],
           vpc: this.props.cluster.vpc,
           workers_per_subnet: this.props.cluster.workers_per_subnet,
           entitlement: this.props.cluster.entitlement,
         }
-      : this.props.data),
+      : { ...this.props.data }),
       (this.handleInputChange = this.handleInputChange.bind(this));
     this.handleSubnetChange = this.handleSubnetChange.bind(this);
     buildFormFunctions(this);
@@ -69,12 +69,12 @@ class WorkerPoolForm extends Component {
             formName="Worker Pools"
           />
           {/* flavor */}
-          <IcseSelect
-            formName="Worker Pools"
+          <FetchSelect
             name="flavor"
-            labelText="Flavor Select"
+            formName={this.props.data.name + "flavor"}
+            labelText="Instance Profile"
             value={this.state.flavor}
-            groups={["bx2.16x64", "bx2.2x8"]}
+            apiEndpoint={this.props.flavorApiEndpoint}
             handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"
           />
@@ -94,7 +94,7 @@ class WorkerPoolForm extends Component {
           {/* Workers per Subnet */}
           <IcseNumberSelect
             name="workers_per_subnet"
-            formName="Worker Pools"
+            formName={this.props.data.name + "Worker Pools"}
             labelText="Workers Per Subnet"
             value={this.state.workers_per_subnet}
             max={10}
@@ -112,7 +112,7 @@ class WorkerPoolForm extends Component {
 WorkerPoolForm.defaultProps = {
   data: {
     entitlement: "",
-    flavor: "bx2.16x64",
+    flavor: "",
     name: "",
     subnets: [],
     vpc: "",
