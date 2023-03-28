@@ -7703,6 +7703,152 @@ AccessGroupForm.propTypes = {
   invalidTextCallback: PropTypes__default["default"].func.isRequired
 };
 
+/**
+ * EventStreamsForm
+ */
+class EventStreamsForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleAllowedIps = this.handleAllowedIps.bind(this);
+    this.handlePlanChange = this.handlePlanChange.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+
+  /**
+   * Handle input change for allowed ips text field
+   * @param {event} event
+   */
+  handleAllowedIps(event) {
+    // removing white space and checking for empty value
+    let value = event.target.value.replace(/\s*/g, "");
+    this.setState({
+      private_ip_allowlist: value
+    });
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * Handle input change for a select
+   * @param {event} event
+   */
+  handlePlanChange(event) {
+    let value = event.target.value.toLowerCase();
+    let tempState = {
+      ...this.state
+    };
+    tempState.plan = value;
+    if (value !== "enterprise") {
+      tempState = {
+        ...tempState,
+        throughput: "",
+        storage_size: "",
+        endpoint: "",
+        private_ip_allowlist: ""
+      };
+    }
+    this.setState(tempState);
+  }
+  render() {
+    let composedId = `event-streams-form-${this.props.data.name}`;
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: composedId,
+      componentName: this.props.data.name + "-event-streams",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      hideHelperText: true,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: this.props.data.name + "-event-streams",
+      value: lazyZ.titleCase(this.state.plan),
+      groups: ["Lite", "Standard", "Enterprise"],
+      handleInputChange: this.handlePlanChange,
+      className: "fieldWidth",
+      name: "plan",
+      labelText: "Plan"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: this.props.data.name + "-event-streams",
+      value: this.state.resource_group,
+      groups: this.props.resourceGroups,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidth",
+      name: "resource_group",
+      labelText: "Resource Group"
+    })), this.state.plan === "enterprise" && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(EndpointSelect, {
+      formName: this.props.data.name + "-event-streams",
+      handleInputChange: this.handleInputChange,
+      value: this.state.endpoint,
+      className: "fieldWidth"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: this.props.data.name + "-event-streams",
+      value: this.state.throughput,
+      groups: ["150MB/s", "300MB/s", "450MB/s"],
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidth",
+      name: "throughput",
+      labelText: "Throughput"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: this.props.data.name + "-event-streams",
+      value: this.state.storage_size,
+      groups: ["2TB", "4TB", "6TB", "8TB", "10TB", "12TB"],
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidth",
+      name: "storage_size",
+      labelText: "Storage Size"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
+      tooltip: {
+        content: "Private IP addresses or CIDR blocks to allowlist",
+        align: "top-left"
+      },
+      className: "textInputMedium",
+      innerForm: react.TextArea,
+      id: "event-streams-private-ips",
+      labelText: "Allowed Private IPs",
+      onChange: this.handleAllowedIps,
+      placeholder: this.state.private_ip_allowlist || "X.X.X.X, X.X.X.X/X, ...",
+      invalid: iamUtils_1(this.state.private_ip_allowlist),
+      invalidText: "Please enter a comma separated list of IP addresses or CIDR blocks"
+    }))));
+  }
+}
+EventStreamsForm.defaultProps = {
+  data: {
+    name: "",
+    plan: "lite",
+    resource_group: "",
+    endpoint: "",
+    throughput: "",
+    storage_size: "",
+    private_ip_allowlist: ""
+  }
+};
+EventStreamsForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    plan: PropTypes__default["default"].string.isRequired,
+    resource_group: PropTypes__default["default"].string,
+    endpoint: PropTypes__default["default"].string,
+    throughput: PropTypes__default["default"].string,
+    storage_size: PropTypes__default["default"].string,
+    private_ip_allowlist: PropTypes__default["default"].string
+  }),
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired
+};
+
 exports.AccessGroupDynamicPolicyForm = AccessGroupDynamicPolicyForm;
 exports.AccessGroupForm = AccessGroupForm;
 exports.AccessGroupPolicyForm = AccessGroupPolicyForm;
@@ -7720,6 +7866,7 @@ exports.EmptyResourceTile = EmptyResourceTile;
 exports.EncryptionKeyForm = EncryptionKeyForm;
 exports.EndpointSelect = EndpointSelect;
 exports.EntitlementSelect = EntitlementSelect;
+exports.EventStreamsForm = EventStreamsForm;
 exports.F5VsiForm = F5VsiForm;
 exports.F5VsiTemplateForm = F5VsiTemplateForm;
 exports.FetchSelect = FetchSelect;
