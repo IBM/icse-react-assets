@@ -968,7 +968,7 @@ IcseSelect.propTypes = {
     align: PropTypes.string
   })
 };
-class FetchSelect extends React.Component {
+class FetchSelect$1 extends React.Component {
   _isMounted = false;
   constructor(props) {
     super(props);
@@ -1001,18 +1001,22 @@ class FetchSelect extends React.Component {
     }
   }
   render() {
+    let groups = this.dataToGroups();
+    if (this.props.value === "") {
+      groups = [""].concat(groups);
+    }
     return /*#__PURE__*/React.createElement(IcseSelect, {
       labelText: this.props.labelText,
       handleInputChange: this.props.handleInputChange,
       name: this.props.name,
       className: this.props.className,
       formName: this.props.formName,
-      groups: this.dataToGroups(),
+      groups: groups,
       value: this.props.value || "null"
     });
   }
 }
-FetchSelect.propTypes = {
+FetchSelect$1.propTypes = {
   labelText: PropTypes.string.isRequired,
   handleInputChange: PropTypes.func.isRequired,
   filterArr: PropTypes.array,
@@ -2847,7 +2851,7 @@ class F5VsiForm extends Component {
       groups: ["f5-bigip-15-1-5-1-0-0-14-all-1slot", "f5-bigip-15-1-5-1-0-0-14-ltm-1slot", "f5-bigip-16-1-2-2-0-0-28-ltm-1slot", "f5-bigip-16-1-2-2-0-0-28-all-1slot", "f5-bigip-16-1-3-2-0-0-4-ltm-1slot", "f5-bigip-16-1-3-2-0-0-4-all-1slot", "f5-bigip-17-0-0-1-0-0-4-ltm-1slot", "f5-bigip-17-0-0-1-0-0-4-all-1slot"],
       value: this.state.f5_image_name,
       handleInputChange: this.handleInputChange
-    }), /*#__PURE__*/React.createElement(FetchSelect, {
+    }), /*#__PURE__*/React.createElement(FetchSelect$1, {
       formName: "f5_vsi_form",
       labelText: "Flavor",
       name: "machine_type",
@@ -6773,14 +6777,14 @@ class VsiForm extends Component {
       sshKeys: this.props.sshKeyList,
       onChange: value => this.handleMultiSelectChange("ssh_keys", value),
       initialSelectedItems: this.state.ssh_keys
-    }), /*#__PURE__*/React.createElement(FetchSelect, {
+    }), /*#__PURE__*/React.createElement(FetchSelect$1, {
       formName: "vsi_form",
       labelText: "Image",
       name: "image_name",
       apiEndpoint: this.props.apiEndpointImages,
       handleInputChange: this.handleInputChange,
       value: this.state.image_name
-    }), /*#__PURE__*/React.createElement(FetchSelect, {
+    }), /*#__PURE__*/React.createElement(FetchSelect$1, {
       formName: "vsi_form",
       labelText: "Flavor",
       name: "profile",
@@ -6929,12 +6933,12 @@ class WorkerPoolForm extends Component {
       handleInputChange: this.handleInputChange,
       component: this.props.data.name,
       formName: "Worker Pools"
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: "Worker Pools",
+    }), /*#__PURE__*/React.createElement(FetchSelect, {
       name: "flavor",
-      labelText: "Flavor Select",
+      formName: this.props.data.name + "flavor",
+      labelText: "Instance Profile",
       value: this.state.flavor,
-      groups: ["bx2.16x64", "bx2.2x8"],
+      apiEndpoint: this.props.flavorApiEndpoint,
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(SubnetMultiSelect, {
@@ -6949,7 +6953,7 @@ class WorkerPoolForm extends Component {
       className: "fieldWidthSmaller cds--form-item"
     }), /*#__PURE__*/React.createElement(IcseNumberSelect, {
       name: "workers_per_subnet",
-      formName: "Worker Pools",
+      formName: this.props.data.name + "Worker Pools",
       labelText: "Workers Per Subnet",
       value: this.state.workers_per_subnet,
       max: 10,
@@ -6963,7 +6967,7 @@ class WorkerPoolForm extends Component {
 WorkerPoolForm.defaultProps = {
   data: {
     entitlement: "",
-    flavor: "bx2.16x64",
+    flavor: "",
     name: "",
     subnets: [],
     vpc: "",
@@ -7088,7 +7092,7 @@ class ClusterForm extends Component {
       value: this.state.entitlement,
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(FetchSelect, {
+    }), /*#__PURE__*/React.createElement(FetchSelect$1, {
       name: "flavor",
       formName: clusterComponent + "flavor",
       labelText: "Instance Profile",
@@ -7133,11 +7137,11 @@ class ClusterForm extends Component {
       className: "fieldWidthSmaller",
       invalid: this.state.kube_type === "openshift" && this.state.subnets.length * this.state.workers_per_subnet < 2,
       invalidText: "OpenShift clusters require at least 2 worker nodes across any number of subnets"
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(FetchSelect, {
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(FetchSelect$1, {
       name: "kube_version",
       formName: clusterComponent + "kube_version",
       labelText: "Kube Version",
-      value: this.state.kube_version,
+      value: this.state.kube_version || "",
       apiEndpoint: this.props.kubeVersionApiEndpoint,
       filter: version => {
         if (this.state.kube_type === "openshift" && version.indexOf("openshift") !== -1 ||
@@ -7211,7 +7215,7 @@ ClusterForm.defaultProps = {
     subnets: [],
     workers_per_subnet: 2,
     flavor: "",
-    kube_version: "default",
+    kube_version: "",
     update_all_workers: false,
     worker_pools: []
   },
@@ -7853,4 +7857,4 @@ EventStreamsForm.propTypes = {
   invalidTextCallback: PropTypes.func.isRequired
 };
 
-export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, ClusterForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, LocationsMultiSelect, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VsiForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, ClusterForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, F5VsiForm, F5VsiTemplateForm, FetchSelect$1 as FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, LocationsMultiSelect, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VsiForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };

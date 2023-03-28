@@ -140,6 +140,10 @@ export class FetchSelect extends React.Component {
     }
   }
   render() {
+    let groups = this.dataToGroups();
+    if (this.props.value === "") {
+      groups = [""].concat(groups);
+    }
     return (
       <IcseSelect
         labelText={this.props.labelText}
@@ -147,7 +151,7 @@ export class FetchSelect extends React.Component {
         name={this.props.name}
         className={this.props.className}
         formName={this.props.formName}
-        groups={this.dataToGroups()}
+        groups={groups}
         value={this.props.value || "null"}
       />
     );

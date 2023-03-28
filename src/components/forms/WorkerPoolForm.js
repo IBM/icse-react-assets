@@ -69,12 +69,12 @@ class WorkerPoolForm extends Component {
             formName="Worker Pools"
           />
           {/* flavor */}
-          <IcseSelect
-            formName="Worker Pools"
+          <FetchSelect
             name="flavor"
-            labelText="Flavor Select"
+            formName={this.props.data.name + "flavor"}
+            labelText="Instance Profile"
             value={this.state.flavor}
-            groups={["bx2.16x64", "bx2.2x8"]}
+            apiEndpoint={this.props.flavorApiEndpoint}
             handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"
           />
@@ -95,7 +95,7 @@ class WorkerPoolForm extends Component {
           {/* Workers per Subnet */}
           <IcseNumberSelect
             name="workers_per_subnet"
-            formName="Worker Pools"
+            formName={this.props.data.name  + "Worker Pools"}
             labelText="Workers Per Subnet"
             value={this.state.workers_per_subnet}
             max={10}
@@ -113,7 +113,7 @@ class WorkerPoolForm extends Component {
 WorkerPoolForm.defaultProps = {
   data: {
     entitlement: "",
-    flavor: "bx2.16x64",
+    flavor: "",
     name: "",
     subnets: [],
     vpc: "",
