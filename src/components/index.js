@@ -79,3 +79,4 @@ export {
   StatelessToggleForm,
   TitleGroup,
 } from "./Utils";
+export { default as EventStreamsForm } from "./forms/EventStreamsForm";
