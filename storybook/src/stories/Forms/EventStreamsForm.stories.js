@@ -7,14 +7,14 @@ export default {
   argTypes: {
     data: {
       summary: "An optional object",
-      type: { required: false },
+      type: { required: true },
       control: "none",
     },
     ["data.name"]: {
       description:
         "A string specifying the name of the secrets manager instance",
       control: "none",
-      type: { required: false },
+      type: { required: true },
     },
     ["data.resource_group"]: {
       description:
