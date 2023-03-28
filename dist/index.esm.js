@@ -1012,7 +1012,8 @@ class FetchSelect$1 extends React.Component {
       className: this.props.className,
       formName: this.props.formName,
       groups: groups,
-      value: this.props.value || "null"
+      value: this.props.value || "null",
+      invalid: this.props.value === ""
     });
   }
 }

@@ -153,6 +153,7 @@ export class FetchSelect extends React.Component {
         formName={this.props.formName}
         groups={groups}
         value={this.props.value || "null"}
+        invalid={this.props.value === ""}
       />
     );
   }
