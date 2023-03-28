@@ -7715,7 +7715,6 @@ class EventStreamsForm extends Component {
   handleAllowedIps(event) {
     // removing white space and checking for empty value
     let value = event.target.value.replace(/\s*/g, "");
-    if (value === "") value = null;
     this.setState({
       private_ip_allowlist: value
     });
