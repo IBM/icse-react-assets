@@ -107,7 +107,7 @@ class EventStreamsForm extends Component {
               <EndpointSelect
                 formName={this.props.data.name + "-event-streams"}
                 handleInputChange={this.handleInputChange}
-                value={this.state.endpoint}
+                value={this.state.endpoints}
                 className="fieldWidth"
               />
               {/* throughput */}
@@ -162,7 +162,7 @@ EventStreamsForm.defaultProps = {
     name: "",
     plan: "lite",
     resource_group: "",
-    endpoint: "",
+    endpoints: "",
     throughput: "",
     storage_size: "",
     private_ip_allowlist: "",
@@ -174,7 +174,7 @@ EventStreamsForm.propTypes = {
     name: PropTypes.string.isRequired,
     plan: PropTypes.string.isRequired,
     resource_group: PropTypes.string,
-    endpoint: PropTypes.string,
+    endpoints: PropTypes.string,
     throughput: PropTypes.string,
     storage_size: PropTypes.string,
     private_ip_allowlist: PropTypes.string,
