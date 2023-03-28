@@ -6908,7 +6908,7 @@ class WorkerPoolForm extends Component {
     let pool = {
       ...this.state
     };
-    pool.subnets = event.selectedItems;
+    pool.subnets = event;
     this.setState(pool);
   }
   render() {
@@ -6939,10 +6939,9 @@ class WorkerPoolForm extends Component {
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(SubnetMultiSelect, {
       id: this.props.data.name,
-      slz: this.props.slz,
       disabled: this.props.cluster.vpc === null,
       vpc_name: this.state.vpc,
-      initialSelectedItems: this.props.data.subnets,
+      initialSelectedItems: this.state.subnets,
       subnets: this.getSubnetList(),
       onChange: this.handleSubnetChange,
       component: this.props.data.name,

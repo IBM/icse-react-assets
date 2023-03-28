@@ -151,7 +151,6 @@ const WorkerPoolFormStory = () => {
           public_gateway: false,
           has_prefix: true,
         },
-
         {
           vpc: "workload",
           zone: 1,

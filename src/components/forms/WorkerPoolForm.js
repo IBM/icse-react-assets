@@ -39,7 +39,7 @@ class WorkerPoolForm extends Component {
   // Handle subnet multiselect change
   handleSubnetChange(event) {
     let pool = { ...this.state };
-    pool.subnets = event.selectedItems;
+    pool.subnets = event;
     this.setState(pool);
   }
 
@@ -83,10 +83,9 @@ class WorkerPoolForm extends Component {
           {/* subnets */}
           <SubnetMultiSelect
             id={this.props.data.name}
-            slz={this.props.slz}
             disabled={this.props.cluster.vpc === null}
             vpc_name={this.state.vpc}
-            initialSelectedItems={this.props.data.subnets}
+            initialSelectedItems={this.state.subnets}
             subnets={this.getSubnetList()}
             onChange={this.handleSubnetChange}
             component={this.props.data.name}
