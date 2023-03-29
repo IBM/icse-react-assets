@@ -260,7 +260,7 @@ export const EndpointSelect = (props) => {
   });
   return (
     <IcseSelect
-      name="endpoint"
+      name={props.name}
       labelText="Endpoint Type"
       groups={titleCaseGroups}
       value={titleCase(props.value).replace(/And/g, "and")}
@@ -285,8 +285,10 @@ EndpointSelect.propTypes = {
   formName: PropTypes.string.isRequired,
   className: PropTypes.string,
   groups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  name: PropTypes.string,
 };
 
 EndpointSelect.defaultProps = {
+  name: "endpoint",
   groups: ["private", "public", "public-and-private"],
 };

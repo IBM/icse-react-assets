@@ -1120,7 +1120,7 @@ const EndpointSelect = props => {
     titleCaseGroups.push(lazyZ.titleCase(group).replace(/And/g, "and"));
   });
   return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-    name: "endpoint",
+    name: props.name,
     labelText: "Endpoint Type",
     groups: titleCaseGroups,
     value: lazyZ.titleCase(props.value).replace(/And/g, "and"),
@@ -1146,9 +1146,11 @@ EndpointSelect.propTypes = {
   handleInputChange: PropTypes__default["default"].func.isRequired,
   formName: PropTypes__default["default"].string.isRequired,
   className: PropTypes__default["default"].string,
-  groups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+  groups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  name: PropTypes__default["default"].string
 };
 EndpointSelect.defaultProps = {
+  name: "endpoint",
   groups: ["private", "public", "public-and-private"]
 };
 
@@ -7775,7 +7777,7 @@ class EventStreamsForm extends React.Component {
         ...tempState,
         throughput: "",
         storage_size: "",
-        endpoint: "",
+        endpoints: "",
         private_ip_allowlist: ""
       };
     }
@@ -7808,6 +7810,7 @@ class EventStreamsForm extends React.Component {
       name: "resource_group",
       labelText: "Resource Group"
     })), this.state.plan === "enterprise" && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(EndpointSelect, {
+      name: "endpoints",
       formName: this.props.data.name + "-event-streams",
       handleInputChange: this.handleInputChange,
       value: this.state.endpoints,

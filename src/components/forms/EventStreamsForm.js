@@ -57,7 +57,7 @@ class EventStreamsForm extends Component {
         ...tempState,
         throughput: "",
         storage_size: "",
-        endpoint: "",
+        endpoints: "",
         private_ip_allowlist: "",
       };
     }
@@ -105,6 +105,7 @@ class EventStreamsForm extends Component {
             <IcseFormGroup>
               {/* endpoints */}
               <EndpointSelect
+                name="endpoints"
                 formName={this.props.data.name + "-event-streams"}
                 handleInputChange={this.handleInputChange}
                 value={this.state.endpoints}

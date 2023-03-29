@@ -1109,7 +1109,7 @@ const EndpointSelect = props => {
     titleCaseGroups.push(titleCase$1(group).replace(/And/g, "and"));
   });
   return /*#__PURE__*/React.createElement(IcseSelect, {
-    name: "endpoint",
+    name: props.name,
     labelText: "Endpoint Type",
     groups: titleCaseGroups,
     value: titleCase$1(props.value).replace(/And/g, "and"),
@@ -1135,9 +1135,11 @@ EndpointSelect.propTypes = {
   handleInputChange: PropTypes.func.isRequired,
   formName: PropTypes.string.isRequired,
   className: PropTypes.string,
-  groups: PropTypes.arrayOf(PropTypes.string).isRequired
+  groups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  name: PropTypes.string
 };
 EndpointSelect.defaultProps = {
+  name: "endpoint",
   groups: ["private", "public", "public-and-private"]
 };
 
@@ -7764,7 +7766,7 @@ class EventStreamsForm extends Component {
         ...tempState,
         throughput: "",
         storage_size: "",
-        endpoint: "",
+        endpoints: "",
         private_ip_allowlist: ""
       };
     }
@@ -7797,6 +7799,7 @@ class EventStreamsForm extends Component {
       name: "resource_group",
       labelText: "Resource Group"
     })), this.state.plan === "enterprise" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(EndpointSelect, {
+      name: "endpoints",
       formName: this.props.data.name + "-event-streams",
       handleInputChange: this.handleInputChange,
       value: this.state.endpoints,
