@@ -120,7 +120,7 @@ const VpeFormStory = () => {
         vpc: "workload",
         service: "kms",
         resource_group: "test",
-        security_groups: ["1", "2", "3"],
+        security_groups: ["1", "2"],
         subnets: ["vsi-zone-1"],
       }}
       vpcList={["management", "workload"]}
@@ -158,7 +158,20 @@ const VpeFormStory = () => {
           has_prefix: true,
         },
       ]}
-      securityGroups={["1", "2", "3", "4", "5"]}
+      securityGroups={[
+        {
+          name: "1",
+          vpc: "workload",
+        },
+        {
+          name: "2",
+          vpc: "workload",
+        },
+        {
+          name: "3",
+          vpc: "management",
+        },
+      ]}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
     />

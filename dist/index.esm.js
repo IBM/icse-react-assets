@@ -744,6 +744,7 @@ function buildFormFunctions(component) {
   let disableSubmit = isFunction(component.props.shouldDisableSubmit);
   let disableSave = isFunction(component.props.shouldDisableSave);
   let usesSubnetList = Array.isArray(component.props.subnetList);
+  let usesSecurityGroups = Array.isArray(component.props.securityGroups);
   if (component.props.shouldDisableSave) component.shouldDisableSave = component.props.shouldDisableSave.bind(component);
   if (disableSubmit) component.shouldDisableSubmit = component.props.shouldDisableSubmit.bind(component);
   if (usesSubnetList) {
@@ -752,6 +753,13 @@ function buildFormFunctions(component) {
         if (subnet.vpc === component.state.vpc) return subnet;
       }), "name");
     }.bind(component);
+  }
+  if (usesSecurityGroups) {
+    component.getSecurityGroupList = function () {
+      return splat(component.props.securityGroups.filter(sg => {
+        if (sg.vpc === component.state.vpc) return sg;
+      }), "name");
+    };
   }
 
   // set update
@@ -6537,7 +6545,7 @@ class VpeForm extends Component {
       initialSelectedItems: this.state.security_groups,
       vpc_name: this.state.vpc,
       onChange: event => this.handleMultiSelect("security_groups", event),
-      securityGroups: this.props.securityGroups,
+      securityGroups: this.getSecurityGroupList(),
       className: "fieldWidthSmaller",
       invalid: this.state.security_groups.length === 0
     }), /*#__PURE__*/React.createElement(SubnetMultiSelect, {
@@ -6576,7 +6584,7 @@ VpeForm.propTypes = {
   vpcList: PropTypes.arrayOf(PropTypes.string).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   subnetList: PropTypes.arrayOf(PropTypes.object).isRequired,
-  securityGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  securityGroups: PropTypes.arrayOf(PropTypes.object).isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
   isModal: PropTypes.bool.isRequired
