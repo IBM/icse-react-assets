@@ -33,6 +33,12 @@ export default {
         },
       }, // default value
     },
+    name: {
+      description: "A string that determines what value is targeted",
+      type: { required: false },
+      control: "none",
+      table: { defaultValue: { summary: "endpoint" } },
+    },
   },
   parameters: {
     docs: {

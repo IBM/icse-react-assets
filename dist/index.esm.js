@@ -1135,7 +1135,8 @@ EndpointSelect.propTypes = {
   handleInputChange: PropTypes.func.isRequired,
   formName: PropTypes.string.isRequired,
   className: PropTypes.string,
-  groups: PropTypes.arrayOf(PropTypes.string).isRequired
+  groups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  name: PropTypes.string
 };
 EndpointSelect.defaultProps = {
   name: "endpoint",

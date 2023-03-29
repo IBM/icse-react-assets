@@ -285,6 +285,7 @@ EndpointSelect.propTypes = {
   formName: PropTypes.string.isRequired,
   className: PropTypes.string,
   groups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  name: PropTypes.string,
 };
 
 EndpointSelect.defaultProps = {
