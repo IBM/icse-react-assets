@@ -13,6 +13,7 @@ function buildFormFunctions(component) {
   let disableSubmit = isFunction(component.props.shouldDisableSubmit);
   let disableSave = isFunction(component.props.shouldDisableSave);
   let usesSubnetList = Array.isArray(component.props.subnetList);
+  let usesSecurityGroups = Array.isArray(component.props.securityGroups);
 
   if (component.props.shouldDisableSave)
     component.shouldDisableSave =
@@ -31,6 +32,17 @@ function buildFormFunctions(component) {
         "name"
       );
     }.bind(component);
+  }
+
+  if (usesSecurityGroups) {
+    component.getSecurityGroupList = function () {
+      return splat(
+        component.props.securityGroups.filter((sg) => {
+          if (sg.vpc === component.state.vpc) return sg;
+        }),
+        "name"
+      );
+    };
   }
 
   // set update

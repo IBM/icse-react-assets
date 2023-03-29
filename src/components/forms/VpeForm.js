@@ -131,7 +131,7 @@ class VpeForm extends Component {
             onChange={(event) =>
               this.handleMultiSelect("security_groups", event)
             }
-            securityGroups={this.props.securityGroups}
+            securityGroups={this.getSecurityGroupList()}
             className="fieldWidthSmaller"
             invalid={this.state.security_groups.length === 0}
           />
@@ -175,7 +175,7 @@ VpeForm.propTypes = {
   }),
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   subnetList: PropTypes.arrayOf(PropTypes.object).isRequired,
-  securityGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  securityGroups: PropTypes.arrayOf(PropTypes.object).isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
   isModal: PropTypes.bool.isRequired,

@@ -115,7 +115,20 @@ const VpeFormStory = () => {
         vpc: "workload",
         service: "kms",
         resource_group: "test",
-        security_groups: ["1", "2", "3"],
+        security_groups: [
+          {
+            name: "1",
+            vpc: "workload",
+          },
+          {
+            name: "2",
+            vpc: "workload",
+          },
+          {
+            name: "3",
+            vpc: "management",
+          },
+        ],
         subnets: ["vsi-zone-1"],
       }}
       resourceGroups={["test", "foo", "bar"]}
