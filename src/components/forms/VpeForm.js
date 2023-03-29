@@ -4,7 +4,7 @@ import {
   buildFormFunctions,
 } from "../component-utils";
 import { IcseFormGroup } from "../Utils";
-import { IcseNameInput, IcseTextInput } from "../Inputs";
+import { IcseNameInput } from "../Inputs";
 import { IcseSelect } from "../Dropdowns";
 import { SecurityGroupMultiSelect, SubnetMultiSelect } from "../MultiSelects";
 import PropTypes from "prop-types";
@@ -33,7 +33,6 @@ class VpeForm extends Component {
   constructor(props) {
     super(props);
     this.state = this.props.data;
-    this.handleVpcDropdown = this.handleVpcDropdown.bind(this);
     this.handleServiceDropdown = this.handleServiceDropdown.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleMultiSelect = this.handleMultiSelect.bind(this);
@@ -48,16 +47,6 @@ class VpeForm extends Component {
    */
   handleInputChange(event) {
     this.setState(this.eventTargetToNameAndValue(event));
-  }
-
-  /**
-   * handle VPC dropdown
-   * @param {event} event event
-   */
-  handleVpcDropdown(event) {
-    this.setState({
-      vpc: event.target.value,
-    });
   }
 
   /**
@@ -107,10 +96,10 @@ class VpeForm extends Component {
           <IcseSelect
             name="vpc"
             formName={this.props.data.name + "-vpe" + this.state.vpc}
-            groups={vpcList}
+            groups={this.props.vpcList}
             value={this.state.vpc}
             labelText="VPC Name"
-            handleInputChange={this.handleVpcDropdown}
+            handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"
           />
           <IcseSelect
