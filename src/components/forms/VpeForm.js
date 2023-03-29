@@ -33,6 +33,7 @@ class VpeForm extends Component {
   constructor(props) {
     super(props);
     this.state = this.props.data;
+    this.handleVpcDropdown = this.handleVpcDropdown.bind(this);
     this.handleServiceDropdown = this.handleServiceDropdown.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleMultiSelect = this.handleMultiSelect.bind(this);
@@ -47,6 +48,16 @@ class VpeForm extends Component {
    */
   handleInputChange(event) {
     this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * handle VPC dropdown
+   * @param {event} event event
+   */
+  handleVpcDropdown(event) {
+    this.setState({
+      vpc: event.target.value,
+    });
   }
 
   /**
@@ -93,16 +104,14 @@ class VpeForm extends Component {
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
             className="fieldWidthSmaller"
           />
-          <IcseTextInput
-            componentName="Vpe"
-            field="vpc"
-            labelText="VPC Name"
-            className="fieldWidthSmaller"
+          <IcseSelect
+            name="vpc"
+            formName={this.props.data.name + "-vpe" + this.state.vpc}
+            groups={vpcList}
             value={this.state.vpc}
-            onChange={() => {}} // nothing
-            readOnly
-            id="vpe-vpc-name"
-            invalid={false}
+            labelText="VPC Name"
+            handleInputChange={this.handleVpcDropdown}
+            className="fieldWidthSmaller"
           />
           <IcseSelect
             name="service"
@@ -173,6 +182,7 @@ VpeForm.propTypes = {
     security_groups: PropTypes.arrayOf(PropTypes.string).isRequired,
     subnets: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
+  vpcList: PropTypes.arrayOf(PropTypes.string).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   subnetList: PropTypes.arrayOf(PropTypes.object).isRequired,
   securityGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
