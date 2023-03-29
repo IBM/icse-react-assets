@@ -43,6 +43,11 @@ export default {
       control: "none",
       type: { required: true },
     },
+    vpcList: {
+      description: "An array of strings containing the names of VPCs to select",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
     resourceGroups: {
       description:
         "An array of strings containing the names of resource groups to select",
@@ -118,6 +123,7 @@ const VpeFormStory = () => {
         security_groups: ["1", "2"],
         subnets: ["vsi-zone-1"],
       }}
+      vpcList={["management", "workload"]}
       resourceGroups={["test", "foo", "bar"]}
       subnetList={[
         {

@@ -4,7 +4,7 @@ import {
   buildFormFunctions,
 } from "../component-utils";
 import { IcseFormGroup } from "../Utils";
-import { IcseNameInput, IcseTextInput } from "../Inputs";
+import { IcseNameInput } from "../Inputs";
 import { IcseSelect } from "../Dropdowns";
 import { SecurityGroupMultiSelect, SubnetMultiSelect } from "../MultiSelects";
 import PropTypes from "prop-types";
@@ -93,16 +93,14 @@ class VpeForm extends Component {
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
             className="fieldWidthSmaller"
           />
-          <IcseTextInput
-            componentName="Vpe"
-            field="vpc"
-            labelText="VPC Name"
-            className="fieldWidthSmaller"
+          <IcseSelect
+            name="vpc"
+            formName={this.props.data.name + "-vpe" + this.state.vpc}
+            groups={this.props.vpcList}
             value={this.state.vpc}
-            onChange={() => {}} // nothing
-            readOnly
-            id="vpe-vpc-name"
-            invalid={false}
+            labelText="VPC Name"
+            handleInputChange={this.handleInputChange}
+            className="fieldWidthSmaller"
           />
           <IcseSelect
             name="service"
@@ -173,6 +171,7 @@ VpeForm.propTypes = {
     security_groups: PropTypes.arrayOf(PropTypes.string).isRequired,
     subnets: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),
+  vpcList: PropTypes.arrayOf(PropTypes.string).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   subnetList: PropTypes.arrayOf(PropTypes.object).isRequired,
   securityGroups: PropTypes.arrayOf(PropTypes.object).isRequired,

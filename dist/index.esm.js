@@ -6516,17 +6516,14 @@ class VpeForm extends Component {
       invalidCallback: () => this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props),
       className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(IcseTextInput, {
-      componentName: "Vpe",
-      field: "vpc",
-      labelText: "VPC Name",
-      className: "fieldWidthSmaller",
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      name: "vpc",
+      formName: this.props.data.name + "-vpe" + this.state.vpc,
+      groups: this.props.vpcList,
       value: this.state.vpc,
-      onChange: () => {} // nothing
-      ,
-      readOnly: true,
-      id: "vpe-vpc-name",
-      invalid: false
+      labelText: "VPC Name",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseSelect, {
       name: "service",
       formName: "vpe",
@@ -6584,6 +6581,7 @@ VpeForm.propTypes = {
     security_groups: PropTypes.arrayOf(PropTypes.string).isRequired,
     subnets: PropTypes.arrayOf(PropTypes.string).isRequired
   }),
+  vpcList: PropTypes.arrayOf(PropTypes.string).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   subnetList: PropTypes.arrayOf(PropTypes.object).isRequired,
   securityGroups: PropTypes.arrayOf(PropTypes.object).isRequired,
