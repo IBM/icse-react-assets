@@ -4836,7 +4836,7 @@ class ObjectStorageBucketForm extends React.Component {
       component: this.state.name,
       formName: this.props.data.name + "-object-storage-bucket-key",
       name: "kms_key",
-      groups: this.props.encryptionKeys,
+      groups: this.props.encryptionKeyFilter ? this.props.encryptionKeyFilter(this.state, this.props) : this.props.encryptionKeys,
       value: this.state.kms_key,
       labelText: "Encryption Key",
       handleInputChange: this.handleInputChange,
@@ -4872,6 +4872,7 @@ ObjectStorageBucketForm.propTypes = {
     endpoint: PropTypes__default["default"].string.isRequired
   }).isRequired,
   encryptionKeys: PropTypes__default["default"].array.isRequired,
+  encryptionKeyFilter: PropTypes__default["default"].func,
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
   composedNameCallback: PropTypes__default["default"].func.isRequired
