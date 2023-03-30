@@ -65,6 +65,11 @@ export default {
       type: { required: true }, // required prop or not
       control: "none",
     },
+    encryptionKeyFilter: {
+      description: "Function that filters the encryption keys",
+      type: { required: false }, // required prop or not
+      control: "none",
+    },
   },
   parameters: {
     docs: {
@@ -83,6 +88,11 @@ export const ObjectStorageBucketFormStory = () => {
     else return false;
   }
 
+  function encryptionKeyFilter(stateData, componentProps) {
+    // add filter here
+    return componentProps.encryptionKeys;
+  }
+
   function invalidCallback(stateData, componentProps) {
     return (
       !validName(stateData.name) || contains(["foo", "bar"], stateData.name)
@@ -98,6 +108,7 @@ export const ObjectStorageBucketFormStory = () => {
   function composedNameCallback(stateData, componentProps) {
     return `${stateData.name}-<random suffix>`;
   }
+
   return (
     <ObjectStorageBucketForm
       data={{
@@ -108,6 +119,7 @@ export const ObjectStorageBucketFormStory = () => {
         endpoint: "public",
       }}
       encryptionKeys={["key1", "key2"]}
+      encryptionKeyFilter={encryptionKeyFilter}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
       composedNameCallback={composedNameCallback}

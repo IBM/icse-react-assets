@@ -85,7 +85,11 @@ class ObjectStorageBucketForm extends Component {
             component={this.state.name}
             formName={this.props.data.name + "-object-storage-bucket-key"}
             name="kms_key"
-            groups={this.props.encryptionKeys}
+            groups={
+              this.props.encryptionKeyFilter
+                ? this.props.encryptionKeyFilter(this.state, this.props)
+                : this.props.encryptionKeys
+            }
             value={this.state.kms_key}
             labelText="Encryption Key"
             handleInputChange={this.handleInputChange}
@@ -128,6 +132,7 @@ ObjectStorageBucketForm.propTypes = {
     endpoint: PropTypes.string.isRequired,
   }).isRequired,
   encryptionKeys: PropTypes.array.isRequired,
+  encryptionKeyFilter: PropTypes.func,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
   composedNameCallback: PropTypes.func.isRequired,
