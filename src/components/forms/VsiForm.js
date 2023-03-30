@@ -1,16 +1,20 @@
 import React, { Component } from "react";
-import { TextArea, NumberInput } from "@carbon/react";
-import { IcseFormGroup, DynamicRender } from "../Utils";
-import { IcseToggle, IcseNameInput } from "../Inputs";
-import { FetchSelect, IcseSelect } from "../Dropdowns";
-import { SshKeyMultiSelect, SubnetMultiSelect } from "../MultiSelects";
+import { NumberInput, TextArea } from "@carbon/react";
+import { transpose } from "lazy-z";
+import PropTypes from "prop-types";
 import { checkNullorEmptyString } from "../../lib";
 import {
   buildFormDefaultInputMethods,
   buildFormFunctions,
 } from "../component-utils";
-import { transpose } from "lazy-z";
-import PropTypes from "prop-types";
+import { FetchSelect, IcseSelect } from "../Dropdowns";
+import { IcseNameInput, IcseToggle } from "../Inputs";
+import {
+  SecurityGroupMultiSelect,
+  SshKeyMultiSelect,
+  SubnetMultiSelect,
+} from "../MultiSelects";
+import { DynamicRender, IcseFormGroup } from "../Utils";
 
 class VsiForm extends Component {
   constructor(props) {
@@ -32,7 +36,11 @@ class VsiForm extends Component {
       [name]: name === "vsi_per_subnet" && value !== "" ? Number(value) : value,
     };
     if (name === "vpc")
-      transpose({ subnets: [], subnet: "" }, stateChangeParams);
+      // Clear subnets and security groups when vpc changes
+      transpose(
+        { subnets: [], subnet: "", security_groups: [] },
+        stateChangeParams
+      );
 
     this.setState(stateChangeParams);
   }
@@ -63,7 +71,7 @@ class VsiForm extends Component {
             formName="vsi_form"
             name="resource_group"
             labelText="Resource Group"
-            groups={this.props.resourceGroupList}
+            groups={this.props.resourceGroups}
             value={this.state.resource_group}
             handleInputChange={this.handleInputChange}
           />
@@ -101,7 +109,8 @@ class VsiForm extends Component {
             />
           ) : (
             <SubnetMultiSelect
-              id="subnet"
+              key={this.state.vpc + "-subnet"}
+              id="vsi-subnets"
               initialSelectedItems={this.state.subnets}
               vpc_name={this.state.vpc}
               subnets={this.getSubnetList()}
@@ -110,6 +119,25 @@ class VsiForm extends Component {
               }
             />
           )}
+          <SecurityGroupMultiSelect
+            key={this.state.vpc + "-sg"}
+            id="vsi-security-groups"
+            className={"fieldWidth"}
+            initialSelectedItems={this.state.security_groups || []}
+            vpc_name={this.state.vpc}
+            onChange={(value) =>
+              this.handleMultiSelectChange("security_groups", value)
+            }
+            securityGroups={this.getSecurityGroupList()}
+            invalid={!(this.state.security_groups?.length > 0)}
+            invalidText={
+              !this.state.vpc || checkNullorEmptyString(this.state.vpc)
+                ? `Select a VPC.`
+                : `Select at least one security group.`
+            }
+          />
+        </IcseFormGroup>
+        <IcseFormGroup>
           <NumberInput
             label="Instances per Subnet"
             id={composedId + "-vsi-per-subnet"}
@@ -124,16 +152,6 @@ class VsiForm extends Component {
             invalidText="Please input a number 1-10"
             className="fieldWidth leftTextAlign"
           />
-        </IcseFormGroup>
-        <IcseFormGroup>
-          <SshKeyMultiSelect
-            id="sshkey"
-            sshKeys={this.props.sshKeyList}
-            onChange={(value) =>
-              this.handleMultiSelectChange("ssh_keys", value)
-            }
-            initialSelectedItems={this.state.ssh_keys}
-          />
           <FetchSelect
             formName="vsi_form"
             labelText="Image"
@@ -146,17 +164,25 @@ class VsiForm extends Component {
             formName="vsi_form"
             labelText="Flavor"
             name="profile"
-            apiEndpoint={this.props.apiEndpointFlavors}
+            apiEndpoint={this.props.apiEndpointInstanceProfiles}
             handleInputChange={this.handleInputChange}
             value={this.state.profile}
           />
         </IcseFormGroup>
         <IcseFormGroup>
+          <SshKeyMultiSelect
+            id="sshkey"
+            sshKeys={this.props.sshKeys}
+            initialSelectedItems={this.state.ssh_keys || []}
+            onChange={(value) =>
+              this.handleMultiSelectChange("ssh_keys", value)
+            }
+          />
           <IcseSelect
             formName="vsi_form"
             name="encryption_key"
             labelText="Encryption Key"
-            groups={this.props.encryptionKeyList}
+            groups={this.props.encryptionKeys}
             value={this.state.encryption_key}
             handleInputChange={this.handleInputChange}
             invalid={this.props.invalidCallback(this.state)}
@@ -195,54 +221,58 @@ class VsiForm extends Component {
 VsiForm.defaultProps = {
   data: {
     name: "",
-    ssh_keys: [],
+    resource_group: "",
+    vpc: "",
     subnet: "",
     subnets: [],
-    enable_floating_ip: false,
-    vpc: "",
+    ssh_keys: [],
+    security_groups: [],
+    vsi_per_subnet: 1,
+    encryption_key: "",
     image_name: "",
     profile: "",
-    resource_group: "",
-    encryption_key: "",
-    vsi_per_subnet: 1,
+    enable_floating_ip: false,
   },
   isModal: false,
   isTeleport: false,
-  resourceGroupList: [],
-  vpcList: [],
+  encryptionKeys: [],
+  resourceGroups: [],
+  securityGroups: [],
+  sshKeys: [],
   subnetList: [],
-  sshKeyList: [],
-  encryptionKeyList: [],
+  vpcList: [],
   apiEndpointImages: "",
-  apiEndpointFlavors: "",
+  apiEndpointInstanceProfiles: "",
 };
 
 VsiForm.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string,
-    ssh_keys: PropTypes.array,
+    resource_group: PropTypes.string,
+    vpc: PropTypes.string,
     subnet: PropTypes.string,
     subnets: PropTypes.array,
-    enable_floating_ip: PropTypes.bool,
-    vpc: PropTypes.string,
+    security_groups: PropTypes.array,
+    vsi_per_subnet: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     image_name: PropTypes.string,
     profile: PropTypes.string,
-    resource_group: PropTypes.string,
+    ssh_keys: PropTypes.array,
     encryption_key: PropTypes.string,
-    vsi_per_subnet: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    enable_floating_ip: PropTypes.bool,
   }).isRequired,
   /* bools */
   isModal: PropTypes.bool.isRequired,
   isTeleport: PropTypes.bool.isRequired,
   /* lists */
-  resourceGroupList: PropTypes.array.isRequired,
-  vpcList: PropTypes.array.isRequired,
+  encryptionKeys: PropTypes.array.isRequired,
+  resourceGroups: PropTypes.array.isRequired,
+  securityGroups: PropTypes.array.isRequired,
+  sshKeys: PropTypes.array.isRequired,
   subnetList: PropTypes.array.isRequired,
-  sshKeyList: PropTypes.array.isRequired,
-  encryptionKeyList: PropTypes.array.isRequired,
+  vpcList: PropTypes.array.isRequired,
   /* api endpoints */
   apiEndpointImages: PropTypes.string.isRequired,
-  apiEndpointFlavors: PropTypes.string.isRequired,
+  apiEndpointInstanceProfiles: PropTypes.string.isRequired,
   /* callbacks */
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,

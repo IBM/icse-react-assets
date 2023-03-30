@@ -2315,6 +2315,227 @@ AppIdForm.propTypes = {
 };
 
 /**
+ * Icse multiselect template
+ */
+const IcseMultiSelect = props => {
+  return /*#__PURE__*/React__default["default"].createElement(react.FilterableMultiSelect, {
+    id: props.id,
+    className: lib_2("leftTextAlign", props),
+    titleText: props.titleText,
+    itemToString: item => item ? item : "",
+    invalid: props.invalid,
+    invalidText: props.invalidText,
+    initialSelectedItems: props.initialSelectedItems,
+    onChange: props.onChange,
+    items: props.items,
+    useTitleInItem: props.useTitleInItem,
+    label: props.label,
+    disabled: props.disabled
+  });
+};
+IcseMultiSelect.defaultProps = {
+  disabled: false,
+  useTitleInItem: false,
+  invalid: false,
+  invalidText: "Invalid value",
+  className: "fieldWidth"
+};
+IcseMultiSelect.propTypes = {
+  id: PropTypes__default["default"].string.isRequired,
+  className: PropTypes__default["default"].string,
+  titleText: PropTypes__default["default"].string.isRequired,
+  invalid: PropTypes__default["default"].bool.isRequired,
+  invalidText: PropTypes__default["default"].string.isRequired,
+  initialSelectedItems: PropTypes__default["default"].array.isRequired,
+  onChange: PropTypes__default["default"].func.isRequired,
+  items: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  useTitleInItem: PropTypes__default["default"].bool.isRequired,
+  label: PropTypes__default["default"].string,
+  disabled: PropTypes__default["default"].bool.isRequired
+};
+
+/**
+ * ssh key multiselect
+ */
+const SshKeyMultiSelect = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+    id: props.id + "-ssh-key-multiselect",
+    useTitleInItem: true,
+    label: "SSH Keys",
+    titleText: "SSH Keys",
+    invalidText: "At least one SSH Key is required",
+    invalid: props.initialSelectedItems.length === 0,
+    items: props.sshKeys,
+    initialSelectedItems: props.initialSelectedItems,
+    onChange: event => {
+      props.onChange(event.selectedItems);
+    },
+    className: props.className
+  });
+};
+SshKeyMultiSelect.defaultProps = {
+  initialSelectedItems: []
+};
+SshKeyMultiSelect.propTypes = {
+  id: PropTypes__default["default"].string.isRequired,
+  onChange: PropTypes__default["default"].func.isRequired,
+  sshKeys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  initialSelectedItems: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+};
+
+/**
+ * sg multiselect
+ */
+const SecurityGroupMultiSelect = props => {
+  if (props.vpc_name && !props.securityGroups) {
+    // checking props.securityGroups[props.vpc_name] will result in an
+    // undefined error that happens as part of MultiSelect
+    throw new Error("SecurityGroupMultiselect requires a securityGroups object. Got " + lazyZ.prettyJSON(props.securityGroups));
+  }
+  return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+    id: props.id + "-security-group-multiselect",
+    label: "Security Groups",
+    titleText: "Security Groups",
+    className: props.className,
+    initialSelectedItems: props.initialSelectedItems,
+    vpc_name: props.vpc_name,
+    invalid: props.invalid,
+    invalidText: props.invalidText,
+    onChange: event => {
+      props.onChange(event.selectedItems);
+    },
+    disabled: props.disabled,
+    items: props.vpc_name === "" ? [] : props.securityGroups,
+    itemToString: item => item ? item : ""
+  });
+};
+SecurityGroupMultiSelect.defaultProps = {
+  disabled: false,
+  label: "Select Security Groups",
+  invalid: false,
+  className: "fieldWidthSmaller",
+  invalidText: "Select at least one security group."
+};
+SecurityGroupMultiSelect.propTypes = {
+  id: PropTypes__default["default"].string.isRequired,
+  className: PropTypes__default["default"].string,
+  initialSelectedItems: PropTypes__default["default"].array.isRequired,
+  vpc_name: PropTypes__default["default"].string,
+  // not required, null value should be valid
+  onChange: PropTypes__default["default"].func.isRequired,
+  label: PropTypes__default["default"].string.isRequired,
+  disabled: PropTypes__default["default"].bool.isRequired,
+  securityGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  invalid: PropTypes__default["default"].bool.isRequired,
+  invalidText: PropTypes__default["default"].string.isRequired
+};
+
+/**
+ * vpc subnet multiselect
+ */
+const SubnetMultiSelect = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+    id: props.id + "-subnet-multiselect",
+    className: props.className,
+    titleText: "Subnets",
+    name: props.name,
+    label: props.label,
+    items: lazyZ.isNullOrEmptyString(props.vpc_name) ? [] : props.subnets,
+    initialSelectedItems: props.initialSelectedItems,
+    invalidText: lazyZ.isNullOrEmptyString(props.vpc_name) ? "Select a VPC." : "Select at least one subnet.",
+    invalid: props.initialSelectedItems.length === 0,
+    disabled: props.disabled,
+    onChange: event => props.onChange(event.selectedItems)
+  });
+};
+SubnetMultiSelect.defaultProps = {
+  name: "subnet_names",
+  label: "Subnets",
+  disabled: false,
+  vpc_name: "",
+  initialSelectedItems: []
+};
+SubnetMultiSelect.propTypes = {
+  id: PropTypes__default["default"].string.isRequired,
+  className: PropTypes__default["default"].string,
+  vpc_name: PropTypes__default["default"].string,
+  // not required, `null` needs to be passed here
+  subnets: PropTypes__default["default"].array.isRequired,
+  disabled: PropTypes__default["default"].bool.isRequired,
+  name: PropTypes__default["default"].string.isRequired,
+  label: PropTypes__default["default"].string.isRequired,
+  initialSelectedItems: PropTypes__default["default"].array.isRequired,
+  onChange: PropTypes__default["default"].func.isRequired
+};
+
+/**
+ * VPC List MultiSelect
+ */
+const VpcListMultiSelect = props => {
+  // throw error here so that passing no vpc list prop will error here
+  // instead of being passed to `FilterableMultiselect`
+  if (!props.vpcList) {
+    throw new Error("VpcListMultiSelect requires a list of VPCs using the prop `vpcList`. Got " + lazyZ.prettyJSON(props.vpcList));
+  }
+  return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+    invalidText: "At least one VPC must be selected.",
+    invalid: props.invalid,
+    id: props.id + "-vpc-select",
+    titleText: props.titleText,
+    onChange: event => props.onChange(event.selectedItems),
+    initialSelectedItems: props.initialSelectedItems,
+    className: props.className,
+    items: props.vpcList
+  });
+};
+VpcListMultiSelect.defaultProps = {
+  invalid: false,
+  titleText: "VPCs",
+  initialSelectedItems: []
+};
+VpcListMultiSelect.propTypes = {
+  invalid: PropTypes__default["default"].bool.isRequired,
+  id: PropTypes__default["default"].string.isRequired,
+  onChange: PropTypes__default["default"].func.isRequired,
+  initialSelectedItems: PropTypes__default["default"].array.isRequired,
+  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+};
+const LocationsMultiSelect = props => {
+  // throw error here so that passing no vpc list prop will error here
+  // instead of being passed to `FilterableMultiselect`
+  if (!props.region) {
+    throw new Error("LocationsMultiSelect requires a region using the prop `region`. Got " + props.region);
+  }
+  return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+    id: props.id + "-locations-multiselect",
+    label: props.label,
+    titleText: "Locations",
+    className: props.className,
+    initialSelectedItems: props.initialSelectedItems,
+    invalid: props.invalid,
+    invalidText: props.invalidText,
+    onChange: event => {
+      props.onChange(event.selectedItems);
+    },
+    disabled: props.disabled,
+    items: ["global"].concat(props.region),
+    itemToString: item => item ? item : ""
+  });
+};
+LocationsMultiSelect.defaultProps = {
+  invalid: false,
+  initialSelectedItems: [],
+  invalidText: "Select at least one location."
+};
+LocationsMultiSelect.propTypes = {
+  invalid: PropTypes__default["default"].bool.isRequired,
+  id: PropTypes__default["default"].string.isRequired,
+  onChange: PropTypes__default["default"].func.isRequired,
+  initialSelectedItems: PropTypes__default["default"].array.isRequired,
+  region: PropTypes__default["default"].string.isRequired
+};
+
+/**
  * Atracker
  * @param {Object} props
  * @param {Object} props.data
@@ -2595,227 +2816,6 @@ EncryptionKeyForm.propTypes = {
   invalidRingCallback: PropTypes__default["default"].func.isRequired
 };
 
-/**
- * Icse multiselect template
- */
-const IcseMultiSelect = props => {
-  return /*#__PURE__*/React__default["default"].createElement(react.FilterableMultiSelect, {
-    id: props.id,
-    className: lib_2("leftTextAlign", props),
-    titleText: props.titleText,
-    itemToString: item => item ? item : "",
-    invalid: props.invalid,
-    invalidText: props.invalidText,
-    initialSelectedItems: props.initialSelectedItems,
-    onChange: props.onChange,
-    items: props.items,
-    useTitleInItem: props.useTitleInItem,
-    label: props.label,
-    disabled: props.disabled
-  });
-};
-IcseMultiSelect.defaultProps = {
-  disabled: false,
-  useTitleInItem: false,
-  invalid: false,
-  invalidText: "Invalid value",
-  className: "fieldWidth"
-};
-IcseMultiSelect.propTypes = {
-  id: PropTypes__default["default"].string.isRequired,
-  className: PropTypes__default["default"].string,
-  titleText: PropTypes__default["default"].string.isRequired,
-  invalid: PropTypes__default["default"].bool.isRequired,
-  invalidText: PropTypes__default["default"].string.isRequired,
-  initialSelectedItems: PropTypes__default["default"].array.isRequired,
-  onChange: PropTypes__default["default"].func.isRequired,
-  items: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  useTitleInItem: PropTypes__default["default"].bool.isRequired,
-  label: PropTypes__default["default"].string,
-  disabled: PropTypes__default["default"].bool.isRequired
-};
-
-/**
- * ssh key multiselect
- */
-const SshKeyMultiSelect = props => {
-  return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
-    id: props.id + "-ssh-key-multiselect",
-    useTitleInItem: true,
-    label: "SSH Keys",
-    titleText: "SSH Keys",
-    invalidText: "At least one SSH Key is required",
-    invalid: props.initialSelectedItems.length === 0,
-    items: props.sshKeys,
-    initialSelectedItems: props.initialSelectedItems || [],
-    onChange: event => {
-      props.onChange(event.selectedItems);
-    },
-    className: props.className
-  });
-};
-SshKeyMultiSelect.defaultProps = {
-  initialSelectedItems: []
-};
-SshKeyMultiSelect.propTypes = {
-  id: PropTypes__default["default"].string.isRequired,
-  onChange: PropTypes__default["default"].func.isRequired,
-  sshKeys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  initialSelectedItems: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
-};
-
-/**
- * sg multiselect
- */
-const SecurityGroupMultiSelect = props => {
-  if (props.vpc_name && !props.securityGroups) {
-    // checking props.securityGroups[props.vpc_name] will result in an
-    // undefined error that happens as part of MultiSelect
-    throw new Error("SecurityGroupMultiselect requires a securityGroups object. Got " + lazyZ.prettyJSON(props.securityGroups));
-  }
-  return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
-    id: props.id + "-security-group-multiselect",
-    label: props.label,
-    titleText: "Security Groups",
-    className: props.className,
-    initialSelectedItems: props.initialSelectedItems,
-    vpc_name: props.vpc_name,
-    invalid: props.invalid,
-    invalidText: props.invalidText,
-    onChange: event => {
-      props.onChange(event.selectedItems);
-    },
-    disabled: props.disabled,
-    items: props.vpc_name === "" ? [] : props.securityGroups,
-    itemToString: item => item ? item : ""
-  });
-};
-SecurityGroupMultiSelect.defaultProps = {
-  disabled: false,
-  label: "Select Security Groups",
-  invalid: false,
-  className: "fieldWidthSmaller",
-  invalidText: "Select at least one security group."
-};
-SecurityGroupMultiSelect.propTypes = {
-  id: PropTypes__default["default"].string.isRequired,
-  className: PropTypes__default["default"].string,
-  initialSelectedItems: PropTypes__default["default"].array.isRequired,
-  vpc_name: PropTypes__default["default"].string,
-  // not required, null value should be valid
-  onChange: PropTypes__default["default"].func.isRequired,
-  label: PropTypes__default["default"].string.isRequired,
-  disabled: PropTypes__default["default"].bool.isRequired,
-  securityGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  invalid: PropTypes__default["default"].bool.isRequired,
-  invalidText: PropTypes__default["default"].string.isRequired
-};
-
-/**
- * vpc subnet multiselect
- */
-const SubnetMultiSelect = props => {
-  return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
-    id: props.id + "-subnet-multiselect",
-    className: props.className,
-    titleText: "Subnets",
-    name: props.name,
-    label: props.label,
-    items: lazyZ.isNullOrEmptyString(props.vpc_name) ? [] : props.subnets,
-    initialSelectedItems: props.initialSelectedItems,
-    invalidText: lazyZ.isNullOrEmptyString(props.vpc_name) ? "Select a VPC." : "Select at least one subnet.",
-    invalid: props.initialSelectedItems.length === 0,
-    disabled: props.disabled,
-    onChange: event => props.onChange(event.selectedItems)
-  });
-};
-SubnetMultiSelect.defaultProps = {
-  name: "subnet_names",
-  label: "Subnets",
-  disabled: false,
-  vpc_name: "",
-  initialSelectedItems: []
-};
-SubnetMultiSelect.propTypes = {
-  id: PropTypes__default["default"].string.isRequired,
-  className: PropTypes__default["default"].string,
-  vpc_name: PropTypes__default["default"].string,
-  // not required, `null` needs to be passed here
-  subnets: PropTypes__default["default"].array.isRequired,
-  disabled: PropTypes__default["default"].bool.isRequired,
-  name: PropTypes__default["default"].string.isRequired,
-  label: PropTypes__default["default"].string.isRequired,
-  initialSelectedItems: PropTypes__default["default"].array.isRequired,
-  onChange: PropTypes__default["default"].func.isRequired
-};
-
-/**
- * VPC List MultiSelect
- */
-const VpcListMultiSelect = props => {
-  // throw error here so that passing no vpc list prop will error here
-  // instead of being passed to `FilterableMultiselect`
-  if (!props.vpcList) {
-    throw new Error("VpcListMultiSelect requires a list of VPCs using the prop `vpcList`. Got " + lazyZ.prettyJSON(props.vpcList));
-  }
-  return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
-    invalidText: "At least one VPC must be selected.",
-    invalid: props.invalid,
-    id: props.id + "-vpc-select",
-    titleText: props.titleText,
-    onChange: event => props.onChange(event.selectedItems),
-    initialSelectedItems: props.initialSelectedItems,
-    className: props.className,
-    items: props.vpcList
-  });
-};
-VpcListMultiSelect.defaultProps = {
-  invalid: false,
-  titleText: "VPCs",
-  initialSelectedItems: []
-};
-VpcListMultiSelect.propTypes = {
-  invalid: PropTypes__default["default"].bool.isRequired,
-  id: PropTypes__default["default"].string.isRequired,
-  onChange: PropTypes__default["default"].func.isRequired,
-  initialSelectedItems: PropTypes__default["default"].array.isRequired,
-  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
-};
-const LocationsMultiSelect = props => {
-  // throw error here so that passing no vpc list prop will error here
-  // instead of being passed to `FilterableMultiselect`
-  if (!props.region) {
-    throw new Error("LocationsMultiSelect requires a region using the prop `region`. Got " + props.region);
-  }
-  return /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
-    id: props.id + "-locations-multiselect",
-    label: props.label,
-    titleText: "Locations",
-    className: props.className,
-    initialSelectedItems: props.initialSelectedItems,
-    invalid: props.invalid,
-    invalidText: props.invalidText,
-    onChange: event => {
-      props.onChange(event.selectedItems);
-    },
-    disabled: props.disabled,
-    items: ["global"].concat(props.region),
-    itemToString: item => item ? item : ""
-  });
-};
-LocationsMultiSelect.defaultProps = {
-  invalid: false,
-  initialSelectedItems: [],
-  invalidText: "Select at least one location."
-};
-LocationsMultiSelect.propTypes = {
-  invalid: PropTypes__default["default"].bool.isRequired,
-  id: PropTypes__default["default"].string.isRequired,
-  onChange: PropTypes__default["default"].func.isRequired,
-  initialSelectedItems: PropTypes__default["default"].array.isRequired,
-  region: PropTypes__default["default"].string.isRequired
-};
-
 class F5VsiForm extends React.Component {
   constructor(props) {
     super(props);
@@ -2858,13 +2858,13 @@ class F5VsiForm extends React.Component {
       formName: "f5_vsi_form",
       name: "resource_group",
       labelText: "Resource Group",
-      groups: this.props.resourceGroupList,
+      groups: this.props.resourceGroups,
       value: this.state.resource_group,
       handleInputChange: this.handleInputChange
     }), /*#__PURE__*/React__default["default"].createElement(SshKeyMultiSelect, {
       id: "sshkey",
-      sshKeys: this.props.sshKeyList,
-      initialSelectedItems: this.state.ssh_keys,
+      sshKeys: this.props.sshKeys,
+      initialSelectedItems: this.state.ssh_keys || [],
       onChange: value => this.handleMultiSelectChange("ssh_keys", value)
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       formName: "f5_vsi_form",
@@ -2877,7 +2877,7 @@ class F5VsiForm extends React.Component {
       formName: "f5_vsi_form",
       labelText: "Flavor",
       name: "machine_type",
-      apiEndpoint: this.props.apiEndpointFlavors,
+      apiEndpoint: this.props.apiEndpointInstanceProfiles,
       handleInputChange: this.handleInputChange,
       value: this.state.machine_type
     })), vsis.length > 0 && /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
@@ -2894,8 +2894,8 @@ class F5VsiForm extends React.Component {
         onSave: this.handleVsiSave,
         totalZones: this.state.zones,
         index: index,
-        resourceGroupList: this.props.resourceGroupList,
-        encryptionKeyList: this.props.encryptionKeyList,
+        resourceGroups: this.props.resourceGroups,
+        encryptionKeys: this.props.encryptionKeys,
         hideSaveCallback: this.props.hideSaveCallback,
         disableSaveCallback: this.props.disableSaveCallback
       });
@@ -2958,7 +2958,7 @@ class F5VsiTile extends React__default["default"].Component {
       formName: "f5_vsi_form",
       name: "resource_group",
       labelText: "Resource Group",
-      groups: this.props.resourceGroupList,
+      groups: this.props.resourceGroups,
       value: this.state.resource_group,
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller"
@@ -2968,7 +2968,7 @@ class F5VsiTile extends React__default["default"].Component {
       formName: "f5_vsi_form",
       name: "boot_volume_encryption_key_name",
       labelText: "Encryption Key",
-      groups: this.props.encryptionKeyList,
+      groups: this.props.encryptionKeys,
       value: this.state.boot_volume_encryption_key_name,
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller"
@@ -3000,11 +3000,11 @@ F5VsiForm.propTypes = {
   f5_on_management: PropTypes__default["default"].bool.isRequired,
   // use management
   /* api endpoints */
-  apiEndpointFlavors: PropTypes__default["default"].string.isRequired,
+  apiEndpointInstanceProfiles: PropTypes__default["default"].string.isRequired,
   /* lists */
-  resourceGroupList: PropTypes__default["default"].array.isRequired,
-  sshKeyList: PropTypes__default["default"].array.isRequired,
-  encryptionKeyList: PropTypes__default["default"].array.isRequired,
+  resourceGroups: PropTypes__default["default"].array.isRequired,
+  sshKeys: PropTypes__default["default"].array.isRequired,
+  encryptionKeys: PropTypes__default["default"].array.isRequired,
   /* callbacks */
   initVsiCallback: PropTypes__default["default"].func.isRequired,
   saveVsiCallback: PropTypes__default["default"].func.isRequired,
@@ -6741,10 +6741,13 @@ class VsiForm extends React.Component {
     let stateChangeParams = {
       [name]: name === "vsi_per_subnet" && value !== "" ? Number(value) : value
     };
-    if (name === "vpc") lazyZ.transpose({
-      subnets: [],
-      subnet: ""
-    }, stateChangeParams);
+    if (name === "vpc")
+      // Clear subnets and security groups when vpc changes
+      lazyZ.transpose({
+        subnets: [],
+        subnet: "",
+        security_groups: []
+      }, stateChangeParams);
     this.setState(stateChangeParams);
   }
   handleMultiSelectChange(name, value) {
@@ -6767,7 +6770,7 @@ class VsiForm extends React.Component {
       formName: "vsi_form",
       name: "resource_group",
       labelText: "Resource Group",
-      groups: this.props.resourceGroupList,
+      groups: this.props.resourceGroups,
       value: this.state.resource_group,
       handleInputChange: this.handleInputChange
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
@@ -6792,12 +6795,23 @@ class VsiForm extends React.Component {
       invalid: lib_4(this.state.vpc) || lib_4(this.state.subnet),
       invalidText: lib_4(this.state.vpc) ? `No VPC Selected.` : `Select a Subnet.`
     }) : /*#__PURE__*/React__default["default"].createElement(SubnetMultiSelect, {
-      id: "subnet",
+      key: this.state.vpc + "-subnet",
+      id: "vsi-subnets",
       initialSelectedItems: this.state.subnets,
       vpc_name: this.state.vpc,
       subnets: this.getSubnetList(),
       onChange: value => this.handleMultiSelectChange("subnets", value)
-    }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+    }), /*#__PURE__*/React__default["default"].createElement(SecurityGroupMultiSelect, {
+      key: this.state.vpc + "-sg",
+      id: "vsi-security-groups",
+      className: "fieldWidth",
+      initialSelectedItems: this.state.security_groups || [],
+      vpc_name: this.state.vpc,
+      onChange: value => this.handleMultiSelectChange("security_groups", value),
+      securityGroups: this.getSecurityGroupList(),
+      invalid: !(this.state.security_groups?.length > 0),
+      invalidText: !this.state.vpc || lib_4(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
       label: "Instances per Subnet",
       id: composedId + "-vsi-per-subnet",
       allowEmpty: false,
@@ -6810,11 +6824,6 @@ class VsiForm extends React.Component {
       hideSteppers: true,
       invalidText: "Please input a number 1-10",
       className: "fieldWidth leftTextAlign"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(SshKeyMultiSelect, {
-      id: "sshkey",
-      sshKeys: this.props.sshKeyList,
-      onChange: value => this.handleMultiSelectChange("ssh_keys", value),
-      initialSelectedItems: this.state.ssh_keys
     }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
       formName: "vsi_form",
       labelText: "Image",
@@ -6826,14 +6835,19 @@ class VsiForm extends React.Component {
       formName: "vsi_form",
       labelText: "Flavor",
       name: "profile",
-      apiEndpoint: this.props.apiEndpointFlavors,
+      apiEndpoint: this.props.apiEndpointInstanceProfiles,
       handleInputChange: this.handleInputChange,
       value: this.state.profile
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(SshKeyMultiSelect, {
+      id: "sshkey",
+      sshKeys: this.props.sshKeys,
+      initialSelectedItems: this.state.ssh_keys || [],
+      onChange: value => this.handleMultiSelectChange("ssh_keys", value)
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       formName: "vsi_form",
       name: "encryption_key",
       labelText: "Encryption Key",
-      groups: this.props.encryptionKeyList,
+      groups: this.props.encryptionKeys,
       value: this.state.encryption_key,
       handleInputChange: this.handleInputChange,
       invalid: this.props.invalidCallback(this.state),
@@ -6861,53 +6875,57 @@ class VsiForm extends React.Component {
 VsiForm.defaultProps = {
   data: {
     name: "",
-    ssh_keys: [],
+    resource_group: "",
+    vpc: "",
     subnet: "",
     subnets: [],
-    enable_floating_ip: false,
-    vpc: "",
+    ssh_keys: [],
+    security_groups: [],
+    vsi_per_subnet: 1,
+    encryption_key: "",
     image_name: "",
     profile: "",
-    resource_group: "",
-    encryption_key: "",
-    vsi_per_subnet: 1
+    enable_floating_ip: false
   },
   isModal: false,
   isTeleport: false,
-  resourceGroupList: [],
-  vpcList: [],
+  encryptionKeys: [],
+  resourceGroups: [],
+  securityGroups: [],
+  sshKeys: [],
   subnetList: [],
-  sshKeyList: [],
-  encryptionKeyList: [],
+  vpcList: [],
   apiEndpointImages: "",
-  apiEndpointFlavors: ""
+  apiEndpointInstanceProfiles: ""
 };
 VsiForm.propTypes = {
   data: PropTypes__default["default"].shape({
     name: PropTypes__default["default"].string,
-    ssh_keys: PropTypes__default["default"].array,
+    resource_group: PropTypes__default["default"].string,
+    vpc: PropTypes__default["default"].string,
     subnet: PropTypes__default["default"].string,
     subnets: PropTypes__default["default"].array,
-    enable_floating_ip: PropTypes__default["default"].bool,
-    vpc: PropTypes__default["default"].string,
+    security_groups: PropTypes__default["default"].array,
+    vsi_per_subnet: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].string]),
     image_name: PropTypes__default["default"].string,
     profile: PropTypes__default["default"].string,
-    resource_group: PropTypes__default["default"].string,
+    ssh_keys: PropTypes__default["default"].array,
     encryption_key: PropTypes__default["default"].string,
-    vsi_per_subnet: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].string])
+    enable_floating_ip: PropTypes__default["default"].bool
   }).isRequired,
   /* bools */
   isModal: PropTypes__default["default"].bool.isRequired,
   isTeleport: PropTypes__default["default"].bool.isRequired,
   /* lists */
-  resourceGroupList: PropTypes__default["default"].array.isRequired,
-  vpcList: PropTypes__default["default"].array.isRequired,
+  encryptionKeys: PropTypes__default["default"].array.isRequired,
+  resourceGroups: PropTypes__default["default"].array.isRequired,
+  securityGroups: PropTypes__default["default"].array.isRequired,
+  sshKeys: PropTypes__default["default"].array.isRequired,
   subnetList: PropTypes__default["default"].array.isRequired,
-  sshKeyList: PropTypes__default["default"].array.isRequired,
-  encryptionKeyList: PropTypes__default["default"].array.isRequired,
+  vpcList: PropTypes__default["default"].array.isRequired,
   /* api endpoints */
   apiEndpointImages: PropTypes__default["default"].string.isRequired,
-  apiEndpointFlavors: PropTypes__default["default"].string.isRequired,
+  apiEndpointInstanceProfiles: PropTypes__default["default"].string.isRequired,
   /* callbacks */
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired

@@ -1,15 +1,11 @@
 import React from "react";
-import { Tile, TextInput } from "@carbon/react";
-import {
-  DynamicRender,
-  IcseHeading,
-  IcseFormGroup,
-  IcseSelect,
-  SaveAddButton,
-  IcseToggle,
-} from "../";
-import PropTypes from "prop-types";
+import { TextInput, Tile } from "@carbon/react";
 import { isNullOrEmptyString } from "lazy-z";
+import PropTypes from "prop-types";
+import { SaveAddButton } from "../Buttons";
+import { IcseSelect } from "../Dropdowns";
+import { IcseToggle } from "../Inputs";
+import { DynamicRender, IcseFormGroup, IcseHeading } from "../Utils";
 
 /**
  * create a tile for each subnet

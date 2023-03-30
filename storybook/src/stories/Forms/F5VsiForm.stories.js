@@ -58,24 +58,24 @@ export default {
       table: { defaultValue: { summary: true } },
       control: "none",
     },
-    apiEndpointFlavors: {
+    apiEndpointInstanceProfiles: {
       description:
-        "A string representing the api endpoint to fetch valid VSI flavors to choose from",
+        "A string representing the api endpoint to fetch valid VSI instance profiles to choose from",
       type: { required: true }, // required prop or not
       control: "none",
     },
-    resourceGroupList: {
+    resourceGroups: {
       description:
         "An array of strings containing the names of resource groups to select",
       type: { required: true }, // required prop or not
       control: "none",
     },
-    sshKeyList: {
+    sshKeys: {
       description: "An array of ssh key names to choose from",
       type: { required: true }, // required prop or not
       control: "none",
     },
-    encryptionKeyList: {
+    encryptionKeys: {
       description: "An array of available encryption key names to choose from",
       type: { required: true }, // required prop or not
       control: "none",
@@ -203,10 +203,10 @@ const F5VsiFormStory = () => {
           f5_image_name: "f5-bigip-15-1-5-1-0-0-14-all-1slot",
           machine_type: "type1",
         }}
-        apiEndpointFlavors="/api/mock/flavors"
-        resourceGroupList={["rg1", "rg2", "rg3"]}
-        sshKeyList={["key1", "key2"]}
-        encryptionKeyList={["ekey1", "ekey2"]}
+        apiEndpointInstanceProfiles="/api/mock/flavors"
+        resourceGroups={["rg1", "rg2", "rg3"]}
+        sshKeys={["key1", "key2"]}
+        encryptionKeys={["ekey1", "ekey2"]}
         initVsiCallback={initVsi}
         saveVsiCallback={saveVsi}
         hideSaveCallback={shouldHideSave}

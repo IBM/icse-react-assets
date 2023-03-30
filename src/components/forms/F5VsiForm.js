@@ -1,16 +1,16 @@
 import React, { Component } from "react";
+import { Tile } from "@carbon/react";
+import { buildNumberDropdownList } from "lazy-z";
+import PropTypes from "prop-types";
+import { SaveAddButton } from "../Buttons";
 import {
   buildFormDefaultInputMethods,
   buildFormFunctions,
 } from "../component-utils";
-import { buildNumberDropdownList } from "lazy-z";
-import PropTypes from "prop-types";
-import { Tile } from "@carbon/react";
-import { IcseFormGroup, IcseHeading, DynamicRender } from "../Utils";
 import { FetchSelect, IcseSelect } from "../Dropdowns";
 import { IcseNameInput } from "../Inputs";
 import { SshKeyMultiSelect } from "../MultiSelects";
-import { SaveAddButton } from "../Buttons";
+import { DynamicRender, IcseFormGroup, IcseHeading } from "../Utils";
 
 class F5VsiForm extends Component {
   constructor(props) {
@@ -73,14 +73,14 @@ class F5VsiForm extends Component {
             formName="f5_vsi_form"
             name="resource_group"
             labelText="Resource Group"
-            groups={this.props.resourceGroupList}
+            groups={this.props.resourceGroups}
             value={this.state.resource_group}
             handleInputChange={this.handleInputChange}
           />
           <SshKeyMultiSelect
             id="sshkey"
-            sshKeys={this.props.sshKeyList}
-            initialSelectedItems={this.state.ssh_keys}
+            sshKeys={this.props.sshKeys}
+            initialSelectedItems={this.state.ssh_keys || []}
             onChange={(value) =>
               this.handleMultiSelectChange("ssh_keys", value)
             }
@@ -108,7 +108,7 @@ class F5VsiForm extends Component {
             formName="f5_vsi_form"
             labelText="Flavor"
             name="machine_type"
-            apiEndpoint={this.props.apiEndpointFlavors}
+            apiEndpoint={this.props.apiEndpointInstanceProfiles}
             handleInputChange={this.handleInputChange}
             value={this.state.machine_type}
           />
@@ -132,8 +132,8 @@ class F5VsiForm extends Component {
                       onSave={this.handleVsiSave}
                       totalZones={this.state.zones}
                       index={index}
-                      resourceGroupList={this.props.resourceGroupList}
-                      encryptionKeyList={this.props.encryptionKeyList}
+                      resourceGroups={this.props.resourceGroups}
+                      encryptionKeys={this.props.encryptionKeys}
                       hideSaveCallback={this.props.hideSaveCallback}
                       disableSaveCallback={this.props.disableSaveCallback}
                     />
@@ -209,7 +209,7 @@ class F5VsiTile extends React.Component {
             formName="f5_vsi_form"
             name="resource_group"
             labelText="Resource Group"
-            groups={this.props.resourceGroupList}
+            groups={this.props.resourceGroups}
             value={this.state.resource_group}
             handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"
@@ -220,7 +220,7 @@ class F5VsiTile extends React.Component {
             formName="f5_vsi_form"
             name="boot_volume_encryption_key_name"
             labelText="Encryption Key"
-            groups={this.props.encryptionKeyList}
+            groups={this.props.encryptionKeys}
             value={this.state.boot_volume_encryption_key_name}
             handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"
@@ -256,11 +256,11 @@ F5VsiForm.propTypes = {
   edge_pattern: PropTypes.string.isRequired,
   f5_on_management: PropTypes.bool.isRequired, // use management
   /* api endpoints */
-  apiEndpointFlavors: PropTypes.string.isRequired,
+  apiEndpointInstanceProfiles: PropTypes.string.isRequired,
   /* lists */
-  resourceGroupList: PropTypes.array.isRequired,
-  sshKeyList: PropTypes.array.isRequired,
-  encryptionKeyList: PropTypes.array.isRequired,
+  resourceGroups: PropTypes.array.isRequired,
+  sshKeys: PropTypes.array.isRequired,
+  encryptionKeys: PropTypes.array.isRequired,
   /* callbacks */
   initVsiCallback: PropTypes.func.isRequired,
   saveVsiCallback: PropTypes.func.isRequired,
