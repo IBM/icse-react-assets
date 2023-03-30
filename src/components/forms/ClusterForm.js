@@ -167,8 +167,8 @@ class ClusterForm extends Component {
             id={clusterComponent}
             key={this.state.vpc}
             vpc_name={this.state.vpc}
-            subnets={this.getSubnetList()}
-            initialSelectedItems={this.state.subnets}
+            subnets={[...this.getSubnetList()]}
+            initialSelectedItems={[...this.state.subnets]}
             onChange={(event) => this.handleMultiSelect("subnets", event)}
             className="fieldWidthSmaller"
           />
