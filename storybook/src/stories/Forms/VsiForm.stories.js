@@ -16,8 +16,14 @@ export default {
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.ssh_keys"]: {
-      description: "An array of ssh key names (optional)",
+    ["data.resource_group"]: {
+      description: "A string value representing the resource group for the VSI",
+      control: "none",
+      type: { required: false }, // required prop or not
+    },
+    ["data.vpc"]: {
+      description:
+        "A string value representing the VPC where the VSI will be deployed to",
       control: "none",
       type: { required: false }, // required prop or not
     },
@@ -27,15 +33,26 @@ export default {
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.enable_floating_ip"]: {
+    ["data.security_groups"]: {
       description:
-        "A boolean which specifying whether or not a floating IP is attached to the VSI",
+        "An array of string values representing the security groups for the VSI",
+      control: "none",
+      type: { required: false },
+    },
+    ["data.ssh_keys"]: {
+      description: "An array of ssh key names (optional)",
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.vpc"]: {
+    ["data.encryption_key"]: {
       description:
-        "A string value representing the VPC where the VSI will be deployed to",
+        "A string value representing the boot volume encryption key name for the VSI",
+      control: "none",
+      type: { required: false }, // required prop or not
+    },
+    ["data.enable_floating_ip"]: {
+      description:
+        "A boolean which specifying whether or not a floating IP is attached to the VSI",
       control: "none",
       type: { required: false }, // required prop or not
     },
@@ -48,17 +65,6 @@ export default {
     ["data.profile"]: {
       description:
         "A string value representing the type of machine requested for the VSI",
-      control: "none",
-      type: { required: false }, // required prop or not
-    },
-    ["data.resource_group"]: {
-      description: "A string value representing the resource group for the VSI",
-      control: "none",
-      type: { required: false }, // required prop or not
-    },
-    ["data.encryption_key"]: {
-      description:
-        "A string value representing the boot volume encryption key name for the VSI",
       control: "none",
       type: { required: false }, // required prop or not
     },
@@ -127,7 +133,7 @@ export default {
     },
     apiEndpointInstanceProfiles: {
       description:
-        "A string representing the api endpoint to fetch valid VSI flavors to choose from",
+        "A string representing the api endpoint to fetch valid VSI profiles to choose from",
       type: { required: true }, // required prop or not
       control: "none",
     },
@@ -198,6 +204,26 @@ const VsiFormStory = () => {
           resource_group: "workload-rg",
           public_gateway: false,
           has_prefix: true,
+        },
+      ]}
+      securityGroups={[
+        {
+          vpc: "management",
+          name: "management-vpe",
+          resource_group: "management-rg",
+          rules: [],
+        },
+        {
+          vpc: "workload",
+          name: "workload-vpe",
+          resource_group: "workload-rg",
+          rules: [],
+        },
+        {
+          vpc: "management",
+          name: "management-vsi",
+          resource_group: "management-rg",
+          rules: [],
         },
       ]}
       sshKeys={["key1", "key2", "key3"]}

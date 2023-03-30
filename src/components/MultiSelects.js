@@ -96,7 +96,7 @@ export const SecurityGroupMultiSelect = (props) => {
   return (
     <IcseMultiSelect
       id={props.id + "-security-group-multiselect"}
-      label={props.label}
+      label="Security Groups"
       titleText="Security Groups"
       className={props.className}
       initialSelectedItems={props.initialSelectedItems}

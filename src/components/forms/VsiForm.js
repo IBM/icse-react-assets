@@ -36,7 +36,11 @@ class VsiForm extends Component {
       [name]: name === "vsi_per_subnet" && value !== "" ? Number(value) : value,
     };
     if (name === "vpc")
-      transpose({ subnets: [], subnet: "" }, stateChangeParams);
+      // Clear subnets and security groups when vpc changes
+      transpose(
+        { subnets: [], subnet: "", security_groups: [] },
+        stateChangeParams
+      );
 
     this.setState(stateChangeParams);
   }
@@ -115,13 +119,20 @@ class VsiForm extends Component {
             />
           )}
           <SecurityGroupMultiSelect
-            className={"fieldWidth"}
             id="vsi-security-groups"
+            className={"fieldWidth"}
             initialSelectedItems={this.state.security_groups}
             vpc_name={this.state.vpc}
-            onChange={this.handleMultiSelectChange}
-            securityGroups={this.props.securityGroups}
-            invalid={this.state.security_groups.length === 0}
+            onChange={(value) =>
+              this.handleMultiSelectChange("security_groups", value)
+            }
+            securityGroups={this.getSecurityGroupList()}
+            invalid={!(this.state.security_groups?.length > 0)}
+            invalidText={
+              !this.state.vpc || checkNullorEmptyString(this.state.vpc)
+                ? `Select a VPC.`
+                : `Select at least one Security Group.`
+            }
           />
         </IcseFormGroup>
         <IcseFormGroup>

@@ -2383,7 +2383,7 @@ const SecurityGroupMultiSelect = props => {
   }
   return /*#__PURE__*/React.createElement(IcseMultiSelect, {
     id: props.id + "-security-group-multiselect",
-    label: props.label,
+    label: "Security Groups",
     titleText: "Security Groups",
     className: props.className,
     initialSelectedItems: props.initialSelectedItems,
@@ -6713,10 +6713,13 @@ class VsiForm extends Component {
     let stateChangeParams = {
       [name]: name === "vsi_per_subnet" && value !== "" ? Number(value) : value
     };
-    if (name === "vpc") transpose({
-      subnets: [],
-      subnet: ""
-    }, stateChangeParams);
+    if (name === "vpc")
+      // Clear subnets and security groups when vpc changes
+      transpose({
+        subnets: [],
+        subnet: "",
+        security_groups: []
+      }, stateChangeParams);
     this.setState(stateChangeParams);
   }
   handleMultiSelectChange(name, value) {
@@ -6770,13 +6773,14 @@ class VsiForm extends Component {
       subnets: this.getSubnetList(),
       onChange: value => this.handleMultiSelectChange("subnets", value)
     }), /*#__PURE__*/React.createElement(SecurityGroupMultiSelect, {
-      className: "fieldWidth",
       id: "vsi-security-groups",
+      className: "fieldWidth",
       initialSelectedItems: this.state.security_groups,
       vpc_name: this.state.vpc,
-      onChange: this.handleMultiSelectChange,
-      securityGroups: this.props.securityGroups,
-      invalid: this.state.security_groups.length === 0
+      onChange: value => this.handleMultiSelectChange("security_groups", value),
+      securityGroups: this.getSecurityGroupList(),
+      invalid: !(this.state.security_groups?.length > 0),
+      invalidText: !this.state.vpc || lib_4(this.state.vpc) ? `Select a VPC.` : `Select at least one Security Group.`
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NumberInput, {
       label: "Instances per Subnet",
       id: composedId + "-vsi-per-subnet",
