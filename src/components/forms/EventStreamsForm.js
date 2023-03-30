@@ -66,6 +66,9 @@ class EventStreamsForm extends Component {
 
   render() {
     let composedId = `event-streams-form-${this.props.data.name}`;
+    let classNameModalCheck = this.props.isModal
+      ? "fieldWidthSmaller"
+      : "fieldWidth";
     return (
       <>
         <IcseFormGroup>
@@ -78,6 +81,7 @@ class EventStreamsForm extends Component {
             hideHelperText
             invalid={this.props.invalidCallback(this.state, this.props)}
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
+            className={classNameModalCheck}
           />
           {/* plan */}
           <IcseSelect
@@ -85,7 +89,7 @@ class EventStreamsForm extends Component {
             value={titleCase(this.state.plan)}
             groups={["Lite", "Standard", "Enterprise"]}
             handleInputChange={this.handlePlanChange}
-            className="fieldWidth"
+            className={classNameModalCheck}
             name="plan"
             labelText="Plan"
           />
@@ -95,7 +99,7 @@ class EventStreamsForm extends Component {
             value={this.state.resource_group}
             groups={this.props.resourceGroups}
             handleInputChange={this.handleInputChange}
-            className="fieldWidth"
+            className={classNameModalCheck}
             name="resource_group"
             labelText="Resource Group"
           />
@@ -109,7 +113,7 @@ class EventStreamsForm extends Component {
                 formName={this.props.data.name + "-event-streams"}
                 handleInputChange={this.handleInputChange}
                 value={this.state.endpoints}
-                className="fieldWidth"
+                className={classNameModalCheck}
               />
               {/* throughput */}
               <IcseSelect
@@ -117,7 +121,7 @@ class EventStreamsForm extends Component {
                 value={this.state.throughput}
                 groups={["150MB/s", "300MB/s", "450MB/s"]}
                 handleInputChange={this.handleInputChange}
-                className="fieldWidth"
+                className={classNameModalCheck}
                 name="throughput"
                 labelText="Throughput"
               />
@@ -127,7 +131,7 @@ class EventStreamsForm extends Component {
                 value={this.state.storage_size}
                 groups={["2TB", "4TB", "6TB", "8TB", "10TB", "12TB"]}
                 handleInputChange={this.handleInputChange}
-                className="fieldWidth"
+                className={classNameModalCheck}
                 name="storage_size"
                 labelText="Storage Size"
               />
