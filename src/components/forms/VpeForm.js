@@ -33,6 +33,7 @@ class VpeForm extends Component {
   constructor(props) {
     super(props);
     this.state = this.props.data;
+    this.handleVpcDropdown = this.handleVpcDropdown.bind(this);
     this.handleServiceDropdown = this.handleServiceDropdown.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleMultiSelect = this.handleMultiSelect.bind(this);
@@ -47,6 +48,18 @@ class VpeForm extends Component {
    */
   handleInputChange(event) {
     this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * handle vpc dropdown
+   * @param {event} event event
+   */
+  handleVpcDropdown(event) {
+    this.setState({
+      vpc: event.target.value,
+      security_groups: [],
+      subnets: [],
+    });
   }
 
   /**
@@ -99,7 +112,7 @@ class VpeForm extends Component {
             groups={this.props.vpcList}
             value={this.state.vpc}
             labelText="VPC Name"
-            handleInputChange={this.handleInputChange}
+            handleInputChange={this.handleVpcDropdown}
             className="fieldWidthSmaller"
           />
           <IcseSelect
