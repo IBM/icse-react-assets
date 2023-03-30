@@ -42,6 +42,7 @@ class ObjectStorageInstancesForm extends Component {
       invalidTextCallback: this.props.invalidBucketTextCallback,
       composedNameCallback: this.props.composedNameCallback,
       arrayParentName: this.props.data.name,
+      parent_name: this.props.data.name,
     };
     transpose({ ...this.props.bucketProps }, bucketInnerFormProps);
     let keyInnerFormProps = {

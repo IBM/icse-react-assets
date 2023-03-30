@@ -30,7 +30,7 @@ export default {
     ["data.kms_key"]: {
       description: "A string value of the encryption key",
       control: "none",
-      type: { required: true }, // required prop or not
+      type: { required: false }, // required prop or not
     },
     ["data.endpoint"]: {
       description:
