@@ -7792,6 +7792,7 @@ class EventStreamsForm extends React.Component {
   }
   render() {
     let composedId = `event-streams-form-${this.props.data.name}`;
+    let classNameModalCheck = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       id: composedId,
       componentName: this.props.data.name + "-event-streams",
@@ -7799,13 +7800,14 @@ class EventStreamsForm extends React.Component {
       onChange: this.handleInputChange,
       hideHelperText: true,
       invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props)
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      className: classNameModalCheck
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       formName: this.props.data.name + "-event-streams",
       value: lazyZ.titleCase(this.state.plan),
       groups: ["Lite", "Standard", "Enterprise"],
       handleInputChange: this.handlePlanChange,
-      className: "fieldWidth",
+      className: classNameModalCheck,
       name: "plan",
       labelText: "Plan"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
@@ -7813,7 +7815,7 @@ class EventStreamsForm extends React.Component {
       value: this.state.resource_group,
       groups: this.props.resourceGroups,
       handleInputChange: this.handleInputChange,
-      className: "fieldWidth",
+      className: classNameModalCheck,
       name: "resource_group",
       labelText: "Resource Group"
     })), this.state.plan === "enterprise" && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(EndpointSelect, {
@@ -7821,13 +7823,13 @@ class EventStreamsForm extends React.Component {
       formName: this.props.data.name + "-event-streams",
       handleInputChange: this.handleInputChange,
       value: this.state.endpoints,
-      className: "fieldWidth"
+      className: classNameModalCheck
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       formName: this.props.data.name + "-event-streams",
       value: this.state.throughput,
       groups: ["150MB/s", "300MB/s", "450MB/s"],
       handleInputChange: this.handleInputChange,
-      className: "fieldWidth",
+      className: classNameModalCheck,
       name: "throughput",
       labelText: "Throughput"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
@@ -7835,7 +7837,7 @@ class EventStreamsForm extends React.Component {
       value: this.state.storage_size,
       groups: ["2TB", "4TB", "6TB", "8TB", "10TB", "12TB"],
       handleInputChange: this.handleInputChange,
-      className: "fieldWidth",
+      className: classNameModalCheck,
       name: "storage_size",
       labelText: "Storage Size"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
