@@ -128,7 +128,7 @@ ObjectStorageBucketForm.propTypes = {
     force_delete: PropTypes.bool.isRequired,
     name: PropTypes.string.isRequired,
     storage_class: PropTypes.string.isRequired,
-    kms_key: PropTypes.string.isRequired,
+    kms_key: PropTypes.string,
     endpoint: PropTypes.string.isRequired,
   }).isRequired,
   encryptionKeys: PropTypes.array.isRequired,

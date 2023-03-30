@@ -2113,7 +2113,6 @@ class IcseFormTemplate extends React.Component {
         disableSave: this.props.disableSave,
         arrayParentName: this.props.arrayParentName,
         isModal: true,
-        arrayParentName: this.props.arrayParentName,
         submissionFieldName: this.props.toggleFormProps.submissionFieldName,
         shouldDisableSubmit: function () {
           // references to `this` in function are intentionally vague
@@ -4857,7 +4856,7 @@ ObjectStorageBucketForm.propTypes = {
     force_delete: PropTypes.bool.isRequired,
     name: PropTypes.string.isRequired,
     storage_class: PropTypes.string.isRequired,
-    kms_key: PropTypes.string.isRequired,
+    kms_key: PropTypes.string,
     endpoint: PropTypes.string.isRequired
   }).isRequired,
   encryptionKeys: PropTypes.array.isRequired,
@@ -4992,7 +4991,8 @@ class ObjectStorageInstancesForm extends Component {
       invalidCallback: this.props.invalidBucketCallback,
       invalidTextCallback: this.props.invalidBucketTextCallback,
       composedNameCallback: this.props.composedNameCallback,
-      arrayParentName: this.props.data.name
+      arrayParentName: this.props.data.name,
+      parent_name: this.props.data.name
     };
     transpose({
       ...this.props.bucketProps

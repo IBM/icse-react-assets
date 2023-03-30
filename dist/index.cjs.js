@@ -2124,7 +2124,6 @@ class IcseFormTemplate extends React__default["default"].Component {
         disableSave: this.props.disableSave,
         arrayParentName: this.props.arrayParentName,
         isModal: true,
-        arrayParentName: this.props.arrayParentName,
         submissionFieldName: this.props.toggleFormProps.submissionFieldName,
         shouldDisableSubmit: function () {
           // references to `this` in function are intentionally vague
@@ -4868,7 +4867,7 @@ ObjectStorageBucketForm.propTypes = {
     force_delete: PropTypes__default["default"].bool.isRequired,
     name: PropTypes__default["default"].string.isRequired,
     storage_class: PropTypes__default["default"].string.isRequired,
-    kms_key: PropTypes__default["default"].string.isRequired,
+    kms_key: PropTypes__default["default"].string,
     endpoint: PropTypes__default["default"].string.isRequired
   }).isRequired,
   encryptionKeys: PropTypes__default["default"].array.isRequired,
@@ -5003,7 +5002,8 @@ class ObjectStorageInstancesForm extends React.Component {
       invalidCallback: this.props.invalidBucketCallback,
       invalidTextCallback: this.props.invalidBucketTextCallback,
       composedNameCallback: this.props.composedNameCallback,
-      arrayParentName: this.props.data.name
+      arrayParentName: this.props.data.name,
+      parent_name: this.props.data.name
     };
     lazyZ.transpose({
       ...this.props.bucketProps
