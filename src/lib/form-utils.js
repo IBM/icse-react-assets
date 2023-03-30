@@ -74,7 +74,7 @@ function handleClusterInputChange(name, value, stateData) {
     cluster.kube_version = ""; // reset kube version on change
   } else if (name === "workers_per_subnet") {
     cluster[name] = Number(value);
-  } else if (name === "vpc_name") {
+  } else if (name === "vpc") {
     cluster[name] = value;
     cluster.subnets = [];
   } else {

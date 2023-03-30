@@ -114,7 +114,7 @@ function handleClusterInputChange$1(name, value, stateData) {
     cluster.kube_version = ""; // reset kube version on change
   } else if (name === "workers_per_subnet") {
     cluster[name] = Number(value);
-  } else if (name === "vpc_name") {
+  } else if (name === "vpc") {
     cluster[name] = value;
     cluster.subnets = [];
   } else {
@@ -6459,7 +6459,9 @@ const serviceGroups = ["Hyper Protect Crypto Services", "Key Protect", "Object S
 class VpeForm extends Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = {
+      ...this.props.data
+    };
     this.handleVpcDropdown = this.handleVpcDropdown.bind(this);
     this.handleServiceDropdown = this.handleServiceDropdown.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -6519,7 +6521,7 @@ class VpeForm extends Component {
     });
   }
   render() {
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+    return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
       id: this.props.data.name + "-name",
       component: "vpe",
       componentName: this.props.data.name,
@@ -6555,19 +6557,21 @@ class VpeForm extends Component {
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(SecurityGroupMultiSelect, {
-      id: "vpe-security-groups",
-      initialSelectedItems: this.state.security_groups,
+      key: this.state.vpc + "-sg",
+      id: this.props.data.name + "-vpe-security-groups",
+      initialSelectedItems: [...this.state.security_groups],
       vpc_name: this.state.vpc,
       onChange: event => this.handleMultiSelect("security_groups", event),
-      securityGroups: this.getSecurityGroupList(),
+      securityGroups: [...this.getSecurityGroupList()],
       className: "fieldWidthSmaller",
       invalid: this.state.security_groups.length === 0
     }), /*#__PURE__*/React.createElement(SubnetMultiSelect, {
-      id: "vpe-subnets",
-      initialSelectedItems: this.state.subnets,
+      key: this.state.vpc + "-subnets",
+      id: this.props.data.name + "-vpe-subnets",
+      initialSelectedItems: [...this.state.subnets],
       vpc_name: this.state.vpc,
       onChange: event => this.handleMultiSelect("subnets", event),
-      subnets: this.getSubnetList(),
+      subnets: [...this.getSubnetList()],
       className: "fieldWidthSmaller"
     })));
   }
@@ -7146,8 +7150,8 @@ class ClusterForm extends Component {
       id: clusterComponent,
       key: this.state.vpc,
       vpc_name: this.state.vpc,
-      subnets: this.getSubnetList(),
-      initialSelectedItems: this.state.subnets,
+      subnets: [...this.getSubnetList()],
+      initialSelectedItems: [...this.state.subnets],
       onChange: event => this.handleMultiSelect("subnets", event),
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseNumberSelect, {
