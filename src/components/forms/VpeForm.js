@@ -32,7 +32,8 @@ const serviceGroups = [
 class VpeForm extends Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = { ...this.props.data };
+    this.handleVpcDropdown = this.handleVpcDropdown.bind(this);
     this.handleServiceDropdown = this.handleServiceDropdown.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleMultiSelect = this.handleMultiSelect.bind(this);
@@ -47,6 +48,18 @@ class VpeForm extends Component {
    */
   handleInputChange(event) {
     this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * handle vpc dropdown
+   * @param {event} event event
+   */
+  handleVpcDropdown(event) {
+    this.setState({
+      vpc: event.target.value,
+      security_groups: [],
+      subnets: [],
+    });
   }
 
   /**
@@ -77,7 +90,7 @@ class VpeForm extends Component {
 
   render() {
     return (
-      <>
+      <div>
         <IcseFormGroup>
           <IcseNameInput
             id={this.props.data.name + "-name"}
@@ -99,7 +112,7 @@ class VpeForm extends Component {
             groups={this.props.vpcList}
             value={this.state.vpc}
             labelText="VPC Name"
-            handleInputChange={this.handleInputChange}
+            handleInputChange={this.handleVpcDropdown}
             className="fieldWidthSmaller"
           />
           <IcseSelect
@@ -123,26 +136,28 @@ class VpeForm extends Component {
             className="fieldWidthSmaller"
           />
           <SecurityGroupMultiSelect
-            id="vpe-security-groups"
-            initialSelectedItems={this.state.security_groups}
+            key={this.state.vpc + "-sg"}
+            id={this.props.data.name + "-vpe-security-groups"}
+            initialSelectedItems={[...this.state.security_groups]}
             vpc_name={this.state.vpc}
             onChange={(event) =>
               this.handleMultiSelect("security_groups", event)
             }
-            securityGroups={this.getSecurityGroupList()}
+            securityGroups={[...this.getSecurityGroupList()]}
             className="fieldWidthSmaller"
             invalid={this.state.security_groups.length === 0}
           />
           <SubnetMultiSelect
-            id="vpe-subnets"
-            initialSelectedItems={this.state.subnets}
+            key={this.state.vpc + "-subnets"}
+            id={this.props.data.name + "-vpe-subnets"}
+            initialSelectedItems={[...this.state.subnets]}
             vpc_name={this.state.vpc}
             onChange={(event) => this.handleMultiSelect("subnets", event)}
-            subnets={this.getSubnetList()}
+            subnets={[...this.getSubnetList()]}
             className="fieldWidthSmaller"
           />
         </IcseFormGroup>
-      </>
+      </div>
     );
   }
 }

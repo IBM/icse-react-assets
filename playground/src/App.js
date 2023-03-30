@@ -22,6 +22,53 @@ function App() {
   return (
     <VsiForm
       resourceGroups={["test", "foo", "bar"]}
+      subnetList={[
+        {
+          vpc: "management",
+          zone: 1,
+          cidr: "10.10.10.0/24",
+          name: "vsi-zone-1",
+          network_acl: "management",
+          resource_group: "management-rg",
+          public_gateway: false,
+          has_prefix: true,
+        },
+        {
+          vpc: "management",
+          zone: 1,
+          cidr: "10.20.10.0/24",
+          name: "vpe-zone-1",
+          resource_group: "management-rg",
+          network_acl: "management",
+          public_gateway: false,
+          has_prefix: true,
+        },
+
+        {
+          vpc: "workload",
+          zone: 1,
+          cidr: "10.40.10.0/24",
+          name: "vsi-zone-1",
+          network_acl: "workload",
+          resource_group: "workload-rg",
+          public_gateway: false,
+          has_prefix: true,
+        },
+      ]}
+      securityGroups={[
+        {
+          name: "1",
+          vpc: "workload",
+        },
+        {
+          name: "2",
+          vpc: "workload",
+        },
+        {
+          name: "3",
+          vpc: "management",
+        },
+      ]}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
     />
