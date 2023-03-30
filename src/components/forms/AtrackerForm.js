@@ -1,13 +1,13 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import {
   buildFormDefaultInputMethods,
   buildFormFunctions,
 } from "../component-utils";
-import PropTypes from "prop-types";
-import { IcseTextInput, IcseToggle } from "../Inputs";
-import { IcseFormGroup } from "../Utils";
 import { IcseSelect } from "../Dropdowns";
-import { LocationsMultiSelect } from "..";
+import { IcseTextInput, IcseToggle } from "../Inputs";
+import { LocationsMultiSelect } from "../MultiSelects";
+import { IcseFormGroup } from "../Utils";
 
 /**
  * Atracker

@@ -1,5 +1,5 @@
 import React from "react";
-import { EventStreamsForm } from "icse-react-assets";
+import { VsiForm } from "icse-react-assets";
 import "./App.css";
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
   }
 
   return (
-    <EventStreamsForm
+    <VsiForm
       resourceGroups={["test", "foo", "bar"]}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}

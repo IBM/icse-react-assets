@@ -92,7 +92,7 @@ export default {
       type: { required: true }, // required prop or not
       control: "none",
     },
-    resourceGroupList: {
+    resourceGroups: {
       description:
         "An array of strings containing the names of resource groups to select",
       type: { required: true }, // required prop or not
@@ -109,12 +109,12 @@ export default {
       type: { required: true }, // required prop or not
       control: "none",
     },
-    sshKeyList: {
+    sshKeys: {
       description: "An array of ssh key names to choose from",
       type: { required: true }, // required prop or not
       control: "none",
     },
-    encryptionKeyList: {
+    encryptionKeys: {
       description: "An array of available encryption key names to choose from",
       type: { required: true }, // required prop or not
       control: "none",
@@ -125,7 +125,7 @@ export default {
       type: { required: true }, // required prop or not
       control: "none",
     },
-    apiEndpointFlavors: {
+    apiEndpointInstanceProfiles: {
       description:
         "A string representing the api endpoint to fetch valid VSI flavors to choose from",
       type: { required: true }, // required prop or not
@@ -165,7 +165,7 @@ const VsiFormStory = () => {
       data={{
         name: "vsi",
       }}
-      resourceGroupList={["rg1", "rg2", "rg3"]}
+      resourceGroups={["rg1", "rg2", "rg3"]}
       vpcList={["management", "workload"]}
       subnetList={[
         {
@@ -200,10 +200,10 @@ const VsiFormStory = () => {
           has_prefix: true,
         },
       ]}
-      sshKeyList={["key1", "key2", "key3"]}
-      encryptionKeyList={["ekey1", "ekey2", "ekey3"]}
+      sshKeys={["key1", "key2", "key3"]}
+      encryptionKeys={["ekey1", "ekey2", "ekey3"]}
       apiEndpointImages={"/mock/api/images"}
-      apiEndpointFlavors={"/mock/api/flavors"}
+      apiEndpointInstanceProfiles={"/mock/api/flavors"}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
     />

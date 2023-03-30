@@ -1,18 +1,15 @@
+import React, { Component } from "react";
 import { NumberInput, TextArea } from "@carbon/react";
 import PropTypes from "prop-types";
-import React, { Component } from "react";
-import {
-  IcseFormGroup,
-  IcseSelect,
-  IcseTextInput,
-  IcseToggle,
-  ToolTipWrapper,
-} from "../";
 import { isIpStringInvalid, isRangeInvalid } from "../../lib/iam-utils";
 import {
   buildFormDefaultInputMethods,
   buildFormFunctions,
 } from "../component-utils";
+import { IcseSelect } from "../Dropdowns";
+import { IcseTextInput, IcseToggle } from "../Inputs";
+import { ToolTipWrapper } from "../Tooltips";
+import { IcseFormGroup } from "../Utils";
 
 const restrictMenuItems = ["Unset", "Yes", "No"];
 const mfaMenuItems = [

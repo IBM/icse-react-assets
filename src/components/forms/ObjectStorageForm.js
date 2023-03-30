@@ -4,7 +4,9 @@ import {
   buildFormFunctions,
 } from "../component-utils";
 import PropTypes from "prop-types";
-import { IcseSelect, IcseFormGroup, IcseToggle, IcseNameInput } from "../";
+import { IcseSelect } from "../Dropdowns";
+import { IcseFormGroup } from "../Utils";
+import { IcseToggle, IcseNameInput } from "../Inputs";
 import IcseFormTemplate from "../IcseFormTemplate";
 import ObjectStorageBucketForm from "./ObjectStorageBucketForm";
 import ObjectStorageKeyForm from "./ObjectStorageKeyForm";
@@ -172,7 +174,7 @@ ObjectStorageInstancesForm.defaultProps = {
     name: "",
     use_data: false,
     resource_group: "",
-    use_random_suffix: true
+    use_random_suffix: true,
   },
   resourceGroups: [],
 };

@@ -1,8 +1,8 @@
 import React from "react";
 import { contains, deepEqual, parseIntFromZone } from "lazy-z";
-import SubnetForm from "./SubnetForm";
-import { IcseHeading, IcseSubForm } from "../";
 import PropTypes from "prop-types";
+import { IcseHeading, IcseSubForm } from "../Utils";
+import SubnetForm from "./SubnetForm";
 
 class SubnetTileForm extends React.Component {
   constructor(props) {
