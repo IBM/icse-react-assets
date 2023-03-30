@@ -109,7 +109,8 @@ class VsiForm extends Component {
             />
           ) : (
             <SubnetMultiSelect
-              id="subnet"
+              key={this.state.vpc + "-subnet"}
+              id="vsi-subnets"
               initialSelectedItems={this.state.subnets}
               vpc_name={this.state.vpc}
               subnets={this.getSubnetList()}
@@ -119,9 +120,10 @@ class VsiForm extends Component {
             />
           )}
           <SecurityGroupMultiSelect
+            key={this.state.vpc + "-sg"}
             id="vsi-security-groups"
             className={"fieldWidth"}
-            initialSelectedItems={this.state.security_groups}
+            initialSelectedItems={this.state.security_groups || []}
             vpc_name={this.state.vpc}
             onChange={(value) =>
               this.handleMultiSelectChange("security_groups", value)
@@ -131,7 +133,7 @@ class VsiForm extends Component {
             invalidText={
               !this.state.vpc || checkNullorEmptyString(this.state.vpc)
                 ? `Select a VPC.`
-                : `Select at least one Security Group.`
+                : `Select at least one security group.`
             }
           />
         </IcseFormGroup>
@@ -171,10 +173,10 @@ class VsiForm extends Component {
           <SshKeyMultiSelect
             id="sshkey"
             sshKeys={this.props.sshKeys}
+            initialSelectedItems={this.state.ssh_keys || []}
             onChange={(value) =>
               this.handleMultiSelectChange("ssh_keys", value)
             }
-            initialSelectedItems={this.state.ssh_keys}
           />
           <IcseSelect
             formName="vsi_form"

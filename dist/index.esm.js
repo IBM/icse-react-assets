@@ -2355,7 +2355,7 @@ const SshKeyMultiSelect = props => {
     invalidText: "At least one SSH Key is required",
     invalid: props.initialSelectedItems.length === 0,
     items: props.sshKeys,
-    initialSelectedItems: props.initialSelectedItems || [],
+    initialSelectedItems: props.initialSelectedItems,
     onChange: event => {
       props.onChange(event.selectedItems);
     },
@@ -2853,7 +2853,7 @@ class F5VsiForm extends Component {
     }), /*#__PURE__*/React.createElement(SshKeyMultiSelect, {
       id: "sshkey",
       sshKeys: this.props.sshKeys,
-      initialSelectedItems: this.state.ssh_keys,
+      initialSelectedItems: this.state.ssh_keys || [],
       onChange: value => this.handleMultiSelectChange("ssh_keys", value)
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
       formName: "f5_vsi_form",
@@ -6767,20 +6767,22 @@ class VsiForm extends Component {
       invalid: lib_4(this.state.vpc) || lib_4(this.state.subnet),
       invalidText: lib_4(this.state.vpc) ? `No VPC Selected.` : `Select a Subnet.`
     }) : /*#__PURE__*/React.createElement(SubnetMultiSelect, {
-      id: "subnet",
+      key: this.state.vpc + "-subnet",
+      id: "vsi-subnets",
       initialSelectedItems: this.state.subnets,
       vpc_name: this.state.vpc,
       subnets: this.getSubnetList(),
       onChange: value => this.handleMultiSelectChange("subnets", value)
     }), /*#__PURE__*/React.createElement(SecurityGroupMultiSelect, {
+      key: this.state.vpc + "-sg",
       id: "vsi-security-groups",
       className: "fieldWidth",
-      initialSelectedItems: this.state.security_groups,
+      initialSelectedItems: this.state.security_groups || [],
       vpc_name: this.state.vpc,
       onChange: value => this.handleMultiSelectChange("security_groups", value),
       securityGroups: this.getSecurityGroupList(),
       invalid: !(this.state.security_groups?.length > 0),
-      invalidText: !this.state.vpc || lib_4(this.state.vpc) ? `Select a VPC.` : `Select at least one Security Group.`
+      invalidText: !this.state.vpc || lib_4(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NumberInput, {
       label: "Instances per Subnet",
       id: composedId + "-vsi-per-subnet",
@@ -6811,8 +6813,8 @@ class VsiForm extends Component {
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(SshKeyMultiSelect, {
       id: "sshkey",
       sshKeys: this.props.sshKeys,
-      onChange: value => this.handleMultiSelectChange("ssh_keys", value),
-      initialSelectedItems: this.state.ssh_keys
+      initialSelectedItems: this.state.ssh_keys || [],
+      onChange: value => this.handleMultiSelectChange("ssh_keys", value)
     }), /*#__PURE__*/React.createElement(IcseSelect, {
       formName: "vsi_form",
       name: "encryption_key",

@@ -80,7 +80,7 @@ class F5VsiForm extends Component {
           <SshKeyMultiSelect
             id="sshkey"
             sshKeys={this.props.sshKeys}
-            initialSelectedItems={this.state.ssh_keys}
+            initialSelectedItems={this.state.ssh_keys || []}
             onChange={(value) =>
               this.handleMultiSelectChange("ssh_keys", value)
             }

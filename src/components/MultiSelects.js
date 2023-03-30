@@ -61,7 +61,7 @@ export const SshKeyMultiSelect = (props) => {
       invalidText="At least one SSH Key is required"
       invalid={props.initialSelectedItems.length === 0}
       items={props.sshKeys}
-      initialSelectedItems={props.initialSelectedItems || []}
+      initialSelectedItems={props.initialSelectedItems}
       onChange={(event) => {
         props.onChange(event.selectedItems);
       }}
