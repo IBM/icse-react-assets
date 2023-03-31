@@ -2858,7 +2858,7 @@ class F5VsiForm extends Component {
       formName: "f5_vsi_form",
       name: "f5_image_name",
       labelText: "F5 Image",
-      groups: ["f5-bigip-15-1-5-1-0-0-14-all-1slot", "f5-bigip-15-1-5-1-0-0-14-ltm-1slot", "f5-bigip-16-1-2-2-0-0-28-ltm-1slot", "f5-bigip-16-1-2-2-0-0-28-all-1slot", "f5-bigip-16-1-3-2-0-0-4-ltm-1slot", "f5-bigip-16-1-3-2-0-0-4-all-1slot", "f5-bigip-17-0-0-1-0-0-4-ltm-1slot", "f5-bigip-17-0-0-1-0-0-4-all-1slot"],
+      groups: this.props.f5Images,
       value: this.state.f5_image_name,
       handleInputChange: this.handleInputChange
     }), /*#__PURE__*/React.createElement(FetchSelect, {
@@ -2993,6 +2993,7 @@ F5VsiForm.propTypes = {
   resourceGroups: PropTypes.array.isRequired,
   sshKeys: PropTypes.array.isRequired,
   encryptionKeys: PropTypes.array.isRequired,
+  f5Images: PropTypes.array.isRequired,
   /* callbacks */
   initVsiCallback: PropTypes.func.isRequired,
   saveVsiCallback: PropTypes.func.isRequired,
