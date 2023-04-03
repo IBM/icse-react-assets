@@ -5661,7 +5661,7 @@ SshKeyForm.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
     resource_group: PropTypes.string,
-    public_key: PropTypes.string.isRequired,
+    public_key: PropTypes.string,
     use_data: PropTypes.bool
   }).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
