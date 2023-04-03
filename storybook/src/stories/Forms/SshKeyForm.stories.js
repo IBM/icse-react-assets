@@ -13,13 +13,12 @@ export default {
     ["data.name"]: {
       description: "A string specifying the name of the SSH Key",
       control: "none",
-      type: { required: false }, // required prop or not
+      type: { required: true }, // required prop or not
     },
     ["data.use_data"]: {
       description:
         "A boolean describing whether or not to use an existing instance",
       control: "none",
-      type: { required: true }, // required prop or not
     },
     ["data.resource_group"]: {
       description: "A string specifying the name of the resource group",
