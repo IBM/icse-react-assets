@@ -80,6 +80,12 @@ export default {
       type: { required: true }, // required prop or not
       control: "none",
     },
+    f5Images: {
+      description:
+        "An array of strings containing the names of F5 Images to select",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
     initVsiCallback: {
       description: "Function that returns initialized vsi",
       type: { required: true }, // required prop or not
@@ -207,6 +213,14 @@ const F5VsiFormStory = () => {
         resourceGroups={["rg1", "rg2", "rg3"]}
         sshKeys={["key1", "key2"]}
         encryptionKeys={["ekey1", "ekey2"]}
+        f5Images={[
+          "f5-bigip-16-1-2-2-0-0-28-ltm-1slot",
+          "f5-bigip-16-1-2-2-0-0-28-all-1slot",
+          "f5-bigip-16-1-3-3-0-0-3-all-1slot",
+          "f5-bigip-16-1-3-3-0-0-3-ltm-1slot",
+          "f5-bigip-17-0-0-2-0-0-2-ltm-1slot",
+          "f5-bigip-17-0-0-2-0-0-2-all-1slot",
+        ]}
         initVsiCallback={initVsi}
         saveVsiCallback={saveVsi}
         hideSaveCallback={shouldHideSave}
