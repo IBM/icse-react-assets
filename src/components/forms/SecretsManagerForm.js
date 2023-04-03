@@ -19,7 +19,6 @@ class SecretsManagerForm extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
-    this.state.use_secrets_manager = true;
   }
 
   /**
