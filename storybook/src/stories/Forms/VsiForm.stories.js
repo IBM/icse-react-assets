@@ -11,64 +11,64 @@ export default {
       type: { required: false }, // required prop or not
       control: "none",
     },
-    ["data.name"]: {
+    "data.name": {
       description: "A string value of the name of the vsi",
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.resource_group"]: {
+    "data.resource_group": {
       description: "A string value representing the resource group for the VSI",
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.vpc"]: {
+    "data.vpc": {
       description:
         "A string value representing the VPC where the VSI will be deployed to",
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.subnet"]: {
+    "data.subnet": {
       description:
         "A string value representing the VSI subnet (required for Teleport VSIs)",
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.security_groups"]: {
+    "data.security_groups": {
       description:
         "An array of string values representing the security groups for the VSI",
       control: "none",
       type: { required: false },
     },
-    ["data.ssh_keys"]: {
+    "data.ssh_keys": {
       description: "An array of ssh key names (optional)",
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.encryption_key"]: {
+    "data.encryption_key": {
       description:
         "A string value representing the boot volume encryption key name for the VSI",
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.enable_floating_ip"]: {
+    "data.enable_floating_ip": {
       description:
         "A boolean which specifying whether or not a floating IP is attached to the VSI",
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.image_name"]: {
+    "data.image_name": {
       description:
         "A string value representing the virtual server image deployed on the VSI",
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.profile"]: {
+    "data.profile": {
       description:
         "A string value representing the type of machine requested for the VSI",
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.vsi_per_subnet"]: {
+    "data.vsi_per_subnet": {
       description:
         "A number corresponding to the amount of VSIs to deploy in each subnet. Must be a number 1-10.",
       control: "none",
