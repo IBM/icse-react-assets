@@ -1,6 +1,6 @@
 import '@carbon/styles/css/styles.css';
 import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, Link, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, NumberInput, Modal, TextInput, Toggle, Tabs, TabList, Tab, TabPanels, TabPanel, FilterableMultiSelect, PasswordInput, TextArea, Dropdown } from '@carbon/react';
-import lazyZ, { isEmpty, isNullOrEmptyString as isNullOrEmptyString$3, kebabCase as kebabCase$2, buildNumberDropdownList, titleCase as titleCase$1, contains as contains$1, snakeCase, distinct, getObjectFromArray, splat as splat$1, isInRange as isInRange$1, isBoolean, isFunction as isFunction$1, transpose, prettyJSON, allFieldsNull, containsKeys, capitalize as capitalize$1, deepEqual, parseIntFromZone, eachKey } from 'lazy-z';
+import lazyZ, { isEmpty, isNullOrEmptyString as isNullOrEmptyString$3, kebabCase as kebabCase$2, buildNumberDropdownList, titleCase as titleCase$1, contains as contains$1, snakeCase, distinct, getObjectFromArray, splat as splat$1, isWholeNumber as isWholeNumber$1, isInRange as isInRange$1, isBoolean, isFunction as isFunction$1, transpose, prettyJSON, allFieldsNull, containsKeys, capitalize as capitalize$1, deepEqual, parseIntFromZone, eachKey } from 'lazy-z';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Information, Save, Add, CloseFilled, Edit, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt, Password } from '@carbon/icons-react';
@@ -1356,7 +1356,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: false,
+      invalid: !isWholeNumber$1(this.state.port),
       invalidText: "Must be a whole number between 1 and 65535",
       className: "fieldWidthSmaller"
     })), this.allVsi().map((row, index) => /*#__PURE__*/React.createElement(IcseFormGroup, {
@@ -1417,7 +1417,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 5,
       max: 3000,
-      invalid: false,
+      invalid: !isWholeNumber$1(this.state.health_timeout),
       invalidText: "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(NumberInput, {
@@ -1432,7 +1432,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 5,
       max: 3000,
-      invalid: this.state.health_delay <= this.state.health_timeout,
+      invalid: this.state.health_delay <= this.state.health_timeout || !isWholeNumber$1(this.state.health_delay),
       invalidText: this.state.health_delay <= this.state.health_timeout ? "Must be greater than Health Timeout value" : "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(NumberInput, {
@@ -1447,7 +1447,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 5,
       max: 3000,
-      invalid: false,
+      invalid: !isWholeNumber$1(this.state.health_retries),
       invalidText: "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseHeading, {
@@ -1465,7 +1465,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: false,
+      invalid: !isWholeNumber$1(this.state.listener_port),
       invalidText: "Must be a whole number between 1 and 65535",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseSelect, {
@@ -1490,7 +1490,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 15000,
-      invalid: isNullOrEmptyString$3(this.state.connection_limit) ? false : isInRange$1(this.state.connection_limit, 1, 15000) === false,
+      invalid: isNullOrEmptyString$3(this.state.connection_limit) ? false : isInRange$1(this.state.connection_limit, 1, 15000) === false || !isWholeNumber$1(this.state.connection_limit),
       invalidText: "Must be a whole number between 1 and 15000",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseHeading, {

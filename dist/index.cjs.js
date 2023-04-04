@@ -1367,7 +1367,7 @@ class VsiLoadBalancerForm extends React__default["default"].Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: false,
+      invalid: !lazyZ.isWholeNumber(this.state.port),
       invalidText: "Must be a whole number between 1 and 65535",
       className: "fieldWidthSmaller"
     })), this.allVsi().map((row, index) => /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
@@ -1428,7 +1428,7 @@ class VsiLoadBalancerForm extends React__default["default"].Component {
       hideSteppers: true,
       min: 5,
       max: 3000,
-      invalid: false,
+      invalid: !lazyZ.isWholeNumber(this.state.health_timeout),
       invalidText: "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
@@ -1443,7 +1443,7 @@ class VsiLoadBalancerForm extends React__default["default"].Component {
       hideSteppers: true,
       min: 5,
       max: 3000,
-      invalid: this.state.health_delay <= this.state.health_timeout,
+      invalid: this.state.health_delay <= this.state.health_timeout || !lazyZ.isWholeNumber(this.state.health_delay),
       invalidText: this.state.health_delay <= this.state.health_timeout ? "Must be greater than Health Timeout value" : "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
@@ -1458,7 +1458,7 @@ class VsiLoadBalancerForm extends React__default["default"].Component {
       hideSteppers: true,
       min: 5,
       max: 3000,
-      invalid: false,
+      invalid: !lazyZ.isWholeNumber(this.state.health_retries),
       invalidText: "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
@@ -1476,7 +1476,7 @@ class VsiLoadBalancerForm extends React__default["default"].Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: false,
+      invalid: !lazyZ.isWholeNumber(this.state.listener_port),
       invalidText: "Must be a whole number between 1 and 65535",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
@@ -1501,7 +1501,7 @@ class VsiLoadBalancerForm extends React__default["default"].Component {
       hideSteppers: true,
       min: 1,
       max: 15000,
-      invalid: lazyZ.isNullOrEmptyString(this.state.connection_limit) ? false : lazyZ.isInRange(this.state.connection_limit, 1, 15000) === false,
+      invalid: lazyZ.isNullOrEmptyString(this.state.connection_limit) ? false : lazyZ.isInRange(this.state.connection_limit, 1, 15000) === false || !lazyZ.isWholeNumber(this.state.connection_limit),
       invalidText: "Must be a whole number between 1 and 15000",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {

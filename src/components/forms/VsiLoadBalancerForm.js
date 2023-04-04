@@ -20,6 +20,7 @@ import {
   distinct,
   isInRange,
   getObjectFromArray,
+  isWholeNumber,
 } from "lazy-z";
 import { NumberInput, Tile } from "@carbon/react";
 import "./vsi-load-balancer.css";
@@ -230,7 +231,7 @@ class VsiLoadBalancerForm extends React.Component {
             hideSteppers={true}
             min={1}
             max={65535}
-            invalid={false}
+            invalid={!isWholeNumber(this.state.port)}
             invalidText="Must be a whole number between 1 and 65535"
             className="fieldWidthSmaller"
           />
@@ -305,7 +306,7 @@ class VsiLoadBalancerForm extends React.Component {
             hideSteppers={true}
             min={5}
             max={3000}
-            invalid={false}
+            invalid={!isWholeNumber(this.state.health_timeout)}
             invalidText="Must be a whole number between 5 and 300"
             className="fieldWidthSmaller"
           />
@@ -322,7 +323,10 @@ class VsiLoadBalancerForm extends React.Component {
             hideSteppers={true}
             min={5}
             max={3000}
-            invalid={this.state.health_delay <= this.state.health_timeout}
+            invalid={
+              this.state.health_delay <= this.state.health_timeout ||
+              !isWholeNumber(this.state.health_delay)
+            }
             invalidText={
               this.state.health_delay <= this.state.health_timeout
                 ? "Must be greater than Health Timeout value"
@@ -343,7 +347,7 @@ class VsiLoadBalancerForm extends React.Component {
             hideSteppers={true}
             min={5}
             max={3000}
-            invalid={false}
+            invalid={!isWholeNumber(this.state.health_retries)}
             invalidText="Must be a whole number between 5 and 300"
             className="fieldWidthSmaller"
           />
@@ -364,7 +368,7 @@ class VsiLoadBalancerForm extends React.Component {
             hideSteppers={true}
             min={1}
             max={65535}
-            invalid={false}
+            invalid={!isWholeNumber(this.state.listener_port)}
             invalidText="Must be a whole number between 1 and 65535"
             className="fieldWidthSmaller"
           />
@@ -395,7 +399,8 @@ class VsiLoadBalancerForm extends React.Component {
             invalid={
               isNullOrEmptyString(this.state.connection_limit)
                 ? false
-                : isInRange(this.state.connection_limit, 1, 15000) === false
+                : isInRange(this.state.connection_limit, 1, 15000) === false ||
+                  !isWholeNumber(this.state.connection_limit)
             }
             invalidText="Must be a whole number between 1 and 15000"
             className="fieldWidthSmaller"
