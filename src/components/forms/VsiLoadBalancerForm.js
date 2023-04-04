@@ -66,6 +66,8 @@ class VsiLoadBalancerForm extends React.Component {
     } else if (name === "connection_limit" && nextState[name] === 0) {
       // reset when 0
       nextState[name] = "";
+    } else if (name === "session_persistence_type" && value !== "app_cookie") {
+      nextState.session_persistence_app_cookie_name = null;
     }
     this.setState(nextState);
   }
@@ -447,23 +449,18 @@ class VsiLoadBalancerForm extends React.Component {
 
 VsiLoadBalancerForm.defaultProps = {
   data: {
-    name: "test-lb",
-    resource_group: "a",
-    vpc: "management",
-    type: "public",
-    security_groups: ["management-vpe"],
-    algorithm: "round_robin",
-    protocol: "https",
-    proxy_protocol: "v1",
-    health_type: "tcp",
-    health_delay: 31,
-    health_timeout: 30,
-    health_retries: 5,
+    name: "",
+    resource_group: "",
+    vpc: "",
+    type: "",
+    security_groups: [],
+    algorithm: "",
+    protocol: "",
+    proxy_protocol: "",
+    health_type: "",
     session_persistence_app_cookie_name: "",
-    target_vsi: ["management-server"],
-    port: 8080,
-    listener_port: 443,
-    listener_protocol: "https",
+    target_vsi: [],
+    listener_protocol: "",
     connection_limit: null,
   },
   isModal: false,
