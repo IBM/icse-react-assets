@@ -18,6 +18,7 @@ export {
   EndpointSelect,
 } from "./Dropdowns";
 export { default as EmptyResourceTile } from "./EmptyResourceTile";
+export { default as VsiLoadBalancerForm } from "./forms/VsiLoadBalancerForm";
 export { default as FormModal } from "./FormModal";
 export { default as AppIdForm } from "./forms/AppIdForm";
 export { default as AppIdKeyForm } from "./forms/AppIdKeyForm";

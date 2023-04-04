@@ -45,8 +45,8 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = "/* vars and themes */\n:root {\n  --background: #ffffff;\n  --subForm: #f4f4f4;\n  --formInSubForm: #fffdfd;\n  --cds-text-primary: #161616;\n  --cds-text-secondary: #525252;\n  --cds-field: #f4f4f4;\n  --cds-border-strong: #8d8d8d;\n  --blue: #0f62fe;\n  --red: #da1e28;\n  --white: #ffffff;\n}\n\n.dark {\n  --background: #161616;\n  --subForm: #262626;\n  --formInSubForm: #414141;\n  --cds-text-primary: #f4f4f4;\n  --cds-text-secondary: #c6c6c6;\n  --cds-field: #363636;\n  --cds-border-strong: #8897a2;\n  --cds-layer: #262626;\n  --cds-layer-hover: #363636;\n  --cds-field-02: #363636;\n  --cds-icon-secondary: #c6c6c6;\n  --cds-icon-primary: #c6c6c6;\n  --placeholder: #565656;\n  --cds-field-hover: #464646;\n  --cds-layer-selected: #525252;\n  --cds-background-inverse: #f4f4f4;\n  --cds-text-inverse: #262626;\n}\n\n.dark {\n  background-color: var(--background);\n}\n\n.dark p {\n  color: #f4f4f4;\n}\n\n.dark i.chevron > svg {\n  fill: #f4f4f4;\n}\n\n.dark h4 {\n  color: #f4f4f4;\n}\n\n.dark .underConstruction > svg {\n  fill: #ffffff;\n}\n/* styling for tooltip content in dark mode */\n.dark .cds--toggletip-content > p {\n  color: #363636;\n}\n\n.dark ::placeholder {\n  color: var(--placeholder);\n}\n\n/* general alignment classes */\n\n.displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n\n.fieldWidthSmallest {\n  width: 8rem;\n}\n\n.fieldWidthBigger {\n  width: 40rem;\n}\n\n.textInputWide {\n  width: 30rem;\n}\n\n.textInputMedium {\n  width: 20rem;\n}\n\n/* backhground classes */\n.formInSubForm {\n  margin-top: 0rem;\n  background: var(--formInSubForm);\n  padding: 1rem;\n}\n\n.subForm {\n  background: var(--subForm);\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n/* Tooltips */\n.labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n\n/* subnet tile form */\n\n.subnetTileFormMargin {\n  margin-bottom: -0.5rem;\n  margin-top: 0.5rem;\n}\n\n.marginRightSubnetTile {\n  margin-right: 10px;\n}\n\n/* StatefulTabPanel */\n\n.cds--tab-content.doc {\n  padding: 0.5rem 0;\n}\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}\n\n/* popover wrappers */\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  position: relative;\n  z-index: 9001;\n}\n\n/* buttons */\n\n.chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: var(--blue) !important;\n  fill: var(--white) !important;\n  border-color: var(--blue) !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: var(--red) !important;\n}\n\n.alignButtons {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important;\n}\n\n/* docs */\n.about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n\n/* empty resource tile */\n.iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: var(--subForm);\n}\n\n/* under construction */\n\n.underConstruction {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.flexDirectionColumn {\n  flex-direction: column;\n}\n\n/* f5 vsi */\n.wide {\n  width: 20rem !important;\n}\n\n.tight {\n  width: min-content; /* force invalid text to split line */\n}\n\n.passwordGenerateButton {\n  margin-top: 1.25rem;\n  margin-left: calc(-4rem - 3vw);\n}\n\n.passwordGenerateButton svg {\n  fill: var(--cds-icon-secondary, #525252) !important;\n}\n\n.passwordGenerateButton.invalid {\n  margin-left: calc(-5.75rem - 3vw);\n}\n";
-styleInject(css_248z);
+var css_248z$1 = "/* vars and themes */\n:root {\n  --background: #ffffff;\n  --subForm: #f4f4f4;\n  --formInSubForm: #fffdfd;\n  --cds-text-primary: #161616;\n  --cds-text-secondary: #525252;\n  --cds-field: #f4f4f4;\n  --cds-border-strong: #8d8d8d;\n  --blue: #0f62fe;\n  --red: #da1e28;\n  --white: #ffffff;\n}\n\n.dark {\n  --background: #161616;\n  --subForm: #262626;\n  --formInSubForm: #414141;\n  --cds-text-primary: #f4f4f4;\n  --cds-text-secondary: #c6c6c6;\n  --cds-field: #363636;\n  --cds-border-strong: #8897a2;\n  --cds-layer: #262626;\n  --cds-layer-hover: #363636;\n  --cds-field-02: #363636;\n  --cds-icon-secondary: #c6c6c6;\n  --cds-icon-primary: #c6c6c6;\n  --placeholder: #565656;\n  --cds-field-hover: #464646;\n  --cds-layer-selected: #525252;\n  --cds-background-inverse: #f4f4f4;\n  --cds-text-inverse: #262626;\n}\n\n.dark {\n  background-color: var(--background);\n}\n\n.dark p {\n  color: #f4f4f4;\n}\n\n.dark i.chevron > svg {\n  fill: #f4f4f4;\n}\n\n.dark h4 {\n  color: #f4f4f4;\n}\n\n.dark .underConstruction > svg {\n  fill: #ffffff;\n}\n/* styling for tooltip content in dark mode */\n.dark .cds--toggletip-content > p {\n  color: #363636;\n}\n\n.dark ::placeholder {\n  color: var(--placeholder);\n}\n\n/* general alignment classes */\n\n.displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n\n.fieldWidthSmallest {\n  width: 8rem;\n}\n\n.fieldWidthBigger {\n  width: 40rem;\n}\n\n.textInputWide {\n  width: 30rem;\n}\n\n.textInputMedium {\n  width: 20rem;\n}\n\n/* backhground classes */\n.formInSubForm {\n  margin-top: 0rem;\n  background: var(--formInSubForm);\n  padding: 1rem;\n}\n\n.subForm {\n  background: var(--subForm);\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n/* Tooltips */\n.labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n\n/* subnet tile form */\n\n.subnetTileFormMargin {\n  margin-bottom: -0.5rem;\n  margin-top: 0.5rem;\n}\n\n.marginRightSubnetTile {\n  margin-right: 10px;\n}\n\n/* StatefulTabPanel */\n\n.cds--tab-content.doc {\n  padding: 0.5rem 0;\n}\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}\n\n/* popover wrappers */\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  position: relative;\n  z-index: 9001;\n}\n\n/* buttons */\n\n.chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: var(--blue) !important;\n  fill: var(--white) !important;\n  border-color: var(--blue) !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: var(--red) !important;\n}\n\n.alignButtons {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important;\n}\n\n/* docs */\n.about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n\n/* empty resource tile */\n.iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: var(--subForm);\n}\n\n/* under construction */\n\n.underConstruction {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.flexDirectionColumn {\n  flex-direction: column;\n}\n\n/* f5 vsi */\n.wide {\n  width: 20rem !important;\n}\n\n.tight {\n  width: min-content; /* force invalid text to split line */\n}\n\n.passwordGenerateButton {\n  margin-top: 1.25rem;\n  margin-left: calc(-4rem - 3vw);\n}\n\n.passwordGenerateButton svg {\n  fill: var(--cds-icon-secondary, #525252) !important;\n}\n\n.passwordGenerateButton.invalid {\n  margin-left: calc(-5.75rem - 3vw);\n}\n";
+styleInject(css_248z$1);
 
 /**
  * create a composed class name
@@ -1189,6 +1189,386 @@ EmptyResourceTile.propTypes = {
   name: PropTypes__default["default"].string.isRequired,
   showIfEmpty: PropTypes__default["default"].oneOfType([PropTypes__default["default"].array, PropTypes__default["default"].bool]).isRequired,
   instructions: PropTypes__default["default"].string
+};
+
+var css_248z = ".tileTitle {\n  font-size: 80%;\n  font-weight: bold;\n}\n\n.tileContent {\n  font-size: 90%;\n}\n";
+styleInject(css_248z);
+
+class VsiLoadBalancerForm extends React__default["default"].Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
+    this.allVsi = this.allVsi.bind(this);
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in the instance
+   * @param {*} value value
+   */
+  handleInputChange(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    let nextState = {
+      ...this.state
+    };
+    nextState[name] = lazyZ.contains(["name", "vpc", "resource_group"], name) ? value : lazyZ.contains(["health_delay", "health_retries", "health_timeout", "port", "listener_port", "connection_limit"], name) ? Number(value) : lazyZ.snakeCase(value);
+    if (name === "vpc") {
+      nextState.subnets = [];
+      nextState.security_groups = [];
+      nextState.target_vsi = [];
+    } else if (name === "connection_limit" && nextState[name] === 0) {
+      // reset when 0
+      nextState[name] = "";
+    } else if (name === "session_persistence_type" && value !== "app_cookie") {
+      nextState.session_persistence_app_cookie_name = null;
+    }
+    this.setState(nextState);
+  }
+
+  /**
+   * handle multiselect change
+   * @param {string} name key to change in the instance
+   * @param {*} value value
+   */
+  handleMultiSelectChange(name, value) {
+    let nextState = {
+      ...this.state
+    };
+    if (name === "target_vsi") {
+      nextState.subnets = [];
+      this.props.vsiDeployments.forEach(deployment => {
+        nextState.subnets = lazyZ.distinct(nextState.subnets.concat(deployment.subnets));
+      });
+    }
+    nextState[name] = value;
+    this.setState(nextState);
+  }
+
+  /**
+   * get all vsi
+   * @returns {Array<object>} list of vsi
+   */
+  allVsi() {
+    let allVsi = [];
+    this.state.target_vsi.forEach(deployment => {
+      let vsi = lazyZ.getObjectFromArray(this.props.vsiDeployments, "name", deployment);
+      let nextRow = [];
+      // for each subnet vsi
+      for (let subnet = 0; subnet < vsi.subnets.length; subnet++) {
+        // for each vsi per subnet
+        for (let count = 0; count < vsi.vsi_per_subnet; count++) {
+          nextRow.push({
+            name: deployment + "-" + (count + 1),
+            subnet: vsi.subnets[subnet]
+          });
+          if (nextRow.length === 3) {
+            allVsi.push(nextRow);
+            nextRow = [];
+          }
+        }
+      }
+      if (nextRow.length > 0) {
+        allVsi.push(nextRow);
+      }
+    });
+    return allVsi;
+  }
+  render() {
+    let componentName = this.props.data.name + "-lb";
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+      type: "subHeading",
+      name: "Load Balancer"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: componentName + "-name",
+      tooltip: {
+        content: "Name for the load balancer service. This name will be prepended to the components provisioned as part of the load balancer.",
+        align: "right"
+      },
+      componentName: componentName,
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      invalid: this.props.invalidCallback(this.state),
+      invalidText: this.props.invalidTextCallback(this.state),
+      className: "fieldWidthSmaller",
+      hideHelperText: true
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: componentName + "-rg",
+      name: "resource_group",
+      labelText: "Resource Group",
+      groups: this.props.resourceGroups,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: componentName + "-type",
+      name: "type",
+      labelText: "Load Balancer Type",
+      groups: ["Public", "Private"],
+      value: lazyZ.titleCase(this.state.type || ""),
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: "vsi_form",
+      name: "vpc",
+      labelText: "VPC",
+      groups: this.props.vpcList,
+      value: this.state.vpc,
+      handleInputChange: this.handleInputChange,
+      invalid: lazyZ.isNullOrEmptyString(this.state.vpc),
+      invalidText: "Select a VPC.",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(SecurityGroupMultiSelect, {
+      key: this.state.vpc + "-sg",
+      id: componentName + "-sg",
+      initialSelectedItems: this.state.security_groups || [],
+      vpc_name: this.state.vpc,
+      onChange: value => this.handleMultiSelectChange("security_groups", value),
+      securityGroups: this.getSecurityGroupList(),
+      invalid: !(this.state.security_groups?.length > 0),
+      invalidText: !this.state.vpc || lazyZ.isNullOrEmptyString(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+      type: "subHeading",
+      name: "Load Balancer VSI"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+      key: this.state.vpc + "-vsi",
+      className: "fieldWidthSmaller",
+      id: componentName + "-vsi",
+      titleText: "Deployment VSI",
+      items: lazyZ.splat(this.props.vsiDeployments.filter(deployment => {
+        if (deployment.vpc === this.state.vpc) {
+          return deployment;
+        }
+      }), "name"),
+      onChange: value => {
+        this.handleMultiSelectChange("target_vsi", value.selectedItems);
+      },
+      initialSelectedItems: this.state.target_vsi,
+      invalid: this.state.target_vsi.length === 0,
+      invalidText: "Select at least one VSI deployment"
+    }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      placeholder: "80",
+      label: "Application Port",
+      id: componentName + "-port",
+      allowEmpty: true,
+      value: this.state.port,
+      step: 1,
+      onChange: this.handleInputChange,
+      name: "port",
+      hideSteppers: true,
+      min: 1,
+      max: 65535,
+      invalid: !lazyZ.isWholeNumber(this.state.port),
+      invalidText: "Must be a whole number between 1 and 65535",
+      className: "fieldWidthSmaller"
+    })), this.allVsi().map((row, index) => /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+      key: "row-" + index
+    }, row.map((vsi, vsiIndex) => /*#__PURE__*/React__default["default"].createElement(react.Tile, {
+      key: `${index}-${vsiIndex}`,
+      className: "fieldWidthSmaller subnetTileFormMargin"
+    }, /*#__PURE__*/React__default["default"].createElement("p", {
+      className: "tileTitle"
+    }, "Name:"), /*#__PURE__*/React__default["default"].createElement("p", {
+      className: "tileContent"
+    }, vsi.name), /*#__PURE__*/React__default["default"].createElement("p", {
+      className: "tileTitle"
+    }, "Subnet:"), /*#__PURE__*/React__default["default"].createElement("p", {
+      className: "tileContent"
+    }, vsi.subnet))))), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+      type: "subHeading",
+      name: "Load Balancer Pool"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: componentName,
+      name: "algorithm",
+      labelText: "Load Balancing Algorithm",
+      groups: ["Round Robin", "Weighted Round Robin", "Least Connections"],
+      value: lazyZ.titleCase(this.state.algorithm || ""),
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: componentName,
+      name: "protocol",
+      labelText: "Pool Protocol",
+      groups: ["HTTPS", "HTTP", "TCP", "UDP"],
+      value: (this.state.protocol || "").toUpperCase(),
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller",
+      tooltip: {
+        content: "Protocol of the application running on VSI instances"
+      }
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: componentName,
+      name: "health_type",
+      labelText: "Pool Health Protocol",
+      groups: ["HTTPS", "HTTP", "TCP"],
+      value: (this.state.health_type || "").toUpperCase(),
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller",
+      tooltip: {
+        content: "Protocol used to check the health of member VSI instances"
+      }
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      placeholder: "5",
+      label: "Health Timeout (in Seconds)",
+      id: componentName + "-timeout",
+      allowEmpty: true,
+      value: this.state.health_timeout,
+      step: 1,
+      onChange: this.handleInputChange,
+      name: "health_timeout",
+      hideSteppers: true,
+      min: 5,
+      max: 3000,
+      invalid: !lazyZ.isWholeNumber(this.state.health_timeout),
+      invalidText: "Must be a whole number between 5 and 300",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      placeholder: "5",
+      label: "Health Delay (in Seconds)",
+      id: componentName + "-delay",
+      allowEmpty: true,
+      value: this.state.health_delay,
+      step: 1,
+      onChange: this.handleInputChange,
+      name: "health_delay",
+      hideSteppers: true,
+      min: 5,
+      max: 3000,
+      invalid: this.state.health_delay <= this.state.health_timeout || !lazyZ.isWholeNumber(this.state.health_delay),
+      invalidText: this.state.health_delay <= this.state.health_timeout ? "Must be greater than Health Timeout value" : "Must be a whole number between 5 and 300",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      placeholder: "5",
+      label: "Health Retries",
+      id: componentName + "-retries",
+      allowEmpty: true,
+      value: this.state.health_retries,
+      step: 1,
+      onChange: this.handleInputChange,
+      name: "health_retries",
+      hideSteppers: true,
+      min: 5,
+      max: 3000,
+      invalid: !lazyZ.isWholeNumber(this.state.health_retries),
+      invalidText: "Must be a whole number between 5 and 300",
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+      type: "subHeading",
+      name: "Load Balancer Listener"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      placeholder: "443",
+      label: "Listener Port",
+      id: componentName + "-listener-port",
+      allowEmpty: true,
+      value: this.state.listener_port,
+      step: 1,
+      onChange: this.handleInputChange,
+      name: "listener_port",
+      hideSteppers: true,
+      min: 1,
+      max: 65535,
+      invalid: !lazyZ.isWholeNumber(this.state.listener_port),
+      invalidText: "Must be a whole number between 1 and 65535",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: componentName,
+      name: "listener_protocol",
+      labelText: "Listener Protocol",
+      groups: ["HTTPS", "HTTP", "TCP", "UDP"],
+      value: (this.state.listener_protocol || "").toUpperCase(),
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller",
+      tooltip: {
+        content: "Protocol of the listener for the looad balancer"
+      }
+    }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      label: "Connection Limit",
+      id: componentName + "-connection-limit",
+      allowEmpty: true,
+      value: this.state.connection_limit || "",
+      step: 1,
+      onChange: this.handleInputChange,
+      name: "connection_limit",
+      hideSteppers: true,
+      min: 1,
+      max: 15000,
+      invalid: lazyZ.isNullOrEmptyString(this.state.connection_limit) ? false : lazyZ.isInRange(this.state.connection_limit, 1, 15000) === false || !lazyZ.isWholeNumber(this.state.connection_limit),
+      invalidText: "Must be a whole number between 1 and 15000",
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+      type: "subHeading",
+      name: "(Optional) Pool Customization"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: componentName,
+      name: "proxy_protocol",
+      labelText: "Proxy Protocol",
+      groups: ["Disabled", "V1", "V2"],
+      value: (this.state.proxy_protocol || "disabled").toUpperCase(),
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: componentName,
+      name: "session_persistence_type",
+      labelText: "Session Persistence Type",
+      groups: ["Source IP", "App Cookie", "HTTP Cookie"],
+      value: lazyZ.titleCase(this.state.session_persistence_type || ""),
+      handleInputChange: this.handleInputChange,
+      disableInvalid: true,
+      className: "fieldWidthSmaller"
+    }), this.state.session_persistence_type === "app_cookie" && /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: componentName + "session_persistence_app_cookie_name",
+      componentName: componentName + "-cookie-name",
+      field: "session_persistence_app_cookie_name",
+      isModal: this.props.isModal,
+      labelText: "Session Cookie Name",
+      value: this.state.session_persistence_app_cookie_name || "",
+      invalid: lazyZ.isNullOrEmptyString(this.state.session_persistence_app_cookie_name) ? false : this.props.invalidCallback(this.state, this.props),
+      onChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    })));
+  }
+}
+VsiLoadBalancerForm.defaultProps = {
+  data: {
+    name: "",
+    resource_group: "",
+    vpc: "",
+    type: "",
+    security_groups: [],
+    algorithm: "",
+    protocol: "",
+    proxy_protocol: "",
+    health_type: "",
+    session_persistence_app_cookie_name: "",
+    target_vsi: [],
+    listener_protocol: "",
+    connection_limit: null
+  },
+  isModal: false
+};
+VsiLoadBalancerForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    resource_group: PropTypes__default["default"].string,
+    vpc: PropTypes__default["default"].string,
+    security_groups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string)
+  }),
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string.isRequired),
+  isModal: PropTypes__default["default"].bool.isRequired,
+  securityGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  vsiDeployments: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired
 };
 
 /**
@@ -7990,6 +8370,7 @@ exports.VpcListMultiSelect = VpcListMultiSelect;
 exports.VpeForm = VpeForm;
 exports.VpnGatewayForm = VpnGatewayForm;
 exports.VsiForm = VsiForm;
+exports.VsiLoadBalancerForm = VsiLoadBalancerForm;
 exports.WorkerPoolForm = WorkerPoolForm;
 exports.buildFormDefaultInputMethods = buildFormDefaultInputMethods;
 exports.buildFormFunctions = buildFormFunctions;
