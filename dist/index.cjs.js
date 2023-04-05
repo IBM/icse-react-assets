@@ -7327,7 +7327,6 @@ class VsiVolumeForm extends React.Component {
    */
   handleIopsChange(event) {
     let iopsStateValue = event.target.value.split(" (");
-    console.log(iopsStateValue);
     this.setState({
       iops: iopsStateValue.toLowerCase()
     });
