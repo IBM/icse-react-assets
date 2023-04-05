@@ -7134,8 +7134,8 @@ class VsiForm extends Component {
       componentName: "vsi",
       value: this.state.name,
       onChange: this.handleInputChange,
-      invalid: this.props.invalidCallback(this.state),
-      invalidText: this.props.invalidTextCallback(this.state),
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
       hideHelperText: true
     }), /*#__PURE__*/React.createElement(IcseSelect, {
       formName: "vsi_form",
@@ -7229,7 +7229,6 @@ class VsiForm extends Component {
       groups: this.props.encryptionKeys,
       value: this.state.encryption_key,
       handleInputChange: this.handleInputChange,
-      invalid: this.props.invalidCallback(this.state),
       invalidText: "Select a valid encryption key."
     }), /*#__PURE__*/React.createElement(IcseToggle, {
       id: composedId + "-fips-toggle",
@@ -7241,7 +7240,7 @@ class VsiForm extends Component {
       hide: this.props.isTeleport,
       show: /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
         id: composedId + "-vsi-user-data",
-        className: `${classNameModalCheck} fieldWidthBigger`,
+        className: this.props.isModal ? "textInputWide" : "fieldWidthBigger",
         placeholder: "Cloud init data",
         labelText: "User Data",
         name: "user_data",

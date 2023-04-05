@@ -1,6 +1,6 @@
 import React from "react";
 import { contains } from "lazy-z";
-import { VsiForm } from "icse-react-assets";
+import { IcseModal, VsiForm } from "icse-react-assets";
 
 export default {
   component: VsiForm,
@@ -88,8 +88,7 @@ export default {
       control: "none",
     },
     invalidCallback: {
-      description:
-        "Function that determines invalid state for specified field (defaults to `name`) field",
+      description: "Function that determines invalid state for `name` field",
       type: { required: true }, // required prop or not
       control: "none",
     },
@@ -148,92 +147,106 @@ export default {
   },
 };
 
+function validName(str) {
+  const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
+  if (str) return str.match(regex) !== null;
+  else return false;
+}
+
+function invalidCallback(stateData) {
+  return !validName(stateData.name) || contains(["foo", "bar"], stateData.name);
+}
+
+function invalidTextCallback(stateData) {
+  return contains(["foo", "bar"], stateData.name)
+    ? `Name ${stateData.name} already in use.`
+    : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
+}
+
+const formProps = {
+  data: {
+    name: "vsi",
+  },
+  resourceGroups: ["rg1", "rg2", "rg3"],
+  vpcList: ["management", "workload"],
+  subnetList: [
+    {
+      vpc: "management",
+      zone: 1,
+      cidr: "10.10.10.0/24",
+      name: "vsi-zone-1",
+      network_acl: "management",
+      resource_group: "management-rg",
+      public_gateway: false,
+      has_prefix: true,
+    },
+    {
+      vpc: "management",
+      zone: 1,
+      cidr: "10.20.10.0/24",
+      name: "vpe-zone-1",
+      resource_group: "management-rg",
+      network_acl: "management",
+      public_gateway: false,
+      has_prefix: true,
+    },
+
+    {
+      vpc: "workload",
+      zone: 1,
+      cidr: "10.40.10.0/24",
+      name: "vsi-zone-1",
+      network_acl: "workload",
+      resource_group: "workload-rg",
+      public_gateway: false,
+      has_prefix: true,
+    },
+  ],
+  securityGroups: [
+    {
+      vpc: "management",
+      name: "management-vpe",
+      resource_group: "management-rg",
+      rules: [],
+    },
+    {
+      vpc: "workload",
+      name: "workload-vpe",
+      resource_group: "workload-rg",
+      rules: [],
+    },
+    {
+      vpc: "management",
+      name: "management-vsi",
+      resource_group: "management-rg",
+      rules: [],
+    },
+  ],
+  sshKeys: ["key1", "key2", "key3"],
+  encryptionKeys: ["ekey1", "ekey2", "ekey3"],
+  apiEndpointImages: "/mock/api/images",
+  apiEndpointInstanceProfiles: "/mock/api/flavors",
+  invalidCallback: invalidCallback,
+  invalidTextCallback: invalidTextCallback,
+};
+
 const VsiFormStory = () => {
-  function validName(str) {
-    const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
-    if (str) return str.match(regex) !== null;
-    else return false;
-  }
+  return <VsiForm {...formProps} />;
+};
 
-  function invalidCallback(stateData) {
-    return (
-      !validName(stateData.name) || contains(["foo", "bar"], stateData.name)
-    );
-  }
-
-  function invalidTextCallback(stateData) {
-    return contains(["foo", "bar"], stateData.name)
-      ? `Name ${stateData.name} already in use.`
-      : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
-  }
+const VsiFormModalStory = () => {
   return (
-    <VsiForm
-      data={{
-        name: "vsi",
-      }}
-      resourceGroups={["rg1", "rg2", "rg3"]}
-      vpcList={["management", "workload"]}
-      subnetList={[
-        {
-          vpc: "management",
-          zone: 1,
-          cidr: "10.10.10.0/24",
-          name: "vsi-zone-1",
-          network_acl: "management",
-          resource_group: "management-rg",
-          public_gateway: false,
-          has_prefix: true,
-        },
-        {
-          vpc: "management",
-          zone: 1,
-          cidr: "10.20.10.0/24",
-          name: "vpe-zone-1",
-          resource_group: "management-rg",
-          network_acl: "management",
-          public_gateway: false,
-          has_prefix: true,
-        },
-
-        {
-          vpc: "workload",
-          zone: 1,
-          cidr: "10.40.10.0/24",
-          name: "vsi-zone-1",
-          network_acl: "workload",
-          resource_group: "workload-rg",
-          public_gateway: false,
-          has_prefix: true,
-        },
-      ]}
-      securityGroups={[
-        {
-          vpc: "management",
-          name: "management-vpe",
-          resource_group: "management-rg",
-          rules: [],
-        },
-        {
-          vpc: "workload",
-          name: "workload-vpe",
-          resource_group: "workload-rg",
-          rules: [],
-        },
-        {
-          vpc: "management",
-          name: "management-vsi",
-          resource_group: "management-rg",
-          rules: [],
-        },
-      ]}
-      sshKeys={["key1", "key2", "key3"]}
-      encryptionKeys={["ekey1", "ekey2", "ekey3"]}
-      apiEndpointImages={"/mock/api/images"}
-      apiEndpointInstanceProfiles={"/mock/api/flavors"}
-      invalidCallback={invalidCallback}
-      invalidTextCallback={invalidTextCallback}
-    />
+    <IcseModal
+      heading={"VSI Modal"}
+      open={true}
+      primaryButtonText={"Create"}
+      onRequestSubmit={() => {}}
+      onRequestClose={() => {}}
+    >
+      <VsiForm {...formProps} isModal={true} />
+    </IcseModal>
   );
 };
 
 export const Default = VsiFormStory.bind({});
+export const Modal = VsiFormModalStory.bind({});
