@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { NumberInput, TextArea } from "@carbon/react";
-import { transpose } from "lazy-z";
+import { isNullOrEmptyString, transpose } from "lazy-z";
 import PropTypes from "prop-types";
 import { checkNullorEmptyString } from "../../lib";
 import {
@@ -37,10 +37,9 @@ class VsiForm extends Component {
     };
     if (name === "vpc")
       // Clear subnets and security groups when vpc changes
-      transpose(
-        { subnets: [], subnet: "", security_groups: [] },
-        stateChangeParams
-      );
+      this.props.isTeleport
+        ? transpose({ subnet: "", security_groups: [] }, stateChangeParams)
+        : transpose({ subnets: [], security_groups: [] }, stateChangeParams);
 
     this.setState(stateChangeParams);
   }
@@ -197,6 +196,7 @@ class VsiForm extends Component {
             groups={this.props.encryptionKeys}
             value={this.state.encryption_key}
             handleInputChange={this.handleInputChange}
+            invalid={isNullOrEmptyString(this.state.encryption_key)}
             invalidText="Select a valid encryption key."
           />
           <IcseToggle

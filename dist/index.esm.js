@@ -7112,9 +7112,11 @@ class VsiForm extends Component {
     };
     if (name === "vpc")
       // Clear subnets and security groups when vpc changes
-      transpose({
-        subnets: [],
+      this.props.isTeleport ? transpose({
         subnet: "",
+        security_groups: []
+      }, stateChangeParams) : transpose({
+        subnets: [],
         security_groups: []
       }, stateChangeParams);
     this.setState(stateChangeParams);
@@ -7229,6 +7231,7 @@ class VsiForm extends Component {
       groups: this.props.encryptionKeys,
       value: this.state.encryption_key,
       handleInputChange: this.handleInputChange,
+      invalid: isNullOrEmptyString$3(this.state.encryption_key),
       invalidText: "Select a valid encryption key."
     }), /*#__PURE__*/React.createElement(IcseToggle, {
       id: composedId + "-fips-toggle",
