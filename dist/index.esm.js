@@ -7300,6 +7300,125 @@ VsiForm.propTypes = {
   invalidTextCallback: PropTypes.func.isRequired
 };
 
+class VsiVolumeForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleIopsChange = this.handleIopsChange.bind(this);
+  }
+
+  /**
+   * handle vsi volume iops change and convert to lowercase for value
+   * @param {event} event event
+   */
+  handleIopsChange(event) {
+    let iopsStateValue = event.target.value.split(" (");
+    console.log(iopsStateValue);
+    this.setState({
+      iops: iopsStateValue.toLowerCase()
+    });
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  render() {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: this.props.data.name + "-vsi-volume-name",
+      componentName: this.state.name,
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      helperTextCallback: () => this.props.composedNameCallback(this.state, this.props),
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      component: this.state.name,
+      formName: this.props.data.name + "-vsi-volume-profile",
+      name: "profile",
+      groups: ["general-purpose", "5iops-tier", "10iops-tier", "custom"],
+      value: this.state.profile,
+      labelText: "Profile",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      component: this.state.name,
+      formName: this.props.data.name + "-object-storage-bucket-key",
+      name: "kms_key",
+      groups: this.props.encryptionKeyFilter ? this.props.encryptionKeyFilter(this.state, this.props) : this.props.encryptionKeys,
+      value: this.state.kms_key,
+      labelText: "Encryption Key",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NumberInput, {
+      id: this.props.data.name + "vsi-volume-capacity",
+      name: "capacity",
+      label: "Capacity (GB)",
+      value: this.state.capacity || "",
+      onChange: this.handleInputChange,
+      allowEmpty: true,
+      step: 1,
+      hideSteppers: true,
+      placeholder: "100",
+      min: 10,
+      max: 16000,
+      helperText: "Enter a number between 10 and 16000 GB.",
+      invalid: iamUtils_2(this.state.capacity, 10, 16000),
+      invalidText: "Must be a whole number between 10 and 16000",
+      className: "fieldWidth leftTextAlign"
+    }), this.props.profile === "custom" && /*#__PURE__*/React.createElement(NumberInput, {
+      id: this.props.data.name + "vsi-volume-iops",
+      name: "iops",
+      label: "IOPS",
+      value: this.state.capacity || "",
+      onChange: this.handleInputChange,
+      allowEmpty: true,
+      step: 1,
+      hideSteppers: true,
+      placeholder: "100",
+      defaultValue: 100,
+      min: 100,
+      max: 48000,
+      invalid: this.props.invalidIopsCallback(this.state, this.props),
+      invalidText: this.props.invalidIopsTextCallback(this.state, this.props),
+      className: "fieldWidthSmaller"
+    })));
+  }
+}
+VsiVolumeForm.defaultProps = {
+  data: {
+    name: "",
+    profile: "general-purpose",
+    kms_key: "",
+    capacity: 100,
+    iops: null
+  },
+  encryptionKeys: []
+};
+VsiVolumeForm.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    profle: PropTypes.string.isRequired,
+    kms_key: PropTypes.string,
+    capacity: PropTypes.number,
+    iops: PropTypes.number.isRequired // can only be null if profile is not custom
+  }).isRequired,
+  encryptionKeys: PropTypes.array.isRequired,
+  encryptionKeyFilter: PropTypes.func,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  invalidIopsCallback: PropTypes.func.isRequired,
+  invalidIopsTextCallback: PropTypes.func.isRequired,
+  composedNameCallback: PropTypes.func.isRequired
+};
+
 class WorkerPoolForm extends Component {
   constructor(props) {
     super(props);
@@ -8286,4 +8405,4 @@ EventStreamsForm.propTypes = {
   invalidTextCallback: PropTypes.func.isRequired
 };
 
-export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, ClusterForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, LocationsMultiSelect, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VsiForm, VsiLoadBalancerForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, ClusterForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, LocationsMultiSelect, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VsiForm, VsiLoadBalancerForm, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };

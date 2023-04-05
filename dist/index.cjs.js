@@ -7311,6 +7311,125 @@ VsiForm.propTypes = {
   invalidTextCallback: PropTypes__default["default"].func.isRequired
 };
 
+class VsiVolumeForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleIopsChange = this.handleIopsChange.bind(this);
+  }
+
+  /**
+   * handle vsi volume iops change and convert to lowercase for value
+   * @param {event} event event
+   */
+  handleIopsChange(event) {
+    let iopsStateValue = event.target.value.split(" (");
+    console.log(iopsStateValue);
+    this.setState({
+      iops: iopsStateValue.toLowerCase()
+    });
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: this.props.data.name + "-vsi-volume-name",
+      componentName: this.state.name,
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      helperTextCallback: () => this.props.composedNameCallback(this.state, this.props),
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      component: this.state.name,
+      formName: this.props.data.name + "-vsi-volume-profile",
+      name: "profile",
+      groups: ["general-purpose", "5iops-tier", "10iops-tier", "custom"],
+      value: this.state.profile,
+      labelText: "Profile",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      component: this.state.name,
+      formName: this.props.data.name + "-object-storage-bucket-key",
+      name: "kms_key",
+      groups: this.props.encryptionKeyFilter ? this.props.encryptionKeyFilter(this.state, this.props) : this.props.encryptionKeys,
+      value: this.state.kms_key,
+      labelText: "Encryption Key",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      id: this.props.data.name + "vsi-volume-capacity",
+      name: "capacity",
+      label: "Capacity (GB)",
+      value: this.state.capacity || "",
+      onChange: this.handleInputChange,
+      allowEmpty: true,
+      step: 1,
+      hideSteppers: true,
+      placeholder: "100",
+      min: 10,
+      max: 16000,
+      helperText: "Enter a number between 10 and 16000 GB.",
+      invalid: iamUtils_2(this.state.capacity, 10, 16000),
+      invalidText: "Must be a whole number between 10 and 16000",
+      className: "fieldWidth leftTextAlign"
+    }), this.props.profile === "custom" && /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      id: this.props.data.name + "vsi-volume-iops",
+      name: "iops",
+      label: "IOPS",
+      value: this.state.capacity || "",
+      onChange: this.handleInputChange,
+      allowEmpty: true,
+      step: 1,
+      hideSteppers: true,
+      placeholder: "100",
+      defaultValue: 100,
+      min: 100,
+      max: 48000,
+      invalid: this.props.invalidIopsCallback(this.state, this.props),
+      invalidText: this.props.invalidIopsTextCallback(this.state, this.props),
+      className: "fieldWidthSmaller"
+    })));
+  }
+}
+VsiVolumeForm.defaultProps = {
+  data: {
+    name: "",
+    profile: "general-purpose",
+    kms_key: "",
+    capacity: 100,
+    iops: null
+  },
+  encryptionKeys: []
+};
+VsiVolumeForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    profle: PropTypes__default["default"].string.isRequired,
+    kms_key: PropTypes__default["default"].string,
+    capacity: PropTypes__default["default"].number,
+    iops: PropTypes__default["default"].number.isRequired // can only be null if profile is not custom
+  }).isRequired,
+  encryptionKeys: PropTypes__default["default"].array.isRequired,
+  encryptionKeyFilter: PropTypes__default["default"].func,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidIopsCallback: PropTypes__default["default"].func.isRequired,
+  invalidIopsTextCallback: PropTypes__default["default"].func.isRequired,
+  composedNameCallback: PropTypes__default["default"].func.isRequired
+};
+
 class WorkerPoolForm extends React.Component {
   constructor(props) {
     super(props);
@@ -8371,6 +8490,7 @@ exports.VpeForm = VpeForm;
 exports.VpnGatewayForm = VpnGatewayForm;
 exports.VsiForm = VsiForm;
 exports.VsiLoadBalancerForm = VsiLoadBalancerForm;
+exports.VsiVolumeForm = VsiVolumeForm;
 exports.WorkerPoolForm = WorkerPoolForm;
 exports.buildFormDefaultInputMethods = buildFormDefaultInputMethods;
 exports.buildFormFunctions = buildFormFunctions;
