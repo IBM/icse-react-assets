@@ -7373,7 +7373,7 @@ class VsiVolumeForm extends Component {
       invalid: iamUtils_2(this.state.capacity, 10, 16000),
       invalidText: "Must be a whole number between 10 and 16000",
       className: "fieldWidth leftTextAlign"
-    }), this.props.profile === "custom" && /*#__PURE__*/React.createElement(NumberInput, {
+    }), this.state.profile === "custom" && /*#__PURE__*/React.createElement(NumberInput, {
       id: this.props.data.name + "vsi-volume-iops",
       name: "iops",
       label: "IOPS",
@@ -7383,7 +7383,6 @@ class VsiVolumeForm extends Component {
       step: 1,
       hideSteppers: true,
       placeholder: "100",
-      defaultValue: 100,
       min: 100,
       max: 48000,
       invalid: this.props.invalidIopsCallback(this.state, this.props),
@@ -7398,14 +7397,14 @@ VsiVolumeForm.defaultProps = {
     profile: "general-purpose",
     kms_key: "",
     capacity: 100,
-    iops: null
+    iops: 100
   },
   encryptionKeys: []
 };
 VsiVolumeForm.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    profle: PropTypes.string.isRequired,
+    profile: PropTypes.string.isRequired,
     kms_key: PropTypes.string,
     capacity: PropTypes.number,
     iops: PropTypes.number.isRequired // can only be null if profile is not custom

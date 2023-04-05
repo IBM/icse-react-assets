@@ -102,7 +102,7 @@ class VsiVolumeForm extends Component {
             className="fieldWidth leftTextAlign"
           />
           {/* Iops */}
-          {this.props.profile === "custom" && (
+          {this.state.profile === "custom" && (
             <NumberInput
               id={this.props.data.name + "vsi-volume-iops"}
               name="iops"
@@ -113,7 +113,6 @@ class VsiVolumeForm extends Component {
               step={1}
               hideSteppers={true}
               placeholder="100"
-              defaultValue={100}
               min={100}
               max={48000}
               invalid={this.props.invalidIopsCallback(this.state, this.props)}
@@ -136,7 +135,7 @@ VsiVolumeForm.defaultProps = {
     profile: "general-purpose",
     kms_key: "",
     capacity: 100,
-    iops: null,
+    iops: 100,
   },
   encryptionKeys: [],
 };
@@ -144,7 +143,7 @@ VsiVolumeForm.defaultProps = {
 VsiVolumeForm.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    profle: PropTypes.string.isRequired,
+    profile: PropTypes.string.isRequired,
     kms_key: PropTypes.string,
     capacity: PropTypes.number,
     iops: PropTypes.number.isRequired, // can only be null if profile is not custom
