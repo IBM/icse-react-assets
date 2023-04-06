@@ -1,7 +1,7 @@
 {
   "name": "icse-react-assets",
   "homepage": "http://ibm.github.io/icse-react-assets",
-  "version": "0.4.1",
+  "version": "0.4.3",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
   "source": "src/index.js",
@@ -9,7 +9,6 @@
     "@carbon/icons-react": "^11.8.0",
     "@carbon/react": "^1.13.0",
     "lazy-z": "^1.8.3",
-    "react-scripts": "5.0.1",
     "regex-but-with-words": "^1.5.1",
     "web-vitals": "^2.1.4"
   },
@@ -49,6 +48,7 @@
     ]
   },
   "devDependencies": {
+    "react-scripts": "5.0.1",
     "@babel/cli": "^7.20.7",
     "@babel/core": "^7.20.12",
     "@babel/plugin-transform-modules-commonjs": "^7.20.11",

@@ -160,6 +160,13 @@ export default {
       control: "boolean",
       table: { defaultValue: { summary: "name" } },
     },
+    forceOpen: {
+      description:
+        "A function that returns true if the form should be forced open", // description
+      type: { required: true }, // required prop or not
+      control: "none",
+      table: { defaultValue: { summary: "() => { return false; }" } },
+    },
   },
   parameters: {
     docs: {
@@ -211,6 +218,9 @@ const IcseFormTemplateStory = () => {
       onSave={() => {}}
       onDelete={() => {}}
       onSubmit={() => {}}
+      forceOpen={() => {
+        return true;
+      }}
       disableSave={function (stateData, componentProps) {
         return false;
       }}

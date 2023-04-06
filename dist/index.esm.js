@@ -2473,6 +2473,7 @@ class IcseFormTemplate extends React.Component {
           onChildShowToggle: this.props.isMiddleForm ? this.onChildToggle // pass through to child component if middle form
           : false,
           index: index,
+          forceOpen: this.props.forceOpen,
           show: this.shouldShow(index),
           shownChildren: this.state.shownChildForms,
           onSave: this.props?.onSave,
@@ -2521,7 +2522,10 @@ IcseFormTemplate.defaultProps = {
   arrayParentName: null,
   isMiddleForm: false,
   hideAbout: false,
-  toggleFormFieldName: "name"
+  toggleFormFieldName: "name",
+  forceOpen: () => {
+    return false;
+  }
 };
 IcseFormTemplate.propTypes = {
   name: PropTypes.string,
@@ -2549,6 +2553,7 @@ IcseFormTemplate.propTypes = {
   toggleFormFieldName: PropTypes.string.isRequired,
   hideAbout: PropTypes.bool,
   deleteDisabled: PropTypes.func,
+  forceOpen: PropTypes.func,
   deleteDisabledMessage: PropTypes.string
 };
 
