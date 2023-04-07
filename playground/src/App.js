@@ -50,12 +50,18 @@ function invalidIopsCallback(stateData, componentProps) {
     iopsRange = { start: 100, end: 48000 };
   } else if (stateData.capacity >= 10000 && stateData.capacity <= 16000) {
     iopsRange = { start: 100, end: 48000 };
-  }
-  if (stateData.iops < iopsRange.start || stateData.iops > iopsRange.end)
+  } else iopsRange = `invalid capacity value`;
+  if (
+    stateData.capacity === "" ||
+    typeof iopsRange === "string" ||
+    stateData.iops < iopsRange.start ||
+    stateData.iops > iopsRange.end
+  )
     return true;
 }
 
 function invalidIopsTextCallback(stateData, componentProps) {
+  let invalidText = ``;
   let iopsRange;
   if (stateData.capacity >= 0 && stateData.capacity <= 39) {
     iopsRange = { start: 100, end: 1000 };
@@ -77,10 +83,16 @@ function invalidIopsTextCallback(stateData, componentProps) {
     iopsRange = { start: 100, end: 48000 };
   } else if (stateData.capacity >= 10000 && stateData.capacity <= 16000) {
     iopsRange = { start: 100, end: 48000 };
+  } else iopsRange = `invalid capacity value`;
+  if (stateData.capacity === "" || typeof iopsRange === "string") {
+    invalidText = `Invalid capacity value.`;
+  } else if (
+    stateData.iops < iopsRange.start ||
+    stateData.iops > iopsRange.end
+  ) {
+    invalidText = `IOPS value is not within the valid range for the vsi volume capacity currently selected (Available IOPS Range for current capacity: [${iopsRange.start}, ${iopsRange.end}]).`;
   }
-  if (stateData.iops < iopsRange.start || stateData.iops > iopsRange.end) {
-    return `IOPS value is not within the valid range for the vsi volume capacity currently selected (Available IOPS Range for current capacity: [${iopsRange.start}, ${iopsRange.end}]).`;
-  }
+  return invalidText;
 }
 
 function App() {
@@ -97,7 +109,8 @@ function App() {
         name: "",
         profile: "general-purpose",
         kms_key: "key1",
-        capacity: 100,
+        capacity: "",
+        iops: "",
       }}
     />
   );

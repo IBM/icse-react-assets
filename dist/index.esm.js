@@ -7376,7 +7376,7 @@ class VsiVolumeForm extends Component {
       id: this.props.data.name + "vsi-volume-iops",
       name: "iops",
       label: "IOPS",
-      value: this.state.capacity || "",
+      value: this.state.iops || "",
       onChange: this.handleInputChange,
       allowEmpty: true,
       step: 1,
@@ -7395,8 +7395,8 @@ VsiVolumeForm.defaultProps = {
     name: "",
     profile: "general-purpose",
     kms_key: "",
-    capacity: 100,
-    iops: 100
+    capacity: "",
+    iops: ""
   },
   encryptionKeys: []
 };
@@ -7405,8 +7405,8 @@ VsiVolumeForm.propTypes = {
     name: PropTypes.string.isRequired,
     profile: PropTypes.string.isRequired,
     kms_key: PropTypes.string,
-    capacity: PropTypes.number,
-    iops: PropTypes.number.isRequired // can only be null if profile is not custom
+    capacity: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    iops: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired // can only be null if profile is not custom
   }).isRequired,
   encryptionKeys: PropTypes.array.isRequired,
   encryptionKeyFilter: PropTypes.func,

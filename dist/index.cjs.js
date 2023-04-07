@@ -7387,7 +7387,7 @@ class VsiVolumeForm extends React.Component {
       id: this.props.data.name + "vsi-volume-iops",
       name: "iops",
       label: "IOPS",
-      value: this.state.capacity || "",
+      value: this.state.iops || "",
       onChange: this.handleInputChange,
       allowEmpty: true,
       step: 1,
@@ -7406,8 +7406,8 @@ VsiVolumeForm.defaultProps = {
     name: "",
     profile: "general-purpose",
     kms_key: "",
-    capacity: 100,
-    iops: 100
+    capacity: "",
+    iops: ""
   },
   encryptionKeys: []
 };
@@ -7416,8 +7416,8 @@ VsiVolumeForm.propTypes = {
     name: PropTypes__default["default"].string.isRequired,
     profile: PropTypes__default["default"].string.isRequired,
     kms_key: PropTypes__default["default"].string,
-    capacity: PropTypes__default["default"].number,
-    iops: PropTypes__default["default"].number.isRequired // can only be null if profile is not custom
+    capacity: PropTypes__default["default"].oneOfType([PropTypes__default["default"].string, PropTypes__default["default"].number]).isRequired,
+    iops: PropTypes__default["default"].oneOfType([PropTypes__default["default"].string, PropTypes__default["default"].number]).isRequired // can only be null if profile is not custom
   }).isRequired,
   encryptionKeys: PropTypes__default["default"].array.isRequired,
   encryptionKeyFilter: PropTypes__default["default"].func,
