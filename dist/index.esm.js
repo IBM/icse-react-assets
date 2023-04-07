@@ -7209,11 +7209,11 @@ class VsiForm extends Component {
     }), /*#__PURE__*/React.createElement(FetchSelect, {
       formName: "vsi_form",
       labelText: "Image",
-      name: "image",
+      name: "image_name",
       className: classNameModalCheck,
       apiEndpoint: this.props.apiEndpointImages,
       handleInputChange: this.handleInputChange,
-      value: this.state.image
+      value: this.state.image_name
     }), /*#__PURE__*/React.createElement(FetchSelect, {
       formName: "vsi_form",
       labelText: "Profile",
@@ -7270,7 +7270,7 @@ VsiForm.defaultProps = {
     security_groups: [],
     vsi_per_subnet: 1,
     encryption_key: "",
-    image: "",
+    image_name: "",
     profile: "",
     enable_floating_ip: false
   },
@@ -7294,7 +7294,7 @@ VsiForm.propTypes = {
     subnets: PropTypes.array,
     security_groups: PropTypes.array,
     vsi_per_subnet: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    image: PropTypes.string,
+    image_name: PropTypes.string,
     profile: PropTypes.string,
     ssh_keys: PropTypes.array,
     encryption_key: PropTypes.string,
