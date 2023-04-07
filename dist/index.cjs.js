@@ -2484,6 +2484,7 @@ class IcseFormTemplate extends React__default["default"].Component {
           onChildShowToggle: this.props.isMiddleForm ? this.onChildToggle // pass through to child component if middle form
           : false,
           index: index,
+          forceOpen: this.props.forceOpen,
           show: this.shouldShow(index),
           shownChildren: this.state.shownChildForms,
           onSave: this.props?.onSave,
@@ -2532,7 +2533,10 @@ IcseFormTemplate.defaultProps = {
   arrayParentName: null,
   isMiddleForm: false,
   hideAbout: false,
-  toggleFormFieldName: "name"
+  toggleFormFieldName: "name",
+  forceOpen: () => {
+    return false;
+  }
 };
 IcseFormTemplate.propTypes = {
   name: PropTypes__default["default"].string,
@@ -2560,6 +2564,7 @@ IcseFormTemplate.propTypes = {
   toggleFormFieldName: PropTypes__default["default"].string.isRequired,
   hideAbout: PropTypes__default["default"].bool,
   deleteDisabled: PropTypes__default["default"].func,
+  forceOpen: PropTypes__default["default"].func,
   deleteDisabledMessage: PropTypes__default["default"].string
 };
 
@@ -7123,9 +7128,11 @@ class VsiForm extends React.Component {
     };
     if (name === "vpc")
       // Clear subnets and security groups when vpc changes
-      lazyZ.transpose({
-        subnets: [],
+      this.props.isTeleport ? lazyZ.transpose({
         subnet: "",
+        security_groups: []
+      }, stateChangeParams) : lazyZ.transpose({
+        subnets: [],
         security_groups: []
       }, stateChangeParams);
     this.setState(stateChangeParams);
@@ -7138,17 +7145,20 @@ class VsiForm extends React.Component {
   }
   render() {
     let composedId = `vsi-deployment-form-${this.props.data.name}`;
+    let classNameModalCheck = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       id: composedId,
+      className: classNameModalCheck,
       componentName: "vsi",
       value: this.state.name,
       onChange: this.handleInputChange,
-      invalid: this.props.invalidCallback(this.state),
-      invalidText: this.props.invalidTextCallback(this.state),
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
       hideHelperText: true
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       formName: "vsi_form",
       name: "resource_group",
+      className: classNameModalCheck,
       labelText: "Resource Group",
       groups: this.props.resourceGroups,
       value: this.state.resource_group,
@@ -7156,6 +7166,7 @@ class VsiForm extends React.Component {
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       formName: "vsi_form",
       name: "vpc",
+      className: classNameModalCheck,
       labelText: "VPC",
       groups: this.props.vpcList,
       value: this.state.vpc,
@@ -7168,6 +7179,7 @@ class VsiForm extends React.Component {
     React__default["default"].createElement(IcseSelect, {
       formName: "vsi_form",
       name: "subnet",
+      className: classNameModalCheck,
       labelText: "Subnet",
       groups: this.getSubnetList(),
       value: this.state.subnet,
@@ -7177,6 +7189,7 @@ class VsiForm extends React.Component {
     }) : /*#__PURE__*/React__default["default"].createElement(SubnetMultiSelect, {
       key: this.state.vpc + "-subnet",
       id: "vsi-subnets",
+      className: classNameModalCheck,
       initialSelectedItems: this.state.subnets,
       vpc_name: this.state.vpc,
       subnets: this.getSubnetList(),
@@ -7184,7 +7197,7 @@ class VsiForm extends React.Component {
     }), /*#__PURE__*/React__default["default"].createElement(SecurityGroupMultiSelect, {
       key: this.state.vpc + "-sg",
       id: "vsi-security-groups",
-      className: "fieldWidth",
+      className: classNameModalCheck,
       initialSelectedItems: this.state.security_groups || [],
       vpc_name: this.state.vpc,
       onChange: value => this.handleMultiSelectChange("security_groups", value),
@@ -7203,37 +7216,42 @@ class VsiForm extends React.Component {
       name: "vsi_per_subnet",
       hideSteppers: true,
       invalidText: "Please input a number 1-10",
-      className: "fieldWidth leftTextAlign"
+      className: `${classNameModalCheck} leftTextAlign`
     }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
       formName: "vsi_form",
       labelText: "Image",
       name: "image_name",
+      className: classNameModalCheck,
       apiEndpoint: this.props.apiEndpointImages,
       handleInputChange: this.handleInputChange,
       value: this.state.image_name
     }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
       formName: "vsi_form",
-      labelText: "Flavor",
+      labelText: "Profile",
       name: "profile",
+      className: classNameModalCheck,
       apiEndpoint: this.props.apiEndpointInstanceProfiles,
       handleInputChange: this.handleInputChange,
       value: this.state.profile
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(SshKeyMultiSelect, {
       id: "sshkey",
+      className: classNameModalCheck,
       sshKeys: this.props.sshKeys,
       initialSelectedItems: this.state.ssh_keys || [],
       onChange: value => this.handleMultiSelectChange("ssh_keys", value)
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       formName: "vsi_form",
       name: "encryption_key",
+      className: classNameModalCheck,
       labelText: "Encryption Key",
       groups: this.props.encryptionKeys,
       value: this.state.encryption_key,
       handleInputChange: this.handleInputChange,
-      invalid: this.props.invalidCallback(this.state),
+      invalid: lazyZ.isNullOrEmptyString(this.state.encryption_key),
       invalidText: "Select a valid encryption key."
     }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
       id: composedId + "-fips-toggle",
+      className: classNameModalCheck,
       labelText: "Enable Floating IP",
       defaultToggled: this.state.enable_floating_ip,
       onToggle: this.handleToggle
@@ -7241,13 +7259,13 @@ class VsiForm extends React.Component {
       hide: this.props.isTeleport,
       show: /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
         id: composedId + "-vsi-user-data",
+        className: this.props.isModal ? "textInputWide" : "fieldWidthBigger",
         placeholder: "Cloud init data",
         labelText: "User Data",
         name: "user_data",
         value: this.state.user_data || "",
         onChange: this.handleInputChange,
-        invalidText: "Invalid error message.",
-        className: "fieldWidthBigger"
+        invalidText: "Invalid error message."
       }))
     }));
   }
