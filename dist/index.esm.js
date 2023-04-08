@@ -7104,18 +7104,6 @@ class VsiVolumeForm extends Component {
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleIopsChange = this.handleIopsChange.bind(this);
-  }
-
-  /**
-   * handle vsi volume iops change and convert to lowercase for value
-   * @param {event} event event
-   */
-  handleIopsChange(event) {
-    let iopsStateValue = event.target.value.split(" (");
-    this.setState({
-      iops: iopsStateValue.toLowerCase()
-    });
   }
 
   /**
