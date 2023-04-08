@@ -87,6 +87,12 @@ export default {
       table: { defaultValue: { summary: false } },
       control: "none",
     },
+    subForms: {
+      description:
+        "An array react nodes containing forms to render beneath this form",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
     invalidCallback: {
       description: "Function that determines invalid state for `name` field",
       type: { required: true }, // required prop or not
@@ -94,6 +100,23 @@ export default {
     },
     invalidTextCallback: {
       description: "Function that determines invalid text for `name` field",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
+    invalidIopsCallback: {
+      description:
+        "Function that determines invalid state for the `iops` field",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
+    invalidIopsTextCallback: {
+      description: "Function that determines invalid text for `iops` field",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
+    composedNameCallback: {
+      description:
+        "A function to return a string value as helper text for the composed vsi volume name",
       type: { required: true }, // required prop or not
       control: "none",
     },
@@ -153,6 +176,10 @@ function validName(str) {
   else return false;
 }
 
+function composedNameCallback(stateData, componentProps) {
+  return `${stateData.name}-<random suffix>`;
+}
+
 function invalidCallback(stateData) {
   return !validName(stateData.name) || contains(["foo", "bar"], stateData.name);
 }
@@ -163,8 +190,84 @@ function invalidTextCallback(stateData) {
     : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
 }
 
+function invalidIopsCallback(stateData, componentProps) {
+  let iopsRange;
+  if (stateData.capacity >= 0 && stateData.capacity <= 39) {
+    iopsRange = { start: 100, end: 1000 };
+  } else if (stateData.capacity >= 40 && stateData.capacity <= 79) {
+    iopsRange = { start: 100, end: 2000 };
+  } else if (stateData.capacity >= 80 && stateData.capacity <= 99) {
+    iopsRange = { start: 100, end: 4000 };
+  } else if (stateData.capacity >= 100 && stateData.capacity <= 499) {
+    iopsRange = { start: 100, end: 6000 };
+  } else if (stateData.capacity >= 500 && stateData.capacity <= 999) {
+    iopsRange = { start: 100, end: 10000 };
+  } else if (stateData.capacity >= 1000 && stateData.capacity <= 1999) {
+    iopsRange = { start: 100, end: 20000 };
+  } else if (stateData.capacity >= 2000 && stateData.capacity <= 3999) {
+    iopsRange = { start: 100, end: 40000 };
+  } else if (stateData.capacity >= 4000 && stateData.capacity <= 7999) {
+    iopsRange = { start: 100, end: 40000 };
+  } else if (stateData.capacity >= 8000 && stateData.capacity <= 9999) {
+    iopsRange = { start: 100, end: 48000 };
+  } else if (stateData.capacity >= 10000 && stateData.capacity <= 16000) {
+    iopsRange = { start: 100, end: 48000 };
+  } else iopsRange = `invalid capacity value`;
+  if (
+    stateData.capacity === "" ||
+    typeof iopsRange === "string" ||
+    stateData.iops < iopsRange.start ||
+    stateData.iops > iopsRange.end
+  )
+    return true;
+}
+
+function invalidIopsTextCallback(stateData, componentProps) {
+  let invalidText = ``;
+  let iopsRange;
+  if (stateData.capacity >= 0 && stateData.capacity <= 39) {
+    iopsRange = { start: 100, end: 1000 };
+  } else if (stateData.capacity >= 40 && stateData.capacity <= 79) {
+    iopsRange = { start: 100, end: 2000 };
+  } else if (stateData.capacity >= 80 && stateData.capacity <= 99) {
+    iopsRange = { start: 100, end: 4000 };
+  } else if (stateData.capacity >= 100 && stateData.capacity <= 499) {
+    iopsRange = { start: 100, end: 6000 };
+  } else if (stateData.capacity >= 500 && stateData.capacity <= 999) {
+    iopsRange = { start: 100, end: 10000 };
+  } else if (stateData.capacity >= 1000 && stateData.capacity <= 1999) {
+    iopsRange = { start: 100, end: 20000 };
+  } else if (stateData.capacity >= 2000 && stateData.capacity <= 3999) {
+    iopsRange = { start: 100, end: 40000 };
+  } else if (stateData.capacity >= 4000 && stateData.capacity <= 7999) {
+    iopsRange = { start: 100, end: 40000 };
+  } else if (stateData.capacity >= 8000 && stateData.capacity <= 9999) {
+    iopsRange = { start: 100, end: 48000 };
+  } else if (stateData.capacity >= 10000 && stateData.capacity <= 16000) {
+    iopsRange = { start: 100, end: 48000 };
+  } else iopsRange = `invalid capacity value`;
+  if (stateData.capacity === "" || typeof iopsRange === "string") {
+    invalidText = `Invalid capacity value.`;
+  } else if (
+    stateData.iops < iopsRange.start ||
+    stateData.iops > iopsRange.end
+  ) {
+    invalidText = `IOPS value is not within the valid range for the vsi volume capacity currently selected (Available IOPS Range for current capacity: [${iopsRange.start}, ${iopsRange.end}]).`;
+  }
+  return invalidText;
+}
+
 const formProps = {
   data: {
+    vsiVolumes: [
+      {
+        name: "",
+        profile: "general-purpose",
+        kms_key: "key1",
+        capacity: "",
+        iops: "",
+      },
+    ],
     name: "vsi",
   },
   resourceGroups: ["rg1", "rg2", "rg3"],
@@ -228,6 +331,16 @@ const formProps = {
   apiEndpointInstanceProfiles: "/mock/api/flavors",
   invalidCallback: invalidCallback,
   invalidTextCallback: invalidTextCallback,
+  composedNameCallback: composedNameCallback,
+  propsMatchState: () => {},
+  invalidVsiVolumeCallback: invalidCallback,
+  invalidVsiVolumeTextCallback: invalidTextCallback,
+  vsiVolumeProps: {
+    onSave: () => {},
+    onDelete: () => {},
+    onSubmit: () => {},
+    disableSave: () => {},
+  },
 };
 
 const VsiFormStory = () => {

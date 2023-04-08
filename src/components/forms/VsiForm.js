@@ -15,6 +15,8 @@ import {
   SubnetMultiSelect,
 } from "../MultiSelects";
 import { DynamicRender, IcseFormGroup } from "../Utils";
+import IcseFormTemplate from "../IcseFormTemplate";
+import { VsiVolumeForm } from "./VsiVolumeForm";
 
 class VsiForm extends Component {
   constructor(props) {
@@ -57,6 +59,16 @@ class VsiForm extends Component {
     let classNameModalCheck = this.props.isModal
       ? "fieldWidthSmaller"
       : "fieldWidth";
+    let vsiVolumeInnerFormProps = {
+      invalidCallback: this.props.invalidVsiVolumeCallback,
+      invalidTextCallback: this.props.invalidVsiVolumeTextCallback,
+      composedNameCallback: this.props.composedNameCallback,
+      invalidIopsCallback: this.props.invalidVsiVolumeIopsCallback,
+      invalidIopsTextCallback: this.props.invalidVsiVolumeIopsTextCallback,
+      arrayParentName: this.props.data.name,
+      parent_name: this.props.data.name,
+    };
+    transpose({ ...this.props.vsiVolumeProps }, vsiVolumeInnerFormProps);
     return (
       <>
         <IcseFormGroup>
@@ -227,6 +239,31 @@ class VsiForm extends Component {
             </IcseFormGroup>
           }
         />
+        {/* show vsi volumes if not modal */}
+        {this.props.isModal !== true && (
+          <>
+            <IcseFormTemplate
+              name="vsiVolumes"
+              subHeading
+              addText="Create a Vsi Volume"
+              arrayData={this.props.data.vsiVolumes}
+              innerForm={VsiVolumeForm}
+              disableSave={this.props.vsiVolumeProps.disableSave}
+              onDelete={this.props.vsiVolumeProps.onDelete}
+              onSave={this.props.vsiVolumeProps.onSave}
+              onSubmit={this.props.vsiVolumeProps.onSubmit}
+              propsMatchState={this.props.propsMatchState}
+              innerFormProps={{ ...vsiVolumeInnerFormProps }}
+              hideAbout
+              toggleFormProps={{
+                hideName: true,
+                submissionFieldName: "vsiVolumes",
+                disableSave: this.props.vsiVolumeProps.disableSave,
+                type: "formInSubForm",
+              }}
+            />
+          </>
+        )}
       </>
     );
   }
@@ -290,6 +327,8 @@ VsiForm.propTypes = {
   /* callbacks */
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
+  composedNameCallback: PropTypes.func.isRequired,
+  subForms: PropTypes.arrayOf(PropTypes.node),
 };
 
 export default VsiForm;
