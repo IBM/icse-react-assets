@@ -16,7 +16,7 @@ import {
 } from "../MultiSelects";
 import { DynamicRender, IcseFormGroup } from "../Utils";
 import IcseFormTemplate from "../IcseFormTemplate";
-import { VsiVolumeForm } from "./VsiVolumeForm";
+import VsiVolumeForm from "./VsiVolumeForm";
 
 class VsiForm extends Component {
   constructor(props) {
@@ -63,8 +63,8 @@ class VsiForm extends Component {
       invalidCallback: this.props.invalidVsiVolumeCallback,
       invalidTextCallback: this.props.invalidVsiVolumeTextCallback,
       composedNameCallback: this.props.composedNameCallback,
-      invalidIopsCallback: this.props.invalidVsiVolumeIopsCallback,
-      invalidIopsTextCallback: this.props.invalidVsiVolumeIopsTextCallback,
+      invalidIopsCallback: this.props.invalidIopsCallback,
+      invalidIopsTextCallback: this.props.invalidIopsTextCallback,
       arrayParentName: this.props.data.name,
       parent_name: this.props.data.name,
     };
@@ -243,7 +243,7 @@ class VsiForm extends Component {
         {this.props.isModal !== true && (
           <>
             <IcseFormTemplate
-              name="vsiVolumes"
+              name="Vsi Volumes"
               subHeading
               addText="Create a Vsi Volume"
               arrayData={this.props.data.vsiVolumes}

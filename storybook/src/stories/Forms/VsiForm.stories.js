@@ -261,7 +261,7 @@ const formProps = {
   data: {
     vsiVolumes: [
       {
-        name: "",
+        name: "atracker-vsi-volume",
         profile: "general-purpose",
         kms_key: "key1",
         capacity: "",
@@ -335,6 +335,8 @@ const formProps = {
   propsMatchState: () => {},
   invalidVsiVolumeCallback: invalidCallback,
   invalidVsiVolumeTextCallback: invalidTextCallback,
+  invalidIopsCallback: invalidIopsCallback,
+  invalidIopsTextCallback: invalidIopsTextCallback,
   vsiVolumeProps: {
     onSave: () => {},
     onDelete: () => {},
