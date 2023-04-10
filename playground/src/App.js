@@ -1,7 +1,6 @@
 import React from "react";
-import {
-  VsiLoadBalancerForm
-} from "icse-react-assets";
+import { VsiVolumeForm } from "icse-react-assets";
+import { contains } from "lazy-z";
 import "./App.css";
 
 function validName(str) {
@@ -10,58 +9,34 @@ function validName(str) {
   else return false;
 }
 
+function encryptionKeyFilter(stateData, componentProps) {
+  // add filter here
+  return componentProps.encryptionKeys;
+}
+
 function invalidCallback(stateData, componentProps) {
-  return !validName(stateData.name);
+  return !validName(stateData.name) || contains(["foo", "bar"], stateData.name);
 }
 
 function invalidTextCallback(stateData, componentProps) {
-  return !validName(stateData.name)
-    ? `Name ${stateData.name} is invalid.`
+  return contains(["foo", "bar"], stateData.name)
+    ? `Name ${stateData.name} already in use.`
     : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
 }
 
 function App() {
   return (
-    <VsiLoadBalancerForm
+    <VsiVolumeForm
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
-      resourceGroups={["a", "b"]}
-      vpcList={["management", "edge-vpc"]}
-      securityGroups={[
-        {
-          vpc: "management",
-          name: "management-vpe",
-          resource_group: "management-rg",
-          rules: [],
-        },
-        {
-          vpc: "workload",
-          name: "workload-vpe",
-          resource_group: "workload-rg",
-          rules: [],
-        },
-        {
-          vpc: "management",
-          name: "management-vsi",
-          resource_group: "management-rg",
-          rules: [],
-        },
-      ]}
-      vsiDeployments={[
-        {
-          kms: "slz-kms",
-          encryption_key: "slz-vsi-volume-key",
-          image: "ibm-ubuntu-18-04-6-minimal-amd64-2",
-          profile: "cx2-4x8",
-          name: "management-server",
-          security_groups: ["management-vpe-sg"],
-          ssh_keys: ["slz-ssh-key"],
-          subnets: ["vsi-zone-1", "vsi-zone-2", "vsi-zone-3"],
-          vpc: "management",
-          vsi_per_subnet: 2,
-          resource_group: "slz-management-rg",
-        },
-      ]}
+      encryptionKeyFilter={encryptionKeyFilter}
+      encryptionKeys={["key1", "key2"]}
+      data={{
+        name: "",
+        profile: "3iops-tier",
+        encryption_key: "key1",
+        capacity: "",
+      }}
     />
   );
 }

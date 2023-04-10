@@ -87,6 +87,38 @@ export default {
       table: { defaultValue: { summary: false } },
       control: "none",
     },
+    vsiVolumeProps: {
+      description:
+        "Passes through props from the VsiVolumeForm, look at the VsiVolumeForm story for its required props",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
+    "vsiVolumeProps.onSubmit": {
+      description:
+        "A function that defines what occurs when a modal is submitted",
+      type: { required: true },
+    },
+    "vsiVolumeProps.onSave": {
+      description: "A function that defines what occurs when the form is saved",
+      type: { required: true },
+    },
+    "vsiVolumeProps.onDelete": {
+      description:
+        "A function that defines what occurs when the resource is deleted",
+      type: { required: true },
+    },
+    "vsiVolumeProps.disableSave": {
+      description:
+        "A function that returns a single boolean describing whether the save button should be disabled",
+      type: { required: true },
+      control: "none",
+    },
+    "vsiVolumeProps.encryptionKeys": {
+      description:
+        "Passes through the encryptionKeys array for Block storage form",
+      type: { required: true },
+      control: "none",
+    },
     invalidCallback: {
       description: "Function that determines invalid state for `name` field",
       type: { required: true }, // required prop or not
@@ -165,6 +197,14 @@ function invalidTextCallback(stateData) {
 
 const formProps = {
   data: {
+    volumes: [
+      {
+        name: "atracker-vsi-volume",
+        profile: "3iops-tier",
+        encryption_key: "key1",
+        capacity: "",
+      },
+    ],
     name: "vsi",
   },
   resourceGroups: ["rg1", "rg2", "rg3"],
@@ -228,6 +268,16 @@ const formProps = {
   apiEndpointInstanceProfiles: "/mock/api/flavors",
   invalidCallback: invalidCallback,
   invalidTextCallback: invalidTextCallback,
+  propsMatchState: () => {},
+  invalidVsiVolumeCallback: invalidCallback,
+  invalidVsiVolumeTextCallback: invalidTextCallback,
+  vsiVolumeProps: {
+    onSave: () => {},
+    onDelete: () => {},
+    onSubmit: () => {},
+    disableSave: () => {},
+    encryptionKeys: ["ekey1", "ekey2", "ekey3"],
+  },
 };
 
 const VsiFormStory = () => {

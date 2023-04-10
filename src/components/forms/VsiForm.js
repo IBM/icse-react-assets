@@ -15,6 +15,8 @@ import {
   SubnetMultiSelect,
 } from "../MultiSelects";
 import { DynamicRender, IcseFormGroup } from "../Utils";
+import IcseFormTemplate from "../IcseFormTemplate";
+import VsiVolumeForm from "./VsiVolumeForm";
 
 class VsiForm extends Component {
   constructor(props) {
@@ -57,6 +59,12 @@ class VsiForm extends Component {
     let classNameModalCheck = this.props.isModal
       ? "fieldWidthSmaller"
       : "fieldWidth";
+    let volumeProps = {
+      invalidCallback: this.props.invalidVsiVolumeCallback,
+      invalidTextCallback: this.props.invalidVsiVolumeTextCallback,
+      parent_name: this.props.data.name,
+    };
+    transpose({ ...this.props.vsiVolumeProps }, volumeProps);
     return (
       <>
         <IcseFormGroup>
@@ -227,6 +235,31 @@ class VsiForm extends Component {
             </IcseFormGroup>
           }
         />
+        {/* show vsi volumes if not modal */}
+        {this.props.isModal !== true && (
+          <>
+            <IcseFormTemplate
+              name="Block Storage"
+              subHeading
+              addText="Create a Block Storage Volume"
+              arrayData={this.props.data.volumes}
+              innerForm={VsiVolumeForm}
+              disableSave={this.props.vsiVolumeProps.disableSave}
+              onDelete={this.props.vsiVolumeProps.onDelete}
+              onSave={this.props.vsiVolumeProps.onSave}
+              onSubmit={this.props.vsiVolumeProps.onSubmit}
+              propsMatchState={this.props.propsMatchState}
+              innerFormProps={{ ...volumeProps }}
+              hideAbout
+              toggleFormProps={{
+                hideName: true,
+                submissionFieldName: "volumes",
+                disableSave: this.props.vsiVolumeProps.disableSave,
+                type: "formInSubForm",
+              }}
+            />
+          </>
+        )}
       </>
     );
   }
@@ -290,6 +323,14 @@ VsiForm.propTypes = {
   /* callbacks */
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
+  /* forms */
+  vsiVolumeProps: PropTypes.shape({
+    onSave: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    disableSave: PropTypes.func.isRequired,
+    encryptionKeys: PropTypes.array.isRequired,
+  }).isRequired,
 };
 
 export default VsiForm;

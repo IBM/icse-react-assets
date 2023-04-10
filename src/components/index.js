@@ -48,6 +48,7 @@ export { default as VpcForm } from "./forms/VpcForm";
 export { default as VpeForm } from "./forms/VpeForm";
 export { default as VpnGatewayForm } from "./forms/VpnGatewayForm";
 export { default as VsiForm } from "./forms/VsiForm";
+export { default as VsiVolumeForm } from "./forms/VsiVolumeForm";
 export { default as ClusterForm } from "./forms/ClusterForm";
 export { default as WorkerPoolForm } from "./forms/WorkerPoolForm";
 export { default as IcseFormTemplate } from "./IcseFormTemplate";
