@@ -186,7 +186,6 @@ function validName(str) {
 }
 
 function invalidCallback(stateData) {
-  console.log(typeof vsiVolumeProps);
   return !validName(stateData.name) || contains(["foo", "bar"], stateData.name);
 }
 
