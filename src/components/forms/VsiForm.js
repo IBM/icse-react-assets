@@ -59,12 +59,12 @@ class VsiForm extends Component {
     let classNameModalCheck = this.props.isModal
       ? "fieldWidthSmaller"
       : "fieldWidth";
-    let vsiVolumeInnerFormProps = {
+    let volumeProps = {
       invalidCallback: this.props.invalidVsiVolumeCallback,
       invalidTextCallback: this.props.invalidVsiVolumeTextCallback,
       parent_name: this.props.data.name,
     };
-    transpose({ ...this.props.vsiVolumeProps }, vsiVolumeInnerFormProps);
+    transpose({ ...this.props.vsiVolumeProps }, volumeProps);
     return (
       <>
         <IcseFormGroup>
@@ -249,7 +249,7 @@ class VsiForm extends Component {
               onSave={this.props.vsiVolumeProps.onSave}
               onSubmit={this.props.vsiVolumeProps.onSubmit}
               propsMatchState={this.props.propsMatchState}
-              innerFormProps={{ ...vsiVolumeInnerFormProps }}
+              innerFormProps={{ ...volumeProps }}
               hideAbout
               toggleFormProps={{
                 hideName: true,

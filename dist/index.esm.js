@@ -7222,14 +7222,14 @@ class VsiForm extends Component {
   render() {
     let composedId = `vsi-deployment-form-${this.props.data.name}`;
     let classNameModalCheck = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
-    let vsiVolumeInnerFormProps = {
+    let volumeProps = {
       invalidCallback: this.props.invalidVsiVolumeCallback,
       invalidTextCallback: this.props.invalidVsiVolumeTextCallback,
       parent_name: this.props.data.name
     };
     transpose({
       ...this.props.vsiVolumeProps
-    }, vsiVolumeInnerFormProps);
+    }, volumeProps);
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
       id: composedId,
       className: classNameModalCheck,
@@ -7363,7 +7363,7 @@ class VsiForm extends Component {
       onSubmit: this.props.vsiVolumeProps.onSubmit,
       propsMatchState: this.props.propsMatchState,
       innerFormProps: {
-        ...vsiVolumeInnerFormProps
+        ...volumeProps
       },
       hideAbout: true,
       toggleFormProps: {
