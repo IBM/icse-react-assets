@@ -62,10 +62,6 @@ class VsiForm extends Component {
     let vsiVolumeInnerFormProps = {
       invalidCallback: this.props.invalidVsiVolumeCallback,
       invalidTextCallback: this.props.invalidVsiVolumeTextCallback,
-      composedNameCallback: this.props.composedNameCallback,
-      invalidIopsCallback: this.props.invalidIopsCallback,
-      invalidIopsTextCallback: this.props.invalidIopsTextCallback,
-      arrayParentName: this.props.data.name,
       parent_name: this.props.data.name,
     };
     transpose({ ...this.props.vsiVolumeProps }, vsiVolumeInnerFormProps);
@@ -243,10 +239,10 @@ class VsiForm extends Component {
         {this.props.isModal !== true && (
           <>
             <IcseFormTemplate
-              name="Vsi Volumes"
+              name="Block Storage"
               subHeading
-              addText="Create a Vsi Volume"
-              arrayData={this.props.data.vsiVolumes}
+              addText="Create a Block Storage Volume"
+              arrayData={this.props.data.volumes}
               innerForm={VsiVolumeForm}
               disableSave={this.props.vsiVolumeProps.disableSave}
               onDelete={this.props.vsiVolumeProps.onDelete}
@@ -257,7 +253,7 @@ class VsiForm extends Component {
               hideAbout
               toggleFormProps={{
                 hideName: true,
-                submissionFieldName: "vsiVolumes",
+                submissionFieldName: "volumes",
                 disableSave: this.props.vsiVolumeProps.disableSave,
                 type: "formInSubForm",
               }}
@@ -327,8 +323,14 @@ VsiForm.propTypes = {
   /* callbacks */
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
-  composedNameCallback: PropTypes.func.isRequired,
-  subForms: PropTypes.arrayOf(PropTypes.node),
+  /* forms */
+  vsiVolumeProps: PropTypes.shape({
+    onSave: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    disableSave: PropTypes.func.isRequired,
+    encryptionKeys: PropTypes.array.isRequired,
+  }).isRequired,
 };
 
 export default VsiForm;

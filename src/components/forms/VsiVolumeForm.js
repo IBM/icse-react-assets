@@ -13,7 +13,7 @@ import PropTypes from "prop-types";
 class VsiVolumeForm extends Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = { ...this.props.data };
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -37,19 +37,17 @@ class VsiVolumeForm extends Component {
             componentName={this.state.name}
             value={this.state.name}
             onChange={this.handleInputChange}
-            helperTextCallback={() =>
-              this.props.composedNameCallback(this.state, this.props)
-            }
             invalid={this.props.invalidCallback(this.state, this.props)}
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
             className="fieldWidthSmaller"
+            hideHelperText
           />
           {/* Profile */}
           <IcseSelect
             component={this.state.name}
             formName={this.props.data.name + "-vsi-volume-profile"}
             name="profile"
-            groups={["general-purpose", "5iops-tier", "10iops-tier", "custom"]}
+            groups={["3iops-tier", "5iops-tier", "10iops-tier"]}
             value={this.state.profile}
             labelText="Profile"
             handleInputChange={this.handleInputChange}
@@ -59,13 +57,13 @@ class VsiVolumeForm extends Component {
           <IcseSelect
             component={this.state.name}
             formName={this.props.data.name + "-object-storage-bucket-key"}
-            name="kms_key"
+            name="encryption_key"
             groups={
               this.props.encryptionKeyFilter
                 ? this.props.encryptionKeyFilter(this.state, this.props)
                 : this.props.encryptionKeys
             }
-            value={this.state.kms_key}
+            value={this.state.encryption_key}
             labelText="Encryption Key"
             handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"
@@ -88,30 +86,8 @@ class VsiVolumeForm extends Component {
             helperText="Enter a number between 10 and 16000 GB."
             invalid={isRangeInvalid(this.state.capacity, 10, 16000)}
             invalidText="Must be a whole number between 10 and 16000"
-            className="fieldWidth leftTextAlign"
+            className="fieldWidthSmaller leftTextAlign"
           />
-          {/* Iops */}
-          {this.state.profile === "custom" && (
-            <NumberInput
-              id={this.props.data.name + "vsi-volume-iops"}
-              name="iops"
-              label="IOPS"
-              value={this.state.iops || ""}
-              onChange={this.handleInputChange}
-              allowEmpty={true}
-              step={1}
-              hideSteppers={true}
-              placeholder="100"
-              min={100}
-              max={48000}
-              invalid={this.props.invalidIopsCallback(this.state, this.props)}
-              invalidText={this.props.invalidIopsTextCallback(
-                this.state,
-                this.props
-              )}
-              className="fieldWidthSmaller"
-            />
-          )}
         </IcseFormGroup>
       </>
     );
@@ -122,9 +98,8 @@ VsiVolumeForm.defaultProps = {
   data: {
     name: "",
     profile: "general-purpose",
-    kms_key: "",
+    encryption_key: "",
     capacity: "",
-    iops: "",
   },
   encryptionKeys: [],
 };
@@ -132,19 +107,15 @@ VsiVolumeForm.defaultProps = {
 VsiVolumeForm.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    profile: PropTypes.string.isRequired,
-    kms_key: PropTypes.string,
+    profile: PropTypes.string,
+    encryption_key: PropTypes.string,
     capacity: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
       .isRequired,
-    iops: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired, // can only be null if profile is not custom
   }).isRequired,
   encryptionKeys: PropTypes.array.isRequired,
   encryptionKeyFilter: PropTypes.func,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
-  invalidIopsCallback: PropTypes.func.isRequired,
-  invalidIopsTextCallback: PropTypes.func.isRequired,
-  composedNameCallback: PropTypes.func.isRequired,
 };
 
 export default VsiVolumeForm;

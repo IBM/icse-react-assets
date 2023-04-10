@@ -87,10 +87,36 @@ export default {
       table: { defaultValue: { summary: false } },
       control: "none",
     },
-    subForms: {
+    vsiVolumeProps: {
       description:
-        "An array react nodes containing forms to render beneath this form",
+        "Passes through props from the VsiVolumeForm, look at the VsiVolumeForm story for its required props",
       type: { required: true }, // required prop or not
+      control: "none",
+    },
+    "vsiVolumeProps.onSubmit": {
+      description:
+        "A function that defines what occurs when a modal is submitted",
+      type: { required: true },
+    },
+    "vsiVolumeProps.onSave": {
+      description: "A function that defines what occurs when the form is saved",
+      type: { required: true },
+    },
+    "vsiVolumeProps.onDelete": {
+      description:
+        "A function that defines what occurs when the resource is deleted",
+      type: { required: true },
+    },
+    "vsiVolumeProps.disableSave": {
+      description:
+        "A function that returns a single boolean describing whether the save button should be disabled",
+      type: { required: true },
+      control: "none",
+    },
+    "vsiVolumeProps.encryptionKeys": {
+      description:
+        "Passes through the encryptionKeys array for Block storage form",
+      type: { required: true },
       control: "none",
     },
     invalidCallback: {
@@ -100,23 +126,6 @@ export default {
     },
     invalidTextCallback: {
       description: "Function that determines invalid text for `name` field",
-      type: { required: true }, // required prop or not
-      control: "none",
-    },
-    invalidIopsCallback: {
-      description:
-        "Function that determines invalid state for the `iops` field",
-      type: { required: true }, // required prop or not
-      control: "none",
-    },
-    invalidIopsTextCallback: {
-      description: "Function that determines invalid text for `iops` field",
-      type: { required: true }, // required prop or not
-      control: "none",
-    },
-    composedNameCallback: {
-      description:
-        "A function to return a string value as helper text for the composed vsi volume name",
       type: { required: true }, // required prop or not
       control: "none",
     },
@@ -176,11 +185,8 @@ function validName(str) {
   else return false;
 }
 
-function composedNameCallback(stateData, componentProps) {
-  return `${stateData.name}-<random suffix>`;
-}
-
 function invalidCallback(stateData) {
+  console.log(typeof vsiVolumeProps);
   return !validName(stateData.name) || contains(["foo", "bar"], stateData.name);
 }
 
@@ -190,82 +196,14 @@ function invalidTextCallback(stateData) {
     : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
 }
 
-function invalidIopsCallback(stateData, componentProps) {
-  let iopsRange;
-  if (stateData.capacity >= 0 && stateData.capacity <= 39) {
-    iopsRange = { start: 100, end: 1000 };
-  } else if (stateData.capacity >= 40 && stateData.capacity <= 79) {
-    iopsRange = { start: 100, end: 2000 };
-  } else if (stateData.capacity >= 80 && stateData.capacity <= 99) {
-    iopsRange = { start: 100, end: 4000 };
-  } else if (stateData.capacity >= 100 && stateData.capacity <= 499) {
-    iopsRange = { start: 100, end: 6000 };
-  } else if (stateData.capacity >= 500 && stateData.capacity <= 999) {
-    iopsRange = { start: 100, end: 10000 };
-  } else if (stateData.capacity >= 1000 && stateData.capacity <= 1999) {
-    iopsRange = { start: 100, end: 20000 };
-  } else if (stateData.capacity >= 2000 && stateData.capacity <= 3999) {
-    iopsRange = { start: 100, end: 40000 };
-  } else if (stateData.capacity >= 4000 && stateData.capacity <= 7999) {
-    iopsRange = { start: 100, end: 40000 };
-  } else if (stateData.capacity >= 8000 && stateData.capacity <= 9999) {
-    iopsRange = { start: 100, end: 48000 };
-  } else if (stateData.capacity >= 10000 && stateData.capacity <= 16000) {
-    iopsRange = { start: 100, end: 48000 };
-  } else iopsRange = `invalid capacity value`;
-  if (
-    stateData.capacity === "" ||
-    typeof iopsRange === "string" ||
-    stateData.iops < iopsRange.start ||
-    stateData.iops > iopsRange.end
-  )
-    return true;
-}
-
-function invalidIopsTextCallback(stateData, componentProps) {
-  let invalidText = ``;
-  let iopsRange;
-  if (stateData.capacity >= 0 && stateData.capacity <= 39) {
-    iopsRange = { start: 100, end: 1000 };
-  } else if (stateData.capacity >= 40 && stateData.capacity <= 79) {
-    iopsRange = { start: 100, end: 2000 };
-  } else if (stateData.capacity >= 80 && stateData.capacity <= 99) {
-    iopsRange = { start: 100, end: 4000 };
-  } else if (stateData.capacity >= 100 && stateData.capacity <= 499) {
-    iopsRange = { start: 100, end: 6000 };
-  } else if (stateData.capacity >= 500 && stateData.capacity <= 999) {
-    iopsRange = { start: 100, end: 10000 };
-  } else if (stateData.capacity >= 1000 && stateData.capacity <= 1999) {
-    iopsRange = { start: 100, end: 20000 };
-  } else if (stateData.capacity >= 2000 && stateData.capacity <= 3999) {
-    iopsRange = { start: 100, end: 40000 };
-  } else if (stateData.capacity >= 4000 && stateData.capacity <= 7999) {
-    iopsRange = { start: 100, end: 40000 };
-  } else if (stateData.capacity >= 8000 && stateData.capacity <= 9999) {
-    iopsRange = { start: 100, end: 48000 };
-  } else if (stateData.capacity >= 10000 && stateData.capacity <= 16000) {
-    iopsRange = { start: 100, end: 48000 };
-  } else iopsRange = `invalid capacity value`;
-  if (stateData.capacity === "" || typeof iopsRange === "string") {
-    invalidText = `Invalid capacity value.`;
-  } else if (
-    stateData.iops < iopsRange.start ||
-    stateData.iops > iopsRange.end
-  ) {
-    invalidText = `IOPS value is not within the valid range for the vsi volume capacity currently selected (Available IOPS Range for current capacity: [${iopsRange.start}, ${iopsRange.end}]).`;
-  }
-  return invalidText;
-}
-
 const formProps = {
   data: {
-    vsiVolumes: [
+    volumes: [
       {
         name: "atracker-vsi-volume",
-        profile: "general-purpose",
-        kms_key: "key1",
+        profile: "3iops-tier",
+        encryption_key: "key1",
         capacity: "",
-        iops: "",
       },
     ],
     name: "vsi",
@@ -331,17 +269,15 @@ const formProps = {
   apiEndpointInstanceProfiles: "/mock/api/flavors",
   invalidCallback: invalidCallback,
   invalidTextCallback: invalidTextCallback,
-  composedNameCallback: composedNameCallback,
   propsMatchState: () => {},
   invalidVsiVolumeCallback: invalidCallback,
   invalidVsiVolumeTextCallback: invalidTextCallback,
-  invalidIopsCallback: invalidIopsCallback,
-  invalidIopsTextCallback: invalidIopsTextCallback,
   vsiVolumeProps: {
     onSave: () => {},
     onDelete: () => {},
     onSubmit: () => {},
     disableSave: () => {},
+    encryptionKeys: ["ekey1", "ekey2", "ekey3"],
   },
 };
 
