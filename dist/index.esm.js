@@ -1,11 +1,11 @@
 import '@carbon/styles/css/styles.css';
 import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, Link, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, NumberInput, Modal, TextInput, Toggle, Tabs, TabList, Tab, TabPanels, TabPanel, FilterableMultiSelect, PasswordInput, TextArea, Dropdown } from '@carbon/react';
-import lazyZ, { isEmpty, isNullOrEmptyString as isNullOrEmptyString$3, kebabCase as kebabCase$2, buildNumberDropdownList, titleCase as titleCase$1, contains as contains$1, snakeCase, distinct, getObjectFromArray, splat as splat$1, isWholeNumber as isWholeNumber$1, isInRange as isInRange$1, isBoolean, isFunction as isFunction$1, transpose, prettyJSON, allFieldsNull, containsKeys, capitalize as capitalize$1, deepEqual, parseIntFromZone, eachKey } from 'lazy-z';
+import lazyZ, { isEmpty, isNullOrEmptyString as isNullOrEmptyString$3, kebabCase as kebabCase$2, buildNumberDropdownList, titleCase as titleCase$1, contains as contains$2, snakeCase, distinct, getObjectFromArray, splat as splat$1, isWholeNumber as isWholeNumber$1, isInRange as isInRange$1, isBoolean, isFunction as isFunction$1, transpose, prettyJSON, allFieldsNull, containsKeys, capitalize as capitalize$2, deepEqual, parseIntFromZone, eachKey } from 'lazy-z';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Information, Save, Add, CloseFilled, Edit, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt, Password } from '@carbon/icons-react';
 import regexButWithWords from 'regex-but-with-words';
-import { contains as contains$2 } from 'regex-but-with-words/lib/utils';
+import { contains as contains$3 } from 'regex-but-with-words/lib/utils';
 
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
@@ -36,6 +36,12 @@ function styleInject(css, ref) {
 
 var css_248z$1 = "/* vars and themes */\n:root {\n  --background: #ffffff;\n  --subForm: #f4f4f4;\n  --formInSubForm: #fffdfd;\n  --cds-text-primary: #161616;\n  --cds-text-secondary: #525252;\n  --cds-field: #f4f4f4;\n  --cds-border-strong: #8d8d8d;\n  --blue: #0f62fe;\n  --red: #da1e28;\n  --white: #ffffff;\n}\n\n.dark {\n  --background: #161616;\n  --subForm: #262626;\n  --formInSubForm: #414141;\n  --cds-text-primary: #f4f4f4;\n  --cds-text-secondary: #c6c6c6;\n  --cds-field: #363636;\n  --cds-border-strong: #8897a2;\n  --cds-layer: #262626;\n  --cds-layer-hover: #363636;\n  --cds-field-02: #363636;\n  --cds-icon-secondary: #c6c6c6;\n  --cds-icon-primary: #c6c6c6;\n  --placeholder: #565656;\n  --cds-field-hover: #464646;\n  --cds-layer-selected: #525252;\n  --cds-background-inverse: #f4f4f4;\n  --cds-text-inverse: #262626;\n}\n\n.dark {\n  background-color: var(--background);\n}\n\n.dark p {\n  color: #f4f4f4;\n}\n\n.dark i.chevron > svg {\n  fill: #f4f4f4;\n}\n\n.dark h4 {\n  color: #f4f4f4;\n}\n\n.dark .underConstruction > svg {\n  fill: #ffffff;\n}\n/* styling for tooltip content in dark mode */\n.dark .cds--toggletip-content > p {\n  color: #363636;\n}\n\n.dark ::placeholder {\n  color: var(--placeholder);\n}\n\n/* general alignment classes */\n\n.displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n\n.fieldWidthSmallest {\n  width: 8rem;\n}\n\n.fieldWidthBigger {\n  width: 40rem;\n}\n\n.textInputWide {\n  width: 30rem;\n}\n\n.textInputMedium {\n  width: 20rem;\n}\n\n/* backhground classes */\n.formInSubForm {\n  margin-top: 0rem;\n  background: var(--formInSubForm);\n  padding: 1rem;\n}\n\n.subForm {\n  background: var(--subForm);\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n/* Tooltips */\n.labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n\n/* subnet tile form */\n\n.subnetTileFormMargin {\n  margin-bottom: -0.5rem;\n  margin-top: 0.5rem;\n}\n\n.marginRightSubnetTile {\n  margin-right: 10px;\n}\n\n/* StatefulTabPanel */\n\n.cds--tab-content.doc {\n  padding: 0.5rem 0;\n}\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}\n\n/* popover wrappers */\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  position: relative;\n  z-index: 9001;\n}\n\n/* buttons */\n\n.chevron {\n  margin-right: 1rem;\n  margin-top: 0.25rem;\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: var(--blue) !important;\n  fill: var(--white) !important;\n  border-color: var(--blue) !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: var(--red) !important;\n}\n\n.alignButtons {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important;\n}\n\n/* docs */\n.about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n\n/* empty resource tile */\n.iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: var(--subForm);\n}\n\n/* under construction */\n\n.underConstruction {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.flexDirectionColumn {\n  flex-direction: column;\n}\n\n/* f5 vsi */\n.wide {\n  width: 20rem !important;\n}\n\n.tight {\n  width: min-content; /* force invalid text to split line */\n}\n\n.passwordGenerateButton {\n  margin-top: 1.25rem;\n  margin-left: calc(-4rem - 3vw);\n}\n\n.passwordGenerateButton svg {\n  fill: var(--cds-icon-secondary, #525252) !important;\n}\n\n.passwordGenerateButton.invalid {\n  margin-left: calc(-5.75rem - 3vw);\n}\n";
 styleInject(css_248z$1);
+
+const {
+  contains: contains$1,
+  capitalize: capitalize$1,
+  toUpperCase
+} = lazyZ;
 
 /**
  * create a composed class name
@@ -122,13 +128,24 @@ function handleClusterInputChange$1(name, value, stateData) {
   }
   return cluster;
 }
+function subnetTierName$1(tierName) {
+  console.log(tierName);
+  if (contains$1(["vsi", "vpe", "vpn", "vpn-1", "vpn-2"], tierName)) {
+    return tierName.toUpperCase() + " Subnet Tier";
+  } else if (tierName === "") {
+    return "New Subnet Tier";
+  } else {
+    return capitalize$1(tierName) + " Subnet Tier";
+  }
+}
 var formUtils = {
   addClassName: addClassName$1,
   toggleMarginBottom: toggleMarginBottom$1,
   prependEmptyStringWhenNull: prependEmptyStringWhenNull$1,
   checkNullorEmptyString: checkNullorEmptyString$1,
   invalidRegex: invalidRegex$1,
-  handleClusterInputChange: handleClusterInputChange$1
+  handleClusterInputChange: handleClusterInputChange$1,
+  subnetTierName: subnetTierName$1
 };
 
 const {
@@ -207,7 +224,8 @@ const {
   prependEmptyStringWhenNull,
   checkNullorEmptyString,
   invalidRegex,
-  handleClusterInputChange
+  handleClusterInputChange,
+  subnetTierName
 } = formUtils;
 const {
   formatInputPlaceholder
@@ -231,7 +249,8 @@ var lib = {
   toggleStateBoolean: toggleStateBoolean$1,
   setNameToValue: setNameToValue$1,
   invalidRegex,
-  handleClusterInputChange
+  handleClusterInputChange,
+  subnetTierName
 };
 var lib_1 = lib.toggleMarginBottom;
 var lib_2 = lib.addClassName;
@@ -241,6 +260,7 @@ var lib_5 = lib.formatInputPlaceholder;
 var lib_6 = lib.saveChangeButtonClass;
 var lib_10 = lib.invalidRegex;
 var lib_11 = lib.handleClusterInputChange;
+var lib_12 = lib.subnetTierName;
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -1209,7 +1229,7 @@ class VsiLoadBalancerForm extends React.Component {
     let nextState = {
       ...this.state
     };
-    nextState[name] = contains$1(["name", "vpc", "resource_group"], name) ? value : contains$1(["health_delay", "health_retries", "health_timeout", "port", "listener_port", "connection_limit"], name) ? Number(value) : snakeCase(value);
+    nextState[name] = contains$2(["name", "vpc", "resource_group"], name) ? value : contains$2(["health_delay", "health_retries", "health_timeout", "port", "listener_port", "connection_limit"], name) ? Number(value) : snakeCase(value);
     if (name === "vpc") {
       nextState.subnets = [];
       nextState.security_groups = [];
@@ -2378,7 +2398,7 @@ class IcseFormTemplate extends React.Component {
       // if a second param is passed
       let shownChildForms = [...this.state.shownChildForms]; // all forms
       // if contains index
-      if (contains$1(this.state.shownChildForms[index], childIndex)) {
+      if (contains$2(this.state.shownChildForms[index], childIndex)) {
         // remove index from list
         shownChildForms[index].splice(index, 1);
       } else {
@@ -2391,7 +2411,7 @@ class IcseFormTemplate extends React.Component {
     } else {
       // if only parent index
       let shownForms = [...this.state.shownArrayForms]; // all forms
-      if (contains$1(this.state.shownArrayForms, index)) {
+      if (contains$2(this.state.shownArrayForms, index)) {
         // remove if contains
         shownForms.splice(index, 1);
       } else shownForms.push(index);
@@ -2424,8 +2444,8 @@ class IcseFormTemplate extends React.Component {
    * @returns {bool} if the child forms should show
    */
   shouldShow(index) {
-    return this.props.parentToggle ? contains$1(this.props.parentToggle.shownChildren[this.props.parentToggle.index], index) // show children
-    : contains$1(this.state.shownArrayForms, index);
+    return this.props.parentToggle ? contains$2(this.props.parentToggle.shownChildren[this.props.parentToggle.index], index) // show children
+    : contains$2(this.state.shownArrayForms, index);
   }
   render() {
     let formattedName = kebabCase$2(this.props.name); // formatted component name
@@ -5197,7 +5217,7 @@ class ObjectStorageBucketForm extends Component {
       formName: this.props.data.name + "-object-storage-bucket-class",
       name: "storage_class",
       groups: ["Standard", "Vault", "Cold", "Smart"],
-      value: capitalize$1(this.state.storage_class),
+      value: capitalize$2(this.state.storage_class),
       labelText: "Bucket Class",
       handleInputChange: this.handleStorageClassChange,
       className: "fieldWidthSmaller"
@@ -6205,7 +6225,7 @@ class SubnetTileForm extends React.Component {
    */
   shouldDisableGatewayToggle(stateData) {
     let zone = parseIntFromZone(stateData.name);
-    if (contains$1(this.props.enabledPublicGateways, zone)) {
+    if (contains$2(this.props.enabledPublicGateways, zone)) {
       return false;
     } else return true;
   }
@@ -6345,7 +6365,7 @@ class SubnetTierForm extends React.Component {
   render() {
     let composedId = `${this.props.vpc_name}-tier-${this.props.data.name === "" ? "new-subnet-tier" : this.props.data.name}`;
     let formName = this.props.data.name + "-subnet-tier";
-    let tierName = this.props.data.name === "" ? "New Subnet Tier" : titleCase$1(formName).replace(/Vsi/g, "VSI").replace(/Vpe/g, "VPE").replace(/Vpn/g, "VPN");
+    let tierName = lib_12(this.props.data.name);
     return /*#__PURE__*/React.createElement(IcseSubForm, {
       formInSubForm: true,
       id: composedId,
@@ -6693,7 +6713,7 @@ class VpcNetworkForm extends React.Component {
     let currentGw = [...this.state.publicGateways]; // new array
     let zoneNumber = parseIntFromZone(zone);
     // check if zone is already present
-    if (contains$2(currentGw, zoneNumber)) {
+    if (contains$3(currentGw, zoneNumber)) {
       let index = currentGw.indexOf(zoneNumber);
       currentGw.splice(index, 1);
     } else {

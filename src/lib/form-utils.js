@@ -1,3 +1,5 @@
+const { contains, capitalize } = require("lazy-z");
+
 /**
  * create a composed class name
  * @param {string} className name of classes to add
@@ -83,6 +85,16 @@ function handleClusterInputChange(name, value, stateData) {
   return cluster;
 }
 
+function subnetTierName(tierName) {
+  if (contains(["vsi", "vpe", "vpn", "vpn-1", "vpn-2"], tierName)) {
+    return tierName.toUpperCase() + " Subnet Tier";
+  } else if (tierName === "") {
+    return "New Subnet Tier";
+  } else {
+    return capitalize(tierName) + " Subnet Tier";
+  }
+}
+
 module.exports = {
   addClassName,
   toggleMarginBottom,
@@ -90,4 +102,5 @@ module.exports = {
   checkNullorEmptyString,
   invalidRegex,
   handleClusterInputChange,
+  subnetTierName,
 };

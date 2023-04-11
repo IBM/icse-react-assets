@@ -6,6 +6,7 @@ const {
   prependEmptyStringWhenNull,
   invalidRegex,
   handleClusterInputChange,
+  subnetTierName,
 } = require("../src/lib/form-utils");
 
 describe("form-utils", () => {
@@ -102,6 +103,35 @@ describe("form-utils", () => {
       );
     });
   });
+  describe("subnetTierName", () => {
+    it("should create a display name for all caps title", () => {
+      let expectedData = "VSI Subnet Tier";
+      let actualData = subnetTierName("vsi");
+      assert.deepEqual(
+        actualData,
+        expectedData,
+        "it should return correct data"
+      );
+    });
+    it("should create a display name for modal", () => {
+      let expectedData = "New Subnet Tier";
+      let actualData = subnetTierName("");
+      assert.deepEqual(
+        actualData,
+        expectedData,
+        "it should return correct data"
+      );
+    });
+    it("should create a display name", () => {
+      let expectedData = "Frog Subnet Tier";
+      let actualData = subnetTierName("frog");
+      assert.deepEqual(
+        actualData,
+        expectedData,
+        "it should return correct data"
+      );
+    });
+  });
   describe("handleClusterInputChange", () => {
     let testCluster = {
       name: "",
@@ -142,11 +172,7 @@ describe("form-utils", () => {
     });
     it("should return testCluster with new vpc name: `management` (should reset subnets)", () => {
       handleClusterInputChange("vpc", "management", testCluster);
-      assert.deepEqual(
-        testCluster.vpc,
-        "management",
-        "it should return true"
-      );
+      assert.deepEqual(testCluster.vpc, "management", "it should return true");
       assert.deepEqual(testCluster.subnets, [], "it should return true");
     });
     it("should return testCluster with entitlement: `null`", () => {

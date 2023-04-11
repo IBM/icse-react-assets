@@ -12,6 +12,8 @@ import { DeleteButton, SaveAddButton } from "../Buttons";
 import { IcseNameInput, IcseToggle } from "../Inputs";
 import { IcseNumberSelect, IcseSelect } from "../Dropdowns";
 import SubnetTileForm from "./SubnetTileForm";
+import { subnetTierName } from "../../lib";
+import { contains } from "lazy-z";
 
 class SubnetTierForm extends React.Component {
   constructor(props) {
@@ -99,13 +101,7 @@ class SubnetTierForm extends React.Component {
       this.props.data.name === "" ? "new-subnet-tier" : this.props.data.name
     }`;
     let formName = this.props.data.name + "-subnet-tier";
-    let tierName =
-      this.props.data.name === ""
-        ? "New Subnet Tier"
-        : titleCase(formName)
-            .replace(/Vsi/g, "VSI")
-            .replace(/Vpe/g, "VPE")
-            .replace(/Vpn/g, "VPN");
+    let tierName = subnetTierName(this.props.data.name);
     return (
       <IcseSubForm formInSubForm id={composedId} className="marginBottomSmall">
         <DeleteModal
