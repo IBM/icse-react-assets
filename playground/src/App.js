@@ -1,44 +1,82 @@
 import React from "react";
-import { VsiVolumeForm } from "icse-react-assets";
+import { SubnetTierForm } from "icse-react-assets";
 import { contains } from "lazy-z";
 import "./App.css";
 
-function validName(str) {
-  const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
-  if (str) return str.match(regex) !== null;
-  else return false;
-}
+const SubnetTierFormStory = () => {
+  function invalidCallback(stateData, componentProps) {
+    return false;
+  }
 
-function encryptionKeyFilter(stateData, componentProps) {
-  // add filter here
-  return componentProps.encryptionKeys;
-}
+  function invalidTextCallback(stateData, componentProps) {
+    return contains(["foo", "bar"], stateData.name)
+      ? `Subnet tier name ${stateData.name} already in use.`
+      : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
+  }
 
-function invalidCallback(stateData, componentProps) {
-  return !validName(stateData.name) || contains(["foo", "bar"], stateData.name);
-}
+  function shouldDisableSave(stateData, componentProps) {
+    return true;
+  }
 
-function invalidTextCallback(stateData, componentProps) {
-  return contains(["foo", "bar"], stateData.name)
-    ? `Name ${stateData.name} already in use.`
-    : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
-}
+  function disableSubnetSaveCallback(stateData, componentProps) {
+    return true;
+  }
 
-function App() {
+  function propsMatchState(stateData, componentProps) {
+    return true;
+  }
+
+  function subnetListCallback(stateData, componentProps) {
+    let tierSubnets = [
+      {
+        name: stateData.name + "-subnet-zone-1",
+        cidr: "10.10.10.10/24",
+        public_gateway: stateData.addPublicGateway,
+        network_acl: stateData.networkAcl,
+      },
+      {
+        name: stateData.name + "-subnet-zone-2",
+        cidr: "10.20.10.10/24",
+        public_gateway: stateData.addPublicGateway,
+        network_acl: stateData.networkAcl,
+      },
+      {
+        name: stateData.name + "-subnet-zone-3",
+        cidr: "10.30.10.10/24",
+        public_gateway: stateData.addPublicGateway,
+        network_acl: stateData.networkAcl,
+      },
+    ];
+    while (tierSubnets.length > stateData.zones) {
+      tierSubnets.pop();
+    }
+    return tierSubnets;
+  }
+
   return (
-    <VsiVolumeForm
+    <SubnetTierForm
+      vpc_name="example-vpc"
+      data={{
+        hide: false,
+        name: "vsi",
+        zones: 3,
+        networkAcl: "example-acl-1",
+        addPublicGateway: false,
+      }}
+      shouldDisableSave={shouldDisableSave}
+      disableSubnetSaveCallback={disableSubnetSaveCallback}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
-      encryptionKeyFilter={encryptionKeyFilter}
-      encryptionKeys={["key1", "key2"]}
-      data={{
-        name: "",
-        profile: "3iops-tier",
-        encryption_key: "key1",
-        capacity: "",
-      }}
+      networkAcls={["example-acl-1", "example-acl-2"]}
+      enabledPublicGateways={[1, 2, 3]}
+      subnetListCallback={subnetListCallback}
+      propsMatchState={propsMatchState}
     />
   );
+};
+
+function App() {
+  return <SubnetTierFormStory />;
 }
 
 export default App;

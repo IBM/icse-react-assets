@@ -5,6 +5,7 @@ const {
   checkNullorEmptyString,
   invalidRegex,
   handleClusterInputChange,
+  subnetTierName,
 } = require("./form-utils");
 const { formatInputPlaceholder } = require("./text-utils");
 const { saveChangeButtonClass } = require("./button-utils");
@@ -26,4 +27,5 @@ module.exports = {
   setNameToValue,
   invalidRegex,
   handleClusterInputChange,
+  subnetTierName,
 };
