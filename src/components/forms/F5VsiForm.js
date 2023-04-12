@@ -16,7 +16,7 @@ class F5VsiForm extends Component {
   constructor(props) {
     super(props);
 
-    this.state = this.props.data;
+    this.state = { ...this.props.data };
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
@@ -27,7 +27,10 @@ class F5VsiForm extends Component {
   }
 
   handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
+    let { name, value } = event.target;
+    if (name === "zones") {
+      this.setState({ zones: Number(value) });
+    } else this.setState({ [name]: value });
   }
 
   handleMultiSelectChange(name, value) {
@@ -66,7 +69,7 @@ class F5VsiForm extends Component {
             name="zones"
             labelText="F5 Instance Zones"
             groups={buildNumberDropdownList(4)} // 0-3 Zones
-            value={this.state.zones.toString()}
+            value={this.state.zones}
             handleInputChange={this.handleInputChange}
           />
           <IcseSelect
