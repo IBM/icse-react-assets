@@ -39,8 +39,7 @@ styleInject(css_248z$1);
 
 const {
   contains: contains$1,
-  capitalize: capitalize$1,
-  toUpperCase
+  capitalize: capitalize$1
 } = lazyZ;
 
 /**
@@ -129,7 +128,6 @@ function handleClusterInputChange$1(name, value, stateData) {
   return cluster;
 }
 function subnetTierName$1(tierName) {
-  console.log(tierName);
   if (contains$1(["vsi", "vpe", "vpn", "vpn-1", "vpn-2"], tierName)) {
     return tierName.toUpperCase() + " Subnet Tier";
   } else if (tierName === "") {
@@ -3212,7 +3210,9 @@ EncryptionKeyForm.propTypes = {
 class F5VsiForm extends Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = {
+      ...this.props.data
+    };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
     this.handleVsiSave = this.handleVsiSave.bind(this);
@@ -3220,7 +3220,17 @@ class F5VsiForm extends Component {
     buildFormDefaultInputMethods(this);
   }
   handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
+    let {
+      name,
+      value
+    } = event.target;
+    if (name === "zones") {
+      this.setState({
+        zones: Number(value)
+      });
+    } else this.setState({
+      [name]: value
+    });
   }
   handleMultiSelectChange(name, value) {
     this.setState(this.setNameToValue(name, value));
@@ -3245,7 +3255,7 @@ class F5VsiForm extends Component {
       labelText: "F5 Instance Zones",
       groups: buildNumberDropdownList(4) // 0-3 Zones
       ,
-      value: this.state.zones.toString(),
+      value: this.state.zones,
       handleInputChange: this.handleInputChange
     }), /*#__PURE__*/React.createElement(IcseSelect, {
       formName: "f5_vsi_form",
