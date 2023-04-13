@@ -3271,18 +3271,18 @@ class F5VsiForm extends Component {
       onChange: value => this.handleMultiSelectChange("ssh_keys", value)
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
       formName: "f5_vsi_form",
-      name: "f5_image_name",
+      name: "image",
       labelText: "F5 Image",
       groups: this.props.f5Images,
-      value: this.state.f5_image_name,
+      value: this.state.image,
       handleInputChange: this.handleInputChange
     }), /*#__PURE__*/React.createElement(FetchSelect, {
       formName: "f5_vsi_form",
-      labelText: "Flavor",
-      name: "machine_type",
+      labelText: "Profile",
+      name: "profile",
       apiEndpoint: this.props.apiEndpointInstanceProfiles,
       handleInputChange: this.handleInputChange,
-      value: this.state.machine_type
+      value: this.state.profile
     })), vsis.length > 0 && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(IcseHeading, {
       name: "F5 Big IP Virtual Servers",
       type: "subHeading",
@@ -3365,10 +3365,10 @@ class F5VsiTile extends React.Component {
       className: "marginBottomSmall"
     }, /*#__PURE__*/React.createElement(IcseSelect, {
       formName: "f5_vsi_form",
-      name: "boot_volume_encryption_key_name",
+      name: "encryption_key",
       labelText: "Encryption Key",
       groups: this.props.encryptionKeys,
-      value: this.state.boot_volume_encryption_key_name,
+      value: this.state.encryption_key,
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller"
     })));
@@ -3379,8 +3379,8 @@ F5VsiForm.defaultProps = {
     zones: 0,
     resource_group: "",
     ssh_keys: [],
-    f5_image_name: "",
-    machine_type: ""
+    image: "",
+    profile: ""
   },
   vsis: [],
   edge_pattern: "vpn-and-waf",
@@ -3391,8 +3391,8 @@ F5VsiForm.propTypes = {
     zones: PropTypes.number.isRequired,
     resource_group: PropTypes.string.isRequired,
     ssh_keys: PropTypes.array,
-    f5_image_name: PropTypes.string.isRequired,
-    machine_type: PropTypes.string.isRequired
+    image: PropTypes.string.isRequired,
+    profile: PropTypes.string.isRequired
   }).isRequired,
   vsis: PropTypes.array.isRequired,
   edge_pattern: PropTypes.string.isRequired,

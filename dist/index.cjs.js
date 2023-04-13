@@ -3282,18 +3282,18 @@ class F5VsiForm extends React.Component {
       onChange: value => this.handleMultiSelectChange("ssh_keys", value)
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       formName: "f5_vsi_form",
-      name: "f5_image_name",
+      name: "image",
       labelText: "F5 Image",
       groups: this.props.f5Images,
-      value: this.state.f5_image_name,
+      value: this.state.image,
       handleInputChange: this.handleInputChange
     }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
       formName: "f5_vsi_form",
-      labelText: "Flavor",
-      name: "machine_type",
+      labelText: "Profile",
+      name: "profile",
       apiEndpoint: this.props.apiEndpointInstanceProfiles,
       handleInputChange: this.handleInputChange,
-      value: this.state.machine_type
+      value: this.state.profile
     })), vsis.length > 0 && /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
       name: "F5 Big IP Virtual Servers",
       type: "subHeading",
@@ -3376,10 +3376,10 @@ class F5VsiTile extends React__default["default"].Component {
       className: "marginBottomSmall"
     }, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       formName: "f5_vsi_form",
-      name: "boot_volume_encryption_key_name",
+      name: "encryption_key",
       labelText: "Encryption Key",
       groups: this.props.encryptionKeys,
-      value: this.state.boot_volume_encryption_key_name,
+      value: this.state.encryption_key,
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller"
     })));
@@ -3390,8 +3390,8 @@ F5VsiForm.defaultProps = {
     zones: 0,
     resource_group: "",
     ssh_keys: [],
-    f5_image_name: "",
-    machine_type: ""
+    image: "",
+    profile: ""
   },
   vsis: [],
   edge_pattern: "vpn-and-waf",
@@ -3402,8 +3402,8 @@ F5VsiForm.propTypes = {
     zones: PropTypes__default["default"].number.isRequired,
     resource_group: PropTypes__default["default"].string.isRequired,
     ssh_keys: PropTypes__default["default"].array,
-    f5_image_name: PropTypes__default["default"].string.isRequired,
-    machine_type: PropTypes__default["default"].string.isRequired
+    image: PropTypes__default["default"].string.isRequired,
+    profile: PropTypes__default["default"].string.isRequired
   }).isRequired,
   vsis: PropTypes__default["default"].array.isRequired,
   edge_pattern: PropTypes__default["default"].string.isRequired,

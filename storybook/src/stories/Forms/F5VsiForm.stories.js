@@ -28,13 +28,13 @@ export default {
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.f5_image_name"]: {
+    ["data.image"]: {
       description:
         "A string value representing the virtual server image deployed on the VSI",
       control: "none",
       type: { required: true }, // required prop or not
     },
-    ["data.machine_type"]: {
+    ["data.profile"]: {
       description:
         "A string value representing the type of machine requested for the VSI",
       control: "none",
@@ -165,14 +165,13 @@ const F5VsiFormStory = () => {
 
     // create new vsi
     let vsi = {
-      boot_volume_encryption_key_name: "key",
+      encryption_key: "key",
       domain: "local",
       enable_external_floating_ip: true,
       enable_management_floating_ip: false,
-      f5_image_name:
-        params?.f5_image_name || "f5-bigip-16-1-2-2-0-0-28-all-1slot",
+      image: params?.image || "f5-bigip-16-1-2-2-0-0-28-all-1slot",
       hostname: "f5-ve-01",
-      machine_type: params?.machine_type || "cx2-4x8",
+      profile: params?.profile || "cx2-4x8",
       name: "f5-" + zone,
       primary_subnet_name: `f5-management-${zone}`,
       resource_group: params?.resource_group || `${vpcName}-rg`,
@@ -205,8 +204,8 @@ const F5VsiFormStory = () => {
           zones: 0,
           resource_group: "rg2",
           ssh_keys: ["key1"],
-          f5_image_name: "f5-bigip-15-1-5-1-0-0-14-all-1slot",
-          machine_type: "type1",
+          image: "f5-bigip-15-1-5-1-0-0-14-all-1slot",
+          profile: "type1",
         }}
         apiEndpointInstanceProfiles="/api/mock/flavors"
         resourceGroups={["rg1", "rg2", "rg3"]}
