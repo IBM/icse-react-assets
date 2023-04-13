@@ -62,6 +62,7 @@ class VsiForm extends Component {
     let volumeProps = {
       invalidCallback: this.props.invalidVsiVolumeCallback,
       invalidTextCallback: this.props.invalidVsiVolumeTextCallback,
+      arrayParentName: this.props.data.name,
       parent_name: this.props.data.name,
     };
     transpose({ ...this.props.vsiVolumeProps }, volumeProps);

@@ -3243,10 +3243,10 @@ class F5VsiForm extends Component {
     while (vsis.length < this.state.zones) {
       // add a new vsi to display
       vsis.push(this.props.initVsiCallback(this.props.edge_pattern, `zone-${vsis.length + 1}`, this.props.f5_on_management, {
-        f5_image_name: this.state.f5_image_name,
+        image: this.state.image,
         resource_group: this.state.resource_group,
         ssh_keys: this.state.ssh_keys,
-        machine_type: this.state.machine_type
+        profile: this.state.profile
       }));
     }
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
