@@ -5529,8 +5529,7 @@ ObjectStorageInstancesForm.propTypes = {
   }),
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
-  composedNameCallback: PropTypes.func.isRequired,
-  subForms: PropTypes.arrayOf(PropTypes.node)
+  composedNameCallback: PropTypes.func.isRequired
 };
 
 /** Resource Groups
@@ -7935,7 +7934,6 @@ class AccessGroupPolicyForm extends React.Component {
       groups: this.props.resourceGroups,
       value: this.state.resources.resource_group,
       handleInputChange: this.handleInputResource,
-      invalidText: "Select a Resource Group",
       labelText: "Resource Group",
       tooltip: {
         content: "Name of the resource group the policy will apply to",
@@ -8003,10 +8001,10 @@ AccessGroupPolicyForm.propTypes = {
     resources: PropTypes.shape({
       resource_group: PropTypes.string,
       // can be null
-      resource_type: PropTypes.string.isRequired,
-      resource: PropTypes.string.isRequired,
-      service: PropTypes.string.isRequired,
-      resource_instance_id: PropTypes.string.isRequired
+      resource_type: PropTypes.string,
+      resource: PropTypes.string,
+      service: PropTypes.string,
+      resource_instance_id: PropTypes.string
     }).isRequired
   }).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -8258,9 +8256,7 @@ class AccessGroupForm extends React.Component {
       toggleFormProps: {
         hideName: true,
         submissionFieldName: "policies",
-        disableSave: () => {
-          return false;
-        },
+        disableSave: this.props.policyProps.disableSave,
         type: "formInSubForm"
       }
     }), /*#__PURE__*/React.createElement(IcseFormTemplate, {
@@ -8281,9 +8277,7 @@ class AccessGroupForm extends React.Component {
       toggleFormProps: {
         hideName: true,
         submissionFieldName: "dynamic_policies",
-        disableSave: () => {
-          return false;
-        },
+        disableSave: this.props.dynamicPolicyProps.disableSave,
         type: "formInSubForm"
       }
     })));
