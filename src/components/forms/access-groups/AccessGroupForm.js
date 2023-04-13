@@ -47,7 +47,6 @@ class AccessGroupForm extends React.Component {
     return (
       <>
         <IcseFormGroup>
-          {/* vpc name */}
           <IcseNameInput
             id="name"
             componentName="access_groups"
