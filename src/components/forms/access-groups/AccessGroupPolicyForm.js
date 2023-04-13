@@ -83,7 +83,6 @@ class AccessGroupPolicyForm extends React.Component {
             groups={this.props.resourceGroups}
             value={this.state.resources.resource_group}
             handleInputChange={this.handleInputResource}
-            invalidText="Select a Resource Group"
             labelText="Resource Group"
             tooltip={{
               content: "Name of the resource group the policy will apply to",
