@@ -7262,6 +7262,7 @@ class VsiForm extends React.Component {
     let volumeProps = {
       invalidCallback: this.props.invalidVsiVolumeCallback,
       invalidTextCallback: this.props.invalidVsiVolumeTextCallback,
+      arrayParentName: this.props.data.name,
       parent_name: this.props.data.name
     };
     lazyZ.transpose({
