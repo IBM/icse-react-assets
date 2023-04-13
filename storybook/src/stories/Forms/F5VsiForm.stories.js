@@ -1,6 +1,6 @@
 import React from "react";
 import { F5VsiForm } from "icse-react-assets";
-import { azsort } from "lazy-z";
+import { azsort, deepEqual } from "lazy-z";
 
 export default {
   component: F5VsiForm,
@@ -102,9 +102,8 @@ export default {
       type: { required: true }, // required prop or not
       control: "none",
     },
-    disableSaveCallback: {
-      description:
-        "Function that determines whether the save button should be disabled",
+    propsMatchState: {
+      description: "Function that determines props match state",
       type: { required: true }, // required prop or not
       control: "none",
     },
@@ -195,8 +194,8 @@ const F5VsiFormStory = () => {
     return false;
   }
 
-  function shouldDisableSave(stateData, componentProps) {
-    return false;
+  function propsMatchState(field, stateData, componentProps) {
+    return deepEqual(stateData, componentProps.data);
   }
 
   return (
@@ -224,7 +223,7 @@ const F5VsiFormStory = () => {
         initVsiCallback={initVsi}
         saveVsiCallback={saveVsi}
         hideSaveCallback={shouldHideSave}
-        disableSaveCallback={shouldDisableSave}
+        propsMatchState={propsMatchState}
       />
     </div>
   );
