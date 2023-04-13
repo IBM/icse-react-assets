@@ -44,12 +44,6 @@ export default {
       type: { required: true }, // required prop or not
       control: "none",
     },
-    subForms: {
-      description:
-        "An array react nodes containing forms to render beneath this form",
-      type: { required: true }, // required prop or not
-      control: "none",
-    },
     isModal: {
       description: "Boolean value determining if the form is a modal",
       type: { required: true }, // required prop or not
@@ -129,7 +123,7 @@ const ObjectStorageFormStory = () => {
             name: "cos-bind-key",
             role: "Writer",
             enable_hmac: false,
-            use_random_suffix: false
+            use_random_suffix: false,
           },
         ],
         name: "atracker-cos",
