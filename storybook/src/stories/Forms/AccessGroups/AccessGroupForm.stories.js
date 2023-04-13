@@ -1,6 +1,4 @@
 import { AccessGroupForm } from "icse-react-assets";
-import { AccessGroupPolicyStory } from "./AccessGroupPolicyForm.stories.js";
-import { AccessGroupDynamicPolicyStory } from "./AccessGroupDynamicPolicyForm.stories.js";
 import React from "react";
 
 export default {
@@ -21,12 +19,6 @@ export default {
       description: "A string value of the access group description",
       control: "none",
       type: { required: true }, // required prop or not
-    },
-    subForms: {
-      description:
-        "An array react nodes containing forms to render beneath this form",
-      type: { required: true }, // required prop or not
-      control: "none",
     },
     isModal: {
       description: "Boolean value determining if the form is a modal",
