@@ -3255,7 +3255,7 @@ class F5VsiForm extends Component {
       labelText: "F5 Instance Zones",
       groups: buildNumberDropdownList(4) // 0-3 Zones
       ,
-      value: this.state.zones,
+      value: this.state.zones.toString(),
       handleInputChange: this.handleInputChange
     }), /*#__PURE__*/React.createElement(IcseSelect, {
       formName: "f5_vsi_form",
@@ -3300,7 +3300,7 @@ class F5VsiForm extends Component {
         resourceGroups: this.props.resourceGroups,
         encryptionKeys: this.props.encryptionKeys,
         hideSaveCallback: this.props.hideSaveCallback,
-        disableSaveCallback: this.props.disableSaveCallback
+        propsMatchState: this.props.propsMatchState
       });
     }))));
   }
@@ -3311,7 +3311,6 @@ class F5VsiTile extends React.Component {
     this.state = this.props.data;
     this.handleInputChange = this.handleInputChange.bind(this);
     this.shouldHideSave = this.shouldHideSave.bind(this);
-    this.shouldDisableSave = this.shouldDisableSave.bind(this);
   }
   handleInputChange(event) {
     let {
@@ -3325,9 +3324,6 @@ class F5VsiTile extends React.Component {
   shouldHideSave() {
     return this.props.hideSaveCallback(this.state, this.props);
   }
-  shouldDisableSave() {
-    return this.props.disableSaveCallback(this.state, this.props);
-  }
   render() {
     return /*#__PURE__*/React.createElement(Tile, {
       className: "fieldWidth"
@@ -3340,7 +3336,7 @@ class F5VsiTile extends React.Component {
         show: /*#__PURE__*/React.createElement(SaveAddButton, {
           onClick: () => this.props.onSave(this.state),
           noDeleteButton: true,
-          disabled: this.shouldDisableSave()
+          disabled: this.props.propsMatchState("f5_vsi", this.state, this.props)
         })
       })
     }), /*#__PURE__*/React.createElement(IcseFormGroup, {
@@ -3413,7 +3409,7 @@ F5VsiForm.propTypes = {
   initVsiCallback: PropTypes.func.isRequired,
   saveVsiCallback: PropTypes.func.isRequired,
   hideSaveCallback: PropTypes.func.isRequired,
-  disableSaveCallback: PropTypes.func.isRequired
+  propsMatchState: PropTypes.func.isRequired
 };
 
 const {

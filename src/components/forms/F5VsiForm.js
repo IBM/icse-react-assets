@@ -69,7 +69,7 @@ class F5VsiForm extends Component {
             name="zones"
             labelText="F5 Instance Zones"
             groups={buildNumberDropdownList(4)} // 0-3 Zones
-            value={this.state.zones}
+            value={this.state.zones.toString()}
             handleInputChange={this.handleInputChange}
           />
           <IcseSelect
@@ -129,7 +129,7 @@ class F5VsiForm extends Component {
                       resourceGroups={this.props.resourceGroups}
                       encryptionKeys={this.props.encryptionKeys}
                       hideSaveCallback={this.props.hideSaveCallback}
-                      disableSaveCallback={this.props.disableSaveCallback}
+                      propsMatchState={this.props.propsMatchState}
                     />
                   );
               })}
@@ -149,7 +149,6 @@ class F5VsiTile extends React.Component {
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.shouldHideSave = this.shouldHideSave.bind(this);
-    this.shouldDisableSave = this.shouldDisableSave.bind(this);
   }
 
   handleInputChange(event) {
@@ -159,10 +158,6 @@ class F5VsiTile extends React.Component {
 
   shouldHideSave() {
     return this.props.hideSaveCallback(this.state, this.props);
-  }
-
-  shouldDisableSave() {
-    return this.props.disableSaveCallback(this.state, this.props);
   }
 
   render() {
@@ -179,7 +174,11 @@ class F5VsiTile extends React.Component {
                 <SaveAddButton
                   onClick={() => this.props.onSave(this.state)}
                   noDeleteButton
-                  disabled={this.shouldDisableSave()}
+                  disabled={this.props.propsMatchState(
+                    "f5_vsi",
+                    this.state,
+                    this.props
+                  )}
                 />
               }
             />
@@ -260,7 +259,7 @@ F5VsiForm.propTypes = {
   initVsiCallback: PropTypes.func.isRequired,
   saveVsiCallback: PropTypes.func.isRequired,
   hideSaveCallback: PropTypes.func.isRequired,
-  disableSaveCallback: PropTypes.func.isRequired,
+  propsMatchState: PropTypes.func.isRequired,
 };
 
 export default F5VsiForm;
