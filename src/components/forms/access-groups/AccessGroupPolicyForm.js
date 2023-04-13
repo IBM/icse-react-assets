@@ -165,10 +165,10 @@ AccessGroupPolicyForm.propTypes = {
     name: PropTypes.string.isRequired,
     resources: PropTypes.shape({
       resource_group: PropTypes.string, // can be null
-      resource_type: PropTypes.string.isRequired,
-      resource: PropTypes.string.isRequired,
-      service: PropTypes.string.isRequired,
-      resource_instance_id: PropTypes.string.isRequired,
+      resource_type: PropTypes.string,
+      resource: PropTypes.string,
+      service: PropTypes.string,
+      resource_instance_id: PropTypes.string,
     }).isRequired,
   }).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,

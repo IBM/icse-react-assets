@@ -28,30 +28,30 @@ export default {
     ["data.resources.resource_group"]: {
       description: "A string value of the resource group name",
       control: "none",
-      type: { required: true }, // required prop or not
+      type: { required: false }, // required prop or not
     },
     ["data.resources.resource_type"]: {
       description:
         "A string value of the type of resource (ex. resource-group)",
       control: "none",
-      type: { required: true }, // required prop or not
+      type: { required: false }, // required prop or not
     },
     ["data.resources.resource"]: {
       description: "A string value for the resource of the policy definition",
       control: "none",
-      type: { required: true }, // required prop or not
+      type: { required: false }, // required prop or not
     },
     ["data.resources.service"]: {
       description:
         "String value for the service type of the policy (ex. cloud-object-storage)",
       control: "none",
-      type: { required: true }, // required prop or not
+      type: { required: false }, // required prop or not
     },
     ["data.resources.resource_instance_id"]: {
       description:
         "String value for the ID of the service instance to give permissions",
       control: "none",
-      type: { required: true }, // required prop or not
+      type: { required: false }, // required prop or not
     },
     isModal: {
       description: "Boolean value determining if the form is a modal",
