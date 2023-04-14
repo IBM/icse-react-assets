@@ -47,7 +47,6 @@ class AccessGroupForm extends React.Component {
     return (
       <>
         <IcseFormGroup>
-          {/* vpc name */}
           <IcseNameInput
             id="name"
             componentName="access_groups"
@@ -94,9 +93,7 @@ class AccessGroupForm extends React.Component {
               toggleFormProps={{
                 hideName: true,
                 submissionFieldName: "policies",
-                disableSave: () => {
-                  return false;
-                },
+                disableSave: this.props.policyProps.disableSave,
                 type: "formInSubForm",
               }}
             />
@@ -116,9 +113,7 @@ class AccessGroupForm extends React.Component {
               toggleFormProps={{
                 hideName: true,
                 submissionFieldName: "dynamic_policies",
-                disableSave: () => {
-                  return false;
-                },
+                disableSave: this.props.dynamicPolicyProps.disableSave,
                 type: "formInSubForm",
               }}
             />

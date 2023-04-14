@@ -192,7 +192,6 @@ ObjectStorageInstancesForm.propTypes = {
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
   composedNameCallback: PropTypes.func.isRequired,
-  subForms: PropTypes.arrayOf(PropTypes.node),
 };
 
 export default ObjectStorageInstancesForm;

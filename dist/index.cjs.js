@@ -5540,8 +5540,7 @@ ObjectStorageInstancesForm.propTypes = {
   }),
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  composedNameCallback: PropTypes__default["default"].func.isRequired,
-  subForms: PropTypes__default["default"].arrayOf(PropTypes__default["default"].node)
+  composedNameCallback: PropTypes__default["default"].func.isRequired
 };
 
 /** Resource Groups
@@ -7946,7 +7945,6 @@ class AccessGroupPolicyForm extends React__default["default"].Component {
       groups: this.props.resourceGroups,
       value: this.state.resources.resource_group,
       handleInputChange: this.handleInputResource,
-      invalidText: "Select a Resource Group",
       labelText: "Resource Group",
       tooltip: {
         content: "Name of the resource group the policy will apply to",
@@ -8014,10 +8012,10 @@ AccessGroupPolicyForm.propTypes = {
     resources: PropTypes__default["default"].shape({
       resource_group: PropTypes__default["default"].string,
       // can be null
-      resource_type: PropTypes__default["default"].string.isRequired,
-      resource: PropTypes__default["default"].string.isRequired,
-      service: PropTypes__default["default"].string.isRequired,
-      resource_instance_id: PropTypes__default["default"].string.isRequired
+      resource_type: PropTypes__default["default"].string,
+      resource: PropTypes__default["default"].string,
+      service: PropTypes__default["default"].string,
+      resource_instance_id: PropTypes__default["default"].string
     }).isRequired
   }).isRequired,
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
@@ -8269,9 +8267,7 @@ class AccessGroupForm extends React__default["default"].Component {
       toggleFormProps: {
         hideName: true,
         submissionFieldName: "policies",
-        disableSave: () => {
-          return false;
-        },
+        disableSave: this.props.policyProps.disableSave,
         type: "formInSubForm"
       }
     }), /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
@@ -8292,9 +8288,7 @@ class AccessGroupForm extends React__default["default"].Component {
       toggleFormProps: {
         hideName: true,
         submissionFieldName: "dynamic_policies",
-        disableSave: () => {
-          return false;
-        },
+        disableSave: this.props.dynamicPolicyProps.disableSave,
         type: "formInSubForm"
       }
     })));

@@ -6,7 +6,7 @@ export default {
   title: "Components/Forms/AccessGroups/AccessGroupDynamicPolicyForm",
   argTypes: {
     data: {
-      summary: "An object that contains the data for the form.",
+      summary: "An object that contains the data for the form",
       type: { required: false }, // required prop or not
       control: "none",
     },
@@ -27,13 +27,13 @@ export default {
       type: { required: true }, // required prop or not
     },
     ["data.conditions"]: {
-      description: "An object",
+      description:
+        "An object containing the conditions required for the dynamic policy",
       control: "none",
       type: { required: true }, // required prop or not
     },
     ["data.conditions.claim"]: {
-      description:
-        "A string value for the key to evaluate the condition against",
+      description: "String value for the key to evaluate the condition against",
       control: "none",
       type: { required: true }, // required prop or not
     },
