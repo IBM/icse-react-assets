@@ -7919,7 +7919,7 @@ class AccessGroupPolicyForm extends React__default["default"].Component {
       onChange: this.handleInputChange,
       labelText: "Name",
       invalidText: this.props.invalidTextCallback(this.state, this.props),
-      invalid: this.props.invalidCallback("name", this.state, this.props),
+      invalid: this.props.invalidCallback(this.state, this.props),
       helperTextCallback: () => this.props.helperTextCallback(this.state, this.props)
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
       className: "marginBottomSmall"
@@ -8088,7 +8088,7 @@ class AccessGroupDynamicPolicyForm extends React__default["default"].Component {
       value: this.state.name,
       onChange: this.handleInputChange,
       invalidText: this.props.invalidTextCallback(this.state, this.props),
-      invalid: this.props.invalidCallback("name", this.state, this.props),
+      invalid: this.props.invalidCallback(this.state, this.props),
       helperTextCallback: () => this.props.helperTextCallback(this.state, this.props)
     }), /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
       tooltip: {
@@ -8234,7 +8234,7 @@ class AccessGroupForm extends React__default["default"].Component {
       onChange: this.handleInputChange,
       className: "fieldWidth",
       hideHelperText: true,
-      invalid: this.props.invalidCallback("name", this.state, this.props),
+      invalid: this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props)
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: "description",
