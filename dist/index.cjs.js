@@ -1190,7 +1190,7 @@ EndpointSelect.defaultProps = {
 
 const EmptyResourceTile = props => {
   return !props.showIfEmpty || props.showIfEmpty.length === 0 ? /*#__PURE__*/React__default["default"].createElement(react.Tile, {
-    className: "marginBottomXs tileBackground"
+    className: "tileBackground displayFlex alignItemsCenter"
   }, /*#__PURE__*/React__default["default"].createElement(iconsReact.CloudAlerting, {
     size: "24",
     className: "iconMargin"
