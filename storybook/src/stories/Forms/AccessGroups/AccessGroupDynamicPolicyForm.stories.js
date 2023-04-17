@@ -77,6 +77,12 @@ export default {
       type: { required: true }, // required prop or not
       control: "none",
     },
+    invalidIdentityProviderCallback: {
+      description:
+        "Function that determines whether or not identity provider value is valid",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
   },
   parameters: {
     docs: {
@@ -95,10 +101,8 @@ export const AccessGroupDynamicPolicyStory = () => {
     else return false;
   }
 
-  function invalidCallback(field, stateData, componentProps) {
-    if (field === "identity_provider")
-      return !(stateData.identity_provider.length >= 6);
-    else return !validName(stateData.name);
+  function invalidCallback(stateData, componentProps) {
+    return !validName(stateData.name);
   }
 
   function invalidTextCallback(stateData, componentProps) {
@@ -110,6 +114,11 @@ export const AccessGroupDynamicPolicyStory = () => {
   function composedNameCallback(stateData, componentProps) {
     return `${stateData.name}-<random suffix>`;
   }
+
+  function invalidIdentityProviderCallback(stateData, componentProps) {
+    return !(stateData.identity_provider.length >= 6);
+  }
+
   return (
     <AccessGroupDynamicPolicyForm
       data={{
@@ -125,6 +134,7 @@ export const AccessGroupDynamicPolicyStory = () => {
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
       helperTextCallback={composedNameCallback}
+      invalidIdentityProviderCallback={invalidIdentityProviderCallback}
     />
   );
 };

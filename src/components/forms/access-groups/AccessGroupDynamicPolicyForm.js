@@ -100,8 +100,7 @@ class AccessGroupDynamicPolicyForm extends React.Component {
             isModal={this.props.isModal}
             labelText="Identity Provider"
             value={this.state.identity_provider}
-            invalid={this.props.invalidCallback(
-              "identity_provider",
+            invalid={this.props.invalidIdentityProviderCallback(
               this.state,
               this.props
             )}
@@ -191,6 +190,7 @@ AccessGroupDynamicPolicyForm.propTypes = {
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
   helperTextCallback: PropTypes.func.isRequired,
+  invalidIdentityProviderCallback: PropTypes.func.isRequired,
 };
 
 export default AccessGroupDynamicPolicyForm;
