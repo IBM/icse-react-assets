@@ -69,7 +69,7 @@ class AccessGroupDynamicPolicyForm extends React.Component {
             value={this.state.name}
             onChange={this.handleInputChange}
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
-            invalid={this.props.invalidCallback("name", this.state, this.props)}
+            invalid={this.props.invalidCallback(this.state, this.props)}
             helperTextCallback={() =>
               this.props.helperTextCallback(this.state, this.props)
             }
