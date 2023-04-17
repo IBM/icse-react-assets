@@ -8112,7 +8112,7 @@ class AccessGroupDynamicPolicyForm extends React__default["default"].Component {
       isModal: this.props.isModal,
       labelText: "Identity Provider",
       value: this.state.identity_provider,
-      invalid: this.props.invalidCallback("identity_provider", this.state, this.props),
+      invalid: this.props.invalidIdentityProviderCallback(this.state, this.props),
       onChange: this.handleInputChange,
       className: "textInputWide"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
@@ -8188,7 +8188,8 @@ AccessGroupDynamicPolicyForm.propTypes = {
   isModal: PropTypes__default["default"].bool.isRequired,
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  helperTextCallback: PropTypes__default["default"].func.isRequired
+  helperTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidIdentityProviderCallback: PropTypes__default["default"].func.isRequired
 };
 
 class AccessGroupForm extends React__default["default"].Component {
@@ -8212,6 +8213,7 @@ class AccessGroupForm extends React__default["default"].Component {
     let dynamicPolicyProps = {
       invalidCallback: this.props.invalidDynamicPolicyCallback,
       invalidTextCallback: this.props.invalidDynamicPolicyTextCallback,
+      invalidIdentityProviderCallback: this.props.invalidIdentityProviderCallback,
       arrayParentName: this.props.data.name,
       helperTextCallback: this.props.dynamicPolicyHelperTextCallback
     };
