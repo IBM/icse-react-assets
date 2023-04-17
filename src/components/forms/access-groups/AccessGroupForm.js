@@ -33,6 +33,8 @@ class AccessGroupForm extends React.Component {
     let dynamicPolicyProps = {
       invalidCallback: this.props.invalidDynamicPolicyCallback,
       invalidTextCallback: this.props.invalidDynamicPolicyTextCallback,
+      invalidIdentityProviderCallback:
+        this.props.invalidIdentityProviderCallback,
       arrayParentName: this.props.data.name,
       helperTextCallback: this.props.dynamicPolicyHelperTextCallback,
     };

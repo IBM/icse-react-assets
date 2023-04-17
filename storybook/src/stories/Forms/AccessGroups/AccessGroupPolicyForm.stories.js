@@ -99,10 +99,8 @@ export const AccessGroupPolicyStory = () => {
     else return false;
   }
 
-  function invalidCallback(field, stateData, componentProps) {
-    if (field === "identity_provider")
-      return !(stateData.identity_provider.length >= 6);
-    else return !validName(stateData.name);
+  function invalidCallback(stateData, componentProps) {
+    return !validName(stateData.name);
   }
 
   function invalidTextCallback(stateData, componentProps) {
