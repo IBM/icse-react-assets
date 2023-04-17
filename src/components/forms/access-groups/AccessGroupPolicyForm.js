@@ -88,6 +88,7 @@ class AccessGroupPolicyForm extends React.Component {
               content: "Name of the resource group the policy will apply to",
               alignModal: "bottom-left",
             }}
+            disableInvalid // resource group is not required
           />
         </IcseFormGroup>
         <IcseFormGroup>
