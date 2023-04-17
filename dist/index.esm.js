@@ -3439,7 +3439,7 @@ const tmosAdminPasswordValidationExp = new RegexButWithWords$1().stringBegin().l
  * @returns {boolean} true when url is valid and not empty, false when invalid
  */
 function isValidUrl(url) {
-  if (isNullOrEmptyString$2(url)) return false;
+  if (isNullOrEmptyString$2(url)) return true;
   return url.match(urlValidationExp) !== null;
 }
 
