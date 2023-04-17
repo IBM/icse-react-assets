@@ -51,7 +51,7 @@ class AccessGroupPolicyForm extends React.Component {
             onChange={this.handleInputChange}
             labelText="Name"
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
-            invalid={this.props.invalidCallback("name", this.state, this.props)}
+            invalid={this.props.invalidCallback(this.state, this.props)}
             helperTextCallback={() =>
               this.props.helperTextCallback(this.state, this.props)
             }
@@ -88,6 +88,7 @@ class AccessGroupPolicyForm extends React.Component {
               content: "Name of the resource group the policy will apply to",
               alignModal: "bottom-left",
             }}
+            disableInvalid // resource group is not required
           />
         </IcseFormGroup>
         <IcseFormGroup>

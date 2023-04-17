@@ -934,12 +934,12 @@ Docs.propTypes = {
 
 const IcseSelect = props => {
   let invalid =
-  // automatically set to invalid is is null or empty string and invalid not disabled
+  // automatically set to invalid if value is null or empty string and invalid not disabled
   props.disableInvalid !== true && lazyZ.isNullOrEmptyString(props.value) ? true : props.invalid;
   let groups = props.groups.length === 0 ? [] // if no groups, empty array
   : lib_3(
-  // otherwise try and prepend empty string if null
-  props.value, props.groups);
+  // otherwise try and prepend empty string if null or empty string is allowed
+  props.disableInvalid ? "" : props.value, props.groups);
   // please leave debug here //
   if (props.debug) {
     console.log("PROPS: ", props);
@@ -7919,7 +7919,7 @@ class AccessGroupPolicyForm extends React__default["default"].Component {
       onChange: this.handleInputChange,
       labelText: "Name",
       invalidText: this.props.invalidTextCallback(this.state, this.props),
-      invalid: this.props.invalidCallback("name", this.state, this.props),
+      invalid: this.props.invalidCallback(this.state, this.props),
       helperTextCallback: () => this.props.helperTextCallback(this.state, this.props)
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
       className: "marginBottomSmall"
@@ -7949,7 +7949,8 @@ class AccessGroupPolicyForm extends React__default["default"].Component {
       tooltip: {
         content: "Name of the resource group the policy will apply to",
         alignModal: "bottom-left"
-      }
+      },
+      disableInvalid: true // resource group is not required
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: "resource_instance_id",
       componentName: "resource_instance_id",
@@ -8087,7 +8088,7 @@ class AccessGroupDynamicPolicyForm extends React__default["default"].Component {
       value: this.state.name,
       onChange: this.handleInputChange,
       invalidText: this.props.invalidTextCallback(this.state, this.props),
-      invalid: this.props.invalidCallback("name", this.state, this.props),
+      invalid: this.props.invalidCallback(this.state, this.props),
       helperTextCallback: () => this.props.helperTextCallback(this.state, this.props)
     }), /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
       tooltip: {
@@ -8233,7 +8234,7 @@ class AccessGroupForm extends React__default["default"].Component {
       onChange: this.handleInputChange,
       className: "fieldWidth",
       hideHelperText: true,
-      invalid: this.props.invalidCallback("name", this.state, this.props),
+      invalid: this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props)
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: "description",

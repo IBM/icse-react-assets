@@ -13,7 +13,7 @@ import { DynamicToolTipWrapper } from "./Tooltips";
 import React from "react";
 
 export const IcseSelect = (props) => {
-  let invalid = // automatically set to invalid is is null or empty string and invalid not disabled
+  let invalid = // automatically set to invalid if value is null or empty string and invalid not disabled
     props.disableInvalid !== true && isNullOrEmptyString(props.value)
       ? true
       : props.invalid;
@@ -21,8 +21,8 @@ export const IcseSelect = (props) => {
     props.groups.length === 0
       ? [] // if no groups, empty array
       : prependEmptyStringWhenNull(
-          // otherwise try and prepend empty string if null
-          props.value,
+          // otherwise try and prepend empty string if null or empty string is allowed
+          props.disableInvalid ? "" : props.value,
           props.groups
         );
   // please leave debug here //
