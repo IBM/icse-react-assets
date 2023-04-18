@@ -3337,7 +3337,7 @@ class F5VsiTile extends React__default["default"].Component {
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(react.Tile, {
-      className: "fieldWidth"
+      className: "fieldWidth subForm"
     }, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
       name: this.state.name,
       type: "subHeading",
