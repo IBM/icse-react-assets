@@ -44,7 +44,7 @@ const tmosAdminPasswordValidationExp = new RegexButWithWords()
  * @returns {boolean} true when url is valid and not empty, false when invalid
  */
 function isValidUrl(url) {
-  if (isNullOrEmptyString(url)) return true;
+  if (isNullOrEmptyString(url) || url === "null") return true;
   return url.match(urlValidationExp) !== null;
 }
 

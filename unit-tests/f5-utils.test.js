@@ -38,7 +38,7 @@ describe("f5-utils", () => {
   });
   describe("isValidUrl", () => {
     it("should be false for empty or null string", () => {
-      assert.isTrue(isValidUrl("") && isValidUrl(null));
+      assert.isTrue(isValidUrl("") && isValidUrl(null) && isValidUrl("null"));
     });
     it("should be false for invalid url", () => {
       assert.isFalse(isValidUrl("invalid.url"));
