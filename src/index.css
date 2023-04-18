@@ -32,6 +32,14 @@
   --cds-text-inverse: #262626;
 }
 
+.subForm {
+  --cds-field: #ffffff;
+}
+
+.formInSubForm {
+  --cds-field: #f4f4f4;
+}
+
 .dark {
   background-color: var(--background);
 }
@@ -54,6 +62,14 @@
 /* styling for tooltip content in dark mode */
 .dark .cds--toggletip-content > p {
   color: #363636;
+}
+
+.dark .subForm {
+  --cds-field: #414141;
+}
+
+.dark .formInSubForm {
+  --cds-field: #363636;
 }
 
 .dark ::placeholder {
