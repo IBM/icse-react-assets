@@ -32,6 +32,21 @@
   --cds-text-inverse: #262626;
 }
 
+.subForm {
+  /* white background for subform input fields */
+  --cds-field: #ffffff;
+}
+
+.formInSubForm {
+  /* gray for formInSubForm input fields */
+  --cds-field: #f4f4f4;
+}
+
+*:read-only {
+  /* read only fields should only have text */
+  --cds-border-strong: transparent;
+}
+
 .dark {
   background-color: var(--background);
 }
@@ -54,6 +69,16 @@
 /* styling for tooltip content in dark mode */
 .dark .cds--toggletip-content > p {
   color: #363636;
+}
+
+.dark .subForm {
+  /* alternate background for dark subforms */
+  --cds-field: #414141;
+}
+
+.dark .formInSubForm {
+  /* alternate background for dark formInSubForm */
+  --cds-field: #363636;
 }
 
 .dark ::placeholder {
