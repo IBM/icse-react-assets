@@ -240,7 +240,7 @@ input:read-only {
 i.chevron > svg {
   display: block; /* remove extra padding on bottom of i which misaligns icon */
   margin-right: 1rem;
-  margin-top: 0.25rem;
+  margin-top: 0.15rem;
 }
 
 .chevron {
