@@ -246,7 +246,10 @@ class ToggleForm extends React.Component {
                           <DeleteButton
                             onClick={this.toggleDeleteModal}
                             name={this.props.name}
-                            disabled={this.props.deleteDisabled(this.props)}
+                            disabled={this.props.deleteDisabled({
+                              ...this.props,
+                              ...this.props.innerFormProps,
+                            })}
                             disableDeleteMessage={
                               this.props.deleteDisabledMessage
                             }
