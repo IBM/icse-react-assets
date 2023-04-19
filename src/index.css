@@ -42,7 +42,7 @@
   --cds-field: #f4f4f4;
 }
 
-*:read-only {
+input:read-only {
   /* read only fields should only have text */
   --cds-border-strong: transparent;
 }
@@ -237,9 +237,13 @@
 
 /* buttons */
 
-.chevron {
+i.chevron > svg {
+  display: block; /* remove extra padding on bottom of i which misaligns icon */
   margin-right: 1rem;
-  margin-top: 0.25rem;
+  margin-top: 0.15rem;
+}
+
+.chevron {
   cursor: pointer;
 }
 
