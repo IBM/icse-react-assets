@@ -4,12 +4,12 @@ import PopoverWrapper from "./PopoverWrapper";
 import PropTypes from "prop-types";
 import {
   Save,
-  Edit,
   Add,
-  CloseFilled,
   TrashCan,
   ArrowDown,
   ArrowUp,
+  ChevronDown,
+  ChevronRight,
 } from "@carbon/icons-react";
 import React from "react";
 import { RenderForm } from "./Utils";
@@ -103,13 +103,13 @@ export const EditCloseIcon = (props) => {
     ? "Close"
     : props.type === "add"
     ? "Configure Resource"
-    : "Edit Resource";
+    : "Open";
   let icon = props.open ? (
-    <CloseFilled />
-  ) : props.type === "add" ? (
+    <ChevronDown />
+  ) : props.type === "add" ? ( // keep add button for optional components
     <Add />
   ) : (
-    <Edit />
+    <ChevronRight />
   );
   return (
     <PopoverWrapper hoverText={hoverText}>
