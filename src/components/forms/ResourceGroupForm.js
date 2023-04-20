@@ -50,6 +50,7 @@ class ResourceGroupForm extends Component {
           <IcseToggle
             tooltip={{
               content: "If true, get data from an existing resource group",
+              alignModal: "bottom",
             }}
             labelText="Use Existing Instance"
             toggleFieldName={this.props.toggleName}
@@ -80,6 +81,7 @@ class ResourceGroupForm extends Component {
               tooltip={{
                 content:
                   "Append your environment prefix to the beginning of the resource group.",
+                alignModal: "bottom",
               }}
               labelText="Use Prefix"
               defaultToggled={this.state.use_prefix}

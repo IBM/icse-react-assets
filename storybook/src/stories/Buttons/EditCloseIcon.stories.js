@@ -7,7 +7,6 @@ export default {
   title: "Components/Buttons/EditCloseIcon",
   args: {
     disabled: false,
-    hoverText: "EditCloseIcon",
     open: false,
     onClick: () => {},
     type: "edit",
@@ -50,11 +49,7 @@ export default {
 const EditCloseIconInputStory = ({ ...args }) => {
   const [value, setValue] = useState(false);
   return (
-    <EditCloseIcon
-      {...args}
-      open={value}
-      onClick={() => setValue(!value)}
-    />
+    <EditCloseIcon {...args} open={value} onClick={() => setValue(!value)} />
   );
 };
 

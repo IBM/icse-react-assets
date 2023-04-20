@@ -1,82 +1,29 @@
 import React from "react";
-import { SubnetTierForm } from "icse-react-assets";
-import { contains } from "lazy-z";
+import { AtrackerForm } from "icse-react-assets";
 import "./App.css";
 
-const SubnetTierFormStory = () => {
-  function invalidCallback(stateData, componentProps) {
-    return false;
-  }
-
-  function invalidTextCallback(stateData, componentProps) {
-    return contains(["foo", "bar"], stateData.name)
-      ? `Subnet tier name ${stateData.name} already in use.`
-      : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
-  }
-
-  function shouldDisableSave(stateData, componentProps) {
-    return true;
-  }
-
-  function disableSubnetSaveCallback(stateData, componentProps) {
-    return true;
-  }
-
-  function propsMatchState(stateData, componentProps) {
-    return true;
-  }
-
-  function subnetListCallback(stateData, componentProps) {
-    let tierSubnets = [
-      {
-        name: stateData.name + "-subnet-zone-1",
-        cidr: "10.10.10.10/24",
-        public_gateway: stateData.addPublicGateway,
-        network_acl: stateData.networkAcl,
-      },
-      {
-        name: stateData.name + "-subnet-zone-2",
-        cidr: "10.20.10.10/24",
-        public_gateway: stateData.addPublicGateway,
-        network_acl: stateData.networkAcl,
-      },
-      {
-        name: stateData.name + "-subnet-zone-3",
-        cidr: "10.30.10.10/24",
-        public_gateway: stateData.addPublicGateway,
-        network_acl: stateData.networkAcl,
-      },
-    ];
-    while (tierSubnets.length > stateData.zones) {
-      tierSubnets.pop();
-    }
-    return tierSubnets;
-  }
-
+const AtrackerFormStory = () => {
   return (
-    <SubnetTierForm
-      vpc_name="example-vpc"
+    <AtrackerForm
       data={{
-        hide: false,
-        name: "vsi",
-        zones: 3,
-        networkAcl: "example-acl-1",
-        addPublicGateway: false,
+        enabled: true,
+        resource_group: "default",
+        bucket: "default_bucket",
+        cos_key: "default_key",
+        add_route: false,
+        locations: [],
       }}
-      shouldDisableSave={shouldDisableSave}
-      disableSubnetSaveCallback={disableSubnetSaveCallback}
-      invalidCallback={invalidCallback}
-      invalidTextCallback={invalidTextCallback}
-      networkAcls={["example-acl-1", "example-acl-2"]}
-      enabledPublicGateways={[1, 2, 3]}
-      subnetListCallback={subnetListCallback}
-      propsMatchState={propsMatchState}
+      resourceGroups={["default", "foo", "bar"]}
+      cosBuckets={["default_bucket", "foo"]}
+      cosKeys={["default_key", "bar"]}
+      prefix="icse"
+      region="us-south"
     />
   );
 };
 
 function App() {
-  return <SubnetTierFormStory />;
+  return <AtrackerFormStory />;
 }
 
 export default App;

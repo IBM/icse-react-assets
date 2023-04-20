@@ -59,6 +59,7 @@ class ObjectStorageInstancesForm extends Component {
             tooltip={{
               content:
                 "Service credentials and buckets will be created for your environment even when using an existing Object Storage instance.",
+              alignModal: "bottom",
             }}
             id={composedId + "use-data"}
             toggleFieldName="use_data"
@@ -71,6 +72,7 @@ class ObjectStorageInstancesForm extends Component {
             tooltip={{
               content:
                 "Object storage bucket names must be unique across an account. Append a random suffix to maintain unique names across deployments.",
+              alignModal: "bottom",
             }}
             id={composedId + "random-suffix"}
             labelText="Append Random Suffix to Names"
