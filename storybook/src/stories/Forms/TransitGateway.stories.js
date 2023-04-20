@@ -18,7 +18,7 @@ export default {
     },
     ["data.connections"]: {
       description:
-        "An array (string) of VPCs that connect to the transit gateway",
+        "An array of objects containing the VPCs that connect to the transit gateway",
       control: "none",
       type: { required: false }, // required prop or not
     },
@@ -32,33 +32,30 @@ export default {
       control: "none",
       type: { required: false }, // required prop or not
     },
+    ["data.crns"]: {
+      description:
+        "An array of strings containing VPC CRNs to connect to the transit gateway",
+      control: "none",
+      type: { required: false }, // required prop or not
+    },
     resourceGroups: {
       description:
         "An array of strings containing the names of resource groups to select",
       type: { required: true }, // required prop or not
       control: "none",
     },
-    readOnlyName: {
-      description:
-        " boolean to indicate whether the transit gateway name is read only",
-      type: { required: true }, // required prop or not
-      control: "none",
-      table: { defaultValue: { summary: "true" } },
-    },
     vpcList: {
       description: "An array of strings containing the names of VPCs to select",
       type: { required: true }, // required prop or not
       control: "none",
     },
-    invalidCallback: {
-      description:
-        "A function to determine if the value supplied is invalid and returns a single boolean",
+    region: {
+      description: "A string representing the region being deployed to",
       type: { required: true }, // required prop or not
       control: "none",
     },
-    invalidTextCallback: {
-      description:
-        "A function to determine the invalid text displayed to the user and returns the string to display",
+    crnRegex: {
+      description: "A regular expression for validating CRN connection",
       type: { required: true }, // required prop or not
       control: "none",
     },
@@ -74,22 +71,6 @@ export default {
 };
 
 const TransitGatewayFormStory = () => {
-  function validName(str) {
-    const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
-    if (str) return str.match(regex) !== null;
-    else return false;
-  }
-
-  function invalidCallback(stateData) {
-    return !validName(stateData.name);
-  }
-
-  function invalidTextCallback(stateData) {
-    return !validName(stateData.name)
-      ? `Name ${stateData.name} is invalid.`
-      : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
-  }
-
   return (
     <TransitGatewayForm
       data={{
@@ -97,12 +78,11 @@ const TransitGatewayFormStory = () => {
         connections: [{ tgw: "transit-gateway", vpc: "management" }],
         resource_group: "service-rg",
         name: "transit-gateway",
+        crns: [],
       }}
-      readOnlyName={true}
       vpcList={["management", "workload"]}
       resourceGroups={["service-rg", "management-rg", "workload-rg"]}
-      invalidCallback={invalidCallback}
-      invalidTextCallback={invalidTextCallback}
+      region={"us-south"}
     />
   );
 };

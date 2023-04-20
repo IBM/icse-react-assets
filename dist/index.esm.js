@@ -1,5 +1,5 @@
 import '@carbon/styles/css/styles.css';
-import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, Link, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, NumberInput, Modal, TextInput, Toggle, Tabs, TabList, Tab, TabPanels, TabPanel, FilterableMultiSelect, PasswordInput, TextArea, Dropdown } from '@carbon/react';
+import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, Link, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, NumberInput, Modal, TextInput, Toggle, Tabs, TabList, Tab, TabPanels, TabPanel, FilterableMultiSelect, PasswordInput, TextArea, Dropdown, Tag } from '@carbon/react';
 import lazyZ, { isEmpty, isNullOrEmptyString as isNullOrEmptyString$3, kebabCase as kebabCase$2, buildNumberDropdownList, titleCase as titleCase$1, contains as contains$2, snakeCase, distinct, getObjectFromArray, splat as splat$1, isWholeNumber as isWholeNumber$1, isInRange as isInRange$1, isBoolean, isFunction as isFunction$1, transpose, prettyJSON, allFieldsNull, containsKeys, capitalize as capitalize$2, deepEqual, parseIntFromZone, eachKey } from 'lazy-z';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -527,7 +527,7 @@ const IcseHeading = props => {
     noLabelText: true,
     id: props.name,
     innerForm: () => {
-      return props.type === "subHeading" ? /*#__PURE__*/React.createElement("h5", null, props.name) : props.type === "p" ? /*#__PURE__*/React.createElement("p", null, props.name) : /*#__PURE__*/React.createElement("h4", null, props.name);
+      return props.type === "subHeading" ? /*#__PURE__*/React.createElement("h5", null, props.name) : props.type === "section" ? /*#__PURE__*/React.createElement("h6", null, props.name) : /*#__PURE__*/React.createElement("h4", null, props.name);
     }
   }), /*#__PURE__*/React.createElement("div", {
     className: "displayFlex"
@@ -6577,6 +6577,8 @@ class TransitGatewayForm extends Component {
     this.handleToggle = this.handleToggle.bind(this);
     this.handleVpcSelect = this.handleVpcSelect.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleCRNs = this.handleCRNs.bind(this);
+    this.invalidCRNs = this.invalidCRNs.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
@@ -6592,7 +6594,7 @@ class TransitGatewayForm extends Component {
   }
 
   /**
-   * handle vpc selection
+   * Handle vpc selection
    * @param {event} event
    */
   handleVpcSelect(event) {
@@ -6615,23 +6617,44 @@ class TransitGatewayForm extends Component {
   handleInputChange(event) {
     this.setState(this.eventTargetToNameAndValue(event));
   }
+
+  /**
+   * Handle crn input
+   * @param {event} event
+   */
+  handleCRNs(event) {
+    let crnList = event.target.value ? event.target.value.replace(/\s\s+/g, "") // replace extra spaces
+    .replace(/,(?=,)/g, "") // prevent null tags from
+    .replace(/[^\w,-:]/g, "").split(",") : [];
+    this.setState({
+      crns: crnList
+    });
+  }
+
+  /**
+   * Invalid crns
+   * @param {Array} crns
+   */
+  // https://cloud.ibm.com/docs/account?topic=account-crn
+  invalidCRNs(crns) {
+    if (crns.length === 0) return false;
+    for (let crn of crns) {
+      if (crn.match(this.props.crnRegex) === null) {
+        return true;
+      }
+    }
+    return false;
+  }
   render() {
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
-      labelText: "Global",
-      toggleFieldName: "global",
-      id: this.state.name + "-tg-global",
-      onToggle: this.handleToggle,
-      defaultToggled: this.state.global
-    }), /*#__PURE__*/React.createElement(IcseTextInput, {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
       onChange: this.handleInputChange,
       componentName: "Transit Gateway",
       field: "name",
       value: this.state.name,
-      readOnly: this.props.readOnlyName,
-      id: this.state.name + "-tg-name",
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props)
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+      readOnly: true,
+      invalid: false,
+      id: this.state.name + "-tg-name"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
       formName: "Transit Gateway",
       value: this.state.resource_group,
       groups: this.props.resourceGroups,
@@ -6639,6 +6662,27 @@ class TransitGatewayForm extends Component {
       id: this.state.name + "-resource_group",
       name: "resource_group",
       labelText: "Resource Group"
+    }), /*#__PURE__*/React.createElement(IcseToggle, {
+      labelText: "Global Routing",
+      toggleFieldName: "global",
+      id: this.state.name + "-tg-global",
+      onToggle: this.handleToggle,
+      defaultToggled: this.state.global,
+      tooltip: {
+        align: "right",
+        content: "Must be enabled in order to connect your IBM Cloud and on-premises networks in all IBM Cloud multizone regions."
+      }
+    })), /*#__PURE__*/React.createElement(IcseHeading, {
+      name: "Connections",
+      type: "subHeading"
+    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+      onChange: this.handleInputChange,
+      componentName: "Transit Gateway",
+      field: "region",
+      value: this.props.region,
+      readOnly: true,
+      invalid: false,
+      id: this.state.name + "-tg-region"
     }), /*#__PURE__*/React.createElement(VpcListMultiSelect, {
       id: this.state.name + "-tg-vpc-multiselect",
       titleText: "Connected VPCs",
@@ -6647,7 +6691,26 @@ class TransitGatewayForm extends Component {
       onChange: this.handleVpcSelect,
       invalid: this.state.connections.length === 0,
       invalidText: "At least one VPC must be connected"
-    })));
+    })), /*#__PURE__*/React.createElement(IcseHeading, {
+      name: "Additional connections",
+      type: "section"
+    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
+      className: "wide",
+      id: "crns",
+      labelText: "Add a new connection from any region in the account",
+      value: String(this.state.crns),
+      onChange: this.handleCRNs,
+      invalid: this.invalidCRNs(this.state.crns),
+      invalidText: `Invalid CRN. Must match regular expression ${this.props.crnRegex}`,
+      helperText: "Enter a comma separated list of CRNs",
+      placeholder: "crn:v1:bluemix..."
+    }), /*#__PURE__*/React.createElement("div", {
+      className: "marginBottomSmall wide"
+    }, this.state.crns.map((crn, i) => /*#__PURE__*/React.createElement(Tag, {
+      key: "crn" + i,
+      size: "md",
+      type: "green"
+    }, crn)))));
   }
 }
 TransitGatewayForm.defaultProps = {
@@ -6655,24 +6718,26 @@ TransitGatewayForm.defaultProps = {
     global: true,
     connections: [],
     resource_group: "",
-    name: ""
+    name: "",
+    crns: []
   },
-  readOnlyName: true,
   vpcList: [],
-  resourceGroups: []
+  resourceGroups: [],
+  region: "",
+  crnRegex: /^(crn:v1:bluemix:(public|dedicated|local):)[A-z-:/0-9]+$/i
 };
 TransitGatewayForm.propTypes = {
   data: PropTypes.shape({
     global: PropTypes.bool.isRequired,
     connections: PropTypes.array.isRequired,
     resource_group: PropTypes.string.isRequired,
-    name: PropTypes.string
+    name: PropTypes.string,
+    crns: PropTypes.array.isRequired
   }).isRequired,
-  readOnlyName: PropTypes.bool.isRequired,
   vpcList: PropTypes.array.isRequired,
   resourceGroups: PropTypes.array.isRequired,
-  invalidCallback: PropTypes.func.isRequired,
-  invalidTextCallback: PropTypes.func.isRequired
+  region: PropTypes.string.isRequired,
+  crnRegex: PropTypes.instanceOf(RegExp).isRequired
 };
 
 const nameFields = ["default_network_acl_name", "default_routing_table_name", "default_security_group_name"];
