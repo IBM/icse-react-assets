@@ -2981,7 +2981,8 @@ class AtrackerForm extends Component {
       id: "atracker-form"
     }, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
       tooltip: {
-        content: "Enable or Disable your Activity Tracker instance."
+        content: "Enable or Disable your Activity Tracker instance.",
+        align: "bottom-right"
       },
       labelText: "Enabled",
       defaultToggled: this.state.enabled,
