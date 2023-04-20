@@ -74,6 +74,7 @@ class SccForm extends Component {
             id="scc_group_id"
             tooltip={{
               content: "The group ID for Security and Compliance Center.",
+              align: "bottom-left",
             }}
             componentName="SCC"
             field="id"
@@ -95,6 +96,7 @@ class SccForm extends Component {
             id="scc_passphrase"
             tooltip={{
               content: "Security and Compliance Center group passphrase.",
+              align: "bottom-left",
             }}
             labelText="Group Passphrase"
             field="passphrase"

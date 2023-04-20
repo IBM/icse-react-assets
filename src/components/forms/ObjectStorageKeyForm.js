@@ -86,6 +86,7 @@ class ObjectStorageKeyForm extends Component {
               link: "https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-uhc-hmac-credentials-main",
               content:
                 "HMAC (hash-based message authentication code) is required for Teleport VSI instances.",
+              alignModal: "bottom",
             }}
             id={composedId + "cos-instance-key-hmac"}
             labelText="Enable HMAC"

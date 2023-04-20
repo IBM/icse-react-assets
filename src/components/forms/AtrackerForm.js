@@ -61,7 +61,7 @@ class AtrackerForm extends Component {
           <IcseToggle
             tooltip={{
               content: "Enable or Disable your Activity Tracker instance.",
-              align: "bottom-right",
+              align: "bottom-left",
             }}
             labelText="Enabled"
             defaultToggled={this.state.enabled}
