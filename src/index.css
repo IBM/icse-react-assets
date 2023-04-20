@@ -231,7 +231,6 @@ input:read-only {
 }
 
 .cds--popover--open .cds--popover-content {
-  position: relative;
   z-index: 9001;
 }
 
