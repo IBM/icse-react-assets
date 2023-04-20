@@ -57,70 +57,85 @@ class AtrackerForm extends Component {
     return (
       <div id="atracker-form">
         <IcseFormGroup>
-          <IcseTextInput
-            componentName="Activity Tracker"
-            field="Name"
-            labelText="Name"
-            className="fieldWidth"
-            value={this.props.prefix + "-atracker"}
-            readOnly
-            id="atracker-name"
-            invalid={false}
-          />
-          <LocationsMultiSelect
-            id={this.props.data.name + "-activity-tracker-location"}
-            region={this.props.region}
-            onChange={this.handleMultiSelect}
-            invalid={this.state.locations.length === 0}
-            invalidText="Select at least one location."
-            initialSelectedItems={this.props.data.locations}
-          />
-        </IcseFormGroup>
-
-        <IcseFormGroup>
-          <IcseSelect
-            tooltip={{
-              content:
-                "The bucket name under the Cloud Object Storage instance where Activity Tracker logs will be stored",
-            }}
-            groups={this.props.cosBuckets}
-            formName={this.props.data.name + "-activity-tracker-bucket"}
-            field="bucket"
-            name="bucket"
-            value={this.state.bucket}
-            handleInputChange={this.handleInputChange}
-            className="fieldWidth"
-            labelText="Object Storage Log Bucket"
-            invalidText="Select an Object Storage bucket."
-          />
           <IcseToggle
             tooltip={{
-              content:
-                "Must be enabled in order to forward all logs to the Cloud Object Storage bucket",
+              content: "Enable or Disable your Activity Tracker instance.",
             }}
-            labelText="Create Activity Tracker Route"
-            defaultToggled={this.state.add_route}
-            toggleFieldName="add_route"
+            labelText="Enabled"
+            defaultToggled={this.state.enabled}
+            toggleFieldName="enabled"
             onToggle={this.handleToggle}
-            id="app-id-add-route"
+            id="atracker-enable-disable"
           />
         </IcseFormGroup>
-        <IcseFormGroup noMarginBottom>
-          <IcseSelect
-            tooltip={{
-              content:
-                "The IAM API key that has writer access to the Cloud Object Storage instance",
-            }}
-            formName={this.props.data.name + "-activity-tracker-cos-key"}
-            name="cos_key"
-            groups={this.props.cosKeys}
-            value={this.state.cos_key}
-            labelText="Privileged IAM Object Storage Key"
-            handleInputChange={this.handleInputChange}
-            className="fieldWidth"
-            invalidText="Select an Object Storage key."
-          />
-        </IcseFormGroup>
+        {this.state.enabled && (
+          <div>
+            <IcseFormGroup>
+              <IcseTextInput
+                componentName="Activity Tracker"
+                field="Name"
+                labelText="Name"
+                className="fieldWidth"
+                value={this.props.prefix + "-atracker"}
+                readOnly
+                id="atracker-name"
+                invalid={false}
+              />
+              <LocationsMultiSelect
+                id={this.props.data.name + "-activity-tracker-location"}
+                region={this.props.region}
+                onChange={this.handleMultiSelect}
+                invalid={this.state.locations.length === 0}
+                invalidText="Select at least one location."
+                initialSelectedItems={this.props.data.locations}
+              />
+            </IcseFormGroup>
+            <IcseFormGroup>
+              <IcseSelect
+                tooltip={{
+                  content:
+                    "The bucket name under the Cloud Object Storage instance where Activity Tracker logs will be stored",
+                }}
+                groups={this.props.cosBuckets}
+                formName={this.props.data.name + "-activity-tracker-bucket"}
+                field="bucket"
+                name="bucket"
+                value={this.state.bucket}
+                handleInputChange={this.handleInputChange}
+                className="fieldWidth"
+                labelText="Object Storage Log Bucket"
+                invalidText="Select an Object Storage bucket."
+              />
+              <IcseToggle
+                tooltip={{
+                  content:
+                    "Must be enabled in order to forward all logs to the Cloud Object Storage bucket",
+                }}
+                labelText="Create Activity Tracker Route"
+                defaultToggled={this.state.add_route}
+                toggleFieldName="add_route"
+                onToggle={this.handleToggle}
+                id="atracker-add-route"
+              />
+            </IcseFormGroup>
+            <IcseFormGroup noMarginBottom>
+              <IcseSelect
+                tooltip={{
+                  content:
+                    "The IAM API key that has writer access to the Cloud Object Storage instance",
+                }}
+                formName={this.props.data.name + "-activity-tracker-cos-key"}
+                name="cos_key"
+                groups={this.props.cosKeys}
+                value={this.state.cos_key}
+                labelText="Privileged IAM Object Storage Key"
+                handleInputChange={this.handleInputChange}
+                className="fieldWidth"
+                invalidText="Select an Object Storage key."
+              />
+            </IcseFormGroup>
+          </div>
+        )}
       </div>
     );
   }
@@ -131,6 +146,7 @@ export default AtrackerForm;
 AtrackerForm.defaultProps = {
   isModal: false,
   data: {
+    enabled: true,
     bucket: "",
     cos_key: "",
     resource_group: "",
@@ -141,6 +157,7 @@ AtrackerForm.defaultProps = {
 
 AtrackerForm.propTypes = {
   data: PropTypes.shape({
+    enabled: PropTypes.bool,
     bucket: PropTypes.string,
     cos_key: PropTypes.string,
     resource_group: PropTypes.string,

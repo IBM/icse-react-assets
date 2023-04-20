@@ -2279,7 +2279,10 @@ class ToggleForm extends React.Component {
           show: /*#__PURE__*/React.createElement(DeleteButton, {
             onClick: this.toggleDeleteModal,
             name: this.props.name,
-            disabled: this.props.deleteDisabled(this.props),
+            disabled: this.props.deleteDisabled({
+              ...this.props,
+              ...this.props.innerFormProps
+            }),
             disableDeleteMessage: this.props.deleteDisabledMessage
           })
         }))
@@ -2976,7 +2979,16 @@ class AtrackerForm extends Component {
   render() {
     return /*#__PURE__*/React.createElement("div", {
       id: "atracker-form"
-    }, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+    }, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
+      tooltip: {
+        content: "Enable or Disable your Activity Tracker instance."
+      },
+      labelText: "Enabled",
+      defaultToggled: this.state.enabled,
+      toggleFieldName: "enabled",
+      onToggle: this.handleToggle,
+      id: "atracker-enable-disable"
+    })), this.state.enabled && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
       componentName: "Activity Tracker",
       field: "Name",
       labelText: "Name",
@@ -3013,7 +3025,7 @@ class AtrackerForm extends Component {
       defaultToggled: this.state.add_route,
       toggleFieldName: "add_route",
       onToggle: this.handleToggle,
-      id: "app-id-add-route"
+      id: "atracker-add-route"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, {
       noMarginBottom: true
     }, /*#__PURE__*/React.createElement(IcseSelect, {
@@ -3028,12 +3040,13 @@ class AtrackerForm extends Component {
       handleInputChange: this.handleInputChange,
       className: "fieldWidth",
       invalidText: "Select an Object Storage key."
-    })));
+    }))));
   }
 }
 AtrackerForm.defaultProps = {
   isModal: false,
   data: {
+    enabled: true,
     bucket: "",
     cos_key: "",
     resource_group: "",
@@ -3043,6 +3056,7 @@ AtrackerForm.defaultProps = {
 };
 AtrackerForm.propTypes = {
   data: PropTypes.shape({
+    enabled: PropTypes.bool,
     bucket: PropTypes.string,
     cos_key: PropTypes.string,
     resource_group: PropTypes.string,
