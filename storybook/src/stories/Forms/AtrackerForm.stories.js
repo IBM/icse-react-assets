@@ -9,6 +9,12 @@ export default {
       type: { required: false },
       control: "none",
     },
+    ["data.enabled"]: {
+      description:
+        "A boolean value determining if the Activity Tracker instance is enabled or disabled",
+      control: "none",
+      type: { require: true },
+    },
     ["data.bucket"]: {
       description: "A string value of the cos bucket name",
       control: "none",
@@ -87,6 +93,7 @@ const AtrackerFormStory = () => {
   return (
     <AtrackerForm
       data={{
+        enabled: true,
         resource_group: "default",
         bucket: "default_bucket",
         cos_key: "default_key",
