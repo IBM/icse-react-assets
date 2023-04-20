@@ -3007,7 +3007,8 @@ class AtrackerForm extends React.Component {
       value: this.props.prefix + "-atracker",
       readOnly: true,
       id: "atracker-name",
-      invalid: false
+      invalid: false,
+      placeholder: this.props.prefix + "-atracker"
     }), /*#__PURE__*/React__default["default"].createElement(LocationsMultiSelect, {
       id: this.props.data.name + "-activity-tracker-location",
       region: this.props.region,

@@ -8,6 +8,7 @@ import { IcseSelect } from "../Dropdowns";
 import { IcseTextInput, IcseToggle } from "../Inputs";
 import { LocationsMultiSelect } from "../MultiSelects";
 import { IcseFormGroup } from "../Utils";
+import PopoverWrapper from "../PopoverWrapper";
 
 /**
  * Atracker
@@ -80,6 +81,7 @@ class AtrackerForm extends Component {
                 readOnly
                 id="atracker-name"
                 invalid={false}
+                placeholder={this.props.prefix + "-atracker"}
               />
               <LocationsMultiSelect
                 id={this.props.data.name + "-activity-tracker-location"}
