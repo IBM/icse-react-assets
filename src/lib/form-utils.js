@@ -55,7 +55,6 @@ function toggleMarginBottom(hide) {
  * @returns {object} object containing invalid boolean and invalidText string
  */
 function invalidRegex(name, value, regex) {
-  console.log("moose ", value)
   return {
     invalid: value.match(regex) === null,
     invalidText: `Invalid ${name}. Must match regular expression: ${regex}`,
