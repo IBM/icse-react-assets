@@ -136,12 +136,13 @@ class NetworkingRuleForm extends Component {
                   ) : this.props.hide === false ? (
                     <>
                       <SaveAddButton
+                        name={ruleName}
                         onClick={this.handleRuleUpdate}
                         disabled={this.shouldDisableSave()}
                       />
                       <DeleteButton
-                        onClick={this.toggleDeleteModal}
                         name={ruleName}
+                        onClick={this.toggleDeleteModal}
                       />
                     </>
                   ) : (

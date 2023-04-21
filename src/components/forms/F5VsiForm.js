@@ -172,6 +172,7 @@ class F5VsiTile extends React.Component {
               hide={this.shouldHideSave(this.state, this.props)}
               show={
                 <SaveAddButton
+                  name={this.props.name}
                   onClick={() => this.props.onSave(this.state)}
                   noDeleteButton
                   disabled={this.props.propsMatchState(

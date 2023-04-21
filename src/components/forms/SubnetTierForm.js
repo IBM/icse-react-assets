@@ -128,6 +128,7 @@ class SubnetTierForm extends React.Component {
           buttons={
             <>
               <SaveAddButton
+                name={this.props.data.name}
                 onClick={this.onSave}
                 noDeleteButton={this.props.noDeleteButton}
                 disabled={this.props.shouldDisableSave(this.state, this.props)}

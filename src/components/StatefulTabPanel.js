@@ -3,7 +3,7 @@ import { Tab, TabList, TabPanels, Tabs, TabPanel } from "@carbon/react";
 import UnderConstruction from "./UnderConstruction";
 import { DynamicRender, IcseHeading } from "./Utils";
 import { SaveAddButton } from "./Buttons";
-import { isFunction } from "lazy-z";
+import { isFunction, kebabCase } from "lazy-z";
 import PropTypes from "prop-types";
 
 /**
@@ -50,6 +50,7 @@ class StatefulTabPanel extends React.Component {
                 }
                 show={
                   <SaveAddButton
+                    name={kebabCase(this.props.name)}
                     type="add"
                     noDeleteButton
                     onClick={this.props.onClick}

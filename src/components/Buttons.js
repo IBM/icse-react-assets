@@ -46,6 +46,7 @@ export const SaveAddButton = (props) => {
       align={props.hoverTextAlign}
     >
       <Button
+        aria-label={props.name + "-" + props.type}
         kind={
           props.type === "add" || props.type === "custom"
             ? "tertiary"
@@ -113,7 +114,12 @@ export const EditCloseIcon = (props) => {
   );
   return (
     <PopoverWrapper hoverText={hoverText}>
-      <i role="button" onClick={props.onClick} className="chevron">
+      <i
+        role="button"
+        aria-label={props.name + "-open-close"}
+        onClick={props.onClick}
+        className="chevron"
+      >
         {icon}
       </i>
     </PopoverWrapper>
@@ -151,6 +157,7 @@ export const DeleteButton = (props) => {
         className={props.disabled ? "inlineBlock cursorNotAllowed" : ""}
       >
         <Button
+          aria-label={props.name + "-delete"}
           className={
             "cds--btn--danger--tertiary forceTertiaryButtonStyles" +
             (props.disabled ? " pointerEventsNone" : "")
@@ -187,6 +194,7 @@ export const UpDownButtons = (props) => {
   return (
     <>
       <Button
+        aria-label={"rule-up-" + props.name}
         key={"rule-up-" + props.name}
         disabled={props.disableUp}
         kind="ghost"
@@ -198,6 +206,7 @@ export const UpDownButtons = (props) => {
         <ArrowUp key={"up-" + props.name} />
       </Button>
       <Button
+        aria-label={"rule-down-" + props.name}
         kind="ghost"
         disabled={props.disableDown}
         key={"rule-down-" + props.name}

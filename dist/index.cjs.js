@@ -570,6 +570,7 @@ const StatelessToggleForm = props => {
     props: props,
     className: props.className
   }, props.hideIcon !== true && /*#__PURE__*/React__default["default"].createElement(EditCloseIcon, {
+    name: lazyZ.kebabCase(props.name),
     onClick: props.onIconClick,
     type: props.iconType,
     open: props.hide === false
@@ -630,6 +631,7 @@ const SaveAddButton = props => {
     className: (props.disabled ? "inlineBlock cursorNotAllowed" : "") + (props.inline ? " alignItemsCenter marginTopLarge inLineFormButton" : ""),
     align: props.hoverTextAlign
   }, /*#__PURE__*/React__default["default"].createElement(react.Button, {
+    "aria-label": props.name + "-" + props.type,
     kind: props.type === "add" || props.type === "custom" ? "tertiary" : "primary",
     onClick: props.onClick,
     className: lib_6(props) + (props.disabled === true ? " pointerEventsNone " : " " + props.className),
@@ -671,6 +673,7 @@ const EditCloseIcon = props => {
     hoverText: hoverText
   }, /*#__PURE__*/React__default["default"].createElement("i", {
     role: "button",
+    "aria-label": props.name + "-open-close",
     onClick: props.onClick,
     className: "chevron"
   }, icon));
@@ -700,6 +703,7 @@ const DeleteButton = props => {
     align: props.hoverTextAlign,
     className: props.disabled ? "inlineBlock cursorNotAllowed" : ""
   }, /*#__PURE__*/React__default["default"].createElement(react.Button, {
+    "aria-label": props.name + "-delete",
     className: "cds--btn--danger--tertiary forceTertiaryButtonStyles" + (props.disabled ? " pointerEventsNone" : ""),
     kind: "ghost",
     size: "sm",
@@ -726,6 +730,7 @@ DeleteButton.propTypes = {
  */
 const UpDownButtons = props => {
   return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(react.Button, {
+    "aria-label": "rule-up-" + props.name,
     key: "rule-up-" + props.name,
     disabled: props.disableUp,
     kind: "ghost",
@@ -736,6 +741,7 @@ const UpDownButtons = props => {
   }, /*#__PURE__*/React__default["default"].createElement(iconsReact.ArrowUp, {
     key: "up-" + props.name
   })), /*#__PURE__*/React__default["default"].createElement(react.Button, {
+    "aria-label": "rule-down-" + props.name,
     kind: "ghost",
     disabled: props.disableDown,
     key: "rule-down-" + props.name,
@@ -1918,6 +1924,7 @@ class StatefulTabPanel extends React__default["default"].Component {
       buttons: /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
         hide: this.props.hideFormTitleButton || this.state.tabIndex !== 0 || !lazyZ.isFunction(this.props.onClick) || this.props.hasBuiltInHeading,
         show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+          name: lazyZ.kebabCase(this.props.name),
           type: "add",
           noDeleteButton: true,
           onClick: this.props.onClick,
@@ -2275,6 +2282,7 @@ class ToggleForm extends React__default["default"].Component {
         buttons: /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
           hide: this.props.addButtonAtFormTitle !== true,
           show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+            name: this.props.name,
             type: "add",
             onClick: this.onToggleSubModal,
             noDeleteButton: true
@@ -2282,6 +2290,7 @@ class ToggleForm extends React__default["default"].Component {
         }), /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
           hide: this.props.noSaveButton || this.props.addButtonAtFormTitle,
           show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+            name: this.props.name,
             onClick: this.onSave,
             disabled: this.state.disableSave,
             noDeleteButton: this.props.noDeleteButton
@@ -3368,6 +3377,7 @@ class F5VsiTile extends React__default["default"].Component {
       buttons: /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
         hide: this.shouldHideSave(this.state, this.props),
         show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+          name: this.props.name,
           onClick: () => this.props.onSave(this.state),
           noDeleteButton: true,
           disabled: this.props.propsMatchState("f5_vsi", this.state, this.props)
@@ -4606,11 +4616,12 @@ class NetworkingRuleForm extends React.Component {
         hideIcon: this.props.isModal,
         alwaysShowButtons: true,
         buttons: this.props.isModal ? "" : this.props.hide === false ? /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+          name: ruleName,
           onClick: this.handleRuleUpdate,
           disabled: this.shouldDisableSave()
         }), /*#__PURE__*/React__default["default"].createElement(DeleteButton, {
-          onClick: this.toggleDeleteModal,
-          name: ruleName
+          name: ruleName,
+          onClick: this.toggleDeleteModal
         })) : /*#__PURE__*/React__default["default"].createElement(UpDownButtons, {
           name: ruleName,
           handleUp: this.props.handleUp,
@@ -4989,6 +5000,7 @@ class NetworkingRulesOrderCard extends React.Component {
       buttons: /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
         hide: this.props.hideCreate,
         show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+          name: this.props.vpc_name,
           type: "add",
           onClick: this.toggleModal
         })
@@ -6167,6 +6179,7 @@ class SubnetForm extends React__default["default"].Component {
       buttons: /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
         hide: this.props.isModal,
         show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+          name: this.props.data.name,
           disabled: this.props.disableSaveCallback(this.state, this.props),
           onClick: this.handleSave,
           noDeleteButton: true
@@ -6438,6 +6451,7 @@ class SubnetTierForm extends React__default["default"].Component {
       onIconClick: this.handleShowToggle,
       toggleFormTitle: true,
       buttons: /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+        name: this.props.data.name,
         onClick: this.onSave,
         noDeleteButton: this.props.noDeleteButton,
         disabled: this.props.shouldDisableSave(this.state, this.props)

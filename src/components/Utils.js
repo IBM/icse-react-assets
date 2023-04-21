@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { addClassName, toggleMarginBottom } from "../lib/index";
 import { DynamicToolTipWrapper } from "./Tooltips";
 import { EditCloseIcon } from "./Buttons";
+import { kebabCase } from "lazy-z";
 
 /**
  * Render a form
@@ -166,6 +167,7 @@ export const StatelessToggleForm = (props) => {
       <TitleGroup hide={props.hide} props={props} className={props.className}>
         {props.hideIcon !== true && (
           <EditCloseIcon
+            name={kebabCase(props.name)}
             onClick={props.onIconClick}
             type={props.iconType}
             open={props.hide === false}
