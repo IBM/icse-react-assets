@@ -181,7 +181,7 @@ describe("form-utils", () => {
       assert.deepEqual(testCluster.entitlement, null, "it should return true");
     });
   });
-  describe("invalidRegex", () => {
+  describe("invalidCRNs", () => {
     it("should return false for empty array and with correct error text", () => {
       assert.deepEqual(invalidCRNs([]), {
         invalid: false,
