@@ -49,13 +49,15 @@ export default {
       type: { required: true }, // required prop or not
       control: "none",
     },
-    region: {
-      description: "A string representing the region being deployed to",
+    invalidCallback: {
+      description:
+        "A function to determine if the value supplied is invalid and returns a single boolean",
       type: { required: true }, // required prop or not
       control: "none",
     },
-    crnRegex: {
-      description: "A regular expression for validating CRN connection",
+    invalidTextCallback: {
+      description:
+        "A function to determine the invalid text displayed to the user and returns the string to display",
       type: { required: true }, // required prop or not
       control: "none",
     },
@@ -71,6 +73,22 @@ export default {
 };
 
 const TransitGatewayFormStory = () => {
+  function validName(str) {
+    const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
+    if (str) return str.match(regex) !== null;
+    else return false;
+  }
+
+  function invalidCallback(stateData) {
+    return !validName(stateData.name);
+  }
+
+  function invalidTextCallback(stateData) {
+    return !validName(stateData.name)
+      ? `Name ${stateData.name} is invalid.`
+      : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
+  }
+
   return (
     <TransitGatewayForm
       data={{
@@ -78,11 +96,15 @@ const TransitGatewayFormStory = () => {
         connections: [{ tgw: "transit-gateway", vpc: "management" }],
         resource_group: "service-rg",
         name: "transit-gateway",
-        crns: [],
+        crns: [
+          "crn:v1:bluemix:public:containers-kubernetes:us-south:a/59bcbfa6ea2f006b4ed7094c1a08dcdd:8042b2a8af6a4a5cbf6dbe09e07311d2:worker:kube-hou02-pa8042b2a8af6a4a5cbf6dbe09e07311d2-w1",
+          "crn:v1:bluemix:public:resource-controller:global:a/59bcbfa6ea2f006b4ed7094c1a08dcdd:resource-group:59bcbfa6ea2f006b4ed7094c1a08dcdd",
+        ],
       }}
       vpcList={["management", "workload"]}
       resourceGroups={["service-rg", "management-rg", "workload-rg"]}
-      region={"us-south"}
+      invalidCallback={invalidCallback}
+      invalidTextCallback={invalidTextCallback}
     />
   );
 };

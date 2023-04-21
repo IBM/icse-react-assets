@@ -10,7 +10,7 @@ import {
 } from "../component-utils";
 import PropTypes from "prop-types";
 import { splat } from "lazy-z";
-import { invalidRegex } from "../../lib";
+import { invalidCRNs } from "../../lib";
 
 class TransitGatewayForm extends Component {
   constructor(props) {
@@ -20,7 +20,6 @@ class TransitGatewayForm extends Component {
     this.handleVpcSelect = this.handleVpcSelect.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleCRNs = this.handleCRNs.bind(this);
-    this.invalidCRNs = this.invalidCRNs.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
@@ -60,7 +59,6 @@ class TransitGatewayForm extends Component {
    * @param {event} event
    */
   handleCRNs(event) {
-    invalidRegex;
     let crnList = event.target.value
       ? event.target.value
           .replace(/\s\s+/g, "") // replace extra spaces
@@ -69,21 +67,6 @@ class TransitGatewayForm extends Component {
           .split(",")
       : [];
     this.setState({ crns: crnList });
-  }
-
-  /**
-   * Invalid crns
-   * @param {Array} crns
-   */
-  // https://cloud.ibm.com/docs/account?topic=account-crn
-  invalidCRNs(crns) {
-    if (crns.length === 0) return false;
-    for (let crn of crns) {
-      if (crn.match(this.props.crnRegex) === null) {
-        return true;
-      }
-    }
-    return false;
   }
 
   render() {
@@ -95,8 +78,8 @@ class TransitGatewayForm extends Component {
             componentName="Transit Gateway"
             field="name"
             value={this.state.name}
-            readOnly={true}
-            invalid={false}
+            invalid={this.props.invalidCallback(this.state, this.props)}
+            invalidText={this.props.invalidTextCallback(this.state, this.props)}
             id={this.state.name + "-tg-name"}
           />
           <IcseSelect
@@ -108,6 +91,8 @@ class TransitGatewayForm extends Component {
             name="resource_group"
             labelText="Resource Group"
           />
+        </IcseFormGroup>
+        <IcseFormGroup>
           <IcseToggle
             labelText="Global Routing"
             toggleFieldName="global"
@@ -123,15 +108,6 @@ class TransitGatewayForm extends Component {
         </IcseFormGroup>
         <IcseHeading name="Connections" type="subHeading" />
         <IcseFormGroup>
-          <IcseTextInput
-            onChange={this.handleInputChange}
-            componentName="Transit Gateway"
-            field="region"
-            value={this.props.region}
-            readOnly={true}
-            invalid={false}
-            id={this.state.name + "-tg-region"}
-          />
           <VpcListMultiSelect
             id={this.state.name + "-tg-vpc-multiselect"}
             titleText="Connected VPCs"
@@ -145,17 +121,19 @@ class TransitGatewayForm extends Component {
         <IcseHeading name="Additional connections" type="section" />
         <IcseFormGroup>
           <TextArea
-            className="wide"
+            className="textInputWide"
             id="crns"
             labelText="Add a new connection from any region in the account"
             value={String(this.state.crns)}
             onChange={this.handleCRNs}
-            invalid={this.invalidCRNs(this.state.crns)}
-            invalidText={`Invalid CRN. Must match regular expression ${this.props.crnRegex}`}
+            invalid={invalidCRNs(this.state.crns).invalid}
+            invalidText={invalidCRNs(this.state.crns).invalidText}
             helperText="Enter a comma separated list of CRNs"
             placeholder="crn:v1:bluemix..."
           />
-          <div className="marginBottomSmall wide">
+        </IcseFormGroup>
+        <IcseFormGroup>
+          <div className="marginBottomSmall textInputWide">
             {this.state.crns.map((crn, i) => (
               <Tag key={"crn" + i} size="md" type={"green"}>
                 {crn}
@@ -178,8 +156,6 @@ TransitGatewayForm.defaultProps = {
   },
   vpcList: [],
   resourceGroups: [],
-  region: "",
-  crnRegex: /^(crn:v1:bluemix:(public|dedicated|local):)[A-z-:/0-9]+$/i,
 };
 
 TransitGatewayForm.propTypes = {
@@ -192,8 +168,8 @@ TransitGatewayForm.propTypes = {
   }).isRequired,
   vpcList: PropTypes.array.isRequired,
   resourceGroups: PropTypes.array.isRequired,
-  region: PropTypes.string.isRequired,
-  crnRegex: PropTypes.instanceOf(RegExp).isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
 };
 
 export default TransitGatewayForm;

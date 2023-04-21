@@ -125,6 +125,8 @@ export const IcseHeading = (props) => {
         innerForm={() => {
           return props.type === "subHeading" ? (
             <h5>{props.name}</h5>
+          ) : props.type === "p" ? (
+            <p>{props.name}</p>
           ) : props.type === "section" ? (
             <h6>{props.name}</h6>
           ) : (
