@@ -18,7 +18,7 @@ export default {
     },
     ["data.connections"]: {
       description:
-        "An array (string) of VPCs that connect to the transit gateway",
+        "An array of objects containing the VPCs that connect to the transit gateway",
       control: "none",
       type: { required: false }, // required prop or not
     },
@@ -32,18 +32,17 @@ export default {
       control: "none",
       type: { required: false }, // required prop or not
     },
+    ["data.crns"]: {
+      description:
+        "An array of strings containing VPC CRNs to connect to the transit gateway",
+      control: "none",
+      type: { required: false }, // required prop or not
+    },
     resourceGroups: {
       description:
         "An array of strings containing the names of resource groups to select",
       type: { required: true }, // required prop or not
       control: "none",
-    },
-    readOnlyName: {
-      description:
-        " boolean to indicate whether the transit gateway name is read only",
-      type: { required: true }, // required prop or not
-      control: "none",
-      table: { defaultValue: { summary: "true" } },
     },
     vpcList: {
       description: "An array of strings containing the names of VPCs to select",
@@ -97,8 +96,11 @@ const TransitGatewayFormStory = () => {
         connections: [{ tgw: "transit-gateway", vpc: "management" }],
         resource_group: "service-rg",
         name: "transit-gateway",
+        crns: [
+          "crn:v1:bluemix:public:containers-kubernetes:us-south:a/59bcbfa6ea2f006b4ed7094c1a08dcdd:8042b2a8af6a4a5cbf6dbe09e07311d2:worker:kube-hou02-pa8042b2a8af6a4a5cbf6dbe09e07311d2-w1",
+          "crn:v1:bluemix:public:resource-controller:global:a/59bcbfa6ea2f006b4ed7094c1a08dcdd:resource-group:59bcbfa6ea2f006b4ed7094c1a08dcdd",
+        ],
       }}
-      readOnlyName={true}
       vpcList={["management", "workload"]}
       resourceGroups={["service-rg", "management-rg", "workload-rg"]}
       invalidCallback={invalidCallback}
