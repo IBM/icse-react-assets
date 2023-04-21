@@ -113,7 +113,7 @@ export const EditCloseIcon = (props) => {
   );
   return (
     <PopoverWrapper hoverText={hoverText}>
-      <i onClick={props.onClick} className="chevron">
+      <i role="button" onClick={props.onClick} className="chevron">
         {icon}
       </i>
     </PopoverWrapper>

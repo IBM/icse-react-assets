@@ -670,6 +670,7 @@ const EditCloseIcon = props => {
   return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
     hoverText: hoverText
   }, /*#__PURE__*/React__default["default"].createElement("i", {
+    role: "button",
     onClick: props.onClick,
     className: "chevron"
   }, icon));
