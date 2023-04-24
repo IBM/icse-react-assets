@@ -11,6 +11,28 @@ Documentation for all components is available on storybook: http://ibm.github.io
 3. Test a build with `npm update && npm run build`
 4. Run `npm run dev` to run the playground environment to test any components
 
+## Building the Library Locally for Testing
+To use the library within an application to test your changes, navigate to the base directory where your application is cloned:
+```
+cd icse-react-assets
+```
+
+Build the repo. Make sure you have bumped the package version before doing this.
+```
+npm run build
+```
+
+Package the library, and save it to a location of your choosing. For this example, the location is `~`.
+```
+npm pack --pack-destination ~
+```
+
+Finally, go to your application, and change the entry for `icse-react-assets` in your package.json to this:
+```
+    "icse-react-assets": "file:<your file destination>/icse-react-assets-<package-version>.tgz",
+
+```
+
 ## Contribution Guidelines
 
 1. Create a new branch for your component

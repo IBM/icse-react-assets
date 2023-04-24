@@ -53,6 +53,7 @@ class SubnetForm extends React.Component {
               hide={this.props.isModal}
               show={
                 <SaveAddButton
+                  name={this.props.data.name}
                   disabled={this.props.disableSaveCallback(
                     this.state,
                     this.props

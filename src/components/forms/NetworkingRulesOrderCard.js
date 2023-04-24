@@ -165,7 +165,13 @@ class NetworkingRulesOrderCard extends Component {
           buttons={
             <DynamicRender
               hide={this.props.hideCreate}
-              show={<SaveAddButton type="add" onClick={this.toggleModal} />}
+              show={
+                <SaveAddButton
+                  name={this.props.vpc_name}
+                  type="add"
+                  onClick={this.toggleModal}
+                />
+              }
             />
           }
         />

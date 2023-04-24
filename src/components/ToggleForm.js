@@ -10,6 +10,7 @@ import {
 } from "./Utils";
 import PropTypes from "prop-types";
 import StatefulTabPanel from "./StatefulTabPanel";
+import { kebabCase } from "lazy-z";
 
 class ToggleForm extends React.Component {
   constructor(props) {
@@ -219,6 +220,7 @@ class ToggleForm extends React.Component {
                         hide={this.props.addButtonAtFormTitle !== true}
                         show={
                           <SaveAddButton
+                            name={this.props.name}
                             type="add"
                             onClick={this.onToggleSubModal}
                             noDeleteButton
@@ -233,6 +235,7 @@ class ToggleForm extends React.Component {
                         }
                         show={
                           <SaveAddButton
+                            name={this.props.name}
                             onClick={this.onSave}
                             disabled={this.state.disableSave}
                             noDeleteButton={this.props.noDeleteButton}
