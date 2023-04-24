@@ -8464,7 +8464,7 @@ class RoutingTableRouteForm extends Component {
       invalidCallback: () => {
         this.props.invalidCallback(this.state, this.props);
       },
-      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      invalid: this.props.invalidTextCallback(this.state, this.props),
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseNumberSelect, {
       formName: "routing-table-route",
