@@ -1,30 +1,20 @@
 import React, { Component } from "react";
+import { IcseSelect } from "../Dropdowns";
+import { IcseNameInput, IcseToggle } from "../Inputs";
+import { IcseFormGroup } from "../Utils";
+import RoutingTableRouteForm from "./RoutingTableRouteForm";
+import IcseFormTemplate from "../IcseFormTemplate";
 import {
-  AtrackerForm,
   buildFormDefaultInputMethods,
   buildFormFunctions,
-  IcseNameInput,
-  IcseTextInput,
-  IcseSelect,
-  IcseFormGroup,
-  IcseNumberSelect,
-  IcseToggle,
-  IcseFormTemplate,
-  RoutingTableRouteForm,
-} from "icse-react-assets";
-import "./App.css";
-import { isIpv4CidrOrAddress, isNullOrEmptyString, transpose } from "lazy-z";
+} from "../component-utils";
+import PropTypes from "prop-types";
+import { transpose, isNullOrEmptyString } from "lazy-z";
 
 class RoutingTableForm extends Component {
   constructor(props) {
     super(props);
     this.state = { ...this.props.data };
-    if (
-      !isNullOrEmptyString(this.state.action) &&
-      this.state.action !== "deliver"
-    ) {
-      this.state.next_hop = "0.0.0.0";
-    }
     this.handleInputChange = this.handleInputChange.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
@@ -151,61 +141,42 @@ class RoutingTableForm extends Component {
   }
 }
 
-const AtrackerFormStory = () => {
-  return (
-    <RoutingTableForm
-      invalidCallback={(stateData, componentProps) => {
-        return true;
-      }}
-      invalidTextCallback={(stateData, componentProps) => {
-        return "Invalid Text";
-      }}
-      invalidRouteCallback={(stateData, componentProps) => {
-        return true;
-      }}
-      invalidRouteTextCallback={(stateData, componentProps) => {
-        return "Invalid Text";
-      }}
-      data={{
-        name: "table",
-        vpc: "management",
-        routes: [
-          {
-            name: "route",
-            zone: 1,
-            destination: "8.8.8.8",
-            action: "drop",
-          },
-        ],
-      }}
-      propsMatchState={() => {
-        return false;
-      }}
-      isModal={false}
-      vpcList={["management", "workload"]}
-      routeProps={{
-        disableSave: function () {
-          return false;
-        },
-        onDelete: function () {
-          return false;
-        },
-        onSave: function () {
-          return false;
-        },
-        onSubmit: function () {
-          return false;
-        },
-        propsMatchState: function () {
-          return false;
-        },
-      }}
-    />
-  );
+RoutingTableForm.defaultProps = {
+  isModal: false,
+  data: {
+    name: "",
+    vpc: null,
+    routes: [],
+    route_internet_ingress: false,
+    route_transit_gateway_ingress: false,
+    route_vpc_zone_ingress: false,
+    route_direct_link_ingress: false,
+  },
 };
 
-function App() {
-  return <AtrackerFormStory />;
-}
+RoutingTableForm.propTypes = {
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    vpc: PropTypes.string,
+    routes: PropTypes.array.isRequired,
+    route_internet_ingress: PropTypes.bool.isRequired,
+    route_transit_gateway_ingress: PropTypes.bool.isRequired,
+    route_vpc_zone_ingress: PropTypes.bool.isRequired,
+    route_direct_link_ingress: PropTypes.bool.isRequired,
+  }).isRequired,
+  propsMatchState: PropTypes.func.isRequired,
+  invalidRouteCallback: PropTypes.func.isRequired,
+  invalidRouteTextCallback: PropTypes.func.isRequired,
+  isModal: PropTypes.bool.isRequired,
+  vpcList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  routeProps: PropTypes.shape({
+    disableSave: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
-export default App;
+export default RoutingTableForm;

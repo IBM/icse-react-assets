@@ -12,7 +12,7 @@ export default {
       control: "none",
     },
     ["data.name"]: {
-      description: "A string value des",
+      description: "A string value describing the name",
       control: "none",
       type: { required: true }, // required prop or not
     },
@@ -53,7 +53,7 @@ export default {
     docs: {
       description: {
         component:
-          "SccForm is a form component that provides functionality for enabling/editing an Security Compliance Center instance.",
+          "RoutingTableForm is a form component that provides functionality for enabling/editing a Routing Table Route instance.",
       },
     },
     decorators: [(Story) => <div style={{ padding: "4.5rem" }}>{Story()}</div>],
