@@ -1,10 +1,13 @@
 import React, { Component } from "react";
-import { buildFormFunctions, buildFormDefaultInputMethods } from "../component-utils";
+import {
+  buildFormFunctions,
+  buildFormDefaultInputMethods,
+} from "../component-utils";
 import { IcseNameInput, IcseTextInput } from "../Inputs";
 import { IcseSelect, IcseNumberSelect } from "../Dropdowns";
-import { IcseFormGroup } from "../Utils"
+import { IcseFormGroup } from "../Utils";
 import PropTypes from "prop-types";
-import { isNullOrEmptyString, isIpv4CidrOrAddress } from "lazy-z";
+import { isNullOrEmptyString, isIpv4CidrOrAddress, contains } from "lazy-z";
 
 class RoutingTableRouteForm extends Component {
   constructor(props) {
@@ -97,7 +100,8 @@ class RoutingTableRouteForm extends Component {
             labelText="Next Hop"
             invalidCallback={() =>
               isNullOrEmptyString(this.state.next_hop) ||
-              isIpv4CidrOrAddress(this.state.next_hop) === false
+              isIpv4CidrOrAddress(this.state.next_hop) === false ||
+              contains(this.state.next_hop, `/`)
             }
             invalidText="Next hop must be a valid IP"
             onChange={this.handleInputChange}
@@ -128,6 +132,7 @@ RoutingTableRouteForm.propTypes = {
     destination: PropTypes.string.isRequired,
     action: PropTypes.string.isRequired,
     next_hop: PropTypes.string,
+    zone: PropTypes.number,
   }).isRequired,
 };
 

@@ -8500,7 +8500,7 @@ class RoutingTableRouteForm extends Component {
       field: "next_hop",
       value: this.state.next_hop,
       labelText: "Next Hop",
-      invalidCallback: () => isNullOrEmptyString$3(this.state.next_hop) || isIpv4CidrOrAddress$1(this.state.next_hop) === false,
+      invalidCallback: () => isNullOrEmptyString$3(this.state.next_hop) || isIpv4CidrOrAddress$1(this.state.next_hop) === false || contains$2(this.state.next_hop, `/`),
       invalidText: "Next hop must be a valid IP",
       onChange: this.handleInputChange,
       disabled: this.state.action !== "deliver",
@@ -8524,7 +8524,8 @@ RoutingTableRouteForm.propTypes = {
     name: PropTypes.string.isRequired,
     destination: PropTypes.string.isRequired,
     action: PropTypes.string.isRequired,
-    next_hop: PropTypes.string
+    next_hop: PropTypes.string,
+    zone: PropTypes.number
   }).isRequired
 };
 
@@ -8563,7 +8564,7 @@ class RoutingTableForm extends Component {
     let composedId = this.props.data.name + "-route-form";
     let innerFormProps = {
       arrayParentName: this.props.data.name,
-      cluster: this.props.data,
+      route: this.props.data,
       invalidTextCallback: this.props.invalidRouteTextCallback,
       invalidCallback: this.props.invalidRouteCallback
     };
@@ -8576,18 +8577,16 @@ class RoutingTableForm extends Component {
       hideHelperText: true,
       value: this.state.name,
       onChange: this.handleInputChange,
-      invalidCallback: () => {
-        this.props.invalidCallback(this.state, this.props);
-      },
+      invalid: this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props)
     }), /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: "vsi_form",
+      formName: composedId + "-vpc",
       name: "vpc",
       labelText: "VPC",
       groups: this.props.vpcList,
       value: this.state.vpc,
       handleInputChange: this.handleInputChange,
-      invalid: isNullOrEmptyString$3(this.state.vpc),
+      invalid: this.props.invalidCallback(this.state, this.props),
       invalidText: "Select a VPC."
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
       id: composedId + "-direct-link-toggle",

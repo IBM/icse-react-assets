@@ -8511,7 +8511,7 @@ class RoutingTableRouteForm extends React.Component {
       field: "next_hop",
       value: this.state.next_hop,
       labelText: "Next Hop",
-      invalidCallback: () => lazyZ.isNullOrEmptyString(this.state.next_hop) || lazyZ.isIpv4CidrOrAddress(this.state.next_hop) === false,
+      invalidCallback: () => lazyZ.isNullOrEmptyString(this.state.next_hop) || lazyZ.isIpv4CidrOrAddress(this.state.next_hop) === false || lazyZ.contains(this.state.next_hop, `/`),
       invalidText: "Next hop must be a valid IP",
       onChange: this.handleInputChange,
       disabled: this.state.action !== "deliver",
@@ -8535,7 +8535,8 @@ RoutingTableRouteForm.propTypes = {
     name: PropTypes__default["default"].string.isRequired,
     destination: PropTypes__default["default"].string.isRequired,
     action: PropTypes__default["default"].string.isRequired,
-    next_hop: PropTypes__default["default"].string
+    next_hop: PropTypes__default["default"].string,
+    zone: PropTypes__default["default"].number
   }).isRequired
 };
 
@@ -8574,7 +8575,7 @@ class RoutingTableForm extends React.Component {
     let composedId = this.props.data.name + "-route-form";
     let innerFormProps = {
       arrayParentName: this.props.data.name,
-      cluster: this.props.data,
+      route: this.props.data,
       invalidTextCallback: this.props.invalidRouteTextCallback,
       invalidCallback: this.props.invalidRouteCallback
     };
@@ -8587,18 +8588,16 @@ class RoutingTableForm extends React.Component {
       hideHelperText: true,
       value: this.state.name,
       onChange: this.handleInputChange,
-      invalidCallback: () => {
-        this.props.invalidCallback(this.state, this.props);
-      },
+      invalid: this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props)
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "vsi_form",
+      formName: composedId + "-vpc",
       name: "vpc",
       labelText: "VPC",
       groups: this.props.vpcList,
       value: this.state.vpc,
       handleInputChange: this.handleInputChange,
-      invalid: lazyZ.isNullOrEmptyString(this.state.vpc),
+      invalid: this.props.invalidCallback(this.state, this.props),
       invalidText: "Select a VPC."
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
       id: composedId + "-direct-link-toggle",

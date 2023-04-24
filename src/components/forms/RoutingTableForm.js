@@ -40,7 +40,7 @@ class RoutingTableForm extends Component {
     let composedId = this.props.data.name + "-route-form";
     let innerFormProps = {
       arrayParentName: this.props.data.name,
-      cluster: this.props.data,
+      route: this.props.data,
       invalidTextCallback: this.props.invalidRouteTextCallback,
       invalidCallback: this.props.invalidRouteCallback,
     };
@@ -54,19 +54,17 @@ class RoutingTableForm extends Component {
             hideHelperText
             value={this.state.name}
             onChange={this.handleInputChange}
-            invalidCallback={() => {
-              this.props.invalidCallback(this.state, this.props);
-            }}
+            invalid={this.props.invalidCallback(this.state, this.props)}
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
           />
           <IcseSelect
-            formName="vsi_form"
+            formName={composedId + "-vpc"}
             name="vpc"
             labelText="VPC"
             groups={this.props.vpcList}
             value={this.state.vpc}
             handleInputChange={this.handleInputChange}
-            invalid={isNullOrEmptyString(this.state.vpc)}
+            invalid={this.props.invalidCallback(this.state, this.props)}
             invalidText="Select a VPC."
           />
         </IcseFormGroup>
