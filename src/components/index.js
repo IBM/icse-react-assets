@@ -72,6 +72,7 @@ export {
   AccessGroupDynamicPolicyForm,
   AccessGroupPolicyForm,
 } from "./forms/access-groups";
+export { default as RoutingTableRouteForm } from "./forms/RoutingTableRouteForm";
 export {
   DynamicRender,
   IcseFormGroup,
