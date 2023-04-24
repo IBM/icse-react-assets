@@ -128,6 +128,8 @@ export const IcseHeading = (props) => {
             <h5>{props.name}</h5>
           ) : props.type === "p" ? (
             <p>{props.name}</p>
+          ) : props.type === "section" ? (
+            <h6>{props.name}</h6>
           ) : (
             <h4>{props.name}</h4>
           );
