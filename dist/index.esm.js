@@ -8461,10 +8461,8 @@ class RoutingTableRouteForm extends Component {
       hideHelperText: true,
       value: this.state.name,
       onChange: this.handleInputChange,
-      invalidCallback: () => {
-        this.props.invalidCallback(this.state, this.props);
-      },
-      invalid: this.props.invalidTextCallback(this.state, this.props),
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseNumberSelect, {
       formName: "routing-table-route",

@@ -51,10 +51,8 @@ class RoutingTableRouteForm extends Component {
             hideHelperText
             value={this.state.name}
             onChange={this.handleInputChange}
-            invalidCallback={() => {
-              this.props.invalidCallback(this.state, this.props);
-            }}
-            invalid={this.props.invalidTextCallback(this.state, this.props)}
+            invalid={this.props.invalidCallback(this.state, this.props)}
+            invalidText={this.props.invalidTextCallback(this.state, this.props)}
             className="fieldWidthSmaller"
           />
           <IcseNumberSelect
