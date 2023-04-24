@@ -1,6 +1,6 @@
 import '@carbon/styles/css/styles.css';
 import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, Link, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, NumberInput, Modal, TextInput, Toggle, Tabs, TabList, Tab, TabPanels, TabPanel, FilterableMultiSelect, PasswordInput, TextArea, Dropdown, Tag } from '@carbon/react';
-import lazyZ, { kebabCase as kebabCase$2, isEmpty, isNullOrEmptyString as isNullOrEmptyString$3, buildNumberDropdownList, titleCase as titleCase$1, contains as contains$2, snakeCase, distinct, getObjectFromArray, splat as splat$1, isWholeNumber as isWholeNumber$1, isInRange as isInRange$1, isBoolean, isFunction as isFunction$1, transpose, prettyJSON, allFieldsNull, containsKeys, capitalize as capitalize$2, deepEqual, parseIntFromZone, eachKey } from 'lazy-z';
+import lazyZ, { kebabCase as kebabCase$2, isEmpty, isNullOrEmptyString as isNullOrEmptyString$3, buildNumberDropdownList, titleCase as titleCase$1, contains as contains$2, snakeCase, distinct, getObjectFromArray, splat as splat$1, isWholeNumber as isWholeNumber$1, isInRange as isInRange$1, isBoolean, isFunction as isFunction$1, transpose, prettyJSON, allFieldsNull, containsKeys, capitalize as capitalize$2, deepEqual, parseIntFromZone, eachKey, isIpv4CidrOrAddress as isIpv4CidrOrAddress$1 } from 'lazy-z';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Information, Save, Add, ChevronDown, ChevronRight, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt, Password } from '@carbon/icons-react';
@@ -8419,6 +8419,266 @@ AccessGroupForm.propTypes = {
   invalidTextCallback: PropTypes.func.isRequired
 };
 
+class RoutingTableRouteForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    if (!isNullOrEmptyString$3(this.state.action) && this.state.action !== "deliver") {
+      this.state.next_hop = "0.0.0.0";
+    }
+    this.handleInputChange = this.handleInputChange.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputChange(event) {
+    let nextState = {
+      ...this.state
+    };
+    let {
+      name,
+      value
+    } = event.target;
+    nextState[name] = value;
+    if (name === "action" && value !== "deliver") {
+      nextState.next_hop = "0.0.0.0";
+    } else if (name === "action") {
+      nextState.next_hop = null;
+    }
+    this.setState(nextState);
+  }
+  render() {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      componentName: "routing-table-route",
+      id: this.props.data.name + "-route-name",
+      hideHelperText: true,
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseNumberSelect, {
+      formName: "routing-table-route",
+      value: this.state.zone || "",
+      min: 1,
+      max: 3,
+      name: "zone",
+      labelText: "Route Zone",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: this.props.data.name + "-route-destination",
+      componentName: "routing-route-destination",
+      name: "destination",
+      field: "destination",
+      value: this.state.destination,
+      labelText: "Destination IP or CIDR",
+      invalidCallback: () => isIpv4CidrOrAddress$1(this.state.destination) === false,
+      invalidText: "Destination must be a valid IP or IPV4 CIDR block",
+      onChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+      name: "action",
+      formName: this.props.data.name + "-routing-table-route-action",
+      groups: ["delegate", "deliver", "delegate_vpc", "drop"],
+      labelText: "Action",
+      handleInputChange: this.handleInputChange,
+      value: this.state.action,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: this.props.data.name + "-next-hop",
+      componentName: "routing-next-hop",
+      field: "next_hop",
+      value: this.state.next_hop,
+      labelText: "Next Hop",
+      invalidCallback: () => isNullOrEmptyString$3(this.state.next_hop) || isIpv4CidrOrAddress$1(this.state.next_hop) === false || contains$2(this.state.next_hop, `/`),
+      invalidText: "Next hop must be a valid IP",
+      onChange: this.handleInputChange,
+      disabled: this.state.action !== "deliver",
+      className: "fieldWidthSmaller"
+    })));
+  }
+}
+RoutingTableRouteForm.defaultProps = {
+  data: {
+    name: "",
+    zone: "",
+    destination: "",
+    action: "",
+    next_hop: ""
+  }
+};
+RoutingTableRouteForm.propTypes = {
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    destination: PropTypes.string.isRequired,
+    action: PropTypes.string.isRequired,
+    next_hop: PropTypes.string,
+    zone: PropTypes.number
+  }).isRequired
+};
+
+class RoutingTableForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleToggle = this.handleToggle.bind(this);
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputChange(event) {
+    let nextState = {
+      ...this.state
+    };
+    let {
+      name,
+      value
+    } = event.target;
+    nextState[name] = value;
+    this.setState(nextState);
+  }
+  handleToggle(name) {
+    this.setState(this.toggleStateBoolean(name, this.state));
+  }
+  render() {
+    let composedId = this.props.data.name + "-route-form";
+    let innerFormProps = {
+      arrayParentName: this.props.data.name,
+      route: this.props.data,
+      invalidTextCallback: this.props.invalidRouteTextCallback,
+      invalidCallback: this.props.invalidRouteCallback
+    };
+    transpose({
+      ...this.props.routeProps
+    }, innerFormProps);
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      componentName: "routing-table-route",
+      id: this.props.data.name + "-route-name",
+      hideHelperText: true,
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: composedId + "-vpc",
+      name: "vpc",
+      labelText: "VPC",
+      groups: this.props.vpcList,
+      value: this.state.vpc,
+      handleInputChange: this.handleInputChange,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: "Select a VPC."
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
+      id: composedId + "-direct-link-toggle",
+      labelText: "Direct Link Ingress",
+      defaultToggled: this.state.route_direct_link_ingress,
+      onToggle: this.handleToggle,
+      tooltip: {
+        content: "If set to true, the routing table is used to route traffic that originates from Direct Link to the VPC. To succeed, the VPC must not already have a routing table with the property set to true"
+      }
+    }), /*#__PURE__*/React.createElement(IcseToggle, {
+      id: composedId + "-route-internet-toggle",
+      labelText: "Internet Ingress",
+      defaultToggled: this.state.route_internet_ingress,
+      onToggle: this.handleToggle,
+      tooltip: {
+        content: "If set to true, this routing table will be used to route traffic that originates from the internet. For this to succeed, the VPC must not already have a routing table with this property set to true"
+      }
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
+      id: composedId + "-tgw-ingress",
+      labelText: "Transit Gateway Ingress",
+      defaultToggled: this.state.route_transit_gateway_ingress,
+      onToggle: this.handleToggle,
+      tooltip: {
+        content: "If set to true, the routing table is used to route traffic that originates from Transit Gateway to the VPC. To succeed, the VPC must not already have a routing table with the property set to true"
+      }
+    }), /*#__PURE__*/React.createElement(IcseToggle, {
+      id: composedId + "-zone-ingress",
+      labelText: "VPC Zone Ingress",
+      defaultToggled: this.state.route_vpc_zone_ingress,
+      onToggle: this.handleToggle,
+      tooltip: {
+        content: "If set to true, the routing table is used to route traffic that originates from subnets in other zones in the VPC. To succeed, the VPC must not already have a routing table with the property set to true"
+      }
+    })), this.props.isModal === false && /*#__PURE__*/React.createElement(IcseFormTemplate, {
+      name: "Routes",
+      subHeading: true,
+      addText: "Create a Route",
+      arrayData: this.props.data.routes,
+      innerForm: RoutingTableRouteForm,
+      disableSave: this.props.routeProps.disableSave,
+      onDelete: this.props.routeProps.onDelete,
+      onSave: this.props.routeProps.onSave,
+      onSubmit: this.props.routeProps.onSubmit,
+      propsMatchState: this.props.propsMatchState,
+      innerFormProps: {
+        ...innerFormProps
+      },
+      hideAbout: true,
+      toggleFormProps: {
+        hideName: true,
+        submissionFieldName: "routes",
+        disableSave: this.props.routeProps.disableSave,
+        type: "formInSubForm"
+      }
+    }));
+  }
+}
+RoutingTableForm.defaultProps = {
+  isModal: false,
+  data: {
+    name: "",
+    vpc: null,
+    routes: [],
+    route_internet_ingress: false,
+    route_transit_gateway_ingress: false,
+    route_vpc_zone_ingress: false,
+    route_direct_link_ingress: false
+  }
+};
+RoutingTableForm.propTypes = {
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    vpc: PropTypes.string,
+    routes: PropTypes.array.isRequired,
+    route_internet_ingress: PropTypes.bool.isRequired,
+    route_transit_gateway_ingress: PropTypes.bool.isRequired,
+    route_vpc_zone_ingress: PropTypes.bool.isRequired,
+    route_direct_link_ingress: PropTypes.bool.isRequired
+  }).isRequired,
+  propsMatchState: PropTypes.func.isRequired,
+  invalidRouteCallback: PropTypes.func.isRequired,
+  invalidRouteTextCallback: PropTypes.func.isRequired,
+  isModal: PropTypes.bool.isRequired,
+  vpcList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  routeProps: PropTypes.shape({
+    disableSave: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired
+  }).isRequired
+};
+
 /**
  * EventStreamsForm
  */
@@ -8568,4 +8828,4 @@ EventStreamsForm.propTypes = {
   invalidTextCallback: PropTypes.func.isRequired
 };
 
-export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, ClusterForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, LocationsMultiSelect, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VsiForm, VsiLoadBalancerForm, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, ClusterForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, LocationsMultiSelect, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, RoutingTableForm, RoutingTableRouteForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VsiForm, VsiLoadBalancerForm, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
