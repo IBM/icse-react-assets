@@ -206,6 +206,10 @@ input:read-only {
   margin-top: 0.5rem;
 }
 
+.subnetTileFormMargin.formInSubForm {
+  padding: 0px;
+}
+
 .marginRightSubnetTile {
   margin-right: 10px;
 }
