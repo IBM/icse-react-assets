@@ -71,6 +71,7 @@ class RoutingTableRouteForm extends Component {
             name="destination"
             field="destination"
             value={this.state.destination}
+            placeholder="x.x.x.x"
             labelText="Destination IP or CIDR"
             invalidCallback={() =>
               isIpv4CidrOrAddress(this.state.destination) === false
@@ -96,6 +97,7 @@ class RoutingTableRouteForm extends Component {
             field="next_hop"
             value={this.state.next_hop}
             labelText="Next Hop"
+            placeholder="x.x.x.x"
             invalidCallback={() =>
               isNullOrEmptyString(this.state.next_hop) ||
               isIpv4CidrOrAddress(this.state.next_hop) === false ||
