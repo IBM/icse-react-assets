@@ -83,7 +83,6 @@ class VsiVolumeForm extends Component {
             placeholder="100"
             min={10}
             max={16000}
-            helperText="Enter a number between 10 and 16000 GB."
             invalid={isRangeInvalid(this.state.capacity, 10, 16000)}
             invalidText="Must be a whole number between 10 and 16000"
             className="fieldWidthSmaller leftTextAlign"
