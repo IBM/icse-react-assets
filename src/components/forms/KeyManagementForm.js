@@ -18,6 +18,7 @@ class KeyManagementForm extends Component {
   constructor(props) {
     super(props);
     this.state = this.props.data;
+    if (this.props.isModal) this.state.keys = [];
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSystemDropdown = this.handleSystemDropdown.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
