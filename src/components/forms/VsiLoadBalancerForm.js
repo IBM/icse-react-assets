@@ -241,7 +241,7 @@ class VsiLoadBalancerForm extends React.Component {
             {row.map((vsi, vsiIndex) => (
               <Tile
                 key={`${index}-${vsiIndex}`}
-                className="fieldWidthSmaller subnetTileFormMargin"
+                className="fieldWidthSmaller tileFormMargin"
               >
                 <p className="tileTitle">Name:</p>
                 <p className="tileContent">{vsi.name}</p>

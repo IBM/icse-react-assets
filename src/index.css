@@ -201,12 +201,12 @@ input:read-only {
 
 /* subnet tile form */
 
-.subnetTileFormMargin {
+.tileFormMargin {
   margin-bottom: -0.5rem;
   margin-top: 0.5rem;
 }
 
-.subnetTileFormMargin.formInSubForm {
+.tileFormMargin.formInSubForm {
   padding: 0px;
 }
 
