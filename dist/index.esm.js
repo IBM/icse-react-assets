@@ -8535,6 +8535,7 @@ class RoutingTableForm extends Component {
     this.state = {
       ...this.props.data
     };
+    if (this.props.isModal) this.state.routes = [];
     this.handleInputChange = this.handleInputChange.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
@@ -8594,7 +8595,9 @@ class RoutingTableForm extends Component {
       defaultToggled: this.state.route_direct_link_ingress,
       onToggle: this.handleToggle,
       tooltip: {
-        content: "If set to true, the routing table is used to route traffic that originates from Direct Link to the VPC. To succeed, the VPC must not already have a routing table with the property set to true"
+        content: "If set to true, the routing table is used to route traffic that originates from Direct Link to the VPC. To succeed, the VPC must not already have a routing table with the property set to true",
+        align: "bottom-left",
+        alignModal: "bottom-left"
       }
     }), /*#__PURE__*/React.createElement(IcseToggle, {
       id: composedId + "-route-internet-toggle",
@@ -8602,7 +8605,9 @@ class RoutingTableForm extends Component {
       defaultToggled: this.state.route_internet_ingress,
       onToggle: this.handleToggle,
       tooltip: {
-        content: "If set to true, this routing table will be used to route traffic that originates from the internet. For this to succeed, the VPC must not already have a routing table with this property set to true"
+        content: "If set to true, this routing table will be used to route traffic that originates from the internet. For this to succeed, the VPC must not already have a routing table with this property set to true",
+        align: "bottom-left",
+        alignModal: "bottom-left"
       }
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
       id: composedId + "-tgw-ingress",
@@ -8610,7 +8615,9 @@ class RoutingTableForm extends Component {
       defaultToggled: this.state.route_transit_gateway_ingress,
       onToggle: this.handleToggle,
       tooltip: {
-        content: "If set to true, the routing table is used to route traffic that originates from Transit Gateway to the VPC. To succeed, the VPC must not already have a routing table with the property set to true"
+        content: "If set to true, the routing table is used to route traffic that originates from Transit Gateway to the VPC. To succeed, the VPC must not already have a routing table with the property set to true",
+        align: "bottom-left",
+        alignModal: "bottom-left"
       }
     }), /*#__PURE__*/React.createElement(IcseToggle, {
       id: composedId + "-zone-ingress",
@@ -8618,7 +8625,9 @@ class RoutingTableForm extends Component {
       defaultToggled: this.state.route_vpc_zone_ingress,
       onToggle: this.handleToggle,
       tooltip: {
-        content: "If set to true, the routing table is used to route traffic that originates from subnets in other zones in the VPC. To succeed, the VPC must not already have a routing table with the property set to true"
+        content: "If set to true, the routing table is used to route traffic that originates from subnets in other zones in the VPC. To succeed, the VPC must not already have a routing table with the property set to true",
+        align: "bottom-left",
+        alignModal: "bottom-left"
       }
     })), this.props.isModal === false && /*#__PURE__*/React.createElement(IcseFormTemplate, {
       name: "Routes",
