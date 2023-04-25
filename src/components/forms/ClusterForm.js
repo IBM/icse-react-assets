@@ -22,6 +22,7 @@ class ClusterForm extends Component {
   constructor(props) {
     super(props);
     this.state = { ...this.props.data };
+    if (this.props.isModal) this.state.worker_pools = [];
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleToggleChange = this.handleToggleChange.bind(this);
     this.handleMultiSelect = this.handleMultiSelect.bind(this);

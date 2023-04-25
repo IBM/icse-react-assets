@@ -16,6 +16,7 @@ class SecurityGroupForm extends Component {
   constructor(props) {
     super(props);
     this.state = { ...this.props.data, show: false };
+    if (this.props.isModal) this.state.rules = [];
     this.handleInputChange = this.handleInputChange.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);

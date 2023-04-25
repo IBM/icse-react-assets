@@ -4358,6 +4358,7 @@ class KeyManagementForm extends Component {
   constructor(props) {
     super(props);
     this.state = this.props.data;
+    if (this.props.isModal) this.state.keys = [];
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSystemDropdown = this.handleSystemDropdown.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
@@ -5956,6 +5957,7 @@ class SecurityGroupForm extends Component {
       ...this.props.data,
       show: false
     };
+    if (this.props.isModal) this.state.rules = [];
     this.handleInputChange = this.handleInputChange.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
@@ -7715,6 +7717,7 @@ class ClusterForm extends Component {
     this.state = {
       ...this.props.data
     };
+    if (this.props.isModal) this.state.worker_pools = [];
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleToggleChange = this.handleToggleChange.bind(this);
     this.handleMultiSelect = this.handleMultiSelect.bind(this);
