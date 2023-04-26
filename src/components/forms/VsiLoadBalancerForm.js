@@ -232,7 +232,7 @@ class VsiLoadBalancerForm extends React.Component {
             min={1}
             max={65535}
             invalid={
-              isNullOrEmptyString(this.state.port)
+              isNullOrEmptyString(this.state.port || "")
                 ? true
                 : !isWholeNumber(this.state.port)
             }
@@ -311,7 +311,7 @@ class VsiLoadBalancerForm extends React.Component {
             min={5}
             max={3000}
             invalid={
-              isNullOrEmptyString(this.state.health_timeout)
+              isNullOrEmptyString(this.state.health_timeout || "")
                 ? true
                 : !isWholeNumber(this.state.health_timeout)
             }
@@ -332,7 +332,7 @@ class VsiLoadBalancerForm extends React.Component {
             min={5}
             max={3000}
             invalid={
-              isNullOrEmptyString(this.state.health_delay)
+              isNullOrEmptyString(this.state.health_delay || "")
                 ? true
                 : this.state.health_delay <= this.state.health_timeout ||
                   !isWholeNumber(this.state.health_delay)
@@ -358,7 +358,7 @@ class VsiLoadBalancerForm extends React.Component {
             min={5}
             max={3000}
             invalid={
-              isNullOrEmptyString(this.state.health_retries)
+              isNullOrEmptyString(this.state.health_retries || "")
                 ? true
                 : !isWholeNumber(this.state.health_retries)
             }
@@ -383,7 +383,7 @@ class VsiLoadBalancerForm extends React.Component {
             min={1}
             max={65535}
             invalid={
-              isNullOrEmptyString(this.state.listener_port)
+              isNullOrEmptyString(this.state.listener_port || "")
                 ? true
                 : !isWholeNumber(this.state.listener_port)
             }
@@ -415,7 +415,7 @@ class VsiLoadBalancerForm extends React.Component {
             min={1}
             max={15000}
             invalid={
-              isNullOrEmptyString(this.state.connection_limit)
+              isNullOrEmptyString(this.state.connection_limit || "")
                 ? false
                 : isInRange(this.state.connection_limit, 1, 15000) === false ||
                   !isWholeNumber(this.state.connection_limit)
@@ -455,7 +455,7 @@ class VsiLoadBalancerForm extends React.Component {
               value={this.state.session_persistence_app_cookie_name || ""}
               invalid={
                 isNullOrEmptyString(
-                  this.state.session_persistence_app_cookie_name
+                  this.state.session_persistence_app_cookie_name || ""
                 )
                   ? false
                   : this.props.invalidCallback(this.state, this.props)
