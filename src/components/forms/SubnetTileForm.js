@@ -71,7 +71,7 @@ class SubnetTileForm extends React.Component {
               !contains(this.props.select_zones, index + 1)
             ) {
               return (
-                <SubnetForm // change so doesn't show buttons
+                <SubnetForm
                   key={`${subnet.name}-tile-${this.props.tier}-${
                     this.props.vpc_name
                   }-${JSON.stringify(subnet)}`}
@@ -86,11 +86,12 @@ class SubnetTileForm extends React.Component {
                   readOnly={true}
                   networkAcls={[]}
                   disableSaveCallback={this.props.disableSaveCallback}
+                  componentDidUpdateCallback={this.childSubnetHasChanged}
                 />
               );
             }
             return (
-              <SubnetForm // change so doesn't show buttons
+              <SubnetForm
                 key={`${subnet.name}-tile-${this.props.tier}-${
                   this.props.vpc_name
                 }-${JSON.stringify(subnet)}`}

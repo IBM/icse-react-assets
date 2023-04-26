@@ -1417,7 +1417,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: !isWholeNumber$1(this.state.port),
+      invalid: isNullOrEmptyString$3(this.state.port) ? true : !isWholeNumber$1(this.state.port),
       invalidText: "Must be a whole number between 1 and 65535",
       className: "fieldWidthSmaller"
     })), this.allVsi().map((row, index) => /*#__PURE__*/React.createElement(IcseFormGroup, {
@@ -1478,7 +1478,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 5,
       max: 3000,
-      invalid: !isWholeNumber$1(this.state.health_timeout),
+      invalid: isNullOrEmptyString$3(this.state.health_timeout) ? true : !isWholeNumber$1(this.state.health_timeout),
       invalidText: "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(NumberInput, {
@@ -1493,7 +1493,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 5,
       max: 3000,
-      invalid: this.state.health_delay <= this.state.health_timeout || !isWholeNumber$1(this.state.health_delay),
+      invalid: isNullOrEmptyString$3(this.state.health_delay) ? true : this.state.health_delay <= this.state.health_timeout || !isWholeNumber$1(this.state.health_delay),
       invalidText: this.state.health_delay <= this.state.health_timeout ? "Must be greater than Health Timeout value" : "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(NumberInput, {
@@ -1508,7 +1508,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 5,
       max: 3000,
-      invalid: !isWholeNumber$1(this.state.health_retries),
+      invalid: isNullOrEmptyString$3(this.state.health_retries) ? true : !isWholeNumber$1(this.state.health_retries),
       invalidText: "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseHeading, {
@@ -1526,7 +1526,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: !isWholeNumber$1(this.state.listener_port),
+      invalid: isNullOrEmptyString$3(this.state.listener_port) ? true : !isWholeNumber$1(this.state.listener_port),
       invalidText: "Must be a whole number between 1 and 65535",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseSelect, {
@@ -6353,8 +6353,7 @@ class SubnetTileForm extends React.Component {
       className: "displayFlex"
     }, subnetMap.map((subnet, index) => {
       if (this.props.advanced && !contains$2(this.props.select_zones, index + 1)) {
-        return /*#__PURE__*/React.createElement(SubnetForm // change so doesn't show buttons
-        , {
+        return /*#__PURE__*/React.createElement(SubnetForm, {
           key: `${subnet.name}-tile-${this.props.tier}-${this.props.vpc_name}-${JSON.stringify(subnet)}`,
           vpc_name: this.props.vpc_name,
           data: {
@@ -6366,11 +6365,11 @@ class SubnetTileForm extends React.Component {
           advanced: true,
           readOnly: true,
           networkAcls: [],
-          disableSaveCallback: this.props.disableSaveCallback
+          disableSaveCallback: this.props.disableSaveCallback,
+          componentDidUpdateCallback: this.childSubnetHasChanged
         });
       }
-      return /*#__PURE__*/React.createElement(SubnetForm // change so doesn't show buttons
-      , {
+      return /*#__PURE__*/React.createElement(SubnetForm, {
         key: `${subnet.name}-tile-${this.props.tier}-${this.props.vpc_name}-${JSON.stringify(subnet)}`,
         vpc_name: this.props.vpc_name,
         data: subnet,
