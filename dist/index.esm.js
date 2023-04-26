@@ -6171,6 +6171,7 @@ class SubnetForm extends React.Component {
     this.handleSave = this.handleSave.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
+    this.cidrIsValid = this.cidrIsValid.bind(this);
   }
   handleChange(event) {
     let {
@@ -6192,10 +6193,16 @@ class SubnetForm extends React.Component {
       public_gateway: !this.state.public_gateway
     });
   }
+
+  /**
+   * check if cidr valid
+   * @param {string} cidr 
+   * @returns {boolean} true if not valid
+   */
+  cidrIsValid(cidr) {
+    return isIpv4CidrOrAddress$1(cidr) === false || !contains$2(cidr, "/");
+  }
   render() {
-    function cidrIsValid(cidr) {
-      return isIpv4CidrOrAddress$1(cidr) === false || !contains$2(cidr, "/");
-    }
     return /*#__PURE__*/React.createElement(Tile, {
       key: this.props.vpc_name + "-subnets-" + this.props.data.name,
       className: "marginRightSubnetTile fieldWidth subForm"
@@ -6235,7 +6242,7 @@ class SubnetForm extends React.Component {
       className: "fieldWidthSmaller",
       readOnly: this.props.advanced === false || this.props.readOnly,
       onChange: this.handleChange,
-      invalid: this.props.invalidCidr ? this.props.invalidCidr(this.state, this.props) || cidrIsValid(this.state.cidr) : cidrIsValid(this.state.cidr)
+      invalid: this.props.invalidCidr ? this.props.invalidCidr(this.state, this.props) || this.cidrIsValid(this.state.cidr) : this.cidrIsValid(this.state.cidr)
     })), /*#__PURE__*/React.createElement(IcseFormGroup, {
       className: "marginBottomSmall"
     }, /*#__PURE__*/React.createElement(IcseSelect, {
