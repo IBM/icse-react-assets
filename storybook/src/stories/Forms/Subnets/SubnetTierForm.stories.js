@@ -127,6 +127,24 @@ export default {
       type: { required: true }, // required prop or not
       control: "none",
     },
+    invalidSubnetCallback: {
+      description:
+        "Callback function that accepts to parameters `stateData` and `componentProps` and returns a boolean. Used to check subnets",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
+    invalidSubnetTextCallback: {
+      description:
+        "Callback function that accepts to parameters `stateData` and `componentProps` and returns a boolean. Used to check subnets and return text",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
+    subnetListCallback: {
+      description:
+        "Callback function to get subnet tier data that accepts to parameters `stateData` and `componentProps`, returns list of subnets",
+      type: { required: true },
+      control: "none",
+    },
   },
   parameters: {
     docs: {
@@ -213,4 +231,81 @@ const SubnetTierFormStory = () => {
   );
 };
 
+const SubnetTierFormAdvancedStory = () => {
+  function invalidCallback(stateData, componentProps) {
+    return false;
+  }
+
+  function invalidTextCallback(stateData, componentProps) {
+    return contains(["foo", "bar"], stateData.name)
+      ? `Subnet tier name ${stateData.name} already in use.`
+      : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
+  }
+
+  function shouldDisableSave(stateData, componentProps) {
+    return true;
+  }
+
+  function disableSubnetSaveCallback(stateData, componentProps) {
+    return true;
+  }
+
+  function propsMatchState(stateData, componentProps) {
+    return true;
+  }
+
+  function subnetListCallback(stateData, componentProps) {
+    let tierSubnets = [
+      {
+        name: stateData.name + "-subnet-zone-1",
+        cidr: "10.10.10.10/24",
+        public_gateway: stateData.addPublicGateway,
+        network_acl: stateData.networkAcl,
+      },
+      {
+        name: stateData.name + "-subnet-zone-2",
+        cidr: "10.20.10.10/24",
+        public_gateway: stateData.addPublicGateway,
+        network_acl: stateData.networkAcl,
+      },
+      {
+        name: stateData.name + "-subnet-zone-3",
+        cidr: "10.30.10.10/24",
+        public_gateway: stateData.addPublicGateway,
+        network_acl: stateData.networkAcl,
+      },
+    ];
+    while (tierSubnets.length > stateData.zones) {
+      tierSubnets.pop();
+    }
+    return tierSubnets;
+  }
+
+  return (
+    <SubnetTierForm
+      vpc_name="example-vpc"
+      data={{
+        hide: false,
+        name: "example-tier",
+        zones: 3,
+        networkAcl: "example-acl-1",
+        addPublicGateway: false,
+        advanced: true,
+        select_zones: [1, 3],
+      }}
+      shouldDisableSave={shouldDisableSave}
+      disableSubnetSaveCallback={disableSubnetSaveCallback}
+      invalidCallback={invalidCallback}
+      invalidTextCallback={invalidTextCallback}
+      networkAcls={["example-acl-1", "example-acl-2"]}
+      enabledPublicGateways={[1, 2, 3]}
+      subnetListCallback={subnetListCallback}
+      propsMatchState={propsMatchState}
+      invalidSubnetCallback={invalidCallback}
+      invalidSubnetTextCallback={invalidTextCallback}
+    />
+  );
+};
+
 export const Default = SubnetTierFormStory.bind({});
+export const Advanced = SubnetTierFormAdvancedStory.bind({});

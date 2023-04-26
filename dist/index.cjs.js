@@ -1428,7 +1428,7 @@ class VsiLoadBalancerForm extends React__default["default"].Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: !lazyZ.isWholeNumber(this.state.port),
+      invalid: lazyZ.isNullOrEmptyString(this.state.port) ? true : !lazyZ.isWholeNumber(this.state.port),
       invalidText: "Must be a whole number between 1 and 65535",
       className: "fieldWidthSmaller"
     })), this.allVsi().map((row, index) => /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
@@ -1489,7 +1489,7 @@ class VsiLoadBalancerForm extends React__default["default"].Component {
       hideSteppers: true,
       min: 5,
       max: 3000,
-      invalid: !lazyZ.isWholeNumber(this.state.health_timeout),
+      invalid: lazyZ.isNullOrEmptyString(this.state.health_timeout) ? true : !lazyZ.isWholeNumber(this.state.health_timeout),
       invalidText: "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
@@ -1504,7 +1504,7 @@ class VsiLoadBalancerForm extends React__default["default"].Component {
       hideSteppers: true,
       min: 5,
       max: 3000,
-      invalid: this.state.health_delay <= this.state.health_timeout || !lazyZ.isWholeNumber(this.state.health_delay),
+      invalid: lazyZ.isNullOrEmptyString(this.state.health_delay) ? true : this.state.health_delay <= this.state.health_timeout || !lazyZ.isWholeNumber(this.state.health_delay),
       invalidText: this.state.health_delay <= this.state.health_timeout ? "Must be greater than Health Timeout value" : "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
@@ -1519,7 +1519,7 @@ class VsiLoadBalancerForm extends React__default["default"].Component {
       hideSteppers: true,
       min: 5,
       max: 3000,
-      invalid: !lazyZ.isWholeNumber(this.state.health_retries),
+      invalid: lazyZ.isNullOrEmptyString(this.state.health_retries) ? true : !lazyZ.isWholeNumber(this.state.health_retries),
       invalidText: "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
@@ -1537,7 +1537,7 @@ class VsiLoadBalancerForm extends React__default["default"].Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: !lazyZ.isWholeNumber(this.state.listener_port),
+      invalid: lazyZ.isNullOrEmptyString(this.state.listener_port) ? true : !lazyZ.isWholeNumber(this.state.listener_port),
       invalidText: "Must be a whole number between 1 and 65535",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
@@ -6182,6 +6182,7 @@ class SubnetForm extends React__default["default"].Component {
     this.handleSave = this.handleSave.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
+    this.cidrIsValid = this.cidrIsValid.bind(this);
   }
   handleChange(event) {
     let {
@@ -6203,6 +6204,15 @@ class SubnetForm extends React__default["default"].Component {
       public_gateway: !this.state.public_gateway
     });
   }
+
+  /**
+   * check if cidr valid
+   * @param {string} cidr 
+   * @returns {boolean} true if not valid
+   */
+  cidrIsValid(cidr) {
+    return lazyZ.isIpv4CidrOrAddress(cidr) === false || !lazyZ.contains(cidr, "/");
+  }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(react.Tile, {
       key: this.props.vpc_name + "-subnets-" + this.props.data.name,
@@ -6220,15 +6230,30 @@ class SubnetForm extends React__default["default"].Component {
           noDeleteButton: true
         })
       })
-    }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+    }), this.props.advanced && /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+      className: "marginBottomSmall"
+    }, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      className: "fieldWidthSmaller",
+      id: this.props.data.name + "-subnet-name",
+      componentName: this.props.data.name,
+      value: this.state.name,
+      onChange: this.handleChange,
+      disabled: this.props.readOnly,
+      invalid: this.props.readOnly ? false : this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.readOnly ? "" : this.props.invalidTextCallback(this.state, this.props),
+      hideHelperText: true
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
       className: "marginBottomSmall"
     }, /*#__PURE__*/React__default["default"].createElement(react.TextInput, {
       id: this.props.data.name + "-cidr",
-      invalidText: "Invalid subnet CIDR.",
+      name: "cidr",
+      invalidText: this.props.invalidCidrText ? this.props.invalidCidrText(this.state, this.props) : "Invalid subnet CIDR.",
       labelText: "Subnet CIDR",
-      value: this.props.data.cidr,
+      value: this.state.cidr,
       className: "fieldWidthSmaller",
-      readOnly: true
+      readOnly: this.props.advanced === false || this.props.readOnly,
+      onChange: this.handleChange,
+      invalid: this.props.invalidCidr ? this.props.invalidCidr(this.state, this.props) || this.cidrIsValid(this.state.cidr) : this.cidrIsValid(this.state.cidr)
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
       className: "marginBottomSmall"
     }, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
@@ -6239,7 +6264,7 @@ class SubnetForm extends React__default["default"].Component {
       value: this.state.network_acl,
       handleInputChange: this.handleChange,
       className: "fieldWidthSmaller",
-      disabled: this.props.isModal,
+      disabled: this.props.isModal || this.props.readOnly,
       invalid: lazyZ.isNullOrEmptyString(this.state.network_acl),
       invalidText: "Select a Network ACL."
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
@@ -6253,12 +6278,14 @@ class SubnetForm extends React__default["default"].Component {
       toggleFieldName: "public_gateway",
       defaultToggled: this.state.public_gateway,
       onToggle: this.handleToggle,
-      disabled: this.props.isModal || this.props.shouldDisableGatewayToggle(this.state, this.props)
+      disabled: this.props.isModal || this.props.readOnly || this.props.shouldDisableGatewayToggle(this.state, this.props)
     })));
   }
 }
 SubnetForm.defaultProps = {
-  isModal: false
+  isModal: false,
+  advanced: false,
+  readOnly: false
 };
 SubnetForm.propTypes = {
   isModal: PropTypes__default["default"].bool.isRequired,
@@ -6273,8 +6300,15 @@ SubnetForm.propTypes = {
   disableSaveCallback: PropTypes__default["default"].func,
   shouldDisableGatewayToggle: PropTypes__default["default"].func,
   networkAcls: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  componentDidUpdateCallback: PropTypes__default["default"].func.isRequired,
-  onSave: PropTypes__default["default"].func
+  componentDidUpdateCallback: PropTypes__default["default"].func,
+  // not required for undefined subnets
+  onSave: PropTypes__default["default"].func,
+  advanced: PropTypes__default["default"].bool.isRequired,
+  invalidCidr: PropTypes__default["default"].func,
+  invalidCidrText: PropTypes__default["default"].func,
+  invalidCallback: PropTypes__default["default"].func,
+  invalidTextCallback: PropTypes__default["default"].func,
+  readOnly: PropTypes__default["default"].bool.isRequired
 };
 
 class SubnetTileForm extends React__default["default"].Component {
@@ -6335,23 +6369,47 @@ class SubnetTileForm extends React__default["default"].Component {
       className: "marginBottomSmall"
     }), /*#__PURE__*/React__default["default"].createElement("div", {
       className: "displayFlex"
-    }, subnetMap.map(subnet => /*#__PURE__*/React__default["default"].createElement(SubnetForm // change so doesn't show buttons
-    , {
-      key: `${subnet.name}-tile-${this.props.tier}-${this.props.vpc_name}-${JSON.stringify(subnet)}`,
-      vpc_name: this.props.vpc_name,
-      data: subnet,
-      onSave: this.props.onSave,
-      isModal: this.props.isModal || this.props.readOnly,
-      componentDidUpdateCallback: this.childSubnetHasChanged,
-      networkAcls: this.props.networkAcls,
-      disableSaveCallback: this.props.disableSaveCallback,
-      shouldDisableGatewayToggle: this.shouldDisableGatewayToggle
-    }))));
+    }, subnetMap.map((subnet, index) => {
+      if (this.props.advanced && !lazyZ.contains(this.props.select_zones, index + 1)) {
+        return /*#__PURE__*/React__default["default"].createElement(SubnetForm, {
+          key: `${subnet.name}-tile-${this.props.tier}-${this.props.vpc_name}-${JSON.stringify(subnet)}`,
+          vpc_name: this.props.vpc_name,
+          data: {
+            name: "No Subnet in Zone " + (index + 1),
+            cidr: "-",
+            network_acl: "-"
+          },
+          onSave: this.props.onSave,
+          advanced: true,
+          readOnly: true,
+          networkAcls: [],
+          disableSaveCallback: this.props.disableSaveCallback,
+          componentDidUpdateCallback: this.childSubnetHasChanged
+        });
+      }
+      return /*#__PURE__*/React__default["default"].createElement(SubnetForm, {
+        key: `${subnet.name}-tile-${this.props.tier}-${this.props.vpc_name}-${JSON.stringify(subnet)}`,
+        vpc_name: this.props.vpc_name,
+        data: subnet,
+        onSave: this.props.onSave,
+        isModal: this.props.isModal || this.props.readOnly,
+        componentDidUpdateCallback: this.childSubnetHasChanged,
+        networkAcls: this.props.networkAcls,
+        disableSaveCallback: this.props.disableSaveCallback,
+        shouldDisableGatewayToggle: this.shouldDisableGatewayToggle,
+        advanced: this.props.advanced,
+        invalidCidr: this.props.invalidCidr,
+        invalidCidrText: this.props.invalidCidrText,
+        invalidCallback: this.props.invalidCallback,
+        invalidTextCallback: this.props.invalidTextCallback
+      });
+    })));
   }
 }
 SubnetTileForm.defaultProps = {
   isModal: false,
-  readOnly: false
+  readOnly: false,
+  advanced: false
 };
 SubnetTileForm.propTypes = {
   isModal: PropTypes__default["default"].bool.isRequired,
@@ -6367,7 +6425,13 @@ SubnetTileForm.propTypes = {
     network_acl: PropTypes__default["default"].string
   })),
   readOnly: PropTypes__default["default"].bool.isRequired,
-  enabledPublicGateways: PropTypes__default["default"].arrayOf(PropTypes__default["default"].number).isRequired
+  enabledPublicGateways: PropTypes__default["default"].arrayOf(PropTypes__default["default"].number).isRequired,
+  advanced: PropTypes__default["default"].bool.isRequired,
+  invalidCidr: PropTypes__default["default"].func,
+  invalidCidrText: PropTypes__default["default"].func,
+  invalidCallback: PropTypes__default["default"].func,
+  invalidTextCallback: PropTypes__default["default"].func,
+  select_zones: PropTypes__default["default"].array
 };
 
 class SubnetTierForm extends React__default["default"].Component {
@@ -6376,6 +6440,11 @@ class SubnetTierForm extends React__default["default"].Component {
     this.state = {
       ...this.props.data
     };
+    if (!this.state.select_zones) {
+      let zones = lazyZ.buildNumberDropdownList(this.state.zones, 1);
+      this.state.select_zones = [];
+      zones.forEach(zone => this.state.select_zones.push(Number(zone)));
+    }
     this.handleChange = this.handleChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.onSave = this.onSave.bind(this);
@@ -6384,7 +6453,36 @@ class SubnetTierForm extends React__default["default"].Component {
     this.shouldDisableSubmit = this.shouldDisableSubmit.bind(this);
     this.toggleDeleteModal = this.toggleDeleteModal.bind(this);
     this.onSubnetSave = this.onSubnetSave.bind(this);
+    this.handleSelectZones = this.handleSelectZones.bind(this);
+    this.parseZoneStrings = this.parseZoneStrings.bind(this);
   }
+
+  /**
+   * get list of strings from zone
+   * @returns {Array<string>} stringified zones
+   */
+  parseZoneStrings() {
+    let stringZones = [];
+    this.state.select_zones.forEach(zone => {
+      stringZones.push(String(zone));
+    });
+    return stringZones;
+  }
+
+  /**
+   * Handle select zones
+   * @param {event} event
+   */
+  handleSelectZones(event) {
+    let items = [];
+    event.selectedItems.forEach(item => {
+      items.push(Number(item));
+    });
+    this.setState({
+      select_zones: items
+    });
+  }
+
   /**
    * Handle input change
    * @param {event} event
@@ -6402,9 +6500,9 @@ class SubnetTierForm extends React__default["default"].Component {
   /**
    * handle toggle
    */
-  handleToggle() {
+  handleToggle(name) {
     this.setState({
-      addPublicGateway: !this.state.addPublicGateway
+      [name]: !this.state[name]
     });
   }
   /**
@@ -6507,7 +6605,16 @@ class SubnetTierForm extends React__default["default"].Component {
       invalid: this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props),
       hideHelperText: true
-    }), /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
+    }), this.state.advanced ? /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+      id: this.props.data.name + "-subnet-zones",
+      className: "fieldWidthSmaller",
+      titleText: "Zones",
+      invalid: this.state.select_zones.length === 0,
+      invalidText: "Select at least one zone",
+      items: ["1", "2", "3"],
+      initialSelectedItems: this.parseZoneStrings(),
+      onChange: this.handleSelectZones
+    }) : /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
       max: 3,
       value: this.state.zones,
       labelText: "Subnet Tier Zones",
@@ -6540,19 +6647,35 @@ class SubnetTierForm extends React__default["default"].Component {
       id: composedId + "-public-gateway",
       labelText: "Use Public Gateways",
       defaultToggled: this.state.addPublicGateway,
-      onToggle: this.handleToggle,
+      onToggle: () => this.handleToggle("addPublicGateway"),
       isModal: this.props.isModal,
-      disabled: this.props.enabledPublicGateways.length === 0
+      disabled: this.props.enabledPublicGateways.length === 0,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      tooltip: {
+        content: "Enable advanced subnet configuration such as custom CIDR blocks"
+      },
+      id: composedId + "-advanced",
+      labelText: "Advanced Configuration",
+      defaultToggled: this.state.advanced,
+      onToggle: () => this.handleToggle("advanced"),
+      className: "fieldWidthSmaller"
     })), /*#__PURE__*/React__default["default"].createElement(SubnetTileForm, {
       tier: this.props.data.name,
       vpc_name: this.props.vpc_name,
       onSave: this.onSubnetSave,
       isModal: this.props.isModal,
       data: this.props.subnetListCallback(this.state, this.props),
-      key: this.state.zones,
+      key: JSON.stringify(this.state.select_zones) + this.state.zones,
       enabledPublicGateways: this.props.enabledPublicGateways,
       networkAcls: this.props.networkAcls,
-      disableSaveCallback: this.props.disableSubnetSaveCallback
+      disableSaveCallback: this.props.disableSubnetSaveCallback,
+      advanced: this.state.advanced,
+      invalidCidr: this.props.invalidCidr,
+      invalidCidrText: this.props.invalidCidrText,
+      invalidCallback: this.props.invalidSubnetCallback,
+      invalidTextCallback: this.props.invalidSubnetTextCallback,
+      select_zones: this.state.select_zones
     }))));
   }
 }
@@ -6597,7 +6720,11 @@ SubnetTierForm.propTypes = {
   subnetListCallback: PropTypes__default["default"].func.isRequired,
   enableModal: PropTypes__default["default"].func,
   disableModal: PropTypes__default["default"].func,
-  propsMatchState: PropTypes__default["default"].func
+  propsMatchState: PropTypes__default["default"].func,
+  invalidCidr: PropTypes__default["default"].func,
+  invalidCidrText: PropTypes__default["default"].func,
+  invalidSubnetCallback: PropTypes__default["default"].func,
+  invalidSubnetTextCallback: PropTypes__default["default"].func
 };
 
 const emailRegex = /^[\w-_\.]+@([\w-_]+\.)+[\w]{1,4}$/g;

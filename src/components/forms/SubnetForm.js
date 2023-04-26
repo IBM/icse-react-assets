@@ -1,10 +1,10 @@
 import React from "react";
 import { TextInput, Tile } from "@carbon/react";
-import { isNullOrEmptyString } from "lazy-z";
+import { isNullOrEmptyString, isIpv4CidrOrAddress, contains } from "lazy-z";
 import PropTypes from "prop-types";
 import { SaveAddButton } from "../Buttons";
 import { IcseSelect } from "../Dropdowns";
-import { IcseToggle } from "../Inputs";
+import { IcseToggle, IcseNameInput } from "../Inputs";
 import { DynamicRender, IcseFormGroup, IcseHeading } from "../Utils";
 
 /**
@@ -19,6 +19,7 @@ class SubnetForm extends React.Component {
     this.handleSave = this.handleSave.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
+    this.cidrIsValid = this.cidrIsValid.bind(this);
   }
 
   handleChange(event) {
@@ -36,6 +37,15 @@ class SubnetForm extends React.Component {
 
   handleToggle() {
     this.setState({ public_gateway: !this.state.public_gateway });
+  }
+
+  /**
+   * check if cidr valid
+   * @param {string} cidr 
+   * @returns {boolean} true if not valid
+   */
+  cidrIsValid(cidr) {
+    return isIpv4CidrOrAddress(cidr) === false || !contains(cidr, "/");
   }
 
   render() {
@@ -65,15 +75,51 @@ class SubnetForm extends React.Component {
             />
           }
         />
+        {this.props.advanced && (
+          <IcseFormGroup className="marginBottomSmall">
+            <IcseNameInput
+              className="fieldWidthSmaller"
+              id={this.props.data.name + "-subnet-name"}
+              componentName={this.props.data.name}
+              value={this.state.name}
+              onChange={this.handleChange}
+              disabled={this.props.readOnly}
+              invalid={
+                this.props.readOnly
+                  ? false
+                  : this.props.invalidCallback(this.state, this.props)
+              }
+              invalidText={
+                this.props.readOnly
+                  ? ""
+                  : this.props.invalidTextCallback(this.state, this.props)
+              }
+              hideHelperText
+            />
+          </IcseFormGroup>
+        )}
+
         <IcseFormGroup className="marginBottomSmall">
           {/* TextInput is used here as cidr is read only */}
           <TextInput
             id={this.props.data.name + "-cidr"}
-            invalidText="Invalid subnet CIDR."
+            name="cidr"
+            invalidText={
+              this.props.invalidCidrText
+                ? this.props.invalidCidrText(this.state, this.props)
+                : "Invalid subnet CIDR."
+            }
             labelText="Subnet CIDR"
-            value={this.props.data.cidr}
+            value={this.state.cidr}
             className="fieldWidthSmaller"
-            readOnly
+            readOnly={this.props.advanced === false || this.props.readOnly}
+            onChange={this.handleChange}
+            invalid={
+              this.props.invalidCidr
+                ? this.props.invalidCidr(this.state, this.props) ||
+                  this.cidrIsValid(this.state.cidr)
+                : this.cidrIsValid(this.state.cidr)
+            }
           />
         </IcseFormGroup>
         <IcseFormGroup className="marginBottomSmall">
@@ -85,7 +131,7 @@ class SubnetForm extends React.Component {
             value={this.state.network_acl}
             handleInputChange={this.handleChange}
             className="fieldWidthSmaller"
-            disabled={this.props.isModal}
+            disabled={this.props.isModal || this.props.readOnly}
             invalid={isNullOrEmptyString(this.state.network_acl)}
             invalidText="Select a Network ACL."
           />
@@ -103,6 +149,7 @@ class SubnetForm extends React.Component {
             onToggle={this.handleToggle}
             disabled={
               this.props.isModal ||
+              this.props.readOnly ||
               this.props.shouldDisableGatewayToggle(this.state, this.props)
             }
           />
@@ -114,6 +161,8 @@ class SubnetForm extends React.Component {
 
 SubnetForm.defaultProps = {
   isModal: false,
+  advanced: false,
+  readOnly: false,
 };
 
 SubnetForm.propTypes = {
@@ -129,8 +178,14 @@ SubnetForm.propTypes = {
   disableSaveCallback: PropTypes.func,
   shouldDisableGatewayToggle: PropTypes.func,
   networkAcls: PropTypes.arrayOf(PropTypes.string).isRequired,
-  componentDidUpdateCallback: PropTypes.func.isRequired,
+  componentDidUpdateCallback: PropTypes.func, // not required for undefined subnets
   onSave: PropTypes.func,
+  advanced: PropTypes.bool.isRequired,
+  invalidCidr: PropTypes.func,
+  invalidCidrText: PropTypes.func,
+  invalidCallback: PropTypes.func,
+  invalidTextCallback: PropTypes.func,
+  readOnly: PropTypes.bool.isRequired,
 };
 
 export default SubnetForm;

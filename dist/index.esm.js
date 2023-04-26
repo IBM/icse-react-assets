@@ -1,6 +1,6 @@
 import '@carbon/styles/css/styles.css';
 import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, Link, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, NumberInput, Modal, TextInput, Toggle, Tabs, TabList, Tab, TabPanels, TabPanel, FilterableMultiSelect, PasswordInput, TextArea, Dropdown, Tag } from '@carbon/react';
-import lazyZ, { kebabCase as kebabCase$2, isEmpty, isNullOrEmptyString as isNullOrEmptyString$3, buildNumberDropdownList, titleCase as titleCase$1, contains as contains$2, snakeCase, distinct, getObjectFromArray, splat as splat$1, isWholeNumber as isWholeNumber$1, isInRange as isInRange$1, isBoolean, isFunction as isFunction$1, transpose, prettyJSON, allFieldsNull, containsKeys, capitalize as capitalize$2, deepEqual, parseIntFromZone, eachKey, isIpv4CidrOrAddress as isIpv4CidrOrAddress$1 } from 'lazy-z';
+import lazyZ, { kebabCase as kebabCase$2, isEmpty, isNullOrEmptyString as isNullOrEmptyString$3, buildNumberDropdownList, titleCase as titleCase$1, contains as contains$2, snakeCase, distinct, getObjectFromArray, splat as splat$1, isWholeNumber as isWholeNumber$1, isInRange as isInRange$1, isBoolean, isFunction as isFunction$1, transpose, prettyJSON, allFieldsNull, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$1, deepEqual, parseIntFromZone, eachKey } from 'lazy-z';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Information, Save, Add, ChevronDown, ChevronRight, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt, Password } from '@carbon/icons-react';
@@ -1417,7 +1417,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: !isWholeNumber$1(this.state.port),
+      invalid: isNullOrEmptyString$3(this.state.port) ? true : !isWholeNumber$1(this.state.port),
       invalidText: "Must be a whole number between 1 and 65535",
       className: "fieldWidthSmaller"
     })), this.allVsi().map((row, index) => /*#__PURE__*/React.createElement(IcseFormGroup, {
@@ -1478,7 +1478,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 5,
       max: 3000,
-      invalid: !isWholeNumber$1(this.state.health_timeout),
+      invalid: isNullOrEmptyString$3(this.state.health_timeout) ? true : !isWholeNumber$1(this.state.health_timeout),
       invalidText: "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(NumberInput, {
@@ -1493,7 +1493,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 5,
       max: 3000,
-      invalid: this.state.health_delay <= this.state.health_timeout || !isWholeNumber$1(this.state.health_delay),
+      invalid: isNullOrEmptyString$3(this.state.health_delay) ? true : this.state.health_delay <= this.state.health_timeout || !isWholeNumber$1(this.state.health_delay),
       invalidText: this.state.health_delay <= this.state.health_timeout ? "Must be greater than Health Timeout value" : "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(NumberInput, {
@@ -1508,7 +1508,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 5,
       max: 3000,
-      invalid: !isWholeNumber$1(this.state.health_retries),
+      invalid: isNullOrEmptyString$3(this.state.health_retries) ? true : !isWholeNumber$1(this.state.health_retries),
       invalidText: "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseHeading, {
@@ -1526,7 +1526,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: !isWholeNumber$1(this.state.listener_port),
+      invalid: isNullOrEmptyString$3(this.state.listener_port) ? true : !isWholeNumber$1(this.state.listener_port),
       invalidText: "Must be a whole number between 1 and 65535",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseSelect, {
@@ -6171,6 +6171,7 @@ class SubnetForm extends React.Component {
     this.handleSave = this.handleSave.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
+    this.cidrIsValid = this.cidrIsValid.bind(this);
   }
   handleChange(event) {
     let {
@@ -6192,6 +6193,15 @@ class SubnetForm extends React.Component {
       public_gateway: !this.state.public_gateway
     });
   }
+
+  /**
+   * check if cidr valid
+   * @param {string} cidr 
+   * @returns {boolean} true if not valid
+   */
+  cidrIsValid(cidr) {
+    return isIpv4CidrOrAddress$1(cidr) === false || !contains$2(cidr, "/");
+  }
   render() {
     return /*#__PURE__*/React.createElement(Tile, {
       key: this.props.vpc_name + "-subnets-" + this.props.data.name,
@@ -6209,15 +6219,30 @@ class SubnetForm extends React.Component {
           noDeleteButton: true
         })
       })
-    }), /*#__PURE__*/React.createElement(IcseFormGroup, {
+    }), this.props.advanced && /*#__PURE__*/React.createElement(IcseFormGroup, {
+      className: "marginBottomSmall"
+    }, /*#__PURE__*/React.createElement(IcseNameInput, {
+      className: "fieldWidthSmaller",
+      id: this.props.data.name + "-subnet-name",
+      componentName: this.props.data.name,
+      value: this.state.name,
+      onChange: this.handleChange,
+      disabled: this.props.readOnly,
+      invalid: this.props.readOnly ? false : this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.readOnly ? "" : this.props.invalidTextCallback(this.state, this.props),
+      hideHelperText: true
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, {
       className: "marginBottomSmall"
     }, /*#__PURE__*/React.createElement(TextInput, {
       id: this.props.data.name + "-cidr",
-      invalidText: "Invalid subnet CIDR.",
+      name: "cidr",
+      invalidText: this.props.invalidCidrText ? this.props.invalidCidrText(this.state, this.props) : "Invalid subnet CIDR.",
       labelText: "Subnet CIDR",
-      value: this.props.data.cidr,
+      value: this.state.cidr,
       className: "fieldWidthSmaller",
-      readOnly: true
+      readOnly: this.props.advanced === false || this.props.readOnly,
+      onChange: this.handleChange,
+      invalid: this.props.invalidCidr ? this.props.invalidCidr(this.state, this.props) || this.cidrIsValid(this.state.cidr) : this.cidrIsValid(this.state.cidr)
     })), /*#__PURE__*/React.createElement(IcseFormGroup, {
       className: "marginBottomSmall"
     }, /*#__PURE__*/React.createElement(IcseSelect, {
@@ -6228,7 +6253,7 @@ class SubnetForm extends React.Component {
       value: this.state.network_acl,
       handleInputChange: this.handleChange,
       className: "fieldWidthSmaller",
-      disabled: this.props.isModal,
+      disabled: this.props.isModal || this.props.readOnly,
       invalid: isNullOrEmptyString$3(this.state.network_acl),
       invalidText: "Select a Network ACL."
     })), /*#__PURE__*/React.createElement(IcseFormGroup, {
@@ -6242,12 +6267,14 @@ class SubnetForm extends React.Component {
       toggleFieldName: "public_gateway",
       defaultToggled: this.state.public_gateway,
       onToggle: this.handleToggle,
-      disabled: this.props.isModal || this.props.shouldDisableGatewayToggle(this.state, this.props)
+      disabled: this.props.isModal || this.props.readOnly || this.props.shouldDisableGatewayToggle(this.state, this.props)
     })));
   }
 }
 SubnetForm.defaultProps = {
-  isModal: false
+  isModal: false,
+  advanced: false,
+  readOnly: false
 };
 SubnetForm.propTypes = {
   isModal: PropTypes.bool.isRequired,
@@ -6262,8 +6289,15 @@ SubnetForm.propTypes = {
   disableSaveCallback: PropTypes.func,
   shouldDisableGatewayToggle: PropTypes.func,
   networkAcls: PropTypes.arrayOf(PropTypes.string).isRequired,
-  componentDidUpdateCallback: PropTypes.func.isRequired,
-  onSave: PropTypes.func
+  componentDidUpdateCallback: PropTypes.func,
+  // not required for undefined subnets
+  onSave: PropTypes.func,
+  advanced: PropTypes.bool.isRequired,
+  invalidCidr: PropTypes.func,
+  invalidCidrText: PropTypes.func,
+  invalidCallback: PropTypes.func,
+  invalidTextCallback: PropTypes.func,
+  readOnly: PropTypes.bool.isRequired
 };
 
 class SubnetTileForm extends React.Component {
@@ -6324,23 +6358,47 @@ class SubnetTileForm extends React.Component {
       className: "marginBottomSmall"
     }), /*#__PURE__*/React.createElement("div", {
       className: "displayFlex"
-    }, subnetMap.map(subnet => /*#__PURE__*/React.createElement(SubnetForm // change so doesn't show buttons
-    , {
-      key: `${subnet.name}-tile-${this.props.tier}-${this.props.vpc_name}-${JSON.stringify(subnet)}`,
-      vpc_name: this.props.vpc_name,
-      data: subnet,
-      onSave: this.props.onSave,
-      isModal: this.props.isModal || this.props.readOnly,
-      componentDidUpdateCallback: this.childSubnetHasChanged,
-      networkAcls: this.props.networkAcls,
-      disableSaveCallback: this.props.disableSaveCallback,
-      shouldDisableGatewayToggle: this.shouldDisableGatewayToggle
-    }))));
+    }, subnetMap.map((subnet, index) => {
+      if (this.props.advanced && !contains$2(this.props.select_zones, index + 1)) {
+        return /*#__PURE__*/React.createElement(SubnetForm, {
+          key: `${subnet.name}-tile-${this.props.tier}-${this.props.vpc_name}-${JSON.stringify(subnet)}`,
+          vpc_name: this.props.vpc_name,
+          data: {
+            name: "No Subnet in Zone " + (index + 1),
+            cidr: "-",
+            network_acl: "-"
+          },
+          onSave: this.props.onSave,
+          advanced: true,
+          readOnly: true,
+          networkAcls: [],
+          disableSaveCallback: this.props.disableSaveCallback,
+          componentDidUpdateCallback: this.childSubnetHasChanged
+        });
+      }
+      return /*#__PURE__*/React.createElement(SubnetForm, {
+        key: `${subnet.name}-tile-${this.props.tier}-${this.props.vpc_name}-${JSON.stringify(subnet)}`,
+        vpc_name: this.props.vpc_name,
+        data: subnet,
+        onSave: this.props.onSave,
+        isModal: this.props.isModal || this.props.readOnly,
+        componentDidUpdateCallback: this.childSubnetHasChanged,
+        networkAcls: this.props.networkAcls,
+        disableSaveCallback: this.props.disableSaveCallback,
+        shouldDisableGatewayToggle: this.shouldDisableGatewayToggle,
+        advanced: this.props.advanced,
+        invalidCidr: this.props.invalidCidr,
+        invalidCidrText: this.props.invalidCidrText,
+        invalidCallback: this.props.invalidCallback,
+        invalidTextCallback: this.props.invalidTextCallback
+      });
+    })));
   }
 }
 SubnetTileForm.defaultProps = {
   isModal: false,
-  readOnly: false
+  readOnly: false,
+  advanced: false
 };
 SubnetTileForm.propTypes = {
   isModal: PropTypes.bool.isRequired,
@@ -6356,7 +6414,13 @@ SubnetTileForm.propTypes = {
     network_acl: PropTypes.string
   })),
   readOnly: PropTypes.bool.isRequired,
-  enabledPublicGateways: PropTypes.arrayOf(PropTypes.number).isRequired
+  enabledPublicGateways: PropTypes.arrayOf(PropTypes.number).isRequired,
+  advanced: PropTypes.bool.isRequired,
+  invalidCidr: PropTypes.func,
+  invalidCidrText: PropTypes.func,
+  invalidCallback: PropTypes.func,
+  invalidTextCallback: PropTypes.func,
+  select_zones: PropTypes.array
 };
 
 class SubnetTierForm extends React.Component {
@@ -6365,6 +6429,11 @@ class SubnetTierForm extends React.Component {
     this.state = {
       ...this.props.data
     };
+    if (!this.state.select_zones) {
+      let zones = buildNumberDropdownList(this.state.zones, 1);
+      this.state.select_zones = [];
+      zones.forEach(zone => this.state.select_zones.push(Number(zone)));
+    }
     this.handleChange = this.handleChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.onSave = this.onSave.bind(this);
@@ -6373,7 +6442,36 @@ class SubnetTierForm extends React.Component {
     this.shouldDisableSubmit = this.shouldDisableSubmit.bind(this);
     this.toggleDeleteModal = this.toggleDeleteModal.bind(this);
     this.onSubnetSave = this.onSubnetSave.bind(this);
+    this.handleSelectZones = this.handleSelectZones.bind(this);
+    this.parseZoneStrings = this.parseZoneStrings.bind(this);
   }
+
+  /**
+   * get list of strings from zone
+   * @returns {Array<string>} stringified zones
+   */
+  parseZoneStrings() {
+    let stringZones = [];
+    this.state.select_zones.forEach(zone => {
+      stringZones.push(String(zone));
+    });
+    return stringZones;
+  }
+
+  /**
+   * Handle select zones
+   * @param {event} event
+   */
+  handleSelectZones(event) {
+    let items = [];
+    event.selectedItems.forEach(item => {
+      items.push(Number(item));
+    });
+    this.setState({
+      select_zones: items
+    });
+  }
+
   /**
    * Handle input change
    * @param {event} event
@@ -6391,9 +6489,9 @@ class SubnetTierForm extends React.Component {
   /**
    * handle toggle
    */
-  handleToggle() {
+  handleToggle(name) {
     this.setState({
-      addPublicGateway: !this.state.addPublicGateway
+      [name]: !this.state[name]
     });
   }
   /**
@@ -6496,7 +6594,16 @@ class SubnetTierForm extends React.Component {
       invalid: this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props),
       hideHelperText: true
-    }), /*#__PURE__*/React.createElement(IcseNumberSelect, {
+    }), this.state.advanced ? /*#__PURE__*/React.createElement(IcseMultiSelect, {
+      id: this.props.data.name + "-subnet-zones",
+      className: "fieldWidthSmaller",
+      titleText: "Zones",
+      invalid: this.state.select_zones.length === 0,
+      invalidText: "Select at least one zone",
+      items: ["1", "2", "3"],
+      initialSelectedItems: this.parseZoneStrings(),
+      onChange: this.handleSelectZones
+    }) : /*#__PURE__*/React.createElement(IcseNumberSelect, {
       max: 3,
       value: this.state.zones,
       labelText: "Subnet Tier Zones",
@@ -6529,19 +6636,35 @@ class SubnetTierForm extends React.Component {
       id: composedId + "-public-gateway",
       labelText: "Use Public Gateways",
       defaultToggled: this.state.addPublicGateway,
-      onToggle: this.handleToggle,
+      onToggle: () => this.handleToggle("addPublicGateway"),
       isModal: this.props.isModal,
-      disabled: this.props.enabledPublicGateways.length === 0
+      disabled: this.props.enabledPublicGateways.length === 0,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseToggle, {
+      tooltip: {
+        content: "Enable advanced subnet configuration such as custom CIDR blocks"
+      },
+      id: composedId + "-advanced",
+      labelText: "Advanced Configuration",
+      defaultToggled: this.state.advanced,
+      onToggle: () => this.handleToggle("advanced"),
+      className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(SubnetTileForm, {
       tier: this.props.data.name,
       vpc_name: this.props.vpc_name,
       onSave: this.onSubnetSave,
       isModal: this.props.isModal,
       data: this.props.subnetListCallback(this.state, this.props),
-      key: this.state.zones,
+      key: JSON.stringify(this.state.select_zones) + this.state.zones,
       enabledPublicGateways: this.props.enabledPublicGateways,
       networkAcls: this.props.networkAcls,
-      disableSaveCallback: this.props.disableSubnetSaveCallback
+      disableSaveCallback: this.props.disableSubnetSaveCallback,
+      advanced: this.state.advanced,
+      invalidCidr: this.props.invalidCidr,
+      invalidCidrText: this.props.invalidCidrText,
+      invalidCallback: this.props.invalidSubnetCallback,
+      invalidTextCallback: this.props.invalidSubnetTextCallback,
+      select_zones: this.state.select_zones
     }))));
   }
 }
@@ -6586,7 +6709,11 @@ SubnetTierForm.propTypes = {
   subnetListCallback: PropTypes.func.isRequired,
   enableModal: PropTypes.func,
   disableModal: PropTypes.func,
-  propsMatchState: PropTypes.func
+  propsMatchState: PropTypes.func,
+  invalidCidr: PropTypes.func,
+  invalidCidrText: PropTypes.func,
+  invalidSubnetCallback: PropTypes.func,
+  invalidSubnetTextCallback: PropTypes.func
 };
 
 const emailRegex = /^[\w-_\.]+@([\w-_]+\.)+[\w]{1,4}$/g;
