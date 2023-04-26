@@ -139,6 +139,12 @@ export default {
       type: { required: true }, // required prop or not
       control: "none",
     },
+    subnetListCallback: {
+      description:
+        "Callback function to get subnet tier data that accepts to parameters `stateData` and `componentProps`, returns list of subnets",
+      type: { required: true },
+      control: "none",
+    },
   },
   parameters: {
     docs: {
