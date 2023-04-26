@@ -6,19 +6,24 @@ import {
   IcseSubForm,
   StatelessToggleForm,
 } from "../Utils";
-import { titleCase } from "lazy-z";
+import { buildNumberDropdownList } from "lazy-z";
 import PropTypes from "prop-types";
 import { DeleteButton, SaveAddButton } from "../Buttons";
 import { IcseNameInput, IcseToggle } from "../Inputs";
 import { IcseNumberSelect, IcseSelect } from "../Dropdowns";
 import SubnetTileForm from "./SubnetTileForm";
 import { subnetTierName } from "../../lib";
-import { contains } from "lazy-z";
+import { IcseMultiSelect } from "../MultiSelects";
 
 class SubnetTierForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = { ...this.props.data };
+    if (!this.state.select_zones) {
+      let zones = buildNumberDropdownList(this.state.zones, 1);
+      this.state.select_zones = [];
+      zones.forEach((zone) => this.state.select_zones.push(Number(zone)));
+    }
     this.handleChange = this.handleChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.onSave = this.onSave.bind(this);
@@ -27,7 +32,34 @@ class SubnetTierForm extends React.Component {
     this.shouldDisableSubmit = this.shouldDisableSubmit.bind(this);
     this.toggleDeleteModal = this.toggleDeleteModal.bind(this);
     this.onSubnetSave = this.onSubnetSave.bind(this);
+    this.handleSelectZones = this.handleSelectZones.bind(this);
+    this.parseZoneStrings = this.parseZoneStrings.bind(this);
   }
+
+/**
+ * get list of strings from zone
+ * @returns {Array<string>} stringified zones
+ */
+  parseZoneStrings() {
+    let stringZones = [];
+    this.state.select_zones.forEach(zone => {
+      stringZones.push(String(zone));
+    })
+    return stringZones;
+  }
+
+  /**
+   * Handle select zones
+   * @param {event} event
+   */
+  handleSelectZones(event) {
+    let items = [];
+    event.selectedItems.forEach((item) => {
+      items.push(Number(item));
+    });
+    this.setState({ select_zones: items });
+  }
+
   /**
    * Handle input change
    * @param {event} event
@@ -40,8 +72,8 @@ class SubnetTierForm extends React.Component {
   /**
    * handle toggle
    */
-  handleToggle() {
-    this.setState({ addPublicGateway: !this.state.addPublicGateway });
+  handleToggle(name) {
+    this.setState({ [name]: !this.state[name] });
   }
   /**
    * toggle delete modal
@@ -165,17 +197,30 @@ class SubnetTierForm extends React.Component {
                 )}
                 hideHelperText
               />
-              <IcseNumberSelect
-                max={3}
-                value={this.state.zones}
-                labelText="Subnet Tier Zones"
-                name="zones"
-                handleInputChange={this.handleChange}
-                className="fieldWidthSmaller"
-                invalid={this.state.zones === 0}
-                invalidText="At least one zone must be selected."
-                formName={formName}
-              />
+              {this.state.advanced ? (
+                <IcseMultiSelect
+                  id={this.props.data.name + "-subnet-zones"}
+                  className="fieldWidthSmaller"
+                  titleText="Zones"
+                  invalid={this.state.select_zones.length === 0}
+                  invalidText="Select at least one zone"
+                  items={["1", "2", "3"]}
+                  initialSelectedItems={this.parseZoneStrings()}
+                  onChange={this.handleSelectZones}
+                />
+              ) : (
+                <IcseNumberSelect
+                  max={3}
+                  value={this.state.zones}
+                  labelText="Subnet Tier Zones"
+                  name="zones"
+                  handleInputChange={this.handleChange}
+                  className="fieldWidthSmaller"
+                  invalid={this.state.zones === 0}
+                  invalidText="At least one zone must be selected."
+                  formName={formName}
+                />
+              )}
               <IcseSelect
                 tooltip={{
                   content:
@@ -204,9 +249,21 @@ class SubnetTierForm extends React.Component {
                 id={composedId + "-public-gateway"}
                 labelText="Use Public Gateways"
                 defaultToggled={this.state.addPublicGateway}
-                onToggle={this.handleToggle}
+                onToggle={() => this.handleToggle("addPublicGateway")}
                 isModal={this.props.isModal}
                 disabled={this.props.enabledPublicGateways.length === 0}
+                className="fieldWidthSmaller"
+              />
+              <IcseToggle
+                tooltip={{
+                  content:
+                    "Enable advanced subnet configuration such as custom CIDR blocks",
+                }}
+                id={composedId + "-advanced"}
+                labelText="Advanced Configuration"
+                defaultToggled={this.state.advanced}
+                onToggle={() => this.handleToggle("advanced")}
+                className="fieldWidthSmaller"
               />
             </IcseFormGroup>
             <SubnetTileForm
@@ -215,10 +272,16 @@ class SubnetTierForm extends React.Component {
               onSave={this.onSubnetSave}
               isModal={this.props.isModal}
               data={this.props.subnetListCallback(this.state, this.props)}
-              key={this.state.zones}
+              key={JSON.stringify(this.state.select_zones) + this.state.zones}
               enabledPublicGateways={this.props.enabledPublicGateways}
               networkAcls={this.props.networkAcls}
               disableSaveCallback={this.props.disableSubnetSaveCallback}
+              advanced={this.state.advanced}
+              invalidCidr={this.props.invalidCidr}
+              invalidCidrText={this.props.invalidCidrText}
+              invalidCallback={this.props.invalidSubnetCallback}
+              invalidTextCallback={this.props.invalidSubnetTextCallback}
+              select_zones={this.state.select_zones}
             />
           </>
         </StatelessToggleForm>
@@ -267,6 +330,10 @@ SubnetTierForm.propTypes = {
   enableModal: PropTypes.func,
   disableModal: PropTypes.func,
   propsMatchState: PropTypes.func,
+  invalidCidr: PropTypes.func,
+  invalidCidrText: PropTypes.func,
+  invalidSubnetCallback: PropTypes.func,
+  invalidSubnetTextCallback: PropTypes.func,
 };
 
 export default SubnetTierForm;

@@ -65,21 +65,51 @@ class SubnetTileForm extends React.Component {
           className="marginBottomSmall"
         />
         <div className="displayFlex">
-          {subnetMap.map((subnet) => (
-            <SubnetForm // change so doesn't show buttons
-              key={`${subnet.name}-tile-${this.props.tier}-${
-                this.props.vpc_name
-              }-${JSON.stringify(subnet)}`}
-              vpc_name={this.props.vpc_name}
-              data={subnet}
-              onSave={this.props.onSave}
-              isModal={this.props.isModal || this.props.readOnly}
-              componentDidUpdateCallback={this.childSubnetHasChanged}
-              networkAcls={this.props.networkAcls}
-              disableSaveCallback={this.props.disableSaveCallback}
-              shouldDisableGatewayToggle={this.shouldDisableGatewayToggle}
-            />
-          ))}
+          {subnetMap.map((subnet, index) => {
+            if (
+              this.props.advanced &&
+              !contains(this.props.select_zones, index + 1)
+            ) {
+              return (
+                <SubnetForm // change so doesn't show buttons
+                  key={`${subnet.name}-tile-${this.props.tier}-${
+                    this.props.vpc_name
+                  }-${JSON.stringify(subnet)}`}
+                  vpc_name={this.props.vpc_name}
+                  data={{
+                    name: "No Subnet in Zone " + (index + 1),
+                    cidr: "-",
+                    network_acl: "-",
+                  }}
+                  onSave={this.props.onSave}
+                  advanced={true}
+                  readOnly={true}
+                  networkAcls={[]}
+                  disableSaveCallback={this.props.disableSaveCallback}
+                />
+              );
+            }
+            return (
+              <SubnetForm // change so doesn't show buttons
+                key={`${subnet.name}-tile-${this.props.tier}-${
+                  this.props.vpc_name
+                }-${JSON.stringify(subnet)}`}
+                vpc_name={this.props.vpc_name}
+                data={subnet}
+                onSave={this.props.onSave}
+                isModal={this.props.isModal || this.props.readOnly}
+                componentDidUpdateCallback={this.childSubnetHasChanged}
+                networkAcls={this.props.networkAcls}
+                disableSaveCallback={this.props.disableSaveCallback}
+                shouldDisableGatewayToggle={this.shouldDisableGatewayToggle}
+                advanced={this.props.advanced}
+                invalidCidr={this.props.invalidCidr}
+                invalidCidrText={this.props.invalidCidrText}
+                invalidCallback={this.props.invalidCallback}
+                invalidTextCallback={this.props.invalidTextCallback}
+              />
+            );
+          })}
         </div>
       </IcseSubForm>
     );
@@ -91,6 +121,7 @@ export default SubnetTileForm;
 SubnetTileForm.defaultProps = {
   isModal: false,
   readOnly: false,
+  advanced: false,
 };
 
 SubnetTileForm.propTypes = {
@@ -110,4 +141,10 @@ SubnetTileForm.propTypes = {
   ),
   readOnly: PropTypes.bool.isRequired,
   enabledPublicGateways: PropTypes.arrayOf(PropTypes.number).isRequired,
+  advanced: PropTypes.bool.isRequired,
+  invalidCidr: PropTypes.func,
+  invalidCidrText: PropTypes.func,
+  invalidCallback: PropTypes.func,
+  invalidTextCallback: PropTypes.func,
+  select_zones: PropTypes.array,
 };
