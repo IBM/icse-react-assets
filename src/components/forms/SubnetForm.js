@@ -19,6 +19,7 @@ class SubnetForm extends React.Component {
     this.handleSave = this.handleSave.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
+    this.cidrIsValid = this.cidrIsValid.bind(this);
   }
 
   handleChange(event) {
@@ -38,10 +39,16 @@ class SubnetForm extends React.Component {
     this.setState({ public_gateway: !this.state.public_gateway });
   }
 
+  /**
+   * check if cidr valid
+   * @param {string} cidr 
+   * @returns {boolean} true if not valid
+   */
+  cidrIsValid(cidr) {
+    return isIpv4CidrOrAddress(cidr) === false || !contains(cidr, "/");
+  }
+
   render() {
-    function cidrIsValid(cidr) {
-      return isIpv4CidrOrAddress(cidr) === false || !contains(cidr, "/");
-    }
     return (
       <Tile
         key={this.props.vpc_name + "-subnets-" + this.props.data.name}
@@ -110,8 +117,8 @@ class SubnetForm extends React.Component {
             invalid={
               this.props.invalidCidr
                 ? this.props.invalidCidr(this.state, this.props) ||
-                  cidrIsValid(this.state.cidr)
-                : cidrIsValid(this.state.cidr)
+                  this.cidrIsValid(this.state.cidr)
+                : this.cidrIsValid(this.state.cidr)
             }
           />
         </IcseFormGroup>
