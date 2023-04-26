@@ -77,7 +77,7 @@ const SubnetTierFormStory = () => {
           networkAcl: "example-acl-1",
           addPublicGateway: false,
           advanced: true,
-          select_zones: [1,3]
+          select_zones: [1, 3],
         }}
         shouldDisableSave={shouldDisableSave}
         disableSubnetSaveCallback={disableSubnetSaveCallback}
@@ -87,8 +87,12 @@ const SubnetTierFormStory = () => {
         enabledPublicGateways={[1, 2, 3]}
         subnetListCallback={subnetListCallback}
         propsMatchState={propsMatchState}
-        invalidSubnetCallback={()=>{return true}}
-        invalidSubnetTextCallback={()=>{return "aaa"}}
+        invalidSubnetCallback={() => {
+          return true;
+        }}
+        invalidSubnetTextCallback={() => {
+          return "aaa";
+        }}
       />
     </>
   );
