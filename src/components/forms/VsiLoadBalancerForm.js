@@ -142,8 +142,8 @@ class VsiLoadBalancerForm extends React.Component {
             componentName={componentName}
             value={this.state.name}
             onChange={this.handleInputChange}
-            invalid={this.props.invalidCallback(this.state)}
-            invalidText={this.props.invalidTextCallback(this.state)}
+            invalid={this.props.invalidCallback(this.state, this.props)}
+            invalidText={this.props.invalidTextCallback(this.state, this.props)}
             className="fieldWidthSmaller"
             hideHelperText
           />

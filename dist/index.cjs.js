@@ -1357,8 +1357,8 @@ class VsiLoadBalancerForm extends React__default["default"].Component {
       componentName: componentName,
       value: this.state.name,
       onChange: this.handleInputChange,
-      invalid: this.props.invalidCallback(this.state),
-      invalidText: this.props.invalidTextCallback(this.state),
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
       className: "fieldWidthSmaller",
       hideHelperText: true
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
