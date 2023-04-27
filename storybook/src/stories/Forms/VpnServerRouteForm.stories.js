@@ -18,7 +18,7 @@ export default {
     },
     ["data.action"]: {
       description:
-        "A string value of the action to be taken, can be `Translate`, `Deliver`, or `Drop`",
+        "A string value of the action to be taken, can be `translate`, `deliver`, or `drop`",
       control: "none",
       type: { required: true }, // required prop or not
     },

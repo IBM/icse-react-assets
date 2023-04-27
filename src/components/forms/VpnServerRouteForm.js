@@ -77,6 +77,7 @@ export default VpnServerRouteForm;
 
 VpnServerRouteForm.defaultProps = {
   data: { name: "", destination: "", action: "translate" },
+  isModal: false,
 };
 
 VpnServerRouteForm.propTypes = {
@@ -85,7 +86,7 @@ VpnServerRouteForm.propTypes = {
     destination: PropTypes.string.isRequired,
     action: PropTypes.string.isRequired,
   }),
-  isModal: PropTypes.bool,
+  isModal: PropTypes.bool.isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
 };
