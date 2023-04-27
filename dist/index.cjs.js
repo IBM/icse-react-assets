@@ -8124,6 +8124,82 @@ ClusterForm.propTypes = {
   }).isRequired
 };
 
+class VpnServerRouteForm extends React__default["default"].Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  /**
+   * handle input change
+   * @param {event} event
+   */
+  handleInputChange(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    this.setState({
+      [name]: value.toLowerCase()
+    });
+  }
+  render() {
+    let className = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
+    return /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: `${this.props.data.name}-name`,
+      componentName: "vpn-server-name",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      hideHelperText: true,
+      className: className,
+      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: `${this.props.data.name}-route-destination`,
+      componentName: "vpn-server-route-destination",
+      name: "destination",
+      field: "destination",
+      value: this.state.destination,
+      placeholder: "x.x.x.x",
+      labelText: "Destination CIDR",
+      invalidCallback: () => lazyZ.isIpv4CidrOrAddress(this.state.destination) === false || !lazyZ.contains(this.state.destination, "/"),
+      invalidText: "Destination must be a valid IPV4 CIDR Block",
+      onChange: this.handleInputChange,
+      className: className
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: "vpn-server-action",
+      name: "action",
+      labelText: "Action",
+      groups: ["Translate", "Deliver", "Drop"],
+      value: lazyZ.titleCase(this.state.action),
+      handleInputChange: this.handleInputChange,
+      className: className
+    }));
+  }
+}
+VpnServerRouteForm.defaultProps = {
+  data: {
+    name: "",
+    destination: "",
+    action: "translate"
+  }
+};
+VpnServerRouteForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    destination: PropTypes__default["default"].string.isRequired,
+    action: PropTypes__default["default"].string.isRequired
+  }),
+  isModal: PropTypes__default["default"].bool,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired
+};
+
 class AccessGroupPolicyForm extends React__default["default"].Component {
   constructor(props) {
     super(props);
@@ -9058,6 +9134,7 @@ exports.VpcForm = VpcNetworkForm;
 exports.VpcListMultiSelect = VpcListMultiSelect;
 exports.VpeForm = VpeForm;
 exports.VpnGatewayForm = VpnGatewayForm;
+exports.VpnServerRouteForm = VpnServerRouteForm;
 exports.VsiForm = VsiForm;
 exports.VsiLoadBalancerForm = VsiLoadBalancerForm;
 exports.VsiVolumeForm = VsiVolumeForm;
