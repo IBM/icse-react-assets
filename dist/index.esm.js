@@ -1570,7 +1570,7 @@ class VsiLoadBalancerForm extends React.Component {
       name: "session_persistence_type",
       labelText: "Session Persistence Type",
       groups: ["Source IP", "App Cookie", "HTTP Cookie"],
-      value: titleCase$1(this.state.session_persistence_type || "").replace("Ip", "IP"),
+      value: titleCase$1(this.state.session_persistence_type || "").replace(/Ip/s, "IP").replace(/Http/g, "HTTP"),
       handleInputChange: this.handleInputChange,
       disableInvalid: true,
       className: "fieldWidthSmaller"
