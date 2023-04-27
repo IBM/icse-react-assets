@@ -1428,7 +1428,7 @@ class VsiLoadBalancerForm extends React__default["default"].Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: lazyZ.isNullOrEmptyString(this.state.port) ? true : !lazyZ.isWholeNumber(this.state.port),
+      invalid: lazyZ.isNullOrEmptyString(this.state.port || "") ? true : !lazyZ.isWholeNumber(this.state.port),
       invalidText: "Must be a whole number between 1 and 65535",
       className: "fieldWidthSmaller"
     })), this.allVsi().map((row, index) => /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
@@ -1489,7 +1489,7 @@ class VsiLoadBalancerForm extends React__default["default"].Component {
       hideSteppers: true,
       min: 5,
       max: 3000,
-      invalid: lazyZ.isNullOrEmptyString(this.state.health_timeout) ? true : !lazyZ.isWholeNumber(this.state.health_timeout),
+      invalid: lazyZ.isNullOrEmptyString(this.state.health_timeout || "") ? true : !lazyZ.isWholeNumber(this.state.health_timeout),
       invalidText: "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
@@ -1504,7 +1504,7 @@ class VsiLoadBalancerForm extends React__default["default"].Component {
       hideSteppers: true,
       min: 5,
       max: 3000,
-      invalid: lazyZ.isNullOrEmptyString(this.state.health_delay) ? true : this.state.health_delay <= this.state.health_timeout || !lazyZ.isWholeNumber(this.state.health_delay),
+      invalid: lazyZ.isNullOrEmptyString(this.state.health_delay || "") ? true : this.state.health_delay <= this.state.health_timeout || !lazyZ.isWholeNumber(this.state.health_delay),
       invalidText: this.state.health_delay <= this.state.health_timeout ? "Must be greater than Health Timeout value" : "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
@@ -1519,7 +1519,7 @@ class VsiLoadBalancerForm extends React__default["default"].Component {
       hideSteppers: true,
       min: 5,
       max: 3000,
-      invalid: lazyZ.isNullOrEmptyString(this.state.health_retries) ? true : !lazyZ.isWholeNumber(this.state.health_retries),
+      invalid: lazyZ.isNullOrEmptyString(this.state.health_retries || "") ? true : !lazyZ.isWholeNumber(this.state.health_retries),
       invalidText: "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
@@ -1537,7 +1537,7 @@ class VsiLoadBalancerForm extends React__default["default"].Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: lazyZ.isNullOrEmptyString(this.state.listener_port) ? true : !lazyZ.isWholeNumber(this.state.listener_port),
+      invalid: lazyZ.isNullOrEmptyString(this.state.listener_port || "") ? true : !lazyZ.isWholeNumber(this.state.listener_port),
       invalidText: "Must be a whole number between 1 and 65535",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
@@ -1562,7 +1562,7 @@ class VsiLoadBalancerForm extends React__default["default"].Component {
       hideSteppers: true,
       min: 1,
       max: 15000,
-      invalid: lazyZ.isNullOrEmptyString(this.state.connection_limit) ? false : lazyZ.isInRange(this.state.connection_limit, 1, 15000) === false || !lazyZ.isWholeNumber(this.state.connection_limit),
+      invalid: lazyZ.isNullOrEmptyString(this.state.connection_limit || "") ? false : lazyZ.isInRange(this.state.connection_limit, 1, 15000) === false || !lazyZ.isWholeNumber(this.state.connection_limit),
       invalidText: "Must be a whole number between 1 and 15000",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
@@ -1592,7 +1592,7 @@ class VsiLoadBalancerForm extends React__default["default"].Component {
       isModal: this.props.isModal,
       labelText: "Session Cookie Name",
       value: this.state.session_persistence_app_cookie_name || "",
-      invalid: lazyZ.isNullOrEmptyString(this.state.session_persistence_app_cookie_name) ? false : this.props.invalidCallback(this.state, this.props),
+      invalid: lazyZ.isNullOrEmptyString(this.state.session_persistence_app_cookie_name || "") ? false : this.props.invalidCallback(this.state, this.props),
       onChange: this.handleInputChange,
       className: "fieldWidthSmaller"
     })));
@@ -1612,7 +1612,12 @@ VsiLoadBalancerForm.defaultProps = {
     session_persistence_app_cookie_name: "",
     target_vsi: [],
     listener_protocol: "",
-    connection_limit: null
+    connection_limit: null,
+    port: "",
+    health_timeout: "",
+    health_delay: "",
+    health_retries: "",
+    listener_port: ""
   },
   isModal: false
 };

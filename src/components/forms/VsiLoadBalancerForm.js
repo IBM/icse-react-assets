@@ -485,6 +485,11 @@ VsiLoadBalancerForm.defaultProps = {
     target_vsi: [],
     listener_protocol: "",
     connection_limit: null,
+    port: "",
+    health_timeout: "",
+    health_delay: "",
+    health_retries: "",
+    listener_port: "",
   },
   isModal: false,
 };

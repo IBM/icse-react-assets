@@ -1417,7 +1417,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: isNullOrEmptyString$3(this.state.port) ? true : !isWholeNumber$1(this.state.port),
+      invalid: isNullOrEmptyString$3(this.state.port || "") ? true : !isWholeNumber$1(this.state.port),
       invalidText: "Must be a whole number between 1 and 65535",
       className: "fieldWidthSmaller"
     })), this.allVsi().map((row, index) => /*#__PURE__*/React.createElement(IcseFormGroup, {
@@ -1478,7 +1478,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 5,
       max: 3000,
-      invalid: isNullOrEmptyString$3(this.state.health_timeout) ? true : !isWholeNumber$1(this.state.health_timeout),
+      invalid: isNullOrEmptyString$3(this.state.health_timeout || "") ? true : !isWholeNumber$1(this.state.health_timeout),
       invalidText: "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(NumberInput, {
@@ -1493,7 +1493,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 5,
       max: 3000,
-      invalid: isNullOrEmptyString$3(this.state.health_delay) ? true : this.state.health_delay <= this.state.health_timeout || !isWholeNumber$1(this.state.health_delay),
+      invalid: isNullOrEmptyString$3(this.state.health_delay || "") ? true : this.state.health_delay <= this.state.health_timeout || !isWholeNumber$1(this.state.health_delay),
       invalidText: this.state.health_delay <= this.state.health_timeout ? "Must be greater than Health Timeout value" : "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(NumberInput, {
@@ -1508,7 +1508,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 5,
       max: 3000,
-      invalid: isNullOrEmptyString$3(this.state.health_retries) ? true : !isWholeNumber$1(this.state.health_retries),
+      invalid: isNullOrEmptyString$3(this.state.health_retries || "") ? true : !isWholeNumber$1(this.state.health_retries),
       invalidText: "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseHeading, {
@@ -1526,7 +1526,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: isNullOrEmptyString$3(this.state.listener_port) ? true : !isWholeNumber$1(this.state.listener_port),
+      invalid: isNullOrEmptyString$3(this.state.listener_port || "") ? true : !isWholeNumber$1(this.state.listener_port),
       invalidText: "Must be a whole number between 1 and 65535",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseSelect, {
@@ -1551,7 +1551,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 15000,
-      invalid: isNullOrEmptyString$3(this.state.connection_limit) ? false : isInRange$1(this.state.connection_limit, 1, 15000) === false || !isWholeNumber$1(this.state.connection_limit),
+      invalid: isNullOrEmptyString$3(this.state.connection_limit || "") ? false : isInRange$1(this.state.connection_limit, 1, 15000) === false || !isWholeNumber$1(this.state.connection_limit),
       invalidText: "Must be a whole number between 1 and 15000",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseHeading, {
@@ -1581,7 +1581,7 @@ class VsiLoadBalancerForm extends React.Component {
       isModal: this.props.isModal,
       labelText: "Session Cookie Name",
       value: this.state.session_persistence_app_cookie_name || "",
-      invalid: isNullOrEmptyString$3(this.state.session_persistence_app_cookie_name) ? false : this.props.invalidCallback(this.state, this.props),
+      invalid: isNullOrEmptyString$3(this.state.session_persistence_app_cookie_name || "") ? false : this.props.invalidCallback(this.state, this.props),
       onChange: this.handleInputChange,
       className: "fieldWidthSmaller"
     })));
@@ -1601,7 +1601,12 @@ VsiLoadBalancerForm.defaultProps = {
     session_persistence_app_cookie_name: "",
     target_vsi: [],
     listener_protocol: "",
-    connection_limit: null
+    connection_limit: null,
+    port: "",
+    health_timeout: "",
+    health_delay: "",
+    health_retries: "",
+    listener_port: ""
   },
   isModal: false
 };
