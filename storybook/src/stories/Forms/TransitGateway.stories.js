@@ -14,18 +14,18 @@ export default {
       description:
         "A boolean to indicate whether the gateway has global route to connect to the networks outside their associated region.",
       control: "none",
-      type: { required: false }, // required prop or not
+      type: { required: true }, // required prop or not
     },
     ["data.connections"]: {
       description:
         "An array of objects containing the VPCs that connect to the transit gateway",
       control: "none",
-      type: { required: false }, // required prop or not
+      type: { required: true }, // required prop or not
     },
     ["data.resource_group"]: {
       description: "A string value of the resource group",
       control: "none",
-      type: { required: false }, // required prop or not
+      type: { required: true }, // required prop or not
     },
     ["data.name"]: {
       description: "A string value of the Transit Gateway name",
@@ -96,10 +96,10 @@ const TransitGatewayFormStory = () => {
         connections: [{ tgw: "transit-gateway", vpc: "management" }],
         resource_group: "service-rg",
         name: "transit-gateway",
-        crns: [
-          "crn:v1:bluemix:public:containers-kubernetes:us-south:a/59bcbfa6ea2f006b4ed7094c1a08dcdd:8042b2a8af6a4a5cbf6dbe09e07311d2:worker:kube-hou02-pa8042b2a8af6a4a5cbf6dbe09e07311d2-w1",
-          "crn:v1:bluemix:public:resource-controller:global:a/59bcbfa6ea2f006b4ed7094c1a08dcdd:resource-group:59bcbfa6ea2f006b4ed7094c1a08dcdd",
-        ],
+        // crns: [
+        //   "crn:v1:bluemix:public:containers-kubernetes:us-south:a/59bcbfa6ea2f006b4ed7094c1a08dcdd:8042b2a8af6a4a5cbf6dbe09e07311d2:worker:kube-hou02-pa8042b2a8af6a4a5cbf6dbe09e07311d2-w1",
+        //   "crn:v1:bluemix:public:resource-controller:global:a/59bcbfa6ea2f006b4ed7094c1a08dcdd:resource-group:59bcbfa6ea2f006b4ed7094c1a08dcdd",
+        // ],
       }}
       vpcList={["management", "workload"]}
       resourceGroups={["service-rg", "management-rg", "workload-rg"]}

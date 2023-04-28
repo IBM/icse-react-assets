@@ -124,7 +124,7 @@ class TransitGatewayForm extends Component {
             className="textInputWide"
             id="crns"
             labelText="Add a new connection from any region in the account"
-            value={String(this.state.crns)}
+            value={this.state.crns === undefined ? "" : String(this.state.crns)}
             onChange={this.handleCRNs}
             invalid={invalidCRNs(this.state.crns).invalid}
             invalidText={invalidCRNs(this.state.crns).invalidText}
@@ -134,11 +134,13 @@ class TransitGatewayForm extends Component {
         </IcseFormGroup>
         <IcseFormGroup>
           <div className="marginBottomSmall textInputWide">
-            {this.state.crns.map((crn, i) => (
-              <Tag key={"crn" + i} size="md" type={"green"}>
-                {crn}
-              </Tag>
-            ))}
+            {this.state.crns !== undefined &&
+              this.state.crns.length > 0 &&
+              this.state.crns.map((crn, i) => (
+                <Tag key={"crn" + i} size="md" type={"green"}>
+                  {crn}
+                </Tag>
+              ))}
           </div>
         </IcseFormGroup>
       </>
@@ -164,8 +166,8 @@ TransitGatewayForm.propTypes = {
     connections: PropTypes.array.isRequired,
     resource_group: PropTypes.string.isRequired,
     name: PropTypes.string,
-    crns: PropTypes.array.isRequired,
-  }).isRequired,
+    crns: PropTypes.array,
+  }),
   vpcList: PropTypes.array.isRequired,
   resourceGroups: PropTypes.array.isRequired,
   invalidCallback: PropTypes.func.isRequired,

@@ -182,6 +182,12 @@ describe("form-utils", () => {
     });
   });
   describe("invalidCRNs", () => {
+    it("should return false for undefined and with correct error text", () => {
+      assert.deepEqual(invalidCRNs(), {
+        invalid: false,
+        invalidText: "",
+      });
+    });
     it("should return false for empty array and with correct error text", () => {
       assert.deepEqual(invalidCRNs([]), {
         invalid: false,

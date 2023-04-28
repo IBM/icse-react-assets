@@ -143,7 +143,7 @@ function subnetTierName$1(tierName) {
  * @returns {object} object containing invalid boolean and invalidText string
  */
 function invalidCRNs$1(crns) {
-  if (crns.length === 0) return {
+  if (crns === undefined || crns.length === 0) return {
     invalid: false,
     invalidText: ""
   };
@@ -6885,7 +6885,7 @@ class TransitGatewayForm extends Component {
       className: "textInputWide",
       id: "crns",
       labelText: "Add a new connection from any region in the account",
-      value: String(this.state.crns),
+      value: this.state.crns === undefined ? "" : String(this.state.crns),
       onChange: this.handleCRNs,
       invalid: lib_13(this.state.crns).invalid,
       invalidText: lib_13(this.state.crns).invalidText,
@@ -6893,7 +6893,7 @@ class TransitGatewayForm extends Component {
       placeholder: "crn:v1:bluemix..."
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement("div", {
       className: "marginBottomSmall textInputWide"
-    }, this.state.crns.map((crn, i) => /*#__PURE__*/React.createElement(Tag, {
+    }, this.state.crns !== undefined && this.state.crns.length > 0 && this.state.crns.map((crn, i) => /*#__PURE__*/React.createElement(Tag, {
       key: "crn" + i,
       size: "md",
       type: "green"
@@ -6917,8 +6917,8 @@ TransitGatewayForm.propTypes = {
     connections: PropTypes.array.isRequired,
     resource_group: PropTypes.string.isRequired,
     name: PropTypes.string,
-    crns: PropTypes.array.isRequired
-  }).isRequired,
+    crns: PropTypes.array
+  }),
   vpcList: PropTypes.array.isRequired,
   resourceGroups: PropTypes.array.isRequired,
   invalidCallback: PropTypes.func.isRequired,
@@ -8176,7 +8176,8 @@ VpnServerRouteForm.defaultProps = {
     name: "",
     destination: "",
     action: "translate"
-  }
+  },
+  isModal: false
 };
 VpnServerRouteForm.propTypes = {
   data: PropTypes.shape({
@@ -8184,7 +8185,7 @@ VpnServerRouteForm.propTypes = {
     destination: PropTypes.string.isRequired,
     action: PropTypes.string.isRequired
   }),
-  isModal: PropTypes.bool,
+  isModal: PropTypes.bool.isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired
 };
