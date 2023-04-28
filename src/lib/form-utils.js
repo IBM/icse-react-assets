@@ -101,7 +101,8 @@ function subnetTierName(tierName) {
  * @returns {object} object containing invalid boolean and invalidText string
  */
 function invalidCRNs(crns) {
-  if (crns.length === 0) return { invalid: false, invalidText: "" };
+  if (crns === undefined || crns.length === 0)
+    return { invalid: false, invalidText: "" };
 
   const crnRegex = /^(crn:v1:bluemix:(public|dedicated|local):)[A-z-:/0-9]+$/i;
 
