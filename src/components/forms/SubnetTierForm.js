@@ -1,5 +1,5 @@
 import React from "react";
-import { DeleteModal, UnsavedChangesModal } from "../Modals";
+import { DeleteModal, UnsavedChangesModal, IcseModal } from "../Modals";
 import {
   DynamicRender,
   IcseFormGroup,
@@ -19,6 +19,7 @@ class SubnetTierForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = { ...this.props.data };
+    this.state.advancedSave = false;
     if (!this.state.select_zones) {
       let zones = buildNumberDropdownList(this.state.zones, 1);
       this.state.select_zones = [];
@@ -36,15 +37,15 @@ class SubnetTierForm extends React.Component {
     this.parseZoneStrings = this.parseZoneStrings.bind(this);
   }
 
-/**
- * get list of strings from zone
- * @returns {Array<string>} stringified zones
- */
+  /**
+   * get list of strings from zone
+   * @returns {Array<string>} stringified zones
+   */
   parseZoneStrings() {
     let stringZones = [];
-    this.state.select_zones.forEach(zone => {
+    this.state.select_zones.forEach((zone) => {
       stringZones.push(String(zone));
-    })
+    });
     return stringZones;
   }
 
@@ -98,10 +99,22 @@ class SubnetTierForm extends React.Component {
   }
 
   onSave() {
-    let noToggleState = { ...this.state };
-    delete noToggleState.hide;
-    delete noToggleState.showUnsavedChangesModal;
-    this.props.onSave(noToggleState, this.props);
+    if (this.state.advanced && !this.state.advancedSave) {
+      this.setState({ advancedSave: true });
+    } else {
+      let noToggleState = { ...this.state };
+      delete noToggleState.hide;
+      delete noToggleState.showUnsavedChangesModal;
+      delete noToggleState.advancedSave;
+      this.setState(
+        {
+          advancedSave: false,
+        },
+        () => {
+          this.props.onSave(noToggleState, this.props);
+        }
+      );
+    }
   }
 
   onSubnetSave(stateData, componentProps) {
@@ -151,6 +164,25 @@ class SubnetTierForm extends React.Component {
             this.setState({ showUnsavedChangesModal: false });
           }}
         />
+        <IcseModal
+          id={this.props.data.name + "-avanced-save"}
+          name="Enable Advanced Configuration"
+          heading={this.props.data.name}
+          open={this.state.advancedSave}
+          onRequestClose={() => {
+            this.setState({ advancedSave: false });
+          }}
+          onRequestSubmit={this.onSave}
+          primaryButtonText="Save as Advanced"
+          danger
+        >
+          <span>
+            You are about to set {this.props.data.name} subnet tier to use
+            advanced configuration. This will allow the use of custom CIDR
+            blocks and individual subnet names.{" "}
+            <strong>This cannot be undone.</strong>
+          </span>
+        </IcseModal>
         <StatelessToggleForm
           hideTitle={this.props.isModal === true}
           hide={this.state.hide}
@@ -159,12 +191,17 @@ class SubnetTierForm extends React.Component {
           toggleFormTitle
           buttons={
             <>
-              <SaveAddButton
-                name={this.props.data.name}
-                onClick={this.onSave}
-                noDeleteButton={this.props.noDeleteButton}
-                disabled={this.props.shouldDisableSave(this.state, this.props)}
-              />
+              {!this.props.data.advanced && (
+                <SaveAddButton
+                  name={this.props.data.name}
+                  onClick={this.onSave}
+                  noDeleteButton={this.props.noDeleteButton}
+                  disabled={this.props.shouldDisableSave(
+                    this.state,
+                    this.props
+                  )}
+                />
+              )}
               <DynamicRender
                 hide={this.props.noDeleteButton}
                 show={
@@ -221,22 +258,24 @@ class SubnetTierForm extends React.Component {
                   formName={formName}
                 />
               )}
-              <IcseSelect
-                tooltip={{
-                  content:
-                    "Changing this field will overwrite existing Network ACL changes to subnets in this data.",
-                }}
-                className="fieldWidthSmaller"
-                field="networkAcl"
-                name="networkAcl"
-                value={this.state.networkAcl || ""}
-                vpcName={this.props.vpc_name}
-                labelText="Network ACL"
-                groups={this.props.networkAcls}
-                handleInputChange={this.handleChange}
-                isModal={this.props.isModal}
-                formName={formName}
-              />
+              {!this.state.advanced && (
+                <IcseSelect
+                  tooltip={{
+                    content:
+                      "Changing this field will overwrite existing Network ACL changes to subnets in this data.",
+                  }}
+                  className="fieldWidthSmaller"
+                  field="networkAcl"
+                  name="networkAcl"
+                  value={this.state.networkAcl || ""}
+                  vpcName={this.props.vpc_name}
+                  labelText="Network ACL"
+                  groups={this.props.networkAcls}
+                  handleInputChange={this.handleChange}
+                  isModal={this.props.isModal}
+                  formName={formName}
+                />
+              )}
             </IcseFormGroup>
             <IcseFormGroup className="marginBottomSmall">
               <IcseToggle
@@ -264,6 +303,7 @@ class SubnetTierForm extends React.Component {
                 defaultToggled={this.state.advanced}
                 onToggle={() => this.handleToggle("advanced")}
                 className="fieldWidthSmaller"
+                disabled={this.props.data.advanced}
               />
             </IcseFormGroup>
             <SubnetTileForm
@@ -276,7 +316,7 @@ class SubnetTierForm extends React.Component {
               enabledPublicGateways={this.props.enabledPublicGateways}
               networkAcls={this.props.networkAcls}
               disableSaveCallback={this.props.disableSubnetSaveCallback}
-              advanced={this.state.advanced}
+              advanced={this.props.data.advanced}
               invalidCidr={this.props.invalidCidr}
               invalidCidrText={this.props.invalidCidrText}
               invalidCallback={this.props.invalidSubnetCallback}

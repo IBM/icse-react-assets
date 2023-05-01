@@ -28,7 +28,7 @@ const SubnetTierFormStory = () => {
   }
 
   function shouldDisableSave(stateData, componentProps) {
-    return true;
+    return false // stateData.advanced === componentProps.data.advanced;
   }
 
   function disableSubnetSaveCallback(stateData, componentProps) {
@@ -67,7 +67,7 @@ const SubnetTierFormStory = () => {
   }
 
   return (
-    <>
+    <div style={{ maxWidth: "800px" }}>
       <SubnetTierForm
         vpc_name="example-vpc"
         data={{
@@ -76,8 +76,8 @@ const SubnetTierFormStory = () => {
           zones: 3,
           networkAcl: "example-acl-1",
           addPublicGateway: false,
-          advanced: true,
           select_zones: [1, 3],
+          advanced: false
         }}
         shouldDisableSave={shouldDisableSave}
         disableSubnetSaveCallback={disableSubnetSaveCallback}
@@ -93,8 +93,11 @@ const SubnetTierFormStory = () => {
         invalidSubnetTextCallback={() => {
           return "aaa";
         }}
+        onSave={()=>{
+          console.log("ding")
+        }}
       />
-    </>
+    </div>
   );
 };
 

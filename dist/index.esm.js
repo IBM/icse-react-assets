@@ -6434,6 +6434,7 @@ class SubnetTierForm extends React.Component {
     this.state = {
       ...this.props.data
     };
+    this.state.advancedSave = false;
     if (!this.state.select_zones) {
       let zones = buildNumberDropdownList(this.state.zones, 1);
       this.state.select_zones = [];
@@ -6524,12 +6525,23 @@ class SubnetTierForm extends React.Component {
     }
   }
   onSave() {
-    let noToggleState = {
-      ...this.state
-    };
-    delete noToggleState.hide;
-    delete noToggleState.showUnsavedChangesModal;
-    this.props.onSave(noToggleState, this.props);
+    if (this.state.advanced && !this.state.advancedSave) {
+      this.setState({
+        advancedSave: true
+      });
+    } else {
+      let noToggleState = {
+        ...this.state
+      };
+      delete noToggleState.hide;
+      delete noToggleState.showUnsavedChangesModal;
+      delete noToggleState.advancedSave;
+      this.setState({
+        advancedSave: false
+      }, () => {
+        this.props.onSave(noToggleState, this.props);
+      });
+    }
   }
   onSubnetSave(stateData, componentProps) {
     this.props.onSubnetSave(stateData, componentProps);
@@ -6571,13 +6583,26 @@ class SubnetTierForm extends React.Component {
           showUnsavedChangesModal: false
         });
       }
-    }), /*#__PURE__*/React.createElement(StatelessToggleForm, {
+    }), /*#__PURE__*/React.createElement(IcseModal, {
+      id: this.props.data.name + "-avanced-save",
+      name: "Enable Advanced Configuration",
+      heading: this.props.data.name,
+      open: this.state.advancedSave,
+      onRequestClose: () => {
+        this.setState({
+          advancedSave: false
+        });
+      },
+      onRequestSubmit: this.onSave,
+      primaryButtonText: "Save as Advanced",
+      danger: true
+    }, /*#__PURE__*/React.createElement("span", null, "You are about to set ", this.props.data.name, " subnet tier to use advanced configuration. This will allow the use of custom CIDR blocks and individual subnet names.", " ", /*#__PURE__*/React.createElement("strong", null, "This cannot be undone."))), /*#__PURE__*/React.createElement(StatelessToggleForm, {
       hideTitle: this.props.isModal === true,
       hide: this.state.hide,
       name: tierName,
       onIconClick: this.handleShowToggle,
       toggleFormTitle: true,
-      buttons: /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(SaveAddButton, {
+      buttons: /*#__PURE__*/React.createElement(React.Fragment, null, !this.props.data.advanced && /*#__PURE__*/React.createElement(SaveAddButton, {
         name: this.props.data.name,
         onClick: this.onSave,
         noDeleteButton: this.props.noDeleteButton,
@@ -6618,7 +6643,7 @@ class SubnetTierForm extends React.Component {
       invalid: this.state.zones === 0,
       invalidText: "At least one zone must be selected.",
       formName: formName
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
+    }), !this.state.advanced && /*#__PURE__*/React.createElement(IcseSelect, {
       tooltip: {
         content: "Changing this field will overwrite existing Network ACL changes to subnets in this data."
       },
@@ -6653,7 +6678,8 @@ class SubnetTierForm extends React.Component {
       labelText: "Advanced Configuration",
       defaultToggled: this.state.advanced,
       onToggle: () => this.handleToggle("advanced"),
-      className: "fieldWidthSmaller"
+      className: "fieldWidthSmaller",
+      disabled: this.props.data.advanced
     })), /*#__PURE__*/React.createElement(SubnetTileForm, {
       tier: this.props.data.name,
       vpc_name: this.props.vpc_name,
@@ -6664,7 +6690,7 @@ class SubnetTierForm extends React.Component {
       enabledPublicGateways: this.props.enabledPublicGateways,
       networkAcls: this.props.networkAcls,
       disableSaveCallback: this.props.disableSubnetSaveCallback,
-      advanced: this.state.advanced,
+      advanced: this.props.data.advanced,
       invalidCidr: this.props.invalidCidr,
       invalidCidrText: this.props.invalidCidrText,
       invalidCallback: this.props.invalidSubnetCallback,
