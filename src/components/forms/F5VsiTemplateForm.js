@@ -700,8 +700,8 @@ F5VsiTemplateForm.defaultProps = {
 F5VsiTemplateForm.propTypes = {
   data: PropTypes.shape({
     license_type: PropTypes.string.isRequired,
-    tmos_admin_password: PropTypes.string.isRequired,
-    byol_license_basekey: PropTypes.string.isRequired,
+    tmos_admin_password: PropTypes.string,
+    byol_license_basekey: PropTypes.string,
     license_username: PropTypes.string.isRequired,
     license_password: PropTypes.string.isRequired,
     license_host: PropTypes.string.isRequired,

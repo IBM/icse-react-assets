@@ -19,7 +19,7 @@ export default {
     "data.resource_group": {
       description: "A string value of the Resource Group selected",
       control: "none",
-      type: { required: true }, // required prop or not
+      type: { required: false }, // required prop or not
     },
     "data.kube_type": {
       description:
@@ -36,7 +36,7 @@ export default {
     "data.encryption_key": {
       description: "A string value of the Encryption Key selected",
       control: "none",
-      type: { required: true }, // required prop or not
+      type: { required: false}, // required prop or not
     },
     "data.cos": {
       description:
@@ -47,7 +47,7 @@ export default {
     "data.vpc": {
       description: "A string for the VPC where your cluster is provisioned",
       control: "none",
-      type: { required: true }, // required prop or not
+      type: { required: false }, // required prop or not
     },
     "data.subnets": {
       description: "An array of subnets that are selected",

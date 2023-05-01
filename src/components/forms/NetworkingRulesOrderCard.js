@@ -285,7 +285,7 @@ NetworkingRulesOrderCard.propTypes = {
   disableSaveCallback: PropTypes.func.isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
-  vpc_name: PropTypes.string.isRequired,
+  vpc_name: PropTypes.string,
   networkRuleOrderDidChange: PropTypes.func.isRequired,
   onSubmitCallback: PropTypes.func.isRequired,
   onRuleSave: PropTypes.func.isRequired,

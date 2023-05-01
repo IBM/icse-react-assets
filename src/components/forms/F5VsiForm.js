@@ -241,7 +241,7 @@ F5VsiForm.defaultProps = {
 F5VsiForm.propTypes = {
   data: PropTypes.shape({
     zones: PropTypes.number.isRequired,
-    resource_group: PropTypes.string.isRequired,
+    resource_group: PropTypes.string,
     ssh_keys: PropTypes.array,
     image: PropTypes.string.isRequired,
     profile: PropTypes.string.isRequired,

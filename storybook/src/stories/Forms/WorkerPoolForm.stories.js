@@ -30,7 +30,7 @@ export default {
     "data.vpc_name": {
       description: "A string for the VPC where your cluster is provisioned",
       control: "none",
-      type: { required: true }, // required prop or not
+      type: { required: false }, // required prop or not
     },
     "data.subnets": {
       description: "An array (string) of initially selected subnets",
@@ -62,7 +62,7 @@ export default {
     "cluster.vpc_name": {
       description: "A string for the VPC where your cluster is provisioned",
       control: "none",
-      type: { required: true }, // required prop or not
+      type: { required: false }, // required prop or not
     },
     "cluster.subnets": {
       description: "An array (string) of initially selected subnets",
