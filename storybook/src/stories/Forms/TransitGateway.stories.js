@@ -25,7 +25,7 @@ export default {
     ["data.resource_group"]: {
       description: "A string value of the resource group",
       control: "none",
-      type: { required: true }, // required prop or not
+      type: { required: false }, // required prop or not
     },
     ["data.name"]: {
       description: "A string value of the Transit Gateway name",

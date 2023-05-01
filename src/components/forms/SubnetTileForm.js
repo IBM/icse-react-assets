@@ -128,7 +128,7 @@ SubnetTileForm.defaultProps = {
 SubnetTileForm.propTypes = {
   isModal: PropTypes.bool.isRequired,
   disableSaveCallback: PropTypes.func,
-  vpc_name: PropTypes.string.isRequired,
+  vpc_name: PropTypes.string,
   tier: PropTypes.string.isRequired,
   networkAcls: PropTypes.arrayOf(PropTypes.string).isRequired,
   onSave: PropTypes.func,

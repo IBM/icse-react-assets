@@ -172,7 +172,7 @@ KeyManagementForm.propTypes = {
     use_hs_crypto: PropTypes.bool.isRequired,
     use_data: PropTypes.bool.isRequired,
     name: PropTypes.string.isRequired,
-    resource_group: PropTypes.string.isRequired,
+    resource_group: PropTypes.string,
     authorize_vpc_reader_role: PropTypes.bool.isRequired,
     keys: PropTypes.array.isRequired,
   }).isRequired,

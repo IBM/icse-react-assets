@@ -70,12 +70,12 @@ export default {
     ["data.vpc"]: {
       description: "A string specifying the name of the vpc",
       control: "none",
-      type: { required: true }, // required prop or not
+      type: { required: false }, // required prop or not
     },
     ["data.resource_group"]: {
       description: "A string specifying the selected resource group",
       control: "none",
-      type: { required: true }, // required prop or not
+      type: { required: false }, // required prop or not
     },
     ["data.rules"]: {
       description: "An array of rule objects",

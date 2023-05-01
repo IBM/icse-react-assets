@@ -21,7 +21,7 @@ export default {
     ["data.resource_group"]: {
       description: "A string value representing the resource group for the VSI",
       control: "none",
-      type: { required: true }, // required prop or not
+      type: { required: false }, // required prop or not
     },
     ["data.ssh_keys"]: {
       description: "An array of ssh key names (optional)",

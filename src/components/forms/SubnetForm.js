@@ -168,7 +168,7 @@ SubnetForm.defaultProps = {
 SubnetForm.propTypes = {
   isModal: PropTypes.bool.isRequired,
   onSave: PropTypes.func,
-  vpc_name: PropTypes.string.isRequired,
+  vpc_name: PropTypes.string,
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
     cidr: PropTypes.string.isRequired,

@@ -180,9 +180,9 @@ VpeForm.defaultProps = {
 VpeForm.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    vpc: PropTypes.string.isRequired,
+    vpc: PropTypes.string,
     service: PropTypes.string.isRequired,
-    resource_group: PropTypes.string.isRequired,
+    resource_group: PropTypes.string,
     security_groups: PropTypes.arrayOf(PropTypes.string).isRequired,
     subnets: PropTypes.arrayOf(PropTypes.string).isRequired,
   }),

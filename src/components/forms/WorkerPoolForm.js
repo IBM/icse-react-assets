@@ -127,7 +127,7 @@ WorkerPoolForm.propTypes = {
   cluster: PropTypes.shape({
     entitlement: PropTypes.string, // can be null
     flavor: PropTypes.string.isRequired,
-    vpc: PropTypes.string.isRequired,
+    vpc: PropTypes.string,
     workers_per_subnet: PropTypes.number.isRequired,
     subnets: PropTypes.array.isRequired,
   }), // can be null
@@ -135,7 +135,7 @@ WorkerPoolForm.propTypes = {
     entitlement: PropTypes.string.isRequired,
     flavor: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    vpc: PropTypes.string.isRequired,
+    vpc: PropTypes.string,
     workers_per_subnet: PropTypes.number.isRequired,
     subnets: PropTypes.array.isRequired,
   }).isRequired,

@@ -21,13 +21,13 @@ export default {
       description:
         "A string value of the admin account password for the F5 BIG-IP instance. Password must be at least 15 characters, contain one numeric, one uppercase, and one lowercase character.",
       control: "none",
-      type: { required: true },
+      type: { required: false },
     },
     "data.byol_license_basekey": {
       description:
         "A string value of the Bring Your Own License registration key for the F5 BIG-IP instance.",
       control: "none",
-      type: { required: true },
+      type: { required: false },
     },
     "data.license_username": {
       description:

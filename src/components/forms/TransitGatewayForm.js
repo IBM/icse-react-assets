@@ -164,7 +164,7 @@ TransitGatewayForm.propTypes = {
   data: PropTypes.shape({
     global: PropTypes.bool.isRequired,
     connections: PropTypes.array.isRequired,
-    resource_group: PropTypes.string.isRequired,
+    resource_group: PropTypes.string,
     name: PropTypes.string,
     crns: PropTypes.array,
   }),

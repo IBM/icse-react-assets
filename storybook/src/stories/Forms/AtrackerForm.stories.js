@@ -28,7 +28,7 @@ export default {
     ["data.resource_group"]: {
       description: "A string value of the resource group name",
       control: "none",
-      type: { required: true },
+      type: { required: false },
     },
     ["data.add_route"]: {
       description: "A boolean value that determines if a route is to be added",

@@ -307,7 +307,7 @@ ClusterForm.propTypes = {
     cos: PropTypes.string.isRequired,
     subnets: PropTypes.array.isRequired,
     workers_per_subnet: PropTypes.number.isRequired,
-    vpc: PropTypes.string.isRequired,
+    vpc: PropTypes.string,
     kube_version: PropTypes.string.isRequired,
     flavor: PropTypes.string.isRequired,
     update_all_workers: PropTypes.bool.isRequired,

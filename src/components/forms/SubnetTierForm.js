@@ -325,7 +325,7 @@ SubnetTierForm.propTypes = {
   networkAcls: PropTypes.arrayOf(PropTypes.string).isRequired,
   enabledPublicGateways: PropTypes.arrayOf(PropTypes.number).isRequired,
   hide: PropTypes.bool.isRequired,
-  vpc_name: PropTypes.string.isRequired,
+  vpc_name: PropTypes.string,
   subnetListCallback: PropTypes.func.isRequired,
   enableModal: PropTypes.func,
   disableModal: PropTypes.func,

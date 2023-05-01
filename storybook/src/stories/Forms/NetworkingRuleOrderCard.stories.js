@@ -59,7 +59,7 @@ export default {
     vpc_name: {
       description:
         "Name of the VPC where the networking component is created. This is used to generate unique ids for each rule",
-      type: { required: true },
+      type: { required: false },
       control: "none",
     },
     parent_name: {

@@ -81,7 +81,7 @@ export default {
     vpc_name: {
       description:
         "String, name of the VPC where the subnet will be provisioned",
-      type: { required: true }, // required prop or not
+      type: { required: false }, // required prop or not
       control: "none",
     },
     data: {
