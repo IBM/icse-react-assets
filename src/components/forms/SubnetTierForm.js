@@ -215,7 +215,9 @@ class SubnetTierForm extends React.Component {
           }
         >
           <>
-            <IcseFormGroup>
+            <IcseFormGroup
+              className={this.state.advanced ? "marginBottomSmall" : ""}
+            >
               <IcseNameInput
                 id={
                   this.props.isModal
@@ -258,7 +260,21 @@ class SubnetTierForm extends React.Component {
                   formName={formName}
                 />
               )}
-              {!this.state.advanced && (
+              <IcseToggle
+                tooltip={{
+                  content:
+                    "Enable advanced subnet configuration such as custom CIDR blocks",
+                }}
+                id={composedId + "-advanced"}
+                labelText="Advanced Configuration"
+                defaultToggled={this.state.advanced}
+                onToggle={() => this.handleToggle("advanced")}
+                className="fieldWidthSmaller"
+                disabled={this.props.data.advanced}
+              />
+            </IcseFormGroup>
+            {!this.state.advanced && (
+              <IcseFormGroup className="marginBottomSmall">
                 <IcseSelect
                   tooltip={{
                     content:
@@ -275,37 +291,23 @@ class SubnetTierForm extends React.Component {
                   isModal={this.props.isModal}
                   formName={formName}
                 />
-              )}
-            </IcseFormGroup>
-            <IcseFormGroup className="marginBottomSmall">
-              <IcseToggle
-                tooltip={{
-                  content:
-                    this.props.enabledPublicGateways.length === 0
-                      ? "This VPC has no public gateways enabled. To add public gateways, return to the VPC page."
-                      : "Changing this field will overwrite existing Public Gateway changes to subnets in this data.",
-                }}
-                id={composedId + "-public-gateway"}
-                labelText="Use Public Gateways"
-                defaultToggled={this.state.addPublicGateway}
-                onToggle={() => this.handleToggle("addPublicGateway")}
-                isModal={this.props.isModal}
-                disabled={this.props.enabledPublicGateways.length === 0}
-                className="fieldWidthSmaller"
-              />
-              <IcseToggle
-                tooltip={{
-                  content:
-                    "Enable advanced subnet configuration such as custom CIDR blocks",
-                }}
-                id={composedId + "-advanced"}
-                labelText="Advanced Configuration"
-                defaultToggled={this.state.advanced}
-                onToggle={() => this.handleToggle("advanced")}
-                className="fieldWidthSmaller"
-                disabled={this.props.data.advanced}
-              />
-            </IcseFormGroup>
+                <IcseToggle
+                  tooltip={{
+                    content:
+                      this.props.enabledPublicGateways.length === 0
+                        ? "This VPC has no public gateways enabled. To add public gateways, return to the VPC page."
+                        : "Changing this field will overwrite existing Public Gateway changes to subnets in this data.",
+                  }}
+                  id={composedId + "-public-gateway"}
+                  labelText="Use Public Gateways"
+                  defaultToggled={this.state.addPublicGateway}
+                  onToggle={() => this.handleToggle("addPublicGateway")}
+                  isModal={this.props.isModal}
+                  disabled={this.props.enabledPublicGateways.length === 0}
+                  className="fieldWidthSmaller"
+                />
+              </IcseFormGroup>
+            )}
             <SubnetTileForm
               tier={this.props.data.name}
               vpc_name={this.props.vpc_name}
