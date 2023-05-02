@@ -6406,8 +6406,7 @@ class SubnetTileForm extends React__default["default"].Component {
         invalidCidr: this.props.invalidCidr,
         invalidCidrText: this.props.invalidCidrText,
         invalidCallback: this.props.invalidCallback,
-        invalidTextCallback: this.props.invalidTextCallback,
-        onSubnetSave: this.props.onSubnetSave
+        invalidTextCallback: this.props.invalidTextCallback
       });
     })));
   }
