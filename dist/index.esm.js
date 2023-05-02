@@ -6602,7 +6602,7 @@ class SubnetTierForm extends React.Component {
       name: tierName,
       onIconClick: this.handleShowToggle,
       toggleFormTitle: true,
-      buttons: /*#__PURE__*/React.createElement(React.Fragment, null, !this.props.data.advanced && /*#__PURE__*/React.createElement(SaveAddButton, {
+      buttons: /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(SaveAddButton, {
         name: this.props.data.name,
         onClick: this.onSave,
         noDeleteButton: this.props.noDeleteButton,

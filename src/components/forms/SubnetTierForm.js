@@ -191,17 +191,12 @@ class SubnetTierForm extends React.Component {
           toggleFormTitle
           buttons={
             <>
-              {!this.props.data.advanced && (
-                <SaveAddButton
-                  name={this.props.data.name}
-                  onClick={this.onSave}
-                  noDeleteButton={this.props.noDeleteButton}
-                  disabled={this.props.shouldDisableSave(
-                    this.state,
-                    this.props
-                  )}
-                />
-              )}
+              <SaveAddButton
+                name={this.props.data.name}
+                onClick={this.onSave}
+                noDeleteButton={this.props.noDeleteButton}
+                disabled={this.props.shouldDisableSave(this.state, this.props)}
+              />
               <DynamicRender
                 hide={this.props.noDeleteButton}
                 show={

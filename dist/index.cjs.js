@@ -6613,7 +6613,7 @@ class SubnetTierForm extends React__default["default"].Component {
       name: tierName,
       onIconClick: this.handleShowToggle,
       toggleFormTitle: true,
-      buttons: /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, !this.props.data.advanced && /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+      buttons: /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
         name: this.props.data.name,
         onClick: this.onSave,
         noDeleteButton: this.props.noDeleteButton,
