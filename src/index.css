@@ -386,30 +386,31 @@ i.chevron > svg {
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 850px) {
   .fieldWidth {
-    width: 8rem;
+    width: 100%;
   }
 
   .fieldWidthSmaller {
-    width: 6.5rem;
+    width: 100%;
   }
 
   .fieldWidthSmallest {
-    width: 5rem;
+    width: 100%;
   }
 
   .textInputMedium {
-    width: 15rem;
+    width: 100%;
   }
 
   .fieldWidthBigger {
-    width: 25rem;
+    width: 100%;
   }
 
   .textInputWide {
-    width: 15rem;
+    width: 100%;
   }
+
   .formGroup {
     /* items 1 wide */
     flex-direction: column !important;
