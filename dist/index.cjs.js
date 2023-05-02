@@ -6597,7 +6597,7 @@ class SubnetTierForm extends React__default["default"].Component {
     }), /*#__PURE__*/React__default["default"].createElement(IcseModal, {
       id: this.props.data.name + "-avanced-save",
       name: "Enable Advanced Configuration",
-      heading: this.props.data.name,
+      heading: "Enable Advanced Configuration",
       open: this.state.advancedSave,
       onRequestClose: () => {
         this.setState({
