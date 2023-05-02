@@ -6536,7 +6536,7 @@ class SubnetTierForm extends React__default["default"].Component {
     }
   }
   onSave() {
-    if (this.state.advanced && !this.state.advancedSave) {
+    if (this.state.advanced && !this.state.advancedSave && !componentProps.advanced) {
       this.setState({
         advancedSave: true
       });

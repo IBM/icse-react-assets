@@ -99,7 +99,11 @@ class SubnetTierForm extends React.Component {
   }
 
   onSave() {
-    if (this.state.advanced && !this.state.advancedSave) {
+    if (
+      this.state.advanced &&
+      !this.state.advancedSave &&
+      !componentProps.advanced
+    ) {
       this.setState({ advancedSave: true });
     } else {
       let noToggleState = { ...this.state };
