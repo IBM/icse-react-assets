@@ -94,6 +94,11 @@ export default {
       control: "none",
       type: { required: false }, // required prop or not
     },
+    ["data.advanced"]: {
+      description: "Boolean, form uses advanced subnet configuration",
+      control: "none",
+      type: { required: false }, // required prop or not
+    },
     ["data.name"]: {
       description: "String, subnet tier name",
       control: "none",
