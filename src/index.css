@@ -374,29 +374,33 @@ i.chevron > svg {
   }
 
   .textInputWide {
-    width: 25rem;
+    width: 20rem;
   }
 
   .fieldWidthBigger {
     width: 30rem;
   }
+
+  .textInputMedium {
+    width: 15rem;
+  }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 600px) {
   .fieldWidth {
     width: 8rem;
   }
 
   .fieldWidthSmaller {
-    width: 5rem;
+    width: 6.5rem;
   }
 
   .fieldWidthSmallest {
-    width: 3rem;
+    width: 5rem;
   }
 
-  .textInputWide {
-    width: 20rem;
+  .textInputMedium {
+    width: 15rem;
   }
 
   .fieldWidthBigger {
@@ -404,6 +408,14 @@ i.chevron > svg {
   }
 
   .textInputWide {
-    width: 20rem;
+    width: 15rem;
   }
+  .formGroup {
+    /* items 1 wide */
+    flex-direction: column !important;
+  }
+}
+
+.cds--form-item {
+  flex: none; /* overwrite flex to fix inconsistent widths */
 }
