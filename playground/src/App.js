@@ -77,7 +77,7 @@ const SubnetTierFormStory = () => {
           networkAcl: "example-acl-1",
           addPublicGateway: false,
           select_zones: [1, 3],
-          advanced: true
+          advanced: false
         }}
         shouldDisableSave={shouldDisableSave}
         disableSubnetSaveCallback={disableSubnetSaveCallback}

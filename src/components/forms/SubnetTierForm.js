@@ -215,9 +215,7 @@ class SubnetTierForm extends React.Component {
           }
         >
           <>
-            <IcseFormGroup
-              className={this.state.advanced ? "marginBottomSmall" : ""}
-            >
+            <IcseFormGroup>
               <IcseNameInput
                 id={
                   this.props.isModal
@@ -273,41 +271,44 @@ class SubnetTierForm extends React.Component {
                 disabled={this.props.data.advanced}
               />
             </IcseFormGroup>
-            {!this.state.advanced && (
-              <IcseFormGroup className="marginBottomSmall">
-                <IcseSelect
-                  tooltip={{
-                    content:
-                      "Changing this field will overwrite existing Network ACL changes to subnets in this data.",
-                  }}
-                  className="fieldWidthSmaller"
-                  field="networkAcl"
-                  name="networkAcl"
-                  value={this.state.networkAcl || ""}
-                  vpcName={this.props.vpc_name}
-                  labelText="Network ACL"
-                  groups={this.props.networkAcls}
-                  handleInputChange={this.handleChange}
-                  isModal={this.props.isModal}
-                  formName={formName}
-                />
-                <IcseToggle
-                  tooltip={{
-                    content:
-                      this.props.enabledPublicGateways.length === 0
-                        ? "This VPC has no public gateways enabled. To add public gateways, return to the VPC page."
-                        : "Changing this field will overwrite existing Public Gateway changes to subnets in this data.",
-                  }}
-                  id={composedId + "-public-gateway"}
-                  labelText="Use Public Gateways"
-                  defaultToggled={this.state.addPublicGateway}
-                  onToggle={() => this.handleToggle("addPublicGateway")}
-                  isModal={this.props.isModal}
-                  disabled={this.props.enabledPublicGateways.length === 0}
-                  className="fieldWidthSmaller"
-                />
-              </IcseFormGroup>
-            )}
+
+            <IcseFormGroup className="marginBottomSmall">
+              <IcseSelect
+                tooltip={{
+                  content:
+                    "Changing this field will overwrite existing Network ACL changes to subnets in this data.",
+                }}
+                className="fieldWidthSmaller"
+                field="networkAcl"
+                name="networkAcl"
+                value={this.state.networkAcl || ""}
+                vpcName={this.props.vpc_name}
+                labelText="Network ACL"
+                groups={this.props.networkAcls}
+                handleInputChange={this.handleChange}
+                isModal={this.props.isModal}
+                formName={formName}
+                disabled={this.state.advanced}
+              />
+              <IcseToggle
+                tooltip={{
+                  content:
+                    this.props.enabledPublicGateways.length === 0
+                      ? "This VPC has no public gateways enabled. To add public gateways, return to the VPC page."
+                      : "Changing this field will overwrite existing Public Gateway changes to subnets in this data.",
+                }}
+                id={composedId + "-public-gateway"}
+                labelText="Use Public Gateways"
+                defaultToggled={this.state.addPublicGateway}
+                onToggle={() => this.handleToggle("addPublicGateway")}
+                isModal={this.props.isModal}
+                disabled={
+                  this.state.advanced ||
+                  this.props.enabledPublicGateways.length === 0
+                }
+                className="fieldWidthSmaller"
+              />
+            </IcseFormGroup>
             <SubnetTileForm
               tier={this.props.data.name}
               vpc_name={this.props.vpc_name}

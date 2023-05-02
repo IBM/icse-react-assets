@@ -6614,9 +6614,7 @@ class SubnetTierForm extends React.Component {
           onClick: this.toggleDeleteModal
         })
       }))
-    }, /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, {
-      className: this.state.advanced ? "marginBottomSmall" : ""
-    }, /*#__PURE__*/React.createElement(IcseNameInput, {
+    }, /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
       id: this.props.isModal ? "new-tier-name" : this.props.data.name + "-tier-name",
       value: this.state.name,
       componentName: formName,
@@ -6655,7 +6653,7 @@ class SubnetTierForm extends React.Component {
       onToggle: () => this.handleToggle("advanced"),
       className: "fieldWidthSmaller",
       disabled: this.props.data.advanced
-    })), !this.state.advanced && /*#__PURE__*/React.createElement(IcseFormGroup, {
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, {
       className: "marginBottomSmall"
     }, /*#__PURE__*/React.createElement(IcseSelect, {
       tooltip: {
@@ -6670,7 +6668,8 @@ class SubnetTierForm extends React.Component {
       groups: this.props.networkAcls,
       handleInputChange: this.handleChange,
       isModal: this.props.isModal,
-      formName: formName
+      formName: formName,
+      disabled: this.state.advanced
     }), /*#__PURE__*/React.createElement(IcseToggle, {
       tooltip: {
         content: this.props.enabledPublicGateways.length === 0 ? "This VPC has no public gateways enabled. To add public gateways, return to the VPC page." : "Changing this field will overwrite existing Public Gateway changes to subnets in this data."
@@ -6680,7 +6679,7 @@ class SubnetTierForm extends React.Component {
       defaultToggled: this.state.addPublicGateway,
       onToggle: () => this.handleToggle("addPublicGateway"),
       isModal: this.props.isModal,
-      disabled: this.props.enabledPublicGateways.length === 0,
+      disabled: this.state.advanced || this.props.enabledPublicGateways.length === 0,
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(SubnetTileForm, {
       tier: this.props.data.name,

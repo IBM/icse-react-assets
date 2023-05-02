@@ -6625,9 +6625,7 @@ class SubnetTierForm extends React__default["default"].Component {
           onClick: this.toggleDeleteModal
         })
       }))
-    }, /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
-      className: this.state.advanced ? "marginBottomSmall" : ""
-    }, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+    }, /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       id: this.props.isModal ? "new-tier-name" : this.props.data.name + "-tier-name",
       value: this.state.name,
       componentName: formName,
@@ -6666,7 +6664,7 @@ class SubnetTierForm extends React__default["default"].Component {
       onToggle: () => this.handleToggle("advanced"),
       className: "fieldWidthSmaller",
       disabled: this.props.data.advanced
-    })), !this.state.advanced && /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
       className: "marginBottomSmall"
     }, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       tooltip: {
@@ -6681,7 +6679,8 @@ class SubnetTierForm extends React__default["default"].Component {
       groups: this.props.networkAcls,
       handleInputChange: this.handleChange,
       isModal: this.props.isModal,
-      formName: formName
+      formName: formName,
+      disabled: this.state.advanced
     }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
       tooltip: {
         content: this.props.enabledPublicGateways.length === 0 ? "This VPC has no public gateways enabled. To add public gateways, return to the VPC page." : "Changing this field will overwrite existing Public Gateway changes to subnets in this data."
@@ -6691,7 +6690,7 @@ class SubnetTierForm extends React__default["default"].Component {
       defaultToggled: this.state.addPublicGateway,
       onToggle: () => this.handleToggle("addPublicGateway"),
       isModal: this.props.isModal,
-      disabled: this.props.enabledPublicGateways.length === 0,
+      disabled: this.state.advanced || this.props.enabledPublicGateways.length === 0,
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React__default["default"].createElement(SubnetTileForm, {
       tier: this.props.data.name,
