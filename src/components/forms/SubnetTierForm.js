@@ -20,7 +20,7 @@ class SubnetTierForm extends React.Component {
     super(props);
     this.state = { ...this.props.data };
     this.state.advancedSave = false;
-    if (!this.state.select_zones) {
+    if (!this.state.select_zones && !this.props.data.advanced) {
       let zones = buildNumberDropdownList(this.state.zones, 1);
       this.state.select_zones = [];
       zones.forEach((zone) => this.state.select_zones.push(Number(zone)));
