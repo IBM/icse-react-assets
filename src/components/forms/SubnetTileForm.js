@@ -108,6 +108,7 @@ class SubnetTileForm extends React.Component {
                 invalidCidrText={this.props.invalidCidrText}
                 invalidCallback={this.props.invalidCallback}
                 invalidTextCallback={this.props.invalidTextCallback}
+                onSubnetSave={this.props.onSubnetSave}
               />
             );
           })}
