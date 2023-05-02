@@ -67,7 +67,7 @@ class SubnetTileForm extends React.Component {
         <div className="displayFlex">
           {subnetMap.map((subnet, index) => {
             if (
-              this.props.advanced &&
+              this.props.data.advanced &&
               !contains(this.props.select_zones, index + 1)
             ) {
               return (
@@ -89,27 +89,27 @@ class SubnetTileForm extends React.Component {
                   componentDidUpdateCallback={this.childSubnetHasChanged}
                 />
               );
-            }
-            return (
-              <SubnetForm
-                key={`${subnet.name}-tile-${this.props.tier}-${
-                  this.props.vpc_name
-                }-${JSON.stringify(subnet)}`}
-                vpc_name={this.props.vpc_name}
-                data={subnet}
-                onSave={this.props.onSave}
-                isModal={this.props.isModal || this.props.readOnly}
-                componentDidUpdateCallback={this.childSubnetHasChanged}
-                networkAcls={this.props.networkAcls}
-                disableSaveCallback={this.props.disableSaveCallback}
-                shouldDisableGatewayToggle={this.shouldDisableGatewayToggle}
-                advanced={this.props.advanced}
-                invalidCidr={this.props.invalidCidr}
-                invalidCidrText={this.props.invalidCidrText}
-                invalidCallback={this.props.invalidCallback}
-                invalidTextCallback={this.props.invalidTextCallback}
-              />
-            );
+            } else
+              return (
+                <SubnetForm
+                  key={`${subnet.name}-tile-${this.props.tier}-${
+                    this.props.vpc_name
+                  }-${JSON.stringify(subnet)}`}
+                  vpc_name={this.props.vpc_name}
+                  data={subnet}
+                  onSave={this.props.onSave}
+                  isModal={this.props.isModal || this.props.readOnly}
+                  componentDidUpdateCallback={this.childSubnetHasChanged}
+                  networkAcls={this.props.networkAcls}
+                  disableSaveCallback={this.props.disableSaveCallback}
+                  shouldDisableGatewayToggle={this.shouldDisableGatewayToggle}
+                  advanced={this.props.advanced}
+                  invalidCidr={this.props.invalidCidr}
+                  invalidCidrText={this.props.invalidCidrText}
+                  invalidCallback={this.props.invalidCallback}
+                  invalidTextCallback={this.props.invalidTextCallback}
+                />
+              );
           })}
         </div>
       </IcseSubForm>

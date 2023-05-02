@@ -6375,7 +6375,7 @@ class SubnetTileForm extends React__default["default"].Component {
     }), /*#__PURE__*/React__default["default"].createElement("div", {
       className: "displayFlex"
     }, subnetMap.map((subnet, index) => {
-      if (this.props.advanced && !lazyZ.contains(this.props.select_zones, index + 1)) {
+      if (this.props.data.advanced && !lazyZ.contains(this.props.select_zones, index + 1)) {
         return /*#__PURE__*/React__default["default"].createElement(SubnetForm, {
           key: `${subnet.name}-tile-${this.props.tier}-${this.props.vpc_name}-${JSON.stringify(subnet)}`,
           vpc_name: this.props.vpc_name,
@@ -6391,8 +6391,7 @@ class SubnetTileForm extends React__default["default"].Component {
           disableSaveCallback: this.props.disableSaveCallback,
           componentDidUpdateCallback: this.childSubnetHasChanged
         });
-      }
-      return /*#__PURE__*/React__default["default"].createElement(SubnetForm, {
+      } else return /*#__PURE__*/React__default["default"].createElement(SubnetForm, {
         key: `${subnet.name}-tile-${this.props.tier}-${this.props.vpc_name}-${JSON.stringify(subnet)}`,
         vpc_name: this.props.vpc_name,
         data: subnet,
@@ -6445,12 +6444,12 @@ class SubnetTierForm extends React__default["default"].Component {
     this.state = {
       ...this.props.data
     };
-    this.state.advancedSave = false;
-    if (!this.state.select_zones && !this.props.data.advanced && this.state.zones !== undefined) {
+    if (!this.props.data.advanced) {
       let zones = lazyZ.buildNumberDropdownList(this.state.zones, 1);
       this.state.select_zones = [];
       zones.forEach(zone => this.state.select_zones.push(Number(zone)));
     }
+    this.state.advancedSave = false;
     this.handleChange = this.handleChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.onSave = this.onSave.bind(this);
@@ -6507,9 +6506,15 @@ class SubnetTierForm extends React__default["default"].Component {
    * handle toggle
    */
   handleToggle(name) {
-    this.setState({
-      [name]: !this.state[name]
-    });
+    let nextState = {
+      ...this.state
+    };
+    nextState[name] = !this.state[name];
+    if (name === "advanced" && nextState[name] === true) {
+      nextState.select_zones = [];
+      [1, 2, 3].forEach(zone => nextState.select_zones.push(zone));
+    }
+    this.setState(nextState);
   }
   /**
    * toggle delete modal
@@ -6536,7 +6541,7 @@ class SubnetTierForm extends React__default["default"].Component {
     }
   }
   onSave() {
-    if (this.state.advanced && !this.state.advancedSave && !componentProps.advanced) {
+    if (this.state.advanced && !this.state.advancedSave && !this.props.advanced) {
       this.setState({
         advancedSave: true
       });
@@ -6635,7 +6640,7 @@ class SubnetTierForm extends React__default["default"].Component {
       invalid: this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props),
       hideHelperText: true
-    }), this.state.advanced ? /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+    }), this.state.advanced || this.props.data.advanced ? /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
       id: this.props.data.name + "-subnet-zones",
       className: "fieldWidthSmaller",
       titleText: "Zones",
@@ -6690,7 +6695,7 @@ class SubnetTierForm extends React__default["default"].Component {
       defaultToggled: this.state.addPublicGateway,
       onToggle: () => this.handleToggle("addPublicGateway"),
       isModal: this.props.isModal,
-      disabled: this.state.advanced || this.props.enabledPublicGateways.length === 0,
+      disabled: this.state.advanced || this.props.data.advanced || this.props.enabledPublicGateways.length === 0,
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React__default["default"].createElement(SubnetTileForm, {
       tier: this.props.data.name,
@@ -6728,7 +6733,7 @@ SubnetTierForm.propTypes = {
   data: PropTypes__default["default"].shape({
     hide: PropTypes__default["default"].bool,
     name: PropTypes__default["default"].string.isRequired,
-    zones: PropTypes__default["default"].number.isRequired,
+    zones: PropTypes__default["default"].number,
     networkAcl: PropTypes__default["default"].string,
     addPublicGateway: PropTypes__default["default"].bool
   }),
