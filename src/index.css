@@ -355,3 +355,55 @@ i.chevron > svg {
 .passwordGenerateButton.invalid {
   margin-left: calc(-5.75rem - 3vw);
 }
+
+.formGroup {
+  flex-flow: wrap;
+}
+
+@media screen and (max-width: 1024px) {
+  .fieldWidth {
+    width: 11rem;
+  }
+
+  .fieldWidthSmaller {
+    width: 8rem;
+  }
+
+  .fieldWidthSmallest {
+    width: 5rem;
+  }
+
+  .textInputWide {
+    width: 25rem;
+  }
+
+  .fieldWidthBigger {
+    width: 30rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .fieldWidth {
+    width: 8rem;
+  }
+
+  .fieldWidthSmaller {
+    width: 5rem;
+  }
+
+  .fieldWidthSmallest {
+    width: 3rem;
+  }
+
+  .textInputWide {
+    width: 20rem;
+  }
+
+  .fieldWidthBigger {
+    width: 25rem;
+  }
+
+  .textInputWide {
+    width: 20rem;
+  }
+}
