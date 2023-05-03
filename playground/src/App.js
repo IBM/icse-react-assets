@@ -1,94 +1,81 @@
-import React, { Component } from "react";
-import {
-  AtrackerForm,
-  buildFormDefaultInputMethods,
-  buildFormFunctions,
-  IcseNameInput,
-  IcseTextInput,
-  IcseSelect,
-  IcseFormGroup,
-  IcseNumberSelect,
-  IcseToggle,
-  IcseFormTemplate,
-  RoutingTableRouteForm,
-  SubnetTierForm,
-} from "icse-react-assets";
+import React from "react";
+import { CbrZoneForm } from "icse-react-assets";
+import { contains } from "lazy-z";
+
 import "./App.css";
-import { isIpv4CidrOrAddress, isNullOrEmptyString, contains } from "lazy-z";
 
-const SubnetTierFormStory = () => {
-  function invalidCallback(stateData, componentProps) {
-    return false;
+const CbrRuleFormStory = ({ ...args }) => {
+  function validName(str) {
+    const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
+    if (str) return str.match(regex) !== null;
+    else return false;
   }
 
-  function invalidTextCallback(stateData, componentProps) {
-    return contains(["foo", "bar"], stateData.name)
-      ? `Subnet tier name ${stateData.name} already in use.`
-      : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
+  function invalidCallback(field, stateData, componentProps) {
+    if (field === "name")
+      return (
+        !validName(stateData.name) || contains(["foo", "bar"], stateData.name)
+      );
+    else return false;
   }
 
-  function shouldDisableSave(stateData, componentProps) {
-    return false // stateData.advanced === componentProps.data.advanced;
-  }
-
-  function disableSubnetSaveCallback(stateData, componentProps) {
-    return true;
-  }
-
-  function propsMatchState(stateData, componentProps) {
-    return true;
-  }
-
-  function subnetListCallback(stateData, componentProps) {
-    let tierSubnets = [
-      {
-        name: stateData.name + "-subnet-zone-1",
-        cidr: "10.10.10.10/24",
-        public_gateway: stateData.addPublicGateway,
-        network_acl: stateData.networkAcl,
-      },
-      {
-        name: stateData.name + "-subnet-zone-3",
-        cidr: "10.30.10.10/24",
-        public_gateway: stateData.addPublicGateway,
-        network_acl: stateData.networkAcl,
-      },
-    ];
-    while (tierSubnets.length > stateData.zones) {
-      tierSubnets.pop();
-    }
-    return tierSubnets;
+  function invalidTextCallback(field, stateData, componentProps) {
+    if (field === "name")
+      return contains(["foo", "bar"], stateData.name)
+        ? `Name ${stateData.name} already in use.`
+        : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
+    else return `Invalid ${field}`;
   }
 
   return (
-    <div style={{ maxWidth: "800px" }}>
-      <SubnetTierForm
-        vpc_name="example-vpc"
+    <div className="dark">
+      <CbrZoneForm
+        {...args}
         data={{
-          hide: false,
-          name: "example-tier",
-          zones: 3,
-          networkAcl: "example-acl-1",
-          addPublicGateway: false,
-          select_zones: [1, 3],
-          advanced: false
+          name: "zone",
+          description: "",
+          account_id: "",
+          addresses: [
+            {
+              name: "address",
+              account_id: "",
+              location: "",
+              service_name: "",
+              service_type: "",
+              type: "ipAddress",
+              value: "",
+            },
+          ],
+          exclusions: [
+            {
+              name: "exclusion",
+              account_id: "",
+              location: "",
+              service_name: "",
+              service_type: "",
+              type: "ipAddress",
+              value: "",
+            },
+          ],
         }}
-        shouldDisableSave={shouldDisableSave}
-        disableSubnetSaveCallback={disableSubnetSaveCallback}
         invalidCallback={invalidCallback}
         invalidTextCallback={invalidTextCallback}
-        networkAcls={["example-acl-1", "example-acl-2"]}
-        enabledPublicGateways={[1, 2, 3]}
-        subnetListCallback={subnetListCallback}
-        propsMatchState={propsMatchState}
-        invalidSubnetCallback={() => {
-          return true;
+        propsMatchState={() => {}}
+        invalidAddressCallback={invalidCallback}
+        invalidAddressTextCallback={invalidTextCallback}
+        addressProps={{
+          onSave: () => {},
+          onDelete: () => {},
+          onSubmit: () => {},
+          disableSave: () => {},
         }}
-        invalidSubnetTextCallback={() => {
-          return "aaa";
-        }}
-        onSave={()=>{
-          console.log("ding")
+        invalidExclusionCallback={invalidCallback}
+        invalidExclusionTextCallback={invalidTextCallback}
+        exclusionProps={{
+          onSave: () => {},
+          onDelete: () => {},
+          onSubmit: () => {},
+          disableSave: () => {},
         }}
       />
     </div>
@@ -96,7 +83,7 @@ const SubnetTierFormStory = () => {
 };
 
 function App() {
-  return <SubnetTierFormStory />;
+  return <CbrRuleFormStory />;
 }
 
 export default App;

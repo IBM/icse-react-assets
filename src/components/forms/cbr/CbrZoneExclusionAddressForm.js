@@ -48,6 +48,7 @@ class CbrZoneExclusionAddressForm extends Component {
             invalid={false}
             invalidText={"nyi"}
             hideHelperText={true}
+            className="fieldWidthSmaller"
           />
           <IcseTextInput
             id={this.props.data.name + "-cbr-zone-location"}
@@ -130,12 +131,17 @@ CbrZoneExclusionAddressForm.defaultProps = {
 };
 
 CbrZoneExclusionAddressForm.propTypes = {
-  isModal: PropTypes.bool,
   data: PropTypes.shape({
+    account_id: PropTypes.string,
+    location: PropTypes.string,
     name: PropTypes.string.isRequired,
     operator: PropTypes.string.isRequired,
+    service_name: PropTypes.string,
+    service_type: PropTypes.string,
+    type: PropTypes.string,
     value: PropTypes.string.isRequired,
   }),
+  isModal: PropTypes.bool,
 };
 
 export default CbrZoneExclusionAddressForm;

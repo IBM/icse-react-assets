@@ -6353,7 +6353,6 @@ class SubnetTileForm extends React.Component {
     } else return true;
   }
   render() {
-    console.log(JSON.stringify(this.state, null, 2), JSON.stringify(this.props, null, 2));
     let subnetMap = [...this.props.data];
     return /*#__PURE__*/React.createElement(IcseSubForm, {
       id: `subnet-tile-${this.props.tier}-${this.props.vpc_name}`,
@@ -8226,6 +8225,303 @@ VpnServerRouteForm.propTypes = {
   invalidTextCallback: PropTypes.func.isRequired
 };
 
+/**
+ * Context-based restriction addresses / exclusions
+ */
+class CbrZoneExclusionAddressForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
+  }
+  handleInputChange(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    this.setState({
+      [name]: value
+    });
+  }
+  render() {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: this.props.data.name + "-cbr-tag",
+      componentName: this.props.data.name + "-cbr-tag",
+      className: "fieldWidthSmaller",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      invalid: false,
+      hideHelperText: true
+    }), /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: this.props.data.name + "-cbr-account-id",
+      componentName: this.props.data.name + "-cbr-zone",
+      field: "account_id",
+      value: this.state.account_id,
+      labelText: "Account ID",
+      onChange: this.handleInputChange,
+      invalid: false,
+      invalidText: "nyi",
+      hideHelperText: true,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: this.props.data.name + "-cbr-zone-location",
+      componentName: this.props.data.name + "cbr-zone-location",
+      className: "fieldWidthSmaller",
+      labelText: "Location",
+      field: "location",
+      value: this.state.location,
+      onChange: this.handleInputChange,
+      invalid: false,
+      invalidText: "nyi",
+      hideHelperText: true
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: this.props.data.name + "-cbr-zone-service-name",
+      componentName: this.props.data.name + "cbr-zone-service-name",
+      className: "fieldWidthSmaller",
+      labelText: "Service Name",
+      field: "service_name",
+      value: this.state.service_name,
+      onChange: this.handleInputChange,
+      invalid: false,
+      invalidText: "nyi",
+      hideHelperText: true
+    }), /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: this.props.data.name + "-cbr-zone-service-type",
+      componentName: this.props.data.name + "cbr-zone-service-type",
+      className: "fieldWidthSmaller",
+      labelText: "Service Type",
+      field: "service_type",
+      value: this.state.service_type,
+      onChange: this.handleInputChange,
+      invalid: false,
+      invalidText: "nyi",
+      hideHelperText: true
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+      labelText: "Type",
+      name: "type",
+      formName: this.props.data.name + "cbr-zone-type",
+      groups: ["ipAddress", "ipRange", "subnet", "vpc", "serviceRef"],
+      value: this.state.type,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a Type",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: this.props.data.name + "-cbr-zone-value",
+      componentName: this.props.data.name + "cbr-zone-value",
+      className: "fieldWidthSmaller",
+      labelText: "Value",
+      field: "value",
+      value: this.state.value,
+      onChange: this.handleInputChange,
+      invalid: false,
+      invalidText: "nyi",
+      hideHelperText: true
+    })));
+  }
+}
+CbrZoneExclusionAddressForm.defaultProps = {
+  data: {
+    name: "",
+    account_id: "",
+    location: "",
+    service_name: "",
+    service_type: "",
+    type: "ipAddress",
+    value: ""
+  }
+};
+CbrZoneExclusionAddressForm.propTypes = {
+  data: PropTypes.shape({
+    account_id: PropTypes.string,
+    location: PropTypes.string,
+    name: PropTypes.string.isRequired,
+    operator: PropTypes.string.isRequired,
+    service_name: PropTypes.string,
+    service_type: PropTypes.string,
+    type: PropTypes.string,
+    value: PropTypes.string.isRequired
+  }),
+  isModal: PropTypes.bool
+};
+
+/**
+ * Context-based restriction zones
+ */
+class CbrZoneForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
+  }
+  handleInputChange(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    this.setState({
+      [name]: value
+    });
+  }
+  render() {
+    // set up props for subforms
+    let exclusionInnerFormProps = {
+      type: "exclusion",
+      invalidCallback: this.props.invalidExclusionCallback,
+      invalidTextCallback: this.props.invalidContextTextCallback,
+      arrayParentName: this.props.data.name
+    };
+    transpose({
+      ...this.props.exclusionProps
+    }, exclusionInnerFormProps);
+    let addressInnerFormProps = {
+      invalidCallback: this.props.invalidAddressCallback,
+      invalidTextCallback: this.props.invalidResourceAttributeTextCallback,
+      arrayParentName: this.props.data.name,
+      type: "address"
+    };
+    transpose({
+      ...this.props.addressProps
+    }, addressInnerFormProps);
+    return /*#__PURE__*/React.createElement("div", {
+      id: "cbr-zone-form"
+    }, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: this.props.data.name + "-cbr-zone",
+      componentName: this.props.data.name + "-cbr-zone",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      hideHelperText: true,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: this.props.data.name + "-cbr-account-id",
+      componentName: this.props.data.name + "-cbr-zone",
+      field: "account_id",
+      value: this.state.account_id,
+      labelText: "Account ID",
+      onChange: this.handleInputChange,
+      invalid: false,
+      invalidText: "nyi"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
+      id: this.props.data.name + "-cbr-zone-description",
+      className: "textInputWide",
+      name: "description",
+      value: this.state.description,
+      labelText: "Description",
+      onChange: this.handleInputChange,
+      invalid: this.state.description.length < 0 || this.state.description.length > 300,
+      invalidText: "Invalid description",
+      enableCounter: true
+    })), this.props.isModal !== true && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormTemplate, {
+      name: "Addresses",
+      subHeading: true,
+      addText: "Create an Address",
+      arrayData: this.props.data.addresses,
+      innerForm: CbrZoneExclusionAddressForm,
+      disableSave: this.props.addressProps.disableSave,
+      onDelete: this.props.addressProps.onDelete,
+      onSave: this.props.addressProps.onSave,
+      onSubmit: this.props.addressProps.onSubmit,
+      propsMatchState: this.props.propsMatchState,
+      innerFormProps: {
+        ...addressInnerFormProps
+      },
+      hideAbout: true,
+      toggleFormProps: {
+        hideName: true,
+        submissionFieldName: "cbr_zones",
+        disableSave: this.props.addressProps.disableSave,
+        type: "formInSubForm"
+      }
+    }), /*#__PURE__*/React.createElement(IcseFormTemplate, {
+      name: "Exclusions",
+      subHeading: true,
+      addText: "Create an Exclusion",
+      arrayData: this.props.data.exclusions,
+      innerForm: CbrZoneExclusionAddressForm,
+      disableSave: this.props.exclusionProps.disableSave,
+      onDelete: this.props.exclusionProps.onDelete,
+      onSave: this.props.exclusionProps.onSave,
+      onSubmit: this.props.exclusionProps.onSubmit,
+      propsMatchState: this.props.propsMatchState,
+      innerFormProps: {
+        ...exclusionInnerFormProps
+      },
+      hideAbout: true,
+      toggleFormProps: {
+        hideName: true,
+        submissionFieldName: "cbr_zones",
+        disableSave: this.props.exclusionProps.disableSave,
+        type: "formInSubForm"
+      }
+    })));
+  }
+}
+CbrZoneForm.defaultProps = {
+  data: {
+    name: "",
+    description: "",
+    account_id: "",
+    addresses: [],
+    exclusions: []
+  }
+};
+CbrZoneForm.propTypes = {
+  account_id: PropTypes.string,
+  name: PropTypes.string,
+  addressProps: PropTypes.shape({
+    disableSave: PropTypes.any,
+    onDelete: PropTypes.any,
+    onSave: PropTypes.any,
+    onSubmit: PropTypes.any
+  }),
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    account_id: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    addresses: PropTypes.arrayOf(PropTypes.shape({
+      account_id: PropTypes.string,
+      location: PropTypes.string,
+      name: PropTypes.string.isRequired,
+      operator: PropTypes.string.isRequired,
+      service_name: PropTypes.string,
+      service_type: PropTypes.string,
+      type: PropTypes.string,
+      value: PropTypes.string.isRequired
+    }).isRequired),
+    exclusions: PropTypes.arrayOf(PropTypes.shape({
+      account_id: PropTypes.string,
+      location: PropTypes.string,
+      name: PropTypes.string.isRequired,
+      operator: PropTypes.string.isRequired,
+      service_name: PropTypes.string,
+      service_type: PropTypes.string,
+      type: PropTypes.string,
+      value: PropTypes.string.isRequired
+    }).isRequired)
+  }),
+  exclusionProps: PropTypes.shape({
+    disableSave: PropTypes.func,
+    onDelete: PropTypes.func,
+    onSave: PropTypes.func,
+    onSubmit: PropTypes.func
+  }),
+  invalidAddressCallback: PropTypes.any,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidContextTextCallback: PropTypes.any,
+  invalidExclusionCallback: PropTypes.any,
+  invalidTextCallback: PropTypes.func.isRequired,
+  isModal: PropTypes.bool,
+  propsMatchState: PropTypes.any
+};
+
 class AccessGroupPolicyForm extends React.Component {
   constructor(props) {
     super(props);
@@ -9086,4 +9382,4 @@ EventStreamsForm.propTypes = {
   invalidTextCallback: PropTypes.func.isRequired
 };
 
-export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, ClusterForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, LocationsMultiSelect, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, RoutingTableForm, RoutingTableRouteForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VpnServerRouteForm, VsiForm, VsiLoadBalancerForm, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, CbrZoneExclusionAddressForm, CbrZoneForm, ClusterForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, LocationsMultiSelect, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, RoutingTableForm, RoutingTableRouteForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VpnServerRouteForm, VsiForm, VsiLoadBalancerForm, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };

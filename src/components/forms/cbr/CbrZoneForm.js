@@ -142,43 +142,64 @@ CbrZoneForm.defaultProps = {
   data: {
     name: "",
     description: "",
-    enforcement_mode: "",
-    api_type_id: "",
-    contexts: [],
-    resource_attributes: [],
-    tags: [],
+    account_id: "",
+    addresses: [],
+    exclusions: [],
   },
 };
 
 CbrZoneForm.propTypes = {
-  isModal: PropTypes.bool,
+  account_id: PropTypes.string,
+  name: PropTypes.string,
+
+  addressProps: PropTypes.shape({
+    disableSave: PropTypes.any,
+    onDelete: PropTypes.any,
+    onSave: PropTypes.any,
+    onSubmit: PropTypes.any,
+  }),
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
+    account_id: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    enforcement_mode: PropTypes.string.isRequired,
-    api_type_id: PropTypes.string.isRequired,
-    contexts: PropTypes.arrayOf(
+    addresses: PropTypes.arrayOf(
       PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        value: PropTypes.string.isRequired,
-      }).isRequired
-    ),
-    resource_attributes: PropTypes.arrayOf(
-      PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        value: PropTypes.string.isRequired,
-      }).isRequired
-    ),
-    tags: PropTypes.arrayOf(
-      PropTypes.shape({
+        account_id: PropTypes.string,
+        location: PropTypes.string,
         name: PropTypes.string.isRequired,
         operator: PropTypes.string.isRequired,
+        service_name: PropTypes.string,
+        service_type: PropTypes.string,
+        type: PropTypes.string,
+        value: PropTypes.string.isRequired,
+      }).isRequired
+    ),
+    exclusions: PropTypes.arrayOf(
+      PropTypes.shape({
+        account_id: PropTypes.string,
+        location: PropTypes.string,
+        name: PropTypes.string.isRequired,
+        operator: PropTypes.string.isRequired,
+        service_name: PropTypes.string,
+        service_type: PropTypes.string,
+        type: PropTypes.string,
         value: PropTypes.string.isRequired,
       }).isRequired
     ),
   }),
-  invalidTextCallback: PropTypes.func.isRequired,
+  exclusionProps: PropTypes.shape({
+    disableSave: PropTypes.func,
+    onDelete: PropTypes.func,
+    onSave: PropTypes.func,
+    onSubmit: PropTypes.func,
+  }),
+  invalidAddressCallback: PropTypes.any,
   invalidCallback: PropTypes.func.isRequired,
+  invalidContextTextCallback: PropTypes.any,
+  invalidExclusionCallback: PropTypes.any,
+  invalidTextCallback: PropTypes.func.isRequired,
+  isModal: PropTypes.bool,
+  propsMatchState: PropTypes.any,
 };
 
 export default CbrZoneForm;
