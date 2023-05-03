@@ -137,27 +137,26 @@ class VpcNetworkForm extends React.Component {
         <IcseFormGroup>
           {nameFields.map((field) => {
             return (
-              <div key={this.props.data.name + "-" + kebabCase(field) + "-div"}>
-                <IcseTextInput
-                  id={composedId + "-" + field}
-                  componentName="VPC Network"
-                  field={field}
-                  labelText={titleCase(field)}
-                  value={this.state[field]}
-                  onChange={this.handleInputChange}
-                  invalid={this.props.invalidCallback(
-                    field,
-                    this.state,
-                    this.props
-                  )}
-                  invalidText={this.props.invalidTextCallback(
-                    field,
-                    this.state,
-                    this.props
-                  )}
-                  className={classNameModalCheck}
-                />
-              </div>
+              <IcseTextInput
+                id={composedId + "-" + field}
+                key={this.props.data.name + "-" + kebabCase(field)}
+                componentName="VPC Network"
+                field={field}
+                labelText={titleCase(field)}
+                value={this.state[field]}
+                onChange={this.handleInputChange}
+                invalid={this.props.invalidCallback(
+                  field,
+                  this.state,
+                  this.props
+                )}
+                invalidText={this.props.invalidTextCallback(
+                  field,
+                  this.state,
+                  this.props
+                )}
+                className={classNameModalCheck}
+              />
             );
           })}
         </IcseFormGroup>

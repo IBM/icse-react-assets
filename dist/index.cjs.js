@@ -440,7 +440,7 @@ const ToolTipWrapper = props => {
     ...props
   });
   return /*#__PURE__*/React__default["default"].createElement("div", {
-    className: "cds--form-item"
+    className: props.noLabelText ? "" : "cds--form-item"
   }, props.noLabelText ?
   /*#__PURE__*/
   // No label- this is usually a title
@@ -7071,10 +7071,9 @@ class VpcNetworkForm extends React__default["default"].Component {
       disabled: this.props.disableManualPrefixToggle,
       className: classNameModalCheck + " leftTextAlign"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, nameFields.map(field => {
-      return /*#__PURE__*/React__default["default"].createElement("div", {
-        key: this.props.data.name + "-" + lazyZ.kebabCase(field) + "-div"
-      }, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      return /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
         id: composedId + "-" + field,
+        key: this.props.data.name + "-" + lazyZ.kebabCase(field),
         componentName: "VPC Network",
         field: field,
         labelText: lazyZ.titleCase(field),
@@ -7083,7 +7082,7 @@ class VpcNetworkForm extends React__default["default"].Component {
         invalid: this.props.invalidCallback(field, this.state, this.props),
         invalidText: this.props.invalidTextCallback(field, this.state, this.props),
         className: classNameModalCheck
-      }));
+      });
     })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
       name: "Public Gateways",
       type: "subHeading",

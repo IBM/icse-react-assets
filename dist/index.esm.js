@@ -429,7 +429,7 @@ const ToolTipWrapper = props => {
     ...props
   });
   return /*#__PURE__*/React.createElement("div", {
-    className: "cds--form-item"
+    className: props.noLabelText ? "" : "cds--form-item"
   }, props.noLabelText ?
   /*#__PURE__*/
   // No label- this is usually a title
@@ -7060,10 +7060,9 @@ class VpcNetworkForm extends React.Component {
       disabled: this.props.disableManualPrefixToggle,
       className: classNameModalCheck + " leftTextAlign"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, nameFields.map(field => {
-      return /*#__PURE__*/React.createElement("div", {
-        key: this.props.data.name + "-" + kebabCase$2(field) + "-div"
-      }, /*#__PURE__*/React.createElement(IcseTextInput, {
+      return /*#__PURE__*/React.createElement(IcseTextInput, {
         id: composedId + "-" + field,
+        key: this.props.data.name + "-" + kebabCase$2(field),
         componentName: "VPC Network",
         field: field,
         labelText: titleCase$1(field),
@@ -7072,7 +7071,7 @@ class VpcNetworkForm extends React.Component {
         invalid: this.props.invalidCallback(field, this.state, this.props),
         invalidText: this.props.invalidTextCallback(field, this.state, this.props),
         className: classNameModalCheck
-      }));
+      });
     })), /*#__PURE__*/React.createElement(IcseHeading, {
       name: "Public Gateways",
       type: "subHeading",
