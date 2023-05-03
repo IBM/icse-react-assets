@@ -66,7 +66,12 @@ class CbrRuleForm extends Component {
             value={this.state.name}
             onChange={this.handleInputChange}
             hideHelperText={true}
-            invalid={false}
+            invalid={this.props.invalidCallback("name", this.state, this.props)}
+            invalidText={this.props.invalidTextCallback(
+              "name",
+              this.state,
+              this.props
+            )}
           />
           <IcseSelect
             id={this.props.data.name + "-cbr-rule-enforcement-mode"}
@@ -75,7 +80,16 @@ class CbrRuleForm extends Component {
             value={this.state.enforcement_mode}
             labelText="Enforcement Mode"
             groups={["Enabled", "Disabled", "Report"]}
-            disableInvalid={true}
+            invalid={this.props.invalidCallback(
+              "enforcement_mode",
+              this.state,
+              this.props
+            )}
+            invalidText={this.props.invalidTextCallback(
+              "enforcement_mode",
+              this.state,
+              this.props
+            )}
             formName="cbr-rule"
             handleInputChange={this.handleInputChange}
           />
@@ -86,7 +100,16 @@ class CbrRuleForm extends Component {
             value={this.state.api_type_id}
             labelText={"API Type ID"}
             onChange={this.handleInputChange}
-            invalid={false}
+            invalid={this.props.invalidCallback(
+              "api_type_id",
+              this.state,
+              this.props
+            )}
+            invalidText={this.props.invalidTextCallback(
+              "api_type_id",
+              this.state,
+              this.props
+            )}
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -97,11 +120,16 @@ class CbrRuleForm extends Component {
             value={this.state.description}
             labelText={"Description"}
             onChange={this.handleInputChange}
-            invalid={
-              this.state.description.length < 0 ||
-              this.state.description.length > 300
-            }
-            invalidText={"Invalid description"}
+            invalid={this.props.invalidCallback(
+              "description",
+              this.state,
+              this.props
+            )}
+            invalidText={this.props.invalidTextCallback(
+              "description",
+              this.state,
+              this.props
+            )}
             enableCounter={true}
           />
         </IcseFormGroup>
@@ -219,6 +247,34 @@ CbrRuleForm.propTypes = {
   }),
   invalidTextCallback: PropTypes.func.isRequired,
   invalidCallback: PropTypes.func.isRequired,
+  contextProps: PropTypes.shape({
+    isModal: PropTypes.bool,
+    data: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+    }),
+  }).isRequired,
+  invalidContextCallback: PropTypes.func.isRequired,
+  invalidContextTextCallback: PropTypes.func.isRequired,
+  resourceAttributeProps: PropTypes.shape({
+    isModal: PropTypes.bool,
+    data: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+    }),
+  }).isRequired,
+  invalidResourceAttributeCallback: PropTypes.func.isRequired,
+  invalidResourceAttributeTextCallback: PropTypes.func.isRequired,
+  tagProps: PropTypes.shape({
+    isModal: PropTypes.bool,
+    data: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      operator: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired,
+    }),
+  }).isRequired,
+  invalidTagCallback: PropTypes.func.isRequired,
+  invalidTagTextCallback: PropTypes.func.isRequired,
 };
 
 export default CbrRuleForm;

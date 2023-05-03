@@ -29,7 +29,12 @@ class CbrContextForm extends Component {
           componentName={this.props.arrayParentName + "-cbr-context"}
           value={this.state.name}
           onChange={this.handleInputChange}
-          invalid={this.props.invalidCallback(this.state, this.props)}
+          invalid={this.props.invalidCallback("name", this.state, this.props)}
+          invalidText={this.props.invalidTextCallback(
+            "name",
+            this.state,
+            this.props
+          )}
           hideHelperText={true}
         />
         <IcseTextInput
@@ -39,7 +44,12 @@ class CbrContextForm extends Component {
           field="value"
           value={this.state.value}
           onChange={this.handleInputChange}
-          invalid={false}
+          invalid={this.props.invalidCallback("value", this.state, this.props)}
+          invalidText={this.props.invalidTextCallback(
+            "value",
+            this.state,
+            this.props
+          )}
         />
       </IcseFormGroup>
     );

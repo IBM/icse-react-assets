@@ -9108,7 +9108,8 @@ class CbrContextForm extends Component {
       componentName: this.props.arrayParentName + "-cbr-context",
       value: this.state.name,
       onChange: this.handleInputChange,
-      invalid: this.props.invalidCallback(this.state, this.props),
+      invalid: this.props.invalidCallback("name", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("name", this.state, this.props),
       hideHelperText: true
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: this.props.data.name + "-cbr-context-value",
@@ -9117,7 +9118,8 @@ class CbrContextForm extends Component {
       field: "value",
       value: this.state.value,
       onChange: this.handleInputChange,
-      invalid: false
+      invalid: this.props.invalidCallback("value", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("value", this.state, this.props)
     }));
   }
 }
@@ -9163,7 +9165,8 @@ class CbrResourceAttributeForm extends Component {
       componentName: this.props.data.name + "-cbr-ra",
       value: this.state.name,
       onChange: this.handleInputChange,
-      invalid: false,
+      invalid: this.props.invalidCallback("name", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("name", this.state, this.props),
       hideHelperText: true
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: this.props.data.name + "-cbr-ra-value",
@@ -9172,7 +9175,8 @@ class CbrResourceAttributeForm extends Component {
       field: "value",
       value: this.state.value,
       onChange: this.handleInputChange,
-      invalid: false,
+      invalid: this.props.invalidCallback("value", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("value", this.state, this.props),
       hideHelperText: true
     }));
   }
@@ -9188,7 +9192,9 @@ CbrResourceAttributeForm.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired
-  })
+  }),
+  invalidTagCallback: PropTypes.func.isRequired,
+  invalidTagTextCallback: PropTypes.func.isRequired
 };
 
 /**
@@ -9220,7 +9226,8 @@ class CbrTagForm extends Component {
       className: "fieldWidthSmaller",
       value: this.state.name,
       onChange: this.handleInputChange,
-      invalid: false,
+      invalid: this.props.invalidCallback("name", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("name", this.state, this.props),
       hideHelperText: true
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: this.props.data.name + "-cbr-tag-operator",
@@ -9230,7 +9237,8 @@ class CbrTagForm extends Component {
       field: "operator",
       value: this.state.operator,
       onChange: this.handleInputChange,
-      invalid: false,
+      invalid: this.props.invalidCallback("operator", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("operator", this.state, this.props),
       hideHelperText: true
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: this.props.data.name + "-cbr-tag-value",
@@ -9240,7 +9248,8 @@ class CbrTagForm extends Component {
       field: "value",
       value: this.state.value,
       onChange: this.handleInputChange,
-      invalid: false,
+      invalid: this.props.invalidCallback("value", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("value", this.state, this.props),
       hideHelperText: true
     }));
   }
@@ -9258,7 +9267,9 @@ CbrTagForm.propTypes = {
     name: PropTypes.string.isRequired,
     operator: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired
-  })
+  }),
+  invalidTagCallback: PropTypes.func.isRequired,
+  invalidTagTextCallback: PropTypes.func.isRequired
 };
 
 /**
@@ -9317,7 +9328,8 @@ class CbrRuleForm extends Component {
       value: this.state.name,
       onChange: this.handleInputChange,
       hideHelperText: true,
-      invalid: false
+      invalid: this.props.invalidCallback("name", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("name", this.state, this.props)
     }), /*#__PURE__*/React.createElement(IcseSelect, {
       id: this.props.data.name + "-cbr-rule-enforcement-mode",
       name: "enforcement_mode",
@@ -9325,7 +9337,8 @@ class CbrRuleForm extends Component {
       value: this.state.enforcement_mode,
       labelText: "Enforcement Mode",
       groups: ["Enabled", "Disabled", "Report"],
-      disableInvalid: true,
+      invalid: this.props.invalidCallback("enforcement_mode", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("enforcement_mode", this.state, this.props),
       formName: "cbr-rule",
       handleInputChange: this.handleInputChange
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
@@ -9335,7 +9348,8 @@ class CbrRuleForm extends Component {
       value: this.state.api_type_id,
       labelText: "API Type ID",
       onChange: this.handleInputChange,
-      invalid: false
+      invalid: this.props.invalidCallback("api_type_id", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("api_type_id", this.state, this.props)
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
       id: this.props.data.name + "-cbr-rule-description",
       className: "textInputWide",
@@ -9343,8 +9357,8 @@ class CbrRuleForm extends Component {
       value: this.state.description,
       labelText: "Description",
       onChange: this.handleInputChange,
-      invalid: this.state.description.length < 0 || this.state.description.length > 300,
-      invalidText: "Invalid description",
+      invalid: this.props.invalidCallback("description", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("description", this.state, this.props),
       enableCounter: true
     })), this.props.isModal !== true && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormTemplate, {
       name: "Contexts",
@@ -9445,7 +9459,35 @@ CbrRuleForm.propTypes = {
     }).isRequired)
   }),
   invalidTextCallback: PropTypes.func.isRequired,
-  invalidCallback: PropTypes.func.isRequired
+  invalidCallback: PropTypes.func.isRequired,
+  contextProps: PropTypes.shape({
+    isModal: PropTypes.bool,
+    data: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired
+    })
+  }).isRequired,
+  invalidContextCallback: PropTypes.func.isRequired,
+  invalidContextTextCallback: PropTypes.func.isRequired,
+  resourceAttributeProps: PropTypes.shape({
+    isModal: PropTypes.bool,
+    data: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired
+    })
+  }).isRequired,
+  invalidResourceAttributeCallback: PropTypes.func.isRequired,
+  invalidResourceAttributeTextCallback: PropTypes.func.isRequired,
+  tagProps: PropTypes.shape({
+    isModal: PropTypes.bool,
+    data: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      operator: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired
+    })
+  }).isRequired,
+  invalidTagCallback: PropTypes.func.isRequired,
+  invalidTagTextCallback: PropTypes.func.isRequired
 };
 
 export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, CbrRuleForm, ClusterForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, LocationsMultiSelect, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, RoutingTableForm, RoutingTableRouteForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VpnServerRouteForm, VsiForm, VsiLoadBalancerForm, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };

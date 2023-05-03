@@ -9119,7 +9119,8 @@ class CbrContextForm extends React.Component {
       componentName: this.props.arrayParentName + "-cbr-context",
       value: this.state.name,
       onChange: this.handleInputChange,
-      invalid: this.props.invalidCallback(this.state, this.props),
+      invalid: this.props.invalidCallback("name", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("name", this.state, this.props),
       hideHelperText: true
     }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: this.props.data.name + "-cbr-context-value",
@@ -9128,7 +9129,8 @@ class CbrContextForm extends React.Component {
       field: "value",
       value: this.state.value,
       onChange: this.handleInputChange,
-      invalid: false
+      invalid: this.props.invalidCallback("value", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("value", this.state, this.props)
     }));
   }
 }
@@ -9174,7 +9176,8 @@ class CbrResourceAttributeForm extends React.Component {
       componentName: this.props.data.name + "-cbr-ra",
       value: this.state.name,
       onChange: this.handleInputChange,
-      invalid: false,
+      invalid: this.props.invalidCallback("name", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("name", this.state, this.props),
       hideHelperText: true
     }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: this.props.data.name + "-cbr-ra-value",
@@ -9183,7 +9186,8 @@ class CbrResourceAttributeForm extends React.Component {
       field: "value",
       value: this.state.value,
       onChange: this.handleInputChange,
-      invalid: false,
+      invalid: this.props.invalidCallback("value", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("value", this.state, this.props),
       hideHelperText: true
     }));
   }
@@ -9199,7 +9203,9 @@ CbrResourceAttributeForm.propTypes = {
   data: PropTypes__default["default"].shape({
     name: PropTypes__default["default"].string.isRequired,
     value: PropTypes__default["default"].string.isRequired
-  })
+  }),
+  invalidTagCallback: PropTypes__default["default"].func.isRequired,
+  invalidTagTextCallback: PropTypes__default["default"].func.isRequired
 };
 
 /**
@@ -9231,7 +9237,8 @@ class CbrTagForm extends React.Component {
       className: "fieldWidthSmaller",
       value: this.state.name,
       onChange: this.handleInputChange,
-      invalid: false,
+      invalid: this.props.invalidCallback("name", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("name", this.state, this.props),
       hideHelperText: true
     }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: this.props.data.name + "-cbr-tag-operator",
@@ -9241,7 +9248,8 @@ class CbrTagForm extends React.Component {
       field: "operator",
       value: this.state.operator,
       onChange: this.handleInputChange,
-      invalid: false,
+      invalid: this.props.invalidCallback("operator", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("operator", this.state, this.props),
       hideHelperText: true
     }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: this.props.data.name + "-cbr-tag-value",
@@ -9251,7 +9259,8 @@ class CbrTagForm extends React.Component {
       field: "value",
       value: this.state.value,
       onChange: this.handleInputChange,
-      invalid: false,
+      invalid: this.props.invalidCallback("value", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("value", this.state, this.props),
       hideHelperText: true
     }));
   }
@@ -9269,7 +9278,9 @@ CbrTagForm.propTypes = {
     name: PropTypes__default["default"].string.isRequired,
     operator: PropTypes__default["default"].string.isRequired,
     value: PropTypes__default["default"].string.isRequired
-  })
+  }),
+  invalidTagCallback: PropTypes__default["default"].func.isRequired,
+  invalidTagTextCallback: PropTypes__default["default"].func.isRequired
 };
 
 /**
@@ -9328,7 +9339,8 @@ class CbrRuleForm extends React.Component {
       value: this.state.name,
       onChange: this.handleInputChange,
       hideHelperText: true,
-      invalid: false
+      invalid: this.props.invalidCallback("name", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("name", this.state, this.props)
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       id: this.props.data.name + "-cbr-rule-enforcement-mode",
       name: "enforcement_mode",
@@ -9336,7 +9348,8 @@ class CbrRuleForm extends React.Component {
       value: this.state.enforcement_mode,
       labelText: "Enforcement Mode",
       groups: ["Enabled", "Disabled", "Report"],
-      disableInvalid: true,
+      invalid: this.props.invalidCallback("enforcement_mode", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("enforcement_mode", this.state, this.props),
       formName: "cbr-rule",
       handleInputChange: this.handleInputChange
     }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
@@ -9346,7 +9359,8 @@ class CbrRuleForm extends React.Component {
       value: this.state.api_type_id,
       labelText: "API Type ID",
       onChange: this.handleInputChange,
-      invalid: false
+      invalid: this.props.invalidCallback("api_type_id", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("api_type_id", this.state, this.props)
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
       id: this.props.data.name + "-cbr-rule-description",
       className: "textInputWide",
@@ -9354,8 +9368,8 @@ class CbrRuleForm extends React.Component {
       value: this.state.description,
       labelText: "Description",
       onChange: this.handleInputChange,
-      invalid: this.state.description.length < 0 || this.state.description.length > 300,
-      invalidText: "Invalid description",
+      invalid: this.props.invalidCallback("description", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("description", this.state, this.props),
       enableCounter: true
     })), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
       name: "Contexts",
@@ -9456,7 +9470,35 @@ CbrRuleForm.propTypes = {
     }).isRequired)
   }),
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  invalidCallback: PropTypes__default["default"].func.isRequired
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  contextProps: PropTypes__default["default"].shape({
+    isModal: PropTypes__default["default"].bool,
+    data: PropTypes__default["default"].shape({
+      name: PropTypes__default["default"].string.isRequired,
+      value: PropTypes__default["default"].string.isRequired
+    })
+  }).isRequired,
+  invalidContextCallback: PropTypes__default["default"].func.isRequired,
+  invalidContextTextCallback: PropTypes__default["default"].func.isRequired,
+  resourceAttributeProps: PropTypes__default["default"].shape({
+    isModal: PropTypes__default["default"].bool,
+    data: PropTypes__default["default"].shape({
+      name: PropTypes__default["default"].string.isRequired,
+      value: PropTypes__default["default"].string.isRequired
+    })
+  }).isRequired,
+  invalidResourceAttributeCallback: PropTypes__default["default"].func.isRequired,
+  invalidResourceAttributeTextCallback: PropTypes__default["default"].func.isRequired,
+  tagProps: PropTypes__default["default"].shape({
+    isModal: PropTypes__default["default"].bool,
+    data: PropTypes__default["default"].shape({
+      name: PropTypes__default["default"].string.isRequired,
+      operator: PropTypes__default["default"].string.isRequired,
+      value: PropTypes__default["default"].string.isRequired
+    })
+  }).isRequired,
+  invalidTagCallback: PropTypes__default["default"].func.isRequired,
+  invalidTagTextCallback: PropTypes__default["default"].func.isRequired
 };
 
 exports.AccessGroupDynamicPolicyForm = AccessGroupDynamicPolicyForm;

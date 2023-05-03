@@ -29,7 +29,12 @@ class CbrResourceAttributeForm extends Component {
           componentName={this.props.data.name + "-cbr-ra"}
           value={this.state.name}
           onChange={this.handleInputChange}
-          invalid={false}
+          invalid={this.props.invalidCallback("name", this.state, this.props)}
+          invalidText={this.props.invalidTextCallback(
+            "name",
+            this.state,
+            this.props
+          )}
           hideHelperText={true}
         />
         <IcseTextInput
@@ -39,7 +44,12 @@ class CbrResourceAttributeForm extends Component {
           field="value"
           value={this.state.value}
           onChange={this.handleInputChange}
-          invalid={false}
+          invalid={this.props.invalidCallback("value", this.state, this.props)}
+          invalidText={this.props.invalidTextCallback(
+            "value",
+            this.state,
+            this.props
+          )}
           hideHelperText={true}
         />
       </IcseFormGroup>
@@ -60,6 +70,8 @@ CbrResourceAttributeForm.propTypes = {
     name: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
   }),
+  invalidTagCallback: PropTypes.func.isRequired,
+  invalidTagTextCallback: PropTypes.func.isRequired,
 };
 
 export default CbrResourceAttributeForm;

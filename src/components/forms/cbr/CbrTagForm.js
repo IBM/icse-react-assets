@@ -33,7 +33,12 @@ class CbrTagForm extends Component {
           className={"fieldWidthSmaller"}
           value={this.state.name}
           onChange={this.handleInputChange}
-          invalid={false}
+          invalid={this.props.invalidCallback("name", this.state, this.props)}
+          invalidText={this.props.invalidTextCallback(
+            "name",
+            this.state,
+            this.props
+          )}
           hideHelperText={true}
         />
         <IcseTextInput
@@ -44,7 +49,16 @@ class CbrTagForm extends Component {
           field="operator"
           value={this.state.operator}
           onChange={this.handleInputChange}
-          invalid={false}
+          invalid={this.props.invalidCallback(
+            "operator",
+            this.state,
+            this.props
+          )}
+          invalidText={this.props.invalidTextCallback(
+            "operator",
+            this.state,
+            this.props
+          )}
           hideHelperText={true}
         />
         <IcseTextInput
@@ -55,7 +69,12 @@ class CbrTagForm extends Component {
           field="value"
           value={this.state.value}
           onChange={this.handleInputChange}
-          invalid={false}
+          invalid={this.props.invalidCallback("value", this.state, this.props)}
+          invalidText={this.props.invalidTextCallback(
+            "value",
+            this.state,
+            this.props
+          )}
           hideHelperText={true}
         />
       </IcseFormGroup>
@@ -78,6 +97,8 @@ CbrTagForm.propTypes = {
     operator: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
   }),
+  invalidTagCallback: PropTypes.func.isRequired,
+  invalidTagTextCallback: PropTypes.func.isRequired,
 };
 
 export default CbrTagForm;
