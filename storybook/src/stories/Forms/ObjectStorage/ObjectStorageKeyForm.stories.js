@@ -69,7 +69,7 @@ export default {
   },
 };
 
-export const ObjectStorageKeyFormStory = () => {
+const ObjectStorageKeyFormStory = () => {
   function validName(str) {
     const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
     if (str) return str.match(regex) !== null;
@@ -105,3 +105,5 @@ export const ObjectStorageKeyFormStory = () => {
     />
   );
 };
+
+export const Default = ObjectStorageKeyFormStory.bind({});

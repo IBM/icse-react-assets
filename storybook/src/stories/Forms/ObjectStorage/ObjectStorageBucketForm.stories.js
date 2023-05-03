@@ -81,7 +81,7 @@ export default {
   },
 };
 
-export const ObjectStorageBucketFormStory = () => {
+const ObjectStorageBucketFormStory = () => {
   function validName(str) {
     const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
     if (str) return str.match(regex) !== null;
@@ -126,3 +126,5 @@ export const ObjectStorageBucketFormStory = () => {
     />
   );
 };
+
+export const Default = ObjectStorageBucketFormStory.bind({});
