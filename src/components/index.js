@@ -51,6 +51,7 @@ export { default as VsiForm } from "./forms/VsiForm";
 export { default as VsiVolumeForm } from "./forms/VsiVolumeForm";
 export { default as ClusterForm } from "./forms/ClusterForm";
 export { default as WorkerPoolForm } from "./forms/WorkerPoolForm";
+export { default as VpnServerForm } from "./forms/VpnServerForm";
 export { default as VpnServerRouteForm } from "./forms/VpnServerRouteForm";
 export { default as IcseFormTemplate } from "./IcseFormTemplate";
 export { IcseNameInput, IcseTextInput, IcseToggle } from "./Inputs";

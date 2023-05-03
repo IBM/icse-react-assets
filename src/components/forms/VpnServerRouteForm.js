@@ -33,7 +33,7 @@ class VpnServerRouteForm extends React.Component {
       <IcseFormGroup>
         <IcseNameInput
           id={`${this.props.data.name}-name`}
-          componentName="vpn-server-name"
+          componentName="vpn-server-route-name"
           value={this.state.name}
           onChange={this.handleInputChange}
           hideHelperText
@@ -60,7 +60,7 @@ class VpnServerRouteForm extends React.Component {
           className={className}
         />
         <IcseSelect
-          formName="vpn-server-action"
+          formName="vpn-server-route-action"
           name="action"
           labelText="Action"
           groups={["Translate", "Deliver", "Drop"]}

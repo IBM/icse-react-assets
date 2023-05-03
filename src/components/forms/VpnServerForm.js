@@ -156,7 +156,7 @@ class VpnServerForm extends Component {
             invalidCallback={() =>
               isIpv4CidrOrAddress(this.state.client_ip_pool) === false
             }
-            invalidText="Client IP Pool CIDR must be a PV4 CIDR block"
+            invalidText="Client IP Pool CIDR must be a PV4 CIDR block."
             onChange={this.handleInputChange}
           />
         </IcseFormGroup>
@@ -183,7 +183,7 @@ class VpnServerForm extends Component {
             min={0}
             max={28800}
             invalid={isRangeInvalid(this.state.client_idle_timeout, 0, 28800)}
-            invalidText="Must be a whole number between 0 and 28800"
+            invalidText="Must be a whole number between 0 and 28800."
             className="fieldWidth leftTextAlign"
           />
           {/* port input */}
@@ -199,7 +199,7 @@ class VpnServerForm extends Component {
             min={1}
             max={65535}
             invalid={isRangeInvalid(this.state.client_idle_timeout, 1, 65535)}
-            invalidText="Must be a whole number between 1 and 65535"
+            invalidText="Must be a whole number between 1 and 65535."
             className="fieldWidth leftTextAlign"
           />
           {/* protocol */}
@@ -280,7 +280,7 @@ class VpnServerForm extends Component {
               this.state.allowed_ip_addresses || "X.X.X.X, X.X.X.X/X, ..."
             }
             invalid={isIpStringInvalid(this.state.allowed_ip_addresses)}
-            invalidText="Please enter a comma separated list of IP addresses"
+            invalidText="Please enter a comma separated list of IP addresses."
           />
         </IcseFormGroup>
         {/* show routes if not modal */}
@@ -343,23 +343,22 @@ VpnServerForm.propTypes = {
     name: PropTypes.string,
     certificate_crn: PropTypes.string.isRequired,
     method: PropTypes.string.isRequired,
-    client_ca_crn: PropTypes.string,
-    identiy_provider: PropTypes.string,
+    client_ca_crn: PropTypes.string.isRequired,
+    identiy_provider: PropTypes.string.isRequired,
     client_ip_pool: PropTypes.string.isRequired,
     enable_split_tunneling: PropTypes.bool,
     client_idle_timeout: PropTypes.number,
     port: PropTypes.number,
     protocol: PropTypes.string,
-    vpc: PropTypes.string,
     resource_group: PropTypes.string,
-    subnets: PropTypes.array,
-    security_groups: PropTypes.array,
+    vpc: PropTypes.string.isRequired,
+    subnets: PropTypes.array.isRequired,
+    security_groups: PropTypes.array.isRequired,
     routes: PropTypes.array,
   }).isRequired,
   /* bools */
   isModal: PropTypes.bool.isRequired,
   /* lists */
-  encryptionKeys: PropTypes.array.isRequired,
   resourceGroups: PropTypes.array.isRequired,
   securityGroups: PropTypes.array.isRequired,
   subnetList: PropTypes.array.isRequired,
