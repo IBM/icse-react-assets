@@ -26,7 +26,7 @@ class CbrContextForm extends Component {
       <IcseFormGroup>
         <IcseNameInput
           id={this.props.data.name + "-cbr-context"}
-          componentName={this.props.data.name + "-cbr-context"}
+          componentName={this.props.arrayParentName + "-cbr-context"}
           value={this.state.name}
           onChange={this.handleInputChange}
           invalid={this.props.invalidCallback(this.state, this.props)}
@@ -34,7 +34,7 @@ class CbrContextForm extends Component {
         />
         <IcseTextInput
           id={this.props.data.name + "-cbr-context-value"}
-          componentName={this.props.data.name + "-cbr-context"}
+          componentName={this.props.arrayParentName + "-cbr-context"}
           labelText={"Value"}
           field="value"
           value={this.state.value}
@@ -60,6 +60,8 @@ CbrContextForm.propTypes = {
     value: PropTypes.string.isRequired,
   }),
   invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  arrayParentName: PropTypes.string,
 };
 
 export default CbrContextForm;
