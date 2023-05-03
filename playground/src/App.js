@@ -48,12 +48,6 @@ const SubnetTierFormStory = () => {
         network_acl: stateData.networkAcl,
       },
       {
-        name: stateData.name + "-subnet-zone-2",
-        cidr: "10.20.10.10/24",
-        public_gateway: stateData.addPublicGateway,
-        network_acl: stateData.networkAcl,
-      },
-      {
         name: stateData.name + "-subnet-zone-3",
         cidr: "10.30.10.10/24",
         public_gateway: stateData.addPublicGateway,

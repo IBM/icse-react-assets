@@ -34,7 +34,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$1 = "/* vars and themes */\n:root {\n  --background: #ffffff;\n  --subForm: #f4f4f4;\n  --formInSubForm: #fffdfd;\n  --cds-text-primary: #161616;\n  --cds-text-secondary: #525252;\n  --cds-field: #f4f4f4;\n  --cds-border-strong: #8d8d8d;\n  --blue: #0f62fe;\n  --red: #da1e28;\n  --white: #ffffff;\n}\n\n.dark {\n  --background: #161616;\n  --subForm: #262626;\n  --formInSubForm: #414141;\n  --cds-text-primary: #f4f4f4;\n  --cds-text-secondary: #c6c6c6;\n  --cds-field: #363636;\n  --cds-border-strong: #8897a2;\n  --cds-layer: #262626;\n  --cds-layer-hover: #363636;\n  --cds-field-02: #363636;\n  --cds-icon-secondary: #c6c6c6;\n  --cds-icon-primary: #c6c6c6;\n  --placeholder: #565656;\n  --cds-field-hover: #464646;\n  --cds-layer-selected: #525252;\n  --cds-background-inverse: #f4f4f4;\n  --cds-text-inverse: #262626;\n}\n\n.subForm {\n  /* white background for subform input fields */\n  --cds-field: #ffffff;\n}\n\n.formInSubForm {\n  /* gray for formInSubForm input fields */\n  --cds-field: #f4f4f4;\n}\n\ninput:read-only {\n  /* read only fields should only have text */\n  --cds-border-strong: transparent;\n}\n\n.dark {\n  background-color: var(--background);\n}\n\n.dark p {\n  color: #f4f4f4;\n}\n\n.dark i.chevron > svg {\n  fill: #f4f4f4;\n}\n\n.dark h4 {\n  color: #f4f4f4;\n}\n\n.dark .underConstruction > svg {\n  fill: #ffffff;\n}\n/* styling for tooltip content in dark mode */\n.dark .cds--toggletip-content > p {\n  color: #363636;\n}\n\n.dark .subForm {\n  /* alternate background for dark subforms */\n  --cds-field: #414141;\n}\n\n.dark .formInSubForm {\n  /* alternate background for dark formInSubForm */\n  --cds-field: #363636;\n}\n\n.dark ::placeholder {\n  color: var(--placeholder);\n}\n\n/* general alignment classes */\n\n.displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n\n.fieldWidthSmallest {\n  width: 8rem;\n}\n\n.fieldWidthBigger {\n  width: 40rem;\n}\n\n.textInputWide {\n  width: 30rem;\n}\n\n.textInputMedium {\n  width: 20rem;\n}\n\n/* backhground classes */\n.formInSubForm {\n  margin-top: 0rem;\n  background: var(--formInSubForm);\n  padding: 1rem;\n}\n\n.subForm {\n  background: var(--subForm);\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n/* Tooltips */\n.labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n\n/* subnet tile form */\n\n.tileFormMargin {\n  margin-bottom: -0.5rem;\n  margin-top: 0.5rem;\n}\n\n.tileFormMargin.formInSubForm {\n  padding: 0px;\n}\n\n.marginRightSubnetTile {\n  margin-right: 10px;\n}\n\n/* StatefulTabPanel */\n\n.cds--tab-content.doc {\n  padding: 0.5rem 0;\n}\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}\n\n/* popover wrappers */\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  z-index: 9001;\n}\n\n/* buttons */\n\ni.chevron > svg {\n  display: block; /* remove extra padding on bottom of i which misaligns icon */\n  margin-right: 1rem;\n  margin-top: 0.15rem;\n}\n\n.chevron {\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: var(--blue) !important;\n  fill: var(--white) !important;\n  border-color: var(--blue) !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: var(--red) !important;\n}\n\n.alignButtons {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important;\n}\n\n/* docs */\n.about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n\n/* empty resource tile */\n.iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: var(--subForm);\n}\n\n/* under construction */\n\n.underConstruction {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.flexDirectionColumn {\n  flex-direction: column;\n}\n\n/* f5 vsi */\n.wide {\n  width: 20rem !important;\n}\n\n.tight {\n  width: min-content; /* force invalid text to split line */\n}\n\n.passwordGenerateButton {\n  margin-top: 1.25rem;\n  margin-left: calc(-4rem - 3vw);\n}\n\n.passwordGenerateButton svg {\n  fill: var(--cds-icon-secondary, #525252) !important;\n}\n\n.passwordGenerateButton.invalid {\n  margin-left: calc(-5.75rem - 3vw);\n}\n";
+var css_248z$1 = "/* vars and themes */\n:root {\n  --background: #ffffff;\n  --subForm: #f4f4f4;\n  --formInSubForm: #fffdfd;\n  --cds-text-primary: #161616;\n  --cds-text-secondary: #525252;\n  --cds-field: #f4f4f4;\n  --cds-border-strong: #8d8d8d;\n  --blue: #0f62fe;\n  --red: #da1e28;\n  --white: #ffffff;\n}\n\n.dark {\n  --background: #161616;\n  --subForm: #262626;\n  --formInSubForm: #414141;\n  --cds-text-primary: #f4f4f4;\n  --cds-text-secondary: #c6c6c6;\n  --cds-field: #363636;\n  --cds-border-strong: #8897a2;\n  --cds-layer: #262626;\n  --cds-layer-hover: #363636;\n  --cds-field-02: #363636;\n  --cds-icon-secondary: #c6c6c6;\n  --cds-icon-primary: #c6c6c6;\n  --placeholder: #565656;\n  --cds-field-hover: #464646;\n  --cds-layer-selected: #525252;\n  --cds-background-inverse: #f4f4f4;\n  --cds-text-inverse: #262626;\n}\n\n.subForm {\n  /* white background for subform input fields */\n  --cds-field: #ffffff;\n}\n\n.formInSubForm {\n  /* gray for formInSubForm input fields */\n  --cds-field: #f4f4f4;\n}\n\ninput:read-only {\n  /* read only fields should only have text */\n  --cds-border-strong: transparent;\n}\n\n.dark {\n  background-color: var(--background);\n}\n\n.dark p {\n  color: #f4f4f4;\n}\n\n.dark i.chevron > svg {\n  fill: #f4f4f4;\n}\n\n.dark h4 {\n  color: #f4f4f4;\n}\n\n.dark .underConstruction > svg {\n  fill: #ffffff;\n}\n/* styling for tooltip content in dark mode */\n.dark .cds--toggletip-content > p {\n  color: #363636;\n}\n\n.dark .subForm {\n  /* alternate background for dark subforms */\n  --cds-field: #414141;\n}\n\n.dark .formInSubForm {\n  /* alternate background for dark formInSubForm */\n  --cds-field: #363636;\n}\n\n.dark ::placeholder {\n  color: var(--placeholder);\n}\n\n/* general alignment classes */\n\n.displayFlex {\n  display: flex;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n\n.fieldWidthSmallest {\n  width: 8rem;\n}\n\n.fieldWidthBigger {\n  width: 40rem;\n}\n\n.textInputWide {\n  width: 30rem;\n}\n\n.textInputMedium {\n  width: 20rem;\n}\n\n/* backhground classes */\n.formInSubForm {\n  margin-top: 0rem;\n  background: var(--formInSubForm);\n  padding: 1rem;\n}\n\n.subForm {\n  background: var(--subForm);\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n/* Tooltips */\n.labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -8px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n\n/* subnet tile form */\n\n.tileFormMargin {\n  margin-bottom: -0.5rem;\n  margin-top: 0.5rem;\n}\n\n.tileFormMargin.formInSubForm {\n  padding: 0px;\n}\n\n.marginRightSubnetTile {\n  margin-right: 10px;\n}\n\n/* StatefulTabPanel */\n\n.cds--tab-content.doc {\n  padding: 0.5rem 0;\n}\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}\n\n/* popover wrappers */\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  z-index: 9001;\n}\n\n/* buttons */\n\ni.chevron > svg {\n  display: block; /* remove extra padding on bottom of i which misaligns icon */\n  margin-right: 1rem;\n  margin-top: 0.15rem;\n}\n\n.chevron {\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: var(--blue) !important;\n  fill: var(--white) !important;\n  border-color: var(--blue) !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: var(--red) !important;\n}\n\n.alignButtons {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important;\n}\n\n/* docs */\n.about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n\n/* empty resource tile */\n.iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: var(--subForm);\n}\n\n.marginTop {\n  margin-top: 1rem;\n}\n\n/* under construction */\n\n.underConstruction {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.flexDirectionColumn {\n  flex-direction: column;\n}\n\n/* f5 vsi */\n.wide {\n  width: 20rem !important;\n}\n\n.tight {\n  width: min-content; /* force invalid text to split line */\n}\n\n.passwordGenerateButton {\n  margin-top: 1.25rem;\n  margin-left: calc(-4rem - 3vw);\n}\n\n.passwordGenerateButton svg {\n  fill: var(--cds-icon-secondary, #525252) !important;\n}\n\n.passwordGenerateButton.invalid {\n  margin-left: calc(-5.75rem - 3vw);\n}\n\n.wrap {\n  flex-flow: wrap;\n}\n\n@media screen and (max-width: 1024px) {\n  .fieldWidth {\n    width: 11rem;\n  }\n\n  .fieldWidthSmaller {\n    width: 8rem;\n  }\n\n  .fieldWidthSmallest {\n    width: 5rem;\n  }\n\n  .textInputWide {\n    width: 20rem;\n  }\n\n  .fieldWidthBigger {\n    width: 30rem;\n  }\n\n  .textInputMedium {\n    width: 15rem;\n  }\n}\n\n@media screen and (max-width: 850px) {\n  .fieldWidth {\n    width: 100%;\n  }\n\n  .fieldWidthSmaller {\n    width: 100%;\n  }\n\n  .fieldWidthSmallest {\n    width: 100%;\n  }\n\n  .textInputMedium {\n    width: 100%;\n  }\n\n  .fieldWidthBigger {\n    width: 100%;\n  }\n\n  .textInputWide {\n    width: 100%;\n  }\n\n  .formGroup {\n    /* items 1 wide */\n    flex-direction: column !important;\n  }\n\n  .popover-obj.select {\n    /* need to adjust size for popover container at small widths */\n    width: 100%;\n  }\n\n  .popover-obj.select > span {\n    width: 100%;\n  }\n\n  /* items with tooltip should also be full width */\n  .cds--form-item {\n    flex: none;\n    width: 100%;\n  }\n}\n\n.cds--form-item {\n  flex: none; /* overwrite flex to fix inconsistent widths */\n}\n";
 styleInject(css_248z$1);
 
 const {
@@ -429,7 +429,7 @@ const ToolTipWrapper = props => {
     ...props
   });
   return /*#__PURE__*/React.createElement("div", {
-    className: "cds--form-item"
+    className: props.noLabelText ? "" : "cds--form-item"
   }, props.noLabelText ?
   /*#__PURE__*/
   // No label- this is usually a title
@@ -519,7 +519,7 @@ TitleGroup.propTypes = {
   children: PropTypes.node.isRequired
 };
 const IcseFormGroup = props => {
-  let formGroupClassName = "displayFlex marginBottom fitContent evenSpacing";
+  let formGroupClassName = "displayFlex marginBottom evenSpacing wrap";
   // remove margin bottom from formGroup for VPC
   if (props.noMarginBottom) {
     formGroupClassName = formGroupClassName.replace(/\smarginBottom/g, "");
@@ -984,7 +984,7 @@ const IcseSelect = props => {
         hoverText: props.value || ""
         // inherit classnames from tooltip
         ,
-        className: props.tooltip ? "cds--form-item tooltip" : "cds--form-item"
+        className: props.tooltip ? "tooltip select" : " select"
       }, /*#__PURE__*/React.createElement(Select, {
         id: kebabCase$2(props.formName + " " + props.name),
         name: props.name,
@@ -1222,7 +1222,7 @@ EndpointSelect.defaultProps = {
 
 const EmptyResourceTile = props => {
   return !props.showIfEmpty || props.showIfEmpty.length === 0 ? /*#__PURE__*/React.createElement(Tile, {
-    className: "tileBackground displayFlex alignItemsCenter"
+    className: "tileBackground displayFlex alignItemsCenter wrap marginTop"
   }, /*#__PURE__*/React.createElement(CloudAlerting, {
     size: "24",
     className: "iconMargin"
@@ -1714,7 +1714,7 @@ const IcseToggle = props => {
     labelB: props.useOnOff ? "On" : "True",
     labelText: props.tooltip ? " " : props.labelText,
     id: kebabCase$2(toggleName) + "-icse-toggle-" + props.id,
-    className: lib_2("leftTextAlign", props) + (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
+    className: lib_2("leftTextAlign fitContent", props) + (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
     ,
 
     onToggle: event => {
@@ -6201,7 +6201,7 @@ class SubnetForm extends React.Component {
 
   /**
    * check if cidr valid
-   * @param {string} cidr 
+   * @param {string} cidr
    * @returns {boolean} true if not valid
    */
   cidrIsValid(cidr) {
@@ -6212,13 +6212,13 @@ class SubnetForm extends React.Component {
       key: this.props.vpc_name + "-subnets-" + this.props.data.name,
       className: "marginRightSubnetTile fieldWidth subForm"
     }, /*#__PURE__*/React.createElement(IcseHeading, {
-      name: this.props.data.name,
+      name: this.props.data.name || "New Subnet",
       type: "subHeading",
       className: "marginBottomSmall",
       buttons: /*#__PURE__*/React.createElement(DynamicRender, {
         hide: this.props.isModal,
         show: /*#__PURE__*/React.createElement(SaveAddButton, {
-          name: this.props.data.name,
+          name: this.props.data.name || "New Subnet",
           disabled: this.props.disableSaveCallback(this.state, this.props),
           onClick: this.handleSave,
           noDeleteButton: true
@@ -6229,8 +6229,8 @@ class SubnetForm extends React.Component {
     }, /*#__PURE__*/React.createElement(IcseNameInput, {
       className: "fieldWidthSmaller",
       id: this.props.data.name + "-subnet-name",
-      componentName: this.props.data.name,
-      value: this.state.name,
+      componentName: this.props.data.name || "new-subnet",
+      value: this.state.name || "",
       onChange: this.handleChange,
       disabled: this.props.readOnly,
       invalid: this.props.readOnly ? false : this.props.invalidCallback(this.state, this.props),
@@ -6243,7 +6243,7 @@ class SubnetForm extends React.Component {
       name: "cidr",
       invalidText: this.props.invalidCidrText ? this.props.invalidCidrText(this.state, this.props) : "Invalid subnet CIDR.",
       labelText: "Subnet CIDR",
-      value: this.state.cidr,
+      value: this.state.cidr || "",
       className: "fieldWidthSmaller",
       readOnly: this.props.advanced === false || this.props.readOnly,
       onChange: this.handleChange,
@@ -6251,7 +6251,7 @@ class SubnetForm extends React.Component {
     })), /*#__PURE__*/React.createElement(IcseFormGroup, {
       className: "marginBottomSmall"
     }, /*#__PURE__*/React.createElement(IcseSelect, {
-      name: "acl_name",
+      name: "network_acl",
       formName: `${this.props.data.name}-subnet-acl`,
       labelText: "Network ACL",
       groups: this.props.networkAcls,
@@ -6259,7 +6259,8 @@ class SubnetForm extends React.Component {
       handleInputChange: this.handleChange,
       className: "fieldWidthSmaller",
       disabled: this.props.isModal || this.props.readOnly,
-      invalid: isNullOrEmptyString$3(this.state.network_acl),
+      disableInvalid: this.props.isModal || this.props.readOnly,
+      invalid: this.props.isModal || this.props.readOnly ? false : isNullOrEmptyString$3(this.state.network_acl),
       invalidText: "Select a Network ACL."
     })), /*#__PURE__*/React.createElement(IcseFormGroup, {
       noMarginBottom: true
@@ -6286,10 +6287,10 @@ SubnetForm.propTypes = {
   onSave: PropTypes.func,
   vpc_name: PropTypes.string,
   data: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    cidr: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    cidr: PropTypes.string,
     public_gateway: PropTypes.bool,
-    network_acl: PropTypes.string.isRequired
+    network_acl: PropTypes.string
   }).isRequired,
   disableSaveCallback: PropTypes.func,
   shouldDisableGatewayToggle: PropTypes.func,
@@ -6313,7 +6314,7 @@ class SubnetTileForm extends React.Component {
     };
     if (!this.props.isModal) {
       this.props.data.forEach(subnet => {
-        this.state.subnetData[subnet.name] = true;
+        if (subnet.name) this.state.subnetData[subnet.name] = true;
       });
     }
     this.shouldDisableGatewayToggle = this.shouldDisableGatewayToggle.bind(this);
@@ -6364,14 +6365,14 @@ class SubnetTileForm extends React.Component {
     }), /*#__PURE__*/React.createElement("div", {
       className: "displayFlex"
     }, subnetMap.map((subnet, index) => {
-      if (this.props.advanced && !contains$2(this.props.select_zones, index + 1)) {
+      if (!subnet || this.props.advanced && !contains$2(this.props.select_zones, index + 1)) {
         return /*#__PURE__*/React.createElement(SubnetForm, {
-          key: `${subnet.name}-tile-${this.props.tier}-${this.props.vpc_name}-${JSON.stringify(subnet)}`,
+          key: `${"no-subnet-zone-" + (index + 1)}-tile-${this.props.tier}-${this.props.vpc_name}-${JSON.stringify(subnet)}`,
           vpc_name: this.props.vpc_name,
           data: {
             name: "No Subnet in Zone " + (index + 1),
-            cidr: "-",
-            network_acl: "-"
+            cidr: "",
+            network_acl: ""
           },
           onSave: this.props.onSave,
           advanced: true,
@@ -6380,8 +6381,7 @@ class SubnetTileForm extends React.Component {
           disableSaveCallback: this.props.disableSaveCallback,
           componentDidUpdateCallback: this.childSubnetHasChanged
         });
-      }
-      return /*#__PURE__*/React.createElement(SubnetForm, {
+      } else return /*#__PURE__*/React.createElement(SubnetForm, {
         key: `${subnet.name}-tile-${this.props.tier}-${this.props.vpc_name}-${JSON.stringify(subnet)}`,
         vpc_name: this.props.vpc_name,
         data: subnet,
@@ -6434,12 +6434,12 @@ class SubnetTierForm extends React.Component {
     this.state = {
       ...this.props.data
     };
-    this.state.advancedSave = false;
-    if (!this.state.select_zones && !this.props.data.advanced && this.state.zones !== undefined) {
+    if (!this.props.data.advanced) {
       let zones = buildNumberDropdownList(this.state.zones, 1);
       this.state.select_zones = [];
       zones.forEach(zone => this.state.select_zones.push(Number(zone)));
     }
+    this.state.advancedSave = false;
     this.handleChange = this.handleChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.onSave = this.onSave.bind(this);
@@ -6496,9 +6496,17 @@ class SubnetTierForm extends React.Component {
    * handle toggle
    */
   handleToggle(name) {
-    this.setState({
-      [name]: !this.state[name]
-    });
+    let nextState = {
+      ...this.state
+    };
+    nextState[name] = !this.state[name];
+    if (name === "advanced" && nextState[name] === true) {
+      nextState.select_zones = [];
+      [1, 2, 3].forEach(zone => {
+        if (zone <= this.state.zones) nextState.select_zones.push(zone);
+      });
+    }
+    this.setState(nextState);
   }
   /**
    * toggle delete modal
@@ -6525,7 +6533,7 @@ class SubnetTierForm extends React.Component {
     }
   }
   onSave() {
-    if (this.state.advanced && !this.state.advancedSave && !componentProps.advanced) {
+    if (this.state.advanced && !this.state.advancedSave && !this.props.data.select_zones) {
       this.setState({
         advancedSave: true
       });
@@ -6624,7 +6632,7 @@ class SubnetTierForm extends React.Component {
       invalid: this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props),
       hideHelperText: true
-    }), this.state.advanced ? /*#__PURE__*/React.createElement(IcseMultiSelect, {
+    }), this.state.advanced || this.props.data.advanced ? /*#__PURE__*/React.createElement(IcseMultiSelect, {
       id: this.props.data.name + "-subnet-zones",
       className: "fieldWidthSmaller",
       titleText: "Zones",
@@ -6679,7 +6687,7 @@ class SubnetTierForm extends React.Component {
       defaultToggled: this.state.addPublicGateway,
       onToggle: () => this.handleToggle("addPublicGateway"),
       isModal: this.props.isModal,
-      disabled: this.state.advanced || this.props.enabledPublicGateways.length === 0,
+      disabled: this.state.advanced || this.props.data.advanced || this.props.enabledPublicGateways.length === 0,
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(SubnetTileForm, {
       tier: this.props.data.name,
@@ -6687,16 +6695,16 @@ class SubnetTierForm extends React.Component {
       onSave: this.onSubnetSave,
       isModal: this.props.isModal,
       data: this.props.subnetListCallback(this.state, this.props),
-      key: JSON.stringify(this.state.select_zones) + this.state.zones,
+      key: JSON.stringify(this.state.select_zones) + this.state.zones + JSON.stringify(this.state),
       enabledPublicGateways: this.props.enabledPublicGateways,
       networkAcls: this.props.networkAcls,
       disableSaveCallback: this.props.disableSubnetSaveCallback,
-      advanced: this.props.data.advanced,
       invalidCidr: this.props.invalidCidr,
       invalidCidrText: this.props.invalidCidrText,
       invalidCallback: this.props.invalidSubnetCallback,
       invalidTextCallback: this.props.invalidSubnetTextCallback,
-      select_zones: this.state.select_zones
+      select_zones: this.state.select_zones,
+      advanced: this.state.advanced
     }))));
   }
 }
@@ -6717,7 +6725,7 @@ SubnetTierForm.propTypes = {
   data: PropTypes.shape({
     hide: PropTypes.bool,
     name: PropTypes.string.isRequired,
-    zones: PropTypes.number.isRequired,
+    zones: PropTypes.any,
     networkAcl: PropTypes.string,
     addPublicGateway: PropTypes.bool
   }),
@@ -7060,11 +7068,9 @@ class VpcNetworkForm extends React.Component {
       disabled: this.props.disableManualPrefixToggle,
       className: classNameModalCheck + " leftTextAlign"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, nameFields.map(field => {
-      return /*#__PURE__*/React.createElement("div", {
-        className: "fitContent",
-        key: this.props.data.name + "-" + kebabCase$2(field) + "-div"
-      }, /*#__PURE__*/React.createElement(IcseTextInput, {
+      return /*#__PURE__*/React.createElement(IcseTextInput, {
         id: composedId + "-" + field,
+        key: this.props.data.name + "-" + kebabCase$2(field),
         componentName: "VPC Network",
         field: field,
         labelText: titleCase$1(field),
@@ -7073,7 +7079,7 @@ class VpcNetworkForm extends React.Component {
         invalid: this.props.invalidCallback(field, this.state, this.props),
         invalidText: this.props.invalidTextCallback(field, this.state, this.props),
         className: classNameModalCheck
-      }));
+      });
     })), /*#__PURE__*/React.createElement(IcseHeading, {
       name: "Public Gateways",
       type: "subHeading",
@@ -8183,7 +8189,7 @@ class VpnServerRouteForm extends React.Component {
       value: this.state.destination,
       placeholder: "x.x.x.x",
       labelText: "Destination CIDR",
-      invalid: isIpv4CidrOrAddress$1(this.state.destination) === false || !contains$2(this.state.destination, "/"),
+      invalidCallback: () => isIpv4CidrOrAddress$1(this.state.destination) === false || !contains$2(this.state.destination, "/"),
       invalidText: "Destination must be a valid IPV4 CIDR Block",
       onChange: this.handleInputChange,
       className: className

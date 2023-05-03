@@ -51,7 +51,7 @@ class VpnServerRouteForm extends React.Component {
           value={this.state.destination}
           placeholder="x.x.x.x"
           labelText="Destination CIDR"
-          invalid={
+          invalidCallback={() =>
             isIpv4CidrOrAddress(this.state.destination) === false ||
             !contains(this.state.destination, "/")
           }

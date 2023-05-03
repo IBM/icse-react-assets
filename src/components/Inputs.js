@@ -16,7 +16,7 @@ export const IcseToggle = (props) => {
         labelText={props.tooltip ? " " : props.labelText}
         id={kebabCase(toggleName) + "-icse-toggle-" + props.id}
         className={
-          addClassName("leftTextAlign", props) +
+          addClassName("leftTextAlign fitContent", props) +
           (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
         }
         onToggle={(event) => {

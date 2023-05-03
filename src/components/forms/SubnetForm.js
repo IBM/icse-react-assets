@@ -41,7 +41,7 @@ class SubnetForm extends React.Component {
 
   /**
    * check if cidr valid
-   * @param {string} cidr 
+   * @param {string} cidr
    * @returns {boolean} true if not valid
    */
   cidrIsValid(cidr) {
@@ -55,7 +55,7 @@ class SubnetForm extends React.Component {
         className="marginRightSubnetTile fieldWidth subForm"
       >
         <IcseHeading
-          name={this.props.data.name}
+          name={this.props.data.name || "New Subnet"}
           type="subHeading"
           className="marginBottomSmall"
           buttons={
@@ -63,7 +63,7 @@ class SubnetForm extends React.Component {
               hide={this.props.isModal}
               show={
                 <SaveAddButton
-                  name={this.props.data.name}
+                  name={this.props.data.name || "New Subnet"}
                   disabled={this.props.disableSaveCallback(
                     this.state,
                     this.props
@@ -80,8 +80,8 @@ class SubnetForm extends React.Component {
             <IcseNameInput
               className="fieldWidthSmaller"
               id={this.props.data.name + "-subnet-name"}
-              componentName={this.props.data.name}
-              value={this.state.name}
+              componentName={this.props.data.name || "new-subnet"}
+              value={this.state.name || ""}
               onChange={this.handleChange}
               disabled={this.props.readOnly}
               invalid={
@@ -110,7 +110,7 @@ class SubnetForm extends React.Component {
                 : "Invalid subnet CIDR."
             }
             labelText="Subnet CIDR"
-            value={this.state.cidr}
+            value={this.state.cidr || ""}
             className="fieldWidthSmaller"
             readOnly={this.props.advanced === false || this.props.readOnly}
             onChange={this.handleChange}
@@ -124,7 +124,7 @@ class SubnetForm extends React.Component {
         </IcseFormGroup>
         <IcseFormGroup className="marginBottomSmall">
           <IcseSelect
-            name="acl_name"
+            name="network_acl"
             formName={`${this.props.data.name}-subnet-acl`}
             labelText="Network ACL"
             groups={this.props.networkAcls}
@@ -132,7 +132,8 @@ class SubnetForm extends React.Component {
             handleInputChange={this.handleChange}
             className="fieldWidthSmaller"
             disabled={this.props.isModal || this.props.readOnly}
-            invalid={isNullOrEmptyString(this.state.network_acl)}
+            disableInvalid={this.props.isModal || this.props.readOnly}
+            invalid={this.props.isModal || this.props.readOnly ? false : isNullOrEmptyString(this.state.network_acl)}
             invalidText="Select a Network ACL."
           />
         </IcseFormGroup>
@@ -170,10 +171,10 @@ SubnetForm.propTypes = {
   onSave: PropTypes.func,
   vpc_name: PropTypes.string,
   data: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    cidr: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    cidr: PropTypes.string,
     public_gateway: PropTypes.bool,
-    network_acl: PropTypes.string.isRequired,
+    network_acl: PropTypes.string,
   }).isRequired,
   disableSaveCallback: PropTypes.func,
   shouldDisableGatewayToggle: PropTypes.func,
