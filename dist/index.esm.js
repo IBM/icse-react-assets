@@ -6201,7 +6201,7 @@ class SubnetForm extends React.Component {
 
   /**
    * check if cidr valid
-   * @param {string} cidr 
+   * @param {string} cidr
    * @returns {boolean} true if not valid
    */
   cidrIsValid(cidr) {
@@ -6212,13 +6212,13 @@ class SubnetForm extends React.Component {
       key: this.props.vpc_name + "-subnets-" + this.props.data.name,
       className: "marginRightSubnetTile fieldWidth subForm"
     }, /*#__PURE__*/React.createElement(IcseHeading, {
-      name: this.props.data.name,
+      name: this.props.data.name || "New Subnet",
       type: "subHeading",
       className: "marginBottomSmall",
       buttons: /*#__PURE__*/React.createElement(DynamicRender, {
         hide: this.props.isModal,
         show: /*#__PURE__*/React.createElement(SaveAddButton, {
-          name: this.props.data.name,
+          name: this.props.data.name || "New Subnet",
           disabled: this.props.disableSaveCallback(this.state, this.props),
           onClick: this.handleSave,
           noDeleteButton: true
@@ -6229,8 +6229,8 @@ class SubnetForm extends React.Component {
     }, /*#__PURE__*/React.createElement(IcseNameInput, {
       className: "fieldWidthSmaller",
       id: this.props.data.name + "-subnet-name",
-      componentName: this.props.data.name,
-      value: this.state.name,
+      componentName: this.props.data.name || "new-subnet",
+      value: this.state.name || "",
       onChange: this.handleChange,
       disabled: this.props.readOnly,
       invalid: this.props.readOnly ? false : this.props.invalidCallback(this.state, this.props),
@@ -6243,7 +6243,7 @@ class SubnetForm extends React.Component {
       name: "cidr",
       invalidText: this.props.invalidCidrText ? this.props.invalidCidrText(this.state, this.props) : "Invalid subnet CIDR.",
       labelText: "Subnet CIDR",
-      value: this.state.cidr,
+      value: this.state.cidr || "",
       className: "fieldWidthSmaller",
       readOnly: this.props.advanced === false || this.props.readOnly,
       onChange: this.handleChange,
@@ -6251,7 +6251,7 @@ class SubnetForm extends React.Component {
     })), /*#__PURE__*/React.createElement(IcseFormGroup, {
       className: "marginBottomSmall"
     }, /*#__PURE__*/React.createElement(IcseSelect, {
-      name: "acl_name",
+      name: "network_acl",
       formName: `${this.props.data.name}-subnet-acl`,
       labelText: "Network ACL",
       groups: this.props.networkAcls,
@@ -6259,7 +6259,8 @@ class SubnetForm extends React.Component {
       handleInputChange: this.handleChange,
       className: "fieldWidthSmaller",
       disabled: this.props.isModal || this.props.readOnly,
-      invalid: isNullOrEmptyString$3(this.state.network_acl),
+      disableInvalid: this.props.isModal || this.props.readOnly,
+      invalid: this.props.isModal || this.props.readOnly ? false : isNullOrEmptyString$3(this.state.network_acl),
       invalidText: "Select a Network ACL."
     })), /*#__PURE__*/React.createElement(IcseFormGroup, {
       noMarginBottom: true
@@ -6286,10 +6287,10 @@ SubnetForm.propTypes = {
   onSave: PropTypes.func,
   vpc_name: PropTypes.string,
   data: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    cidr: PropTypes.string.isRequired,
+    name: PropTypes.string,
+    cidr: PropTypes.string,
     public_gateway: PropTypes.bool,
-    network_acl: PropTypes.string.isRequired
+    network_acl: PropTypes.string
   }).isRequired,
   disableSaveCallback: PropTypes.func,
   shouldDisableGatewayToggle: PropTypes.func,
@@ -6313,7 +6314,7 @@ class SubnetTileForm extends React.Component {
     };
     if (!this.props.isModal) {
       this.props.data.forEach(subnet => {
-        this.state.subnetData[subnet.name] = true;
+        if (subnet.name) this.state.subnetData[subnet.name] = true;
       });
     }
     this.shouldDisableGatewayToggle = this.shouldDisableGatewayToggle.bind(this);
@@ -6352,6 +6353,7 @@ class SubnetTileForm extends React.Component {
     } else return true;
   }
   render() {
+    console.log(JSON.stringify(this.state, null, 2), JSON.stringify(this.props, null, 2));
     let subnetMap = [...this.props.data];
     return /*#__PURE__*/React.createElement(IcseSubForm, {
       id: `subnet-tile-${this.props.tier}-${this.props.vpc_name}`,
@@ -6364,14 +6366,14 @@ class SubnetTileForm extends React.Component {
     }), /*#__PURE__*/React.createElement("div", {
       className: "displayFlex"
     }, subnetMap.map((subnet, index) => {
-      if (this.props.data.advanced && !contains$2(this.props.select_zones, index + 1)) {
+      if (!subnet || this.props.advanced && !contains$2(this.props.select_zones, index + 1)) {
         return /*#__PURE__*/React.createElement(SubnetForm, {
-          key: `${subnet.name}-tile-${this.props.tier}-${this.props.vpc_name}-${JSON.stringify(subnet)}`,
+          key: `${"no-subnet-zone-" + (index + 1)}-tile-${this.props.tier}-${this.props.vpc_name}-${JSON.stringify(subnet)}`,
           vpc_name: this.props.vpc_name,
           data: {
             name: "No Subnet in Zone " + (index + 1),
-            cidr: "-",
-            network_acl: "-"
+            cidr: "",
+            network_acl: ""
           },
           onSave: this.props.onSave,
           advanced: true,
@@ -6501,7 +6503,9 @@ class SubnetTierForm extends React.Component {
     nextState[name] = !this.state[name];
     if (name === "advanced" && nextState[name] === true) {
       nextState.select_zones = [];
-      [1, 2, 3].forEach(zone => nextState.select_zones.push(zone));
+      [1, 2, 3].forEach(zone => {
+        if (zone <= this.state.zones) nextState.select_zones.push(zone);
+      });
     }
     this.setState(nextState);
   }
@@ -6530,7 +6534,7 @@ class SubnetTierForm extends React.Component {
     }
   }
   onSave() {
-    if (this.state.advanced && !this.state.advancedSave && !this.props.advanced) {
+    if (this.state.advanced && !this.state.advancedSave && !this.props.data.select_zones) {
       this.setState({
         advancedSave: true
       });
@@ -6692,16 +6696,16 @@ class SubnetTierForm extends React.Component {
       onSave: this.onSubnetSave,
       isModal: this.props.isModal,
       data: this.props.subnetListCallback(this.state, this.props),
-      key: JSON.stringify(this.state.select_zones) + this.state.zones,
+      key: JSON.stringify(this.state.select_zones) + this.state.zones + JSON.stringify(this.state),
       enabledPublicGateways: this.props.enabledPublicGateways,
       networkAcls: this.props.networkAcls,
       disableSaveCallback: this.props.disableSubnetSaveCallback,
-      advanced: this.props.data.advanced,
       invalidCidr: this.props.invalidCidr,
       invalidCidrText: this.props.invalidCidrText,
       invalidCallback: this.props.invalidSubnetCallback,
       invalidTextCallback: this.props.invalidSubnetTextCallback,
-      select_zones: this.state.select_zones
+      select_zones: this.state.select_zones,
+      advanced: this.state.advanced
     }))));
   }
 }
@@ -6722,7 +6726,7 @@ SubnetTierForm.propTypes = {
   data: PropTypes.shape({
     hide: PropTypes.bool,
     name: PropTypes.string.isRequired,
-    zones: PropTypes.number,
+    zones: PropTypes.any,
     networkAcl: PropTypes.string,
     addPublicGateway: PropTypes.bool
   }),

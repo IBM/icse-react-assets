@@ -78,7 +78,9 @@ class SubnetTierForm extends React.Component {
     nextState[name] = !this.state[name];
     if (name === "advanced" && nextState[name] === true) {
       nextState.select_zones = [];
-      [1, 2, 3].forEach((zone) => nextState.select_zones.push(zone));
+      [1, 2, 3].forEach((zone) => {
+        if (zone <= this.state.zones) nextState.select_zones.push(zone);
+      });
     }
     this.setState(nextState);
   }
@@ -108,7 +110,7 @@ class SubnetTierForm extends React.Component {
     if (
       this.state.advanced &&
       !this.state.advancedSave &&
-      !this.props.advanced
+      !this.props.data.select_zones
     ) {
       this.setState({ advancedSave: true });
     } else {
@@ -321,16 +323,19 @@ class SubnetTierForm extends React.Component {
               onSave={this.onSubnetSave}
               isModal={this.props.isModal}
               data={this.props.subnetListCallback(this.state, this.props)}
-              key={JSON.stringify(this.state.select_zones) + this.state.zones}
+              key={
+                JSON.stringify(this.state.select_zones) +
+                this.state.zones + JSON.stringify(this.state)
+              }
               enabledPublicGateways={this.props.enabledPublicGateways}
               networkAcls={this.props.networkAcls}
               disableSaveCallback={this.props.disableSubnetSaveCallback}
-              advanced={this.props.data.advanced}
               invalidCidr={this.props.invalidCidr}
               invalidCidrText={this.props.invalidCidrText}
               invalidCallback={this.props.invalidSubnetCallback}
               invalidTextCallback={this.props.invalidSubnetTextCallback}
               select_zones={this.state.select_zones}
+              advanced={this.state.advanced}
             />
           </>
         </StatelessToggleForm>
@@ -357,7 +362,7 @@ SubnetTierForm.propTypes = {
   data: PropTypes.shape({
     hide: PropTypes.bool,
     name: PropTypes.string.isRequired,
-    zones: PropTypes.number,
+    zones: PropTypes.any,
     networkAcl: PropTypes.string,
     addPublicGateway: PropTypes.bool,
   }),

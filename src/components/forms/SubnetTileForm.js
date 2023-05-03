@@ -12,7 +12,7 @@ class SubnetTileForm extends React.Component {
     };
     if (!this.props.isModal) {
       this.props.data.forEach((subnet) => {
-        this.state.subnetData[subnet.name] = true;
+        if (subnet.name) this.state.subnetData[subnet.name] = true;
       });
     }
     this.shouldDisableGatewayToggle =
@@ -52,6 +52,10 @@ class SubnetTileForm extends React.Component {
   }
 
   render() {
+    console.log(
+      JSON.stringify(this.state, null, 2),
+      JSON.stringify(this.props, null, 2)
+    );
     let subnetMap = [...this.props.data];
     return (
       <IcseSubForm
@@ -67,19 +71,20 @@ class SubnetTileForm extends React.Component {
         <div className="displayFlex">
           {subnetMap.map((subnet, index) => {
             if (
-              this.props.data.advanced &&
-              !contains(this.props.select_zones, index + 1)
+              !subnet ||
+              (this.props.advanced &&
+                !contains(this.props.select_zones, index + 1))
             ) {
               return (
                 <SubnetForm
-                  key={`${subnet.name}-tile-${this.props.tier}-${
-                    this.props.vpc_name
-                  }-${JSON.stringify(subnet)}`}
+                  key={`${"no-subnet-zone-" + (index + 1)}-tile-${
+                    this.props.tier
+                  }-${this.props.vpc_name}-${JSON.stringify(subnet)}`}
                   vpc_name={this.props.vpc_name}
                   data={{
                     name: "No Subnet in Zone " + (index + 1),
-                    cidr: "-",
-                    network_acl: "-",
+                    cidr: "",
+                    network_acl: "",
                   }}
                   onSave={this.props.onSave}
                   advanced={true}
