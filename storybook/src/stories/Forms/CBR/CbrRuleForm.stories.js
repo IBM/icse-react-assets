@@ -27,29 +27,190 @@ export default {
       type: { required: true },
     },
     "data.enforcement_mode": {
-      description: "String, can be 'enabled', 'disabled', or 'report'",
+      description:
+        "String, can be 'enabled': restrictions are enforced and reported, 'disabled': restrictions are not enforced nor reported, or 'report': restrictions are not enforced but are reported",
       control: "none",
       type: { required: true },
     },
     "data.api_type_id": {
-      description: "String, an id of the api type",
+      description: "String, the id of the API type this rule applies to",
       control: "none",
       type: { required: true },
     },
     "data.contexts": {
-      description: "Array",
+      description: "Array, the contexts this rule applies to",
+      control: "none",
+      type: { required: true },
+    },
+    "data.context.name": {
+      description: "String, the name of the context",
+      control: "none",
+      type: { required: true },
+    },
+    "data.context.value": {
+      description: "String, the value for the context",
       control: "none",
       type: { required: true },
     },
     "data.resource_attributes": {
-      description: "Array",
+      description: "Array, the resource attributes",
+      control: "none",
+      type: { required: true },
+    },
+    "data.resource_attributes.name": {
+      description: "String, the name of the attribute",
+      control: "none",
+      type: { required: true },
+    },
+    "data.resource_attributes.value": {
+      description: "String, the value for the resource attribute",
       control: "none",
       type: { required: true },
     },
     "data.tags": {
-      description: "Array",
+      description: "Array, the resource tags",
       control: "none",
       type: { required: true },
+    },
+    "data.tags.name": {
+      description: "String, the name of the tag",
+      control: "none",
+      type: { required: true },
+    },
+    "data.tags.value": {
+      description: "String, the value for the tag",
+      control: "none",
+      type: { required: true },
+    },
+    invalidCallback: {
+      description:
+        "Function that determines invalid state for the CBR rule fields, returns a boolean",
+      type: { required: true },
+      control: "none",
+    },
+    invalidTextCallback: {
+      description:
+        "Function that returns invalid text string for CBR rule fields",
+      type: { required: true },
+      control: "none",
+    },
+    contextProps: {
+      description: "An object containing props for contexts",
+      type: { required: true },
+      control: "none",
+    },
+    "contextProps.isModal": {
+      description:
+        "Boolean, specifies if the CBR context form is within a modal",
+      type: { required: false },
+      control: "none",
+    },
+    "contextProps.data": {
+      description: "An object containing data for CBR rule contexts",
+      type: { required: true },
+      control: "none",
+    },
+    "contextProps.data.name": {
+      description: "String, the name of the context",
+      type: { required: true },
+      control: "none",
+    },
+    "contextProps.data.value": {
+      description: "String, the value for the context",
+      type: { required: true },
+      control: "none",
+    },
+    resourceAttributeProps: {
+      description: "An object containing props for resource attributes",
+      type: { required: true },
+      control: "none",
+    },
+    "resourceAttributeProps.isModal": {
+      description:
+        "Boolean, specifies if the CBR resource attribute form is within a modal",
+      type: { required: false },
+      control: "none",
+    },
+    "resourceAttributeProps.data": {
+      description: "An object containing data for CBR rule resource attributes",
+      type: { required: true },
+      control: "none",
+    },
+    "resourceAttributeProps.data.name": {
+      description: "String, the name of the resource attribute",
+      type: { required: true },
+      control: "none",
+    },
+    "resourceAttributeProps.data.value": {
+      description: "String, the value for the resource attribute",
+      type: { required: true },
+      control: "none",
+    },
+    tagProps: {
+      description: "An object containing props for tags",
+      type: { required: true },
+      control: "none",
+    },
+    "tagProps.isModal": {
+      description: "Boolean, specifies if the CBR tag form is within a modal",
+      type: { required: false },
+      control: "none",
+    },
+    "tagProps.data": {
+      description: "An object containing data for CBR rule tags",
+      type: { required: true },
+      control: "none",
+    },
+    "tagProps.data.name": {
+      description: "String, the name of the tag",
+      type: { required: true },
+      control: "none",
+    },
+    "tagProps.data.operator": {
+      description: "String, the attribute operator",
+      type: { required: true },
+      control: "none",
+    },
+    "tagProps.data.value": {
+      description: "String, the value for the tag",
+      type: { required: true },
+      control: "none",
+    },
+    invalidContextCallback: {
+      description:
+        "Function that determines invalid state for the CBR rule's context fields, returns a boolean",
+      type: { required: true },
+      control: "none",
+    },
+    invalidContextTextCallback: {
+      description:
+        "Function that returns invalid text string for CBR rule's context fields",
+      type: { required: true },
+      control: "none",
+    },
+    invalidResourceAttributeCallback: {
+      description:
+        "Function that determines invalid state for the CBR rule's resource attribute fields, returns a boolean",
+      type: { required: true },
+      control: "none",
+    },
+    invalidResourceAttributeTextCallback: {
+      description:
+        "Function that returns invalid text string for CBR rule's resource attribute fields",
+      type: { required: true },
+      control: "none",
+    },
+    invalidTagCallback: {
+      description:
+        "Function that determines invalid state for the CBR rule's tag fields, returns a boolean",
+      type: { required: true },
+      control: "none",
+    },
+    invalidTagTextCallback: {
+      description:
+        "Function that returns invalid text string for CBR rule's tag fields",
+      type: { required: true },
+      control: "none",
     },
   },
   parameters: {
