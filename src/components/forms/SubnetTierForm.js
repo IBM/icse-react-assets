@@ -1,5 +1,5 @@
 import React from "react";
-import { DeleteModal, UnsavedChangesModal } from "../Modals";
+import { DeleteModal, UnsavedChangesModal, IcseModal } from "../Modals";
 import {
   DynamicRender,
   IcseFormGroup,
@@ -19,11 +19,12 @@ class SubnetTierForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = { ...this.props.data };
-    if (!this.state.select_zones) {
+    if (!this.props.data.advanced) {
       let zones = buildNumberDropdownList(this.state.zones, 1);
       this.state.select_zones = [];
       zones.forEach((zone) => this.state.select_zones.push(Number(zone)));
     }
+    this.state.advancedSave = false;
     this.handleChange = this.handleChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.onSave = this.onSave.bind(this);
@@ -36,15 +37,15 @@ class SubnetTierForm extends React.Component {
     this.parseZoneStrings = this.parseZoneStrings.bind(this);
   }
 
-/**
- * get list of strings from zone
- * @returns {Array<string>} stringified zones
- */
+  /**
+   * get list of strings from zone
+   * @returns {Array<string>} stringified zones
+   */
   parseZoneStrings() {
     let stringZones = [];
-    this.state.select_zones.forEach(zone => {
+    this.state.select_zones.forEach((zone) => {
       stringZones.push(String(zone));
-    })
+    });
     return stringZones;
   }
 
@@ -73,7 +74,15 @@ class SubnetTierForm extends React.Component {
    * handle toggle
    */
   handleToggle(name) {
-    this.setState({ [name]: !this.state[name] });
+    let nextState = { ...this.state };
+    nextState[name] = !this.state[name];
+    if (name === "advanced" && nextState[name] === true) {
+      nextState.select_zones = [];
+      [1, 2, 3].forEach((zone) => {
+        if (zone <= this.state.zones) nextState.select_zones.push(zone);
+      });
+    }
+    this.setState(nextState);
   }
   /**
    * toggle delete modal
@@ -98,10 +107,26 @@ class SubnetTierForm extends React.Component {
   }
 
   onSave() {
-    let noToggleState = { ...this.state };
-    delete noToggleState.hide;
-    delete noToggleState.showUnsavedChangesModal;
-    this.props.onSave(noToggleState, this.props);
+    if (
+      this.state.advanced &&
+      !this.state.advancedSave &&
+      !this.props.data.select_zones
+    ) {
+      this.setState({ advancedSave: true });
+    } else {
+      let noToggleState = { ...this.state };
+      delete noToggleState.hide;
+      delete noToggleState.showUnsavedChangesModal;
+      delete noToggleState.advancedSave;
+      this.setState(
+        {
+          advancedSave: false,
+        },
+        () => {
+          this.props.onSave(noToggleState, this.props);
+        }
+      );
+    }
   }
 
   onSubnetSave(stateData, componentProps) {
@@ -151,6 +176,25 @@ class SubnetTierForm extends React.Component {
             this.setState({ showUnsavedChangesModal: false });
           }}
         />
+        <IcseModal
+          id={this.props.data.name + "-avanced-save"}
+          name="Enable Advanced Configuration"
+          heading="Enable Advanced Configuration"
+          open={this.state.advancedSave}
+          onRequestClose={() => {
+            this.setState({ advancedSave: false });
+          }}
+          onRequestSubmit={this.onSave}
+          primaryButtonText="Save as Advanced"
+          danger
+        >
+          <span>
+            You are about to set {this.props.data.name} subnet tier to use
+            advanced configuration. This will allow the use of custom CIDR
+            blocks and individual subnet names.{" "}
+            <strong>This cannot be undone.</strong>
+          </span>
+        </IcseModal>
         <StatelessToggleForm
           hideTitle={this.props.isModal === true}
           hide={this.state.hide}
@@ -197,7 +241,7 @@ class SubnetTierForm extends React.Component {
                 )}
                 hideHelperText
               />
-              {this.state.advanced ? (
+              {this.state.advanced || this.props.data.advanced ? (
                 <IcseMultiSelect
                   id={this.props.data.name + "-subnet-zones"}
                   className="fieldWidthSmaller"
@@ -221,6 +265,21 @@ class SubnetTierForm extends React.Component {
                   formName={formName}
                 />
               )}
+              <IcseToggle
+                tooltip={{
+                  content:
+                    "Enable advanced subnet configuration such as custom CIDR blocks",
+                }}
+                id={composedId + "-advanced"}
+                labelText="Advanced Configuration"
+                defaultToggled={this.state.advanced}
+                onToggle={() => this.handleToggle("advanced")}
+                className="fieldWidthSmaller"
+                disabled={this.props.data.advanced}
+              />
+            </IcseFormGroup>
+
+            <IcseFormGroup className="marginBottomSmall">
               <IcseSelect
                 tooltip={{
                   content:
@@ -236,9 +295,8 @@ class SubnetTierForm extends React.Component {
                 handleInputChange={this.handleChange}
                 isModal={this.props.isModal}
                 formName={formName}
+                disabled={this.state.advanced}
               />
-            </IcseFormGroup>
-            <IcseFormGroup className="marginBottomSmall">
               <IcseToggle
                 tooltip={{
                   content:
@@ -251,18 +309,11 @@ class SubnetTierForm extends React.Component {
                 defaultToggled={this.state.addPublicGateway}
                 onToggle={() => this.handleToggle("addPublicGateway")}
                 isModal={this.props.isModal}
-                disabled={this.props.enabledPublicGateways.length === 0}
-                className="fieldWidthSmaller"
-              />
-              <IcseToggle
-                tooltip={{
-                  content:
-                    "Enable advanced subnet configuration such as custom CIDR blocks",
-                }}
-                id={composedId + "-advanced"}
-                labelText="Advanced Configuration"
-                defaultToggled={this.state.advanced}
-                onToggle={() => this.handleToggle("advanced")}
+                disabled={
+                  this.state.advanced ||
+                  this.props.data.advanced ||
+                  this.props.enabledPublicGateways.length === 0
+                }
                 className="fieldWidthSmaller"
               />
             </IcseFormGroup>
@@ -272,16 +323,19 @@ class SubnetTierForm extends React.Component {
               onSave={this.onSubnetSave}
               isModal={this.props.isModal}
               data={this.props.subnetListCallback(this.state, this.props)}
-              key={JSON.stringify(this.state.select_zones) + this.state.zones}
+              key={
+                JSON.stringify(this.state.select_zones) +
+                this.state.zones + JSON.stringify(this.state)
+              }
               enabledPublicGateways={this.props.enabledPublicGateways}
               networkAcls={this.props.networkAcls}
               disableSaveCallback={this.props.disableSubnetSaveCallback}
-              advanced={this.state.advanced}
               invalidCidr={this.props.invalidCidr}
               invalidCidrText={this.props.invalidCidrText}
               invalidCallback={this.props.invalidSubnetCallback}
               invalidTextCallback={this.props.invalidSubnetTextCallback}
               select_zones={this.state.select_zones}
+              advanced={this.state.advanced}
             />
           </>
         </StatelessToggleForm>
@@ -308,7 +362,7 @@ SubnetTierForm.propTypes = {
   data: PropTypes.shape({
     hide: PropTypes.bool,
     name: PropTypes.string.isRequired,
-    zones: PropTypes.number.isRequired,
+    zones: PropTypes.any,
     networkAcl: PropTypes.string,
     addPublicGateway: PropTypes.bool,
   }),
