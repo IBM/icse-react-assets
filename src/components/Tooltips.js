@@ -103,7 +103,7 @@ export const ToolTipWrapper = (props) => {
   else allProps.labelText = " ";
   allProps.className = addClassName("tooltip", { ...props });
   return (
-    <div className="cds--form-item">
+    <div className={props.noLabelText ? "" : "cds--form-item"}>
       {props.noLabelText ? (
         // No label- this is usually a title
         <div className="labelRow">
