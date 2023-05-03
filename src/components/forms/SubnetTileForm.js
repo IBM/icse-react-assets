@@ -52,10 +52,6 @@ class SubnetTileForm extends React.Component {
   }
 
   render() {
-    console.log(
-      JSON.stringify(this.state, null, 2),
-      JSON.stringify(this.props, null, 2)
-    );
     let subnetMap = [...this.props.data];
     return (
       <IcseSubForm
