@@ -12,7 +12,6 @@ import { IcseSelect } from "../Dropdowns";
 import { IcseTextInput, IcseNameInput, IcseToggle } from "../Inputs";
 import { SecurityGroupMultiSelect, SubnetMultiSelect } from "../MultiSelects";
 import { IcseFormGroup } from "../Utils";
-import { ToolTipWrapper } from "../Tooltips";
 import IcseFormTemplate from "../IcseFormTemplate";
 import VpnServerRouteForm from "./VpnServerRouteForm";
 
@@ -26,7 +25,6 @@ class VpnServerForm extends Component {
     this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.handleAllowedIps = this.handleAllowedIps.bind(this);
-
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
