@@ -9379,6 +9379,10 @@ class CbrRuleForm extends React.Component {
     })), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
       name: "Contexts",
       subHeading: true,
+      tooltip: {
+        content: "Contexts define where your resource can be accessed.",
+        link: "https://cloud.ibm.com/docs/account?topic=account-context-restrictions-whatis#restriction-context"
+      },
       addText: "Create a Context",
       arrayData: this.props.data.contexts,
       innerForm: CbrContextForm,
@@ -9393,13 +9397,17 @@ class CbrRuleForm extends React.Component {
       hideAbout: true,
       toggleFormProps: {
         hideName: true,
-        submissionFieldName: "cos_keys",
+        submissionFieldName: "contexts",
         disableSave: this.props.contextProps.disableSave,
         type: "formInSubForm"
       }
     }), /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
       name: "Resource Attributes",
       subHeading: true,
+      tooltip: {
+        content: "A cloud resource is specified by resource attributes.",
+        link: "https://cloud.ibm.com/docs/account?topic=account-context-restrictions-whatis#restriction-rules"
+      },
       addText: "Create a Resource Attribute",
       arrayData: this.props.data.resource_attributes,
       innerForm: CbrResourceAttributeForm,
@@ -9414,13 +9422,16 @@ class CbrRuleForm extends React.Component {
       hideAbout: true,
       toggleFormProps: {
         hideName: true,
-        submissionFieldName: "cos_keys",
+        submissionFieldName: "resource_attributes",
         disableSave: this.props.resourceAttributeProps.disableSave,
         type: "formInSubForm"
       }
     }), /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
       name: "Tags",
       subHeading: true,
+      tooltip: {
+        content: "A cloud resource can also be specified using tags"
+      },
       addText: "Create a Tag",
       arrayData: this.props.data.tags,
       innerForm: CbrTagForm,
@@ -9435,7 +9446,7 @@ class CbrRuleForm extends React.Component {
       hideAbout: true,
       toggleFormProps: {
         hideName: true,
-        submissionFieldName: "cos_keys",
+        submissionFieldName: "tags",
         disableSave: this.props.tagProps.disableSave,
         type: "formInSubForm"
       }
