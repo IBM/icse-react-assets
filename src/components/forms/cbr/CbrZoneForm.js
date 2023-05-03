@@ -141,27 +141,6 @@ class CbrZoneForm extends Component {
                 type: "formInSubForm",
               }}
             />
-            {/* tags */}
-            <IcseFormTemplate
-              name="Tags"
-              subHeading
-              addText="Create a Tag"
-              arrayData={this.props.data.tags}
-              innerForm={CbrTagForm}
-              disableSave={this.props.tagProps.disableSave}
-              onDelete={this.props.tagProps.onDelete}
-              onSave={this.props.tagProps.onSave}
-              onSubmit={this.props.tagProps.onSubmit}
-              propsMatchState={this.props.propsMatchState}
-              innerFormProps={{ ...tagInnerFormProps }}
-              hideAbout
-              toggleFormProps={{
-                hideName: true,
-                submissionFieldName: "cos_keys",
-                disableSave: this.props.tagProps.disableSave,
-                type: "formInSubForm",
-              }}
-            />
           </>
         )}
       </div>
