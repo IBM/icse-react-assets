@@ -3,14 +3,16 @@ import { NumberInput, TextArea } from "@carbon/react";
 import { isIpv4CidrOrAddress, transpose } from "lazy-z";
 import PropTypes from "prop-types";
 import { checkNullorEmptyString } from "../../lib";
+import { isIpStringInvalid, isRangeInvalid } from "../../lib/iam-utils";
 import {
   buildFormDefaultInputMethods,
   buildFormFunctions,
 } from "../component-utils";
 import { IcseSelect } from "../Dropdowns";
-import { IcseNameInput, IcseToggle } from "../Inputs";
+import { IcseTextInput, IcseNameInput, IcseToggle } from "../Inputs";
 import { SecurityGroupMultiSelect, SubnetMultiSelect } from "../MultiSelects";
 import { IcseFormGroup } from "../Utils";
+import { ToolTipWrapper } from "../Tooltips";
 import IcseFormTemplate from "../IcseFormTemplate";
 import VpnServerRouteForm from "./VpnServerRouteForm";
 
@@ -32,6 +34,12 @@ class VpnServerForm extends Component {
   handleInputChange(event) {
     let { name, value } = event.target;
     let stateChangeParams = { [name]: value };
+    if (name === "method")
+      // Clear client_ca_crn and identity_provider when method changes
+      transpose(
+        { client_ca_crn: "", identity_provider: "" },
+        stateChangeParams
+      );
     if (name === "vpc")
       // Clear subnets and security groups when vpc changes
       transpose({ subnets: [], security_groups: [] }, stateChangeParams);
@@ -90,7 +98,9 @@ class VpnServerForm extends Component {
             componentName="vpn-server-name"
             value={this.state.name}
             onChange={this.handleInputChange}
-            invalid={this.props.invalidCallback(this.state, this.props)}
+            invalidCallback={() =>
+              this.props.invalidCallback(this.state, this.props)
+            }
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
             hideHelperText
           />
@@ -270,17 +280,18 @@ class VpnServerForm extends Component {
         </IcseFormGroup>
         <IcseFormGroup>
           {/* text area for client dns server IPs */}
-          <ToolTipWrapper
+          <TextArea
             className="textInputMedium"
-            innerForm={TextArea}
             id="client-dns-server-ips"
             labelText="Client DNS Server IPs"
-            onChange={this.handleAllowedIps}
             placeholder={
-              this.state.allowed_ip_addresses || "X.X.X.X, X.X.X.X/X, ..."
+              this.state.client_dns_server_ips || "X.X.X.X, X.X.X.X/X, ..."
             }
-            invalid={isIpStringInvalid(this.state.allowed_ip_addresses)}
+            value={String(this.state.client_dns_server_ips)}
+            onChange={this.handleAllowedIps}
+            invalid={isIpStringInvalid(this.state.client_dns_server_ips)}
             invalidText="Please enter a comma separated list of IP addresses."
+            helperText="Enter a comma separated list of IP addresses."
           />
         </IcseFormGroup>
         {/* show routes if not modal */}
@@ -291,17 +302,17 @@ class VpnServerForm extends Component {
             addText="Create a Route"
             arrayData={this.props.data.routes}
             innerForm={VpnServerRouteForm}
-            disableSave={this.props.routeProps.disableSave}
-            onDelete={this.props.routeProps.onDelete}
-            onSave={this.props.routeProps.onSave}
-            onSubmit={this.props.routeProps.onSubmit}
+            disableSave={this.props.vpnServerRouteProps.disableSave}
+            onDelete={this.props.vpnServerRouteProps.onDelete}
+            onSave={this.props.vpnServerRouteProps.onSave}
+            onSubmit={this.props.vpnServerRouteProps.onSubmit}
             propsMatchState={this.props.propsMatchState}
-            innerFormProps={{ ...innerFormProps }}
+            innerFormProps={{ ...routeProps }}
             hideAbout
             toggleFormProps={{
               hideName: true,
               submissionFieldName: "routes",
-              disableSave: this.props.routeProps.disableSave,
+              disableSave: this.props.vpnServerRouteProps.disableSave,
               type: "formInSubForm",
             }}
           />
@@ -326,7 +337,6 @@ VpnServerForm.defaultProps = {
     resource_group: "",
     vpc: "",
     subnets: [],
-    ssh_keys: [],
     security_groups: [],
     client_dns_server_ips: "",
     routes: [],
@@ -360,9 +370,9 @@ VpnServerForm.propTypes = {
   isModal: PropTypes.bool.isRequired,
   /* lists */
   resourceGroups: PropTypes.array.isRequired,
+  vpcList: PropTypes.array.isRequired,
   securityGroups: PropTypes.array.isRequired,
   subnetList: PropTypes.array.isRequired,
-  vpcList: PropTypes.array.isRequired,
   /* callbacks */
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,

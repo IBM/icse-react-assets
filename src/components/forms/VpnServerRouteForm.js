@@ -33,7 +33,7 @@ class VpnServerRouteForm extends React.Component {
       <IcseFormGroup>
         <IcseNameInput
           id={`${this.props.data.name}-name`}
-          componentName="vpn-server-route-name"
+          componentName="vpn-server-name"
           value={this.state.name}
           onChange={this.handleInputChange}
           hideHelperText
@@ -51,7 +51,7 @@ class VpnServerRouteForm extends React.Component {
           value={this.state.destination}
           placeholder="x.x.x.x"
           labelText="Destination CIDR"
-          invalidCallback={() =>
+          invalid={
             isIpv4CidrOrAddress(this.state.destination) === false ||
             !contains(this.state.destination, "/")
           }
@@ -60,7 +60,7 @@ class VpnServerRouteForm extends React.Component {
           className={className}
         />
         <IcseSelect
-          formName="vpn-server-route-action"
+          formName="vpn-server-action"
           name="action"
           labelText="Action"
           groups={["Translate", "Deliver", "Drop"]}

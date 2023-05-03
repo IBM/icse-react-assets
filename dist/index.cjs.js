@@ -422,7 +422,7 @@ BuildToolTip.propTypes = {
   align: PropTypes__default["default"].string.isRequired,
   alignModal: PropTypes__default["default"].string.isRequired
 };
-const ToolTipWrapper$1 = props => {
+const ToolTipWrapper = props => {
   let allProps = {
     ...props
   };
@@ -457,13 +457,13 @@ const ToolTipWrapper$1 = props => {
     className: props.children.props.className + " tooltip" // add tooltip class back
   }) : RenderForm$1(props.innerForm, allProps)));
 };
-ToolTipWrapper$1.defaultProps = {
+ToolTipWrapper.defaultProps = {
   tooltip: {
     content: ""
   },
   noLabelText: false
 };
-ToolTipWrapper$1.propTypes = {
+ToolTipWrapper.propTypes = {
   tooltip: PropTypes__default["default"].shape({
     content: PropTypes__default["default"].string.isRequired,
     link: PropTypes__default["default"].string
@@ -480,7 +480,7 @@ const DynamicToolTipWrapper = props => {
   if (props.children === undefined && props.innerForm === undefined) {
     throw new Error("DynamicToolTipWrapper expects either `props.children` or `props.innerForm` when rendering ToolTipWrapper, got neither.");
   }
-  return props.tooltip ? /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper$1, props) : props.children ? props.children : RenderForm$1(props.innerForm, {});
+  return props.tooltip ? /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, props) : props.children ? props.children : RenderForm$1(props.innerForm, {});
 };
 DynamicToolTipWrapper.propTypes = {
   tooltip: PropTypes__default["default"].shape({
@@ -1585,7 +1585,7 @@ class VsiLoadBalancerForm extends React__default["default"].Component {
       handleInputChange: this.handleInputChange,
       disableInvalid: true,
       className: "fieldWidthSmaller"
-    }), this.state.session_persistence_type === "app_cookie" && /*#__PURE__*/React__default["default"].createElement(IcseTextInput$1, {
+    }), this.state.session_persistence_type === "app_cookie" && /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: componentName + "session_persistence_app_cookie_name",
       componentName: componentName + "-cookie-name",
       field: "session_persistence_app_cookie_name",
@@ -1774,7 +1774,7 @@ IcseToggle.propTypes = {
  * @param {string=} props.labelText override label text
  * @returns <IcseTextInput/> component
  */
-const IcseTextInput$1 = props => {
+const IcseTextInput = props => {
   let fieldName = lazyZ.titleCase(props.field);
   return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React__default["default"].createElement(react.TextInput, {
     id: props.id,
@@ -1792,14 +1792,14 @@ const IcseTextInput$1 = props => {
     readOnly: props.readOnly
   }));
 };
-IcseTextInput$1.defaultProps = {
+IcseTextInput.defaultProps = {
   maxLength: null,
   disabled: false,
   readOnly: false,
   hideHelperText: false,
   className: "fieldWidth"
 };
-IcseTextInput$1.propTypes = {
+IcseTextInput.propTypes = {
   disabled: PropTypes__default["default"].bool.isRequired,
   componentName: PropTypes__default["default"].string,
   placeholder: PropTypes__default["default"].string,
@@ -1844,7 +1844,7 @@ const IcseNameInput = props => {
     }
     helperText = props.helperTextCallback();
   }
-  return /*#__PURE__*/React__default["default"].createElement(IcseTextInput$1, _extends({}, props, {
+  return /*#__PURE__*/React__default["default"].createElement(IcseTextInput, _extends({}, props, {
     className: lib_2("leftTextAlign", props),
     field: "name",
     labelText: props.labelText,
@@ -1896,7 +1896,7 @@ class AppIdKeyForm extends React__default["default"].Component {
     });
   }
   render() {
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput$1, {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: "app-id-key-name",
       value: this.state.name,
       onChange: this.handleInputChange,
@@ -3048,7 +3048,7 @@ class AtrackerForm extends React.Component {
       toggleFieldName: "enabled",
       onToggle: this.handleToggle,
       id: "atracker-enable-disable"
-    })), this.state.enabled && /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput$1, {
+    })), this.state.enabled && /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       componentName: "Activity Tracker",
       field: "Name",
       labelText: "Name",
@@ -3194,7 +3194,7 @@ class EncryptionKeyForm extends React.Component {
       hideHelperText: true,
       invalid: this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props)
-    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput$1, {
+    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       componentName: this.props.data.name,
       field: "key_ring",
       labelText: "Key Ring Name",
@@ -3678,7 +3678,7 @@ class F5VsiTemplateForm extends React.Component {
       handleInputChange: this.handleLicenseChange
     }), /*#__PURE__*/React__default["default"].createElement("div", {
       className: "tooltip tight"
-    }, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper$1, {
+    }, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
         content: "The admin account password for the F5 BIG-IP instance.",
         align: "right"
@@ -3699,7 +3699,7 @@ class F5VsiTemplateForm extends React.Component {
       kind: "ghost",
       onClick: this.generateAdminPassword,
       className: "forceTertiaryButtonStyles"
-    }, /*#__PURE__*/React__default["default"].createElement(iconsReact.Password, null)))), this.state.license_type != "none" && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, this.state.license_type != "regkeypool" && this.state.license_type == "byol" && /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper$1, {
+    }, /*#__PURE__*/React__default["default"].createElement(iconsReact.Password, null)))), this.state.license_type != "none" && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, this.state.license_type != "regkeypool" && this.state.license_type == "byol" && /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
         content: "Bring your own license registration key for the F5 BIG-IP instance.",
         align: "top-right"
@@ -3708,12 +3708,12 @@ class F5VsiTemplateForm extends React.Component {
       field: "byol_license_basekey",
       className: "textInputWide",
       labelText: "BYOL License Basekey",
-      innerForm: IcseTextInput$1,
+      innerForm: IcseTextInput,
       value: this.state.byol_license_basekey || "",
       onChange: this.handleTextInput,
       invalid: this.props.invalidCallback("byol_license_basekey", this.state, this.props) || f5Utils_2(this.state.byol_license_basekey),
       invalidText: this.props.invalidTextCallback("byol_license_basekey", this.state, this.props)
-    })), this.state.license_type != "byol" && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper$1, {
+    })), this.state.license_type != "byol" && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
         content: "BIGIQ username to use for the pool based licensing of the F5 BIG-IP instance.",
         align: "top-left"
@@ -3722,14 +3722,14 @@ class F5VsiTemplateForm extends React.Component {
       field: "license_username",
       className: "fieldWidth",
       labelText: "License Username",
-      innerForm: IcseTextInput$1,
+      innerForm: IcseTextInput,
       value: this.state.license_username || "",
       onChange: this.handleTextInput,
       invalid: this.props.invalidCallback("license_username", this.state, this.props) || f5Utils_2(this.state.license_username),
       invalidText: this.props.invalidTextCallback("license_username", this.state, this.props)
     }), /*#__PURE__*/React__default["default"].createElement("div", {
       className: "leftTextAlign tooltip"
-    }, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper$1, {
+    }, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
         content: "BIGIQ password to use for the pool based licensing of the F5 BIG-IP instance."
       },
@@ -3742,7 +3742,7 @@ class F5VsiTemplateForm extends React.Component {
       onChange: this.handleTextInput,
       invalid: this.props.invalidCallback("license_password", this.state, this.props),
       invalidText: this.props.invalidTextCallback("license_password", this.state, this.props)
-    }))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper$1, {
+    }))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
         content: "BIGIQ IP or hostname to use for pool based licensing of the F5 BIG-IP instance.",
         align: "top-left"
@@ -3751,12 +3751,12 @@ class F5VsiTemplateForm extends React.Component {
       field: "license_host",
       className: "fieldWidth",
       labelText: "License Host",
-      innerForm: IcseTextInput$1,
+      innerForm: IcseTextInput,
       value: this.state.license_host || "",
       onChange: this.handleTextInput,
       invalid: this.props.invalidCallback("license_host", this.state, this.props) || f5Utils_2(this.state.license_host),
       invalidText: this.props.invalidTextCallback("license_host", this.state, this.props)
-    }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper$1, {
+    }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
         content: "BIGIQ license pool name for the licensing of the F5 BIG-IP instance."
       },
@@ -3764,12 +3764,12 @@ class F5VsiTemplateForm extends React.Component {
       field: "license_pool",
       className: "wide",
       labelText: "License Pool",
-      innerForm: IcseTextInput$1,
+      innerForm: IcseTextInput,
       value: this.state.license_pool || "",
       onChange: this.handleTextInput,
       invalid: this.props.invalidCallback("license_pool", this.state, this.props) || f5Utils_2(this.state.license_pool),
       invalidText: this.props.invalidTextCallback("license_pool", this.state, this.props)
-    })), this.state.license_type == "utilitypool" && /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper$1, {
+    })), this.state.license_type == "utilitypool" && /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
         content: "BIGIQ utility pool unit of measurement.",
         align: "top-right"
@@ -3778,12 +3778,12 @@ class F5VsiTemplateForm extends React.Component {
       field: "license_unit_of_measure",
       className: "fieldWidthSmaller",
       labelText: "License Unit of Measure",
-      innerForm: IcseTextInput$1,
+      innerForm: IcseTextInput,
       value: this.state.license_unit_of_measure || "",
       onChange: this.handleTextInput,
       invalid: this.props.invalidCallback("license_unit_of_measure", this.state, this.props) || f5Utils_2(this.state.license_unit_of_measure),
       invalidText: this.props.invalidTextCallback("license_unit_of_measure", this.state, this.props)
-    }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper$1, {
+    }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
         content: "BIGIQ primary SKU for ELA utility licensing of the F5 BIG-IP instance."
       },
@@ -3791,12 +3791,12 @@ class F5VsiTemplateForm extends React.Component {
       field: "license_sku_keyword_1",
       className: "fieldWidthSmaller",
       labelText: "License SKU Keyword 1",
-      innerForm: IcseTextInput$1,
+      innerForm: IcseTextInput,
       value: this.state.license_sku_keyword_1 || "",
       onChange: this.handleTextInput,
       invalid: this.props.invalidCallback("license_sku_keyword_1", this.state, this.props) || f5Utils_2(this.state.license_sku_keyword_1),
       invalidText: this.props.invalidTextCallback("license_sku_keyword_1", this.state, this.props)
-    }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper$1, {
+    }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
         content: "BIGIQ secondary SKU for ELA utility licensing of the F5 BIG-IP instance"
       },
@@ -3804,12 +3804,12 @@ class F5VsiTemplateForm extends React.Component {
       field: "license_sku_keyword_2",
       className: "fieldWidthSmaller",
       labelText: "License SKU Keyword 2",
-      innerForm: IcseTextInput$1,
+      innerForm: IcseTextInput,
       value: this.state.license_sku_keyword_2 || "",
       onChange: this.handleTextInput,
       invalid: this.props.invalidCallback("license_sku_keyword_2", this.state, this.props) || f5Utils_2(this.state.license_sku_keyword_2),
       invalidText: this.props.invalidTextCallback("license_sku_keyword_2", this.state, this.props)
-    })))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper$1, {
+    })))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
         content: "The terraform template version for phone_home_url_metadata.",
         align: "top-left"
@@ -3818,12 +3818,12 @@ class F5VsiTemplateForm extends React.Component {
       field: "template_version",
       className: "fieldWidth",
       labelText: "Template Version",
-      innerForm: IcseTextInput$1,
+      innerForm: IcseTextInput,
       value: this.state.template_version,
       onChange: this.handleTextInput,
       invalid: this.props.invalidCallback("template_version", this.state, this.props) || f5Utils_2(this.state.template_version),
       invalidText: this.props.invalidTextCallback("template_version", this.state, this.props)
-    }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper$1, {
+    }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
         content: "The terraform template source for phone_home_url_metadata."
       },
@@ -3831,12 +3831,12 @@ class F5VsiTemplateForm extends React.Component {
       field: "template_source",
       className: "wide",
       labelText: "Template Source",
-      innerForm: IcseTextInput$1,
+      innerForm: IcseTextInput,
       value: this.state.template_source,
       onChange: this.handleTextInput,
       invalid: this.props.invalidCallback("template_source", this.state, this.props) || f5Utils_2(this.state.template_source),
       invalidText: this.props.invalidTextCallback("template_source", this.state, this.props)
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper$1, {
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
         content: "The terraform application id for phone_home_url_metadata.",
         align: "top-right"
@@ -3845,12 +3845,12 @@ class F5VsiTemplateForm extends React.Component {
       field: "app_id",
       className: "fieldWidth",
       labelText: "App ID",
-      innerForm: IcseTextInput$1,
+      innerForm: IcseTextInput,
       value: this.state.app_id,
       onChange: this.handleTextInput,
       invalid: this.props.invalidCallback("app_id", this.state, this.props),
       invalidText: this.props.invalidTextCallback("app_id", this.state, this.props)
-    }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper$1, {
+    }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
         content: "The URL to POST status when BIG-IP is finished onboarding."
       },
@@ -3858,12 +3858,12 @@ class F5VsiTemplateForm extends React.Component {
       field: "phone_home_url",
       className: "fieldWidth",
       labelText: "Phone Home URL",
-      innerForm: IcseTextInput$1,
+      innerForm: IcseTextInput,
       value: this.state.phone_home_url,
       onChange: this.handleTextInput,
       invalid: this.props.invalidCallback("phone_home_url", this.state, this.props) || !f5Utils_4(this.state.phone_home_url),
       invalidText: this.props.invalidTextCallback("phone_home_url", this.state, this.props)
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper$1, {
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
         content: "The URL to retrieve the f5-declarative-onboarding JSON declaration.",
         align: "top-left"
@@ -3872,12 +3872,12 @@ class F5VsiTemplateForm extends React.Component {
       field: "do_declaration_url",
       className: "fieldWidth",
       labelText: "DO Declaration URL",
-      innerForm: IcseTextInput$1,
+      innerForm: IcseTextInput,
       value: this.state.do_declaration_url,
       onChange: this.handleTextInput,
       invalid: this.props.invalidCallback("do_declaration_url", this.state, this.props) || !f5Utils_4(this.state.do_declaration_url),
       invalidText: this.props.invalidTextCallback("do_declaration_url", this.state, this.props)
-    }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper$1, {
+    }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
         content: "The URL to retrieve the f5-appsvcs-extension JSON declaration."
       },
@@ -3885,12 +3885,12 @@ class F5VsiTemplateForm extends React.Component {
       field: "as3_declaration_url",
       className: "fieldWidth",
       labelText: "AS3 Declaration URL",
-      innerForm: IcseTextInput$1,
+      innerForm: IcseTextInput,
       value: this.state.as3_declaration_url,
       onChange: this.handleTextInput,
       invalid: this.props.invalidCallback("as3_declaration_url", this.state, this.props) || !f5Utils_4(this.state.as3_declaration_url),
       invalidText: this.props.invalidTextCallback("as3_declaration_url", this.state, this.props)
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper$1, {
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
         content: "The URL to retrieve the f5-telemetry-streaming JSON declaration.",
         align: "top-left"
@@ -3899,12 +3899,12 @@ class F5VsiTemplateForm extends React.Component {
       field: "ts_declaration_url",
       className: "fieldWidth",
       labelText: "TS Declaration URL",
-      innerForm: IcseTextInput$1,
+      innerForm: IcseTextInput,
       value: this.state.ts_declaration_url,
       onChange: this.handleTextInput,
       invalid: this.props.invalidCallback("ts_declaration_url", this.state, this.props) || !f5Utils_4(this.state.ts_declaration_url),
       invalidText: this.props.invalidTextCallback("ts_declaration_url", this.state, this.props)
-    }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper$1, {
+    }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
         content: "The URL to POST L3 addresses when tgstandby is triggered."
       },
@@ -3912,12 +3912,12 @@ class F5VsiTemplateForm extends React.Component {
       field: "tgstandby_url",
       className: "fieldWidth",
       labelText: "TGStandby URL",
-      innerForm: IcseTextInput$1,
+      innerForm: IcseTextInput,
       value: this.state.tgstandby_url,
       onChange: this.handleTextInput,
       invalid: this.props.invalidCallback("tgstandby_url", this.state, this.props) || !f5Utils_4(this.state.tgstandby_url),
       invalidText: this.props.invalidTextCallback("tgstandby_url", this.state, this.props)
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper$1, {
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
         content: "The URL to POST L3 addresses when tgrefresh is triggered.",
         align: "top-left"
@@ -3926,12 +3926,12 @@ class F5VsiTemplateForm extends React.Component {
       field: "tgrefresh_url",
       className: "fieldWidth",
       labelText: "TGRefresh URL",
-      innerForm: IcseTextInput$1,
+      innerForm: IcseTextInput,
       value: this.state.tgrefresh_url,
       onChange: this.handleTextInput,
       invalid: this.props.invalidCallback("tgrefresh_url", this.state, this.props) || !f5Utils_4(this.state.tgrefresh_url),
       invalidText: this.props.invalidTextCallback("tgrefresh_url", this.state, this.props)
-    }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper$1, {
+    }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
         content: "The URL to POST L3 addresses when tgactive is triggered."
       },
@@ -3939,7 +3939,7 @@ class F5VsiTemplateForm extends React.Component {
       field: "tgactive_url",
       className: "fieldWidth",
       labelText: "TGActive URL",
-      innerForm: IcseTextInput$1,
+      innerForm: IcseTextInput,
       value: this.state.tgactive_url,
       onChange: this.handleTextInput,
       invalid: this.props.invalidCallback("tgactive_url", this.state, this.props) || !f5Utils_4(this.state.tgactive_url),
@@ -4053,7 +4053,7 @@ function isNullOrEmptyString$1(value) {
  * @param {number} max
  * @returns {boolean} true if invalid
  */
-function isRangeInvalid$1(value, min, max) {
+function isRangeInvalid(value, min, max) {
   if (isNullOrEmptyString$1(value)) return false;
   value = parseFloat(value);
   if (!isWholeNumber(value) || !isInRange(value, min, max)) {
@@ -4067,15 +4067,15 @@ function isRangeInvalid$1(value, min, max) {
  * @param {string} value
  * @returns {boolean} true if invalid
  */
-function isIpStringInvalid$1(value) {
+function isIpStringInvalid(value) {
   if (!isNullOrEmptyString$1(value) && value.match(commaSeparatedIpListExp) === null) {
     return true;
   }
   return false;
 }
 var iamUtils = {
-  isIpStringInvalid: isIpStringInvalid$1,
-  isRangeInvalid: isRangeInvalid$1
+  isIpStringInvalid,
+  isRangeInvalid
 };
 var iamUtils_1 = iamUtils.isIpStringInvalid;
 var iamUtils_2 = iamUtils.isRangeInvalid;
@@ -4224,7 +4224,7 @@ class IamAccountSettingsForm extends React.Component {
     });
   }
   render() {
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput$1, {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       componentName: "IAM Account Settings",
       className: "fieldWidthSmaller",
       tooltip: {
@@ -4271,7 +4271,7 @@ class IamAccountSettingsForm extends React.Component {
       value: iamItems[this.state.restrict_create_platform_apikey].display,
       labelText: "Restrict Creation of API Keys",
       handleInputChange: this.handleSelectChange
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput$1, {
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       componentName: "IAM Account Settings",
       placeholder: "1",
       field: "max_sessions_per_identity",
@@ -4312,7 +4312,7 @@ class IamAccountSettingsForm extends React.Component {
       className: "fieldWidth leftTextAlign",
       min: 900,
       max: 7200
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper$1, {
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
         content: "IP addresses and subnets from which IAM tokens can be created for the account",
         align: "top-left"
@@ -4804,7 +4804,7 @@ NetworkingRuleForm.propTypes = {
  * @param {Function} props.onChange onchange function
  */
 const NetworkingRuleTextField = props => {
-  return /*#__PURE__*/React__default["default"].createElement(IcseTextInput$1, {
+  return /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
     id: `${props.state.name}-nw-${kebabCase(props.name)}-input`,
     field: props.name,
     labelText: titleCase(props.name),
@@ -5769,7 +5769,7 @@ class SccForm extends React.Component {
     this.setState(this.toggleStateBoolean(name, this.state));
   }
   render() {
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput$1, {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: "scc_group_id",
       tooltip: {
         content: "The group ID for Security and Compliance Center.",
@@ -5783,7 +5783,7 @@ class SccForm extends React.Component {
       maxLength: 255,
       invalid: lib_10("id", this.state.id, this.props.descriptionRegex).invalid,
       invalidText: lib_10("id", this.state.id, this.props.descriptionRegex).invalidText
-    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput$1, {
+    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: "scc_passphrase",
       tooltip: {
         content: "Security and Compliance Center group passphrase.",
@@ -5806,7 +5806,7 @@ class SccForm extends React.Component {
       invalid: this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props),
       hideHelperText: true
-    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput$1, {
+    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: "scc_credential_description",
       tooltip: {
         content: "A detailed description of the credential to be created."
@@ -5841,7 +5841,7 @@ class SccForm extends React.Component {
       id: "scc-is-public"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
       noMarginBottom: true
-    }, /*#__PURE__*/React__default["default"].createElement(IcseTextInput$1, {
+    }, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: "scc_scope_description",
       tooltip: {
         content: "A detailed description of the scope."
@@ -5854,7 +5854,7 @@ class SccForm extends React.Component {
       maxLength: 255,
       invalid: lib_10("scope_description", this.state.scope_description, this.props.descriptionRegex).invalid,
       invalidText: lib_10("scope_description", this.state.scope_description, this.props.descriptionRegex).invalidText
-    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput$1, {
+    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: "scc_collector",
       tooltip: {
         content: "A detailed description of the collector.",
@@ -6787,7 +6787,7 @@ class TeleportClaimToRoleForm extends React.Component {
   }
   render() {
     let composedId = `teleport-claim-form-${this.props.data.email}`;
-    return /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput$1, {
+    return /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: composedId + "-email",
       componentName: "teleport-claim",
       field: "email",
@@ -6795,7 +6795,7 @@ class TeleportClaimToRoleForm extends React.Component {
       value: this.state.email,
       onChange: event => this.onChangeTextInput("email", event.target.value),
       className: "fieldWidth"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput$1, {
+    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: composedId + "roles",
       componentName: "teleport-claim",
       field: "roles",
@@ -6879,7 +6879,7 @@ class TransitGatewayForm extends React.Component {
     });
   }
   render() {
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput$1, {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       onChange: this.handleInputChange,
       componentName: "Transit Gateway",
       field: "name",
@@ -7074,7 +7074,7 @@ class VpcNetworkForm extends React__default["default"].Component {
       return /*#__PURE__*/React__default["default"].createElement("div", {
         className: "fitContent",
         key: this.props.data.name + "-" + lazyZ.kebabCase(field) + "-div"
-      }, /*#__PURE__*/React__default["default"].createElement(IcseTextInput$1, {
+      }, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
         id: composedId + "-" + field,
         componentName: "VPC Network",
         field: field,
@@ -8179,14 +8179,14 @@ class VpnServerRouteForm extends React__default["default"].Component {
     let className = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
     return /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       id: `${this.props.data.name}-name`,
-      componentName: "vpn-server-route-name",
+      componentName: "vpn-server-name",
       value: this.state.name,
       onChange: this.handleInputChange,
       hideHelperText: true,
       className: className,
       invalidCallback: () => this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props)
-    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput$1, {
+    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: `${this.props.data.name}-route-destination`,
       componentName: "vpn-server-route-destination",
       name: "destination",
@@ -8194,12 +8194,12 @@ class VpnServerRouteForm extends React__default["default"].Component {
       value: this.state.destination,
       placeholder: "x.x.x.x",
       labelText: "Destination CIDR",
-      invalidCallback: () => lazyZ.isIpv4CidrOrAddress(this.state.destination) === false || !lazyZ.contains(this.state.destination, "/"),
+      invalid: lazyZ.isIpv4CidrOrAddress(this.state.destination) === false || !lazyZ.contains(this.state.destination, "/"),
       invalidText: "Destination must be a valid IPV4 CIDR Block",
       onChange: this.handleInputChange,
       className: className
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "vpn-server-route-action",
+      formName: "vpn-server-action",
       name: "action",
       labelText: "Action",
       groups: ["Translate", "Deliver", "Drop"],
@@ -8248,6 +8248,12 @@ class VpnServerForm extends React.Component {
     let stateChangeParams = {
       [name]: value
     };
+    if (name === "method")
+      // Clear client_ca_crn and identity_provider when method changes
+      lazyZ.transpose({
+        client_ca_crn: "",
+        identity_provider: ""
+      }, stateChangeParams);
     if (name === "vpc")
       // Clear subnets and security groups when vpc changes
       lazyZ.transpose({
@@ -8306,7 +8312,7 @@ class VpnServerForm extends React.Component {
       componentName: "vpn-server-name",
       value: this.state.name,
       onChange: this.handleInputChange,
-      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props),
       hideHelperText: true
     }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
@@ -8375,7 +8381,7 @@ class VpnServerForm extends React.Component {
       hideSteppers: true,
       min: 0,
       max: 28800,
-      invalid: isRangeInvalid(this.state.client_idle_timeout, 0, 28800),
+      invalid: iamUtils_2(this.state.client_idle_timeout, 0, 28800),
       invalidText: "Must be a whole number between 0 and 28800.",
       className: "fieldWidth leftTextAlign"
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
@@ -8389,7 +8395,7 @@ class VpnServerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: isRangeInvalid(this.state.client_idle_timeout, 1, 65535),
+      invalid: iamUtils_2(this.state.client_idle_timeout, 1, 65535),
       invalidText: "Must be a whole number between 1 and 65535.",
       className: "fieldWidth leftTextAlign"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
@@ -8436,34 +8442,35 @@ class VpnServerForm extends React.Component {
       securityGroups: this.getSecurityGroupList(),
       invalid: !(this.state.security_groups?.length > 0),
       invalidText: !this.state.vpc || lib_4(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
       className: "textInputMedium",
-      innerForm: react.TextArea,
       id: "client-dns-server-ips",
       labelText: "Client DNS Server IPs",
+      placeholder: this.state.client_dns_server_ips || "X.X.X.X, X.X.X.X/X, ...",
+      value: String(this.state.client_dns_server_ips),
       onChange: this.handleAllowedIps,
-      placeholder: this.state.allowed_ip_addresses || "X.X.X.X, X.X.X.X/X, ...",
-      invalid: isIpStringInvalid(this.state.allowed_ip_addresses),
-      invalidText: "Please enter a comma separated list of IP addresses."
+      invalid: iamUtils_1(this.state.client_dns_server_ips),
+      invalidText: "Please enter a comma separated list of IP addresses.",
+      helperText: "Enter a comma separated list of IP addresses."
     })), this.props.isModal === false && /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
       name: "Routes",
       subHeading: true,
       addText: "Create a Route",
       arrayData: this.props.data.routes,
       innerForm: VpnServerRouteForm,
-      disableSave: this.props.routeProps.disableSave,
-      onDelete: this.props.routeProps.onDelete,
-      onSave: this.props.routeProps.onSave,
-      onSubmit: this.props.routeProps.onSubmit,
+      disableSave: this.props.vpnServerRouteProps.disableSave,
+      onDelete: this.props.vpnServerRouteProps.onDelete,
+      onSave: this.props.vpnServerRouteProps.onSave,
+      onSubmit: this.props.vpnServerRouteProps.onSubmit,
       propsMatchState: this.props.propsMatchState,
       innerFormProps: {
-        ...innerFormProps
+        ...routeProps
       },
       hideAbout: true,
       toggleFormProps: {
         hideName: true,
         submissionFieldName: "routes",
-        disableSave: this.props.routeProps.disableSave,
+        disableSave: this.props.vpnServerRouteProps.disableSave,
         type: "formInSubForm"
       }
     }));
@@ -8484,7 +8491,6 @@ VpnServerForm.defaultProps = {
     resource_group: "",
     vpc: "",
     subnets: [],
-    ssh_keys: [],
     security_groups: [],
     client_dns_server_ips: "",
     routes: []
@@ -8517,9 +8523,9 @@ VpnServerForm.propTypes = {
   isModal: PropTypes__default["default"].bool.isRequired,
   /* lists */
   resourceGroups: PropTypes__default["default"].array.isRequired,
+  vpcList: PropTypes__default["default"].array.isRequired,
   securityGroups: PropTypes__default["default"].array.isRequired,
   subnetList: PropTypes__default["default"].array.isRequired,
-  vpcList: PropTypes__default["default"].array.isRequired,
   /* callbacks */
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
@@ -8584,7 +8590,7 @@ class AccessGroupPolicyForm extends React__default["default"].Component {
     }, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
       name: "Resource Configuration",
       type: "subHeading"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput$1, {
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: "resource",
       componentName: "resource",
       tooltip: {
@@ -8609,7 +8615,7 @@ class AccessGroupPolicyForm extends React__default["default"].Component {
         alignModal: "bottom-left"
       },
       disableInvalid: true // resource group is not required
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput$1, {
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: "resource_instance_id",
       componentName: "resource_instance_id",
       isModal: this.props.isModal,
@@ -8621,7 +8627,7 @@ class AccessGroupPolicyForm extends React__default["default"].Component {
       invalid: false,
       labelText: "Resource Instance ID",
       onChange: this.handleInputResource
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput$1, {
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: "service",
       componentName: "service",
       tooltip: {
@@ -8635,7 +8641,7 @@ class AccessGroupPolicyForm extends React__default["default"].Component {
       isModal: this.props.isModal,
       onChange: this.handleInputResource,
       invalid: false
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput$1, {
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: "resource_type",
       componentName: "resource_type",
       field: "resource_type",
@@ -8759,7 +8765,7 @@ class AccessGroupDynamicPolicyForm extends React__default["default"].Component {
       labelText: "Expiration Hours",
       isModal: this.props.isModal,
       handleInputChange: this.handleInputChange
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput$1, {
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: "identity_provider",
       tooltip: {
         content: "URI for identity provider",
@@ -8778,7 +8784,7 @@ class AccessGroupDynamicPolicyForm extends React__default["default"].Component {
     }, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
       name: "Condition Configuration",
       type: "subHeading"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput$1, {
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: "claim",
       tooltip: {
         content: "Key value to evaluate the condition against",
@@ -8804,7 +8810,7 @@ class AccessGroupDynamicPolicyForm extends React__default["default"].Component {
       disableInvalid: true,
       labelText: "Condition Operator",
       handleInputChange: this.handleInputCondition
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput$1, {
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: "value",
       tooltip: {
         content: "Value to be compared against"
@@ -8896,7 +8902,7 @@ class AccessGroupForm extends React__default["default"].Component {
       hideHelperText: true,
       invalid: this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props)
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput$1, {
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: "description",
       componentName: "description",
       tooltip: {
@@ -9026,7 +9032,7 @@ class RoutingTableRouteForm extends React.Component {
       labelText: "Route Zone",
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput$1, {
+    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: this.props.data.name + "-route-destination",
       componentName: "routing-route-destination",
       name: "destination",
@@ -9046,7 +9052,7 @@ class RoutingTableRouteForm extends React.Component {
       handleInputChange: this.handleInputChange,
       value: this.state.action,
       className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput$1, {
+    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: this.props.data.name + "-next-hop",
       componentName: "routing-next-hop",
       field: "next_hop",
@@ -9350,7 +9356,7 @@ class EventStreamsForm extends React.Component {
       className: classNameModalCheck,
       name: "storage_size",
       labelText: "Storage Size"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper$1, {
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
         content: "Private IP addresses or CIDR blocks to allowlist",
         align: "top-left"
@@ -9424,7 +9430,7 @@ exports.IcseNameInput = IcseNameInput;
 exports.IcseNumberSelect = IcseNumberSelect;
 exports.IcseSelect = IcseSelect;
 exports.IcseSubForm = IcseSubForm;
-exports.IcseTextInput = IcseTextInput$1;
+exports.IcseTextInput = IcseTextInput;
 exports.IcseToggle = IcseToggle;
 exports.IcseToolTip = IcseToolTip;
 exports.KeyManagementForm = KeyManagementForm;
@@ -9457,7 +9463,7 @@ exports.SubnetTileForm = SubnetTileForm;
 exports.TeleportClaimToRoleForm = TeleportClaimToRoleForm;
 exports.TitleGroup = TitleGroup;
 exports.ToggleForm = ToggleForm;
-exports.ToolTipWrapper = ToolTipWrapper$1;
+exports.ToolTipWrapper = ToolTipWrapper;
 exports.TransitGatewayForm = TransitGatewayForm;
 exports.UnderConstruction = UnderConstruction;
 exports.UnsavedChangesModal = UnsavedChangesModal;

@@ -186,6 +186,21 @@ function invalidTextCallback(stateData) {
 
 const formProps = {
   data: {
+    name: "vpn-server",
+    certificate_crn: "",
+    method: "",
+    client_ca_crn: "",
+    identiy_provider: "",
+    client_ip_pool: "",
+    enable_split_tunneling: false,
+    client_idle_timeout: "",
+    port: "",
+    protocol: "UDP",
+    resource_group: "",
+    vpc: "",
+    subnets: [],
+    security_groups: [],
+    client_dns_server_ips: "",
     routes: [
       {
         name: "vpn-server-route",
@@ -193,7 +208,6 @@ const formProps = {
         action: "Deliver",
       },
     ],
-    name: "vpn-server",
   },
   resourceGroups: ["rg1", "rg2", "rg3"],
   vpcList: ["management", "workload"],
@@ -270,7 +284,7 @@ const VpnServerFormStory = () => {
 const VpnServerFormModalStory = () => {
   return (
     <IcseModal
-      heading={"VSI Modal"}
+      heading={"VPN Server Modal"}
       open={true}
       primaryButtonText={"Create"}
       onRequestSubmit={() => {}}
