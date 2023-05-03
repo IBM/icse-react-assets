@@ -322,6 +322,10 @@ i.chevron > svg {
   background-color: var(--subForm);
 }
 
+.marginTop {
+  margin-top: 1rem;
+}
+
 /* under construction */
 
 .underConstruction {

@@ -13,7 +13,7 @@ import PropTypes from "prop-types";
 
 const EmptyResourceTile = (props) => {
   return !props.showIfEmpty || props.showIfEmpty.length === 0 ? (
-    <Tile className="tileBackground displayFlex alignItemsCenter wrap">
+    <Tile className="tileBackground displayFlex alignItemsCenter wrap marginTop">
       <CloudAlerting size="24" className="iconMargin" />
       No {props.name}.{" "}
       {props.instructions || (
