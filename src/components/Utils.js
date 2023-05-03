@@ -55,7 +55,7 @@ TitleGroup.propTypes = {
 };
 
 export const IcseFormGroup = (props) => {
-  let formGroupClassName = "displayFlex marginBottom evenSpacing formGroup";
+  let formGroupClassName = "displayFlex marginBottom evenSpacing wrap";
   // remove margin bottom from formGroup for VPC
   if (props.noMarginBottom) {
     formGroupClassName = formGroupClassName.replace(/\smarginBottom/g, "");

@@ -356,7 +356,7 @@ i.chevron > svg {
   margin-left: calc(-5.75rem - 3vw);
 }
 
-.formGroup {
+.wrap {
   flex-flow: wrap;
 }
 
@@ -414,6 +414,21 @@ i.chevron > svg {
   .formGroup {
     /* items 1 wide */
     flex-direction: column !important;
+  }
+
+  .popover-obj.select {
+    /* need to adjust size for popover container at small widths */
+    width: 100%;
+  }
+
+  .popover-obj.select > span {
+    width: 100%;
+  }
+
+  /* items with tooltip should also be full width */
+  .cds--form-item {
+    flex: none;
+    width: 100%;
   }
 }
 

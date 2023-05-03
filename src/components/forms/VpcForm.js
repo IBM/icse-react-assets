@@ -137,10 +137,7 @@ class VpcNetworkForm extends React.Component {
         <IcseFormGroup>
           {nameFields.map((field) => {
             return (
-              <div
-                className="fitContent"
-                key={this.props.data.name + "-" + kebabCase(field) + "-div"}
-              >
+              <div key={this.props.data.name + "-" + kebabCase(field) + "-div"}>
                 <IcseTextInput
                   id={composedId + "-" + field}
                   componentName="VPC Network"

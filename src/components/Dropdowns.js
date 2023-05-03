@@ -38,7 +38,7 @@ export const IcseSelect = (props) => {
           <PopoverWrapper
             hoverText={props.value || ""}
             // inherit classnames from tooltip
-            className={props.tooltip ? "tooltip" : ""}
+            className={props.tooltip ? "tooltip select" : " select"}
           >
             <Select
               id={kebabCase(props.formName + " " + props.name)}
