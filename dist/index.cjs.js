@@ -9138,7 +9138,8 @@ CbrContextForm.defaultProps = {
   data: {
     name: "",
     value: ""
-  }
+  },
+  arrayParentName: ""
 };
 CbrContextForm.propTypes = {
   isModal: PropTypes__default["default"].bool,
@@ -9196,7 +9197,8 @@ CbrResourceAttributeForm.defaultProps = {
   data: {
     name: "",
     value: ""
-  }
+  },
+  arrayParentName: ""
 };
 CbrResourceAttributeForm.propTypes = {
   isModal: PropTypes__default["default"].bool,
@@ -9204,8 +9206,9 @@ CbrResourceAttributeForm.propTypes = {
     name: PropTypes__default["default"].string.isRequired,
     value: PropTypes__default["default"].string.isRequired
   }),
-  invalidTagCallback: PropTypes__default["default"].func.isRequired,
-  invalidTagTextCallback: PropTypes__default["default"].func.isRequired
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  arrayParentName: PropTypes__default["default"].string
 };
 
 /**
@@ -9270,7 +9273,8 @@ CbrTagForm.defaultProps = {
     name: "",
     operator: "",
     value: ""
-  }
+  },
+  arrayParentName: ""
 };
 CbrTagForm.propTypes = {
   isModal: PropTypes__default["default"].bool,
@@ -9279,8 +9283,9 @@ CbrTagForm.propTypes = {
     operator: PropTypes__default["default"].string.isRequired,
     value: PropTypes__default["default"].string.isRequired
   }),
-  invalidTagCallback: PropTypes__default["default"].func.isRequired,
-  invalidTagTextCallback: PropTypes__default["default"].func.isRequired
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  arrayParentName: PropTypes__default["default"].string
 };
 
 /**
@@ -9507,7 +9512,10 @@ exports.AccessGroupPolicyForm = AccessGroupPolicyForm;
 exports.AppIdForm = AppIdForm;
 exports.AppIdKeyForm = AppIdKeyForm;
 exports.AtrackerForm = AtrackerForm;
+exports.CbrContextForm = CbrContextForm;
+exports.CbrResourceAttributeForm = CbrResourceAttributeForm;
 exports.CbrRuleForm = CbrRuleForm;
+exports.CbrTagForm = CbrTagForm;
 exports.ClusterForm = ClusterForm;
 exports.DeleteButton = DeleteButton;
 exports.DeleteModal = DeleteModal;

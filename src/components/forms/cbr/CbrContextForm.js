@@ -61,6 +61,7 @@ CbrContextForm.defaultProps = {
     name: "",
     value: "",
   },
+  arrayParentName: "",
 };
 
 CbrContextForm.propTypes = {

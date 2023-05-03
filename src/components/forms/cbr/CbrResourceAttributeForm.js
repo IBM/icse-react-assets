@@ -62,6 +62,7 @@ CbrResourceAttributeForm.defaultProps = {
     name: "",
     value: "",
   },
+  arrayParentName: "",
 };
 
 CbrResourceAttributeForm.propTypes = {
@@ -70,8 +71,9 @@ CbrResourceAttributeForm.propTypes = {
     name: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
   }),
-  invalidTagCallback: PropTypes.func.isRequired,
-  invalidTagTextCallback: PropTypes.func.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  arrayParentName: PropTypes.string,
 };
 
 export default CbrResourceAttributeForm;

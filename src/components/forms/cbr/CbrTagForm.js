@@ -88,6 +88,7 @@ CbrTagForm.defaultProps = {
     operator: "",
     value: "",
   },
+  arrayParentName: "",
 };
 
 CbrTagForm.propTypes = {
@@ -97,8 +98,9 @@ CbrTagForm.propTypes = {
     operator: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
   }),
-  invalidTagCallback: PropTypes.func.isRequired,
-  invalidTagTextCallback: PropTypes.func.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  arrayParentName: PropTypes.string,
 };
 
 export default CbrTagForm;

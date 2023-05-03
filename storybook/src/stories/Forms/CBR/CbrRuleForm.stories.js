@@ -12,14 +12,14 @@ export default {
     isModal: {
       description:
         "A boolean value that specifies if the CbrRuleForm is a component within a modal",
-      type: { required: false }, // required prop or not
+      type: { required: false },
       control: "boolean",
       table: { defaultValue: { summary: "false" } },
     },
     "data.name": {
       description: "String, name of the CBR rule",
       control: "none",
-      type: { required: true }, // required prop or not
+      type: { required: true },
     },
     "data.description": {
       description: "String, optional description of the CBR rule",

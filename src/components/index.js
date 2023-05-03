@@ -85,4 +85,9 @@ export {
   AccessGroupForm,
   AccessGroupPolicyForm,
 } from "./forms/access-groups";
-export { CbrRuleForm } from "./forms/cbr";
+export {
+  CbrContextForm,
+  CbrResourceAttributeForm,
+  CbrRuleForm,
+  CbrTagForm,
+} from "./forms/cbr";
