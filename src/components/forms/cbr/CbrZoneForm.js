@@ -10,9 +10,7 @@ import {
   buildFormDefaultInputMethods,
   buildFormFunctions,
 } from "../../component-utils";
-import CbrContextForm from "./CbrContextForm";
-import CbrResourceAttributeForm from "./CbrResourceAttributeForm";
-import CbrTagForm from "./CbrTagForm";
+import CbrZoneExclusionAddressForm from "./CbrZoneExclusionAddressForm.js";
 
 /**
  * Context-based restriction zones
@@ -34,18 +32,20 @@ class CbrZoneForm extends Component {
   render() {
     // set up props for subforms
     let exclusionInnerFormProps = {
+      type: "exclusion",
       invalidCallback: this.props.invalidExclusionCallback,
       invalidTextCallback: this.props.invalidContextTextCallback,
       arrayParentName: this.props.data.name,
     };
-    transpose({ ...this.props.contextProps }, exclusionInnerFormProps);
+    transpose({ ...this.props.exclusionProps }, exclusionInnerFormProps);
 
     let addressInnerFormProps = {
       invalidCallback: this.props.invalidAddressCallback,
       invalidTextCallback: this.props.invalidResourceAttributeTextCallback,
       arrayParentName: this.props.data.name,
+      type: "address",
     };
-    transpose({ ...this.props.resourceAttributeProps }, addressInnerFormProps);
+    transpose({ ...this.props.addressProps }, addressInnerFormProps);
 
     return (
       <div id="cbr-zone-form">
@@ -59,25 +59,15 @@ class CbrZoneForm extends Component {
             invalid={this.props.invalidCallback(this.state, this.props)}
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
           />
-          <IcseSelect
-            id={this.props.data.name + "-cbr-zone-enforcement-mode"}
-            name={"enforcement_mode"}
-            className={"fieldWidthSmaller"}
-            value={this.state.enforcement_mode}
-            labelText="Enforcement Mode"
-            groups={["Enabled", "Disabled", "Report"]}
-            disableInvalid={true}
-            formName="cbr-zone"
-            handleInputChange={this.handleInputChange}
-          />
           <IcseTextInput
-            id={this.props.data.name + "-cbr-zone-api-type-id"}
+            id={this.props.data.name + "-cbr-account-id"}
             componentName={this.props.data.name + "-cbr-zone"}
-            field={"api_type_id"}
-            value={this.state.api_type_id}
-            labelText={"API Type ID"}
+            field={"account_id"}
+            value={this.state.account_id}
+            labelText={"Account ID"}
             onChange={this.handleInputChange}
             invalid={false}
+            invalidText={"nyi"}
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -99,45 +89,45 @@ class CbrZoneForm extends Component {
         {/* show subforms if not modal*/}
         {this.props.isModal !== true && (
           <>
-            {/* contexts */}
+            {/* Addresses */}
             <IcseFormTemplate
-              name="Contexts"
+              name="Addresses"
               subHeading
-              addText="Create a Context"
-              arrayData={this.props.data.contexts}
-              innerForm={CbrContextForm}
-              disableSave={this.props.contextProps.disableSave}
-              onDelete={this.props.contextProps.onDelete}
-              onSave={this.props.contextProps.onSave}
-              onSubmit={this.props.contextProps.onSubmit}
-              propsMatchState={this.props.propsMatchState}
-              innerFormProps={{ ...exclusionInnerFormProps }}
-              hideAbout
-              toggleFormProps={{
-                hideName: true,
-                submissionFieldName: "cos_keys",
-                disableSave: this.props.contextProps.disableSave,
-                type: "formInSubForm",
-              }}
-            />
-            {/* resource attributes */}
-            <IcseFormTemplate
-              name="Resource Attributes"
-              subHeading
-              addText="Create a Resource Attribute"
-              arrayData={this.props.data.resource_attributes}
-              innerForm={CbrResourceAttributeForm}
-              disableSave={this.props.resourceAttributeProps.disableSave}
-              onDelete={this.props.resourceAttributeProps.onDelete}
-              onSave={this.props.resourceAttributeProps.onSave}
-              onSubmit={this.props.resourceAttributeProps.onSubmit}
+              addText="Create an Address"
+              arrayData={this.props.data.addresses}
+              innerForm={CbrZoneExclusionAddressForm}
+              disableSave={this.props.addressProps.disableSave}
+              onDelete={this.props.addressProps.onDelete}
+              onSave={this.props.addressProps.onSave}
+              onSubmit={this.props.addressProps.onSubmit}
               propsMatchState={this.props.propsMatchState}
               innerFormProps={{ ...addressInnerFormProps }}
               hideAbout
               toggleFormProps={{
                 hideName: true,
-                submissionFieldName: "cos_keys",
-                disableSave: this.props.resourceAttributeProps.disableSave,
+                submissionFieldName: "cbr_zones",
+                disableSave: this.props.addressProps.disableSave,
+                type: "formInSubForm",
+              }}
+            />
+            {/* exclusions */}
+            <IcseFormTemplate
+              name="Exclusions"
+              subHeading
+              addText="Create an Exclusion"
+              arrayData={this.props.data.exclusions}
+              innerForm={CbrZoneExclusionAddressForm}
+              disableSave={this.props.exclusionProps.disableSave}
+              onDelete={this.props.exclusionProps.onDelete}
+              onSave={this.props.exclusionProps.onSave}
+              onSubmit={this.props.exclusionProps.onSubmit}
+              propsMatchState={this.props.propsMatchState}
+              innerFormProps={{ ...exclusionInnerFormProps }}
+              hideAbout
+              toggleFormProps={{
+                hideName: true,
+                submissionFieldName: "cbr_zones",
+                disableSave: this.props.exclusionProps.disableSave,
                 type: "formInSubForm",
               }}
             />
