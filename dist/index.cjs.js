@@ -6545,7 +6545,7 @@ class SubnetTierForm extends React__default["default"].Component {
     }
   }
   onSave() {
-    if (this.state.advanced && !this.state.advancedSave && !this.props.data.select_zones) {
+    if (this.state.advanced && !this.state.advancedSave && !this.props.data.advanced) {
       this.setState({
         advancedSave: true
       });
@@ -6584,7 +6584,6 @@ class SubnetTierForm extends React__default["default"].Component {
     let composedId = `${this.props.vpc_name}-tier-${this.props.data.name === "" ? "new-subnet-tier" : this.props.data.name}`;
     let formName = this.props.data.name + "-subnet-tier";
     let tierName = lib_12(this.props.data.name);
-    console.log(JSON.stringify(this.props.data, null, 2));
     return /*#__PURE__*/React__default["default"].createElement(IcseSubForm, {
       formInSubForm: true,
       id: composedId,
