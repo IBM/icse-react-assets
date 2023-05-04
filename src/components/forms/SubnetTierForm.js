@@ -6,7 +6,6 @@ import {
   IcseSubForm,
   StatelessToggleForm,
 } from "../Utils";
-import { buildNumberDropdownList } from "lazy-z";
 import PropTypes from "prop-types";
 import { DeleteButton, SaveAddButton } from "../Buttons";
 import { IcseNameInput, IcseToggle } from "../Inputs";
@@ -111,7 +110,7 @@ class SubnetTierForm extends React.Component {
     if (
       this.state.advanced &&
       !this.state.advancedSave &&
-      !this.props.data.select_zones
+      !this.props.data.advanced
     ) {
       this.setState({ advancedSave: true });
     } else {
@@ -160,8 +159,6 @@ class SubnetTierForm extends React.Component {
     }`;
     let formName = this.props.data.name + "-subnet-tier";
     let tierName = subnetTierName(this.props.data.name);
-    if (this.props.devMode)
-      console.log(JSON.stringify(this.props.data, null, 2));
     return (
       <IcseSubForm formInSubForm id={composedId} className="marginBottomSmall">
         <DeleteModal
