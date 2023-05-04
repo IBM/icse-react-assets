@@ -6865,10 +6865,8 @@ class SubnetTierForm extends React.Component {
     this.state = {
       ...this.props.data
     };
-    if (!this.props.data.advanced) {
-      let zones = buildNumberDropdownList(this.state.zones, 1);
+    if (!this.props.data.select_zones) {
       this.state.select_zones = [];
-      zones.forEach(zone => this.state.select_zones.push(Number(zone)));
     }
     this.state.advancedSave = false;
     this.handleChange = this.handleChange.bind(this);
@@ -6936,6 +6934,9 @@ class SubnetTierForm extends React.Component {
       [1, 2, 3].forEach(zone => {
         if (zone <= this.state.zones) nextState.select_zones.push(zone);
       });
+    } else if (name === "advanced") {
+      nextState.zones = this.state.select_zones.length;
+      nextState.select_zones = null;
     }
     this.setState(nextState);
   }
@@ -6964,7 +6965,7 @@ class SubnetTierForm extends React.Component {
     }
   }
   onSave() {
-    if (this.state.advanced && !this.state.advancedSave && !this.props.data.select_zones) {
+    if (this.state.advanced && !this.state.advancedSave && !this.props.data.advanced) {
       this.setState({
         advancedSave: true
       });
@@ -7063,7 +7064,7 @@ class SubnetTierForm extends React.Component {
       invalid: this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props),
       hideHelperText: true
-    }), this.state.advanced || this.props.data.advanced ? /*#__PURE__*/React.createElement(IcseMultiSelect, {
+    }), this.state.advanced ? /*#__PURE__*/React.createElement(IcseMultiSelect, {
       id: this.props.data.name + "-subnet-zones",
       className: "fieldWidthSmaller",
       titleText: "Zones",
@@ -7074,7 +7075,7 @@ class SubnetTierForm extends React.Component {
       onChange: this.handleSelectZones
     }) : /*#__PURE__*/React.createElement(IcseNumberSelect, {
       max: 3,
-      value: this.state.zones,
+      value: this.state.zones ? this.state.zones : 1,
       labelText: "Subnet Tier Zones",
       name: "zones",
       handleInputChange: this.handleChange,
