@@ -5,7 +5,8 @@ function cbrInvalid(field, value) {
 
   if (
     isNullOrEmptyString(value) ||
-    (value.match(/^[0-9a-z-]+$/) === null && value.length <= 128)
+    value.match(/^[0-9a-z-]+$/) === null ||
+    value.length >= 128
   ) {
     invalid.invalid = true;
     invalid.invalidText = `Invalid ${field}. Value must match regex expression /^[0-9a-z-]+$/.`;
