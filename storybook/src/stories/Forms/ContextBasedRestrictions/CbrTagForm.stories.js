@@ -1,40 +1,40 @@
 import React from "react";
-import { CbrResourceAttributeForm } from "icse-react-assets";
+import { CbrTagForm } from "icse-react-assets";
 import { contains } from "lazy-z";
 
 export default {
-  component: CbrResourceAttributeForm,
-  title: "Components/Forms/CBR/CbrResourceAttributeForm",
+  component: CbrTagForm,
+  title: "Components/Forms/ContextBasedRestrictions/CbrTagForm",
   args: {
     isModal: false,
   },
   argTypes: {
     isModal: {
       description:
-        "A boolean value that specifies if the CbrResourceAttributeForm is a component within a modal",
+        "A boolean value that specifies if the CbrTagForm is a component within a modal",
       type: { required: false },
       control: "boolean",
       table: { defaultValue: { summary: "false" } },
     },
     "data.name": {
-      description: "String, the name of the resource attribute",
+      description: "String, the name of the tag",
       control: "none",
       type: { required: true },
     },
     "data.value": {
-      description: "String, the value for the resource attribute",
+      description: "String, the value for the tag",
       control: "none",
       type: { required: true },
     },
     invalidCallback: {
       description:
-        "Function that determines invalid state for the attribute's name and value, returns a boolean",
+        "Function that determines invalid state for the CBR tag fields, returns a boolean",
       type: { required: true },
       control: "none",
     },
     invalidTextCallback: {
       description:
-        "Function that returns invalid text string for the resource attribute's name and value",
+        "Function that returns invalid text string for CBR tag fields",
       type: { required: true },
       control: "none",
     },
@@ -42,7 +42,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: "CbrResourceAttributeForm",
+        component: "CbrTagForm",
       },
     },
     source: {
@@ -51,7 +51,7 @@ export default {
   },
 };
 
-const CbrResourceAttributeFormStory = ({ ...args }) => {
+const CbrTagFormStory = ({ ...args }) => {
   function validName(str) {
     const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
     if (str) return str.match(regex) !== null;
@@ -74,10 +74,10 @@ const CbrResourceAttributeFormStory = ({ ...args }) => {
     else return `Invalid ${field}`;
   }
   return (
-    <CbrResourceAttributeForm
+    <CbrTagForm
       {...args}
       data={{
-        name: "resource-attribute",
+        name: "tag",
         value: "example",
       }}
       invalidCallback={invalidCallback}
@@ -86,4 +86,4 @@ const CbrResourceAttributeFormStory = ({ ...args }) => {
   );
 };
 
-export const Default = CbrResourceAttributeFormStory.bind({});
+export const Default = CbrTagFormStory.bind({});

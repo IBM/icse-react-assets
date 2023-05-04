@@ -9108,8 +9108,8 @@ class CbrContextForm extends Component {
       componentName: this.props.arrayParentName + "-cbr-context",
       value: this.state.name,
       onChange: this.handleInputChange,
-      invalid: this.props.invalidCallback("name", this.state, this.props),
-      invalidText: this.props.invalidTextCallback("name", this.state, this.props),
+      invalid: this.props.invalidNameCallback(this.state, this.props),
+      invalidText: this.props.invalidNameTextCallback(this.state, this.props),
       hideHelperText: true
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: this.props.data.name + "-cbr-context-value",
@@ -9131,11 +9131,12 @@ CbrContextForm.defaultProps = {
   arrayParentName: ""
 };
 CbrContextForm.propTypes = {
-  isModal: PropTypes.bool,
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired
   }),
+  invalidNameCallback: PropTypes.func.isRequired,
+  invalidNameTextCallback: PropTypes.func.isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
   arrayParentName: PropTypes.string
@@ -9166,8 +9167,8 @@ class CbrResourceAttributeForm extends Component {
       componentName: this.props.data.name + "-cbr-ra",
       value: this.state.name,
       onChange: this.handleInputChange,
-      invalid: this.props.invalidCallback("name", this.state, this.props),
-      invalidText: this.props.invalidTextCallback("name", this.state, this.props),
+      invalid: this.props.invalidNameCallback(this.state, this.props),
+      invalidText: this.props.invalidNameTextCallback(this.state, this.props),
       hideHelperText: true
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: this.props.data.name + "-cbr-ra-value",
@@ -9190,11 +9191,12 @@ CbrResourceAttributeForm.defaultProps = {
   arrayParentName: ""
 };
 CbrResourceAttributeForm.propTypes = {
-  isModal: PropTypes.bool,
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired
   }),
+  invalidNameCallback: PropTypes.func.isRequired,
+  invalidNameTextCallback: PropTypes.func.isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
   arrayParentName: PropTypes.string
@@ -9229,8 +9231,8 @@ class CbrTagForm extends Component {
       className: "fieldWidthSmaller",
       value: this.state.name,
       onChange: this.handleInputChange,
-      invalid: this.props.invalidCallback("name", this.state, this.props),
-      invalidText: this.props.invalidTextCallback("name", this.state, this.props),
+      invalid: this.props.invalidNameCallback(this.state, this.props),
+      invalidText: this.props.invalidNameTextCallback(this.state, this.props),
       hideHelperText: true
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: this.props.data.name + "-cbr-tag-operator",
@@ -9266,12 +9268,13 @@ CbrTagForm.defaultProps = {
   arrayParentName: ""
 };
 CbrTagForm.propTypes = {
-  isModal: PropTypes.bool,
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
     operator: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired
   }),
+  invalidNameCallback: PropTypes.func.isRequired,
+  invalidNameTextCallback: PropTypes.func.isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
   arrayParentName: PropTypes.string
@@ -9302,8 +9305,6 @@ class CbrRuleForm extends Component {
   render() {
     // set up props for subforms
     let contextInnerFormProps = {
-      invalidCallback: this.props.invalidContextCallback,
-      invalidTextCallback: this.props.invalidContextTextCallback,
       arrayParentName: this.props.data.name
     };
     transpose({
@@ -9333,8 +9334,8 @@ class CbrRuleForm extends Component {
       value: this.state.name,
       onChange: this.handleInputChange,
       hideHelperText: true,
-      invalid: this.props.invalidCallback("name", this.state, this.props),
-      invalidText: this.props.invalidTextCallback("name", this.state, this.props)
+      invalid: this.props.invalidNameCallback(this.state, this.props),
+      invalidText: this.props.invalidNameTextCallback(this.state, this.props)
     }), /*#__PURE__*/React.createElement(IcseSelect, {
       id: this.props.data.name + "-cbr-rule-enforcement-mode",
       name: "enforcement_mode",
@@ -9370,7 +9371,8 @@ class CbrRuleForm extends Component {
       subHeading: true,
       tooltip: {
         content: "Contexts define where your resource can be accessed.",
-        link: "https://cloud.ibm.com/docs/account?topic=account-context-restrictions-whatis#restriction-context"
+        link: "https://cloud.ibm.com/docs/account?topic=account-context-restrictions-whatis#restriction-context",
+        align: "top-left"
       },
       addText: "Create a Context",
       arrayData: this.props.data.contexts,
@@ -9419,7 +9421,8 @@ class CbrRuleForm extends Component {
       name: "Tags",
       subHeading: true,
       tooltip: {
-        content: "A cloud resource can also be specified using tags"
+        content: "A cloud resource can also be specified using tags.",
+        align: "top-left"
       },
       addText: "Create a Tag",
       arrayData: this.props.data.tags,
@@ -9446,7 +9449,7 @@ CbrRuleForm.defaultProps = {
   data: {
     name: "",
     description: "",
-    enforcement_mode: "",
+    enforcement_mode: "Enabled",
     api_type_id: "",
     contexts: [],
     resource_attributes: [],
@@ -9474,33 +9477,44 @@ CbrRuleForm.propTypes = {
       value: PropTypes.string.isRequired
     }).isRequired)
   }),
-  invalidTextCallback: PropTypes.func.isRequired,
+  propsMatchState: PropTypes.func.isRequired,
   invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  invalidNameCallback: PropTypes.func.isRequired,
+  invalidNameTextCallback: PropTypes.func.isRequired,
   contextProps: PropTypes.shape({
-    isModal: PropTypes.bool,
-    data: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired
-    })
+    onSave: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    disableSave: PropTypes.func.isRequired,
+    invalidCallback: PropTypes.func.isRequired,
+    invalidTextCallback: PropTypes.func.isRequired,
+    invalidNameCallback: PropTypes.func.isRequired,
+    invalidNameTextCallback: PropTypes.func.isRequired
   }).isRequired,
   invalidContextCallback: PropTypes.func.isRequired,
   invalidContextTextCallback: PropTypes.func.isRequired,
   resourceAttributeProps: PropTypes.shape({
-    isModal: PropTypes.bool,
-    data: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired
-    })
+    onSave: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    disableSave: PropTypes.func.isRequired,
+    invalidCallback: PropTypes.func.isRequired,
+    invalidTextCallback: PropTypes.func.isRequired,
+    invalidNameCallback: PropTypes.func.isRequired,
+    invalidNameTextCallback: PropTypes.func.isRequired
   }).isRequired,
   invalidResourceAttributeCallback: PropTypes.func.isRequired,
   invalidResourceAttributeTextCallback: PropTypes.func.isRequired,
   tagProps: PropTypes.shape({
-    isModal: PropTypes.bool,
-    data: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      operator: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired
-    })
+    onSave: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    disableSave: PropTypes.func.isRequired,
+    invalidCallback: PropTypes.func.isRequired,
+    invalidTextCallback: PropTypes.func.isRequired,
+    invalidNameCallback: PropTypes.func.isRequired,
+    invalidNameTextCallback: PropTypes.func.isRequired
   }).isRequired,
   invalidTagCallback: PropTypes.func.isRequired,
   invalidTagTextCallback: PropTypes.func.isRequired

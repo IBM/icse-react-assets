@@ -29,9 +29,8 @@ class CbrContextForm extends Component {
           componentName={this.props.arrayParentName + "-cbr-context"}
           value={this.state.name}
           onChange={this.handleInputChange}
-          invalid={this.props.invalidCallback("name", this.state, this.props)}
-          invalidText={this.props.invalidTextCallback(
-            "name",
+          invalid={this.props.invalidNameCallback(this.state, this.props)}
+          invalidText={this.props.invalidNameTextCallback(
             this.state,
             this.props
           )}
@@ -65,11 +64,12 @@ CbrContextForm.defaultProps = {
 };
 
 CbrContextForm.propTypes = {
-  isModal: PropTypes.bool,
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
   }),
+  invalidNameCallback: PropTypes.func.isRequired,
+  invalidNameTextCallback: PropTypes.func.isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
   arrayParentName: PropTypes.string,

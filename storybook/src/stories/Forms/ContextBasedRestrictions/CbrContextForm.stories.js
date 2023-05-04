@@ -1,40 +1,40 @@
 import React from "react";
-import { CbrTagForm } from "icse-react-assets";
+import { CbrContextForm } from "icse-react-assets";
 import { contains } from "lazy-z";
 
 export default {
-  component: CbrTagForm,
-  title: "Components/Forms/CBR/CbrTagForm",
+  component: CbrContextForm,
+  title: "Components/Forms/ContextBasedRestrictions/CbrContextForm",
   args: {
     isModal: false,
   },
   argTypes: {
     isModal: {
       description:
-        "A boolean value that specifies if the CbrTagForm is a component within a modal",
+        "A boolean value that specifies if the CbrContextForm is a component within a modal",
       type: { required: false },
       control: "boolean",
       table: { defaultValue: { summary: "false" } },
     },
     "data.name": {
-      description: "String, the name of the tag",
+      description: "String, the name of the context",
       control: "none",
       type: { required: true },
     },
     "data.value": {
-      description: "String, the value for the tag",
+      description: "String, the value for the context",
       control: "none",
       type: { required: true },
     },
     invalidCallback: {
       description:
-        "Function that determines invalid state for the CBR tag fields, returns a boolean",
+        "Function that determines invalid state for the context's name and value, returns a boolean",
       type: { required: true },
       control: "none",
     },
     invalidTextCallback: {
       description:
-        "Function that returns invalid text string for CBR tag fields",
+        "Function that returns invalid text string for the context's name and value",
       type: { required: true },
       control: "none",
     },
@@ -42,7 +42,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component: "CbrTagForm",
+        component: "CbrContextForm",
       },
     },
     source: {
@@ -51,7 +51,7 @@ export default {
   },
 };
 
-const CbrTagFormStory = ({ ...args }) => {
+const CbrContextFormStory = ({ ...args }) => {
   function validName(str) {
     const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
     if (str) return str.match(regex) !== null;
@@ -74,10 +74,10 @@ const CbrTagFormStory = ({ ...args }) => {
     else return `Invalid ${field}`;
   }
   return (
-    <CbrTagForm
+    <CbrContextForm
       {...args}
       data={{
-        name: "tag",
+        name: "context",
         value: "example",
       }}
       invalidCallback={invalidCallback}
@@ -86,4 +86,4 @@ const CbrTagFormStory = ({ ...args }) => {
   );
 };
 
-export const Default = CbrTagFormStory.bind({});
+export const Default = CbrContextFormStory.bind({});
