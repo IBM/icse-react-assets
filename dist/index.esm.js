@@ -1,6 +1,6 @@
 import '@carbon/styles/css/styles.css';
 import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, Link, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, NumberInput, Modal, TextInput, Toggle, Tabs, TabList, Tab, TabPanels, TabPanel, FilterableMultiSelect, PasswordInput, TextArea, Dropdown, Tag } from '@carbon/react';
-import lazyZ, { kebabCase as kebabCase$2, isEmpty, isNullOrEmptyString as isNullOrEmptyString$3, buildNumberDropdownList, titleCase as titleCase$1, contains as contains$2, snakeCase, distinct, getObjectFromArray, splat as splat$1, isWholeNumber as isWholeNumber$1, isInRange as isInRange$1, isBoolean, isFunction as isFunction$1, transpose, prettyJSON, allFieldsNull, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$1, deepEqual, parseIntFromZone, eachKey } from 'lazy-z';
+import lazyZ, { kebabCase as kebabCase$2, isEmpty, isNullOrEmptyString as isNullOrEmptyString$4, buildNumberDropdownList, titleCase as titleCase$1, contains as contains$2, snakeCase, distinct, getObjectFromArray, splat as splat$1, isWholeNumber as isWholeNumber$1, isInRange as isInRange$1, isBoolean, isFunction as isFunction$1, transpose, prettyJSON, allFieldsNull, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$1, deepEqual, parseIntFromZone, eachKey } from 'lazy-z';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Information, Save, Add, ChevronDown, ChevronRight, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt, Password } from '@carbon/icons-react';
@@ -967,7 +967,7 @@ Docs.propTypes = {
 const IcseSelect = props => {
   let invalid =
   // automatically set to invalid if value is null or empty string and invalid not disabled
-  props.disableInvalid !== true && isNullOrEmptyString$3(props.value) ? true : props.invalid;
+  props.disableInvalid !== true && isNullOrEmptyString$4(props.value) ? true : props.invalid;
   let groups = props.groups.length === 0 ? [] // if no groups, empty array
   : lib_3(
   // otherwise try and prepend empty string if null or empty string is allowed
@@ -1373,7 +1373,7 @@ class VsiLoadBalancerForm extends React.Component {
       groups: this.props.vpcList,
       value: this.state.vpc,
       handleInputChange: this.handleInputChange,
-      invalid: isNullOrEmptyString$3(this.state.vpc),
+      invalid: isNullOrEmptyString$4(this.state.vpc),
       invalidText: "Select a VPC.",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(SecurityGroupMultiSelect, {
@@ -1384,7 +1384,7 @@ class VsiLoadBalancerForm extends React.Component {
       onChange: value => this.handleMultiSelectChange("security_groups", value),
       securityGroups: this.getSecurityGroupList(),
       invalid: !(this.state.security_groups?.length > 0),
-      invalidText: !this.state.vpc || isNullOrEmptyString$3(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`,
+      invalidText: !this.state.vpc || isNullOrEmptyString$4(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`,
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseHeading, {
       type: "subHeading",
@@ -1417,7 +1417,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: isNullOrEmptyString$3(this.state.port || "") ? true : !isWholeNumber$1(this.state.port),
+      invalid: isNullOrEmptyString$4(this.state.port || "") ? true : !isWholeNumber$1(this.state.port),
       invalidText: "Must be a whole number between 1 and 65535",
       className: "fieldWidthSmaller"
     })), this.allVsi().map((row, index) => /*#__PURE__*/React.createElement(IcseFormGroup, {
@@ -1478,7 +1478,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 5,
       max: 3000,
-      invalid: isNullOrEmptyString$3(this.state.health_timeout || "") ? true : !isWholeNumber$1(this.state.health_timeout),
+      invalid: isNullOrEmptyString$4(this.state.health_timeout || "") ? true : !isWholeNumber$1(this.state.health_timeout),
       invalidText: "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(NumberInput, {
@@ -1493,7 +1493,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 5,
       max: 3000,
-      invalid: isNullOrEmptyString$3(this.state.health_delay || "") ? true : this.state.health_delay <= this.state.health_timeout || !isWholeNumber$1(this.state.health_delay),
+      invalid: isNullOrEmptyString$4(this.state.health_delay || "") ? true : this.state.health_delay <= this.state.health_timeout || !isWholeNumber$1(this.state.health_delay),
       invalidText: this.state.health_delay <= this.state.health_timeout ? "Must be greater than Health Timeout value" : "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(NumberInput, {
@@ -1508,7 +1508,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 5,
       max: 3000,
-      invalid: isNullOrEmptyString$3(this.state.health_retries || "") ? true : !isWholeNumber$1(this.state.health_retries),
+      invalid: isNullOrEmptyString$4(this.state.health_retries || "") ? true : !isWholeNumber$1(this.state.health_retries),
       invalidText: "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseHeading, {
@@ -1526,7 +1526,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: isNullOrEmptyString$3(this.state.listener_port || "") ? true : !isWholeNumber$1(this.state.listener_port),
+      invalid: isNullOrEmptyString$4(this.state.listener_port || "") ? true : !isWholeNumber$1(this.state.listener_port),
       invalidText: "Must be a whole number between 1 and 65535",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseSelect, {
@@ -1551,7 +1551,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 15000,
-      invalid: isNullOrEmptyString$3(this.state.connection_limit || "") ? false : isInRange$1(this.state.connection_limit, 1, 15000) === false || !isWholeNumber$1(this.state.connection_limit),
+      invalid: isNullOrEmptyString$4(this.state.connection_limit || "") ? false : isInRange$1(this.state.connection_limit, 1, 15000) === false || !isWholeNumber$1(this.state.connection_limit),
       invalidText: "Must be a whole number between 1 and 15000",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseHeading, {
@@ -1581,7 +1581,7 @@ class VsiLoadBalancerForm extends React.Component {
       isModal: this.props.isModal,
       labelText: "Session Cookie Name",
       value: this.state.session_persistence_app_cookie_name || "",
-      invalid: isNullOrEmptyString$3(this.state.session_persistence_app_cookie_name || "") ? false : this.props.invalidCallback(this.state, this.props),
+      invalid: isNullOrEmptyString$4(this.state.session_persistence_app_cookie_name || "") ? false : this.props.invalidCallback(this.state, this.props),
       onChange: this.handleInputChange,
       className: "fieldWidthSmaller"
     })));
@@ -2885,9 +2885,9 @@ const SubnetMultiSelect = props => {
     titleText: "Subnets",
     name: props.name,
     label: props.label,
-    items: isNullOrEmptyString$3(props.vpc_name) ? [] : props.subnets,
+    items: isNullOrEmptyString$4(props.vpc_name) ? [] : props.subnets,
     initialSelectedItems: props.initialSelectedItems,
-    invalidText: isNullOrEmptyString$3(props.vpc_name) ? "Select a VPC." : "Select at least one subnet.",
+    invalidText: isNullOrEmptyString$4(props.vpc_name) ? "Select a VPC." : "Select at least one subnet.",
     invalid: props.initialSelectedItems.length === 0,
     disabled: props.disabled,
     onChange: event => props.onChange(event.selectedItems)
@@ -3487,7 +3487,7 @@ const {
   RegexButWithWords: RegexButWithWords$1
 } = regexButWithWords;
 const {
-  isNullOrEmptyString: isNullOrEmptyString$2
+  isNullOrEmptyString: isNullOrEmptyString$3
 } = lazyZ;
 const urlValidationExp = new RegexButWithWords$1().group(exp => {
   exp.literal("ftp").or().literal("http").literal("s").lazy();
@@ -3510,7 +3510,7 @@ const tmosAdminPasswordValidationExp = new RegexButWithWords$1().stringBegin().l
  * @returns {boolean} true when url is valid and not empty, false when invalid
  */
 function isValidUrl(url) {
-  if (isNullOrEmptyString$2(url) || url === "null") return true;
+  if (isNullOrEmptyString$3(url) || url === "null") return true;
   return url.match(urlValidationExp) !== null;
 }
 
@@ -3520,7 +3520,7 @@ function isValidUrl(url) {
  * @returns {boolean} true when password is valid
  */
 function isValidTmosAdminPassword(password) {
-  if (isNullOrEmptyString$2(password)) return true;else return password.match(tmosAdminPasswordValidationExp) !== null;
+  if (isNullOrEmptyString$3(password)) return true;else return password.match(tmosAdminPasswordValidationExp) !== null;
 }
 
 /**
@@ -3579,7 +3579,7 @@ function getValidAdminPassword(length) {
 }
 var f5Utils = {
   getValidAdminPassword,
-  isNullOrEmptyString: isNullOrEmptyString$2,
+  isNullOrEmptyString: isNullOrEmptyString$3,
   isValidTmosAdminPassword,
   isValidUrl
 };
@@ -4031,7 +4031,7 @@ const commaSeparatedIpListExp = new RegexButWithWords().stringBegin().group(exp 
  * @param {*} value
  * @returns {boolean} true if null or empty string
  */
-function isNullOrEmptyString$1(value) {
+function isNullOrEmptyString$2(value) {
   return value === null || value === "";
 }
 
@@ -4043,7 +4043,7 @@ function isNullOrEmptyString$1(value) {
  * @returns {boolean} true if invalid
  */
 function isRangeInvalid(value, min, max) {
-  if (isNullOrEmptyString$1(value)) return false;
+  if (isNullOrEmptyString$2(value)) return false;
   value = parseFloat(value);
   if (!isWholeNumber(value) || !isInRange(value, min, max)) {
     return true;
@@ -4057,7 +4057,7 @@ function isRangeInvalid(value, min, max) {
  * @returns {boolean} true if invalid
  */
 function isIpStringInvalid(value) {
-  if (!isNullOrEmptyString$1(value) && value.match(commaSeparatedIpListExp) === null) {
+  if (!isNullOrEmptyString$2(value) && value.match(commaSeparatedIpListExp) === null) {
     return true;
   }
   return false;
@@ -4533,7 +4533,7 @@ const {
   kebabCase,
   isIpv4CidrOrAddress,
   validPortRange,
-  isNullOrEmptyString,
+  isNullOrEmptyString: isNullOrEmptyString$1,
   contains
 } = require("lazy-z");
 
@@ -4827,7 +4827,7 @@ const NetworkingRuleProtocolTextField = props => {
     placeholder: String(props.state.rule[props.name]),
     value: props.state.rule[props.name] || "",
     onChange: e => props.onChange(props.name, e),
-    invalid: validPortRange(props.name, props.state.rule[props.name] || -1) === false && isNullOrEmptyString(props.state.rule[props.name]) === false,
+    invalid: validPortRange(props.name, props.state.rule[props.name] || -1) === false && isNullOrEmptyString$1(props.state.rule[props.name]) === false,
     invalidText: contains(["type", "code"], props.name) ? `0 to ${props.name === "type" ? 254 : 255}` : "1 to 65535",
     className: "fieldWidthSmaller"
   });
@@ -6260,7 +6260,7 @@ class SubnetForm extends React.Component {
       className: "fieldWidthSmaller",
       disabled: this.props.isModal || this.props.readOnly,
       disableInvalid: this.props.isModal || this.props.readOnly,
-      invalid: this.props.isModal || this.props.readOnly ? false : isNullOrEmptyString$3(this.state.network_acl),
+      invalid: this.props.isModal || this.props.readOnly ? false : isNullOrEmptyString$4(this.state.network_acl),
       invalidText: "Select a Network ACL."
     })), /*#__PURE__*/React.createElement(IcseFormGroup, {
       noMarginBottom: true
@@ -7641,7 +7641,7 @@ class VsiForm extends Component {
       groups: this.props.encryptionKeys,
       value: this.state.encryption_key,
       handleInputChange: this.handleInputChange,
-      invalid: isNullOrEmptyString$3(this.state.encryption_key),
+      invalid: isNullOrEmptyString$4(this.state.encryption_key),
       invalidText: "Select a valid encryption key."
     }), /*#__PURE__*/React.createElement(IcseToggle, {
       id: composedId + "-fips-toggle",
@@ -8225,6 +8225,25 @@ VpnServerRouteForm.propTypes = {
   invalidTextCallback: PropTypes.func.isRequired
 };
 
+const {
+  isNullOrEmptyString
+} = lazyZ;
+function cbrInvalid(field, value) {
+  let invalid = {
+    invalid: false,
+    invalidText: ""
+  };
+  if (isNullOrEmptyString(value) || value.match(/^[0-9a-z-]+$/) === null && value.length <= 128) {
+    invalid.invalid = true;
+    invalid.invalidText = `Invalid ${field}. Value must match regex expression /^[0-9a-z-]+$/.`;
+  }
+  return invalid;
+}
+var cbrUtils = {
+  cbrInvalid
+};
+var cbrUtils_1 = cbrUtils.cbrInvalid;
+
 /**
  * Context-based restriction addresses / exclusions
  */
@@ -8256,18 +8275,16 @@ class CbrZoneExclusionAddressForm extends Component {
       onChange: this.handleInputChange,
       invalid: false,
       hideHelperText: true
-    }), /*#__PURE__*/React.createElement(IcseTextInput, {
+    }), /*#__PURE__*/React.createElement(IcseTextInput, _extends({
       id: this.props.data.name + "-cbr-account-id",
       componentName: this.props.data.name + "-cbr-zone",
       field: "account_id",
       value: this.state.account_id,
       labelText: "Account ID",
       onChange: this.handleInputChange,
-      invalid: false,
-      invalidText: "nyi",
       hideHelperText: true,
       className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(IcseTextInput, {
+    }, cbrUtils_1("account_id", this.state.account_id))), /*#__PURE__*/React.createElement(IcseTextInput, _extends({
       id: this.props.data.name + "-cbr-zone-location",
       componentName: this.props.data.name + "cbr-zone-location",
       className: "fieldWidthSmaller",
@@ -8275,10 +8292,8 @@ class CbrZoneExclusionAddressForm extends Component {
       field: "location",
       value: this.state.location,
       onChange: this.handleInputChange,
-      invalid: false,
-      invalidText: "nyi",
       hideHelperText: true
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+    }, cbrUtils_1("location", this.state.location)))), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, _extends({
       id: this.props.data.name + "-cbr-zone-service-name",
       componentName: this.props.data.name + "cbr-zone-service-name",
       className: "fieldWidthSmaller",
@@ -8286,10 +8301,8 @@ class CbrZoneExclusionAddressForm extends Component {
       field: "service_name",
       value: this.state.service_name,
       onChange: this.handleInputChange,
-      invalid: false,
-      invalidText: "nyi",
       hideHelperText: true
-    }), /*#__PURE__*/React.createElement(IcseTextInput, {
+    }, cbrUtils_1("service_name", this.state.service_name))), /*#__PURE__*/React.createElement(IcseTextInput, _extends({
       id: this.props.data.name + "-cbr-zone-service-type",
       componentName: this.props.data.name + "cbr-zone-service-type",
       className: "fieldWidthSmaller",
@@ -8297,10 +8310,8 @@ class CbrZoneExclusionAddressForm extends Component {
       field: "service_type",
       value: this.state.service_type,
       onChange: this.handleInputChange,
-      invalid: false,
-      invalidText: "nyi",
       hideHelperText: true
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+    }, cbrUtils_1("service_type", this.state.service_type)))), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
       labelText: "Type",
       name: "type",
       formName: this.props.data.name + "cbr-zone-type",
@@ -8318,7 +8329,6 @@ class CbrZoneExclusionAddressForm extends Component {
       value: this.state.value,
       onChange: this.handleInputChange,
       invalid: false,
-      invalidText: "nyi",
       hideHelperText: true
     })));
   }
@@ -8400,16 +8410,14 @@ class CbrZoneForm extends Component {
       hideHelperText: true,
       invalid: this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props)
-    }), /*#__PURE__*/React.createElement(IcseTextInput, {
+    }), /*#__PURE__*/React.createElement(IcseTextInput, _extends({
       id: this.props.data.name + "-cbr-account-id",
       componentName: this.props.data.name + "-cbr-zone",
       field: "account_id",
       value: this.state.account_id,
       labelText: "Account ID",
-      onChange: this.handleInputChange,
-      invalid: false,
-      invalidText: "nyi"
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
+      onChange: this.handleInputChange
+    }, cbrUtils_1("account_id", this.state.account_id)))), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
       id: this.props.data.name + "-cbr-zone-description",
       className: "textInputWide",
       name: "description",
@@ -8417,7 +8425,7 @@ class CbrZoneForm extends Component {
       labelText: "Description",
       onChange: this.handleInputChange,
       invalid: this.state.description.length < 0 || this.state.description.length > 300,
-      invalidText: "Invalid description",
+      invalidText: "Invalid description, must be between 0 and 300 characters.",
       enableCounter: true
     })), this.props.isModal !== true && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormTemplate, {
       name: "Addresses",
@@ -8968,7 +8976,7 @@ class RoutingTableRouteForm extends Component {
     this.state = {
       ...this.props.data
     };
-    if (!isNullOrEmptyString$3(this.state.action) && this.state.action !== "deliver") {
+    if (!isNullOrEmptyString$4(this.state.action) && this.state.action !== "deliver") {
       this.state.next_hop = "0.0.0.0";
     }
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -9043,7 +9051,7 @@ class RoutingTableRouteForm extends Component {
       value: this.state.next_hop,
       labelText: "Next Hop",
       placeholder: "x.x.x.x",
-      invalidCallback: () => isNullOrEmptyString$3(this.state.next_hop) || isIpv4CidrOrAddress$1(this.state.next_hop) === false || contains$2(this.state.next_hop, `/`),
+      invalidCallback: () => isNullOrEmptyString$4(this.state.next_hop) || isIpv4CidrOrAddress$1(this.state.next_hop) === false || contains$2(this.state.next_hop, `/`),
       invalidText: "Next hop must be a valid IP",
       onChange: this.handleInputChange,
       disabled: this.state.action !== "deliver",

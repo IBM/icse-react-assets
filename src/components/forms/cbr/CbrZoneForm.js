@@ -11,6 +11,7 @@ import {
   buildFormFunctions,
 } from "../../component-utils";
 import CbrZoneExclusionAddressForm from "./CbrZoneExclusionAddressForm.js";
+import { cbrInvalid } from "../../../lib/cbr-utils";
 
 /**
  * Context-based restriction zones
@@ -66,8 +67,7 @@ class CbrZoneForm extends Component {
             value={this.state.account_id}
             labelText={"Account ID"}
             onChange={this.handleInputChange}
-            invalid={false}
-            invalidText={"nyi"}
+            {...cbrInvalid("account_id", this.state.account_id)}
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -82,7 +82,9 @@ class CbrZoneForm extends Component {
               this.state.description.length < 0 ||
               this.state.description.length > 300
             }
-            invalidText={"Invalid description"}
+            invalidText={
+              "Invalid description, must be between 0 and 300 characters."
+            }
             enableCounter={true}
           />
         </IcseFormGroup>

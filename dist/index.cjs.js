@@ -3498,7 +3498,7 @@ const {
   RegexButWithWords: RegexButWithWords$1
 } = regexButWithWords__default["default"];
 const {
-  isNullOrEmptyString: isNullOrEmptyString$2
+  isNullOrEmptyString: isNullOrEmptyString$3
 } = lazyZ__default["default"];
 const urlValidationExp = new RegexButWithWords$1().group(exp => {
   exp.literal("ftp").or().literal("http").literal("s").lazy();
@@ -3521,7 +3521,7 @@ const tmosAdminPasswordValidationExp = new RegexButWithWords$1().stringBegin().l
  * @returns {boolean} true when url is valid and not empty, false when invalid
  */
 function isValidUrl(url) {
-  if (isNullOrEmptyString$2(url) || url === "null") return true;
+  if (isNullOrEmptyString$3(url) || url === "null") return true;
   return url.match(urlValidationExp) !== null;
 }
 
@@ -3531,7 +3531,7 @@ function isValidUrl(url) {
  * @returns {boolean} true when password is valid
  */
 function isValidTmosAdminPassword(password) {
-  if (isNullOrEmptyString$2(password)) return true;else return password.match(tmosAdminPasswordValidationExp) !== null;
+  if (isNullOrEmptyString$3(password)) return true;else return password.match(tmosAdminPasswordValidationExp) !== null;
 }
 
 /**
@@ -3590,7 +3590,7 @@ function getValidAdminPassword(length) {
 }
 var f5Utils = {
   getValidAdminPassword,
-  isNullOrEmptyString: isNullOrEmptyString$2,
+  isNullOrEmptyString: isNullOrEmptyString$3,
   isValidTmosAdminPassword,
   isValidUrl
 };
@@ -4042,7 +4042,7 @@ const commaSeparatedIpListExp = new RegexButWithWords().stringBegin().group(exp 
  * @param {*} value
  * @returns {boolean} true if null or empty string
  */
-function isNullOrEmptyString$1(value) {
+function isNullOrEmptyString$2(value) {
   return value === null || value === "";
 }
 
@@ -4054,7 +4054,7 @@ function isNullOrEmptyString$1(value) {
  * @returns {boolean} true if invalid
  */
 function isRangeInvalid(value, min, max) {
-  if (isNullOrEmptyString$1(value)) return false;
+  if (isNullOrEmptyString$2(value)) return false;
   value = parseFloat(value);
   if (!isWholeNumber(value) || !isInRange(value, min, max)) {
     return true;
@@ -4068,7 +4068,7 @@ function isRangeInvalid(value, min, max) {
  * @returns {boolean} true if invalid
  */
 function isIpStringInvalid(value) {
-  if (!isNullOrEmptyString$1(value) && value.match(commaSeparatedIpListExp) === null) {
+  if (!isNullOrEmptyString$2(value) && value.match(commaSeparatedIpListExp) === null) {
     return true;
   }
   return false;
@@ -4544,7 +4544,7 @@ const {
   kebabCase,
   isIpv4CidrOrAddress,
   validPortRange,
-  isNullOrEmptyString,
+  isNullOrEmptyString: isNullOrEmptyString$1,
   contains
 } = require("lazy-z");
 
@@ -4838,7 +4838,7 @@ const NetworkingRuleProtocolTextField = props => {
     placeholder: String(props.state.rule[props.name]),
     value: props.state.rule[props.name] || "",
     onChange: e => props.onChange(props.name, e),
-    invalid: validPortRange(props.name, props.state.rule[props.name] || -1) === false && isNullOrEmptyString(props.state.rule[props.name]) === false,
+    invalid: validPortRange(props.name, props.state.rule[props.name] || -1) === false && isNullOrEmptyString$1(props.state.rule[props.name]) === false,
     invalidText: contains(["type", "code"], props.name) ? `0 to ${props.name === "type" ? 254 : 255}` : "1 to 65535",
     className: "fieldWidthSmaller"
   });
@@ -8236,6 +8236,25 @@ VpnServerRouteForm.propTypes = {
   invalidTextCallback: PropTypes__default["default"].func.isRequired
 };
 
+const {
+  isNullOrEmptyString
+} = lazyZ__default["default"];
+function cbrInvalid(field, value) {
+  let invalid = {
+    invalid: false,
+    invalidText: ""
+  };
+  if (isNullOrEmptyString(value) || value.match(/^[0-9a-z-]+$/) === null && value.length <= 128) {
+    invalid.invalid = true;
+    invalid.invalidText = `Invalid ${field}. Value must match regex expression /^[0-9a-z-]+$/.`;
+  }
+  return invalid;
+}
+var cbrUtils = {
+  cbrInvalid
+};
+var cbrUtils_1 = cbrUtils.cbrInvalid;
+
 /**
  * Context-based restriction addresses / exclusions
  */
@@ -8267,18 +8286,16 @@ class CbrZoneExclusionAddressForm extends React.Component {
       onChange: this.handleInputChange,
       invalid: false,
       hideHelperText: true
-    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, _extends({
       id: this.props.data.name + "-cbr-account-id",
       componentName: this.props.data.name + "-cbr-zone",
       field: "account_id",
       value: this.state.account_id,
       labelText: "Account ID",
       onChange: this.handleInputChange,
-      invalid: false,
-      invalidText: "nyi",
       hideHelperText: true,
       className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+    }, cbrUtils_1("account_id", this.state.account_id))), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, _extends({
       id: this.props.data.name + "-cbr-zone-location",
       componentName: this.props.data.name + "cbr-zone-location",
       className: "fieldWidthSmaller",
@@ -8286,10 +8303,8 @@ class CbrZoneExclusionAddressForm extends React.Component {
       field: "location",
       value: this.state.location,
       onChange: this.handleInputChange,
-      invalid: false,
-      invalidText: "nyi",
       hideHelperText: true
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+    }, cbrUtils_1("location", this.state.location)))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, _extends({
       id: this.props.data.name + "-cbr-zone-service-name",
       componentName: this.props.data.name + "cbr-zone-service-name",
       className: "fieldWidthSmaller",
@@ -8297,10 +8312,8 @@ class CbrZoneExclusionAddressForm extends React.Component {
       field: "service_name",
       value: this.state.service_name,
       onChange: this.handleInputChange,
-      invalid: false,
-      invalidText: "nyi",
       hideHelperText: true
-    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+    }, cbrUtils_1("service_name", this.state.service_name))), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, _extends({
       id: this.props.data.name + "-cbr-zone-service-type",
       componentName: this.props.data.name + "cbr-zone-service-type",
       className: "fieldWidthSmaller",
@@ -8308,10 +8321,8 @@ class CbrZoneExclusionAddressForm extends React.Component {
       field: "service_type",
       value: this.state.service_type,
       onChange: this.handleInputChange,
-      invalid: false,
-      invalidText: "nyi",
       hideHelperText: true
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+    }, cbrUtils_1("service_type", this.state.service_type)))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       labelText: "Type",
       name: "type",
       formName: this.props.data.name + "cbr-zone-type",
@@ -8329,7 +8340,6 @@ class CbrZoneExclusionAddressForm extends React.Component {
       value: this.state.value,
       onChange: this.handleInputChange,
       invalid: false,
-      invalidText: "nyi",
       hideHelperText: true
     })));
   }
@@ -8411,16 +8421,14 @@ class CbrZoneForm extends React.Component {
       hideHelperText: true,
       invalid: this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props)
-    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, _extends({
       id: this.props.data.name + "-cbr-account-id",
       componentName: this.props.data.name + "-cbr-zone",
       field: "account_id",
       value: this.state.account_id,
       labelText: "Account ID",
-      onChange: this.handleInputChange,
-      invalid: false,
-      invalidText: "nyi"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
+      onChange: this.handleInputChange
+    }, cbrUtils_1("account_id", this.state.account_id)))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
       id: this.props.data.name + "-cbr-zone-description",
       className: "textInputWide",
       name: "description",
@@ -8428,7 +8436,7 @@ class CbrZoneForm extends React.Component {
       labelText: "Description",
       onChange: this.handleInputChange,
       invalid: this.state.description.length < 0 || this.state.description.length > 300,
-      invalidText: "Invalid description",
+      invalidText: "Invalid description, must be between 0 and 300 characters.",
       enableCounter: true
     })), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
       name: "Addresses",

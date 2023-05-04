@@ -7,6 +7,7 @@ import {
 import { IcseFormGroup } from "../../Utils";
 import { IcseNameInput, IcseTextInput } from "../../Inputs";
 import { IcseSelect } from "../../Dropdowns";
+import { cbrInvalid } from "../../../lib/cbr-utils";
 
 /**
  * Context-based restriction addresses / exclusions
@@ -45,10 +46,9 @@ class CbrZoneExclusionAddressForm extends Component {
             value={this.state.account_id}
             labelText={"Account ID"}
             onChange={this.handleInputChange}
-            invalid={false}
-            invalidText={"nyi"}
             hideHelperText={true}
             className="fieldWidthSmaller"
+            {...cbrInvalid("account_id", this.state.account_id)}
           />
           <IcseTextInput
             id={this.props.data.name + "-cbr-zone-location"}
@@ -58,9 +58,8 @@ class CbrZoneExclusionAddressForm extends Component {
             field="location"
             value={this.state.location}
             onChange={this.handleInputChange}
-            invalid={false}
-            invalidText={"nyi"}
             hideHelperText={true}
+            {...cbrInvalid("location", this.state.location)}
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -72,9 +71,8 @@ class CbrZoneExclusionAddressForm extends Component {
             field="service_name"
             value={this.state.service_name}
             onChange={this.handleInputChange}
-            invalid={false}
-            invalidText={"nyi"}
             hideHelperText={true}
+            {...cbrInvalid("service_name", this.state.service_name)}
           />
           <IcseTextInput
             id={this.props.data.name + "-cbr-zone-service-type"}
@@ -84,9 +82,8 @@ class CbrZoneExclusionAddressForm extends Component {
             field="service_type"
             value={this.state.service_type}
             onChange={this.handleInputChange}
-            invalid={false}
-            invalidText={"nyi"}
             hideHelperText={true}
+            {...cbrInvalid("service_type", this.state.service_type)}
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -109,7 +106,6 @@ class CbrZoneExclusionAddressForm extends Component {
             value={this.state.value}
             onChange={this.handleInputChange}
             invalid={false}
-            invalidText={"nyi"}
             hideHelperText={true}
           />
         </IcseFormGroup>
