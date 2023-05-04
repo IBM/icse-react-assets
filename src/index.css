@@ -322,6 +322,10 @@ i.chevron > svg {
   background-color: var(--subForm);
 }
 
+.marginTop {
+  margin-top: 1rem;
+}
+
 /* under construction */
 
 .underConstruction {
@@ -354,4 +358,84 @@ i.chevron > svg {
 
 .passwordGenerateButton.invalid {
   margin-left: calc(-5.75rem - 3vw);
+}
+
+.wrap {
+  flex-flow: wrap;
+}
+
+@media screen and (max-width: 1024px) {
+  .fieldWidth {
+    width: 11rem;
+  }
+
+  .fieldWidthSmaller {
+    width: 8rem;
+  }
+
+  .fieldWidthSmallest {
+    width: 5rem;
+  }
+
+  .textInputWide {
+    width: 20rem;
+  }
+
+  .fieldWidthBigger {
+    width: 30rem;
+  }
+
+  .textInputMedium {
+    width: 15rem;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .fieldWidth {
+    width: 100%;
+  }
+
+  .fieldWidthSmaller {
+    width: 100%;
+  }
+
+  .fieldWidthSmallest {
+    width: 100%;
+  }
+
+  .textInputMedium {
+    width: 100%;
+  }
+
+  .fieldWidthBigger {
+    width: 100%;
+  }
+
+  .textInputWide {
+    width: 100%;
+  }
+
+  .formGroup {
+    /* items 1 wide */
+    flex-direction: column !important;
+  }
+
+  .popover-obj.select {
+    /* need to adjust size for popover container at small widths */
+    width: 100%;
+  }
+
+  .popover-obj.select > span {
+    width: 100%;
+  }
+
+  /* items with tooltip should also be full width */
+  .cds--form-item {
+    flex: none;
+    width: 100%;
+  }
+}
+
+.cds--form-item {
+  flex: none; /* overwrite flex to fix inconsistent widths */
 }
