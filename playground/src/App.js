@@ -11,20 +11,16 @@ const CbrRuleFormStory = ({ ...args }) => {
     else return false;
   }
 
-  function invalidCallback(field, stateData, componentProps) {
-    if (field === "name")
-      return (
-        !validName(stateData.name) || contains(["foo", "bar"], stateData.name)
-      );
-    else return false;
+  function invalidCallback(stateData, componentProps) {
+    return (
+      !validName(stateData.name) || contains(["foo", "bar"], stateData.name)
+    );
   }
 
-  function invalidTextCallback(field, stateData, componentProps) {
-    if (field === "name")
-      return contains(["foo", "bar"], stateData.name)
-        ? `Name ${stateData.name} already in use.`
-        : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
-    else return `Invalid ${field}`;
+  function invalidTextCallback(stateData, componentProps) {
+    return contains(["foo", "bar"], stateData.name)
+      ? `Name ${stateData.name} already in use.`
+      : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
   }
 
   return (
