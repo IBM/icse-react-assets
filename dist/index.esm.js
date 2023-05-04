@@ -8325,7 +8325,7 @@ class CbrZoneExclusionAddressForm extends Component {
       labelText: "Type",
       name: "type",
       formName: this.props.data.name + "cbr-zone-type",
-      groups: ["ipAddress", "ipRange", "subnet", "vpc", "serviceRef"],
+      groups: ["IP Address", "IP Range", "Subnet", "VPC", "Service Ref"],
       value: typeNameMap[this.state.type],
       handleInputChange: this.handleInputChange,
       invalidText: "Select a Type",
@@ -8360,7 +8360,6 @@ CbrZoneExclusionAddressForm.propTypes = {
     account_id: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    operator: PropTypes.string.isRequired,
     service_name: PropTypes.string.isRequired,
     service_type: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
@@ -8490,7 +8489,8 @@ CbrZoneForm.defaultProps = {
     account_id: "",
     addresses: [],
     exclusions: []
-  }
+  },
+  isModal: false
 };
 CbrZoneForm.propTypes = {
   account_id: PropTypes.string,
@@ -8506,23 +8506,21 @@ CbrZoneForm.propTypes = {
     account_id: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     addresses: PropTypes.arrayOf(PropTypes.shape({
-      account_id: PropTypes.string,
-      location: PropTypes.string,
+      account_id: PropTypes.string.isRequired,
+      location: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      operator: PropTypes.string.isRequired,
-      service_name: PropTypes.string,
-      service_type: PropTypes.string,
-      type: PropTypes.string,
+      service_name: PropTypes.string.isRequired,
+      service_type: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
       value: PropTypes.string.isRequired
     }).isRequired),
     exclusions: PropTypes.arrayOf(PropTypes.shape({
-      account_id: PropTypes.string,
-      location: PropTypes.string,
+      account_id: PropTypes.string.isRequired,
+      location: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      operator: PropTypes.string.isRequired,
-      service_name: PropTypes.string,
-      service_type: PropTypes.string,
-      type: PropTypes.string,
+      service_name: PropTypes.string.isRequired,
+      service_type: PropTypes.string.isRequired,
+      type: PropTypes.string.isRequired,
       value: PropTypes.string.isRequired
     }).isRequired)
   }),
@@ -8532,13 +8530,14 @@ CbrZoneForm.propTypes = {
     onSave: PropTypes.func,
     onSubmit: PropTypes.func
   }),
-  invalidAddressCallback: PropTypes.any,
   invalidCallback: PropTypes.func.isRequired,
-  invalidContextTextCallback: PropTypes.any,
-  invalidExclusionCallback: PropTypes.any,
   invalidTextCallback: PropTypes.func.isRequired,
-  isModal: PropTypes.bool,
-  propsMatchState: PropTypes.any
+  invalidAddressCallback: PropTypes.func.isRequired,
+  invalidAddressTextCallback: PropTypes.func.isRequired,
+  invalidExclusionCallback: PropTypes.func.isRequired,
+  invalidExclusionTextCallback: PropTypes.func.isRequired,
+  isModal: PropTypes.bool.isRequired,
+  propsMatchState: PropTypes.func.isRequired
 };
 
 class AccessGroupPolicyForm extends React.Component {

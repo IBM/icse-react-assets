@@ -106,7 +106,7 @@ class CbrZoneExclusionAddressForm extends Component {
             labelText="Type"
             name="type"
             formName={this.props.data.name + "cbr-zone-type"}
-            groups={["ipAddress", "ipRange", "subnet", "vpc", "serviceRef"]}
+            groups={["IP Address", "IP Range", "Subnet", "VPC", "Service Ref"]}
             value={typeNameMap[this.state.type]}
             handleInputChange={this.handleInputChange}
             invalidText="Select a Type"
@@ -147,7 +147,6 @@ CbrZoneExclusionAddressForm.propTypes = {
     account_id: PropTypes.string.isRequired,
     location: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    operator: PropTypes.string.isRequired,
     service_name: PropTypes.string.isRequired,
     service_type: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,

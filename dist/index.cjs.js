@@ -8336,7 +8336,7 @@ class CbrZoneExclusionAddressForm extends React.Component {
       labelText: "Type",
       name: "type",
       formName: this.props.data.name + "cbr-zone-type",
-      groups: ["ipAddress", "ipRange", "subnet", "vpc", "serviceRef"],
+      groups: ["IP Address", "IP Range", "Subnet", "VPC", "Service Ref"],
       value: typeNameMap[this.state.type],
       handleInputChange: this.handleInputChange,
       invalidText: "Select a Type",
@@ -8371,7 +8371,6 @@ CbrZoneExclusionAddressForm.propTypes = {
     account_id: PropTypes__default["default"].string.isRequired,
     location: PropTypes__default["default"].string.isRequired,
     name: PropTypes__default["default"].string.isRequired,
-    operator: PropTypes__default["default"].string.isRequired,
     service_name: PropTypes__default["default"].string.isRequired,
     service_type: PropTypes__default["default"].string.isRequired,
     type: PropTypes__default["default"].string.isRequired,
@@ -8501,7 +8500,8 @@ CbrZoneForm.defaultProps = {
     account_id: "",
     addresses: [],
     exclusions: []
-  }
+  },
+  isModal: false
 };
 CbrZoneForm.propTypes = {
   account_id: PropTypes__default["default"].string,
@@ -8517,23 +8517,21 @@ CbrZoneForm.propTypes = {
     account_id: PropTypes__default["default"].string.isRequired,
     description: PropTypes__default["default"].string.isRequired,
     addresses: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({
-      account_id: PropTypes__default["default"].string,
-      location: PropTypes__default["default"].string,
+      account_id: PropTypes__default["default"].string.isRequired,
+      location: PropTypes__default["default"].string.isRequired,
       name: PropTypes__default["default"].string.isRequired,
-      operator: PropTypes__default["default"].string.isRequired,
-      service_name: PropTypes__default["default"].string,
-      service_type: PropTypes__default["default"].string,
-      type: PropTypes__default["default"].string,
+      service_name: PropTypes__default["default"].string.isRequired,
+      service_type: PropTypes__default["default"].string.isRequired,
+      type: PropTypes__default["default"].string.isRequired,
       value: PropTypes__default["default"].string.isRequired
     }).isRequired),
     exclusions: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({
-      account_id: PropTypes__default["default"].string,
-      location: PropTypes__default["default"].string,
+      account_id: PropTypes__default["default"].string.isRequired,
+      location: PropTypes__default["default"].string.isRequired,
       name: PropTypes__default["default"].string.isRequired,
-      operator: PropTypes__default["default"].string.isRequired,
-      service_name: PropTypes__default["default"].string,
-      service_type: PropTypes__default["default"].string,
-      type: PropTypes__default["default"].string,
+      service_name: PropTypes__default["default"].string.isRequired,
+      service_type: PropTypes__default["default"].string.isRequired,
+      type: PropTypes__default["default"].string.isRequired,
       value: PropTypes__default["default"].string.isRequired
     }).isRequired)
   }),
@@ -8543,13 +8541,14 @@ CbrZoneForm.propTypes = {
     onSave: PropTypes__default["default"].func,
     onSubmit: PropTypes__default["default"].func
   }),
-  invalidAddressCallback: PropTypes__default["default"].any,
   invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidContextTextCallback: PropTypes__default["default"].any,
-  invalidExclusionCallback: PropTypes__default["default"].any,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  isModal: PropTypes__default["default"].bool,
-  propsMatchState: PropTypes__default["default"].any
+  invalidAddressCallback: PropTypes__default["default"].func.isRequired,
+  invalidAddressTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidExclusionCallback: PropTypes__default["default"].func.isRequired,
+  invalidExclusionTextCallback: PropTypes__default["default"].func.isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired
 };
 
 class AccessGroupPolicyForm extends React__default["default"].Component {
