@@ -35,14 +35,14 @@ class CbrZoneForm extends Component {
     let exclusionInnerFormProps = {
       type: "exclusion",
       invalidCallback: this.props.invalidExclusionCallback,
-      invalidTextCallback: this.props.invalidContextTextCallback,
+      invalidTextCallback: this.props.invalidExclusionTextCallback,
       arrayParentName: this.props.data.name,
     };
     transpose({ ...this.props.exclusionProps }, exclusionInnerFormProps);
 
     let addressInnerFormProps = {
       invalidCallback: this.props.invalidAddressCallback,
-      invalidTextCallback: this.props.invalidResourceAttributeTextCallback,
+      invalidTextCallback: this.props.invalidAddressTextCallback,
       arrayParentName: this.props.data.name,
       type: "address",
     };
@@ -57,7 +57,9 @@ class CbrZoneForm extends Component {
             value={this.state.name}
             onChange={this.handleInputChange}
             hideHelperText={true}
-            invalid={this.props.invalidCallback(this.state, this.props)}
+            invalidCallback={() =>
+              this.props.invalidCallback(this.state, this.props)
+            }
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
           />
           <IcseTextInput

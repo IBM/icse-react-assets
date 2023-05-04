@@ -36,7 +36,10 @@ class CbrZoneExclusionAddressForm extends Component {
             className={"fieldWidthSmaller"}
             value={this.state.name}
             onChange={this.handleInputChange}
-            invalid={false}
+            invalidCallback={() =>
+              this.props.invalidCallback(this.state, this.props)
+            }
+            invalidText={this.props.invalidTextCallback(this.state, this.props)}
             hideHelperText={true}
           />
           <IcseTextInput
