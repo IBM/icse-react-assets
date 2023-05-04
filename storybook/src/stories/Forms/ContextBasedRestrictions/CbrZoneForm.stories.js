@@ -12,35 +12,89 @@ export default {
       control: "none",
     },
     ["data.name"]: {
-      description: "A string specifying the name of the AppID instance",
+      description: "A string specifying the name of the CBR Zone",
       control: "none",
       type: { required: true }, // required prop or not
     },
-    ["data.use_data"]: {
-      description:
-        "A string specifying the name of the resource group selected",
+    ["data.account_id"]: {
+      description: "A string specifying an account id",
       control: "none",
       type: { required: true }, // required prop or not
     },
-    ["data.resource_group"]: {
-      description: "A string value of the Resource Group",
+    ["data.description"]: {
+      description: "A string of 0-300 characters specifying a zone description",
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.keys"]: {
-      description: "An array of strings containing the list of AppID keys",
+    ["data.addresses"]: {
+      description:
+        "An array of objects containing cbr zone addresses, view the CbrZoneExclusionAddressForm story for more information",
       control: "none",
       type: { required: true }, // required prop or not
     },
-    resourceGroups: {
+    ["data.exclusions"]: {
       description:
-        "An array of strings containing the names of resource groups to select",
+        "An array of objects containing cbr zone addresses, view the CbrZoneExclusionAddressForm story for more information",
+      control: "none",
+      type: { required: true }, // required prop or not
+    },
+    exclusionProps: {
+      description:
+        "An object containing props to pass to the CbrZoneExclusionAddressForm",
       type: { required: true }, // required prop or not
       control: "none",
+    },
+    ["exclusionProps.disableSave"]: {
+      description:
+        "A function that determines if the save button should be disabled",
+      control: "none",
+      type: { required: true }, // required prop or not
+    },
+    ["exclusionProps.onDelete"]: {
+      description:
+        "A function that determines what should happen when delete is pressed",
+      control: "none",
+      type: { required: true }, // required prop or not
+    },
+    ["exclusionProps.onSave"]: {
+      description:
+        "A function that determines what should occur when the form is saved",
+      control: "none",
+      type: { required: true }, // required prop or not
+    },
+    ["exclusionProps.onSubmit"]: {
+      description:
+        "A function that determines what occurs when a modal is submitted",
+      control: "none",
+      type: { required: true }, // required prop or not
+    },
+    ["addressProps.disableSave"]: {
+      description:
+        "A function that determines if the save button should be disabled",
+      control: "none",
+      type: { required: true }, // required prop or not
+    },
+    ["addressProps.onDelete"]: {
+      description:
+        "A function that determines what should happen when delete is pressed",
+      control: "none",
+      type: { required: true }, // required prop or not
+    },
+    ["addressProps.onSave"]: {
+      description:
+        "A function that determines what should occur when the form is saved",
+      control: "none",
+      type: { required: true }, // required prop or not
+    },
+    ["addressProps.onSubmit"]: {
+      description:
+        "A function that determines what occurs when a modal is submitted",
+      control: "none",
+      type: { required: true }, // required prop or not
     },
     invalidCallback: {
       description:
-        "Function that determines invalid state and invalid text for `public_key` field",
+        "Function that determines invalid state and invalid text for `name` field",
       type: { required: true }, // required prop or not
       control: "none",
     },
@@ -50,16 +104,39 @@ export default {
       type: { required: true }, // required prop or not
       control: "none",
     },
-    invalidKeyCallback: {
+    invalidAddressCallback: {
       description:
-        "Function that determines invalid state for child key forms `name` field",
+        "Function that determines invalid state for child form's `name` field",
       type: { required: true }, // required prop or not
       control: "none",
     },
-    invalidKeyTextCallback: {
+    invalidAddressTextCallback: {
       description:
-        "Function that determines invalid text child key forms `name` field",
+        "Function that determines invalid text child form's `name` field",
       type: { required: true }, // required prop or not
+      control: "none",
+    },
+    invalidExclusionCallback: {
+      description:
+        "Function that determines invalid state for child form's `name` field",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
+    invalidExclusionTextCallback: {
+      description:
+        "Function that determines invalid text child form's `name` field",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
+    isModal: {
+      description: "A boolean that describes if the form is in a modal or not",
+      type: { required: true },
+      table: { defaultValue: { summary: false } },
+      control: "none",
+    },
+    propsMatchState: {
+      description: "A function that determines if props are the same as state",
+      type: { required: true },
       control: "none",
     },
   },

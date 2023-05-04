@@ -8244,7 +8244,7 @@ function cbrInvalid(field, value) {
     invalid: false,
     invalidText: ""
   };
-  if (isNullOrEmptyString(value) || value.match(/^[0-9a-z-]+$/) === null && value.length <= 128) {
+  if (isNullOrEmptyString(value) || value.match(/^[0-9a-z-]+$/) === null || value.length >= 128) {
     invalid.invalid = true;
     invalid.invalidText = `Invalid ${field}. Value must match regex expression /^[0-9a-z-]+$/.`;
   }
@@ -8254,6 +8254,14 @@ var cbrUtils = {
   cbrInvalid
 };
 var cbrUtils_1 = cbrUtils.cbrInvalid;
+
+const typeNameMap = {
+  ipAddress: "IP Address",
+  ipRange: "IP Range",
+  subnet: "Subnet",
+  vpc: "VPC",
+  serviceRef: "Service Ref"
+};
 
 /**
  * Context-based restriction addresses / exclusions
@@ -8273,6 +8281,7 @@ class CbrZoneExclusionAddressForm extends React.Component {
       name,
       value
     } = event.target;
+    if (name === "type") value = Object.keys(typeNameMap).find(key => typeNameMap[key] === value);
     this.setState({
       [name]: value
     });
@@ -8328,7 +8337,7 @@ class CbrZoneExclusionAddressForm extends React.Component {
       name: "type",
       formName: this.props.data.name + "cbr-zone-type",
       groups: ["ipAddress", "ipRange", "subnet", "vpc", "serviceRef"],
-      value: this.state.type,
+      value: typeNameMap[this.state.type],
       handleInputChange: this.handleInputChange,
       invalidText: "Select a Type",
       className: "fieldWidthSmaller"
@@ -8354,20 +8363,21 @@ CbrZoneExclusionAddressForm.defaultProps = {
     service_type: "",
     type: "ipAddress",
     value: ""
-  }
+  },
+  isModal: false
 };
 CbrZoneExclusionAddressForm.propTypes = {
   data: PropTypes__default["default"].shape({
-    account_id: PropTypes__default["default"].string,
-    location: PropTypes__default["default"].string,
+    account_id: PropTypes__default["default"].string.isRequired,
+    location: PropTypes__default["default"].string.isRequired,
     name: PropTypes__default["default"].string.isRequired,
     operator: PropTypes__default["default"].string.isRequired,
-    service_name: PropTypes__default["default"].string,
-    service_type: PropTypes__default["default"].string,
-    type: PropTypes__default["default"].string,
+    service_name: PropTypes__default["default"].string.isRequired,
+    service_type: PropTypes__default["default"].string.isRequired,
+    type: PropTypes__default["default"].string.isRequired,
     value: PropTypes__default["default"].string.isRequired
   }),
-  isModal: PropTypes__default["default"].bool
+  isModal: PropTypes__default["default"].bool.isRequired
 };
 
 /**

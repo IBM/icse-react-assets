@@ -9,6 +9,14 @@ import { IcseNameInput, IcseTextInput } from "../../Inputs";
 import { IcseSelect } from "../../Dropdowns";
 import { cbrInvalid } from "../../../lib/cbr-utils";
 
+const typeNameMap = {
+  ipAddress: "IP Address",
+  ipRange: "IP Range",
+  subnet: "Subnet",
+  vpc: "VPC",
+  serviceRef: "Service Ref",
+};
+
 /**
  * Context-based restriction addresses / exclusions
  */
@@ -23,6 +31,10 @@ class CbrZoneExclusionAddressForm extends Component {
 
   handleInputChange(event) {
     let { name, value } = event.target;
+    if (name === "type")
+      value = Object.keys(typeNameMap).find(
+        (key) => typeNameMap[key] === value
+      );
     this.setState({ [name]: value });
   }
 
@@ -95,7 +107,7 @@ class CbrZoneExclusionAddressForm extends Component {
             name="type"
             formName={this.props.data.name + "cbr-zone-type"}
             groups={["ipAddress", "ipRange", "subnet", "vpc", "serviceRef"]}
-            value={this.state.type}
+            value={typeNameMap[this.state.type]}
             handleInputChange={this.handleInputChange}
             invalidText="Select a Type"
             className="fieldWidthSmaller"
@@ -127,20 +139,21 @@ CbrZoneExclusionAddressForm.defaultProps = {
     type: "ipAddress",
     value: "",
   },
+  isModal: false,
 };
 
 CbrZoneExclusionAddressForm.propTypes = {
   data: PropTypes.shape({
-    account_id: PropTypes.string,
-    location: PropTypes.string,
+    account_id: PropTypes.string.isRequired,
+    location: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     operator: PropTypes.string.isRequired,
-    service_name: PropTypes.string,
-    service_type: PropTypes.string,
-    type: PropTypes.string,
+    service_name: PropTypes.string.isRequired,
+    service_type: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
   }),
-  isModal: PropTypes.bool,
+  isModal: PropTypes.bool.isRequired,
 };
 
 export default CbrZoneExclusionAddressForm;
