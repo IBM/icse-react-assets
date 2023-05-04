@@ -43,8 +43,8 @@ class CbrZoneExclusionAddressForm extends Component {
       <>
         <IcseFormGroup>
           <IcseNameInput
-            id={this.props.data.name + "-cbr-tag"}
-            componentName={this.props.data.name + "-cbr-tag"}
+            id={this.props.data.name + "-cbr-address-exclusion"}
+            componentName={this.props.data.name + "-cbr-zone"}
             className={"fieldWidthSmaller"}
             value={this.state.name}
             onChange={this.handleInputChange}
@@ -153,6 +153,8 @@ CbrZoneExclusionAddressForm.propTypes = {
     value: PropTypes.string.isRequired,
   }),
   isModal: PropTypes.bool.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
 };
 
 export default CbrZoneExclusionAddressForm;
