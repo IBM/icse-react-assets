@@ -3498,7 +3498,7 @@ const {
   RegexButWithWords: RegexButWithWords$1
 } = regexButWithWords__default["default"];
 const {
-  isNullOrEmptyString: isNullOrEmptyString$2
+  isNullOrEmptyString: isNullOrEmptyString$3
 } = lazyZ__default["default"];
 const urlValidationExp = new RegexButWithWords$1().group(exp => {
   exp.literal("ftp").or().literal("http").literal("s").lazy();
@@ -3521,7 +3521,7 @@ const tmosAdminPasswordValidationExp = new RegexButWithWords$1().stringBegin().l
  * @returns {boolean} true when url is valid and not empty, false when invalid
  */
 function isValidUrl(url) {
-  if (isNullOrEmptyString$2(url) || url === "null") return true;
+  if (isNullOrEmptyString$3(url) || url === "null") return true;
   return url.match(urlValidationExp) !== null;
 }
 
@@ -3531,7 +3531,7 @@ function isValidUrl(url) {
  * @returns {boolean} true when password is valid
  */
 function isValidTmosAdminPassword(password) {
-  if (isNullOrEmptyString$2(password)) return true;else return password.match(tmosAdminPasswordValidationExp) !== null;
+  if (isNullOrEmptyString$3(password)) return true;else return password.match(tmosAdminPasswordValidationExp) !== null;
 }
 
 /**
@@ -3590,7 +3590,7 @@ function getValidAdminPassword(length) {
 }
 var f5Utils = {
   getValidAdminPassword,
-  isNullOrEmptyString: isNullOrEmptyString$2,
+  isNullOrEmptyString: isNullOrEmptyString$3,
   isValidTmosAdminPassword,
   isValidUrl
 };
@@ -4042,7 +4042,7 @@ const commaSeparatedIpListExp = new RegexButWithWords().stringBegin().group(exp 
  * @param {*} value
  * @returns {boolean} true if null or empty string
  */
-function isNullOrEmptyString$1(value) {
+function isNullOrEmptyString$2(value) {
   return value === null || value === "";
 }
 
@@ -4054,7 +4054,7 @@ function isNullOrEmptyString$1(value) {
  * @returns {boolean} true if invalid
  */
 function isRangeInvalid(value, min, max) {
-  if (isNullOrEmptyString$1(value)) return false;
+  if (isNullOrEmptyString$2(value)) return false;
   value = parseFloat(value);
   if (!isWholeNumber(value) || !isInRange(value, min, max)) {
     return true;
@@ -4068,7 +4068,7 @@ function isRangeInvalid(value, min, max) {
  * @returns {boolean} true if invalid
  */
 function isIpStringInvalid(value) {
-  if (!isNullOrEmptyString$1(value) && value.match(commaSeparatedIpListExp) === null) {
+  if (!isNullOrEmptyString$2(value) && value.match(commaSeparatedIpListExp) === null) {
     return true;
   }
   return false;
@@ -4544,7 +4544,7 @@ const {
   kebabCase,
   isIpv4CidrOrAddress,
   validPortRange,
-  isNullOrEmptyString,
+  isNullOrEmptyString: isNullOrEmptyString$1,
   contains
 } = require("lazy-z");
 
@@ -4838,7 +4838,7 @@ const NetworkingRuleProtocolTextField = props => {
     placeholder: String(props.state.rule[props.name]),
     value: props.state.rule[props.name] || "",
     onChange: e => props.onChange(props.name, e),
-    invalid: validPortRange(props.name, props.state.rule[props.name] || -1) === false && isNullOrEmptyString(props.state.rule[props.name]) === false,
+    invalid: validPortRange(props.name, props.state.rule[props.name] || -1) === false && isNullOrEmptyString$1(props.state.rule[props.name]) === false,
     invalidText: contains(["type", "code"], props.name) ? `0 to ${props.name === "type" ? 254 : 255}` : "1 to 65535",
     className: "fieldWidthSmaller"
   });
@@ -8251,22 +8251,23 @@ class VpnServerForm extends React.Component {
       name,
       value
     } = event.target;
-    let stateChangeParams = {
+    let newState = {
+      ...this.state
+    };
+    newState = {
       [name]: value
     };
-    if (name === "method")
+    if (name === "method") {
       // Clear client_ca_crn and identity_provider when method changes
-      lazyZ.transpose({
-        client_ca_crn: "",
-        identity_provider: ""
-      }, stateChangeParams);
-    if (name === "vpc")
-      // Clear subnets and security groups when vpc changes
-      lazyZ.transpose({
-        subnets: [],
-        security_groups: []
-      }, stateChangeParams);
-    this.setState(stateChangeParams);
+      newState.client_ca_crn = "";
+      newState.identity_provider = "";
+    }
+    if (name === "vpc") {
+      // Clear subnet and security groups when vpc changes
+      newState.subnet = [];
+      newState.security_groups = [];
+    }
+    this.setState(newState);
   }
 
   /**
@@ -8314,76 +8315,79 @@ class VpnServerForm extends React.Component {
     }, routeProps);
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       id: composedId,
-      className: classNameModalCheck,
-      componentName: "vpn-server-name",
+      componentName: composedId,
       value: this.state.name,
       onChange: this.handleInputChange,
       invalidCallback: () => this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props),
-      hideHelperText: true
+      hideHelperText: true,
+      className: classNameModalCheck
     }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      componentName: "vpn-server-certificate-crn",
-      className: classNameModalCheck,
+      componentName: this.props.data.name + "-vpn-server-certificate-crn",
+      id: this.props.data.name + "-vpn-server-certificate-crn",
+      field: this.props.data.name + "-vpn-server-certificate-crn",
       tooltip: {
         content: "Must use Secrets Manager to generate certificate_crn of secret for this VPN server.",
         align: "top-left"
       },
-      id: "certificate_crn",
       labelText: "Certificate CRN",
       value: this.state.certificate_crn,
       onChange: this.handleInputChange,
-      field: "certificate_crn"
+      invalid: false,
+      className: classNameModalCheck
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "vpn-server-method",
-      className: classNameModalCheck,
+      formName: this.props.data.name + "-vpn-server-method",
       name: "method",
       labelText: "Method",
       groups: ["certificate", "username"],
       value: this.state.method,
-      handleInputChange: this.handleInputChange
+      handleInputChange: this.handleInputChange,
+      className: classNameModalCheck
     }), this.state.method === "certificate" ? /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      componentName: "vpn-server-client-ca-crn",
-      className: classNameModalCheck,
-      id: "client_ca_crn",
+      componentName: this.props.data.name + "-vpn-server-client-ca-crn",
+      field: this.props.data.name + "-vpn-server-client-ca-crn",
+      id: this.props.data.name + "-vpn-server-client-ca-crn",
       labelText: "Client CA CRN",
       value: this.state.client_ca_crn,
       onChange: this.handleInputChange,
-      field: "client_ca_crn"
+      invalid: false,
+      className: classNameModalCheck
     }) : /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      componentName: "vpn-server-identity-provider",
-      className: classNameModalCheck,
-      id: "identity_provider",
+      componentName: this.props.data.name + "-vpn-server-identity-provider",
+      id: this.props.data.name + "-vpn-server-identity-provider",
+      field: this.props.data.name + "-vpn-server-identity-provider",
       labelText: "Identity Provider",
       value: this.state.identity_provider,
       onChange: this.handleInputChange,
-      field: "identity_provider"
+      invalid: false,
+      className: classNameModalCheck
     }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: this.props.data.name + "-client-ip-pool",
-      componentName: "vpn-server-client-ip-pool",
-      className: classNameModalCheck,
-      name: "client_ip_pool",
-      field: "client_ip_pool",
+      componentName: this.props.data.name + "-client-ip-pool",
+      name: this.props.data.name + "-client-ip-pool",
+      field: this.props.data.name + "-client-ip-pool",
       value: this.state.client_ip_pool,
       placeholder: "x.x.x.x",
       labelText: "Client IP Pool CIDR",
-      invalidCallback: () => lazyZ.isIpv4CidrOrAddress(this.state.client_ip_pool) === false,
+      invalid: lazyZ.isIpv4CidrOrAddress(this.state.client_ip_pool) === false,
       invalidText: "Client IP Pool CIDR must be a PV4 CIDR block.",
-      onChange: this.handleInputChange
+      onChange: this.handleInputChange,
+      className: classNameModalCheck
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      id: this.props.data.name + "-vpn-server-enable-split-tunneling",
       labelText: "Enable Split Tunneling",
       defaultToggled: this.state.enable_split_tunneling,
       onToggle: () => this.handleToggle("enable_split_tunneling"),
-      id: "vpn-server-enable-split-tunneling",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      id: this.props.data.name + "-vpn-serrver-client-idle-timeout-seconds",
+      name: this.props.data.name + "-vpn-serrver-client-idle-timeout-seconds",
       placeholder: "600",
       label: "Client Idle Timeout (sec)",
-      id: "vpn-serrver-client-idle-timeout-seconds",
       allowEmpty: true,
       value: this.state.client_idle_timeout || "",
       step: 1,
       onChange: this.handleNumberInputChange,
-      name: "client_idle_timeout",
       hideSteppers: true,
       min: 0,
       max: 28800,
@@ -8391,8 +8395,8 @@ class VpnServerForm extends React.Component {
       invalidText: "Must be a whole number between 0 and 28800.",
       className: "fieldWidth leftTextAlign"
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      id: this.props.data.name + "-vpn-serrver-port",
       label: "Port",
-      id: "vpn-serrver-port",
       allowEmpty: true,
       value: this.state.port || "",
       step: 1,
@@ -8405,7 +8409,7 @@ class VpnServerForm extends React.Component {
       invalidText: "Must be a whole number between 1 and 65535.",
       className: "fieldWidth leftTextAlign"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "vpn-server-protocol",
+      formName: this.props.data.name + "-vpn-server-protocol",
       groups: ["TCP", "UDP"],
       value: this.state.protocol.toUpperCase(),
       labelText: "Protocol",
@@ -8413,41 +8417,43 @@ class VpnServerForm extends React.Component {
       handleInputChange: event => this.handleInput("protocol", event, true),
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "vsi_form",
+      formName: this.props.data.name + "-vpn-server-resource-group",
       name: "resource_group",
-      className: classNameModalCheck,
       labelText: "Resource Group",
       groups: this.props.resourceGroups,
       value: this.state.resource_group,
-      handleInputChange: this.handleInputChange
+      handleInputChange: this.handleInputChange,
+      className: classNameModalCheck
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "vpn_server",
-      name: "vpc",
-      className: classNameModalCheck,
+      formName: this.props.data.name + "-vpn-server-vpc",
+      name: this.props.data.name + "-vpn-server-vpc",
       labelText: "VPC",
       groups: this.props.vpcList,
       value: this.state.vpc,
       handleInputChange: this.handleInputChange,
       invalid: lib_4(this.state.vpc),
-      invalidText: "Select a VPC."
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(SubnetMultiSelect, {
-      key: this.state.vpc + "-subnet",
-      id: "vsi-subnets",
-      className: classNameModalCheck,
-      initialSelectedItems: this.state.subnets,
-      vpc_name: this.state.vpc,
-      subnets: this.getSubnetList(),
-      onChange: value => this.handleMultiSelectChange("subnets", value)
+      invalidText: "Select a VPC.",
+      className: classNameModalCheck
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: this.props.data.name + "-vpn-server-" + this.state.vpc + "-subnet",
+      name: this.props.data.name + "-vpn-server-" + this.state.vpc + "-subnet",
+      labelText: "Subnet",
+      groups: isNullOrEmptyString(this.state.vpc) ? [] : this.getSubnetList(),
+      value: this.state.subnet,
+      handleInputChange: this.handleInputChange,
+      invalid: lib_4(this.state.subnet),
+      invalidText: isNullOrEmptyString(this.state.vpc) ? "Select a VPC." : "Select at least one subnet.",
+      className: classNameModalCheck
     }), /*#__PURE__*/React__default["default"].createElement(SecurityGroupMultiSelect, {
       key: this.state.vpc + "-sg",
-      id: "vsi-security-groups",
-      className: classNameModalCheck,
+      id: this.props.data.name + "-vsi-security-groups",
       initialSelectedItems: this.state.security_groups || [],
       vpc_name: this.state.vpc,
       onChange: value => this.handleMultiSelectChange("security_groups", value),
       securityGroups: this.getSecurityGroupList(),
       invalid: !(this.state.security_groups?.length > 0),
-      invalidText: !this.state.vpc || lib_4(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`
+      invalidText: !this.state.vpc || lib_4(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`,
+      className: classNameModalCheck
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
       className: "textInputMedium",
       id: "client-dns-server-ips",
@@ -8496,7 +8502,7 @@ VpnServerForm.defaultProps = {
     protocol: "UDP",
     resource_group: "",
     vpc: "",
-    subnets: [],
+    subnet: "",
     security_groups: [],
     client_dns_server_ips: "",
     routes: []
@@ -8521,7 +8527,7 @@ VpnServerForm.propTypes = {
     protocol: PropTypes__default["default"].string,
     resource_group: PropTypes__default["default"].string,
     vpc: PropTypes__default["default"].string.isRequired,
-    subnets: PropTypes__default["default"].array.isRequired,
+    subnet: PropTypes__default["default"].string.isRequired,
     security_groups: PropTypes__default["default"].array.isRequired,
     routes: PropTypes__default["default"].array
   }).isRequired,

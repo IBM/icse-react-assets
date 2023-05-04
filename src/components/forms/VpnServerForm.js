@@ -31,17 +31,19 @@ class VpnServerForm extends Component {
 
   handleInputChange(event) {
     let { name, value } = event.target;
-    let stateChangeParams = { [name]: value };
-    if (name === "method")
+    let newState = { ...this.state };
+    newState = { [name]: value };
+    if (name === "method") {
       // Clear client_ca_crn and identity_provider when method changes
-      transpose(
-        { client_ca_crn: "", identity_provider: "" },
-        stateChangeParams
-      );
-    if (name === "vpc")
-      // Clear subnets and security groups when vpc changes
-      transpose({ subnets: [], security_groups: [] }, stateChangeParams);
-    this.setState(stateChangeParams);
+      newState.client_ca_crn = "";
+      newState.identity_provider = "";
+    }
+    if (name === "vpc") {
+      // Clear subnet and security groups when vpc changes
+      newState.subnet = [];
+      newState.security_groups = [];
+    }
+    this.setState(newState);
   }
 
   /**
@@ -92,8 +94,7 @@ class VpnServerForm extends Component {
           {/* vpn server name */}
           <IcseNameInput
             id={composedId}
-            className={classNameModalCheck}
-            componentName="vpn-server-name"
+            componentName={composedId}
             value={this.state.name}
             onChange={this.handleInputChange}
             invalidCallback={() =>
@@ -101,92 +102,100 @@ class VpnServerForm extends Component {
             }
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
             hideHelperText
+            className={classNameModalCheck}
           />
           {/* certificate_crn */}
           <IcseTextInput
-            componentName="vpn-server-certificate-crn"
-            className={classNameModalCheck}
+            componentName={this.props.data.name + "-vpn-server-certificate-crn"}
+            id={this.props.data.name + "-vpn-server-certificate-crn"}
+            field={this.props.data.name + "-vpn-server-certificate-crn"}
             tooltip={{
               content:
                 "Must use Secrets Manager to generate certificate_crn of secret for this VPN server.",
               align: "top-left",
             }}
-            id="certificate_crn"
             labelText="Certificate CRN"
             value={this.state.certificate_crn}
             onChange={this.handleInputChange}
-            field="certificate_crn"
+            invalid={false}
+            className={classNameModalCheck}
           />
         </IcseFormGroup>
         <IcseFormGroup>
           {/* method toggle */}
           <IcseSelect
-            formName="vpn-server-method"
-            className={classNameModalCheck}
+            formName={this.props.data.name + "-vpn-server-method"}
             name="method"
             labelText="Method"
             groups={["certificate", "username"]}
             value={this.state.method}
             handleInputChange={this.handleInputChange}
+            className={classNameModalCheck}
           />
           {/* client_ca_crn or identity_provider */}
           {this.state.method === "certificate" ? (
             <IcseTextInput
-              componentName="vpn-server-client-ca-crn"
-              className={classNameModalCheck}
-              id="client_ca_crn"
+              componentName={this.props.data.name + "-vpn-server-client-ca-crn"}
+              field={this.props.data.name + "-vpn-server-client-ca-crn"}
+              id={this.props.data.name + "-vpn-server-client-ca-crn"}
               labelText="Client CA CRN"
               value={this.state.client_ca_crn}
               onChange={this.handleInputChange}
-              field="client_ca_crn"
+              invalid={false}
+              className={classNameModalCheck}
             />
           ) : (
             <IcseTextInput
-              componentName="vpn-server-identity-provider"
-              className={classNameModalCheck}
-              id="identity_provider"
+              componentName={
+                this.props.data.name + "-vpn-server-identity-provider"
+              }
+              id={this.props.data.name + "-vpn-server-identity-provider"}
+              field={this.props.data.name + "-vpn-server-identity-provider"}
               labelText="Identity Provider"
               value={this.state.identity_provider}
               onChange={this.handleInputChange}
-              field="identity_provider"
+              invalid={false}
+              className={classNameModalCheck}
             />
           )}
           {/* client_ip_pool */}
           <IcseTextInput
             id={this.props.data.name + "-client-ip-pool"}
-            componentName="vpn-server-client-ip-pool"
-            className={classNameModalCheck}
-            name="client_ip_pool"
-            field="client_ip_pool"
+            componentName={this.props.data.name + "-client-ip-pool"}
+            name={this.props.data.name + "-client-ip-pool"}
+            field={this.props.data.name + "-client-ip-pool"}
             value={this.state.client_ip_pool}
             placeholder="x.x.x.x"
             labelText="Client IP Pool CIDR"
-            invalidCallback={() =>
-              isIpv4CidrOrAddress(this.state.client_ip_pool) === false
-            }
+            invalid={isIpv4CidrOrAddress(this.state.client_ip_pool) === false}
             invalidText="Client IP Pool CIDR must be a PV4 CIDR block."
             onChange={this.handleInputChange}
+            className={classNameModalCheck}
           />
         </IcseFormGroup>
         <IcseFormGroup>
           {/* enable_split_tunneling toggle */}
           <IcseToggle
+            id={this.props.data.name + "-vpn-server-enable-split-tunneling"}
             labelText="Enable Split Tunneling"
             defaultToggled={this.state.enable_split_tunneling}
             onToggle={() => this.handleToggle("enable_split_tunneling")}
-            id="vpn-server-enable-split-tunneling"
             className="fieldWidthSmaller"
           />
           {/* client_idle_timeout input */}
           <NumberInput
+            id={
+              this.props.data.name + "-vpn-serrver-client-idle-timeout-seconds"
+            }
+            name={
+              this.props.data.name + "-vpn-serrver-client-idle-timeout-seconds"
+            }
             placeholder="600"
             label="Client Idle Timeout (sec)"
-            id="vpn-serrver-client-idle-timeout-seconds"
             allowEmpty={true}
             value={this.state.client_idle_timeout || ""}
             step={1}
             onChange={this.handleNumberInputChange}
-            name="client_idle_timeout"
             hideSteppers={true}
             min={0}
             max={28800}
@@ -196,8 +205,8 @@ class VpnServerForm extends Component {
           />
           {/* port input */}
           <NumberInput
+            id={this.props.data.name + "-vpn-serrver-port"}
             label="Port"
-            id="vpn-serrver-port"
             allowEmpty={true}
             value={this.state.port || ""}
             step={1}
@@ -212,7 +221,7 @@ class VpnServerForm extends Component {
           />
           {/* protocol */}
           <IcseSelect
-            formName="vpn-server-protocol"
+            formName={this.props.data.name + "-vpn-server-protocol"}
             groups={["TCP", "UDP"]}
             value={this.state.protocol.toUpperCase()}
             labelText="Protocol"
@@ -226,42 +235,53 @@ class VpnServerForm extends Component {
         <IcseFormGroup>
           {/* resource group */}
           <IcseSelect
-            formName="vsi_form"
+            formName={this.props.data.name + "-vpn-server-resource-group"}
             name="resource_group"
-            className={classNameModalCheck}
             labelText="Resource Group"
             groups={this.props.resourceGroups}
             value={this.state.resource_group}
             handleInputChange={this.handleInputChange}
+            className={classNameModalCheck}
           />
           {/* vpc */}
           <IcseSelect
-            formName="vpn_server"
-            name="vpc"
-            className={classNameModalCheck}
+            formName={this.props.data.name + "-vpn-server-vpc"}
+            name={this.props.data.name + "-vpn-server-vpc"}
             labelText="VPC"
             groups={this.props.vpcList}
             value={this.state.vpc}
             handleInputChange={this.handleInputChange}
             invalid={checkNullorEmptyString(this.state.vpc)}
             invalidText="Select a VPC."
+            className={classNameModalCheck}
           />
         </IcseFormGroup>
         <IcseFormGroup>
-          {/* subnets and security groups */}
-          <SubnetMultiSelect
-            key={this.state.vpc + "-subnet"}
-            id="vsi-subnets"
+          {/* subnet and security groups */}
+          <IcseSelect
+            formName={
+              this.props.data.name + "-vpn-server-" + this.state.vpc + "-subnet"
+            }
+            name={
+              this.props.data.name + "-vpn-server-" + this.state.vpc + "-subnet"
+            }
+            labelText="Subnet"
+            groups={
+              isNullOrEmptyString(this.state.vpc) ? [] : this.getSubnetList()
+            }
+            value={this.state.subnet}
+            handleInputChange={this.handleInputChange}
+            invalid={checkNullorEmptyString(this.state.subnet)}
+            invalidText={
+              isNullOrEmptyString(this.state.vpc)
+                ? "Select a VPC."
+                : "Select at least one subnet."
+            }
             className={classNameModalCheck}
-            initialSelectedItems={this.state.subnets}
-            vpc_name={this.state.vpc}
-            subnets={this.getSubnetList()}
-            onChange={(value) => this.handleMultiSelectChange("subnets", value)}
           />
           <SecurityGroupMultiSelect
             key={this.state.vpc + "-sg"}
-            id="vsi-security-groups"
-            className={classNameModalCheck}
+            id={this.props.data.name + "-vsi-security-groups"}
             initialSelectedItems={this.state.security_groups || []}
             vpc_name={this.state.vpc}
             onChange={(value) =>
@@ -274,6 +294,7 @@ class VpnServerForm extends Component {
                 ? `Select a VPC.`
                 : `Select at least one security group.`
             }
+            className={classNameModalCheck}
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -334,7 +355,7 @@ VpnServerForm.defaultProps = {
     protocol: "UDP",
     resource_group: "",
     vpc: "",
-    subnets: [],
+    subnet: "",
     security_groups: [],
     client_dns_server_ips: "",
     routes: [],
@@ -360,7 +381,7 @@ VpnServerForm.propTypes = {
     protocol: PropTypes.string,
     resource_group: PropTypes.string,
     vpc: PropTypes.string.isRequired,
-    subnets: PropTypes.array.isRequired,
+    subnet: PropTypes.string.isRequired,
     security_groups: PropTypes.array.isRequired,
     routes: PropTypes.array,
   }).isRequired,

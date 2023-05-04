@@ -80,9 +80,8 @@ export default {
       control: "none",
       type: { required: true }, // required prop or not
     },
-    "data.subnets": {
-      description:
-        "A string value representing the subnets for the VPN Server.",
+    "data.subnet": {
+      description: "A string value representing the subnet for the VPN Server.",
       control: "none",
       type: { required: true }, // required prop or not
     },
@@ -198,7 +197,7 @@ const formProps = {
     protocol: "UDP",
     resource_group: "",
     vpc: "",
-    subnets: [],
+    subnet: "",
     security_groups: [],
     client_dns_server_ips: "",
     routes: [
