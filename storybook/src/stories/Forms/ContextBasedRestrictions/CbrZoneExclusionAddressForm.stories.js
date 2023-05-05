@@ -30,23 +30,23 @@ export default {
     ["data.service_name"]: {
       description: "A string describing the service name",
       control: "none",
-      type: { required: true }, // required prop or not
+      type: { required: false }, // required prop or not
     },
     ["data.service_type"]: {
       description: "A string describing the service type",
       control: "none",
-      type: { required: true }, // required prop or not
+      type: { required: false }, // required prop or not
     },
     ["data.type"]: {
       description:
         "A string describing the type, can be `ipAddress`, `ipRange`, `subnet`, `vpc`, or `serviceRef`",
       control: "none",
-      type: { required: true }, // required prop or not
+      type: { required: false }, // required prop or not
     },
     ["data.value"]: {
       description: "A string value corresponding to the type",
       control: "none",
-      type: { required: true }, // required prop or not
+      type: { required: false }, // required prop or not
     },
     isModal: {
       description: "A boolean that describes if the form is in a modal or not",
