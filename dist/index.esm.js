@@ -1,6 +1,6 @@
 import '@carbon/styles/css/styles.css';
 import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, Link, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, NumberInput, Modal, TextInput, Toggle, Tabs, TabList, Tab, TabPanels, TabPanel, FilterableMultiSelect, PasswordInput, TextArea, Dropdown, Tag } from '@carbon/react';
-import lazyZ, { kebabCase as kebabCase$2, isEmpty, isNullOrEmptyString as isNullOrEmptyString$4, buildNumberDropdownList, titleCase as titleCase$1, contains as contains$2, snakeCase, distinct, getObjectFromArray, splat as splat$1, isWholeNumber as isWholeNumber$1, isInRange as isInRange$1, isBoolean, isFunction as isFunction$1, transpose, prettyJSON, allFieldsNull, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$1, deepEqual, parseIntFromZone, eachKey } from 'lazy-z';
+import lazyZ, { kebabCase as kebabCase$2, isEmpty, isNullOrEmptyString as isNullOrEmptyString$4, buildNumberDropdownList, titleCase as titleCase$1, contains as contains$2, snakeCase, distinct, getObjectFromArray, splat as splat$1, isWholeNumber as isWholeNumber$1, isInRange as isInRange$1, isBoolean, isFunction as isFunction$1, transpose, prettyJSON, allFieldsNull, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual, parseIntFromZone, eachKey } from 'lazy-z';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Information, Save, Add, ChevronDown, ChevronRight, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt, Password } from '@carbon/icons-react';
@@ -4531,7 +4531,7 @@ const {
   capitalize,
   titleCase,
   kebabCase,
-  isIpv4CidrOrAddress,
+  isIpv4CidrOrAddress: isIpv4CidrOrAddress$1,
   validPortRange,
   isNullOrEmptyString: isNullOrEmptyString$1,
   contains
@@ -4803,7 +4803,7 @@ const NetworkingRuleTextField = props => {
     placeholder: "x.x.x.x",
     invalidText: "Please provide a valid IPV4 IP address or CIDR notation.",
     invalidCallback: () => {
-      return isIpv4CidrOrAddress(props.state[props.name]) === false;
+      return isIpv4CidrOrAddress$1(props.state[props.name]) === false;
     }
   });
 };
@@ -6205,7 +6205,7 @@ class SubnetForm extends React.Component {
    * @returns {boolean} true if not valid
    */
   cidrIsValid(cidr) {
-    return isIpv4CidrOrAddress$1(cidr) === false || !contains$2(cidr, "/");
+    return isIpv4CidrOrAddress$2(cidr) === false || !contains$2(cidr, "/");
   }
   render() {
     return /*#__PURE__*/React.createElement(Tile, {
@@ -8190,7 +8190,7 @@ class VpnServerRouteForm extends React.Component {
       value: this.state.destination,
       placeholder: "x.x.x.x",
       labelText: "Destination CIDR",
-      invalidCallback: () => isIpv4CidrOrAddress$1(this.state.destination) === false || !contains$2(this.state.destination, "/"),
+      invalidCallback: () => isIpv4CidrOrAddress$2(this.state.destination) === false || !contains$2(this.state.destination, "/"),
       invalidText: "Destination must be a valid IPV4 CIDR Block",
       onChange: this.handleInputChange,
       className: className
@@ -8225,7 +8225,8 @@ VpnServerRouteForm.propTypes = {
 };
 
 const {
-  isNullOrEmptyString
+  isNullOrEmptyString,
+  isIpv4CidrOrAddress
 } = lazyZ;
 function cbrInvalid(field, value) {
   let invalid = {
@@ -8238,10 +8239,40 @@ function cbrInvalid(field, value) {
   }
   return invalid;
 }
+function cbrValueInvalid(type, value) {
+  let invalid = {
+    invalid: false,
+    invalidText: ""
+  };
+  if (isNullOrEmptyString(value)) {
+    invalid.invalid = true;
+    invalid.invalidText = `Invalid value for type ${type}. Cannot be empty string.`;
+  } else {
+    switch (type) {
+      case "ipAddress":
+        if (!isIpv4CidrOrAddress(value) || value.includes("/")) {
+          invalid.invalid = true;
+          invalid.invalidText = `Invalid value for type ${type}. Value must be a valid IPV4 Address.`;
+        }
+        break;
+      case "ipRange":
+        if (value.match(/\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\-\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/g) === null) {
+          invalid.invalid = true;
+          invalid.invalidText = `Invalid value for type ${type}. Value must be a range of IPV4 Addresses.`;
+        }
+        break;
+      default:
+        invalid = cbrInvalid("type", value);
+    }
+  }
+  return invalid;
+}
 var cbrUtils = {
-  cbrInvalid
+  cbrInvalid,
+  cbrValueInvalid
 };
 var cbrUtils_1 = cbrUtils.cbrInvalid;
+var cbrUtils_2 = cbrUtils.cbrValueInvalid;
 
 const typeNameMap = {
   ipAddress: "IP Address",
@@ -8329,7 +8360,7 @@ class CbrZoneExclusionAddressForm extends Component {
       handleInputChange: this.handleInputChange,
       invalidText: "Select a Type",
       className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(IcseTextInput, {
+    }), /*#__PURE__*/React.createElement(IcseTextInput, _extends({
       id: this.props.data.name + "-cbr-zone-value",
       componentName: this.props.data.name + "cbr-zone-value",
       className: "fieldWidthSmaller",
@@ -8337,9 +8368,9 @@ class CbrZoneExclusionAddressForm extends Component {
       field: "value",
       value: this.state.value,
       onChange: this.handleInputChange,
-      invalid: false,
-      hideHelperText: true
-    })));
+      hideHelperText: true,
+      placeholder: contains$2(["ipRange", "ipAddress"], this.state.type) ? "x.x.x.x" : `my-cbr-zone-${this.state.type}`
+    }, cbrUtils_2(this.state.type, this.state.value)))));
   }
 }
 CbrZoneExclusionAddressForm.defaultProps = {
@@ -9043,7 +9074,7 @@ class RoutingTableRouteForm extends Component {
       value: this.state.destination,
       placeholder: "x.x.x.x",
       labelText: "Destination IP or CIDR",
-      invalidCallback: () => isIpv4CidrOrAddress$1(this.state.destination) === false,
+      invalidCallback: () => isIpv4CidrOrAddress$2(this.state.destination) === false,
       invalidText: "Destination must be a valid IP or IPV4 CIDR block",
       onChange: this.handleInputChange,
       className: "fieldWidthSmaller"
@@ -9062,7 +9093,7 @@ class RoutingTableRouteForm extends Component {
       value: this.state.next_hop,
       labelText: "Next Hop",
       placeholder: "x.x.x.x",
-      invalidCallback: () => isNullOrEmptyString$4(this.state.next_hop) || isIpv4CidrOrAddress$1(this.state.next_hop) === false || contains$2(this.state.next_hop, `/`),
+      invalidCallback: () => isNullOrEmptyString$4(this.state.next_hop) || isIpv4CidrOrAddress$2(this.state.next_hop) === false || contains$2(this.state.next_hop, `/`),
       invalidText: "Next hop must be a valid IP",
       onChange: this.handleInputChange,
       disabled: this.state.action !== "deliver",

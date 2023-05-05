@@ -4542,7 +4542,7 @@ const {
   capitalize,
   titleCase,
   kebabCase,
-  isIpv4CidrOrAddress,
+  isIpv4CidrOrAddress: isIpv4CidrOrAddress$1,
   validPortRange,
   isNullOrEmptyString: isNullOrEmptyString$1,
   contains
@@ -4814,7 +4814,7 @@ const NetworkingRuleTextField = props => {
     placeholder: "x.x.x.x",
     invalidText: "Please provide a valid IPV4 IP address or CIDR notation.",
     invalidCallback: () => {
-      return isIpv4CidrOrAddress(props.state[props.name]) === false;
+      return isIpv4CidrOrAddress$1(props.state[props.name]) === false;
     }
   });
 };
@@ -8236,7 +8236,8 @@ VpnServerRouteForm.propTypes = {
 };
 
 const {
-  isNullOrEmptyString
+  isNullOrEmptyString,
+  isIpv4CidrOrAddress
 } = lazyZ__default["default"];
 function cbrInvalid(field, value) {
   let invalid = {
@@ -8249,10 +8250,40 @@ function cbrInvalid(field, value) {
   }
   return invalid;
 }
+function cbrValueInvalid(type, value) {
+  let invalid = {
+    invalid: false,
+    invalidText: ""
+  };
+  if (isNullOrEmptyString(value)) {
+    invalid.invalid = true;
+    invalid.invalidText = `Invalid value for type ${type}. Cannot be empty string.`;
+  } else {
+    switch (type) {
+      case "ipAddress":
+        if (!isIpv4CidrOrAddress(value) || value.includes("/")) {
+          invalid.invalid = true;
+          invalid.invalidText = `Invalid value for type ${type}. Value must be a valid IPV4 Address.`;
+        }
+        break;
+      case "ipRange":
+        if (value.match(/\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\-\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/g) === null) {
+          invalid.invalid = true;
+          invalid.invalidText = `Invalid value for type ${type}. Value must be a range of IPV4 Addresses.`;
+        }
+        break;
+      default:
+        invalid = cbrInvalid("type", value);
+    }
+  }
+  return invalid;
+}
 var cbrUtils = {
-  cbrInvalid
+  cbrInvalid,
+  cbrValueInvalid
 };
 var cbrUtils_1 = cbrUtils.cbrInvalid;
+var cbrUtils_2 = cbrUtils.cbrValueInvalid;
 
 const typeNameMap = {
   ipAddress: "IP Address",
@@ -8340,7 +8371,7 @@ class CbrZoneExclusionAddressForm extends React.Component {
       handleInputChange: this.handleInputChange,
       invalidText: "Select a Type",
       className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, _extends({
       id: this.props.data.name + "-cbr-zone-value",
       componentName: this.props.data.name + "cbr-zone-value",
       className: "fieldWidthSmaller",
@@ -8348,9 +8379,9 @@ class CbrZoneExclusionAddressForm extends React.Component {
       field: "value",
       value: this.state.value,
       onChange: this.handleInputChange,
-      invalid: false,
-      hideHelperText: true
-    })));
+      hideHelperText: true,
+      placeholder: lazyZ.contains(["ipRange", "ipAddress"], this.state.type) ? "x.x.x.x" : `my-cbr-zone-${this.state.type}`
+    }, cbrUtils_2(this.state.type, this.state.value)))));
   }
 }
 CbrZoneExclusionAddressForm.defaultProps = {

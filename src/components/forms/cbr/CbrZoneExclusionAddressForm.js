@@ -7,7 +7,8 @@ import {
 import { IcseFormGroup } from "../../Utils";
 import { IcseNameInput, IcseTextInput } from "../../Inputs";
 import { IcseSelect } from "../../Dropdowns";
-import { cbrInvalid } from "../../../lib/cbr-utils";
+import { cbrInvalid, cbrValueInvalid } from "../../../lib/cbr-utils";
+import { contains } from "lazy-z";
 
 const typeNameMap = {
   ipAddress: "IP Address",
@@ -120,8 +121,13 @@ class CbrZoneExclusionAddressForm extends Component {
             field="value"
             value={this.state.value}
             onChange={this.handleInputChange}
-            invalid={false}
             hideHelperText={true}
+            placeholder={
+              contains(["ipRange", "ipAddress"], this.state.type)
+                ? "x.x.x.x"
+                : `my-cbr-zone-${this.state.type}`
+            }
+            {...cbrValueInvalid(this.state.type, this.state.value)}
           />
         </IcseFormGroup>
       </>
