@@ -37,6 +37,11 @@ export default {
       control: "none",
       type: { required: false }, // required prop or not
     },
+    ["data.service_isntance"]: {
+      description: "A string describing the service instance",
+      control: "none",
+      type: { required: false }, // required prop or not
+    },
     ["data.type"]: {
       description:
         "A string describing the type, can be `ipAddress`, `ipRange`, `subnet`, `vpc`, or `serviceRef`",

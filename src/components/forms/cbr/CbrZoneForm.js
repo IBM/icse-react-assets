@@ -154,38 +154,38 @@ CbrZoneForm.defaultProps = {
 };
 
 CbrZoneForm.propTypes = {
-  account_id: PropTypes.string,
-  name: PropTypes.string,
   addressProps: PropTypes.shape({
-    disableSave: PropTypes.any,
-    onDelete: PropTypes.any,
-    onSave: PropTypes.any,
-    onSubmit: PropTypes.any,
+    disableSave: PropTypes.func,
+    onDelete: PropTypes.func,
+    onSave: PropTypes.func,
+    onSubmit: PropTypes.func,
   }),
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    account_id: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
+    account_id: PropTypes.string,
+    description: PropTypes.string,
     addresses: PropTypes.arrayOf(
       PropTypes.shape({
         account_id: PropTypes.string.isRequired,
-        location: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        service_name: PropTypes.string.isRequired,
-        service_type: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        value: PropTypes.string.isRequired,
+        location: PropTypes.string,
+        name: PropTypes.string,
+        service_name: PropTypes.string,
+        service_type: PropTypes.string,
+        service_instance: PropTypes.string,
+        type: PropTypes.string,
+        value: PropTypes.string,
       }).isRequired
     ),
     exclusions: PropTypes.arrayOf(
       PropTypes.shape({
         account_id: PropTypes.string.isRequired,
-        location: PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        service_name: PropTypes.string.isRequired,
-        service_type: PropTypes.string.isRequired,
-        type: PropTypes.string.isRequired,
-        value: PropTypes.string.isRequired,
+        location: PropTypes.string,
+        name: PropTypes.string,
+        service_name: PropTypes.string,
+        service_type: PropTypes.string,
+        service_instance: PropTypes.string,
+        type: PropTypes.string,
+        value: PropTypes.string,
       }).isRequired
     ),
   }),
