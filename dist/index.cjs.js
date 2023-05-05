@@ -8243,7 +8243,7 @@ function cbrInvalid(field, value) {
     invalid: false,
     invalidText: ""
   };
-  if (isNullOrEmptyString(value) || value.match(/^[0-9a-z-]+$/) === null || value.length >= 128) {
+  if (!isNullOrEmptyString(value) && (value.match(/^[0-9a-z-]+$/) === null || value.length >= 128)) {
     invalid.invalid = true;
     invalid.invalidText = `Invalid ${field}. Value must match regex expression /^[0-9a-z-]+$/.`;
   }
@@ -8287,8 +8287,8 @@ class CbrZoneExclusionAddressForm extends React.Component {
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: this.props.data.name + "-cbr-tag",
-      componentName: this.props.data.name + "-cbr-tag",
+      id: this.props.data.name + "-cbr-address-exclusion",
+      componentName: this.props.data.name + "-cbr-zone",
       className: "fieldWidthSmaller",
       value: this.state.name,
       onChange: this.handleInputChange,
@@ -8375,7 +8375,9 @@ CbrZoneExclusionAddressForm.propTypes = {
     type: PropTypes__default["default"].string.isRequired,
     value: PropTypes__default["default"].string.isRequired
   }),
-  isModal: PropTypes__default["default"].bool.isRequired
+  isModal: PropTypes__default["default"].bool.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired
 };
 
 /**

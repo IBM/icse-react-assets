@@ -6,8 +6,8 @@ describe("cbr-utils", () => {
     it("should return invalid false if valid", () => {
       assert.isFalse(cbrInvalid("account_id", "hoidfiasfjoasfd").invalid);
     });
-    it("should return invalid true if invalid", () => {
-      assert.isTrue(cbrInvalid("account_id", "").invalid);
+    it("should return invalid false if empty string", () => {
+      assert.isFalse(cbrInvalid("account_id", "").invalid);
     });
     it("should return invalid true if too long", () => {
       assert.deepEqual(
