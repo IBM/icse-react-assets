@@ -151,12 +151,12 @@ CbrZoneExclusionAddressForm.defaultProps = {
 CbrZoneExclusionAddressForm.propTypes = {
   data: PropTypes.shape({
     account_id: PropTypes.string.isRequired,
-    location: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    service_name: PropTypes.string.isRequired,
-    service_type: PropTypes.string.isRequired,
-    type: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
+    location: PropTypes.string,
+    name: PropTypes.string,
+    service_name: PropTypes.string,
+    service_type: PropTypes.string,
+    type: PropTypes.string,
+    value: PropTypes.string,
   }),
   isModal: PropTypes.bool.isRequired,
   invalidCallback: PropTypes.func.isRequired,
