@@ -24,57 +24,57 @@ const CbrRuleFormStory = ({ ...args }) => {
   }
 
   return (
-    <div className="dark">
-      <CbrZoneForm
-        {...args}
-        data={{
-          name: "zone",
-          description: "",
-          account_id: "",
-          addresses: [
-            {
-              name: "address",
-              account_id: "",
-              location: "",
-              service_name: "",
-              service_type: "",
-              type: "ipAddress",
-              value: "",
-            },
-          ],
-          exclusions: [
-            {
-              name: "exclusion",
-              account_id: "",
-              location: "",
-              service_name: "",
-              service_type: "",
-              type: "ipAddress",
-              value: "",
-            },
-          ],
-        }}
-        invalidCallback={invalidCallback}
-        invalidTextCallback={invalidTextCallback}
-        propsMatchState={() => {}}
-        invalidAddressCallback={invalidCallback}
-        invalidAddressTextCallback={invalidTextCallback}
-        addressProps={{
-          onSave: () => {},
-          onDelete: () => {},
-          onSubmit: () => {},
-          disableSave: () => {},
-        }}
-        invalidExclusionCallback={invalidCallback}
-        invalidExclusionTextCallback={invalidTextCallback}
-        exclusionProps={{
-          onSave: () => {},
-          onDelete: () => {},
-          onSubmit: () => {},
-          disableSave: () => {},
-        }}
-      />
-    </div>
+    <CbrZoneForm
+      {...args}
+      data={{
+        name: "zone",
+        description: "",
+        account_id: "",
+        addresses: [
+          {
+            name: "address",
+            account_id: "",
+            location: "",
+            service_name: "",
+            service_instance: "",
+            service_type: "",
+            type: "ipAddress",
+            value: "",
+          },
+        ],
+        exclusions: [
+          {
+            name: "exclusion",
+            account_id: "",
+            location: "",
+            service_name: "",
+            service_instance: "",
+            service_type: "",
+            type: "ipAddress",
+            value: "",
+          },
+        ],
+      }}
+      invalidCallback={invalidCallback}
+      invalidTextCallback={invalidTextCallback}
+      propsMatchState={() => {}}
+      invalidAddressCallback={invalidCallback}
+      invalidAddressTextCallback={invalidTextCallback}
+      addressProps={{
+        onSave: () => {},
+        onDelete: () => {},
+        onSubmit: () => {},
+        disableSave: () => {},
+      }}
+      invalidExclusionCallback={invalidCallback}
+      invalidExclusionTextCallback={invalidTextCallback}
+      exclusionProps={{
+        onSave: () => {},
+        onDelete: () => {},
+        onSubmit: () => {},
+        disableSave: () => {},
+      }}
+    />
   );
 };
 

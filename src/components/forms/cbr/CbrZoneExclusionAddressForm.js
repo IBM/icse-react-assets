@@ -91,6 +91,17 @@ class CbrZoneExclusionAddressForm extends Component {
             {...cbrInvalid("service_name", this.state.service_name)}
           />
           <IcseTextInput
+            id={this.props.data.name + "-cbr-zone-service-instance"}
+            componentName={this.props.data.name + "cbr-zone-service-instance"}
+            className={"fieldWidthSmaller"}
+            labelText={"Service Instance"}
+            field="service_instance"
+            value={this.state.service_instance}
+            onChange={this.handleInputChange}
+            hideHelperText={true}
+            {...cbrInvalid("service_instance", this.state.service_instance)}
+          />
+          <IcseTextInput
             id={this.props.data.name + "-cbr-zone-service-type"}
             componentName={this.props.data.name + "cbr-zone-service-type"}
             className={"fieldWidthSmaller"}
@@ -141,6 +152,7 @@ CbrZoneExclusionAddressForm.defaultProps = {
     account_id: "",
     location: "",
     service_name: "",
+    service_instance: "",
     service_type: "",
     type: "ipAddress",
     value: "",
@@ -154,6 +166,7 @@ CbrZoneExclusionAddressForm.propTypes = {
     location: PropTypes.string,
     name: PropTypes.string,
     service_name: PropTypes.string,
+    service_instance: PropTypes.string,
     service_type: PropTypes.string,
     type: PropTypes.string,
     value: PropTypes.string,

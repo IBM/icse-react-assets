@@ -8354,6 +8354,15 @@ class CbrZoneExclusionAddressForm extends React.Component {
       onChange: this.handleInputChange,
       hideHelperText: true
     }, cbrUtils_1("service_name", this.state.service_name))), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, _extends({
+      id: this.props.data.name + "-cbr-zone-service-instance",
+      componentName: this.props.data.name + "cbr-zone-service-instance",
+      className: "fieldWidthSmaller",
+      labelText: "Service Instance",
+      field: "service_instance",
+      value: this.state.service_instance,
+      onChange: this.handleInputChange,
+      hideHelperText: true
+    }, cbrUtils_1("service_instance", this.state.service_instance))), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, _extends({
       id: this.props.data.name + "-cbr-zone-service-type",
       componentName: this.props.data.name + "cbr-zone-service-type",
       className: "fieldWidthSmaller",
@@ -8390,6 +8399,7 @@ CbrZoneExclusionAddressForm.defaultProps = {
     account_id: "",
     location: "",
     service_name: "",
+    service_instance: "",
     service_type: "",
     type: "ipAddress",
     value: ""
@@ -8399,12 +8409,13 @@ CbrZoneExclusionAddressForm.defaultProps = {
 CbrZoneExclusionAddressForm.propTypes = {
   data: PropTypes__default["default"].shape({
     account_id: PropTypes__default["default"].string.isRequired,
-    location: PropTypes__default["default"].string.isRequired,
-    name: PropTypes__default["default"].string.isRequired,
-    service_name: PropTypes__default["default"].string.isRequired,
-    service_type: PropTypes__default["default"].string.isRequired,
-    type: PropTypes__default["default"].string.isRequired,
-    value: PropTypes__default["default"].string.isRequired
+    location: PropTypes__default["default"].string,
+    name: PropTypes__default["default"].string,
+    service_name: PropTypes__default["default"].string,
+    service_instance: PropTypes__default["default"].string,
+    service_type: PropTypes__default["default"].string,
+    type: PropTypes__default["default"].string,
+    value: PropTypes__default["default"].string
   }),
   isModal: PropTypes__default["default"].bool.isRequired,
   invalidCallback: PropTypes__default["default"].func.isRequired,
@@ -8536,35 +8547,35 @@ CbrZoneForm.defaultProps = {
   isModal: false
 };
 CbrZoneForm.propTypes = {
-  account_id: PropTypes__default["default"].string,
-  name: PropTypes__default["default"].string,
   addressProps: PropTypes__default["default"].shape({
-    disableSave: PropTypes__default["default"].any,
-    onDelete: PropTypes__default["default"].any,
-    onSave: PropTypes__default["default"].any,
-    onSubmit: PropTypes__default["default"].any
+    disableSave: PropTypes__default["default"].func,
+    onDelete: PropTypes__default["default"].func,
+    onSave: PropTypes__default["default"].func,
+    onSubmit: PropTypes__default["default"].func
   }),
   data: PropTypes__default["default"].shape({
     name: PropTypes__default["default"].string.isRequired,
-    account_id: PropTypes__default["default"].string.isRequired,
-    description: PropTypes__default["default"].string.isRequired,
+    account_id: PropTypes__default["default"].string,
+    description: PropTypes__default["default"].string,
     addresses: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({
       account_id: PropTypes__default["default"].string.isRequired,
-      location: PropTypes__default["default"].string.isRequired,
-      name: PropTypes__default["default"].string.isRequired,
-      service_name: PropTypes__default["default"].string.isRequired,
-      service_type: PropTypes__default["default"].string.isRequired,
-      type: PropTypes__default["default"].string.isRequired,
-      value: PropTypes__default["default"].string.isRequired
+      location: PropTypes__default["default"].string,
+      name: PropTypes__default["default"].string,
+      service_name: PropTypes__default["default"].string,
+      service_type: PropTypes__default["default"].string,
+      service_instance: PropTypes__default["default"].string,
+      type: PropTypes__default["default"].string,
+      value: PropTypes__default["default"].string
     }).isRequired),
     exclusions: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({
       account_id: PropTypes__default["default"].string.isRequired,
-      location: PropTypes__default["default"].string.isRequired,
-      name: PropTypes__default["default"].string.isRequired,
-      service_name: PropTypes__default["default"].string.isRequired,
-      service_type: PropTypes__default["default"].string.isRequired,
-      type: PropTypes__default["default"].string.isRequired,
-      value: PropTypes__default["default"].string.isRequired
+      location: PropTypes__default["default"].string,
+      name: PropTypes__default["default"].string,
+      service_name: PropTypes__default["default"].string,
+      service_type: PropTypes__default["default"].string,
+      service_instance: PropTypes__default["default"].string,
+      type: PropTypes__default["default"].string,
+      value: PropTypes__default["default"].string
     }).isRequired)
   }),
   exclusionProps: PropTypes__default["default"].shape({
