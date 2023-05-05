@@ -134,8 +134,10 @@ class CbrExclusionAddressForm extends Component {
             onChange={this.handleInputChange}
             hideHelperText={true}
             placeholder={
-              contains(["ipRange", "ipAddress"], this.state.type)
+              this.state.type === "ipAddress"
                 ? "x.x.x.x"
+                : this.state.type === "ipRange"
+                ? "x.x.x.x-x.x.x.x"
                 : `my-cbr-zone-${this.state.type}`
             }
             {...cbrValueInvalid(this.state.type, this.state.value)}
