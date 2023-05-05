@@ -91,3 +91,5 @@ export {
   CbrRuleForm,
   CbrTagForm,
 } from "./forms/cbr";
+export { default as CbrExclusionAddressForm } from "./forms/cbr/CbrExclusionAddressForm";
+export { default as CbrZoneForm } from "./forms/cbr/CbrZoneForm";
