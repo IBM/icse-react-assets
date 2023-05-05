@@ -6,7 +6,6 @@ import {
   IcseSubForm,
   StatelessToggleForm,
 } from "../Utils";
-import { buildNumberDropdownList } from "lazy-z";
 import PropTypes from "prop-types";
 import { DeleteButton, SaveAddButton } from "../Buttons";
 import { IcseNameInput, IcseToggle } from "../Inputs";
@@ -19,10 +18,8 @@ class SubnetTierForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = { ...this.props.data };
-    if (!this.props.data.advanced) {
-      let zones = buildNumberDropdownList(this.state.zones, 1);
+    if (!this.props.data.select_zones) {
       this.state.select_zones = [];
-      zones.forEach((zone) => this.state.select_zones.push(Number(zone)));
     }
     this.state.advancedSave = false;
     this.handleChange = this.handleChange.bind(this);
@@ -81,6 +78,9 @@ class SubnetTierForm extends React.Component {
       [1, 2, 3].forEach((zone) => {
         if (zone <= this.state.zones) nextState.select_zones.push(zone);
       });
+    } else if (name === "advanced") {
+      nextState.zones = this.state.select_zones.length;
+      nextState.select_zones = null;
     }
     this.setState(nextState);
   }
@@ -110,7 +110,7 @@ class SubnetTierForm extends React.Component {
     if (
       this.state.advanced &&
       !this.state.advancedSave &&
-      !this.props.data.select_zones
+      !this.props.data.advanced
     ) {
       this.setState({ advancedSave: true });
     } else {
@@ -241,7 +241,7 @@ class SubnetTierForm extends React.Component {
                 )}
                 hideHelperText
               />
-              {this.state.advanced || this.props.data.advanced ? (
+              {this.state.advanced ? (
                 <IcseMultiSelect
                   id={this.props.data.name + "-subnet-zones"}
                   className="fieldWidthSmaller"
@@ -255,7 +255,7 @@ class SubnetTierForm extends React.Component {
               ) : (
                 <IcseNumberSelect
                   max={3}
-                  value={this.state.zones}
+                  value={this.state.zones ? this.state.zones : 1}
                   labelText="Subnet Tier Zones"
                   name="zones"
                   handleInputChange={this.handleChange}
@@ -325,7 +325,8 @@ class SubnetTierForm extends React.Component {
               data={this.props.subnetListCallback(this.state, this.props)}
               key={
                 JSON.stringify(this.state.select_zones) +
-                this.state.zones + JSON.stringify(this.state)
+                this.state.zones +
+                JSON.stringify(this.state)
               }
               enabledPublicGateways={this.props.enabledPublicGateways}
               networkAcls={this.props.networkAcls}
