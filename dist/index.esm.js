@@ -8285,7 +8285,7 @@ const typeNameMap = {
 /**
  * Context-based restriction addresses / exclusions
  */
-class CbrZoneExclusionAddressForm extends Component {
+class CbrExclusionAddressForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -8382,7 +8382,7 @@ class CbrZoneExclusionAddressForm extends Component {
     }, cbrUtils_2(this.state.type, this.state.value)))));
   }
 }
-CbrZoneExclusionAddressForm.defaultProps = {
+CbrExclusionAddressForm.defaultProps = {
   data: {
     name: "",
     account_id: "",
@@ -8395,7 +8395,7 @@ CbrZoneExclusionAddressForm.defaultProps = {
   },
   isModal: false
 };
-CbrZoneExclusionAddressForm.propTypes = {
+CbrExclusionAddressForm.propTypes = {
   data: PropTypes.shape({
     account_id: PropTypes.string.isRequired,
     location: PropTypes.string,
@@ -8485,7 +8485,7 @@ class CbrZoneForm extends Component {
       subHeading: true,
       addText: "Create an Address",
       arrayData: this.props.data.addresses,
-      innerForm: CbrZoneExclusionAddressForm,
+      innerForm: CbrExclusionAddressForm,
       disableSave: this.props.addressProps.disableSave,
       onDelete: this.props.addressProps.onDelete,
       onSave: this.props.addressProps.onSave,
@@ -8506,7 +8506,7 @@ class CbrZoneForm extends Component {
       subHeading: true,
       addText: "Create an Exclusion",
       arrayData: this.props.data.exclusions,
-      innerForm: CbrZoneExclusionAddressForm,
+      innerForm: CbrExclusionAddressForm,
       disableSave: this.props.exclusionProps.disableSave,
       onDelete: this.props.exclusionProps.onDelete,
       onSave: this.props.exclusionProps.onSave,
@@ -9443,4 +9443,4 @@ EventStreamsForm.propTypes = {
   invalidTextCallback: PropTypes.func.isRequired
 };
 
-export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, CbrZoneExclusionAddressForm, CbrZoneForm, ClusterForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, LocationsMultiSelect, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, RoutingTableForm, RoutingTableRouteForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VpnServerRouteForm, VsiForm, VsiLoadBalancerForm, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, CbrExclusionAddressForm, CbrZoneForm, ClusterForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, LocationsMultiSelect, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, RoutingTableForm, RoutingTableRouteForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VpnServerRouteForm, VsiForm, VsiLoadBalancerForm, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };

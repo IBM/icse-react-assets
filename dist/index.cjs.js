@@ -8296,7 +8296,7 @@ const typeNameMap = {
 /**
  * Context-based restriction addresses / exclusions
  */
-class CbrZoneExclusionAddressForm extends React.Component {
+class CbrExclusionAddressForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -8393,7 +8393,7 @@ class CbrZoneExclusionAddressForm extends React.Component {
     }, cbrUtils_2(this.state.type, this.state.value)))));
   }
 }
-CbrZoneExclusionAddressForm.defaultProps = {
+CbrExclusionAddressForm.defaultProps = {
   data: {
     name: "",
     account_id: "",
@@ -8406,7 +8406,7 @@ CbrZoneExclusionAddressForm.defaultProps = {
   },
   isModal: false
 };
-CbrZoneExclusionAddressForm.propTypes = {
+CbrExclusionAddressForm.propTypes = {
   data: PropTypes__default["default"].shape({
     account_id: PropTypes__default["default"].string.isRequired,
     location: PropTypes__default["default"].string,
@@ -8496,7 +8496,7 @@ class CbrZoneForm extends React.Component {
       subHeading: true,
       addText: "Create an Address",
       arrayData: this.props.data.addresses,
-      innerForm: CbrZoneExclusionAddressForm,
+      innerForm: CbrExclusionAddressForm,
       disableSave: this.props.addressProps.disableSave,
       onDelete: this.props.addressProps.onDelete,
       onSave: this.props.addressProps.onSave,
@@ -8517,7 +8517,7 @@ class CbrZoneForm extends React.Component {
       subHeading: true,
       addText: "Create an Exclusion",
       arrayData: this.props.data.exclusions,
-      innerForm: CbrZoneExclusionAddressForm,
+      innerForm: CbrExclusionAddressForm,
       disableSave: this.props.exclusionProps.disableSave,
       onDelete: this.props.exclusionProps.onDelete,
       onSave: this.props.exclusionProps.onSave,
@@ -9460,7 +9460,7 @@ exports.AccessGroupPolicyForm = AccessGroupPolicyForm;
 exports.AppIdForm = AppIdForm;
 exports.AppIdKeyForm = AppIdKeyForm;
 exports.AtrackerForm = AtrackerForm;
-exports.CbrZoneExclusionAddressForm = CbrZoneExclusionAddressForm;
+exports.CbrExclusionAddressForm = CbrExclusionAddressForm;
 exports.CbrZoneForm = CbrZoneForm;
 exports.ClusterForm = ClusterForm;
 exports.DeleteButton = DeleteButton;

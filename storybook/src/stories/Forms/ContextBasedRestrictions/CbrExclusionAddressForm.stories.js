@@ -1,11 +1,10 @@
 import React from "react";
-import { CbrZoneExclusionAddressForm } from "icse-react-assets";
+import { CbrExclusionAddressForm } from "icse-react-assets";
 import { contains } from "lazy-z";
 
 export default {
-  component: CbrZoneExclusionAddressForm,
-  title:
-    "Components/Forms/ContextBasedRestrictions/CbrZoneExclusionAddressForm",
+  component: CbrExclusionAddressForm,
+  title: "Components/Forms/ContextBasedRestrictions/CbrExclusionAddressForm",
   argTypes: {
     data: {
       summary: "An optional object",
@@ -82,7 +81,7 @@ export default {
   },
 };
 
-const CbrZoneExclusionAddressFormStory = ({ ...args }) => {
+const CbrExclusionAddressFormStory = ({ ...args }) => {
   function validName(str) {
     const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
     if (str) return str.match(regex) !== null;
@@ -102,13 +101,14 @@ const CbrZoneExclusionAddressFormStory = ({ ...args }) => {
   }
 
   return (
-    <CbrZoneExclusionAddressForm
+    <CbrExclusionAddressForm
       {...args}
       data={{
         name: "address",
         account_id: "",
         location: "",
         service_name: "",
+        service_instance: "",
         service_type: "",
         type: "ipAddress",
         value: "",
@@ -119,4 +119,4 @@ const CbrZoneExclusionAddressFormStory = ({ ...args }) => {
   );
 };
 
-export const Default = CbrZoneExclusionAddressFormStory.bind({});
+export const Default = CbrExclusionAddressFormStory.bind({});

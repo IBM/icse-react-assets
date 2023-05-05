@@ -10,7 +10,7 @@ import {
   buildFormDefaultInputMethods,
   buildFormFunctions,
 } from "../../component-utils";
-import CbrZoneExclusionAddressForm from "./CbrZoneExclusionAddressForm.js";
+import CbrExclusionAddressForm from "./CbrExclusionAddressForm.js";
 import { cbrInvalid } from "../../../lib/cbr-utils";
 
 /**
@@ -99,7 +99,7 @@ class CbrZoneForm extends Component {
               subHeading
               addText="Create an Address"
               arrayData={this.props.data.addresses}
-              innerForm={CbrZoneExclusionAddressForm}
+              innerForm={CbrExclusionAddressForm}
               disableSave={this.props.addressProps.disableSave}
               onDelete={this.props.addressProps.onDelete}
               onSave={this.props.addressProps.onSave}
@@ -120,7 +120,7 @@ class CbrZoneForm extends Component {
               subHeading
               addText="Create an Exclusion"
               arrayData={this.props.data.exclusions}
-              innerForm={CbrZoneExclusionAddressForm}
+              innerForm={CbrExclusionAddressForm}
               disableSave={this.props.exclusionProps.disableSave}
               onDelete={this.props.exclusionProps.onDelete}
               onSave={this.props.exclusionProps.onSave}

@@ -21,7 +21,7 @@ const typeNameMap = {
 /**
  * Context-based restriction addresses / exclusions
  */
-class CbrZoneExclusionAddressForm extends Component {
+class CbrExclusionAddressForm extends Component {
   constructor(props) {
     super(props);
     this.state = { ...this.props.data };
@@ -146,7 +146,7 @@ class CbrZoneExclusionAddressForm extends Component {
   }
 }
 
-CbrZoneExclusionAddressForm.defaultProps = {
+CbrExclusionAddressForm.defaultProps = {
   data: {
     name: "",
     account_id: "",
@@ -160,7 +160,7 @@ CbrZoneExclusionAddressForm.defaultProps = {
   isModal: false,
 };
 
-CbrZoneExclusionAddressForm.propTypes = {
+CbrExclusionAddressForm.propTypes = {
   data: PropTypes.shape({
     account_id: PropTypes.string.isRequired,
     location: PropTypes.string,
@@ -176,4 +176,4 @@ CbrZoneExclusionAddressForm.propTypes = {
   invalidTextCallback: PropTypes.func.isRequired,
 };
 
-export default CbrZoneExclusionAddressForm;
+export default CbrExclusionAddressForm;

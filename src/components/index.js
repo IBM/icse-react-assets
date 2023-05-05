@@ -54,7 +54,7 @@ export { default as WorkerPoolForm } from "./forms/WorkerPoolForm";
 export { default as VpnServerRouteForm } from "./forms/VpnServerRouteForm";
 export { default as IcseFormTemplate } from "./IcseFormTemplate";
 export { default as CbrZoneForm } from "./forms/cbr/CbrZoneForm";
-export { default as CbrZoneExclusionAddressForm } from "./forms/cbr/CbrZoneExclusionAddressForm";
+export { default as CbrExclusionAddressForm } from "./forms/cbr/CbrExclusionAddressForm";
 export { IcseNameInput, IcseTextInput, IcseToggle } from "./Inputs";
 export { DeleteModal, IcseModal, UnsavedChangesModal } from "./Modals";
 export {

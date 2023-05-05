@@ -19,7 +19,7 @@ export default {
     ["data.account_id"]: {
       description: "A string specifying an account id",
       control: "none",
-      type: { required: true }, // required prop or not
+      type: { required: false }, // required prop or not
     },
     ["data.description"]: {
       description: "A string of 0-300 characters specifying a zone description",
@@ -30,13 +30,13 @@ export default {
       description:
         "An array of objects containing cbr zone addresses, view the CbrZoneExclusionAddressForm story for more information",
       control: "none",
-      type: { required: true }, // required prop or not
+      type: { required: false }, // required prop or not
     },
     ["data.exclusions"]: {
       description:
         "An array of objects containing cbr zone addresses, view the CbrZoneExclusionAddressForm story for more information",
       control: "none",
-      type: { required: true }, // required prop or not
+      type: { required: false }, // required prop or not
     },
     exclusionProps: {
       description:
@@ -182,6 +182,7 @@ const CbrZoneFormStory = ({ ...args }) => {
             account_id: "",
             location: "",
             service_name: "",
+            service_instance: "",
             service_type: "",
             type: "ipAddress",
             value: "",
@@ -193,6 +194,7 @@ const CbrZoneFormStory = ({ ...args }) => {
             account_id: "",
             location: "",
             service_name: "",
+            service_instance: "",
             service_type: "",
             type: "ipAddress",
             value: "",
