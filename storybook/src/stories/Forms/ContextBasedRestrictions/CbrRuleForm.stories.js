@@ -77,6 +77,11 @@ export default {
       control: "none",
       type: { required: true },
     },
+    "data.tags.operator": {
+      description: "String, the operator for the tag",
+      control: "none",
+      type: { required: true },
+    },
     "data.tags.value": {
       description: "String, the value for the tag",
       control: "none",

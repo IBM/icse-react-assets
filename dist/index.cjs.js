@@ -9282,7 +9282,7 @@ CbrTagForm.defaultProps = {
 CbrTagForm.propTypes = {
   data: PropTypes__default["default"].shape({
     name: PropTypes__default["default"].string.isRequired,
-    operator: PropTypes__default["default"].string.isRequired,
+    operator: PropTypes__default["default"].string,
     value: PropTypes__default["default"].string.isRequired
   }),
   invalidNameCallback: PropTypes__default["default"].func.isRequired,
@@ -9316,27 +9316,20 @@ class CbrRuleForm extends React.Component {
   }
   render() {
     // set up props for subforms
-    let contextInnerFormProps = {
-      arrayParentName: this.props.data.name
-    };
+    let contextInnerFormProps = {};
     lazyZ.transpose({
-      ...this.props.contextProps
+      ...this.props.contextProps,
+      arrayParentName: this.props.data.name
     }, contextInnerFormProps);
-    let resourceAttributeInnerFormProps = {
-      invalidCallback: this.props.invalidResourceAttributeCallback,
-      invalidTextCallback: this.props.invalidResourceAttributeTextCallback,
-      arrayParentName: this.props.data.name
-    };
+    let resourceAttributeInnerFormProps = {};
     lazyZ.transpose({
-      ...this.props.resourceAttributeProps
+      ...this.props.resourceAttributeProps,
+      arrayParentName: this.props.data.name
     }, resourceAttributeInnerFormProps);
-    let tagInnerFormProps = {
-      invalidCallback: this.props.invalidTagCallback,
-      invalidTextCallback: this.props.invalidTagTextCallback,
-      arrayParentName: this.props.data.name
-    };
+    let tagInnerFormProps = {};
     lazyZ.transpose({
-      ...this.props.tagProps
+      ...this.props.tagProps,
+      arrayParentName: this.props.data.name
     }, tagInnerFormProps);
     return /*#__PURE__*/React__default["default"].createElement("div", {
       id: "cbr-rule-form"
@@ -9458,6 +9451,7 @@ class CbrRuleForm extends React.Component {
   }
 }
 CbrRuleForm.defaultProps = {
+  isModal: false,
   data: {
     name: "",
     description: "",
@@ -9504,8 +9498,6 @@ CbrRuleForm.propTypes = {
     invalidNameCallback: PropTypes__default["default"].func.isRequired,
     invalidNameTextCallback: PropTypes__default["default"].func.isRequired
   }).isRequired,
-  invalidContextCallback: PropTypes__default["default"].func.isRequired,
-  invalidContextTextCallback: PropTypes__default["default"].func.isRequired,
   resourceAttributeProps: PropTypes__default["default"].shape({
     onSave: PropTypes__default["default"].func.isRequired,
     onDelete: PropTypes__default["default"].func.isRequired,
@@ -9516,8 +9508,6 @@ CbrRuleForm.propTypes = {
     invalidNameCallback: PropTypes__default["default"].func.isRequired,
     invalidNameTextCallback: PropTypes__default["default"].func.isRequired
   }).isRequired,
-  invalidResourceAttributeCallback: PropTypes__default["default"].func.isRequired,
-  invalidResourceAttributeTextCallback: PropTypes__default["default"].func.isRequired,
   tagProps: PropTypes__default["default"].shape({
     onSave: PropTypes__default["default"].func.isRequired,
     onDelete: PropTypes__default["default"].func.isRequired,
@@ -9527,9 +9517,7 @@ CbrRuleForm.propTypes = {
     invalidTextCallback: PropTypes__default["default"].func.isRequired,
     invalidNameCallback: PropTypes__default["default"].func.isRequired,
     invalidNameTextCallback: PropTypes__default["default"].func.isRequired
-  }).isRequired,
-  invalidTagCallback: PropTypes__default["default"].func.isRequired,
-  invalidTagTextCallback: PropTypes__default["default"].func.isRequired
+  }).isRequired
 };
 
 exports.AccessGroupDynamicPolicyForm = AccessGroupDynamicPolicyForm;

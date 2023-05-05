@@ -9271,7 +9271,7 @@ CbrTagForm.defaultProps = {
 CbrTagForm.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    operator: PropTypes.string.isRequired,
+    operator: PropTypes.string,
     value: PropTypes.string.isRequired
   }),
   invalidNameCallback: PropTypes.func.isRequired,
@@ -9305,27 +9305,20 @@ class CbrRuleForm extends Component {
   }
   render() {
     // set up props for subforms
-    let contextInnerFormProps = {
-      arrayParentName: this.props.data.name
-    };
+    let contextInnerFormProps = {};
     transpose({
-      ...this.props.contextProps
+      ...this.props.contextProps,
+      arrayParentName: this.props.data.name
     }, contextInnerFormProps);
-    let resourceAttributeInnerFormProps = {
-      invalidCallback: this.props.invalidResourceAttributeCallback,
-      invalidTextCallback: this.props.invalidResourceAttributeTextCallback,
-      arrayParentName: this.props.data.name
-    };
+    let resourceAttributeInnerFormProps = {};
     transpose({
-      ...this.props.resourceAttributeProps
+      ...this.props.resourceAttributeProps,
+      arrayParentName: this.props.data.name
     }, resourceAttributeInnerFormProps);
-    let tagInnerFormProps = {
-      invalidCallback: this.props.invalidTagCallback,
-      invalidTextCallback: this.props.invalidTagTextCallback,
-      arrayParentName: this.props.data.name
-    };
+    let tagInnerFormProps = {};
     transpose({
-      ...this.props.tagProps
+      ...this.props.tagProps,
+      arrayParentName: this.props.data.name
     }, tagInnerFormProps);
     return /*#__PURE__*/React.createElement("div", {
       id: "cbr-rule-form"
@@ -9447,6 +9440,7 @@ class CbrRuleForm extends Component {
   }
 }
 CbrRuleForm.defaultProps = {
+  isModal: false,
   data: {
     name: "",
     description: "",
@@ -9493,8 +9487,6 @@ CbrRuleForm.propTypes = {
     invalidNameCallback: PropTypes.func.isRequired,
     invalidNameTextCallback: PropTypes.func.isRequired
   }).isRequired,
-  invalidContextCallback: PropTypes.func.isRequired,
-  invalidContextTextCallback: PropTypes.func.isRequired,
   resourceAttributeProps: PropTypes.shape({
     onSave: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
@@ -9505,8 +9497,6 @@ CbrRuleForm.propTypes = {
     invalidNameCallback: PropTypes.func.isRequired,
     invalidNameTextCallback: PropTypes.func.isRequired
   }).isRequired,
-  invalidResourceAttributeCallback: PropTypes.func.isRequired,
-  invalidResourceAttributeTextCallback: PropTypes.func.isRequired,
   tagProps: PropTypes.shape({
     onSave: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
@@ -9516,9 +9506,7 @@ CbrRuleForm.propTypes = {
     invalidTextCallback: PropTypes.func.isRequired,
     invalidNameCallback: PropTypes.func.isRequired,
     invalidNameTextCallback: PropTypes.func.isRequired
-  }).isRequired,
-  invalidTagCallback: PropTypes.func.isRequired,
-  invalidTagTextCallback: PropTypes.func.isRequired
+  }).isRequired
 };
 
 export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, CbrContextForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, ClusterForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, LocationsMultiSelect, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, RoutingTableForm, RoutingTableRouteForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VpnServerRouteForm, VsiForm, VsiLoadBalancerForm, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };

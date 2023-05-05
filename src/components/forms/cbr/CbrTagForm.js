@@ -93,7 +93,7 @@ CbrTagForm.defaultProps = {
 CbrTagForm.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    operator: PropTypes.string.isRequired,
+    operator: PropTypes.string,
     value: PropTypes.string.isRequired,
   }),
   invalidNameCallback: PropTypes.func.isRequired,

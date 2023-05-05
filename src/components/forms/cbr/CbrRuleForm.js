@@ -33,27 +33,26 @@ class CbrRuleForm extends Component {
 
   render() {
     // set up props for subforms
-    let contextInnerFormProps = {
-      arrayParentName: this.props.data.name,
-    };
-    transpose({ ...this.props.contextProps }, contextInnerFormProps);
-
-    let resourceAttributeInnerFormProps = {
-      invalidCallback: this.props.invalidResourceAttributeCallback,
-      invalidTextCallback: this.props.invalidResourceAttributeTextCallback,
-      arrayParentName: this.props.data.name,
-    };
+    let contextInnerFormProps = {};
     transpose(
-      { ...this.props.resourceAttributeProps },
+      { ...this.props.contextProps, arrayParentName: this.props.data.name },
+      contextInnerFormProps
+    );
+
+    let resourceAttributeInnerFormProps = {};
+    transpose(
+      {
+        ...this.props.resourceAttributeProps,
+        arrayParentName: this.props.data.name,
+      },
       resourceAttributeInnerFormProps
     );
 
-    let tagInnerFormProps = {
-      invalidCallback: this.props.invalidTagCallback,
-      invalidTextCallback: this.props.invalidTagTextCallback,
-      arrayParentName: this.props.data.name,
-    };
-    transpose({ ...this.props.tagProps }, tagInnerFormProps);
+    let tagInnerFormProps = {};
+    transpose(
+      { ...this.props.tagProps, arrayParentName: this.props.data.name },
+      tagInnerFormProps
+    );
 
     return (
       <div id="cbr-rule-form">
@@ -218,6 +217,7 @@ class CbrRuleForm extends Component {
 }
 
 CbrRuleForm.defaultProps = {
+  isModal: false,
   data: {
     name: "",
     description: "",
@@ -271,8 +271,6 @@ CbrRuleForm.propTypes = {
     invalidNameCallback: PropTypes.func.isRequired,
     invalidNameTextCallback: PropTypes.func.isRequired,
   }).isRequired,
-  invalidContextCallback: PropTypes.func.isRequired,
-  invalidContextTextCallback: PropTypes.func.isRequired,
   resourceAttributeProps: PropTypes.shape({
     onSave: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
@@ -283,8 +281,6 @@ CbrRuleForm.propTypes = {
     invalidNameCallback: PropTypes.func.isRequired,
     invalidNameTextCallback: PropTypes.func.isRequired,
   }).isRequired,
-  invalidResourceAttributeCallback: PropTypes.func.isRequired,
-  invalidResourceAttributeTextCallback: PropTypes.func.isRequired,
   tagProps: PropTypes.shape({
     onSave: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
@@ -295,8 +291,6 @@ CbrRuleForm.propTypes = {
     invalidNameCallback: PropTypes.func.isRequired,
     invalidNameTextCallback: PropTypes.func.isRequired,
   }).isRequired,
-  invalidTagCallback: PropTypes.func.isRequired,
-  invalidTagTextCallback: PropTypes.func.isRequired,
 };
 
 export default CbrRuleForm;

@@ -28,13 +28,25 @@ export default {
     },
     invalidCallback: {
       description:
-        "Function that determines invalid state for the attribute's name and value, returns a boolean",
+        "Callback function that determines invalid state for the attribute fields, returns a boolean",
       type: { required: true },
       control: "none",
     },
     invalidTextCallback: {
       description:
-        "Function that returns invalid text string for the resource attribute's name and value",
+        "Callback function that returns invalid text string for attribute fields",
+      type: { required: true },
+      control: "none",
+    },
+    invalidNameCallback: {
+      description:
+        "Callback function that determines invalid state for the attribute's name field, returns a boolean",
+      type: { required: true },
+      control: "none",
+    },
+    invalidNameTextCallback: {
+      description:
+        "Callback function that returns invalid text string for the attribute's name field",
       type: { required: true },
       control: "none",
     },
@@ -58,20 +70,22 @@ const CbrResourceAttributeFormStory = ({ ...args }) => {
     else return false;
   }
 
-  function invalidCallback(field, stateData, componentProps) {
-    if (field === "name")
-      return (
-        !validName(stateData.name) || contains(["foo", "bar"], stateData.name)
-      );
-    else return false;
+  function invalidNameCallback(stateData, componentProps) {
+    return (
+      !validName(stateData.name) || contains(["foo", "bar"], stateData.name)
+    );
   }
 
+  function invalidNameTextCallback(stateData, componentProps) {
+    return contains(["foo", "bar"], stateData.name)
+      ? `Name ${stateData.name} already in use.`
+      : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
+  }
+  function invalidCallback(field, stateData, componentProps) {
+    return false;
+  }
   function invalidTextCallback(field, stateData, componentProps) {
-    if (field === "name")
-      return contains(["foo", "bar"], stateData.name)
-        ? `Name ${stateData.name} already in use.`
-        : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
-    else return `Invalid ${field}`;
+    return `Invalid ${field}`;
   }
   return (
     <CbrResourceAttributeForm
@@ -82,6 +96,8 @@ const CbrResourceAttributeFormStory = ({ ...args }) => {
       }}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
+      invalidNameCallback={invalidNameCallback}
+      invalidNameTextCallback={invalidNameTextCallback}
     />
   );
 };

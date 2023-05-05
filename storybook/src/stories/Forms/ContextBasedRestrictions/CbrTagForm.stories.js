@@ -21,6 +21,11 @@ export default {
       control: "none",
       type: { required: true },
     },
+    "data.operator": {
+      description: "String, the operator for the tag",
+      control: "none",
+      type: { required: false },
+    },
     "data.value": {
       description: "String, the value for the tag",
       control: "none",
@@ -28,13 +33,25 @@ export default {
     },
     invalidCallback: {
       description:
-        "Function that determines invalid state for the CBR tag fields, returns a boolean",
+        "Callback function that determines invalid state for the tag fields, returns a boolean",
       type: { required: true },
       control: "none",
     },
     invalidTextCallback: {
       description:
-        "Function that returns invalid text string for CBR tag fields",
+        "Callback function that returns invalid text string for tag fields",
+      type: { required: true },
+      control: "none",
+    },
+    invalidNameCallback: {
+      description:
+        "Callback function that determines invalid state for the tag's name field, returns a boolean",
+      type: { required: true },
+      control: "none",
+    },
+    invalidNameTextCallback: {
+      description:
+        "Callback function that returns invalid text string for the tag's name field",
       type: { required: true },
       control: "none",
     },
@@ -58,21 +75,24 @@ const CbrTagFormStory = ({ ...args }) => {
     else return false;
   }
 
-  function invalidCallback(field, stateData, componentProps) {
-    if (field === "name")
-      return (
-        !validName(stateData.name) || contains(["foo", "bar"], stateData.name)
-      );
-    else return false;
+  function invalidNameCallback(stateData, componentProps) {
+    return (
+      !validName(stateData.name) || contains(["foo", "bar"], stateData.name)
+    );
   }
 
-  function invalidTextCallback(field, stateData, componentProps) {
-    if (field === "name")
-      return contains(["foo", "bar"], stateData.name)
-        ? `Name ${stateData.name} already in use.`
-        : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
-    else return `Invalid ${field}`;
+  function invalidNameTextCallback(stateData, componentProps) {
+    return contains(["foo", "bar"], stateData.name)
+      ? `Name ${stateData.name} already in use.`
+      : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
   }
+  function invalidCallback(field, stateData, componentProps) {
+    return false;
+  }
+  function invalidTextCallback(field, stateData, componentProps) {
+    return `Invalid ${field}`;
+  }
+
   return (
     <CbrTagForm
       {...args}
@@ -82,6 +102,8 @@ const CbrTagFormStory = ({ ...args }) => {
       }}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
+      invalidNameCallback={invalidNameCallback}
+      invalidNameTextCallback={invalidNameTextCallback}
     />
   );
 };
