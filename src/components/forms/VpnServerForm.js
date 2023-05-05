@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { NumberInput, TextArea } from "@carbon/react";
-import { isIpv4CidrOrAddress, transpose } from "lazy-z";
+import { titleCase, transpose, isNullOrEmptyString } from "lazy-z";
 import PropTypes from "prop-types";
-import { checkNullorEmptyString } from "../../lib";
+import { checkNullorEmptyString, invalidCRNs } from "../../lib";
 import { isIpStringInvalid, isRangeInvalid } from "../../lib/iam-utils";
 import {
   buildFormDefaultInputMethods,
@@ -10,7 +10,7 @@ import {
 } from "../component-utils";
 import { IcseSelect } from "../Dropdowns";
 import { IcseTextInput, IcseNameInput, IcseToggle } from "../Inputs";
-import { SecurityGroupMultiSelect, SubnetMultiSelect } from "../MultiSelects";
+import { SecurityGroupMultiSelect } from "../MultiSelects";
 import { IcseFormGroup } from "../Utils";
 import IcseFormTemplate from "../IcseFormTemplate";
 import VpnServerRouteForm from "./VpnServerRouteForm";
@@ -31,18 +31,32 @@ class VpnServerForm extends Component {
 
   handleInputChange(event) {
     let { name, value } = event.target;
+    console.log(name);
     let newState = { ...this.state };
-    newState = { [name]: value };
+    //handle crn inputs
+    let crnList = value
+      ? value
+          .replace(/\s\s+/g, "") // replace extra spaces
+          .replace(/,(?=,)/g, "") // prevent null tags from
+          .replace(/[^\w,-:]/g, "")
+      : [];
     if (name === "method") {
-      // Clear client_ca_crn and identity_provider when method changes
+      // Clear client_ca_crn when method changes
+      newState.method = value;
       newState.client_ca_crn = "";
-      newState.identity_provider = "";
-    }
-    if (name === "vpc") {
+    } else if (name === "vpc") {
       // Clear subnet and security groups when vpc changes
-      newState.subnet = [];
+      newState.vpc = value;
+      newState.subnet = "";
       newState.security_groups = [];
+    } else if (name === "certificate_crn") {
+      newState.certificate_crn = crnList;
+    } else if (name === "client_ca_crn") {
+      newState.client_ca_crn = crnList;
+    } else {
+      newState = { [name]: value };
     }
+    console.log(newState);
     this.setState(newState);
   }
 
@@ -104,135 +118,6 @@ class VpnServerForm extends Component {
             hideHelperText
             className={classNameModalCheck}
           />
-          {/* certificate_crn */}
-          <IcseTextInput
-            componentName={this.props.data.name + "-vpn-server-certificate-crn"}
-            id={this.props.data.name + "-vpn-server-certificate-crn"}
-            field={this.props.data.name + "-vpn-server-certificate-crn"}
-            tooltip={{
-              content:
-                "Must use Secrets Manager to generate certificate_crn of secret for this VPN server.",
-              align: "top-left",
-            }}
-            labelText="Certificate CRN"
-            value={this.state.certificate_crn}
-            onChange={this.handleInputChange}
-            invalid={false}
-            className={classNameModalCheck}
-          />
-        </IcseFormGroup>
-        <IcseFormGroup>
-          {/* method toggle */}
-          <IcseSelect
-            formName={this.props.data.name + "-vpn-server-method"}
-            name="method"
-            labelText="Method"
-            groups={["certificate", "username"]}
-            value={this.state.method}
-            handleInputChange={this.handleInputChange}
-            className={classNameModalCheck}
-          />
-          {/* client_ca_crn or identity_provider */}
-          {this.state.method === "certificate" ? (
-            <IcseTextInput
-              componentName={this.props.data.name + "-vpn-server-client-ca-crn"}
-              field={this.props.data.name + "-vpn-server-client-ca-crn"}
-              id={this.props.data.name + "-vpn-server-client-ca-crn"}
-              labelText="Client CA CRN"
-              value={this.state.client_ca_crn}
-              onChange={this.handleInputChange}
-              invalid={false}
-              className={classNameModalCheck}
-            />
-          ) : (
-            <IcseTextInput
-              componentName={
-                this.props.data.name + "-vpn-server-identity-provider"
-              }
-              id={this.props.data.name + "-vpn-server-identity-provider"}
-              field={this.props.data.name + "-vpn-server-identity-provider"}
-              labelText="Identity Provider"
-              value={this.state.identity_provider}
-              onChange={this.handleInputChange}
-              invalid={false}
-              className={classNameModalCheck}
-            />
-          )}
-          {/* client_ip_pool */}
-          <IcseTextInput
-            id={this.props.data.name + "-client-ip-pool"}
-            componentName={this.props.data.name + "-client-ip-pool"}
-            name={this.props.data.name + "-client-ip-pool"}
-            field={this.props.data.name + "-client-ip-pool"}
-            value={this.state.client_ip_pool}
-            placeholder="x.x.x.x"
-            labelText="Client IP Pool CIDR"
-            invalid={isIpv4CidrOrAddress(this.state.client_ip_pool) === false}
-            invalidText="Client IP Pool CIDR must be a PV4 CIDR block."
-            onChange={this.handleInputChange}
-            className={classNameModalCheck}
-          />
-        </IcseFormGroup>
-        <IcseFormGroup>
-          {/* enable_split_tunneling toggle */}
-          <IcseToggle
-            id={this.props.data.name + "-vpn-server-enable-split-tunneling"}
-            labelText="Enable Split Tunneling"
-            defaultToggled={this.state.enable_split_tunneling}
-            onToggle={() => this.handleToggle("enable_split_tunneling")}
-            className="fieldWidthSmaller"
-          />
-          {/* client_idle_timeout input */}
-          <NumberInput
-            id={
-              this.props.data.name + "-vpn-serrver-client-idle-timeout-seconds"
-            }
-            name={
-              this.props.data.name + "-vpn-serrver-client-idle-timeout-seconds"
-            }
-            placeholder="600"
-            label="Client Idle Timeout (sec)"
-            allowEmpty={true}
-            value={this.state.client_idle_timeout || ""}
-            step={1}
-            onChange={this.handleNumberInputChange}
-            hideSteppers={true}
-            min={0}
-            max={28800}
-            invalid={isRangeInvalid(this.state.client_idle_timeout, 0, 28800)}
-            invalidText="Must be a whole number between 0 and 28800."
-            className="fieldWidth leftTextAlign"
-          />
-          {/* port input */}
-          <NumberInput
-            id={this.props.data.name + "-vpn-serrver-port"}
-            label="Port"
-            allowEmpty={true}
-            value={this.state.port || ""}
-            step={1}
-            onChange={this.handleNumberInputChange}
-            name="port"
-            hideSteppers={true}
-            min={1}
-            max={65535}
-            invalid={isRangeInvalid(this.state.client_idle_timeout, 1, 65535)}
-            invalidText="Must be a whole number between 1 and 65535."
-            className="fieldWidth leftTextAlign"
-          />
-          {/* protocol */}
-          <IcseSelect
-            formName={this.props.data.name + "-vpn-server-protocol"}
-            groups={["TCP", "UDP"]}
-            value={this.state.protocol.toUpperCase()}
-            labelText="Protocol"
-            name="protocol"
-            handleInputChange={(event) =>
-              this.handleInput("protocol", event, true)
-            }
-            className="fieldWidthSmaller"
-          />
-        </IcseFormGroup>
-        <IcseFormGroup>
           {/* resource group */}
           <IcseSelect
             formName={this.props.data.name + "-vpn-server-resource-group"}
@@ -246,7 +131,7 @@ class VpnServerForm extends Component {
           {/* vpc */}
           <IcseSelect
             formName={this.props.data.name + "-vpn-server-vpc"}
-            name={this.props.data.name + "-vpn-server-vpc"}
+            name="vpc"
             labelText="VPC"
             groups={this.props.vpcList}
             value={this.state.vpc}
@@ -262,9 +147,7 @@ class VpnServerForm extends Component {
             formName={
               this.props.data.name + "-vpn-server-" + this.state.vpc + "-subnet"
             }
-            name={
-              this.props.data.name + "-vpn-server-" + this.state.vpc + "-subnet"
-            }
+            name="subnet"
             labelText="Subnet"
             groups={
               isNullOrEmptyString(this.state.vpc) ? [] : this.getSubnetList()
@@ -281,7 +164,7 @@ class VpnServerForm extends Component {
           />
           <SecurityGroupMultiSelect
             key={this.state.vpc + "-sg"}
-            id={this.props.data.name + "-vsi-security-groups"}
+            id={this.props.data.name + "-vpn-server-security-groups"}
             initialSelectedItems={this.state.security_groups || []}
             vpc_name={this.state.vpc}
             onChange={(value) =>
@@ -298,10 +181,137 @@ class VpnServerForm extends Component {
           />
         </IcseFormGroup>
         <IcseFormGroup>
+          {/* certificate_crn */}
+          <IcseTextInput
+            id={this.props.data.name + "-vpn-server-certificate-crn"}
+            field="certificate_crn"
+            componentName="certificate_crn"
+            tooltip={{
+              content:
+                "Secrets Manager certificate unique identifier for VPN server",
+              align: "top-left",
+            }}
+            labelText="Secrets Manager Certificate CRN"
+            value={
+              this.state.certificate_crn === undefined
+                ? ""
+                : String(this.state.certificate_crn)
+            }
+            onChange={this.handleInputChange}
+            invalid={invalidCRNs(this.state.certificate_crn).invalid}
+            invalidText={invalidCRNs(this.state.certificate_crn).invalidText}
+            className={classNameModalCheck}
+          />
+          {/* method toggle */}
+          <IcseSelect
+            formName={this.props.data.name + "-vpn-server-method"}
+            name="method"
+            labelText="Authentication Method"
+            groups={["Certificate", "Username"]}
+            value={titleCase(this.state.method)}
+            handleInputChange={this.handleInputChange}
+            className={classNameModalCheck}
+          />
+          {/* client_ca_crn */}
+          {this.state.method === "Certificate" && (
+            <IcseTextInput
+              id={this.props.data.name + "-vpn-server-client-ca-crn"}
+              field="client_ca_crn"
+              componentName="client_ca_crn"
+              labelText="Client Secrets Manager Certificate CRN"
+              value={
+                this.state.client_ca_crn === undefined
+                  ? ""
+                  : String(this.state.client_ca_crn)
+              }
+              onChange={this.handleInputChange}
+              invalid={invalidCRNs(this.state.client_ca_crn).invalid}
+              invalidText={invalidCRNs(this.state.client_ca_crn).invalidText}
+              className="fieldWidth"
+            />
+          )}
+          {/* client_ip_pool */}
+          <IcseTextInput
+            id={this.props.data.name + "-vpn-server-client-ip-pool"}
+            componentName="client_ip_pool"
+            name="client_ip_pool"
+            field="client_ip_pool"
+            value={this.state.client_ip_pool}
+            placeholder="x.x.x.x"
+            labelText="Client CIDR"
+            invalidCallback={() =>
+              this.props.invalidClientIpPoolCallback(this.state, this.props)
+            }
+            invalidText={this.props.invalidClientIpPoolTextCallback(
+              this.state,
+              this.props
+            )}
+            onChange={this.handleInputChange}
+            className="fieldWidthSmaller"
+          />
+        </IcseFormGroup>
+        <IcseFormGroup>
+          {/* enable_split_tunneling toggle */}
+          <IcseToggle
+            id={this.props.data.name + "-vpn-server-enable-split-tunneling"}
+            labelText="Enable Split Tunneling"
+            defaultToggled={this.state.enable_split_tunneling}
+            onToggle={() => this.handleToggle("enable_split_tunneling")}
+            className="fieldWidthSmaller"
+          />
+          {/* client_idle_timeout input */}
+          <NumberInput
+            id={
+              this.props.data.name + "-vpn-server-client-idle-timeout-seconds"
+            }
+            name={
+              this.props.data.name + "-vpn-server-client-idle-timeout-seconds"
+            }
+            placeholder="600"
+            label="Client Idle Timeout (In Seconds)"
+            allowEmpty={true}
+            value={this.state.client_idle_timeout || ""}
+            step={1}
+            onChange={this.handleNumberInputChange}
+            hideSteppers={true}
+            min={0}
+            max={28800}
+            invalid={isRangeInvalid(this.state.client_idle_timeout, 0, 28800)}
+            invalidText="Must be a whole number between 0 and 28800."
+            className="fieldWidth leftTextAlign"
+          />
+          {/* port input */}
+          <NumberInput
+            id={this.props.data.name + "-vpn-server-port"}
+            label="Port"
+            allowEmpty={true}
+            value={this.state.port || ""}
+            step={1}
+            onChange={this.handleNumberInputChange}
+            name="port"
+            hideSteppers={true}
+            min={1}
+            max={65535}
+            invalid={isRangeInvalid(this.state.client_idle_timeout, 1, 65535)}
+            invalidText="Must be a whole number between 1 and 65535."
+            className="fieldWidthSmaller leftTextAlign"
+          />
+          {/* protocol */}
+          <IcseSelect
+            formName={this.props.data.name + "-vpn-server-protocol"}
+            groups={["TCP", "UDP"]}
+            value={this.state.protocol.toUpperCase()}
+            labelText="Protocol"
+            name="protocol"
+            handleInputChange={this.handleInputChange}
+            className="fieldWidthSmaller"
+          />
+        </IcseFormGroup>
+        <IcseFormGroup>
           {/* text area for client dns server IPs */}
           <TextArea
             className="textInputMedium"
-            id="client-dns-server-ips"
+            id={this.props.data.name + "-vpn-server-client-dns-server-ips"}
             labelText="Client DNS Server IPs"
             placeholder={
               this.state.client_dns_server_ips || "X.X.X.X, X.X.X.X/X, ..."
@@ -347,7 +357,6 @@ VpnServerForm.defaultProps = {
     certificate_crn: "",
     method: "",
     client_ca_crn: "",
-    identiy_provider: "",
     client_ip_pool: "",
     enable_split_tunneling: false,
     client_idle_timeout: "",
@@ -373,7 +382,6 @@ VpnServerForm.propTypes = {
     certificate_crn: PropTypes.string.isRequired,
     method: PropTypes.string.isRequired,
     client_ca_crn: PropTypes.string.isRequired,
-    identiy_provider: PropTypes.string.isRequired,
     client_ip_pool: PropTypes.string.isRequired,
     enable_split_tunneling: PropTypes.bool,
     client_idle_timeout: PropTypes.number,
@@ -395,6 +403,8 @@ VpnServerForm.propTypes = {
   /* callbacks */
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
+  invalidClientIpPoolCallback: PropTypes.func.isRequired,
+  invalidClientIpPoolTextCallback: PropTypes.func.isRequired,
   /* forms */
   vpnServerRouteProps: PropTypes.shape({
     onSave: PropTypes.func.isRequired,
