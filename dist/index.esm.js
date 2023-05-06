@@ -1,6 +1,6 @@
 import '@carbon/styles/css/styles.css';
-import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, Link, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, NumberInput, Modal, TextInput, Toggle, Tabs, TabList, Tab, TabPanels, TabPanel, FilterableMultiSelect, PasswordInput, TextArea, Dropdown, Tag } from '@carbon/react';
-import lazyZ, { kebabCase as kebabCase$2, isEmpty, isNullOrEmptyString as isNullOrEmptyString$4, buildNumberDropdownList, titleCase as titleCase$1, contains as contains$2, snakeCase, distinct, getObjectFromArray, splat as splat$1, isWholeNumber as isWholeNumber$1, isInRange as isInRange$1, isBoolean, isFunction as isFunction$1, transpose, prettyJSON, allFieldsNull, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual, parseIntFromZone, eachKey } from 'lazy-z';
+import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, Link, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, TextArea, PasswordInput, NumberInput, Dropdown, Tag } from '@carbon/react';
+import lazyZ, { kebabCase as kebabCase$2, isEmpty, isNullOrEmptyString as isNullOrEmptyString$4, buildNumberDropdownList, titleCase as titleCase$1, isFunction as isFunction$1, contains as contains$2, snakeCase, isBoolean, prettyJSON, transpose, allFieldsNull, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual, parseIntFromZone, splat as splat$1, distinct, getObjectFromArray, isWholeNumber as isWholeNumber$1, isInRange as isInRange$1, eachKey } from 'lazy-z';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Information, Save, Add, ChevronDown, ChevronRight, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt, Password } from '@carbon/icons-react';
@@ -787,72 +787,6 @@ UpDownButtons.propTypes = {
   handleDown: PropTypes.func.isRequired
 };
 
-const {
-  isFunction,
-  splat
-} = require("lazy-z");
-const {
-  eventTargetToNameAndValue,
-  toggleStateBoolean,
-  setNameToValue
-} = require("../src/lib/method-functions");
-
-/**
- * build functions for modal forms
- * @param {React.Element} component stateful component
- */
-function buildFormFunctions(component) {
-  let disableSubmit = isFunction(component.props.shouldDisableSubmit);
-  let disableSave = isFunction(component.props.shouldDisableSave);
-  let usesSubnetList = Array.isArray(component.props.subnetList);
-  let usesSecurityGroups = Array.isArray(component.props.securityGroups);
-  if (component.props.shouldDisableSave) component.shouldDisableSave = component.props.shouldDisableSave.bind(component);
-  if (disableSubmit) component.shouldDisableSubmit = component.props.shouldDisableSubmit.bind(component);
-  if (usesSubnetList) {
-    component.getSubnetList = function () {
-      return splat(component.props.subnetList.filter(subnet => {
-        if (subnet.vpc === component.state.vpc) return subnet;
-      }), "name");
-    }.bind(component);
-  }
-  if (usesSecurityGroups) {
-    component.getSecurityGroupList = function () {
-      return splat(component.props.securityGroups.filter(sg => {
-        if (sg.vpc === component.state.vpc) return sg;
-      }), "name");
-    };
-  }
-
-  // set update
-  component.componentDidMount = function () {
-    if (disableSubmit) component.shouldDisableSubmit();
-    if (disableSave) component.shouldDisableSave(this.state, this.props);
-  }.bind(component);
-  component.componentDidUpdate = function () {
-    if (disableSubmit) component.shouldDisableSubmit();
-    if (disableSave) component.shouldDisableSave(this.state, this.props);
-  }.bind(component);
-
-  // set on save function
-  component.onSave = function () {
-    component.props.onSave(this.state, this.props);
-  }.bind(component);
-  // save on delete
-  component.onDelete = function () {
-    component.props.onDelete(this.state, this.props);
-  }.bind(component);
-}
-
-/**
- * add default methods to component
- * @param {*} component React Component
- */
-function buildFormDefaultInputMethods(component) {
-  component.eventTargetToNameAndValue = eventTargetToNameAndValue.bind(component);
-  component.toggleStateBoolean = toggleStateBoolean.bind(component);
-  component.setNameToValue = setNameToValue.bind(component);
-}
-
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
     for (var i = 1; i < arguments.length; i++) {
@@ -1241,391 +1175,6 @@ EmptyResourceTile.propTypes = {
   instructions: PropTypes.string
 };
 
-var css_248z = ".tileTitle {\n  font-size: 80%;\n  font-weight: bold;\n}\n\n.tileContent {\n  font-size: 90%;\n}\n";
-styleInject(css_248z);
-
-class VsiLoadBalancerForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
-    this.allVsi = this.allVsi.bind(this);
-  }
-
-  /**
-   * handle input change
-   * @param {string} name key to change in the instance
-   * @param {*} value value
-   */
-  handleInputChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    let nextState = {
-      ...this.state
-    };
-    nextState[name] = contains$2(["name", "vpc", "resource_group"], name) ? value : contains$2(["health_delay", "health_retries", "health_timeout", "port", "listener_port", "connection_limit"], name) ? Number(value) : snakeCase(value);
-    if (name === "vpc") {
-      nextState.subnets = [];
-      nextState.security_groups = [];
-      nextState.target_vsi = [];
-    } else if (name === "connection_limit" && nextState[name] === 0) {
-      // reset when 0
-      nextState[name] = "";
-    } else if (name === "session_persistence_type" && value !== "app_cookie") {
-      nextState.session_persistence_app_cookie_name = null;
-    }
-    this.setState(nextState);
-  }
-
-  /**
-   * handle multiselect change
-   * @param {string} name key to change in the instance
-   * @param {*} value value
-   */
-  handleMultiSelectChange(name, value) {
-    let nextState = {
-      ...this.state
-    };
-    if (name === "target_vsi") {
-      nextState.subnets = [];
-      this.props.vsiDeployments.forEach(deployment => {
-        nextState.subnets = distinct(nextState.subnets.concat(deployment.subnets));
-      });
-    }
-    nextState[name] = value;
-    this.setState(nextState);
-  }
-
-  /**
-   * get all vsi
-   * @returns {Array<object>} list of vsi
-   */
-  allVsi() {
-    let allVsi = [];
-    this.state.target_vsi.forEach(deployment => {
-      let vsi = getObjectFromArray(this.props.vsiDeployments, "name", deployment);
-      let nextRow = [];
-      // for each subnet vsi
-      for (let subnet = 0; subnet < vsi.subnets.length; subnet++) {
-        // for each vsi per subnet
-        for (let count = 0; count < vsi.vsi_per_subnet; count++) {
-          nextRow.push({
-            name: deployment + "-" + (count + 1),
-            subnet: vsi.subnets[subnet]
-          });
-          if (nextRow.length === 3) {
-            allVsi.push(nextRow);
-            nextRow = [];
-          }
-        }
-      }
-      if (nextRow.length > 0) {
-        allVsi.push(nextRow);
-      }
-    });
-    return allVsi;
-  }
-  render() {
-    let componentName = this.props.data.name + "-lb";
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseHeading, {
-      type: "subHeading",
-      name: "Load Balancer"
-    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
-      id: componentName + "-name",
-      tooltip: {
-        content: "Name for the load balancer service. This name will be prepended to the components provisioned as part of the load balancer.",
-        align: "right"
-      },
-      componentName: componentName,
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props),
-      className: "fieldWidthSmaller",
-      hideHelperText: true
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: componentName + "-rg",
-      name: "resource_group",
-      labelText: "Resource Group",
-      groups: this.props.resourceGroups,
-      value: this.state.resource_group,
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: componentName + "-type",
-      name: "type",
-      labelText: "Load Balancer Type",
-      groups: ["Public", "Private"],
-      value: titleCase$1(this.state.type || ""),
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: "vsi_form",
-      name: "vpc",
-      labelText: "VPC",
-      groups: this.props.vpcList,
-      value: this.state.vpc,
-      handleInputChange: this.handleInputChange,
-      invalid: isNullOrEmptyString$4(this.state.vpc),
-      invalidText: "Select a VPC.",
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(SecurityGroupMultiSelect, {
-      key: this.state.vpc + "-sg",
-      id: componentName + "-sg",
-      initialSelectedItems: this.state.security_groups || [],
-      vpc_name: this.state.vpc,
-      onChange: value => this.handleMultiSelectChange("security_groups", value),
-      securityGroups: this.getSecurityGroupList(),
-      invalid: !(this.state.security_groups?.length > 0),
-      invalidText: !this.state.vpc || isNullOrEmptyString$4(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`,
-      className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React.createElement(IcseHeading, {
-      type: "subHeading",
-      name: "Load Balancer VSI"
-    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseMultiSelect, {
-      key: this.state.vpc + "-vsi",
-      className: "fieldWidthSmaller",
-      id: componentName + "-vsi",
-      titleText: "Deployment VSI",
-      items: splat$1(this.props.vsiDeployments.filter(deployment => {
-        if (deployment.vpc === this.state.vpc) {
-          return deployment;
-        }
-      }), "name"),
-      onChange: value => {
-        this.handleMultiSelectChange("target_vsi", value.selectedItems);
-      },
-      initialSelectedItems: this.state.target_vsi,
-      invalid: this.state.target_vsi.length === 0,
-      invalidText: "Select at least one VSI deployment"
-    }), /*#__PURE__*/React.createElement(NumberInput, {
-      placeholder: "80",
-      label: "Application Port",
-      id: componentName + "-port",
-      allowEmpty: true,
-      value: this.state.port,
-      step: 1,
-      onChange: this.handleInputChange,
-      name: "port",
-      hideSteppers: true,
-      min: 1,
-      max: 65535,
-      invalid: isNullOrEmptyString$4(this.state.port || "") ? true : !isWholeNumber$1(this.state.port),
-      invalidText: "Must be a whole number between 1 and 65535",
-      className: "fieldWidthSmaller"
-    })), this.allVsi().map((row, index) => /*#__PURE__*/React.createElement(IcseFormGroup, {
-      key: "row-" + index
-    }, row.map((vsi, vsiIndex) => /*#__PURE__*/React.createElement(Tile, {
-      key: `${index}-${vsiIndex}`,
-      className: "fieldWidthSmaller tileFormMargin"
-    }, /*#__PURE__*/React.createElement("p", {
-      className: "tileTitle"
-    }, "Name:"), /*#__PURE__*/React.createElement("p", {
-      className: "tileContent"
-    }, vsi.name), /*#__PURE__*/React.createElement("p", {
-      className: "tileTitle"
-    }, "Subnet:"), /*#__PURE__*/React.createElement("p", {
-      className: "tileContent"
-    }, vsi.subnet))))), /*#__PURE__*/React.createElement(IcseHeading, {
-      type: "subHeading",
-      name: "Load Balancer Pool"
-    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: componentName,
-      name: "algorithm",
-      labelText: "Load Balancing Algorithm",
-      groups: ["Round Robin", "Weighted Round Robin", "Least Connections"],
-      value: titleCase$1(this.state.algorithm || ""),
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: componentName,
-      name: "protocol",
-      labelText: "Pool Protocol",
-      groups: ["HTTPS", "HTTP", "TCP", "UDP"],
-      value: (this.state.protocol || "").toUpperCase(),
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller",
-      tooltip: {
-        content: "Protocol of the application running on VSI instances"
-      }
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: componentName,
-      name: "health_type",
-      labelText: "Pool Health Protocol",
-      groups: ["HTTPS", "HTTP", "TCP"],
-      value: (this.state.health_type || "").toUpperCase(),
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller",
-      tooltip: {
-        content: "Protocol used to check the health of member VSI instances"
-      }
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NumberInput, {
-      placeholder: "5",
-      label: "Health Timeout (in Seconds)",
-      id: componentName + "-timeout",
-      allowEmpty: true,
-      value: this.state.health_timeout,
-      step: 1,
-      onChange: this.handleInputChange,
-      name: "health_timeout",
-      hideSteppers: true,
-      min: 5,
-      max: 3000,
-      invalid: isNullOrEmptyString$4(this.state.health_timeout || "") ? true : !isWholeNumber$1(this.state.health_timeout),
-      invalidText: "Must be a whole number between 5 and 300",
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(NumberInput, {
-      placeholder: "5",
-      label: "Health Delay (in Seconds)",
-      id: componentName + "-delay",
-      allowEmpty: true,
-      value: this.state.health_delay,
-      step: 1,
-      onChange: this.handleInputChange,
-      name: "health_delay",
-      hideSteppers: true,
-      min: 5,
-      max: 3000,
-      invalid: isNullOrEmptyString$4(this.state.health_delay || "") ? true : this.state.health_delay <= this.state.health_timeout || !isWholeNumber$1(this.state.health_delay),
-      invalidText: this.state.health_delay <= this.state.health_timeout ? "Must be greater than Health Timeout value" : "Must be a whole number between 5 and 300",
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(NumberInput, {
-      placeholder: "5",
-      label: "Health Retries",
-      id: componentName + "-retries",
-      allowEmpty: true,
-      value: this.state.health_retries,
-      step: 1,
-      onChange: this.handleInputChange,
-      name: "health_retries",
-      hideSteppers: true,
-      min: 5,
-      max: 3000,
-      invalid: isNullOrEmptyString$4(this.state.health_retries || "") ? true : !isWholeNumber$1(this.state.health_retries),
-      invalidText: "Must be a whole number between 5 and 300",
-      className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React.createElement(IcseHeading, {
-      type: "subHeading",
-      name: "Load Balancer Listener"
-    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NumberInput, {
-      placeholder: "443",
-      label: "Listener Port",
-      id: componentName + "-listener-port",
-      allowEmpty: true,
-      value: this.state.listener_port,
-      step: 1,
-      onChange: this.handleInputChange,
-      name: "listener_port",
-      hideSteppers: true,
-      min: 1,
-      max: 65535,
-      invalid: isNullOrEmptyString$4(this.state.listener_port || "") ? true : !isWholeNumber$1(this.state.listener_port),
-      invalidText: "Must be a whole number between 1 and 65535",
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: componentName,
-      name: "listener_protocol",
-      labelText: "Listener Protocol",
-      groups: ["HTTPS", "HTTP", "TCP", "UDP"],
-      value: (this.state.listener_protocol || "").toUpperCase(),
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller",
-      tooltip: {
-        content: "Protocol of the listener for the looad balancer"
-      }
-    }), /*#__PURE__*/React.createElement(NumberInput, {
-      label: "Connection Limit",
-      id: componentName + "-connection-limit",
-      allowEmpty: true,
-      value: this.state.connection_limit || "",
-      step: 1,
-      onChange: this.handleInputChange,
-      name: "connection_limit",
-      hideSteppers: true,
-      min: 1,
-      max: 15000,
-      invalid: isNullOrEmptyString$4(this.state.connection_limit || "") ? false : isInRange$1(this.state.connection_limit, 1, 15000) === false || !isWholeNumber$1(this.state.connection_limit),
-      invalidText: "Must be a whole number between 1 and 15000",
-      className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React.createElement(IcseHeading, {
-      type: "subHeading",
-      name: "(Optional) Pool Customization"
-    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: componentName,
-      name: "proxy_protocol",
-      labelText: "Proxy Protocol",
-      groups: ["Disabled", "V1", "V2"],
-      value: (this.state.proxy_protocol || "disabled").toUpperCase(),
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: componentName,
-      name: "session_persistence_type",
-      labelText: "Session Persistence Type",
-      groups: ["Source IP", "App Cookie", "HTTP Cookie"],
-      value: titleCase$1(this.state.session_persistence_type || "").replace(/Ip/s, "IP").replace(/Http/g, "HTTP"),
-      handleInputChange: this.handleInputChange,
-      disableInvalid: true,
-      className: "fieldWidthSmaller"
-    }), this.state.session_persistence_type === "app_cookie" && /*#__PURE__*/React.createElement(IcseTextInput, {
-      id: componentName + "session_persistence_app_cookie_name",
-      componentName: componentName + "-cookie-name",
-      field: "session_persistence_app_cookie_name",
-      isModal: this.props.isModal,
-      labelText: "Session Cookie Name",
-      value: this.state.session_persistence_app_cookie_name || "",
-      invalid: isNullOrEmptyString$4(this.state.session_persistence_app_cookie_name || "") ? false : this.props.invalidCallback(this.state, this.props),
-      onChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    })));
-  }
-}
-VsiLoadBalancerForm.defaultProps = {
-  data: {
-    name: "",
-    resource_group: "",
-    vpc: "",
-    type: "",
-    security_groups: [],
-    algorithm: "",
-    protocol: "",
-    proxy_protocol: "",
-    health_type: "",
-    session_persistence_app_cookie_name: "",
-    target_vsi: [],
-    listener_protocol: "",
-    connection_limit: null,
-    port: "",
-    health_timeout: "",
-    health_delay: "",
-    health_retries: "",
-    listener_port: ""
-  },
-  isModal: false
-};
-VsiLoadBalancerForm.propTypes = {
-  data: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    resource_group: PropTypes.string,
-    vpc: PropTypes.string,
-    security_groups: PropTypes.arrayOf(PropTypes.string)
-  }),
-  invalidTextCallback: PropTypes.func.isRequired,
-  invalidCallback: PropTypes.func.isRequired,
-  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
-  vpcList: PropTypes.arrayOf(PropTypes.string.isRequired),
-  isModal: PropTypes.bool.isRequired,
-  securityGroups: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  vsiDeployments: PropTypes.arrayOf(PropTypes.shape({})).isRequired
-};
-
 /**
  * Form Modal
  * @param {Object} props
@@ -1705,209 +1254,6 @@ FormModal.propTypes = {
   name: PropTypes.string,
   // undefined for loaded modal not rendered
   children: PropTypes.node.isRequired
-};
-
-const IcseToggle = props => {
-  let toggleName = props.toggleFieldName || snakeCase(props.labelText);
-  return /*#__PURE__*/React.createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React.createElement(Toggle, {
-    labelA: props.useOnOff ? "Off" : "False",
-    labelB: props.useOnOff ? "On" : "True",
-    labelText: props.tooltip ? " " : props.labelText,
-    id: kebabCase$2(toggleName) + "-icse-toggle-" + props.id,
-    className: lib_2("leftTextAlign fitContent", props) + (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
-    ,
-
-    onToggle: event => {
-      props.onToggle(toggleName, event);
-    },
-    defaultToggled: props.defaultToggled,
-    disabled: props.disabled
-  }));
-};
-IcseToggle.defaultProps = {
-  useOnOff: false,
-  defaultToggled: false,
-  isModal: false,
-  disabled: false,
-  className: "fieldWidth"
-};
-IcseToggle.propTypes = {
-  useOnOff: PropTypes.bool.isRequired,
-  className: PropTypes.string,
-  labelText: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-  toggleFieldName: PropTypes.string,
-  // if field is name other than label text snake case
-  defaultToggled: PropTypes.bool.isRequired,
-  disabled: PropTypes.bool.isRequired,
-  tooltip: PropTypes.shape({
-    content: PropTypes.string.isRequired,
-    link: PropTypes.string,
-    alignModal: PropTypes.string
-  }),
-  onToggle: PropTypes.func.isRequired,
-  isModal: PropTypes.bool.isRequired
-};
-
-/**
- * Icse Text Input
- * @param {*} props props
- * @param {string} props.componentName name of the component being edited
- * @param {string} props.placeholder placeholder text for field
- * @param {string} props.field field (ex. name)
- * @param {string=} props.value actual value
- * @param {Function} props.onChange onchange function
- * @param {string} props.helperText helper text
- * @param {string} props.className classnames to add
- * @param {boolean=} props.readOnly read only
- * @param {string=} props.labelText override label text
- * @returns <IcseTextInput/> component
- */
-const IcseTextInput = props => {
-  let fieldName = titleCase$1(props.field);
-  return /*#__PURE__*/React.createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React.createElement(TextInput, {
-    id: props.id,
-    className: lib_2("leftTextAlign", props),
-    labelText: props.labelText ? props.labelText : titleCase$1(props.field),
-    placeholder: props.placeholder || lib_5(props.componentName, fieldName),
-    name: props.field,
-    value: props.value || "",
-    invalid: isBoolean(props.invalid) ? props.invalid : props.invalidCallback(),
-    onChange: props.onChange,
-    helperText: props.helperText,
-    invalidText: props.invalidText ? props.invalidText : `Invalid ${props.field} value.`,
-    maxLength: props.maxLength,
-    disabled: props.disabled,
-    readOnly: props.readOnly
-  }));
-};
-IcseTextInput.defaultProps = {
-  maxLength: null,
-  disabled: false,
-  readOnly: false,
-  hideHelperText: false,
-  className: "fieldWidth"
-};
-IcseTextInput.propTypes = {
-  disabled: PropTypes.bool.isRequired,
-  componentName: PropTypes.string,
-  placeholder: PropTypes.string,
-  field: PropTypes.string.isRequired,
-  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-  onChange: PropTypes.func,
-  helperText: PropTypes.string,
-  tooltip: PropTypes.shape({
-    content: PropTypes.string.isRequired,
-    link: PropTypes.string,
-    alignModal: PropTypes.string
-  }),
-  className: PropTypes.string,
-  readOnly: PropTypes.bool.isRequired,
-  labelText: PropTypes.string,
-  maxLength: PropTypes.number,
-  invalidCallback: PropTypes.func,
-  id: PropTypes.string.isRequired,
-  invalidText: PropTypes.string
-};
-
-/**
- * Icse Name Field
- * @param {*} props
- * @param {string} props.id
- * @param {string=} props.className
- * @param {string} props.value
- * @param {Function} props.onChange
- * @param {string} props.component
- * @param {boolean=} props.hideHelperText
- * @param {func} props.helperTextCallback
- * @param {string} props.invalidText
- * @param {func} props.invalidCallback
- * @returns <IcseNameInput />
- */
-const IcseNameInput = props => {
-  let helperText = "";
-  // if helper text is not hidden
-  if (!props.hideHelperText && !props.useData) {
-    if (!props.helperTextCallback) {
-      throw new Error("IcseNameInput expects either a function `helperTextCallback` that returns a string or `hideHelperText` as a prop, got neither.");
-    }
-    helperText = props.helperTextCallback();
-  }
-  return /*#__PURE__*/React.createElement(IcseTextInput, _extends({}, props, {
-    className: lib_2("leftTextAlign", props),
-    field: "name",
-    labelText: props.labelText,
-    helperText: helperText
-  }));
-};
-IcseNameInput.defaultProps = {
-  useData: false,
-  hideHelperText: false,
-  invalidText: "",
-  className: "fieldWidth",
-  labelText: "Name"
-};
-IcseNameInput.propTypes = {
-  id: PropTypes.string.isRequired,
-  className: PropTypes.string,
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func,
-  componentName: PropTypes.string.isRequired,
-  tooltip: PropTypes.shape({
-    content: PropTypes.string.isRequired,
-    link: PropTypes.string,
-    alignModal: PropTypes.string
-  }),
-  hideHelperText: PropTypes.bool.isRequired,
-  useData: PropTypes.bool.isRequired,
-  helperTextCallback: PropTypes.func,
-  invalidText: PropTypes.string.isRequired,
-  invalidCallback: PropTypes.func,
-  labelText: PropTypes.string.isRequired
-};
-
-class AppIdKeyForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = this.props.data;
-    this.handleInputChange = this.handleInputChange.bind(this);
-    buildFormFunctions(this);
-  }
-
-  /**
-   * handle input change
-   * @param {string} name key to change in state
-   * @param {*} value value to update
-   */
-  handleInputChange(event) {
-    this.setState({
-      name: event.target.value
-    });
-  }
-  render() {
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseTextInput, {
-      id: "app-id-key-name",
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      field: "name",
-      labelText: "Name",
-      componentName: "appid",
-      className: "fieldWidthSmaller",
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props)
-    }));
-  }
-}
-AppIdKeyForm.defaultProps = {
-  data: {
-    name: ""
-  }
-};
-AppIdKeyForm.propTypes = {
-  data: PropTypes.shape({
-    name: PropTypes.string.isRequired
-  }),
-  shouldDisableSubmit: PropTypes.func
 };
 
 /**
@@ -2629,134 +1975,163 @@ IcseFormTemplate.propTypes = {
   deleteDisabledMessage: PropTypes.string
 };
 
-/**
- * AppIdForm
- * @param {Object} props
- * @param {configDotJson} props.configDotJson config dot json
- * @param {slz} props.slz slz state store
- */
-class AppIdForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
-    buildFormDefaultInputMethods(this);
-    buildFormFunctions(this);
-  }
+const IcseToggle = props => {
+  let toggleName = props.toggleFieldName || snakeCase(props.labelText);
+  return /*#__PURE__*/React.createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React.createElement(Toggle, {
+    labelA: props.useOnOff ? "Off" : "False",
+    labelB: props.useOnOff ? "On" : "True",
+    labelText: props.tooltip ? " " : props.labelText,
+    id: kebabCase$2(toggleName) + "-icse-toggle-" + props.id,
+    className: lib_2("leftTextAlign fitContent", props) + (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
+    ,
 
-  /**
-   * handle input change
-   * @param {event} event event
-   */
-  handleInputChange(event) {
-    let newAppIdState = {
-      ...this.state
-    };
-    let {
-      name,
-      value
-    } = event.target;
-    if (name === "name") {
-      newAppIdState.name = value;
-    } else newAppIdState.resource_group = value;
-    this.setState(newAppIdState);
-  }
-
-  /**
-   * Toggle on and off use_data param in state
-   */
-  handleToggle() {
-    let newAppIdState = {
-      ...this.state
-    };
-    newAppIdState.use_data = !newAppIdState.use_data;
-    this.setState(newAppIdState);
-  }
-  render() {
-    let keyProps = {
-      invalidCallback: this.props.invalidKeyCallback,
-      invalidTextCallback: this.props.invalidKeyTextCallback,
-      arrayParentName: this.props.data.name
-    };
-    transpose({
-      ...this.props.keyProps
-    }, keyProps);
-    return /*#__PURE__*/React.createElement("div", {
-      id: "appid-form"
-    }, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
-      labelText: "Use Existing Instance",
-      key: this.state.use_data,
-      defaultToggled: this.state.use_data,
-      toggleFieldName: "use_data",
-      onToggle: this.handleToggle,
-      className: "fieldWidthSmallest",
-      id: "app-id-existing-instance"
-    }), /*#__PURE__*/React.createElement(IcseNameInput, {
-      id: this.props.data.name + "-appid-name",
-      componentName: this.props.data.name + "-appid-name",
-      placeholder: "my-appid-name",
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      hideHelperText: true,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props),
-      className: "fieldWidth"
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      labelText: "Resource Group",
-      name: "resource_group",
-      formName: this.props.data.name + "-appid-rg",
-      groups: this.props.resourceGroups,
-      value: this.state.resource_group,
-      handleInputChange: this.handleInputChange,
-      invalidText: "Select a Resource Group.",
-      className: "fieldWidth"
-    })), this.props.isModal !== true && /*#__PURE__*/React.createElement(IcseFormTemplate, {
-      name: "AppID Keys",
-      subHeading: true,
-      addText: "Create an AppID Key",
-      arrayData: this.props.data.keys,
-      innerForm: AppIdKeyForm,
-      disableSave: this.props.keyProps.disableSave,
-      onDelete: this.props.keyProps.onDelete,
-      onSave: this.props.keyProps.onSave,
-      onSubmit: this.props.keyProps.onSubmit,
-      propsMatchState: this.props.propsMatchState,
-      innerFormProps: {
-        ...keyProps
-      },
-      hideAbout: true,
-      toggleFormProps: {
-        hideName: true,
-        submissionFieldName: "appid_key",
-        disableSave: this.props.keyProps.disableSave,
-        type: "formInSubForm"
-      }
-    }));
-  }
-}
-AppIdForm.defaultProps = {
-  data: {
-    name: "",
-    resource_group: "",
-    use_data: false,
-    keys: []
-  },
-  isModal: false
+    onToggle: event => {
+      props.onToggle(toggleName, event);
+    },
+    defaultToggled: props.defaultToggled,
+    disabled: props.disabled
+  }));
 };
-AppIdForm.propTypes = {
-  isModal: PropTypes.bool.isRequired,
-  data: PropTypes.shape({
-    name: PropTypes.string,
-    resource_group: PropTypes.string,
-    use_data: PropTypes.bool,
-    keys: PropTypes.array.isRequired
-  }).isRequired,
-  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+IcseToggle.defaultProps = {
+  useOnOff: false,
+  defaultToggled: false,
+  isModal: false,
+  disabled: false,
+  className: "fieldWidth"
+};
+IcseToggle.propTypes = {
+  useOnOff: PropTypes.bool.isRequired,
+  className: PropTypes.string,
+  labelText: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
+  toggleFieldName: PropTypes.string,
+  // if field is name other than label text snake case
+  defaultToggled: PropTypes.bool.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  tooltip: PropTypes.shape({
+    content: PropTypes.string.isRequired,
+    link: PropTypes.string,
+    alignModal: PropTypes.string
+  }),
+  onToggle: PropTypes.func.isRequired,
+  isModal: PropTypes.bool.isRequired
+};
+
+/**
+ * Icse Text Input
+ * @param {*} props props
+ * @param {string} props.componentName name of the component being edited
+ * @param {string} props.placeholder placeholder text for field
+ * @param {string} props.field field (ex. name)
+ * @param {string=} props.value actual value
+ * @param {Function} props.onChange onchange function
+ * @param {string} props.helperText helper text
+ * @param {string} props.className classnames to add
+ * @param {boolean=} props.readOnly read only
+ * @param {string=} props.labelText override label text
+ * @returns <IcseTextInput/> component
+ */
+const IcseTextInput = props => {
+  let fieldName = titleCase$1(props.field);
+  return /*#__PURE__*/React.createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React.createElement(TextInput, {
+    id: props.id,
+    className: lib_2("leftTextAlign", props),
+    labelText: props.labelText ? props.labelText : titleCase$1(props.field),
+    placeholder: props.placeholder || lib_5(props.componentName, fieldName),
+    name: props.field,
+    value: props.value || "",
+    invalid: isBoolean(props.invalid) ? props.invalid : props.invalidCallback(),
+    onChange: props.onChange,
+    helperText: props.helperText,
+    invalidText: props.invalidText ? props.invalidText : `Invalid ${props.field} value.`,
+    maxLength: props.maxLength,
+    disabled: props.disabled,
+    readOnly: props.readOnly
+  }));
+};
+IcseTextInput.defaultProps = {
+  maxLength: null,
+  disabled: false,
+  readOnly: false,
+  hideHelperText: false,
+  className: "fieldWidth"
+};
+IcseTextInput.propTypes = {
+  disabled: PropTypes.bool.isRequired,
+  componentName: PropTypes.string,
+  placeholder: PropTypes.string,
+  field: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  onChange: PropTypes.func,
+  helperText: PropTypes.string,
+  tooltip: PropTypes.shape({
+    content: PropTypes.string.isRequired,
+    link: PropTypes.string,
+    alignModal: PropTypes.string
+  }),
+  className: PropTypes.string,
+  readOnly: PropTypes.bool.isRequired,
+  labelText: PropTypes.string,
+  maxLength: PropTypes.number,
   invalidCallback: PropTypes.func,
-  invalidTextCallback: PropTypes.func
+  id: PropTypes.string.isRequired,
+  invalidText: PropTypes.string
+};
+
+/**
+ * Icse Name Field
+ * @param {*} props
+ * @param {string} props.id
+ * @param {string=} props.className
+ * @param {string} props.value
+ * @param {Function} props.onChange
+ * @param {string} props.component
+ * @param {boolean=} props.hideHelperText
+ * @param {func} props.helperTextCallback
+ * @param {string} props.invalidText
+ * @param {func} props.invalidCallback
+ * @returns <IcseNameInput />
+ */
+const IcseNameInput = props => {
+  let helperText = "";
+  // if helper text is not hidden
+  if (!props.hideHelperText && !props.useData) {
+    if (!props.helperTextCallback) {
+      throw new Error("IcseNameInput expects either a function `helperTextCallback` that returns a string or `hideHelperText` as a prop, got neither.");
+    }
+    helperText = props.helperTextCallback();
+  }
+  return /*#__PURE__*/React.createElement(IcseTextInput, _extends({}, props, {
+    className: lib_2("leftTextAlign", props),
+    field: "name",
+    labelText: props.labelText,
+    helperText: helperText
+  }));
+};
+IcseNameInput.defaultProps = {
+  useData: false,
+  hideHelperText: false,
+  invalidText: "",
+  className: "fieldWidth",
+  labelText: "Name"
+};
+IcseNameInput.propTypes = {
+  id: PropTypes.string.isRequired,
+  className: PropTypes.string,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func,
+  componentName: PropTypes.string.isRequired,
+  tooltip: PropTypes.shape({
+    content: PropTypes.string.isRequired,
+    link: PropTypes.string,
+    alignModal: PropTypes.string
+  }),
+  hideHelperText: PropTypes.bool.isRequired,
+  useData: PropTypes.bool.isRequired,
+  helperTextCallback: PropTypes.func,
+  invalidText: PropTypes.string.isRequired,
+  invalidCallback: PropTypes.func,
+  labelText: PropTypes.string.isRequired
 };
 
 /**
@@ -2980,6 +2355,246 @@ LocationsMultiSelect.propTypes = {
   region: PropTypes.string.isRequired
 };
 
+const {
+  isFunction,
+  splat
+} = require("lazy-z");
+const {
+  eventTargetToNameAndValue,
+  toggleStateBoolean,
+  setNameToValue
+} = require("../src/lib/method-functions");
+
+/**
+ * build functions for modal forms
+ * @param {React.Element} component stateful component
+ */
+function buildFormFunctions(component) {
+  let disableSubmit = isFunction(component.props.shouldDisableSubmit);
+  let disableSave = isFunction(component.props.shouldDisableSave);
+  let usesSubnetList = Array.isArray(component.props.subnetList);
+  let usesSecurityGroups = Array.isArray(component.props.securityGroups);
+  if (component.props.shouldDisableSave) component.shouldDisableSave = component.props.shouldDisableSave.bind(component);
+  if (disableSubmit) component.shouldDisableSubmit = component.props.shouldDisableSubmit.bind(component);
+  if (usesSubnetList) {
+    component.getSubnetList = function () {
+      return splat(component.props.subnetList.filter(subnet => {
+        if (subnet.vpc === component.state.vpc) return subnet;
+      }), "name");
+    }.bind(component);
+  }
+  if (usesSecurityGroups) {
+    component.getSecurityGroupList = function () {
+      return splat(component.props.securityGroups.filter(sg => {
+        if (sg.vpc === component.state.vpc) return sg;
+      }), "name");
+    };
+  }
+
+  // set update
+  component.componentDidMount = function () {
+    if (disableSubmit) component.shouldDisableSubmit();
+    if (disableSave) component.shouldDisableSave(this.state, this.props);
+  }.bind(component);
+  component.componentDidUpdate = function () {
+    if (disableSubmit) component.shouldDisableSubmit();
+    if (disableSave) component.shouldDisableSave(this.state, this.props);
+  }.bind(component);
+
+  // set on save function
+  component.onSave = function () {
+    component.props.onSave(this.state, this.props);
+  }.bind(component);
+  // save on delete
+  component.onDelete = function () {
+    component.props.onDelete(this.state, this.props);
+  }.bind(component);
+}
+
+/**
+ * add default methods to component
+ * @param {*} component React Component
+ */
+function buildFormDefaultInputMethods(component) {
+  component.eventTargetToNameAndValue = eventTargetToNameAndValue.bind(component);
+  component.toggleStateBoolean = toggleStateBoolean.bind(component);
+  component.setNameToValue = setNameToValue.bind(component);
+}
+
+class AppIdKeyForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    this.handleInputChange = this.handleInputChange.bind(this);
+    buildFormFunctions(this);
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputChange(event) {
+    this.setState({
+      name: event.target.value
+    });
+  }
+  render() {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: "app-id-key-name",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      field: "name",
+      labelText: "Name",
+      componentName: "appid",
+      className: "fieldWidthSmaller",
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }));
+  }
+}
+AppIdKeyForm.defaultProps = {
+  data: {
+    name: ""
+  }
+};
+AppIdKeyForm.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired
+  }),
+  shouldDisableSubmit: PropTypes.func
+};
+
+/**
+ * AppIdForm
+ * @param {Object} props
+ * @param {configDotJson} props.configDotJson config dot json
+ * @param {slz} props.slz slz state store
+ */
+class AppIdForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  handleInputChange(event) {
+    let newAppIdState = {
+      ...this.state
+    };
+    let {
+      name,
+      value
+    } = event.target;
+    if (name === "name") {
+      newAppIdState.name = value;
+    } else newAppIdState.resource_group = value;
+    this.setState(newAppIdState);
+  }
+
+  /**
+   * Toggle on and off use_data param in state
+   */
+  handleToggle() {
+    let newAppIdState = {
+      ...this.state
+    };
+    newAppIdState.use_data = !newAppIdState.use_data;
+    this.setState(newAppIdState);
+  }
+  render() {
+    let keyProps = {
+      invalidCallback: this.props.invalidKeyCallback,
+      invalidTextCallback: this.props.invalidKeyTextCallback,
+      arrayParentName: this.props.data.name
+    };
+    transpose({
+      ...this.props.keyProps
+    }, keyProps);
+    return /*#__PURE__*/React.createElement("div", {
+      id: "appid-form"
+    }, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
+      labelText: "Use Existing Instance",
+      key: this.state.use_data,
+      defaultToggled: this.state.use_data,
+      toggleFieldName: "use_data",
+      onToggle: this.handleToggle,
+      className: "fieldWidthSmallest",
+      id: "app-id-existing-instance"
+    }), /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: this.props.data.name + "-appid-name",
+      componentName: this.props.data.name + "-appid-name",
+      placeholder: "my-appid-name",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      hideHelperText: true,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      className: "fieldWidth"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      labelText: "Resource Group",
+      name: "resource_group",
+      formName: this.props.data.name + "-appid-rg",
+      groups: this.props.resourceGroups,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a Resource Group.",
+      className: "fieldWidth"
+    })), this.props.isModal !== true && /*#__PURE__*/React.createElement(IcseFormTemplate, {
+      name: "AppID Keys",
+      subHeading: true,
+      addText: "Create an AppID Key",
+      arrayData: this.props.data.keys,
+      innerForm: AppIdKeyForm,
+      disableSave: this.props.keyProps.disableSave,
+      onDelete: this.props.keyProps.onDelete,
+      onSave: this.props.keyProps.onSave,
+      onSubmit: this.props.keyProps.onSubmit,
+      propsMatchState: this.props.propsMatchState,
+      innerFormProps: {
+        ...keyProps
+      },
+      hideAbout: true,
+      toggleFormProps: {
+        hideName: true,
+        submissionFieldName: "appid_key",
+        disableSave: this.props.keyProps.disableSave,
+        type: "formInSubForm"
+      }
+    }));
+  }
+}
+AppIdForm.defaultProps = {
+  data: {
+    name: "",
+    resource_group: "",
+    use_data: false,
+    keys: []
+  },
+  isModal: false
+};
+AppIdForm.propTypes = {
+  isModal: PropTypes.bool.isRequired,
+  data: PropTypes.shape({
+    name: PropTypes.string,
+    resource_group: PropTypes.string,
+    use_data: PropTypes.bool,
+    keys: PropTypes.array.isRequired
+  }).isRequired,
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  invalidCallback: PropTypes.func,
+  invalidTextCallback: PropTypes.func
+};
+
 /**
  * Atracker
  * @param {Object} props
@@ -3118,6 +2733,402 @@ AtrackerForm.propTypes = {
   cosKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
   cosBuckets: PropTypes.arrayOf(PropTypes.string).isRequired,
   isModal: PropTypes.bool.isRequired
+};
+
+class WorkerPoolForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.isModal ? {
+      name: "",
+      flavor: this.props.cluster.flavor,
+      subnets: this.props.cluster.subnets || [],
+      vpc: this.props.cluster.vpc,
+      workers_per_subnet: this.props.cluster.workers_per_subnet,
+      entitlement: this.props.cluster.entitlement
+    } : {
+      ...this.props.data
+    }, this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubnetChange = this.handleSubnetChange.bind(this);
+    buildFormFunctions(this);
+  }
+
+  // Handle pool input change
+  handleInputChange(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    let pool = {
+      ...this.state
+    };
+    if (name === "workers_per_subnet") {
+      pool[name] = Number(value);
+    } else {
+      pool[name] = value === "null" ? null : value;
+    }
+    this.setState(pool);
+  }
+
+  // Handle subnet multiselect change
+  handleSubnetChange(event) {
+    let pool = {
+      ...this.state
+    };
+    pool.subnets = event;
+    this.setState(pool);
+  }
+  render() {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: this.state.name + "-name",
+      componentName: "Worker Pools",
+      onChange: this.handleInputChange,
+      componentProps: this.props,
+      value: this.state.name,
+      className: "fieldWidthSmaller",
+      placeholder: "my-worker-pool-name",
+      hideHelperText: true,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React.createElement(EntitlementSelect, {
+      name: "entitlement",
+      value: this.state.entitlement,
+      handleInputChange: this.handleInputChange,
+      component: this.props.data.name,
+      formName: "Worker Pools"
+    }), /*#__PURE__*/React.createElement(FetchSelect, {
+      name: "flavor",
+      formName: this.props.data.name + "flavor",
+      labelText: "Instance Profile",
+      value: this.state.flavor,
+      apiEndpoint: this.props.flavorApiEndpoint,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(SubnetMultiSelect, {
+      id: this.props.data.name,
+      disabled: this.props.cluster.vpc === null,
+      vpc_name: this.state.vpc,
+      initialSelectedItems: this.state.subnets,
+      subnets: this.getSubnetList(),
+      onChange: this.handleSubnetChange,
+      component: this.props.data.name,
+      className: "fieldWidthSmaller cds--form-item"
+    }), /*#__PURE__*/React.createElement(IcseNumberSelect, {
+      name: "workers_per_subnet",
+      formName: this.props.data.name + "Worker Pools",
+      labelText: "Workers Per Subnet",
+      value: this.state.workers_per_subnet,
+      max: 10,
+      min: 0,
+      handleInputChange: this.handleInputChange,
+      component: this.props.data.name,
+      className: "fieldWidthSmaller"
+    })));
+  }
+}
+WorkerPoolForm.defaultProps = {
+  data: {
+    entitlement: "",
+    flavor: "",
+    name: "",
+    subnets: [],
+    vpc: "",
+    workers_per_subnet: 2
+  },
+  isModal: false
+};
+WorkerPoolForm.propTypes = {
+  subnetList: PropTypes.array.isRequired,
+  isModal: PropTypes.bool.isRequired,
+  cluster: PropTypes.shape({
+    entitlement: PropTypes.string,
+    // can be null
+    flavor: PropTypes.string.isRequired,
+    vpc: PropTypes.string,
+    workers_per_subnet: PropTypes.number.isRequired,
+    subnets: PropTypes.array.isRequired
+  }),
+  // can be null
+  data: PropTypes.shape({
+    entitlement: PropTypes.string.isRequired,
+    flavor: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    vpc: PropTypes.string,
+    workers_per_subnet: PropTypes.number.isRequired,
+    subnets: PropTypes.array.isRequired
+  }).isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired
+};
+
+class ClusterForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    if (this.props.isModal) this.state.worker_pools = [];
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleToggleChange = this.handleToggleChange.bind(this);
+    this.handleMultiSelect = this.handleMultiSelect.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+
+  // Handle cluster input change
+  handleInputChange = event => {
+    let {
+      name,
+      value
+    } = event.target;
+    let cluster = {
+      ...this.state
+    };
+    this.setState(lib_11(name, value, cluster));
+  };
+
+  /**
+   * handle toggle change
+   * @param {*} event event
+   */
+  handleToggleChange = () => {
+    let cluster = {
+      ...this.state
+    };
+    cluster.update_all_workers = !cluster.update_all_workers;
+    this.setState(cluster);
+  };
+
+  /**
+   * handle subnet multiselect
+   * @param {event} event
+   */
+  handleMultiSelect(name, event) {
+    this.setState({
+      [name]: event
+    });
+  }
+  render() {
+    let clusterComponent = this.props.isModal ? "new-cluster" : this.props.data.name;
+    let innerFormProps = {
+      arrayParentName: this.props.data.name,
+      cluster: this.props.data,
+      invalidTextCallback: this.props.invalidPoolTextCallback,
+      invalidCallback: this.props.invalidPoolCallback,
+      subnetList: this.props.subnetList
+    };
+    transpose({
+      ...this.props.workerPoolProps
+    }, innerFormProps);
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: this.state.name + "-name",
+      labelText: "Cluster Name",
+      componentName: clusterComponent,
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props),
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      labelText: "Resource Group",
+      name: "resource_group",
+      formName: clusterComponent + "resource_group",
+      groups: this.props.resourceGroups,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a Resource Group.",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      name: "kube_type",
+      formName: clusterComponent + "kube_type",
+      labelText: "Kube Type",
+      groups: ["OpenShift", "IBM Kubernetes Service"],
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a cluster type.",
+      value: this.state.kube_type === "" ? "" : this.state.kube_type === "openshift" ? "OpenShift" : "IBM Kubernetes Service",
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(EntitlementSelect, {
+      name: "entitlement",
+      formName: clusterComponent + "entitlement",
+      labelText: "Entitlement",
+      value: this.state.entitlement,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(FetchSelect, {
+      name: "flavor",
+      formName: clusterComponent + "flavor",
+      labelText: "Instance Profile",
+      value: this.state.flavor,
+      apiEndpoint: this.props.flavorApiEndpoint,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), this.state.kube_type === "openshift" && /*#__PURE__*/React.createElement(IcseSelect, {
+      name: "cos",
+      formName: clusterComponent + "cos",
+      labelText: "Cloud Object Storage Instance",
+      groups: this.props.cosNames,
+      value: this.state.cos,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select an Object Storage instance",
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+      id: clusterComponent + "-vpc-name",
+      name: "vpc",
+      formName: clusterComponent + "vpc",
+      labelText: "VPC",
+      groups: this.props.vpcList,
+      value: this.state.vpc,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(SubnetMultiSelect, {
+      id: clusterComponent,
+      key: this.state.vpc,
+      vpc_name: this.state.vpc,
+      subnets: [...this.getSubnetList()],
+      initialSelectedItems: [...this.state.subnets],
+      onChange: event => this.handleMultiSelect("subnets", event),
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseNumberSelect, {
+      max: 10,
+      name: "workers_per_subnet",
+      formName: clusterComponent + "workers_per_subnet",
+      labelText: "Workers per Subnet",
+      value: this.state.workers_per_subnet,
+      handleInputChange: this.handleInputChange,
+      isModal: this.props.isModal,
+      className: "fieldWidthSmaller",
+      invalid: this.state.kube_type === "openshift" && this.state.subnets.length * this.state.workers_per_subnet < 2,
+      invalidText: "OpenShift clusters require at least 2 worker nodes across any number of subnets"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(FetchSelect, {
+      name: "kube_version",
+      formName: clusterComponent + "kube_version",
+      labelText: "Kube Version",
+      value: this.state.kube_version || "",
+      apiEndpoint: this.props.kubeVersionApiEndpoint,
+      filter: version => {
+        if (this.state.kube_type === "openshift" && version.indexOf("openshift") !== -1 ||
+        // is openshift and contains openshift
+        this.state.kube_type !== "openshift" && version.indexOf("openshift") === -1 ||
+        // is not openshift and does not contain openshift
+        version === "default" // or is default
+        ) {
+          return version.replace(/\s\(Default\)/g, ""); // replace default with empty string
+        }
+      },
+
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseToggle, {
+      id: clusterComponent + "-update-all",
+      labelText: "Update All Workers",
+      toggleFieldName: "update_all_workers",
+      defaultToggled: this.state.update_all_workers,
+      onToggle: this.handleToggleChange
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+      name: "encryption_key",
+      formName: clusterComponent + "encryption_key",
+      labelText: "Encryption Key",
+      groups: this.props.encryptionKeys,
+      value: this.state.encryption_key,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseToggle, {
+      id: clusterComponent + "-service-endpoint",
+      tooltip: {
+        content: "Use private service endpoint for Encryption Key"
+      },
+      labelText: "Private Endpoint",
+      toggleFieldName: "private_endpoint",
+      defaultToggled: this.state.private_endpoint,
+      onToggle: this.handleToggleChange
+    })), /*#__PURE__*/React.createElement(React.Fragment, null, this.props.isModal === false && /*#__PURE__*/React.createElement(IcseFormTemplate, {
+      name: "Worker Pools",
+      subHeading: true,
+      addText: "Create a Worker Pool",
+      arrayData: this.props.data.worker_pools,
+      innerForm: WorkerPoolForm,
+      disableSave: this.props.workerPoolProps.disableSave,
+      onDelete: this.props.workerPoolProps.onDelete,
+      onSave: this.props.workerPoolProps.onSave,
+      onSubmit: this.props.workerPoolProps.onSubmit,
+      propsMatchState: this.props.propsMatchState,
+      innerFormProps: {
+        ...innerFormProps
+      },
+      hideAbout: true,
+      toggleFormProps: {
+        hideName: true,
+        submissionFieldName: "worker_pools",
+        disableSave: this.props.workerPoolProps.disableSave,
+        type: "formInSubForm"
+      }
+    })));
+  }
+}
+ClusterForm.defaultProps = {
+  data: {
+    name: "",
+    resource_group: "",
+    kube_type: "openshift",
+    entitlement: "null",
+    encryption_key: null,
+    cos: "",
+    vpc: "",
+    subnets: [],
+    workers_per_subnet: 2,
+    flavor: "",
+    kube_version: "",
+    update_all_workers: false,
+    worker_pools: []
+  },
+  resourceGroups: [],
+  encryptionKeys: [],
+  cosNames: [],
+  vpcList: [],
+  subnetList: [],
+  isModal: false
+};
+ClusterForm.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    resource_group: PropTypes.string,
+    kube_type: PropTypes.string.isRequired,
+    entitlement: PropTypes.string,
+    // can be null
+    encryption_key: PropTypes.string,
+    cos: PropTypes.string.isRequired,
+    subnets: PropTypes.array.isRequired,
+    workers_per_subnet: PropTypes.number.isRequired,
+    vpc: PropTypes.string,
+    kube_version: PropTypes.string.isRequired,
+    flavor: PropTypes.string.isRequired,
+    update_all_workers: PropTypes.bool.isRequired,
+    worker_pools: PropTypes.array.isRequired
+  }),
+  /* bools */
+  isModal: PropTypes.bool.isRequired,
+  /* lists */
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  encryptionKeys: PropTypes.arrayOf(PropTypes.string),
+  cosNames: PropTypes.arrayOf(PropTypes.string),
+  vpcList: PropTypes.arrayOf(PropTypes.string),
+  subnetList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  /* api endpoints */
+  kubeVersionApiEndpoint: PropTypes.string.isRequired,
+  flavorApiEndpoint: PropTypes.string.isRequired,
+  /* callbacks */
+  invalidCallback: PropTypes.func,
+  invalidTextCallback: PropTypes.func,
+  helperTextCallback: PropTypes.func,
+  invalidPoolCallback: PropTypes.func,
+  invalidPoolTextCallback: PropTypes.func,
+  /* forms */
+  workerPoolProps: PropTypes.shape({
+    onSave: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    disableSave: PropTypes.func.isRequired
+  }).isRequired
 };
 
 /**
@@ -3275,6 +3286,237 @@ EncryptionKeyForm.propTypes = {
   }).isRequired,
   isModal: PropTypes.bool.isRequired,
   invalidRingCallback: PropTypes.func.isRequired
+};
+
+const {
+  isWholeNumber,
+  isInRange
+} = lazyZ;
+const {
+  RegexButWithWords: RegexButWithWords$1
+} = regexButWithWords;
+const commaSeparatedIpListExp = new RegexButWithWords$1().stringBegin().group(exp => {
+  exp.group(exp => {
+    exp.wordBoundary().group(exp => {
+      exp.group(exp => {
+        exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+      }).literal(".");
+    }, 3).group(exp => {
+      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+    }).wordBoundary().group(exp => {
+      exp.group(exp => {
+        exp.literal("/").group(exp => {
+          exp.literal("3").set("0-2").or().set("012").lazy().digit();
+        });
+      });
+    }).lazy();
+  });
+}).anyNumber().group(exp => {
+  exp.literal(",").whitespace().anyNumber().wordBoundary().group(exp => {
+    exp.group(exp => {
+      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+    }).literal(".");
+  }, 3).group(exp => {
+    exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+  }).wordBoundary().group(exp => {
+    exp.group(exp => {
+      exp.literal("/").group(exp => {
+        exp.literal("3").set("0-2").or().set("012").lazy().digit();
+      });
+    });
+  }).lazy();
+}).anyNumber().stringEnd().done("gm");
+
+/**
+ * return true if value is null or empty string
+ * @param {*} value
+ * @returns {boolean} true if null or empty string
+ */
+function isNullOrEmptyString$3(value) {
+  return value === null || value === "";
+}
+
+/**
+ * test for invalid range
+ * @param {*} value
+ * @param {number} min
+ * @param {number} max
+ * @returns {boolean} true if invalid
+ */
+function isRangeInvalid(value, min, max) {
+  if (isNullOrEmptyString$3(value)) return false;
+  value = parseFloat(value);
+  if (!isWholeNumber(value) || !isInRange(value, min, max)) {
+    return true;
+  }
+  return false;
+}
+
+/**
+ * test for invalid IP string
+ * @param {string} value
+ * @returns {boolean} true if invalid
+ */
+function isIpStringInvalid(value) {
+  if (!isNullOrEmptyString$3(value) && value.match(commaSeparatedIpListExp) === null) {
+    return true;
+  }
+  return false;
+}
+var iamUtils = {
+  isIpStringInvalid,
+  isRangeInvalid
+};
+var iamUtils_1 = iamUtils.isIpStringInvalid;
+var iamUtils_2 = iamUtils.isRangeInvalid;
+
+/**
+ * EventStreamsForm
+ */
+class EventStreamsForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleAllowedIps = this.handleAllowedIps.bind(this);
+    this.handlePlanChange = this.handlePlanChange.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+
+  /**
+   * Handle input change for allowed ips text field
+   * @param {event} event
+   */
+  handleAllowedIps(event) {
+    // removing white space and checking for empty value
+    let value = event.target.value.replace(/\s*/g, "");
+    this.setState({
+      private_ip_allowlist: value
+    });
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * Handle input change for a select
+   * @param {event} event
+   */
+  handlePlanChange(event) {
+    let value = event.target.value.toLowerCase();
+    let tempState = {
+      ...this.state
+    };
+    tempState.plan = value;
+    if (value !== "enterprise") {
+      tempState = {
+        ...tempState,
+        throughput: "",
+        storage_size: "",
+        endpoints: "",
+        private_ip_allowlist: ""
+      };
+    }
+    this.setState(tempState);
+  }
+  render() {
+    let composedId = `event-streams-form-${this.props.data.name}`;
+    let classNameModalCheck = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: composedId,
+      componentName: this.props.data.name + "-event-streams",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      hideHelperText: true,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      className: classNameModalCheck
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: this.props.data.name + "-event-streams",
+      value: titleCase$1(this.state.plan),
+      groups: ["Lite", "Standard", "Enterprise"],
+      handleInputChange: this.handlePlanChange,
+      className: classNameModalCheck,
+      name: "plan",
+      labelText: "Plan"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: this.props.data.name + "-event-streams",
+      value: this.state.resource_group,
+      groups: this.props.resourceGroups,
+      handleInputChange: this.handleInputChange,
+      className: classNameModalCheck,
+      name: "resource_group",
+      labelText: "Resource Group"
+    })), this.state.plan === "enterprise" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(EndpointSelect, {
+      name: "endpoints",
+      formName: this.props.data.name + "-event-streams",
+      handleInputChange: this.handleInputChange,
+      value: this.state.endpoints,
+      className: classNameModalCheck
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: this.props.data.name + "-event-streams",
+      value: this.state.throughput,
+      groups: ["150MB/s", "300MB/s", "450MB/s"],
+      handleInputChange: this.handleInputChange,
+      className: classNameModalCheck,
+      name: "throughput",
+      labelText: "Throughput"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: this.props.data.name + "-event-streams",
+      value: this.state.storage_size,
+      groups: ["2TB", "4TB", "6TB", "8TB", "10TB", "12TB"],
+      handleInputChange: this.handleInputChange,
+      className: classNameModalCheck,
+      name: "storage_size",
+      labelText: "Storage Size"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(ToolTipWrapper, {
+      tooltip: {
+        content: "Private IP addresses or CIDR blocks to allowlist",
+        align: "top-left"
+      },
+      className: "textInputMedium",
+      innerForm: TextArea,
+      id: "event-streams-private-ips",
+      labelText: "Allowed Private IPs",
+      onChange: this.handleAllowedIps,
+      placeholder: this.state.private_ip_allowlist || "X.X.X.X, X.X.X.X/X, ...",
+      invalid: iamUtils_1(this.state.private_ip_allowlist),
+      invalidText: "Please enter a comma separated list of IP addresses or CIDR blocks"
+    }))));
+  }
+}
+EventStreamsForm.defaultProps = {
+  data: {
+    name: "",
+    plan: "lite",
+    resource_group: "",
+    endpoints: "",
+    throughput: "",
+    storage_size: "",
+    private_ip_allowlist: ""
+  }
+};
+EventStreamsForm.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    plan: PropTypes.string.isRequired,
+    resource_group: PropTypes.string,
+    endpoints: PropTypes.string,
+    throughput: PropTypes.string,
+    storage_size: PropTypes.string,
+    private_ip_allowlist: PropTypes.string
+  }),
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired
 };
 
 class F5VsiForm extends Component {
@@ -3484,19 +3726,19 @@ F5VsiForm.propTypes = {
 };
 
 const {
-  RegexButWithWords: RegexButWithWords$1
+  RegexButWithWords
 } = regexButWithWords;
 const {
-  isNullOrEmptyString: isNullOrEmptyString$3
+  isNullOrEmptyString: isNullOrEmptyString$2
 } = lazyZ;
-const urlValidationExp = new RegexButWithWords$1().group(exp => {
+const urlValidationExp = new RegexButWithWords().group(exp => {
   exp.literal("ftp").or().literal("http").literal("s").lazy();
 }).literal("://").group("www.").lazy().group(exp => {
   exp.negatedSet('"\\/').oneOrMore().literal(".");
 }).group(exp => {
   exp.negatedSet('"\\/').oneOrMore().literal(".");
 }).oneOrMore().negatedSet('"\\/.').oneOrMore().literal("/").negatedSet(' "').anyNumber().stringEnd().done("g");
-const tmosAdminPasswordValidationExp = new RegexButWithWords$1().stringBegin().look.ahead(exp => {
+const tmosAdminPasswordValidationExp = new RegexButWithWords().stringBegin().look.ahead(exp => {
   exp.any().anyNumber().set("a-z");
 }).look.ahead(exp => {
   exp.any().anyNumber().set("A-Z");
@@ -3510,7 +3752,7 @@ const tmosAdminPasswordValidationExp = new RegexButWithWords$1().stringBegin().l
  * @returns {boolean} true when url is valid and not empty, false when invalid
  */
 function isValidUrl(url) {
-  if (isNullOrEmptyString$3(url) || url === "null") return true;
+  if (isNullOrEmptyString$2(url) || url === "null") return true;
   return url.match(urlValidationExp) !== null;
 }
 
@@ -3520,7 +3762,7 @@ function isValidUrl(url) {
  * @returns {boolean} true when password is valid
  */
 function isValidTmosAdminPassword(password) {
-  if (isNullOrEmptyString$3(password)) return true;else return password.match(tmosAdminPasswordValidationExp) !== null;
+  if (isNullOrEmptyString$2(password)) return true;else return password.match(tmosAdminPasswordValidationExp) !== null;
 }
 
 /**
@@ -3579,7 +3821,7 @@ function getValidAdminPassword(length) {
 }
 var f5Utils = {
   getValidAdminPassword,
-  isNullOrEmptyString: isNullOrEmptyString$3,
+  isNullOrEmptyString: isNullOrEmptyString$2,
   isValidTmosAdminPassword,
   isValidUrl
 };
@@ -3986,88 +4228,6 @@ F5VsiTemplateForm.propTypes = {
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired
 };
-
-const {
-  isWholeNumber,
-  isInRange
-} = lazyZ;
-const {
-  RegexButWithWords
-} = regexButWithWords;
-const commaSeparatedIpListExp = new RegexButWithWords().stringBegin().group(exp => {
-  exp.group(exp => {
-    exp.wordBoundary().group(exp => {
-      exp.group(exp => {
-        exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
-      }).literal(".");
-    }, 3).group(exp => {
-      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
-    }).wordBoundary().group(exp => {
-      exp.group(exp => {
-        exp.literal("/").group(exp => {
-          exp.literal("3").set("0-2").or().set("012").lazy().digit();
-        });
-      });
-    }).lazy();
-  });
-}).anyNumber().group(exp => {
-  exp.literal(",").whitespace().anyNumber().wordBoundary().group(exp => {
-    exp.group(exp => {
-      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
-    }).literal(".");
-  }, 3).group(exp => {
-    exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
-  }).wordBoundary().group(exp => {
-    exp.group(exp => {
-      exp.literal("/").group(exp => {
-        exp.literal("3").set("0-2").or().set("012").lazy().digit();
-      });
-    });
-  }).lazy();
-}).anyNumber().stringEnd().done("gm");
-
-/**
- * return true if value is null or empty string
- * @param {*} value
- * @returns {boolean} true if null or empty string
- */
-function isNullOrEmptyString$2(value) {
-  return value === null || value === "";
-}
-
-/**
- * test for invalid range
- * @param {*} value
- * @param {number} min
- * @param {number} max
- * @returns {boolean} true if invalid
- */
-function isRangeInvalid(value, min, max) {
-  if (isNullOrEmptyString$2(value)) return false;
-  value = parseFloat(value);
-  if (!isWholeNumber(value) || !isInRange(value, min, max)) {
-    return true;
-  }
-  return false;
-}
-
-/**
- * test for invalid IP string
- * @param {string} value
- * @returns {boolean} true if invalid
- */
-function isIpStringInvalid(value) {
-  if (!isNullOrEmptyString$2(value) && value.match(commaSeparatedIpListExp) === null) {
-    return true;
-  }
-  return false;
-}
-var iamUtils = {
-  isIpStringInvalid,
-  isRangeInvalid
-};
-var iamUtils_1 = iamUtils.isIpStringInvalid;
-var iamUtils_2 = iamUtils.isRangeInvalid;
 
 const restrictMenuItems = ["Unset", "Yes", "No"];
 const mfaMenuItems = ["NONE", "TOTP", "TOTP4ALL", "Email-Based MFA", "TOTP MFA", "U2F MFA"];
@@ -5702,6 +5862,277 @@ ResourceGroupForm.propTypes = {
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
   helperTextCallback: PropTypes.func.isRequired
+};
+
+class RoutingTableRouteForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    if (!isNullOrEmptyString$4(this.state.action) && this.state.action !== "deliver") {
+      this.state.next_hop = "0.0.0.0";
+    }
+    this.handleInputChange = this.handleInputChange.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputChange(event) {
+    let nextState = {
+      ...this.state
+    };
+    let {
+      name,
+      value
+    } = event.target;
+    nextState[name] = value;
+    if (name === "action" && value !== "deliver") {
+      nextState.next_hop = "0.0.0.0";
+    } else if (name === "action") {
+      nextState.next_hop = null;
+    }
+    this.setState(nextState);
+  }
+  render() {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      componentName: "routing-table-route",
+      id: this.props.data.name + "-route-name",
+      hideHelperText: true,
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseNumberSelect, {
+      formName: "routing-table-route",
+      value: this.state.zone || "",
+      min: 1,
+      max: 3,
+      name: "zone",
+      labelText: "Route Zone",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: this.props.data.name + "-route-destination",
+      componentName: "routing-route-destination",
+      name: "destination",
+      field: "destination",
+      value: this.state.destination,
+      placeholder: "x.x.x.x",
+      labelText: "Destination IP or CIDR",
+      invalidCallback: () => isIpv4CidrOrAddress$2(this.state.destination) === false,
+      invalidText: "Destination must be a valid IP or IPV4 CIDR block",
+      onChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+      name: "action",
+      formName: this.props.data.name + "-routing-table-route-action",
+      groups: ["delegate", "deliver", "delegate_vpc", "drop"],
+      labelText: "Action",
+      handleInputChange: this.handleInputChange,
+      value: this.state.action,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: this.props.data.name + "-next-hop",
+      componentName: "routing-next-hop",
+      field: "next_hop",
+      value: this.state.next_hop,
+      labelText: "Next Hop",
+      placeholder: "x.x.x.x",
+      invalidCallback: () => isNullOrEmptyString$4(this.state.next_hop) || isIpv4CidrOrAddress$2(this.state.next_hop) === false || contains$2(this.state.next_hop, `/`),
+      invalidText: "Next hop must be a valid IP",
+      onChange: this.handleInputChange,
+      disabled: this.state.action !== "deliver",
+      className: "fieldWidthSmaller"
+    })));
+  }
+}
+RoutingTableRouteForm.defaultProps = {
+  data: {
+    name: "",
+    zone: "",
+    destination: "",
+    action: "",
+    next_hop: ""
+  }
+};
+RoutingTableRouteForm.propTypes = {
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    destination: PropTypes.string.isRequired,
+    action: PropTypes.string.isRequired,
+    next_hop: PropTypes.string,
+    zone: PropTypes.number
+  }).isRequired
+};
+
+class RoutingTableForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    if (this.props.isModal) this.state.routes = [];
+    this.handleInputChange = this.handleInputChange.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleToggle = this.handleToggle.bind(this);
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputChange(event) {
+    let nextState = {
+      ...this.state
+    };
+    let {
+      name,
+      value
+    } = event.target;
+    nextState[name] = value;
+    this.setState(nextState);
+  }
+  handleToggle(name) {
+    this.setState(this.toggleStateBoolean(name, this.state));
+  }
+  render() {
+    let composedId = this.props.data.name + "-route-form";
+    let innerFormProps = {
+      arrayParentName: this.props.data.name,
+      route: this.props.data,
+      invalidTextCallback: this.props.invalidRouteTextCallback,
+      invalidCallback: this.props.invalidRouteCallback
+    };
+    transpose({
+      ...this.props.routeProps
+    }, innerFormProps);
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      componentName: "routing-table-route",
+      id: this.props.data.name + "-route-name",
+      hideHelperText: true,
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: composedId + "-vpc",
+      name: "vpc",
+      labelText: "VPC",
+      groups: this.props.vpcList,
+      value: this.state.vpc,
+      handleInputChange: this.handleInputChange,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: "Select a VPC."
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
+      id: composedId + "-direct-link-toggle",
+      labelText: "Direct Link Ingress",
+      defaultToggled: this.state.route_direct_link_ingress,
+      onToggle: this.handleToggle,
+      tooltip: {
+        content: "If set to true, the routing table is used to route traffic that originates from Direct Link to the VPC. To succeed, the VPC must not already have a routing table with the property set to true",
+        align: "bottom-left",
+        alignModal: "bottom-left"
+      }
+    }), /*#__PURE__*/React.createElement(IcseToggle, {
+      id: composedId + "-route-internet-toggle",
+      labelText: "Internet Ingress",
+      defaultToggled: this.state.route_internet_ingress,
+      onToggle: this.handleToggle,
+      tooltip: {
+        content: "If set to true, this routing table will be used to route traffic that originates from the internet. For this to succeed, the VPC must not already have a routing table with this property set to true",
+        align: "bottom-left",
+        alignModal: "bottom-left"
+      }
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
+      id: composedId + "-tgw-ingress",
+      labelText: "Transit Gateway Ingress",
+      defaultToggled: this.state.route_transit_gateway_ingress,
+      onToggle: this.handleToggle,
+      tooltip: {
+        content: "If set to true, the routing table is used to route traffic that originates from Transit Gateway to the VPC. To succeed, the VPC must not already have a routing table with the property set to true",
+        align: "bottom-left",
+        alignModal: "bottom-left"
+      }
+    }), /*#__PURE__*/React.createElement(IcseToggle, {
+      id: composedId + "-zone-ingress",
+      labelText: "VPC Zone Ingress",
+      defaultToggled: this.state.route_vpc_zone_ingress,
+      onToggle: this.handleToggle,
+      tooltip: {
+        content: "If set to true, the routing table is used to route traffic that originates from subnets in other zones in the VPC. To succeed, the VPC must not already have a routing table with the property set to true",
+        align: "bottom-left",
+        alignModal: "bottom-left"
+      }
+    })), this.props.isModal === false && /*#__PURE__*/React.createElement(IcseFormTemplate, {
+      name: "Routes",
+      subHeading: true,
+      addText: "Create a Route",
+      arrayData: this.props.data.routes,
+      innerForm: RoutingTableRouteForm,
+      disableSave: this.props.routeProps.disableSave,
+      onDelete: this.props.routeProps.onDelete,
+      onSave: this.props.routeProps.onSave,
+      onSubmit: this.props.routeProps.onSubmit,
+      propsMatchState: this.props.propsMatchState,
+      innerFormProps: {
+        ...innerFormProps
+      },
+      hideAbout: true,
+      toggleFormProps: {
+        hideName: true,
+        submissionFieldName: "routes",
+        disableSave: this.props.routeProps.disableSave,
+        type: "formInSubForm"
+      }
+    }));
+  }
+}
+RoutingTableForm.defaultProps = {
+  isModal: false,
+  data: {
+    name: "",
+    vpc: null,
+    routes: [],
+    route_internet_ingress: false,
+    route_transit_gateway_ingress: false,
+    route_vpc_zone_ingress: false,
+    route_direct_link_ingress: false
+  }
+};
+RoutingTableForm.propTypes = {
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    vpc: PropTypes.string,
+    routes: PropTypes.array.isRequired,
+    route_internet_ingress: PropTypes.bool.isRequired,
+    route_transit_gateway_ingress: PropTypes.bool.isRequired,
+    route_vpc_zone_ingress: PropTypes.bool.isRequired,
+    route_direct_link_ingress: PropTypes.bool.isRequired
+  }).isRequired,
+  propsMatchState: PropTypes.func.isRequired,
+  invalidRouteCallback: PropTypes.func.isRequired,
+  invalidRouteTextCallback: PropTypes.func.isRequired,
+  isModal: PropTypes.bool.isRequired,
+  vpcList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  routeProps: PropTypes.shape({
+    disableSave: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired
+  }).isRequired
 };
 
 const sccRegions = [{
@@ -7406,6 +7837,83 @@ VpnGatewayForm.propTypes = {
   isModal: PropTypes.bool.isRequired
 };
 
+class VpnServerRouteForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  /**
+   * handle input change
+   * @param {event} event
+   */
+  handleInputChange(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    this.setState({
+      [name]: value.toLowerCase()
+    });
+  }
+  render() {
+    let className = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
+    return /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: `${this.props.data.name}-name`,
+      componentName: "vpn-server-name",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      hideHelperText: true,
+      className: className,
+      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: `${this.props.data.name}-route-destination`,
+      componentName: "vpn-server-route-destination",
+      name: "destination",
+      field: "destination",
+      value: this.state.destination,
+      placeholder: "x.x.x.x",
+      labelText: "Destination CIDR",
+      invalidCallback: () => isIpv4CidrOrAddress$2(this.state.destination) === false || !contains$2(this.state.destination, "/"),
+      invalidText: "Destination must be a valid IPV4 CIDR Block",
+      onChange: this.handleInputChange,
+      className: className
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: "vpn-server-action",
+      name: "action",
+      labelText: "Action",
+      groups: ["Translate", "Deliver", "Drop"],
+      value: titleCase$1(this.state.action),
+      handleInputChange: this.handleInputChange,
+      className: className
+    }));
+  }
+}
+VpnServerRouteForm.defaultProps = {
+  data: {
+    name: "",
+    destination: "",
+    action: "translate"
+  },
+  isModal: false
+};
+VpnServerRouteForm.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    destination: PropTypes.string.isRequired,
+    action: PropTypes.string.isRequired
+  }),
+  isModal: PropTypes.bool.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired
+};
+
 class VsiVolumeForm extends Component {
   constructor(props) {
     super(props);
@@ -7751,403 +8259,10 @@ VsiForm.propTypes = {
   }).isRequired
 };
 
-class WorkerPoolForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = this.props.isModal ? {
-      name: "",
-      flavor: this.props.cluster.flavor,
-      subnets: this.props.cluster.subnets || [],
-      vpc: this.props.cluster.vpc,
-      workers_per_subnet: this.props.cluster.workers_per_subnet,
-      entitlement: this.props.cluster.entitlement
-    } : {
-      ...this.props.data
-    }, this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubnetChange = this.handleSubnetChange.bind(this);
-    buildFormFunctions(this);
-  }
+var css_248z = ".tileTitle {\n  font-size: 80%;\n  font-weight: bold;\n}\n\n.tileContent {\n  font-size: 90%;\n}\n";
+styleInject(css_248z);
 
-  // Handle pool input change
-  handleInputChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    let pool = {
-      ...this.state
-    };
-    if (name === "workers_per_subnet") {
-      pool[name] = Number(value);
-    } else {
-      pool[name] = value === "null" ? null : value;
-    }
-    this.setState(pool);
-  }
-
-  // Handle subnet multiselect change
-  handleSubnetChange(event) {
-    let pool = {
-      ...this.state
-    };
-    pool.subnets = event;
-    this.setState(pool);
-  }
-  render() {
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
-      id: this.state.name + "-name",
-      componentName: "Worker Pools",
-      onChange: this.handleInputChange,
-      componentProps: this.props,
-      value: this.state.name,
-      className: "fieldWidthSmaller",
-      placeholder: "my-worker-pool-name",
-      hideHelperText: true,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props)
-    }), /*#__PURE__*/React.createElement(EntitlementSelect, {
-      name: "entitlement",
-      value: this.state.entitlement,
-      handleInputChange: this.handleInputChange,
-      component: this.props.data.name,
-      formName: "Worker Pools"
-    }), /*#__PURE__*/React.createElement(FetchSelect, {
-      name: "flavor",
-      formName: this.props.data.name + "flavor",
-      labelText: "Instance Profile",
-      value: this.state.flavor,
-      apiEndpoint: this.props.flavorApiEndpoint,
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(SubnetMultiSelect, {
-      id: this.props.data.name,
-      disabled: this.props.cluster.vpc === null,
-      vpc_name: this.state.vpc,
-      initialSelectedItems: this.state.subnets,
-      subnets: this.getSubnetList(),
-      onChange: this.handleSubnetChange,
-      component: this.props.data.name,
-      className: "fieldWidthSmaller cds--form-item"
-    }), /*#__PURE__*/React.createElement(IcseNumberSelect, {
-      name: "workers_per_subnet",
-      formName: this.props.data.name + "Worker Pools",
-      labelText: "Workers Per Subnet",
-      value: this.state.workers_per_subnet,
-      max: 10,
-      min: 0,
-      handleInputChange: this.handleInputChange,
-      component: this.props.data.name,
-      className: "fieldWidthSmaller"
-    })));
-  }
-}
-WorkerPoolForm.defaultProps = {
-  data: {
-    entitlement: "",
-    flavor: "",
-    name: "",
-    subnets: [],
-    vpc: "",
-    workers_per_subnet: 2
-  },
-  isModal: false
-};
-WorkerPoolForm.propTypes = {
-  subnetList: PropTypes.array.isRequired,
-  isModal: PropTypes.bool.isRequired,
-  cluster: PropTypes.shape({
-    entitlement: PropTypes.string,
-    // can be null
-    flavor: PropTypes.string.isRequired,
-    vpc: PropTypes.string,
-    workers_per_subnet: PropTypes.number.isRequired,
-    subnets: PropTypes.array.isRequired
-  }),
-  // can be null
-  data: PropTypes.shape({
-    entitlement: PropTypes.string.isRequired,
-    flavor: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    vpc: PropTypes.string,
-    workers_per_subnet: PropTypes.number.isRequired,
-    subnets: PropTypes.array.isRequired
-  }).isRequired,
-  invalidCallback: PropTypes.func.isRequired,
-  invalidTextCallback: PropTypes.func.isRequired
-};
-
-class ClusterForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    if (this.props.isModal) this.state.worker_pools = [];
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleToggleChange = this.handleToggleChange.bind(this);
-    this.handleMultiSelect = this.handleMultiSelect.bind(this);
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-  }
-
-  // Handle cluster input change
-  handleInputChange = event => {
-    let {
-      name,
-      value
-    } = event.target;
-    let cluster = {
-      ...this.state
-    };
-    this.setState(lib_11(name, value, cluster));
-  };
-
-  /**
-   * handle toggle change
-   * @param {*} event event
-   */
-  handleToggleChange = () => {
-    let cluster = {
-      ...this.state
-    };
-    cluster.update_all_workers = !cluster.update_all_workers;
-    this.setState(cluster);
-  };
-
-  /**
-   * handle subnet multiselect
-   * @param {event} event
-   */
-  handleMultiSelect(name, event) {
-    this.setState({
-      [name]: event
-    });
-  }
-  render() {
-    let clusterComponent = this.props.isModal ? "new-cluster" : this.props.data.name;
-    let innerFormProps = {
-      arrayParentName: this.props.data.name,
-      cluster: this.props.data,
-      invalidTextCallback: this.props.invalidPoolTextCallback,
-      invalidCallback: this.props.invalidPoolCallback,
-      subnetList: this.props.subnetList
-    };
-    transpose({
-      ...this.props.workerPoolProps
-    }, innerFormProps);
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
-      id: this.state.name + "-name",
-      labelText: "Cluster Name",
-      componentName: clusterComponent,
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props),
-      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props),
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      labelText: "Resource Group",
-      name: "resource_group",
-      formName: clusterComponent + "resource_group",
-      groups: this.props.resourceGroups,
-      value: this.state.resource_group,
-      handleInputChange: this.handleInputChange,
-      invalidText: "Select a Resource Group.",
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      name: "kube_type",
-      formName: clusterComponent + "kube_type",
-      labelText: "Kube Type",
-      groups: ["OpenShift", "IBM Kubernetes Service"],
-      handleInputChange: this.handleInputChange,
-      invalidText: "Select a cluster type.",
-      value: this.state.kube_type === "" ? "" : this.state.kube_type === "openshift" ? "OpenShift" : "IBM Kubernetes Service",
-      className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(EntitlementSelect, {
-      name: "entitlement",
-      formName: clusterComponent + "entitlement",
-      labelText: "Entitlement",
-      value: this.state.entitlement,
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(FetchSelect, {
-      name: "flavor",
-      formName: clusterComponent + "flavor",
-      labelText: "Instance Profile",
-      value: this.state.flavor,
-      apiEndpoint: this.props.flavorApiEndpoint,
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    }), this.state.kube_type === "openshift" && /*#__PURE__*/React.createElement(IcseSelect, {
-      name: "cos",
-      formName: clusterComponent + "cos",
-      labelText: "Cloud Object Storage Instance",
-      groups: this.props.cosNames,
-      value: this.state.cos,
-      handleInputChange: this.handleInputChange,
-      invalidText: "Select an Object Storage instance",
-      className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
-      id: clusterComponent + "-vpc-name",
-      name: "vpc",
-      formName: clusterComponent + "vpc",
-      labelText: "VPC",
-      groups: this.props.vpcList,
-      value: this.state.vpc,
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(SubnetMultiSelect, {
-      id: clusterComponent,
-      key: this.state.vpc,
-      vpc_name: this.state.vpc,
-      subnets: [...this.getSubnetList()],
-      initialSelectedItems: [...this.state.subnets],
-      onChange: event => this.handleMultiSelect("subnets", event),
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(IcseNumberSelect, {
-      max: 10,
-      name: "workers_per_subnet",
-      formName: clusterComponent + "workers_per_subnet",
-      labelText: "Workers per Subnet",
-      value: this.state.workers_per_subnet,
-      handleInputChange: this.handleInputChange,
-      isModal: this.props.isModal,
-      className: "fieldWidthSmaller",
-      invalid: this.state.kube_type === "openshift" && this.state.subnets.length * this.state.workers_per_subnet < 2,
-      invalidText: "OpenShift clusters require at least 2 worker nodes across any number of subnets"
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(FetchSelect, {
-      name: "kube_version",
-      formName: clusterComponent + "kube_version",
-      labelText: "Kube Version",
-      value: this.state.kube_version || "",
-      apiEndpoint: this.props.kubeVersionApiEndpoint,
-      filter: version => {
-        if (this.state.kube_type === "openshift" && version.indexOf("openshift") !== -1 ||
-        // is openshift and contains openshift
-        this.state.kube_type !== "openshift" && version.indexOf("openshift") === -1 ||
-        // is not openshift and does not contain openshift
-        version === "default" // or is default
-        ) {
-          return version.replace(/\s\(Default\)/g, ""); // replace default with empty string
-        }
-      },
-
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(IcseToggle, {
-      id: clusterComponent + "-update-all",
-      labelText: "Update All Workers",
-      toggleFieldName: "update_all_workers",
-      defaultToggled: this.state.update_all_workers,
-      onToggle: this.handleToggleChange
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
-      name: "encryption_key",
-      formName: clusterComponent + "encryption_key",
-      labelText: "Encryption Key",
-      groups: this.props.encryptionKeys,
-      value: this.state.encryption_key,
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(IcseToggle, {
-      id: clusterComponent + "-service-endpoint",
-      tooltip: {
-        content: "Use private service endpoint for Encryption Key"
-      },
-      labelText: "Private Endpoint",
-      toggleFieldName: "private_endpoint",
-      defaultToggled: this.state.private_endpoint,
-      onToggle: this.handleToggleChange
-    })), /*#__PURE__*/React.createElement(React.Fragment, null, this.props.isModal === false && /*#__PURE__*/React.createElement(IcseFormTemplate, {
-      name: "Worker Pools",
-      subHeading: true,
-      addText: "Create a Worker Pool",
-      arrayData: this.props.data.worker_pools,
-      innerForm: WorkerPoolForm,
-      disableSave: this.props.workerPoolProps.disableSave,
-      onDelete: this.props.workerPoolProps.onDelete,
-      onSave: this.props.workerPoolProps.onSave,
-      onSubmit: this.props.workerPoolProps.onSubmit,
-      propsMatchState: this.props.propsMatchState,
-      innerFormProps: {
-        ...innerFormProps
-      },
-      hideAbout: true,
-      toggleFormProps: {
-        hideName: true,
-        submissionFieldName: "worker_pools",
-        disableSave: this.props.workerPoolProps.disableSave,
-        type: "formInSubForm"
-      }
-    })));
-  }
-}
-ClusterForm.defaultProps = {
-  data: {
-    name: "",
-    resource_group: "",
-    kube_type: "openshift",
-    entitlement: "null",
-    encryption_key: null,
-    cos: "",
-    vpc: "",
-    subnets: [],
-    workers_per_subnet: 2,
-    flavor: "",
-    kube_version: "",
-    update_all_workers: false,
-    worker_pools: []
-  },
-  resourceGroups: [],
-  encryptionKeys: [],
-  cosNames: [],
-  vpcList: [],
-  subnetList: [],
-  isModal: false
-};
-ClusterForm.propTypes = {
-  data: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    resource_group: PropTypes.string,
-    kube_type: PropTypes.string.isRequired,
-    entitlement: PropTypes.string,
-    // can be null
-    encryption_key: PropTypes.string,
-    cos: PropTypes.string.isRequired,
-    subnets: PropTypes.array.isRequired,
-    workers_per_subnet: PropTypes.number.isRequired,
-    vpc: PropTypes.string,
-    kube_version: PropTypes.string.isRequired,
-    flavor: PropTypes.string.isRequired,
-    update_all_workers: PropTypes.bool.isRequired,
-    worker_pools: PropTypes.array.isRequired
-  }),
-  /* bools */
-  isModal: PropTypes.bool.isRequired,
-  /* lists */
-  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
-  encryptionKeys: PropTypes.arrayOf(PropTypes.string),
-  cosNames: PropTypes.arrayOf(PropTypes.string),
-  vpcList: PropTypes.arrayOf(PropTypes.string),
-  subnetList: PropTypes.arrayOf(PropTypes.object).isRequired,
-  /* api endpoints */
-  kubeVersionApiEndpoint: PropTypes.string.isRequired,
-  flavorApiEndpoint: PropTypes.string.isRequired,
-  /* callbacks */
-  invalidCallback: PropTypes.func,
-  invalidTextCallback: PropTypes.func,
-  helperTextCallback: PropTypes.func,
-  invalidPoolCallback: PropTypes.func,
-  invalidPoolTextCallback: PropTypes.func,
-  /* forms */
-  workerPoolProps: PropTypes.shape({
-    onSave: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired,
-    onSubmit: PropTypes.func.isRequired,
-    disableSave: PropTypes.func.isRequired
-  }).isRequired
-};
-
-class VpnServerRouteForm extends React.Component {
+class VsiLoadBalancerForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -8156,431 +8271,377 @@ class VpnServerRouteForm extends React.Component {
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
+    this.allVsi = this.allVsi.bind(this);
   }
 
   /**
    * handle input change
-   * @param {event} event
+   * @param {string} name key to change in the instance
+   * @param {*} value value
    */
   handleInputChange(event) {
     let {
       name,
       value
     } = event.target;
-    this.setState({
-      [name]: value.toLowerCase()
-    });
-  }
-  render() {
-    let className = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
-    return /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
-      id: `${this.props.data.name}-name`,
-      componentName: "vpn-server-name",
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      hideHelperText: true,
-      className: className,
-      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props)
-    }), /*#__PURE__*/React.createElement(IcseTextInput, {
-      id: `${this.props.data.name}-route-destination`,
-      componentName: "vpn-server-route-destination",
-      name: "destination",
-      field: "destination",
-      value: this.state.destination,
-      placeholder: "x.x.x.x",
-      labelText: "Destination CIDR",
-      invalidCallback: () => isIpv4CidrOrAddress$2(this.state.destination) === false || !contains$2(this.state.destination, "/"),
-      invalidText: "Destination must be a valid IPV4 CIDR Block",
-      onChange: this.handleInputChange,
-      className: className
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: "vpn-server-action",
-      name: "action",
-      labelText: "Action",
-      groups: ["Translate", "Deliver", "Drop"],
-      value: titleCase$1(this.state.action),
-      handleInputChange: this.handleInputChange,
-      className: className
-    }));
-  }
-}
-VpnServerRouteForm.defaultProps = {
-  data: {
-    name: "",
-    destination: "",
-    action: "translate"
-  },
-  isModal: false
-};
-VpnServerRouteForm.propTypes = {
-  data: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    destination: PropTypes.string.isRequired,
-    action: PropTypes.string.isRequired
-  }),
-  isModal: PropTypes.bool.isRequired,
-  invalidCallback: PropTypes.func.isRequired,
-  invalidTextCallback: PropTypes.func.isRequired
-};
-
-const {
-  isNullOrEmptyString,
-  isIpv4CidrOrAddress
-} = lazyZ;
-function cbrInvalid(field, value) {
-  let invalid = {
-    invalid: false,
-    invalidText: ""
-  };
-  if (!isNullOrEmptyString(value) && (value.match(/^[0-9a-z-]+$/) === null || value.length >= 128)) {
-    invalid.invalid = true;
-    invalid.invalidText = `Invalid ${field}. Value must match regex expression /^[0-9a-z-]+$/.`;
-  }
-  return invalid;
-}
-function cbrValueInvalid(type, value) {
-  let invalid = {
-    invalid: false,
-    invalidText: ""
-  };
-  if (isNullOrEmptyString(value)) {
-    invalid.invalid = true;
-    invalid.invalidText = `Invalid value for type ${type}. Cannot be empty string.`;
-  } else {
-    switch (type) {
-      case "ipAddress":
-        if (!isIpv4CidrOrAddress(value) || value.includes("/")) {
-          invalid.invalid = true;
-          invalid.invalidText = `Invalid value for type ${type}. Value must be a valid IPV4 Address.`;
-        }
-        break;
-      case "ipRange":
-        if (value.match(/\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\-\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/g) === null) {
-          invalid.invalid = true;
-          invalid.invalidText = `Invalid value for type ${type}. Value must be a range of IPV4 Addresses.`;
-        }
-        break;
-      default:
-        invalid = cbrInvalid("type", value);
+    let nextState = {
+      ...this.state
+    };
+    nextState[name] = contains$2(["name", "vpc", "resource_group"], name) ? value : contains$2(["health_delay", "health_retries", "health_timeout", "port", "listener_port", "connection_limit"], name) ? Number(value) : snakeCase(value);
+    if (name === "vpc") {
+      nextState.subnets = [];
+      nextState.security_groups = [];
+      nextState.target_vsi = [];
+    } else if (name === "connection_limit" && nextState[name] === 0) {
+      // reset when 0
+      nextState[name] = "";
+    } else if (name === "session_persistence_type" && value !== "app_cookie") {
+      nextState.session_persistence_app_cookie_name = null;
     }
+    this.setState(nextState);
   }
-  return invalid;
-}
-var cbrUtils = {
-  cbrInvalid,
-  cbrValueInvalid
-};
-var cbrUtils_1 = cbrUtils.cbrInvalid;
-var cbrUtils_2 = cbrUtils.cbrValueInvalid;
 
-const typeNameMap = {
-  ipAddress: "IP Address",
-  ipRange: "IP Range",
-  subnet: "Subnet",
-  vpc: "VPC",
-  serviceRef: "Service Ref"
-};
-
-/**
- * Context-based restriction addresses / exclusions
- */
-class CbrExclusionAddressForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
+  /**
+   * handle multiselect change
+   * @param {string} name key to change in the instance
+   * @param {*} value value
+   */
+  handleMultiSelectChange(name, value) {
+    let nextState = {
+      ...this.state
     };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    buildFormDefaultInputMethods(this);
-    buildFormFunctions(this);
+    if (name === "target_vsi") {
+      nextState.subnets = [];
+      this.props.vsiDeployments.forEach(deployment => {
+        nextState.subnets = distinct(nextState.subnets.concat(deployment.subnets));
+      });
+    }
+    nextState[name] = value;
+    this.setState(nextState);
   }
-  handleInputChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    if (name === "type") value = Object.keys(typeNameMap).find(key => typeNameMap[key] === value);
-    this.setState({
-      [name]: value
+
+  /**
+   * get all vsi
+   * @returns {Array<object>} list of vsi
+   */
+  allVsi() {
+    let allVsi = [];
+    this.state.target_vsi.forEach(deployment => {
+      let vsi = getObjectFromArray(this.props.vsiDeployments, "name", deployment);
+      let nextRow = [];
+      // for each subnet vsi
+      for (let subnet = 0; subnet < vsi.subnets.length; subnet++) {
+        // for each vsi per subnet
+        for (let count = 0; count < vsi.vsi_per_subnet; count++) {
+          nextRow.push({
+            name: deployment + "-" + (count + 1),
+            subnet: vsi.subnets[subnet]
+          });
+          if (nextRow.length === 3) {
+            allVsi.push(nextRow);
+            nextRow = [];
+          }
+        }
+      }
+      if (nextRow.length > 0) {
+        allVsi.push(nextRow);
+      }
     });
+    return allVsi;
   }
   render() {
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
-      id: this.props.data.name + "-cbr-address-exclusion",
-      componentName: this.props.data.name + "-cbr-zone",
-      className: "fieldWidthSmaller",
+    let componentName = this.props.data.name + "-lb";
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseHeading, {
+      type: "subHeading",
+      name: "Load Balancer"
+    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: componentName + "-name",
+      tooltip: {
+        content: "Name for the load balancer service. This name will be prepended to the components provisioned as part of the load balancer.",
+        align: "right"
+      },
+      componentName: componentName,
       value: this.state.name,
       onChange: this.handleInputChange,
-      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
+      invalid: this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props),
-      hideHelperText: true
-    }), /*#__PURE__*/React.createElement(IcseTextInput, _extends({
-      id: this.props.data.name + "-cbr-account-id",
-      componentName: this.props.data.name + "-cbr-zone",
-      field: "account_id",
-      value: this.state.account_id,
-      labelText: "Account ID",
-      onChange: this.handleInputChange,
-      hideHelperText: true,
-      className: "fieldWidthSmaller"
-    }, cbrUtils_1("account_id", this.state.account_id))), /*#__PURE__*/React.createElement(IcseTextInput, _extends({
-      id: this.props.data.name + "-cbr-zone-location",
-      componentName: this.props.data.name + "cbr-zone-location",
       className: "fieldWidthSmaller",
-      labelText: "Location",
-      field: "location",
-      value: this.state.location,
-      onChange: this.handleInputChange,
       hideHelperText: true
-    }, cbrUtils_1("location", this.state.location)))), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, _extends({
-      id: this.props.data.name + "-cbr-zone-service-name",
-      componentName: this.props.data.name + "cbr-zone-service-name",
-      className: "fieldWidthSmaller",
-      labelText: "Service Name",
-      field: "service_name",
-      value: this.state.service_name,
-      onChange: this.handleInputChange,
-      hideHelperText: true
-    }, cbrUtils_1("service_name", this.state.service_name))), /*#__PURE__*/React.createElement(IcseTextInput, _extends({
-      id: this.props.data.name + "-cbr-zone-service-instance",
-      componentName: this.props.data.name + "cbr-zone-service-instance",
-      className: "fieldWidthSmaller",
-      labelText: "Service Instance",
-      field: "service_instance",
-      value: this.state.service_instance,
-      onChange: this.handleInputChange,
-      hideHelperText: true
-    }, cbrUtils_1("service_instance", this.state.service_instance))), /*#__PURE__*/React.createElement(IcseTextInput, _extends({
-      id: this.props.data.name + "-cbr-zone-service-type",
-      componentName: this.props.data.name + "cbr-zone-service-type",
-      className: "fieldWidthSmaller",
-      labelText: "Service Type",
-      field: "service_type",
-      value: this.state.service_type,
-      onChange: this.handleInputChange,
-      hideHelperText: true
-    }, cbrUtils_1("service_type", this.state.service_type)))), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
-      labelText: "Type",
-      name: "type",
-      formName: this.props.data.name + "cbr-zone-type",
-      groups: ["IP Address", "IP Range", "Subnet", "VPC", "Service Ref"],
-      value: typeNameMap[this.state.type],
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: componentName + "-rg",
+      name: "resource_group",
+      labelText: "Resource Group",
+      groups: this.props.resourceGroups,
+      value: this.state.resource_group,
       handleInputChange: this.handleInputChange,
-      invalidText: "Select a Type",
       className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(IcseTextInput, _extends({
-      id: this.props.data.name + "-cbr-zone-value",
-      componentName: this.props.data.name + "cbr-zone-value",
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: componentName + "-type",
+      name: "type",
+      labelText: "Load Balancer Type",
+      groups: ["Public", "Private"],
+      value: titleCase$1(this.state.type || ""),
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: "vsi_form",
+      name: "vpc",
+      labelText: "VPC",
+      groups: this.props.vpcList,
+      value: this.state.vpc,
+      handleInputChange: this.handleInputChange,
+      invalid: isNullOrEmptyString$4(this.state.vpc),
+      invalidText: "Select a VPC.",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(SecurityGroupMultiSelect, {
+      key: this.state.vpc + "-sg",
+      id: componentName + "-sg",
+      initialSelectedItems: this.state.security_groups || [],
+      vpc_name: this.state.vpc,
+      onChange: value => this.handleMultiSelectChange("security_groups", value),
+      securityGroups: this.getSecurityGroupList(),
+      invalid: !(this.state.security_groups?.length > 0),
+      invalidText: !this.state.vpc || isNullOrEmptyString$4(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React.createElement(IcseHeading, {
+      type: "subHeading",
+      name: "Load Balancer VSI"
+    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseMultiSelect, {
+      key: this.state.vpc + "-vsi",
       className: "fieldWidthSmaller",
-      labelText: "Value",
-      field: "value",
-      value: this.state.value,
-      onChange: this.handleInputChange,
-      hideHelperText: true,
-      placeholder: this.state.type === "ipAddress" ? "x.x.x.x" : this.state.type === "ipRange" ? "x.x.x.x-x.x.x.x" : `my-cbr-zone-${this.state.type}`
-    }, cbrUtils_2(this.state.type, this.state.value)))));
-  }
-}
-CbrExclusionAddressForm.defaultProps = {
-  data: {
-    name: "",
-    account_id: "",
-    location: "",
-    service_name: "",
-    service_instance: "",
-    service_type: "",
-    type: "ipAddress",
-    value: ""
-  },
-  isModal: false
-};
-CbrExclusionAddressForm.propTypes = {
-  data: PropTypes.shape({
-    account_id: PropTypes.string.isRequired,
-    location: PropTypes.string,
-    name: PropTypes.string,
-    service_name: PropTypes.string,
-    service_instance: PropTypes.string,
-    service_type: PropTypes.string,
-    type: PropTypes.string,
-    value: PropTypes.string
-  }),
-  isModal: PropTypes.bool.isRequired,
-  invalidCallback: PropTypes.func.isRequired,
-  invalidTextCallback: PropTypes.func.isRequired
-};
-
-/**
- * Context-based restriction zones
- */
-class CbrZoneForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    buildFormDefaultInputMethods(this);
-    buildFormFunctions(this);
-  }
-  handleInputChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    this.setState({
-      [name]: value
-    });
-  }
-  render() {
-    // set up props for subforms
-    let exclusionInnerFormProps = {
-      type: "exclusion",
-      invalidCallback: this.props.invalidExclusionCallback,
-      invalidTextCallback: this.props.invalidExclusionTextCallback,
-      arrayParentName: this.props.data.name
-    };
-    transpose({
-      ...this.props.exclusionProps
-    }, exclusionInnerFormProps);
-    let addressInnerFormProps = {
-      invalidCallback: this.props.invalidAddressCallback,
-      invalidTextCallback: this.props.invalidAddressTextCallback,
-      arrayParentName: this.props.data.name,
-      type: "address"
-    };
-    transpose({
-      ...this.props.addressProps
-    }, addressInnerFormProps);
-    return /*#__PURE__*/React.createElement("div", {
-      id: "cbr-zone-form"
-    }, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
-      id: this.props.data.name + "-cbr-zone",
-      componentName: this.props.data.name + "-cbr-zone",
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      hideHelperText: true,
-      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props)
-    }), /*#__PURE__*/React.createElement(IcseTextInput, _extends({
-      id: this.props.data.name + "-cbr-account-id",
-      componentName: this.props.data.name + "-cbr-zone",
-      field: "account_id",
-      value: this.state.account_id,
-      labelText: "Account ID",
-      onChange: this.handleInputChange
-    }, cbrUtils_1("account_id", this.state.account_id)))), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
-      id: this.props.data.name + "-cbr-zone-description",
-      className: "textInputWide",
-      name: "description",
-      value: this.state.description,
-      labelText: "Description",
-      onChange: this.handleInputChange,
-      invalid: this.state.description.length < 0 || this.state.description.length > 300,
-      invalidText: "Invalid description, must be between 0 and 300 characters.",
-      enableCounter: true
-    })), this.props.isModal !== true && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormTemplate, {
-      name: "Addresses",
-      subHeading: true,
-      addText: "Create an Address",
-      arrayData: this.props.data.addresses,
-      innerForm: CbrExclusionAddressForm,
-      disableSave: this.props.addressProps.disableSave,
-      onDelete: this.props.addressProps.onDelete,
-      onSave: this.props.addressProps.onSave,
-      onSubmit: this.props.addressProps.onSubmit,
-      propsMatchState: this.props.propsMatchState,
-      innerFormProps: {
-        ...addressInnerFormProps
+      id: componentName + "-vsi",
+      titleText: "Deployment VSI",
+      items: splat$1(this.props.vsiDeployments.filter(deployment => {
+        if (deployment.vpc === this.state.vpc) {
+          return deployment;
+        }
+      }), "name"),
+      onChange: value => {
+        this.handleMultiSelectChange("target_vsi", value.selectedItems);
       },
-      hideAbout: true,
-      toggleFormProps: {
-        hideName: true,
-        submissionFieldName: "cbr_zones",
-        disableSave: this.props.addressProps.disableSave,
-        type: "formInSubForm"
+      initialSelectedItems: this.state.target_vsi,
+      invalid: this.state.target_vsi.length === 0,
+      invalidText: "Select at least one VSI deployment"
+    }), /*#__PURE__*/React.createElement(NumberInput, {
+      placeholder: "80",
+      label: "Application Port",
+      id: componentName + "-port",
+      allowEmpty: true,
+      value: this.state.port,
+      step: 1,
+      onChange: this.handleInputChange,
+      name: "port",
+      hideSteppers: true,
+      min: 1,
+      max: 65535,
+      invalid: isNullOrEmptyString$4(this.state.port || "") ? true : !isWholeNumber$1(this.state.port),
+      invalidText: "Must be a whole number between 1 and 65535",
+      className: "fieldWidthSmaller"
+    })), this.allVsi().map((row, index) => /*#__PURE__*/React.createElement(IcseFormGroup, {
+      key: "row-" + index
+    }, row.map((vsi, vsiIndex) => /*#__PURE__*/React.createElement(Tile, {
+      key: `${index}-${vsiIndex}`,
+      className: "fieldWidthSmaller tileFormMargin"
+    }, /*#__PURE__*/React.createElement("p", {
+      className: "tileTitle"
+    }, "Name:"), /*#__PURE__*/React.createElement("p", {
+      className: "tileContent"
+    }, vsi.name), /*#__PURE__*/React.createElement("p", {
+      className: "tileTitle"
+    }, "Subnet:"), /*#__PURE__*/React.createElement("p", {
+      className: "tileContent"
+    }, vsi.subnet))))), /*#__PURE__*/React.createElement(IcseHeading, {
+      type: "subHeading",
+      name: "Load Balancer Pool"
+    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: componentName,
+      name: "algorithm",
+      labelText: "Load Balancing Algorithm",
+      groups: ["Round Robin", "Weighted Round Robin", "Least Connections"],
+      value: titleCase$1(this.state.algorithm || ""),
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: componentName,
+      name: "protocol",
+      labelText: "Pool Protocol",
+      groups: ["HTTPS", "HTTP", "TCP", "UDP"],
+      value: (this.state.protocol || "").toUpperCase(),
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller",
+      tooltip: {
+        content: "Protocol of the application running on VSI instances"
       }
-    }), /*#__PURE__*/React.createElement(IcseFormTemplate, {
-      name: "Exclusions",
-      subHeading: true,
-      addText: "Create an Exclusion",
-      arrayData: this.props.data.exclusions,
-      innerForm: CbrExclusionAddressForm,
-      disableSave: this.props.exclusionProps.disableSave,
-      onDelete: this.props.exclusionProps.onDelete,
-      onSave: this.props.exclusionProps.onSave,
-      onSubmit: this.props.exclusionProps.onSubmit,
-      propsMatchState: this.props.propsMatchState,
-      innerFormProps: {
-        ...exclusionInnerFormProps
-      },
-      hideAbout: true,
-      toggleFormProps: {
-        hideName: true,
-        submissionFieldName: "cbr_zones",
-        disableSave: this.props.exclusionProps.disableSave,
-        type: "formInSubForm"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: componentName,
+      name: "health_type",
+      labelText: "Pool Health Protocol",
+      groups: ["HTTPS", "HTTP", "TCP"],
+      value: (this.state.health_type || "").toUpperCase(),
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller",
+      tooltip: {
+        content: "Protocol used to check the health of member VSI instances"
       }
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NumberInput, {
+      placeholder: "5",
+      label: "Health Timeout (in Seconds)",
+      id: componentName + "-timeout",
+      allowEmpty: true,
+      value: this.state.health_timeout,
+      step: 1,
+      onChange: this.handleInputChange,
+      name: "health_timeout",
+      hideSteppers: true,
+      min: 5,
+      max: 3000,
+      invalid: isNullOrEmptyString$4(this.state.health_timeout || "") ? true : !isWholeNumber$1(this.state.health_timeout),
+      invalidText: "Must be a whole number between 5 and 300",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(NumberInput, {
+      placeholder: "5",
+      label: "Health Delay (in Seconds)",
+      id: componentName + "-delay",
+      allowEmpty: true,
+      value: this.state.health_delay,
+      step: 1,
+      onChange: this.handleInputChange,
+      name: "health_delay",
+      hideSteppers: true,
+      min: 5,
+      max: 3000,
+      invalid: isNullOrEmptyString$4(this.state.health_delay || "") ? true : this.state.health_delay <= this.state.health_timeout || !isWholeNumber$1(this.state.health_delay),
+      invalidText: this.state.health_delay <= this.state.health_timeout ? "Must be greater than Health Timeout value" : "Must be a whole number between 5 and 300",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(NumberInput, {
+      placeholder: "5",
+      label: "Health Retries",
+      id: componentName + "-retries",
+      allowEmpty: true,
+      value: this.state.health_retries,
+      step: 1,
+      onChange: this.handleInputChange,
+      name: "health_retries",
+      hideSteppers: true,
+      min: 5,
+      max: 3000,
+      invalid: isNullOrEmptyString$4(this.state.health_retries || "") ? true : !isWholeNumber$1(this.state.health_retries),
+      invalidText: "Must be a whole number between 5 and 300",
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React.createElement(IcseHeading, {
+      type: "subHeading",
+      name: "Load Balancer Listener"
+    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NumberInput, {
+      placeholder: "443",
+      label: "Listener Port",
+      id: componentName + "-listener-port",
+      allowEmpty: true,
+      value: this.state.listener_port,
+      step: 1,
+      onChange: this.handleInputChange,
+      name: "listener_port",
+      hideSteppers: true,
+      min: 1,
+      max: 65535,
+      invalid: isNullOrEmptyString$4(this.state.listener_port || "") ? true : !isWholeNumber$1(this.state.listener_port),
+      invalidText: "Must be a whole number between 1 and 65535",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: componentName,
+      name: "listener_protocol",
+      labelText: "Listener Protocol",
+      groups: ["HTTPS", "HTTP", "TCP", "UDP"],
+      value: (this.state.listener_protocol || "").toUpperCase(),
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller",
+      tooltip: {
+        content: "Protocol of the listener for the looad balancer"
+      }
+    }), /*#__PURE__*/React.createElement(NumberInput, {
+      label: "Connection Limit",
+      id: componentName + "-connection-limit",
+      allowEmpty: true,
+      value: this.state.connection_limit || "",
+      step: 1,
+      onChange: this.handleInputChange,
+      name: "connection_limit",
+      hideSteppers: true,
+      min: 1,
+      max: 15000,
+      invalid: isNullOrEmptyString$4(this.state.connection_limit || "") ? false : isInRange$1(this.state.connection_limit, 1, 15000) === false || !isWholeNumber$1(this.state.connection_limit),
+      invalidText: "Must be a whole number between 1 and 15000",
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React.createElement(IcseHeading, {
+      type: "subHeading",
+      name: "(Optional) Pool Customization"
+    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: componentName,
+      name: "proxy_protocol",
+      labelText: "Proxy Protocol",
+      groups: ["Disabled", "V1", "V2"],
+      value: (this.state.proxy_protocol || "disabled").toUpperCase(),
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: componentName,
+      name: "session_persistence_type",
+      labelText: "Session Persistence Type",
+      groups: ["Source IP", "App Cookie", "HTTP Cookie"],
+      value: titleCase$1(this.state.session_persistence_type || "").replace(/Ip/s, "IP").replace(/Http/g, "HTTP"),
+      handleInputChange: this.handleInputChange,
+      disableInvalid: true,
+      className: "fieldWidthSmaller"
+    }), this.state.session_persistence_type === "app_cookie" && /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: componentName + "session_persistence_app_cookie_name",
+      componentName: componentName + "-cookie-name",
+      field: "session_persistence_app_cookie_name",
+      isModal: this.props.isModal,
+      labelText: "Session Cookie Name",
+      value: this.state.session_persistence_app_cookie_name || "",
+      invalid: isNullOrEmptyString$4(this.state.session_persistence_app_cookie_name || "") ? false : this.props.invalidCallback(this.state, this.props),
+      onChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
     })));
   }
 }
-CbrZoneForm.defaultProps = {
+VsiLoadBalancerForm.defaultProps = {
   data: {
     name: "",
-    description: "",
-    account_id: "",
-    addresses: [],
-    exclusions: []
+    resource_group: "",
+    vpc: "",
+    type: "",
+    security_groups: [],
+    algorithm: "",
+    protocol: "",
+    proxy_protocol: "",
+    health_type: "",
+    session_persistence_app_cookie_name: "",
+    target_vsi: [],
+    listener_protocol: "",
+    connection_limit: null,
+    port: "",
+    health_timeout: "",
+    health_delay: "",
+    health_retries: "",
+    listener_port: ""
   },
   isModal: false
 };
-CbrZoneForm.propTypes = {
-  addressProps: PropTypes.shape({
-    disableSave: PropTypes.func,
-    onDelete: PropTypes.func,
-    onSave: PropTypes.func,
-    onSubmit: PropTypes.func
-  }),
+VsiLoadBalancerForm.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    account_id: PropTypes.string,
-    description: PropTypes.string,
-    addresses: PropTypes.arrayOf(PropTypes.shape({
-      account_id: PropTypes.string.isRequired,
-      location: PropTypes.string,
-      name: PropTypes.string,
-      service_name: PropTypes.string,
-      service_type: PropTypes.string,
-      service_instance: PropTypes.string,
-      type: PropTypes.string,
-      value: PropTypes.string
-    }).isRequired),
-    exclusions: PropTypes.arrayOf(PropTypes.shape({
-      account_id: PropTypes.string.isRequired,
-      location: PropTypes.string,
-      name: PropTypes.string,
-      service_name: PropTypes.string,
-      service_type: PropTypes.string,
-      service_instance: PropTypes.string,
-      type: PropTypes.string,
-      value: PropTypes.string
-    }).isRequired)
+    resource_group: PropTypes.string,
+    vpc: PropTypes.string,
+    security_groups: PropTypes.arrayOf(PropTypes.string)
   }),
-  exclusionProps: PropTypes.shape({
-    disableSave: PropTypes.func,
-    onDelete: PropTypes.func,
-    onSave: PropTypes.func,
-    onSubmit: PropTypes.func
-  }),
-  invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
-  invalidAddressCallback: PropTypes.func.isRequired,
-  invalidAddressTextCallback: PropTypes.func.isRequired,
-  invalidExclusionCallback: PropTypes.func.isRequired,
-  invalidExclusionTextCallback: PropTypes.func.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  vpcList: PropTypes.arrayOf(PropTypes.string.isRequired),
   isModal: PropTypes.bool.isRequired,
-  propsMatchState: PropTypes.func.isRequired
+  securityGroups: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  vsiDeployments: PropTypes.arrayOf(PropTypes.shape({})).isRequired
 };
 
 class AccessGroupPolicyForm extends React.Component {
@@ -9023,424 +9084,788 @@ AccessGroupForm.propTypes = {
   invalidTextCallback: PropTypes.func.isRequired
 };
 
-class RoutingTableRouteForm extends Component {
+class CbrContextForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       ...this.props.data
     };
-    if (!isNullOrEmptyString$4(this.state.action) && this.state.action !== "deliver") {
-      this.state.next_hop = "0.0.0.0";
-    }
     this.handleInputChange = this.handleInputChange.bind(this);
-    buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
   }
-
-  /**
-   * handle input change
-   * @param {string} name key to change in state
-   * @param {*} value value to update
-   */
   handleInputChange(event) {
-    let nextState = {
-      ...this.state
-    };
     let {
       name,
       value
     } = event.target;
-    nextState[name] = value;
-    if (name === "action" && value !== "deliver") {
-      nextState.next_hop = "0.0.0.0";
-    } else if (name === "action") {
-      nextState.next_hop = null;
-    }
-    this.setState(nextState);
+    this.setState({
+      [name]: value
+    });
   }
   render() {
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
-      componentName: "routing-table-route",
-      id: this.props.data.name + "-route-name",
-      hideHelperText: true,
+    return /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: this.props.data.name + "-cbr-context",
+      componentName: this.props.arrayParentName + "-cbr-context",
       value: this.state.name,
       onChange: this.handleInputChange,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props),
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(IcseNumberSelect, {
-      formName: "routing-table-route",
-      value: this.state.zone || "",
-      min: 1,
-      max: 3,
-      name: "zone",
-      labelText: "Route Zone",
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
+      invalid: this.props.invalidNameCallback(this.state, this.props),
+      invalidText: this.props.invalidNameTextCallback(this.state, this.props),
+      hideHelperText: true
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
-      id: this.props.data.name + "-route-destination",
-      componentName: "routing-route-destination",
-      name: "destination",
-      field: "destination",
-      value: this.state.destination,
-      placeholder: "x.x.x.x",
-      labelText: "Destination IP or CIDR",
-      invalidCallback: () => isIpv4CidrOrAddress$2(this.state.destination) === false,
-      invalidText: "Destination must be a valid IP or IPV4 CIDR block",
+      id: this.props.data.name + "-cbr-context-value",
+      componentName: this.props.arrayParentName + "-cbr-context",
+      labelText: "Value",
+      field: "value",
+      value: this.state.value,
       onChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
-      name: "action",
-      formName: this.props.data.name + "-routing-table-route-action",
-      groups: ["delegate", "deliver", "delegate_vpc", "drop"],
-      labelText: "Action",
-      handleInputChange: this.handleInputChange,
-      value: this.state.action,
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(IcseTextInput, {
-      id: this.props.data.name + "-next-hop",
-      componentName: "routing-next-hop",
-      field: "next_hop",
-      value: this.state.next_hop,
-      labelText: "Next Hop",
-      placeholder: "x.x.x.x",
-      invalidCallback: () => isNullOrEmptyString$4(this.state.next_hop) || isIpv4CidrOrAddress$2(this.state.next_hop) === false || contains$2(this.state.next_hop, `/`),
-      invalidText: "Next hop must be a valid IP",
-      onChange: this.handleInputChange,
-      disabled: this.state.action !== "deliver",
-      className: "fieldWidthSmaller"
-    })));
+      invalid: this.props.invalidCallback("value", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("value", this.state, this.props)
+    }));
   }
 }
-RoutingTableRouteForm.defaultProps = {
+CbrContextForm.defaultProps = {
   data: {
     name: "",
-    zone: "",
-    destination: "",
-    action: "",
-    next_hop: ""
-  }
+    value: ""
+  },
+  arrayParentName: ""
 };
-RoutingTableRouteForm.propTypes = {
-  invalidCallback: PropTypes.func.isRequired,
-  invalidTextCallback: PropTypes.func.isRequired,
+CbrContextForm.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    destination: PropTypes.string.isRequired,
-    action: PropTypes.string.isRequired,
-    next_hop: PropTypes.string,
-    zone: PropTypes.number
-  }).isRequired
+    value: PropTypes.string.isRequired
+  }),
+  invalidNameCallback: PropTypes.func.isRequired,
+  invalidNameTextCallback: PropTypes.func.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  arrayParentName: PropTypes.string
 };
 
-class RoutingTableForm extends Component {
+class CbrResourceAttributeForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       ...this.props.data
     };
-    if (this.props.isModal) this.state.routes = [];
     this.handleInputChange = this.handleInputChange.bind(this);
-    buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
-    this.handleToggle = this.handleToggle.bind(this);
+    buildFormFunctions(this);
   }
-
-  /**
-   * handle input change
-   * @param {string} name key to change in state
-   * @param {*} value value to update
-   */
   handleInputChange(event) {
-    let nextState = {
-      ...this.state
-    };
     let {
       name,
       value
     } = event.target;
-    nextState[name] = value;
-    this.setState(nextState);
-  }
-  handleToggle(name) {
-    this.setState(this.toggleStateBoolean(name, this.state));
+    this.setState({
+      [name]: value
+    });
   }
   render() {
-    let composedId = this.props.data.name + "-route-form";
-    let innerFormProps = {
-      arrayParentName: this.props.data.name,
-      route: this.props.data,
-      invalidTextCallback: this.props.invalidRouteTextCallback,
-      invalidCallback: this.props.invalidRouteCallback
-    };
-    transpose({
-      ...this.props.routeProps
-    }, innerFormProps);
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
-      componentName: "routing-table-route",
-      id: this.props.data.name + "-route-name",
-      hideHelperText: true,
+    return /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: this.props.data.name + "-cbr-ra",
+      componentName: this.props.data.name + "-cbr-ra",
       value: this.state.name,
       onChange: this.handleInputChange,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props)
+      invalid: this.props.invalidNameCallback(this.state, this.props),
+      invalidText: this.props.invalidNameTextCallback(this.state, this.props),
+      hideHelperText: true
+    }), /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: this.props.data.name + "-cbr-ra-value",
+      componentName: this.props.data.name + "-cbr-ra",
+      labelText: "Value",
+      field: "value",
+      value: this.state.value,
+      onChange: this.handleInputChange,
+      invalid: this.props.invalidCallback("value", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("value", this.state, this.props),
+      hideHelperText: true
+    }));
+  }
+}
+CbrResourceAttributeForm.defaultProps = {
+  data: {
+    name: "",
+    value: ""
+  },
+  arrayParentName: ""
+};
+CbrResourceAttributeForm.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired
+  }),
+  invalidNameCallback: PropTypes.func.isRequired,
+  invalidNameTextCallback: PropTypes.func.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  arrayParentName: PropTypes.string
+};
+
+/**
+ * Context-based restriction tags
+ */
+class CbrTagForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
+  }
+  handleInputChange(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    this.setState({
+      [name]: value
+    });
+  }
+  render() {
+    return /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: this.props.data.name + "-cbr-tag",
+      componentName: this.props.data.name + "-cbr-tag",
+      className: "fieldWidthSmaller",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      invalid: this.props.invalidNameCallback(this.state, this.props),
+      invalidText: this.props.invalidNameTextCallback(this.state, this.props),
+      hideHelperText: true
+    }), /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: this.props.data.name + "-cbr-tag-operator",
+      componentName: this.props.data.name + "-cbr-tag",
+      className: "fieldWidthSmaller",
+      labelText: "Operator",
+      field: "operator",
+      value: this.state.operator,
+      onChange: this.handleInputChange,
+      invalid: this.props.invalidCallback("operator", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("operator", this.state, this.props),
+      hideHelperText: true
+    }), /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: this.props.data.name + "-cbr-tag-value",
+      componentName: this.props.data.name + "-cbr-tag",
+      className: "fieldWidthSmaller",
+      labelText: "Value",
+      field: "value",
+      value: this.state.value,
+      onChange: this.handleInputChange,
+      invalid: this.props.invalidCallback("value", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("value", this.state, this.props),
+      hideHelperText: true
+    }));
+  }
+}
+CbrTagForm.defaultProps = {
+  data: {
+    name: "",
+    operator: "",
+    value: ""
+  },
+  arrayParentName: ""
+};
+CbrTagForm.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    operator: PropTypes.string,
+    value: PropTypes.string.isRequired
+  }),
+  invalidNameCallback: PropTypes.func.isRequired,
+  invalidNameTextCallback: PropTypes.func.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  arrayParentName: PropTypes.string
+};
+
+/**
+ * Context-based restriction rules
+ */
+class CbrRuleForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
+  }
+  handleInputChange(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    this.setState({
+      [name]: value
+    });
+  }
+  render() {
+    // set up props for subforms
+    let contextInnerFormProps = {};
+    transpose({
+      ...this.props.contextProps,
+      arrayParentName: this.props.data.name
+    }, contextInnerFormProps);
+    let resourceAttributeInnerFormProps = {};
+    transpose({
+      ...this.props.resourceAttributeProps,
+      arrayParentName: this.props.data.name
+    }, resourceAttributeInnerFormProps);
+    let tagInnerFormProps = {};
+    transpose({
+      ...this.props.tagProps,
+      arrayParentName: this.props.data.name
+    }, tagInnerFormProps);
+    return /*#__PURE__*/React.createElement("div", {
+      id: "cbr-rule-form"
+    }, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: this.props.data.name + "-cbr-rule",
+      componentName: this.props.data.name + "-cbr-rule",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      hideHelperText: true,
+      invalid: this.props.invalidNameCallback(this.state, this.props),
+      invalidText: this.props.invalidNameTextCallback(this.state, this.props)
     }), /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: composedId + "-vpc",
-      name: "vpc",
-      labelText: "VPC",
-      groups: this.props.vpcList,
-      value: this.state.vpc,
-      handleInputChange: this.handleInputChange,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: "Select a VPC."
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
-      id: composedId + "-direct-link-toggle",
-      labelText: "Direct Link Ingress",
-      defaultToggled: this.state.route_direct_link_ingress,
-      onToggle: this.handleToggle,
-      tooltip: {
-        content: "If set to true, the routing table is used to route traffic that originates from Direct Link to the VPC. To succeed, the VPC must not already have a routing table with the property set to true",
-        align: "bottom-left",
-        alignModal: "bottom-left"
-      }
-    }), /*#__PURE__*/React.createElement(IcseToggle, {
-      id: composedId + "-route-internet-toggle",
-      labelText: "Internet Ingress",
-      defaultToggled: this.state.route_internet_ingress,
-      onToggle: this.handleToggle,
-      tooltip: {
-        content: "If set to true, this routing table will be used to route traffic that originates from the internet. For this to succeed, the VPC must not already have a routing table with this property set to true",
-        align: "bottom-left",
-        alignModal: "bottom-left"
-      }
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
-      id: composedId + "-tgw-ingress",
-      labelText: "Transit Gateway Ingress",
-      defaultToggled: this.state.route_transit_gateway_ingress,
-      onToggle: this.handleToggle,
-      tooltip: {
-        content: "If set to true, the routing table is used to route traffic that originates from Transit Gateway to the VPC. To succeed, the VPC must not already have a routing table with the property set to true",
-        align: "bottom-left",
-        alignModal: "bottom-left"
-      }
-    }), /*#__PURE__*/React.createElement(IcseToggle, {
-      id: composedId + "-zone-ingress",
-      labelText: "VPC Zone Ingress",
-      defaultToggled: this.state.route_vpc_zone_ingress,
-      onToggle: this.handleToggle,
-      tooltip: {
-        content: "If set to true, the routing table is used to route traffic that originates from subnets in other zones in the VPC. To succeed, the VPC must not already have a routing table with the property set to true",
-        align: "bottom-left",
-        alignModal: "bottom-left"
-      }
-    })), this.props.isModal === false && /*#__PURE__*/React.createElement(IcseFormTemplate, {
-      name: "Routes",
+      id: this.props.data.name + "-cbr-rule-enforcement-mode",
+      name: "enforcement_mode",
+      className: "fieldWidthSmaller",
+      value: this.state.enforcement_mode,
+      labelText: "Enforcement Mode",
+      groups: ["Enabled", "Disabled", "Report"],
+      invalid: this.props.invalidCallback("enforcement_mode", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("enforcement_mode", this.state, this.props),
+      formName: "cbr-rule",
+      handleInputChange: this.handleInputChange
+    }), /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: this.props.data.name + "-cbr-rule-api-type-id",
+      componentName: this.props.data.name + "-cbr-rule",
+      field: "api_type_id",
+      value: this.state.api_type_id,
+      labelText: "API Type ID",
+      onChange: this.handleInputChange,
+      invalid: this.props.invalidCallback("api_type_id", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("api_type_id", this.state, this.props)
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
+      id: this.props.data.name + "-cbr-rule-description",
+      className: "textInputWide",
+      name: "description",
+      value: this.state.description,
+      labelText: "Description",
+      onChange: this.handleInputChange,
+      invalid: this.props.invalidCallback("description", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("description", this.state, this.props),
+      enableCounter: true
+    })), this.props.isModal !== true && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormTemplate, {
+      name: "Contexts",
       subHeading: true,
-      addText: "Create a Route",
-      arrayData: this.props.data.routes,
-      innerForm: RoutingTableRouteForm,
-      disableSave: this.props.routeProps.disableSave,
-      onDelete: this.props.routeProps.onDelete,
-      onSave: this.props.routeProps.onSave,
-      onSubmit: this.props.routeProps.onSubmit,
+      tooltip: {
+        content: "Contexts define where your resource can be accessed.",
+        link: "https://cloud.ibm.com/docs/account?topic=account-context-restrictions-whatis#restriction-context",
+        align: "top-left"
+      },
+      addText: "Create a Context",
+      arrayData: this.props.data.contexts,
+      innerForm: CbrContextForm,
+      disableSave: this.props.contextProps.disableSave,
+      onDelete: this.props.contextProps.onDelete,
+      onSave: this.props.contextProps.onSave,
+      onSubmit: this.props.contextProps.onSubmit,
       propsMatchState: this.props.propsMatchState,
       innerFormProps: {
-        ...innerFormProps
+        ...contextInnerFormProps
       },
       hideAbout: true,
       toggleFormProps: {
         hideName: true,
-        submissionFieldName: "routes",
-        disableSave: this.props.routeProps.disableSave,
+        submissionFieldName: "contexts",
+        disableSave: this.props.contextProps.disableSave,
         type: "formInSubForm"
       }
-    }));
+    }), /*#__PURE__*/React.createElement(IcseFormTemplate, {
+      name: "Resource Attributes",
+      subHeading: true,
+      tooltip: {
+        content: "A cloud resource is specified by resource attributes.",
+        link: "https://cloud.ibm.com/docs/account?topic=account-context-restrictions-whatis#restriction-rules"
+      },
+      addText: "Create a Resource Attribute",
+      arrayData: this.props.data.resource_attributes,
+      innerForm: CbrResourceAttributeForm,
+      disableSave: this.props.resourceAttributeProps.disableSave,
+      onDelete: this.props.resourceAttributeProps.onDelete,
+      onSave: this.props.resourceAttributeProps.onSave,
+      onSubmit: this.props.resourceAttributeProps.onSubmit,
+      propsMatchState: this.props.propsMatchState,
+      innerFormProps: {
+        ...resourceAttributeInnerFormProps
+      },
+      hideAbout: true,
+      toggleFormProps: {
+        hideName: true,
+        submissionFieldName: "resource_attributes",
+        disableSave: this.props.resourceAttributeProps.disableSave,
+        type: "formInSubForm"
+      }
+    }), /*#__PURE__*/React.createElement(IcseFormTemplate, {
+      name: "Tags",
+      subHeading: true,
+      tooltip: {
+        content: "A cloud resource can also be specified using tags.",
+        align: "top-left"
+      },
+      addText: "Create a Tag",
+      arrayData: this.props.data.tags,
+      innerForm: CbrTagForm,
+      disableSave: this.props.tagProps.disableSave,
+      onDelete: this.props.tagProps.onDelete,
+      onSave: this.props.tagProps.onSave,
+      onSubmit: this.props.tagProps.onSubmit,
+      propsMatchState: this.props.propsMatchState,
+      innerFormProps: {
+        ...tagInnerFormProps
+      },
+      hideAbout: true,
+      toggleFormProps: {
+        hideName: true,
+        submissionFieldName: "tags",
+        disableSave: this.props.tagProps.disableSave,
+        type: "formInSubForm"
+      }
+    })));
   }
 }
-RoutingTableForm.defaultProps = {
+CbrRuleForm.defaultProps = {
   isModal: false,
   data: {
     name: "",
-    vpc: null,
-    routes: [],
-    route_internet_ingress: false,
-    route_transit_gateway_ingress: false,
-    route_vpc_zone_ingress: false,
-    route_direct_link_ingress: false
+    description: "",
+    enforcement_mode: "Enabled",
+    api_type_id: "",
+    contexts: [],
+    resource_attributes: [],
+    tags: []
   }
 };
-RoutingTableForm.propTypes = {
-  invalidCallback: PropTypes.func.isRequired,
-  invalidTextCallback: PropTypes.func.isRequired,
+CbrRuleForm.propTypes = {
+  isModal: PropTypes.bool,
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    vpc: PropTypes.string,
-    routes: PropTypes.array.isRequired,
-    route_internet_ingress: PropTypes.bool.isRequired,
-    route_transit_gateway_ingress: PropTypes.bool.isRequired,
-    route_vpc_zone_ingress: PropTypes.bool.isRequired,
-    route_direct_link_ingress: PropTypes.bool.isRequired
-  }).isRequired,
+    description: PropTypes.string.isRequired,
+    enforcement_mode: PropTypes.string.isRequired,
+    api_type_id: PropTypes.string.isRequired,
+    contexts: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired
+    }).isRequired),
+    resource_attributes: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired
+    }).isRequired),
+    tags: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      operator: PropTypes.string.isRequired,
+      value: PropTypes.string.isRequired
+    }).isRequired)
+  }),
   propsMatchState: PropTypes.func.isRequired,
-  invalidRouteCallback: PropTypes.func.isRequired,
-  invalidRouteTextCallback: PropTypes.func.isRequired,
-  isModal: PropTypes.bool.isRequired,
-  vpcList: PropTypes.arrayOf(PropTypes.string).isRequired,
-  routeProps: PropTypes.shape({
-    disableSave: PropTypes.func.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  invalidNameCallback: PropTypes.func.isRequired,
+  invalidNameTextCallback: PropTypes.func.isRequired,
+  contextProps: PropTypes.shape({
+    onSave: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
-    onSave: PropTypes.func.isRequired
+    disableSave: PropTypes.func.isRequired,
+    invalidCallback: PropTypes.func.isRequired,
+    invalidTextCallback: PropTypes.func.isRequired,
+    invalidNameCallback: PropTypes.func.isRequired,
+    invalidNameTextCallback: PropTypes.func.isRequired
+  }).isRequired,
+  resourceAttributeProps: PropTypes.shape({
+    onSave: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    disableSave: PropTypes.func.isRequired,
+    invalidCallback: PropTypes.func.isRequired,
+    invalidTextCallback: PropTypes.func.isRequired,
+    invalidNameCallback: PropTypes.func.isRequired,
+    invalidNameTextCallback: PropTypes.func.isRequired
+  }).isRequired,
+  tagProps: PropTypes.shape({
+    onSave: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    disableSave: PropTypes.func.isRequired,
+    invalidCallback: PropTypes.func.isRequired,
+    invalidTextCallback: PropTypes.func.isRequired,
+    invalidNameCallback: PropTypes.func.isRequired,
+    invalidNameTextCallback: PropTypes.func.isRequired
   }).isRequired
 };
 
+const {
+  isNullOrEmptyString,
+  isIpv4CidrOrAddress
+} = lazyZ;
+function cbrInvalid(field, value) {
+  let invalid = {
+    invalid: false,
+    invalidText: ""
+  };
+  if (!isNullOrEmptyString(value) && (value.match(/^[0-9a-z-]+$/) === null || value.length >= 128)) {
+    invalid.invalid = true;
+    invalid.invalidText = `Invalid ${field}. Value must match regex expression /^[0-9a-z-]+$/.`;
+  }
+  return invalid;
+}
+function cbrValueInvalid(type, value) {
+  let invalid = {
+    invalid: false,
+    invalidText: ""
+  };
+  if (isNullOrEmptyString(value)) {
+    invalid.invalid = true;
+    invalid.invalidText = `Invalid value for type ${type}. Cannot be empty string.`;
+  } else {
+    switch (type) {
+      case "ipAddress":
+        if (!isIpv4CidrOrAddress(value) || value.includes("/")) {
+          invalid.invalid = true;
+          invalid.invalidText = `Invalid value for type ${type}. Value must be a valid IPV4 Address.`;
+        }
+        break;
+      case "ipRange":
+        if (value.match(/\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\-\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/g) === null) {
+          invalid.invalid = true;
+          invalid.invalidText = `Invalid value for type ${type}. Value must be a range of IPV4 Addresses.`;
+        }
+        break;
+      default:
+        invalid = cbrInvalid("type", value);
+    }
+  }
+  return invalid;
+}
+var cbrUtils = {
+  cbrInvalid,
+  cbrValueInvalid
+};
+var cbrUtils_1 = cbrUtils.cbrInvalid;
+var cbrUtils_2 = cbrUtils.cbrValueInvalid;
+
+const typeNameMap = {
+  ipAddress: "IP Address",
+  ipRange: "IP Range",
+  subnet: "Subnet",
+  vpc: "VPC",
+  serviceRef: "Service Ref"
+};
+
 /**
- * EventStreamsForm
+ * Context-based restriction addresses / exclusions
  */
-class EventStreamsForm extends Component {
+class CbrExclusionAddressForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       ...this.props.data
     };
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleAllowedIps = this.handleAllowedIps.bind(this);
-    this.handlePlanChange = this.handlePlanChange.bind(this);
-    buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
   }
-
-  /**
-   * Handle input change for allowed ips text field
-   * @param {event} event
-   */
-  handleAllowedIps(event) {
-    // removing white space and checking for empty value
-    let value = event.target.value.replace(/\s*/g, "");
+  handleInputChange(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    if (name === "type") value = Object.keys(typeNameMap).find(key => typeNameMap[key] === value);
     this.setState({
-      private_ip_allowlist: value
+      [name]: value
     });
   }
-
-  /**
-   * handle input change
-   * @param {event} event event
-   */
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-
-  /**
-   * Handle input change for a select
-   * @param {event} event
-   */
-  handlePlanChange(event) {
-    let value = event.target.value.toLowerCase();
-    let tempState = {
-      ...this.state
-    };
-    tempState.plan = value;
-    if (value !== "enterprise") {
-      tempState = {
-        ...tempState,
-        throughput: "",
-        storage_size: "",
-        endpoints: "",
-        private_ip_allowlist: ""
-      };
-    }
-    this.setState(tempState);
-  }
   render() {
-    let composedId = `event-streams-form-${this.props.data.name}`;
-    let classNameModalCheck = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
-      id: composedId,
-      componentName: this.props.data.name + "-event-streams",
+      id: this.props.data.name + "-cbr-address-exclusion",
+      componentName: this.props.data.name + "-cbr-zone",
+      className: "fieldWidthSmaller",
       value: this.state.name,
       onChange: this.handleInputChange,
-      hideHelperText: true,
-      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props),
-      className: classNameModalCheck
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: this.props.data.name + "-event-streams",
-      value: titleCase$1(this.state.plan),
-      groups: ["Lite", "Standard", "Enterprise"],
-      handleInputChange: this.handlePlanChange,
-      className: classNameModalCheck,
-      name: "plan",
-      labelText: "Plan"
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: this.props.data.name + "-event-streams",
-      value: this.state.resource_group,
-      groups: this.props.resourceGroups,
+      hideHelperText: true
+    }), /*#__PURE__*/React.createElement(IcseTextInput, _extends({
+      id: this.props.data.name + "-cbr-account-id",
+      componentName: this.props.data.name + "-cbr-zone",
+      field: "account_id",
+      value: this.state.account_id,
+      labelText: "Account ID",
+      onChange: this.handleInputChange,
+      hideHelperText: true,
+      className: "fieldWidthSmaller"
+    }, cbrUtils_1("account_id", this.state.account_id))), /*#__PURE__*/React.createElement(IcseTextInput, _extends({
+      id: this.props.data.name + "-cbr-zone-location",
+      componentName: this.props.data.name + "cbr-zone-location",
+      className: "fieldWidthSmaller",
+      labelText: "Location",
+      field: "location",
+      value: this.state.location,
+      onChange: this.handleInputChange,
+      hideHelperText: true
+    }, cbrUtils_1("location", this.state.location)))), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, _extends({
+      id: this.props.data.name + "-cbr-zone-service-name",
+      componentName: this.props.data.name + "cbr-zone-service-name",
+      className: "fieldWidthSmaller",
+      labelText: "Service Name",
+      field: "service_name",
+      value: this.state.service_name,
+      onChange: this.handleInputChange,
+      hideHelperText: true
+    }, cbrUtils_1("service_name", this.state.service_name))), /*#__PURE__*/React.createElement(IcseTextInput, _extends({
+      id: this.props.data.name + "-cbr-zone-service-instance",
+      componentName: this.props.data.name + "cbr-zone-service-instance",
+      className: "fieldWidthSmaller",
+      labelText: "Service Instance",
+      field: "service_instance",
+      value: this.state.service_instance,
+      onChange: this.handleInputChange,
+      hideHelperText: true
+    }, cbrUtils_1("service_instance", this.state.service_instance))), /*#__PURE__*/React.createElement(IcseTextInput, _extends({
+      id: this.props.data.name + "-cbr-zone-service-type",
+      componentName: this.props.data.name + "cbr-zone-service-type",
+      className: "fieldWidthSmaller",
+      labelText: "Service Type",
+      field: "service_type",
+      value: this.state.service_type,
+      onChange: this.handleInputChange,
+      hideHelperText: true
+    }, cbrUtils_1("service_type", this.state.service_type)))), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+      labelText: "Type",
+      name: "type",
+      formName: this.props.data.name + "cbr-zone-type",
+      groups: ["IP Address", "IP Range", "Subnet", "VPC", "Service Ref"],
+      value: typeNameMap[this.state.type],
       handleInputChange: this.handleInputChange,
-      className: classNameModalCheck,
-      name: "resource_group",
-      labelText: "Resource Group"
-    })), this.state.plan === "enterprise" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(EndpointSelect, {
-      name: "endpoints",
-      formName: this.props.data.name + "-event-streams",
-      handleInputChange: this.handleInputChange,
-      value: this.state.endpoints,
-      className: classNameModalCheck
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: this.props.data.name + "-event-streams",
-      value: this.state.throughput,
-      groups: ["150MB/s", "300MB/s", "450MB/s"],
-      handleInputChange: this.handleInputChange,
-      className: classNameModalCheck,
-      name: "throughput",
-      labelText: "Throughput"
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: this.props.data.name + "-event-streams",
-      value: this.state.storage_size,
-      groups: ["2TB", "4TB", "6TB", "8TB", "10TB", "12TB"],
-      handleInputChange: this.handleInputChange,
-      className: classNameModalCheck,
-      name: "storage_size",
-      labelText: "Storage Size"
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(ToolTipWrapper, {
-      tooltip: {
-        content: "Private IP addresses or CIDR blocks to allowlist",
-        align: "top-left"
-      },
-      className: "textInputMedium",
-      innerForm: TextArea,
-      id: "event-streams-private-ips",
-      labelText: "Allowed Private IPs",
-      onChange: this.handleAllowedIps,
-      placeholder: this.state.private_ip_allowlist || "X.X.X.X, X.X.X.X/X, ...",
-      invalid: iamUtils_1(this.state.private_ip_allowlist),
-      invalidText: "Please enter a comma separated list of IP addresses or CIDR blocks"
-    }))));
+      invalidText: "Select a Type",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseTextInput, _extends({
+      id: this.props.data.name + "-cbr-zone-value",
+      componentName: this.props.data.name + "cbr-zone-value",
+      className: "fieldWidthSmaller",
+      labelText: "Value",
+      field: "value",
+      value: this.state.value,
+      onChange: this.handleInputChange,
+      hideHelperText: true,
+      placeholder: this.state.type === "ipAddress" ? "x.x.x.x" : this.state.type === "ipRange" ? "x.x.x.x-x.x.x.x" : `my-cbr-zone-${this.state.type}`
+    }, cbrUtils_2(this.state.type, this.state.value)))));
   }
 }
-EventStreamsForm.defaultProps = {
+CbrExclusionAddressForm.defaultProps = {
   data: {
     name: "",
-    plan: "lite",
-    resource_group: "",
-    endpoints: "",
-    throughput: "",
-    storage_size: "",
-    private_ip_allowlist: ""
-  }
+    account_id: "",
+    location: "",
+    service_name: "",
+    service_instance: "",
+    service_type: "",
+    type: "ipAddress",
+    value: ""
+  },
+  isModal: false
 };
-EventStreamsForm.propTypes = {
+CbrExclusionAddressForm.propTypes = {
   data: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    plan: PropTypes.string.isRequired,
-    resource_group: PropTypes.string,
-    endpoints: PropTypes.string,
-    throughput: PropTypes.string,
-    storage_size: PropTypes.string,
-    private_ip_allowlist: PropTypes.string
+    account_id: PropTypes.string.isRequired,
+    location: PropTypes.string,
+    name: PropTypes.string,
+    service_name: PropTypes.string,
+    service_instance: PropTypes.string,
+    service_type: PropTypes.string,
+    type: PropTypes.string,
+    value: PropTypes.string
   }),
-  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  isModal: PropTypes.bool.isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired
 };
 
-export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, CbrExclusionAddressForm, CbrZoneForm, ClusterForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, LocationsMultiSelect, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, RoutingTableForm, RoutingTableRouteForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VpnServerRouteForm, VsiForm, VsiLoadBalancerForm, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+/**
+ * Context-based restriction zones
+ */
+class CbrZoneForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
+  }
+  handleInputChange(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    this.setState({
+      [name]: value
+    });
+  }
+  render() {
+    // set up props for subforms
+    let exclusionInnerFormProps = {
+      type: "exclusion",
+      invalidCallback: this.props.invalidExclusionCallback,
+      invalidTextCallback: this.props.invalidExclusionTextCallback,
+      arrayParentName: this.props.data.name
+    };
+    transpose({
+      ...this.props.exclusionProps
+    }, exclusionInnerFormProps);
+    let addressInnerFormProps = {
+      invalidCallback: this.props.invalidAddressCallback,
+      invalidTextCallback: this.props.invalidAddressTextCallback,
+      arrayParentName: this.props.data.name,
+      type: "address"
+    };
+    transpose({
+      ...this.props.addressProps
+    }, addressInnerFormProps);
+    return /*#__PURE__*/React.createElement("div", {
+      id: "cbr-zone-form"
+    }, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: this.props.data.name + "-cbr-zone",
+      componentName: this.props.data.name + "-cbr-zone",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      hideHelperText: true,
+      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React.createElement(IcseTextInput, _extends({
+      id: this.props.data.name + "-cbr-account-id",
+      componentName: this.props.data.name + "-cbr-zone",
+      field: "account_id",
+      value: this.state.account_id,
+      labelText: "Account ID",
+      onChange: this.handleInputChange
+    }, cbrUtils_1("account_id", this.state.account_id)))), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
+      id: this.props.data.name + "-cbr-zone-description",
+      className: "textInputWide",
+      name: "description",
+      value: this.state.description,
+      labelText: "Description",
+      onChange: this.handleInputChange,
+      invalid: this.state.description.length < 0 || this.state.description.length > 300,
+      invalidText: "Invalid description, must be between 0 and 300 characters.",
+      enableCounter: true
+    })), this.props.isModal !== true && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormTemplate, {
+      name: "Addresses",
+      subHeading: true,
+      addText: "Create an Address",
+      arrayData: this.props.data.addresses,
+      innerForm: CbrExclusionAddressForm,
+      disableSave: this.props.addressProps.disableSave,
+      onDelete: this.props.addressProps.onDelete,
+      onSave: this.props.addressProps.onSave,
+      onSubmit: this.props.addressProps.onSubmit,
+      propsMatchState: this.props.propsMatchState,
+      innerFormProps: {
+        ...addressInnerFormProps
+      },
+      hideAbout: true,
+      toggleFormProps: {
+        hideName: true,
+        submissionFieldName: "cbr_zones",
+        disableSave: this.props.addressProps.disableSave,
+        type: "formInSubForm"
+      }
+    }), /*#__PURE__*/React.createElement(IcseFormTemplate, {
+      name: "Exclusions",
+      subHeading: true,
+      addText: "Create an Exclusion",
+      arrayData: this.props.data.exclusions,
+      innerForm: CbrExclusionAddressForm,
+      disableSave: this.props.exclusionProps.disableSave,
+      onDelete: this.props.exclusionProps.onDelete,
+      onSave: this.props.exclusionProps.onSave,
+      onSubmit: this.props.exclusionProps.onSubmit,
+      propsMatchState: this.props.propsMatchState,
+      innerFormProps: {
+        ...exclusionInnerFormProps
+      },
+      hideAbout: true,
+      toggleFormProps: {
+        hideName: true,
+        submissionFieldName: "cbr_zones",
+        disableSave: this.props.exclusionProps.disableSave,
+        type: "formInSubForm"
+      }
+    })));
+  }
+}
+CbrZoneForm.defaultProps = {
+  data: {
+    name: "",
+    description: "",
+    account_id: "",
+    addresses: [],
+    exclusions: []
+  },
+  isModal: false
+};
+CbrZoneForm.propTypes = {
+  addressProps: PropTypes.shape({
+    disableSave: PropTypes.func,
+    onDelete: PropTypes.func,
+    onSave: PropTypes.func,
+    onSubmit: PropTypes.func
+  }),
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    account_id: PropTypes.string,
+    description: PropTypes.string,
+    addresses: PropTypes.arrayOf(PropTypes.shape({
+      account_id: PropTypes.string.isRequired,
+      location: PropTypes.string,
+      name: PropTypes.string,
+      service_name: PropTypes.string,
+      service_type: PropTypes.string,
+      service_instance: PropTypes.string,
+      type: PropTypes.string,
+      value: PropTypes.string
+    }).isRequired),
+    exclusions: PropTypes.arrayOf(PropTypes.shape({
+      account_id: PropTypes.string.isRequired,
+      location: PropTypes.string,
+      name: PropTypes.string,
+      service_name: PropTypes.string,
+      service_type: PropTypes.string,
+      service_instance: PropTypes.string,
+      type: PropTypes.string,
+      value: PropTypes.string
+    }).isRequired)
+  }),
+  exclusionProps: PropTypes.shape({
+    disableSave: PropTypes.func,
+    onDelete: PropTypes.func,
+    onSave: PropTypes.func,
+    onSubmit: PropTypes.func
+  }),
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  invalidAddressCallback: PropTypes.func.isRequired,
+  invalidAddressTextCallback: PropTypes.func.isRequired,
+  invalidExclusionCallback: PropTypes.func.isRequired,
+  invalidExclusionTextCallback: PropTypes.func.isRequired,
+  isModal: PropTypes.bool.isRequired,
+  propsMatchState: PropTypes.func.isRequired
+};
+
+export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, ClusterForm, DeleteButton, DeleteModal, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, LocationsMultiSelect, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, RoutingTableForm, RoutingTableRouteForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VpnServerRouteForm, VsiForm, VsiLoadBalancerForm, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
