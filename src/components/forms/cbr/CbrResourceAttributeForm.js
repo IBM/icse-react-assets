@@ -29,7 +29,9 @@ class CbrResourceAttributeForm extends Component {
           componentName={this.props.data.name + "-cbr-ra"}
           value={this.state.name}
           onChange={this.handleInputChange}
-          invalid={this.props.invalidNameCallback(this.state, this.props)}
+          invalidCallback={() =>
+            this.props.invalidNameCallback(this.state, this.props)
+          }
           invalidText={this.props.invalidNameTextCallback(
             this.state,
             this.props
@@ -43,7 +45,9 @@ class CbrResourceAttributeForm extends Component {
           field="value"
           value={this.state.value}
           onChange={this.handleInputChange}
-          invalid={this.props.invalidCallback("value", this.state, this.props)}
+          invalidCallback={() =>
+            this.props.invalidCallback("value", this.state, this.props)
+          }
           invalidText={this.props.invalidTextCallback(
             "value",
             this.state,

@@ -33,7 +33,9 @@ class CbrTagForm extends Component {
           className={"fieldWidthSmaller"}
           value={this.state.name}
           onChange={this.handleInputChange}
-          invalid={this.props.invalidNameCallback(this.state, this.props)}
+          invalidCallback={() =>
+            this.props.invalidNameCallback(this.state, this.props)
+          }
           invalidText={this.props.invalidNameTextCallback(
             this.state,
             this.props
@@ -48,11 +50,9 @@ class CbrTagForm extends Component {
           field="operator"
           value={this.state.operator}
           onChange={this.handleInputChange}
-          invalid={this.props.invalidCallback(
-            "operator",
-            this.state,
-            this.props
-          )}
+          invalidCallback={() =>
+            this.props.invalidCallback("operator", this.state, this.props)
+          }
           invalidText={this.props.invalidTextCallback(
             "operator",
             this.state,
@@ -68,7 +68,9 @@ class CbrTagForm extends Component {
           field="value"
           value={this.state.value}
           onChange={this.handleInputChange}
-          invalid={this.props.invalidCallback("value", this.state, this.props)}
+          invalidCallback={() =>
+            this.props.invalidCallback("value", this.state, this.props)
+          }
           invalidText={this.props.invalidTextCallback(
             "value",
             this.state,

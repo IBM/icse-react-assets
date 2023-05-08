@@ -9120,7 +9120,7 @@ class CbrContextForm extends React.Component {
       componentName: this.props.arrayParentName + "-cbr-context",
       value: this.state.name,
       onChange: this.handleInputChange,
-      invalid: this.props.invalidNameCallback(this.state, this.props),
+      invalidCallback: () => this.props.invalidNameCallback(this.state, this.props),
       invalidText: this.props.invalidNameTextCallback(this.state, this.props),
       hideHelperText: true
     }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
@@ -9130,7 +9130,7 @@ class CbrContextForm extends React.Component {
       field: "value",
       value: this.state.value,
       onChange: this.handleInputChange,
-      invalid: this.props.invalidCallback("value", this.state, this.props),
+      invalidCallback: () => this.props.invalidCallback("value", this.state, this.props),
       invalidText: this.props.invalidTextCallback("value", this.state, this.props)
     }));
   }
@@ -9179,7 +9179,7 @@ class CbrResourceAttributeForm extends React.Component {
       componentName: this.props.data.name + "-cbr-ra",
       value: this.state.name,
       onChange: this.handleInputChange,
-      invalid: this.props.invalidNameCallback(this.state, this.props),
+      invalidCallback: () => this.props.invalidNameCallback(this.state, this.props),
       invalidText: this.props.invalidNameTextCallback(this.state, this.props),
       hideHelperText: true
     }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
@@ -9189,7 +9189,7 @@ class CbrResourceAttributeForm extends React.Component {
       field: "value",
       value: this.state.value,
       onChange: this.handleInputChange,
-      invalid: this.props.invalidCallback("value", this.state, this.props),
+      invalidCallback: () => this.props.invalidCallback("value", this.state, this.props),
       invalidText: this.props.invalidTextCallback("value", this.state, this.props),
       hideHelperText: true
     }));
@@ -9243,7 +9243,7 @@ class CbrTagForm extends React.Component {
       className: "fieldWidthSmaller",
       value: this.state.name,
       onChange: this.handleInputChange,
-      invalid: this.props.invalidNameCallback(this.state, this.props),
+      invalidCallback: () => this.props.invalidNameCallback(this.state, this.props),
       invalidText: this.props.invalidNameTextCallback(this.state, this.props),
       hideHelperText: true
     }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
@@ -9254,7 +9254,7 @@ class CbrTagForm extends React.Component {
       field: "operator",
       value: this.state.operator,
       onChange: this.handleInputChange,
-      invalid: this.props.invalidCallback("operator", this.state, this.props),
+      invalidCallback: () => this.props.invalidCallback("operator", this.state, this.props),
       invalidText: this.props.invalidTextCallback("operator", this.state, this.props),
       hideHelperText: true
     }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
@@ -9265,7 +9265,7 @@ class CbrTagForm extends React.Component {
       field: "value",
       value: this.state.value,
       onChange: this.handleInputChange,
-      invalid: this.props.invalidCallback("value", this.state, this.props),
+      invalidCallback: () => this.props.invalidCallback("value", this.state, this.props),
       invalidText: this.props.invalidTextCallback("value", this.state, this.props),
       hideHelperText: true
     }));
@@ -9489,34 +9489,35 @@ CbrRuleForm.propTypes = {
   invalidNameCallback: PropTypes__default["default"].func.isRequired,
   invalidNameTextCallback: PropTypes__default["default"].func.isRequired,
   contextProps: PropTypes__default["default"].shape({
-    onSave: PropTypes__default["default"].func.isRequired,
-    onDelete: PropTypes__default["default"].func.isRequired,
-    onSubmit: PropTypes__default["default"].func.isRequired,
-    disableSave: PropTypes__default["default"].func.isRequired,
-    invalidCallback: PropTypes__default["default"].func.isRequired,
-    invalidTextCallback: PropTypes__default["default"].func.isRequired,
-    invalidNameCallback: PropTypes__default["default"].func.isRequired,
-    invalidNameTextCallback: PropTypes__default["default"].func.isRequired
+    // these should not be required in modal
+    onSave: PropTypes__default["default"].func,
+    onDelete: PropTypes__default["default"].func,
+    onSubmit: PropTypes__default["default"].func,
+    disableSave: PropTypes__default["default"].func,
+    invalidCallback: PropTypes__default["default"].func,
+    invalidTextCallback: PropTypes__default["default"].func,
+    invalidNameCallback: PropTypes__default["default"].func,
+    invalidNameTextCallback: PropTypes__default["default"].func
   }).isRequired,
   resourceAttributeProps: PropTypes__default["default"].shape({
-    onSave: PropTypes__default["default"].func.isRequired,
-    onDelete: PropTypes__default["default"].func.isRequired,
-    onSubmit: PropTypes__default["default"].func.isRequired,
-    disableSave: PropTypes__default["default"].func.isRequired,
-    invalidCallback: PropTypes__default["default"].func.isRequired,
-    invalidTextCallback: PropTypes__default["default"].func.isRequired,
-    invalidNameCallback: PropTypes__default["default"].func.isRequired,
-    invalidNameTextCallback: PropTypes__default["default"].func.isRequired
+    onSave: PropTypes__default["default"].func,
+    onDelete: PropTypes__default["default"].func,
+    onSubmit: PropTypes__default["default"].func,
+    disableSave: PropTypes__default["default"].func,
+    invalidCallback: PropTypes__default["default"].func,
+    invalidTextCallback: PropTypes__default["default"].func,
+    invalidNameCallback: PropTypes__default["default"].func,
+    invalidNameTextCallback: PropTypes__default["default"].func
   }).isRequired,
   tagProps: PropTypes__default["default"].shape({
-    onSave: PropTypes__default["default"].func.isRequired,
-    onDelete: PropTypes__default["default"].func.isRequired,
-    onSubmit: PropTypes__default["default"].func.isRequired,
-    disableSave: PropTypes__default["default"].func.isRequired,
-    invalidCallback: PropTypes__default["default"].func.isRequired,
-    invalidTextCallback: PropTypes__default["default"].func.isRequired,
-    invalidNameCallback: PropTypes__default["default"].func.isRequired,
-    invalidNameTextCallback: PropTypes__default["default"].func.isRequired
+    onSave: PropTypes__default["default"].func,
+    onDelete: PropTypes__default["default"].func,
+    onSubmit: PropTypes__default["default"].func,
+    disableSave: PropTypes__default["default"].func,
+    invalidCallback: PropTypes__default["default"].func,
+    invalidTextCallback: PropTypes__default["default"].func,
+    invalidNameCallback: PropTypes__default["default"].func,
+    invalidNameTextCallback: PropTypes__default["default"].func
   }).isRequired
 };
 
