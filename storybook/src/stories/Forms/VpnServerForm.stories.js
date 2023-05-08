@@ -157,133 +157,254 @@ export default {
         component:
           "VpnServerForm is a form component that provides functionality for adding or editing a VPN Server.",
       },
+      inlineStories: false,
+      iframeHeight: 375,
     },
   },
 };
+const VpnServerFormStory = () => {
+  function validName(str) {
+    const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
+    if (str) return str.match(regex) !== null;
+    else return false;
+  }
 
-function validName(str) {
-  const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
-  if (str) return str.match(regex) !== null;
-  else return false;
-}
+  function invalidCallback(stateData) {
+    return (
+      !validName(stateData.name) || contains(["foo", "bar"], stateData.name)
+    );
+  }
 
-function invalidCallback(stateData) {
-  return !validName(stateData.name) || contains(["foo", "bar"], stateData.name);
-}
+  function invalidTextCallback(stateData) {
+    return contains(["foo", "bar"], stateData.name)
+      ? `Name ${stateData.name} already in use.`
+      : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
+  }
 
-function invalidTextCallback(stateData) {
-  return contains(["foo", "bar"], stateData.name)
-    ? `Name ${stateData.name} already in use.`
-    : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
-}
+  function invalidClientIpPoolCallback(stateData) {
+    return typeof stateData.client_ip_pool !== "function";
+  }
 
-function invalidClientIpPoolCallback(stateData) {
-  return typeof stateData.client_ip_pool !== "function";
-}
+  function invalidClientIpPoolTextCallback(stateData) {
+    return `Invalid Client IP Pool. Must be a function that checks for overlap.`;
+  }
 
-function invalidClientIpPoolTextCallback(stateData) {
-  return `Invalid Client IP Pool. Must be a function that checks for overlap.`;
-}
-
-const formProps = {
-  data: {
-    name: "vpn-server",
-    certificate_crn: "",
-    method: "",
-    client_ca_crn: "",
-    client_ip_pool: "",
-    enable_split_tunneling: false,
-    client_idle_timeout: "",
-    port: "",
-    protocol: "UDP",
-    resource_group: "",
-    vpc: "",
-    subnet: "",
-    security_groups: [],
-    client_dns_server_ips: "",
-    routes: [
+  const formProps = {
+    data: {
+      name: "vpn-server",
+      certificate_crn: "",
+      method: "",
+      client_ca_crn: "",
+      client_ip_pool: "",
+      enable_split_tunneling: false,
+      client_idle_timeout: "",
+      port: "",
+      protocol: "UDP",
+      resource_group: "",
+      vpc: "",
+      subnet: "",
+      security_groups: [],
+      client_dns_server_ips: "",
+      routes: [
+        {
+          name: "vpn-server-route",
+          destination: "2.2.2.2/16",
+          action: "Deliver",
+        },
+      ],
+    },
+    resourceGroups: ["rg1", "rg2", "rg3"],
+    vpcList: ["management", "workload"],
+    subnetList: [
       {
-        name: "vpn-server-route",
-        destination: "2.2.2.2/16",
-        action: "Deliver",
+        vpc: "management",
+        zone: 1,
+        cidr: "10.10.10.0/24",
+        name: "vsi-zone-1",
+        network_acl: "management",
+        resource_group: "management-rg",
+        public_gateway: false,
+        has_prefix: true,
+      },
+      {
+        vpc: "management",
+        zone: 1,
+        cidr: "10.20.10.0/24",
+        name: "vpe-zone-1",
+        resource_group: "management-rg",
+        network_acl: "management",
+        public_gateway: false,
+        has_prefix: true,
+      },
+
+      {
+        vpc: "workload",
+        zone: 1,
+        cidr: "10.40.10.0/24",
+        name: "vsi-zone-1",
+        network_acl: "workload",
+        resource_group: "workload-rg",
+        public_gateway: false,
+        has_prefix: true,
       },
     ],
-  },
-  resourceGroups: ["rg1", "rg2", "rg3"],
-  vpcList: ["management", "workload"],
-  subnetList: [
-    {
-      vpc: "management",
-      zone: 1,
-      cidr: "10.10.10.0/24",
-      name: "vsi-zone-1",
-      network_acl: "management",
-      resource_group: "management-rg",
-      public_gateway: false,
-      has_prefix: true,
+    securityGroups: [
+      {
+        vpc: "management",
+        name: "management-vpe",
+        resource_group: "management-rg",
+        rules: [],
+      },
+      {
+        vpc: "workload",
+        name: "workload-vpe",
+        resource_group: "workload-rg",
+        rules: [],
+      },
+      {
+        vpc: "management",
+        name: "management-vsi",
+        resource_group: "management-rg",
+        rules: [],
+      },
+    ],
+    invalidCallback: invalidCallback,
+    invalidTextCallback: invalidTextCallback,
+    invalidClientIpPoolCallback: invalidClientIpPoolCallback,
+    invalidClientIpPoolTextCallback: invalidClientIpPoolTextCallback,
+    propsMatchState: () => {},
+    invalidVpnServerRouteCallback: invalidCallback,
+    invalidVpnServerRouteTextCallback: invalidTextCallback,
+    vpnServerRouteProps: {
+      onSave: () => {},
+      onDelete: () => {},
+      onSubmit: () => {},
+      disableSave: () => {},
     },
-    {
-      vpc: "management",
-      zone: 1,
-      cidr: "10.20.10.0/24",
-      name: "vpe-zone-1",
-      resource_group: "management-rg",
-      network_acl: "management",
-      public_gateway: false,
-      has_prefix: true,
-    },
-
-    {
-      vpc: "workload",
-      zone: 1,
-      cidr: "10.40.10.0/24",
-      name: "vsi-zone-1",
-      network_acl: "workload",
-      resource_group: "workload-rg",
-      public_gateway: false,
-      has_prefix: true,
-    },
-  ],
-  securityGroups: [
-    {
-      vpc: "management",
-      name: "management-vpe",
-      resource_group: "management-rg",
-      rules: [],
-    },
-    {
-      vpc: "workload",
-      name: "workload-vpe",
-      resource_group: "workload-rg",
-      rules: [],
-    },
-    {
-      vpc: "management",
-      name: "management-vsi",
-      resource_group: "management-rg",
-      rules: [],
-    },
-  ],
-  invalidCallback: invalidCallback,
-  invalidTextCallback: invalidTextCallback,
-  invalidClientIpPoolCallback: invalidClientIpPoolCallback,
-  invalidClientIpPoolTextCallback: invalidClientIpPoolTextCallback,
-  propsMatchState: () => {},
-  invalidVpnServerRouteCallback: invalidCallback,
-  invalidVpnServerRouteTextCallback: invalidTextCallback,
-  vpnServerRouteProps: {
-    onSave: () => {},
-    onDelete: () => {},
-    onSubmit: () => {},
-    disableSave: () => {},
-  },
-};
-
-const VpnServerFormStory = () => {
+  };
   return <VpnServerForm {...formProps} />;
 };
 
 const VpnServerFormModalStory = () => {
+  function validName(str) {
+    const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
+    if (str) return str.match(regex) !== null;
+    else return false;
+  }
+
+  function invalidCallback(stateData) {
+    return (
+      !validName(stateData.name) || contains(["foo", "bar"], stateData.name)
+    );
+  }
+
+  function invalidTextCallback(stateData) {
+    return contains(["foo", "bar"], stateData.name)
+      ? `Name ${stateData.name} already in use.`
+      : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
+  }
+
+  function invalidClientIpPoolCallback(stateData) {
+    return typeof stateData.client_ip_pool !== "function";
+  }
+
+  function invalidClientIpPoolTextCallback(stateData) {
+    return `Invalid Client IP Pool. Must be a function that checks for overlap.`;
+  }
+
+  const formProps = {
+    data: {
+      name: "vpn-server",
+      certificate_crn: "",
+      method: "",
+      client_ca_crn: "",
+      client_ip_pool: "",
+      enable_split_tunneling: false,
+      client_idle_timeout: "",
+      port: "",
+      protocol: "UDP",
+      resource_group: "",
+      vpc: "",
+      subnet: "",
+      security_groups: [],
+      client_dns_server_ips: "",
+      routes: [
+        {
+          name: "vpn-server-route",
+          destination: "2.2.2.2/16",
+          action: "Deliver",
+        },
+      ],
+    },
+    resourceGroups: ["rg1", "rg2", "rg3"],
+    vpcList: ["management", "workload"],
+    subnetList: [
+      {
+        vpc: "management",
+        zone: 1,
+        cidr: "10.10.10.0/24",
+        name: "vsi-zone-1",
+        network_acl: "management",
+        resource_group: "management-rg",
+        public_gateway: false,
+        has_prefix: true,
+      },
+      {
+        vpc: "management",
+        zone: 1,
+        cidr: "10.20.10.0/24",
+        name: "vpe-zone-1",
+        resource_group: "management-rg",
+        network_acl: "management",
+        public_gateway: false,
+        has_prefix: true,
+      },
+
+      {
+        vpc: "workload",
+        zone: 1,
+        cidr: "10.40.10.0/24",
+        name: "vsi-zone-1",
+        network_acl: "workload",
+        resource_group: "workload-rg",
+        public_gateway: false,
+        has_prefix: true,
+      },
+    ],
+    securityGroups: [
+      {
+        vpc: "management",
+        name: "management-vpe",
+        resource_group: "management-rg",
+        rules: [],
+      },
+      {
+        vpc: "workload",
+        name: "workload-vpe",
+        resource_group: "workload-rg",
+        rules: [],
+      },
+      {
+        vpc: "management",
+        name: "management-vsi",
+        resource_group: "management-rg",
+        rules: [],
+      },
+    ],
+    invalidCallback: invalidCallback,
+    invalidTextCallback: invalidTextCallback,
+    invalidClientIpPoolCallback: invalidClientIpPoolCallback,
+    invalidClientIpPoolTextCallback: invalidClientIpPoolTextCallback,
+    propsMatchState: () => {},
+    invalidVpnServerRouteCallback: invalidCallback,
+    invalidVpnServerRouteTextCallback: invalidTextCallback,
+    vpnServerRouteProps: {
+      onSave: () => {},
+      onDelete: () => {},
+      onSubmit: () => {},
+      disableSave: () => {},
+    },
+  };
   return (
     <IcseModal
       heading={"VPN Server Modal"}

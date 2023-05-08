@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { NumberInput, TextArea } from "@carbon/react";
 import { titleCase, transpose, isNullOrEmptyString } from "lazy-z";
 import PropTypes from "prop-types";
-import { checkNullorEmptyString, invalidCRNs } from "../../lib";
+import { invalidCRNs } from "../../lib";
 import { isIpStringInvalid, isRangeInvalid } from "../../lib/iam-utils";
 import {
   buildFormDefaultInputMethods,
@@ -18,7 +18,7 @@ import VpnServerRouteForm from "./VpnServerRouteForm";
 class VpnServerForm extends Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = { ...this.props.data };
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleNumberInputChange = this.handleNumberInputChange.bind(this);
@@ -31,7 +31,6 @@ class VpnServerForm extends Component {
 
   handleInputChange(event) {
     let { name, value } = event.target;
-    console.log(name);
     let newState = { ...this.state };
     //handle crn inputs
     let crnList = value
@@ -56,7 +55,6 @@ class VpnServerForm extends Component {
     } else {
       newState = { [name]: value };
     }
-    console.log(newState);
     this.setState(newState);
   }
 
@@ -116,7 +114,7 @@ class VpnServerForm extends Component {
             }
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
             hideHelperText
-            className={classNameModalCheck}
+            className="fieldWidthSmaller"
           />
           {/* resource group */}
           <IcseSelect
@@ -136,7 +134,7 @@ class VpnServerForm extends Component {
             groups={this.props.vpcList}
             value={this.state.vpc}
             handleInputChange={this.handleInputChange}
-            invalid={checkNullorEmptyString(this.state.vpc)}
+            invalid={isNullOrEmptyString(this.state.vpc)}
             invalidText="Select a VPC."
             className={classNameModalCheck}
           />
@@ -154,13 +152,13 @@ class VpnServerForm extends Component {
             }
             value={this.state.subnet}
             handleInputChange={this.handleInputChange}
-            invalid={checkNullorEmptyString(this.state.subnet)}
+            invalid={isNullOrEmptyString(this.state.subnet)}
             invalidText={
               isNullOrEmptyString(this.state.vpc)
                 ? "Select a VPC."
                 : "Select at least one subnet."
             }
-            className={classNameModalCheck}
+            className="fieldWidthSmaller"
           />
           <SecurityGroupMultiSelect
             key={this.state.vpc + "-sg"}
@@ -173,14 +171,12 @@ class VpnServerForm extends Component {
             securityGroups={this.getSecurityGroupList()}
             invalid={!(this.state.security_groups?.length > 0)}
             invalidText={
-              !this.state.vpc || checkNullorEmptyString(this.state.vpc)
+              !this.state.vpc || isNullOrEmptyString(this.state.vpc)
                 ? `Select a VPC.`
                 : `Select at least one security group.`
             }
             className={classNameModalCheck}
           />
-        </IcseFormGroup>
-        <IcseFormGroup>
           {/* certificate_crn */}
           <IcseTextInput
             id={this.props.data.name + "-vpn-server-certificate-crn"}
@@ -198,10 +194,15 @@ class VpnServerForm extends Component {
                 : String(this.state.certificate_crn)
             }
             onChange={this.handleInputChange}
-            invalid={invalidCRNs(this.state.certificate_crn).invalid}
+            invalid={
+              isNullOrEmptyString(this.state.certificate_crn) ||
+              invalidCRNs(this.state.certificate_crn).invalid
+            }
             invalidText={invalidCRNs(this.state.certificate_crn).invalidText}
             className={classNameModalCheck}
           />
+        </IcseFormGroup>
+        <IcseFormGroup>
           {/* method toggle */}
           <IcseSelect
             formName={this.props.data.name + "-vpn-server-method"}
@@ -210,7 +211,7 @@ class VpnServerForm extends Component {
             groups={["Certificate", "Username"]}
             value={titleCase(this.state.method)}
             handleInputChange={this.handleInputChange}
-            className={classNameModalCheck}
+            className="fieldWidthSmaller"
           />
           {/* client_ca_crn */}
           {this.state.method === "Certificate" && (
@@ -225,7 +226,11 @@ class VpnServerForm extends Component {
                   : String(this.state.client_ca_crn)
               }
               onChange={this.handleInputChange}
-              invalid={invalidCRNs(this.state.client_ca_crn).invalid}
+              invalid={
+                (this.state.method === "Certificate" &&
+                  isNullOrEmptyString(this.state.client_ca_crn)) ||
+                invalidCRNs(this.state.client_ca_crn).invalid
+              }
               invalidText={invalidCRNs(this.state.client_ca_crn).invalidText}
               className="fieldWidth"
             />
@@ -247,6 +252,34 @@ class VpnServerForm extends Component {
               this.props
             )}
             onChange={this.handleInputChange}
+            className={classNameModalCheck}
+          />
+        </IcseFormGroup>
+        <IcseFormGroup>
+          {/* port input */}
+          <NumberInput
+            id={this.props.data.name + "-vpn-server-port"}
+            label="Port"
+            allowEmpty={true}
+            value={this.state.port || ""}
+            step={1}
+            onChange={this.handleNumberInputChange}
+            name="port"
+            hideSteppers={true}
+            min={1}
+            max={65535}
+            invalid={isRangeInvalid(this.state.client_idle_timeout, 1, 65535)}
+            invalidText="Must be a whole number between 1 and 65535."
+            className="fieldWidthSmaller leftTextAlign"
+          />
+          {/* protocol */}
+          <IcseSelect
+            formName={this.props.data.name + "-vpn-server-protocol"}
+            groups={["TCP", "UDP"]}
+            value={this.state.protocol.toUpperCase()}
+            labelText="Protocol"
+            name="protocol"
+            handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"
           />
         </IcseFormGroup>
@@ -279,32 +312,6 @@ class VpnServerForm extends Component {
             invalid={isRangeInvalid(this.state.client_idle_timeout, 0, 28800)}
             invalidText="Must be a whole number between 0 and 28800."
             className="fieldWidth leftTextAlign"
-          />
-          {/* port input */}
-          <NumberInput
-            id={this.props.data.name + "-vpn-server-port"}
-            label="Port"
-            allowEmpty={true}
-            value={this.state.port || ""}
-            step={1}
-            onChange={this.handleNumberInputChange}
-            name="port"
-            hideSteppers={true}
-            min={1}
-            max={65535}
-            invalid={isRangeInvalid(this.state.client_idle_timeout, 1, 65535)}
-            invalidText="Must be a whole number between 1 and 65535."
-            className="fieldWidthSmaller leftTextAlign"
-          />
-          {/* protocol */}
-          <IcseSelect
-            formName={this.props.data.name + "-vpn-server-protocol"}
-            groups={["TCP", "UDP"]}
-            value={this.state.protocol.toUpperCase()}
-            labelText="Protocol"
-            name="protocol"
-            handleInputChange={this.handleInputChange}
-            className="fieldWidthSmaller"
           />
         </IcseFormGroup>
         <IcseFormGroup>

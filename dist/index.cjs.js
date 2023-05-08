@@ -8238,7 +8238,9 @@ VpnServerRouteForm.propTypes = {
 class VpnServerForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = {
+      ...this.props.data
+    };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleNumberInputChange = this.handleNumberInputChange.bind(this);
     this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
@@ -8252,7 +8254,6 @@ class VpnServerForm extends React.Component {
       name,
       value
     } = event.target;
-    console.log(name);
     let newState = {
       ...this.state
     };
@@ -8278,7 +8279,6 @@ class VpnServerForm extends React.Component {
         [name]: value
       };
     }
-    console.log(newState);
     this.setState(newState);
   }
 
@@ -8333,7 +8333,7 @@ class VpnServerForm extends React.Component {
       invalidCallback: () => this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props),
       hideHelperText: true,
-      className: classNameModalCheck
+      className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       formName: this.props.data.name + "-vpn-server-resource-group",
       name: "resource_group",
@@ -8349,7 +8349,7 @@ class VpnServerForm extends React.Component {
       groups: this.props.vpcList,
       value: this.state.vpc,
       handleInputChange: this.handleInputChange,
-      invalid: lib_4(this.state.vpc),
+      invalid: lazyZ.isNullOrEmptyString(this.state.vpc),
       invalidText: "Select a VPC.",
       className: classNameModalCheck
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
@@ -8359,9 +8359,9 @@ class VpnServerForm extends React.Component {
       groups: lazyZ.isNullOrEmptyString(this.state.vpc) ? [] : this.getSubnetList(),
       value: this.state.subnet,
       handleInputChange: this.handleInputChange,
-      invalid: lib_4(this.state.subnet),
+      invalid: lazyZ.isNullOrEmptyString(this.state.subnet),
       invalidText: lazyZ.isNullOrEmptyString(this.state.vpc) ? "Select a VPC." : "Select at least one subnet.",
-      className: classNameModalCheck
+      className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(SecurityGroupMultiSelect, {
       key: this.state.vpc + "-sg",
       id: this.props.data.name + "-vpn-server-security-groups",
@@ -8370,9 +8370,9 @@ class VpnServerForm extends React.Component {
       onChange: value => this.handleMultiSelectChange("security_groups", value),
       securityGroups: this.getSecurityGroupList(),
       invalid: !(this.state.security_groups?.length > 0),
-      invalidText: !this.state.vpc || lib_4(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`,
+      invalidText: !this.state.vpc || lazyZ.isNullOrEmptyString(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`,
       className: classNameModalCheck
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: this.props.data.name + "-vpn-server-certificate-crn",
       field: "certificate_crn",
       componentName: "certificate_crn",
@@ -8383,17 +8383,17 @@ class VpnServerForm extends React.Component {
       labelText: "Secrets Manager Certificate CRN",
       value: this.state.certificate_crn === undefined ? "" : String(this.state.certificate_crn),
       onChange: this.handleInputChange,
-      invalid: lib_13(this.state.certificate_crn).invalid,
+      invalid: lazyZ.isNullOrEmptyString(this.state.certificate_crn) || lib_13(this.state.certificate_crn).invalid,
       invalidText: lib_13(this.state.certificate_crn).invalidText,
       className: classNameModalCheck
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       formName: this.props.data.name + "-vpn-server-method",
       name: "method",
       labelText: "Authentication Method",
       groups: ["Certificate", "Username"],
       value: lazyZ.titleCase(this.state.method),
       handleInputChange: this.handleInputChange,
-      className: classNameModalCheck
+      className: "fieldWidthSmaller"
     }), this.state.method === "Certificate" && /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: this.props.data.name + "-vpn-server-client-ca-crn",
       field: "client_ca_crn",
@@ -8401,7 +8401,7 @@ class VpnServerForm extends React.Component {
       labelText: "Client Secrets Manager Certificate CRN",
       value: this.state.client_ca_crn === undefined ? "" : String(this.state.client_ca_crn),
       onChange: this.handleInputChange,
-      invalid: lib_13(this.state.client_ca_crn).invalid,
+      invalid: this.state.method === "Certificate" && lazyZ.isNullOrEmptyString(this.state.client_ca_crn) || lib_13(this.state.client_ca_crn).invalid,
       invalidText: lib_13(this.state.client_ca_crn).invalidText,
       className: "fieldWidth"
     }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
@@ -8415,6 +8415,28 @@ class VpnServerForm extends React.Component {
       invalidCallback: () => this.props.invalidClientIpPoolCallback(this.state, this.props),
       invalidText: this.props.invalidClientIpPoolTextCallback(this.state, this.props),
       onChange: this.handleInputChange,
+      className: classNameModalCheck
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      id: this.props.data.name + "-vpn-server-port",
+      label: "Port",
+      allowEmpty: true,
+      value: this.state.port || "",
+      step: 1,
+      onChange: this.handleNumberInputChange,
+      name: "port",
+      hideSteppers: true,
+      min: 1,
+      max: 65535,
+      invalid: iamUtils_2(this.state.client_idle_timeout, 1, 65535),
+      invalidText: "Must be a whole number between 1 and 65535.",
+      className: "fieldWidthSmaller leftTextAlign"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: this.props.data.name + "-vpn-server-protocol",
+      groups: ["TCP", "UDP"],
+      value: this.state.protocol.toUpperCase(),
+      labelText: "Protocol",
+      name: "protocol",
+      handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
       id: this.props.data.name + "-vpn-server-enable-split-tunneling",
@@ -8437,28 +8459,6 @@ class VpnServerForm extends React.Component {
       invalid: iamUtils_2(this.state.client_idle_timeout, 0, 28800),
       invalidText: "Must be a whole number between 0 and 28800.",
       className: "fieldWidth leftTextAlign"
-    }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
-      id: this.props.data.name + "-vpn-server-port",
-      label: "Port",
-      allowEmpty: true,
-      value: this.state.port || "",
-      step: 1,
-      onChange: this.handleNumberInputChange,
-      name: "port",
-      hideSteppers: true,
-      min: 1,
-      max: 65535,
-      invalid: iamUtils_2(this.state.client_idle_timeout, 1, 65535),
-      invalidText: "Must be a whole number between 1 and 65535.",
-      className: "fieldWidthSmaller leftTextAlign"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: this.props.data.name + "-vpn-server-protocol",
-      groups: ["TCP", "UDP"],
-      value: this.state.protocol.toUpperCase(),
-      labelText: "Protocol",
-      name: "protocol",
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
       className: "textInputMedium",
       id: this.props.data.name + "-vpn-server-client-dns-server-ips",
