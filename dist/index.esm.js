@@ -9328,7 +9328,7 @@ class CbrRuleForm extends Component {
       value: this.state.name,
       onChange: this.handleInputChange,
       hideHelperText: true,
-      invalid: this.props.invalidNameCallback(this.state, this.props),
+      invalidCallback: () => this.props.invalidNameCallback(this.state, this.props),
       invalidText: this.props.invalidNameTextCallback(this.state, this.props)
     }), /*#__PURE__*/React.createElement(IcseSelect, {
       id: this.props.data.name + "-cbr-rule-enforcement-mode",
@@ -9348,7 +9348,7 @@ class CbrRuleForm extends Component {
       value: this.state.api_type_id,
       labelText: "API Type ID",
       onChange: this.handleInputChange,
-      invalid: this.props.invalidCallback("api_type_id", this.state, this.props),
+      invalidCallback: () => this.props.invalidCallback("api_type_id", this.state, this.props),
       invalidText: this.props.invalidTextCallback("api_type_id", this.state, this.props)
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
       id: this.props.data.name + "-cbr-rule-description",
@@ -9384,7 +9384,7 @@ class CbrRuleForm extends Component {
         hideName: true,
         submissionFieldName: "contexts",
         disableSave: this.props.contextProps.disableSave,
-        type: "formInSubForm"
+        type: "subForm"
       }
     }), /*#__PURE__*/React.createElement(IcseFormTemplate, {
       name: "Resource Attributes",
@@ -9409,7 +9409,7 @@ class CbrRuleForm extends Component {
         hideName: true,
         submissionFieldName: "resource_attributes",
         disableSave: this.props.resourceAttributeProps.disableSave,
-        type: "formInSubForm"
+        type: "subForm"
       }
     }), /*#__PURE__*/React.createElement(IcseFormTemplate, {
       name: "Tags",
@@ -9434,7 +9434,7 @@ class CbrRuleForm extends Component {
         hideName: true,
         submissionFieldName: "tags",
         disableSave: this.props.tagProps.disableSave,
-        type: "formInSubForm"
+        type: "subForm"
       }
     })));
   }
@@ -9784,7 +9784,7 @@ class CbrZoneForm extends Component {
         hideName: true,
         submissionFieldName: "cbr_zones",
         disableSave: this.props.addressProps.disableSave,
-        type: "formInSubForm"
+        type: "subForm"
       }
     }), /*#__PURE__*/React.createElement(IcseFormTemplate, {
       name: "Exclusions",
@@ -9805,7 +9805,7 @@ class CbrZoneForm extends Component {
         hideName: true,
         submissionFieldName: "cbr_zones",
         disableSave: this.props.exclusionProps.disableSave,
-        type: "formInSubForm"
+        type: "subForm"
       }
     })));
   }
