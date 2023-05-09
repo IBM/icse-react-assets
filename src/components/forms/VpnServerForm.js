@@ -3,7 +3,7 @@ import { NumberInput, TextArea } from "@carbon/react";
 import { titleCase, transpose, isNullOrEmptyString } from "lazy-z";
 import PropTypes from "prop-types";
 import { invalidCRNs } from "../../lib";
-import { isIpStringInvalid, isRangeInvalid } from "../../lib/iam-utils";
+import { isIpStringInvalidNoCidr, isRangeInvalid } from "../../lib/iam-utils";
 import {
   buildFormDefaultInputMethods,
   buildFormFunctions,
@@ -64,7 +64,7 @@ class VpnServerForm extends Component {
    */
   handleNumberInputChange(event) {
     let value = parseInt(event.target.value) || null;
-    if (value || event.target.value === "") {
+    if (value || isNullOrEmptyString(event.target.value)) {
       this.setState({ [event.target.name]: value });
     }
   }
@@ -90,9 +90,6 @@ class VpnServerForm extends Component {
 
   render() {
     let composedId = `vpn-server-form-${this.props.data.name}`;
-    let classNameModalCheck = this.props.isModal
-      ? "fieldWidthSmaller"
-      : "fieldWidth";
     let routeProps = {
       invalidCallback: this.props.invalidVpnServerRouteCallback,
       invalidTextCallback: this.props.invalidVpnServerRouteTextCallback,
@@ -124,7 +121,7 @@ class VpnServerForm extends Component {
             groups={this.props.resourceGroups}
             value={this.state.resource_group}
             handleInputChange={this.handleInputChange}
-            className={classNameModalCheck}
+            className="fieldWidthSmaller"
           />
           {/* vpc */}
           <IcseSelect
@@ -136,7 +133,7 @@ class VpnServerForm extends Component {
             handleInputChange={this.handleInputChange}
             invalid={isNullOrEmptyString(this.state.vpc)}
             invalidText="Select a VPC."
-            className={classNameModalCheck}
+            className="fieldWidthSmaller"
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -175,7 +172,7 @@ class VpnServerForm extends Component {
                 ? `Select a VPC.`
                 : `Select at least one security group.`
             }
-            className={classNameModalCheck}
+            className="fieldWidthSmaller"
           />
           {/* certificate_crn */}
           <IcseTextInput
@@ -199,7 +196,7 @@ class VpnServerForm extends Component {
               invalidCRNs(this.state.certificate_crn).invalid
             }
             invalidText={invalidCRNs(this.state.certificate_crn).invalidText}
-            className={classNameModalCheck}
+            className="fieldWidthSmaller"
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -209,12 +206,12 @@ class VpnServerForm extends Component {
             name="method"
             labelText="Authentication Method"
             groups={["Certificate", "Username"]}
-            value={titleCase(this.state.method)}
+            value={this.state.method.toLowerCase()}
             handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"
           />
           {/* client_ca_crn */}
-          {this.state.method === "Certificate" && (
+          {this.state.method === "certificate" && (
             <IcseTextInput
               id={this.props.data.name + "-vpn-server-client-ca-crn"}
               field="client_ca_crn"
@@ -227,8 +224,7 @@ class VpnServerForm extends Component {
               }
               onChange={this.handleInputChange}
               invalid={
-                (this.state.method === "Certificate" &&
-                  isNullOrEmptyString(this.state.client_ca_crn)) ||
+                isNullOrEmptyString(this.state.client_ca_crn) ||
                 invalidCRNs(this.state.client_ca_crn).invalid
               }
               invalidText={invalidCRNs(this.state.client_ca_crn).invalidText}
@@ -241,9 +237,15 @@ class VpnServerForm extends Component {
             componentName="client_ip_pool"
             name="client_ip_pool"
             field="client_ip_pool"
+            tooltip={{
+              content:
+                "VPN client IPv4 address pool, expressed in CIDR format. The request must not overlap with any existing address prefixes in the VPC or any reserved address ranges.",
+              link: "https://cloud.ibm.com/docs/vpc?topic=vpc-vpn-client-to-site-overview",
+              align: "top-left",
+            }}
             value={this.state.client_ip_pool}
-            placeholder="x.x.x.x"
-            labelText="Client CIDR"
+            placeholder="x.x.x.x/x"
+            labelText="Client CIDR Pool"
             invalidCallback={() =>
               this.props.invalidClientIpPoolCallback(this.state, this.props)
             }
@@ -252,7 +254,7 @@ class VpnServerForm extends Component {
               this.props
             )}
             onChange={this.handleInputChange}
-            className={classNameModalCheck}
+            className="fieldWidthSmaller"
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -276,7 +278,7 @@ class VpnServerForm extends Component {
           <IcseSelect
             formName={this.props.data.name + "-vpn-server-protocol"}
             groups={["TCP", "UDP"]}
-            value={this.state.protocol.toUpperCase()}
+            value={this.state.protocol.toLowerCase()}
             labelText="Protocol"
             name="protocol"
             handleInputChange={this.handleInputChange}
@@ -320,12 +322,10 @@ class VpnServerForm extends Component {
             className="textInputMedium"
             id={this.props.data.name + "-vpn-server-client-dns-server-ips"}
             labelText="Client DNS Server IPs"
-            placeholder={
-              this.state.client_dns_server_ips || "X.X.X.X, X.X.X.X/X, ..."
-            }
+            placeholder={"X.X.X.X, X.X.X.X, ..."}
             value={String(this.state.client_dns_server_ips)}
             onChange={this.handleAllowedIps}
-            invalid={isIpStringInvalid(this.state.client_dns_server_ips)}
+            invalid={isIpStringInvalidNoCidr(this.state.client_dns_server_ips)}
             invalidText="Please enter a comma separated list of IP addresses."
             helperText="Enter a comma separated list of IP addresses."
           />
@@ -368,7 +368,7 @@ VpnServerForm.defaultProps = {
     enable_split_tunneling: false,
     client_idle_timeout: "",
     port: "",
-    protocol: "UDP",
+    protocol: "udp",
     resource_group: "",
     vpc: "",
     subnet: "",

@@ -4025,6 +4025,25 @@ const commaSeparatedIpListExp = new RegexButWithWords().stringBegin().group(exp 
     });
   }).lazy();
 }).anyNumber().stringEnd().done("gm");
+const commaSeparatedIpListExpNoCidr = new RegexButWithWords().stringBegin().group(exp => {
+  exp.group(exp => {
+    exp.wordBoundary().group(exp => {
+      exp.group(exp => {
+        exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+      }).literal(".");
+    }, 3).group(exp => {
+      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+    }).lazy();
+  });
+}).anyNumber().group(exp => {
+  exp.literal(",").whitespace().anyNumber().wordBoundary().group(exp => {
+    exp.group(exp => {
+      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+    }).literal(".");
+  }, 3).group(exp => {
+    exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+  }).lazy();
+}).anyNumber().stringEnd().done("gm");
 
 /**
  * return true if value is null or empty string
@@ -4052,7 +4071,7 @@ function isRangeInvalid(value, min, max) {
 }
 
 /**
- * test for invalid IP string
+ * test for invalid IP string/CIDR
  * @param {string} value
  * @returns {boolean} true if invalid
  */
@@ -4062,12 +4081,26 @@ function isIpStringInvalid(value) {
   }
   return false;
 }
+
+/**
+ * test for invalid IP string no CIDR
+ * @param {string} value
+ * @returns {boolean} true if invalid
+ */
+function isIpStringInvalidNoCidr(value) {
+  if (!isNullOrEmptyString$2(value) && value.match(commaSeparatedIpListExpNoCidr) === null) {
+    return true;
+  }
+  return false;
+}
 var iamUtils = {
   isIpStringInvalid,
+  isIpStringInvalidNoCidr,
   isRangeInvalid
 };
 var iamUtils_1 = iamUtils.isIpStringInvalid;
-var iamUtils_2 = iamUtils.isRangeInvalid;
+var iamUtils_2 = iamUtils.isIpStringInvalidNoCidr;
+var iamUtils_3 = iamUtils.isRangeInvalid;
 
 const restrictMenuItems = ["Unset", "Yes", "No"];
 const mfaMenuItems = ["NONE", "TOTP", "TOTP4ALL", "Email-Based MFA", "TOTP MFA", "U2F MFA"];
@@ -4283,7 +4316,7 @@ class IamAccountSettingsForm extends Component {
       hideSteppers: true,
       min: 900,
       max: 86400,
-      invalid: iamUtils_2(this.state.session_expiration_in_seconds, 900, 86400),
+      invalid: iamUtils_3(this.state.session_expiration_in_seconds, 900, 86400),
       invalidText: "Must be a whole number between 900 and 86400",
       className: "fieldWidth leftTextAlign"
     }), /*#__PURE__*/React.createElement(NumberInput, {
@@ -4296,7 +4329,7 @@ class IamAccountSettingsForm extends Component {
       onChange: this.handleInputChange,
       name: "session_invalidation_in_seconds",
       hideSteppers: true,
-      invalid: iamUtils_2(this.state.session_invalidation_in_seconds, 900, 7200),
+      invalid: iamUtils_3(this.state.session_invalidation_in_seconds, 900, 7200),
       invalidText: "Must be a whole number between 900 and 7200",
       className: "fieldWidth leftTextAlign",
       min: 900,
@@ -7464,7 +7497,7 @@ class VsiVolumeForm extends Component {
       placeholder: "100",
       min: 10,
       max: 16000,
-      invalid: iamUtils_2(this.state.capacity, 10, 16000),
+      invalid: iamUtils_3(this.state.capacity, 10, 16000),
       invalidText: "Must be a whole number between 10 and 16000",
       className: "fieldWidthSmaller leftTextAlign"
     })));
@@ -8277,7 +8310,7 @@ class VpnServerForm extends Component {
    */
   handleNumberInputChange(event) {
     let value = parseInt(event.target.value) || null;
-    if (value || event.target.value === "") {
+    if (value || isNullOrEmptyString$4(event.target.value)) {
       this.setState({
         [event.target.name]: value
       });
@@ -8304,7 +8337,6 @@ class VpnServerForm extends Component {
   }
   render() {
     let composedId = `vpn-server-form-${this.props.data.name}`;
-    let classNameModalCheck = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
     let routeProps = {
       invalidCallback: this.props.invalidVpnServerRouteCallback,
       invalidTextCallback: this.props.invalidVpnServerRouteTextCallback,
@@ -8330,7 +8362,7 @@ class VpnServerForm extends Component {
       groups: this.props.resourceGroups,
       value: this.state.resource_group,
       handleInputChange: this.handleInputChange,
-      className: classNameModalCheck
+      className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseSelect, {
       formName: this.props.data.name + "-vpn-server-vpc",
       name: "vpc",
@@ -8340,7 +8372,7 @@ class VpnServerForm extends Component {
       handleInputChange: this.handleInputChange,
       invalid: isNullOrEmptyString$4(this.state.vpc),
       invalidText: "Select a VPC.",
-      className: classNameModalCheck
+      className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
       formName: this.props.data.name + "-vpn-server-" + this.state.vpc + "-subnet",
       name: "subnet",
@@ -8360,7 +8392,7 @@ class VpnServerForm extends Component {
       securityGroups: this.getSecurityGroupList(),
       invalid: !(this.state.security_groups?.length > 0),
       invalidText: !this.state.vpc || isNullOrEmptyString$4(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`,
-      className: classNameModalCheck
+      className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: this.props.data.name + "-vpn-server-certificate-crn",
       field: "certificate_crn",
@@ -8374,23 +8406,23 @@ class VpnServerForm extends Component {
       onChange: this.handleInputChange,
       invalid: isNullOrEmptyString$4(this.state.certificate_crn) || lib_13(this.state.certificate_crn).invalid,
       invalidText: lib_13(this.state.certificate_crn).invalidText,
-      className: classNameModalCheck
+      className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
       formName: this.props.data.name + "-vpn-server-method",
       name: "method",
       labelText: "Authentication Method",
       groups: ["Certificate", "Username"],
-      value: titleCase$1(this.state.method),
+      value: this.state.method.toLowerCase(),
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller"
-    }), this.state.method === "Certificate" && /*#__PURE__*/React.createElement(IcseTextInput, {
+    }), this.state.method === "certificate" && /*#__PURE__*/React.createElement(IcseTextInput, {
       id: this.props.data.name + "-vpn-server-client-ca-crn",
       field: "client_ca_crn",
       componentName: "client_ca_crn",
       labelText: "Client Secrets Manager Certificate CRN",
       value: this.state.client_ca_crn === undefined ? "" : String(this.state.client_ca_crn),
       onChange: this.handleInputChange,
-      invalid: this.state.method === "Certificate" && isNullOrEmptyString$4(this.state.client_ca_crn) || lib_13(this.state.client_ca_crn).invalid,
+      invalid: isNullOrEmptyString$4(this.state.client_ca_crn) || lib_13(this.state.client_ca_crn).invalid,
       invalidText: lib_13(this.state.client_ca_crn).invalidText,
       className: "fieldWidth"
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
@@ -8398,13 +8430,18 @@ class VpnServerForm extends Component {
       componentName: "client_ip_pool",
       name: "client_ip_pool",
       field: "client_ip_pool",
+      tooltip: {
+        content: "VPN client IPv4 address pool, expressed in CIDR format. The request must not overlap with any existing address prefixes in the VPC or any reserved address ranges.",
+        link: "https://cloud.ibm.com/docs/vpc?topic=vpc-vpn-client-to-site-overview",
+        align: "top-left"
+      },
       value: this.state.client_ip_pool,
-      placeholder: "x.x.x.x",
-      labelText: "Client CIDR",
+      placeholder: "x.x.x.x/x",
+      labelText: "Client CIDR Pool",
       invalidCallback: () => this.props.invalidClientIpPoolCallback(this.state, this.props),
       invalidText: this.props.invalidClientIpPoolTextCallback(this.state, this.props),
       onChange: this.handleInputChange,
-      className: classNameModalCheck
+      className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NumberInput, {
       id: this.props.data.name + "-vpn-server-port",
       label: "Port",
@@ -8416,13 +8453,13 @@ class VpnServerForm extends Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: iamUtils_2(this.state.client_idle_timeout, 1, 65535),
+      invalid: iamUtils_3(this.state.client_idle_timeout, 1, 65535),
       invalidText: "Must be a whole number between 1 and 65535.",
       className: "fieldWidthSmaller leftTextAlign"
     }), /*#__PURE__*/React.createElement(IcseSelect, {
       formName: this.props.data.name + "-vpn-server-protocol",
       groups: ["TCP", "UDP"],
-      value: this.state.protocol.toUpperCase(),
+      value: this.state.protocol.toLowerCase(),
       labelText: "Protocol",
       name: "protocol",
       handleInputChange: this.handleInputChange,
@@ -8445,17 +8482,17 @@ class VpnServerForm extends Component {
       hideSteppers: true,
       min: 0,
       max: 28800,
-      invalid: iamUtils_2(this.state.client_idle_timeout, 0, 28800),
+      invalid: iamUtils_3(this.state.client_idle_timeout, 0, 28800),
       invalidText: "Must be a whole number between 0 and 28800.",
       className: "fieldWidth leftTextAlign"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
       className: "textInputMedium",
       id: this.props.data.name + "-vpn-server-client-dns-server-ips",
       labelText: "Client DNS Server IPs",
-      placeholder: this.state.client_dns_server_ips || "X.X.X.X, X.X.X.X/X, ...",
+      placeholder: "X.X.X.X, X.X.X.X, ...",
       value: String(this.state.client_dns_server_ips),
       onChange: this.handleAllowedIps,
-      invalid: iamUtils_1(this.state.client_dns_server_ips),
+      invalid: iamUtils_2(this.state.client_dns_server_ips),
       invalidText: "Please enter a comma separated list of IP addresses.",
       helperText: "Enter a comma separated list of IP addresses."
     })), this.props.isModal === false && /*#__PURE__*/React.createElement(IcseFormTemplate, {
@@ -8492,7 +8529,7 @@ VpnServerForm.defaultProps = {
     enable_split_tunneling: false,
     client_idle_timeout: "",
     port: "",
-    protocol: "UDP",
+    protocol: "udp",
     resource_group: "",
     vpc: "",
     subnet: "",
