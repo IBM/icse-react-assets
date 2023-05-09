@@ -187,7 +187,7 @@ const VpnServerFormStory = () => {
   }
 
   function invalidClientIpPoolTextCallback(stateData) {
-    return `Invalid Client IP Pool. Must be a function that checks for overlap.`;
+    return `Invalid Client CIDR Pool. The request must not overlap with any existing address prefixes in the VPC or any reserved address ranges.`;
   }
 
   const formProps = {
@@ -311,7 +311,7 @@ const VpnServerFormModalStory = () => {
   }
 
   function invalidClientIpPoolTextCallback(stateData) {
-    return `Invalid Client IP Pool. Must be a function that checks for overlap.`;
+    return `Invalid Client CIDR Pool. The request must not overlap with any existing address prefixes in the VPC or any reserved address ranges.`;
   }
 
   const formProps = {
