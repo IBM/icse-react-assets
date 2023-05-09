@@ -19,7 +19,6 @@ class VpnServerForm extends Component {
   constructor(props) {
     super(props);
     this.state = { ...this.props.data };
-
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleNumberInputChange = this.handleNumberInputChange.bind(this);
     this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
@@ -30,6 +29,9 @@ class VpnServerForm extends Component {
   }
 
   handleInputChange(event) {
+    console.log(this.state);
+    console.log(parseInt(""));
+    console.log(parseInt(null));
     let { name, value } = event.target;
     let newState = { ...this.state };
     //handle crn inputs
@@ -270,7 +272,7 @@ class VpnServerForm extends Component {
             hideSteppers={true}
             min={1}
             max={65535}
-            invalid={isRangeInvalid(this.state.client_idle_timeout, 1, 65535)}
+            invalid={isRangeInvalid(this.state.port, 1, 65535)}
             invalidText="Must be a whole number between 1 and 65535."
             className="fieldWidthSmaller leftTextAlign"
           />

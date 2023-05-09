@@ -7962,6 +7962,9 @@ class VpnServerForm extends Component {
     buildFormDefaultInputMethods(this);
   }
   handleInputChange(event) {
+    console.log(this.state);
+    console.log(parseInt(""));
+    console.log(parseInt(null));
     let {
       name,
       value
@@ -8143,7 +8146,7 @@ class VpnServerForm extends Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: iamUtils_3(this.state.client_idle_timeout, 1, 65535),
+      invalid: iamUtils_3(this.state.port, 1, 65535),
       invalidText: "Must be a whole number between 1 and 65535.",
       className: "fieldWidthSmaller leftTextAlign"
     }), /*#__PURE__*/React.createElement(IcseSelect, {
