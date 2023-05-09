@@ -29,9 +29,6 @@ class VpnServerForm extends Component {
   }
 
   handleInputChange(event) {
-    console.log(this.state);
-    console.log(parseInt(""));
-    console.log(parseInt(null));
     let { name, value } = event.target;
     let newState = { ...this.state };
     //handle crn inputs

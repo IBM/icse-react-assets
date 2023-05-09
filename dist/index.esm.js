@@ -7962,9 +7962,6 @@ class VpnServerForm extends Component {
     buildFormDefaultInputMethods(this);
   }
   handleInputChange(event) {
-    console.log(this.state);
-    console.log(parseInt(""));
-    console.log(parseInt(null));
     let {
       name,
       value
