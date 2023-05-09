@@ -35,7 +35,7 @@ export default {
     },
     "data.client_ip_pool": {
       description:
-        "A function that checks for overlap between the VPN Client CIDR and any existing address prefixes in the VPC or any of the following reserved address ranges: - `127.0.0.0/8` (IPv4 loopback addresses) - `161.26.0.0/16` (IBM services) - `166.8.0.0/14` (Cloud Service Endpoints) - `169.254.0.0/16` (IPv4 link-local addresses) - `224.0.0.0/4` (IPv4 multicast addresses). The prefix length of the client IP address pool's CIDR must be between `/9` (8,388,608 addresses) and `/22` (1024 addresses). A CIDR block that contains twice the number of IP addresses that are required to enable the maximum number of concurrent connections is recommended.",
+        "A string value of the VPN Client CIDR Pool. Value should not overlap with any existing address prefixes in the VPC or any of the following reserved address ranges: - `127.0.0.0/8` (IPv4 loopback addresses) - `161.26.0.0/16` (IBM services) - `166.8.0.0/14` (Cloud Service Endpoints) - `169.254.0.0/16` (IPv4 link-local addresses) - `224.0.0.0/4` (IPv4 multicast addresses). The prefix length of the client IP address pool's CIDR must be between `/9` (8,388,608 addresses) and `/22` (1024 addresses). A CIDR block that contains twice the number of IP addresses that are required to enable the maximum number of concurrent connections is recommended.",
       control: "none",
       type: { required: true }, // required prop or not
     },
@@ -182,7 +182,8 @@ const VpnServerFormStory = () => {
   }
 
   function invalidClientIpPoolCallback(stateData) {
-    return typeof stateData.client_ip_pool !== "function";
+    // functionality to check for overlap will go here...
+    return true;
   }
 
   function invalidClientIpPoolTextCallback(stateData) {
@@ -305,7 +306,8 @@ const VpnServerFormModalStory = () => {
   }
 
   function invalidClientIpPoolCallback(stateData) {
-    return typeof stateData.client_ip_pool !== "function";
+    // functionality to check for overlap will go here...
+    return true;
   }
 
   function invalidClientIpPoolTextCallback(stateData) {
