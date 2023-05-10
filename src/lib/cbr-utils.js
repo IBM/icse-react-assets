@@ -1,4 +1,75 @@
 const { isNullOrEmptyString, isIpv4CidrOrAddress } = require("lazy-z");
+const { RegexButWithWords } = require("regex-but-with-words");
+
+const ipRangeExpression = new RegexButWithWords()
+  .wordBoundary()
+  .group((exp) => {
+    exp
+      .group((exp) => {
+        exp
+          .group((exp) => {
+            exp.literal("2").set("1-5").set("0-6");
+          })
+          .or()
+          .group((exp) => {
+            exp.literal("1").digit(2);
+          })
+          .or()
+          .group((exp) => {
+            exp.digit(1, 2);
+          });
+      })
+      .literal(".");
+  }, 3)
+  .group((exp) => {
+    exp
+      .group((exp) => {
+        exp.literal("2").set("1-5").set("0-6");
+      })
+      .or()
+      .group((exp) => {
+        exp.literal("1").digit(2);
+      })
+      .or()
+      .group((exp) => {
+        exp.digit(1, 2);
+      });
+  })
+  .literal("-")
+  .group((exp) => {
+    exp
+      .group((exp) => {
+        exp
+          .group((exp) => {
+            exp.literal("2").set("1-5").set("0-6");
+          })
+          .or()
+          .group((exp) => {
+            exp.literal("1").digit(2);
+          })
+          .or()
+          .group((exp) => {
+            exp.digit(1, 2);
+          });
+      })
+      .literal(".");
+  }, 3)
+  .group((exp) => {
+    exp
+      .group((exp) => {
+        exp.literal("2").set("1-5").set("0-6");
+      })
+      .or()
+      .group((exp) => {
+        exp.literal("1").digit(2);
+      })
+      .or()
+      .group((exp) => {
+        exp.digit(1, 2);
+      });
+  })
+  .wordBoundary()
+  .done("g");
 
 function cbrInvalid(field, value) {
   let invalid = { invalid: false, invalidText: "" };
@@ -28,11 +99,7 @@ function cbrValueInvalid(type, value) {
         }
         break;
       case "ipRange":
-        if (
-          value.match(
-            /\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\-\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/g
-          ) === null
-        ) {
+        if (value.match(ipRangeExpression) === null) {
           invalid.invalid = true;
           invalid.invalidText = `Invalid value for type ${type}. Value must be a range of IPV4 Addresses.`;
         }
