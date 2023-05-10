@@ -56,6 +56,7 @@ class VpnServerForm extends Component {
     } else {
       newState = { [name]: value };
     }
+    console.log(this.state);
     this.setState(newState);
   }
 
@@ -221,7 +222,7 @@ class VpnServerForm extends Component {
                 invalidCRNs(this.state.client_ca_crn).invalid
               }
               invalidText={invalidCRNs(this.state.client_ca_crn).invalidText}
-              className="fieldWidth"
+              className="fieldWidthSmaller"
             />
           )}
           {/* client_ip_pool */}
@@ -308,7 +309,7 @@ class VpnServerForm extends Component {
                 : isRangeInvalid(this.state.client_idle_timeout, 0, 28800)
             }
             invalidText="Must be a whole number between 0 and 28800."
-            className="fieldWidth leftTextAlign"
+            className="fieldWidthSmaller"
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -318,7 +319,7 @@ class VpnServerForm extends Component {
             id={this.props.data.name + "-vpn-server-client-dns-server-ips"}
             labelText="Client DNS Server IPs"
             placeholder={"X.X.X.X, X.X.X.X, ..."}
-            value={this.state.client_dns_server_ips}
+            value={this.state.client_dns_server_ips || ""}
             onChange={this.handleAllowedIps}
             invalid={isIpStringInvalidNoCidr(this.state.client_dns_server_ips)}
             invalidText="Please enter a comma separated list of IP addresses."

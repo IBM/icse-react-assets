@@ -187,7 +187,7 @@ const VpnServerFormStory = () => {
   }
 
   function invalidClientIpPoolTextCallback(stateData) {
-    return `Invalid Client CIDR Pool. The request must not overlap with any existing address prefixes in the VPC or any reserved address ranges.`;
+    return `Invalid Client CIDR Pool.`;
   }
 
   const formProps = {
@@ -198,7 +198,6 @@ const VpnServerFormStory = () => {
       client_ca_crn: "",
       client_ip_pool: "",
       enable_split_tunneling: false,
-      client_idle_timeout: "",
       port: "",
       protocol: "udp",
       resource_group: "",
@@ -311,7 +310,7 @@ const VpnServerFormModalStory = () => {
   }
 
   function invalidClientIpPoolTextCallback(stateData) {
-    return `Invalid Client CIDR Pool. The request must not overlap with any existing address prefixes in the VPC or any reserved address ranges.`;
+    return `Invalid Client CIDR Pool.`;
   }
 
   const formProps = {
@@ -322,7 +321,6 @@ const VpnServerFormModalStory = () => {
       client_ca_crn: "",
       client_ip_pool: "",
       enable_split_tunneling: false,
-      client_idle_timeout: "",
       port: "",
       protocol: "udp",
       resource_group: "",
