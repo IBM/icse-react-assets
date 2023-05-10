@@ -51,6 +51,8 @@ class VpnServerForm extends Component {
       newState.certificate_crn = crnList;
     } else if (name === "client_ca_crn") {
       newState.client_ca_crn = crnList;
+    } else if (name === "protocol") {
+      newState.protocol = value.toLowerCase();
     } else {
       newState = { [name]: value };
     }
