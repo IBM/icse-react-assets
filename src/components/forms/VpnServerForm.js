@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import { NumberInput, TextArea } from "@carbon/react";
-import { titleCase, toLowerCase, transpose, isNullOrEmptyString } from "lazy-z";
+import {
+  titleCase,
+  toLowerCase,
+  transpose,
+  isNullOrEmptyString,
+  isWholeNumber,
+} from "lazy-z";
 import PropTypes from "prop-types";
 import { invalidCRNs } from "../../lib";
 import { isIpStringInvalidNoCidr, isRangeInvalid } from "../../lib/iam-utils";
@@ -264,7 +270,7 @@ class VpnServerForm extends Component {
             hideSteppers={true}
             min={1}
             max={65535}
-            invalid={isRangeInvalid(this.state.port, 1, 65535)}
+            invalid={this.state.port < 1 || this.state.port > 65535}
             invalidText="Must be a whole number between 1 and 65535."
             className="fieldWidthSmaller leftTextAlign"
           />
@@ -304,9 +310,8 @@ class VpnServerForm extends Component {
             min={0}
             max={28800}
             invalid={
-              isNullOrEmptyString(this.state.client_idle_timeout)
-                ? false
-                : isRangeInvalid(this.state.client_idle_timeout, 0, 28800)
+              this.state.client_idle_timeout < 0 ||
+              this.state.client_idle_timeout > 28000
             }
             invalidText="Must be a whole number between 0 and 28800."
             className="fieldWidthSmaller"
@@ -387,8 +392,11 @@ VpnServerForm.propTypes = {
     client_ca_crn: PropTypes.string.isRequired,
     client_ip_pool: PropTypes.string.isRequired,
     enable_split_tunneling: PropTypes.bool,
-    client_idle_timeout: PropTypes.number,
-    port: PropTypes.number,
+    client_idle_timeout: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    port: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     protocol: PropTypes.string,
     resource_group: PropTypes.string,
     vpc: PropTypes.string.isRequired,

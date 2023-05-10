@@ -8156,7 +8156,7 @@ class VpnServerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: iamUtils_3(this.state.port, 1, 65535),
+      invalid: this.state.port < 1 || this.state.port > 65535,
       invalidText: "Must be a whole number between 1 and 65535.",
       className: "fieldWidthSmaller leftTextAlign"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
@@ -8185,7 +8185,7 @@ class VpnServerForm extends React.Component {
       hideSteppers: true,
       min: 0,
       max: 28800,
-      invalid: lazyZ.isNullOrEmptyString(this.state.client_idle_timeout) ? false : iamUtils_3(this.state.client_idle_timeout, 0, 28800),
+      invalid: this.state.client_idle_timeout < 0 || this.state.client_idle_timeout > 28000,
       invalidText: "Must be a whole number between 0 and 28800.",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
@@ -8254,8 +8254,8 @@ VpnServerForm.propTypes = {
     client_ca_crn: PropTypes__default["default"].string.isRequired,
     client_ip_pool: PropTypes__default["default"].string.isRequired,
     enable_split_tunneling: PropTypes__default["default"].bool,
-    client_idle_timeout: PropTypes__default["default"].number,
-    port: PropTypes__default["default"].number,
+    client_idle_timeout: PropTypes__default["default"].oneOfType([PropTypes__default["default"].string, PropTypes__default["default"].number]),
+    port: PropTypes__default["default"].oneOfType([PropTypes__default["default"].string, PropTypes__default["default"].number]),
     protocol: PropTypes__default["default"].string,
     resource_group: PropTypes__default["default"].string,
     vpc: PropTypes__default["default"].string.isRequired,
