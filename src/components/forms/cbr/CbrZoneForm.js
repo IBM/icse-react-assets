@@ -109,9 +109,9 @@ class CbrZoneForm extends Component {
               hideAbout
               toggleFormProps={{
                 hideName: true,
-                submissionFieldName: "cbr_zones",
+                submissionFieldName: "addresses",
                 disableSave: this.props.addressProps.disableSave,
-                type: "formInSubForm",
+                type: "subForm",
               }}
             />
             {/* exclusions */}
@@ -130,9 +130,9 @@ class CbrZoneForm extends Component {
               hideAbout
               toggleFormProps={{
                 hideName: true,
-                submissionFieldName: "cbr_zones",
+                submissionFieldName: "exclusions",
                 disableSave: this.props.exclusionProps.disableSave,
-                type: "formInSubForm",
+                type: "subForm",
               }}
             />
           </>
