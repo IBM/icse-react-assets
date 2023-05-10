@@ -7986,7 +7986,7 @@ class VpnServerForm extends React.Component {
     .replace(/[^\w,-:]/g, "") : [];
     if (name === "method") {
       // Clear client_ca_crn when method changes
-      newState.method = value;
+      newState.method = value.toLowerCase();
       newState.client_ca_crn = "";
     } else if (name === "vpc") {
       // Clear subnet and security groups when vpc changes
@@ -8103,7 +8103,7 @@ class VpnServerForm extends React.Component {
         align: "top-left"
       },
       labelText: "Secrets Manager Certificate CRN",
-      value: this.state.certificate_crn === undefined ? "" : String(this.state.certificate_crn),
+      value: this.state.certificate_crn || "",
       onChange: this.handleInputChange,
       invalid: lazyZ.isNullOrEmptyString(this.state.certificate_crn) || lib_13(this.state.certificate_crn).invalid,
       invalidText: lib_13(this.state.certificate_crn).invalidText,
@@ -8113,7 +8113,7 @@ class VpnServerForm extends React.Component {
       name: "method",
       labelText: "Authentication Method",
       groups: ["Certificate", "Username"],
-      value: this.state.method.toLowerCase(),
+      value: lazyZ.titleCase(this.state.method),
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller"
     }), this.state.method === "certificate" && /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
@@ -8121,7 +8121,7 @@ class VpnServerForm extends React.Component {
       field: "client_ca_crn",
       componentName: "client_ca_crn",
       labelText: "Client Secrets Manager Certificate CRN",
-      value: this.state.client_ca_crn === undefined ? "" : String(this.state.client_ca_crn),
+      value: this.state.client_ca_crn || "",
       onChange: this.handleInputChange,
       invalid: lazyZ.isNullOrEmptyString(this.state.client_ca_crn) || lib_13(this.state.client_ca_crn).invalid,
       invalidText: lib_13(this.state.client_ca_crn).invalidText,
@@ -8160,7 +8160,7 @@ class VpnServerForm extends React.Component {
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       formName: this.props.data.name + "-vpn-server-protocol",
       groups: ["TCP", "UDP"],
-      value: this.state.protocol.toLowerCase(),
+      value: this.state.protocol.toUpperCase(),
       labelText: "Protocol",
       name: "protocol",
       handleInputChange: this.handleInputChange,
@@ -8173,7 +8173,7 @@ class VpnServerForm extends React.Component {
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
       id: this.props.data.name + "-vpn-server-client-idle-timeout-seconds",
-      name: this.props.data.name + "-vpn-server-client-idle-timeout-seconds",
+      name: "client_idle_timeout",
       placeholder: "600",
       label: "Client Idle Timeout (In Seconds)",
       allowEmpty: true,
@@ -8183,7 +8183,7 @@ class VpnServerForm extends React.Component {
       hideSteppers: true,
       min: 0,
       max: 28800,
-      invalid: iamUtils_3(this.state.client_idle_timeout, 0, 28800),
+      invalid: lazyZ.isNullOrEmptyString(this.state.client_idle_timeout) ? false : iamUtils_3(this.state.client_idle_timeout, 0, 28800),
       invalidText: "Must be a whole number between 0 and 28800.",
       className: "fieldWidth leftTextAlign"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
@@ -8191,7 +8191,7 @@ class VpnServerForm extends React.Component {
       id: this.props.data.name + "-vpn-server-client-dns-server-ips",
       labelText: "Client DNS Server IPs",
       placeholder: "X.X.X.X, X.X.X.X, ...",
-      value: String(this.state.client_dns_server_ips),
+      value: this.state.client_dns_server_ips,
       onChange: this.handleAllowedIps,
       invalid: iamUtils_2(this.state.client_dns_server_ips),
       invalidText: "Please enter a comma separated list of IP addresses.",

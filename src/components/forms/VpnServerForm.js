@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { NumberInput, TextArea } from "@carbon/react";
-import { titleCase, transpose, isNullOrEmptyString } from "lazy-z";
+import { titleCase, toLowerCase, transpose, isNullOrEmptyString } from "lazy-z";
 import PropTypes from "prop-types";
 import { invalidCRNs } from "../../lib";
 import { isIpStringInvalidNoCidr, isRangeInvalid } from "../../lib/iam-utils";
@@ -40,7 +40,7 @@ class VpnServerForm extends Component {
       : [];
     if (name === "method") {
       // Clear client_ca_crn when method changes
-      newState.method = value;
+      newState.method = value.toLowerCase();
       newState.client_ca_crn = "";
     } else if (name === "vpc") {
       // Clear subnet and security groups when vpc changes
@@ -184,11 +184,7 @@ class VpnServerForm extends Component {
               align: "top-left",
             }}
             labelText="Secrets Manager Certificate CRN"
-            value={
-              this.state.certificate_crn === undefined
-                ? ""
-                : String(this.state.certificate_crn)
-            }
+            value={this.state.certificate_crn || ""}
             onChange={this.handleInputChange}
             invalid={
               isNullOrEmptyString(this.state.certificate_crn) ||
@@ -205,7 +201,7 @@ class VpnServerForm extends Component {
             name="method"
             labelText="Authentication Method"
             groups={["Certificate", "Username"]}
-            value={this.state.method.toLowerCase()}
+            value={titleCase(this.state.method)}
             handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"
           />
@@ -216,11 +212,7 @@ class VpnServerForm extends Component {
               field="client_ca_crn"
               componentName="client_ca_crn"
               labelText="Client Secrets Manager Certificate CRN"
-              value={
-                this.state.client_ca_crn === undefined
-                  ? ""
-                  : String(this.state.client_ca_crn)
-              }
+              value={this.state.client_ca_crn || ""}
               onChange={this.handleInputChange}
               invalid={
                 isNullOrEmptyString(this.state.client_ca_crn) ||
@@ -277,7 +269,7 @@ class VpnServerForm extends Component {
           <IcseSelect
             formName={this.props.data.name + "-vpn-server-protocol"}
             groups={["TCP", "UDP"]}
-            value={this.state.protocol.toLowerCase()}
+            value={this.state.protocol.toUpperCase()}
             labelText="Protocol"
             name="protocol"
             handleInputChange={this.handleInputChange}
@@ -298,9 +290,7 @@ class VpnServerForm extends Component {
             id={
               this.props.data.name + "-vpn-server-client-idle-timeout-seconds"
             }
-            name={
-              this.props.data.name + "-vpn-server-client-idle-timeout-seconds"
-            }
+            name="client_idle_timeout"
             placeholder="600"
             label="Client Idle Timeout (In Seconds)"
             allowEmpty={true}
@@ -310,7 +300,11 @@ class VpnServerForm extends Component {
             hideSteppers={true}
             min={0}
             max={28800}
-            invalid={isRangeInvalid(this.state.client_idle_timeout, 0, 28800)}
+            invalid={
+              isNullOrEmptyString(this.state.client_idle_timeout)
+                ? false
+                : isRangeInvalid(this.state.client_idle_timeout, 0, 28800)
+            }
             invalidText="Must be a whole number between 0 and 28800."
             className="fieldWidth leftTextAlign"
           />
@@ -322,7 +316,7 @@ class VpnServerForm extends Component {
             id={this.props.data.name + "-vpn-server-client-dns-server-ips"}
             labelText="Client DNS Server IPs"
             placeholder={"X.X.X.X, X.X.X.X, ..."}
-            value={String(this.state.client_dns_server_ips)}
+            value={this.state.client_dns_server_ips}
             onChange={this.handleAllowedIps}
             invalid={isIpStringInvalidNoCidr(this.state.client_dns_server_ips)}
             invalidText="Please enter a comma separated list of IP addresses."
