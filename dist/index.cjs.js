@@ -3337,6 +3337,25 @@ const commaSeparatedIpListExp = new RegexButWithWords$2().stringBegin().group(ex
     });
   }).lazy();
 }).anyNumber().stringEnd().done("gm");
+const commaSeparatedIpListExpNoCidr = new RegexButWithWords$2().stringBegin().group(exp => {
+  exp.group(exp => {
+    exp.wordBoundary().group(exp => {
+      exp.group(exp => {
+        exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+      }).literal(".");
+    }, 3).group(exp => {
+      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+    }).lazy();
+  });
+}).anyNumber().group(exp => {
+  exp.literal(",").whitespace().anyNumber().wordBoundary().group(exp => {
+    exp.group(exp => {
+      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+    }).literal(".");
+  }, 3).group(exp => {
+    exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+  }).lazy();
+}).anyNumber().stringEnd().done("gm");
 
 /**
  * return true if value is null or empty string
@@ -3364,7 +3383,7 @@ function isRangeInvalid(value, min, max) {
 }
 
 /**
- * test for invalid IP string
+ * test for invalid IP string/CIDR
  * @param {string} value
  * @returns {boolean} true if invalid
  */
@@ -3374,12 +3393,26 @@ function isIpStringInvalid(value) {
   }
   return false;
 }
+
+/**
+ * test for invalid IP string no CIDR
+ * @param {string} value
+ * @returns {boolean} true if invalid
+ */
+function isIpStringInvalidNoCidr(value) {
+  if (!isNullOrEmptyString$3(value) && value.match(commaSeparatedIpListExpNoCidr) === null) {
+    return true;
+  }
+  return false;
+}
 var iamUtils = {
   isIpStringInvalid,
+  isIpStringInvalidNoCidr,
   isRangeInvalid
 };
 var iamUtils_1 = iamUtils.isIpStringInvalid;
-var iamUtils_2 = iamUtils.isRangeInvalid;
+var iamUtils_2 = iamUtils.isIpStringInvalidNoCidr;
+var iamUtils_3 = iamUtils.isRangeInvalid;
 
 /**
  * EventStreamsForm
@@ -4454,7 +4487,7 @@ class IamAccountSettingsForm extends React.Component {
       hideSteppers: true,
       min: 900,
       max: 86400,
-      invalid: iamUtils_2(this.state.session_expiration_in_seconds, 900, 86400),
+      invalid: iamUtils_3(this.state.session_expiration_in_seconds, 900, 86400),
       invalidText: "Must be a whole number between 900 and 86400",
       className: "fieldWidth leftTextAlign"
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
@@ -4467,7 +4500,7 @@ class IamAccountSettingsForm extends React.Component {
       onChange: this.handleInputChange,
       name: "session_invalidation_in_seconds",
       hideSteppers: true,
-      invalid: iamUtils_2(this.state.session_invalidation_in_seconds, 900, 7200),
+      invalid: iamUtils_3(this.state.session_invalidation_in_seconds, 900, 7200),
       invalidText: "Must be a whole number between 900 and 7200",
       className: "fieldWidth leftTextAlign",
       min: 900,
@@ -7873,14 +7906,13 @@ class VpnServerRouteForm extends React__default["default"].Component {
     });
   }
   render() {
-    let className = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
     return /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       id: `${this.props.data.name}-name`,
       componentName: "vpn-server-name",
       value: this.state.name,
       onChange: this.handleInputChange,
       hideHelperText: true,
-      className: className,
+      className: "fieldWidthSmaller",
       invalidCallback: () => this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props)
     }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
@@ -7894,7 +7926,7 @@ class VpnServerRouteForm extends React__default["default"].Component {
       invalidCallback: () => lazyZ.isIpv4CidrOrAddress(this.state.destination) === false || !lazyZ.contains(this.state.destination, "/"),
       invalidText: "Destination must be a valid IPV4 CIDR Block",
       onChange: this.handleInputChange,
-      className: className
+      className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       formName: "vpn-server-action",
       name: "action",
@@ -7902,7 +7934,7 @@ class VpnServerRouteForm extends React__default["default"].Component {
       groups: ["Translate", "Deliver", "Drop"],
       value: lazyZ.titleCase(this.state.action),
       handleInputChange: this.handleInputChange,
-      className: className
+      className: "fieldWidthSmaller"
     }));
   }
 }
@@ -7923,6 +7955,333 @@ VpnServerRouteForm.propTypes = {
   isModal: PropTypes__default["default"].bool.isRequired,
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired
+};
+
+class VpnServerForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleNumberInputChange = this.handleNumberInputChange.bind(this);
+    this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    this.handleAllowedIps = this.handleAllowedIps.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+  handleInputChange(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    let newState = {
+      ...this.state
+    };
+    //handle crn inputs
+    let crnList = value ? value.replace(/\s\s+/g, "") // replace extra spaces
+    .replace(/,(?=,)/g, "") // prevent null tags from
+    .replace(/[^\w,-:]/g, "") : [];
+    if (name === "method") {
+      // Clear client_ca_crn when method changes
+      newState.method = value.toLowerCase();
+      newState.client_ca_crn = "";
+    } else if (name === "vpc") {
+      // Clear subnet and security groups when vpc changes
+      newState.vpc = value;
+      newState.subnet = "";
+      newState.security_groups = [];
+    } else if (name === "certificate_crn") {
+      newState.certificate_crn = crnList;
+    } else if (name === "client_ca_crn") {
+      newState.client_ca_crn = crnList;
+    } else if (name === "protocol") {
+      newState.protocol = value.toLowerCase();
+    } else {
+      newState = {
+        [name]: value
+      };
+    }
+    console.log(this.state);
+    this.setState(newState);
+  }
+
+  /**
+   * handle input change of number-only fields
+   * @param {event} event
+   */
+  handleNumberInputChange(event) {
+    let value = parseInt(event.target.value) || null;
+    if (value || lazyZ.isNullOrEmptyString(event.target.value)) {
+      this.setState({
+        [event.target.name]: value
+      });
+    }
+  }
+
+  /**
+   * Handle input change for  client_dns_server_ips text field
+   * @param {event} event
+   */
+  handleAllowedIps(event) {
+    // removing white space and checking for empty value
+    let value = event.target.value.replace(/\s*/g, "");
+    if (value === "") value = null;
+    this.setState({
+      client_dns_server_ips: value
+    });
+  }
+  handleMultiSelectChange(name, value) {
+    this.setState(this.setNameToValue(name, value));
+  }
+  handleToggle(name) {
+    this.setState(this.toggleStateBoolean(name, this.state));
+  }
+  render() {
+    let composedId = `vpn-server-form-${this.props.data.name}`;
+    let routeProps = {
+      invalidCallback: this.props.invalidVpnServerRouteCallback,
+      invalidTextCallback: this.props.invalidVpnServerRouteTextCallback,
+      arrayParentName: this.props.data.name,
+      parent_name: this.props.data.name
+    };
+    lazyZ.transpose({
+      ...this.props.vpnServerRouteProps
+    }, routeProps);
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: composedId,
+      componentName: composedId,
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      hideHelperText: true,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: this.props.data.name + "-vpn-server-resource-group",
+      name: "resource_group",
+      labelText: "Resource Group",
+      groups: this.props.resourceGroups,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: this.props.data.name + "-vpn-server-vpc",
+      name: "vpc",
+      labelText: "VPC",
+      groups: this.props.vpcList,
+      value: this.state.vpc,
+      handleInputChange: this.handleInputChange,
+      invalid: lazyZ.isNullOrEmptyString(this.state.vpc),
+      invalidText: "Select a VPC.",
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: this.props.data.name + "-vpn-server-" + this.state.vpc + "-subnet",
+      name: "subnet",
+      labelText: "Subnet",
+      groups: lazyZ.isNullOrEmptyString(this.state.vpc) ? [] : this.getSubnetList(),
+      value: this.state.subnet,
+      handleInputChange: this.handleInputChange,
+      invalid: lazyZ.isNullOrEmptyString(this.state.subnet),
+      invalidText: lazyZ.isNullOrEmptyString(this.state.vpc) ? "Select a VPC." : "Select at least one subnet.",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(SecurityGroupMultiSelect, {
+      key: this.state.vpc + "-sg",
+      id: this.props.data.name + "-vpn-server-security-groups",
+      initialSelectedItems: this.state.security_groups || [],
+      vpc_name: this.state.vpc,
+      onChange: value => this.handleMultiSelectChange("security_groups", value),
+      securityGroups: this.getSecurityGroupList(),
+      invalid: !(this.state.security_groups?.length > 0),
+      invalidText: !this.state.vpc || lazyZ.isNullOrEmptyString(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: this.props.data.name + "-vpn-server-certificate-crn",
+      field: "certificate_crn",
+      componentName: "certificate_crn",
+      tooltip: {
+        content: "Secrets Manager certificate unique identifier for VPN server",
+        align: "top-left"
+      },
+      labelText: "Secrets Manager Certificate CRN",
+      value: this.state.certificate_crn || "",
+      onChange: this.handleInputChange,
+      invalid: lazyZ.isNullOrEmptyString(this.state.certificate_crn) || lib_13(this.state.certificate_crn).invalid,
+      invalidText: lib_13(this.state.certificate_crn).invalidText,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: this.props.data.name + "-vpn-server-method",
+      name: "method",
+      labelText: "Authentication Method",
+      groups: ["Certificate", "Username"],
+      value: lazyZ.titleCase(this.state.method),
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), this.state.method === "certificate" && /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: this.props.data.name + "-vpn-server-client-ca-crn",
+      field: "client_ca_crn",
+      componentName: "client_ca_crn",
+      labelText: "Client Secrets Manager Certificate CRN",
+      value: this.state.client_ca_crn || "",
+      onChange: this.handleInputChange,
+      invalid: lazyZ.isNullOrEmptyString(this.state.client_ca_crn) || lib_13(this.state.client_ca_crn).invalid,
+      invalidText: lib_13(this.state.client_ca_crn).invalidText,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: this.props.data.name + "-vpn-server-client-ip-pool",
+      componentName: "client_ip_pool",
+      name: "client_ip_pool",
+      field: "client_ip_pool",
+      tooltip: {
+        content: "VPN client IPv4 address pool, expressed in CIDR format. The request must not overlap with any existing address prefixes in the VPC or any reserved address ranges.",
+        link: "https://cloud.ibm.com/docs/vpc?topic=vpc-vpn-client-to-site-overview",
+        align: "top-left"
+      },
+      value: this.state.client_ip_pool,
+      placeholder: "x.x.x.x/x",
+      labelText: "Client CIDR Pool",
+      invalidCallback: () => this.props.invalidClientIpPoolCallback(this.state, this.props),
+      invalidText: this.props.invalidClientIpPoolTextCallback(this.state, this.props),
+      onChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      id: this.props.data.name + "-vpn-server-port",
+      label: "Port",
+      allowEmpty: true,
+      value: this.state.port || "",
+      step: 1,
+      onChange: this.handleNumberInputChange,
+      name: "port",
+      hideSteppers: true,
+      min: 1,
+      max: 65535,
+      invalid: this.state.port < 1 || this.state.port > 65535,
+      invalidText: "Must be a whole number between 1 and 65535.",
+      className: "fieldWidthSmaller leftTextAlign"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: this.props.data.name + "-vpn-server-protocol",
+      groups: ["TCP", "UDP"],
+      value: this.state.protocol.toUpperCase(),
+      labelText: "Protocol",
+      name: "protocol",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      id: this.props.data.name + "-vpn-server-enable-split-tunneling",
+      labelText: "Enable Split Tunneling",
+      defaultToggled: this.state.enable_split_tunneling,
+      onToggle: () => this.handleToggle("enable_split_tunneling"),
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      id: this.props.data.name + "-vpn-server-client-idle-timeout-seconds",
+      name: "client_idle_timeout",
+      placeholder: "600",
+      label: "Client Idle Timeout (In Seconds)",
+      allowEmpty: true,
+      value: this.state.client_idle_timeout || "",
+      step: 1,
+      onChange: this.handleNumberInputChange,
+      hideSteppers: true,
+      min: 0,
+      max: 28800,
+      invalid: this.state.client_idle_timeout < 0 || this.state.client_idle_timeout > 28000,
+      invalidText: "Must be a whole number between 0 and 28800.",
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
+      className: "textInputMedium",
+      id: this.props.data.name + "-vpn-server-client-dns-server-ips",
+      labelText: "Client DNS Server IPs",
+      placeholder: "X.X.X.X, X.X.X.X, ...",
+      value: this.state.client_dns_server_ips || "",
+      onChange: this.handleAllowedIps,
+      invalid: iamUtils_2(this.state.client_dns_server_ips),
+      invalidText: "Please enter a comma separated list of IP addresses.",
+      helperText: "Enter a comma separated list of IP addresses."
+    })), this.props.isModal === false && /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+      name: "Routes",
+      subHeading: true,
+      addText: "Create a Route",
+      arrayData: this.props.data.routes,
+      innerForm: VpnServerRouteForm,
+      disableSave: this.props.vpnServerRouteProps.disableSave,
+      onDelete: this.props.vpnServerRouteProps.onDelete,
+      onSave: this.props.vpnServerRouteProps.onSave,
+      onSubmit: this.props.vpnServerRouteProps.onSubmit,
+      propsMatchState: this.props.propsMatchState,
+      innerFormProps: {
+        ...routeProps
+      },
+      hideAbout: true,
+      toggleFormProps: {
+        hideName: true,
+        submissionFieldName: "routes",
+        disableSave: this.props.vpnServerRouteProps.disableSave,
+        type: "formInSubForm"
+      }
+    }));
+  }
+}
+VpnServerForm.defaultProps = {
+  data: {
+    name: "",
+    certificate_crn: "",
+    method: "",
+    client_ca_crn: "",
+    client_ip_pool: "",
+    enable_split_tunneling: false,
+    client_idle_timeout: "",
+    port: "",
+    protocol: "udp",
+    resource_group: "",
+    vpc: "",
+    subnet: "",
+    security_groups: [],
+    client_dns_server_ips: "",
+    routes: []
+  },
+  isModal: false,
+  resourceGroups: [],
+  securityGroups: [],
+  subnetList: [],
+  vpcList: []
+};
+VpnServerForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string,
+    certificate_crn: PropTypes__default["default"].string.isRequired,
+    method: PropTypes__default["default"].string.isRequired,
+    client_ca_crn: PropTypes__default["default"].string.isRequired,
+    client_ip_pool: PropTypes__default["default"].string.isRequired,
+    enable_split_tunneling: PropTypes__default["default"].bool,
+    client_idle_timeout: PropTypes__default["default"].oneOfType([PropTypes__default["default"].string, PropTypes__default["default"].number]),
+    port: PropTypes__default["default"].oneOfType([PropTypes__default["default"].string, PropTypes__default["default"].number]),
+    protocol: PropTypes__default["default"].string,
+    resource_group: PropTypes__default["default"].string,
+    vpc: PropTypes__default["default"].string.isRequired,
+    subnet: PropTypes__default["default"].string.isRequired,
+    security_groups: PropTypes__default["default"].array.isRequired,
+    routes: PropTypes__default["default"].array
+  }).isRequired,
+  /* bools */
+  isModal: PropTypes__default["default"].bool.isRequired,
+  /* lists */
+  resourceGroups: PropTypes__default["default"].array.isRequired,
+  vpcList: PropTypes__default["default"].array.isRequired,
+  securityGroups: PropTypes__default["default"].array.isRequired,
+  subnetList: PropTypes__default["default"].array.isRequired,
+  /* callbacks */
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidClientIpPoolCallback: PropTypes__default["default"].func.isRequired,
+  invalidClientIpPoolTextCallback: PropTypes__default["default"].func.isRequired,
+  /* forms */
+  vpnServerRouteProps: PropTypes__default["default"].shape({
+    onSave: PropTypes__default["default"].func.isRequired,
+    onDelete: PropTypes__default["default"].func.isRequired,
+    onSubmit: PropTypes__default["default"].func.isRequired,
+    disableSave: PropTypes__default["default"].func.isRequired
+  }).isRequired
 };
 
 class VsiVolumeForm extends React.Component {
@@ -7983,7 +8342,7 @@ class VsiVolumeForm extends React.Component {
       placeholder: "100",
       min: 10,
       max: 16000,
-      invalid: iamUtils_2(this.state.capacity, 10, 16000),
+      invalid: iamUtils_3(this.state.capacity, 10, 16000),
       invalidText: "Must be a whole number between 10 and 16000",
       className: "fieldWidthSmaller leftTextAlign"
     })));
@@ -10004,6 +10363,7 @@ exports.VpcForm = VpcNetworkForm;
 exports.VpcListMultiSelect = VpcListMultiSelect;
 exports.VpeForm = VpeForm;
 exports.VpnGatewayForm = VpnGatewayForm;
+exports.VpnServerForm = VpnServerForm;
 exports.VpnServerRouteForm = VpnServerRouteForm;
 exports.VsiForm = VsiForm;
 exports.VsiLoadBalancerForm = VsiLoadBalancerForm;

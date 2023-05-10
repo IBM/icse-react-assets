@@ -75,6 +75,7 @@ export { default as TransitGatewayForm } from "./forms/TransitGatewayForm";
 export { default as VpcForm } from "./forms/VpcForm";
 export { default as VpeForm } from "./forms/VpeForm";
 export { default as VpnGatewayForm } from "./forms/VpnGatewayForm";
+export { default as VpnServerForm } from "./forms/VpnServerForm";
 export { default as VpnServerRouteForm } from "./forms/VpnServerRouteForm";
 export { default as VsiForm } from "./forms/VsiForm";
 export { default as VsiLoadBalancerForm } from "./forms/VsiLoadBalancerForm";

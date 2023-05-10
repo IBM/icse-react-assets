@@ -99,6 +99,88 @@ const commaSeparatedIpListExp = new RegexButWithWords()
   .stringEnd()
   .done("gm");
 
+const commaSeparatedIpListExpNoCidr = new RegexButWithWords()
+  .stringBegin()
+  .group((exp) => {
+    exp.group((exp) => {
+      exp
+        .wordBoundary()
+        .group((exp) => {
+          exp
+            .group((exp) => {
+              exp
+                .literal("25")
+                .set("0-5")
+                .or()
+                .literal("2")
+                .set("0-4")
+                .digit()
+                .or()
+                .set("01")
+                .lazy()
+                .digit(1, 2);
+            })
+            .literal(".");
+        }, 3)
+        .group((exp) => {
+          exp
+            .literal("25")
+            .set("0-5")
+            .or()
+            .literal("2")
+            .set("0-4")
+            .digit()
+            .or()
+            .set("01")
+            .lazy()
+            .digit(1, 2);
+        })
+        .lazy();
+    });
+  })
+  .anyNumber()
+  .group((exp) => {
+    exp
+      .literal(",")
+      .whitespace()
+      .anyNumber()
+      .wordBoundary()
+      .group((exp) => {
+        exp
+          .group((exp) => {
+            exp
+              .literal("25")
+              .set("0-5")
+              .or()
+              .literal("2")
+              .set("0-4")
+              .digit()
+              .or()
+              .set("01")
+              .lazy()
+              .digit(1, 2);
+          })
+          .literal(".");
+      }, 3)
+      .group((exp) => {
+        exp
+          .literal("25")
+          .set("0-5")
+          .or()
+          .literal("2")
+          .set("0-4")
+          .digit()
+          .or()
+          .set("01")
+          .lazy()
+          .digit(1, 2);
+      })
+      .lazy();
+  })
+  .anyNumber()
+  .stringEnd()
+  .done("gm");
+
 /**
  * return true if value is null or empty string
  * @param {*} value
@@ -126,7 +208,7 @@ function isRangeInvalid(value, min, max) {
 }
 
 /**
- * test for invalid IP string
+ * test for invalid IP string/CIDR
  * @param {string} value
  * @returns {boolean} true if invalid
  */
@@ -140,7 +222,23 @@ function isIpStringInvalid(value) {
   return false;
 }
 
+/**
+ * test for invalid IP string no CIDR
+ * @param {string} value
+ * @returns {boolean} true if invalid
+ */
+function isIpStringInvalidNoCidr(value) {
+  if (
+    !isNullOrEmptyString(value) &&
+    value.match(commaSeparatedIpListExpNoCidr) === null
+  ) {
+    return true;
+  }
+  return false;
+}
+
 module.exports = {
   isIpStringInvalid,
+  isIpStringInvalidNoCidr,
   isRangeInvalid,
 };

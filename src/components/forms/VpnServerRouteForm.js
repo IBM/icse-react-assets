@@ -28,7 +28,6 @@ class VpnServerRouteForm extends React.Component {
   }
 
   render() {
-    let className = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
     return (
       <IcseFormGroup>
         <IcseNameInput
@@ -37,7 +36,7 @@ class VpnServerRouteForm extends React.Component {
           value={this.state.name}
           onChange={this.handleInputChange}
           hideHelperText
-          className={className}
+          className="fieldWidthSmaller"
           invalidCallback={() =>
             this.props.invalidCallback(this.state, this.props)
           }
@@ -57,7 +56,7 @@ class VpnServerRouteForm extends React.Component {
           }
           invalidText="Destination must be a valid IPV4 CIDR Block"
           onChange={this.handleInputChange}
-          className={className}
+          className="fieldWidthSmaller"
         />
         <IcseSelect
           formName="vpn-server-action"
@@ -66,7 +65,7 @@ class VpnServerRouteForm extends React.Component {
           groups={["Translate", "Deliver", "Drop"]}
           value={titleCase(this.state.action)}
           handleInputChange={this.handleInputChange}
-          className={className}
+          className="fieldWidthSmaller"
         />
       </IcseFormGroup>
     );
