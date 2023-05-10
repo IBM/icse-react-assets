@@ -1,5 +1,9 @@
 const { assert } = require("chai");
-const { isIpStringInvalid, isRangeInvalid } = require("../src/lib/iam-utils");
+const {
+  isIpStringInvalid,
+  isIpStringInvalidNoCidr,
+  isRangeInvalid,
+} = require("../src/lib/iam-utils");
 
 describe("iam-utils", () => {
   describe("isIpStringInvalid", () => {
@@ -22,6 +26,39 @@ describe("iam-utils", () => {
     it("should return false for empty ip list", () => {
       assert.strictEqual(
         isIpStringInvalid(""),
+        false,
+        "it should return false"
+      );
+    });
+  });
+  describe("isIpStringInvalidNoCidr", () => {
+    it("should return false for valid ip list", () => {
+      assert.strictEqual(
+        isIpStringInvalidNoCidr("1.1.1.1, 2.2.2.2"),
+        false,
+        "it should return false"
+      );
+    });
+
+    it("should return true for invalid ip list", () => {
+      assert.strictEqual(
+        isIpStringInvalidNoCidr("1.1, 2"),
+        true,
+        "it should return true"
+      );
+    });
+
+    it("should return true for invalid ip cidr list", () => {
+      assert.strictEqual(
+        isIpStringInvalidNoCidr("1.1.1.1/1, 2.2.2.2/2"),
+        true,
+        "it should return true"
+      );
+    });
+
+    it("should return false for empty ip list", () => {
+      assert.strictEqual(
+        isIpStringInvalidNoCidr(""),
         false,
         "it should return false"
       );
