@@ -3293,9 +3293,9 @@ const {
   isInRange
 } = lazyZ;
 const {
-  RegexButWithWords: RegexButWithWords$1
+  RegexButWithWords: RegexButWithWords$2
 } = regexButWithWords;
-const commaSeparatedIpListExp = new RegexButWithWords$1().stringBegin().group(exp => {
+const commaSeparatedIpListExp = new RegexButWithWords$2().stringBegin().group(exp => {
   exp.group(exp => {
     exp.wordBoundary().group(exp => {
       exp.group(exp => {
@@ -3726,19 +3726,19 @@ F5VsiForm.propTypes = {
 };
 
 const {
-  RegexButWithWords
+  RegexButWithWords: RegexButWithWords$1
 } = regexButWithWords;
 const {
   isNullOrEmptyString: isNullOrEmptyString$2
 } = lazyZ;
-const urlValidationExp = new RegexButWithWords().group(exp => {
+const urlValidationExp = new RegexButWithWords$1().group(exp => {
   exp.literal("ftp").or().literal("http").literal("s").lazy();
 }).literal("://").group("www.").lazy().group(exp => {
   exp.negatedSet('"\\/').oneOrMore().literal(".");
 }).group(exp => {
   exp.negatedSet('"\\/').oneOrMore().literal(".");
 }).oneOrMore().negatedSet('"\\/.').oneOrMore().literal("/").negatedSet(' "').anyNumber().stringEnd().done("g");
-const tmosAdminPasswordValidationExp = new RegexButWithWords().stringBegin().look.ahead(exp => {
+const tmosAdminPasswordValidationExp = new RegexButWithWords$1().stringBegin().look.ahead(exp => {
   exp.any().anyNumber().set("a-z");
 }).look.ahead(exp => {
   exp.any().anyNumber().set("A-Z");
@@ -9514,6 +9514,46 @@ const {
   isNullOrEmptyString,
   isIpv4CidrOrAddress
 } = lazyZ;
+const {
+  RegexButWithWords
+} = regexButWithWords;
+const ipRangeExpression = new RegexButWithWords().wordBoundary().group(exp => {
+  exp.group(exp => {
+    exp.group(exp => {
+      exp.literal("2").set("1-5").set("0-6");
+    }).or().group(exp => {
+      exp.literal("1").digit(2);
+    }).or().group(exp => {
+      exp.digit(1, 2);
+    });
+  }).literal(".");
+}, 3).group(exp => {
+  exp.group(exp => {
+    exp.literal("2").set("1-5").set("0-6");
+  }).or().group(exp => {
+    exp.literal("1").digit(2);
+  }).or().group(exp => {
+    exp.digit(1, 2);
+  });
+}).literal("-").group(exp => {
+  exp.group(exp => {
+    exp.group(exp => {
+      exp.literal("2").set("1-5").set("0-6");
+    }).or().group(exp => {
+      exp.literal("1").digit(2);
+    }).or().group(exp => {
+      exp.digit(1, 2);
+    });
+  }).literal(".");
+}, 3).group(exp => {
+  exp.group(exp => {
+    exp.literal("2").set("1-5").set("0-6");
+  }).or().group(exp => {
+    exp.literal("1").digit(2);
+  }).or().group(exp => {
+    exp.digit(1, 2);
+  });
+}).wordBoundary().done("g");
 function cbrInvalid(field, value) {
   let invalid = {
     invalid: false,
@@ -9542,7 +9582,7 @@ function cbrValueInvalid(type, value) {
         }
         break;
       case "ipRange":
-        if (value.match(/\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\-\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/g) === null) {
+        if (value.match(ipRangeExpression) === null) {
           invalid.invalid = true;
           invalid.invalidText = `Invalid value for type ${type}. Value must be a range of IPV4 Addresses.`;
         }
@@ -9861,10 +9901,14 @@ CbrZoneForm.propTypes = {
   }),
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
-  invalidAddressCallback: PropTypes.func.isRequired,
-  invalidAddressTextCallback: PropTypes.func.isRequired,
-  invalidExclusionCallback: PropTypes.func.isRequired,
-  invalidExclusionTextCallback: PropTypes.func.isRequired,
+  invalidAddressCallback: PropTypes.func,
+  // not required for modal
+  invalidAddressTextCallback: PropTypes.func,
+  // not required for modal
+  invalidExclusionCallback: PropTypes.func,
+  // not required for modal
+  invalidExclusionTextCallback: PropTypes.func,
+  // not required for modal
   isModal: PropTypes.bool.isRequired,
   propsMatchState: PropTypes.func.isRequired
 };

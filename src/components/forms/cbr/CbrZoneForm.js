@@ -197,10 +197,10 @@ CbrZoneForm.propTypes = {
   }),
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
-  invalidAddressCallback: PropTypes.func.isRequired,
-  invalidAddressTextCallback: PropTypes.func.isRequired,
-  invalidExclusionCallback: PropTypes.func.isRequired,
-  invalidExclusionTextCallback: PropTypes.func.isRequired,
+  invalidAddressCallback: PropTypes.func, // not required for modal
+  invalidAddressTextCallback: PropTypes.func, // not required for modal
+  invalidExclusionCallback: PropTypes.func, // not required for modal
+  invalidExclusionTextCallback: PropTypes.func, // not required for modal
   isModal: PropTypes.bool.isRequired,
   propsMatchState: PropTypes.func.isRequired,
 };
