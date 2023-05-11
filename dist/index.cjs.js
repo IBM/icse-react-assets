@@ -9669,9 +9669,15 @@ class CbrRuleForm extends React.Component {
       name,
       value
     } = event.target;
-    this.setState({
-      [name]: value
-    });
+    if (name === "enforcement_mode") {
+      this.setState({
+        [name]: value.toLowerCase()
+      });
+    } else {
+      this.setState({
+        [name]: value
+      });
+    }
   }
   render() {
     // set up props for subforms
@@ -9704,7 +9710,7 @@ class CbrRuleForm extends React.Component {
       id: this.props.data.name + "-cbr-rule-enforcement-mode",
       name: "enforcement_mode",
       className: "fieldWidthSmaller",
-      value: this.state.enforcement_mode,
+      value: lazyZ.titleCase(this.state.enforcement_mode),
       labelText: "Enforcement Mode",
       groups: ["Enabled", "Disabled", "Report"],
       invalid: this.props.invalidCallback("enforcement_mode", this.state, this.props),
@@ -9814,7 +9820,7 @@ CbrRuleForm.defaultProps = {
   data: {
     name: "",
     description: "",
-    enforcement_mode: "Enabled",
+    enforcement_mode: "enabled",
     api_type_id: "",
     contexts: [],
     resource_attributes: [],
@@ -10243,7 +10249,7 @@ CbrZoneForm.propTypes = {
     account_id: PropTypes__default["default"].string,
     description: PropTypes__default["default"].string,
     addresses: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({
-      account_id: PropTypes__default["default"].string.isRequired,
+      account_id: PropTypes__default["default"].string,
       location: PropTypes__default["default"].string,
       name: PropTypes__default["default"].string,
       service_name: PropTypes__default["default"].string,
@@ -10253,7 +10259,7 @@ CbrZoneForm.propTypes = {
       value: PropTypes__default["default"].string
     }).isRequired),
     exclusions: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({
-      account_id: PropTypes__default["default"].string.isRequired,
+      account_id: PropTypes__default["default"].string,
       location: PropTypes__default["default"].string,
       name: PropTypes__default["default"].string,
       service_name: PropTypes__default["default"].string,

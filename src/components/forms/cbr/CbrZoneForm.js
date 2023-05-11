@@ -166,7 +166,7 @@ CbrZoneForm.propTypes = {
     description: PropTypes.string,
     addresses: PropTypes.arrayOf(
       PropTypes.shape({
-        account_id: PropTypes.string.isRequired,
+        account_id: PropTypes.string,
         location: PropTypes.string,
         name: PropTypes.string,
         service_name: PropTypes.string,
@@ -178,7 +178,7 @@ CbrZoneForm.propTypes = {
     ),
     exclusions: PropTypes.arrayOf(
       PropTypes.shape({
-        account_id: PropTypes.string.isRequired,
+        account_id: PropTypes.string,
         location: PropTypes.string,
         name: PropTypes.string,
         service_name: PropTypes.string,
