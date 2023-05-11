@@ -1,5 +1,5 @@
 import { TextArea } from "@carbon/react";
-import { transpose } from "lazy-z";
+import { titleCase, transpose } from "lazy-z";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
 import { IcseSelect } from "../../Dropdowns";
@@ -28,7 +28,11 @@ class CbrRuleForm extends Component {
 
   handleInputChange(event) {
     let { name, value } = event.target;
-    this.setState({ [name]: value });
+    if (name === "enforcement_mode") {
+      this.setState({ [name]: value.toLowerCase() });
+    } else {
+      this.setState({ [name]: value });
+    }
   }
 
   render() {
@@ -75,7 +79,7 @@ class CbrRuleForm extends Component {
             id={this.props.data.name + "-cbr-rule-enforcement-mode"}
             name={"enforcement_mode"}
             className={"fieldWidthSmaller"}
-            value={this.state.enforcement_mode}
+            value={titleCase(this.state.enforcement_mode)}
             labelText="Enforcement Mode"
             groups={["Enabled", "Disabled", "Report"]}
             invalid={this.props.invalidCallback(
@@ -221,7 +225,7 @@ CbrRuleForm.defaultProps = {
   data: {
     name: "",
     description: "",
-    enforcement_mode: "Enabled",
+    enforcement_mode: "enabled",
     api_type_id: "",
     contexts: [],
     resource_attributes: [],

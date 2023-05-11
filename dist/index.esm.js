@@ -9658,9 +9658,15 @@ class CbrRuleForm extends Component {
       name,
       value
     } = event.target;
-    this.setState({
-      [name]: value
-    });
+    if (name === "enforcement_mode") {
+      this.setState({
+        [name]: value.toLowerCase()
+      });
+    } else {
+      this.setState({
+        [name]: value
+      });
+    }
   }
   render() {
     // set up props for subforms
@@ -9693,7 +9699,7 @@ class CbrRuleForm extends Component {
       id: this.props.data.name + "-cbr-rule-enforcement-mode",
       name: "enforcement_mode",
       className: "fieldWidthSmaller",
-      value: this.state.enforcement_mode,
+      value: titleCase$1(this.state.enforcement_mode),
       labelText: "Enforcement Mode",
       groups: ["Enabled", "Disabled", "Report"],
       invalid: this.props.invalidCallback("enforcement_mode", this.state, this.props),
@@ -9803,7 +9809,7 @@ CbrRuleForm.defaultProps = {
   data: {
     name: "",
     description: "",
-    enforcement_mode: "Enabled",
+    enforcement_mode: "enabled",
     api_type_id: "",
     contexts: [],
     resource_attributes: [],
@@ -10232,7 +10238,7 @@ CbrZoneForm.propTypes = {
     account_id: PropTypes.string,
     description: PropTypes.string,
     addresses: PropTypes.arrayOf(PropTypes.shape({
-      account_id: PropTypes.string.isRequired,
+      account_id: PropTypes.string,
       location: PropTypes.string,
       name: PropTypes.string,
       service_name: PropTypes.string,
@@ -10242,7 +10248,7 @@ CbrZoneForm.propTypes = {
       value: PropTypes.string
     }).isRequired),
     exclusions: PropTypes.arrayOf(PropTypes.shape({
-      account_id: PropTypes.string.isRequired,
+      account_id: PropTypes.string,
       location: PropTypes.string,
       name: PropTypes.string,
       service_name: PropTypes.string,
