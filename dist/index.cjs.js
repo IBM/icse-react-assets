@@ -1167,7 +1167,7 @@ EndpointSelect.defaultProps = {
 
 const EmptyResourceTile = props => {
   return !props.showIfEmpty || props.showIfEmpty.length === 0 ? /*#__PURE__*/React__default["default"].createElement(react.Tile, {
-    className: "tileBackground displayFlex alignItemsCenter wrap marginTop"
+    className: "tileBackground displayFlex alignItemsCenter wrap" + props.noMarginTop ? "" : " marginTop"
   }, /*#__PURE__*/React__default["default"].createElement(iconsReact.CloudAlerting, {
     size: "24",
     className: "iconMargin"
@@ -1178,12 +1178,14 @@ const EmptyResourceTile = props => {
 };
 EmptyResourceTile.defaultProps = {
   name: "items in this list",
-  showIfEmpty: false
+  showIfEmpty: false,
+  noMarginTop: false
 };
 EmptyResourceTile.propTypes = {
   name: PropTypes__default["default"].string.isRequired,
   showIfEmpty: PropTypes__default["default"].oneOfType([PropTypes__default["default"].array, PropTypes__default["default"].bool]).isRequired,
-  instructions: PropTypes__default["default"].string
+  instructions: PropTypes__default["default"].string,
+  noMarginTop: PropTypes__default["default"].bool
 };
 
 /**
