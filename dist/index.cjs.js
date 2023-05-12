@@ -7620,9 +7620,11 @@ const services = {
   "Hyper Protect Crypto Services": "hpcs",
   "Key Protect": "kms",
   "Object Storage": "cos",
-  "Container Registry": "icr"
+  "Container Registry": "icr",
+  "secrets-manager": "Secrets Manager",
+  "Secrets Manager": "secrets-manager"
 };
-const serviceGroups = ["Hyper Protect Crypto Services", "Key Protect", "Object Storage", "Container Registry"];
+const serviceGroups = ["Hyper Protect Crypto Services", "Key Protect", "Object Storage", "Container Registry", "Secrets Manager"];
 
 /**
  * Vpe Form
@@ -7713,14 +7715,16 @@ class VpeForm extends React.Component {
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       name: "service",
-      formName: "vpe",
+      formName: this.props.data.name + "vpce-service",
       groups: serviceGroups,
       value: services[this.state.service],
       labelText: "Service Type",
       handleInputChange: this.handleServiceDropdown,
       className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "resource_group",
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+      noMarginBottom: this.state.service !== "secrets-manager"
+    }, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: this.props.data.name + "resource_group",
       name: "resource_group",
       labelText: "Resource Group",
       groups: this.props.resourceGroups,
@@ -7744,6 +7748,16 @@ class VpeForm extends React.Component {
       onChange: event => this.handleMultiSelect("subnets", event),
       subnets: [...this.getSubnetList()],
       className: "fieldWidthSmaller"
+    })), this.state.service === "secrets-manager" && /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+      noMarginBottom: true
+    }, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: this.props.data.name + "instance",
+      name: "instance",
+      labelText: "Secrets Manager Instance",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller",
+      groups: this.props.secretsManagerInstances,
+      value: this.state.instance
     })));
   }
 }
@@ -7759,6 +7773,7 @@ VpeForm.defaultProps = {
   resourceGroups: [],
   subnetList: [],
   securityGroups: [],
+  secretsManagerInstances: [],
   isModal: false
 };
 VpeForm.propTypes = {
@@ -7772,6 +7787,7 @@ VpeForm.propTypes = {
   }),
   vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  secretsManagerInstances: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string),
   subnetList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].object).isRequired,
   securityGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].object).isRequired,
   invalidCallback: PropTypes__default["default"].func.isRequired,
@@ -8005,7 +8021,6 @@ class VpnServerForm extends React.Component {
         [name]: value
       };
     }
-    console.log(this.state);
     this.setState(newState);
   }
 
@@ -8109,8 +8124,8 @@ class VpnServerForm extends React.Component {
       labelText: "Secrets Manager Certificate CRN",
       value: this.state.certificate_crn || "",
       onChange: this.handleInputChange,
-      invalid: lazyZ.isNullOrEmptyString(this.state.certificate_crn) || lib_13(this.state.certificate_crn).invalid,
-      invalidText: lib_13(this.state.certificate_crn).invalidText,
+      invalid: lazyZ.isNullOrEmptyString(this.state.certificate_crn) || lib_13([this.state.certificate_crn]).invalid,
+      invalidText: lib_13([this.state.certificate_crn]).invalidText,
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       formName: this.props.data.name + "-vpn-server-method",
@@ -8127,8 +8142,8 @@ class VpnServerForm extends React.Component {
       labelText: "Client Secrets Manager Certificate CRN",
       value: this.state.client_ca_crn || "",
       onChange: this.handleInputChange,
-      invalid: lazyZ.isNullOrEmptyString(this.state.client_ca_crn) || lib_13(this.state.client_ca_crn).invalid,
-      invalidText: lib_13(this.state.client_ca_crn).invalidText,
+      invalid: lazyZ.isNullOrEmptyString(this.state.client_ca_crn) || lib_13([this.state.client_ca_crn]).invalid,
+      invalidText: lib_13([this.state.client_ca_crn]).invalidText,
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: this.props.data.name + "-vpn-server-client-ip-pool",
