@@ -194,6 +194,18 @@ describe("form-utils", () => {
         invalidText: "",
       });
     });
+    it("should return true for empty array and with correct error text", () => {
+      assert.deepEqual(invalidCRNs([null]), {
+        invalid: true,
+        invalidText: "Invalid crn. Must match regular expression: /^(crn:v1:bluemix:(public|dedicated|local):)[A-z-:/0-9]+$/i",
+      });
+    });
+    it("should return true for empty array and with correct error text", () => {
+      assert.deepEqual(invalidCRNs([undefined]), {
+        invalid: true,
+        invalidText: "Invalid crn. Must match regular expression: /^(crn:v1:bluemix:(public|dedicated|local):)[A-z-:/0-9]+$/i",
+      });
+    });
     it("should return false and with correct error text", () => {
       assert.deepEqual(
         invalidCRNs([
