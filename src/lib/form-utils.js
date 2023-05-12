@@ -107,7 +107,7 @@ function invalidCRNs(crns) {
   const crnRegex = /^(crn:v1:bluemix:(public|dedicated|local):)[A-z-:/0-9]+$/i;
 
   for (let crn of crns) {
-    let { invalid, invalidText } = invalidRegex("crn", crn, crnRegex);
+    let { invalid, invalidText } = invalidRegex("crn", crn || "", crnRegex);
     if (invalid) {
       return { invalid, invalidText };
     }

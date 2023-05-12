@@ -18,12 +18,15 @@ const services = {
   "Key Protect": "kms",
   "Object Storage": "cos",
   "Container Registry": "icr",
+  "secrets-manager": "Secrets Manager",
+  "Secrets Manager": "secrets-manager",
 };
 const serviceGroups = [
   "Hyper Protect Crypto Services",
   "Key Protect",
   "Object Storage",
   "Container Registry",
+  "Secrets Manager",
 ];
 
 /**
@@ -117,7 +120,7 @@ class VpeForm extends Component {
           />
           <IcseSelect
             name="service"
-            formName="vpe"
+            formName={this.props.data.name + "vpce-service"}
             groups={serviceGroups}
             value={services[this.state.service]}
             labelText="Service Type"
@@ -125,9 +128,11 @@ class VpeForm extends Component {
             className="fieldWidthSmaller"
           />
         </IcseFormGroup>
-        <IcseFormGroup>
+        <IcseFormGroup
+          noMarginBottom={this.state.service !== "secrets-manager"}
+        >
           <IcseSelect
-            formName="resource_group"
+            formName={this.props.data.name + "resource_group"}
             name="resource_group"
             labelText="Resource Group"
             groups={this.props.resourceGroups}
@@ -157,6 +162,19 @@ class VpeForm extends Component {
             className="fieldWidthSmaller"
           />
         </IcseFormGroup>
+        {this.state.service === "secrets-manager" && (
+          <IcseFormGroup noMarginBottom>
+            <IcseSelect
+              formName={this.props.data.name + "instance"}
+              name="instance"
+              labelText="Secrets Manager Instance"
+              handleInputChange={this.handleInputChange}
+              className="fieldWidthSmaller"
+              groups={this.props.secretsManagerInstances}
+              value={this.state.instance}
+            />
+          </IcseFormGroup>
+        )}
       </div>
     );
   }
@@ -174,6 +192,7 @@ VpeForm.defaultProps = {
   resourceGroups: [],
   subnetList: [],
   securityGroups: [],
+  secretsManagerInstances: [],
   isModal: false,
 };
 
@@ -188,6 +207,7 @@ VpeForm.propTypes = {
   }),
   vpcList: PropTypes.arrayOf(PropTypes.string).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  secretsManagerInstances: PropTypes.arrayOf(PropTypes.string),
   subnetList: PropTypes.arrayOf(PropTypes.object).isRequired,
   securityGroups: PropTypes.arrayOf(PropTypes.object).isRequired,
   invalidCallback: PropTypes.func.isRequired,
