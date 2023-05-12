@@ -2,14 +2,12 @@ import React, { Component } from "react";
 import { NumberInput, TextArea } from "@carbon/react";
 import {
   titleCase,
-  toLowerCase,
   transpose,
   isNullOrEmptyString,
-  isWholeNumber,
 } from "lazy-z";
 import PropTypes from "prop-types";
 import { invalidCRNs } from "../../lib";
-import { isIpStringInvalidNoCidr, isRangeInvalid } from "../../lib/iam-utils";
+import { isIpStringInvalidNoCidr } from "../../lib/iam-utils";
 import {
   buildFormDefaultInputMethods,
   buildFormFunctions,
@@ -62,7 +60,6 @@ class VpnServerForm extends Component {
     } else {
       newState = { [name]: value };
     }
-    console.log(this.state);
     this.setState(newState);
   }
 
@@ -197,9 +194,9 @@ class VpnServerForm extends Component {
             onChange={this.handleInputChange}
             invalid={
               isNullOrEmptyString(this.state.certificate_crn) ||
-              invalidCRNs(this.state.certificate_crn).invalid
+              invalidCRNs([this.state.certificate_crn]).invalid
             }
-            invalidText={invalidCRNs(this.state.certificate_crn).invalidText}
+            invalidText={invalidCRNs([this.state.certificate_crn]).invalidText}
             className="fieldWidthSmaller"
           />
         </IcseFormGroup>
@@ -225,9 +222,9 @@ class VpnServerForm extends Component {
               onChange={this.handleInputChange}
               invalid={
                 isNullOrEmptyString(this.state.client_ca_crn) ||
-                invalidCRNs(this.state.client_ca_crn).invalid
+                invalidCRNs([this.state.client_ca_crn]).invalid
               }
-              invalidText={invalidCRNs(this.state.client_ca_crn).invalidText}
+              invalidText={invalidCRNs([this.state.client_ca_crn]).invalidText}
               className="fieldWidthSmaller"
             />
           )}
