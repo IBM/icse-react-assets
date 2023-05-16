@@ -1,15 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { buildFormFunctions } from "../component-utils";
-import { IcseNameInput, IcseToggle } from "../Inputs";
+import { buildFormFunctions } from "../../component-utils";
+import { IcseNameInput, IcseToggle } from "../../Inputs";
 import { IcseFormGroup } from "../../Utils";
 import { TextArea } from "@carbon/react";
+import { IcseSelect } from "../../Dropdowns";
+import { SubnetMultiSelect } from "../../MultiSelects";
 
 class DnsCustomResolverForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = { ...this.props.data };
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleMultiSelect = this.handleMultiSelect.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     buildFormFunctions(this);
   }
@@ -20,7 +23,8 @@ class DnsCustomResolverForm extends React.Component {
    * @param {*} value value to update
    */
   handleInputChange(event) {
-    this.setState({ name: event.target.value });
+    let { name, value } = event.target;
+    this.setState({ [name]: value });
   }
 
   /**
@@ -29,6 +33,14 @@ class DnsCustomResolverForm extends React.Component {
    */
   handleToggle(name) {
     this.setState({ [name]: !this.state[name] });
+  }
+
+  /**
+   * handle subnet multiselect
+   * @param {event} event
+   */
+  handleMultiSelect(name, event) {
+    this.setState({ [name]: event });
   }
 
   render() {
@@ -56,12 +68,42 @@ class DnsCustomResolverForm extends React.Component {
               align: "bottom-left",
             }}
             labelText="High Availability"
-            key={this.state.high_availability}
             defaultToggled={this.state.high_availability}
             onToggle={this.handleToggle}
             className="fieldWidth"
             toggleFieldName="high_availability"
             id={this.props.data.name + "-high-availability"}
+          />
+          <IcseToggle
+            labelText="Enabled"
+            key={this.state.enabled}
+            defaultToggled={this.state.enabled}
+            onToggle={this.handleToggle}
+            className="fieldWidth"
+            toggleFieldName="enabled"
+            id={this.props.data.name + "-enabled"}
+          />
+        </IcseFormGroup>
+        <IcseFormGroup>
+          <IcseSelect
+            formName={`${this.props.data.name}-dns-custom-resolver-vpc`}
+            name="vpc"
+            labelText="VPC"
+            groups={this.props.vpcList}
+            value={this.state.vpc}
+            handleInputChange={this.handleInputChange}
+            invalid={this.props.invalidCallback(this.state, this.props)}
+            invalidText="Select a VPC."
+            className="fieldWidth"
+          />
+          <SubnetMultiSelect
+            key={this.state.vpc + "-subnets"}
+            id={this.props.data.name + "-dns-resolver-subnets"}
+            initialSelectedItems={[...this.state.subnets]}
+            vpc_name={this.state.vpc}
+            onChange={(event) => this.handleMultiSelect("subnets", event)}
+            subnets={[...this.getSubnetList()]}
+            className="fieldWidth"
           />
         </IcseFormGroup>
         <TextArea
@@ -71,13 +113,6 @@ class DnsCustomResolverForm extends React.Component {
           value={this.state.description}
           labelText={"Description"}
           onChange={this.handleInputChange}
-          invalid={
-            this.state.description.length < 0 ||
-            this.state.description.length > 300
-          }
-          invalidText={
-            "Invalid description, must be between 0 and 300 characters."
-          }
           enableCounter={true}
         />
       </div>
@@ -94,6 +129,7 @@ DnsCustomResolverForm.defaultProps = {
     vpc: "",
     subnets: [],
   },
+  isModal: false,
 };
 
 DnsCustomResolverForm.propTypes = {
@@ -109,6 +145,9 @@ DnsCustomResolverForm.propTypes = {
   invalidTextCallback: PropTypes.func.isRequired,
   invalidNameCallback: PropTypes.func.isRequired,
   invalidNameTextCallback: PropTypes.func.isRequired,
+  vpcList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  subnetList: PropTypes.array.isRequired,
+  isModal: PropTypes.bool.isRequired,
 };
 
 export default DnsCustomResolverForm;
