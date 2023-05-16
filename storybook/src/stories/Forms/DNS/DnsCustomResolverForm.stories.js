@@ -78,6 +78,18 @@ export default {
       type: { required: true }, // required prop or not
       control: "none",
     },
+    invalidDescriptionCallback: {
+      description:
+        "A function to determine if the description field is invalid and returns a single boolean",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
+    invalidDescriptionTextCallback: {
+      description:
+        "A function to determine the invalid text displayed to the user when description is invalid",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
   },
   parameters: {
     docs: {
@@ -120,6 +132,8 @@ const DnsCustomResolverStory = () => {
       invalidTextCallback={invalidTextCallback}
       invalidNameCallback={invalidNameCallback}
       invalidNameTextCallback={invalidNameTextCallback}
+      invalidDescriptionCallback={invalidCallback}
+      invalidDescriptionTextCallback={invalidTextCallback}
       subnetList={[
         {
           vpc: "management",

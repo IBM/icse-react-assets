@@ -24,7 +24,11 @@ class DnsCustomResolverForm extends React.Component {
    */
   handleInputChange(event) {
     let { name, value } = event.target;
-    this.setState({ [name]: value });
+    if (name === "vpc") {
+      this.setState({ [name]: value, subnets: [] });
+    } else {
+      this.setState({ [name]: value });
+    }
   }
 
   /**
@@ -97,7 +101,7 @@ class DnsCustomResolverForm extends React.Component {
             className="fieldWidth"
           />
           <SubnetMultiSelect
-            key={this.state.vpc + "-subnets"}
+            key={this.state.vpc}
             id={this.props.data.name + "-dns-resolver-subnets"}
             initialSelectedItems={[...this.state.subnets]}
             vpc_name={this.state.vpc}
@@ -114,6 +118,13 @@ class DnsCustomResolverForm extends React.Component {
           labelText={"Description"}
           onChange={this.handleInputChange}
           enableCounter={true}
+          invalid={this.props.invalidDescriptionCallback(
+            this.state,
+            this.props
+          )}
+          invalidText={() =>
+            this.props.invalidDescriptionTextCallback(this.state, this.props)
+          }
         />
       </div>
     );
@@ -145,6 +156,8 @@ DnsCustomResolverForm.propTypes = {
   invalidTextCallback: PropTypes.func.isRequired,
   invalidNameCallback: PropTypes.func.isRequired,
   invalidNameTextCallback: PropTypes.func.isRequired,
+  invalidDescriptionCallback: PropTypes.func.isRequired,
+  invalidDescriptionTextCallback: PropTypes.func.isRequired,
   vpcList: PropTypes.arrayOf(PropTypes.string).isRequired,
   subnetList: PropTypes.array.isRequired,
   isModal: PropTypes.bool.isRequired,
