@@ -7,7 +7,6 @@ const {
   invalidRegex,
   handleClusterInputChange,
   subnetTierName,
-  invalidCRNs,
 } = require("../src/lib/form-utils");
 
 describe("form-utils", () => {
@@ -179,50 +178,6 @@ describe("form-utils", () => {
     it("should return testCluster with entitlement: `null`", () => {
       handleClusterInputChange("entitlement", "null", testCluster);
       assert.deepEqual(testCluster.entitlement, null, "it should return true");
-    });
-  });
-  describe("invalidCRNs", () => {
-    it("should return false for undefined and with correct error text", () => {
-      assert.deepEqual(invalidCRNs(), {
-        invalid: false,
-        invalidText: "",
-      });
-    });
-    it("should return false for empty array and with correct error text", () => {
-      assert.deepEqual(invalidCRNs([]), {
-        invalid: false,
-        invalidText: "",
-      });
-    });
-    it("should return true for empty array and with correct error text", () => {
-      assert.deepEqual(invalidCRNs([null]), {
-        invalid: true,
-        invalidText: "Invalid crn. Must match regular expression: /^(crn:v1:bluemix:(public|dedicated|local):)[A-z-:/0-9]+$/i",
-      });
-    });
-    it("should return true for empty array and with correct error text", () => {
-      assert.deepEqual(invalidCRNs([undefined]), {
-        invalid: true,
-        invalidText: "Invalid crn. Must match regular expression: /^(crn:v1:bluemix:(public|dedicated|local):)[A-z-:/0-9]+$/i",
-      });
-    });
-    it("should return false and with correct error text", () => {
-      assert.deepEqual(
-        invalidCRNs([
-          "crn:v1:bluemix:public:containers-kubernetes:us-south:a/59bcbfa6ea2f006b4ed7094c1a08dcdd:8042b2a8af6a4a5cbf6dbe09e07311d2:worker:kube-hou02-pa8042b2a8af6a4a5cbf6dbe09e07311d2-w1",
-          "crn:v1:bluemix:public:resource-controller:global:a/59bcbfa6ea2f006b4ed7094c1a08dcdd:resource-group:59bcbfa6ea2f006b4ed7094c1a08dcdd",
-        ]),
-        {
-          invalid: false,
-          invalidText: "",
-        }
-      );
-    });
-    it("should return true and with correct error text", () => {
-      assert.deepEqual(invalidCRNs(["a", "b", "c"]), {
-        invalid: true,
-        invalidText: `Invalid crn. Must match regular expression: /^(crn:v1:bluemix:(public|dedicated|local):)[A-z-:/0-9]+$/i`,
-      });
     });
   });
 });

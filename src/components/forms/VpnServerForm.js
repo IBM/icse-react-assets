@@ -1,12 +1,7 @@
 import React, { Component } from "react";
 import { NumberInput, TextArea } from "@carbon/react";
-import {
-  titleCase,
-  transpose,
-  isNullOrEmptyString,
-} from "lazy-z";
+import { titleCase, transpose, isNullOrEmptyString } from "lazy-z";
 import PropTypes from "prop-types";
-import { invalidCRNs } from "../../lib";
 import { isIpStringInvalidNoCidr } from "../../lib/iam-utils";
 import {
   buildFormDefaultInputMethods,
@@ -192,11 +187,8 @@ class VpnServerForm extends Component {
             labelText="Secrets Manager Certificate CRN"
             value={this.state.certificate_crn || ""}
             onChange={this.handleInputChange}
-            invalid={
-              isNullOrEmptyString(this.state.certificate_crn) ||
-              invalidCRNs([this.state.certificate_crn]).invalid
-            }
-            invalidText={invalidCRNs([this.state.certificate_crn]).invalidText}
+            invalid={this.props.invalidCrns(this.state, this.props)}
+            invalidText={this.props.invalidCrnText(this.state, this.props)}
             className="fieldWidthSmaller"
           />
         </IcseFormGroup>
@@ -220,11 +212,10 @@ class VpnServerForm extends Component {
               labelText="Client Secrets Manager Certificate CRN"
               value={this.state.client_ca_crn || ""}
               onChange={this.handleInputChange}
-              invalid={
-                isNullOrEmptyString(this.state.client_ca_crn) ||
-                invalidCRNs([this.state.client_ca_crn]).invalid
+              invalid={this.props.invalidCrns(this.state, this.props)}
+              invalidText={() =>
+                this.props.invalidCrnText(this.state, this.props)
               }
-              invalidText={invalidCRNs([this.state.client_ca_crn]).invalidText}
               className="fieldWidthSmaller"
             />
           )}
@@ -420,6 +411,8 @@ VpnServerForm.propTypes = {
     onSubmit: PropTypes.func.isRequired,
     disableSave: PropTypes.func.isRequired,
   }).isRequired,
+  invalidCrns: PropTypes.func.isRequired,
+  invalidCrnText: PropTypes.func.isRequired,
 };
 
 export default VpnServerForm;
