@@ -9,7 +9,7 @@ import {
 } from "../component-utils";
 import { IcseSelect } from "../Dropdowns";
 import { IcseTextInput, IcseNameInput, IcseToggle } from "../Inputs";
-import { SecurityGroupMultiSelect } from "../MultiSelects";
+import { SecurityGroupMultiSelect, SubnetMultiSelect } from "../MultiSelects";
 import { IcseFormGroup } from "../Utils";
 import IcseFormTemplate from "../IcseFormTemplate";
 import VpnServerRouteForm from "./VpnServerRouteForm";
@@ -23,6 +23,7 @@ class VpnServerForm extends Component {
     this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.handleAllowedIps = this.handleAllowedIps.bind(this);
+    this.handleMultiSelect = this.handleMultiSelect.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
@@ -44,7 +45,7 @@ class VpnServerForm extends Component {
     } else if (name === "vpc") {
       // Clear subnet and security groups when vpc changes
       newState.vpc = value;
-      newState.subnet = "";
+      newState.subnets = [];
       newState.security_groups = [];
     } else if (name === "certificate_crn") {
       newState.certificate_crn = crnList;
@@ -67,6 +68,14 @@ class VpnServerForm extends Component {
     if (value || isNullOrEmptyString(event.target.value)) {
       this.setState({ [event.target.name]: value });
     }
+  }
+
+  /**
+   * handle multiselects
+   * @param {event} event
+   */
+  handleMultiSelect(name, event) {
+    this.setState({ [name]: event });
   }
 
   /**
@@ -138,23 +147,13 @@ class VpnServerForm extends Component {
         </IcseFormGroup>
         <IcseFormGroup>
           {/* subnet and security groups */}
-          <IcseSelect
-            formName={
-              this.props.data.name + "-vpn-server-" + this.state.vpc + "-subnet"
-            }
-            name="subnet"
-            labelText="Subnet"
-            groups={
-              isNullOrEmptyString(this.state.vpc) ? [] : this.getSubnetList()
-            }
-            value={this.state.subnet}
-            handleInputChange={this.handleInputChange}
-            invalid={isNullOrEmptyString(this.state.subnet)}
-            invalidText={
-              isNullOrEmptyString(this.state.vpc)
-                ? "Select a VPC."
-                : "Select at least one subnet."
-            }
+          <SubnetMultiSelect
+            key={this.state.vpc + "-subnets"}
+            id={this.props.data.name + "-vpe-subnets"}
+            initialSelectedItems={[...this.state.subnets]}
+            vpc_name={this.state.vpc}
+            onChange={(event) => this.handleMultiSelect("subnets", event)}
+            subnets={[...this.getSubnetList()]}
             className="fieldWidthSmaller"
           />
           <SecurityGroupMultiSelect
