@@ -7958,6 +7958,7 @@ class VpnServerForm extends React.Component {
     this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.handleAllowedIps = this.handleAllowedIps.bind(this);
+    this.handleMultiSelect = this.handleMultiSelect.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
@@ -7980,7 +7981,7 @@ class VpnServerForm extends React.Component {
     } else if (name === "vpc") {
       // Clear subnet and security groups when vpc changes
       newState.vpc = value;
-      newState.subnet = "";
+      newState.subnets = [];
       newState.security_groups = [];
     } else if (name === "certificate_crn") {
       newState.certificate_crn = crnList;
@@ -8007,6 +8008,16 @@ class VpnServerForm extends React.Component {
         [event.target.name]: value
       });
     }
+  }
+
+  /**
+   * handle multiselects
+   * @param {event} event
+   */
+  handleMultiSelect(name, event) {
+    this.setState({
+      [name]: event
+    });
   }
 
   /**
@@ -8065,15 +8076,13 @@ class VpnServerForm extends React.Component {
       invalid: lazyZ.isNullOrEmptyString(this.state.vpc),
       invalidText: "Select a VPC.",
       className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: this.props.data.name + "-vpn-server-" + this.state.vpc + "-subnet",
-      name: "subnet",
-      labelText: "Subnet",
-      groups: lazyZ.isNullOrEmptyString(this.state.vpc) ? [] : this.getSubnetList(),
-      value: this.state.subnet,
-      handleInputChange: this.handleInputChange,
-      invalid: lazyZ.isNullOrEmptyString(this.state.subnet),
-      invalidText: lazyZ.isNullOrEmptyString(this.state.vpc) ? "Select a VPC." : "Select at least one subnet.",
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(SubnetMultiSelect, {
+      key: this.state.vpc + "-subnets",
+      id: this.props.data.name + "-vpe-subnets",
+      initialSelectedItems: [...this.state.subnets],
+      vpc_name: this.state.vpc,
+      onChange: event => this.handleMultiSelect("subnets", event),
+      subnets: [...this.getSubnetList()],
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(SecurityGroupMultiSelect, {
       key: this.state.vpc + "-sg",
@@ -8096,8 +8105,8 @@ class VpnServerForm extends React.Component {
       labelText: "Secrets Manager Certificate CRN",
       value: this.state.certificate_crn || "",
       onChange: this.handleInputChange,
-      invalid: this.props.invalidCrns(this.state, this.props),
-      invalidText: this.props.invalidCrnText(this.state, this.props),
+      invalid: this.props.invalidCrns(this.state, this.props, "certificate_crn"),
+      invalidText: this.props.invalidCrnText(this.state, this.props, "certificate_crn"),
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       formName: this.props.data.name + "-vpn-server-method",
@@ -8114,8 +8123,8 @@ class VpnServerForm extends React.Component {
       labelText: "Client Secrets Manager Certificate CRN",
       value: this.state.client_ca_crn || "",
       onChange: this.handleInputChange,
-      invalid: this.props.invalidCrns(this.state, this.props),
-      invalidText: () => this.props.invalidCrnText(this.state, this.props),
+      invalid: this.props.invalidCrns(this.state, this.props, "client_ca_crn"),
+      invalidText: () => this.props.invalidCrnText(this.state, this.props, "client_ca_crn"),
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: this.props.data.name + "-vpn-server-client-ip-pool",
