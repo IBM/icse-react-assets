@@ -10,12 +10,11 @@ import {
 } from "../component-utils";
 import PropTypes from "prop-types";
 import { splat } from "lazy-z";
-import { invalidCRNs } from "../../lib";
 
 class TransitGatewayForm extends Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = { ...this.props.data };
     this.handleToggle = this.handleToggle.bind(this);
     this.handleVpcSelect = this.handleVpcSelect.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -126,8 +125,8 @@ class TransitGatewayForm extends Component {
             labelText="Add a new connection from any region in the account"
             value={this.state.crns === undefined ? "" : String(this.state.crns)}
             onChange={this.handleCRNs}
-            invalid={invalidCRNs(this.state.crns).invalid}
-            invalidText={invalidCRNs(this.state.crns).invalidText}
+            invalid={this.props.invalidCrns(this.state, this.props)}
+            invalidText={this.props.invalidCrnText(this.state, this.props)}
             helperText="Enter a comma separated list of CRNs"
             placeholder="crn:v1:bluemix..."
           />
@@ -172,6 +171,8 @@ TransitGatewayForm.propTypes = {
   resourceGroups: PropTypes.array.isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
+  invalidCrns: PropTypes.func.isRequired,
+  invalidCrnText: PropTypes.func.isRequired,
 };
 
 export default TransitGatewayForm;
