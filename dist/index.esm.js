@@ -1830,7 +1830,7 @@ class IcseFormTemplate extends React.Component {
       tooltip: this.props.tooltip,
       about: this.props.docs ? this.props.docs() : false,
       hideAbout: this.props.hideAbout,
-      form: /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(EmptyResourceTile, {
+      form: /*#__PURE__*/React.createElement(React.Fragment, null, this.props.arrayData.length === 0 && this.props.overrideTile ? this.props.overrideTile : /*#__PURE__*/React.createElement(EmptyResourceTile, {
         name: this.props.name,
         showIfEmpty: this.props.arrayData
       }), this.props.arrayData.map((data, index) => {
@@ -1941,7 +1941,8 @@ IcseFormTemplate.propTypes = {
   hideAbout: PropTypes.bool,
   deleteDisabled: PropTypes.func,
   forceOpen: PropTypes.func,
-  deleteDisabledMessage: PropTypes.string
+  deleteDisabledMessage: PropTypes.string,
+  overrideTile: PropTypes.node
 };
 
 const IcseToggle = props => {
