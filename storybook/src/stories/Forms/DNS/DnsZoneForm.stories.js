@@ -33,7 +33,7 @@ export default {
     isModal: {
       description:
         "A boolean value that specifies if the form is within a modal",
-      type: { required: false }, // required prop or not
+      type: { required: true }, // required prop or not
       control: "none",
       table: { defaultValue: { summary: "false" } },
     },
@@ -75,18 +75,6 @@ export default {
     invalidDescriptionTextCallback: {
       description:
         "A function to determine the invalid text displayed to the user when description is invalid",
-      type: { required: true }, // required prop or not
-      control: "none",
-    },
-    invalidNetworksCallback: {
-      description:
-        "A function to determine if the permitted networks field is invalid and returns a single boolean",
-      type: { required: true }, // required prop or not
-      control: "none",
-    },
-    invalidNetworksTextCallback: {
-      description:
-        "A function to determine the invalid text displayed to the user when permitted networks field is invalid",
       type: { required: true }, // required prop or not
       control: "none",
     },
@@ -134,8 +122,6 @@ const DnsZoneStory = () => {
       invalidDescriptionTextCallback={invalidTextCallback}
       invalidLabelCallback={invalidCallback}
       invalidLabelTextCallback={invalidTextCallback}
-      invalidNetworksCallback={invalidCallback}
-      invalidNetworksTextCallback={invalidTextCallback}
       vpcList={["management", "workload"]}
       data={{
         name: "dns-zone",
