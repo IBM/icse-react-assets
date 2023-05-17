@@ -1,105 +1,55 @@
 import React from "react";
-import { CbrRuleForm } from "icse-react-assets";
+import { DnsRecordForm } from "icse-react-assets";
 import { contains } from "lazy-z";
 
 import "./App.css";
 
-const CbrRuleFormStory = ({ ...args }) => {
+const DnsRecordFormStory = () => {
   function validName(str) {
-    const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
+    const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/s;
     if (str) return str.match(regex) !== null;
     else return false;
   }
 
-  function invalidNameCallback(stateData, componentProps) {
-    return (
-      !validName(stateData.name) || contains(["foo", "bar"], stateData.name)
-    );
+  function invalidCallback(stateData, componentProps) {
+    return !validName(stateData.name);
   }
 
-  function invalidNameTextCallback(stateData, componentProps) {
+  function helperTextCallback(stateData, componentProps) {
+    return "<prefix>-" + stateData.name;
+  }
+
+  function invalidTextCallback(stateData, componentProps) {
     return contains(["foo", "bar"], stateData.name)
-      ? `Name ${stateData.name} already in use.`
+      ? `Cluster name ${stateData.name} already in use.`
       : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
   }
 
-  function invalidCallback(field, stateData, componentProps) {
-    switch (field) {
-      case "api_type_id":
-        return (
-          stateData.api_type_id.length > 128 ||
-          (stateData.api_type_id.length > 0 &&
-            stateData.api_type_id.match(/^[a-zA-Z0-9_.\-:]+$/i) === null)
-        );
-      case "description":
-        return (
-          stateData.description.length > 300 ||
-          (stateData.description.length > 0 &&
-            stateData.description.match(/^[\x20-\xFE]*$/i) === null)
-        );
-
-      default:
-        return false;
-    }
-  }
-
-  function invalidTextCallback(field, stateData, componentProps) {
-    return `Invalid ${field}`;
-  }
-
   return (
-    <CbrRuleForm
-      {...args}
+    <DnsRecordForm
       data={{
-        name: "example",
-        description: "",
-        enforcement_mode: "Disabled",
-        api_type_id: "",
-        contexts: [{ name: "context1", value: "" }],
-        resource_attributes: [{ name: "attribute1", value: "" }],
-        tags: [{ name: "tag1", value: "value", operator: "equals" }],
+        name: "foo-dns-name",
+        dns_zone: "zone1",
+        type: "A",
+        rdata: "dasdasdas",
+        ttl: 300,
+        port: 8080,
+        protocol: "TCP",
+        priority: 10,
+        service: "_fake-service",
+        weight: 15,
+        preference: 5,
       }}
-      propsMatchState={() => {}}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
-      invalidNameCallback={invalidNameCallback}
-      invalidNameTextCallback={invalidNameTextCallback}
-      contextProps={{
-        onSave: () => {},
-        onDelete: () => {},
-        onSubmit: () => {},
-        disableSave: () => {},
-        invalidNameCallback: invalidNameCallback,
-        invalidNameTextCallback: invalidNameTextCallback,
-        invalidCallback: invalidCallback,
-        invalidTextCallback: invalidTextCallback,
-      }}
-      resourceAttributeProps={{
-        onSave: () => {},
-        onDelete: () => {},
-        onSubmit: () => {},
-        disableSave: () => {},
-        invalidNameCallback: invalidNameCallback,
-        invalidNameTextCallback: invalidNameTextCallback,
-        invalidCallback: invalidCallback,
-        invalidTextCallback: invalidTextCallback,
-      }}
-      tagProps={{
-        onSave: () => {},
-        onDelete: () => {},
-        onSubmit: () => {},
-        disableSave: () => {},
-        invalidNameCallback: invalidNameCallback,
-        invalidNameTextCallback: invalidNameTextCallback,
-        invalidCallback: invalidCallback,
-        invalidTextCallback: invalidTextCallback,
-      }}
+      helperTextCallback={helperTextCallback}
+      dnsZones={["zone1", "zone2", "zone3"]}
     />
   );
 };
 
 function App() {
-  return <CbrRuleFormStory />;
+  return <DnsRecordFormStory />;
 }
 
 export default App;

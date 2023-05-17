@@ -4,7 +4,7 @@ import { DnsRecordForm } from "icse-react-assets";
 
 export default {
   component: DnsRecordForm,
-  title: "Components/Forms/DnsRecordForm",
+  title: "Components/Forms/DNS/DnsRecordForm",
   argTypes: {
     data: {
       summary: "An optional object",
@@ -85,6 +85,14 @@ export default {
       control: "none",
     },
   },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "DnsRecordForm is a form component that provides functionality for creating DNS records.",
+      },
+    },
+  },
 };
 
 const DnsRecordFormStory = () => {
@@ -110,6 +118,7 @@ const DnsRecordFormStory = () => {
 
   return (
     <DnsRecordForm
+      data={{ name: "dns-record-name" }}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
       helperTextCallback={helperTextCallback}

@@ -2,18 +2,17 @@ import React, { Component } from "react";
 import {
   buildFormDefaultInputMethods,
   buildFormFunctions,
-} from "../component-utils";
+} from "../../component-utils";
 import PropTypes from "prop-types";
-import { IcseFormGroup } from "../Utils";
-import { IcseNameInput, IcseTextInput } from "../Inputs";
-import { IcseSelect } from "../Dropdowns";
+import { IcseFormGroup } from "../../Utils";
+import { IcseNameInput, IcseTextInput } from "../../Inputs";
+import { IcseSelect } from "../../Dropdowns";
 import { NumberInput } from "@carbon/react";
-import { isRangeInvalid } from "../../lib/iam-utils";
+import { isRangeInvalid } from "../../../lib/iam-utils";
 
 /**
  * DnsRecordForm
  * @param {Object} props
- * @param {configDotJson} props.configDotJson config dot json
  */
 class DnsRecordForm extends Component {
   constructor(props) {
@@ -24,12 +23,14 @@ class DnsRecordForm extends Component {
     buildFormFunctions(this);
   }
 
-  // Handle input change
-  handleInputChange = (event) => {
-    let { name, value } = event.target;
-    let cluster = { ...this.state };
-    this.setState(handleClusterInputChange(name, value, cluster));
-  };
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
 
   render() {
     let dnsComponent = this.props.isModal
@@ -58,7 +59,7 @@ class DnsRecordForm extends Component {
             formName={dnsComponent + "-dns-zone"}
             labelText="DNS Zone"
             groups={this.props.dnsZones}
-            value={this.state.dns_zones}
+            value={this.state.dns_zone}
             handleInputChange={this.handleInputChange}
             invalidText="Select a DNS Zone."
             className="fieldWidthSmaller"
@@ -84,7 +85,7 @@ class DnsRecordForm extends Component {
             onChange={this.handleInputChange}
             invalid={this.props.invalidCallback(this.state, this.props)}
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
-            className="fieldWidth"
+            className="fieldWidthSmaller"
           />
           <NumberInput
             label="Time To Live"
@@ -97,10 +98,10 @@ class DnsRecordForm extends Component {
             min={300}
             max={2147483647}
             invalid={isRangeInvalid(this.state.ttl, 300, 2147483647)}
-            invalidText="Must be a whole number within range."
-            className="fieldWidth"
+            invalidText="Must be a whole number (representing seconds) within range 300 to 2147483647"
+            className="fieldWidthSmaller"
           />
-          {this.state.typ === "MX" && (
+          {this.state.type === "MX" && (
             <>
               <NumberInput
                 label="Preference"
@@ -115,7 +116,7 @@ class DnsRecordForm extends Component {
                 step={1}
                 invalid={isRangeInvalid(this.state.preference, 0, 65535)}
                 invalidText="Must be a whole number within range."
-                className="fieldWidth"
+                className="fieldWidthSmaller"
               />
             </>
           )}
@@ -199,6 +200,7 @@ class DnsRecordForm extends Component {
 }
 
 DnsRecordForm.defaultProps = {
+  isModal: false,
   data: {
     name: "",
     dns_zone: "",
@@ -225,7 +227,7 @@ DnsRecordForm.defaultProps = {
 };
 
 DnsRecordForm.propTypes = {
-  data: PropType.shape({
+  data: PropTypes.shape({
     name: PropTypes.string,
     dns_zone: PropTypes.string,
     type: PropTypes.string,
@@ -237,11 +239,12 @@ DnsRecordForm.propTypes = {
     service: PropTypes.string,
     weight: PropTypes.number,
     preference: PropTypes.number,
-  }),
+  }).isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
   helperTextCallback: PropTypes.func.isRequired,
   dnsZones: PropTypes.arrayOf(PropTypes.string).isRequired,
+  isModal: PropTypes.bool.isRequired,
 };
 
 export default DnsRecordForm;
