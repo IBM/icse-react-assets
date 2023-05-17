@@ -187,8 +187,16 @@ class VpnServerForm extends Component {
             labelText="Secrets Manager Certificate CRN"
             value={this.state.certificate_crn || ""}
             onChange={this.handleInputChange}
-            invalid={this.props.invalidCrns(this.state, this.props)}
-            invalidText={this.props.invalidCrnText(this.state, this.props)}
+            invalid={this.props.invalidCrns(
+              this.state,
+              this.props,
+              "certificate_crn"
+            )}
+            invalidText={this.props.invalidCrnText(
+              this.state,
+              this.props,
+              "certificate_crn"
+            )}
             className="fieldWidthSmaller"
           />
         </IcseFormGroup>
@@ -212,9 +220,17 @@ class VpnServerForm extends Component {
               labelText="Client Secrets Manager Certificate CRN"
               value={this.state.client_ca_crn || ""}
               onChange={this.handleInputChange}
-              invalid={this.props.invalidCrns(this.state, this.props)}
+              invalid={this.props.invalidCrns(
+                this.state,
+                this.props,
+                "client_ca_crn"
+              )}
               invalidText={() =>
-                this.props.invalidCrnText(this.state, this.props)
+                this.props.invalidCrnText(
+                  this.state,
+                  this.props,
+                  "client_ca_crn"
+                )
               }
               className="fieldWidthSmaller"
             />
