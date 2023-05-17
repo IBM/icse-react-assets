@@ -61,6 +61,18 @@ export default {
       type: { required: true }, // required prop or not
       control: "none",
     },
+    invalidCrns: {
+      description:
+        "A function to determine if the crns are invalid and returns a booleam",
+      type: { required: true },
+      control: "none",
+    },
+    invalidCrnText: {
+      description:
+        "A function that determines the invalid text for crn field if invalid",
+      type: { required: true },
+      control: "none",
+    },
   },
   parameters: {
     docs: {
@@ -89,6 +101,14 @@ const TransitGatewayFormStory = () => {
       : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
   }
 
+  function invalidCrns(stateData, componentProps) {
+    return false;
+  }
+
+  function invalidCrnText(stateData, componentProps) {
+    return `One or more CRNs is invalid.`;
+  }
+
   return (
     <TransitGatewayForm
       data={{
@@ -105,6 +125,8 @@ const TransitGatewayFormStory = () => {
       resourceGroups={["service-rg", "management-rg", "workload-rg"]}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
+      invalidCrns={invalidCrns}
+      invalidCrnText={invalidCrnText}
     />
   );
 };
