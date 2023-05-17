@@ -35,17 +35,17 @@ export default {
     "data.vpc": {
       description: "A string of the VPC the custom resolver is attached to",
       control: "none",
-      type: { required: true }, // required prop or not
+      type: { required: false }, // required prop or not
     },
     "data.subnets": {
       description: "The subnets where the custom resolver is deployed",
       control: "none",
-      type: { required: true }, // required prop or not
+      type: { required: false }, // required prop or not
     },
     isModal: {
       description:
         "A boolean value that specifies if the form is within a modal",
-      type: { required: false }, // required prop or not
+      type: { required: true }, // required prop or not
       control: "none",
       table: { defaultValue: { summary: "false" } },
     },
@@ -72,7 +72,7 @@ export default {
       type: { required: true }, // required prop or not
       control: "none",
     },
-    invalidNameTextCallabck: {
+    invalidNameTextCallback: {
       description:
         "A function to determine the invalid text displayed to the user when name is invalid",
       type: { required: true }, // required prop or not
