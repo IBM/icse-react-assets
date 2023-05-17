@@ -10345,7 +10345,7 @@ class DnsRecordForm extends React.Component {
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       componentName: "DNS Record",
-      field: "resource_data",
+      field: "rdata",
       labelText: "Resource Data",
       value: this.state.rdata,
       id: this.state.name + "-rdata",

@@ -78,7 +78,7 @@ class DnsRecordForm extends Component {
         <IcseFormGroup>
           <IcseTextInput
             componentName="DNS Record"
-            field="resource_data"
+            field="rdata"
             labelText="Resource Data"
             value={this.state.rdata}
             id={this.state.name + "-rdata"}

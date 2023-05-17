@@ -31,14 +31,14 @@ const DnsRecordFormStory = () => {
         name: "foo-dns-name",
         dns_zone: "zone1",
         type: "A",
-        rdata: "dasdasdas",
+        rdata: "fake resource data",
         ttl: 300,
         port: 8080,
         protocol: "TCP",
         priority: 10,
         service: "_fake-service",
-        weight: 15,
-        preference: 5,
+        weight: 10,
+        preference: 15,
       }}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
