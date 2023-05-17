@@ -10350,14 +10350,13 @@ class DnsRecordForm extends React.Component {
       value: this.state.rdata,
       id: this.state.name + "-rdata",
       onChange: this.handleInputChange,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      invalid: false,
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
       label: "Time To Live",
       id: dnsComponent + "-ttl",
       allowEmpty: true,
-      value: Math.round(this.state.ttl),
+      value: this.state.ttl,
       onChange: this.handleInputChange,
       name: "ttl",
       hideSteppers: true,
@@ -10370,7 +10369,7 @@ class DnsRecordForm extends React.Component {
       label: "Preference",
       id: dnsComponent + "-preference",
       allowEmpty: false,
-      value: Math.round(this.state.preference),
+      value: this.state.preference,
       onChange: this.handleInputChange,
       name: "preference",
       hideSteppers: true,
@@ -10378,13 +10377,13 @@ class DnsRecordForm extends React.Component {
       max: 65535,
       step: 1,
       invalid: iamUtils_3(this.state.preference, 0, 65535),
-      invalidText: "Must be a whole number within range.",
+      invalidText: "Must be a whole number within range 0 and 65535.",
       className: "fieldWidthSmaller"
     }))), this.state.type === "SRV" && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
       label: "DNS Record Port",
       id: dnsComponent + "-port",
       allowEmpty: false,
-      value: Math.round(this.state.port),
+      value: this.state.port,
       onChange: this.handleInputChange,
       name: "port",
       hideSteppers: true,
@@ -10396,7 +10395,7 @@ class DnsRecordForm extends React.Component {
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       formName: dnsComponent + "-protocol",
-      name: "dns_record_protocol",
+      name: "protocol",
       groups: ["TCP", "UDP"],
       value: this.state.protocol,
       labelText: "DNS Record Protocol",
@@ -10406,7 +10405,7 @@ class DnsRecordForm extends React.Component {
       label: "DNS Record Priority",
       id: dnsComponent + "-priority",
       allowEmpty: false,
-      value: Math.round(this.state.priority),
+      value: this.state.priority,
       onChange: this.handleInputChange,
       name: "priority",
       hideSteppers: true,
@@ -10423,16 +10422,16 @@ class DnsRecordForm extends React.Component {
       value: this.state.service,
       onChange: this.handleInputChange,
       labelText: "DNS Record Service",
-      invalid: this.state.service.charAt(0) !== "_",
+      invalid: lib_4(this.state.service) || this.state.service === undefined ? true : this.state.service.charAt(0) !== "_",
       invalidText: "Service must start with a '_'.",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
       label: "DNS Record Weight",
       id: dnsComponent + "-weight",
       allowEmpty: false,
-      value: Math.round(this.state.weight),
+      value: this.state.weight,
       onChange: this.handleInputChange,
-      name: "service",
+      name: "weight",
       hideSteppers: true,
       min: 0,
       max: 65535,
@@ -10450,13 +10449,7 @@ DnsRecordForm.defaultProps = {
     dns_zone: "",
     type: "",
     rdata: "",
-    ttl: 300,
-    port: 80,
-    protocol: "",
-    priority: 0,
-    service: "",
-    weight: 0,
-    preference: 0
+    ttl: 300
   },
   invalidCallback: () => {
     return false;
