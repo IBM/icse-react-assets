@@ -8236,7 +8236,8 @@ VpnServerForm.defaultProps = {
     subnet: "",
     security_groups: [],
     client_dns_server_ips: "",
-    routes: []
+    routes: [],
+    subnets: []
   },
   isModal: false,
   resourceGroups: [],
@@ -8257,7 +8258,7 @@ VpnServerForm.propTypes = {
     protocol: PropTypes__default["default"].string,
     resource_group: PropTypes__default["default"].string,
     vpc: PropTypes__default["default"].string.isRequired,
-    subnet: PropTypes__default["default"].string.isRequired,
+    subnets: PropTypes__default["default"].array,
     security_groups: PropTypes__default["default"].array.isRequired,
     routes: PropTypes__default["default"].array
   }).isRequired,
