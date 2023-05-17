@@ -95,3 +95,5 @@ export {
 export { default as CbrExclusionAddressForm } from "./forms/cbr/CbrExclusionAddressForm";
 export { default as CbrZoneForm } from "./forms/cbr/CbrZoneForm";
 export { default as DnsRecordForm } from "./forms/DnsRecordForm";
+export { default as DnsZoneForm } from "./forms/dns/DnsZoneForm";
+export { default as DnsCustomResolverForm } from "./forms/dns/DnsCustomResolverForm";

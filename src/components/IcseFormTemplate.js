@@ -107,10 +107,15 @@ class IcseFormTemplate extends React.Component {
           hideAbout={this.props.hideAbout}
           form={
             <>
-              <EmptyResourceTile
-                name={this.props.name}
-                showIfEmpty={this.props.arrayData}
-              />
+              {this.props.arrayData.length === 0 && this.props.overrideTile ? (
+                this.props.overrideTile
+              ) : (
+                <EmptyResourceTile
+                  name={this.props.name}
+                  showIfEmpty={this.props.arrayData}
+                />
+              )}
+
               {/* for each props passed into the array */}
               {this.props.arrayData.map((data, index) => {
                 // return a form with the index and props
@@ -237,6 +242,7 @@ IcseFormTemplate.propTypes = {
   deleteDisabled: PropTypes.func,
   forceOpen: PropTypes.func,
   deleteDisabledMessage: PropTypes.string,
+  overrideTile: PropTypes.node,
 };
 
 export default IcseFormTemplate;
