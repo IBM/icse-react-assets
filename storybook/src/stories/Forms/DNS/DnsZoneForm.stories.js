@@ -28,7 +28,7 @@ export default {
     "data.vpcs": {
       description: "The permitted networks for the zone",
       control: "none",
-      type: { required: true }, // required prop or not
+      type: { required: false }, // required prop or not
     },
     isModal: {
       description:
