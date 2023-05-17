@@ -84,7 +84,8 @@ class DnsRecordForm extends Component {
             value={this.state.rdata}
             id={this.state.name + "-rdata"}
             onChange={this.handleInputChange}
-            invalid={false}
+            invalid={this.props.invalidRdata(this.state, this.props)}
+            invalidText={this.props.invalidRdataText(this.state, this.props)}
             className="fieldWidthSmaller"
           />
           <NumberInput
