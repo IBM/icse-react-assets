@@ -78,6 +78,18 @@ export default {
       type: { required: true }, // required prop or not
       control: "none",
     },
+    invalidNetworksCallback: {
+      description:
+        "A function to determine if the permitted networks field is invalid and returns a single boolean",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
+    invalidNetworksTextCallback: {
+      description:
+        "A function to determine the invalid text displayed to the user when permitted networks field is invalid",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
   },
   parameters: {
     docs: {
@@ -116,12 +128,14 @@ const DnsZoneStory = () => {
 
   return (
     <DnsZoneForm
-      invalidLabelCallback={invalidCallback}
-      invalidLabelTextCallback={invalidTextCallback}
       invalidNameCallback={invalidNameCallback}
       invalidNameTextCallback={invalidNameTextCallback}
       invalidDescriptionCallback={invalidCallback}
       invalidDescriptionTextCallback={invalidTextCallback}
+      invalidLabelCallback={invalidCallback}
+      invalidLabelTextCallback={invalidTextCallback}
+      invalidNetworksCallback={invalidCallback}
+      invalidNetworksTextCallback={invalidTextCallback}
       vpcList={["management", "workload"]}
       data={{
         name: "dns-zone",

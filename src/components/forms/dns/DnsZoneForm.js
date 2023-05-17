@@ -57,6 +57,14 @@ class DnsZoneForm extends React.Component {
             initialSelectedItems={this.state.vpcs}
             vpcList={this.props.vpcList}
             onChange={(event) => this.handleMultiSelect("vpcs", event)}
+            invalid={this.props.invalidNetworksCallback(
+              this.state,
+              this.props
+            )}
+            invalidText={this.props.invalidNetworksTextCallback(
+              this.state,
+              this.props
+            )}
           />
           <IcseTextInput
             id={this.props.data.label + "-dns-zone-label"}
@@ -120,6 +128,8 @@ DnsZoneForm.propTypes = {
   invalidNameTextCallback: PropTypes.func.isRequired,
   invalidDescriptionCallback: PropTypes.func.isRequired,
   invalidDescriptionTextCallback: PropTypes.func.isRequired,
+  invalidNetworksCallback: PropTypes.func.isRequired,
+  invalidNetworksTextCallback: PropTypes.func.isRequired,
   vpcList: PropTypes.array.isRequired,
   isModal: PropTypes.bool,
 };
