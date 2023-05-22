@@ -122,9 +122,10 @@ class DnsCustomResolverForm extends React.Component {
             this.state,
             this.props
           )}
-          invalidText={() =>
-            this.props.invalidDescriptionTextCallback(this.state, this.props)
-          }
+          invalidText={this.props.invalidDescriptionTextCallback(
+            this.state,
+            this.props
+          )}
         />
       </div>
     );
