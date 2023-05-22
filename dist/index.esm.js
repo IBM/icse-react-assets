@@ -10526,4 +10526,136 @@ DnsCustomResolverForm.propTypes = {
   isModal: PropTypes.bool.isRequired
 };
 
-export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, ClusterForm, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, LocationsMultiSelect, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, RoutingTableForm, RoutingTableRouteForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VpnServerForm, VpnServerRouteForm, VsiForm, VsiLoadBalancerForm, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+/**
+ * Context-based restriction rules
+ */
+class DnsForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
+  }
+  handleInputChange(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    if (name === "plan") {
+      this.setState({
+        [name]: value.toLowerCase()
+      });
+    } else {
+      this.setState({
+        [name]: value
+      });
+    }
+  }
+  render() {
+    // set up props for subforms
+    let zoneInnerFormProps = {};
+    transpose({
+      ...this.props.zoneProps,
+      arrayParentName: this.props.data.name
+    }, zoneInnerFormProps);
+    let recordInnerFormProps = {};
+    transpose({
+      ...this.props.recordProps,
+      arrayParentName: this.props.data.name
+    }, recordInnerFormProps);
+    let resolverInnerFormProps = {};
+    transpose({
+      ...this.props.resolverProps,
+      arrayParentName: this.props.data.name
+    }, resolverInnerFormProps);
+    return /*#__PURE__*/React.createElement("div", {
+      id: "dns-form"
+    }, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: this.props.data.name + "-dns",
+      componentName: this.props.data.name + "-dns",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      hideHelperText: true,
+      invalidCallback: () => this.props.invalidNameCallback(this.state, this.props),
+      invalidText: this.props.invalidNameTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      id: this.props.data.name + "-dns-plan",
+      name: "plan",
+      className: "fieldWidthSmaller",
+      value: titleCase$1(this.state.plan),
+      labelText: "Plan",
+      groups: ["Free", "Standard"],
+      formName: "dns-form",
+      handleInputChange: this.handleInputChange
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      name: "resource_group",
+      formName: `${kebabCase$2(this.props.data.name)}-dns-rg-select`,
+      groups: this.props.resourceGroups,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a Resource Group.",
+      labelText: "Resource Group"
+    })), this.props.isModal !== true && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormTemplate, {
+      name: "Zones",
+      subHeading: true,
+      addText: "Create a DNS Zone",
+      arrayData: this.props.data.zones,
+      innerForm: DnsZoneForm,
+      disableSave: this.props.zoneProps.disableSave,
+      onDelete: this.props.zoneProps.onDelete,
+      onSave: this.props.zoneProps.onSave,
+      onSubmit: this.props.zoneProps.onSubmit,
+      propsMatchState: this.props.propsMatchState,
+      innerFormProps: {
+        ...zoneInnerFormProps
+      },
+      hideAbout: true,
+      toggleFormProps: {
+        hideName: true,
+        submissionFieldName: "zones",
+        disableSave: this.props.zoneProps.disableSave,
+        type: "subForm"
+      }
+    }), /*#__PURE__*/React.createElement(IcseFormTemplate, {
+      name: "Custom Resolvers",
+      subHeading: true,
+      addText: "Create a Custom Resolver",
+      arrayData: this.props.data.custom_resolvers,
+      innerForm: DnsCustomResolverForm,
+      disableSave: this.props.resolverProps.disableSave,
+      onDelete: this.props.resolverProps.onDelete,
+      onSave: this.props.resolverProps.onSave,
+      onSubmit: this.props.resolverProps.onSubmit,
+      propsMatchState: this.props.propsMatchState,
+      innerFormProps: {
+        ...resolverInnerFormProps
+      },
+      hideAbout: true,
+      toggleFormProps: {
+        hideName: true,
+        submissionFieldName: "custom_resolvers",
+        disableSave: this.props.resolverProps.disableSave,
+        type: "subForm"
+      }
+    })));
+  }
+}
+DnsForm.defaultProps = {
+  isModal: false,
+  data: {
+    name: "",
+    plan: "free",
+    resource_group: "service-rg",
+    zones: [],
+    records: [],
+    custom_resolvers: []
+  }
+};
+DnsForm.propTypes = {
+  isModal: PropTypes.bool.isRequired
+};
+
+export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, ClusterForm, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsForm, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, LocationsMultiSelect, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, RoutingTableForm, RoutingTableRouteForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VpnServerForm, VpnServerRouteForm, VsiForm, VsiLoadBalancerForm, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
