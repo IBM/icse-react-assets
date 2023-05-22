@@ -341,7 +341,7 @@ const IcseToolTip = props => {
   }, /*#__PURE__*/React.createElement(ToggletipButton, null, /*#__PURE__*/React.createElement(Information, {
     className: "tooltipMarginLeft"
   })), /*#__PURE__*/React.createElement(ToggletipContent, null, /*#__PURE__*/React.createElement("p", null, props.content), props.link && /*#__PURE__*/React.createElement(ToggletipActions, null, /*#__PURE__*/React.createElement(Link, {
-    href: props.link
+    onClick: () => window.open(props.link, "_blank")
   }, "More information")))));
 };
 IcseToolTip.defaultProps = {

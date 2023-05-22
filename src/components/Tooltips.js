@@ -37,7 +37,9 @@ export const IcseToolTip = (props) => {
           <p>{props.content}</p>
           {props.link && (
             <ToggletipActions>
-              <Link href={props.link}>More information</Link>
+              <Link onClick={() => window.open(props.link, "_blank")}>
+                More information
+              </Link>
             </ToggletipActions>
           )}
         </ToggletipContent>
