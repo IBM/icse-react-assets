@@ -11,6 +11,7 @@ import {
 } from "../../component-utils";
 import DnsZoneForm from "./DnsZoneForm";
 import DnsCustomResolverForm from "./DnsCustomResolverForm";
+import DnsRecordForm from "./DnsRecordForm";
 
 /**
  * Context-based restriction rules
@@ -25,6 +26,7 @@ class DnsForm extends Component {
   }
 
   handleInputChange(event) {
+    console.log("change");
     let { name, value } = event.target;
     if (name === "plan") {
       this.setState({ [name]: value.toLowerCase() });
@@ -119,7 +121,7 @@ class DnsForm extends Component {
               }}
             />
             {/* records */}
-            {/* <IcseFormTemplate
+            <IcseFormTemplate
               name="Records"
               subHeading
               addText="Create a DNS Record"
@@ -138,7 +140,7 @@ class DnsForm extends Component {
                 disableSave: this.props.recordProps.disableSave,
                 type: "subForm",
               }}
-            /> */}
+            />
             {/* custom resolvers */}
             <IcseFormTemplate
               name="Custom Resolvers"
@@ -181,52 +183,56 @@ DnsForm.defaultProps = {
 
 DnsForm.propTypes = {
   isModal: PropTypes.bool.isRequired,
-  data: {
+  data: PropTypes.shape({
     name: PropTypes.string.isRequired,
     plan: PropTypes.string.isRequired,
     resource_group: PropTypes.string.isRequired,
-    zones: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      description: PropTypes.string,
-      label: PropTypes.string,
-      vpcs: PropTypes.array,
-    }),
-    records: PropTypes.shape({}),
-    custom_resolvers: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      description: PropTypes.string,
-      enabled: PropTypes.bool,
-      high_availability: PropTypes.bool,
-      vpc: PropTypes.string,
-      subnets: PropTypes.arrayOf(PropTypes.string),
-    }),
-    zoneProps: PropTypes.shape({
-      onSave: PropTypes.func.isRequired,
-      onDelete: PropTypes.func.isRequired,
-      onSubmit: PropTypes.func.isRequired,
-      disableSave: PropTypes.func.isRequired,
-      invalidLabelCallback: PropTypes.func.isRequired,
-      invalidLabelTextCallback: PropTypes.func.isRequired,
-      invalidDescriptionCallback: PropTypes.func.isRequired,
-      invalidDescriptionTextCallback: PropTypes.func.isRequired,
-      invalidNameCallback: PropTypes.func.isRequired,
-      invalidNameTextCallback: PropTypes.func.isRequired,
-    }),
-    resolverProps: PropTypes.shape({
-      onSave: PropTypes.func.isRequired,
-      onDelete: PropTypes.func.isRequired,
-      onSubmit: PropTypes.func.isRequired,
-      disableSave: PropTypes.func.isRequired,
-      subnetList: PropTypes.array.isRequired,
-      vpcList: PropTypes.array.isRequired,
-      invalidCallback: PropTypes.func.isRequired,
-      invalidTextCallback: PropTypes.func.isRequired,
-      invalidDescriptionCallback: PropTypes.func.isRequired,
-      invalidDescriptionTextCallback: PropTypes.func.isRequired,
-      invalidNameCallback: PropTypes.func.isRequired,
-      invalidNameTextCallback: PropTypes.func.isRequired,
-    }),
-  },
+    zones: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        description: PropTypes.string,
+        label: PropTypes.string,
+        vpcs: PropTypes.array,
+      })
+    ),
+    records: PropTypes.arrayOf(PropTypes.shape({})),
+    custom_resolvers: PropTypes.arrayOf(
+      PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        description: PropTypes.string,
+        enabled: PropTypes.bool,
+        high_availability: PropTypes.bool,
+        vpc: PropTypes.string,
+        subnets: PropTypes.arrayOf(PropTypes.string),
+      })
+    ),
+  }),
+  zoneProps: PropTypes.shape({
+    onSave: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    disableSave: PropTypes.func.isRequired,
+    invalidLabelCallback: PropTypes.func.isRequired,
+    invalidLabelTextCallback: PropTypes.func.isRequired,
+    invalidDescriptionCallback: PropTypes.func.isRequired,
+    invalidDescriptionTextCallback: PropTypes.func.isRequired,
+    invalidNameCallback: PropTypes.func.isRequired,
+    invalidNameTextCallback: PropTypes.func.isRequired,
+  }),
+  resolverProps: PropTypes.shape({
+    onSave: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    disableSave: PropTypes.func.isRequired,
+    subnetList: PropTypes.array.isRequired,
+    vpcList: PropTypes.array.isRequired,
+    invalidCallback: PropTypes.func.isRequired,
+    invalidTextCallback: PropTypes.func.isRequired,
+    invalidDescriptionCallback: PropTypes.func.isRequired,
+    invalidDescriptionTextCallback: PropTypes.func.isRequired,
+    invalidNameCallback: PropTypes.func.isRequired,
+    invalidNameTextCallback: PropTypes.func.isRequired,
+  }),
 };
 
 export default DnsForm;

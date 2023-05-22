@@ -10339,7 +10339,7 @@ class DnsRecordForm extends Component {
       value: this.state.rdata,
       id: this.state.name + "-rdata",
       onChange: this.handleInputChange,
-      invalid: this.props.invalidRdata(this.state, this.props),
+      invalidCallback: () => this.props.invalidRdata(this.state, this.props),
       invalidText: this.props.invalidRdataText(this.state, this.props),
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(NumberInput, {
@@ -10734,6 +10734,7 @@ class DnsForm extends Component {
     buildFormFunctions(this);
   }
   handleInputChange(event) {
+    console.log("change");
     let {
       name,
       value
@@ -10814,6 +10815,27 @@ class DnsForm extends Component {
         type: "subForm"
       }
     }), /*#__PURE__*/React.createElement(IcseFormTemplate, {
+      name: "Records",
+      subHeading: true,
+      addText: "Create a DNS Record",
+      arrayData: this.props.data.records,
+      innerForm: DnsRecordForm,
+      disableSave: this.props.recordProps.disableSave,
+      onDelete: this.props.recordProps.onDelete,
+      onSave: this.props.recordProps.onSave,
+      onSubmit: this.props.recordProps.onSubmit,
+      propsMatchState: this.props.propsMatchState,
+      innerFormProps: {
+        ...recordInnerFormProps
+      },
+      hideAbout: true,
+      toggleFormProps: {
+        hideName: true,
+        submissionFieldName: "records",
+        disableSave: this.props.recordProps.disableSave,
+        type: "subForm"
+      }
+    }), /*#__PURE__*/React.createElement(IcseFormTemplate, {
       name: "Custom Resolvers",
       subHeading: true,
       addText: "Create a Custom Resolver",
@@ -10850,52 +10872,52 @@ DnsForm.defaultProps = {
 };
 DnsForm.propTypes = {
   isModal: PropTypes.bool.isRequired,
-  data: {
+  data: PropTypes.shape({
     name: PropTypes.string.isRequired,
     plan: PropTypes.string.isRequired,
     resource_group: PropTypes.string.isRequired,
-    zones: PropTypes.shape({
+    zones: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string.isRequired,
       description: PropTypes.string,
       label: PropTypes.string,
       vpcs: PropTypes.array
-    }),
-    records: PropTypes.shape({}),
-    custom_resolvers: PropTypes.shape({
+    })),
+    records: PropTypes.arrayOf(PropTypes.shape({})),
+    custom_resolvers: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string.isRequired,
       description: PropTypes.string,
       enabled: PropTypes.bool,
       high_availability: PropTypes.bool,
       vpc: PropTypes.string,
       subnets: PropTypes.arrayOf(PropTypes.string)
-    }),
-    zoneProps: PropTypes.shape({
-      onSave: PropTypes.func.isRequired,
-      onDelete: PropTypes.func.isRequired,
-      onSubmit: PropTypes.func.isRequired,
-      disableSave: PropTypes.func.isRequired,
-      invalidLabelCallback: PropTypes.func.isRequired,
-      invalidLabelTextCallback: PropTypes.func.isRequired,
-      invalidDescriptionCallback: PropTypes.func.isRequired,
-      invalidDescriptionTextCallback: PropTypes.func.isRequired,
-      invalidNameCallback: PropTypes.func.isRequired,
-      invalidNameTextCallback: PropTypes.func.isRequired
-    }),
-    resolverProps: PropTypes.shape({
-      onSave: PropTypes.func.isRequired,
-      onDelete: PropTypes.func.isRequired,
-      onSubmit: PropTypes.func.isRequired,
-      disableSave: PropTypes.func.isRequired,
-      subnetList: PropTypes.array.isRequired,
-      vpcList: PropTypes.array.isRequired,
-      invalidCallback: PropTypes.func.isRequired,
-      invalidTextCallback: PropTypes.func.isRequired,
-      invalidDescriptionCallback: PropTypes.func.isRequired,
-      invalidDescriptionTextCallback: PropTypes.func.isRequired,
-      invalidNameCallback: PropTypes.func.isRequired,
-      invalidNameTextCallback: PropTypes.func.isRequired
-    })
-  }
+    }))
+  }),
+  zoneProps: PropTypes.shape({
+    onSave: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    disableSave: PropTypes.func.isRequired,
+    invalidLabelCallback: PropTypes.func.isRequired,
+    invalidLabelTextCallback: PropTypes.func.isRequired,
+    invalidDescriptionCallback: PropTypes.func.isRequired,
+    invalidDescriptionTextCallback: PropTypes.func.isRequired,
+    invalidNameCallback: PropTypes.func.isRequired,
+    invalidNameTextCallback: PropTypes.func.isRequired
+  }),
+  resolverProps: PropTypes.shape({
+    onSave: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    disableSave: PropTypes.func.isRequired,
+    subnetList: PropTypes.array.isRequired,
+    vpcList: PropTypes.array.isRequired,
+    invalidCallback: PropTypes.func.isRequired,
+    invalidTextCallback: PropTypes.func.isRequired,
+    invalidDescriptionCallback: PropTypes.func.isRequired,
+    invalidDescriptionTextCallback: PropTypes.func.isRequired,
+    invalidNameCallback: PropTypes.func.isRequired,
+    invalidNameTextCallback: PropTypes.func.isRequired
+  })
 };
 
 export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, ClusterForm, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsForm, DnsRecordForm, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, LocationsMultiSelect, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, RoutingTableForm, RoutingTableRouteForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VpnServerForm, VpnServerRouteForm, VsiForm, VsiLoadBalancerForm, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };

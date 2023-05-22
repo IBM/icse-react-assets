@@ -10350,7 +10350,7 @@ class DnsRecordForm extends React.Component {
       value: this.state.rdata,
       id: this.state.name + "-rdata",
       onChange: this.handleInputChange,
-      invalid: this.props.invalidRdata(this.state, this.props),
+      invalidCallback: () => this.props.invalidRdata(this.state, this.props),
       invalidText: this.props.invalidRdataText(this.state, this.props),
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
@@ -10745,6 +10745,7 @@ class DnsForm extends React.Component {
     buildFormFunctions(this);
   }
   handleInputChange(event) {
+    console.log("change");
     let {
       name,
       value
@@ -10825,6 +10826,27 @@ class DnsForm extends React.Component {
         type: "subForm"
       }
     }), /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+      name: "Records",
+      subHeading: true,
+      addText: "Create a DNS Record",
+      arrayData: this.props.data.records,
+      innerForm: DnsRecordForm,
+      disableSave: this.props.recordProps.disableSave,
+      onDelete: this.props.recordProps.onDelete,
+      onSave: this.props.recordProps.onSave,
+      onSubmit: this.props.recordProps.onSubmit,
+      propsMatchState: this.props.propsMatchState,
+      innerFormProps: {
+        ...recordInnerFormProps
+      },
+      hideAbout: true,
+      toggleFormProps: {
+        hideName: true,
+        submissionFieldName: "records",
+        disableSave: this.props.recordProps.disableSave,
+        type: "subForm"
+      }
+    }), /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
       name: "Custom Resolvers",
       subHeading: true,
       addText: "Create a Custom Resolver",
@@ -10861,52 +10883,52 @@ DnsForm.defaultProps = {
 };
 DnsForm.propTypes = {
   isModal: PropTypes__default["default"].bool.isRequired,
-  data: {
+  data: PropTypes__default["default"].shape({
     name: PropTypes__default["default"].string.isRequired,
     plan: PropTypes__default["default"].string.isRequired,
     resource_group: PropTypes__default["default"].string.isRequired,
-    zones: PropTypes__default["default"].shape({
+    zones: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({
       name: PropTypes__default["default"].string.isRequired,
       description: PropTypes__default["default"].string,
       label: PropTypes__default["default"].string,
       vpcs: PropTypes__default["default"].array
-    }),
-    records: PropTypes__default["default"].shape({}),
-    custom_resolvers: PropTypes__default["default"].shape({
+    })),
+    records: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})),
+    custom_resolvers: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({
       name: PropTypes__default["default"].string.isRequired,
       description: PropTypes__default["default"].string,
       enabled: PropTypes__default["default"].bool,
       high_availability: PropTypes__default["default"].bool,
       vpc: PropTypes__default["default"].string,
       subnets: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string)
-    }),
-    zoneProps: PropTypes__default["default"].shape({
-      onSave: PropTypes__default["default"].func.isRequired,
-      onDelete: PropTypes__default["default"].func.isRequired,
-      onSubmit: PropTypes__default["default"].func.isRequired,
-      disableSave: PropTypes__default["default"].func.isRequired,
-      invalidLabelCallback: PropTypes__default["default"].func.isRequired,
-      invalidLabelTextCallback: PropTypes__default["default"].func.isRequired,
-      invalidDescriptionCallback: PropTypes__default["default"].func.isRequired,
-      invalidDescriptionTextCallback: PropTypes__default["default"].func.isRequired,
-      invalidNameCallback: PropTypes__default["default"].func.isRequired,
-      invalidNameTextCallback: PropTypes__default["default"].func.isRequired
-    }),
-    resolverProps: PropTypes__default["default"].shape({
-      onSave: PropTypes__default["default"].func.isRequired,
-      onDelete: PropTypes__default["default"].func.isRequired,
-      onSubmit: PropTypes__default["default"].func.isRequired,
-      disableSave: PropTypes__default["default"].func.isRequired,
-      subnetList: PropTypes__default["default"].array.isRequired,
-      vpcList: PropTypes__default["default"].array.isRequired,
-      invalidCallback: PropTypes__default["default"].func.isRequired,
-      invalidTextCallback: PropTypes__default["default"].func.isRequired,
-      invalidDescriptionCallback: PropTypes__default["default"].func.isRequired,
-      invalidDescriptionTextCallback: PropTypes__default["default"].func.isRequired,
-      invalidNameCallback: PropTypes__default["default"].func.isRequired,
-      invalidNameTextCallback: PropTypes__default["default"].func.isRequired
-    })
-  }
+    }))
+  }),
+  zoneProps: PropTypes__default["default"].shape({
+    onSave: PropTypes__default["default"].func.isRequired,
+    onDelete: PropTypes__default["default"].func.isRequired,
+    onSubmit: PropTypes__default["default"].func.isRequired,
+    disableSave: PropTypes__default["default"].func.isRequired,
+    invalidLabelCallback: PropTypes__default["default"].func.isRequired,
+    invalidLabelTextCallback: PropTypes__default["default"].func.isRequired,
+    invalidDescriptionCallback: PropTypes__default["default"].func.isRequired,
+    invalidDescriptionTextCallback: PropTypes__default["default"].func.isRequired,
+    invalidNameCallback: PropTypes__default["default"].func.isRequired,
+    invalidNameTextCallback: PropTypes__default["default"].func.isRequired
+  }),
+  resolverProps: PropTypes__default["default"].shape({
+    onSave: PropTypes__default["default"].func.isRequired,
+    onDelete: PropTypes__default["default"].func.isRequired,
+    onSubmit: PropTypes__default["default"].func.isRequired,
+    disableSave: PropTypes__default["default"].func.isRequired,
+    subnetList: PropTypes__default["default"].array.isRequired,
+    vpcList: PropTypes__default["default"].array.isRequired,
+    invalidCallback: PropTypes__default["default"].func.isRequired,
+    invalidTextCallback: PropTypes__default["default"].func.isRequired,
+    invalidDescriptionCallback: PropTypes__default["default"].func.isRequired,
+    invalidDescriptionTextCallback: PropTypes__default["default"].func.isRequired,
+    invalidNameCallback: PropTypes__default["default"].func.isRequired,
+    invalidNameTextCallback: PropTypes__default["default"].func.isRequired
+  })
 };
 
 exports.AccessGroupDynamicPolicyForm = AccessGroupDynamicPolicyForm;

@@ -133,6 +133,11 @@ export default {
       type: { required: true }, // required prop or not
       control: "none",
     },
+    "resolverProps.vpcList": {
+      description: "An array (string) of all vpcs",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
     "resolverProps.invalidCallback": {
       description:
         "A function to determine if the value supplied is invalid and returns a single boolean",
@@ -244,9 +249,24 @@ const DnsStory = () => {
         plan: "free",
         resource_group: "service-rg",
         zones: [],
-        records: [],
+        records: [
+          {
+            name: "foo-dns-name",
+            dns_zone: "zone1",
+            type: "A",
+            rdata: "fake resource data",
+            ttl: 300,
+            port: 8080,
+            protocol: "TCP",
+            priority: 10,
+            service: "_fake-service",
+            weight: 10,
+            preference: 15,
+          },
+        ],
         custom_resolvers: [],
       }}
+      propsMatchState={() => {}}
       zoneProps={{
         onSave: () => {},
         onDelete: () => {},
@@ -265,10 +285,11 @@ const DnsStory = () => {
         onDelete: () => {},
         onSubmit: () => {},
         disableSave: () => {},
-        invalidNameCallback: invalidNameCallback,
-        invalidNameTextCallback: invalidNameTextCallback,
         invalidCallback: invalidCallback,
         invalidTextCallback: invalidTextCallback,
+        invalidRdata: () => {},
+        invalidRdataText: () => {},
+        dnsZones: ["zone1", "zone2", "zone3"],
       }}
       resolverProps={{
         onSave: () => {},
