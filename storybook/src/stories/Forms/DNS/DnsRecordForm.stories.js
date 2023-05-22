@@ -14,27 +14,27 @@ export default {
     "data.name": {
       description: "A string value for the name of the DNS Record",
       control: "none",
-      type: { required: false }, // required prop or not
+      type: { required: true }, // required prop or not
     },
     "data.dns_zone": {
       description: "A string value for the DNS zone",
       control: "none",
-      type: { required: false },
+      type: { required: true },
     },
     "data.type": {
       description: "A string value for DNS record type",
       control: "none",
-      type: { required: false },
+      type: { required: true },
     },
     "data.rdata": {
       description: "A string value for DNS record resource data",
       control: "none",
-      type: { required: false },
+      type: { required: true },
     },
     "data.ttl": {
       description: "A number value for DNS record time to live (ttl)",
       control: "none",
-      type: { required: false },
+      type: { required: true },
     },
     "data.protocol": {
       description: "A string value for DNS record protocol",

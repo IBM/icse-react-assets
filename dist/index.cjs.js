@@ -10354,7 +10354,7 @@ class DnsRecordForm extends React.Component {
       invalidText: this.props.invalidRdataText(this.state, this.props),
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
-      label: "Time To Live",
+      label: "Time To Live (s)",
       id: dnsComponent + "-ttl",
       allowEmpty: true,
       value: this.state.ttl,
@@ -10465,11 +10465,11 @@ DnsRecordForm.defaultProps = {
 };
 DnsRecordForm.propTypes = {
   data: PropTypes__default["default"].shape({
-    name: PropTypes__default["default"].string,
-    dns_zone: PropTypes__default["default"].string,
-    type: PropTypes__default["default"].string,
-    rdata: PropTypes__default["default"].string,
-    ttl: PropTypes__default["default"].number,
+    name: PropTypes__default["default"].string.isRequired,
+    dns_zone: PropTypes__default["default"].string.isRequired,
+    type: PropTypes__default["default"].string.isRequired,
+    rdata: PropTypes__default["default"].string.isRequired,
+    ttl: PropTypes__default["default"].number.isRequired,
     port: PropTypes__default["default"].number,
     protocol: PropTypes__default["default"].string,
     priority: PropTypes__default["default"].number,

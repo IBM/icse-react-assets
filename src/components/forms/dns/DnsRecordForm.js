@@ -89,7 +89,7 @@ class DnsRecordForm extends Component {
             className="fieldWidthSmaller"
           />
           <NumberInput
-            label="Time To Live"
+            label="Time To Live (s)"
             id={dnsComponent + "-ttl"}
             allowEmpty={true}
             value={this.state.ttl}
@@ -228,11 +228,11 @@ DnsRecordForm.defaultProps = {
 
 DnsRecordForm.propTypes = {
   data: PropTypes.shape({
-    name: PropTypes.string,
-    dns_zone: PropTypes.string,
-    type: PropTypes.string,
-    rdata: PropTypes.string,
-    ttl: PropTypes.number,
+    name: PropTypes.string.isRequired,
+    dns_zone: PropTypes.string.isRequired,
+    type: PropTypes.string.isRequired,
+    rdata: PropTypes.string.isRequired,
+    ttl: PropTypes.number.isRequired,
     port: PropTypes.number,
     protocol: PropTypes.string,
     priority: PropTypes.number,
