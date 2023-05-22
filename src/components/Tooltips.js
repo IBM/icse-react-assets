@@ -5,7 +5,6 @@ import {
   ToggletipActions,
   ToggletipButton,
   ToggletipContent,
-  Link,
 } from "@carbon/react";
 import { Information } from "@carbon/icons-react";
 import PropTypes from "prop-types";
@@ -37,9 +36,9 @@ export const IcseToolTip = (props) => {
           <p>{props.content}</p>
           {props.link && (
             <ToggletipActions>
-              <Link onClick={() => window.open(props.link, "_blank")}>
+              <a href={props.link} target="_blank" rel="noopener noreferrer">
                 More information
-              </Link>
+              </a>
             </ToggletipActions>
           )}
         </ToggletipContent>
