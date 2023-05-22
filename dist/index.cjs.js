@@ -347,14 +347,13 @@ function RenderForm$1(form, formProps) {
  * @returns slz tooltip component
  */
 const IcseToolTip = props => {
-  let link = /*#__PURE__*/React__default["default"].createElement(react.Link, {
-    onClick: () => window.open(props.link, "_blank")
-  }, "this link");
   return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(react.Toggletip, {
     align: props.align
   }, /*#__PURE__*/React__default["default"].createElement(react.ToggletipButton, null, /*#__PURE__*/React__default["default"].createElement(iconsReact.Information, {
     className: "tooltipMarginLeft"
-  })), /*#__PURE__*/React__default["default"].createElement(react.ToggletipContent, null, /*#__PURE__*/React__default["default"].createElement("p", null, props.content, props.link && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, " Visit ", link, " for more information. ")))));
+  })), /*#__PURE__*/React__default["default"].createElement(react.ToggletipContent, null, /*#__PURE__*/React__default["default"].createElement("p", null, props.content), props.link && /*#__PURE__*/React__default["default"].createElement(react.ToggletipActions, null, /*#__PURE__*/React__default["default"].createElement(react.Link, {
+    href: props.link
+  }, "More information")))));
 };
 IcseToolTip.defaultProps = {
   content: "",
