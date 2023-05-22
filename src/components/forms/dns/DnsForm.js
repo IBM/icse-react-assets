@@ -181,6 +181,52 @@ DnsForm.defaultProps = {
 
 DnsForm.propTypes = {
   isModal: PropTypes.bool.isRequired,
+  data: {
+    name: PropTypes.string.isRequired,
+    plan: PropTypes.string.isRequired,
+    resource_group: PropTypes.string.isRequired,
+    zones: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      description: PropTypes.string,
+      label: PropTypes.string,
+      vpcs: PropTypes.array,
+    }),
+    records: PropTypes.shape({}),
+    custom_resolvers: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      description: PropTypes.string,
+      enabled: PropTypes.bool,
+      high_availability: PropTypes.bool,
+      vpc: PropTypes.string,
+      subnets: PropTypes.arrayOf(PropTypes.string),
+    }),
+    zoneProps: PropTypes.shape({
+      onSave: PropTypes.func.isRequired,
+      onDelete: PropTypes.func.isRequired,
+      onSubmit: PropTypes.func.isRequired,
+      disableSave: PropTypes.func.isRequired,
+      invalidLabelCallback: PropTypes.func.isRequired,
+      invalidLabelTextCallback: PropTypes.func.isRequired,
+      invalidDescriptionCallback: PropTypes.func.isRequired,
+      invalidDescriptionTextCallback: PropTypes.func.isRequired,
+      invalidNameCallback: PropTypes.func.isRequired,
+      invalidNameTextCallback: PropTypes.func.isRequired,
+    }),
+    resolverProps: PropTypes.shape({
+      onSave: PropTypes.func.isRequired,
+      onDelete: PropTypes.func.isRequired,
+      onSubmit: PropTypes.func.isRequired,
+      disableSave: PropTypes.func.isRequired,
+      subnetList: PropTypes.array.isRequired,
+      vpcList: PropTypes.array.isRequired,
+      invalidCallback: PropTypes.func.isRequired,
+      invalidTextCallback: PropTypes.func.isRequired,
+      invalidDescriptionCallback: PropTypes.func.isRequired,
+      invalidDescriptionTextCallback: PropTypes.func.isRequired,
+      invalidNameCallback: PropTypes.func.isRequired,
+      invalidNameTextCallback: PropTypes.func.isRequired,
+    }),
+  },
 };
 
 export default DnsForm;

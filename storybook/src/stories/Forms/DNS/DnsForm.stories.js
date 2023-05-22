@@ -11,24 +11,168 @@ export default {
       control: "none",
     },
     "data.name": {
-      description: "A string value for the name of zone",
+      description: "A string value for the name",
       control: "none",
       type: { required: true }, // required prop or not
     },
-    "data.description": {
-      description: "A string description for the zone",
+    "data.plan": {
+      description: "A string of the plan, options are free and standard",
       control: "none",
       type: { required: false }, // required prop or not
     },
-    "data.label": {
-      description: "A string label for the zone",
+    "data.resource_group": {
+      description: "A string of the resource group",
       control: "none",
       type: { required: false }, // required prop or not
     },
-    "data.vpcs": {
+    "data.zones": {
       description: "The permitted networks for the zone",
       control: "none",
       type: { required: false }, // required prop or not
+    },
+    "data.records": {
+      description: "The permitted networks for the zone",
+      control: "none",
+      type: { required: false }, // required prop or not
+    },
+    "data.custom_resolvers": {
+      description: "The permitted networks for the zone",
+      control: "none",
+      type: { required: false }, // required prop or not
+    },
+    zoneProps: {
+      summary: "An object for props for the zone form",
+      control: "none",
+      type: { required: true },
+    },
+    "zoneProps.onSave": {
+      description: "Callback function for when a zone is saved",
+      type: { required: true },
+      control: "none",
+    },
+    "zoneProps.onDelete": {
+      description: "Callback function for when a zone is deleted",
+      type: { required: true },
+      control: "none",
+    },
+    "zoneProps.onSubmit": {
+      description: "Callback function for when a zone is created",
+      type: { required: true },
+      control: "none",
+    },
+    "zoneProps.disableSave": {
+      description:
+        "Callback function that determines if the form can be saved, returns a boolean",
+      type: { required: true },
+      control: "none",
+    },
+    "zoneProps.invalidLabelCallback": {
+      description:
+        "Callback function that determines invalid state for the label field, returns a boolean",
+      type: { required: true },
+      control: "none",
+    },
+    "zoneProps.invalidLabelTextCallback": {
+      description:
+        "Callback function that determines invalid text for the label field, returns a boolean",
+      type: { required: true },
+      control: "none",
+    },
+    "zoneProps.invalidDescriptionCallback": {
+      description:
+        "Callback function that determines invalid state for the description field, returns a boolean",
+      type: { required: true },
+      control: "none",
+    },
+    "zoneProps.invalidDescriptionTextCallback": {
+      description:
+        "Callback function that determines invalid text for the description field, returns a boolean",
+      type: { required: true },
+      control: "none",
+    },
+    "zoneProps.invalidNameCallback": {
+      description:
+        "Callback function that determines invalid state for the zone's name field, returns a boolean",
+      type: { required: true },
+      control: "none",
+    },
+    "zoneProps.invalidNameTextCallback": {
+      description:
+        "Callback function that returns invalid text string for the zone's name field",
+      type: { required: true },
+      control: "none",
+    },
+    resolverProps: {
+      summary: "An object for props to be passed to the resolver form",
+      type: { required: true },
+      control: "none",
+    },
+    "resolverProps.onSave": {
+      description: "Callback function for when a resolver is saved",
+      type: { required: true },
+      control: "none",
+    },
+    "resolverProps.onDelete": {
+      description: "Callback function for when a resolver is deleted",
+      type: { required: true },
+      control: "none",
+    },
+    "resolverProps.onSubmit": {
+      description: "Callback function for when a resolver is created",
+      type: { required: true },
+      control: "none",
+    },
+    "resolverProps.disableSave": {
+      description:
+        "Callback function that determines if the form can be saved, returns a boolean",
+      type: { required: true },
+      control: "none",
+    },
+    "resolverProps.subnetList": {
+      description: "An array (string) of all subnets",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
+    "resolverProps.invalidCallback": {
+      description:
+        "A function to determine if the value supplied is invalid and returns a single boolean",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
+    "resolverProps.invalidTextCallback": {
+      description:
+        "A function to determine the invalid text displayed to the user and returns the string to display",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
+    "resolverProps.invalidNameCallback": {
+      description:
+        "A function to determine if the name field is invalid and returns a single boolean",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
+    "resolverProps.invalidNameTextCallback": {
+      description:
+        "A function to determine the invalid text displayed to the user when name is invalid",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
+    "resolverProps.invalidDescriptionCallback": {
+      description:
+        "A function to determine if the description field is invalid and returns a single boolean",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
+    "resolverProps.invalidDescriptionTextCallback": {
+      description:
+        "A function to determine the invalid text displayed to the user when description is invalid",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
+    recordProps: {
+      summary: "An object for props for the record form",
+      control: "none",
+      type: { required: true },
     },
     isModal: {
       description:
@@ -37,20 +181,8 @@ export default {
       control: "none",
       table: { defaultValue: { summary: "false" } },
     },
-    vpcList: {
-      description: "An array (string) of all VPCs",
-      type: { required: true }, // required prop or not
-      control: "none",
-    },
-    invalidLabelCallback: {
-      description:
-        "A function to determine if the label field is invalid and returns a single boolean",
-      type: { required: true }, // required prop or not
-      control: "none",
-    },
-    invalidLabelTextCallback: {
-      description:
-        "A function to determine the invalid text displayed to the user when label is invalid",
+    resourceGroups: {
+      description: "An array (string) of all resource groups",
       type: { required: true }, // required prop or not
       control: "none",
     },
@@ -60,21 +192,9 @@ export default {
       type: { required: true }, // required prop or not
       control: "none",
     },
-    invalidNameTextCallabck: {
+    invalidNameTextCallback: {
       description:
         "A function to determine the invalid text displayed to the user when name is invalid",
-      type: { required: true }, // required prop or not
-      control: "none",
-    },
-    invalidDescriptionCallback: {
-      description:
-        "A function to determine if the description field is invalid and returns a single boolean",
-      type: { required: true }, // required prop or not
-      control: "none",
-    },
-    invalidDescriptionTextCallback: {
-      description:
-        "A function to determine the invalid text displayed to the user when description is invalid",
       type: { required: true }, // required prop or not
       control: "none",
     },
