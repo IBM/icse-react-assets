@@ -10290,6 +10290,200 @@ CbrZoneForm.propTypes = {
   propsMatchState: PropTypes__default["default"].func.isRequired
 };
 
+/**
+ * DnsRecordForm
+ * @param {Object} props
+ */
+class DnsRecordForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  render() {
+    let dnsComponent = this.props.isModal ? "new-dns-record" : this.props.data.name;
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: this.state.name + "-name",
+      labelText: "DNS Record Name",
+      componentName: dnsComponent,
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props),
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      name: "dns_zone",
+      formName: dnsComponent + "-dns-zone",
+      labelText: "DNS Zone",
+      groups: this.props.dnsZones,
+      value: this.state.dns_zone,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a DNS Zone.",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      name: "type",
+      formName: dnsComponent + "-type",
+      labelText: "DNS Record Type",
+      groups: ["A", "AAA", "CNAME", "PTR", "TXT", "MX", "SRV"],
+      value: this.state.type,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a DNS Record Type.",
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      componentName: "DNS Record",
+      field: "rdata",
+      labelText: "Resource Data",
+      value: this.state.rdata,
+      id: this.state.name + "-rdata",
+      onChange: this.handleInputChange,
+      invalid: this.props.invalidRdata(this.state, this.props),
+      invalidText: this.props.invalidRdataText(this.state, this.props),
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      label: "Time To Live (s)",
+      id: dnsComponent + "-ttl",
+      allowEmpty: true,
+      value: this.state.ttl,
+      onChange: this.handleInputChange,
+      name: "ttl",
+      hideSteppers: true,
+      min: 300,
+      max: 2147483647,
+      invalid: iamUtils_3(this.state.ttl, 300, 2147483647),
+      invalidText: "Must be a whole number (representing seconds) within range 300 to 2147483647",
+      className: "fieldWidthSmaller"
+    }), this.state.type === "MX" && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      label: "Preference",
+      id: dnsComponent + "-preference",
+      allowEmpty: false,
+      value: this.state.preference,
+      onChange: this.handleInputChange,
+      name: "preference",
+      hideSteppers: true,
+      min: 0,
+      max: 65535,
+      step: 1,
+      invalid: iamUtils_3(this.state.preference, 0, 65535),
+      invalidText: "Must be a whole number within range 0 and 65535.",
+      className: "fieldWidthSmaller"
+    }))), this.state.type === "SRV" && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      label: "DNS Record Port",
+      id: dnsComponent + "-port",
+      allowEmpty: false,
+      value: this.state.port,
+      onChange: this.handleInputChange,
+      name: "port",
+      hideSteppers: true,
+      min: 1,
+      max: 65535,
+      step: 1,
+      invalid: iamUtils_3(this.state.port, 1, 65535),
+      invalidText: "Must be a whole number between 1 and 65535",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: dnsComponent + "-protocol",
+      name: "protocol",
+      groups: ["TCP", "UDP"],
+      value: this.state.protocol,
+      labelText: "DNS Record Protocol",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      label: "DNS Record Priority",
+      id: dnsComponent + "-priority",
+      allowEmpty: false,
+      value: this.state.priority,
+      onChange: this.handleInputChange,
+      name: "priority",
+      hideSteppers: true,
+      min: 0,
+      max: 65535,
+      step: 1,
+      invalid: iamUtils_3(this.state.priority, 0, 65535),
+      invalidText: "Must be a whole number between 0 and 65535",
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: dnsComponent + "-service",
+      componentName: "DNS Record",
+      field: "service",
+      value: this.state.service,
+      onChange: this.handleInputChange,
+      labelText: "DNS Record Service",
+      invalid: lib_4(this.state.service) || this.state.service === undefined ? true : this.state.service.charAt(0) !== "_",
+      invalidText: "Service must start with a '_'.",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      label: "DNS Record Weight",
+      id: dnsComponent + "-weight",
+      allowEmpty: false,
+      value: this.state.weight,
+      onChange: this.handleInputChange,
+      name: "weight",
+      hideSteppers: true,
+      min: 0,
+      max: 65535,
+      step: 1,
+      invalid: iamUtils_3(this.state.weight, 0, 65535),
+      invalidText: "Must be a whole number between 0 and 65535",
+      className: "fieldWidthSmaller"
+    }))));
+  }
+}
+DnsRecordForm.defaultProps = {
+  isModal: false,
+  data: {
+    name: "",
+    dns_zone: "",
+    type: "",
+    rdata: "",
+    ttl: 300
+  },
+  invalidCallback: () => {
+    return false;
+  },
+  invalidTextCallback: () => {
+    return "Invalid";
+  },
+  helperTextCallback: () => {
+    return "";
+  },
+  dnsZones: []
+};
+DnsRecordForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    dns_zone: PropTypes__default["default"].string.isRequired,
+    type: PropTypes__default["default"].string.isRequired,
+    rdata: PropTypes__default["default"].string.isRequired,
+    ttl: PropTypes__default["default"].number.isRequired,
+    port: PropTypes__default["default"].number,
+    protocol: PropTypes__default["default"].string,
+    priority: PropTypes__default["default"].number,
+    service: PropTypes__default["default"].string,
+    weight: PropTypes__default["default"].number,
+    preference: PropTypes__default["default"].number
+  }).isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  helperTextCallback: PropTypes__default["default"].func.isRequired,
+  dnsZones: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired
+};
+
 class DnsZoneForm extends React__default["default"].Component {
   constructor(props) {
     super(props);
@@ -10553,6 +10747,7 @@ exports.ClusterForm = ClusterForm;
 exports.DeleteButton = DeleteButton;
 exports.DeleteModal = DeleteModal;
 exports.DnsCustomResolverForm = DnsCustomResolverForm;
+exports.DnsRecordForm = DnsRecordForm;
 exports.DnsZoneForm = DnsZoneForm;
 exports.Docs = Docs;
 exports.DynamicRender = DynamicRender;
