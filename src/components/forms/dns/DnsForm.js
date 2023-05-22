@@ -26,7 +26,6 @@ class DnsForm extends Component {
   }
 
   handleInputChange(event) {
-    console.log("change");
     let { name, value } = event.target;
     if (name === "plan") {
       this.setState({ [name]: value.toLowerCase() });
@@ -186,7 +185,7 @@ DnsForm.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
     plan: PropTypes.string.isRequired,
-    resource_group: PropTypes.string.isRequired,
+    resource_group: PropTypes.string,
     zones: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,

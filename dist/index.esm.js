@@ -10734,7 +10734,6 @@ class DnsForm extends Component {
     buildFormFunctions(this);
   }
   handleInputChange(event) {
-    console.log("change");
     let {
       name,
       value
@@ -10875,7 +10874,7 @@ DnsForm.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
     plan: PropTypes.string.isRequired,
-    resource_group: PropTypes.string.isRequired,
+    resource_group: PropTypes.string,
     zones: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string.isRequired,
       description: PropTypes.string,

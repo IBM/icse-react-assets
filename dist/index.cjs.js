@@ -10745,7 +10745,6 @@ class DnsForm extends React.Component {
     buildFormFunctions(this);
   }
   handleInputChange(event) {
-    console.log("change");
     let {
       name,
       value
@@ -10886,7 +10885,7 @@ DnsForm.propTypes = {
   data: PropTypes__default["default"].shape({
     name: PropTypes__default["default"].string.isRequired,
     plan: PropTypes__default["default"].string.isRequired,
-    resource_group: PropTypes__default["default"].string.isRequired,
+    resource_group: PropTypes__default["default"].string,
     zones: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({
       name: PropTypes__default["default"].string.isRequired,
       description: PropTypes__default["default"].string,
