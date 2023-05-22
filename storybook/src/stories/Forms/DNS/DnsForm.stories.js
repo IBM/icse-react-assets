@@ -325,9 +325,9 @@ const DnsStory = () => {
         invalidNameCallback: invalidNameCallback,
         invalidNameTextCallback: invalidNameTextCallback,
         invalidLabelCallback: invalidCallback,
-        invalidLabelTextCallback: invalidCallback,
+        invalidLabelTextCallback: invalidTextCallback,
         invalidDescriptionCallback: invalidCallback,
-        invalidDescriptionTextCallback: invalidCallback,
+        invalidDescriptionTextCallback: invalidTextCallback,
         vpcList: ["management", "workload"],
       }}
       recordProps={{
@@ -351,7 +351,7 @@ const DnsStory = () => {
         invalidCallback: invalidCallback,
         invalidTextCallback: invalidTextCallback,
         invalidDescriptionCallback: invalidCallback,
-        invalidDescriptionTextCallback: invalidCallback,
+        invalidDescriptionTextCallback: invalidTextCallback,
         subnetList: [
           {
             vpc: "management",
