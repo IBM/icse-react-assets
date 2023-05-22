@@ -10893,7 +10893,13 @@ DnsForm.propTypes = {
       label: PropTypes__default["default"].string,
       vpcs: PropTypes__default["default"].array
     })),
-    records: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})),
+    records: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({
+      name: "",
+      dns_zone: "",
+      type: "",
+      rdata: "",
+      ttl: 300
+    })),
     custom_resolvers: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({
       name: PropTypes__default["default"].string.isRequired,
       description: PropTypes__default["default"].string,
@@ -10928,6 +10934,18 @@ DnsForm.propTypes = {
     invalidDescriptionTextCallback: PropTypes__default["default"].func.isRequired,
     invalidNameCallback: PropTypes__default["default"].func.isRequired,
     invalidNameTextCallback: PropTypes__default["default"].func.isRequired
+  }),
+  recordProps: PropTypes__default["default"].shape({
+    onSave: PropTypes__default["default"].func.isRequired,
+    onDelete: PropTypes__default["default"].func.isRequired,
+    onSubmit: PropTypes__default["default"].func.isRequired,
+    disableSave: PropTypes__default["default"].func.isRequired,
+    invalidCallback: PropTypes__default["default"].func.isRequired,
+    invalidTextCallback: PropTypes__default["default"].func.isRequired,
+    invalidRdata: PropTypes__default["default"].func.isRequired,
+    invalidRdataText: PropTypes__default["default"].func.isRequired,
+    dnsZones: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+    isModal: PropTypes__default["default"].bool.isRequired
   })
 };
 

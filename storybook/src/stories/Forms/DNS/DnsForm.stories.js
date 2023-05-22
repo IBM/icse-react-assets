@@ -179,6 +179,56 @@ export default {
       control: "none",
       type: { required: true },
     },
+    "recordProps.onSave": {
+      description: "Callback function for when a resolver is saved",
+      type: { required: true },
+      control: "none",
+    },
+    "recordProps.onDelete": {
+      description: "Callback function for when a resolver is deleted",
+      type: { required: true },
+      control: "none",
+    },
+    "recordProps.onSubmit": {
+      description: "Callback function for when a resolver is created",
+      type: { required: true },
+      control: "none",
+    },
+    "recordProps.disableSave": {
+      description:
+        "Callback function that determines if the form can be saved, returns a boolean",
+      type: { required: true },
+      control: "none",
+    },
+    "recordProps.invalidCallback": {
+      description:
+        "A function to determine if the value supplied is invalid and returns a single boolean",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
+    "recordProps.invalidTextCallback": {
+      description:
+        "A function to determine the invalid text displayed to the user and returns the string to display",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
+    "recordProps.invalidRdata": {
+      description:
+        "A function to determine if the value supplied for record data is invalid and returns a single boolean",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
+    "recordProps.invalidRdataText": {
+      description:
+        "A function to determine the invalid text displayed to the user and returns the string to display",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
+    "recordProps.dnsZones": {
+      description: "An array of dns zones to choose from",
+      type: { required: true },
+      control: "none",
+    },
     isModal: {
       description:
         "A boolean value that specifies if the form is within a modal",
@@ -287,8 +337,8 @@ const DnsStory = () => {
         disableSave: () => {},
         invalidCallback: invalidCallback,
         invalidTextCallback: invalidTextCallback,
-        invalidRdata: () => {},
-        invalidRdataText: () => {},
+        invalidRdata: invalidCallback,
+        invalidRdataText: invalidTextCallback,
         dnsZones: ["zone1", "zone2", "zone3"],
       }}
       resolverProps={{

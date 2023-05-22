@@ -195,7 +195,9 @@ DnsForm.propTypes = {
         vpcs: PropTypes.array,
       })
     ),
-    records: PropTypes.arrayOf(PropTypes.shape({})),
+    records: PropTypes.arrayOf(
+      PropTypes.shape({ name: "", dns_zone: "", type: "", rdata: "", ttl: 300 })
+    ),
     custom_resolvers: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
@@ -232,6 +234,18 @@ DnsForm.propTypes = {
     invalidDescriptionTextCallback: PropTypes.func.isRequired,
     invalidNameCallback: PropTypes.func.isRequired,
     invalidNameTextCallback: PropTypes.func.isRequired,
+  }),
+  recordProps: PropTypes.shape({
+    onSave: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    disableSave: PropTypes.func.isRequired,
+    invalidCallback: PropTypes.func.isRequired,
+    invalidTextCallback: PropTypes.func.isRequired,
+    invalidRdata: PropTypes.func.isRequired,
+    invalidRdataText: PropTypes.func.isRequired,
+    dnsZones: PropTypes.arrayOf(PropTypes.string).isRequired,
+    isModal: PropTypes.bool.isRequired,
   }),
 };
 
