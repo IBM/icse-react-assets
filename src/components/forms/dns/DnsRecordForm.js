@@ -237,7 +237,7 @@ DnsRecordForm.propTypes = {
     ttl: PropTypes.number.isRequired,
     port: PropTypes.number,
     protocol: PropTypes.string,
-    priority: PropTypes.number,
+    priority: PropTypes.string,
     service: PropTypes.string,
     weight: PropTypes.number,
     preference: PropTypes.number,

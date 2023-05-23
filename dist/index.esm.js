@@ -10460,7 +10460,7 @@ DnsRecordForm.propTypes = {
     ttl: PropTypes.number.isRequired,
     port: PropTypes.number,
     protocol: PropTypes.string,
-    priority: PropTypes.number,
+    priority: PropTypes.string,
     service: PropTypes.string,
     weight: PropTypes.number,
     preference: PropTypes.number
@@ -10810,7 +10810,7 @@ class DnsForm extends Component {
         hideName: true,
         submissionFieldName: "zones",
         disableSave: this.props.zoneProps.disableSave,
-        type: "subForm"
+        type: "formInSubForm"
       }
     }), /*#__PURE__*/React.createElement(IcseFormTemplate, {
       name: "Records",
@@ -10831,7 +10831,7 @@ class DnsForm extends Component {
         hideName: true,
         submissionFieldName: "records",
         disableSave: this.props.recordProps.disableSave,
-        type: "subForm"
+        type: "formInSubForm"
       }
     }), /*#__PURE__*/React.createElement(IcseFormTemplate, {
       name: "Custom Resolvers",
@@ -10852,7 +10852,7 @@ class DnsForm extends Component {
         hideName: true,
         submissionFieldName: "custom_resolvers",
         disableSave: this.props.resolverProps.disableSave,
-        type: "subForm"
+        type: "formInSubForm"
       }
     })));
   }
