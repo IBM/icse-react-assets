@@ -2,9 +2,9 @@ import { addClassName } from "../lib";
 import React from "react";
 import {
   Toggletip,
+  ToggletipActions,
   ToggletipButton,
   ToggletipContent,
-  Link,
 } from "@carbon/react";
 import { Information } from "@carbon/icons-react";
 import PropTypes from "prop-types";
@@ -26,9 +26,6 @@ function RenderForm(form, formProps) {
  * @returns slz tooltip component
  */
 export const IcseToolTip = (props) => {
-  let link = (
-    <Link onClick={() => window.open(props.link, "_blank")}>this link</Link>
-  );
   return (
     <>
       <Toggletip align={props.align}>
@@ -36,10 +33,14 @@ export const IcseToolTip = (props) => {
           <Information className="tooltipMarginLeft" />
         </ToggletipButton>
         <ToggletipContent>
-          <p>
-            {props.content}
-            {props.link && <> Visit {link} for more information. </>}
-          </p>
+          <p>{props.content}</p>
+          {props.link && (
+            <ToggletipActions>
+              <a href={props.link} target="_blank" rel="noopener noreferrer">
+                More information
+              </a>
+            </ToggletipActions>
+          )}
         </ToggletipContent>
       </Toggletip>
     </>

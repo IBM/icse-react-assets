@@ -167,6 +167,12 @@ export default {
       control: "none",
       table: { defaultValue: { summary: "() => { return false; }" } },
     },
+    overrideTile: {
+      description:
+        "An optional prop that overrides the empty resource tile to replace with a tile that is supplied to this prop",
+      type: { required: false },
+      control: "none",
+    },
   },
   parameters: {
     docs: {
@@ -234,5 +240,57 @@ const IcseFormTemplateStory = () => {
     />
   );
 };
+const IcseFormTemplateTileStory = () => {
+  return (
+    <IcseFormTemplate
+      name="SSH Keys"
+      hideName={true}
+      addText="Create an SSH Key"
+      subHeading={false}
+      hideFormTitleButton={false}
+      hideAbout={false}
+      arrayData={[]}
+      innerForm={SshKeyForm}
+      innerFormProps={{
+        resourceGroups: ["rg1", "rg2", "rg3"],
+        invalidCallback: () => {
+          return false;
+        },
+        invalidTextCallback: () => {},
+        invalidKeyCallback: () => {
+          return { invalid: false, invalidText: "" };
+        },
+      }}
+      toggleFormProps={{
+        hideName: true,
+        name: "ssh-key",
+        submissionFieldName: "ssh_keys",
+      }}
+      onSave={() => {}}
+      onDelete={() => {}}
+      onSubmit={() => {}}
+      forceOpen={() => {
+        return true;
+      }}
+      disableSave={function (stateData, componentProps) {
+        return false;
+      }}
+      propsMatchState={function (stateData, componentProps) {
+        return false;
+      }}
+      deleteDisabledMessage={"Example delete message"}
+      deleteDisabled={() => {
+        return false;
+      }}
+      overrideTile={
+        <div className="subForm">
+          <p>The tile is overwritten</p>
+        </div>
+      }
+    />
+  );
+};
 
 export const Default = IcseFormTemplateStory.bind({});
+
+export const OverridenTile = IcseFormTemplateTileStory.bind({});

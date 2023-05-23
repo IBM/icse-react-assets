@@ -54,6 +54,12 @@ export default {
       type: { required: true },
       control: "none",
     },
+    secretsManagerInstances: {
+      description:
+        "An array of strings containing the names of secrets manager instances to select",
+      type: { required: true },
+      control: "none",
+    },
     subnetList: {
       description: "An array of strings containing the names of subnets",
       type: { required: true },
@@ -171,6 +177,10 @@ const VpeFormStory = () => {
           name: "3",
           vpc: "management",
         },
+      ]}
+      secretsManagerInstances={[
+        "dev", 
+        "test"
       ]}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}

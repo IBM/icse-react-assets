@@ -26,6 +26,12 @@ export default {
       type: { required: false }, // required prop or not
       control: "text",
     },
+    noMarginTop: {
+      description:
+        "Boolean describing if there is not a margin on top of the tile",
+      type: { required: false },
+      control: "boolean",
+    },
   },
   parameters: {
     docs: {

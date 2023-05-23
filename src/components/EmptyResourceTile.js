@@ -13,7 +13,13 @@ import PropTypes from "prop-types";
 
 const EmptyResourceTile = (props) => {
   return !props.showIfEmpty || props.showIfEmpty.length === 0 ? (
-    <Tile className="tileBackground displayFlex alignItemsCenter wrap marginTop">
+    <Tile
+      className={
+        "tileBackground displayFlex alignItemsCenter wrap" + props.noMarginTop
+          ? ""
+          : " marginTop"
+      }
+    >
       <CloudAlerting size="24" className="iconMargin" />
       No {props.name}.{" "}
       {props.instructions || (
@@ -32,6 +38,7 @@ const EmptyResourceTile = (props) => {
 EmptyResourceTile.defaultProps = {
   name: "items in this list",
   showIfEmpty: false,
+  noMarginTop: false,
 };
 
 EmptyResourceTile.propTypes = {
@@ -39,6 +46,7 @@ EmptyResourceTile.propTypes = {
   showIfEmpty: PropTypes.oneOfType([PropTypes.array, PropTypes.bool])
     .isRequired,
   instructions: PropTypes.string,
+  noMarginTop: PropTypes.bool,
 };
 
 export default EmptyResourceTile;
