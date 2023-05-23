@@ -1,5 +1,5 @@
 import React from "react";
-import { checkNullorEmptyString } from "../../lib";
+import { checkNullorEmptyString, setNameToValue } from "../../lib";
 import { IcseSelect } from "../Dropdowns";
 import { IcseHeading, IcseFormGroup } from "../Utils";
 import { IcseToggle, IcseTextInput, IcseNameInput } from "../Inputs";
@@ -21,9 +21,14 @@ class VpcNetworkForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = { ...this.props.data };
+
+    // add disabled choice
+    this.props.cosBuckets.push("Disabled");
+
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.handPgwToggle = this.handPgwToggle.bind(this);
+
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
@@ -33,7 +38,12 @@ class VpcNetworkForm extends React.Component {
    * @param {event} event event
    */
   handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
+    let { name, value } = event.target;
+    if (name === "bucket" && value === "Disabled") {
+      value = "$disabled";
+    }
+
+    this.setState(this.setNameToValue(name, value));
   }
 
   /**
@@ -114,24 +124,15 @@ class VpcNetworkForm extends React.Component {
             name="bucket"
             formName={this.props.data.name + "-vpc"}
             groups={this.props.cosBuckets}
-            value={this.state.bucket || ""}
+            value={
+              (this.state.bucket === "$disabled"
+                ? "Disabled"
+                : this.state.bucket) || ""
+            }
             handleInputChange={this.handleInputChange}
             invalid={checkNullorEmptyString(this.state.bucket)}
             invalidText="Select a Bucket."
             className={classNameModalCheck}
-          />
-        </IcseFormGroup>
-        <IcseHeading name="VPC Options" type="subHeading" />
-        {/* vpc classic access and use manual address prefixes */}
-        <IcseFormGroup>
-          <IcseToggle
-            id={this.props.data.name + "-classic-access"}
-            labelText="Classic Infrastructure Access"
-            toggleFieldName="classic_access"
-            defaultToggled={this.state.classic_access}
-            onToggle={this.handleToggle}
-            disabled={this.props.disableManualPrefixToggle}
-            className={classNameModalCheck + " leftTextAlign"}
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -170,7 +171,7 @@ class VpcNetworkForm extends React.Component {
               "Public Gateways allow for all resources in a zone to communicate with the public internet. Public Gateways are not needed for subnets where a VPN gateway is created.",
           }}
         />
-        <IcseFormGroup noMarginBottom>
+        <IcseFormGroup>
           {/* for each zone build a toggle */}
           {["zone-1", "zone-2", "zone-3"].map((zone) => (
             <IcseToggle
@@ -184,6 +185,19 @@ class VpcNetworkForm extends React.Component {
               className={classNameModalCheck + " leftTextAlign"}
             />
           ))}
+        </IcseFormGroup>
+        <IcseHeading name="Classic Access" type="subHeading" />
+        {/* vpc classic access and use manual address prefixes */}
+        <IcseFormGroup>
+          <IcseToggle
+            id={this.props.data.name + "-classic-access"}
+            labelText="Classic Infrastructure Access"
+            toggleFieldName="classic_access"
+            defaultToggled={this.state.classic_access}
+            onToggle={this.handleToggle}
+            disabled={this.props.disableManualPrefixToggle}
+            className={classNameModalCheck + " leftTextAlign"}
+          />
         </IcseFormGroup>
       </>
     );
