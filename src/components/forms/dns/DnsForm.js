@@ -116,7 +116,7 @@ class DnsForm extends Component {
                 hideName: true,
                 submissionFieldName: "zones",
                 disableSave: this.props.zoneProps.disableSave,
-                type: "subForm",
+                type: "formInSubForm",
               }}
             />
             {/* records */}
@@ -137,7 +137,7 @@ class DnsForm extends Component {
                 hideName: true,
                 submissionFieldName: "records",
                 disableSave: this.props.recordProps.disableSave,
-                type: "subForm",
+                type: "formInSubForm",
               }}
             />
             {/* custom resolvers */}
@@ -158,7 +158,7 @@ class DnsForm extends Component {
                 hideName: true,
                 submissionFieldName: "custom_resolvers",
                 disableSave: this.props.resolverProps.disableSave,
-                type: "subForm",
+                type: "formInSubForm",
               }}
             />
           </>
