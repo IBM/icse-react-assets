@@ -10475,7 +10475,7 @@ DnsRecordForm.propTypes = {
     protocol: PropTypes__default["default"].string,
     priority: PropTypes__default["default"].string,
     service: PropTypes__default["default"].string,
-    weight: PropTypes__default["default"].number,
+    weight: PropTypes__default["default"].string,
     preference: PropTypes__default["default"].string
   }).isRequired,
   invalidCallback: PropTypes__default["default"].func.isRequired,

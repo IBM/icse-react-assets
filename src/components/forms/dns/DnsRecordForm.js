@@ -239,7 +239,7 @@ DnsRecordForm.propTypes = {
     protocol: PropTypes.string,
     priority: PropTypes.string,
     service: PropTypes.string,
-    weight: PropTypes.number,
+    weight: PropTypes.string,
     preference: PropTypes.string,
   }).isRequired,
   invalidCallback: PropTypes.func.isRequired,
