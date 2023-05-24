@@ -10470,7 +10470,7 @@ DnsRecordForm.propTypes = {
     dns_zone: PropTypes__default["default"].string.isRequired,
     type: PropTypes__default["default"].string.isRequired,
     rdata: PropTypes__default["default"].string.isRequired,
-    ttl: PropTypes__default["default"].number.isRequired,
+    ttl: PropTypes__default["default"].string.isRequired,
     port: PropTypes__default["default"].string,
     protocol: PropTypes__default["default"].string,
     priority: PropTypes__default["default"].string,
