@@ -5,7 +5,7 @@ import {
 } from "../component-utils";
 import { IcseFormGroup } from "../Utils";
 import { IcseNameInput, IcseToggle, IcseTextInput } from "../Inputs";
-import { EndpointSelect, IcseNumberSelect } from "../Dropdowns";
+import { IcseNumberSelect } from "../Dropdowns";
 import PropTypes from "prop-types";
 
 /**
@@ -99,11 +99,6 @@ class EncryptionKeyForm extends Component {
             handleInputChange={this.handleInputChange}
             isModal={this.props.isModal}
           />
-          <EndpointSelect
-            formName={this.props.data.name}
-            handleInputChange={this.handleInputChange}
-            value={this.state.endpoint}
-          />
         </IcseFormGroup>
         <IcseFormGroup>
           {/* force delete */}
@@ -168,7 +163,6 @@ EncryptionKeyForm.defaultProps = {
     force_delete: false,
     dual_auth_delete: false,
     key_ring: "",
-    endpoint: "private",
   },
   isModal: false,
 };

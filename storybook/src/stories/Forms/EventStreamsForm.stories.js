@@ -28,12 +28,6 @@ export default {
       type: { required: false },
       table: { defaultValue: { summary: "Lite" } },
     },
-    ["data.endpoints"]: {
-      description:
-        "A string value that specifies the endpoint type(s) to enable",
-      control: "none",
-      type: { required: false },
-    },
     ["data.throughput"]: {
       description: "A string value that specifies the max throughput",
       control: "none",

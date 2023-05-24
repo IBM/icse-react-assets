@@ -4,7 +4,7 @@ import {
   buildFormFunctions,
 } from "../component-utils";
 import { IcseNameInput } from "../Inputs";
-import { EndpointSelect, IcseSelect } from "../Dropdowns";
+import { IcseSelect } from "../Dropdowns";
 import { IcseFormGroup } from "../Utils";
 import { ToolTipWrapper } from "../Tooltips";
 import { isIpStringInvalid } from "../../lib/iam-utils";
@@ -57,7 +57,6 @@ class EventStreamsForm extends Component {
         ...tempState,
         throughput: "",
         storage_size: "",
-        endpoints: "",
         private_ip_allowlist: "",
       };
     }
@@ -107,14 +106,6 @@ class EventStreamsForm extends Component {
         {this.state.plan === "enterprise" && (
           <>
             <IcseFormGroup>
-              {/* endpoints */}
-              <EndpointSelect
-                name="endpoints"
-                formName={this.props.data.name + "-event-streams"}
-                handleInputChange={this.handleInputChange}
-                value={this.state.endpoints}
-                className={classNameModalCheck}
-              />
               {/* throughput */}
               <IcseSelect
                 formName={this.props.data.name + "-event-streams"}
@@ -167,7 +158,6 @@ EventStreamsForm.defaultProps = {
     name: "",
     plan: "lite",
     resource_group: "",
-    endpoints: "",
     throughput: "",
     storage_size: "",
     private_ip_allowlist: "",
@@ -179,7 +169,6 @@ EventStreamsForm.propTypes = {
     name: PropTypes.string.isRequired,
     plan: PropTypes.string.isRequired,
     resource_group: PropTypes.string,
-    endpoints: PropTypes.string,
     throughput: PropTypes.string,
     storage_size: PropTypes.string,
     private_ip_allowlist: PropTypes.string,

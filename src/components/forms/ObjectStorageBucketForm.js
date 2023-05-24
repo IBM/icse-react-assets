@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { capitalize } from "lazy-z";
 import { IcseNameInput, IcseToggle } from "../Inputs";
-import { IcseSelect, EndpointSelect } from "../Dropdowns";
+import { IcseSelect } from "../Dropdowns";
 import { IcseFormGroup } from "../Utils";
 import {
   buildFormDefaultInputMethods,
@@ -73,14 +73,6 @@ class ObjectStorageBucketForm extends Component {
             handleInputChange={this.handleStorageClassChange}
             className="fieldWidthSmaller"
           />
-          <EndpointSelect
-            formName={"Object Storage Bucket"}
-            handleInputChange={this.handleInputChange}
-            value={this.state.endpoint}
-            className="fieldWidthSmaller"
-          />
-        </IcseFormGroup>
-        <IcseFormGroup>
           <IcseSelect
             component={this.state.name}
             formName={this.props.data.name + "-object-storage-bucket-key"}
@@ -95,6 +87,8 @@ class ObjectStorageBucketForm extends Component {
             handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"
           />
+        </IcseFormGroup>
+        <IcseFormGroup>
           <IcseToggle
             tooltip={{
               content:

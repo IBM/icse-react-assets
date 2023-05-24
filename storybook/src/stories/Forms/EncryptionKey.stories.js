@@ -17,12 +17,6 @@ export default {
       control: "none",
       type: { required: true }, // required prop or not
     },
-    ["data.endpoint"]: {
-      description:
-        "A string specifying the available endpoint or endpoints for the encryption key",
-      control: "none",
-      type: { required: true }, // required prop or not
-    },
     ["data.key_ring"]: {
       description:
         "An optional string specifying the name of the key ring where the encryption key will be added",
