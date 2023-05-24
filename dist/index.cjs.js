@@ -352,7 +352,9 @@ const IcseToolTip = props => {
   }, /*#__PURE__*/React__default["default"].createElement(react.ToggletipButton, null, /*#__PURE__*/React__default["default"].createElement(iconsReact.Information, {
     className: "tooltipMarginLeft"
   })), /*#__PURE__*/React__default["default"].createElement(react.ToggletipContent, null, /*#__PURE__*/React__default["default"].createElement("p", null, props.content), props.link && /*#__PURE__*/React__default["default"].createElement(react.ToggletipActions, null, /*#__PURE__*/React__default["default"].createElement("a", {
-    onClick: () => window.open(props.link, "_blank")
+    href: props.link,
+    target: "_blank",
+    rel: "noopener noreferrer"
   }, "More information")))));
 };
 IcseToolTip.defaultProps = {
@@ -7416,9 +7418,6 @@ class VpcNetworkForm extends React__default["default"].Component {
     this.state = {
       ...this.props.data
     };
-
-    // add disabled choice
-    this.props.cosBuckets.push("Disabled");
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.handPgwToggle = this.handPgwToggle.bind(this);
@@ -7509,7 +7508,7 @@ class VpcNetworkForm extends React__default["default"].Component {
       labelText: "Flow Logs Bucket Name",
       name: "bucket",
       formName: this.props.data.name + "-vpc",
-      groups: this.props.cosBuckets,
+      groups: this.props.cosBuckets.concat("Disabled"),
       value: (this.state.bucket === "$disabled" ? "Disabled" : this.state.bucket) || "",
       handleInputChange: this.handleInputChange,
       invalid: lib_4(this.state.bucket),
@@ -7545,7 +7544,9 @@ class VpcNetworkForm extends React__default["default"].Component {
     }))), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
       name: "Classic Access",
       type: "subHeading"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+    }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+      noMarginBottom: true
+    }, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
       id: this.props.data.name + "-classic-access",
       labelText: "Classic Infrastructure Access",
       toggleFieldName: "classic_access",

@@ -22,9 +22,6 @@ class VpcNetworkForm extends React.Component {
     super(props);
     this.state = { ...this.props.data };
 
-    // add disabled choice
-    this.props.cosBuckets.push("Disabled");
-
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.handPgwToggle = this.handPgwToggle.bind(this);
@@ -123,7 +120,7 @@ class VpcNetworkForm extends React.Component {
             labelText="Flow Logs Bucket Name"
             name="bucket"
             formName={this.props.data.name + "-vpc"}
-            groups={this.props.cosBuckets}
+            groups={this.props.cosBuckets.concat("Disabled")}
             value={
               (this.state.bucket === "$disabled"
                 ? "Disabled"
@@ -188,7 +185,7 @@ class VpcNetworkForm extends React.Component {
         </IcseFormGroup>
         <IcseHeading name="Classic Access" type="subHeading" />
         {/* vpc classic access and use manual address prefixes */}
-        <IcseFormGroup>
+        <IcseFormGroup noMarginBottom>
           <IcseToggle
             id={this.props.data.name + "-classic-access"}
             labelText="Classic Infrastructure Access"
