@@ -352,7 +352,9 @@ const IcseToolTip = props => {
   }, /*#__PURE__*/React__default["default"].createElement(react.ToggletipButton, null, /*#__PURE__*/React__default["default"].createElement(iconsReact.Information, {
     className: "tooltipMarginLeft"
   })), /*#__PURE__*/React__default["default"].createElement(react.ToggletipContent, null, /*#__PURE__*/React__default["default"].createElement("p", null, props.content), props.link && /*#__PURE__*/React__default["default"].createElement(react.ToggletipActions, null, /*#__PURE__*/React__default["default"].createElement("a", {
-    onClick: () => window.open(props.link, "_blank")
+    href: props.link,
+    target: "_blank",
+    rel: "noopener noreferrer"
   }, "More information")))));
 };
 IcseToolTip.defaultProps = {
@@ -10469,12 +10471,12 @@ DnsRecordForm.propTypes = {
     type: PropTypes__default["default"].string.isRequired,
     rdata: PropTypes__default["default"].string.isRequired,
     ttl: PropTypes__default["default"].number.isRequired,
-    port: PropTypes__default["default"].number,
+    port: PropTypes__default["default"].string,
     protocol: PropTypes__default["default"].string,
     priority: PropTypes__default["default"].string,
     service: PropTypes__default["default"].string,
     weight: PropTypes__default["default"].number,
-    preference: PropTypes__default["default"].number
+    preference: PropTypes__default["default"].string
   }).isRequired,
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
