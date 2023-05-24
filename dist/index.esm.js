@@ -341,7 +341,9 @@ const IcseToolTip = props => {
   }, /*#__PURE__*/React.createElement(ToggletipButton, null, /*#__PURE__*/React.createElement(Information, {
     className: "tooltipMarginLeft"
   })), /*#__PURE__*/React.createElement(ToggletipContent, null, /*#__PURE__*/React.createElement("p", null, props.content), props.link && /*#__PURE__*/React.createElement(ToggletipActions, null, /*#__PURE__*/React.createElement("a", {
-    onClick: () => window.open(props.link, "_blank")
+    href: props.link,
+    target: "_blank",
+    rel: "noopener noreferrer"
   }, "More information")))));
 };
 IcseToolTip.defaultProps = {
@@ -10458,12 +10460,12 @@ DnsRecordForm.propTypes = {
     type: PropTypes.string.isRequired,
     rdata: PropTypes.string.isRequired,
     ttl: PropTypes.number.isRequired,
-    port: PropTypes.number,
+    port: PropTypes.string,
     protocol: PropTypes.string,
     priority: PropTypes.string,
     service: PropTypes.string,
     weight: PropTypes.number,
-    preference: PropTypes.number
+    preference: PropTypes.string
   }).isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
