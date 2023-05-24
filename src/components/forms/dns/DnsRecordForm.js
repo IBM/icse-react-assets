@@ -234,7 +234,7 @@ DnsRecordForm.propTypes = {
     dns_zone: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     rdata: PropTypes.string.isRequired,
-    ttl: PropTypes.number.isRequired,
+    ttl: PropTypes.string.isRequired,
     port: PropTypes.string,
     protocol: PropTypes.string,
     priority: PropTypes.string,
