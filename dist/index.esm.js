@@ -3188,10 +3188,6 @@ class EncryptionKeyForm extends Component {
       labelText: "Rotation Interval (Months)",
       handleInputChange: this.handleInputChange,
       isModal: this.props.isModal
-    }), /*#__PURE__*/React.createElement(EndpointSelect, {
-      formName: this.props.data.name,
-      handleInputChange: this.handleInputChange,
-      value: this.state.endpoint
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
       tooltip: {
         content: "Force deletion of a key refers to the deletion of any key that's actively protecting any registered cloud resources. KMS keys can be force-deleted by managers of the instance. However, the force-delete won't succeed if the key's associated resource is non-erasable due to a retention policy.",
@@ -3241,8 +3237,7 @@ EncryptionKeyForm.defaultProps = {
     root_key: false,
     force_delete: false,
     dual_auth_delete: false,
-    key_ring: "",
-    endpoint: "private"
+    key_ring: ""
   },
   isModal: false
 };
@@ -3425,7 +3420,6 @@ class EventStreamsForm extends Component {
         ...tempState,
         throughput: "",
         storage_size: "",
-        endpoints: "",
         private_ip_allowlist: ""
       };
     }
@@ -3459,13 +3453,7 @@ class EventStreamsForm extends Component {
       className: classNameModalCheck,
       name: "resource_group",
       labelText: "Resource Group"
-    })), this.state.plan === "enterprise" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(EndpointSelect, {
-      name: "endpoints",
-      formName: this.props.data.name + "-event-streams",
-      handleInputChange: this.handleInputChange,
-      value: this.state.endpoints,
-      className: classNameModalCheck
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
+    })), this.state.plan === "enterprise" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
       formName: this.props.data.name + "-event-streams",
       value: this.state.throughput,
       groups: ["150MB/s", "300MB/s", "450MB/s"],
@@ -3502,7 +3490,6 @@ EventStreamsForm.defaultProps = {
     name: "",
     plan: "lite",
     resource_group: "",
-    endpoints: "",
     throughput: "",
     storage_size: "",
     private_ip_allowlist: ""
@@ -3513,7 +3500,6 @@ EventStreamsForm.propTypes = {
     name: PropTypes.string.isRequired,
     plan: PropTypes.string.isRequired,
     resource_group: PropTypes.string,
-    endpoints: PropTypes.string,
     throughput: PropTypes.string,
     storage_size: PropTypes.string,
     private_ip_allowlist: PropTypes.string
@@ -5465,12 +5451,7 @@ class ObjectStorageBucketForm extends Component {
       labelText: "Bucket Class",
       handleInputChange: this.handleStorageClassChange,
       className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(EndpointSelect, {
-      formName: "Object Storage Bucket",
-      handleInputChange: this.handleInputChange,
-      value: this.state.endpoint,
-      className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
       component: this.state.name,
       formName: this.props.data.name + "-object-storage-bucket-key",
       name: "kms_key",
@@ -5479,7 +5460,7 @@ class ObjectStorageBucketForm extends Component {
       labelText: "Encryption Key",
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(IcseToggle, {
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
       tooltip: {
         content: "Toggling this on will force delete contents of the bucket after the bucket is deleted"
       },
