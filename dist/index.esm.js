@@ -7400,7 +7400,14 @@ class VpcNetworkForm extends React.Component {
    * @param {event} event event
    */
   handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
+    let {
+      name,
+      value
+    } = event.target;
+    if (name === "bucket" && value === "Disabled") {
+      value = "$disabled";
+    }
+    this.setState(this.setNameToValue(name, value));
   }
 
   /**
@@ -7471,23 +7478,12 @@ class VpcNetworkForm extends React.Component {
       labelText: "Flow Logs Bucket Name",
       name: "bucket",
       formName: this.props.data.name + "-vpc",
-      groups: this.props.cosBuckets,
-      value: this.state.bucket || "",
+      groups: this.props.cosBuckets.concat("Disabled"),
+      value: (this.state.bucket === "$disabled" ? "Disabled" : this.state.bucket) || "",
       handleInputChange: this.handleInputChange,
       invalid: lib_4(this.state.bucket),
       invalidText: "Select a Bucket.",
       className: classNameModalCheck
-    })), /*#__PURE__*/React.createElement(IcseHeading, {
-      name: "VPC Options",
-      type: "subHeading"
-    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
-      id: this.props.data.name + "-classic-access",
-      labelText: "Classic Infrastructure Access",
-      toggleFieldName: "classic_access",
-      defaultToggled: this.state.classic_access,
-      onToggle: this.handleToggle,
-      disabled: this.props.disableManualPrefixToggle,
-      className: classNameModalCheck + " leftTextAlign"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, nameFields.map(field => {
       return /*#__PURE__*/React.createElement(IcseTextInput, {
         id: composedId + "-" + field,
@@ -7508,16 +7504,27 @@ class VpcNetworkForm extends React.Component {
       tooltip: {
         content: "Public Gateways allow for all resources in a zone to communicate with the public internet. Public Gateways are not needed for subnets where a VPN gateway is created."
       }
-    }), /*#__PURE__*/React.createElement(IcseFormGroup, {
-      noMarginBottom: true
-    }, ["zone-1", "zone-2", "zone-3"].map(zone => /*#__PURE__*/React.createElement(IcseToggle, {
+    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, ["zone-1", "zone-2", "zone-3"].map(zone => /*#__PURE__*/React.createElement(IcseToggle, {
       key: this.props.data.name + "-gateway-toggle-" + zone,
       id: this.props.data.name + "-pgw-" + zone,
       labelText: "Create in Zone " + parseIntFromZone(zone),
       defaultToggled: this.state.publicGateways.indexOf(parseIntFromZone(zone)) !== -1,
       onToggle: () => this.handPgwToggle(zone),
       className: classNameModalCheck + " leftTextAlign"
-    }))));
+    }))), /*#__PURE__*/React.createElement(IcseHeading, {
+      name: "Classic Access",
+      type: "subHeading"
+    }), /*#__PURE__*/React.createElement(IcseFormGroup, {
+      noMarginBottom: true
+    }, /*#__PURE__*/React.createElement(IcseToggle, {
+      id: this.props.data.name + "-classic-access",
+      labelText: "Classic Infrastructure Access",
+      toggleFieldName: "classic_access",
+      defaultToggled: this.state.classic_access,
+      onToggle: this.handleToggle,
+      disabled: this.props.disableManualPrefixToggle,
+      className: classNameModalCheck + " leftTextAlign"
+    })));
   }
 }
 VpcNetworkForm.defaultProps = {
