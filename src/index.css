@@ -364,6 +364,11 @@ i.chevron > svg {
   flex-flow: wrap;
 }
 
+.docsUpdated {
+  display: flex;
+  align-items: flex-end;
+}
+
 @media screen and (max-width: 1024px) {
   .fieldWidth {
     width: 11rem;

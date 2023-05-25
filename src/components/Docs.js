@@ -85,7 +85,7 @@ DocTable.propTypes = {
 
 const RelatedLinks = (props) => {
   return (
-    <>
+    <div>
       <div className="smallerText">Related Links</div>
       {props.links.map((link, index) => (
         <div key={"related-link-" + index}>
@@ -99,7 +99,7 @@ const RelatedLinks = (props) => {
           </a>
         </div>
       ))}
-    </>
+    </div>
   );
 };
 
@@ -107,6 +107,19 @@ RelatedLinks.propTypes = {
   links: PropTypes.arrayOf(
     PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
   ).isRequired,
+};
+
+const LastUpdated = (props) => {
+  return (
+    <div className="smallerText docsUpdated">
+      Updated{" "}
+      {new Date(props.date).toLocaleString("en", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      })}
+    </div>
+  );
 };
 
 const Docs = (props) => {
@@ -126,7 +139,10 @@ const Docs = (props) => {
           <DocTable key={index} list={[...field.table]} />
         )
       )}
-      {props.relatedLinks && <RelatedLinks links={props.relatedLinks} />}
+      <div className="displayFlex spaceBetween">
+        {props.relatedLinks && <RelatedLinks links={props.relatedLinks} />}
+        {props.last_updated && <LastUpdated date={props.last_updated} />}
+      </div>
     </div>
   );
 };
