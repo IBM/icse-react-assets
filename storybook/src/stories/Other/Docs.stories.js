@@ -93,4 +93,51 @@ const DocsStory = () => {
     />
   );
 };
+
+const DocsStoryWithUpdated = () => {
+  return (
+    <Docs
+      content={[
+        {
+          text: "IBM Cloud Object Storage (COS) is a highly available, durable, and secure platform for storing unstructured data. PDFs, media files, database backups, disk images, large structured datasets can be uploaded as objects and then organized into containers named Buckets.",
+          className: "marginBottomSmall",
+        },
+        {
+          subHeading: "Configuration",
+        },
+        {
+          text: "The initial configuration includes two COS instances:",
+          className: "marginBottomXs",
+        },
+        {
+          table: [
+            [
+              // (optional) header
+              "_headers",
+              "Instance Name",
+              "Description",
+            ],
+            [
+              // row 1
+              "cos", // instance name
+              "A COS instance with two buckets, a management bucket and a workload bucket, where respective objects can be stored", // description
+            ],
+            [
+              // row 2
+              "atracker-cos", // instance name
+              "A COS instance with a bucket where Activity Tracker logs will be stored", // description
+            ],
+          ],
+        },
+      ]}
+      relatedLinks={[
+        ["https://cloud.ibm.com/docs", "IBM Cloud Docs"], // link with override name
+        ["https://cloud.ibm.com"], // link without override
+      ]}
+      last_updated="05/25/2023"
+    />
+  );
+};
+
+export const DocsStoryUpdated = DocsStoryWithUpdated.bind({});
 export const Default = DocsStory.bind({});
