@@ -231,6 +231,11 @@ class IamAccountSettingsForm extends Component {
         <IcseFormGroup>
           {/* max sessions */}
           <IcseTextInput
+            tooltip={{
+              content: "The number of sessions allowed per user at a time",
+              align: "bottom-left",
+              alignModal: "bottom-left",
+            }}
             componentName={"IAM Account Settings"}
             placeholder="1"
             field="max_sessions_per_identity"

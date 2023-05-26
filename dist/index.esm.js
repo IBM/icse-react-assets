@@ -2931,14 +2931,7 @@ class ClusterForm extends Component {
       invalidText: "Select a cluster type.",
       value: this.state.kube_type === "" ? "" : this.state.kube_type === "openshift" ? "OpenShift" : "IBM Kubernetes Service",
       className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(EntitlementSelect, {
-      name: "entitlement",
-      formName: clusterComponent + "entitlement",
-      labelText: "Entitlement",
-      value: this.state.entitlement,
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(FetchSelect, {
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(FetchSelect, {
       name: "flavor",
       formName: clusterComponent + "flavor",
       labelText: "Instance Profile",
@@ -2946,7 +2939,7 @@ class ClusterForm extends Component {
       apiEndpoint: this.props.flavorApiEndpoint,
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller"
-    }), this.state.kube_type === "openshift" && /*#__PURE__*/React.createElement(IcseSelect, {
+    }), this.state.kube_type === "openshift" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseSelect, {
       name: "cos",
       formName: clusterComponent + "cos",
       labelText: "Cloud Object Storage Instance",
@@ -2955,7 +2948,14 @@ class ClusterForm extends Component {
       handleInputChange: this.handleInputChange,
       invalidText: "Select an Object Storage instance",
       className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+    }), /*#__PURE__*/React.createElement(EntitlementSelect, {
+      name: "entitlement",
+      formName: clusterComponent + "entitlement",
+      labelText: "Entitlement",
+      value: this.state.entitlement,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }))), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
       id: clusterComponent + "-vpc-name",
       name: "vpc",
       formName: clusterComponent + "vpc",
@@ -4424,6 +4424,11 @@ class IamAccountSettingsForm extends Component {
       labelText: "Restrict Creation of API Keys",
       handleInputChange: this.handleSelectChange
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+      tooltip: {
+        content: "The number of sessions allowed per user at a time",
+        align: "bottom-left",
+        alignModal: "bottom-left"
+      },
       componentName: "IAM Account Settings",
       placeholder: "1",
       field: "max_sessions_per_identity",
@@ -5931,10 +5936,10 @@ class RoutingTableRouteForm extends Component {
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
       name: "action",
       formName: this.props.data.name + "-routing-table-route-action",
-      groups: ["delegate", "deliver", "delegate_vpc", "drop"],
+      groups: ["Delegate", "Deliver", "Delegate VPC", "Drop"],
       labelText: "Action",
       handleInputChange: this.handleInputChange,
-      value: this.state.action,
+      value: titleCase$1(this.state.action).replace(/V P C/g, "VPC"),
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: this.props.data.name + "-next-hop",
