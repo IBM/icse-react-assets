@@ -77,8 +77,9 @@ export const IcseTextInput = (props) => {
         className={addClassName("leftTextAlign", props)}
         labelText={props.labelText ? props.labelText : titleCase(props.field)}
         placeholder={
-          props.placeholder ||
-          formatInputPlaceholder(props.componentName, fieldName)
+          (props.optional ? "(Optional) " : "") +
+          (props.placeholder ||
+            formatInputPlaceholder(props.componentName, fieldName))
         }
         name={props.field}
         value={props.value || ""}
@@ -105,11 +106,13 @@ IcseTextInput.defaultProps = {
   disabled: false,
   readOnly: false,
   hideHelperText: false,
+  optional: false,
   className: "fieldWidth",
 };
 
 IcseTextInput.propTypes = {
   disabled: PropTypes.bool.isRequired,
+  optional: PropTypes.bool,
   componentName: PropTypes.string,
   placeholder: PropTypes.string,
   field: PropTypes.string.isRequired,
