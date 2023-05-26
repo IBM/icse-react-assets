@@ -91,6 +91,10 @@ input:read-only {
   display: flex;
 }
 
+.alignItemsTop {
+  align-items: top;
+}
+
 .fitContent {
   width: fit-content;
 }
@@ -188,7 +192,7 @@ input:read-only {
 }
 
 .tooltip.popover-obj {
-  margin-top: -8px;
+  margin-top: -22px;
 }
 
 .subHeadingTooltip {
