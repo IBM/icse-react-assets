@@ -118,15 +118,6 @@ class ClusterForm extends Component {
           />
         </IcseFormGroup>
         <IcseFormGroup>
-          {/* entitlement */}
-          <EntitlementSelect
-            name="entitlement"
-            formName={clusterComponent + "entitlement"}
-            labelText="Entitlement"
-            value={this.state.entitlement}
-            handleInputChange={this.handleInputChange}
-            className="fieldWidthSmaller"
-          />
           {/* Machine Type */}
           <FetchSelect
             name="flavor"
@@ -137,18 +128,28 @@ class ClusterForm extends Component {
             handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"
           />
-          {/* cos */}
+          {/* cos and entitlement */}
           {this.state.kube_type === "openshift" && (
-            <IcseSelect
-              name="cos"
-              formName={clusterComponent + "cos"}
-              labelText="Cloud Object Storage Instance"
-              groups={this.props.cosNames}
-              value={this.state.cos}
-              handleInputChange={this.handleInputChange}
-              invalidText="Select an Object Storage instance"
-              className="fieldWidthSmaller"
-            />
+            <>
+              <IcseSelect
+                name="cos"
+                formName={clusterComponent + "cos"}
+                labelText="Cloud Object Storage Instance"
+                groups={this.props.cosNames}
+                value={this.state.cos}
+                handleInputChange={this.handleInputChange}
+                invalidText="Select an Object Storage instance"
+                className="fieldWidthSmaller"
+              />
+              <EntitlementSelect
+                name="entitlement"
+                formName={clusterComponent + "entitlement"}
+                labelText="Entitlement"
+                value={this.state.entitlement}
+                handleInputChange={this.handleInputChange}
+                className="fieldWidthSmaller"
+              />
+            </>
           )}
         </IcseFormGroup>
         <IcseFormGroup>
