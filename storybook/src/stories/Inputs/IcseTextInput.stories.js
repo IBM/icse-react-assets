@@ -24,6 +24,12 @@ export default {
       table: { defaultValue: { summary: "false" } }, // default value
       control: "boolean", // what type of value we can set
     },
+    optional: {
+      description: "A boolean value for whether to add \"(Optional)\" at the beginning of placeholder text",
+      type: { required: false },
+      table: { defaultValue: { summary: "false" } },
+      control: "boolean",
+    },
     componentName: {
       description: "A string name of the component",
       type: { required: true },
