@@ -7,7 +7,12 @@ import { IcseNameInput, IcseTextInput } from "../Inputs";
 import { IcseSelect, IcseNumberSelect } from "../Dropdowns";
 import { IcseFormGroup } from "../Utils";
 import PropTypes from "prop-types";
-import { isNullOrEmptyString, isIpv4CidrOrAddress, contains } from "lazy-z";
+import {
+  isNullOrEmptyString,
+  isIpv4CidrOrAddress,
+  contains,
+  titleCase,
+} from "lazy-z";
 
 class RoutingTableRouteForm extends Component {
   constructor(props) {
@@ -85,10 +90,10 @@ class RoutingTableRouteForm extends Component {
           <IcseSelect
             name="action"
             formName={this.props.data.name + "-routing-table-route-action"}
-            groups={["delegate", "deliver", "delegate_vpc", "drop"]}
+            groups={["Delegate", "Deliver", "Delegate VPC", "Drop"]}
             labelText="Action"
             handleInputChange={this.handleInputChange}
-            value={this.state.action}
+            value={titleCase(this.state.action).replace(/V P C/g, "VPC")}
             className="fieldWidthSmaller"
           />
           <IcseTextInput

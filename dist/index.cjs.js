@@ -2944,14 +2944,7 @@ class ClusterForm extends React.Component {
       invalidText: "Select a cluster type.",
       value: this.state.kube_type === "" ? "" : this.state.kube_type === "openshift" ? "OpenShift" : "IBM Kubernetes Service",
       className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(EntitlementSelect, {
-      name: "entitlement",
-      formName: clusterComponent + "entitlement",
-      labelText: "Entitlement",
-      value: this.state.entitlement,
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
       name: "flavor",
       formName: clusterComponent + "flavor",
       labelText: "Instance Profile",
@@ -2959,7 +2952,7 @@ class ClusterForm extends React.Component {
       apiEndpoint: this.props.flavorApiEndpoint,
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller"
-    }), this.state.kube_type === "openshift" && /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+    }), this.state.kube_type === "openshift" && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       name: "cos",
       formName: clusterComponent + "cos",
       labelText: "Cloud Object Storage Instance",
@@ -2968,7 +2961,14 @@ class ClusterForm extends React.Component {
       handleInputChange: this.handleInputChange,
       invalidText: "Select an Object Storage instance",
       className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+    }), /*#__PURE__*/React__default["default"].createElement(EntitlementSelect, {
+      name: "entitlement",
+      formName: clusterComponent + "entitlement",
+      labelText: "Entitlement",
+      value: this.state.entitlement,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       id: clusterComponent + "-vpc-name",
       name: "vpc",
       formName: clusterComponent + "vpc",
@@ -4437,6 +4437,11 @@ class IamAccountSettingsForm extends React.Component {
       labelText: "Restrict Creation of API Keys",
       handleInputChange: this.handleSelectChange
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      tooltip: {
+        content: "The number of sessions allowed per user at a time",
+        align: "bottom-left",
+        alignModal: "bottom-left"
+      },
       componentName: "IAM Account Settings",
       placeholder: "1",
       field: "max_sessions_per_identity",
@@ -5944,10 +5949,10 @@ class RoutingTableRouteForm extends React.Component {
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       name: "action",
       formName: this.props.data.name + "-routing-table-route-action",
-      groups: ["delegate", "deliver", "delegate_vpc", "drop"],
+      groups: ["Delegate", "Deliver", "Delegate VPC", "Drop"],
       labelText: "Action",
       handleInputChange: this.handleInputChange,
-      value: this.state.action,
+      value: lazyZ.titleCase(this.state.action).replace(/V P C/g, "VPC"),
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: this.props.data.name + "-next-hop",
@@ -6049,6 +6054,7 @@ class RoutingTableForm extends React.Component {
       id: composedId + "-direct-link-toggle",
       labelText: "Direct Link Ingress",
       defaultToggled: this.state.route_direct_link_ingress,
+      name: "route_direct_link_ingress",
       onToggle: this.handleToggle,
       tooltip: {
         content: "If set to true, the routing table is used to route traffic that originates from Direct Link to the VPC. To succeed, the VPC must not already have a routing table with the property set to true",
@@ -6059,6 +6065,7 @@ class RoutingTableForm extends React.Component {
       id: composedId + "-route-internet-toggle",
       labelText: "Internet Ingress",
       defaultToggled: this.state.route_internet_ingress,
+      name: "route_internet_ingress",
       onToggle: this.handleToggle,
       tooltip: {
         content: "If set to true, this routing table will be used to route traffic that originates from the internet. For this to succeed, the VPC must not already have a routing table with this property set to true",
@@ -6069,6 +6076,7 @@ class RoutingTableForm extends React.Component {
       id: composedId + "-tgw-ingress",
       labelText: "Transit Gateway Ingress",
       defaultToggled: this.state.route_transit_gateway_ingress,
+      name: "route_transit_gateway_ingress",
       onToggle: this.handleToggle,
       tooltip: {
         content: "If set to true, the routing table is used to route traffic that originates from Transit Gateway to the VPC. To succeed, the VPC must not already have a routing table with the property set to true",
@@ -6079,6 +6087,7 @@ class RoutingTableForm extends React.Component {
       id: composedId + "-zone-ingress",
       labelText: "VPC Zone Ingress",
       defaultToggled: this.state.route_vpc_zone_ingress,
+      name: "route_vpc_zone_ingress",
       onToggle: this.handleToggle,
       tooltip: {
         content: "If set to true, the routing table is used to route traffic that originates from subnets in other zones in the VPC. To succeed, the VPC must not already have a routing table with the property set to true",
