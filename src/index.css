@@ -369,6 +369,10 @@ i.chevron > svg {
   align-items: flex-end;
 }
 
+.cds--list-box__menu-item {
+  width: fit-content;
+}
+
 @media screen and (max-width: 1024px) {
   .fieldWidth {
     width: 11rem;
