@@ -6047,6 +6047,7 @@ class RoutingTableForm extends React.Component {
       id: composedId + "-direct-link-toggle",
       labelText: "Direct Link Ingress",
       defaultToggled: this.state.route_direct_link_ingress,
+      name: "route_direct_link_ingress",
       onToggle: this.handleToggle,
       tooltip: {
         content: "If set to true, the routing table is used to route traffic that originates from Direct Link to the VPC. To succeed, the VPC must not already have a routing table with the property set to true",
@@ -6057,6 +6058,7 @@ class RoutingTableForm extends React.Component {
       id: composedId + "-route-internet-toggle",
       labelText: "Internet Ingress",
       defaultToggled: this.state.route_internet_ingress,
+      name: "route_internet_ingress",
       onToggle: this.handleToggle,
       tooltip: {
         content: "If set to true, this routing table will be used to route traffic that originates from the internet. For this to succeed, the VPC must not already have a routing table with this property set to true",
@@ -6067,6 +6069,7 @@ class RoutingTableForm extends React.Component {
       id: composedId + "-tgw-ingress",
       labelText: "Transit Gateway Ingress",
       defaultToggled: this.state.route_transit_gateway_ingress,
+      name: "route_transit_gateway_ingress",
       onToggle: this.handleToggle,
       tooltip: {
         content: "If set to true, the routing table is used to route traffic that originates from Transit Gateway to the VPC. To succeed, the VPC must not already have a routing table with the property set to true",
@@ -6077,6 +6080,7 @@ class RoutingTableForm extends React.Component {
       id: composedId + "-zone-ingress",
       labelText: "VPC Zone Ingress",
       defaultToggled: this.state.route_vpc_zone_ingress,
+      name: "route_vpc_zone_ingress",
       onToggle: this.handleToggle,
       tooltip: {
         content: "If set to true, the routing table is used to route traffic that originates from subnets in other zones in the VPC. To succeed, the VPC must not already have a routing table with the property set to true",

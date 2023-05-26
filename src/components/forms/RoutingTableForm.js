@@ -74,6 +74,7 @@ class RoutingTableForm extends Component {
             id={composedId + "-direct-link-toggle"}
             labelText="Direct Link Ingress"
             defaultToggled={this.state.route_direct_link_ingress}
+            name="route_direct_link_ingress"
             onToggle={this.handleToggle}
             tooltip={{
               content:
@@ -86,6 +87,7 @@ class RoutingTableForm extends Component {
             id={composedId + "-route-internet-toggle"}
             labelText="Internet Ingress"
             defaultToggled={this.state.route_internet_ingress}
+            name="route_internet_ingress"
             onToggle={this.handleToggle}
             tooltip={{
               content:
@@ -100,6 +102,7 @@ class RoutingTableForm extends Component {
             id={composedId + "-tgw-ingress"}
             labelText="Transit Gateway Ingress"
             defaultToggled={this.state.route_transit_gateway_ingress}
+            name="route_transit_gateway_ingress"
             onToggle={this.handleToggle}
             tooltip={{
               content:
@@ -112,6 +115,7 @@ class RoutingTableForm extends Component {
             id={composedId + "-zone-ingress"}
             labelText="VPC Zone Ingress"
             defaultToggled={this.state.route_vpc_zone_ingress}
+            name="route_vpc_zone_ingress"
             onToggle={this.handleToggle}
             tooltip={{
               content:
