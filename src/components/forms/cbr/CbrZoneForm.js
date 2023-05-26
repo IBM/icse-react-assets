@@ -113,6 +113,7 @@ class CbrZoneForm extends Component {
                 disableSave: this.props.addressProps.disableSave,
                 type: "subForm",
               }}
+              defaultModalValues={this.props.addressProps.defaultModalValues}
             />
             {/* exclusions */}
             <IcseFormTemplate
@@ -134,6 +135,7 @@ class CbrZoneForm extends Component {
                 disableSave: this.props.exclusionProps.disableSave,
                 type: "subForm",
               }}
+              defaultModalValues={this.props.exclusionProps.defaultModalValues}
             />
           </>
         )}

@@ -1866,16 +1866,9 @@ class IcseFormTemplate extends React__default["default"].Component {
         }
       }
     };
-    if (this.props.innerForm === CbrExclusionAddressForm$1) {
+    if (this.props.defaultModalValues) {
       formModalProps.data = {
-        name: "",
-        account_id: "test_value",
-        location: "",
-        service_name: "",
-        service_instance: "",
-        service_type: "",
-        type: "ipAddress",
-        value: ""
+        ...this.props.defaultModalValues
       };
     }
     return /*#__PURE__*/React__default["default"].createElement("div", {
@@ -1980,7 +1973,8 @@ IcseFormTemplate.propTypes = {
   deleteDisabled: PropTypes__default["default"].func,
   forceOpen: PropTypes__default["default"].func,
   deleteDisabledMessage: PropTypes__default["default"].string,
-  overrideTile: PropTypes__default["default"].node
+  overrideTile: PropTypes__default["default"].node,
+  defaultModalValues: PropTypes__default["default"].shape({})
 };
 
 const IcseToggle = props => {
@@ -10139,7 +10133,6 @@ CbrExclusionAddressForm.propTypes = {
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired
 };
-var CbrExclusionAddressForm$1 = CbrExclusionAddressForm;
 
 /**
  * Context-based restriction zones
@@ -10215,7 +10208,7 @@ class CbrZoneForm extends React.Component {
       subHeading: true,
       addText: "Create an Address",
       arrayData: this.props.data.addresses,
-      innerForm: CbrExclusionAddressForm$1,
+      innerForm: CbrExclusionAddressForm,
       disableSave: this.props.addressProps.disableSave,
       onDelete: this.props.addressProps.onDelete,
       onSave: this.props.addressProps.onSave,
@@ -10230,13 +10223,14 @@ class CbrZoneForm extends React.Component {
         submissionFieldName: "addresses",
         disableSave: this.props.addressProps.disableSave,
         type: "subForm"
-      }
+      },
+      defaultModalValues: this.props.addressProps.defaultModalValues
     }), /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
       name: "Exclusions",
       subHeading: true,
       addText: "Create an Exclusion",
       arrayData: this.props.data.exclusions,
-      innerForm: CbrExclusionAddressForm$1,
+      innerForm: CbrExclusionAddressForm,
       disableSave: this.props.exclusionProps.disableSave,
       onDelete: this.props.exclusionProps.onDelete,
       onSave: this.props.exclusionProps.onSave,
@@ -10251,7 +10245,8 @@ class CbrZoneForm extends React.Component {
         submissionFieldName: "exclusions",
         disableSave: this.props.exclusionProps.disableSave,
         type: "subForm"
-      }
+      },
+      defaultModalValues: this.props.exclusionProps.defaultModalValues
     })));
   }
 }
@@ -10981,7 +10976,7 @@ exports.AppIdForm = AppIdForm;
 exports.AppIdKeyForm = AppIdKeyForm;
 exports.AtrackerForm = AtrackerForm;
 exports.CbrContextForm = CbrContextForm;
-exports.CbrExclusionAddressForm = CbrExclusionAddressForm$1;
+exports.CbrExclusionAddressForm = CbrExclusionAddressForm;
 exports.CbrResourceAttributeForm = CbrResourceAttributeForm;
 exports.CbrRuleForm = CbrRuleForm;
 exports.CbrTagForm = CbrTagForm;

@@ -1855,16 +1855,9 @@ class IcseFormTemplate extends React.Component {
         }
       }
     };
-    if (this.props.innerForm === CbrExclusionAddressForm$1) {
+    if (this.props.defaultModalValues) {
       formModalProps.data = {
-        name: "",
-        account_id: "test_value",
-        location: "",
-        service_name: "",
-        service_instance: "",
-        service_type: "",
-        type: "ipAddress",
-        value: ""
+        ...this.props.defaultModalValues
       };
     }
     return /*#__PURE__*/React.createElement("div", {
@@ -1969,7 +1962,8 @@ IcseFormTemplate.propTypes = {
   deleteDisabled: PropTypes.func,
   forceOpen: PropTypes.func,
   deleteDisabledMessage: PropTypes.string,
-  overrideTile: PropTypes.node
+  overrideTile: PropTypes.node,
+  defaultModalValues: PropTypes.shape({})
 };
 
 const IcseToggle = props => {
@@ -10128,7 +10122,6 @@ CbrExclusionAddressForm.propTypes = {
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired
 };
-var CbrExclusionAddressForm$1 = CbrExclusionAddressForm;
 
 /**
  * Context-based restriction zones
@@ -10204,7 +10197,7 @@ class CbrZoneForm extends Component {
       subHeading: true,
       addText: "Create an Address",
       arrayData: this.props.data.addresses,
-      innerForm: CbrExclusionAddressForm$1,
+      innerForm: CbrExclusionAddressForm,
       disableSave: this.props.addressProps.disableSave,
       onDelete: this.props.addressProps.onDelete,
       onSave: this.props.addressProps.onSave,
@@ -10219,13 +10212,14 @@ class CbrZoneForm extends Component {
         submissionFieldName: "addresses",
         disableSave: this.props.addressProps.disableSave,
         type: "subForm"
-      }
+      },
+      defaultModalValues: this.props.addressProps.defaultModalValues
     }), /*#__PURE__*/React.createElement(IcseFormTemplate, {
       name: "Exclusions",
       subHeading: true,
       addText: "Create an Exclusion",
       arrayData: this.props.data.exclusions,
-      innerForm: CbrExclusionAddressForm$1,
+      innerForm: CbrExclusionAddressForm,
       disableSave: this.props.exclusionProps.disableSave,
       onDelete: this.props.exclusionProps.onDelete,
       onSave: this.props.exclusionProps.onSave,
@@ -10240,7 +10234,8 @@ class CbrZoneForm extends Component {
         submissionFieldName: "exclusions",
         disableSave: this.props.exclusionProps.disableSave,
         type: "subForm"
-      }
+      },
+      defaultModalValues: this.props.exclusionProps.defaultModalValues
     })));
   }
 }
@@ -10963,4 +10958,4 @@ DnsForm.propTypes = {
   })
 };
 
-export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, CbrContextForm, CbrExclusionAddressForm$1 as CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, ClusterForm, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsForm, DnsRecordForm, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, LocationsMultiSelect, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, RoutingTableForm, RoutingTableRouteForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VpnServerForm, VpnServerRouteForm, VsiForm, VsiLoadBalancerForm, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, ClusterForm, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsForm, DnsRecordForm, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, LocationsMultiSelect, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, RoutingTableForm, RoutingTableRouteForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VpnServerForm, VpnServerRouteForm, VsiForm, VsiLoadBalancerForm, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };

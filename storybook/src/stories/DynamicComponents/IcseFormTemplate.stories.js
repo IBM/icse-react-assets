@@ -173,6 +173,12 @@ export default {
       type: { required: false },
       control: "none",
     },
+    defaultModalValues: {
+      description:
+        "An optional prop that allows you to override default values for a modal",
+      type: { required: false },
+      control: "none",
+    },
   },
   parameters: {
     docs: {

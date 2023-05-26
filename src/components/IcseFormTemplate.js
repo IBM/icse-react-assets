@@ -121,17 +121,8 @@ class IcseFormTemplate extends React.Component {
         }
       },
     };
-    if (this.props.innerForm === CbrExclusionAddressForm) {
-      formModalProps.data = {
-        name: "",
-        account_id: "test_value",
-        location: "",
-        service_name: "",
-        service_instance: "",
-        service_type: "",
-        type: "ipAddress",
-        value: "",
-      };
+    if (this.props.defaultModalValues) {
+      formModalProps.data = { ...this.props.defaultModalValues };
     }
     return (
       <div id={formattedName}>
@@ -256,6 +247,7 @@ IcseFormTemplate.propTypes = {
   forceOpen: PropTypes.func,
   deleteDisabledMessage: PropTypes.string,
   overrideTile: PropTypes.node,
+  defaultModalValues: PropTypes.shape({}),
 };
 
 export default IcseFormTemplate;
