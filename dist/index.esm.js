@@ -1832,6 +1832,34 @@ class IcseFormTemplate extends React.Component {
     let formattedName = kebabCase$2(this.props.name); // formatted component name
     // enable submit field here is set to variable value to allow for passing to
     // child array components without needing to reference `this` directly
+    let formModalProps = {
+      ...this.props.innerFormProps,
+      disableSave: this.props.disableSave,
+      arrayParentName: this.props.arrayParentName,
+      isModal: true,
+      submissionFieldName: this.props.toggleFormProps.submissionFieldName,
+      shouldDisableSubmit: function () {
+        // references to `this` in function are intentionally vague
+        // in order to pass the correct functions and field values to the
+        // child modal component
+        // by passing `this` in a function that it scoped to the component
+        // we allow the function to be successfully bound to the modal form
+        // while still referencing the local value `enableSubmitField`
+        // to use it's own values for state and props including enableModal
+        // and disableModal, which are dynamically added to the component
+        // at time of render
+        if (this.props.disableSave(this.props.submissionFieldName, this.state, this.props) === false) {
+          this.props.enableModal();
+        } else {
+          this.props.disableModal();
+        }
+      }
+    };
+    if (this.props.defaultModalValues) {
+      formModalProps.data = {
+        ...this.props.defaultModalValues
+      };
+    }
     return /*#__PURE__*/React.createElement("div", {
       id: formattedName
     }, /*#__PURE__*/React.createElement(StatefulTabPanel, {
@@ -1890,29 +1918,7 @@ class IcseFormTemplate extends React.Component {
         arrayParentName: this.props.arrayParentName
       },
       // render the form inside the modal
-      RenderForm(this.props.innerForm, {
-        ...this.props.innerFormProps,
-        disableSave: this.props.disableSave,
-        arrayParentName: this.props.arrayParentName,
-        isModal: true,
-        submissionFieldName: this.props.toggleFormProps.submissionFieldName,
-        shouldDisableSubmit: function () {
-          // references to `this` in function are intentionally vague
-          // in order to pass the correct functions and field values to the
-          // child modal component
-          // by passing `this` in a function that it scoped to the component
-          // we allow the function to be successfully bound to the modal form
-          // while still referencing the local value `enableSubmitField`
-          // to use it's own values for state and props including enableModal
-          // and disableModal, which are dynamically added to the component
-          // at time of render
-          if (this.props.disableSave(this.props.submissionFieldName, this.state, this.props) === false) {
-            this.props.enableModal();
-          } else {
-            this.props.disableModal();
-          }
-        }
-      }))),
+      RenderForm(this.props.innerForm, formModalProps))),
       hideFormTitleButton: this.props.hideFormTitleButton
     }));
   }
@@ -1956,7 +1962,8 @@ IcseFormTemplate.propTypes = {
   deleteDisabled: PropTypes.func,
   forceOpen: PropTypes.func,
   deleteDisabledMessage: PropTypes.string,
-  overrideTile: PropTypes.node
+  overrideTile: PropTypes.node,
+  defaultModalValues: PropTypes.shape({})
 };
 
 const IcseToggle = props => {
@@ -10205,7 +10212,8 @@ class CbrZoneForm extends Component {
         submissionFieldName: "addresses",
         disableSave: this.props.addressProps.disableSave,
         type: "subForm"
-      }
+      },
+      defaultModalValues: this.props.addressProps.defaultModalValues
     }), /*#__PURE__*/React.createElement(IcseFormTemplate, {
       name: "Exclusions",
       subHeading: true,
@@ -10226,7 +10234,8 @@ class CbrZoneForm extends Component {
         submissionFieldName: "exclusions",
         disableSave: this.props.exclusionProps.disableSave,
         type: "subForm"
-      }
+      },
+      defaultModalValues: this.props.exclusionProps.defaultModalValues
     })));
   }
 }
