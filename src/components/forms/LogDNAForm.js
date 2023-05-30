@@ -113,7 +113,7 @@ class LogDNAForm extends Component {
             value={this.state.archive}
             id="logdna-archive"
             invalid={false}
-            className="fieldWidth"
+            className="fieldWidthSmaller"
             onChange={this.handleInputChange}
           />
           <IcseToggle
@@ -123,7 +123,7 @@ class LogDNAForm extends Component {
             toggleFieldName="enaplatform_logsbled"
             onToggle={this.handleToggle}
             id="logdna-platform-logs"
-            className="fieldWidth"
+            className="fieldWidthSmaller"
           />
         </IcseFormGroup>
       </div>

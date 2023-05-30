@@ -11,54 +11,47 @@ export default {
       type: { required: false }, // required prop or not
       control: "none",
     },
-    ["data.enable"]: {
-      description: "A boolean of whether or not an SCC instance is created",
+    enabled: false,
+    plan: "7-day",
+    endpoint: "private",
+    resource_group: "",
+    bucket: "",
+    archive: "",
+    platform_logs: false,
+    ["data.enabled"]: {
+      description: "A boolean of whether or not a Log DNA instance is enabled",
       control: "none",
       type: { required: true }, // required prop or not
     },
-    ["data.collector_description"]: {
-      description: "A string description of the SCC collector",
-      control: "none",
-      type: { required: false }, // required prop or not
-    },
-    ["data.is_public"]: {
+    ["data.plan"]: {
       description:
-        "A boolean determining if the collector endpoint is accessible on a public network",
+        "A string representing the plan. Options are `lite`, `7-day`, `14-day`, and `30-day`",
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.location"]: {
-      description: "A string determining the location (`us`, `eu`, or `uk`)",
+    ["data.endpoint"]: {
+      description:
+        "A string representing the endpoint type. Options are `public`, `private`, and `public-and-private`",
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.scope_description"]: {
-      description: "A string description of the scope",
+    ["data.resource_group"]: {
+      description: "A string determining the resource group",
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.passphrase"]: {
-      description: "A string passphrase for the collector",
+    ["data.bucket"]: {
+      description: "A string determining the bucket",
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.credential_description"]: {
-      description: "A string description of the credential",
+    ["data.archive"]: {
+      description: "A string for the archive location", // ?
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.name"]: {
-      description: "Name of the SCC Collector",
-      control: "none",
-      type: { required: false }, // required prop or not
-    },
-    ["data.id"]: {
-      description: "Group ID for SCC",
-      control: "none",
-      type: { required: false }, // required prop or not
-    },
-    ["data.passphrase"]: {
-      description: "Group Passphrase",
+    ["data.platform_logs"]: {
+      description: "A boolean describing if platform logs are enabled or not",
       control: "none",
       type: { required: false }, // required prop or not
     },
@@ -71,6 +64,21 @@ export default {
     invalidTextCallback: {
       description: "Function that determines invalid text for `name` field",
       type: { required: true }, // required prop or not
+      control: "none",
+    },
+    resourceGroups: {
+      description: "An array of string resource groups to choose from",
+      type: { required: true },
+      control: "none",
+    },
+    cosBuckets: {
+      description: "An array of string of buckets to choose from",
+      type: { required: true },
+      control: "none",
+    },
+    prefix: {
+      description: "A string for the environment prefix",
+      type: { required: true },
       control: "none",
     },
   },

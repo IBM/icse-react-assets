@@ -11064,7 +11064,7 @@ class LogDNAForm extends React.Component {
       value: this.state.archive,
       id: "logdna-archive",
       invalid: false,
-      className: "fieldWidth",
+      className: "fieldWidthSmaller",
       onChange: this.handleInputChange
     }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
       labelText: "Platform Logs",
@@ -11073,7 +11073,7 @@ class LogDNAForm extends React.Component {
       toggleFieldName: "enaplatform_logsbled",
       onToggle: this.handleToggle,
       id: "logdna-platform-logs",
-      className: "fieldWidth"
+      className: "fieldWidthSmaller"
     })));
   }
 }
