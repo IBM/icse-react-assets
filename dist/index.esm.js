@@ -10958,4 +10958,142 @@ DnsForm.propTypes = {
   })
 };
 
-export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, ClusterForm, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsForm, DnsRecordForm, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, LocationsMultiSelect, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, RoutingTableForm, RoutingTableRouteForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VpnServerForm, VpnServerRouteForm, VsiForm, VsiLoadBalancerForm, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+class LogDNAForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputChange(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    if (contains$2(["plan", "endpoint"], "name")) value = kebabCase$2(value);else this.setState(this.setNameToValue(name, value));
+  }
+
+  /**
+   * Toggle on and off param in state at name
+   * @param {string} name name of the object key to change
+   */
+  handleToggle(name) {
+    this.setState({
+      [name]: !this.state[name]
+    });
+  }
+  render() {
+    return /*#__PURE__*/React.createElement("div", {
+      id: "logdna-form"
+    }, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+      field: "Name",
+      labelText: "Name",
+      value: this.props.prefix + "-logdna",
+      readOnly: true,
+      id: "logdna-name",
+      invalid: false,
+      placeholder: this.props.prefix + "-logdna",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseToggle, {
+      labelText: "Enabled",
+      defaultToggled: this.state.enabled,
+      name: "enabled",
+      toggleFieldName: "enabled",
+      onToggle: this.handleToggle,
+      id: "logdna-enabled",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      groups: ["Lite", "7 Day", "14 Day", "30 Day"],
+      formName: this.props.data.name + "-logdna-plan",
+      name: "plan",
+      value: titleCase$1(this.state.plan).replace(/3 0/, "30").replace(/1 4/, "14"),
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller",
+      labelText: "Plan",
+      invalidText: "Select a plan."
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: this.props.data.name + "-logdna-endpoints",
+      name: "endpoint",
+      labelText: "Endpoint",
+      value: titleCase$1(this.state.endpoint).replace(/And/g, "and"),
+      groups: ["Private", "Public", "Public and Private"],
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      name: "resource_group",
+      formName: `${this.props.data.name}-logdna-rg-select`,
+      groups: this.props.resourceGroups,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a Resource Group.",
+      labelText: "Resource Group",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      groups: this.props.cosBuckets,
+      formName: this.props.data.name + "-logdna-bucket",
+      name: "bucket",
+      value: this.state.bucket,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller",
+      labelText: "Log Bucket",
+      invalidText: "Select a bucket."
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+      field: "archive",
+      labelText: "Archive",
+      value: this.state.archive,
+      id: "logdna-archive",
+      invalid: false,
+      className: "fieldWidth",
+      onChange: this.handleInputChange
+    }), /*#__PURE__*/React.createElement(IcseToggle, {
+      labelText: "Platform Logs",
+      defaultToggled: this.state.platform_logs,
+      name: "platform_logs",
+      toggleFieldName: "enaplatform_logsbled",
+      onToggle: this.handleToggle,
+      id: "logdna-platform-logs",
+      className: "fieldWidth"
+    })));
+  }
+}
+LogDNAForm.defaultProps = {
+  data: {
+    enabled: false,
+    plan: "7-day",
+    endpoint: "private",
+    resource_group: "",
+    bucket: "",
+    archive: "",
+    platform_logs: false
+  },
+  isModal: false
+};
+LogDNAForm.propTypes = {
+  isModal: PropTypes.bool.isRequired,
+  data: PropTypes.shape({
+    enabled: PropTypes.bool,
+    plan: PropTypes.string,
+    endpoint: PropTypes.string,
+    resource_group: PropTypes.string,
+    bucket: PropTypes.string,
+    archive: PropTypes.string,
+    platform_logs: PropTypes.bool
+  }).isRequired,
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  cosBuckets: PropTypes.arrayOf(PropTypes.string).isRequired,
+  prefix: PropTypes.string.isRequired,
+  invalidCallback: PropTypes.func,
+  invalidTextCallback: PropTypes.func
+};
+
+export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, ClusterForm, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsForm, DnsRecordForm, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, LocationsMultiSelect, LogDNAForm, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, RoutingTableForm, RoutingTableRouteForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerForm, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VpnServerForm, VpnServerRouteForm, VsiForm, VsiLoadBalancerForm, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };

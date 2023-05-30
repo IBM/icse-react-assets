@@ -3,7 +3,7 @@ import {
   buildFormDefaultInputMethods,
   buildFormFunctions,
 } from "../component-utils";
-import { IcseNameInput, IcseToggle, IcseTextInput } from "../Inputs";
+import { IcseToggle, IcseTextInput } from "../Inputs";
 import { IcseFormGroup } from "../Utils";
 import { IcseSelect } from "../Dropdowns";
 import PropTypes from "prop-types";
@@ -26,7 +26,7 @@ class LogDNAForm extends Component {
    */
   handleInputChange(event) {
     let { name, value } = event.target;
-    if (contains(["plan", "endpoints"], "name")) value = kebabCase(value);
+    if (contains(["plan", "endpoint"], "name")) value = kebabCase(value);
     else this.setState(this.setNameToValue(name, value));
   }
 
@@ -44,7 +44,6 @@ class LogDNAForm extends Component {
         <IcseFormGroup>
           {/* name text input */}
           <IcseTextInput
-            componentName="Activity Tracker"
             field="Name"
             labelText="Name"
             value={this.props.prefix + "-logdna"}
@@ -60,14 +59,16 @@ class LogDNAForm extends Component {
             name="enabled"
             toggleFieldName="enabled"
             onToggle={this.handleToggle}
-            id="atracker-add-route"
+            id="logdna-enabled"
             className="fieldWidthSmaller"
           />
           <IcseSelect
             groups={["Lite", "7 Day", "14 Day", "30 Day"]}
             formName={this.props.data.name + "-logdna-plan"}
             name="plan"
-            value={titleCase(this.state.plan)}
+            value={titleCase(this.state.plan)
+              .replace(/3 0/, "30")
+              .replace(/1 4/, "14")}
             handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"
             labelText="Plan"
@@ -77,9 +78,9 @@ class LogDNAForm extends Component {
         <IcseFormGroup>
           <IcseSelect
             formName={this.props.data.name + "-logdna-endpoints"}
-            name="endpoints"
-            labelText="Endpoints"
-            value={titleCase(this.state.endpoints).replace(/And/g, "and")}
+            name="endpoint"
+            labelText="Endpoint"
+            value={titleCase(this.state.endpoint).replace(/And/g, "and")}
             groups={["Private", "Public", "Public and Private"]}
             handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"
@@ -105,20 +106,58 @@ class LogDNAForm extends Component {
             invalidText="Select a bucket."
           />
         </IcseFormGroup>
+        <IcseFormGroup>
+          <IcseTextInput
+            field="archive"
+            labelText="Archive"
+            value={this.state.archive}
+            id="logdna-archive"
+            invalid={false}
+            className="fieldWidth"
+            onChange={this.handleInputChange}
+          />
+          <IcseToggle
+            labelText="Platform Logs"
+            defaultToggled={this.state.platform_logs}
+            name="platform_logs"
+            toggleFieldName="enaplatform_logsbled"
+            onToggle={this.handleToggle}
+            id="logdna-platform-logs"
+            className="fieldWidth"
+          />
+        </IcseFormGroup>
       </div>
     );
   }
 }
 
 LogDNAForm.defaultProps = {
-  data: {},
+  data: {
+    enabled: false,
+    plan: "7-day",
+    endpoint: "private",
+    resource_group: "",
+    bucket: "",
+    archive: "",
+    platform_logs: false,
+  },
   isModal: false,
 };
 
 LogDNAForm.propTypes = {
   isModal: PropTypes.bool.isRequired,
-  data: PropTypes.shape({}).isRequired,
+  data: PropTypes.shape({
+    enabled: PropTypes.bool,
+    plan: PropTypes.string,
+    endpoint: PropTypes.string,
+    resource_group: PropTypes.string,
+    bucket: PropTypes.string,
+    archive: PropTypes.string,
+    platform_logs: PropTypes.bool,
+  }).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  cosBuckets: PropTypes.arrayOf(PropTypes.string).isRequired,
+  prefix: PropTypes.string.isRequired,
   invalidCallback: PropTypes.func,
   invalidTextCallback: PropTypes.func,
 };

@@ -10969,6 +10969,144 @@ DnsForm.propTypes = {
   })
 };
 
+class LogDNAForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputChange(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    if (lazyZ.contains(["plan", "endpoint"], "name")) value = lazyZ.kebabCase(value);else this.setState(this.setNameToValue(name, value));
+  }
+
+  /**
+   * Toggle on and off param in state at name
+   * @param {string} name name of the object key to change
+   */
+  handleToggle(name) {
+    this.setState({
+      [name]: !this.state[name]
+    });
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement("div", {
+      id: "logdna-form"
+    }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      field: "Name",
+      labelText: "Name",
+      value: this.props.prefix + "-logdna",
+      readOnly: true,
+      id: "logdna-name",
+      invalid: false,
+      placeholder: this.props.prefix + "-logdna",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      labelText: "Enabled",
+      defaultToggled: this.state.enabled,
+      name: "enabled",
+      toggleFieldName: "enabled",
+      onToggle: this.handleToggle,
+      id: "logdna-enabled",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      groups: ["Lite", "7 Day", "14 Day", "30 Day"],
+      formName: this.props.data.name + "-logdna-plan",
+      name: "plan",
+      value: lazyZ.titleCase(this.state.plan).replace(/3 0/, "30").replace(/1 4/, "14"),
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller",
+      labelText: "Plan",
+      invalidText: "Select a plan."
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: this.props.data.name + "-logdna-endpoints",
+      name: "endpoint",
+      labelText: "Endpoint",
+      value: lazyZ.titleCase(this.state.endpoint).replace(/And/g, "and"),
+      groups: ["Private", "Public", "Public and Private"],
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      name: "resource_group",
+      formName: `${this.props.data.name}-logdna-rg-select`,
+      groups: this.props.resourceGroups,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a Resource Group.",
+      labelText: "Resource Group",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      groups: this.props.cosBuckets,
+      formName: this.props.data.name + "-logdna-bucket",
+      name: "bucket",
+      value: this.state.bucket,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller",
+      labelText: "Log Bucket",
+      invalidText: "Select a bucket."
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      field: "archive",
+      labelText: "Archive",
+      value: this.state.archive,
+      id: "logdna-archive",
+      invalid: false,
+      className: "fieldWidth",
+      onChange: this.handleInputChange
+    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      labelText: "Platform Logs",
+      defaultToggled: this.state.platform_logs,
+      name: "platform_logs",
+      toggleFieldName: "enaplatform_logsbled",
+      onToggle: this.handleToggle,
+      id: "logdna-platform-logs",
+      className: "fieldWidth"
+    })));
+  }
+}
+LogDNAForm.defaultProps = {
+  data: {
+    enabled: false,
+    plan: "7-day",
+    endpoint: "private",
+    resource_group: "",
+    bucket: "",
+    archive: "",
+    platform_logs: false
+  },
+  isModal: false
+};
+LogDNAForm.propTypes = {
+  isModal: PropTypes__default["default"].bool.isRequired,
+  data: PropTypes__default["default"].shape({
+    enabled: PropTypes__default["default"].bool,
+    plan: PropTypes__default["default"].string,
+    endpoint: PropTypes__default["default"].string,
+    resource_group: PropTypes__default["default"].string,
+    bucket: PropTypes__default["default"].string,
+    archive: PropTypes__default["default"].string,
+    platform_logs: PropTypes__default["default"].bool
+  }).isRequired,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  cosBuckets: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  prefix: PropTypes__default["default"].string.isRequired,
+  invalidCallback: PropTypes__default["default"].func,
+  invalidTextCallback: PropTypes__default["default"].func
+};
+
 exports.AccessGroupDynamicPolicyForm = AccessGroupDynamicPolicyForm;
 exports.AccessGroupForm = AccessGroupForm;
 exports.AccessGroupPolicyForm = AccessGroupPolicyForm;
@@ -11016,6 +11154,7 @@ exports.IcseToggle = IcseToggle;
 exports.IcseToolTip = IcseToolTip;
 exports.KeyManagementForm = KeyManagementForm;
 exports.LocationsMultiSelect = LocationsMultiSelect;
+exports.LogDNAForm = LogDNAForm;
 exports.NetworkAclForm = NetworkAclForm;
 exports.NetworkingRuleForm = NetworkingRuleForm;
 exports.NetworkingRulesOrderCard = NetworkingRulesOrderCard;
