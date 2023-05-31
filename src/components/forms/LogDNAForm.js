@@ -159,8 +159,6 @@ LogDNAForm.propTypes = {
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   cosBuckets: PropTypes.arrayOf(PropTypes.string).isRequired,
   prefix: PropTypes.string.isRequired,
-  invalidCallback: PropTypes.func,
-  invalidTextCallback: PropTypes.func,
 };
 
 export default LogDNAForm;

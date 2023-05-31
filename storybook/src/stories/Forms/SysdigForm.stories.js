@@ -1,20 +1,14 @@
 import React from "react";
-import { contains } from "lazy-z";
-import { LogDNAForm } from "icse-react-assets";
+import { SysdigForm } from "icse-react-assets";
 
 export default {
-  component: LogDNAForm,
-  title: "Components/Forms/LogDNAForm",
+  component: SysdigForm,
+  title: "Components/Forms/SysdigForm",
   argTypes: {
     data: {
       summary: "An optional object",
       type: { required: false }, // required prop or not
       control: "none",
-    },
-    ["data.enabled"]: {
-      description: "A boolean of whether or not a Log DNA instance is enabled",
-      control: "none",
-      type: { required: true }, // required prop or not
     },
     ["data.plan"]: {
       description:
@@ -22,25 +16,8 @@ export default {
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.endpoints"]: {
-      description:
-        "A string representing the endpoint type. Options are `public`, `private`, and `public-and-private`",
-      control: "none",
-      type: { required: false }, // required prop or not
-    },
     ["data.resource_group"]: {
       description: "A string determining the resource group",
-      control: "none",
-      type: { required: false }, // required prop or not
-    },
-    ["data.bucket"]: {
-      description: "A string determining the bucket",
-      control: "none",
-      type: { required: false }, // required prop or not
-    },
-    ["data.archive"]: {
-      description:
-        "Boolean describing whether or not to create an archive with the LogDNA Provider",
       control: "none",
       type: { required: false }, // required prop or not
     },
@@ -54,11 +31,6 @@ export default {
       type: { required: true },
       control: "none",
     },
-    cosBuckets: {
-      description: "An array of string of buckets to choose from",
-      type: { required: true },
-      control: "none",
-    },
     prefix: {
       description: "A string for the environment prefix",
       type: { required: true },
@@ -69,16 +41,16 @@ export default {
     docs: {
       description: {
         component:
-          "LogDNAForm is a component that allows creation/editing of a Log DNA Instance.",
+          "SysdigForm is a component that allows creation/editing of a Sysdig Instance.",
       },
     },
     decorators: [(Story) => <div style={{ padding: "4.5rem" }}>{Story()}</div>],
   },
 };
 
-const LogDNAFormStory = () => {
+const SysdigFormStory = () => {
   return (
-    <LogDNAForm
+    <SysdigForm
       prefix="iac"
       resourceGroups={["rg1", "rg2", "rg3"]}
       cosBuckets={["bucket1", "bucket2"]}
@@ -86,4 +58,4 @@ const LogDNAFormStory = () => {
   );
 };
 
-export const Default = LogDNAFormStory.bind({});
+export const Default = SysdigFormStory.bind({});
