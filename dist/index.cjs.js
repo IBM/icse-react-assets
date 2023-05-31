@@ -11106,9 +11106,104 @@ LogDNAForm.propTypes = {
   }).isRequired,
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   cosBuckets: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  prefix: PropTypes__default["default"].string.isRequired,
-  invalidCallback: PropTypes__default["default"].func,
-  invalidTextCallback: PropTypes__default["default"].func
+  prefix: PropTypes__default["default"].string.isRequired
+};
+
+class SysdigForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputChange(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    if (name === "plan") value = lazyZ.kebabCase(value);
+    this.setState(this.setNameToValue(name, value));
+  }
+
+  /**
+   * Toggle on and off param in state at name
+   * @param {string} name name of the object key to change
+   */
+  handleToggle(name) {
+    this.setState({
+      [name]: !this.state[name]
+    });
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      field: "Name",
+      labelText: "Name",
+      value: this.props.prefix + "-sysdig",
+      readOnly: true,
+      id: "sysdig-name",
+      invalid: false,
+      placeholder: this.props.prefix + "-sysdig",
+      className: "fieldWidth"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      name: "resource_group",
+      formName: `${this.props.data.name}-sysdig-rg-select`,
+      groups: this.props.resourceGroups,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a Resource Group.",
+      labelText: "Resource Group",
+      className: "fieldWidth"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      tooltip: {
+        content: "Each tier level allows for more time-series per month.",
+        link: "https://cloud.ibm.com/docs/monitoring?topic=monitoring-pricing_plans#graduated_secure"
+      },
+      groups: ["Tier 1", "Tier 2", "Tier 3", "Tier 4"],
+      formName: this.props.data.name + "-sysdig-plan",
+      name: "plan",
+      value: lazyZ.titleCase(this.state.plan),
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidth",
+      labelText: "Plan",
+      invalidText: "Select a plan."
+    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      labelText: "Platform Logs",
+      defaultToggled: this.state.platform_logs,
+      name: "platform_logs",
+      toggleFieldName: "platform_logs",
+      onToggle: this.handleToggle,
+      id: "sysdig-platform-logs",
+      className: "fieldWidth"
+    })));
+  }
+}
+SysdigForm.defaultProps = {
+  data: {
+    plan: "tier-1",
+    resource_group: "",
+    platform_logs: false
+  },
+  isModal: false
+};
+SysdigForm.propTypes = {
+  isModal: PropTypes__default["default"].bool.isRequired,
+  data: PropTypes__default["default"].shape({
+    plan: PropTypes__default["default"].string,
+    resource_group: PropTypes__default["default"].string,
+    platform_logs: PropTypes__default["default"].bool
+  }).isRequired,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  prefix: PropTypes__default["default"].string.isRequired
 };
 
 exports.AccessGroupDynamicPolicyForm = AccessGroupDynamicPolicyForm;
@@ -11184,6 +11279,7 @@ exports.SubnetForm = SubnetForm;
 exports.SubnetMultiSelect = SubnetMultiSelect;
 exports.SubnetTierForm = SubnetTierForm;
 exports.SubnetTileForm = SubnetTileForm;
+exports.SysdigForm = SysdigForm;
 exports.TeleportClaimToRoleForm = TeleportClaimToRoleForm;
 exports.TitleGroup = TitleGroup;
 exports.ToggleForm = ToggleForm;
