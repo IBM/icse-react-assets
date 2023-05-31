@@ -10991,7 +10991,8 @@ class LogDNAForm extends React.Component {
       name,
       value
     } = event.target;
-    if (lazyZ.contains(["plan", "endpoint"], "name")) value = lazyZ.kebabCase(value);else this.setState(this.setNameToValue(name, value));
+    if (lazyZ.contains(["plan", "endpoints"], name)) value = lazyZ.kebabCase(value);
+    this.setState(this.setNameToValue(name, value));
   }
 
   /**
@@ -11034,9 +11035,9 @@ class LogDNAForm extends React.Component {
       invalidText: "Select a plan."
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       formName: this.props.data.name + "-logdna-endpoints",
-      name: "endpoint",
+      name: "endpoints",
       labelText: "Endpoint",
-      value: lazyZ.titleCase(this.state.endpoint).replace(/And/g, "and"),
+      value: lazyZ.titleCase(this.state.endpoints).replace(/And/g, "and"),
       groups: ["Private", "Public", "Public and Private"],
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller"
@@ -11084,7 +11085,7 @@ LogDNAForm.defaultProps = {
   data: {
     enabled: false,
     plan: "7-day",
-    endpoint: "private",
+    endpoints: "private",
     resource_group: "",
     bucket: "",
     archive: false,
@@ -11097,7 +11098,7 @@ LogDNAForm.propTypes = {
   data: PropTypes__default["default"].shape({
     enabled: PropTypes__default["default"].bool,
     plan: PropTypes__default["default"].string,
-    endpoint: PropTypes__default["default"].string,
+    endpoints: PropTypes__default["default"].string,
     resource_group: PropTypes__default["default"].string,
     bucket: PropTypes__default["default"].string,
     archive: PropTypes__default["default"].bool,

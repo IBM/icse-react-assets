@@ -26,8 +26,8 @@ class LogDNAForm extends Component {
    */
   handleInputChange(event) {
     let { name, value } = event.target;
-    if (contains(["plan", "endpoint"], "name")) value = kebabCase(value);
-    else this.setState(this.setNameToValue(name, value));
+    if (contains(["plan", "endpoints"], name)) value = kebabCase(value);
+    this.setState(this.setNameToValue(name, value));
   }
 
   /**
@@ -78,9 +78,9 @@ class LogDNAForm extends Component {
         <IcseFormGroup>
           <IcseSelect
             formName={this.props.data.name + "-logdna-endpoints"}
-            name="endpoint"
+            name="endpoints"
             labelText="Endpoint"
-            value={titleCase(this.state.endpoint).replace(/And/g, "and")}
+            value={titleCase(this.state.endpoints).replace(/And/g, "and")}
             groups={["Private", "Public", "Public and Private"]}
             handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"
@@ -136,7 +136,7 @@ LogDNAForm.defaultProps = {
   data: {
     enabled: false,
     plan: "7-day",
-    endpoint: "private",
+    endpoints: "private",
     resource_group: "",
     bucket: "",
     archive: false,
@@ -150,7 +150,7 @@ LogDNAForm.propTypes = {
   data: PropTypes.shape({
     enabled: PropTypes.bool,
     plan: PropTypes.string,
-    endpoint: PropTypes.string,
+    endpoints: PropTypes.string,
     resource_group: PropTypes.string,
     bucket: PropTypes.string,
     archive: PropTypes.bool,

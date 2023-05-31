@@ -22,7 +22,7 @@ export default {
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.endpoint"]: {
+    ["data.endpoints"]: {
       description:
         "A string representing the endpoint type. Options are `public`, `private`, and `public-and-private`",
       control: "none",

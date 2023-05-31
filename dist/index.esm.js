@@ -10980,7 +10980,8 @@ class LogDNAForm extends Component {
       name,
       value
     } = event.target;
-    if (contains$2(["plan", "endpoint"], "name")) value = kebabCase$2(value);else this.setState(this.setNameToValue(name, value));
+    if (contains$2(["plan", "endpoints"], name)) value = kebabCase$2(value);
+    this.setState(this.setNameToValue(name, value));
   }
 
   /**
@@ -11023,9 +11024,9 @@ class LogDNAForm extends Component {
       invalidText: "Select a plan."
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
       formName: this.props.data.name + "-logdna-endpoints",
-      name: "endpoint",
+      name: "endpoints",
       labelText: "Endpoint",
-      value: titleCase$1(this.state.endpoint).replace(/And/g, "and"),
+      value: titleCase$1(this.state.endpoints).replace(/And/g, "and"),
       groups: ["Private", "Public", "Public and Private"],
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller"
@@ -11073,7 +11074,7 @@ LogDNAForm.defaultProps = {
   data: {
     enabled: false,
     plan: "7-day",
-    endpoint: "private",
+    endpoints: "private",
     resource_group: "",
     bucket: "",
     archive: false,
@@ -11086,7 +11087,7 @@ LogDNAForm.propTypes = {
   data: PropTypes.shape({
     enabled: PropTypes.bool,
     plan: PropTypes.string,
-    endpoint: PropTypes.string,
+    endpoints: PropTypes.string,
     resource_group: PropTypes.string,
     bucket: PropTypes.string,
     archive: PropTypes.bool,
