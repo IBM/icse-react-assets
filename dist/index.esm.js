@@ -3255,7 +3255,7 @@ class EncryptionKeyForm extends Component {
 EncryptionKeyForm.defaultProps = {
   data: {
     name: "",
-    rotation: 12,
+    rotation: 1,
     root_key: false,
     force_delete: false,
     dual_auth_delete: false,
