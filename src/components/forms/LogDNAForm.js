@@ -107,20 +107,21 @@ class LogDNAForm extends Component {
           />
         </IcseFormGroup>
         <IcseFormGroup>
-          <IcseTextInput
-            field="archive"
+          <IcseToggle
+            tooltip={{ content: "Create an archive with the LogDNA Provider" }}
             labelText="Archive"
-            value={this.state.archive}
+            defaultToggled={this.state.archive}
+            name="archive"
+            toggleFieldName="archive"
+            onToggle={this.handleToggle}
             id="logdna-archive"
-            invalid={false}
             className="fieldWidthSmaller"
-            onChange={this.handleInputChange}
           />
           <IcseToggle
             labelText="Platform Logs"
             defaultToggled={this.state.platform_logs}
             name="platform_logs"
-            toggleFieldName="enaplatform_logsbled"
+            toggleFieldName="platform_logs"
             onToggle={this.handleToggle}
             id="logdna-platform-logs"
             className="fieldWidthSmaller"
@@ -138,7 +139,7 @@ LogDNAForm.defaultProps = {
     endpoint: "private",
     resource_group: "",
     bucket: "",
-    archive: "",
+    archive: false,
     platform_logs: false,
   },
   isModal: false,
@@ -152,7 +153,7 @@ LogDNAForm.propTypes = {
     endpoint: PropTypes.string,
     resource_group: PropTypes.string,
     bucket: PropTypes.string,
-    archive: PropTypes.string,
+    archive: PropTypes.bool,
     platform_logs: PropTypes.bool,
   }).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,

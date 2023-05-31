@@ -11047,19 +11047,22 @@ class LogDNAForm extends Component {
       className: "fieldWidthSmaller",
       labelText: "Log Bucket",
       invalidText: "Select a bucket."
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
-      field: "archive",
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
+      tooltip: {
+        content: "Create an archive with the LogDNA Provider"
+      },
       labelText: "Archive",
-      value: this.state.archive,
+      defaultToggled: this.state.archive,
+      name: "archive",
+      toggleFieldName: "archive",
+      onToggle: this.handleToggle,
       id: "logdna-archive",
-      invalid: false,
-      className: "fieldWidthSmaller",
-      onChange: this.handleInputChange
+      className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseToggle, {
       labelText: "Platform Logs",
       defaultToggled: this.state.platform_logs,
       name: "platform_logs",
-      toggleFieldName: "enaplatform_logsbled",
+      toggleFieldName: "platform_logs",
       onToggle: this.handleToggle,
       id: "logdna-platform-logs",
       className: "fieldWidthSmaller"
@@ -11073,7 +11076,7 @@ LogDNAForm.defaultProps = {
     endpoint: "private",
     resource_group: "",
     bucket: "",
-    archive: "",
+    archive: false,
     platform_logs: false
   },
   isModal: false
@@ -11086,7 +11089,7 @@ LogDNAForm.propTypes = {
     endpoint: PropTypes.string,
     resource_group: PropTypes.string,
     bucket: PropTypes.string,
-    archive: PropTypes.string,
+    archive: PropTypes.bool,
     platform_logs: PropTypes.bool
   }).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,

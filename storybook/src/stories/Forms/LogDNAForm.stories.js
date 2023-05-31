@@ -11,13 +11,6 @@ export default {
       type: { required: false }, // required prop or not
       control: "none",
     },
-    enabled: false,
-    plan: "7-day",
-    endpoint: "private",
-    resource_group: "",
-    bucket: "",
-    archive: "",
-    platform_logs: false,
     ["data.enabled"]: {
       description: "A boolean of whether or not a Log DNA instance is enabled",
       control: "none",
@@ -46,7 +39,8 @@ export default {
       type: { required: false }, // required prop or not
     },
     ["data.archive"]: {
-      description: "A string for the archive location", // ?
+      description:
+        "Boolean describing whether or not to create an archive with the LogDNA Provider",
       control: "none",
       type: { required: false }, // required prop or not
     },

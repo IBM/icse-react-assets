@@ -11058,19 +11058,22 @@ class LogDNAForm extends React.Component {
       className: "fieldWidthSmaller",
       labelText: "Log Bucket",
       invalidText: "Select a bucket."
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      field: "archive",
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      tooltip: {
+        content: "Create an archive with the LogDNA Provider"
+      },
       labelText: "Archive",
-      value: this.state.archive,
+      defaultToggled: this.state.archive,
+      name: "archive",
+      toggleFieldName: "archive",
+      onToggle: this.handleToggle,
       id: "logdna-archive",
-      invalid: false,
-      className: "fieldWidthSmaller",
-      onChange: this.handleInputChange
+      className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
       labelText: "Platform Logs",
       defaultToggled: this.state.platform_logs,
       name: "platform_logs",
-      toggleFieldName: "enaplatform_logsbled",
+      toggleFieldName: "platform_logs",
       onToggle: this.handleToggle,
       id: "logdna-platform-logs",
       className: "fieldWidthSmaller"
@@ -11084,7 +11087,7 @@ LogDNAForm.defaultProps = {
     endpoint: "private",
     resource_group: "",
     bucket: "",
-    archive: "",
+    archive: false,
     platform_logs: false
   },
   isModal: false
@@ -11097,7 +11100,7 @@ LogDNAForm.propTypes = {
     endpoint: PropTypes__default["default"].string,
     resource_group: PropTypes__default["default"].string,
     bucket: PropTypes__default["default"].string,
-    archive: PropTypes__default["default"].string,
+    archive: PropTypes__default["default"].bool,
     platform_logs: PropTypes__default["default"].bool
   }).isRequired,
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
