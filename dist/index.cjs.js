@@ -2615,7 +2615,9 @@ AppIdForm.propTypes = {
 class AtrackerForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = {
+      ...this.props.data
+    };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.handleMultiSelect = this.handleMultiSelect.bind(this);
@@ -2625,10 +2627,16 @@ class AtrackerForm extends React.Component {
 
   /**
    * handle input change
-   * @param {event} event event
+   * @param {string} name key to change in state
+   * @param {*} value value to update
    */
   handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
+    let {
+      name,
+      value
+    } = event.target;
+    if (name === "plan") value = lazyZ.kebabCase(value);
+    this.setState(this.setNameToValue(name, value));
   }
   handleMultiSelect(event) {
     this.setState({
@@ -2648,7 +2656,7 @@ class AtrackerForm extends React.Component {
       id: "atracker-form"
     }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
       tooltip: {
-        content: "Enable or Disable your Activity Tracker instance.",
+        content: "Enable or Disable routing in your Activity Tracker Instance",
         align: "bottom-left"
       },
       labelText: "Enabled",
@@ -2656,6 +2664,16 @@ class AtrackerForm extends React.Component {
       toggleFieldName: "enabled",
       onToggle: this.handleToggle,
       id: "atracker-enable-disable"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      tooltip: {
+        content: "Only one instance of Activity Tracker can be created per region",
+        align: "bottom-left"
+      },
+      labelText: "Create Activity Tracker Instance",
+      defaultToggled: this.state.instance,
+      toggleFieldName: "instance",
+      onToggle: this.handleToggle,
+      id: "atracker-instance-"
     })), this.state.enabled && /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       componentName: "Activity Tracker",
       field: "Name",
@@ -2673,7 +2691,7 @@ class AtrackerForm extends React.Component {
       invalid: this.state.locations.length === 0,
       invalidText: "Select at least one location.",
       initialSelectedItems: this.props.data.locations
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       tooltip: {
         content: "The bucket name under the Cloud Object Storage instance where Activity Tracker logs will be stored"
       },
@@ -2686,18 +2704,16 @@ class AtrackerForm extends React.Component {
       className: "fieldWidth",
       labelText: "Object Storage Log Bucket",
       invalidText: "Select an Object Storage bucket."
-    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
       tooltip: {
         content: "Must be enabled in order to forward all logs to the Cloud Object Storage bucket"
       },
-      labelText: "Create Activity Tracker Route",
+      labelText: "Create Route",
       defaultToggled: this.state.add_route,
       toggleFieldName: "add_route",
       onToggle: this.handleToggle,
       id: "atracker-add-route"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
-      noMarginBottom: true
-    }, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       tooltip: {
         content: "The IAM API key that has writer access to the Cloud Object Storage instance"
       },
@@ -2709,6 +2725,35 @@ class AtrackerForm extends React.Component {
       handleInputChange: this.handleInputChange,
       className: "fieldWidth",
       invalidText: "Select an Object Storage key."
+    })), this.state.instance && /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      name: "resource_group",
+      formName: `${this.props.data.name}-atracker-rg-select`,
+      groups: this.props.resourceGroups,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a Resource Group.",
+      labelText: "Resource Group",
+      className: "fieldWidth"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      groups: ["Lite", "7 Day", "14 Day", "30 Day"],
+      formName: this.props.data.name + "-atracker-plan",
+      name: "plan",
+      value: lazyZ.titleCase(this.state.plan).replace(/3 0/, "30").replace(/1 4/, "14"),
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidth",
+      labelText: "Plan",
+      invalidText: "Select a plan."
+    }), this.props.logdnaEnabled && /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      tooltip: {
+        content: "Create an archive with the LogDNA Provider"
+      },
+      labelText: "Create LogDNA Archive",
+      defaultToggled: this.state.archive,
+      name: "archive",
+      toggleFieldName: "archive",
+      onToggle: this.handleToggle,
+      id: "logdna-archive",
+      className: "fieldWidth"
     }))));
   }
 }
@@ -2719,9 +2764,12 @@ AtrackerForm.defaultProps = {
     bucket: "",
     cos_key: "",
     resource_group: "",
+    plan: "lite",
+    archive: false,
     add_route: false,
     locations: []
-  }
+  },
+  logdnaEnabled: false
 };
 AtrackerForm.propTypes = {
   data: PropTypes__default["default"].shape({
@@ -2736,7 +2784,9 @@ AtrackerForm.propTypes = {
   prefix: PropTypes__default["default"].string.isRequired,
   cosKeys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   cosBuckets: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  isModal: PropTypes__default["default"].bool.isRequired
+  isModal: PropTypes__default["default"].bool.isRequired,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  logdnaEnabled: PropTypes__default["default"].bool.isRequired
 };
 
 class WorkerPoolForm extends React.Component {
