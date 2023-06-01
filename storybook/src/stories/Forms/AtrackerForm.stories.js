@@ -105,6 +105,7 @@ const AtrackerFormStory = () => {
       cosKeys={["default_key", "bar"]}
       prefix="icse"
       region="us-south"
+      logdnaEnabled
     />
   );
 };

@@ -2604,7 +2604,9 @@ AppIdForm.propTypes = {
 class AtrackerForm extends Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = {
+      ...this.props.data
+    };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.handleMultiSelect = this.handleMultiSelect.bind(this);
@@ -2614,10 +2616,16 @@ class AtrackerForm extends Component {
 
   /**
    * handle input change
-   * @param {event} event event
+   * @param {string} name key to change in state
+   * @param {*} value value to update
    */
   handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
+    let {
+      name,
+      value
+    } = event.target;
+    if (name === "plan") value = kebabCase$2(value);
+    this.setState(this.setNameToValue(name, value));
   }
   handleMultiSelect(event) {
     this.setState({
@@ -2637,7 +2645,7 @@ class AtrackerForm extends Component {
       id: "atracker-form"
     }, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
       tooltip: {
-        content: "Enable or Disable your Activity Tracker instance.",
+        content: "Enable or Disable routing in your Activity Tracker Instance",
         align: "bottom-left"
       },
       labelText: "Enabled",
@@ -2645,6 +2653,16 @@ class AtrackerForm extends Component {
       toggleFieldName: "enabled",
       onToggle: this.handleToggle,
       id: "atracker-enable-disable"
+    }), /*#__PURE__*/React.createElement(IcseToggle, {
+      tooltip: {
+        content: "Only one instance of Activity Tracker can be created per region",
+        align: "bottom-left"
+      },
+      labelText: "Create Activity Tracker Instance",
+      defaultToggled: this.state.instance,
+      toggleFieldName: "instance",
+      onToggle: this.handleToggle,
+      id: "atracker-instance-"
     })), this.state.enabled && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
       componentName: "Activity Tracker",
       field: "Name",
@@ -2662,7 +2680,7 @@ class AtrackerForm extends Component {
       invalid: this.state.locations.length === 0,
       invalidText: "Select at least one location.",
       initialSelectedItems: this.props.data.locations
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
       tooltip: {
         content: "The bucket name under the Cloud Object Storage instance where Activity Tracker logs will be stored"
       },
@@ -2675,18 +2693,16 @@ class AtrackerForm extends Component {
       className: "fieldWidth",
       labelText: "Object Storage Log Bucket",
       invalidText: "Select an Object Storage bucket."
-    }), /*#__PURE__*/React.createElement(IcseToggle, {
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
       tooltip: {
         content: "Must be enabled in order to forward all logs to the Cloud Object Storage bucket"
       },
-      labelText: "Create Activity Tracker Route",
+      labelText: "Create Route",
       defaultToggled: this.state.add_route,
       toggleFieldName: "add_route",
       onToggle: this.handleToggle,
       id: "atracker-add-route"
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, {
-      noMarginBottom: true
-    }, /*#__PURE__*/React.createElement(IcseSelect, {
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
       tooltip: {
         content: "The IAM API key that has writer access to the Cloud Object Storage instance"
       },
@@ -2698,6 +2714,35 @@ class AtrackerForm extends Component {
       handleInputChange: this.handleInputChange,
       className: "fieldWidth",
       invalidText: "Select an Object Storage key."
+    })), this.state.instance && /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+      name: "resource_group",
+      formName: `${this.props.data.name}-atracker-rg-select`,
+      groups: this.props.resourceGroups,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a Resource Group.",
+      labelText: "Resource Group",
+      className: "fieldWidth"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      groups: ["Lite", "7 Day", "14 Day", "30 Day"],
+      formName: this.props.data.name + "-atracker-plan",
+      name: "plan",
+      value: titleCase$1(this.state.plan).replace(/3 0/, "30").replace(/1 4/, "14"),
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidth",
+      labelText: "Plan",
+      invalidText: "Select a plan."
+    }), this.props.logdnaEnabled && /*#__PURE__*/React.createElement(IcseToggle, {
+      tooltip: {
+        content: "Create an archive with the LogDNA Provider"
+      },
+      labelText: "Create LogDNA Archive",
+      defaultToggled: this.state.archive,
+      name: "archive",
+      toggleFieldName: "archive",
+      onToggle: this.handleToggle,
+      id: "logdna-archive",
+      className: "fieldWidth"
     }))));
   }
 }
@@ -2708,9 +2753,12 @@ AtrackerForm.defaultProps = {
     bucket: "",
     cos_key: "",
     resource_group: "",
+    plan: "lite",
+    archive: false,
     add_route: false,
     locations: []
-  }
+  },
+  logdnaEnabled: false
 };
 AtrackerForm.propTypes = {
   data: PropTypes.shape({
@@ -2725,7 +2773,9 @@ AtrackerForm.propTypes = {
   prefix: PropTypes.string.isRequired,
   cosKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
   cosBuckets: PropTypes.arrayOf(PropTypes.string).isRequired,
-  isModal: PropTypes.bool.isRequired
+  isModal: PropTypes.bool.isRequired,
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  logdnaEnabled: PropTypes.bool.isRequired
 };
 
 class WorkerPoolForm extends Component {
