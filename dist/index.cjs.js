@@ -7162,7 +7162,8 @@ class SubnetTierForm extends React__default["default"].Component {
       formName: formName
     }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
       tooltip: {
-        content: this.props.dynamicSubnets ? "Advanced configuration cannot be set when using dynamically scaled subnets" : "Enable advanced subnet configuration such as custom CIDR blocks"
+        content: this.props.dynamicSubnets ? "Advanced configuration cannot be set when using dynamically scaled subnets" : "Enable advanced subnet configuration such as custom CIDR blocks",
+        alignModal: "bottom"
       },
       id: composedId + "-advanced",
       labelText: "Advanced Configuration",
