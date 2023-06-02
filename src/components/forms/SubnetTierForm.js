@@ -271,7 +271,7 @@ class SubnetTierForm extends React.Component {
                   content: this.props.dynamicSubnets
                     ? "Advanced configuration cannot be set when using dynamically scaled subnets"
                     : "Enable advanced subnet configuration such as custom CIDR blocks",
-                  alignModal: "bottom"
+                  alignModal: "bottom",
                 }}
                 id={composedId + "-advanced"}
                 labelText="Advanced Configuration"
