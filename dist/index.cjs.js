@@ -7162,14 +7162,14 @@ class SubnetTierForm extends React__default["default"].Component {
       formName: formName
     }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
       tooltip: {
-        content: "Enable advanced subnet configuration such as custom CIDR blocks"
+        content: this.props.dynamicSubnets ? "Advanced configuration cannot be set when using dynamically scaled subnets" : "Enable advanced subnet configuration such as custom CIDR blocks"
       },
       id: composedId + "-advanced",
       labelText: "Advanced Configuration",
       defaultToggled: this.state.advanced,
       onToggle: () => this.handleToggle("advanced"),
       className: "fieldWidthSmaller",
-      disabled: this.props.data.advanced
+      disabled: this.props.dynamicSubnets || this.props.data.advanced
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
       className: "marginBottomSmall"
     }, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
@@ -7228,7 +7228,8 @@ SubnetTierForm.defaultProps = {
     zones: 3,
     networkAcl: null,
     addPublicGateway: false
-  }
+  },
+  dynamicSubnets: false
 };
 SubnetTierForm.propTypes = {
   data: PropTypes__default["default"].shape({
@@ -7262,7 +7263,8 @@ SubnetTierForm.propTypes = {
   invalidCidr: PropTypes__default["default"].func,
   invalidCidrText: PropTypes__default["default"].func,
   invalidSubnetCallback: PropTypes__default["default"].func,
-  invalidSubnetTextCallback: PropTypes__default["default"].func
+  invalidSubnetTextCallback: PropTypes__default["default"].func,
+  dynamicSubnets: PropTypes__default["default"].bool.isRequired
 };
 
 const emailRegex = /^[\w-_\.]+@([\w-_]+\.)+[\w]{1,4}$/g;

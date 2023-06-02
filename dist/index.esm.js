@@ -7151,14 +7151,14 @@ class SubnetTierForm extends React.Component {
       formName: formName
     }), /*#__PURE__*/React.createElement(IcseToggle, {
       tooltip: {
-        content: "Enable advanced subnet configuration such as custom CIDR blocks"
+        content: this.props.dynamicSubnets ? "Advanced configuration cannot be set when using dynamically scaled subnets" : "Enable advanced subnet configuration such as custom CIDR blocks"
       },
       id: composedId + "-advanced",
       labelText: "Advanced Configuration",
       defaultToggled: this.state.advanced,
       onToggle: () => this.handleToggle("advanced"),
       className: "fieldWidthSmaller",
-      disabled: this.props.data.advanced
+      disabled: this.props.dynamicSubnets || this.props.data.advanced
     })), /*#__PURE__*/React.createElement(IcseFormGroup, {
       className: "marginBottomSmall"
     }, /*#__PURE__*/React.createElement(IcseSelect, {
@@ -7217,7 +7217,8 @@ SubnetTierForm.defaultProps = {
     zones: 3,
     networkAcl: null,
     addPublicGateway: false
-  }
+  },
+  dynamicSubnets: false
 };
 SubnetTierForm.propTypes = {
   data: PropTypes.shape({
@@ -7251,7 +7252,8 @@ SubnetTierForm.propTypes = {
   invalidCidr: PropTypes.func,
   invalidCidrText: PropTypes.func,
   invalidSubnetCallback: PropTypes.func,
-  invalidSubnetTextCallback: PropTypes.func
+  invalidSubnetTextCallback: PropTypes.func,
+  dynamicSubnets: PropTypes.bool.isRequired
 };
 
 const emailRegex = /^[\w-_\.]+@([\w-_]+\.)+[\w]{1,4}$/g;

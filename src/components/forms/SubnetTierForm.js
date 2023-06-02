@@ -265,17 +265,19 @@ class SubnetTierForm extends React.Component {
                   formName={formName}
                 />
               )}
+
               <IcseToggle
                 tooltip={{
-                  content:
-                    "Enable advanced subnet configuration such as custom CIDR blocks",
+                  content: this.props.dynamicSubnets
+                    ? "Advanced configuration cannot be set when using dynamically scaled subnets"
+                    : "Enable advanced subnet configuration such as custom CIDR blocks",
                 }}
                 id={composedId + "-advanced"}
                 labelText="Advanced Configuration"
                 defaultToggled={this.state.advanced}
                 onToggle={() => this.handleToggle("advanced")}
                 className="fieldWidthSmaller"
-                disabled={this.props.data.advanced}
+                disabled={this.props.dynamicSubnets || this.props.data.advanced}
               />
             </IcseFormGroup>
 
@@ -357,6 +359,7 @@ SubnetTierForm.defaultProps = {
     networkAcl: null,
     addPublicGateway: false,
   },
+  dynamicSubnets: false,
 };
 
 SubnetTierForm.propTypes = {
@@ -389,6 +392,7 @@ SubnetTierForm.propTypes = {
   invalidCidrText: PropTypes.func,
   invalidSubnetCallback: PropTypes.func,
   invalidSubnetTextCallback: PropTypes.func,
+  dynamicSubnets: PropTypes.bool.isRequired,
 };
 
 export default SubnetTierForm;
