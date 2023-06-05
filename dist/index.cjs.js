@@ -8061,6 +8061,10 @@ class VpnServerForm extends React.Component {
       newState.client_ca_crn = crnList;
     } else if (name === "protocol") {
       newState.protocol = value.toLowerCase();
+    } else if (name === "port" || name === "client_idle_timeout") {
+      newState = {
+        [name]: Number(value)
+      };
     } else {
       newState = {
         [name]: value
@@ -8213,7 +8217,7 @@ class VpnServerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: !lazyZ.isNullOrEmptyString(this.state.port) && (this.state.port % 1 !== 0 || this.state.port < 1 || this.state.port > 65535),
+      invalid: !lazyZ.isNullOrEmptyString(this.state.port) && (!lazyZ.isWholeNumber(Number(this.state.port)) || this.state.port < 1 || this.state.port > 65535),
       invalidText: "Must be a whole number between 1 and 65535.",
       className: "fieldWidthSmaller leftTextAlign"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
@@ -8242,7 +8246,7 @@ class VpnServerForm extends React.Component {
       hideSteppers: true,
       min: 0,
       max: 28800,
-      invalid: !lazyZ.isNullOrEmptyString(this.state.client_idle_timeout) && (this.state.client_idle_timeout % 1 !== 0 || this.state.client_idle_timeout < 0 || this.state.client_idle_timeout > 28000),
+      invalid: !lazyZ.isNullOrEmptyString(this.state.client_idle_timeout) && (!lazyZ.isWholeNumber(Number(this.state.client_idle_timeout)) || this.state.client_idle_timeout < 0 || this.state.client_idle_timeout > 28000),
       invalidText: "Must be a whole number between 0 and 28800.",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {

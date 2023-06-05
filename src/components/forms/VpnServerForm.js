@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import { NumberInput, TextArea } from "@carbon/react";
-import { titleCase, transpose, isNullOrEmptyString } from "lazy-z";
+import {
+  titleCase,
+  transpose,
+  isNullOrEmptyString,
+  isWholeNumber,
+} from "lazy-z";
 import PropTypes from "prop-types";
 import { isIpStringInvalidNoCidr } from "../../lib/iam-utils";
 import {
@@ -52,6 +57,8 @@ class VpnServerForm extends Component {
       newState.client_ca_crn = crnList;
     } else if (name === "protocol") {
       newState.protocol = value.toLowerCase();
+    } else if (name === "port" || name === "client_idle_timeout") {
+      newState = { [name]: Number(value) };
     } else {
       newState = { [name]: value };
     }
@@ -263,7 +270,7 @@ class VpnServerForm extends Component {
             max={65535}
             invalid={
               !isNullOrEmptyString(this.state.port) &&
-              (this.state.port % 1 !== 0 ||
+              (!isWholeNumber(Number(this.state.port)) ||
                 this.state.port < 1 ||
                 this.state.port > 65535)
             }
@@ -307,7 +314,7 @@ class VpnServerForm extends Component {
             max={28800}
             invalid={
               !isNullOrEmptyString(this.state.client_idle_timeout) &&
-              (this.state.client_idle_timeout % 1 !== 0 ||
+              (!isWholeNumber(Number(this.state.client_idle_timeout)) ||
                 this.state.client_idle_timeout < 0 ||
                 this.state.client_idle_timeout > 28000)
             }
