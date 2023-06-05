@@ -8061,10 +8061,6 @@ class VpnServerForm extends React.Component {
       newState.client_ca_crn = crnList;
     } else if (name === "protocol") {
       newState.protocol = value.toLowerCase();
-    } else if (name === "port" || name === "client_idle_timeout") {
-      newState = {
-        [name]: Number(value)
-      };
     } else {
       newState = {
         [name]: value
