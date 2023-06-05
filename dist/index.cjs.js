@@ -2524,6 +2524,7 @@ class AppIdForm extends React.Component {
     lazyZ.transpose({
       ...this.props.keyProps
     }, keyProps);
+    let composedClassName = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
     return /*#__PURE__*/React__default["default"].createElement("div", {
       id: "appid-form"
     }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
@@ -2543,7 +2544,7 @@ class AppIdForm extends React.Component {
       hideHelperText: true,
       invalid: this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props),
-      className: "fieldWidth"
+      className: composedClassName
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       labelText: "Resource Group",
       name: "resource_group",
@@ -2552,7 +2553,7 @@ class AppIdForm extends React.Component {
       value: this.state.resource_group,
       handleInputChange: this.handleInputChange,
       invalidText: "Select a Resource Group.",
-      className: "fieldWidth"
+      className: composedClassName
     })), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
       name: "AppID Keys",
       subHeading: true,
@@ -6502,14 +6503,13 @@ class SecurityGroupForm extends React.Component {
 
   render() {
     let composedId = `security-group-form-${this.props.data.name}`;
-    let className = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       id: composedId,
       componentName: "security_groups",
       value: this.state.name,
       onChange: this.handleInputChange,
       hideHelperText: true,
-      className: className,
+      className: "fieldWidthSmaller",
       invalidCallback: () => this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props)
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
@@ -6519,7 +6519,7 @@ class SecurityGroupForm extends React.Component {
       groups: this.props.resourceGroups,
       value: this.state.resource_group,
       handleInputChange: this.handleInputChange,
-      className: className
+      className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       formName: "security_Group",
       name: "vpc",
@@ -6527,7 +6527,7 @@ class SecurityGroupForm extends React.Component {
       groups: this.props.vpcList,
       value: this.state.vpc,
       handleInputChange: this.handleInputChange,
-      className: className
+      className: "fieldWidthSmaller"
     })), !this.props.isModal && /*#__PURE__*/React__default["default"].createElement(NetworkingRulesOrderCard, {
       key: JSON.stringify(this.props.rules),
       rules: this.props.data.rules,
@@ -7539,7 +7539,7 @@ class VpcNetworkForm extends React__default["default"].Component {
   }
   render() {
     let composedId = `${this.props.data.name}-vpc-form`;
-    let classNameModalCheck = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
+    this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       tooltip: {
         content: "This name will be prepended to all components within this VPC.",
@@ -7558,7 +7558,7 @@ class VpcNetworkForm extends React__default["default"].Component {
       onChange: this.handleInputChange,
       invalid: this.props.invalidCallback("name", this.state, this.props),
       invalidText: this.props.invalidTextCallback("name", this.state, this.props),
-      className: classNameModalCheck
+      className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       labelText: "Resource Group",
       name: "resource_group",
@@ -7568,7 +7568,7 @@ class VpcNetworkForm extends React__default["default"].Component {
       handleInputChange: this.handleInputChange,
       invalid: lib_4(this.state.resource_group),
       invalidText: "Select a Resource Group.",
-      className: classNameModalCheck
+      className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       labelText: "Flow Logs Bucket Name",
       name: "bucket",
@@ -7578,7 +7578,7 @@ class VpcNetworkForm extends React__default["default"].Component {
       handleInputChange: this.handleInputChange,
       invalid: lib_4(this.state.bucket),
       invalidText: "Select a Bucket.",
-      className: classNameModalCheck
+      className: "fieldWidthSmaller"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, nameFields.map(field => {
       return /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
         id: composedId + "-" + field,
@@ -7590,7 +7590,7 @@ class VpcNetworkForm extends React__default["default"].Component {
         onChange: this.handleInputChange,
         invalid: this.props.invalidCallback(field, this.state, this.props),
         invalidText: this.props.invalidTextCallback(field, this.state, this.props),
-        className: classNameModalCheck
+        className: "fieldWidthSmaller"
       });
     })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
       name: "Public Gateways",
@@ -7605,7 +7605,7 @@ class VpcNetworkForm extends React__default["default"].Component {
       labelText: "Create in Zone " + lazyZ.parseIntFromZone(zone),
       defaultToggled: this.state.publicGateways.indexOf(lazyZ.parseIntFromZone(zone)) !== -1,
       onToggle: () => this.handPgwToggle(zone),
-      className: classNameModalCheck + " leftTextAlign"
+      className: "fieldWidthSmaller leftTextAlign"
     }))), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
       name: "Classic Access",
       type: "subHeading"
@@ -7618,7 +7618,7 @@ class VpcNetworkForm extends React__default["default"].Component {
       defaultToggled: this.state.classic_access,
       onToggle: this.handleToggle,
       disabled: this.props.disableManualPrefixToggle,
-      className: classNameModalCheck + " leftTextAlign"
+      className: "fieldWidthSmaller leftTextAlign"
     })));
   }
 }
@@ -8467,7 +8467,6 @@ class VsiForm extends React.Component {
   }
   render() {
     let composedId = `vsi-deployment-form-${this.props.data.name}`;
-    let classNameModalCheck = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
     let volumeProps = {
       invalidCallback: this.props.invalidVsiVolumeCallback,
       invalidTextCallback: this.props.invalidVsiVolumeTextCallback,
@@ -8479,7 +8478,7 @@ class VsiForm extends React.Component {
     }, volumeProps);
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       id: composedId,
-      className: classNameModalCheck,
+      className: "fieldWidthSmaller",
       componentName: "vsi",
       value: this.state.name,
       onChange: this.handleInputChange,
@@ -8489,7 +8488,7 @@ class VsiForm extends React.Component {
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       formName: "vsi_form",
       name: "resource_group",
-      className: classNameModalCheck,
+      className: "fieldWidthSmaller",
       labelText: "Resource Group",
       groups: this.props.resourceGroups,
       value: this.state.resource_group,
@@ -8497,7 +8496,7 @@ class VsiForm extends React.Component {
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       formName: "vsi_form",
       name: "vpc",
-      className: classNameModalCheck,
+      className: "fieldWidthSmaller",
       labelText: "VPC",
       groups: this.props.vpcList,
       value: this.state.vpc,
@@ -8510,7 +8509,7 @@ class VsiForm extends React.Component {
     React__default["default"].createElement(IcseSelect, {
       formName: "vsi_form",
       name: "subnet",
-      className: classNameModalCheck,
+      className: "fieldWidthSmaller",
       labelText: "Subnet",
       groups: this.getSubnetList(),
       value: this.state.subnet,
@@ -8520,7 +8519,7 @@ class VsiForm extends React.Component {
     }) : /*#__PURE__*/React__default["default"].createElement(SubnetMultiSelect, {
       key: this.state.vpc + "-subnet",
       id: "vsi-subnets",
-      className: classNameModalCheck,
+      className: "fieldWidthSmaller",
       initialSelectedItems: this.state.subnets,
       vpc_name: this.state.vpc,
       subnets: this.getSubnetList(),
@@ -8528,7 +8527,7 @@ class VsiForm extends React.Component {
     }), /*#__PURE__*/React__default["default"].createElement(SecurityGroupMultiSelect, {
       key: this.state.vpc + "-sg",
       id: "vsi-security-groups",
-      className: classNameModalCheck,
+      className: "fieldWidthSmaller",
       initialSelectedItems: this.state.security_groups || [],
       vpc_name: this.state.vpc,
       onChange: value => this.handleMultiSelectChange("security_groups", value),
@@ -8547,12 +8546,12 @@ class VsiForm extends React.Component {
       name: "vsi_per_subnet",
       hideSteppers: true,
       invalidText: "Please input a number 1-10",
-      className: `${classNameModalCheck} leftTextAlign`
+      className: "fieldWidthSmaller leftTextAlign"
     }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
       formName: "vsi_form",
       labelText: "Image",
       name: "image_name",
-      className: classNameModalCheck,
+      className: "fieldWidthSmaller",
       apiEndpoint: this.props.apiEndpointImages,
       handleInputChange: this.handleInputChange,
       value: this.state.image_name
@@ -8560,20 +8559,20 @@ class VsiForm extends React.Component {
       formName: "vsi_form",
       labelText: "Profile",
       name: "profile",
-      className: classNameModalCheck,
+      className: "fieldWidthSmaller",
       apiEndpoint: this.props.apiEndpointInstanceProfiles,
       handleInputChange: this.handleInputChange,
       value: this.state.profile
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(SshKeyMultiSelect, {
       id: "sshkey",
-      className: classNameModalCheck,
+      className: "fieldWidthSmaller",
       sshKeys: this.props.sshKeys,
       initialSelectedItems: this.state.ssh_keys || [],
       onChange: value => this.handleMultiSelectChange("ssh_keys", value)
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       formName: "vsi_form",
       name: "encryption_key",
-      className: classNameModalCheck,
+      className: "fieldWidthSmaller",
       labelText: "Encryption Key",
       groups: this.props.encryptionKeys,
       value: this.state.encryption_key,
@@ -8582,7 +8581,7 @@ class VsiForm extends React.Component {
       invalidText: "Select a valid encryption key."
     }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
       id: composedId + "-fips-toggle",
-      className: classNameModalCheck,
+      className: "fieldWidthSmaller",
       labelText: "Enable Floating IP",
       defaultToggled: this.state.enable_floating_ip,
       onToggle: this.handleToggle
@@ -8718,7 +8717,7 @@ class VsiLoadBalancerForm extends React__default["default"].Component {
     let nextState = {
       ...this.state
     };
-    nextState[name] = lazyZ.contains(["name", "vpc", "resource_group"], name) ? value : lazyZ.contains(["health_delay", "health_retries", "health_timeout", "port", "listener_port", "connection_limit"], name) ? Number(value) : lazyZ.snakeCase(value);
+    nextState[name] = lazyZ.contains(["name", "vpc", "resource_group", "type"], name) ? value : lazyZ.contains(["health_delay", "health_retries", "health_timeout", "port", "listener_port", "connection_limit"], name) ? Number(value) : lazyZ.snakeCase(value);
     if (name === "vpc") {
       nextState.subnets = [];
       nextState.security_groups = [];
@@ -8728,6 +8727,8 @@ class VsiLoadBalancerForm extends React__default["default"].Component {
       nextState[name] = "";
     } else if (name === "session_persistence_type" && value !== "app_cookie") {
       nextState.session_persistence_app_cookie_name = null;
+    } else if (name === "type") {
+      nextState.type = lazyZ.snakeCase(value.split(" ")[0]);
     }
     this.setState(nextState);
   }
@@ -8810,8 +8811,8 @@ class VsiLoadBalancerForm extends React__default["default"].Component {
       formName: componentName + "-type",
       name: "type",
       labelText: "Load Balancer Type",
-      groups: ["Public", "Private"],
-      value: lazyZ.titleCase(this.state.type || ""),
+      groups: ["Public (ALB)", "Private (NLB)"],
+      value: this.state.type === "private" ? "Private (NLB)" : this.state.type === "public" ? "Public (ALB)" : "",
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
@@ -8986,7 +8987,7 @@ class VsiLoadBalancerForm extends React__default["default"].Component {
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller",
       tooltip: {
-        content: "Protocol of the listener for the looad balancer"
+        content: "Protocol of the listener for the load balancer"
       }
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
       label: "Connection Limit",
