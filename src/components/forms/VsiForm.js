@@ -56,9 +56,7 @@ class VsiForm extends Component {
 
   render() {
     let composedId = `vsi-deployment-form-${this.props.data.name}`;
-    let classNameModalCheck = this.props.isModal
-      ? "fieldWidthSmaller"
-      : "fieldWidth";
+
     let volumeProps = {
       invalidCallback: this.props.invalidVsiVolumeCallback,
       invalidTextCallback: this.props.invalidVsiVolumeTextCallback,
@@ -71,7 +69,7 @@ class VsiForm extends Component {
         <IcseFormGroup>
           <IcseNameInput
             id={composedId}
-            className={classNameModalCheck}
+            className="fieldWidthSmaller"
             componentName={"vsi"}
             value={this.state.name}
             onChange={this.handleInputChange}
@@ -82,7 +80,7 @@ class VsiForm extends Component {
           <IcseSelect
             formName="vsi_form"
             name="resource_group"
-            className={classNameModalCheck}
+            className="fieldWidthSmaller"
             labelText="Resource Group"
             groups={this.props.resourceGroups}
             value={this.state.resource_group}
@@ -93,7 +91,7 @@ class VsiForm extends Component {
           <IcseSelect
             formName="vsi_form"
             name="vpc"
-            className={classNameModalCheck}
+            className="fieldWidthSmaller"
             labelText="VPC"
             groups={this.props.vpcList}
             value={this.state.vpc}
@@ -107,7 +105,7 @@ class VsiForm extends Component {
             <IcseSelect
               formName="vsi_form"
               name="subnet"
-              className={classNameModalCheck}
+              className="fieldWidthSmaller"
               labelText="Subnet"
               groups={this.getSubnetList()}
               value={this.state.subnet}
@@ -126,7 +124,7 @@ class VsiForm extends Component {
             <SubnetMultiSelect
               key={this.state.vpc + "-subnet"}
               id="vsi-subnets"
-              className={classNameModalCheck}
+              className="fieldWidthSmaller"
               initialSelectedItems={this.state.subnets}
               vpc_name={this.state.vpc}
               subnets={this.getSubnetList()}
@@ -138,7 +136,7 @@ class VsiForm extends Component {
           <SecurityGroupMultiSelect
             key={this.state.vpc + "-sg"}
             id="vsi-security-groups"
-            className={classNameModalCheck}
+            className="fieldWidthSmaller"
             initialSelectedItems={this.state.security_groups || []}
             vpc_name={this.state.vpc}
             onChange={(value) =>
@@ -166,13 +164,13 @@ class VsiForm extends Component {
             name="vsi_per_subnet"
             hideSteppers={true}
             invalidText="Please input a number 1-10"
-            className={`${classNameModalCheck} leftTextAlign`}
+            className="fieldWidthSmaller leftTextAlign"
           />
           <FetchSelect
             formName="vsi_form"
             labelText="Image"
             name="image_name"
-            className={classNameModalCheck}
+            className="fieldWidthSmaller"
             apiEndpoint={this.props.apiEndpointImages}
             handleInputChange={this.handleInputChange}
             value={this.state.image_name}
@@ -181,7 +179,7 @@ class VsiForm extends Component {
             formName="vsi_form"
             labelText="Profile"
             name="profile"
-            className={classNameModalCheck}
+            className="fieldWidthSmaller"
             apiEndpoint={this.props.apiEndpointInstanceProfiles}
             handleInputChange={this.handleInputChange}
             value={this.state.profile}
@@ -190,7 +188,7 @@ class VsiForm extends Component {
         <IcseFormGroup>
           <SshKeyMultiSelect
             id="sshkey"
-            className={classNameModalCheck}
+            className="fieldWidthSmaller"
             sshKeys={this.props.sshKeys}
             initialSelectedItems={this.state.ssh_keys || []}
             onChange={(value) =>
@@ -200,7 +198,7 @@ class VsiForm extends Component {
           <IcseSelect
             formName="vsi_form"
             name="encryption_key"
-            className={classNameModalCheck}
+            className="fieldWidthSmaller"
             labelText="Encryption Key"
             groups={this.props.encryptionKeys}
             value={this.state.encryption_key}
@@ -210,7 +208,7 @@ class VsiForm extends Component {
           />
           <IcseToggle
             id={composedId + "-fips-toggle"}
-            className={classNameModalCheck}
+            className="fieldWidthSmaller"
             labelText="Enable Floating IP"
             defaultToggled={this.state.enable_floating_ip}
             onToggle={this.handleToggle}
