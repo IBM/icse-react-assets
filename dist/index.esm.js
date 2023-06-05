@@ -8016,7 +8016,6 @@ class VpnServerForm extends Component {
       ...this.props.data
     };
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleNumberInputChange = this.handleNumberInputChange.bind(this);
     this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.handleAllowedIps = this.handleAllowedIps.bind(this);
@@ -8057,19 +8056,6 @@ class VpnServerForm extends Component {
       };
     }
     this.setState(newState);
-  }
-
-  /**
-   * handle input change of number-only fields
-   * @param {event} event
-   */
-  handleNumberInputChange(event) {
-    let value = parseInt(event.target.value) || null;
-    if (value || isNullOrEmptyString$4(event.target.value)) {
-      this.setState({
-        [event.target.name]: value
-      });
-    }
   }
 
   /**
@@ -8141,7 +8127,7 @@ class VpnServerForm extends Component {
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(SubnetMultiSelect, {
       key: this.state.vpc + "-subnets",
       id: this.props.data.name + "-vpe-subnets",
-      initialSelectedItems: [...this.state.subnets],
+      initialSelectedItems: this.state.subnets || [],
       vpc_name: this.state.vpc,
       onChange: event => this.handleMultiSelect("subnets", event),
       subnets: [...this.getSubnetList()],
@@ -8211,12 +8197,12 @@ class VpnServerForm extends Component {
       allowEmpty: true,
       value: this.state.port || "",
       step: 1,
-      onChange: this.handleNumberInputChange,
+      onChange: this.handleInputChange,
       name: "port",
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: this.state.port < 1 || this.state.port > 65535,
+      invalid: !isNullOrEmptyString$4(this.state.port) && (this.state.port % 1 !== 0 || this.state.port < 1 || this.state.port > 65535),
       invalidText: "Must be a whole number between 1 and 65535.",
       className: "fieldWidthSmaller leftTextAlign"
     }), /*#__PURE__*/React.createElement(IcseSelect, {
@@ -8241,11 +8227,11 @@ class VpnServerForm extends Component {
       allowEmpty: true,
       value: this.state.client_idle_timeout || "",
       step: 1,
-      onChange: this.handleNumberInputChange,
+      onChange: this.handleInputChange,
       hideSteppers: true,
       min: 0,
       max: 28800,
-      invalid: this.state.client_idle_timeout < 0 || this.state.client_idle_timeout > 28000,
+      invalid: !isNullOrEmptyString$4(this.state.client_idle_timeout) && (this.state.client_idle_timeout % 1 !== 0 || this.state.client_idle_timeout < 0 || this.state.client_idle_timeout > 28000),
       invalidText: "Must be a whole number between 0 and 28800.",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {

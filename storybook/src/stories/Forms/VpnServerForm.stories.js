@@ -218,6 +218,7 @@ const VpnServerFormStory = () => {
       client_ca_crn: "",
       client_ip_pool: "",
       enable_split_tunneling: false,
+      client_idle_timeout: "",
       port: "",
       protocol: "udp",
       resource_group: "",
