@@ -47,7 +47,6 @@ class SecurityGroupForm extends Component {
 
   render() {
     let composedId = `security-group-form-${this.props.data.name}`;
-    let className = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
     return (
       <>
         <IcseFormGroup>
@@ -58,7 +57,7 @@ class SecurityGroupForm extends Component {
             value={this.state.name}
             onChange={this.handleInputChange}
             hideHelperText
-            className={className}
+            className="fieldWidthSmaller"
             invalidCallback={() =>
               this.props.invalidCallback(this.state, this.props)
             }
@@ -72,7 +71,7 @@ class SecurityGroupForm extends Component {
             groups={this.props.resourceGroups}
             value={this.state.resource_group}
             handleInputChange={this.handleInputChange}
-            className={className}
+            className="fieldWidthSmaller"
           />
           {/* vpc name */}
           <IcseSelect
@@ -82,7 +81,7 @@ class SecurityGroupForm extends Component {
             groups={this.props.vpcList}
             value={this.state.vpc}
             handleInputChange={this.handleInputChange}
-            className={className}
+            className="fieldWidthSmaller"
           />
         </IcseFormGroup>
         {!this.props.isModal && (

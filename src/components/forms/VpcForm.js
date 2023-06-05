@@ -102,7 +102,7 @@ class VpcNetworkForm extends React.Component {
               this.state,
               this.props
             )}
-            className={classNameModalCheck}
+            className="fieldWidthSmaller"
           />
           {/* resource group */}
           <IcseSelect
@@ -114,7 +114,7 @@ class VpcNetworkForm extends React.Component {
             handleInputChange={this.handleInputChange}
             invalid={checkNullorEmptyString(this.state.resource_group)}
             invalidText="Select a Resource Group."
-            className={classNameModalCheck}
+            className="fieldWidthSmaller"
           />
           <IcseSelect
             labelText="Flow Logs Bucket Name"
@@ -129,7 +129,7 @@ class VpcNetworkForm extends React.Component {
             handleInputChange={this.handleInputChange}
             invalid={checkNullorEmptyString(this.state.bucket)}
             invalidText="Select a Bucket."
-            className={classNameModalCheck}
+            className="fieldWidthSmaller"
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -153,7 +153,7 @@ class VpcNetworkForm extends React.Component {
                   this.state,
                   this.props
                 )}
-                className={classNameModalCheck}
+                className="fieldWidthSmaller"
               />
             );
           })}
@@ -179,7 +179,7 @@ class VpcNetworkForm extends React.Component {
                 this.state.publicGateways.indexOf(parseIntFromZone(zone)) !== -1
               }
               onToggle={() => this.handPgwToggle(zone)}
-              className={classNameModalCheck + " leftTextAlign"}
+              className="fieldWidthSmaller leftTextAlign"
             />
           ))}
         </IcseFormGroup>
@@ -193,7 +193,7 @@ class VpcNetworkForm extends React.Component {
             defaultToggled={this.state.classic_access}
             onToggle={this.handleToggle}
             disabled={this.props.disableManualPrefixToggle}
-            className={classNameModalCheck + " leftTextAlign"}
+            className="fieldWidthSmaller leftTextAlign"
           />
         </IcseFormGroup>
       </>

@@ -56,6 +56,9 @@ class AppIdForm extends Component {
       arrayParentName: this.props.data.name,
     };
     transpose({ ...this.props.keyProps }, keyProps);
+    let composedClassName = this.props.isModal
+      ? "fieldWidthSmaller"
+      : "fieldWidth";
     return (
       <div id="appid-form">
         <IcseFormGroup>
@@ -79,7 +82,7 @@ class AppIdForm extends Component {
             hideHelperText
             invalid={this.props.invalidCallback(this.state, this.props)}
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
-            className="fieldWidth"
+            className={composedClassName}
           />
           {/* Select Resource Group */}
           <IcseSelect
@@ -90,7 +93,7 @@ class AppIdForm extends Component {
             value={this.state.resource_group}
             handleInputChange={this.handleInputChange}
             invalidText="Select a Resource Group."
-            className="fieldWidth"
+            className={composedClassName}
           />
         </IcseFormGroup>
         {this.props.isModal !== true && (

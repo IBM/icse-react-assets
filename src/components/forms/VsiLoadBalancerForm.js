@@ -45,7 +45,7 @@ class VsiLoadBalancerForm extends React.Component {
   handleInputChange(event) {
     let { name, value } = event.target;
     let nextState = { ...this.state };
-    nextState[name] = contains(["name", "vpc", "resource_group"], name)
+    nextState[name] = contains(["name", "vpc", "resource_group", "type"], name)
       ? value
       : contains(
           [
@@ -69,6 +69,8 @@ class VsiLoadBalancerForm extends React.Component {
       nextState[name] = "";
     } else if (name === "session_persistence_type" && value !== "app_cookie") {
       nextState.session_persistence_app_cookie_name = null;
+    } else if (name === "type") {
+      nextState.type = snakeCase(value.split(" ")[0]);
     }
     this.setState(nextState);
   }
@@ -160,8 +162,14 @@ class VsiLoadBalancerForm extends React.Component {
             formName={componentName + "-type"}
             name="type"
             labelText="Load Balancer Type"
-            groups={["Public", "Private"]}
-            value={titleCase(this.state.type || "")}
+            groups={["Public (ALB)", "Private (NLB)"]}
+            value={
+              this.state.type === "private"
+                ? "Private (NLB)"
+                : this.state.type === "public"
+                ? "Public (ALB)"
+                : ""
+            }
             handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"
           />
@@ -399,7 +407,7 @@ class VsiLoadBalancerForm extends React.Component {
             handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"
             tooltip={{
-              content: "Protocol of the listener for the looad balancer",
+              content: "Protocol of the listener for the load balancer",
             }}
           />
           {/* connection limit */}
