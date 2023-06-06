@@ -1,6 +1,6 @@
 import '@carbon/styles/css/styles.css';
 import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, TextArea, PasswordInput, NumberInput, Dropdown, Tag } from '@carbon/react';
-import lazyZ, { kebabCase as kebabCase$2, isEmpty, isNullOrEmptyString as isNullOrEmptyString$4, buildNumberDropdownList, titleCase as titleCase$1, isFunction as isFunction$1, contains as contains$2, snakeCase, isBoolean, prettyJSON, transpose, allFieldsNull, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual, parseIntFromZone, splat as splat$1, distinct, getObjectFromArray, isWholeNumber as isWholeNumber$1, isInRange as isInRange$1, eachKey } from 'lazy-z';
+import lazyZ, { kebabCase as kebabCase$2, isEmpty, isNullOrEmptyString as isNullOrEmptyString$4, buildNumberDropdownList, titleCase as titleCase$1, isFunction as isFunction$1, contains as contains$2, snakeCase, isBoolean, prettyJSON, transpose, allFieldsNull, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual, parseIntFromZone, splat as splat$1, isWholeNumber as isWholeNumber$1, distinct, getObjectFromArray, isInRange as isInRange$1, eachKey } from 'lazy-z';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Information, Save, Add, ChevronDown, ChevronRight, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt, Password } from '@carbon/icons-react';
@@ -8016,7 +8016,6 @@ class VpnServerForm extends Component {
       ...this.props.data
     };
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleNumberInputChange = this.handleNumberInputChange.bind(this);
     this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.handleAllowedIps = this.handleAllowedIps.bind(this);
@@ -8057,19 +8056,6 @@ class VpnServerForm extends Component {
       };
     }
     this.setState(newState);
-  }
-
-  /**
-   * handle input change of number-only fields
-   * @param {event} event
-   */
-  handleNumberInputChange(event) {
-    let value = parseInt(event.target.value) || null;
-    if (value || isNullOrEmptyString$4(event.target.value)) {
-      this.setState({
-        [event.target.name]: value
-      });
-    }
   }
 
   /**
@@ -8141,7 +8127,7 @@ class VpnServerForm extends Component {
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(SubnetMultiSelect, {
       key: this.state.vpc + "-subnets",
       id: this.props.data.name + "-vpe-subnets",
-      initialSelectedItems: [...this.state.subnets],
+      initialSelectedItems: this.state.subnets || [],
       vpc_name: this.state.vpc,
       onChange: event => this.handleMultiSelect("subnets", event),
       subnets: [...this.getSubnetList()],
@@ -8211,12 +8197,12 @@ class VpnServerForm extends Component {
       allowEmpty: true,
       value: this.state.port || "",
       step: 1,
-      onChange: this.handleNumberInputChange,
+      onChange: this.handleInputChange,
       name: "port",
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: this.state.port < 1 || this.state.port > 65535,
+      invalid: !isNullOrEmptyString$4(this.state.port) && (!isWholeNumber$1(Number(this.state.port)) || this.state.port < 1 || this.state.port > 65535),
       invalidText: "Must be a whole number between 1 and 65535.",
       className: "fieldWidthSmaller leftTextAlign"
     }), /*#__PURE__*/React.createElement(IcseSelect, {
@@ -8241,11 +8227,11 @@ class VpnServerForm extends Component {
       allowEmpty: true,
       value: this.state.client_idle_timeout || "",
       step: 1,
-      onChange: this.handleNumberInputChange,
+      onChange: this.handleInputChange,
       hideSteppers: true,
       min: 0,
       max: 28800,
-      invalid: this.state.client_idle_timeout < 0 || this.state.client_idle_timeout > 28000,
+      invalid: !isNullOrEmptyString$4(this.state.client_idle_timeout) && (!isWholeNumber$1(Number(this.state.client_idle_timeout)) || this.state.client_idle_timeout < 0 || this.state.client_idle_timeout > 28000),
       invalidText: "Must be a whole number between 0 and 28800.",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
