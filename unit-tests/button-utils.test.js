@@ -1,8 +1,9 @@
 const {
   saveChangeButtonClass,
   saveAddParams,
+  editCloseParams,
 } = require("../src/lib/button-utils");
-const { assert } = require("chai");
+const { assert, expect } = require("chai");
 
 describe("button utils", () => {
   describe("saveChangeButtonClass", () => {
@@ -94,6 +95,30 @@ describe("button utils", () => {
         expectedData,
         "it should return correct data"
       );
+    });
+  });
+  describe("editCloseParams", () => {
+    it("should pass hoverText only when hoverText is a prop", () => {
+      let expectedData = {
+        hoverText: "frog",
+      };
+      let actualData = editCloseParams({ hoverText: "frog" });
+      assert.deepEqual(actualData, expectedData);
+    });
+    it("should pass `Open` when open false and type not add", () => {
+      let expectedData = { hoverText: "Open" };
+      let actualData = editCloseParams({ open: false, type: "" });
+      assert.deepEqual(actualData, expectedData);
+    });
+    it("should pass `Close` when open true and type not add", () => {
+      let expectedData = { hoverText: "Close" };
+      let actualData = editCloseParams({ open: true, type: "" });
+      assert.deepEqual(actualData, expectedData);
+    });
+    it("should pass `Configure Resource` when open false and type add", () => {
+      let expectedData = { hoverText: "Configure Resource" };
+      let actualData = editCloseParams({ open: false, type: "add" });
+      assert.deepEqual(actualData, expectedData);
     });
   });
 });

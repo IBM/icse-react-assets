@@ -1,9 +1,9 @@
 import '@carbon/styles/css/styles.css';
 import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, TextArea, PasswordInput, NumberInput, Dropdown, Tag } from '@carbon/react';
 import lazyZ, { kebabCase as kebabCase$2, isEmpty, isNullOrEmptyString as isNullOrEmptyString$4, buildNumberDropdownList, titleCase as titleCase$1, isFunction as isFunction$1, contains as contains$2, snakeCase, isBoolean, prettyJSON, transpose, allFieldsNull, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual, parseIntFromZone, splat as splat$1, isWholeNumber as isWholeNumber$1, distinct, getObjectFromArray, isInRange as isInRange$1, eachKey } from 'lazy-z';
+import { Information, Save, Add, ChevronDown, ChevronRight, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt, Password } from '@carbon/icons-react';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Information, Save, Add, ChevronDown, ChevronRight, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt, Password } from '@carbon/icons-react';
 import regexButWithWords from 'regex-but-with-words';
 import { contains as contains$3 } from 'regex-but-with-words/lib/utils';
 
@@ -34,7 +34,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$1 = "/* vars and themes */\r\n:root {\r\n  --background: #ffffff;\r\n  --subForm: #f4f4f4;\r\n  --formInSubForm: #fffdfd;\r\n  --cds-text-primary: #161616;\r\n  --cds-text-secondary: #525252;\r\n  --cds-field: #f4f4f4;\r\n  --cds-border-strong: #8d8d8d;\r\n  --blue: #0f62fe;\r\n  --red: #da1e28;\r\n  --white: #ffffff;\r\n}\r\n\r\n.dark {\r\n  --background: #161616;\r\n  --subForm: #262626;\r\n  --formInSubForm: #414141;\r\n  --cds-text-primary: #f4f4f4;\r\n  --cds-text-secondary: #c6c6c6;\r\n  --cds-field: #363636;\r\n  --cds-border-strong: #8897a2;\r\n  --cds-layer: #262626;\r\n  --cds-layer-hover: #363636;\r\n  --cds-field-02: #363636;\r\n  --cds-icon-secondary: #c6c6c6;\r\n  --cds-icon-primary: #c6c6c6;\r\n  --placeholder: #565656;\r\n  --cds-field-hover: #464646;\r\n  --cds-layer-selected: #525252;\r\n  --cds-background-inverse: #f4f4f4;\r\n  --cds-text-inverse: #262626;\r\n}\r\n\r\n.subForm {\r\n  /* white background for subform input fields */\r\n  --cds-field: #ffffff;\r\n}\r\n\r\n.formInSubForm {\r\n  /* gray for formInSubForm input fields */\r\n  --cds-field: #f4f4f4;\r\n}\r\n\r\ninput:read-only {\r\n  /* read only fields should only have text */\r\n  --cds-border-strong: transparent;\r\n}\r\n\r\n.dark {\r\n  background-color: var(--background);\r\n}\r\n\r\n.dark p {\r\n  color: #f4f4f4;\r\n}\r\n\r\n.dark i.chevron > svg {\r\n  fill: #f4f4f4;\r\n}\r\n\r\n.dark h4 {\r\n  color: #f4f4f4;\r\n}\r\n\r\n.dark .underConstruction > svg {\r\n  fill: #ffffff;\r\n}\r\n/* styling for tooltip content in dark mode */\r\n.dark .cds--toggletip-content > p {\r\n  color: #363636;\r\n}\r\n\r\n.dark .subForm {\r\n  /* alternate background for dark subforms */\r\n  --cds-field: #414141;\r\n}\r\n\r\n.dark .formInSubForm {\r\n  /* alternate background for dark formInSubForm */\r\n  --cds-field: #363636;\r\n}\r\n\r\n.dark ::placeholder {\r\n  color: var(--placeholder);\r\n}\r\n\r\n/* general alignment classes */\r\n\r\n.displayFlex {\r\n  display: flex;\r\n}\r\n\r\n.alignItemsTop {\r\n  align-items: top;\r\n}\r\n\r\n.fitContent {\r\n  width: fit-content;\r\n}\r\n\r\n.alignItemsCenter {\r\n  align-items: center;\r\n}\r\n\r\n.widthOneHundredPercent {\r\n  width: 100%;\r\n}\r\n\r\n.marginBottom {\r\n  margin-bottom: 2rem;\r\n}\r\n\r\n.marginBottomSmall {\r\n  margin-bottom: 1rem;\r\n}\r\n\r\n.evenSpacing {\r\n  gap: 3vw;\r\n}\r\n\r\n.positionRelative {\r\n  position: relative;\r\n}\r\n\r\n.icseFormTitleMinHeight {\r\n  min-height: 32px;\r\n}\r\n\r\n.spaceBetween {\r\n  justify-content: space-between;\r\n}\r\n\r\n.leftTextAlign {\r\n  text-align: left;\r\n}\r\n\r\n.fieldWidth {\r\n  width: 14rem;\r\n}\r\n\r\n.fieldWidthSmaller {\r\n  width: 11rem;\r\n}\r\n\r\n.fieldWidthSmallest {\r\n  width: 8rem;\r\n}\r\n\r\n.fieldWidthBigger {\r\n  width: 40rem;\r\n}\r\n\r\n.textInputWide {\r\n  width: 30rem;\r\n}\r\n\r\n.textInputMedium {\r\n  width: 20rem;\r\n}\r\n\r\n/* backhground classes */\r\n.formInSubForm {\r\n  margin-top: 0rem;\r\n  background: var(--formInSubForm);\r\n  padding: 1rem;\r\n}\r\n\r\n.subForm {\r\n  background: var(--subForm);\r\n  padding: 1rem;\r\n  margin-top: 1rem;\r\n  margin-bottom: 2rem;\r\n}\r\n\r\n/* Tooltips */\r\n.labelRow {\r\n  display: inline-flex !important;\r\n  align-items: center;\r\n}\r\n\r\n.tooltip > div div.cds--password-input-wrapper {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.cds--toggle {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.cds--text-input-wrapper {\r\n  margin-top: -8px;\r\n}\r\n\r\n.tooltip.popover-obj {\r\n  margin-top: -22px;\r\n}\r\n\r\n.subHeadingTooltip {\r\n  margin: 0.2rem 0 0 0.2rem;\r\n}\r\n\r\n.tooltipMarginLeft {\r\n  margin-left: 3px;\r\n}\r\n\r\n/* subnet tile form */\r\n\r\n.tileFormMargin {\r\n  margin-bottom: -0.5rem;\r\n  margin-top: 0.5rem;\r\n}\r\n\r\n.tileFormMargin.formInSubForm {\r\n  padding: 0px;\r\n}\r\n\r\n.marginRightSubnetTile {\r\n  margin-right: 10px;\r\n}\r\n\r\n/* StatefulTabPanel */\r\n\r\n.cds--tab-content.doc {\r\n  padding: 0.5rem 0;\r\n}\r\n\r\n.cds--tab-content:focus {\r\n  outline: none !important;\r\n  border: none !important;\r\n}\r\n\r\n/* popover wrappers */\r\n\r\n.popover-box {\r\n  padding: 5px;\r\n  position: relative;\r\n  font-size: 80%;\r\n  top: 20px;\r\n}\r\n\r\n.cds--popover--open .cds--popover-content {\r\n  z-index: 9001;\r\n}\r\n\r\n/* buttons */\r\n\r\ni.chevron > svg {\r\n  display: block; /* remove extra padding on bottom of i which misaligns icon */\r\n  margin-right: 1rem;\r\n  margin-top: 0.15rem;\r\n}\r\n\r\n.chevron {\r\n  cursor: pointer;\r\n}\r\n\r\n.tertiaryButtonColors {\r\n  color: var(--blue) !important;\r\n  fill: var(--white) !important;\r\n  border-color: var(--blue) !important;\r\n}\r\n\r\n.pointerEventsNone {\r\n  pointer-events: none;\r\n}\r\n\r\n.cursorNotAllowed {\r\n  cursor: not-allowed;\r\n}\r\n\r\n.forceTertiaryButtonStyles {\r\n  padding-right: 0.4375rem !important;\r\n  padding-left: 0.4375rem !important;\r\n}\r\n\r\n.inlineBlock {\r\n  display: inline-block;\r\n}\r\n\r\n.redFill {\r\n  fill: var(--red) !important;\r\n}\r\n\r\n.alignButtons {\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n}\r\n\r\n/* CSS for overriding default component styles */\r\n.cds--btn--ghost:focus {\r\n  outline: none;\r\n  border: none;\r\n  box-shadow: none;\r\n}\r\n\r\n.marginRightSmall {\r\n  margin-right: 0.5rem !important;\r\n}\r\n\r\n/* docs */\r\n.about {\r\n  padding: 2rem 1rem;\r\n  line-height: 1.5;\r\n}\r\n\r\n.smallerText {\r\n  font-size: 0.9rem;\r\n  font-weight: 400;\r\n}\r\n\r\n/* empty resource tile */\r\n.iconMargin {\r\n  margin: 0 0.5rem -0.4rem 0;\r\n}\r\n\r\n.inlineIconMargin {\r\n  margin: -0.4rem 0.05rem;\r\n}\r\n\r\n.marginBottomXs {\r\n  margin-bottom: 0.5rem;\r\n}\r\n\r\n.tileBackground {\r\n  background-color: var(--subForm);\r\n}\r\n\r\n.marginTop {\r\n  margin-top: 1rem;\r\n}\r\n\r\n/* under construction */\r\n\r\n.underConstruction {\r\n  display: flex;\r\n  align-items: center;\r\n  justify-content: center;\r\n}\r\n\r\n.flexDirectionColumn {\r\n  flex-direction: column;\r\n}\r\n\r\n/* f5 vsi */\r\n.wide {\r\n  width: 20rem !important;\r\n}\r\n\r\n.tight {\r\n  width: min-content; /* force invalid text to split line */\r\n}\r\n\r\n.passwordGenerateButton {\r\n  margin-top: 1.25rem;\r\n  margin-left: calc(-4rem - 3vw);\r\n}\r\n\r\n.passwordGenerateButton svg {\r\n  fill: var(--cds-icon-secondary, #525252) !important;\r\n}\r\n\r\n.passwordGenerateButton.invalid {\r\n  margin-left: calc(-5.75rem - 3vw);\r\n}\r\n\r\n.wrap {\r\n  flex-flow: wrap;\r\n}\r\n\r\n.docsUpdated {\r\n  display: flex;\r\n  align-items: flex-end;\r\n}\r\n\r\n.cds--list-box__menu {\r\n  width: fit-content;\r\n  text-align: left;\r\n}\r\n\r\n@media screen and (max-width: 1024px) {\r\n  .fieldWidth {\r\n    width: 11rem;\r\n  }\r\n\r\n  .fieldWidthSmaller {\r\n    width: 8rem;\r\n  }\r\n\r\n  .fieldWidthSmallest {\r\n    width: 5rem;\r\n  }\r\n\r\n  .textInputWide {\r\n    width: 20rem;\r\n  }\r\n\r\n  .fieldWidthBigger {\r\n    width: 30rem;\r\n  }\r\n\r\n  .textInputMedium {\r\n    width: 15rem;\r\n  }\r\n}\r\n\r\n@media screen and (max-width: 850px) {\r\n  .fieldWidth {\r\n    width: 100%;\r\n  }\r\n\r\n  .fieldWidthSmaller {\r\n    width: 100%;\r\n  }\r\n\r\n  .fieldWidthSmallest {\r\n    width: 100%;\r\n  }\r\n\r\n  .textInputMedium {\r\n    width: 100%;\r\n  }\r\n\r\n  .fieldWidthBigger {\r\n    width: 100%;\r\n  }\r\n\r\n  .textInputWide {\r\n    width: 100%;\r\n  }\r\n\r\n  .formGroup {\r\n    /* items 1 wide */\r\n    flex-direction: column !important;\r\n  }\r\n\r\n  .popover-obj.select {\r\n    /* need to adjust size for popover container at small widths */\r\n    width: 100%;\r\n  }\r\n\r\n  .popover-obj.select > span {\r\n    width: 100%;\r\n  }\r\n\r\n  /* items with tooltip should also be full width */\r\n  .cds--form-item {\r\n    flex: none;\r\n    width: 100%;\r\n  }\r\n}\r\n\r\n.cds--form-item {\r\n  flex: none; /* overwrite flex to fix inconsistent widths */\r\n}\r\n";
+var css_248z$1 = "/* vars and themes */\n:root {\n  --background: #ffffff;\n  --subForm: #f4f4f4;\n  --formInSubForm: #fffdfd;\n  --cds-text-primary: #161616;\n  --cds-text-secondary: #525252;\n  --cds-field: #f4f4f4;\n  --cds-border-strong: #8d8d8d;\n  --blue: #0f62fe;\n  --red: #da1e28;\n  --white: #ffffff;\n}\n\n.dark {\n  --background: #161616;\n  --subForm: #262626;\n  --formInSubForm: #414141;\n  --cds-text-primary: #f4f4f4;\n  --cds-text-secondary: #c6c6c6;\n  --cds-field: #363636;\n  --cds-border-strong: #8897a2;\n  --cds-layer: #262626;\n  --cds-layer-hover: #363636;\n  --cds-field-02: #363636;\n  --cds-icon-secondary: #c6c6c6;\n  --cds-icon-primary: #c6c6c6;\n  --placeholder: #565656;\n  --cds-field-hover: #464646;\n  --cds-layer-selected: #525252;\n  --cds-background-inverse: #f4f4f4;\n  --cds-text-inverse: #262626;\n}\n\n.subForm {\n  /* white background for subform input fields */\n  --cds-field: #ffffff;\n}\n\n.formInSubForm {\n  /* gray for formInSubForm input fields */\n  --cds-field: #f4f4f4;\n}\n\ninput:read-only {\n  /* read only fields should only have text */\n  --cds-border-strong: transparent;\n}\n\n.dark {\n  background-color: var(--background);\n}\n\n.dark p {\n  color: #f4f4f4;\n}\n\n.dark i.chevron > svg {\n  fill: #f4f4f4;\n}\n\n.dark h4 {\n  color: #f4f4f4;\n}\n\n.dark .underConstruction > svg {\n  fill: #ffffff;\n}\n/* styling for tooltip content in dark mode */\n.dark .cds--toggletip-content > p {\n  color: #363636;\n}\n\n.dark .subForm {\n  /* alternate background for dark subforms */\n  --cds-field: #414141;\n}\n\n.dark .formInSubForm {\n  /* alternate background for dark formInSubForm */\n  --cds-field: #363636;\n}\n\n.dark ::placeholder {\n  color: var(--placeholder);\n}\n\n/* general alignment classes */\n\n.displayFlex {\n  display: flex;\n}\n\n.alignItemsTop {\n  align-items: top;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n\n.fieldWidthSmallest {\n  width: 8rem;\n}\n\n.fieldWidthBigger {\n  width: 40rem;\n}\n\n.textInputWide {\n  width: 30rem;\n}\n\n.textInputMedium {\n  width: 20rem;\n}\n\n/* backhground classes */\n.formInSubForm {\n  margin-top: 0rem;\n  background: var(--formInSubForm);\n  padding: 1rem;\n}\n\n.subForm {\n  background: var(--subForm);\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n/* Tooltips */\n.labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -22px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n\n/* subnet tile form */\n\n.tileFormMargin {\n  margin-bottom: -0.5rem;\n  margin-top: 0.5rem;\n}\n\n.tileFormMargin.formInSubForm {\n  padding: 0px;\n}\n\n.marginRightSubnetTile {\n  margin-right: 10px;\n}\n\n/* StatefulTabPanel */\n\n.cds--tab-content.doc {\n  padding: 0.5rem 0;\n}\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}\n\n/* popover wrappers */\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  z-index: 9001;\n}\n\n/* buttons */\n\ni.chevron > svg {\n  display: block; /* remove extra padding on bottom of i which misaligns icon */\n  margin-right: 1rem;\n  margin-top: 0.15rem;\n}\n\n.chevron {\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: var(--blue) !important;\n  fill: var(--white) !important;\n  border-color: var(--blue) !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: var(--red) !important;\n}\n\n.alignButtons {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important;\n}\n\n/* docs */\n.about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n\n/* empty resource tile */\n.iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: var(--subForm);\n}\n\n.marginTop {\n  margin-top: 1rem;\n}\n\n/* under construction */\n\n.underConstruction {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.flexDirectionColumn {\n  flex-direction: column;\n}\n\n/* f5 vsi */\n.wide {\n  width: 20rem !important;\n}\n\n.tight {\n  width: min-content; /* force invalid text to split line */\n}\n\n.passwordGenerateButton {\n  margin-top: 1.25rem;\n  margin-left: calc(-4rem - 3vw);\n}\n\n.passwordGenerateButton svg {\n  fill: var(--cds-icon-secondary, #525252) !important;\n}\n\n.passwordGenerateButton.invalid {\n  margin-left: calc(-5.75rem - 3vw);\n}\n\n.wrap {\n  flex-flow: wrap;\n}\n\n.docsUpdated {\n  display: flex;\n  align-items: flex-end;\n}\n\n.cds--list-box__menu {\n  width: fit-content;\n  text-align: left;\n}\n\n@media screen and (max-width: 1024px) {\n  .fieldWidth {\n    width: 11rem;\n  }\n\n  .fieldWidthSmaller {\n    width: 8rem;\n  }\n\n  .fieldWidthSmallest {\n    width: 5rem;\n  }\n\n  .textInputWide {\n    width: 20rem;\n  }\n\n  .fieldWidthBigger {\n    width: 30rem;\n  }\n\n  .textInputMedium {\n    width: 15rem;\n  }\n}\n\n@media screen and (max-width: 850px) {\n  .fieldWidth {\n    width: 100%;\n  }\n\n  .fieldWidthSmaller {\n    width: 100%;\n  }\n\n  .fieldWidthSmallest {\n    width: 100%;\n  }\n\n  .textInputMedium {\n    width: 100%;\n  }\n\n  .fieldWidthBigger {\n    width: 100%;\n  }\n\n  .textInputWide {\n    width: 100%;\n  }\n\n  .formGroup {\n    /* items 1 wide */\n    flex-direction: column !important;\n  }\n\n  .popover-obj.select {\n    /* need to adjust size for popover container at small widths */\n    width: 100%;\n  }\n\n  .popover-obj.select > span {\n    width: 100%;\n  }\n\n  /* items with tooltip should also be full width */\n  .cds--form-item {\n    flex: none;\n    width: 100%;\n  }\n}\n\n.cds--form-item {\n  flex: none; /* overwrite flex to fix inconsistent widths */\n}\n";
 styleInject(css_248z$1);
 
 const {
@@ -200,9 +200,46 @@ function saveAddParams$1(props) {
     buttonClass
   };
 }
+
+/**
+ *
+ * @param {*} props
+ * @param {String} props.hoverText
+ * @param {boolean} props.open
+ * @param {string} props.type
+ * @returns {Object} params object
+ */
+function editCloseParams$1(props) {
+  let hoverText = props.hoverText ? props.hoverText : props.open ? "Close" : props.type === "add" ? "Configure Resource" : "Open";
+  return {
+    hoverText
+  };
+}
+
+/**
+ *
+ * @param {*} props
+ * @param {boolean} props.disabled
+ * @param {string} props.disabledDeleteMessage
+ * @returns
+ */
+function deleteButtonParams$1(props) {
+  let hoverText = props.disabled && props.disableDeleteMessage ? props.disableDeleteMessage : "Delete Resource";
+  let popoverClassName = props.disabled ? "inlineBlock cursorNotAllowed" : "";
+  let buttonClassName = "cds--btn--danger--tertiary forceTertiaryButtonStyles" + (props.disabled ? " pointerEventsNone" : "");
+  let iconClassName = props.disabled ? "" : "redFill";
+  return {
+    hoverText,
+    popoverClassName,
+    buttonClassName,
+    iconClassName
+  };
+}
 var buttonUtils = {
   saveChangeButtonClass: saveChangeButtonClass$1,
-  saveAddParams: saveAddParams$1
+  saveAddParams: saveAddParams$1,
+  editCloseParams: editCloseParams$1,
+  deleteButtonParams: deleteButtonParams$1
 };
 
 /**
@@ -257,7 +294,9 @@ const {
 } = textUtils;
 const {
   saveChangeButtonClass,
-  saveAddParams
+  saveAddParams,
+  editCloseParams,
+  deleteButtonParams
 } = buttonUtils;
 const {
   eventTargetToNameAndValue: eventTargetToNameAndValue$1,
@@ -277,7 +316,9 @@ var lib = {
   invalidRegex,
   handleClusterInputChange,
   subnetTierName,
-  saveAddParams
+  saveAddParams,
+  editCloseParams,
+  deleteButtonParams
 };
 var lib_1 = lib.toggleMarginBottom;
 var lib_2 = lib.addClassName;
@@ -288,6 +329,8 @@ var lib_10 = lib.invalidRegex;
 var lib_11 = lib.handleClusterInputChange;
 var lib_12 = lib.subnetTierName;
 var lib_13 = lib.saveAddParams;
+var lib_14 = lib.editCloseParams;
+var lib_15 = lib.deleteButtonParams;
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -690,11 +733,9 @@ SaveAddButton.propTypes = {
  * @returns edit close icon
  */
 const EditCloseIcon = props => {
-  let hoverText = props.hoverText ? props.hoverText : props.open ? "Close" : props.type === "add" ? "Configure Resource" : "Open";
-  let icon = props.open ? /*#__PURE__*/React.createElement(ChevronDown, null) : props.type === "add" ?
-  /*#__PURE__*/
-  // keep add button for optional components
-  React.createElement(Add, null) : /*#__PURE__*/React.createElement(ChevronRight, null);
+  let {
+    hoverText
+  } = lib_14(props);
   return /*#__PURE__*/React.createElement(PopoverWrapper, {
     hoverText: hoverText
   }, /*#__PURE__*/React.createElement("i", {
@@ -702,7 +743,10 @@ const EditCloseIcon = props => {
     "aria-label": props.name + "-open-close",
     onClick: props.onClick,
     className: "chevron"
-  }, icon));
+  }, props.open ? /*#__PURE__*/React.createElement(ChevronDown, null) : props.type === "add" ?
+  /*#__PURE__*/
+  // keep add button for optional components
+  React.createElement(Add, null) : /*#__PURE__*/React.createElement(ChevronRight, null)));
 };
 EditCloseIcon.propTypes = {
   hoverText: PropTypes.string,
@@ -722,21 +766,27 @@ EditCloseIcon.defaultProps = {
  * @param {*} props
  */
 const DeleteButton = props => {
+  let {
+    hoverText,
+    popoverClassName,
+    buttonClassName,
+    iconClassName
+  } = lib_15(props);
   return /*#__PURE__*/React.createElement("div", {
     className: "delete-area"
   }, /*#__PURE__*/React.createElement(PopoverWrapper, {
-    hoverText: props.disabled && props.disableDeleteMessage ? props.disableDeleteMessage : "Delete Resource",
+    hoverText: hoverText,
     align: props.hoverTextAlign,
-    className: props.disabled ? "inlineBlock cursorNotAllowed" : ""
+    className: popoverClassName
   }, /*#__PURE__*/React.createElement(Button, {
     "aria-label": props.name + "-delete",
-    className: "cds--btn--danger--tertiary forceTertiaryButtonStyles" + (props.disabled ? " pointerEventsNone" : ""),
+    className: buttonClassName,
     kind: "ghost",
     size: "sm",
     onClick: props.onClick,
     disabled: props.disabled === true
   }, /*#__PURE__*/React.createElement(TrashCan, {
-    className: props.disabled ? "" : "redFill"
+    className: iconClassName
   }))));
 };
 DeleteButton.defaultProps = {
@@ -8713,7 +8763,7 @@ VsiForm.propTypes = {
   }).isRequired
 };
 
-var css_248z = ".tileTitle {\r\n  font-size: 80%;\r\n  font-weight: bold;\r\n}\r\n\r\n.tileContent {\r\n  font-size: 90%;\r\n}\r\n";
+var css_248z = ".tileTitle {\n  font-size: 80%;\n  font-weight: bold;\n}\n\n.tileContent {\n  font-size: 90%;\n}\n";
 styleInject(css_248z);
 
 class VsiLoadBalancerForm extends React.Component {
