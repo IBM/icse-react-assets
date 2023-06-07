@@ -160,7 +160,11 @@ class SubnetTierForm extends React.Component {
     let formName = this.props.data.name + "-subnet-tier";
     let tierName = subnetTierName(this.props.data.name);
     return (
-      <IcseSubForm formInSubForm id={composedId} className="marginBottomSmall">
+      <IcseSubForm
+        formInSubForm={this.props.isModal === false}
+        id={composedId}
+        className="marginBottomSmall"
+      >
         <DeleteModal
           name={tierName}
           modalOpen={this.state.showDeleteModal}

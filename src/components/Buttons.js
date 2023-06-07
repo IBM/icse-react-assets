@@ -1,5 +1,5 @@
 import { Button } from "@carbon/react";
-import { saveChangeButtonClass } from "../lib/index";
+import { saveAddParams, saveChangeButtonClass } from "../lib/index";
 import PopoverWrapper from "./PopoverWrapper";
 import PropTypes from "prop-types";
 import {
@@ -30,35 +30,24 @@ export const SaveIcon = (props) => {
  * @returns Save add button
  */
 export const SaveAddButton = (props) => {
+  let {
+    hoverText,
+    wrapperClassDisabled,
+    wrapperClassInline,
+    buttonKind,
+    buttonClass,
+  } = saveAddParams(props);
   return (
     <PopoverWrapper
-      hoverText={
-        props.type === "add" && props.hoverText === "Save Changes"
-          ? "Add Resource"
-          : props.hoverText
-      }
-      className={
-        (props.disabled ? "inlineBlock cursorNotAllowed" : "") +
-        (props.inline
-          ? " alignItemsCenter marginTopLarge inLineFormButton"
-          : "")
-      }
+      hoverText={hoverText}
+      className={wrapperClassDisabled + wrapperClassInline}
       align={props.hoverTextAlign}
     >
       <Button
         aria-label={props.name + "-" + props.type}
-        kind={
-          props.type === "add" || props.type === "custom"
-            ? "tertiary"
-            : "primary"
-        }
+        kind={buttonKind}
         onClick={props.onClick}
-        className={
-          saveChangeButtonClass(props) +
-          (props.disabled === true
-            ? " pointerEventsNone "
-            : " " + props.className)
-        }
+        className={buttonClass}
         disabled={props.disabled || false}
         size="sm"
       >
