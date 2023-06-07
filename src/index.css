@@ -373,8 +373,9 @@ i.chevron > svg {
   align-items: flex-end;
 }
 
-.cds--list-box__menu-item {
+.cds--list-box__menu {
   width: fit-content;
+  text-align: left;
 }
 
 @media screen and (max-width: 1024px) {

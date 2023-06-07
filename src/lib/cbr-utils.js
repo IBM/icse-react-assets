@@ -71,9 +71,14 @@ const ipRangeExpression = new RegexButWithWords()
   .wordBoundary()
   .done("g");
 
+/**
+ * create cbr invalid field sta
+ * @param {*} field
+ * @param {*} value
+ * @returns {Object} invalid boolean invalidText string
+ */
 function cbrInvalid(field, value) {
   let invalid = { invalid: false, invalidText: "" };
-
   if (
     !isNullOrEmptyString(value) &&
     (value.match(/^[0-9a-z-]+$/) === null || value.length >= 128)
@@ -84,30 +89,32 @@ function cbrInvalid(field, value) {
   return invalid;
 }
 
+/**
+ * cbr value is invalid
+ * @param {*} type
+ * @param {*} value
+ * @returns {Object} invalid boolean invalidText string
+ */
 function cbrValueInvalid(type, value) {
   let invalid = { invalid: false, invalidText: "" };
 
   if (isNullOrEmptyString(value)) {
     invalid.invalid = true;
     invalid.invalidText = `Invalid value for type ${type}. Cannot be empty string.`;
-  } else {
-    switch (type) {
-      case "ipAddress":
-        if (!isIpv4CidrOrAddress(value) || value.includes("/")) {
-          invalid.invalid = true;
-          invalid.invalidText = `Invalid value for type ${type}. Value must be a valid IPV4 Address.`;
-        }
-        break;
-      case "ipRange":
-        if (value.match(ipRangeExpression) === null) {
-          invalid.invalid = true;
-          invalid.invalidText = `Invalid value for type ${type}. Value must be a range of IPV4 Addresses.`;
-        }
-        break;
-      default:
-        invalid = cbrInvalid("type", value);
+  } else if (type === "ipAddress") {
+    if (!isIpv4CidrOrAddress(value) || value.includes("/")) {
+      invalid.invalid = true;
+      invalid.invalidText = `Invalid value for type ${type}. Value must be a valid IPV4 Address.`;
     }
+  } else if (type === "ipRange") {
+    if (value.match(ipRangeExpression) === null) {
+      invalid.invalid = true;
+      invalid.invalidText = `Invalid value for type ${type}. Value must be a range of IPV4 Addresses.`;
+    }
+  } else {
+    invalid = cbrInvalid(type, value);
   }
+
   return invalid;
 }
 

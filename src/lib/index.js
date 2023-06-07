@@ -8,14 +8,25 @@ const {
   subnetTierName,
 } = require("./form-utils");
 const { formatInputPlaceholder } = require("./text-utils");
-const { saveChangeButtonClass } = require("./button-utils");
+const {
+  saveChangeButtonClass,
+  saveAddParams,
+  editCloseParams,
+  deleteButtonParams,
+} = require("./button-utils");
 const {
   eventTargetToNameAndValue,
   toggleStateBoolean,
   setNameToValue,
 } = require("./method-functions");
+const { docTextFieldParams } = require("./doc-utils");
+const { icseSelectParams } = require("./dropdowns");
+const { handleNumberDropdownEvent } = require("./utils");
 
 module.exports = {
+  docTextFieldParams,
+  handleNumberDropdownEvent,
+  icseSelectParams,
   toggleMarginBottom,
   addClassName,
   prependEmptyStringWhenNull,
@@ -28,4 +39,7 @@ module.exports = {
   invalidRegex,
   handleClusterInputChange,
   subnetTierName,
+  saveAddParams,
+  editCloseParams,
+  deleteButtonParams,
 };

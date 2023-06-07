@@ -1,5 +1,9 @@
 import { Button } from "@carbon/react";
-import { saveChangeButtonClass } from "../lib/index";
+import {
+  saveAddParams,
+  editCloseParams,
+  deleteButtonParams,
+} from "../lib/index";
 import PopoverWrapper from "./PopoverWrapper";
 import PropTypes from "prop-types";
 import {
@@ -30,35 +34,24 @@ export const SaveIcon = (props) => {
  * @returns Save add button
  */
 export const SaveAddButton = (props) => {
+  let {
+    hoverText,
+    wrapperClassDisabled,
+    wrapperClassInline,
+    buttonKind,
+    buttonClass,
+  } = saveAddParams(props);
   return (
     <PopoverWrapper
-      hoverText={
-        props.type === "add" && props.hoverText === "Save Changes"
-          ? "Add Resource"
-          : props.hoverText
-      }
-      className={
-        (props.disabled ? "inlineBlock cursorNotAllowed" : "") +
-        (props.inline
-          ? " alignItemsCenter marginTopLarge inLineFormButton"
-          : "")
-      }
+      hoverText={hoverText}
+      className={wrapperClassDisabled + wrapperClassInline}
       align={props.hoverTextAlign}
     >
       <Button
         aria-label={props.name + "-" + props.type}
-        kind={
-          props.type === "add" || props.type === "custom"
-            ? "tertiary"
-            : "primary"
-        }
+        kind={buttonKind}
         onClick={props.onClick}
-        className={
-          saveChangeButtonClass(props) +
-          (props.disabled === true
-            ? " pointerEventsNone "
-            : " " + props.className)
-        }
+        className={buttonClass}
         disabled={props.disabled || false}
         size="sm"
       >
@@ -98,20 +91,8 @@ SaveAddButton.propTypes = {
  * @returns edit close icon
  */
 export const EditCloseIcon = (props) => {
-  let hoverText = props.hoverText
-    ? props.hoverText
-    : props.open
-    ? "Close"
-    : props.type === "add"
-    ? "Configure Resource"
-    : "Open";
-  let icon = props.open ? (
-    <ChevronDown />
-  ) : props.type === "add" ? ( // keep add button for optional components
-    <Add />
-  ) : (
-    <ChevronRight />
-  );
+  let { hoverText } = editCloseParams(props);
+
   return (
     <PopoverWrapper hoverText={hoverText}>
       <i
@@ -120,7 +101,13 @@ export const EditCloseIcon = (props) => {
         onClick={props.onClick}
         className="chevron"
       >
-        {icon}
+        {props.open ? (
+          <ChevronDown />
+        ) : props.type === "add" ? ( // keep add button for optional components
+          <Add />
+        ) : (
+          <ChevronRight />
+        )}
       </i>
     </PopoverWrapper>
   );
@@ -145,29 +132,24 @@ EditCloseIcon.defaultProps = {
  * @param {*} props
  */
 export const DeleteButton = (props) => {
+  let { hoverText, popoverClassName, buttonClassName, iconClassName } =
+    deleteButtonParams(props);
   return (
     <div className="delete-area">
       <PopoverWrapper
-        hoverText={
-          props.disabled && props.disableDeleteMessage
-            ? props.disableDeleteMessage
-            : "Delete Resource"
-        }
+        hoverText={hoverText}
         align={props.hoverTextAlign}
-        className={props.disabled ? "inlineBlock cursorNotAllowed" : ""}
+        className={popoverClassName}
       >
         <Button
           aria-label={props.name + "-delete"}
-          className={
-            "cds--btn--danger--tertiary forceTertiaryButtonStyles" +
-            (props.disabled ? " pointerEventsNone" : "")
-          }
+          className={buttonClassName}
           kind="ghost"
           size="sm"
           onClick={props.onClick}
           disabled={props.disabled === true}
         >
-          <TrashCan className={props.disabled ? "" : "redFill"} />
+          <TrashCan className={iconClassName} />
         </Button>
       </PopoverWrapper>
     </div>
