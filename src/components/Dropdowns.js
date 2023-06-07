@@ -1,49 +1,33 @@
 import { Select, SelectItem } from "@carbon/react";
-import {
-  isEmpty,
-  isNullOrEmptyString,
-  kebabCase,
-  buildNumberDropdownList,
-  titleCase,
-} from "lazy-z";
+import { isEmpty, kebabCase, buildNumberDropdownList, titleCase } from "lazy-z";
 import PopoverWrapper from "./PopoverWrapper";
 import PropTypes from "prop-types";
-import { addClassName, prependEmptyStringWhenNull } from "../lib";
+import { addClassName } from "../lib";
 import { DynamicToolTipWrapper } from "./Tooltips";
 import React from "react";
+import { icseSelectParams } from "../lib/dropdowns";
 
 export const IcseSelect = (props) => {
-  let invalid = // automatically set to invalid if value is null or empty string and invalid not disabled
-    props.disableInvalid !== true && isNullOrEmptyString(props.value)
-      ? true
-      : props.invalid;
-  let groups =
-    props.groups.length === 0
-      ? [] // if no groups, empty array
-      : prependEmptyStringWhenNull(
-          // otherwise try and prepend empty string if null or empty string is allowed
-          props.disableInvalid ? "" : props.value,
-          props.groups
-        );
-  // please leave debug here //
+  let { invalid, groups, popoverClassName, wrapperId, selectId, labelText } =
+    icseSelectParams(props);
+  // please leave debug here
   if (props.debug) {
     console.log("PROPS: ", props);
     console.log("GROUPS: ", groups);
   }
   return (
     <DynamicToolTipWrapper
-      id={kebabCase(props.name) + "-dropdown-tooltip"}
+      id={wrapperId}
       innerForm={() => {
         return (
           <PopoverWrapper
             hoverText={props.value || ""}
-            // inherit classnames from tooltip
-            className={props.tooltip ? "tooltip select" : " select"}
+            className={popoverClassName} // inherit classnames from tooltip
           >
             <Select
-              id={kebabCase(props.formName + " " + props.name)}
+              id={selectId}
               name={props.name}
-              labelText={props.tooltip ? null : props.labelText}
+              labelText={labelText}
               value={props.value || undefined}
               className={addClassName("leftTextAlign", props)}
               disabled={props.disabled}
