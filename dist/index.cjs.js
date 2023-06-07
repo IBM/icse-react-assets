@@ -213,7 +213,7 @@ function saveAddParams$1(props) {
 }
 
 /**
- *
+ * get params for edit close icon
  * @param {*} props
  * @param {String} props.hoverText
  * @param {boolean} props.open
@@ -228,11 +228,11 @@ function editCloseParams$1(props) {
 }
 
 /**
- *
+ * get params for delete button
  * @param {*} props
  * @param {boolean} props.disabled
  * @param {string} props.disabledDeleteMessage
- * @returns
+ * @returns {Object} params object
  */
 function deleteButtonParams$1(props) {
   let hoverText = props.disabled && props.disableDeleteMessage ? props.disableDeleteMessage : "Delete Resource";
@@ -404,19 +404,6 @@ var lib = {
   editCloseParams,
   deleteButtonParams
 };
-<<<<<<< HEAD
-var lib_1 = lib.toggleMarginBottom;
-var lib_2 = lib.addClassName;
-var lib_3 = lib.prependEmptyStringWhenNull;
-var lib_4 = lib.checkNullorEmptyString;
-var lib_5 = lib.formatInputPlaceholder;
-var lib_10 = lib.invalidRegex;
-var lib_11 = lib.handleClusterInputChange;
-var lib_12 = lib.subnetTierName;
-var lib_13 = lib.saveAddParams;
-var lib_14 = lib.editCloseParams;
-var lib_15 = lib.deleteButtonParams;
-=======
 var lib_1 = lib.handleNumberDropdownEvent;
 var lib_2 = lib.icseSelectParams;
 var lib_3 = lib.toggleMarginBottom;
@@ -427,7 +414,8 @@ var lib_12 = lib.invalidRegex;
 var lib_13 = lib.handleClusterInputChange;
 var lib_14 = lib.subnetTierName;
 var lib_15 = lib.saveAddParams;
->>>>>>> 35be7c0 (utils)
+var lib_16 = lib.editCloseParams;
+var lib_17 = lib.deleteButtonParams;
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -832,7 +820,7 @@ SaveAddButton.propTypes = {
 const EditCloseIcon = props => {
   let {
     hoverText
-  } = lib_14(props);
+  } = lib_16(props);
   return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
     hoverText: hoverText
   }, /*#__PURE__*/React__default["default"].createElement("i", {
@@ -868,7 +856,7 @@ const DeleteButton = props => {
     popoverClassName,
     buttonClassName,
     iconClassName
-  } = lib_15(props);
+  } = lib_17(props);
   return /*#__PURE__*/React__default["default"].createElement("div", {
     className: "delete-area"
   }, /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {

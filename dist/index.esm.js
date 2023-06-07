@@ -1,11 +1,7 @@
 import '@carbon/styles/css/styles.css';
 import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, TextArea, PasswordInput, NumberInput, Dropdown, Tag } from '@carbon/react';
-<<<<<<< HEAD
-import lazyZ, { kebabCase as kebabCase$2, isEmpty, isNullOrEmptyString as isNullOrEmptyString$4, buildNumberDropdownList, titleCase as titleCase$1, isFunction as isFunction$1, contains as contains$2, snakeCase, isBoolean, prettyJSON, transpose, allFieldsNull, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual, parseIntFromZone, splat as splat$1, isWholeNumber as isWholeNumber$1, distinct, getObjectFromArray, isInRange as isInRange$1, eachKey } from 'lazy-z';
-import { Information, Save, Add, ChevronDown, ChevronRight, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt, Password } from '@carbon/icons-react';
-=======
 import lazyZ, { kebabCase as kebabCase$3, isEmpty, buildNumberDropdownList, titleCase as titleCase$1, isFunction as isFunction$1, contains as contains$2, snakeCase, isBoolean, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$5, transpose, allFieldsNull, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual, parseIntFromZone, splat as splat$1, isWholeNumber as isWholeNumber$1, distinct, getObjectFromArray, isInRange as isInRange$1, eachKey } from 'lazy-z';
->>>>>>> 35be7c0 (utils)
+import { Information, Save, Add, ChevronDown, ChevronRight, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt, Password } from '@carbon/icons-react';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import regexButWithWords from 'regex-but-with-words';
@@ -206,7 +202,7 @@ function saveAddParams$1(props) {
 }
 
 /**
- *
+ * get params for edit close icon
  * @param {*} props
  * @param {String} props.hoverText
  * @param {boolean} props.open
@@ -221,11 +217,11 @@ function editCloseParams$1(props) {
 }
 
 /**
- *
+ * get params for delete button
  * @param {*} props
  * @param {boolean} props.disabled
  * @param {string} props.disabledDeleteMessage
- * @returns
+ * @returns {Object} params object
  */
 function deleteButtonParams$1(props) {
   let hoverText = props.disabled && props.disableDeleteMessage ? props.disableDeleteMessage : "Delete Resource";
@@ -397,19 +393,6 @@ var lib = {
   editCloseParams,
   deleteButtonParams
 };
-<<<<<<< HEAD
-var lib_1 = lib.toggleMarginBottom;
-var lib_2 = lib.addClassName;
-var lib_3 = lib.prependEmptyStringWhenNull;
-var lib_4 = lib.checkNullorEmptyString;
-var lib_5 = lib.formatInputPlaceholder;
-var lib_10 = lib.invalidRegex;
-var lib_11 = lib.handleClusterInputChange;
-var lib_12 = lib.subnetTierName;
-var lib_13 = lib.saveAddParams;
-var lib_14 = lib.editCloseParams;
-var lib_15 = lib.deleteButtonParams;
-=======
 var lib_1 = lib.handleNumberDropdownEvent;
 var lib_2 = lib.icseSelectParams;
 var lib_3 = lib.toggleMarginBottom;
@@ -420,7 +403,8 @@ var lib_12 = lib.invalidRegex;
 var lib_13 = lib.handleClusterInputChange;
 var lib_14 = lib.subnetTierName;
 var lib_15 = lib.saveAddParams;
->>>>>>> 35be7c0 (utils)
+var lib_16 = lib.editCloseParams;
+var lib_17 = lib.deleteButtonParams;
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -825,7 +809,7 @@ SaveAddButton.propTypes = {
 const EditCloseIcon = props => {
   let {
     hoverText
-  } = lib_14(props);
+  } = lib_16(props);
   return /*#__PURE__*/React.createElement(PopoverWrapper, {
     hoverText: hoverText
   }, /*#__PURE__*/React.createElement("i", {
@@ -861,7 +845,7 @@ const DeleteButton = props => {
     popoverClassName,
     buttonClassName,
     iconClassName
-  } = lib_15(props);
+  } = lib_17(props);
   return /*#__PURE__*/React.createElement("div", {
     className: "delete-area"
   }, /*#__PURE__*/React.createElement(PopoverWrapper, {
