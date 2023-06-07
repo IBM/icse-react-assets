@@ -1,5 +1,5 @@
 const { assert } = require("chai");
-const { handleNumberDropdownEvent } = require("../src/lib");
+const { handleNumberDropdownEvent } = require("../src/lib/utils");
 
 describe("utils", () => {
   describe("handleNumberDropdownEvent", () => {
