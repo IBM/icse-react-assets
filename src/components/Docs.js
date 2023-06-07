@@ -7,21 +7,10 @@ import {
   StructuredListCell,
 } from "@carbon/react";
 import PropTypes from "prop-types";
-
+import { docTextFieldParams } from "../lib";
 const DocTextField = (props) => {
-  return (
-    <div
-      className={
-        props.text === "_default_includes"
-          ? "marginBottomSmall"
-          : props.className
-      }
-    >
-      {props.text === "_default_includes"
-        ? "The default configuration includes:"
-        : props.text}
-    </div>
-  );
+  let { className, text } = docTextFieldParams(props);
+  return <div className={className}>{text}</div>;
 };
 
 DocTextField.defaultProps = {
@@ -120,6 +109,14 @@ const LastUpdated = (props) => {
       })}
     </div>
   );
+};
+
+LastUpdated.defaultProps = {
+  date: "",
+};
+
+LastUpdated.propTypes = {
+  date: PropTypes.string.isRequired,
 };
 
 const Docs = (props) => {

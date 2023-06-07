@@ -14,8 +14,9 @@ const {
   toggleStateBoolean,
   setNameToValue,
 } = require("./method-functions");
-
+const { docTextFieldParams } = require("./doc-utils");
 module.exports = {
+  docTextFieldParams,
   toggleMarginBottom,
   addClassName,
   prependEmptyStringWhenNull,
