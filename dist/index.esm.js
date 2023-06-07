@@ -1,6 +1,6 @@
 import '@carbon/styles/css/styles.css';
 import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, TextArea, PasswordInput, NumberInput, Dropdown, Tag } from '@carbon/react';
-import lazyZ, { kebabCase as kebabCase$2, isEmpty, isNullOrEmptyString as isNullOrEmptyString$4, buildNumberDropdownList, titleCase as titleCase$1, isFunction as isFunction$1, contains as contains$2, snakeCase, isBoolean, prettyJSON, transpose, allFieldsNull, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual, parseIntFromZone, splat as splat$1, isWholeNumber as isWholeNumber$1, distinct, getObjectFromArray, isInRange as isInRange$1, eachKey } from 'lazy-z';
+import lazyZ, { kebabCase as kebabCase$3, isEmpty, buildNumberDropdownList, titleCase as titleCase$1, isFunction as isFunction$1, contains as contains$2, snakeCase, isBoolean, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$5, transpose, allFieldsNull, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual, parseIntFromZone, splat as splat$1, isWholeNumber as isWholeNumber$1, distinct, getObjectFromArray, isInRange as isInRange$1, eachKey } from 'lazy-z';
 import { Information, Save, Add, ChevronDown, ChevronRight, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt, Password } from '@carbon/icons-react';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -72,7 +72,7 @@ function checkNullorEmptyString$1(input) {
  * @param {*} value check value if it is null or empty string
  * @param {Array<string>} arr
  */
-function prependEmptyStringWhenNull$1(value, arr) {
+function prependEmptyStringWhenNull$2(value, arr) {
   let arrayCheck = checkNullorEmptyString$1(value);
   let prependArray = arrayCheck ? [""] : [];
   return prependArray.concat(arr);
@@ -139,7 +139,7 @@ function subnetTierName$1(tierName) {
 var formUtils = {
   addClassName: addClassName$1,
   toggleMarginBottom: toggleMarginBottom$1,
-  prependEmptyStringWhenNull: prependEmptyStringWhenNull$1,
+  prependEmptyStringWhenNull: prependEmptyStringWhenNull$2,
   checkNullorEmptyString: checkNullorEmptyString$1,
   invalidRegex: invalidRegex$1,
   handleClusterInputChange: handleClusterInputChange$1,
@@ -147,7 +147,7 @@ var formUtils = {
 };
 
 const {
-  kebabCase: kebabCase$1
+  kebabCase: kebabCase$2
 } = lazyZ;
 
 /**
@@ -157,7 +157,7 @@ const {
  * @returns {string} placeholder name
  */
 function formatInputPlaceholder$1(componentName, fieldName) {
-  return `my-${kebabCase$1(componentName)}-${kebabCase$1(fieldName)}`;
+  return `my-${kebabCase$2(componentName)}-${kebabCase$2(fieldName)}`;
 }
 var textUtils = {
   formatInputPlaceholder: formatInputPlaceholder$1
@@ -202,7 +202,7 @@ function saveAddParams$1(props) {
 }
 
 /**
- *
+ * get params for edit close icon
  * @param {*} props
  * @param {String} props.hoverText
  * @param {boolean} props.open
@@ -217,11 +217,11 @@ function editCloseParams$1(props) {
 }
 
 /**
- *
+ * get params for delete button
  * @param {*} props
  * @param {boolean} props.disabled
  * @param {string} props.disabledDeleteMessage
- * @returns
+ * @returns {Object} params object
  */
 function deleteButtonParams$1(props) {
   let hoverText = props.disabled && props.disableDeleteMessage ? props.disableDeleteMessage : "Delete Resource";
@@ -281,6 +281,71 @@ var methodFunctions = {
 };
 
 const {
+  isNullOrEmptyString: isNullOrEmptyString$4,
+  kebabCase: kebabCase$1
+} = lazyZ;
+const {
+  prependEmptyStringWhenNull: prependEmptyStringWhenNull$1
+} = formUtils;
+
+/**
+ * generate parameters for icse select
+ * @param {*} props 
+ * @returns {Object} parameters
+ */
+function icseSelectParams$1(props) {
+  let invalid =
+  // automatically set to invalid if value is null or empty string and invalid not disabled
+  props.disableInvalid !== true && isNullOrEmptyString$4(props.value) ? true : props.invalid;
+  let groups = props.groups.length === 0 ? [] // if no groups, empty array
+  : prependEmptyStringWhenNull$1(
+  // otherwise try and prepend empty string if null or empty string is allowed
+  props.disableInvalid ? "" : props.value, props.groups);
+  let popoverClassName = props.tooltip ? "tooltip select" : " select";
+  let wrapperId = kebabCase$1(props.name) + "-dropdown-tooltip";
+  let selectId = kebabCase$1(props.formName + " " + props.name);
+  let labelText = props.tooltip ? null : props.labelText;
+  return {
+    invalid,
+    groups,
+    popoverClassName,
+    wrapperId,
+    selectId,
+    labelText
+  };
+}
+var dropdowns = {
+  icseSelectParams: icseSelectParams$1
+};
+
+/**
+ * handle number dropdown event function
+ * @param {*} props 
+ * @param {Function} props.handleInputChange
+ * @returns {Function} handle input change
+ */
+function handleNumberDropdownEvent$1(props) {
+  /**
+   * handle input change
+   * @param {*} event 
+   */
+  function handleInputChange(event) {
+    // set name target value and parse int
+    let sendEvent = {
+      target: {
+        name: event.target.name,
+        value: parseInt(event.target.value)
+      }
+    };
+    props.handleInputChange(sendEvent);
+  }
+  return handleInputChange;
+}
+var utils = {
+  handleNumberDropdownEvent: handleNumberDropdownEvent$1
+};
+
+const {
   toggleMarginBottom,
   addClassName,
   prependEmptyStringWhenNull,
@@ -303,7 +368,15 @@ const {
   toggleStateBoolean: toggleStateBoolean$1,
   setNameToValue: setNameToValue$1
 } = methodFunctions;
+const {
+  icseSelectParams
+} = dropdowns;
+const {
+  handleNumberDropdownEvent
+} = utils;
 var lib = {
+  handleNumberDropdownEvent,
+  icseSelectParams,
   toggleMarginBottom,
   addClassName,
   prependEmptyStringWhenNull,
@@ -320,17 +393,18 @@ var lib = {
   editCloseParams,
   deleteButtonParams
 };
-var lib_1 = lib.toggleMarginBottom;
-var lib_2 = lib.addClassName;
-var lib_3 = lib.prependEmptyStringWhenNull;
-var lib_4 = lib.checkNullorEmptyString;
-var lib_5 = lib.formatInputPlaceholder;
-var lib_10 = lib.invalidRegex;
-var lib_11 = lib.handleClusterInputChange;
-var lib_12 = lib.subnetTierName;
-var lib_13 = lib.saveAddParams;
-var lib_14 = lib.editCloseParams;
-var lib_15 = lib.deleteButtonParams;
+var lib_1 = lib.handleNumberDropdownEvent;
+var lib_2 = lib.icseSelectParams;
+var lib_3 = lib.toggleMarginBottom;
+var lib_4 = lib.addClassName;
+var lib_6 = lib.checkNullorEmptyString;
+var lib_7 = lib.formatInputPlaceholder;
+var lib_12 = lib.invalidRegex;
+var lib_13 = lib.handleClusterInputChange;
+var lib_14 = lib.subnetTierName;
+var lib_15 = lib.saveAddParams;
+var lib_16 = lib.editCloseParams;
+var lib_17 = lib.deleteButtonParams;
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -364,7 +438,7 @@ class PopoverWrapper extends React.Component {
   }
   render() {
     return this.props.noPopover === true || this.props.hoverText === "" ? this.props.children : /*#__PURE__*/React.createElement("div", {
-      className: lib_2("popover-obj", this.props),
+      className: lib_4("popover-obj", this.props),
       onMouseEnter: this.handleMouseOver,
       onMouseLeave: this.handleMouseOut
     }, /*#__PURE__*/React.createElement(Popover, {
@@ -465,7 +539,7 @@ const ToolTipWrapper = props => {
   }
   // remove label text from components where it is not valid param
   if (props.noLabelText) delete allProps.labelText;else allProps.labelText = " ";
-  allProps.className = lib_2("tooltip", {
+  allProps.className = lib_4("tooltip", {
     ...props
   });
   return /*#__PURE__*/React.createElement("div", {
@@ -549,7 +623,7 @@ function DynamicRender(props) {
  */
 const TitleGroup = props => {
   return /*#__PURE__*/React.createElement("div", {
-    className: lib_2(`displayFlex alignItemsCenter widthOneHundredPercent ${lib_1(props.hide)}`, props)
+    className: lib_4(`displayFlex alignItemsCenter widthOneHundredPercent ${lib_3(props.hide)}`, props)
   }, props.children);
 };
 TitleGroup.defaultProps = {
@@ -565,7 +639,7 @@ const IcseFormGroup = props => {
     formGroupClassName = formGroupClassName.replace(/\smarginBottom/g, "");
   }
   return /*#__PURE__*/React.createElement("div", {
-    className: lib_2(formGroupClassName, props)
+    className: lib_4(formGroupClassName, props)
   }, props.children);
 };
 IcseFormGroup.defaultProps = {
@@ -578,7 +652,7 @@ IcseFormGroup.propTypes = {
 };
 const IcseSubForm = props => {
   return /*#__PURE__*/React.createElement("div", {
-    className: lib_2(props.formInSubForm ? "formInSubForm positionRelative" : "subForm marginBottomSmall", props),
+    className: lib_4(props.formInSubForm ? "formInSubForm positionRelative" : "subForm marginBottomSmall", props),
     id: props.id
   }, props.children);
 };
@@ -594,7 +668,7 @@ IcseSubForm.propTypes = {
 const IcseHeading = props => {
   let titleFormDivClass = props.toggleFormTitle ? "" : props.name === "" ? "" : " icseFormTitleMinHeight";
   return /*#__PURE__*/React.createElement("div", {
-    className: lib_2("displayFlex spaceBetween widthOneHundredPercent alignItemsCenter", props) + titleFormDivClass
+    className: lib_4("displayFlex spaceBetween widthOneHundredPercent alignItemsCenter", props) + titleFormDivClass
   }, /*#__PURE__*/React.createElement(DynamicToolTipWrapper, {
     tooltip: props.tooltip,
     noLabelText: true,
@@ -632,7 +706,7 @@ const StatelessToggleForm = props => {
     props: props,
     className: props.className
   }, props.hideIcon !== true && /*#__PURE__*/React.createElement(EditCloseIcon, {
-    name: kebabCase$2(props.name),
+    name: kebabCase$3(props.name),
     onClick: props.onIconClick,
     type: props.iconType,
     open: props.hide === false
@@ -694,7 +768,7 @@ const SaveAddButton = props => {
     wrapperClassInline,
     buttonKind,
     buttonClass
-  } = lib_13(props);
+  } = lib_15(props);
   return /*#__PURE__*/React.createElement(PopoverWrapper, {
     hoverText: hoverText,
     className: wrapperClassDisabled + wrapperClassInline,
@@ -735,7 +809,7 @@ SaveAddButton.propTypes = {
 const EditCloseIcon = props => {
   let {
     hoverText
-  } = lib_14(props);
+  } = lib_16(props);
   return /*#__PURE__*/React.createElement(PopoverWrapper, {
     hoverText: hoverText
   }, /*#__PURE__*/React.createElement("i", {
@@ -771,7 +845,7 @@ const DeleteButton = props => {
     popoverClassName,
     buttonClassName,
     iconClassName
-  } = lib_15(props);
+  } = lib_17(props);
   return /*#__PURE__*/React.createElement("div", {
     className: "delete-area"
   }, /*#__PURE__*/React.createElement(PopoverWrapper, {
@@ -966,32 +1040,31 @@ Docs.propTypes = {
 };
 
 const IcseSelect = props => {
-  let invalid =
-  // automatically set to invalid if value is null or empty string and invalid not disabled
-  props.disableInvalid !== true && isNullOrEmptyString$4(props.value) ? true : props.invalid;
-  let groups = props.groups.length === 0 ? [] // if no groups, empty array
-  : lib_3(
-  // otherwise try and prepend empty string if null or empty string is allowed
-  props.disableInvalid ? "" : props.value, props.groups);
-  // please leave debug here //
+  let {
+    invalid,
+    groups,
+    popoverClassName,
+    wrapperId,
+    selectId,
+    labelText
+  } = lib_2(props);
+  // please leave debug here
   if (props.debug) {
     console.log("PROPS: ", props);
     console.log("GROUPS: ", groups);
   }
   return /*#__PURE__*/React.createElement(DynamicToolTipWrapper, _extends({
-    id: kebabCase$2(props.name) + "-dropdown-tooltip",
+    id: wrapperId,
     innerForm: () => {
       return /*#__PURE__*/React.createElement(PopoverWrapper, {
-        hoverText: props.value || ""
-        // inherit classnames from tooltip
-        ,
-        className: props.tooltip ? "tooltip select" : " select"
+        hoverText: props.value || "",
+        className: popoverClassName // inherit classnames from tooltip
       }, /*#__PURE__*/React.createElement(Select, {
-        id: kebabCase$2(props.formName + " " + props.name),
+        id: selectId,
         name: props.name,
-        labelText: props.tooltip ? null : props.labelText,
+        labelText: labelText,
         value: props.value || undefined,
-        className: lib_2("leftTextAlign", props),
+        className: lib_4("leftTextAlign", props),
         disabled: props.disabled,
         invalid: invalid,
         invalidText: props.invalidText,
@@ -1109,16 +1182,7 @@ const IcseNumberSelect = props => {
     value: props.value.toString(),
     name: props.name || "Icse Number Select",
     className: props.className,
-    handleInputChange: event => {
-      // set name target value and parse int
-      let sendEvent = {
-        target: {
-          name: event.target.name,
-          value: parseInt(event.target.value)
-        }
-      };
-      props.handleInputChange(sendEvent);
-    },
+    handleInputChange: lib_1(props),
     invalid: props.invalid,
     invalidText: props.invalidText,
     tooltip: props.tooltip,
@@ -1191,7 +1255,7 @@ const EndpointSelect = props => {
       props.handleInputChange({
         target: {
           name: name,
-          value: kebabCase$2(value)
+          value: kebabCase$3(value)
         }
       });
     },
@@ -1366,7 +1430,7 @@ class StatefulTabPanel extends React.Component {
       buttons: /*#__PURE__*/React.createElement(DynamicRender, {
         hide: this.props.hideFormTitleButton || this.state.tabIndex !== 0 || !isFunction$1(this.props.onClick) || this.props.hasBuiltInHeading,
         show: /*#__PURE__*/React.createElement(SaveAddButton, {
-          name: kebabCase$2(this.props.name),
+          name: kebabCase$3(this.props.name),
           type: "add",
           noDeleteButton: true,
           onClick: this.props.onClick,
@@ -1714,7 +1778,7 @@ class ToggleForm extends React.Component {
         name: this.props.name,
         hideButton: true
       }), /*#__PURE__*/React.createElement("div", {
-        className: lib_2(this.props.type === "formInSubForm" ? "formInSubForm positionRelative marginBottomSmall" : "subForm marginBottomSmall")
+        className: lib_4(this.props.type === "formInSubForm" ? "formInSubForm positionRelative marginBottomSmall" : "subForm marginBottomSmall")
       }, /*#__PURE__*/React.createElement(StatelessToggleForm, {
         hide: this.state.hide,
         iconType: this.props.useAddButton ? "add" : "edit",
@@ -1915,7 +1979,7 @@ class IcseFormTemplate extends React.Component {
     : contains$2(this.state.shownArrayForms, index);
   }
   render() {
-    let formattedName = kebabCase$2(this.props.name); // formatted component name
+    let formattedName = kebabCase$3(this.props.name); // formatted component name
     // enable submit field here is set to variable value to allow for passing to
     // child array components without needing to reference `this` directly
     let formModalProps = {
@@ -2058,8 +2122,8 @@ const IcseToggle = props => {
     labelA: props.useOnOff ? "Off" : "False",
     labelB: props.useOnOff ? "On" : "True",
     labelText: props.tooltip ? " " : props.labelText,
-    id: kebabCase$2(toggleName) + "-icse-toggle-" + props.id,
-    className: lib_2("leftTextAlign fitContent", props) + (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
+    id: kebabCase$3(toggleName) + "-icse-toggle-" + props.id,
+    className: lib_4("leftTextAlign fitContent", props) + (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
     ,
 
     onToggle: event => {
@@ -2112,9 +2176,9 @@ const IcseTextInput = props => {
   let fieldName = titleCase$1(props.field);
   return /*#__PURE__*/React.createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React.createElement(TextInput, {
     id: props.id,
-    className: lib_2("leftTextAlign", props),
+    className: lib_4("leftTextAlign", props),
     labelText: props.labelText ? props.labelText : titleCase$1(props.field),
-    placeholder: (props.optional ? "(Optional) " : "") + (props.placeholder || lib_5(props.componentName, fieldName)),
+    placeholder: (props.optional ? "(Optional) " : "") + (props.placeholder || lib_7(props.componentName, fieldName)),
     name: props.field,
     value: props.value || "",
     invalid: isBoolean(props.invalid) ? props.invalid : props.invalidCallback(),
@@ -2181,7 +2245,7 @@ const IcseNameInput = props => {
     helperText = props.helperTextCallback();
   }
   return /*#__PURE__*/React.createElement(IcseTextInput, _extends({}, props, {
-    className: lib_2("leftTextAlign", props),
+    className: lib_4("leftTextAlign", props),
     field: "name",
     labelText: props.labelText,
     helperText: helperText
@@ -2219,7 +2283,7 @@ IcseNameInput.propTypes = {
 const IcseMultiSelect = props => {
   return /*#__PURE__*/React.createElement(FilterableMultiSelect, {
     id: props.id,
-    className: lib_2("leftTextAlign", props),
+    className: lib_4("leftTextAlign", props),
     titleText: props.titleText,
     itemToString: item => item ? item : "",
     invalid: props.invalid,
@@ -2339,9 +2403,9 @@ const SubnetMultiSelect = props => {
     titleText: "Subnets",
     name: props.name,
     label: props.label,
-    items: isNullOrEmptyString$4(props.vpc_name) ? [] : props.subnets,
+    items: isNullOrEmptyString$5(props.vpc_name) ? [] : props.subnets,
     initialSelectedItems: props.initialSelectedItems,
-    invalidText: isNullOrEmptyString$4(props.vpc_name) ? "Select a VPC." : "Select at least one subnet.",
+    invalidText: isNullOrEmptyString$5(props.vpc_name) ? "Select a VPC." : "Select at least one subnet.",
     invalid: props.initialSelectedItems.length === 0,
     disabled: props.disabled,
     onChange: event => props.onChange(event.selectedItems)
@@ -2711,7 +2775,7 @@ class AtrackerForm extends Component {
       name,
       value
     } = event.target;
-    if (name === "plan") value = kebabCase$2(value);
+    if (name === "plan") value = kebabCase$3(value);
     this.setState(this.setNameToValue(name, value));
   }
   handleMultiSelect(event) {
@@ -3013,7 +3077,7 @@ class ClusterForm extends Component {
     let cluster = {
       ...this.state
     };
-    this.setState(lib_11(name, value, cluster));
+    this.setState(lib_13(name, value, cluster));
   };
 
   /**
@@ -5510,7 +5574,7 @@ class NetworkAclForm extends Component {
       groups: this.props.resourceGroups,
       value: this.state.resource_group,
       handleInputChange: this.handleTextInput,
-      invalid: lib_4(this.state.resource_group),
+      invalid: lib_6(this.state.resource_group),
       invalidText: "Select a Resource Group."
     })), !this.props.isModal &&
     /*#__PURE__*/
@@ -6019,7 +6083,7 @@ class RoutingTableRouteForm extends Component {
     this.state = {
       ...this.props.data
     };
-    if (!isNullOrEmptyString$4(this.state.action) && this.state.action !== "deliver") {
+    if (!isNullOrEmptyString$5(this.state.action) && this.state.action !== "deliver") {
       this.state.next_hop = "0.0.0.0";
     }
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -6094,7 +6158,7 @@ class RoutingTableRouteForm extends Component {
       value: this.state.next_hop,
       labelText: "Next Hop",
       placeholder: "x.x.x.x",
-      invalidCallback: () => isNullOrEmptyString$4(this.state.next_hop) || isIpv4CidrOrAddress$2(this.state.next_hop) === false || contains$2(this.state.next_hop, `/`),
+      invalidCallback: () => isNullOrEmptyString$5(this.state.next_hop) || isIpv4CidrOrAddress$2(this.state.next_hop) === false || contains$2(this.state.next_hop, `/`),
       invalidText: "Next hop must be a valid IP",
       onChange: this.handleInputChange,
       disabled: this.state.action !== "deliver",
@@ -6354,8 +6418,8 @@ class SccForm extends Component {
       value: this.state.id,
       onChange: this.handleInputChange,
       maxLength: 255,
-      invalid: lib_10("id", this.state.id, this.props.descriptionRegex).invalid,
-      invalidText: lib_10("id", this.state.id, this.props.descriptionRegex).invalidText
+      invalid: lib_12("id", this.state.id, this.props.descriptionRegex).invalid,
+      invalidText: lib_12("id", this.state.id, this.props.descriptionRegex).invalidText
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: "scc_passphrase",
       tooltip: {
@@ -6368,8 +6432,8 @@ class SccForm extends Component {
       onChange: this.handleInputChange,
       componentName: "SCC",
       maxLength: 1000,
-      invalid: lib_10("passphrase", this.state.passphrase, this.props.descriptionRegex).invalid,
-      invalidText: lib_10("passphrase", this.state.passphrase, this.props.descriptionRegex).invalidText
+      invalid: lib_12("passphrase", this.state.passphrase, this.props.descriptionRegex).invalid,
+      invalidText: lib_12("passphrase", this.state.passphrase, this.props.descriptionRegex).invalidText
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
       id: this.props.data.name + "-scc-name",
       componentName: "scc-cred",
@@ -6390,8 +6454,8 @@ class SccForm extends Component {
       value: this.state.credential_description,
       onChange: this.handleInputChange,
       maxLength: 255,
-      invalid: lib_10("credential_description", this.state.credential_description, this.props.descriptionRegex).invalid,
-      invalidText: lib_10("credential_description", this.state.credential_description, this.props.descriptionRegex).invalidText
+      invalid: lib_12("credential_description", this.state.credential_description, this.props.descriptionRegex).invalid,
+      invalidText: lib_12("credential_description", this.state.credential_description, this.props.descriptionRegex).invalidText
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(Dropdown, {
       ariaLabel: "Dropdown",
       label: "Region",
@@ -6425,8 +6489,8 @@ class SccForm extends Component {
       value: this.state.scope_description,
       onChange: this.handleInputChange,
       maxLength: 255,
-      invalid: lib_10("scope_description", this.state.scope_description, this.props.descriptionRegex).invalid,
-      invalidText: lib_10("scope_description", this.state.scope_description, this.props.descriptionRegex).invalidText
+      invalid: lib_12("scope_description", this.state.scope_description, this.props.descriptionRegex).invalid,
+      invalidText: lib_12("scope_description", this.state.scope_description, this.props.descriptionRegex).invalidText
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: "scc_collector",
       tooltip: {
@@ -6439,8 +6503,8 @@ class SccForm extends Component {
       onChange: this.handleInputChange,
       componentName: "SCC",
       maxLength: 1000,
-      invalid: lib_10("collector_description", this.state.collector_description, this.props.descriptionRegex).invalid,
-      invalidText: lib_10("collector_description", this.state.collector_description, this.props.descriptionRegex).invalidText
+      invalid: lib_12("collector_description", this.state.collector_description, this.props.descriptionRegex).invalid,
+      invalidText: lib_12("collector_description", this.state.collector_description, this.props.descriptionRegex).invalidText
     })));
   }
 }
@@ -6700,7 +6764,7 @@ class SshKeyForm extends Component {
       hideHelperText: true
     }), /*#__PURE__*/React.createElement(IcseSelect, {
       name: "resource_group",
-      formName: `${kebabCase$2(this.props.data.name)}-ssh-rg-select`,
+      formName: `${kebabCase$3(this.props.data.name)}-ssh-rg-select`,
       groups: this.props.resourceGroups,
       value: this.state.resource_group,
       handleInputChange: this.handleInputChange,
@@ -6843,7 +6907,7 @@ class SubnetForm extends React.Component {
       className: "fieldWidthSmaller",
       disabled: this.props.isModal || this.props.readOnly,
       disableInvalid: this.props.isModal || this.props.readOnly,
-      invalid: this.props.isModal || this.props.readOnly ? false : isNullOrEmptyString$4(this.state.network_acl),
+      invalid: this.props.isModal || this.props.readOnly ? false : isNullOrEmptyString$5(this.state.network_acl),
       invalidText: "Select a Network ACL."
     })), /*#__PURE__*/React.createElement(IcseFormGroup, {
       noMarginBottom: true
@@ -7155,7 +7219,7 @@ class SubnetTierForm extends React.Component {
   render() {
     let composedId = `${this.props.vpc_name}-tier-${this.props.data.name === "" ? "new-subnet-tier" : this.props.data.name}`;
     let formName = this.props.data.name + "-subnet-tier";
-    let tierName = lib_12(this.props.data.name);
+    let tierName = lib_14(this.props.data.name);
     return /*#__PURE__*/React.createElement(IcseSubForm, {
       formInSubForm: this.props.isModal === false,
       id: composedId,
@@ -7641,7 +7705,7 @@ class VpcNetworkForm extends React.Component {
       groups: this.props.resourceGroups,
       value: this.state.resource_group,
       handleInputChange: this.handleInputChange,
-      invalid: lib_4(this.state.resource_group),
+      invalid: lib_6(this.state.resource_group),
       invalidText: "Select a Resource Group.",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseSelect, {
@@ -7651,13 +7715,13 @@ class VpcNetworkForm extends React.Component {
       groups: this.props.cosBuckets.concat("Disabled"),
       value: (this.state.bucket === "$disabled" ? "Disabled" : this.state.bucket) || "",
       handleInputChange: this.handleInputChange,
-      invalid: lib_4(this.state.bucket),
+      invalid: lib_6(this.state.bucket),
       invalidText: "Select a Bucket.",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, nameFields.map(field => {
       return /*#__PURE__*/React.createElement(IcseTextInput, {
         id: composedId + "-" + field,
-        key: this.props.data.name + "-" + kebabCase$2(field),
+        key: this.props.data.name + "-" + kebabCase$3(field),
         componentName: "VPC Network",
         field: field,
         labelText: titleCase$1(field),
@@ -7937,7 +8001,7 @@ class VpnGatewayForm extends Component {
         vpc: event.target.value,
         subnet: ""
       });
-    } else if (event.target.name === "subnet" && lib_4(this.state.vpc)) {
+    } else if (event.target.name === "subnet" && lib_6(this.state.vpc)) {
       this.setState({
         subnet: ""
       });
@@ -7965,7 +8029,7 @@ class VpnGatewayForm extends Component {
       groups: this.props.resourceGroups,
       value: this.state.resource_group,
       handleInputChange: this.handleInputChange,
-      invalid: lib_4(this.state.resource_group),
+      invalid: lib_6(this.state.resource_group),
       invalidText: "Select a Resource Group.",
       className: "fieldWidth"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
@@ -7976,7 +8040,7 @@ class VpnGatewayForm extends Component {
       groups: this.props.vpcList,
       value: this.state.vpc,
       handleInputChange: this.handleInputChange,
-      invalid: lib_4(this.state.vpc),
+      invalid: lib_6(this.state.vpc),
       invalidText: "Select a VPC.",
       className: "fieldWidth"
     }), /*#__PURE__*/React.createElement(IcseSelect, {
@@ -7987,8 +8051,8 @@ class VpnGatewayForm extends Component {
       groups: this.getSubnetList(),
       value: this.state.subnet,
       handleInputChange: this.handleInputChange,
-      invalid: lib_4(this.state.vpc) || lib_4(this.state.subnet),
-      invalidText: lib_4(this.state.vpc) ? `No VPC Selected.` : `Select a Subnet.`,
+      invalid: lib_6(this.state.vpc) || lib_6(this.state.subnet),
+      invalidText: lib_6(this.state.vpc) ? `No VPC Selected.` : `Select a Subnet.`,
       className: "fieldWidth"
     })));
   }
@@ -8207,7 +8271,7 @@ class VpnServerForm extends Component {
       groups: this.props.vpcList,
       value: this.state.vpc,
       handleInputChange: this.handleInputChange,
-      invalid: isNullOrEmptyString$4(this.state.vpc),
+      invalid: isNullOrEmptyString$5(this.state.vpc),
       invalidText: "Select a VPC.",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(SubnetMultiSelect, {
@@ -8226,7 +8290,7 @@ class VpnServerForm extends Component {
       onChange: value => this.handleMultiSelectChange("security_groups", value),
       securityGroups: this.getSecurityGroupList(),
       invalid: !(this.state.security_groups?.length > 0),
-      invalidText: !this.state.vpc || isNullOrEmptyString$4(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`,
+      invalidText: !this.state.vpc || isNullOrEmptyString$5(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`,
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: this.props.data.name + "-vpn-server-certificate-crn",
@@ -8288,7 +8352,7 @@ class VpnServerForm extends Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: !isNullOrEmptyString$4(this.state.port) && (!isWholeNumber$1(Number(this.state.port)) || this.state.port < 1 || this.state.port > 65535),
+      invalid: !isNullOrEmptyString$5(this.state.port) && (!isWholeNumber$1(Number(this.state.port)) || this.state.port < 1 || this.state.port > 65535),
       invalidText: "Must be a whole number between 1 and 65535.",
       className: "fieldWidthSmaller leftTextAlign"
     }), /*#__PURE__*/React.createElement(IcseSelect, {
@@ -8317,7 +8381,7 @@ class VpnServerForm extends Component {
       hideSteppers: true,
       min: 0,
       max: 28800,
-      invalid: !isNullOrEmptyString$4(this.state.client_idle_timeout) && (!isWholeNumber$1(Number(this.state.client_idle_timeout)) || this.state.client_idle_timeout < 0 || this.state.client_idle_timeout > 28000),
+      invalid: !isNullOrEmptyString$5(this.state.client_idle_timeout) && (!isWholeNumber$1(Number(this.state.client_idle_timeout)) || this.state.client_idle_timeout < 0 || this.state.client_idle_timeout > 28000),
       invalidText: "Must be a whole number between 0 and 28800.",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
@@ -8576,7 +8640,7 @@ class VsiForm extends Component {
       groups: this.props.vpcList,
       value: this.state.vpc,
       handleInputChange: this.handleInputChange,
-      invalid: lib_4(this.state.vpc),
+      invalid: lib_6(this.state.vpc),
       invalidText: "Select a VPC."
     }), this.props.isTeleport ?
     /*#__PURE__*/
@@ -8589,8 +8653,8 @@ class VsiForm extends Component {
       groups: this.getSubnetList(),
       value: this.state.subnet,
       handleInputChange: this.handleInputChange,
-      invalid: lib_4(this.state.vpc) || lib_4(this.state.subnet),
-      invalidText: lib_4(this.state.vpc) ? `No VPC Selected.` : `Select a Subnet.`
+      invalid: lib_6(this.state.vpc) || lib_6(this.state.subnet),
+      invalidText: lib_6(this.state.vpc) ? `No VPC Selected.` : `Select a Subnet.`
     }) : /*#__PURE__*/React.createElement(SubnetMultiSelect, {
       key: this.state.vpc + "-subnet",
       id: "vsi-subnets",
@@ -8608,7 +8672,7 @@ class VsiForm extends Component {
       onChange: value => this.handleMultiSelectChange("security_groups", value),
       securityGroups: this.getSecurityGroupList(),
       invalid: !(this.state.security_groups?.length > 0),
-      invalidText: !this.state.vpc || lib_4(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`
+      invalidText: !this.state.vpc || lib_6(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NumberInput, {
       label: "Instances per Subnet",
       id: composedId + "-vsi-per-subnet",
@@ -8652,7 +8716,7 @@ class VsiForm extends Component {
       groups: this.props.encryptionKeys,
       value: this.state.encryption_key,
       handleInputChange: this.handleInputChange,
-      invalid: isNullOrEmptyString$4(this.state.encryption_key),
+      invalid: isNullOrEmptyString$5(this.state.encryption_key),
       invalidText: "Select a valid encryption key."
     }), /*#__PURE__*/React.createElement(IcseToggle, {
       id: composedId + "-fips-toggle",
@@ -8897,7 +8961,7 @@ class VsiLoadBalancerForm extends React.Component {
       groups: this.props.vpcList,
       value: this.state.vpc,
       handleInputChange: this.handleInputChange,
-      invalid: isNullOrEmptyString$4(this.state.vpc),
+      invalid: isNullOrEmptyString$5(this.state.vpc),
       invalidText: "Select a VPC.",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(SecurityGroupMultiSelect, {
@@ -8908,7 +8972,7 @@ class VsiLoadBalancerForm extends React.Component {
       onChange: value => this.handleMultiSelectChange("security_groups", value),
       securityGroups: this.getSecurityGroupList(),
       invalid: !(this.state.security_groups?.length > 0),
-      invalidText: !this.state.vpc || isNullOrEmptyString$4(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`,
+      invalidText: !this.state.vpc || isNullOrEmptyString$5(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`,
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseHeading, {
       type: "subHeading",
@@ -8941,7 +9005,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: isNullOrEmptyString$4(this.state.port || "") ? true : !isWholeNumber$1(this.state.port),
+      invalid: isNullOrEmptyString$5(this.state.port || "") ? true : !isWholeNumber$1(this.state.port),
       invalidText: "Must be a whole number between 1 and 65535",
       className: "fieldWidthSmaller"
     })), this.allVsi().map((row, index) => /*#__PURE__*/React.createElement(IcseFormGroup, {
@@ -9002,7 +9066,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 5,
       max: 3000,
-      invalid: isNullOrEmptyString$4(this.state.health_timeout || "") ? true : !isWholeNumber$1(this.state.health_timeout),
+      invalid: isNullOrEmptyString$5(this.state.health_timeout || "") ? true : !isWholeNumber$1(this.state.health_timeout),
       invalidText: "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(NumberInput, {
@@ -9017,7 +9081,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 5,
       max: 3000,
-      invalid: isNullOrEmptyString$4(this.state.health_delay || "") ? true : this.state.health_delay <= this.state.health_timeout || !isWholeNumber$1(this.state.health_delay),
+      invalid: isNullOrEmptyString$5(this.state.health_delay || "") ? true : this.state.health_delay <= this.state.health_timeout || !isWholeNumber$1(this.state.health_delay),
       invalidText: this.state.health_delay <= this.state.health_timeout ? "Must be greater than Health Timeout value" : "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(NumberInput, {
@@ -9032,7 +9096,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 5,
       max: 3000,
-      invalid: isNullOrEmptyString$4(this.state.health_retries || "") ? true : !isWholeNumber$1(this.state.health_retries),
+      invalid: isNullOrEmptyString$5(this.state.health_retries || "") ? true : !isWholeNumber$1(this.state.health_retries),
       invalidText: "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseHeading, {
@@ -9050,7 +9114,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: isNullOrEmptyString$4(this.state.listener_port || "") ? true : !isWholeNumber$1(this.state.listener_port),
+      invalid: isNullOrEmptyString$5(this.state.listener_port || "") ? true : !isWholeNumber$1(this.state.listener_port),
       invalidText: "Must be a whole number between 1 and 65535",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseSelect, {
@@ -9075,7 +9139,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 15000,
-      invalid: isNullOrEmptyString$4(this.state.connection_limit || "") ? false : isInRange$1(this.state.connection_limit, 1, 15000) === false || !isWholeNumber$1(this.state.connection_limit),
+      invalid: isNullOrEmptyString$5(this.state.connection_limit || "") ? false : isInRange$1(this.state.connection_limit, 1, 15000) === false || !isWholeNumber$1(this.state.connection_limit),
       invalidText: "Must be a whole number between 1 and 15000",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseHeading, {
@@ -9105,7 +9169,7 @@ class VsiLoadBalancerForm extends React.Component {
       isModal: this.props.isModal,
       labelText: "Session Cookie Name",
       value: this.state.session_persistence_app_cookie_name || "",
-      invalid: isNullOrEmptyString$4(this.state.session_persistence_app_cookie_name || "") ? false : this.props.invalidCallback(this.state, this.props),
+      invalid: isNullOrEmptyString$5(this.state.session_persistence_app_cookie_name || "") ? false : this.props.invalidCallback(this.state, this.props),
       onChange: this.handleInputChange,
       className: "fieldWidthSmaller"
     })));
@@ -9217,7 +9281,7 @@ class AccessGroupPolicyForm extends React.Component {
       labelText: "Resource"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
       name: "resource_group",
-      formName: `${kebabCase$2(this.props.data.name)}-agp-rg-select`,
+      formName: `${kebabCase$3(this.props.data.name)}-agp-rg-select`,
       groups: this.props.resourceGroups,
       value: this.state.resources.resource_group,
       handleInputChange: this.handleInputResource,
@@ -10067,6 +10131,13 @@ const ipRangeExpression = new RegexButWithWords().wordBoundary().group(exp => {
     exp.digit(1, 2);
   });
 }).wordBoundary().done("g");
+
+/**
+ * create cbr invalid field sta
+ * @param {*} field
+ * @param {*} value
+ * @returns {Object} invalid boolean invalidText string
+ */
 function cbrInvalid(field, value) {
   let invalid = {
     invalid: false,
@@ -10078,6 +10149,13 @@ function cbrInvalid(field, value) {
   }
   return invalid;
 }
+
+/**
+ * cbr value is invalid
+ * @param {*} type
+ * @param {*} value
+ * @returns {Object} invalid boolean invalidText string
+ */
 function cbrValueInvalid(type, value) {
   let invalid = {
     invalid: false,
@@ -10086,23 +10164,18 @@ function cbrValueInvalid(type, value) {
   if (isNullOrEmptyString(value)) {
     invalid.invalid = true;
     invalid.invalidText = `Invalid value for type ${type}. Cannot be empty string.`;
-  } else {
-    switch (type) {
-      case "ipAddress":
-        if (!isIpv4CidrOrAddress(value) || value.includes("/")) {
-          invalid.invalid = true;
-          invalid.invalidText = `Invalid value for type ${type}. Value must be a valid IPV4 Address.`;
-        }
-        break;
-      case "ipRange":
-        if (value.match(ipRangeExpression) === null) {
-          invalid.invalid = true;
-          invalid.invalidText = `Invalid value for type ${type}. Value must be a range of IPV4 Addresses.`;
-        }
-        break;
-      default:
-        invalid = cbrInvalid("type", value);
+  } else if (type === "ipAddress") {
+    if (!isIpv4CidrOrAddress(value) || value.includes("/")) {
+      invalid.invalid = true;
+      invalid.invalidText = `Invalid value for type ${type}. Value must be a valid IPV4 Address.`;
     }
+  } else if (type === "ipRange") {
+    if (value.match(ipRangeExpression) === null) {
+      invalid.invalid = true;
+      invalid.invalidText = `Invalid value for type ${type}. Value must be a range of IPV4 Addresses.`;
+    }
+  } else {
+    invalid = cbrInvalid(type, value);
   }
   return invalid;
 }
@@ -10561,7 +10634,7 @@ class DnsRecordForm extends Component {
       value: this.state.service,
       onChange: this.handleInputChange,
       labelText: "DNS Record Service",
-      invalid: lib_4(this.state.service) || this.state.service === undefined ? true : this.state.service.charAt(0) !== "_",
+      invalid: lib_6(this.state.service) || this.state.service === undefined ? true : this.state.service.charAt(0) !== "_",
       invalidText: "Service must start with a '_'.",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(NumberInput, {
@@ -10935,7 +11008,7 @@ class DnsForm extends Component {
       handleInputChange: this.handleInputChange
     }), /*#__PURE__*/React.createElement(IcseSelect, {
       name: "resource_group",
-      formName: `${kebabCase$2(this.props.data.name)}-dns-rg-select`,
+      formName: `${kebabCase$3(this.props.data.name)}-dns-rg-select`,
       groups: this.props.resourceGroups,
       value: this.state.resource_group,
       handleInputChange: this.handleInputChange,
@@ -11107,7 +11180,7 @@ class LogDNAForm extends Component {
       name,
       value
     } = event.target;
-    if (contains$2(["plan", "endpoints"], name)) value = kebabCase$2(value);
+    if (contains$2(["plan", "endpoints"], name)) value = kebabCase$3(value);
     this.setState(this.setNameToValue(name, value));
   }
 
@@ -11247,7 +11320,7 @@ class SysdigForm extends Component {
       name,
       value
     } = event.target;
-    if (name === "plan") value = kebabCase$2(value);
+    if (name === "plan") value = kebabCase$3(value);
     this.setState(this.setNameToValue(name, value));
   }
 

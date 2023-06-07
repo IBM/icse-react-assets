@@ -19,8 +19,12 @@ const {
   toggleStateBoolean,
   setNameToValue,
 } = require("./method-functions");
+const { icseSelectParams } = require("./dropdowns");
+const { handleNumberDropdownEvent } = require("./utils");
 
 module.exports = {
+  handleNumberDropdownEvent,
+  icseSelectParams,
   toggleMarginBottom,
   addClassName,
   prependEmptyStringWhenNull,
