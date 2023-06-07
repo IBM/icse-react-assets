@@ -2,6 +2,7 @@ const {
   saveChangeButtonClass,
   saveAddParams,
   editCloseParams,
+  deleteButtonParams,
 } = require("../src/lib/button-utils");
 const { assert, expect } = require("chai");
 
@@ -119,6 +120,32 @@ describe("button utils", () => {
       let expectedData = { hoverText: "Configure Resource" };
       let actualData = editCloseParams({ open: false, type: "add" });
       assert.deepEqual(actualData, expectedData);
+    });
+  });
+  describe("deleteButtonParams", () => {
+    it("should pass different classes when disabled", () => {
+      let expectedData = {
+        hoverText: "custom delete",
+        popoverClassName: "inlineBlock cursorNotAllowed",
+        buttonClassName:
+          "cds--btn--danger--tertiary forceTertiaryButtonStyles pointerEventsNone",
+        iconClassName: "",
+      };
+      let actualData = deleteButtonParams({
+        disabled: true,
+        disableDeleteMessage: "custom delete",
+      });
+      assert.deepEqual(expectedData, actualData);
+    });
+    it("should pass correct classes when not disabled", () => {
+      let expectedData = {
+        hoverText: "Delete Resource",
+        popoverClassName: "",
+        buttonClassName: "cds--btn--danger--tertiary forceTertiaryButtonStyles",
+        iconClassName: "redFill",
+      };
+      let actualData = deleteButtonParams({ disabled: false });
+      assert.deepEqual(expectedData, actualData);
     });
   });
 });
