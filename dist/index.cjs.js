@@ -9,7 +9,7 @@ var iconsReact = require('@carbon/icons-react');
 var React = require('react');
 var PropTypes = require('prop-types');
 var regexButWithWords = require('regex-but-with-words');
-var utils = require('regex-but-with-words/lib/utils');
+var utils$1 = require('regex-but-with-words/lib/utils');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -83,7 +83,7 @@ function checkNullorEmptyString$1(input) {
  * @param {*} value check value if it is null or empty string
  * @param {Array<string>} arr
  */
-function prependEmptyStringWhenNull$1(value, arr) {
+function prependEmptyStringWhenNull$2(value, arr) {
   let arrayCheck = checkNullorEmptyString$1(value);
   let prependArray = arrayCheck ? [""] : [];
   return prependArray.concat(arr);
@@ -150,7 +150,7 @@ function subnetTierName$1(tierName) {
 var formUtils = {
   addClassName: addClassName$1,
   toggleMarginBottom: toggleMarginBottom$1,
-  prependEmptyStringWhenNull: prependEmptyStringWhenNull$1,
+  prependEmptyStringWhenNull: prependEmptyStringWhenNull$2,
   checkNullorEmptyString: checkNullorEmptyString$1,
   invalidRegex: invalidRegex$1,
   handleClusterInputChange: handleClusterInputChange$1,
@@ -158,7 +158,7 @@ var formUtils = {
 };
 
 const {
-  kebabCase: kebabCase$1
+  kebabCase: kebabCase$2
 } = lazyZ__default["default"];
 
 /**
@@ -168,7 +168,7 @@ const {
  * @returns {string} placeholder name
  */
 function formatInputPlaceholder$1(componentName, fieldName) {
-  return `my-${kebabCase$1(componentName)}-${kebabCase$1(fieldName)}`;
+  return `my-${kebabCase$2(componentName)}-${kebabCase$2(fieldName)}`;
 }
 var textUtils = {
   formatInputPlaceholder: formatInputPlaceholder$1
@@ -311,6 +311,71 @@ var docUtils = {
 };
 
 const {
+  isNullOrEmptyString: isNullOrEmptyString$4,
+  kebabCase: kebabCase$1
+} = lazyZ__default["default"];
+const {
+  prependEmptyStringWhenNull: prependEmptyStringWhenNull$1
+} = formUtils;
+
+/**
+ * generate parameters for icse select
+ * @param {*} props 
+ * @returns {Object} parameters
+ */
+function icseSelectParams$1(props) {
+  let invalid =
+  // automatically set to invalid if value is null or empty string and invalid not disabled
+  props.disableInvalid !== true && isNullOrEmptyString$4(props.value) ? true : props.invalid;
+  let groups = props.groups.length === 0 ? [] // if no groups, empty array
+  : prependEmptyStringWhenNull$1(
+  // otherwise try and prepend empty string if null or empty string is allowed
+  props.disableInvalid ? "" : props.value, props.groups);
+  let popoverClassName = props.tooltip ? "tooltip select" : " select";
+  let wrapperId = kebabCase$1(props.name) + "-dropdown-tooltip";
+  let selectId = kebabCase$1(props.formName + " " + props.name);
+  let labelText = props.tooltip ? null : props.labelText;
+  return {
+    invalid,
+    groups,
+    popoverClassName,
+    wrapperId,
+    selectId,
+    labelText
+  };
+}
+var dropdowns = {
+  icseSelectParams: icseSelectParams$1
+};
+
+/**
+ * handle number dropdown event function
+ * @param {*} props 
+ * @param {Function} props.handleInputChange
+ * @returns {Function} handle input change
+ */
+function handleNumberDropdownEvent$1(props) {
+  /**
+   * handle input change
+   * @param {*} event 
+   */
+  function handleInputChange(event) {
+    // set name target value and parse int
+    let sendEvent = {
+      target: {
+        name: event.target.name,
+        value: parseInt(event.target.value)
+      }
+    };
+    props.handleInputChange(sendEvent);
+  }
+  return handleInputChange;
+}
+var utils = {
+  handleNumberDropdownEvent: handleNumberDropdownEvent$1
+};
+
+const {
   toggleMarginBottom,
   addClassName,
   prependEmptyStringWhenNull,
@@ -336,8 +401,16 @@ const {
 const {
   docTextFieldParams
 } = docUtils;
+const {
+  icseSelectParams
+} = dropdowns;
+const {
+  handleNumberDropdownEvent
+} = utils;
 var lib = {
   docTextFieldParams,
+  handleNumberDropdownEvent,
+  icseSelectParams,
   toggleMarginBottom,
   addClassName,
   prependEmptyStringWhenNull,
@@ -355,17 +428,18 @@ var lib = {
   deleteButtonParams
 };
 var lib_1 = lib.docTextFieldParams;
-var lib_2 = lib.toggleMarginBottom;
-var lib_3 = lib.addClassName;
-var lib_4 = lib.prependEmptyStringWhenNull;
-var lib_5 = lib.checkNullorEmptyString;
-var lib_6 = lib.formatInputPlaceholder;
-var lib_11 = lib.invalidRegex;
-var lib_12 = lib.handleClusterInputChange;
-var lib_13 = lib.subnetTierName;
-var lib_14 = lib.saveAddParams;
-var lib_15 = lib.editCloseParams;
-var lib_16 = lib.deleteButtonParams;
+var lib_2 = lib.handleNumberDropdownEvent;
+var lib_3 = lib.icseSelectParams;
+var lib_4 = lib.toggleMarginBottom;
+var lib_5 = lib.addClassName;
+var lib_7 = lib.checkNullorEmptyString;
+var lib_8 = lib.formatInputPlaceholder;
+var lib_13 = lib.invalidRegex;
+var lib_14 = lib.handleClusterInputChange;
+var lib_15 = lib.subnetTierName;
+var lib_16 = lib.saveAddParams;
+var lib_17 = lib.editCloseParams;
+var lib_18 = lib.deleteButtonParams;
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -399,7 +473,7 @@ class PopoverWrapper extends React__default["default"].Component {
   }
   render() {
     return this.props.noPopover === true || this.props.hoverText === "" ? this.props.children : /*#__PURE__*/React__default["default"].createElement("div", {
-      className: lib_3("popover-obj", this.props),
+      className: lib_5("popover-obj", this.props),
       onMouseEnter: this.handleMouseOver,
       onMouseLeave: this.handleMouseOut
     }, /*#__PURE__*/React__default["default"].createElement(react.Popover, {
@@ -500,7 +574,7 @@ const ToolTipWrapper = props => {
   }
   // remove label text from components where it is not valid param
   if (props.noLabelText) delete allProps.labelText;else allProps.labelText = " ";
-  allProps.className = lib_3("tooltip", {
+  allProps.className = lib_5("tooltip", {
     ...props
   });
   return /*#__PURE__*/React__default["default"].createElement("div", {
@@ -584,7 +658,7 @@ function DynamicRender(props) {
  */
 const TitleGroup = props => {
   return /*#__PURE__*/React__default["default"].createElement("div", {
-    className: lib_3(`displayFlex alignItemsCenter widthOneHundredPercent ${lib_2(props.hide)}`, props)
+    className: lib_5(`displayFlex alignItemsCenter widthOneHundredPercent ${lib_4(props.hide)}`, props)
   }, props.children);
 };
 TitleGroup.defaultProps = {
@@ -600,7 +674,7 @@ const IcseFormGroup = props => {
     formGroupClassName = formGroupClassName.replace(/\smarginBottom/g, "");
   }
   return /*#__PURE__*/React__default["default"].createElement("div", {
-    className: lib_3(formGroupClassName, props)
+    className: lib_5(formGroupClassName, props)
   }, props.children);
 };
 IcseFormGroup.defaultProps = {
@@ -613,7 +687,7 @@ IcseFormGroup.propTypes = {
 };
 const IcseSubForm = props => {
   return /*#__PURE__*/React__default["default"].createElement("div", {
-    className: lib_3(props.formInSubForm ? "formInSubForm positionRelative" : "subForm marginBottomSmall", props),
+    className: lib_5(props.formInSubForm ? "formInSubForm positionRelative" : "subForm marginBottomSmall", props),
     id: props.id
   }, props.children);
 };
@@ -629,7 +703,7 @@ IcseSubForm.propTypes = {
 const IcseHeading = props => {
   let titleFormDivClass = props.toggleFormTitle ? "" : props.name === "" ? "" : " icseFormTitleMinHeight";
   return /*#__PURE__*/React__default["default"].createElement("div", {
-    className: lib_3("displayFlex spaceBetween widthOneHundredPercent alignItemsCenter", props) + titleFormDivClass
+    className: lib_5("displayFlex spaceBetween widthOneHundredPercent alignItemsCenter", props) + titleFormDivClass
   }, /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, {
     tooltip: props.tooltip,
     noLabelText: true,
@@ -729,7 +803,7 @@ const SaveAddButton = props => {
     wrapperClassInline,
     buttonKind,
     buttonClass
-  } = lib_14(props);
+  } = lib_16(props);
   return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
     hoverText: hoverText,
     className: wrapperClassDisabled + wrapperClassInline,
@@ -770,7 +844,7 @@ SaveAddButton.propTypes = {
 const EditCloseIcon = props => {
   let {
     hoverText
-  } = lib_15(props);
+  } = lib_17(props);
   return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
     hoverText: hoverText
   }, /*#__PURE__*/React__default["default"].createElement("i", {
@@ -806,7 +880,7 @@ const DeleteButton = props => {
     popoverClassName,
     buttonClassName,
     iconClassName
-  } = lib_16(props);
+  } = lib_18(props);
   return /*#__PURE__*/React__default["default"].createElement("div", {
     className: "delete-area"
   }, /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
@@ -967,7 +1041,7 @@ const LastUpdated = props => {
   }));
 };
 LastUpdated.defaultProps = {
-  date: ""
+  date: "1/1/1970"
 };
 LastUpdated.propTypes = {
   date: PropTypes__default["default"].string.isRequired
@@ -1011,32 +1085,31 @@ Docs.propTypes = {
 };
 
 const IcseSelect = props => {
-  let invalid =
-  // automatically set to invalid if value is null or empty string and invalid not disabled
-  props.disableInvalid !== true && lazyZ.isNullOrEmptyString(props.value) ? true : props.invalid;
-  let groups = props.groups.length === 0 ? [] // if no groups, empty array
-  : lib_4(
-  // otherwise try and prepend empty string if null or empty string is allowed
-  props.disableInvalid ? "" : props.value, props.groups);
-  // please leave debug here //
+  let {
+    invalid,
+    groups,
+    popoverClassName,
+    wrapperId,
+    selectId,
+    labelText
+  } = lib_3(props);
+  // please leave debug here
   if (props.debug) {
     console.log("PROPS: ", props);
     console.log("GROUPS: ", groups);
   }
   return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, _extends({
-    id: lazyZ.kebabCase(props.name) + "-dropdown-tooltip",
+    id: wrapperId,
     innerForm: () => {
       return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
-        hoverText: props.value || ""
-        // inherit classnames from tooltip
-        ,
-        className: props.tooltip ? "tooltip select" : " select"
+        hoverText: props.value || "",
+        className: popoverClassName // inherit classnames from tooltip
       }, /*#__PURE__*/React__default["default"].createElement(react.Select, {
-        id: lazyZ.kebabCase(props.formName + " " + props.name),
+        id: selectId,
         name: props.name,
-        labelText: props.tooltip ? null : props.labelText,
+        labelText: labelText,
         value: props.value || undefined,
-        className: lib_3("leftTextAlign", props),
+        className: lib_5("leftTextAlign", props),
         disabled: props.disabled,
         invalid: invalid,
         invalidText: props.invalidText,
@@ -1154,16 +1227,7 @@ const IcseNumberSelect = props => {
     value: props.value.toString(),
     name: props.name || "Icse Number Select",
     className: props.className,
-    handleInputChange: event => {
-      // set name target value and parse int
-      let sendEvent = {
-        target: {
-          name: event.target.name,
-          value: parseInt(event.target.value)
-        }
-      };
-      props.handleInputChange(sendEvent);
-    },
+    handleInputChange: lib_2(props),
     invalid: props.invalid,
     invalidText: props.invalidText,
     tooltip: props.tooltip,
@@ -1759,7 +1823,7 @@ class ToggleForm extends React__default["default"].Component {
         name: this.props.name,
         hideButton: true
       }), /*#__PURE__*/React__default["default"].createElement("div", {
-        className: lib_3(this.props.type === "formInSubForm" ? "formInSubForm positionRelative marginBottomSmall" : "subForm marginBottomSmall")
+        className: lib_5(this.props.type === "formInSubForm" ? "formInSubForm positionRelative marginBottomSmall" : "subForm marginBottomSmall")
       }, /*#__PURE__*/React__default["default"].createElement(StatelessToggleForm, {
         hide: this.state.hide,
         iconType: this.props.useAddButton ? "add" : "edit",
@@ -2104,7 +2168,7 @@ const IcseToggle = props => {
     labelB: props.useOnOff ? "On" : "True",
     labelText: props.tooltip ? " " : props.labelText,
     id: lazyZ.kebabCase(toggleName) + "-icse-toggle-" + props.id,
-    className: lib_3("leftTextAlign fitContent", props) + (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
+    className: lib_5("leftTextAlign fitContent", props) + (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
     ,
 
     onToggle: event => {
@@ -2157,9 +2221,9 @@ const IcseTextInput = props => {
   let fieldName = lazyZ.titleCase(props.field);
   return /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React__default["default"].createElement(react.TextInput, {
     id: props.id,
-    className: lib_3("leftTextAlign", props),
+    className: lib_5("leftTextAlign", props),
     labelText: props.labelText ? props.labelText : lazyZ.titleCase(props.field),
-    placeholder: (props.optional ? "(Optional) " : "") + (props.placeholder || lib_6(props.componentName, fieldName)),
+    placeholder: (props.optional ? "(Optional) " : "") + (props.placeholder || lib_8(props.componentName, fieldName)),
     name: props.field,
     value: props.value || "",
     invalid: lazyZ.isBoolean(props.invalid) ? props.invalid : props.invalidCallback(),
@@ -2226,7 +2290,7 @@ const IcseNameInput = props => {
     helperText = props.helperTextCallback();
   }
   return /*#__PURE__*/React__default["default"].createElement(IcseTextInput, _extends({}, props, {
-    className: lib_3("leftTextAlign", props),
+    className: lib_5("leftTextAlign", props),
     field: "name",
     labelText: props.labelText,
     helperText: helperText
@@ -2264,7 +2328,7 @@ IcseNameInput.propTypes = {
 const IcseMultiSelect = props => {
   return /*#__PURE__*/React__default["default"].createElement(react.FilterableMultiSelect, {
     id: props.id,
-    className: lib_3("leftTextAlign", props),
+    className: lib_5("leftTextAlign", props),
     titleText: props.titleText,
     itemToString: item => item ? item : "",
     invalid: props.invalid,
@@ -3058,7 +3122,7 @@ class ClusterForm extends React.Component {
     let cluster = {
       ...this.state
     };
-    this.setState(lib_12(name, value, cluster));
+    this.setState(lib_14(name, value, cluster));
   };
 
   /**
@@ -5555,7 +5619,7 @@ class NetworkAclForm extends React.Component {
       groups: this.props.resourceGroups,
       value: this.state.resource_group,
       handleInputChange: this.handleTextInput,
-      invalid: lib_5(this.state.resource_group),
+      invalid: lib_7(this.state.resource_group),
       invalidText: "Select a Resource Group."
     })), !this.props.isModal &&
     /*#__PURE__*/
@@ -6399,8 +6463,8 @@ class SccForm extends React.Component {
       value: this.state.id,
       onChange: this.handleInputChange,
       maxLength: 255,
-      invalid: lib_11("id", this.state.id, this.props.descriptionRegex).invalid,
-      invalidText: lib_11("id", this.state.id, this.props.descriptionRegex).invalidText
+      invalid: lib_13("id", this.state.id, this.props.descriptionRegex).invalid,
+      invalidText: lib_13("id", this.state.id, this.props.descriptionRegex).invalidText
     }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: "scc_passphrase",
       tooltip: {
@@ -6413,8 +6477,8 @@ class SccForm extends React.Component {
       onChange: this.handleInputChange,
       componentName: "SCC",
       maxLength: 1000,
-      invalid: lib_11("passphrase", this.state.passphrase, this.props.descriptionRegex).invalid,
-      invalidText: lib_11("passphrase", this.state.passphrase, this.props.descriptionRegex).invalidText
+      invalid: lib_13("passphrase", this.state.passphrase, this.props.descriptionRegex).invalid,
+      invalidText: lib_13("passphrase", this.state.passphrase, this.props.descriptionRegex).invalidText
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       id: this.props.data.name + "-scc-name",
       componentName: "scc-cred",
@@ -6435,8 +6499,8 @@ class SccForm extends React.Component {
       value: this.state.credential_description,
       onChange: this.handleInputChange,
       maxLength: 255,
-      invalid: lib_11("credential_description", this.state.credential_description, this.props.descriptionRegex).invalid,
-      invalidText: lib_11("credential_description", this.state.credential_description, this.props.descriptionRegex).invalidText
+      invalid: lib_13("credential_description", this.state.credential_description, this.props.descriptionRegex).invalid,
+      invalidText: lib_13("credential_description", this.state.credential_description, this.props.descriptionRegex).invalidText
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.Dropdown, {
       ariaLabel: "Dropdown",
       label: "Region",
@@ -6470,8 +6534,8 @@ class SccForm extends React.Component {
       value: this.state.scope_description,
       onChange: this.handleInputChange,
       maxLength: 255,
-      invalid: lib_11("scope_description", this.state.scope_description, this.props.descriptionRegex).invalid,
-      invalidText: lib_11("scope_description", this.state.scope_description, this.props.descriptionRegex).invalidText
+      invalid: lib_13("scope_description", this.state.scope_description, this.props.descriptionRegex).invalid,
+      invalidText: lib_13("scope_description", this.state.scope_description, this.props.descriptionRegex).invalidText
     }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: "scc_collector",
       tooltip: {
@@ -6484,8 +6548,8 @@ class SccForm extends React.Component {
       onChange: this.handleInputChange,
       componentName: "SCC",
       maxLength: 1000,
-      invalid: lib_11("collector_description", this.state.collector_description, this.props.descriptionRegex).invalid,
-      invalidText: lib_11("collector_description", this.state.collector_description, this.props.descriptionRegex).invalidText
+      invalid: lib_13("collector_description", this.state.collector_description, this.props.descriptionRegex).invalid,
+      invalidText: lib_13("collector_description", this.state.collector_description, this.props.descriptionRegex).invalidText
     })));
   }
 }
@@ -7200,7 +7264,7 @@ class SubnetTierForm extends React__default["default"].Component {
   render() {
     let composedId = `${this.props.vpc_name}-tier-${this.props.data.name === "" ? "new-subnet-tier" : this.props.data.name}`;
     let formName = this.props.data.name + "-subnet-tier";
-    let tierName = lib_13(this.props.data.name);
+    let tierName = lib_15(this.props.data.name);
     return /*#__PURE__*/React__default["default"].createElement(IcseSubForm, {
       formInSubForm: this.props.isModal === false,
       id: composedId,
@@ -7646,7 +7710,7 @@ class VpcNetworkForm extends React__default["default"].Component {
     let currentGw = [...this.state.publicGateways]; // new array
     let zoneNumber = lazyZ.parseIntFromZone(zone);
     // check if zone is already present
-    if (utils.contains(currentGw, zoneNumber)) {
+    if (utils$1.contains(currentGw, zoneNumber)) {
       let index = currentGw.indexOf(zoneNumber);
       currentGw.splice(index, 1);
     } else {
@@ -7686,7 +7750,7 @@ class VpcNetworkForm extends React__default["default"].Component {
       groups: this.props.resourceGroups,
       value: this.state.resource_group,
       handleInputChange: this.handleInputChange,
-      invalid: lib_5(this.state.resource_group),
+      invalid: lib_7(this.state.resource_group),
       invalidText: "Select a Resource Group.",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
@@ -7696,7 +7760,7 @@ class VpcNetworkForm extends React__default["default"].Component {
       groups: this.props.cosBuckets.concat("Disabled"),
       value: (this.state.bucket === "$disabled" ? "Disabled" : this.state.bucket) || "",
       handleInputChange: this.handleInputChange,
-      invalid: lib_5(this.state.bucket),
+      invalid: lib_7(this.state.bucket),
       invalidText: "Select a Bucket.",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, nameFields.map(field => {
@@ -7982,7 +8046,7 @@ class VpnGatewayForm extends React.Component {
         vpc: event.target.value,
         subnet: ""
       });
-    } else if (event.target.name === "subnet" && lib_5(this.state.vpc)) {
+    } else if (event.target.name === "subnet" && lib_7(this.state.vpc)) {
       this.setState({
         subnet: ""
       });
@@ -8010,7 +8074,7 @@ class VpnGatewayForm extends React.Component {
       groups: this.props.resourceGroups,
       value: this.state.resource_group,
       handleInputChange: this.handleInputChange,
-      invalid: lib_5(this.state.resource_group),
+      invalid: lib_7(this.state.resource_group),
       invalidText: "Select a Resource Group.",
       className: "fieldWidth"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
@@ -8021,7 +8085,7 @@ class VpnGatewayForm extends React.Component {
       groups: this.props.vpcList,
       value: this.state.vpc,
       handleInputChange: this.handleInputChange,
-      invalid: lib_5(this.state.vpc),
+      invalid: lib_7(this.state.vpc),
       invalidText: "Select a VPC.",
       className: "fieldWidth"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
@@ -8032,8 +8096,8 @@ class VpnGatewayForm extends React.Component {
       groups: this.getSubnetList(),
       value: this.state.subnet,
       handleInputChange: this.handleInputChange,
-      invalid: lib_5(this.state.vpc) || lib_5(this.state.subnet),
-      invalidText: lib_5(this.state.vpc) ? `No VPC Selected.` : `Select a Subnet.`,
+      invalid: lib_7(this.state.vpc) || lib_7(this.state.subnet),
+      invalidText: lib_7(this.state.vpc) ? `No VPC Selected.` : `Select a Subnet.`,
       className: "fieldWidth"
     })));
   }
@@ -8621,7 +8685,7 @@ class VsiForm extends React.Component {
       groups: this.props.vpcList,
       value: this.state.vpc,
       handleInputChange: this.handleInputChange,
-      invalid: lib_5(this.state.vpc),
+      invalid: lib_7(this.state.vpc),
       invalidText: "Select a VPC."
     }), this.props.isTeleport ?
     /*#__PURE__*/
@@ -8634,8 +8698,8 @@ class VsiForm extends React.Component {
       groups: this.getSubnetList(),
       value: this.state.subnet,
       handleInputChange: this.handleInputChange,
-      invalid: lib_5(this.state.vpc) || lib_5(this.state.subnet),
-      invalidText: lib_5(this.state.vpc) ? `No VPC Selected.` : `Select a Subnet.`
+      invalid: lib_7(this.state.vpc) || lib_7(this.state.subnet),
+      invalidText: lib_7(this.state.vpc) ? `No VPC Selected.` : `Select a Subnet.`
     }) : /*#__PURE__*/React__default["default"].createElement(SubnetMultiSelect, {
       key: this.state.vpc + "-subnet",
       id: "vsi-subnets",
@@ -8653,7 +8717,7 @@ class VsiForm extends React.Component {
       onChange: value => this.handleMultiSelectChange("security_groups", value),
       securityGroups: this.getSecurityGroupList(),
       invalid: !(this.state.security_groups?.length > 0),
-      invalidText: !this.state.vpc || lib_5(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`
+      invalidText: !this.state.vpc || lib_7(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
       label: "Instances per Subnet",
       id: composedId + "-vsi-per-subnet",
@@ -10112,6 +10176,13 @@ const ipRangeExpression = new RegexButWithWords().wordBoundary().group(exp => {
     exp.digit(1, 2);
   });
 }).wordBoundary().done("g");
+
+/**
+ * create cbr invalid field sta
+ * @param {*} field
+ * @param {*} value
+ * @returns {Object} invalid boolean invalidText string
+ */
 function cbrInvalid(field, value) {
   let invalid = {
     invalid: false,
@@ -10123,6 +10194,13 @@ function cbrInvalid(field, value) {
   }
   return invalid;
 }
+
+/**
+ * cbr value is invalid
+ * @param {*} type
+ * @param {*} value
+ * @returns {Object} invalid boolean invalidText string
+ */
 function cbrValueInvalid(type, value) {
   let invalid = {
     invalid: false,
@@ -10131,23 +10209,18 @@ function cbrValueInvalid(type, value) {
   if (isNullOrEmptyString(value)) {
     invalid.invalid = true;
     invalid.invalidText = `Invalid value for type ${type}. Cannot be empty string.`;
-  } else {
-    switch (type) {
-      case "ipAddress":
-        if (!isIpv4CidrOrAddress(value) || value.includes("/")) {
-          invalid.invalid = true;
-          invalid.invalidText = `Invalid value for type ${type}. Value must be a valid IPV4 Address.`;
-        }
-        break;
-      case "ipRange":
-        if (value.match(ipRangeExpression) === null) {
-          invalid.invalid = true;
-          invalid.invalidText = `Invalid value for type ${type}. Value must be a range of IPV4 Addresses.`;
-        }
-        break;
-      default:
-        invalid = cbrInvalid("type", value);
+  } else if (type === "ipAddress") {
+    if (!isIpv4CidrOrAddress(value) || value.includes("/")) {
+      invalid.invalid = true;
+      invalid.invalidText = `Invalid value for type ${type}. Value must be a valid IPV4 Address.`;
     }
+  } else if (type === "ipRange") {
+    if (value.match(ipRangeExpression) === null) {
+      invalid.invalid = true;
+      invalid.invalidText = `Invalid value for type ${type}. Value must be a range of IPV4 Addresses.`;
+    }
+  } else {
+    invalid = cbrInvalid(type, value);
   }
   return invalid;
 }
@@ -10606,7 +10679,7 @@ class DnsRecordForm extends React.Component {
       value: this.state.service,
       onChange: this.handleInputChange,
       labelText: "DNS Record Service",
-      invalid: lib_5(this.state.service) || this.state.service === undefined ? true : this.state.service.charAt(0) !== "_",
+      invalid: lib_7(this.state.service) || this.state.service === undefined ? true : this.state.service.charAt(0) !== "_",
       invalidText: "Service must start with a '_'.",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {

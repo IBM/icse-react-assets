@@ -20,8 +20,13 @@ const {
   setNameToValue,
 } = require("./method-functions");
 const { docTextFieldParams } = require("./doc-utils");
+const { icseSelectParams } = require("./dropdowns");
+const { handleNumberDropdownEvent } = require("./utils");
+
 module.exports = {
   docTextFieldParams,
+  handleNumberDropdownEvent,
+  icseSelectParams,
   toggleMarginBottom,
   addClassName,
   prependEmptyStringWhenNull,

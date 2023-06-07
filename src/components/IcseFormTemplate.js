@@ -6,7 +6,6 @@ import { RenderForm } from "./Utils";
 import EmptyResourceTile from "./EmptyResourceTile";
 import React from "react";
 import ToggleForm from "./ToggleForm";
-import { CbrExclusionAddressForm, CbrZoneForm } from "..";
 
 class IcseFormTemplate extends React.Component {
   constructor(props) {
