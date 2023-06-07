@@ -8,7 +8,12 @@ const {
   subnetTierName,
 } = require("./form-utils");
 const { formatInputPlaceholder } = require("./text-utils");
-const { saveChangeButtonClass, saveAddParams } = require("./button-utils");
+const {
+  saveChangeButtonClass,
+  saveAddParams,
+  editCloseParams,
+  deleteButtonParams,
+} = require("./button-utils");
 const {
   eventTargetToNameAndValue,
   toggleStateBoolean,
@@ -30,4 +35,6 @@ module.exports = {
   handleClusterInputChange,
   subnetTierName,
   saveAddParams,
+  editCloseParams,
+  deleteButtonParams,
 };

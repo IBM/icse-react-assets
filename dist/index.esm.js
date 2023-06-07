@@ -1,9 +1,9 @@
 import '@carbon/styles/css/styles.css';
 import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, TextArea, PasswordInput, NumberInput, Dropdown, Tag } from '@carbon/react';
 import lazyZ, { kebabCase as kebabCase$2, isEmpty, isNullOrEmptyString as isNullOrEmptyString$4, buildNumberDropdownList, titleCase as titleCase$1, isFunction as isFunction$1, contains as contains$2, snakeCase, isBoolean, prettyJSON, transpose, allFieldsNull, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual, parseIntFromZone, splat as splat$1, isWholeNumber as isWholeNumber$1, distinct, getObjectFromArray, isInRange as isInRange$1, eachKey } from 'lazy-z';
+import { Information, Save, Add, ChevronDown, ChevronRight, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt, Password } from '@carbon/icons-react';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Information, Save, Add, ChevronDown, ChevronRight, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt, Password } from '@carbon/icons-react';
 import regexButWithWords from 'regex-but-with-words';
 import { contains as contains$3 } from 'regex-but-with-words/lib/utils';
 
@@ -200,9 +200,46 @@ function saveAddParams$1(props) {
     buttonClass
   };
 }
+
+/**
+ * get params for edit close icon
+ * @param {*} props
+ * @param {String} props.hoverText
+ * @param {boolean} props.open
+ * @param {string} props.type
+ * @returns {Object} params object
+ */
+function editCloseParams$1(props) {
+  let hoverText = props.hoverText ? props.hoverText : props.open ? "Close" : props.type === "add" ? "Configure Resource" : "Open";
+  return {
+    hoverText
+  };
+}
+
+/**
+ * get params for delete button
+ * @param {*} props
+ * @param {boolean} props.disabled
+ * @param {string} props.disabledDeleteMessage
+ * @returns {Object} params object
+ */
+function deleteButtonParams$1(props) {
+  let hoverText = props.disabled && props.disableDeleteMessage ? props.disableDeleteMessage : "Delete Resource";
+  let popoverClassName = props.disabled ? "inlineBlock cursorNotAllowed" : "";
+  let buttonClassName = "cds--btn--danger--tertiary forceTertiaryButtonStyles" + (props.disabled ? " pointerEventsNone" : "");
+  let iconClassName = props.disabled ? "" : "redFill";
+  return {
+    hoverText,
+    popoverClassName,
+    buttonClassName,
+    iconClassName
+  };
+}
 var buttonUtils = {
   saveChangeButtonClass: saveChangeButtonClass$1,
-  saveAddParams: saveAddParams$1
+  saveAddParams: saveAddParams$1,
+  editCloseParams: editCloseParams$1,
+  deleteButtonParams: deleteButtonParams$1
 };
 
 /**
@@ -276,7 +313,9 @@ const {
 } = textUtils;
 const {
   saveChangeButtonClass,
-  saveAddParams
+  saveAddParams,
+  editCloseParams,
+  deleteButtonParams
 } = buttonUtils;
 const {
   eventTargetToNameAndValue: eventTargetToNameAndValue$1,
@@ -300,7 +339,9 @@ var lib = {
   invalidRegex,
   handleClusterInputChange,
   subnetTierName,
-  saveAddParams
+  saveAddParams,
+  editCloseParams,
+  deleteButtonParams
 };
 var lib_1 = lib.docTextFieldParams;
 var lib_2 = lib.toggleMarginBottom;
@@ -312,6 +353,8 @@ var lib_11 = lib.invalidRegex;
 var lib_12 = lib.handleClusterInputChange;
 var lib_13 = lib.subnetTierName;
 var lib_14 = lib.saveAddParams;
+var lib_15 = lib.editCloseParams;
+var lib_16 = lib.deleteButtonParams;
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -714,11 +757,9 @@ SaveAddButton.propTypes = {
  * @returns edit close icon
  */
 const EditCloseIcon = props => {
-  let hoverText = props.hoverText ? props.hoverText : props.open ? "Close" : props.type === "add" ? "Configure Resource" : "Open";
-  let icon = props.open ? /*#__PURE__*/React.createElement(ChevronDown, null) : props.type === "add" ?
-  /*#__PURE__*/
-  // keep add button for optional components
-  React.createElement(Add, null) : /*#__PURE__*/React.createElement(ChevronRight, null);
+  let {
+    hoverText
+  } = lib_15(props);
   return /*#__PURE__*/React.createElement(PopoverWrapper, {
     hoverText: hoverText
   }, /*#__PURE__*/React.createElement("i", {
@@ -726,7 +767,10 @@ const EditCloseIcon = props => {
     "aria-label": props.name + "-open-close",
     onClick: props.onClick,
     className: "chevron"
-  }, icon));
+  }, props.open ? /*#__PURE__*/React.createElement(ChevronDown, null) : props.type === "add" ?
+  /*#__PURE__*/
+  // keep add button for optional components
+  React.createElement(Add, null) : /*#__PURE__*/React.createElement(ChevronRight, null)));
 };
 EditCloseIcon.propTypes = {
   hoverText: PropTypes.string,
@@ -746,21 +790,27 @@ EditCloseIcon.defaultProps = {
  * @param {*} props
  */
 const DeleteButton = props => {
+  let {
+    hoverText,
+    popoverClassName,
+    buttonClassName,
+    iconClassName
+  } = lib_16(props);
   return /*#__PURE__*/React.createElement("div", {
     className: "delete-area"
   }, /*#__PURE__*/React.createElement(PopoverWrapper, {
-    hoverText: props.disabled && props.disableDeleteMessage ? props.disableDeleteMessage : "Delete Resource",
+    hoverText: hoverText,
     align: props.hoverTextAlign,
-    className: props.disabled ? "inlineBlock cursorNotAllowed" : ""
+    className: popoverClassName
   }, /*#__PURE__*/React.createElement(Button, {
     "aria-label": props.name + "-delete",
-    className: "cds--btn--danger--tertiary forceTertiaryButtonStyles" + (props.disabled ? " pointerEventsNone" : ""),
+    className: buttonClassName,
     kind: "ghost",
     size: "sm",
     onClick: props.onClick,
     disabled: props.disabled === true
   }, /*#__PURE__*/React.createElement(TrashCan, {
-    className: props.disabled ? "" : "redFill"
+    className: iconClassName
   }))));
 };
 DeleteButton.defaultProps = {
