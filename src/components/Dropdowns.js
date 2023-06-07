@@ -2,10 +2,13 @@ import { Select, SelectItem } from "@carbon/react";
 import { isEmpty, kebabCase, buildNumberDropdownList, titleCase } from "lazy-z";
 import PopoverWrapper from "./PopoverWrapper";
 import PropTypes from "prop-types";
-import { addClassName } from "../lib";
+import {
+  addClassName,
+  handleNumberDropdownEvent,
+  icseSelectParams,
+} from "../lib";
 import { DynamicToolTipWrapper } from "./Tooltips";
 import React from "react";
-import { icseSelectParams } from "../lib/dropdowns";
 
 export const IcseSelect = (props) => {
   let { invalid, groups, popoverClassName, wrapperId, selectId, labelText } =
@@ -163,16 +166,7 @@ export const IcseNumberSelect = (props) => {
       value={props.value.toString()}
       name={props.name || "Icse Number Select"}
       className={props.className}
-      handleInputChange={(event) => {
-        // set name target value and parse int
-        let sendEvent = {
-          target: {
-            name: event.target.name,
-            value: parseInt(event.target.value),
-          },
-        };
-        props.handleInputChange(sendEvent);
-      }}
+      handleInputChange={handleNumberDropdownEvent(props)}
       invalid={props.invalid}
       invalidText={props.invalidText}
       tooltip={props.tooltip}
