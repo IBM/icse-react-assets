@@ -56,7 +56,7 @@ class SubnetTileForm extends React.Component {
     return (
       <IcseSubForm
         id={`subnet-tile-${this.props.tier}-${this.props.vpc_name}`}
-        formInSubForm
+        formInSubForm={this.props.isModal === false}
         className="popoverLeft tileFormMargin"
       >
         <IcseHeading

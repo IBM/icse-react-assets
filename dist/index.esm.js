@@ -174,8 +174,35 @@ function saveChangeButtonClass$1(componentProps) {
   if (componentProps.disabled !== true) className += " tertiaryButtonColors";
   return className;
 }
+
+/**
+ * get params for save add button this is tested here to reduce
+ * number of needed unit tests for individual components
+ * @param {*} props
+ * @param {string} props.type
+ * @param {string} props.hoverText
+ * @param {boolean=} props.disabled
+ * @param {boolean=} props.inline
+ * @param {string=} props.className
+ * @returns {Object} params object
+ */
+function saveAddParams$1(props) {
+  let hoverText = props.type === "add" && props.hoverText === "Save Changes" ? "Add Resource" : props.hoverText;
+  let wrapperClassDisabled = props.disabled ? "inlineBlock cursorNotAllowed" : "";
+  let wrapperClassInline = props.inline ? " alignItemsCenter marginTopLarge inLineFormButton" : "";
+  let buttonKind = props.type === "add" || props.type === "custom" ? "tertiary" : "primary";
+  let buttonClass = saveChangeButtonClass$1(props) + (props.disabled === true ? " pointerEventsNone " : " " + (props.className || ""));
+  return {
+    hoverText,
+    wrapperClassDisabled,
+    wrapperClassInline,
+    buttonKind,
+    buttonClass
+  };
+}
 var buttonUtils = {
-  saveChangeButtonClass: saveChangeButtonClass$1
+  saveChangeButtonClass: saveChangeButtonClass$1,
+  saveAddParams: saveAddParams$1
 };
 
 /**
@@ -229,7 +256,8 @@ const {
   formatInputPlaceholder
 } = textUtils;
 const {
-  saveChangeButtonClass
+  saveChangeButtonClass,
+  saveAddParams
 } = buttonUtils;
 const {
   eventTargetToNameAndValue: eventTargetToNameAndValue$1,
@@ -248,17 +276,18 @@ var lib = {
   setNameToValue: setNameToValue$1,
   invalidRegex,
   handleClusterInputChange,
-  subnetTierName
+  subnetTierName,
+  saveAddParams
 };
 var lib_1 = lib.toggleMarginBottom;
 var lib_2 = lib.addClassName;
 var lib_3 = lib.prependEmptyStringWhenNull;
 var lib_4 = lib.checkNullorEmptyString;
 var lib_5 = lib.formatInputPlaceholder;
-var lib_6 = lib.saveChangeButtonClass;
 var lib_10 = lib.invalidRegex;
 var lib_11 = lib.handleClusterInputChange;
 var lib_12 = lib.subnetTierName;
+var lib_13 = lib.saveAddParams;
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -616,15 +645,22 @@ const SaveIcon = props => {
  * @returns Save add button
  */
 const SaveAddButton = props => {
+  let {
+    hoverText,
+    wrapperClassDisabled,
+    wrapperClassInline,
+    buttonKind,
+    buttonClass
+  } = lib_13(props);
   return /*#__PURE__*/React.createElement(PopoverWrapper, {
-    hoverText: props.type === "add" && props.hoverText === "Save Changes" ? "Add Resource" : props.hoverText,
-    className: (props.disabled ? "inlineBlock cursorNotAllowed" : "") + (props.inline ? " alignItemsCenter marginTopLarge inLineFormButton" : ""),
+    hoverText: hoverText,
+    className: wrapperClassDisabled + wrapperClassInline,
     align: props.hoverTextAlign
   }, /*#__PURE__*/React.createElement(Button, {
     "aria-label": props.name + "-" + props.type,
-    kind: props.type === "add" || props.type === "custom" ? "tertiary" : "primary",
+    kind: buttonKind,
     onClick: props.onClick,
-    className: lib_6(props) + (props.disabled === true ? " pointerEventsNone " : " " + props.className),
+    className: buttonClass,
     disabled: props.disabled || false,
     size: "sm"
   }, props.type === "custom" ? RenderForm(props.customIcon) : props.type === "add" ? /*#__PURE__*/React.createElement(Add, null) : /*#__PURE__*/React.createElement(SaveIcon, {
@@ -6707,7 +6743,7 @@ class SubnetForm extends React.Component {
   render() {
     return /*#__PURE__*/React.createElement(Tile, {
       key: this.props.vpc_name + "-subnets-" + this.props.data.name,
-      className: "marginRightSubnetTile fieldWidth subForm"
+      className: "marginRightSubnetTile fieldWidth " + (this.props.isModal ? "formInSubForm" : "subForm")
     }, /*#__PURE__*/React.createElement(IcseHeading, {
       name: this.props.data.name || "New Subnet",
       type: "subHeading",
@@ -6853,7 +6889,7 @@ class SubnetTileForm extends React.Component {
     let subnetMap = [...this.props.data];
     return /*#__PURE__*/React.createElement(IcseSubForm, {
       id: `subnet-tile-${this.props.tier}-${this.props.vpc_name}`,
-      formInSubForm: true,
+      formInSubForm: this.props.isModal === false,
       className: "popoverLeft tileFormMargin"
     }, /*#__PURE__*/React.createElement(IcseHeading, {
       name: "Subnets",
@@ -7071,7 +7107,7 @@ class SubnetTierForm extends React.Component {
     let formName = this.props.data.name + "-subnet-tier";
     let tierName = lib_12(this.props.data.name);
     return /*#__PURE__*/React.createElement(IcseSubForm, {
-      formInSubForm: true,
+      formInSubForm: this.props.isModal === false,
       id: composedId,
       className: "marginBottomSmall"
     }, /*#__PURE__*/React.createElement(DeleteModal, {
