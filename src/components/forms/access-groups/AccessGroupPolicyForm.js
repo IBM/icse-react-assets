@@ -112,7 +112,8 @@ class AccessGroupPolicyForm extends React.Component {
             componentName="service"
             tooltip={{
               content:
-                'Name of the service type for the policy ex. "cloud-object-storage"',
+                'Name of the service type for the policy ex. "cloud-object-storage". You can run the `ibmcloud catalog service-marketplace` command to retrieve the service types. For account management services, you can find supported values in the following link.',
+              link: "https://cloud.ibm.com/docs/account?topic=account-account-services#api-acct-mgmt",
               alignModal: "bottom-left",
               align: "top-left",
             }}
