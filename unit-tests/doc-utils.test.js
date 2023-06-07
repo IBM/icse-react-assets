@@ -1,5 +1,5 @@
 const { assert } = require("chai");
-const { docTextFieldParams } = require("../src/lib");
+const { docTextFieldParams } = require("../src/lib/doc-utils");
 
 describe("doc-utils", () => {
   describe("docTextFieldParams", () => {
