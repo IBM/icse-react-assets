@@ -112,7 +112,7 @@ const LastUpdated = (props) => {
 };
 
 LastUpdated.defaultProps = {
-  date: "",
+  date: "1/1/1970",
 };
 
 LastUpdated.propTypes = {
