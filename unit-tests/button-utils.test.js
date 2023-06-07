@@ -1,8 +1,10 @@
 const {
   saveChangeButtonClass,
   saveAddParams,
+  editCloseParams,
+  deleteButtonParams,
 } = require("../src/lib/button-utils");
-const { assert } = require("chai");
+const { assert, expect } = require("chai");
 
 describe("button utils", () => {
   describe("saveChangeButtonClass", () => {
@@ -94,6 +96,56 @@ describe("button utils", () => {
         expectedData,
         "it should return correct data"
       );
+    });
+  });
+  describe("editCloseParams", () => {
+    it("should pass hoverText only when hoverText is a prop", () => {
+      let expectedData = {
+        hoverText: "frog",
+      };
+      let actualData = editCloseParams({ hoverText: "frog" });
+      assert.deepEqual(actualData, expectedData);
+    });
+    it("should pass `Open` when open false and type not add", () => {
+      let expectedData = { hoverText: "Open" };
+      let actualData = editCloseParams({ open: false, type: "" });
+      assert.deepEqual(actualData, expectedData);
+    });
+    it("should pass `Close` when open true and type not add", () => {
+      let expectedData = { hoverText: "Close" };
+      let actualData = editCloseParams({ open: true, type: "" });
+      assert.deepEqual(actualData, expectedData);
+    });
+    it("should pass `Configure Resource` when open false and type add", () => {
+      let expectedData = { hoverText: "Configure Resource" };
+      let actualData = editCloseParams({ open: false, type: "add" });
+      assert.deepEqual(actualData, expectedData);
+    });
+  });
+  describe("deleteButtonParams", () => {
+    it("should pass different classes when disabled", () => {
+      let expectedData = {
+        hoverText: "custom delete",
+        popoverClassName: "inlineBlock cursorNotAllowed",
+        buttonClassName:
+          "cds--btn--danger--tertiary forceTertiaryButtonStyles pointerEventsNone",
+        iconClassName: "",
+      };
+      let actualData = deleteButtonParams({
+        disabled: true,
+        disableDeleteMessage: "custom delete",
+      });
+      assert.deepEqual(expectedData, actualData);
+    });
+    it("should pass correct classes when not disabled", () => {
+      let expectedData = {
+        hoverText: "Delete Resource",
+        popoverClassName: "",
+        buttonClassName: "cds--btn--danger--tertiary forceTertiaryButtonStyles",
+        iconClassName: "redFill",
+      };
+      let actualData = deleteButtonParams({ disabled: false });
+      assert.deepEqual(expectedData, actualData);
     });
   });
 });
