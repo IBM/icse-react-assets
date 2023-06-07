@@ -51,7 +51,7 @@ function saveAddParams(props) {
 }
 
 /**
- *
+ * get params for edit close icon
  * @param {*} props
  * @param {String} props.hoverText
  * @param {boolean} props.open
@@ -70,11 +70,11 @@ function editCloseParams(props) {
 }
 
 /**
- *
+ * get params for delete button
  * @param {*} props
  * @param {boolean} props.disabled
  * @param {string} props.disabledDeleteMessage
- * @returns
+ * @returns {Object} params object
  */
 function deleteButtonParams(props) {
   let hoverText =
