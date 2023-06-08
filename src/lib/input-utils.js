@@ -13,8 +13,8 @@ const { formatInputPlaceholder } = require("./text-utils");
  * @returns {Object} params object
  */
 function toggleParams(props) {
-  let toggleName = props.toggleFieldName || snakeCase(props.labelText),
-    labelA = props.useOnOff ? "Off" : "False",
+  let toggleName = props.toggleFieldName || snakeCase(props.labelText);
+  let labelA = props.useOnOff ? "Off" : "False",
     labelB = props.useOnOff ? "On" : "True",
     labelText = props.tooltip ? " " : props.labelText,
     id = kebabCase(toggleName) + "-icse-toggle-" + props.id,
@@ -52,7 +52,7 @@ function onToggleEvent(props, toggleName) {
 
 /**
  * text input params
- * @param {*} props 
+ * @param {*} props
  * @param {string} props.field
  * @param {string=} props.invalidText
  * @param {boolean=} props.invalid

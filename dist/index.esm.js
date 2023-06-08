@@ -388,8 +388,8 @@ const {
  * @returns {Object} params object
  */
 function toggleParams$1(props) {
-  let toggleName = props.toggleFieldName || snakeCase(props.labelText),
-    labelA = props.useOnOff ? "Off" : "False",
+  let toggleName = props.toggleFieldName || snakeCase(props.labelText);
+  let labelA = props.useOnOff ? "Off" : "False",
     labelB = props.useOnOff ? "On" : "True",
     labelText = props.tooltip ? " " : props.labelText,
     id = kebabCase$1(toggleName) + "-icse-toggle-" + props.id,
@@ -425,7 +425,7 @@ function onToggleEvent$1(props, toggleName) {
 
 /**
  * text input params
- * @param {*} props 
+ * @param {*} props
  * @param {string} props.field
  * @param {string=} props.invalidText
  * @param {boolean=} props.invalid
@@ -2407,7 +2407,8 @@ IcseNameInput.defaultProps = {
   hideHelperText: false,
   invalidText: "",
   className: "fieldWidth",
-  labelText: "Name"
+  labelText: "Name",
+  forceKebabCase: false
 };
 IcseNameInput.propTypes = {
   id: PropTypes.string.isRequired,
@@ -2425,7 +2426,8 @@ IcseNameInput.propTypes = {
   helperTextCallback: PropTypes.func,
   invalidText: PropTypes.string.isRequired,
   invalidCallback: PropTypes.func,
-  labelText: PropTypes.string.isRequired
+  labelText: PropTypes.string.isRequired,
+  forceKebabCase: PropTypes.bool.isRequired
 };
 
 /**

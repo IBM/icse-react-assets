@@ -164,6 +164,7 @@ IcseNameInput.defaultProps = {
   invalidText: "",
   className: "fieldWidth",
   labelText: "Name",
+  forceKebabCase: false
 };
 
 IcseNameInput.propTypes = {
@@ -183,4 +184,5 @@ IcseNameInput.propTypes = {
   invalidText: PropTypes.string.isRequired,
   invalidCallback: PropTypes.func,
   labelText: PropTypes.string.isRequired,
+  forceKebabCase: PropTypes.bool.isRequired,
 };
