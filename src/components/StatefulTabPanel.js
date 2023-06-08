@@ -5,6 +5,7 @@ import { DynamicRender, IcseHeading } from "./Utils";
 import { SaveAddButton } from "./Buttons";
 import { isFunction, kebabCase } from "lazy-z";
 import PropTypes from "prop-types";
+import { statefulTabPanelParams } from "../lib";
 
 /**
  * StatefulTabPanel wrapper for non array forms
@@ -32,33 +33,26 @@ class StatefulTabPanel extends React.Component {
   }
 
   render() {
+    let { headingType, dynamicRenderHide, headingHide, buttonIsDisabled } =
+      statefulTabPanelParams(this.props, this.state);
     return (
       <>
-        {this.props.name && !this.props.hasBuiltInHeading && (
+        {headingHide && (
           <IcseHeading
             name={this.props.name}
-            type={this.props.subHeading ? "subHeading" : "heading"}
+            type={headingType}
             className={this.props.className}
             tooltip={this.props.tooltip}
             buttons={
               <DynamicRender
-                hide={
-                  this.props.hideFormTitleButton ||
-                  this.state.tabIndex !== 0 ||
-                  !isFunction(this.props.onClick) ||
-                  this.props.hasBuiltInHeading
-                }
+                hide={dynamicRenderHide}
                 show={
                   <SaveAddButton
                     name={kebabCase(this.props.name)}
                     type="add"
                     noDeleteButton
                     onClick={this.props.onClick}
-                    disabled={
-                      this.props.shouldDisableSave
-                        ? this.props.shouldDisableSave()
-                        : false
-                    }
+                    disabled={buttonIsDisabled}
                   />
                 }
               />
