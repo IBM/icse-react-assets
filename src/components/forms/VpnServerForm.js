@@ -276,7 +276,7 @@ class VpnServerForm extends Component {
                 this.state.port < 1 ||
                 this.state.port > 65535)
             }
-            invalidText="1 to 65535"
+            invalidText="Must be a whole number between 1 and 65535."
             className="fieldWidthSmaller leftTextAlign"
           />
           {/* protocol */}
