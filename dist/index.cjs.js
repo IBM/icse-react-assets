@@ -383,7 +383,7 @@ var utils = {
  */
 function emptyResourceTileParams$1(props) {
   let show = !props.showIfEmpty || props.showIfEmpty.length === 0;
-  let className = "tileBackground displayFlex alignItemsCenter wrap" + props.noMarginTop ? "" : " marginTop";
+  let className = "tileBackground displayFlex alignItemsCenter wrap" + (props.noMarginTop ? "" : " marginTop");
   return {
     show,
     className
@@ -1363,7 +1363,7 @@ const EmptyResourceTile = props => {
   }, /*#__PURE__*/React__default["default"].createElement(iconsReact.CloudAlerting, {
     size: "24",
     className: "iconMargin"
-  }), "No ", props.name, ".", " ", props.instructions || /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, "Click", /*#__PURE__*/React__default["default"].createElement(iconsReact.Add, {
+  }), "No ", props.name, ".", " ", /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, "Click", /*#__PURE__*/React__default["default"].createElement(iconsReact.Add, {
     size: "24",
     className: "inlineIconMargin"
   }), "button to add one.")) : "";
@@ -1376,7 +1376,6 @@ EmptyResourceTile.defaultProps = {
 EmptyResourceTile.propTypes = {
   name: PropTypes__default["default"].string.isRequired,
   showIfEmpty: PropTypes__default["default"].oneOfType([PropTypes__default["default"].array, PropTypes__default["default"].bool]).isRequired,
-  instructions: PropTypes__default["default"].string,
   noMarginTop: PropTypes__default["default"].bool
 };
 

@@ -18,13 +18,11 @@ const EmptyResourceTile = (props) => {
     <Tile className={className}>
       <CloudAlerting size="24" className="iconMargin" />
       No {props.name}.{" "}
-      {props.instructions || (
-        <>
-          Click
-          <Add size="24" className="inlineIconMargin" />
-          button to add one.
-        </>
-      )}
+      <>
+        Click
+        <Add size="24" className="inlineIconMargin" />
+        button to add one.
+      </>
     </Tile>
   ) : (
     ""
@@ -41,7 +39,6 @@ EmptyResourceTile.propTypes = {
   name: PropTypes.string.isRequired,
   showIfEmpty: PropTypes.oneOfType([PropTypes.array, PropTypes.bool])
     .isRequired,
-  instructions: PropTypes.string,
   noMarginTop: PropTypes.bool,
 };
 

@@ -372,7 +372,7 @@ var utils = {
  */
 function emptyResourceTileParams$1(props) {
   let show = !props.showIfEmpty || props.showIfEmpty.length === 0;
-  let className = "tileBackground displayFlex alignItemsCenter wrap" + props.noMarginTop ? "" : " marginTop";
+  let className = "tileBackground displayFlex alignItemsCenter wrap" + (props.noMarginTop ? "" : " marginTop");
   return {
     show,
     className
@@ -1352,7 +1352,7 @@ const EmptyResourceTile = props => {
   }, /*#__PURE__*/React.createElement(CloudAlerting, {
     size: "24",
     className: "iconMargin"
-  }), "No ", props.name, ".", " ", props.instructions || /*#__PURE__*/React.createElement(React.Fragment, null, "Click", /*#__PURE__*/React.createElement(Add, {
+  }), "No ", props.name, ".", " ", /*#__PURE__*/React.createElement(React.Fragment, null, "Click", /*#__PURE__*/React.createElement(Add, {
     size: "24",
     className: "inlineIconMargin"
   }), "button to add one.")) : "";
@@ -1365,7 +1365,6 @@ EmptyResourceTile.defaultProps = {
 EmptyResourceTile.propTypes = {
   name: PropTypes.string.isRequired,
   showIfEmpty: PropTypes.oneOfType([PropTypes.array, PropTypes.bool]).isRequired,
-  instructions: PropTypes.string,
   noMarginTop: PropTypes.bool
 };
 
