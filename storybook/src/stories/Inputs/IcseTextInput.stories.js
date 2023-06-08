@@ -25,7 +25,8 @@ export default {
       control: "boolean", // what type of value we can set
     },
     optional: {
-      description: "A boolean value for whether to add \"(Optional)\" at the beginning of placeholder text",
+      description:
+        'A boolean value for whether to add "(Optional)" at the beginning of placeholder text',
       type: { required: false },
       table: { defaultValue: { summary: "false" } },
       control: "boolean",
@@ -163,5 +164,22 @@ const IcseTextInputWithTooltipStory = ({ ...args }) => {
   );
 };
 
+const IcseTextInputWithKebabCase = ({ ...args }) => {
+  const [value, setValue] = useState("");
+  const invalidCallback = function () {
+    return value === "";
+  };
+  return (
+    <IcseTextInput
+      {...args}
+      value={value}
+      onChange={(event) => setValue(event.target.value)}
+      invalidCallback={invalidCallback}
+      forceKebabCase
+    />
+  );
+};
+
 export const Default = IcseTextInputStory.bind({});
 export const WithTooltip = IcseTextInputWithTooltipStory.bind({});
+export const ForceKebabCase = IcseTextInputWithKebabCase.bind({});

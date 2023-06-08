@@ -1,6 +1,6 @@
 import '@carbon/styles/css/styles.css';
 import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, TextArea, PasswordInput, NumberInput, Dropdown, Tag } from '@carbon/react';
-import lazyZ, { kebabCase as kebabCase$3, isEmpty, buildNumberDropdownList, titleCase as titleCase$1, isFunction as isFunction$1, contains as contains$2, snakeCase, isBoolean, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$5, transpose, allFieldsNull, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual, parseIntFromZone, splat as splat$1, isWholeNumber as isWholeNumber$1, distinct, getObjectFromArray, isInRange as isInRange$1, eachKey } from 'lazy-z';
+import lazyZ, { kebabCase as kebabCase$4, isEmpty, buildNumberDropdownList, titleCase as titleCase$2, isFunction as isFunction$1, contains as contains$2, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$5, transpose, allFieldsNull, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual, parseIntFromZone, splat as splat$1, isWholeNumber as isWholeNumber$1, snakeCase as snakeCase$1, distinct, getObjectFromArray, isInRange as isInRange$1, eachKey } from 'lazy-z';
 import { Information, Save, Add, ChevronDown, ChevronRight, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt, Password } from '@carbon/icons-react';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -48,7 +48,7 @@ const {
  * @param {*} props arbitrary props
  * @param {string=} props.className additional classnames
  */
-function addClassName$1(className, props) {
+function addClassName$2(className, props) {
   let composedClassName = className;
   if (props?.className) {
     composedClassName += " " + props.className;
@@ -137,7 +137,7 @@ function subnetTierName$1(tierName) {
   }
 }
 var formUtils = {
-  addClassName: addClassName$1,
+  addClassName: addClassName$2,
   toggleMarginBottom: toggleMarginBottom$1,
   prependEmptyStringWhenNull: prependEmptyStringWhenNull$2,
   checkNullorEmptyString: checkNullorEmptyString$1,
@@ -147,7 +147,7 @@ var formUtils = {
 };
 
 const {
-  kebabCase: kebabCase$2
+  kebabCase: kebabCase$3
 } = lazyZ;
 
 /**
@@ -156,11 +156,11 @@ const {
  * @param {string} fieldName
  * @returns {string} placeholder name
  */
-function formatInputPlaceholder$1(componentName, fieldName) {
-  return `my-${kebabCase$2(componentName)}-${kebabCase$2(fieldName)}`;
+function formatInputPlaceholder$2(componentName, fieldName) {
+  return `my-${kebabCase$3(componentName)}-${kebabCase$3(fieldName)}`;
 }
 var textUtils = {
-  formatInputPlaceholder: formatInputPlaceholder$1
+  formatInputPlaceholder: formatInputPlaceholder$2
 };
 
 /**
@@ -301,7 +301,7 @@ var docUtils = {
 
 const {
   isNullOrEmptyString: isNullOrEmptyString$4,
-  kebabCase: kebabCase$1
+  kebabCase: kebabCase$2
 } = lazyZ;
 const {
   prependEmptyStringWhenNull: prependEmptyStringWhenNull$1
@@ -321,8 +321,8 @@ function icseSelectParams$1(props) {
   // otherwise try and prepend empty string if null or empty string is allowed
   props.disableInvalid ? "" : props.value, props.groups);
   let popoverClassName = props.tooltip ? "tooltip select" : " select";
-  let wrapperId = kebabCase$1(props.name) + "-dropdown-tooltip";
-  let selectId = kebabCase$1(props.formName + " " + props.name);
+  let wrapperId = kebabCase$2(props.name) + "-dropdown-tooltip";
+  let selectId = kebabCase$2(props.formName + " " + props.name);
   let labelText = props.tooltip ? null : props.labelText;
   return {
     invalid,
@@ -365,6 +365,107 @@ var utils = {
 };
 
 const {
+  snakeCase,
+  kebabCase: kebabCase$1,
+  titleCase: titleCase$1,
+  isBoolean
+} = lazyZ;
+const {
+  addClassName: addClassName$1
+} = formUtils;
+const {
+  formatInputPlaceholder: formatInputPlaceholder$1
+} = textUtils;
+
+/**
+ * create params for icse toggle
+ * @param {*} props
+ * @param {string=} props.toggleFieldName
+ * @param {string=} props.labelText
+ * @param {boolean=} props.useOnOff
+ * @param {string} props.id
+ * @param {Object=} props.tooltip
+ * @returns {Object} params object
+ */
+function toggleParams$1(props) {
+  let toggleName = props.toggleFieldName || snakeCase(props.labelText),
+    labelA = props.useOnOff ? "Off" : "False",
+    labelB = props.useOnOff ? "On" : "True",
+    labelText = props.tooltip ? " " : props.labelText,
+    id = kebabCase$1(toggleName) + "-icse-toggle-" + props.id,
+    className = addClassName$1("leftTextAlign fitContent", props) + (props.tooltip ? " cds--form-item tooltip" : " cds--form-item");
+  let onToggle = onToggleEvent$1(props, toggleName);
+  return {
+    toggleName,
+    labelA,
+    labelB,
+    labelText,
+    id,
+    className,
+    onToggle
+  };
+}
+
+/**
+ * create on toggle function
+ * @param {*} props component props
+ * @param {string} toggleName toggle name
+ * @returns {Function} on toggle function
+ */
+function onToggleEvent$1(props, toggleName) {
+  /**
+   * run on toggle event
+   * @param {event} event
+   */
+  function onToggle(event) {
+    props.onToggle(toggleName, event);
+  }
+  return onToggle;
+}
+
+/**
+ * text input params
+ * @param {*} props 
+ * @param {string} props.field
+ * @param {string=} props.invalidText
+ * @param {boolean=} props.invalid
+ * @param {Function=} props.invalidCallback
+ * @param {boolean=} props.optional
+ * @param {string=} props.componentName
+ * @param {string=} props.labelText
+ * @param {Function} props.onChange
+ * @returns {Object} params object
+ */
+function textInputParams(props) {
+  let fieldName = titleCase$1(props.field);
+  let invalidText = props.invalidText ? props.invalidText : `Invalid ${props.field} value.`,
+    invalid = isBoolean(props.invalid) ? props.invalid : props.invalidCallback(),
+    placeholder = (props.optional ? "(Optional) " : "") + (props.placeholder || formatInputPlaceholder$1(props.componentName, fieldName)),
+    labelText = props.labelText ? props.labelText : fieldName,
+    onInputChange = props.onChange;
+  if (props.forceKebabCase) {
+    onInputChange = function (event) {
+      event.target.value = kebabCase$1(event.target.value);
+      return props.onChange(event);
+    };
+  }
+  return {
+    invalid,
+    invalidText,
+    placeholder,
+    labelText,
+    onInputChange
+  };
+}
+var inputUtils = {
+  toggleParams: toggleParams$1,
+  onToggleEvent: onToggleEvent$1,
+  textInputParams
+};
+var inputUtils_1 = inputUtils.toggleParams;
+var inputUtils_3 = inputUtils.textInputParams;
+
+const {
   toggleMarginBottom,
   addClassName,
   prependEmptyStringWhenNull,
@@ -396,7 +497,13 @@ const {
 const {
   handleNumberDropdownEvent
 } = utils;
+const {
+  onToggleEvent,
+  toggleParams
+} = inputUtils;
 var lib = {
+  onToggleEvent,
+  toggleParams,
   docTextFieldParams,
   handleNumberDropdownEvent,
   icseSelectParams,
@@ -416,19 +523,18 @@ var lib = {
   editCloseParams,
   deleteButtonParams
 };
-var lib_1 = lib.docTextFieldParams;
-var lib_2 = lib.handleNumberDropdownEvent;
-var lib_3 = lib.icseSelectParams;
-var lib_4 = lib.toggleMarginBottom;
-var lib_5 = lib.addClassName;
-var lib_7 = lib.checkNullorEmptyString;
-var lib_8 = lib.formatInputPlaceholder;
-var lib_13 = lib.invalidRegex;
-var lib_14 = lib.handleClusterInputChange;
-var lib_15 = lib.subnetTierName;
-var lib_16 = lib.saveAddParams;
-var lib_17 = lib.editCloseParams;
-var lib_18 = lib.deleteButtonParams;
+var lib_3 = lib.docTextFieldParams;
+var lib_4 = lib.handleNumberDropdownEvent;
+var lib_5 = lib.icseSelectParams;
+var lib_6 = lib.toggleMarginBottom;
+var lib_7 = lib.addClassName;
+var lib_9 = lib.checkNullorEmptyString;
+var lib_15 = lib.invalidRegex;
+var lib_16 = lib.handleClusterInputChange;
+var lib_17 = lib.subnetTierName;
+var lib_18 = lib.saveAddParams;
+var lib_19 = lib.editCloseParams;
+var lib_20 = lib.deleteButtonParams;
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -462,7 +568,7 @@ class PopoverWrapper extends React.Component {
   }
   render() {
     return this.props.noPopover === true || this.props.hoverText === "" ? this.props.children : /*#__PURE__*/React.createElement("div", {
-      className: lib_5("popover-obj", this.props),
+      className: lib_7("popover-obj", this.props),
       onMouseEnter: this.handleMouseOver,
       onMouseLeave: this.handleMouseOut
     }, /*#__PURE__*/React.createElement(Popover, {
@@ -563,7 +669,7 @@ const ToolTipWrapper = props => {
   }
   // remove label text from components where it is not valid param
   if (props.noLabelText) delete allProps.labelText;else allProps.labelText = " ";
-  allProps.className = lib_5("tooltip", {
+  allProps.className = lib_7("tooltip", {
     ...props
   });
   return /*#__PURE__*/React.createElement("div", {
@@ -647,7 +753,7 @@ function DynamicRender(props) {
  */
 const TitleGroup = props => {
   return /*#__PURE__*/React.createElement("div", {
-    className: lib_5(`displayFlex alignItemsCenter widthOneHundredPercent ${lib_4(props.hide)}`, props)
+    className: lib_7(`displayFlex alignItemsCenter widthOneHundredPercent ${lib_6(props.hide)}`, props)
   }, props.children);
 };
 TitleGroup.defaultProps = {
@@ -663,7 +769,7 @@ const IcseFormGroup = props => {
     formGroupClassName = formGroupClassName.replace(/\smarginBottom/g, "");
   }
   return /*#__PURE__*/React.createElement("div", {
-    className: lib_5(formGroupClassName, props)
+    className: lib_7(formGroupClassName, props)
   }, props.children);
 };
 IcseFormGroup.defaultProps = {
@@ -676,7 +782,7 @@ IcseFormGroup.propTypes = {
 };
 const IcseSubForm = props => {
   return /*#__PURE__*/React.createElement("div", {
-    className: lib_5(props.formInSubForm ? "formInSubForm positionRelative" : "subForm marginBottomSmall", props),
+    className: lib_7(props.formInSubForm ? "formInSubForm positionRelative" : "subForm marginBottomSmall", props),
     id: props.id
   }, props.children);
 };
@@ -692,7 +798,7 @@ IcseSubForm.propTypes = {
 const IcseHeading = props => {
   let titleFormDivClass = props.toggleFormTitle ? "" : props.name === "" ? "" : " icseFormTitleMinHeight";
   return /*#__PURE__*/React.createElement("div", {
-    className: lib_5("displayFlex spaceBetween widthOneHundredPercent alignItemsCenter", props) + titleFormDivClass
+    className: lib_7("displayFlex spaceBetween widthOneHundredPercent alignItemsCenter", props) + titleFormDivClass
   }, /*#__PURE__*/React.createElement(DynamicToolTipWrapper, {
     tooltip: props.tooltip,
     noLabelText: true,
@@ -730,7 +836,7 @@ const StatelessToggleForm = props => {
     props: props,
     className: props.className
   }, props.hideIcon !== true && /*#__PURE__*/React.createElement(EditCloseIcon, {
-    name: kebabCase$3(props.name),
+    name: kebabCase$4(props.name),
     onClick: props.onIconClick,
     type: props.iconType,
     open: props.hide === false
@@ -792,7 +898,7 @@ const SaveAddButton = props => {
     wrapperClassInline,
     buttonKind,
     buttonClass
-  } = lib_16(props);
+  } = lib_18(props);
   return /*#__PURE__*/React.createElement(PopoverWrapper, {
     hoverText: hoverText,
     className: wrapperClassDisabled + wrapperClassInline,
@@ -833,7 +939,7 @@ SaveAddButton.propTypes = {
 const EditCloseIcon = props => {
   let {
     hoverText
-  } = lib_17(props);
+  } = lib_19(props);
   return /*#__PURE__*/React.createElement(PopoverWrapper, {
     hoverText: hoverText
   }, /*#__PURE__*/React.createElement("i", {
@@ -869,7 +975,7 @@ const DeleteButton = props => {
     popoverClassName,
     buttonClassName,
     iconClassName
-  } = lib_18(props);
+  } = lib_20(props);
   return /*#__PURE__*/React.createElement("div", {
     className: "delete-area"
   }, /*#__PURE__*/React.createElement(PopoverWrapper, {
@@ -958,7 +1064,7 @@ const DocTextField = props => {
   let {
     className,
     text
-  } = lib_1(props);
+  } = lib_3(props);
   return /*#__PURE__*/React.createElement("div", {
     className: className
   }, text);
@@ -1081,7 +1187,7 @@ const IcseSelect = props => {
     wrapperId,
     selectId,
     labelText
-  } = lib_3(props);
+  } = lib_5(props);
   // please leave debug here
   if (props.debug) {
     console.log("PROPS: ", props);
@@ -1098,7 +1204,7 @@ const IcseSelect = props => {
         name: props.name,
         labelText: labelText,
         value: props.value || undefined,
-        className: lib_5("leftTextAlign", props),
+        className: lib_7("leftTextAlign", props),
         disabled: props.disabled,
         invalid: invalid,
         invalidText: props.invalidText,
@@ -1216,7 +1322,7 @@ const IcseNumberSelect = props => {
     value: props.value.toString(),
     name: props.name || "Icse Number Select",
     className: props.className,
-    handleInputChange: lib_2(props),
+    handleInputChange: lib_4(props),
     invalid: props.invalid,
     invalidText: props.invalidText,
     tooltip: props.tooltip,
@@ -1274,13 +1380,13 @@ EntitlementSelect.defaultProps = {
 const EndpointSelect = props => {
   let titleCaseGroups = [];
   props.groups.forEach(group => {
-    titleCaseGroups.push(titleCase$1(group).replace(/And/g, "and"));
+    titleCaseGroups.push(titleCase$2(group).replace(/And/g, "and"));
   });
   return /*#__PURE__*/React.createElement(IcseSelect, {
     name: props.name,
     labelText: "Endpoint Type",
     groups: titleCaseGroups,
-    value: titleCase$1(props.value).replace(/And/g, "and"),
+    value: titleCase$2(props.value).replace(/And/g, "and"),
     handleInputChange: event => {
       let {
         name,
@@ -1289,7 +1395,7 @@ const EndpointSelect = props => {
       props.handleInputChange({
         target: {
           name: name,
-          value: kebabCase$3(value)
+          value: kebabCase$4(value)
         }
       });
     },
@@ -1464,7 +1570,7 @@ class StatefulTabPanel extends React.Component {
       buttons: /*#__PURE__*/React.createElement(DynamicRender, {
         hide: this.props.hideFormTitleButton || this.state.tabIndex !== 0 || !isFunction$1(this.props.onClick) || this.props.hasBuiltInHeading,
         show: /*#__PURE__*/React.createElement(SaveAddButton, {
-          name: kebabCase$3(this.props.name),
+          name: kebabCase$4(this.props.name),
           type: "add",
           noDeleteButton: true,
           onClick: this.props.onClick,
@@ -1812,7 +1918,7 @@ class ToggleForm extends React.Component {
         name: this.props.name,
         hideButton: true
       }), /*#__PURE__*/React.createElement("div", {
-        className: lib_5(this.props.type === "formInSubForm" ? "formInSubForm positionRelative marginBottomSmall" : "subForm marginBottomSmall")
+        className: lib_7(this.props.type === "formInSubForm" ? "formInSubForm positionRelative marginBottomSmall" : "subForm marginBottomSmall")
       }, /*#__PURE__*/React.createElement(StatelessToggleForm, {
         hide: this.state.hide,
         iconType: this.props.useAddButton ? "add" : "edit",
@@ -2013,7 +2119,7 @@ class IcseFormTemplate extends React.Component {
     : contains$2(this.state.shownArrayForms, index);
   }
   render() {
-    let formattedName = kebabCase$3(this.props.name); // formatted component name
+    let formattedName = kebabCase$4(this.props.name); // formatted component name
     // enable submit field here is set to variable value to allow for passing to
     // child array components without needing to reference `this` directly
     let formModalProps = {
@@ -2151,18 +2257,21 @@ IcseFormTemplate.propTypes = {
 };
 
 const IcseToggle = props => {
-  let toggleName = props.toggleFieldName || snakeCase(props.labelText);
+  let {
+    labelA,
+    labelB,
+    labelText,
+    id,
+    className,
+    onToggle
+  } = inputUtils_1(props);
   return /*#__PURE__*/React.createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React.createElement(Toggle, {
-    labelA: props.useOnOff ? "Off" : "False",
-    labelB: props.useOnOff ? "On" : "True",
-    labelText: props.tooltip ? " " : props.labelText,
-    id: kebabCase$3(toggleName) + "-icse-toggle-" + props.id,
-    className: lib_5("leftTextAlign fitContent", props) + (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
-    ,
-
-    onToggle: event => {
-      props.onToggle(toggleName, event);
-    },
+    labelA: labelA,
+    labelB: labelB,
+    labelText: labelText,
+    id: id,
+    className: className,
+    onToggle: onToggle,
     defaultToggled: props.defaultToggled,
     disabled: props.disabled
   }));
@@ -2207,18 +2316,24 @@ IcseToggle.propTypes = {
  * @returns <IcseTextInput/> component
  */
 const IcseTextInput = props => {
-  let fieldName = titleCase$1(props.field);
+  let {
+    invalid,
+    invalidText,
+    placeholder,
+    labelText,
+    onInputChange
+  } = inputUtils_3(props);
   return /*#__PURE__*/React.createElement(DynamicToolTipWrapper, props, /*#__PURE__*/React.createElement(TextInput, {
     id: props.id,
-    className: lib_5("leftTextAlign", props),
-    labelText: props.labelText ? props.labelText : titleCase$1(props.field),
-    placeholder: (props.optional ? "(Optional) " : "") + (props.placeholder || lib_8(props.componentName, fieldName)),
+    className: lib_7("leftTextAlign", props),
+    labelText: labelText,
+    placeholder: placeholder,
     name: props.field,
     value: props.value || "",
-    invalid: isBoolean(props.invalid) ? props.invalid : props.invalidCallback(),
-    onChange: props.onChange,
+    invalid: invalid,
+    onChange: onInputChange,
     helperText: props.helperText,
-    invalidText: props.invalidText ? props.invalidText : `Invalid ${props.field} value.`,
+    invalidText: invalidText,
     maxLength: props.maxLength,
     disabled: props.disabled,
     readOnly: props.readOnly
@@ -2230,7 +2345,8 @@ IcseTextInput.defaultProps = {
   readOnly: false,
   hideHelperText: false,
   optional: false,
-  className: "fieldWidth"
+  className: "fieldWidth",
+  forceKebabCase: false
 };
 IcseTextInput.propTypes = {
   disabled: PropTypes.bool.isRequired,
@@ -2252,7 +2368,8 @@ IcseTextInput.propTypes = {
   maxLength: PropTypes.number,
   invalidCallback: PropTypes.func,
   id: PropTypes.string.isRequired,
-  invalidText: PropTypes.string
+  invalidText: PropTypes.string,
+  forceKebabCase: PropTypes.bool.isRequired
 };
 
 /**
@@ -2279,7 +2396,7 @@ const IcseNameInput = props => {
     helperText = props.helperTextCallback();
   }
   return /*#__PURE__*/React.createElement(IcseTextInput, _extends({}, props, {
-    className: lib_5("leftTextAlign", props),
+    className: lib_7("leftTextAlign", props),
     field: "name",
     labelText: props.labelText,
     helperText: helperText
@@ -2317,7 +2434,7 @@ IcseNameInput.propTypes = {
 const IcseMultiSelect = props => {
   return /*#__PURE__*/React.createElement(FilterableMultiSelect, {
     id: props.id,
-    className: lib_5("leftTextAlign", props),
+    className: lib_7("leftTextAlign", props),
     titleText: props.titleText,
     itemToString: item => item ? item : "",
     invalid: props.invalid,
@@ -2809,7 +2926,7 @@ class AtrackerForm extends Component {
       name,
       value
     } = event.target;
-    if (name === "plan") value = kebabCase$3(value);
+    if (name === "plan") value = kebabCase$4(value);
     this.setState(this.setNameToValue(name, value));
   }
   handleMultiSelect(event) {
@@ -2912,7 +3029,7 @@ class AtrackerForm extends Component {
       groups: ["Lite", "7 Day", "14 Day", "30 Day"],
       formName: this.props.data.name + "-atracker-plan",
       name: "plan",
-      value: titleCase$1(this.state.plan).replace(/3 0/, "30").replace(/1 4/, "14"),
+      value: titleCase$2(this.state.plan).replace(/3 0/, "30").replace(/1 4/, "14"),
       handleInputChange: this.handleInputChange,
       className: "fieldWidth",
       labelText: "Plan",
@@ -3111,7 +3228,7 @@ class ClusterForm extends Component {
     let cluster = {
       ...this.state
     };
-    this.setState(lib_14(name, value, cluster));
+    this.setState(lib_16(name, value, cluster));
   };
 
   /**
@@ -3696,7 +3813,7 @@ class EventStreamsForm extends Component {
       className: classNameModalCheck
     }), /*#__PURE__*/React.createElement(IcseSelect, {
       formName: this.props.data.name + "-event-streams",
-      value: titleCase$1(this.state.plan),
+      value: titleCase$2(this.state.plan),
       groups: ["Lite", "Standard", "Enterprise"],
       handleInputChange: this.handlePlanChange,
       className: classNameModalCheck,
@@ -5608,7 +5725,7 @@ class NetworkAclForm extends Component {
       groups: this.props.resourceGroups,
       value: this.state.resource_group,
       handleInputChange: this.handleTextInput,
-      invalid: lib_7(this.state.resource_group),
+      invalid: lib_9(this.state.resource_group),
       invalidText: "Select a Resource Group."
     })), !this.props.isModal &&
     /*#__PURE__*/
@@ -6183,7 +6300,7 @@ class RoutingTableRouteForm extends Component {
       groups: ["Delegate", "Deliver", "Delegate VPC", "Drop"],
       labelText: "Action",
       handleInputChange: this.handleInputChange,
-      value: titleCase$1(this.state.action).replace(/V P C/g, "VPC"),
+      value: titleCase$2(this.state.action).replace(/V P C/g, "VPC"),
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: this.props.data.name + "-next-hop",
@@ -6452,8 +6569,8 @@ class SccForm extends Component {
       value: this.state.id,
       onChange: this.handleInputChange,
       maxLength: 255,
-      invalid: lib_13("id", this.state.id, this.props.descriptionRegex).invalid,
-      invalidText: lib_13("id", this.state.id, this.props.descriptionRegex).invalidText
+      invalid: lib_15("id", this.state.id, this.props.descriptionRegex).invalid,
+      invalidText: lib_15("id", this.state.id, this.props.descriptionRegex).invalidText
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: "scc_passphrase",
       tooltip: {
@@ -6466,8 +6583,8 @@ class SccForm extends Component {
       onChange: this.handleInputChange,
       componentName: "SCC",
       maxLength: 1000,
-      invalid: lib_13("passphrase", this.state.passphrase, this.props.descriptionRegex).invalid,
-      invalidText: lib_13("passphrase", this.state.passphrase, this.props.descriptionRegex).invalidText
+      invalid: lib_15("passphrase", this.state.passphrase, this.props.descriptionRegex).invalid,
+      invalidText: lib_15("passphrase", this.state.passphrase, this.props.descriptionRegex).invalidText
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
       id: this.props.data.name + "-scc-name",
       componentName: "scc-cred",
@@ -6488,8 +6605,8 @@ class SccForm extends Component {
       value: this.state.credential_description,
       onChange: this.handleInputChange,
       maxLength: 255,
-      invalid: lib_13("credential_description", this.state.credential_description, this.props.descriptionRegex).invalid,
-      invalidText: lib_13("credential_description", this.state.credential_description, this.props.descriptionRegex).invalidText
+      invalid: lib_15("credential_description", this.state.credential_description, this.props.descriptionRegex).invalid,
+      invalidText: lib_15("credential_description", this.state.credential_description, this.props.descriptionRegex).invalidText
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(Dropdown, {
       ariaLabel: "Dropdown",
       label: "Region",
@@ -6523,8 +6640,8 @@ class SccForm extends Component {
       value: this.state.scope_description,
       onChange: this.handleInputChange,
       maxLength: 255,
-      invalid: lib_13("scope_description", this.state.scope_description, this.props.descriptionRegex).invalid,
-      invalidText: lib_13("scope_description", this.state.scope_description, this.props.descriptionRegex).invalidText
+      invalid: lib_15("scope_description", this.state.scope_description, this.props.descriptionRegex).invalid,
+      invalidText: lib_15("scope_description", this.state.scope_description, this.props.descriptionRegex).invalidText
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: "scc_collector",
       tooltip: {
@@ -6537,8 +6654,8 @@ class SccForm extends Component {
       onChange: this.handleInputChange,
       componentName: "SCC",
       maxLength: 1000,
-      invalid: lib_13("collector_description", this.state.collector_description, this.props.descriptionRegex).invalid,
-      invalidText: lib_13("collector_description", this.state.collector_description, this.props.descriptionRegex).invalidText
+      invalid: lib_15("collector_description", this.state.collector_description, this.props.descriptionRegex).invalid,
+      invalidText: lib_15("collector_description", this.state.collector_description, this.props.descriptionRegex).invalidText
     })));
   }
 }
@@ -6798,7 +6915,7 @@ class SshKeyForm extends Component {
       hideHelperText: true
     }), /*#__PURE__*/React.createElement(IcseSelect, {
       name: "resource_group",
-      formName: `${kebabCase$3(this.props.data.name)}-ssh-rg-select`,
+      formName: `${kebabCase$4(this.props.data.name)}-ssh-rg-select`,
       groups: this.props.resourceGroups,
       value: this.state.resource_group,
       handleInputChange: this.handleInputChange,
@@ -7253,7 +7370,7 @@ class SubnetTierForm extends React.Component {
   render() {
     let composedId = `${this.props.vpc_name}-tier-${this.props.data.name === "" ? "new-subnet-tier" : this.props.data.name}`;
     let formName = this.props.data.name + "-subnet-tier";
-    let tierName = lib_15(this.props.data.name);
+    let tierName = lib_17(this.props.data.name);
     return /*#__PURE__*/React.createElement(IcseSubForm, {
       formInSubForm: this.props.isModal === false,
       id: composedId,
@@ -7739,7 +7856,7 @@ class VpcNetworkForm extends React.Component {
       groups: this.props.resourceGroups,
       value: this.state.resource_group,
       handleInputChange: this.handleInputChange,
-      invalid: lib_7(this.state.resource_group),
+      invalid: lib_9(this.state.resource_group),
       invalidText: "Select a Resource Group.",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseSelect, {
@@ -7749,16 +7866,16 @@ class VpcNetworkForm extends React.Component {
       groups: this.props.cosBuckets.concat("Disabled"),
       value: (this.state.bucket === "$disabled" ? "Disabled" : this.state.bucket) || "",
       handleInputChange: this.handleInputChange,
-      invalid: lib_7(this.state.bucket),
+      invalid: lib_9(this.state.bucket),
       invalidText: "Select a Bucket.",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, nameFields.map(field => {
       return /*#__PURE__*/React.createElement(IcseTextInput, {
         id: composedId + "-" + field,
-        key: this.props.data.name + "-" + kebabCase$3(field),
+        key: this.props.data.name + "-" + kebabCase$4(field),
         componentName: "VPC Network",
         field: field,
-        labelText: titleCase$1(field),
+        labelText: titleCase$2(field),
         value: this.state[field],
         onChange: this.handleInputChange,
         invalid: this.props.invalidCallback(field, this.state, this.props),
@@ -8035,7 +8152,7 @@ class VpnGatewayForm extends Component {
         vpc: event.target.value,
         subnet: ""
       });
-    } else if (event.target.name === "subnet" && lib_7(this.state.vpc)) {
+    } else if (event.target.name === "subnet" && lib_9(this.state.vpc)) {
       this.setState({
         subnet: ""
       });
@@ -8063,7 +8180,7 @@ class VpnGatewayForm extends Component {
       groups: this.props.resourceGroups,
       value: this.state.resource_group,
       handleInputChange: this.handleInputChange,
-      invalid: lib_7(this.state.resource_group),
+      invalid: lib_9(this.state.resource_group),
       invalidText: "Select a Resource Group.",
       className: "fieldWidth"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
@@ -8074,7 +8191,7 @@ class VpnGatewayForm extends Component {
       groups: this.props.vpcList,
       value: this.state.vpc,
       handleInputChange: this.handleInputChange,
-      invalid: lib_7(this.state.vpc),
+      invalid: lib_9(this.state.vpc),
       invalidText: "Select a VPC.",
       className: "fieldWidth"
     }), /*#__PURE__*/React.createElement(IcseSelect, {
@@ -8085,8 +8202,8 @@ class VpnGatewayForm extends Component {
       groups: this.getSubnetList(),
       value: this.state.subnet,
       handleInputChange: this.handleInputChange,
-      invalid: lib_7(this.state.vpc) || lib_7(this.state.subnet),
-      invalidText: lib_7(this.state.vpc) ? `No VPC Selected.` : `Select a Subnet.`,
+      invalid: lib_9(this.state.vpc) || lib_9(this.state.subnet),
+      invalidText: lib_9(this.state.vpc) ? `No VPC Selected.` : `Select a Subnet.`,
       className: "fieldWidth"
     })));
   }
@@ -8168,7 +8285,7 @@ class VpnServerRouteForm extends React.Component {
       name: "action",
       labelText: "Action",
       groups: ["Translate", "Deliver", "Drop"],
-      value: titleCase$1(this.state.action),
+      value: titleCase$2(this.state.action),
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller"
     }));
@@ -8345,7 +8462,7 @@ class VpnServerForm extends Component {
       name: "method",
       labelText: "Authentication Method",
       groups: ["Certificate", "Username"],
-      value: titleCase$1(this.state.method),
+      value: titleCase$2(this.state.method),
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller"
     }), this.state.method === "certificate" && /*#__PURE__*/React.createElement(IcseTextInput, {
@@ -8674,7 +8791,7 @@ class VsiForm extends Component {
       groups: this.props.vpcList,
       value: this.state.vpc,
       handleInputChange: this.handleInputChange,
-      invalid: lib_7(this.state.vpc),
+      invalid: lib_9(this.state.vpc),
       invalidText: "Select a VPC."
     }), this.props.isTeleport ?
     /*#__PURE__*/
@@ -8687,8 +8804,8 @@ class VsiForm extends Component {
       groups: this.getSubnetList(),
       value: this.state.subnet,
       handleInputChange: this.handleInputChange,
-      invalid: lib_7(this.state.vpc) || lib_7(this.state.subnet),
-      invalidText: lib_7(this.state.vpc) ? `No VPC Selected.` : `Select a Subnet.`
+      invalid: lib_9(this.state.vpc) || lib_9(this.state.subnet),
+      invalidText: lib_9(this.state.vpc) ? `No VPC Selected.` : `Select a Subnet.`
     }) : /*#__PURE__*/React.createElement(SubnetMultiSelect, {
       key: this.state.vpc + "-subnet",
       id: "vsi-subnets",
@@ -8706,7 +8823,7 @@ class VsiForm extends Component {
       onChange: value => this.handleMultiSelectChange("security_groups", value),
       securityGroups: this.getSecurityGroupList(),
       invalid: !(this.state.security_groups?.length > 0),
-      invalidText: !this.state.vpc || lib_7(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`
+      invalidText: !this.state.vpc || lib_9(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NumberInput, {
       label: "Instances per Subnet",
       id: composedId + "-vsi-per-subnet",
@@ -8890,7 +9007,7 @@ class VsiLoadBalancerForm extends React.Component {
     let nextState = {
       ...this.state
     };
-    nextState[name] = contains$2(["name", "vpc", "resource_group", "type"], name) ? value : contains$2(["health_delay", "health_retries", "health_timeout", "port", "listener_port", "connection_limit"], name) ? Number(value) : snakeCase(value);
+    nextState[name] = contains$2(["name", "vpc", "resource_group", "type"], name) ? value : contains$2(["health_delay", "health_retries", "health_timeout", "port", "listener_port", "connection_limit"], name) ? Number(value) : snakeCase$1(value);
     if (name === "vpc") {
       nextState.subnets = [];
       nextState.security_groups = [];
@@ -8901,7 +9018,7 @@ class VsiLoadBalancerForm extends React.Component {
     } else if (name === "session_persistence_type" && value !== "app_cookie") {
       nextState.session_persistence_app_cookie_name = null;
     } else if (name === "type") {
-      nextState.type = snakeCase(value.split(" ")[0]);
+      nextState.type = snakeCase$1(value.split(" ")[0]);
     }
     this.setState(nextState);
   }
@@ -9063,7 +9180,7 @@ class VsiLoadBalancerForm extends React.Component {
       name: "algorithm",
       labelText: "Load Balancing Algorithm",
       groups: ["Round Robin", "Weighted Round Robin", "Least Connections"],
-      value: titleCase$1(this.state.algorithm || ""),
+      value: titleCase$2(this.state.algorithm || ""),
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseSelect, {
@@ -9192,7 +9309,7 @@ class VsiLoadBalancerForm extends React.Component {
       name: "session_persistence_type",
       labelText: "Session Persistence Type",
       groups: ["Source IP", "App Cookie", "HTTP Cookie"],
-      value: titleCase$1(this.state.session_persistence_type || "").replace(/Ip/s, "IP").replace(/Http/g, "HTTP"),
+      value: titleCase$2(this.state.session_persistence_type || "").replace(/Ip/s, "IP").replace(/Http/g, "HTTP"),
       handleInputChange: this.handleInputChange,
       disableInvalid: true,
       className: "fieldWidthSmaller"
@@ -9315,7 +9432,7 @@ class AccessGroupPolicyForm extends React.Component {
       labelText: "Resource"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
       name: "resource_group",
-      formName: `${kebabCase$3(this.props.data.name)}-agp-rg-select`,
+      formName: `${kebabCase$4(this.props.data.name)}-agp-rg-select`,
       groups: this.props.resourceGroups,
       value: this.state.resources.resource_group,
       handleInputChange: this.handleInputResource,
@@ -9442,7 +9559,7 @@ class AccessGroupDynamicPolicyForm extends React.Component {
       ...this.state.conditions
     };
     if (name === "operator") {
-      conditions[name] = snakeCase(value.replace(/[()]/g, "")).toUpperCase(); // remove all parentheses
+      conditions[name] = snakeCase$1(value.replace(/[()]/g, "")).toUpperCase(); // remove all parentheses
     } else {
       conditions[name] = value;
     }
@@ -9945,7 +10062,7 @@ class CbrRuleForm extends Component {
       id: this.props.data.name + "-cbr-rule-enforcement-mode",
       name: "enforcement_mode",
       className: "fieldWidthSmaller",
-      value: titleCase$1(this.state.enforcement_mode),
+      value: titleCase$2(this.state.enforcement_mode),
       labelText: "Enforcement Mode",
       groups: ["Enabled", "Disabled", "Report"],
       invalid: this.props.invalidCallback("enforcement_mode", this.state, this.props),
@@ -10668,7 +10785,7 @@ class DnsRecordForm extends Component {
       value: this.state.service,
       onChange: this.handleInputChange,
       labelText: "DNS Record Service",
-      invalid: lib_7(this.state.service) || this.state.service === undefined ? true : this.state.service.charAt(0) !== "_",
+      invalid: lib_9(this.state.service) || this.state.service === undefined ? true : this.state.service.charAt(0) !== "_",
       invalidText: "Service must start with a '_'.",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(NumberInput, {
@@ -11035,14 +11152,14 @@ class DnsForm extends Component {
       id: this.props.data.name + "-dns-plan",
       name: "plan",
       className: "fieldWidthSmaller",
-      value: titleCase$1(this.state.plan),
+      value: titleCase$2(this.state.plan),
       labelText: "Plan",
       groups: ["Free", "Standard"],
       formName: "dns-form",
       handleInputChange: this.handleInputChange
     }), /*#__PURE__*/React.createElement(IcseSelect, {
       name: "resource_group",
-      formName: `${kebabCase$3(this.props.data.name)}-dns-rg-select`,
+      formName: `${kebabCase$4(this.props.data.name)}-dns-rg-select`,
       groups: this.props.resourceGroups,
       value: this.state.resource_group,
       handleInputChange: this.handleInputChange,
@@ -11214,7 +11331,7 @@ class LogDNAForm extends Component {
       name,
       value
     } = event.target;
-    if (contains$2(["plan", "endpoints"], name)) value = kebabCase$3(value);
+    if (contains$2(["plan", "endpoints"], name)) value = kebabCase$4(value);
     this.setState(this.setNameToValue(name, value));
   }
 
@@ -11251,7 +11368,7 @@ class LogDNAForm extends Component {
       groups: ["Lite", "7 Day", "14 Day", "30 Day"],
       formName: this.props.data.name + "-logdna-plan",
       name: "plan",
-      value: titleCase$1(this.state.plan).replace(/3 0/, "30").replace(/1 4/, "14"),
+      value: titleCase$2(this.state.plan).replace(/3 0/, "30").replace(/1 4/, "14"),
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller",
       labelText: "Plan",
@@ -11260,7 +11377,7 @@ class LogDNAForm extends Component {
       formName: this.props.data.name + "-logdna-endpoints",
       name: "endpoints",
       labelText: "Endpoint",
-      value: titleCase$1(this.state.endpoints).replace(/And/g, "and"),
+      value: titleCase$2(this.state.endpoints).replace(/And/g, "and"),
       groups: ["Private", "Public", "Public and Private"],
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller"
@@ -11354,7 +11471,7 @@ class SysdigForm extends Component {
       name,
       value
     } = event.target;
-    if (name === "plan") value = kebabCase$3(value);
+    if (name === "plan") value = kebabCase$4(value);
     this.setState(this.setNameToValue(name, value));
   }
 
@@ -11394,7 +11511,7 @@ class SysdigForm extends Component {
       groups: ["Tier 1", "Tier 2", "Tier 3", "Tier 4"],
       formName: this.props.data.name + "-sysdig-plan",
       name: "plan",
-      value: titleCase$1(this.state.plan),
+      value: titleCase$2(this.state.plan),
       handleInputChange: this.handleInputChange,
       className: "fieldWidth",
       labelText: "Plan",

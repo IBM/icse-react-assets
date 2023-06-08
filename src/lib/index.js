@@ -22,8 +22,11 @@ const {
 const { docTextFieldParams } = require("./doc-utils");
 const { icseSelectParams } = require("./dropdowns");
 const { handleNumberDropdownEvent } = require("./utils");
+const { onToggleEvent, toggleParams } = require("./input-utils");
 
 module.exports = {
+  onToggleEvent,
+  toggleParams,
   docTextFieldParams,
   handleNumberDropdownEvent,
   icseSelectParams,
