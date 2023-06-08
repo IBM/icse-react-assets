@@ -1,11 +1,7 @@
 import '@carbon/styles/css/styles.css';
 import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, TextArea, PasswordInput, NumberInput, Dropdown, Tag } from '@carbon/react';
-<<<<<<< HEAD
-import lazyZ, { kebabCase as kebabCase$2, isEmpty, isNullOrEmptyString as isNullOrEmptyString$4, buildNumberDropdownList, titleCase as titleCase$1, isFunction as isFunction$1, contains as contains$2, snakeCase, isBoolean, prettyJSON, transpose, allFieldsNull, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual, parseIntFromZone, splat as splat$1, isWholeNumber as isWholeNumber$1, distinct, getObjectFromArray, isInRange as isInRange$1, eachKey } from 'lazy-z';
-=======
 import lazyZ, { kebabCase as kebabCase$3, isEmpty, buildNumberDropdownList, titleCase as titleCase$1, isFunction as isFunction$1, contains as contains$2, snakeCase, isBoolean, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$5, transpose, allFieldsNull, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual, parseIntFromZone, splat as splat$1, isWholeNumber as isWholeNumber$1, distinct, getObjectFromArray, isInRange as isInRange$1, eachKey } from 'lazy-z';
 import { Information, Save, Add, ChevronDown, ChevronRight, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt, Password } from '@carbon/icons-react';
->>>>>>> 3bf77136cad7e44b3dd7780620e4353b23265263
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import regexButWithWords from 'regex-but-with-words';
@@ -8356,7 +8352,11 @@ class VpnServerForm extends Component {
       id: this.props.data.name + "-vpn-server-client-ca-crn",
       field: "client_ca_crn",
       componentName: "client_ca_crn",
-      labelText: "Client Secrets Manager Certificate CRN",
+      labelText: "Client CA CRN",
+      tooltip: {
+        content: "Client Secrets Manager Certificate CRN",
+        align: "top-left"
+      },
       value: this.state.client_ca_crn || "",
       onChange: this.handleInputChange,
       invalid: this.props.invalidCrns(this.state, this.props, "client_ca_crn"),
@@ -8390,12 +8390,8 @@ class VpnServerForm extends Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-<<<<<<< HEAD
-      invalid: !isNullOrEmptyString$4(this.state.port) && (!isWholeNumber$1(Number(this.state.port)) || this.state.port < 1 || this.state.port > 65535),
-=======
       invalid: !isNullOrEmptyString$5(this.state.port) && (!isWholeNumber$1(Number(this.state.port)) || this.state.port < 1 || this.state.port > 65535),
->>>>>>> 3bf77136cad7e44b3dd7780620e4353b23265263
-      invalidText: "Must be a whole number between 1 and 65535.",
+      invalidText: "1 to 65535",
       className: "fieldWidthSmaller leftTextAlign"
     }), /*#__PURE__*/React.createElement(IcseSelect, {
       formName: this.props.data.name + "-vpn-server-protocol",
@@ -8415,7 +8411,7 @@ class VpnServerForm extends Component {
       id: this.props.data.name + "-vpn-server-client-idle-timeout-seconds",
       name: "client_idle_timeout",
       placeholder: "600",
-      label: "Client Idle Timeout (In Seconds)",
+      label: "Client Idle Timeout (s)",
       allowEmpty: true,
       value: this.state.client_idle_timeout || "",
       step: 1,
@@ -8423,11 +8419,7 @@ class VpnServerForm extends Component {
       hideSteppers: true,
       min: 0,
       max: 28800,
-<<<<<<< HEAD
-      invalid: !isNullOrEmptyString$4(this.state.client_idle_timeout) && (!isWholeNumber$1(Number(this.state.client_idle_timeout)) || this.state.client_idle_timeout < 0 || this.state.client_idle_timeout > 28000),
-=======
       invalid: !isNullOrEmptyString$5(this.state.client_idle_timeout) && (!isWholeNumber$1(Number(this.state.client_idle_timeout)) || this.state.client_idle_timeout < 0 || this.state.client_idle_timeout > 28000),
->>>>>>> 3bf77136cad7e44b3dd7780620e4353b23265263
       invalidText: "Must be a whole number between 0 and 28800.",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {

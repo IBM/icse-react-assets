@@ -8363,7 +8363,11 @@ class VpnServerForm extends React.Component {
       id: this.props.data.name + "-vpn-server-client-ca-crn",
       field: "client_ca_crn",
       componentName: "client_ca_crn",
-      labelText: "Client Secrets Manager Certificate CRN",
+      labelText: "Client CA CRN",
+      tooltip: {
+        content: "Client Secrets Manager Certificate CRN",
+        align: "top-left"
+      },
       value: this.state.client_ca_crn || "",
       onChange: this.handleInputChange,
       invalid: this.props.invalidCrns(this.state, this.props, "client_ca_crn"),
@@ -8398,7 +8402,7 @@ class VpnServerForm extends React.Component {
       min: 1,
       max: 65535,
       invalid: !lazyZ.isNullOrEmptyString(this.state.port) && (!lazyZ.isWholeNumber(Number(this.state.port)) || this.state.port < 1 || this.state.port > 65535),
-      invalidText: "Must be a whole number between 1 and 65535.",
+      invalidText: "1 to 65535",
       className: "fieldWidthSmaller leftTextAlign"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       formName: this.props.data.name + "-vpn-server-protocol",
@@ -8418,7 +8422,7 @@ class VpnServerForm extends React.Component {
       id: this.props.data.name + "-vpn-server-client-idle-timeout-seconds",
       name: "client_idle_timeout",
       placeholder: "600",
-      label: "Client Idle Timeout (In Seconds)",
+      label: "Client Idle Timeout (s)",
       allowEmpty: true,
       value: this.state.client_idle_timeout || "",
       step: 1,
