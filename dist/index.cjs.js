@@ -10768,7 +10768,7 @@ class DnsRecordForm extends React.Component {
       name: "type",
       formName: dnsComponent + "-type",
       labelText: "DNS Record Type",
-      groups: ["A", "AAA", "CNAME", "PTR", "TXT", "MX", "SRV"],
+      groups: ["A", "AAAA", "CNAME", "PTR", "TXT", "MX", "SRV"],
       value: this.state.type,
       handleInputChange: this.handleInputChange,
       invalidText: "Select a DNS Record Type.",
