@@ -484,6 +484,26 @@ var inputUtils = {
 var inputUtils_1 = inputUtils.toggleParams;
 var inputUtils_3 = inputUtils.textInputParams;
 
+/**
+ * get icse form template params
+ * @param {Object} props
+ * @param {boolean} props.overrideTile
+ * @param {array} props.arrayData
+ * @param {boolan} props.subHeading
+ * @returns {Object} params object
+ */
+function icseFormTemplateParams$1(props) {
+  let arrayIsEmpty = props.arrayData.length === 0 && props.overrideTile;
+  let tabPanelClassName = props.subHeading ? "subHeading marginBottomSmall" : "";
+  return {
+    arrayIsEmpty,
+    tabPanelClassName
+  };
+}
+var icseFormTemplate = {
+  icseFormTemplateParams: icseFormTemplateParams$1
+};
+
 const {
   toggleMarginBottom,
   addClassName,
@@ -523,6 +543,9 @@ const {
   onToggleEvent,
   toggleParams
 } = inputUtils;
+const {
+  icseFormTemplateParams
+} = icseFormTemplate;
 var lib = {
   onToggleEvent,
   toggleParams,
@@ -544,7 +567,8 @@ var lib = {
   saveAddParams,
   editCloseParams,
   deleteButtonParams,
-  emptyResourceTileParams
+  emptyResourceTileParams,
+  icseFormTemplateParams
 };
 var lib_3 = lib.docTextFieldParams;
 var lib_4 = lib.handleNumberDropdownEvent;
@@ -558,6 +582,7 @@ var lib_17 = lib.subnetTierName;
 var lib_18 = lib.saveAddParams;
 var lib_19 = lib.editCloseParams;
 var lib_20 = lib.deleteButtonParams;
+var lib_22 = lib.icseFormTemplateParams;
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -2176,6 +2201,10 @@ class IcseFormTemplate extends React.Component {
         ...this.props.defaultModalValues
       };
     }
+    let {
+      arrayIsEmpty,
+      tabPanelClassName
+    } = lib_22(this.props);
     return /*#__PURE__*/React.createElement("div", {
       id: formattedName
     }, /*#__PURE__*/React.createElement(StatefulTabPanel, {
@@ -2184,11 +2213,11 @@ class IcseFormTemplate extends React.Component {
       addText: this.props.addText,
       hideButton: this.props.hideFormTitleButton,
       subHeading: this.props.subHeading,
-      className: this.props.subHeading ? "subHeading marginBottomSmall" : "",
+      className: tabPanelClassName,
       tooltip: this.props.tooltip,
       about: this.props.docs ? this.props.docs() : false,
       hideAbout: this.props.hideAbout,
-      form: /*#__PURE__*/React.createElement(React.Fragment, null, this.props.arrayData.length === 0 && this.props.overrideTile ? this.props.overrideTile : /*#__PURE__*/React.createElement(EmptyResourceTile, {
+      form: /*#__PURE__*/React.createElement(React.Fragment, null, arrayIsEmpty ? this.props.overrideTile : /*#__PURE__*/React.createElement(EmptyResourceTile, {
         name: this.props.name,
         showIfEmpty: this.props.arrayData
       }), this.props.arrayData.map((data, index) => {
