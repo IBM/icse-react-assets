@@ -122,6 +122,10 @@ export default {
       description: "A string value representing the text input's id",
       type: { required: true },
     },
+    forceKebabCase: {
+      description: "A boolean value. When true, value will be returned to on change function as a string with only lowercase letters with spaces replaced with `-`",
+      type: {required: true}
+    }
   },
   parameters: {
     docs: {
