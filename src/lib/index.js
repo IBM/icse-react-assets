@@ -25,6 +25,7 @@ const { handleNumberDropdownEvent } = require("./utils");
 const { emptyResourceTileParams } = require("./empty-resource-tile");
 const { onToggleEvent, toggleParams } = require("./input-utils");
 const { icseFormTemplateParams } = require("./icse-form-template");
+const { statefulTabPanelParams } = require("./stateful-tab-panel");
 
 module.exports = {
   onToggleEvent,
@@ -49,4 +50,5 @@ module.exports = {
   deleteButtonParams,
   emptyResourceTileParams,
   icseFormTemplateParams,
+  statefulTabPanelParams,
 };
