@@ -22,8 +22,13 @@ const {
 const { docTextFieldParams } = require("./doc-utils");
 const { icseSelectParams } = require("./dropdowns");
 const { handleNumberDropdownEvent } = require("./utils");
+const { emptyResourceTileParams } = require("./empty-resource-tile");
+const { onToggleEvent, toggleParams } = require("./input-utils");
+const { icseFormTemplateParams } = require("./icse-form-template");
 
 module.exports = {
+  onToggleEvent,
+  toggleParams,
   docTextFieldParams,
   handleNumberDropdownEvent,
   icseSelectParams,
@@ -42,4 +47,6 @@ module.exports = {
   saveAddParams,
   editCloseParams,
   deleteButtonParams,
+  emptyResourceTileParams,
+  icseFormTemplateParams,
 };

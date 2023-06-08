@@ -6,6 +6,7 @@ import { RenderForm } from "./Utils";
 import EmptyResourceTile from "./EmptyResourceTile";
 import React from "react";
 import ToggleForm from "./ToggleForm";
+import { icseFormTemplateParams } from "../lib";
 
 class IcseFormTemplate extends React.Component {
   constructor(props) {
@@ -123,6 +124,9 @@ class IcseFormTemplate extends React.Component {
     if (this.props.defaultModalValues) {
       formModalProps.data = { ...this.props.defaultModalValues };
     }
+    let { arrayIsEmpty, tabPanelClassName } = icseFormTemplateParams(
+      this.props
+    );
     return (
       <div id={formattedName}>
         <StatefulTabPanel
@@ -131,15 +135,13 @@ class IcseFormTemplate extends React.Component {
           addText={this.props.addText}
           hideButton={this.props.hideFormTitleButton}
           subHeading={this.props.subHeading}
-          className={
-            this.props.subHeading ? "subHeading marginBottomSmall" : ""
-          }
+          className={tabPanelClassName}
           tooltip={this.props.tooltip}
           about={this.props.docs ? this.props.docs() : false}
           hideAbout={this.props.hideAbout}
           form={
             <>
-              {this.props.arrayData.length === 0 && this.props.overrideTile ? (
+              {arrayIsEmpty ? (
                 this.props.overrideTile
               ) : (
                 <EmptyResourceTile

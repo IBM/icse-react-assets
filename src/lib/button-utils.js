@@ -1,5 +1,3 @@
-const { ChevronDown, ChevronRight, Add } = require("@carbon/icons-react");
-
 /**
  * create classname for sub form chevron save button
  * @param {*} componentProps

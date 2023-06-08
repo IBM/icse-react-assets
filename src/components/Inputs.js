@@ -1,27 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Toggle, TextInput } from "@carbon/react";
-import { kebabCase, snakeCase, isBoolean, titleCase } from "lazy-z";
 import { DynamicToolTipWrapper } from "./Tooltips";
-
-import { addClassName, formatInputPlaceholder } from "../lib";
+import { addClassName } from "../lib";
+import { textInputParams, toggleParams } from "../lib/input-utils";
 
 export const IcseToggle = (props) => {
-  let toggleName = props.toggleFieldName || snakeCase(props.labelText);
+  let { labelA, labelB, labelText, id, className, onToggle } =
+    toggleParams(props);
   return (
     <DynamicToolTipWrapper {...props}>
       <Toggle
-        labelA={props.useOnOff ? "Off" : "False"}
-        labelB={props.useOnOff ? "On" : "True"}
-        labelText={props.tooltip ? " " : props.labelText}
-        id={kebabCase(toggleName) + "-icse-toggle-" + props.id}
-        className={
-          addClassName("leftTextAlign fitContent", props) +
-          (props.tooltip ? " cds--form-item tooltip" : " cds--form-item") // inherit tooltip spacing
-        }
-        onToggle={(event) => {
-          props.onToggle(toggleName, event);
-        }}
+        labelA={labelA}
+        labelB={labelB}
+        labelText={labelText}
+        id={id}
+        className={className}
+        onToggle={onToggle}
         defaultToggled={props.defaultToggled}
         disabled={props.disabled}
       />
@@ -69,30 +64,22 @@ IcseToggle.propTypes = {
  * @returns <IcseTextInput/> component
  */
 export const IcseTextInput = (props) => {
-  let fieldName = titleCase(props.field);
+  let { invalid, invalidText, placeholder, labelText, onInputChange } =
+    textInputParams(props);
+
   return (
     <DynamicToolTipWrapper {...props}>
       <TextInput
         id={props.id}
         className={addClassName("leftTextAlign", props)}
-        labelText={props.labelText ? props.labelText : titleCase(props.field)}
-        placeholder={
-          (props.optional ? "(Optional) " : "") +
-          (props.placeholder ||
-            formatInputPlaceholder(props.componentName, fieldName))
-        }
+        labelText={labelText}
+        placeholder={placeholder}
         name={props.field}
         value={props.value || ""}
-        invalid={
-          isBoolean(props.invalid) ? props.invalid : props.invalidCallback()
-        }
-        onChange={props.onChange}
+        invalid={invalid}
+        onChange={onInputChange}
         helperText={props.helperText}
-        invalidText={
-          props.invalidText
-            ? props.invalidText
-            : `Invalid ${props.field} value.`
-        }
+        invalidText={invalidText}
         maxLength={props.maxLength}
         disabled={props.disabled}
         readOnly={props.readOnly}
@@ -108,6 +95,7 @@ IcseTextInput.defaultProps = {
   hideHelperText: false,
   optional: false,
   className: "fieldWidth",
+  forceKebabCase: false,
 };
 
 IcseTextInput.propTypes = {
@@ -131,6 +119,7 @@ IcseTextInput.propTypes = {
   invalidCallback: PropTypes.func,
   id: PropTypes.string.isRequired,
   invalidText: PropTypes.string,
+  forceKebabCase: PropTypes.bool.isRequired,
 };
 
 /**
@@ -175,6 +164,7 @@ IcseNameInput.defaultProps = {
   invalidText: "",
   className: "fieldWidth",
   labelText: "Name",
+  forceKebabCase: false
 };
 
 IcseNameInput.propTypes = {
@@ -194,4 +184,5 @@ IcseNameInput.propTypes = {
   invalidText: PropTypes.string.isRequired,
   invalidCallback: PropTypes.func,
   labelText: PropTypes.string.isRequired,
+  forceKebabCase: PropTypes.bool.isRequired,
 };
