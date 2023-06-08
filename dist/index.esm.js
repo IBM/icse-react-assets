@@ -1,9 +1,9 @@
 import '@carbon/styles/css/styles.css';
 import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, TextArea, PasswordInput, NumberInput, Dropdown, Tag } from '@carbon/react';
 import lazyZ, { kebabCase as kebabCase$3, isEmpty, buildNumberDropdownList, titleCase as titleCase$1, isFunction as isFunction$1, contains as contains$2, snakeCase, isBoolean, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$5, transpose, allFieldsNull, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual, parseIntFromZone, splat as splat$1, isWholeNumber as isWholeNumber$1, distinct, getObjectFromArray, isInRange as isInRange$1, eachKey } from 'lazy-z';
-import { Information, Save, Add, ChevronDown, ChevronRight, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt, Password } from '@carbon/icons-react';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Information, Save, Add, ChevronDown, ChevronRight, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt, Password } from '@carbon/icons-react';
 import regexButWithWords from 'regex-but-with-words';
 import { contains as contains$3 } from 'regex-but-with-words/lib/utils';
 
@@ -364,6 +364,25 @@ var utils = {
   handleNumberDropdownEvent: handleNumberDropdownEvent$1
 };
 
+/**
+ * get params for empty resource tile
+ * @param {Object} props
+ * @param {(boolean|*[])} props.showIfEmpty if array is empty or boolean is false, show the empty resource tile
+ * @param {boolean} props.noMarginTop
+ */
+function emptyResourceTileParams$1(props) {
+  let show = !props.showIfEmpty || props.showIfEmpty.length === 0;
+  let className = "tileBackground displayFlex alignItemsCenter wrap" + props.noMarginTop ? "" : " marginTop";
+  return {
+    show,
+    className
+  };
+}
+var emptyResourceTile = {
+  emptyResourceTileParams: emptyResourceTileParams$1
+};
+var emptyResourceTile_1 = emptyResourceTile.emptyResourceTileParams;
+
 const {
   toggleMarginBottom,
   addClassName,
@@ -396,6 +415,9 @@ const {
 const {
   handleNumberDropdownEvent
 } = utils;
+const {
+  emptyResourceTileParams
+} = emptyResourceTile;
 var lib = {
   docTextFieldParams,
   handleNumberDropdownEvent,
@@ -414,7 +436,8 @@ var lib = {
   subnetTierName,
   saveAddParams,
   editCloseParams,
-  deleteButtonParams
+  deleteButtonParams,
+  emptyResourceTileParams
 };
 var lib_1 = lib.docTextFieldParams;
 var lib_2 = lib.handleNumberDropdownEvent;
@@ -1320,8 +1343,12 @@ EndpointSelect.defaultProps = {
  */
 
 const EmptyResourceTile = props => {
-  return !props.showIfEmpty || props.showIfEmpty.length === 0 ? /*#__PURE__*/React.createElement(Tile, {
-    className: "tileBackground displayFlex alignItemsCenter wrap" + props.noMarginTop ? "" : " marginTop"
+  let {
+    show,
+    className
+  } = emptyResourceTile_1(props);
+  return show ? /*#__PURE__*/React.createElement(Tile, {
+    className: className
   }, /*#__PURE__*/React.createElement(CloudAlerting, {
     size: "24",
     className: "iconMargin"

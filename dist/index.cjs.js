@@ -5,9 +5,9 @@ Object.defineProperty(exports, '__esModule', { value: true });
 require('@carbon/styles/css/styles.css');
 var react = require('@carbon/react');
 var lazyZ = require('lazy-z');
-var iconsReact = require('@carbon/icons-react');
 var React = require('react');
 var PropTypes = require('prop-types');
+var iconsReact = require('@carbon/icons-react');
 var regexButWithWords = require('regex-but-with-words');
 var utils$1 = require('regex-but-with-words/lib/utils');
 
@@ -375,6 +375,25 @@ var utils = {
   handleNumberDropdownEvent: handleNumberDropdownEvent$1
 };
 
+/**
+ * get params for empty resource tile
+ * @param {Object} props
+ * @param {(boolean|*[])} props.showIfEmpty if array is empty or boolean is false, show the empty resource tile
+ * @param {boolean} props.noMarginTop
+ */
+function emptyResourceTileParams$1(props) {
+  let show = !props.showIfEmpty || props.showIfEmpty.length === 0;
+  let className = "tileBackground displayFlex alignItemsCenter wrap" + props.noMarginTop ? "" : " marginTop";
+  return {
+    show,
+    className
+  };
+}
+var emptyResourceTile = {
+  emptyResourceTileParams: emptyResourceTileParams$1
+};
+var emptyResourceTile_1 = emptyResourceTile.emptyResourceTileParams;
+
 const {
   toggleMarginBottom,
   addClassName,
@@ -407,6 +426,9 @@ const {
 const {
   handleNumberDropdownEvent
 } = utils;
+const {
+  emptyResourceTileParams
+} = emptyResourceTile;
 var lib = {
   docTextFieldParams,
   handleNumberDropdownEvent,
@@ -425,7 +447,8 @@ var lib = {
   subnetTierName,
   saveAddParams,
   editCloseParams,
-  deleteButtonParams
+  deleteButtonParams,
+  emptyResourceTileParams
 };
 var lib_1 = lib.docTextFieldParams;
 var lib_2 = lib.handleNumberDropdownEvent;
@@ -1331,8 +1354,12 @@ EndpointSelect.defaultProps = {
  */
 
 const EmptyResourceTile = props => {
-  return !props.showIfEmpty || props.showIfEmpty.length === 0 ? /*#__PURE__*/React__default["default"].createElement(react.Tile, {
-    className: "tileBackground displayFlex alignItemsCenter wrap" + props.noMarginTop ? "" : " marginTop"
+  let {
+    show,
+    className
+  } = emptyResourceTile_1(props);
+  return show ? /*#__PURE__*/React__default["default"].createElement(react.Tile, {
+    className: className
   }, /*#__PURE__*/React__default["default"].createElement(iconsReact.CloudAlerting, {
     size: "24",
     className: "iconMargin"
