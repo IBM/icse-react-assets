@@ -8413,10 +8413,12 @@ class VpnServerForm extends Component {
       placeholder: "600",
       label: "Client Idle Timeout (s)",
       allowEmpty: true,
-      value: this.state.client_idle_timeout || "",
-      step: 1,
-      onChange: this.handleInputChange,
-      hideSteppers: true,
+      value: this.state.client_idle_timeout || ""
+      //step={1}
+      ,
+      onChange: this.handleInputChange
+      //hideSteppers={true}
+      ,
       min: 0,
       max: 28800,
       invalid: !isNullOrEmptyString$5(this.state.client_idle_timeout) && (!isWholeNumber$1(Number(this.state.client_idle_timeout)) || this.state.client_idle_timeout < 0 || this.state.client_idle_timeout > 28000),

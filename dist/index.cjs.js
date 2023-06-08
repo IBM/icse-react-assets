@@ -8424,10 +8424,12 @@ class VpnServerForm extends React.Component {
       placeholder: "600",
       label: "Client Idle Timeout (s)",
       allowEmpty: true,
-      value: this.state.client_idle_timeout || "",
-      step: 1,
-      onChange: this.handleInputChange,
-      hideSteppers: true,
+      value: this.state.client_idle_timeout || ""
+      //step={1}
+      ,
+      onChange: this.handleInputChange
+      //hideSteppers={true}
+      ,
       min: 0,
       max: 28800,
       invalid: !lazyZ.isNullOrEmptyString(this.state.client_idle_timeout) && (!lazyZ.isWholeNumber(Number(this.state.client_idle_timeout)) || this.state.client_idle_timeout < 0 || this.state.client_idle_timeout > 28000),

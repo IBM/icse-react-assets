@@ -318,7 +318,7 @@ class VpnServerForm extends Component {
               !isNullOrEmptyString(this.state.client_idle_timeout) &&
               (!isWholeNumber(Number(this.state.client_idle_timeout)) ||
                 this.state.client_idle_timeout < 0 ||
-                this.state.client_idle_timeout > 28000)
+                this.state.client_idle_timeout > 28800)
             }
             invalidText="Must be a whole number between 0 and 28800."
             className="fieldWidthSmaller"
