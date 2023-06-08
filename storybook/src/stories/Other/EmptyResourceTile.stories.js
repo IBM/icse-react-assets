@@ -21,11 +21,6 @@ export default {
       control: "boolean",
       table: { defaultValue: { summary: "false" } },
     },
-    instructions: {
-      description: "Optional instructions to use in place of default text", // description
-      type: { required: false }, // required prop or not
-      control: "text",
-    },
     noMarginTop: {
       description:
         "Boolean describing if there is not a margin on top of the tile",

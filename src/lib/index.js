@@ -22,6 +22,7 @@ const {
 const { docTextFieldParams } = require("./doc-utils");
 const { icseSelectParams } = require("./dropdowns");
 const { handleNumberDropdownEvent } = require("./utils");
+const { emptyResourceTileParams } = require("./empty-resource-tile");
 const { onToggleEvent, toggleParams } = require("./input-utils");
 
 module.exports = {
@@ -45,4 +46,5 @@ module.exports = {
   saveAddParams,
   editCloseParams,
   deleteButtonParams,
+  emptyResourceTileParams,
 };

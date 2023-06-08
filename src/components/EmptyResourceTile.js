@@ -2,6 +2,7 @@ import React from "react";
 import { CloudAlerting, Add } from "@carbon/icons-react";
 import { Tile } from "@carbon/react";
 import PropTypes from "prop-types";
+import { emptyResourceTileParams } from "../lib/empty-resource-tile";
 
 /**
  * Empty Resource Tile
@@ -12,23 +13,16 @@ import PropTypes from "prop-types";
  */
 
 const EmptyResourceTile = (props) => {
-  return !props.showIfEmpty || props.showIfEmpty.length === 0 ? (
-    <Tile
-      className={
-        "tileBackground displayFlex alignItemsCenter wrap" + props.noMarginTop
-          ? ""
-          : " marginTop"
-      }
-    >
+  let { show, className } = emptyResourceTileParams(props);
+  return show ? (
+    <Tile className={className}>
       <CloudAlerting size="24" className="iconMargin" />
       No {props.name}.{" "}
-      {props.instructions || (
-        <>
-          Click
-          <Add size="24" className="inlineIconMargin" />
-          button to add one.
-        </>
-      )}
+      <>
+        Click
+        <Add size="24" className="inlineIconMargin" />
+        button to add one.
+      </>
     </Tile>
   ) : (
     ""
@@ -45,7 +39,6 @@ EmptyResourceTile.propTypes = {
   name: PropTypes.string.isRequired,
   showIfEmpty: PropTypes.oneOfType([PropTypes.array, PropTypes.bool])
     .isRequired,
-  instructions: PropTypes.string,
   noMarginTop: PropTypes.bool,
 };
 
