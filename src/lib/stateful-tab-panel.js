@@ -1,5 +1,16 @@
 const { isFunction } = require("lazy-z");
 
+/**
+ * get stateful tab panel params
+ * @param {Object} props
+ * @param {boolean} props.subHeading
+ * @param {boolean} props.hideFormTitleButton
+ * @param {function} props.onClick
+ * @param {boolean} props.hasBuiltInHeading
+ * @param {string} props.name
+ * @param {Object} state
+ * @returns
+ */
 function statefulTabPanelParams(props, state) {
   let headingType = props.subHeading ? "subHeading" : "heading";
   let dynamicRenderHide =
