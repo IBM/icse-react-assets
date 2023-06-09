@@ -21,7 +21,14 @@ const {
 } = require("./method-functions");
 const { docTextFieldParams } = require("./doc-utils");
 const { icseSelectParams } = require("./dropdowns");
-const { handleNumberDropdownEvent } = require("./utils");
+const {
+  handleNumberDropdownEvent,
+  titleGroupParams,
+  formGroupParams,
+  icseSubFormParams,
+  icseHeadingParams,
+  statelessToggleFormParams,
+} = require("./utils");
 const { emptyResourceTileParams } = require("./empty-resource-tile");
 const { onToggleEvent, toggleParams } = require("./input-utils");
 const { icseFormTemplateParams } = require("./icse-form-template");
@@ -51,6 +58,11 @@ module.exports = {
   deleteButtonParams,
   emptyResourceTileParams,
   icseFormTemplateParams,
+  titleGroupParams,
+  formGroupParams,
+  icseSubFormParams,
+  icseHeadingParams,
+  statelessToggleFormParams,
   statefulTabPanelParams,
   popoverWrapperParams,
 };
