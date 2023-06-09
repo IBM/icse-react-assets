@@ -1,7 +1,7 @@
 import { Popover, PopoverContent } from "@carbon/react";
 import React from "react";
 import PropTypes from "prop-types";
-import { addClassName } from "../lib/index";
+import { addClassName, popoverWrapperParams } from "../lib/index";
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -31,7 +31,10 @@ class PopoverWrapper extends React.Component {
   }
 
   render() {
-    return this.props.noPopover === true || this.props.hoverText === "" ? (
+    let { noPopover, autoAlign, contentClassName } = popoverWrapperParams(
+      this.props
+    );
+    return noPopover ? (
       this.props.children
     ) : (
       <div
@@ -41,21 +44,14 @@ class PopoverWrapper extends React.Component {
       >
         <Popover
           open={this.state.isHovering}
-          autoAlign={this.props.align ? false : true}
+          autoAlign={autoAlign}
           dropShadow={false}
           highContrast={true}
           caret={false}
           align={this.props.align}
         >
           {this.props.children}
-          <PopoverContent
-            className={
-              "popover-box" +
-              (this.props.contentClassName
-                ? ` ${this.props.contentClassName}`
-                : "")
-            }
-          >
+          <PopoverContent className={contentClassName}>
             {this.props.hoverText}
           </PopoverContent>
         </Popover>

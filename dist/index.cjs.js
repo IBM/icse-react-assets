@@ -516,6 +516,51 @@ var icseFormTemplate = {
 };
 
 const {
+  isFunction: isFunction$1
+} = lazyZ__default["default"];
+
+/**
+ * get stateful tab panel params
+ * @param {Object} props
+ * @param {boolean} props.subHeading
+ * @param {boolean} props.hideFormTitleButton
+ * @param {function} props.onClick
+ * @param {boolean} props.hasBuiltInHeading
+ * @param {string} props.name
+ * @param {Object} state
+ * @returns
+ */
+function statefulTabPanelParams$1(props, state) {
+  let headingType = props.subHeading ? "subHeading" : "heading";
+  let dynamicRenderHide = props.hideFormTitleButton || state.tabIndex !== 0 || !isFunction$1(props.onClick) || props.hasBuiltInHeading;
+  let headingHide = props.name && !props.hasBuiltInHeading;
+  let buttonIsDisabled = props.shouldDisableSave ? props.shouldDisableSave() : false;
+  return {
+    headingType,
+    dynamicRenderHide,
+    headingHide,
+    buttonIsDisabled
+  };
+}
+var statefulTabPanel = {
+  statefulTabPanelParams: statefulTabPanelParams$1
+};
+
+function popoverWrapperParams$1(props) {
+  let noPopover = props.noPopover === true || props.hoverText === "";
+  let autoAlign = props.align ? false : true;
+  let contentClassName = "popover-box" + (props.contentClassName ? ` ${props.contentClassName}` : "");
+  return {
+    noPopover,
+    autoAlign,
+    contentClassName
+  };
+}
+var popoverWrapper = {
+  popoverWrapperParams: popoverWrapperParams$1
+};
+
+const {
   toggleMarginBottom,
   addClassName,
   prependEmptyStringWhenNull,
@@ -557,6 +602,12 @@ const {
 const {
   icseFormTemplateParams
 } = icseFormTemplate;
+const {
+  statefulTabPanelParams
+} = statefulTabPanel;
+const {
+  popoverWrapperParams
+} = popoverWrapper;
 var lib = {
   onToggleEvent,
   toggleParams,
@@ -579,7 +630,9 @@ var lib = {
   editCloseParams,
   deleteButtonParams,
   emptyResourceTileParams,
-  icseFormTemplateParams
+  icseFormTemplateParams,
+  statefulTabPanelParams,
+  popoverWrapperParams
 };
 var lib_3 = lib.docTextFieldParams;
 var lib_4 = lib.handleNumberDropdownEvent;
@@ -594,6 +647,8 @@ var lib_18 = lib.saveAddParams;
 var lib_19 = lib.editCloseParams;
 var lib_20 = lib.deleteButtonParams;
 var lib_22 = lib.icseFormTemplateParams;
+var lib_23 = lib.statefulTabPanelParams;
+var lib_24 = lib.popoverWrapperParams;
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -626,19 +681,24 @@ class PopoverWrapper extends React__default["default"].Component {
     });
   }
   render() {
-    return this.props.noPopover === true || this.props.hoverText === "" ? this.props.children : /*#__PURE__*/React__default["default"].createElement("div", {
+    let {
+      noPopover,
+      autoAlign,
+      contentClassName
+    } = lib_24(this.props);
+    return noPopover ? this.props.children : /*#__PURE__*/React__default["default"].createElement("div", {
       className: lib_7("popover-obj", this.props),
       onMouseEnter: this.handleMouseOver,
       onMouseLeave: this.handleMouseOut
     }, /*#__PURE__*/React__default["default"].createElement(react.Popover, {
       open: this.state.isHovering,
-      autoAlign: this.props.align ? false : true,
+      autoAlign: autoAlign,
       dropShadow: false,
       highContrast: true,
       caret: false,
       align: this.props.align
     }, this.props.children, /*#__PURE__*/React__default["default"].createElement(react.PopoverContent, {
-      className: "popover-box" + (this.props.contentClassName ? ` ${this.props.contentClassName}` : "")
+      className: contentClassName
     }, this.props.hoverText)));
   }
 }
@@ -1624,19 +1684,25 @@ class StatefulTabPanel extends React__default["default"].Component {
     });
   }
   render() {
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, this.props.name && !this.props.hasBuiltInHeading && /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+    let {
+      headingType,
+      dynamicRenderHide,
+      headingHide,
+      buttonIsDisabled
+    } = lib_23(this.props, this.state);
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, headingHide && /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
       name: this.props.name,
-      type: this.props.subHeading ? "subHeading" : "heading",
+      type: headingType,
       className: this.props.className,
       tooltip: this.props.tooltip,
       buttons: /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
-        hide: this.props.hideFormTitleButton || this.state.tabIndex !== 0 || !lazyZ.isFunction(this.props.onClick) || this.props.hasBuiltInHeading,
+        hide: dynamicRenderHide,
         show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
           name: lazyZ.kebabCase(this.props.name),
           type: "add",
           noDeleteButton: true,
           onClick: this.props.onClick,
-          disabled: this.props.shouldDisableSave ? this.props.shouldDisableSave() : false
+          disabled: buttonIsDisabled
         })
       })
     }), this.props.hideAbout ? this.props.form : /*#__PURE__*/React__default["default"].createElement(react.Tabs, {
