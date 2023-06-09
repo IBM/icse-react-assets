@@ -24,6 +24,13 @@ function handleNumberDropdownEvent(props) {
   return handleInputChange;
 }
 
+/**
+ * get title group params
+ * @param {Object} props
+ * @param {boolean} props.hide
+ * @param {string} props.className
+ * @returns {Object} params object
+ */
 function titleGroupParams(props) {
   return addClassName(
     `displayFlex alignItemsCenter widthOneHundredPercent ${toggleMarginBottom(
@@ -33,6 +40,13 @@ function titleGroupParams(props) {
   );
 }
 
+/**
+ *
+ * @param {Object} props
+ * @param {boolean} props.noMarginBottom
+ * @param {string} props.className
+ * @returns {Object} params object
+ */
 function formGroupParams(props) {
   let formGroupClassName =
     "displayFlex marginBottom evenSpacing wrap alignItemsTop";
@@ -40,7 +54,7 @@ function formGroupParams(props) {
   if (props.noMarginBottom) {
     formGroupClassName = formGroupClassName.replace(/\smarginBottom/g, "");
   }
-  addClassName(formGroupClassName, props);
+  formGroupClassName = addClassName(formGroupClassName, props);
 
   return formGroupClassName;
 }

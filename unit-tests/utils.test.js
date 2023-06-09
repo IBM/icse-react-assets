@@ -49,5 +49,11 @@ describe("utils", () => {
       });
       assert.deepEqual(actualData, expectedData);
     });
+    it("should have marginBottom", () => {
+      let expectedData =
+        "displayFlex marginBottom evenSpacing wrap alignItemsTop";
+      let actualData = formGroupParams({});
+      assert.deepEqual(actualData, expectedData);
+    });
   });
 });
