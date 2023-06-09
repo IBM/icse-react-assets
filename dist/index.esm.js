@@ -1,6 +1,6 @@
 import '@carbon/styles/css/styles.css';
 import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, TextArea, PasswordInput, NumberInput, Dropdown, Tag } from '@carbon/react';
-import lazyZ, { kebabCase as kebabCase$4, isEmpty, buildNumberDropdownList, titleCase as titleCase$2, isFunction as isFunction$1, contains as contains$2, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$5, transpose, allFieldsNull, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual, parseIntFromZone, splat as splat$1, isWholeNumber as isWholeNumber$1, snakeCase as snakeCase$1, distinct, getObjectFromArray, isInRange as isInRange$1, eachKey } from 'lazy-z';
+import lazyZ, { kebabCase as kebabCase$4, isEmpty, buildNumberDropdownList, titleCase as titleCase$2, contains as contains$2, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$5, transpose, allFieldsNull, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual, parseIntFromZone, splat as splat$1, isWholeNumber as isWholeNumber$1, snakeCase as snakeCase$1, distinct, getObjectFromArray, isInRange as isInRange$1, eachKey } from 'lazy-z';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Information, Save, Add, ChevronDown, ChevronRight, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt, Password } from '@carbon/icons-react';
@@ -505,6 +505,51 @@ var icseFormTemplate = {
 };
 
 const {
+  isFunction: isFunction$1
+} = lazyZ;
+
+/**
+ * get stateful tab panel params
+ * @param {Object} props
+ * @param {boolean} props.subHeading
+ * @param {boolean} props.hideFormTitleButton
+ * @param {function} props.onClick
+ * @param {boolean} props.hasBuiltInHeading
+ * @param {string} props.name
+ * @param {Object} state
+ * @returns
+ */
+function statefulTabPanelParams$1(props, state) {
+  let headingType = props.subHeading ? "subHeading" : "heading";
+  let dynamicRenderHide = props.hideFormTitleButton || state.tabIndex !== 0 || !isFunction$1(props.onClick) || props.hasBuiltInHeading;
+  let headingHide = props.name && !props.hasBuiltInHeading;
+  let buttonIsDisabled = props.shouldDisableSave ? props.shouldDisableSave() : false;
+  return {
+    headingType,
+    dynamicRenderHide,
+    headingHide,
+    buttonIsDisabled
+  };
+}
+var statefulTabPanel = {
+  statefulTabPanelParams: statefulTabPanelParams$1
+};
+
+function popoverWrapperParams$1(props) {
+  let noPopover = props.noPopover === true || props.hoverText === "";
+  let autoAlign = props.align ? false : true;
+  let contentClassName = "popover-box" + (props.contentClassName ? ` ${props.contentClassName}` : "");
+  return {
+    noPopover,
+    autoAlign,
+    contentClassName
+  };
+}
+var popoverWrapper = {
+  popoverWrapperParams: popoverWrapperParams$1
+};
+
+const {
   toggleMarginBottom,
   addClassName,
   prependEmptyStringWhenNull,
@@ -546,6 +591,12 @@ const {
 const {
   icseFormTemplateParams
 } = icseFormTemplate;
+const {
+  statefulTabPanelParams
+} = statefulTabPanel;
+const {
+  popoverWrapperParams
+} = popoverWrapper;
 var lib = {
   onToggleEvent,
   toggleParams,
@@ -568,7 +619,9 @@ var lib = {
   editCloseParams,
   deleteButtonParams,
   emptyResourceTileParams,
-  icseFormTemplateParams
+  icseFormTemplateParams,
+  statefulTabPanelParams,
+  popoverWrapperParams
 };
 var lib_3 = lib.docTextFieldParams;
 var lib_4 = lib.handleNumberDropdownEvent;
@@ -583,6 +636,8 @@ var lib_18 = lib.saveAddParams;
 var lib_19 = lib.editCloseParams;
 var lib_20 = lib.deleteButtonParams;
 var lib_22 = lib.icseFormTemplateParams;
+var lib_23 = lib.statefulTabPanelParams;
+var lib_24 = lib.popoverWrapperParams;
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -615,19 +670,24 @@ class PopoverWrapper extends React.Component {
     });
   }
   render() {
-    return this.props.noPopover === true || this.props.hoverText === "" ? this.props.children : /*#__PURE__*/React.createElement("div", {
+    let {
+      noPopover,
+      autoAlign,
+      contentClassName
+    } = lib_24(this.props);
+    return noPopover ? this.props.children : /*#__PURE__*/React.createElement("div", {
       className: lib_7("popover-obj", this.props),
       onMouseEnter: this.handleMouseOver,
       onMouseLeave: this.handleMouseOut
     }, /*#__PURE__*/React.createElement(Popover, {
       open: this.state.isHovering,
-      autoAlign: this.props.align ? false : true,
+      autoAlign: autoAlign,
       dropShadow: false,
       highContrast: true,
       caret: false,
       align: this.props.align
     }, this.props.children, /*#__PURE__*/React.createElement(PopoverContent, {
-      className: "popover-box" + (this.props.contentClassName ? ` ${this.props.contentClassName}` : "")
+      className: contentClassName
     }, this.props.hoverText)));
   }
 }
@@ -1613,19 +1673,25 @@ class StatefulTabPanel extends React.Component {
     });
   }
   render() {
-    return /*#__PURE__*/React.createElement(React.Fragment, null, this.props.name && !this.props.hasBuiltInHeading && /*#__PURE__*/React.createElement(IcseHeading, {
+    let {
+      headingType,
+      dynamicRenderHide,
+      headingHide,
+      buttonIsDisabled
+    } = lib_23(this.props, this.state);
+    return /*#__PURE__*/React.createElement(React.Fragment, null, headingHide && /*#__PURE__*/React.createElement(IcseHeading, {
       name: this.props.name,
-      type: this.props.subHeading ? "subHeading" : "heading",
+      type: headingType,
       className: this.props.className,
       tooltip: this.props.tooltip,
       buttons: /*#__PURE__*/React.createElement(DynamicRender, {
-        hide: this.props.hideFormTitleButton || this.state.tabIndex !== 0 || !isFunction$1(this.props.onClick) || this.props.hasBuiltInHeading,
+        hide: dynamicRenderHide,
         show: /*#__PURE__*/React.createElement(SaveAddButton, {
           name: kebabCase$4(this.props.name),
           type: "add",
           noDeleteButton: true,
           onClick: this.props.onClick,
-          disabled: this.props.shouldDisableSave ? this.props.shouldDisableSave() : false
+          disabled: buttonIsDisabled
         })
       })
     }), this.props.hideAbout ? this.props.form : /*#__PURE__*/React.createElement(Tabs, {
