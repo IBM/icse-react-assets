@@ -1,9 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { addClassName, toggleMarginBottom } from "../lib/index";
 import { DynamicToolTipWrapper } from "./Tooltips";
 import { EditCloseIcon } from "./Buttons";
 import { kebabCase } from "lazy-z";
+import {
+  titleGroupParams,
+  formGroupParams,
+  icseSubFormParams,
+  icseHeadingParams,
+  statelessToggleFormParams,
+} from "../lib/utils";
 
 /**
  * Render a form
@@ -32,18 +38,8 @@ export function DynamicRender(props) {
  * wrapper for title groups
  */
 export const TitleGroup = (props) => {
-  return (
-    <div
-      className={addClassName(
-        `displayFlex alignItemsCenter widthOneHundredPercent ${toggleMarginBottom(
-          props.hide
-        )}`,
-        props
-      )}
-    >
-      {props.children}
-    </div>
-  );
+  let className = titleGroupParams(props);
+  return <div className={className}>{props.children}</div>;
 };
 
 TitleGroup.defaultProps = {
@@ -55,16 +51,9 @@ TitleGroup.propTypes = {
 };
 
 export const IcseFormGroup = (props) => {
-  let formGroupClassName = "displayFlex marginBottom evenSpacing wrap alignItemsTop";
-  // remove margin bottom from formGroup for VPC
-  if (props.noMarginBottom) {
-    formGroupClassName = formGroupClassName.replace(/\smarginBottom/g, "");
-  }
-  return (
-    <div className={addClassName(formGroupClassName, props)}>
-      {props.children}
-    </div>
-  );
+  let formGroupClassName = formGroupParams(props);
+
+  return <div className={formGroupClassName}>{props.children}</div>;
 };
 
 IcseFormGroup.defaultProps = {
@@ -78,16 +67,9 @@ IcseFormGroup.propTypes = {
 };
 
 export const IcseSubForm = (props) => {
+  let className = icseSubFormParams(props);
   return (
-    <div
-      className={addClassName(
-        props.formInSubForm
-          ? "formInSubForm positionRelative"
-          : "subForm marginBottomSmall",
-        props
-      )}
-      id={props.id}
-    >
+    <div className={className} id={props.id}>
       {props.children}
     </div>
   );
@@ -105,20 +87,9 @@ IcseSubForm.propTypes = {
 };
 
 export const IcseHeading = (props) => {
-  let titleFormDivClass = props.toggleFormTitle
-    ? ""
-    : props.name === ""
-    ? ""
-    : " icseFormTitleMinHeight";
+  let className = icseHeadingParams(props);
   return (
-    <div
-      className={
-        addClassName(
-          "displayFlex spaceBetween widthOneHundredPercent alignItemsCenter",
-          props
-        ) + titleFormDivClass
-      }
-    >
+    <div className={className}>
       <DynamicToolTipWrapper
         tooltip={props.tooltip}
         noLabelText={true}
@@ -162,6 +133,7 @@ IcseHeading.propTypes = {
  * All of the toggle form functionality without injecting anything on render
  */
 export const StatelessToggleForm = (props) => {
+  let { headingType, dynamicRenderHide } = statelessToggleFormParams(props);
   return props.hideTitle ? (
     props.children
   ) : (
@@ -176,17 +148,11 @@ export const StatelessToggleForm = (props) => {
           />
         )}
         <IcseHeading
-          type={
-            props.toggleFormTitle
-              ? "p"
-              : props.subHeading
-              ? "subHeading"
-              : "heading"
-          }
+          type={headingType}
           name={props.name}
           buttons={
             <DynamicRender
-              hide={props.hide === true && props.alwaysShowButtons !== true}
+              hide={dynamicRenderHide}
               show={props.buttons || ""}
             />
           }
