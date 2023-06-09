@@ -272,7 +272,7 @@ class VpnServerForm extends Component {
             max={65535}
             invalid={
               !isNullOrEmptyString(this.state.port) &&
-              (!isWholeNumber(Number(this.state.port)) ||
+              (!isWholeNumber(parseFloat(this.state.port)) ||
                 this.state.port < 1 ||
                 this.state.port > 65535)
             }
@@ -316,7 +316,7 @@ class VpnServerForm extends Component {
             max={28800}
             invalid={
               !isNullOrEmptyString(this.state.client_idle_timeout) &&
-              (!isWholeNumber(Number(this.state.client_idle_timeout)) ||
+              (!isWholeNumber(parseFloat(this.state.client_idle_timeout)) ||
                 this.state.client_idle_timeout < 0 ||
                 this.state.client_idle_timeout > 28800)
             }
