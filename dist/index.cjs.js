@@ -59,7 +59,7 @@ const {
  * @param {*} props arbitrary props
  * @param {string=} props.className additional classnames
  */
-function addClassName$2(className, props) {
+function addClassName$3(className, props) {
   let composedClassName = className;
   if (props?.className) {
     composedClassName += " " + props.className;
@@ -94,7 +94,7 @@ function prependEmptyStringWhenNull$2(value, arr) {
  * @param {*} componentProps
  * @returns {string} additional classNames
  */
-function toggleMarginBottom$1(hide) {
+function toggleMarginBottom$2(hide) {
   if (hide === false) return " marginBottomSmall";else return "";
 }
 
@@ -148,8 +148,8 @@ function subnetTierName$1(tierName) {
   }
 }
 var formUtils = {
-  addClassName: addClassName$2,
-  toggleMarginBottom: toggleMarginBottom$1,
+  addClassName: addClassName$3,
+  toggleMarginBottom: toggleMarginBottom$2,
   prependEmptyStringWhenNull: prependEmptyStringWhenNull$2,
   checkNullorEmptyString: checkNullorEmptyString$1,
   invalidRegex: invalidRegex$1,
@@ -348,16 +348,21 @@ var dropdowns = {
   icseSelectParams: icseSelectParams$1
 };
 
+const {
+  addClassName: addClassName$2,
+  toggleMarginBottom: toggleMarginBottom$1
+} = formUtils;
+
 /**
  * handle number dropdown event function
- * @param {*} props 
+ * @param {*} props
  * @param {Function} props.handleInputChange
  * @returns {Function} handle input change
  */
 function handleNumberDropdownEvent$1(props) {
   /**
    * handle input change
-   * @param {*} event 
+   * @param {*} event
    */
   function handleInputChange(event) {
     // set name target value and parse int
@@ -371,9 +376,87 @@ function handleNumberDropdownEvent$1(props) {
   }
   return handleInputChange;
 }
+
+/**
+ * get title group params
+ * @param {Object} props
+ * @param {boolean} props.hide
+ * @param {string} props.className
+ * @returns {Object} params object
+ */
+function titleGroupParams$1(props) {
+  return addClassName$2(`displayFlex alignItemsCenter widthOneHundredPercent ${toggleMarginBottom$1(props.hide)}`, props);
+}
+
+/**
+ *
+ * @param {Object} props
+ * @param {boolean} props.noMarginBottom
+ * @param {string} props.className
+ * @returns {Object} params object
+ */
+function formGroupParams$1(props) {
+  let formGroupClassName = "displayFlex marginBottom evenSpacing wrap alignItemsTop";
+  // remove margin bottom from formGroup for VPC
+  if (props.noMarginBottom) {
+    formGroupClassName = formGroupClassName.replace(/\smarginBottom/g, "");
+  }
+  formGroupClassName = addClassName$2(formGroupClassName, props);
+  return formGroupClassName;
+}
+
+/**
+ * get icse sub form params
+ * @param {Object} props
+ * @param {boolean} props.formInSubForm
+ * @returns {Object} params object
+ */
+function icseSubFormParams$1(props) {
+  return addClassName$2(props.formInSubForm ? "formInSubForm positionRelative" : "subForm marginBottomSmall", props);
+}
+
+/**
+ * get icse heading params
+ * @param {Object} props
+ * @param {boolean} props.toggleFormTitle
+ * @param {string} props.name
+ * @param {string} props.className
+ */
+function icseHeadingParams$1(props) {
+  let titleFormDivClass = props.toggleFormTitle ? "" : props.name === "" ? "" : " icseFormTitleMinHeight";
+  return addClassName$2("displayFlex spaceBetween widthOneHundredPercent alignItemsCenter", props) + titleFormDivClass;
+}
+
+/**
+ * get stateless toggle form params
+ * @param {Object} props
+ * @param {boolean} props.toggleFormTitle
+ * @param {boolean} props.subHeading
+ * @param {boolean} props.hide
+ * @param {boolean} props.alwaysShowButtons
+ * @returns {Object} params object
+ */
+function statelessToggleFormParams$1(props) {
+  let type = props.toggleFormTitle ? "p" : props.subHeading ? "subHeading" : "heading";
+  let dynamicRenderHide = props.hide === true && props.alwaysShowButtons !== true;
+  return {
+    type,
+    dynamicRenderHide
+  };
+}
 var utils = {
-  handleNumberDropdownEvent: handleNumberDropdownEvent$1
+  handleNumberDropdownEvent: handleNumberDropdownEvent$1,
+  titleGroupParams: titleGroupParams$1,
+  formGroupParams: formGroupParams$1,
+  icseSubFormParams: icseSubFormParams$1,
+  icseHeadingParams: icseHeadingParams$1,
+  statelessToggleFormParams: statelessToggleFormParams$1
 };
+var utils_2 = utils.titleGroupParams;
+var utils_3 = utils.formGroupParams;
+var utils_4 = utils.icseSubFormParams;
+var utils_5 = utils.icseHeadingParams;
+var utils_6 = utils.statelessToggleFormParams;
 
 /**
  * get params for empty resource tile
@@ -516,6 +599,60 @@ var icseFormTemplate = {
 };
 
 const {
+  isFunction: isFunction$1
+} = lazyZ__default["default"];
+
+/**
+ * get stateful tab panel params
+ * @param {Object} props
+ * @param {boolean} props.subHeading
+ * @param {boolean} props.hideFormTitleButton
+ * @param {function} props.onClick
+ * @param {boolean} props.hasBuiltInHeading
+ * @param {string} props.name
+ * @param {Object} state
+ * @returns
+ */
+function statefulTabPanelParams$1(props, state) {
+  let headingType = props.subHeading ? "subHeading" : "heading";
+  let dynamicRenderHide = props.hideFormTitleButton || state.tabIndex !== 0 || !isFunction$1(props.onClick) || props.hasBuiltInHeading;
+  let headingHide = props.name && !props.hasBuiltInHeading;
+  let buttonIsDisabled = props.shouldDisableSave ? props.shouldDisableSave() : false;
+  return {
+    headingType,
+    dynamicRenderHide,
+    headingHide,
+    buttonIsDisabled
+  };
+}
+var statefulTabPanel = {
+  statefulTabPanelParams: statefulTabPanelParams$1
+};
+
+/**
+ * get popoverwraper params
+ * @param {Object} props
+ * @param {boolean} props.noPopover
+ * @param {string} props.hoverText
+ * @param {string} props.align
+ * @param {string} props.contentClassName
+ * @returns {Object} params object
+ */
+function popoverWrapperParams$1(props) {
+  let noPopover = props.noPopover === true || props.hoverText === "";
+  let autoAlign = props.align ? false : true;
+  let contentClassName = "popover-box" + (props.contentClassName ? ` ${props.contentClassName}` : "");
+  return {
+    noPopover,
+    autoAlign,
+    contentClassName
+  };
+}
+var popoverWrapper = {
+  popoverWrapperParams: popoverWrapperParams$1
+};
+
+const {
   toggleMarginBottom,
   addClassName,
   prependEmptyStringWhenNull,
@@ -545,7 +682,12 @@ const {
   icseSelectParams
 } = dropdowns;
 const {
-  handleNumberDropdownEvent
+  handleNumberDropdownEvent,
+  titleGroupParams,
+  formGroupParams,
+  icseSubFormParams,
+  icseHeadingParams,
+  statelessToggleFormParams
 } = utils;
 const {
   emptyResourceTileParams
@@ -557,6 +699,12 @@ const {
 const {
   icseFormTemplateParams
 } = icseFormTemplate;
+const {
+  statefulTabPanelParams
+} = statefulTabPanel;
+const {
+  popoverWrapperParams
+} = popoverWrapper;
 var lib = {
   onToggleEvent,
   toggleParams,
@@ -579,12 +727,18 @@ var lib = {
   editCloseParams,
   deleteButtonParams,
   emptyResourceTileParams,
-  icseFormTemplateParams
+  icseFormTemplateParams,
+  titleGroupParams,
+  formGroupParams,
+  icseSubFormParams,
+  icseHeadingParams,
+  statelessToggleFormParams,
+  statefulTabPanelParams,
+  popoverWrapperParams
 };
 var lib_3 = lib.docTextFieldParams;
 var lib_4 = lib.handleNumberDropdownEvent;
 var lib_5 = lib.icseSelectParams;
-var lib_6 = lib.toggleMarginBottom;
 var lib_7 = lib.addClassName;
 var lib_9 = lib.checkNullorEmptyString;
 var lib_15 = lib.invalidRegex;
@@ -594,6 +748,8 @@ var lib_18 = lib.saveAddParams;
 var lib_19 = lib.editCloseParams;
 var lib_20 = lib.deleteButtonParams;
 var lib_22 = lib.icseFormTemplateParams;
+var lib_28 = lib.statefulTabPanelParams;
+var lib_29 = lib.popoverWrapperParams;
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -626,19 +782,24 @@ class PopoverWrapper extends React__default["default"].Component {
     });
   }
   render() {
-    return this.props.noPopover === true || this.props.hoverText === "" ? this.props.children : /*#__PURE__*/React__default["default"].createElement("div", {
+    let {
+      noPopover,
+      autoAlign,
+      contentClassName
+    } = lib_29(this.props);
+    return noPopover ? this.props.children : /*#__PURE__*/React__default["default"].createElement("div", {
       className: lib_7("popover-obj", this.props),
       onMouseEnter: this.handleMouseOver,
       onMouseLeave: this.handleMouseOut
     }, /*#__PURE__*/React__default["default"].createElement(react.Popover, {
       open: this.state.isHovering,
-      autoAlign: this.props.align ? false : true,
+      autoAlign: autoAlign,
       dropShadow: false,
       highContrast: true,
       caret: false,
       align: this.props.align
     }, this.props.children, /*#__PURE__*/React__default["default"].createElement(react.PopoverContent, {
-      className: "popover-box" + (this.props.contentClassName ? ` ${this.props.contentClassName}` : "")
+      className: contentClassName
     }, this.props.hoverText)));
   }
 }
@@ -811,8 +972,9 @@ function DynamicRender(props) {
  * wrapper for title groups
  */
 const TitleGroup = props => {
+  let className = utils_2(props);
   return /*#__PURE__*/React__default["default"].createElement("div", {
-    className: lib_7(`displayFlex alignItemsCenter widthOneHundredPercent ${lib_6(props.hide)}`, props)
+    className: className
   }, props.children);
 };
 TitleGroup.defaultProps = {
@@ -822,13 +984,9 @@ TitleGroup.propTypes = {
   children: PropTypes__default["default"].node.isRequired
 };
 const IcseFormGroup = props => {
-  let formGroupClassName = "displayFlex marginBottom evenSpacing wrap alignItemsTop";
-  // remove margin bottom from formGroup for VPC
-  if (props.noMarginBottom) {
-    formGroupClassName = formGroupClassName.replace(/\smarginBottom/g, "");
-  }
+  let formGroupClassName = utils_3(props);
   return /*#__PURE__*/React__default["default"].createElement("div", {
-    className: lib_7(formGroupClassName, props)
+    className: formGroupClassName
   }, props.children);
 };
 IcseFormGroup.defaultProps = {
@@ -840,8 +998,9 @@ IcseFormGroup.propTypes = {
   className: PropTypes__default["default"].string
 };
 const IcseSubForm = props => {
+  let className = utils_4(props);
   return /*#__PURE__*/React__default["default"].createElement("div", {
-    className: lib_7(props.formInSubForm ? "formInSubForm positionRelative" : "subForm marginBottomSmall", props),
+    className: className,
     id: props.id
   }, props.children);
 };
@@ -855,9 +1014,9 @@ IcseSubForm.propTypes = {
   children: PropTypes__default["default"].node.isRequired
 };
 const IcseHeading = props => {
-  let titleFormDivClass = props.toggleFormTitle ? "" : props.name === "" ? "" : " icseFormTitleMinHeight";
+  let className = utils_5(props);
   return /*#__PURE__*/React__default["default"].createElement("div", {
-    className: lib_7("displayFlex spaceBetween widthOneHundredPercent alignItemsCenter", props) + titleFormDivClass
+    className: className
   }, /*#__PURE__*/React__default["default"].createElement(DynamicToolTipWrapper, {
     tooltip: props.tooltip,
     noLabelText: true,
@@ -890,6 +1049,10 @@ IcseHeading.propTypes = {
  * All of the toggle form functionality without injecting anything on render
  */
 const StatelessToggleForm = props => {
+  let {
+    headingType,
+    dynamicRenderHide
+  } = utils_6(props);
   return props.hideTitle ? props.children : /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(TitleGroup, {
     hide: props.hide,
     props: props,
@@ -900,10 +1063,10 @@ const StatelessToggleForm = props => {
     type: props.iconType,
     open: props.hide === false
   }), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
-    type: props.toggleFormTitle ? "p" : props.subHeading ? "subHeading" : "heading",
+    type: headingType,
     name: props.name,
     buttons: /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
-      hide: props.hide === true && props.alwaysShowButtons !== true,
+      hide: dynamicRenderHide,
       show: props.buttons || ""
     })
   })), /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
@@ -1624,19 +1787,25 @@ class StatefulTabPanel extends React__default["default"].Component {
     });
   }
   render() {
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, this.props.name && !this.props.hasBuiltInHeading && /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+    let {
+      headingType,
+      dynamicRenderHide,
+      headingHide,
+      buttonIsDisabled
+    } = lib_28(this.props, this.state);
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, headingHide && /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
       name: this.props.name,
-      type: this.props.subHeading ? "subHeading" : "heading",
+      type: headingType,
       className: this.props.className,
       tooltip: this.props.tooltip,
       buttons: /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
-        hide: this.props.hideFormTitleButton || this.state.tabIndex !== 0 || !lazyZ.isFunction(this.props.onClick) || this.props.hasBuiltInHeading,
+        hide: dynamicRenderHide,
         show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
           name: lazyZ.kebabCase(this.props.name),
           type: "add",
           noDeleteButton: true,
           onClick: this.props.onClick,
-          disabled: this.props.shouldDisableSave ? this.props.shouldDisableSave() : false
+          disabled: buttonIsDisabled
         })
       })
     }), this.props.hideAbout ? this.props.form : /*#__PURE__*/React__default["default"].createElement(react.Tabs, {
