@@ -32,6 +32,8 @@ const {
 const { emptyResourceTileParams } = require("./empty-resource-tile");
 const { onToggleEvent, toggleParams } = require("./input-utils");
 const { icseFormTemplateParams } = require("./icse-form-template");
+const { statefulTabPanelParams } = require("./stateful-tab-panel");
+const { popoverWrapperParams } = require("./popover-wrapper");
 
 module.exports = {
   onToggleEvent,
@@ -61,4 +63,6 @@ module.exports = {
   icseSubFormParams,
   icseHeadingParams,
   statelessToggleFormParams,
+  statefulTabPanelParams,
+  popoverWrapperParams,
 };
