@@ -1,5 +1,9 @@
 const { assert } = require("chai");
-const { handleNumberDropdownEvent } = require("../src/lib/utils");
+const {
+  handleNumberDropdownEvent,
+  titleGroupParams,
+  formGroupParams,
+} = require("../src/lib/utils");
 
 describe("utils", () => {
   describe("handleNumberDropdownEvent", () => {
@@ -26,6 +30,24 @@ describe("utils", () => {
         },
         "it should return correct value"
       );
+    });
+  });
+  describe("titleGroupParams", () => {
+    it("should add a className", () => {
+      let expectedData =
+        "displayFlex alignItemsCenter widthOneHundredPercent  marginBottomSmall hi";
+      let actualData = titleGroupParams({ hide: false, className: "hi" });
+      assert.deepEqual(actualData, expectedData);
+    });
+  });
+  describe("formGroupParams", () => {
+    it("should remove marginBottom if noMarginBottom passed and add classNames", () => {
+      let expectedData = "displayFlex evenSpacing wrap alignItemsTop hi";
+      let actualData = formGroupParams({
+        noMarginBottom: true,
+        className: "hi",
+      });
+      assert.deepEqual(actualData, expectedData);
     });
   });
 });
