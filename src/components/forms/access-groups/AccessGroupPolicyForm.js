@@ -44,6 +44,7 @@ class AccessGroupPolicyForm extends React.Component {
         <IcseFormGroup>
           <IcseNameInput
             id={`${this.props.data.name}-name`}
+            componentName={`${this.props.data.name}-name`}
             value={this.state.name}
             onChange={this.handleInputChange}
             invalidText={this.props.invalidTextCallback(this.state, this.props)}

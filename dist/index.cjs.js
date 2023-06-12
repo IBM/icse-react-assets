@@ -9662,6 +9662,7 @@ class AccessGroupPolicyForm extends React__default["default"].Component {
   render() {
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       id: `${this.props.data.name}-name`,
+      componentName: `${this.props.data.name}-name`,
       value: this.state.name,
       onChange: this.handleInputChange,
       invalidText: this.props.invalidTextCallback(this.state, this.props),
@@ -10709,6 +10710,8 @@ class CbrExclusionAddressForm extends React.Component {
       id: this.props.data.name + "-cbr-account-id",
       componentName: this.props.data.name + "-cbr-zone",
       field: "account_id",
+      labelText: "Account ID" // need to override case on account id
+      ,
       value: this.state.account_id,
       onChange: this.handleInputChange,
       hideHelperText: true,

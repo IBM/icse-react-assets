@@ -55,6 +55,7 @@ class CbrExclusionAddressForm extends Component {
             id={this.props.data.name + "-cbr-account-id"}
             componentName={this.props.data.name + "-cbr-zone"}
             field={"account_id"}
+            labelText="Account ID" // need to override case on account id
             value={this.state.account_id}
             onChange={this.handleInputChange}
             hideHelperText={true}
