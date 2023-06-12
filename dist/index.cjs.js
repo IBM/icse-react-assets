@@ -1059,7 +1059,7 @@ const ToolTipWrapper = props => {
   delete allProps.tooltip;
   delete allProps.noLabelText;
   //check for labelText prop for components where it is a valid param
-  if (!props.noLabelText && props.labelText === undefined) {
+  if (!props.noLabelText && props.labelText === undefined && props.field === undefined) {
     throw new Error("ToolTipWrapper expects `props.labelText` when rendering labelText to be provided, got neither. To not render label text, use the `noLabelText` prop.");
   }
   // remove label text from components where it is not valid param
@@ -1078,7 +1078,7 @@ const ToolTipWrapper = props => {
     className: "cds--label labelRow"
   }, /*#__PURE__*/React__default["default"].createElement("label", {
     htmlFor: props.id
-  }, props.labelText), tooltip), props.children ? /*#__PURE__*/React__default["default"].cloneElement(props.children, {
+  }, props.labelText || lazyZ.titleCase(props.field)), tooltip), props.children ? /*#__PURE__*/React__default["default"].cloneElement(props.children, {
     // adjust props
     labelText: " ",
     // set labelText to empty
@@ -9784,7 +9784,9 @@ VsiLoadBalancerForm.propTypes = {
 class AccessGroupPolicyForm extends React__default["default"].Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = {
+      ...this.props.data
+    };
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -9820,22 +9822,20 @@ class AccessGroupPolicyForm extends React__default["default"].Component {
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: "name",
-      componentName: "policies",
+      id: `${this.props.data.name}-name`,
       value: this.state.name,
       onChange: this.handleInputChange,
-      labelText: "Name",
       invalidText: this.props.invalidTextCallback(this.state, this.props),
       invalid: this.props.invalidCallback(this.state, this.props),
-      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props)
+      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props),
+      forceKebabCase: true
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
       className: "marginBottomSmall"
     }, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
       name: "Resource Configuration",
       type: "subHeading"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: "resource",
-      componentName: "resource",
+      id: `${this.props.data.name}-resource`,
       tooltip: {
         content: "The resource of the policy definition",
         alignModal: "bottom-left"
@@ -9844,8 +9844,7 @@ class AccessGroupPolicyForm extends React__default["default"].Component {
       field: "resource",
       value: this.state.resources.resource,
       invalid: false,
-      onChange: this.handleInputResource,
-      labelText: "Resource"
+      onChange: this.handleInputResource
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       name: "resource_group",
       formName: `${lazyZ.kebabCase(this.props.data.name)}-agp-rg-select`,
@@ -9859,8 +9858,7 @@ class AccessGroupPolicyForm extends React__default["default"].Component {
       },
       disableInvalid: true // resource group is not required
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: "resource_instance_id",
-      componentName: "resource_instance_id",
+      id: `${this.props.data.name}-resource_instance_id`,
       isModal: this.props.isModal,
       field: "resource_instance_id",
       value: this.state.resources.resource_instance_id,
@@ -9868,26 +9866,26 @@ class AccessGroupPolicyForm extends React__default["default"].Component {
         content: "ID of a service instance to give permissions"
       },
       invalid: false,
-      labelText: "Resource Instance ID",
+      labelText: "Resource Instance ID" // needed to override Id in titleCase
+      ,
       onChange: this.handleInputResource
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: "service",
-      componentName: "service",
+      id: `${this.props.data.name}-service`,
       tooltip: {
         content: 'Name of the service type for the policy ex. "cloud-object-storage". You can run the `ibmcloud catalog service-marketplace` command to retrieve the service types. For account management services, you can find supported values in the following link.',
         link: "https://cloud.ibm.com/docs/account?topic=account-account-services#api-acct-mgmt",
         alignModal: "bottom-left",
         align: "top-left"
       },
-      labelText: "Service Type",
+      labelText: "Service Type" // override field, display text different
+      ,
       field: "service",
       value: this.state.resources.service,
       isModal: this.props.isModal,
       onChange: this.handleInputResource,
       invalid: false
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: "resource_type",
-      componentName: "resource_type",
+      id: `${this.props.data.name}-resource-type`,
       field: "resource_type",
       tooltip: {
         content: 'Name of the resource type for the policy ex. "resource-group"',
@@ -9896,8 +9894,7 @@ class AccessGroupPolicyForm extends React__default["default"].Component {
       invalid: false,
       value: this.state.resources.resource_type,
       isModal: this.props.isModal,
-      onChange: this.handleInputResource,
-      labelText: "Resource Type"
+      onChange: this.handleInputResource
     })));
   }
 }

@@ -1,6 +1,6 @@
 import '@carbon/styles/css/styles.css';
 import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, TextArea, PasswordInput, NumberInput, Dropdown, Tag } from '@carbon/react';
-import lazyZ, { kebabCase as kebabCase$4, isEmpty, buildNumberDropdownList, titleCase as titleCase$2, contains as contains$2, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$5, transpose, allFieldsNull, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual, parseIntFromZone, splat as splat$1, isWholeNumber as isWholeNumber$1, snakeCase as snakeCase$1, distinct, getObjectFromArray, isInRange as isInRange$1, eachKey } from 'lazy-z';
+import lazyZ, { titleCase as titleCase$2, kebabCase as kebabCase$4, isEmpty, buildNumberDropdownList, contains as contains$2, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$5, transpose, allFieldsNull, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual, parseIntFromZone, splat as splat$1, isWholeNumber as isWholeNumber$1, snakeCase as snakeCase$1, distinct, getObjectFromArray, isInRange as isInRange$1, eachKey } from 'lazy-z';
 import regexButWithWords from 'regex-but-with-words';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -1048,7 +1048,7 @@ const ToolTipWrapper = props => {
   delete allProps.tooltip;
   delete allProps.noLabelText;
   //check for labelText prop for components where it is a valid param
-  if (!props.noLabelText && props.labelText === undefined) {
+  if (!props.noLabelText && props.labelText === undefined && props.field === undefined) {
     throw new Error("ToolTipWrapper expects `props.labelText` when rendering labelText to be provided, got neither. To not render label text, use the `noLabelText` prop.");
   }
   // remove label text from components where it is not valid param
@@ -1067,7 +1067,7 @@ const ToolTipWrapper = props => {
     className: "cds--label labelRow"
   }, /*#__PURE__*/React.createElement("label", {
     htmlFor: props.id
-  }, props.labelText), tooltip), props.children ? /*#__PURE__*/React.cloneElement(props.children, {
+  }, props.labelText || titleCase$2(props.field)), tooltip), props.children ? /*#__PURE__*/React.cloneElement(props.children, {
     // adjust props
     labelText: " ",
     // set labelText to empty
@@ -9773,7 +9773,9 @@ VsiLoadBalancerForm.propTypes = {
 class AccessGroupPolicyForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = {
+      ...this.props.data
+    };
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -9809,22 +9811,20 @@ class AccessGroupPolicyForm extends React.Component {
   }
   render() {
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
-      id: "name",
-      componentName: "policies",
+      id: `${this.props.data.name}-name`,
       value: this.state.name,
       onChange: this.handleInputChange,
-      labelText: "Name",
       invalidText: this.props.invalidTextCallback(this.state, this.props),
       invalid: this.props.invalidCallback(this.state, this.props),
-      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props)
+      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props),
+      forceKebabCase: true
     })), /*#__PURE__*/React.createElement(IcseFormGroup, {
       className: "marginBottomSmall"
     }, /*#__PURE__*/React.createElement(IcseHeading, {
       name: "Resource Configuration",
       type: "subHeading"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
-      id: "resource",
-      componentName: "resource",
+      id: `${this.props.data.name}-resource`,
       tooltip: {
         content: "The resource of the policy definition",
         alignModal: "bottom-left"
@@ -9833,8 +9833,7 @@ class AccessGroupPolicyForm extends React.Component {
       field: "resource",
       value: this.state.resources.resource,
       invalid: false,
-      onChange: this.handleInputResource,
-      labelText: "Resource"
+      onChange: this.handleInputResource
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
       name: "resource_group",
       formName: `${kebabCase$4(this.props.data.name)}-agp-rg-select`,
@@ -9848,8 +9847,7 @@ class AccessGroupPolicyForm extends React.Component {
       },
       disableInvalid: true // resource group is not required
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
-      id: "resource_instance_id",
-      componentName: "resource_instance_id",
+      id: `${this.props.data.name}-resource_instance_id`,
       isModal: this.props.isModal,
       field: "resource_instance_id",
       value: this.state.resources.resource_instance_id,
@@ -9857,26 +9855,26 @@ class AccessGroupPolicyForm extends React.Component {
         content: "ID of a service instance to give permissions"
       },
       invalid: false,
-      labelText: "Resource Instance ID",
+      labelText: "Resource Instance ID" // needed to override Id in titleCase
+      ,
       onChange: this.handleInputResource
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
-      id: "service",
-      componentName: "service",
+      id: `${this.props.data.name}-service`,
       tooltip: {
         content: 'Name of the service type for the policy ex. "cloud-object-storage". You can run the `ibmcloud catalog service-marketplace` command to retrieve the service types. For account management services, you can find supported values in the following link.',
         link: "https://cloud.ibm.com/docs/account?topic=account-account-services#api-acct-mgmt",
         alignModal: "bottom-left",
         align: "top-left"
       },
-      labelText: "Service Type",
+      labelText: "Service Type" // override field, display text different
+      ,
       field: "service",
       value: this.state.resources.service,
       isModal: this.props.isModal,
       onChange: this.handleInputResource,
       invalid: false
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
-      id: "resource_type",
-      componentName: "resource_type",
+      id: `${this.props.data.name}-resource-type`,
       field: "resource_type",
       tooltip: {
         content: 'Name of the resource type for the policy ex. "resource-group"',
@@ -9885,8 +9883,7 @@ class AccessGroupPolicyForm extends React.Component {
       invalid: false,
       value: this.state.resources.resource_type,
       isModal: this.props.isModal,
-      onChange: this.handleInputResource,
-      labelText: "Resource Type"
+      onChange: this.handleInputResource
     })));
   }
 }

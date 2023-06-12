@@ -12,7 +12,7 @@ import PropTypes from "prop-types";
 class AccessGroupPolicyForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = { ...this.props.data };
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -45,16 +45,15 @@ class AccessGroupPolicyForm extends React.Component {
       <>
         <IcseFormGroup>
           <IcseNameInput
-            id="name"
-            componentName="policies"
+            id={`${this.props.data.name}-name`}
             value={this.state.name}
             onChange={this.handleInputChange}
-            labelText="Name"
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
             invalid={this.props.invalidCallback(this.state, this.props)}
             helperTextCallback={() =>
               this.props.helperTextCallback(this.state, this.props)
             }
+            forceKebabCase
           />
         </IcseFormGroup>
         <IcseFormGroup className="marginBottomSmall">
@@ -62,8 +61,7 @@ class AccessGroupPolicyForm extends React.Component {
         </IcseFormGroup>
         <IcseFormGroup>
           <IcseTextInput
-            id="resource"
-            componentName="resource"
+            id={`${this.props.data.name}-resource`}
             tooltip={{
               content: "The resource of the policy definition",
               alignModal: "bottom-left",
@@ -73,7 +71,6 @@ class AccessGroupPolicyForm extends React.Component {
             value={this.state.resources.resource}
             invalid={false}
             onChange={this.handleInputResource}
-            labelText="Resource"
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -93,8 +90,7 @@ class AccessGroupPolicyForm extends React.Component {
         </IcseFormGroup>
         <IcseFormGroup>
           <IcseTextInput
-            id="resource_instance_id"
-            componentName="resource_instance_id"
+            id={`${this.props.data.name}-resource_instance_id`}
             isModal={this.props.isModal}
             field="resource_instance_id"
             value={this.state.resources.resource_instance_id}
@@ -102,14 +98,13 @@ class AccessGroupPolicyForm extends React.Component {
               content: "ID of a service instance to give permissions",
             }}
             invalid={false}
-            labelText="Resource Instance ID"
+            labelText="Resource Instance ID" // needed to override Id in titleCase
             onChange={this.handleInputResource}
           />
         </IcseFormGroup>
         <IcseFormGroup>
           <IcseTextInput
-            id="service"
-            componentName="service"
+            id={`${this.props.data.name}-service`}
             tooltip={{
               content:
                 'Name of the service type for the policy ex. "cloud-object-storage". You can run the `ibmcloud catalog service-marketplace` command to retrieve the service types. For account management services, you can find supported values in the following link.',
@@ -117,7 +112,7 @@ class AccessGroupPolicyForm extends React.Component {
               alignModal: "bottom-left",
               align: "top-left",
             }}
-            labelText="Service Type"
+            labelText="Service Type" // override field, display text different
             field="service"
             value={this.state.resources.service}
             isModal={this.props.isModal}
@@ -127,8 +122,7 @@ class AccessGroupPolicyForm extends React.Component {
         </IcseFormGroup>
         <IcseFormGroup>
           <IcseTextInput
-            id="resource_type"
-            componentName="resource_type"
+            id={`${this.props.data.name}-resource-type`}
             field="resource_type"
             tooltip={{
               content:
@@ -139,7 +133,6 @@ class AccessGroupPolicyForm extends React.Component {
             value={this.state.resources.resource_type}
             isModal={this.props.isModal}
             onChange={this.handleInputResource}
-            labelText="Resource Type"
           />
         </IcseFormGroup>
       </>

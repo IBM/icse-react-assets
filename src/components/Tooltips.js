@@ -8,6 +8,7 @@ import {
 } from "@carbon/react";
 import { Information } from "@carbon/icons-react";
 import PropTypes from "prop-types";
+import { titleCase } from "lazy-z";
 
 /**
  * Render a form (duplicate from utils to prevent circular dependencies)
@@ -94,7 +95,11 @@ export const ToolTipWrapper = (props) => {
   delete allProps.tooltip;
   delete allProps.noLabelText;
   //check for labelText prop for components where it is a valid param
-  if (!props.noLabelText && props.labelText === undefined) {
+  if (
+    !props.noLabelText &&
+    props.labelText === undefined &&
+    props.field === undefined
+  ) {
     throw new Error(
       "ToolTipWrapper expects `props.labelText` when rendering labelText to be provided, got neither. To not render label text, use the `noLabelText` prop."
     );
@@ -114,7 +119,9 @@ export const ToolTipWrapper = (props) => {
       ) : (
         <>
           <div className="cds--label labelRow">
-            <label htmlFor={props.id}>{props.labelText}</label>
+            <label htmlFor={props.id}>
+              {props.labelText || titleCase(props.field)}
+            </label>
             {tooltip}
           </div>
           {props.children
