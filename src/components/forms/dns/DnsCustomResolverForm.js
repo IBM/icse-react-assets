@@ -36,7 +36,7 @@ class DnsCustomResolverForm extends React.Component {
    * @param {string} name name of the object key to change
    */
   handleToggle(name) {
-    this.setState({ [name]: !this.state[name] });
+    this.setState(this.toggleStateBoolean(name, this.state));
   }
 
   /**
@@ -56,7 +56,7 @@ class DnsCustomResolverForm extends React.Component {
             componentName={this.props.data.name + "-dns-custom-resolver"}
             value={this.state.name}
             onChange={this.handleInputChange}
-            hideHelperText={true}
+            hideHelperText
             invalidCallback={() =>
               this.props.invalidNameCallback(this.state, this.props)
             }
@@ -117,7 +117,7 @@ class DnsCustomResolverForm extends React.Component {
           value={this.state.description}
           labelText={"Description"}
           onChange={this.handleInputChange}
-          enableCounter={true}
+          enableCounter
           invalid={this.props.invalidDescriptionCallback(
             this.state,
             this.props
@@ -153,8 +153,6 @@ DnsCustomResolverForm.propTypes = {
     vpc: PropTypes.string,
     subnets: PropTypes.arrayOf(PropTypes.string),
   }),
-  invalidCallback: PropTypes.func.isRequired,
-  invalidTextCallback: PropTypes.func.isRequired,
   invalidNameCallback: PropTypes.func.isRequired,
   invalidNameTextCallback: PropTypes.func.isRequired,
   invalidDescriptionCallback: PropTypes.func.isRequired,

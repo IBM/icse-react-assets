@@ -54,18 +54,6 @@ export default {
       type: { required: true }, // required prop or not
       control: "none",
     },
-    invalidCallback: {
-      description:
-        "A function to determine if the value supplied is invalid and returns a single boolean",
-      type: { required: true }, // required prop or not
-      control: "none",
-    },
-    invalidTextCallback: {
-      description:
-        "A function to determine the invalid text displayed to the user and returns the string to display",
-      type: { required: true }, // required prop or not
-      control: "none",
-    },
     invalidNameCallback: {
       description:
         "A function to determine if the name field is invalid and returns a single boolean",
