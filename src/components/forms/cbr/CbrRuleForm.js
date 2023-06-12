@@ -13,6 +13,7 @@ import {
 import CbrContextForm from "./CbrContextForm";
 import CbrResourceAttributeForm from "./CbrResourceAttributeForm";
 import CbrTagForm from "./CbrTagForm";
+import { handleRuleInputChange } from "../../../lib/";
 
 /**
  * Context-based restriction rules
@@ -27,12 +28,7 @@ class CbrRuleForm extends Component {
   }
 
   handleInputChange(event) {
-    let { name, value } = event.target;
-    if (name === "enforcement_mode") {
-      this.setState({ [name]: value.toLowerCase() });
-    } else {
-      this.setState({ [name]: value });
-    }
+    this.setState(handleRuleInputChange(event, this.state));
   }
 
   render() {
@@ -74,6 +70,7 @@ class CbrRuleForm extends Component {
               this.state,
               this.props
             )}
+            forceKebabCase
           />
           <IcseSelect
             id={this.props.data.name + "-cbr-rule-enforcement-mode"}
@@ -98,9 +95,9 @@ class CbrRuleForm extends Component {
           <IcseTextInput
             id={this.props.data.name + "-cbr-rule-api-type-id"}
             componentName={this.props.data.name + "-cbr-rule"}
+            labelText="API Type ID" // needed to override title case capitalization
             field={"api_type_id"}
             value={this.state.api_type_id}
-            labelText={"API Type ID"}
             onChange={this.handleInputChange}
             invalidCallback={() =>
               this.props.invalidCallback("api_type_id", this.state, this.props)
@@ -118,7 +115,7 @@ class CbrRuleForm extends Component {
             className="textInputWide"
             name="description"
             value={this.state.description}
-            labelText={"Description"}
+            labelText="Description"
             onChange={this.handleInputChange}
             invalid={this.props.invalidCallback(
               "description",

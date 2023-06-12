@@ -16,9 +16,12 @@ class CbrContextForm extends Component {
     buildFormFunctions(this);
   }
 
+  /**
+   * handle input change
+   * @param {*} event
+   */
   handleInputChange(event) {
-    let { name, value } = event.target;
-    this.setState({ [name]: value });
+    this.setState(this.eventTargetToNameAndValue(event));
   }
 
   render() {
@@ -37,11 +40,11 @@ class CbrContextForm extends Component {
             this.props
           )}
           hideHelperText={true}
+          forceKebabCase
         />
         <IcseTextInput
           id={this.props.data.name + "-cbr-context-value"}
           componentName={this.props.arrayParentName + "-cbr-context"}
-          labelText={"Value"}
           field="value"
           value={this.state.value}
           onChange={this.handleInputChange}
