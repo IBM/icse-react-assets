@@ -1049,7 +1049,7 @@ const ToolTipWrapper = props => {
   delete allProps.noLabelText;
   //check for labelText prop for components where it is a valid param
   if (!props.noLabelText && props.labelText === undefined && props.field === undefined) {
-    throw new Error("ToolTipWrapper expects `props.labelText` when rendering labelText to be provided, got neither. To not render label text, use the `noLabelText` prop.");
+    throw new Error("ToolTipWrapper expects `props.labelText` or `props.field` when rendering labelText to be provided, got neither. To not render label text, use the `noLabelText` prop.");
   }
   // remove label text from components where it is not valid param
   if (props.noLabelText) delete allProps.labelText;else allProps.labelText = " ";
