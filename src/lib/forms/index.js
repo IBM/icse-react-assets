@@ -3,7 +3,6 @@ const {
   cbrValuePlaceholder,
   handleExclusionAddressInputChange,
 } = require("./cbr-utils");
-
 const {
   getValidAdminPassword,
   isNullOrEmptyString,
