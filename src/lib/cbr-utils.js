@@ -118,7 +118,70 @@ function cbrValueInvalid(type, value) {
   return invalid;
 }
 
+const cbrTypeNameMap = {
+  ipAddress: "IP Address",
+  ipRange: "IP Range",
+  subnet: "Subnet",
+  vpc: "VPC",
+  serviceRef: "Service Ref",
+};
+
+const cbrNameTypeMap = {
+  "IP Address": "ipAddress",
+  "IP Range": "ipRange",
+  Subnet: "subnet",
+  VPC: "vpc",
+  "Service Ref": "serviceRef",
+};
+
+/**
+ * return a placeholder for value on exclusion/address form
+ * @param {string} type
+ * @returns
+ */
+function cbrValuePlaceholder(type) {
+  return type === "ipAddress"
+    ? "x.x.x.x"
+    : type === "ipRange"
+    ? "x.x.x.x-x.x.x.x"
+    : `my-cbr-zone-${type}`;
+}
+
+/**
+ * handle input change for cbr rules
+ * @param {*} event
+ * @param {Object} stateData
+ * @returns object
+ */
+function handleRuleInputChange(event, stateData) {
+  let { name, value } = event.target;
+  let state = { ...stateData };
+  if (name === "enforcement_mode") {
+    state[name] = value.toLowerCase();
+  } else {
+    state[name] = value;
+  }
+  return state;
+}
+
+/**
+ * handle exclusion and address input change
+ * @param {*} event
+ * @param {Object} stateData
+ */
+function handleExclusionAddressInputChange(event, stateData) {
+  let { name, value } = event.target;
+  let state = { ...stateData };
+  if (name === "type") state[name] = cbrNameTypeMap[value];
+  else state[name] = value;
+  return state;
+}
+
 module.exports = {
   cbrInvalid,
   cbrValueInvalid,
+  cbrValuePlaceholder,
+  handleRuleInputChange,
+  cbrTypeNameMap,
+  handleExclusionAddressInputChange,
 };

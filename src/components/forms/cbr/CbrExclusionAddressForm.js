@@ -7,17 +7,13 @@ import {
 import { IcseFormGroup } from "../../Utils";
 import { IcseNameInput, IcseTextInput } from "../../Inputs";
 import { IcseSelect } from "../../Dropdowns";
-import { cbrInvalid, cbrValueInvalid } from "../../../lib/cbr-utils";
-import { contains } from "lazy-z";
-
-const typeNameMap = {
-  ipAddress: "IP Address",
-  ipRange: "IP Range",
-  subnet: "Subnet",
-  vpc: "VPC",
-  serviceRef: "Service Ref",
-};
-
+import {
+  cbrInvalid,
+  cbrTypeNameMap,
+  cbrValueInvalid,
+  cbrValuePlaceholder,
+  handleExclusionAddressInputChange,
+} from "../../../lib/cbr-utils";
 /**
  * Context-based restriction addresses / exclusions
  */
@@ -30,13 +26,12 @@ class CbrExclusionAddressForm extends Component {
     buildFormFunctions(this);
   }
 
+  /**
+   * handle input change
+   * @param {*} event
+   */
   handleInputChange(event) {
-    let { name, value } = event.target;
-    if (name === "type")
-      value = Object.keys(typeNameMap).find(
-        (key) => typeNameMap[key] === value
-      );
-    this.setState({ [name]: value });
+    this.setState(handleExclusionAddressInputChange(event, this.state));
   }
 
   render() {
@@ -54,13 +49,13 @@ class CbrExclusionAddressForm extends Component {
             }
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
             hideHelperText={true}
+            forceKebabCase
           />
           <IcseTextInput
             id={this.props.data.name + "-cbr-account-id"}
             componentName={this.props.data.name + "-cbr-zone"}
             field={"account_id"}
             value={this.state.account_id}
-            labelText={"Account ID"}
             onChange={this.handleInputChange}
             hideHelperText={true}
             className="fieldWidthSmaller"
@@ -70,7 +65,6 @@ class CbrExclusionAddressForm extends Component {
             id={this.props.data.name + "-cbr-zone-location"}
             componentName={this.props.data.name + "cbr-zone-location"}
             className={"fieldWidthSmaller"}
-            labelText={"Location"}
             field="location"
             value={this.state.location}
             onChange={this.handleInputChange}
@@ -83,7 +77,6 @@ class CbrExclusionAddressForm extends Component {
             id={this.props.data.name + "-cbr-zone-service-name"}
             componentName={this.props.data.name + "cbr-zone-service-name"}
             className={"fieldWidthSmaller"}
-            labelText={"Service Name"}
             field="service_name"
             value={this.state.service_name}
             onChange={this.handleInputChange}
@@ -94,7 +87,6 @@ class CbrExclusionAddressForm extends Component {
             id={this.props.data.name + "-cbr-zone-service-instance"}
             componentName={this.props.data.name + "cbr-zone-service-instance"}
             className={"fieldWidthSmaller"}
-            labelText={"Service Instance"}
             field="service_instance"
             value={this.state.service_instance}
             onChange={this.handleInputChange}
@@ -105,7 +97,6 @@ class CbrExclusionAddressForm extends Component {
             id={this.props.data.name + "-cbr-zone-service-type"}
             componentName={this.props.data.name + "cbr-zone-service-type"}
             className={"fieldWidthSmaller"}
-            labelText={"Service Type"}
             field="service_type"
             value={this.state.service_type}
             onChange={this.handleInputChange}
@@ -119,7 +110,7 @@ class CbrExclusionAddressForm extends Component {
             name="type"
             formName={this.props.data.name + "cbr-zone-type"}
             groups={["IP Address", "IP Range", "Subnet", "VPC", "Service Ref"]}
-            value={typeNameMap[this.state.type]}
+            value={cbrTypeNameMap[this.state.type]}
             handleInputChange={this.handleInputChange}
             invalidText="Select a Type"
             className="fieldWidthSmaller"
@@ -128,18 +119,11 @@ class CbrExclusionAddressForm extends Component {
             id={this.props.data.name + "-cbr-zone-value"}
             componentName={this.props.data.name + "cbr-zone-value"}
             className={"fieldWidthSmaller"}
-            labelText={"Value"}
             field="value"
             value={this.state.value}
             onChange={this.handleInputChange}
             hideHelperText={true}
-            placeholder={
-              this.state.type === "ipAddress"
-                ? "x.x.x.x"
-                : this.state.type === "ipRange"
-                ? "x.x.x.x-x.x.x.x"
-                : `my-cbr-zone-${this.state.type}`
-            }
+            placeholder={cbrValuePlaceholder(this.state.type)}
             {...cbrValueInvalid(this.state.type, this.state.value)}
           />
         </IcseFormGroup>

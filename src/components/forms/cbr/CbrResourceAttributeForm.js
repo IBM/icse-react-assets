@@ -16,9 +16,12 @@ class CbrResourceAttributeForm extends Component {
     buildFormFunctions(this);
   }
 
+  /**
+   * handle input change
+   * @param {*} event
+   */
   handleInputChange(event) {
-    let { name, value } = event.target;
-    this.setState({ [name]: value });
+    this.setState(this.eventTargetToNameAndValue(event));
   }
 
   render() {
@@ -36,12 +39,12 @@ class CbrResourceAttributeForm extends Component {
             this.state,
             this.props
           )}
-          hideHelperText={true}
+          hideHelperText
+          forceKebabCase
         />
         <IcseTextInput
           id={this.props.data.name + "-cbr-ra-value"}
           componentName={this.props.data.name + "-cbr-ra"}
-          labelText={"Value"}
           field="value"
           value={this.state.value}
           onChange={this.handleInputChange}
@@ -53,7 +56,7 @@ class CbrResourceAttributeForm extends Component {
             this.state,
             this.props
           )}
-          hideHelperText={true}
+          hideHelperText
         />
       </IcseFormGroup>
     );

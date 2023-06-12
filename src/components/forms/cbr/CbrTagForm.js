@@ -19,9 +19,12 @@ class CbrTagForm extends Component {
     buildFormFunctions(this);
   }
 
+  /**
+   * handle input change
+   * @param {*} event
+   */
   handleInputChange(event) {
-    let { name, value } = event.target;
-    this.setState({ [name]: value });
+    this.setState(this.eventTargetToNameAndValue(event));
   }
 
   render() {
@@ -40,13 +43,13 @@ class CbrTagForm extends Component {
             this.state,
             this.props
           )}
-          hideHelperText={true}
+          hideHelperText
+          forceKebabCase
         />
         <IcseTextInput
           id={this.props.data.name + "-cbr-tag-operator"}
           componentName={this.props.data.name + "-cbr-tag"}
           className={"fieldWidthSmaller"}
-          labelText={"Operator"}
           field="operator"
           value={this.state.operator}
           onChange={this.handleInputChange}
@@ -58,13 +61,12 @@ class CbrTagForm extends Component {
             this.state,
             this.props
           )}
-          hideHelperText={true}
+          hideHelperText
         />
         <IcseTextInput
           id={this.props.data.name + "-cbr-tag-value"}
           componentName={this.props.data.name + "-cbr-tag"}
           className={"fieldWidthSmaller"}
-          labelText={"Value"}
           field="value"
           value={this.state.value}
           onChange={this.handleInputChange}
@@ -76,7 +78,7 @@ class CbrTagForm extends Component {
             this.state,
             this.props
           )}
-          hideHelperText={true}
+          hideHelperText
         />
       </IcseFormGroup>
     );

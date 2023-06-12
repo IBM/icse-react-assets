@@ -133,7 +133,7 @@ IcseHeading.propTypes = {
  * All of the toggle form functionality without injecting anything on render
  */
 export const StatelessToggleForm = (props) => {
-  let { headingType, dynamicRenderHide } = statelessToggleFormParams(props);
+  let { type, dynamicRenderHide } = statelessToggleFormParams(props);
   return props.hideTitle ? (
     props.children
   ) : (
@@ -148,7 +148,7 @@ export const StatelessToggleForm = (props) => {
           />
         )}
         <IcseHeading
-          type={headingType}
+          type={type}
           name={props.name}
           buttons={
             <DynamicRender

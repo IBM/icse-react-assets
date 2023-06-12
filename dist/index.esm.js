@@ -1,10 +1,10 @@
 import '@carbon/styles/css/styles.css';
 import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, TextArea, PasswordInput, NumberInput, Dropdown, Tag } from '@carbon/react';
 import lazyZ, { kebabCase as kebabCase$4, isEmpty, buildNumberDropdownList, titleCase as titleCase$2, contains as contains$2, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$5, transpose, allFieldsNull, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual, parseIntFromZone, splat as splat$1, isWholeNumber as isWholeNumber$1, snakeCase as snakeCase$1, distinct, getObjectFromArray, isInRange as isInRange$1, eachKey } from 'lazy-z';
+import regexButWithWords from 'regex-but-with-words';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Information, Save, Add, ChevronDown, ChevronRight, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt, Password } from '@carbon/icons-react';
-import regexButWithWords from 'regex-but-with-words';
 import { contains as contains$3 } from 'regex-but-with-words/lib/utils';
 
 function styleInject(css, ref) {
@@ -642,6 +642,174 @@ var popoverWrapper = {
 };
 
 const {
+  isNullOrEmptyString: isNullOrEmptyString$3,
+  isIpv4CidrOrAddress: isIpv4CidrOrAddress$1
+} = lazyZ;
+const {
+  RegexButWithWords: RegexButWithWords$2
+} = regexButWithWords;
+const ipRangeExpression = new RegexButWithWords$2().wordBoundary().group(exp => {
+  exp.group(exp => {
+    exp.group(exp => {
+      exp.literal("2").set("1-5").set("0-6");
+    }).or().group(exp => {
+      exp.literal("1").digit(2);
+    }).or().group(exp => {
+      exp.digit(1, 2);
+    });
+  }).literal(".");
+}, 3).group(exp => {
+  exp.group(exp => {
+    exp.literal("2").set("1-5").set("0-6");
+  }).or().group(exp => {
+    exp.literal("1").digit(2);
+  }).or().group(exp => {
+    exp.digit(1, 2);
+  });
+}).literal("-").group(exp => {
+  exp.group(exp => {
+    exp.group(exp => {
+      exp.literal("2").set("1-5").set("0-6");
+    }).or().group(exp => {
+      exp.literal("1").digit(2);
+    }).or().group(exp => {
+      exp.digit(1, 2);
+    });
+  }).literal(".");
+}, 3).group(exp => {
+  exp.group(exp => {
+    exp.literal("2").set("1-5").set("0-6");
+  }).or().group(exp => {
+    exp.literal("1").digit(2);
+  }).or().group(exp => {
+    exp.digit(1, 2);
+  });
+}).wordBoundary().done("g");
+
+/**
+ * create cbr invalid field sta
+ * @param {*} field
+ * @param {*} value
+ * @returns {Object} invalid boolean invalidText string
+ */
+function cbrInvalid(field, value) {
+  let invalid = {
+    invalid: false,
+    invalidText: ""
+  };
+  if (!isNullOrEmptyString$3(value) && (value.match(/^[0-9a-z-]+$/) === null || value.length >= 128)) {
+    invalid.invalid = true;
+    invalid.invalidText = `Invalid ${field}. Value must match regex expression /^[0-9a-z-]+$/.`;
+  }
+  return invalid;
+}
+
+/**
+ * cbr value is invalid
+ * @param {*} type
+ * @param {*} value
+ * @returns {Object} invalid boolean invalidText string
+ */
+function cbrValueInvalid(type, value) {
+  let invalid = {
+    invalid: false,
+    invalidText: ""
+  };
+  if (isNullOrEmptyString$3(value)) {
+    invalid.invalid = true;
+    invalid.invalidText = `Invalid value for type ${type}. Cannot be empty string.`;
+  } else if (type === "ipAddress") {
+    if (!isIpv4CidrOrAddress$1(value) || value.includes("/")) {
+      invalid.invalid = true;
+      invalid.invalidText = `Invalid value for type ${type}. Value must be a valid IPV4 Address.`;
+    }
+  } else if (type === "ipRange") {
+    if (value.match(ipRangeExpression) === null) {
+      invalid.invalid = true;
+      invalid.invalidText = `Invalid value for type ${type}. Value must be a range of IPV4 Addresses.`;
+    }
+  } else {
+    invalid = cbrInvalid(type, value);
+  }
+  return invalid;
+}
+const cbrTypeNameMap = {
+  ipAddress: "IP Address",
+  ipRange: "IP Range",
+  subnet: "Subnet",
+  vpc: "VPC",
+  serviceRef: "Service Ref"
+};
+const cbrNameTypeMap = {
+  "IP Address": "ipAddress",
+  "IP Range": "ipRange",
+  Subnet: "subnet",
+  VPC: "vpc",
+  "Service Ref": "serviceRef"
+};
+
+/**
+ * return a placeholder for value on exclusion/address form
+ * @param {string} type
+ * @returns
+ */
+function cbrValuePlaceholder$1(type) {
+  return type === "ipAddress" ? "x.x.x.x" : type === "ipRange" ? "x.x.x.x-x.x.x.x" : `my-cbr-zone-${type}`;
+}
+
+/**
+ * handle input change for cbr rules
+ * @param {*} event
+ * @param {Object} stateData
+ * @returns object
+ */
+function handleRuleInputChange$1(event, stateData) {
+  let {
+    name,
+    value
+  } = event.target;
+  let state = {
+    ...stateData
+  };
+  if (name === "enforcement_mode") {
+    state[name] = value.toLowerCase();
+  } else {
+    state[name] = value;
+  }
+  return state;
+}
+
+/**
+ * handle exclusion and address input change
+ * @param {*} event
+ * @param {Object} stateData
+ */
+function handleExclusionAddressInputChange(event, stateData) {
+  let {
+    name,
+    value
+  } = event.target;
+  let state = {
+    ...stateData
+  };
+  if (name === "type") state[name] = cbrNameTypeMap[value];else state[name] = value;
+  return state;
+}
+var cbrUtils = {
+  cbrInvalid,
+  cbrValueInvalid,
+  cbrValuePlaceholder: cbrValuePlaceholder$1,
+  handleRuleInputChange: handleRuleInputChange$1,
+  cbrTypeNameMap,
+  handleExclusionAddressInputChange
+};
+var cbrUtils_1 = cbrUtils.cbrInvalid;
+var cbrUtils_2 = cbrUtils.cbrValueInvalid;
+var cbrUtils_3 = cbrUtils.cbrValuePlaceholder;
+var cbrUtils_5 = cbrUtils.cbrTypeNameMap;
+var cbrUtils_6 = cbrUtils.handleExclusionAddressInputChange;
+
+const {
   toggleMarginBottom,
   addClassName,
   prependEmptyStringWhenNull,
@@ -694,6 +862,10 @@ const {
 const {
   popoverWrapperParams
 } = popoverWrapper;
+const {
+  handleRuleInputChange,
+  cbrValuePlaceholder
+} = cbrUtils;
 var lib = {
   onToggleEvent,
   toggleParams,
@@ -723,7 +895,9 @@ var lib = {
   icseHeadingParams,
   statelessToggleFormParams,
   statefulTabPanelParams,
-  popoverWrapperParams
+  popoverWrapperParams,
+  handleRuleInputChange,
+  cbrValuePlaceholder
 };
 var lib_3 = lib.docTextFieldParams;
 var lib_4 = lib.handleNumberDropdownEvent;
@@ -739,6 +913,7 @@ var lib_20 = lib.deleteButtonParams;
 var lib_22 = lib.icseFormTemplateParams;
 var lib_28 = lib.statefulTabPanelParams;
 var lib_29 = lib.popoverWrapperParams;
+var lib_30 = lib.handleRuleInputChange;
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -1039,7 +1214,7 @@ IcseHeading.propTypes = {
  */
 const StatelessToggleForm = props => {
   let {
-    headingType,
+    type,
     dynamicRenderHide
   } = utils_6(props);
   return props.hideTitle ? props.children : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(TitleGroup, {
@@ -1052,7 +1227,7 @@ const StatelessToggleForm = props => {
     type: props.iconType,
     open: props.hide === false
   }), /*#__PURE__*/React.createElement(IcseHeading, {
-    type: headingType,
+    type: type,
     name: props.name,
     buttons: /*#__PURE__*/React.createElement(DynamicRender, {
       hide: dynamicRenderHide,
@@ -3859,9 +4034,9 @@ const {
   isInRange
 } = lazyZ;
 const {
-  RegexButWithWords: RegexButWithWords$2
+  RegexButWithWords: RegexButWithWords$1
 } = regexButWithWords;
-const commaSeparatedIpListExp = new RegexButWithWords$2().stringBegin().group(exp => {
+const commaSeparatedIpListExp = new RegexButWithWords$1().stringBegin().group(exp => {
   exp.group(exp => {
     exp.wordBoundary().group(exp => {
       exp.group(exp => {
@@ -3892,7 +4067,7 @@ const commaSeparatedIpListExp = new RegexButWithWords$2().stringBegin().group(ex
     });
   }).lazy();
 }).anyNumber().stringEnd().done("gm");
-const commaSeparatedIpListExpNoCidr = new RegexButWithWords$2().stringBegin().group(exp => {
+const commaSeparatedIpListExpNoCidr = new RegexButWithWords$1().stringBegin().group(exp => {
   exp.group(exp => {
     exp.wordBoundary().group(exp => {
       exp.group(exp => {
@@ -3917,7 +4092,7 @@ const commaSeparatedIpListExpNoCidr = new RegexButWithWords$2().stringBegin().gr
  * @param {*} value
  * @returns {boolean} true if null or empty string
  */
-function isNullOrEmptyString$3(value) {
+function isNullOrEmptyString$2(value) {
   return value === null || value === "";
 }
 
@@ -3929,7 +4104,7 @@ function isNullOrEmptyString$3(value) {
  * @returns {boolean} true if invalid
  */
 function isRangeInvalid(value, min, max) {
-  if (isNullOrEmptyString$3(value)) return false;
+  if (isNullOrEmptyString$2(value)) return false;
   value = parseFloat(value);
   if (!isWholeNumber(value) || !isInRange(value, min, max)) {
     return true;
@@ -3943,7 +4118,7 @@ function isRangeInvalid(value, min, max) {
  * @returns {boolean} true if invalid
  */
 function isIpStringInvalid(value) {
-  if (!isNullOrEmptyString$3(value) && value.match(commaSeparatedIpListExp) === null) {
+  if (!isNullOrEmptyString$2(value) && value.match(commaSeparatedIpListExp) === null) {
     return true;
   }
   return false;
@@ -3955,7 +4130,7 @@ function isIpStringInvalid(value) {
  * @returns {boolean} true if invalid
  */
 function isIpStringInvalidNoCidr(value) {
-  if (!isNullOrEmptyString$3(value) && value.match(commaSeparatedIpListExpNoCidr) === null) {
+  if (!isNullOrEmptyString$2(value) && value.match(commaSeparatedIpListExpNoCidr) === null) {
     return true;
   }
   return false;
@@ -4316,19 +4491,19 @@ F5VsiForm.propTypes = {
 };
 
 const {
-  RegexButWithWords: RegexButWithWords$1
+  RegexButWithWords
 } = regexButWithWords;
 const {
-  isNullOrEmptyString: isNullOrEmptyString$2
+  isNullOrEmptyString: isNullOrEmptyString$1
 } = lazyZ;
-const urlValidationExp = new RegexButWithWords$1().group(exp => {
+const urlValidationExp = new RegexButWithWords().group(exp => {
   exp.literal("ftp").or().literal("http").literal("s").lazy();
 }).literal("://").group("www.").lazy().group(exp => {
   exp.negatedSet('"\\/').oneOrMore().literal(".");
 }).group(exp => {
   exp.negatedSet('"\\/').oneOrMore().literal(".");
 }).oneOrMore().negatedSet('"\\/.').oneOrMore().literal("/").negatedSet(' "').anyNumber().stringEnd().done("g");
-const tmosAdminPasswordValidationExp = new RegexButWithWords$1().stringBegin().look.ahead(exp => {
+const tmosAdminPasswordValidationExp = new RegexButWithWords().stringBegin().look.ahead(exp => {
   exp.any().anyNumber().set("a-z");
 }).look.ahead(exp => {
   exp.any().anyNumber().set("A-Z");
@@ -4342,7 +4517,7 @@ const tmosAdminPasswordValidationExp = new RegexButWithWords$1().stringBegin().l
  * @returns {boolean} true when url is valid and not empty, false when invalid
  */
 function isValidUrl(url) {
-  if (isNullOrEmptyString$2(url) || url === "null") return true;
+  if (isNullOrEmptyString$1(url) || url === "null") return true;
   return url.match(urlValidationExp) !== null;
 }
 
@@ -4352,7 +4527,7 @@ function isValidUrl(url) {
  * @returns {boolean} true when password is valid
  */
 function isValidTmosAdminPassword(password) {
-  if (isNullOrEmptyString$2(password)) return true;else return password.match(tmosAdminPasswordValidationExp) !== null;
+  if (isNullOrEmptyString$1(password)) return true;else return password.match(tmosAdminPasswordValidationExp) !== null;
 }
 
 /**
@@ -4411,7 +4586,7 @@ function getValidAdminPassword(length) {
 }
 var f5Utils = {
   getValidAdminPassword,
-  isNullOrEmptyString: isNullOrEmptyString$2,
+  isNullOrEmptyString: isNullOrEmptyString$1,
   isValidTmosAdminPassword,
   isValidUrl
 };
@@ -5286,9 +5461,9 @@ const {
   capitalize,
   titleCase,
   kebabCase,
-  isIpv4CidrOrAddress: isIpv4CidrOrAddress$1,
+  isIpv4CidrOrAddress,
   validPortRange,
-  isNullOrEmptyString: isNullOrEmptyString$1,
+  isNullOrEmptyString,
   contains
 } = require("lazy-z");
 
@@ -5558,7 +5733,7 @@ const NetworkingRuleTextField = props => {
     placeholder: "x.x.x.x",
     invalidText: "Please provide a valid IPV4 IP address or CIDR notation.",
     invalidCallback: () => {
-      return isIpv4CidrOrAddress$1(props.state[props.name]) === false;
+      return isIpv4CidrOrAddress(props.state[props.name]) === false;
     }
   });
 };
@@ -5582,7 +5757,7 @@ const NetworkingRuleProtocolTextField = props => {
     placeholder: String(props.state.rule[props.name]),
     value: props.state.rule[props.name] || "",
     onChange: e => props.onChange(props.name, e),
-    invalid: validPortRange(props.name, props.state.rule[props.name] || -1) === false && isNullOrEmptyString$1(props.state.rule[props.name]) === false,
+    invalid: validPortRange(props.name, props.state.rule[props.name] || -1) === false && isNullOrEmptyString(props.state.rule[props.name]) === false,
     invalidText: contains(["type", "code"], props.name) ? `0 to ${props.name === "type" ? 254 : 255}` : "1 to 65535",
     className: "fieldWidthSmaller"
   });
@@ -8733,8 +8908,8 @@ class VpnServerForm extends Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: !isNullOrEmptyString$5(this.state.port) && (!isWholeNumber$1(Number(this.state.port)) || this.state.port < 1 || this.state.port > 65535),
-      invalidText: "1 to 65535",
+      invalid: !isNullOrEmptyString$5(this.state.port) && (!isWholeNumber$1(parseFloat(this.state.port)) || this.state.port < 1 || this.state.port > 65535),
+      invalidText: "Must be a whole number between 1 and 65535.",
       className: "fieldWidthSmaller leftTextAlign"
     }), /*#__PURE__*/React.createElement(IcseSelect, {
       formName: this.props.data.name + "-vpn-server-protocol",
@@ -8756,15 +8931,13 @@ class VpnServerForm extends Component {
       placeholder: "600",
       label: "Client Idle Timeout (s)",
       allowEmpty: true,
-      value: this.state.client_idle_timeout || ""
-      //step={1}
-      ,
-      onChange: this.handleInputChange
-      //hideSteppers={true}
-      ,
+      value: this.state.client_idle_timeout || "",
+      step: 1,
+      onChange: this.handleInputChange,
+      hideSteppers: true,
       min: 0,
       max: 28800,
-      invalid: !isNullOrEmptyString$5(this.state.client_idle_timeout) && (!isWholeNumber$1(Number(this.state.client_idle_timeout)) || this.state.client_idle_timeout < 0 || this.state.client_idle_timeout > 28000),
+      invalid: !isNullOrEmptyString$5(this.state.client_idle_timeout) && (!isWholeNumber$1(parseFloat(this.state.client_idle_timeout)) || this.state.client_idle_timeout < 0 || this.state.client_idle_timeout > 28800),
       invalidText: "Must be a whole number between 0 and 28800.",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
@@ -10048,14 +10221,13 @@ class CbrContextForm extends Component {
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
   }
+
+  /**
+   * handle input change
+   * @param {*} event
+   */
   handleInputChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    this.setState({
-      [name]: value
-    });
+    this.setState(this.eventTargetToNameAndValue(event));
   }
   render() {
     return /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
@@ -10065,11 +10237,11 @@ class CbrContextForm extends Component {
       onChange: this.handleInputChange,
       invalidCallback: () => this.props.invalidNameCallback(this.state, this.props),
       invalidText: this.props.invalidNameTextCallback(this.state, this.props),
-      hideHelperText: true
+      hideHelperText: true,
+      forceKebabCase: true
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: this.props.data.name + "-cbr-context-value",
       componentName: this.props.arrayParentName + "-cbr-context",
-      labelText: "Value",
       field: "value",
       value: this.state.value,
       onChange: this.handleInputChange,
@@ -10107,14 +10279,13 @@ class CbrResourceAttributeForm extends Component {
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
   }
+
+  /**
+   * handle input change
+   * @param {*} event
+   */
   handleInputChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    this.setState({
-      [name]: value
-    });
+    this.setState(this.eventTargetToNameAndValue(event));
   }
   render() {
     return /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
@@ -10124,11 +10295,11 @@ class CbrResourceAttributeForm extends Component {
       onChange: this.handleInputChange,
       invalidCallback: () => this.props.invalidNameCallback(this.state, this.props),
       invalidText: this.props.invalidNameTextCallback(this.state, this.props),
-      hideHelperText: true
+      hideHelperText: true,
+      forceKebabCase: true
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: this.props.data.name + "-cbr-ra-value",
       componentName: this.props.data.name + "-cbr-ra",
-      labelText: "Value",
       field: "value",
       value: this.state.value,
       onChange: this.handleInputChange,
@@ -10170,14 +10341,13 @@ class CbrTagForm extends Component {
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
   }
+
+  /**
+   * handle input change
+   * @param {*} event
+   */
   handleInputChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    this.setState({
-      [name]: value
-    });
+    this.setState(this.eventTargetToNameAndValue(event));
   }
   render() {
     return /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
@@ -10188,12 +10358,12 @@ class CbrTagForm extends Component {
       onChange: this.handleInputChange,
       invalidCallback: () => this.props.invalidNameCallback(this.state, this.props),
       invalidText: this.props.invalidNameTextCallback(this.state, this.props),
-      hideHelperText: true
+      hideHelperText: true,
+      forceKebabCase: true
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: this.props.data.name + "-cbr-tag-operator",
       componentName: this.props.data.name + "-cbr-tag",
       className: "fieldWidthSmaller",
-      labelText: "Operator",
       field: "operator",
       value: this.state.operator,
       onChange: this.handleInputChange,
@@ -10204,7 +10374,6 @@ class CbrTagForm extends Component {
       id: this.props.data.name + "-cbr-tag-value",
       componentName: this.props.data.name + "-cbr-tag",
       className: "fieldWidthSmaller",
-      labelText: "Value",
       field: "value",
       value: this.state.value,
       onChange: this.handleInputChange,
@@ -10249,19 +10418,7 @@ class CbrRuleForm extends Component {
     buildFormFunctions(this);
   }
   handleInputChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    if (name === "enforcement_mode") {
-      this.setState({
-        [name]: value.toLowerCase()
-      });
-    } else {
-      this.setState({
-        [name]: value
-      });
-    }
+    this.setState(lib_30(event, this.state));
   }
   render() {
     // set up props for subforms
@@ -10289,7 +10446,8 @@ class CbrRuleForm extends Component {
       onChange: this.handleInputChange,
       hideHelperText: true,
       invalidCallback: () => this.props.invalidNameCallback(this.state, this.props),
-      invalidText: this.props.invalidNameTextCallback(this.state, this.props)
+      invalidText: this.props.invalidNameTextCallback(this.state, this.props),
+      forceKebabCase: true
     }), /*#__PURE__*/React.createElement(IcseSelect, {
       id: this.props.data.name + "-cbr-rule-enforcement-mode",
       name: "enforcement_mode",
@@ -10304,9 +10462,10 @@ class CbrRuleForm extends Component {
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: this.props.data.name + "-cbr-rule-api-type-id",
       componentName: this.props.data.name + "-cbr-rule",
+      labelText: "API Type ID" // needed to override title case capitalization
+      ,
       field: "api_type_id",
       value: this.state.api_type_id,
-      labelText: "API Type ID",
       onChange: this.handleInputChange,
       invalidCallback: () => this.props.invalidCallback("api_type_id", this.state, this.props),
       invalidText: this.props.invalidTextCallback("api_type_id", this.state, this.props)
@@ -10470,113 +10629,6 @@ CbrRuleForm.propTypes = {
   }).isRequired
 };
 
-const {
-  isNullOrEmptyString,
-  isIpv4CidrOrAddress
-} = lazyZ;
-const {
-  RegexButWithWords
-} = regexButWithWords;
-const ipRangeExpression = new RegexButWithWords().wordBoundary().group(exp => {
-  exp.group(exp => {
-    exp.group(exp => {
-      exp.literal("2").set("1-5").set("0-6");
-    }).or().group(exp => {
-      exp.literal("1").digit(2);
-    }).or().group(exp => {
-      exp.digit(1, 2);
-    });
-  }).literal(".");
-}, 3).group(exp => {
-  exp.group(exp => {
-    exp.literal("2").set("1-5").set("0-6");
-  }).or().group(exp => {
-    exp.literal("1").digit(2);
-  }).or().group(exp => {
-    exp.digit(1, 2);
-  });
-}).literal("-").group(exp => {
-  exp.group(exp => {
-    exp.group(exp => {
-      exp.literal("2").set("1-5").set("0-6");
-    }).or().group(exp => {
-      exp.literal("1").digit(2);
-    }).or().group(exp => {
-      exp.digit(1, 2);
-    });
-  }).literal(".");
-}, 3).group(exp => {
-  exp.group(exp => {
-    exp.literal("2").set("1-5").set("0-6");
-  }).or().group(exp => {
-    exp.literal("1").digit(2);
-  }).or().group(exp => {
-    exp.digit(1, 2);
-  });
-}).wordBoundary().done("g");
-
-/**
- * create cbr invalid field sta
- * @param {*} field
- * @param {*} value
- * @returns {Object} invalid boolean invalidText string
- */
-function cbrInvalid(field, value) {
-  let invalid = {
-    invalid: false,
-    invalidText: ""
-  };
-  if (!isNullOrEmptyString(value) && (value.match(/^[0-9a-z-]+$/) === null || value.length >= 128)) {
-    invalid.invalid = true;
-    invalid.invalidText = `Invalid ${field}. Value must match regex expression /^[0-9a-z-]+$/.`;
-  }
-  return invalid;
-}
-
-/**
- * cbr value is invalid
- * @param {*} type
- * @param {*} value
- * @returns {Object} invalid boolean invalidText string
- */
-function cbrValueInvalid(type, value) {
-  let invalid = {
-    invalid: false,
-    invalidText: ""
-  };
-  if (isNullOrEmptyString(value)) {
-    invalid.invalid = true;
-    invalid.invalidText = `Invalid value for type ${type}. Cannot be empty string.`;
-  } else if (type === "ipAddress") {
-    if (!isIpv4CidrOrAddress(value) || value.includes("/")) {
-      invalid.invalid = true;
-      invalid.invalidText = `Invalid value for type ${type}. Value must be a valid IPV4 Address.`;
-    }
-  } else if (type === "ipRange") {
-    if (value.match(ipRangeExpression) === null) {
-      invalid.invalid = true;
-      invalid.invalidText = `Invalid value for type ${type}. Value must be a range of IPV4 Addresses.`;
-    }
-  } else {
-    invalid = cbrInvalid(type, value);
-  }
-  return invalid;
-}
-var cbrUtils = {
-  cbrInvalid,
-  cbrValueInvalid
-};
-var cbrUtils_1 = cbrUtils.cbrInvalid;
-var cbrUtils_2 = cbrUtils.cbrValueInvalid;
-
-const typeNameMap = {
-  ipAddress: "IP Address",
-  ipRange: "IP Range",
-  subnet: "Subnet",
-  vpc: "VPC",
-  serviceRef: "Service Ref"
-};
-
 /**
  * Context-based restriction addresses / exclusions
  */
@@ -10590,15 +10642,13 @@ class CbrExclusionAddressForm extends Component {
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
   }
+
+  /**
+   * handle input change
+   * @param {*} event
+   */
   handleInputChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    if (name === "type") value = Object.keys(typeNameMap).find(key => typeNameMap[key] === value);
-    this.setState({
-      [name]: value
-    });
+    this.setState(cbrUtils_6(event, this.state));
   }
   render() {
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
@@ -10609,13 +10659,13 @@ class CbrExclusionAddressForm extends Component {
       onChange: this.handleInputChange,
       invalidCallback: () => this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props),
-      hideHelperText: true
+      hideHelperText: true,
+      forceKebabCase: true
     }), /*#__PURE__*/React.createElement(IcseTextInput, _extends({
       id: this.props.data.name + "-cbr-account-id",
       componentName: this.props.data.name + "-cbr-zone",
       field: "account_id",
       value: this.state.account_id,
-      labelText: "Account ID",
       onChange: this.handleInputChange,
       hideHelperText: true,
       className: "fieldWidthSmaller"
@@ -10623,7 +10673,6 @@ class CbrExclusionAddressForm extends Component {
       id: this.props.data.name + "-cbr-zone-location",
       componentName: this.props.data.name + "cbr-zone-location",
       className: "fieldWidthSmaller",
-      labelText: "Location",
       field: "location",
       value: this.state.location,
       onChange: this.handleInputChange,
@@ -10632,7 +10681,6 @@ class CbrExclusionAddressForm extends Component {
       id: this.props.data.name + "-cbr-zone-service-name",
       componentName: this.props.data.name + "cbr-zone-service-name",
       className: "fieldWidthSmaller",
-      labelText: "Service Name",
       field: "service_name",
       value: this.state.service_name,
       onChange: this.handleInputChange,
@@ -10641,7 +10689,6 @@ class CbrExclusionAddressForm extends Component {
       id: this.props.data.name + "-cbr-zone-service-instance",
       componentName: this.props.data.name + "cbr-zone-service-instance",
       className: "fieldWidthSmaller",
-      labelText: "Service Instance",
       field: "service_instance",
       value: this.state.service_instance,
       onChange: this.handleInputChange,
@@ -10650,7 +10697,6 @@ class CbrExclusionAddressForm extends Component {
       id: this.props.data.name + "-cbr-zone-service-type",
       componentName: this.props.data.name + "cbr-zone-service-type",
       className: "fieldWidthSmaller",
-      labelText: "Service Type",
       field: "service_type",
       value: this.state.service_type,
       onChange: this.handleInputChange,
@@ -10660,7 +10706,7 @@ class CbrExclusionAddressForm extends Component {
       name: "type",
       formName: this.props.data.name + "cbr-zone-type",
       groups: ["IP Address", "IP Range", "Subnet", "VPC", "Service Ref"],
-      value: typeNameMap[this.state.type],
+      value: cbrUtils_5[this.state.type],
       handleInputChange: this.handleInputChange,
       invalidText: "Select a Type",
       className: "fieldWidthSmaller"
@@ -10668,12 +10714,11 @@ class CbrExclusionAddressForm extends Component {
       id: this.props.data.name + "-cbr-zone-value",
       componentName: this.props.data.name + "cbr-zone-value",
       className: "fieldWidthSmaller",
-      labelText: "Value",
       field: "value",
       value: this.state.value,
       onChange: this.handleInputChange,
       hideHelperText: true,
-      placeholder: this.state.type === "ipAddress" ? "x.x.x.x" : this.state.type === "ipRange" ? "x.x.x.x-x.x.x.x" : `my-cbr-zone-${this.state.type}`
+      placeholder: cbrUtils_3(this.state.type)
     }, cbrUtils_2(this.state.type, this.state.value)))));
   }
 }
@@ -10757,13 +10802,15 @@ class CbrZoneForm extends Component {
       onChange: this.handleInputChange,
       hideHelperText: true,
       invalidCallback: () => this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props)
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      forceKebabCase: true
     }), /*#__PURE__*/React.createElement(IcseTextInput, _extends({
       id: this.props.data.name + "-cbr-account-id",
       componentName: this.props.data.name + "-cbr-zone",
       field: "account_id",
       value: this.state.account_id,
-      labelText: "Account ID",
+      labelText: "Account ID" // needed to override titlecase capitalization
+      ,
       onChange: this.handleInputChange
     }, cbrUtils_1("account_id", this.state.account_id)))), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
       id: this.props.data.name + "-cbr-zone-description",

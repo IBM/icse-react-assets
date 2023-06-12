@@ -1,5 +1,11 @@
-const { assert } = require("chai");
-const { cbrInvalid, cbrValueInvalid } = require("../src/lib/cbr-utils");
+const { assert, expect } = require("chai");
+const {
+  cbrInvalid,
+  cbrValueInvalid,
+  cbrValuePlaceholder,
+  handleRuleInputChange,
+  handleExclusionAddressInputChange,
+} = require("../src/lib/cbr-utils");
 
 describe("cbr-utils", () => {
   describe("cbrInvalid", () => {
@@ -101,6 +107,53 @@ describe("cbr-utils", () => {
           invalidText: "",
         },
         "it should return correct data"
+      );
+    });
+  });
+  describe("cbrValuePlaceholder", () => {
+    it("should return ip address when ipAddress", () => {
+      assert.deepEqual(cbrValuePlaceholder("ipAddress"), "x.x.x.x");
+    });
+    it("should return range when ipRange", () => {
+      assert.deepEqual(cbrValuePlaceholder("ipRange"), "x.x.x.x-x.x.x.x");
+    });
+    it("should return type otherwise", () => {
+      assert.deepEqual(cbrValuePlaceholder("frog"), "my-cbr-zone-frog");
+    });
+  });
+  describe("handleRuleInputChange", () => {
+    it("should lowercase enforcement mode", () => {
+      let event = { target: { name: "enforcement_mode", value: "Disabled" } };
+      let expectedData = { enforcement_mode: "disabled" };
+      assert.deepEqual(handleRuleInputChange(event, {}), expectedData);
+    });
+    it("should pass through other values", () => {
+      let event = {
+        target: { name: "name", value: "name" },
+      };
+      let expectedData = { name: "name" };
+      assert.deepEqual(handleRuleInputChange(event, {}), expectedData);
+    });
+  });
+  describe("handleExclusionAddressInputChange", () => {
+    it("should correctly map type", () => {
+      let event = {
+        target: { name: "type", value: "IP Address" },
+      };
+      let expectedData = { type: "ipAddress" };
+      assert.deepEqual(
+        handleExclusionAddressInputChange(event, {}),
+        expectedData
+      );
+    });
+    it("should pass through other values", () => {
+      let event = {
+        target: { name: "blah", value: "hey" },
+      };
+      let expectedData = { blah: "hey" };
+      assert.deepEqual(
+        handleExclusionAddressInputChange(event, {}),
+        expectedData
       );
     });
   });

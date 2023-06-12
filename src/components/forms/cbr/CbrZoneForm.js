@@ -56,18 +56,19 @@ class CbrZoneForm extends Component {
             componentName={this.props.data.name + "-cbr-zone"}
             value={this.state.name}
             onChange={this.handleInputChange}
-            hideHelperText={true}
+            hideHelperText
             invalidCallback={() =>
               this.props.invalidCallback(this.state, this.props)
             }
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
+            forceKebabCase
           />
           <IcseTextInput
             id={this.props.data.name + "-cbr-account-id"}
             componentName={this.props.data.name + "-cbr-zone"}
             field={"account_id"}
             value={this.state.account_id}
-            labelText={"Account ID"}
+            labelText={"Account ID"} // needed to override titlecase capitalization
             onChange={this.handleInputChange}
             {...cbrInvalid("account_id", this.state.account_id)}
           />
@@ -87,7 +88,7 @@ class CbrZoneForm extends Component {
             invalidText={
               "Invalid description, must be between 0 and 300 characters."
             }
-            enableCounter={true}
+            enableCounter
           />
         </IcseFormGroup>
         {/* show subforms if not modal*/}
