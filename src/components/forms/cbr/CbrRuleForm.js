@@ -28,7 +28,7 @@ class CbrRuleForm extends Component {
   }
 
   handleInputChange(event) {
-    this.setState(handleRuleInputChange(event, this.state));
+    this.setState(handleRuleInputChange(this.state, event));
   }
 
   render() {

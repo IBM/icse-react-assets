@@ -31,7 +31,7 @@ class CbrExclusionAddressForm extends Component {
    * @param {*} event
    */
   handleInputChange(event) {
-    this.setState(handleExclusionAddressInputChange(event, this.state));
+    this.setState(handleExclusionAddressInputChange(this.state, event));
   }
 
   render() {

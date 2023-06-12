@@ -763,7 +763,7 @@ function cbrValuePlaceholder$1(type) {
  * @param {Object} stateData
  * @returns object
  */
-function handleRuleInputChange$1(event, stateData) {
+function handleRuleInputChange$1(stateData, event) {
   let {
     name,
     value
@@ -784,7 +784,7 @@ function handleRuleInputChange$1(event, stateData) {
  * @param {*} event
  * @param {Object} stateData
  */
-function handleExclusionAddressInputChange(event, stateData) {
+function handleExclusionAddressInputChange(stateData, event) {
   let {
     name,
     value
@@ -10418,7 +10418,7 @@ class CbrRuleForm extends Component {
     buildFormFunctions(this);
   }
   handleInputChange(event) {
-    this.setState(lib_30(event, this.state));
+    this.setState(lib_30(this.state, event));
   }
   render() {
     // set up props for subforms
@@ -10648,7 +10648,7 @@ class CbrExclusionAddressForm extends Component {
    * @param {*} event
    */
   handleInputChange(event) {
-    this.setState(cbrUtils_6(event, this.state));
+    this.setState(cbrUtils_6(this.state, event));
   }
   render() {
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
