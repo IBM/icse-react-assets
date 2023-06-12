@@ -4595,16 +4595,16 @@ function getValidAdminPassword(length) {
   } while (invalid && count <= 5); // only be more than 5 times if you specified an invalid length. dummy counter for unit
   return result;
 }
-var f5Utils = {
+var f5 = {
   getValidAdminPassword,
   isNullOrEmptyString: isNullOrEmptyString$1,
   isValidTmosAdminPassword,
   isValidUrl
 };
-var f5Utils_1 = f5Utils.getValidAdminPassword;
-var f5Utils_2 = f5Utils.isNullOrEmptyString;
-var f5Utils_3 = f5Utils.isValidTmosAdminPassword;
-var f5Utils_4 = f5Utils.isValidUrl;
+var f5_1 = f5.getValidAdminPassword;
+var f5_2 = f5.isNullOrEmptyString;
+var f5_3 = f5.isValidTmosAdminPassword;
+var f5_4 = f5.isValidUrl;
 
 /**
  * F5VsiTemplateForm
@@ -4663,7 +4663,7 @@ class F5VsiTemplateForm extends React.Component {
    */
   generateAdminPassword() {
     let length = Math.floor(Math.random() * 6 + 15); // between 15-20 chars, inclusive (20 - 15 + 1)
-    let password = f5Utils_1(length); // get a valid password
+    let password = f5_1(length); // get a valid password
     this.setState({
       tmos_admin_password: password
     }); // set password
@@ -4696,12 +4696,12 @@ class F5VsiTemplateForm extends React.Component {
       labelText: "TMOS Admin Password",
       name: "tmos_admin_password",
       value: this.state.tmos_admin_password || "",
-      invalid: this.props.invalidCallback("tmos_admin_password", this.state, this.props) || !f5Utils_3(this.state.tmos_admin_password),
+      invalid: this.props.invalidCallback("tmos_admin_password", this.state, this.props) || !f5_3(this.state.tmos_admin_password),
       invalidText: "Password must be at least 15 characters, contain one numeric, one uppercase, and one lowercase character.",
       onChange: this.handleTextInput
     })), /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
       hoverText: "Generate Password",
-      className: "passwordGenerateButton" + (f5Utils_3(this.state.tmos_admin_password) ? "" : " invalid")
+      className: "passwordGenerateButton" + (f5_3(this.state.tmos_admin_password) ? "" : " invalid")
     }, /*#__PURE__*/React__default["default"].createElement(react.Button, {
       kind: "ghost",
       onClick: this.generateAdminPassword,
@@ -4718,7 +4718,7 @@ class F5VsiTemplateForm extends React.Component {
       innerForm: IcseTextInput,
       value: this.state.byol_license_basekey || "",
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("byol_license_basekey", this.state, this.props) || f5Utils_2(this.state.byol_license_basekey),
+      invalid: this.props.invalidCallback("byol_license_basekey", this.state, this.props) || f5_2(this.state.byol_license_basekey),
       invalidText: this.props.invalidTextCallback("byol_license_basekey", this.state, this.props)
     })), this.state.license_type != "byol" && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
@@ -4732,7 +4732,7 @@ class F5VsiTemplateForm extends React.Component {
       innerForm: IcseTextInput,
       value: this.state.license_username || "",
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("license_username", this.state, this.props) || f5Utils_2(this.state.license_username),
+      invalid: this.props.invalidCallback("license_username", this.state, this.props) || f5_2(this.state.license_username),
       invalidText: this.props.invalidTextCallback("license_username", this.state, this.props)
     }), /*#__PURE__*/React__default["default"].createElement("div", {
       className: "leftTextAlign tooltip"
@@ -4761,7 +4761,7 @@ class F5VsiTemplateForm extends React.Component {
       innerForm: IcseTextInput,
       value: this.state.license_host || "",
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("license_host", this.state, this.props) || f5Utils_2(this.state.license_host),
+      invalid: this.props.invalidCallback("license_host", this.state, this.props) || f5_2(this.state.license_host),
       invalidText: this.props.invalidTextCallback("license_host", this.state, this.props)
     }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
@@ -4774,7 +4774,7 @@ class F5VsiTemplateForm extends React.Component {
       innerForm: IcseTextInput,
       value: this.state.license_pool || "",
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("license_pool", this.state, this.props) || f5Utils_2(this.state.license_pool),
+      invalid: this.props.invalidCallback("license_pool", this.state, this.props) || f5_2(this.state.license_pool),
       invalidText: this.props.invalidTextCallback("license_pool", this.state, this.props)
     })), this.state.license_type == "utilitypool" && /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
@@ -4788,7 +4788,7 @@ class F5VsiTemplateForm extends React.Component {
       innerForm: IcseTextInput,
       value: this.state.license_unit_of_measure || "",
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("license_unit_of_measure", this.state, this.props) || f5Utils_2(this.state.license_unit_of_measure),
+      invalid: this.props.invalidCallback("license_unit_of_measure", this.state, this.props) || f5_2(this.state.license_unit_of_measure),
       invalidText: this.props.invalidTextCallback("license_unit_of_measure", this.state, this.props)
     }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
@@ -4801,7 +4801,7 @@ class F5VsiTemplateForm extends React.Component {
       innerForm: IcseTextInput,
       value: this.state.license_sku_keyword_1 || "",
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("license_sku_keyword_1", this.state, this.props) || f5Utils_2(this.state.license_sku_keyword_1),
+      invalid: this.props.invalidCallback("license_sku_keyword_1", this.state, this.props) || f5_2(this.state.license_sku_keyword_1),
       invalidText: this.props.invalidTextCallback("license_sku_keyword_1", this.state, this.props)
     }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
@@ -4814,7 +4814,7 @@ class F5VsiTemplateForm extends React.Component {
       innerForm: IcseTextInput,
       value: this.state.license_sku_keyword_2 || "",
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("license_sku_keyword_2", this.state, this.props) || f5Utils_2(this.state.license_sku_keyword_2),
+      invalid: this.props.invalidCallback("license_sku_keyword_2", this.state, this.props) || f5_2(this.state.license_sku_keyword_2),
       invalidText: this.props.invalidTextCallback("license_sku_keyword_2", this.state, this.props)
     })))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
@@ -4828,7 +4828,7 @@ class F5VsiTemplateForm extends React.Component {
       innerForm: IcseTextInput,
       value: this.state.template_version,
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("template_version", this.state, this.props) || f5Utils_2(this.state.template_version),
+      invalid: this.props.invalidCallback("template_version", this.state, this.props) || f5_2(this.state.template_version),
       invalidText: this.props.invalidTextCallback("template_version", this.state, this.props)
     }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
@@ -4841,7 +4841,7 @@ class F5VsiTemplateForm extends React.Component {
       innerForm: IcseTextInput,
       value: this.state.template_source,
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("template_source", this.state, this.props) || f5Utils_2(this.state.template_source),
+      invalid: this.props.invalidCallback("template_source", this.state, this.props) || f5_2(this.state.template_source),
       invalidText: this.props.invalidTextCallback("template_source", this.state, this.props)
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
@@ -4868,7 +4868,7 @@ class F5VsiTemplateForm extends React.Component {
       innerForm: IcseTextInput,
       value: this.state.phone_home_url,
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("phone_home_url", this.state, this.props) || !f5Utils_4(this.state.phone_home_url),
+      invalid: this.props.invalidCallback("phone_home_url", this.state, this.props) || !f5_4(this.state.phone_home_url),
       invalidText: this.props.invalidTextCallback("phone_home_url", this.state, this.props)
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
@@ -4882,7 +4882,7 @@ class F5VsiTemplateForm extends React.Component {
       innerForm: IcseTextInput,
       value: this.state.do_declaration_url,
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("do_declaration_url", this.state, this.props) || !f5Utils_4(this.state.do_declaration_url),
+      invalid: this.props.invalidCallback("do_declaration_url", this.state, this.props) || !f5_4(this.state.do_declaration_url),
       invalidText: this.props.invalidTextCallback("do_declaration_url", this.state, this.props)
     }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
@@ -4895,7 +4895,7 @@ class F5VsiTemplateForm extends React.Component {
       innerForm: IcseTextInput,
       value: this.state.as3_declaration_url,
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("as3_declaration_url", this.state, this.props) || !f5Utils_4(this.state.as3_declaration_url),
+      invalid: this.props.invalidCallback("as3_declaration_url", this.state, this.props) || !f5_4(this.state.as3_declaration_url),
       invalidText: this.props.invalidTextCallback("as3_declaration_url", this.state, this.props)
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
@@ -4909,7 +4909,7 @@ class F5VsiTemplateForm extends React.Component {
       innerForm: IcseTextInput,
       value: this.state.ts_declaration_url,
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("ts_declaration_url", this.state, this.props) || !f5Utils_4(this.state.ts_declaration_url),
+      invalid: this.props.invalidCallback("ts_declaration_url", this.state, this.props) || !f5_4(this.state.ts_declaration_url),
       invalidText: this.props.invalidTextCallback("ts_declaration_url", this.state, this.props)
     }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
@@ -4922,7 +4922,7 @@ class F5VsiTemplateForm extends React.Component {
       innerForm: IcseTextInput,
       value: this.state.tgstandby_url,
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("tgstandby_url", this.state, this.props) || !f5Utils_4(this.state.tgstandby_url),
+      invalid: this.props.invalidCallback("tgstandby_url", this.state, this.props) || !f5_4(this.state.tgstandby_url),
       invalidText: this.props.invalidTextCallback("tgstandby_url", this.state, this.props)
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
@@ -4936,7 +4936,7 @@ class F5VsiTemplateForm extends React.Component {
       innerForm: IcseTextInput,
       value: this.state.tgrefresh_url,
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("tgrefresh_url", this.state, this.props) || !f5Utils_4(this.state.tgrefresh_url),
+      invalid: this.props.invalidCallback("tgrefresh_url", this.state, this.props) || !f5_4(this.state.tgrefresh_url),
       invalidText: this.props.invalidTextCallback("tgrefresh_url", this.state, this.props)
     }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
@@ -4949,7 +4949,7 @@ class F5VsiTemplateForm extends React.Component {
       innerForm: IcseTextInput,
       value: this.state.tgactive_url,
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("tgactive_url", this.state, this.props) || !f5Utils_4(this.state.tgactive_url),
+      invalid: this.props.invalidCallback("tgactive_url", this.state, this.props) || !f5_4(this.state.tgactive_url),
       invalidText: this.props.invalidTextCallback("tgactive_url", this.state, this.props)
     })));
   }

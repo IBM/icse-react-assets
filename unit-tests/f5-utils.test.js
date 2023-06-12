@@ -3,7 +3,7 @@ const {
   getValidAdminPassword,
   isValidUrl,
   isValidTmosAdminPassword,
-} = require("../src/lib/f5-utils");
+} = require("../src/lib/forms/f5");
 const { initMockWindow } = require("./mocks/window.mock");
 const { RegexButWithWords } = require("regex-but-with-words");
 

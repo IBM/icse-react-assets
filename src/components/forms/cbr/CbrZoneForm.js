@@ -11,7 +11,7 @@ import {
   buildFormFunctions,
 } from "../../component-utils";
 import CbrExclusionAddressForm from "./CbrExclusionAddressForm.js";
-import { cbrInvalid } from "../../../lib/cbr-utils";
+import { cbrInvalid } from "../../../lib/forms/cbr-utils";
 
 /**
  * Context-based restriction zones

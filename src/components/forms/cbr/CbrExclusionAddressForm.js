@@ -13,7 +13,7 @@ import {
   cbrValueInvalid,
   cbrValuePlaceholder,
   handleExclusionAddressInputChange,
-} from "../../../lib/cbr-utils";
+} from "../../../lib/forms/cbr-utils";
 /**
  * Context-based restriction addresses / exclusions
  */
