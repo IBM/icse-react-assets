@@ -9595,6 +9595,30 @@ VsiLoadBalancerForm.propTypes = {
   vsiDeployments: PropTypes.arrayOf(PropTypes.shape({})).isRequired
 };
 
+/**
+ * input change for resources in access group policies
+ * @param {Object} stateData
+ * @param {*} event
+ * @returns {Object} resources
+ */
+function handleInputResource(stateData, event) {
+  let {
+    name,
+    value
+  } = event.target;
+  let resources = {
+    ...stateData.resources
+  };
+  resources[name] = value;
+  return {
+    resources: resources
+  };
+}
+var acessGroups = {
+  handleInputResource
+};
+var acessGroups_1 = acessGroups.handleInputResource;
+
 class AccessGroupPolicyForm extends React.Component {
   constructor(props) {
     super(props);
@@ -9622,17 +9646,7 @@ class AccessGroupPolicyForm extends React.Component {
    * @param {*} value value to update
    */
   handleInputResource(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    let resources = {
-      ...this.state.resources
-    };
-    resources[name] = value;
-    this.setState({
-      resources
-    });
+    this.setState(acessGroups_1(this.state, event));
   }
   render() {
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {

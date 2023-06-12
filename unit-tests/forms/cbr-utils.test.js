@@ -5,7 +5,7 @@ const {
   cbrValuePlaceholder,
   handleRuleInputChange,
   handleExclusionAddressInputChange,
-} = require("../src/lib/forms/cbr-utils");
+} = require("../../src/lib/forms/cbr-utils");
 
 describe("cbr-utils", () => {
   describe("cbrInvalid", () => {

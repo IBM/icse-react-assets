@@ -17,7 +17,7 @@
     "react-dom": "^18.2.0"
   },
   "scripts": {
-    "test": "NODE_ENV=test mocha --require @babel/register --require ignore-styles unit-tests/*.test.js",
+    "test": "NODE_ENV=test mocha --require @babel/register --require ignore-styles unit-tests/ --recursive",
     "coverage": "npx nyc npm run test",
     "build": "rollup -c",
     "build-watch": "rollup -c -w",

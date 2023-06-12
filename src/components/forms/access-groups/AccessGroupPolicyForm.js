@@ -8,6 +8,7 @@ import { IcseFormGroup, IcseHeading } from "../../Utils";
 import { IcseNameInput, IcseTextInput } from "../../Inputs";
 import { IcseSelect } from "../../Dropdowns";
 import PropTypes from "prop-types";
+import { handleInputResource } from "../../../lib/forms/acess-groups";
 
 class AccessGroupPolicyForm extends React.Component {
   constructor(props) {
@@ -34,10 +35,7 @@ class AccessGroupPolicyForm extends React.Component {
    * @param {*} value value to update
    */
   handleInputResource(event) {
-    let { name, value } = event.target;
-    let resources = { ...this.state.resources };
-    resources[name] = value;
-    this.setState({ resources });
+    this.setState(handleInputResource(this.state, event));
   }
 
   render() {
