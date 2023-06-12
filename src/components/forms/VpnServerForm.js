@@ -209,7 +209,11 @@ class VpnServerForm extends Component {
               id={this.props.data.name + "-vpn-server-client-ca-crn"}
               field="client_ca_crn"
               componentName="client_ca_crn"
-              labelText="Client Secrets Manager Certificate CRN"
+              labelText="Client CA CRN"
+              tooltip={{
+                content: "Client Secrets Manager Certificate CRN",
+                align: "top-left",
+              }}
               value={this.state.client_ca_crn || ""}
               onChange={this.handleInputChange}
               invalid={this.props.invalidCrns(
@@ -268,7 +272,7 @@ class VpnServerForm extends Component {
             max={65535}
             invalid={
               !isNullOrEmptyString(this.state.port) &&
-              (!isWholeNumber(Number(this.state.port)) ||
+              (!isWholeNumber(parseFloat(this.state.port)) ||
                 this.state.port < 1 ||
                 this.state.port > 65535)
             }
@@ -302,7 +306,7 @@ class VpnServerForm extends Component {
             }
             name="client_idle_timeout"
             placeholder="600"
-            label="Client Idle Timeout (In Seconds)"
+            label="Client Idle Timeout (s)"
             allowEmpty={true}
             value={this.state.client_idle_timeout || ""}
             step={1}
@@ -312,9 +316,9 @@ class VpnServerForm extends Component {
             max={28800}
             invalid={
               !isNullOrEmptyString(this.state.client_idle_timeout) &&
-              (!isWholeNumber(Number(this.state.client_idle_timeout)) ||
+              (!isWholeNumber(parseFloat(this.state.client_idle_timeout)) ||
                 this.state.client_idle_timeout < 0 ||
-                this.state.client_idle_timeout > 28000)
+                this.state.client_idle_timeout > 28800)
             }
             invalidText="Must be a whole number between 0 and 28800."
             className="fieldWidthSmaller"
