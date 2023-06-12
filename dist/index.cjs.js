@@ -5,18 +5,18 @@ Object.defineProperty(exports, '__esModule', { value: true });
 require('@carbon/styles/css/styles.css');
 var react = require('@carbon/react');
 var lazyZ = require('lazy-z');
-var regexButWithWords = require('regex-but-with-words');
 var React = require('react');
 var PropTypes = require('prop-types');
 var iconsReact = require('@carbon/icons-react');
+var regexButWithWords = require('regex-but-with-words');
 var utils$1 = require('regex-but-with-words/lib/utils');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
 var lazyZ__default = /*#__PURE__*/_interopDefaultLegacy(lazyZ);
-var regexButWithWords__default = /*#__PURE__*/_interopDefaultLegacy(regexButWithWords);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 var PropTypes__default = /*#__PURE__*/_interopDefaultLegacy(PropTypes);
+var regexButWithWords__default = /*#__PURE__*/_interopDefaultLegacy(regexButWithWords);
 
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
@@ -45,7 +45,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$1 = "/* vars and themes */\n:root {\n  --background: #ffffff;\n  --subForm: #f4f4f4;\n  --formInSubForm: #fffdfd;\n  --cds-text-primary: #161616;\n  --cds-text-secondary: #525252;\n  --cds-field: #f4f4f4;\n  --cds-border-strong: #8d8d8d;\n  --blue: #0f62fe;\n  --red: #da1e28;\n  --white: #ffffff;\n}\n\n.dark {\n  --background: #161616;\n  --subForm: #262626;\n  --formInSubForm: #414141;\n  --cds-text-primary: #f4f4f4;\n  --cds-text-secondary: #c6c6c6;\n  --cds-field: #363636;\n  --cds-border-strong: #8897a2;\n  --cds-layer: #262626;\n  --cds-layer-hover: #363636;\n  --cds-field-02: #363636;\n  --cds-icon-secondary: #c6c6c6;\n  --cds-icon-primary: #c6c6c6;\n  --placeholder: #565656;\n  --cds-field-hover: #464646;\n  --cds-layer-selected: #525252;\n  --cds-background-inverse: #f4f4f4;\n  --cds-text-inverse: #262626;\n}\n\n.subForm {\n  /* white background for subform input fields */\n  --cds-field: #ffffff;\n}\n\n.formInSubForm {\n  /* gray for formInSubForm input fields */\n  --cds-field: #f4f4f4;\n}\n\ninput:read-only {\n  /* read only fields should only have text */\n  --cds-border-strong: transparent;\n}\n\n.dark {\n  background-color: var(--background);\n}\n\n.dark p {\n  color: #f4f4f4;\n}\n\n.dark i.chevron > svg {\n  fill: #f4f4f4;\n}\n\n.dark h4 {\n  color: #f4f4f4;\n}\n\n.dark .underConstruction > svg {\n  fill: #ffffff;\n}\n/* styling for tooltip content in dark mode */\n.dark .cds--toggletip-content > p {\n  color: #363636;\n}\n\n.dark .subForm {\n  /* alternate background for dark subforms */\n  --cds-field: #414141;\n}\n\n.dark .formInSubForm {\n  /* alternate background for dark formInSubForm */\n  --cds-field: #363636;\n}\n\n.dark ::placeholder {\n  color: var(--placeholder);\n}\n\n/* general alignment classes */\n\n.displayFlex {\n  display: flex;\n}\n\n.alignItemsTop {\n  align-items: top;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n\n.fieldWidthSmallest {\n  width: 8rem;\n}\n\n.fieldWidthBigger {\n  width: 40rem;\n}\n\n.textInputWide {\n  width: 30rem;\n}\n\n.textInputMedium {\n  width: 20rem;\n}\n\n/* backhground classes */\n.formInSubForm {\n  margin-top: 0rem;\n  background: var(--formInSubForm);\n  padding: 1rem;\n}\n\n.subForm {\n  background: var(--subForm);\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n/* Tooltips */\n.labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -22px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n\n/* subnet tile form */\n\n.tileFormMargin {\n  margin-bottom: -0.5rem;\n  margin-top: 0.5rem;\n}\n\n.tileFormMargin.formInSubForm {\n  padding: 0px;\n}\n\n.marginRightSubnetTile {\n  margin-right: 10px;\n}\n\n/* StatefulTabPanel */\n\n.cds--tab-content.doc {\n  padding: 0.5rem 0;\n}\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}\n\n/* popover wrappers */\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  z-index: 9001;\n}\n\n/* buttons */\n\ni.chevron > svg {\n  display: block; /* remove extra padding on bottom of i which misaligns icon */\n  margin-right: 1rem;\n  margin-top: 0.15rem;\n}\n\n.chevron {\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: var(--blue) !important;\n  fill: var(--white) !important;\n  border-color: var(--blue) !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: var(--red) !important;\n}\n\n.alignButtons {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important;\n}\n\n/* docs */\n.about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n\n/* empty resource tile */\n.iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: var(--subForm);\n}\n\n.marginTop {\n  margin-top: 1rem;\n}\n\n/* under construction */\n\n.underConstruction {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.flexDirectionColumn {\n  flex-direction: column;\n}\n\n/* f5 vsi */\n.wide {\n  width: 20rem !important;\n}\n\n.tight {\n  width: min-content; /* force invalid text to split line */\n}\n\n.passwordGenerateButton {\n  margin-top: 1.25rem;\n  margin-left: calc(-4rem - 3vw);\n}\n\n.passwordGenerateButton svg {\n  fill: var(--cds-icon-secondary, #525252) !important;\n}\n\n.passwordGenerateButton.invalid {\n  margin-left: calc(-5.75rem - 3vw);\n}\n\n.wrap {\n  flex-flow: wrap;\n}\n\n.docsUpdated {\n  display: flex;\n  align-items: flex-end;\n}\n\n.cds--list-box__menu {\n  width: fit-content;\n  text-align: left;\n}\n\n@media screen and (max-width: 1024px) {\n  .fieldWidth {\n    width: 11rem;\n  }\n\n  .fieldWidthSmaller {\n    width: 8rem;\n  }\n\n  .fieldWidthSmallest {\n    width: 5rem;\n  }\n\n  .textInputWide {\n    width: 20rem;\n  }\n\n  .fieldWidthBigger {\n    width: 30rem;\n  }\n\n  .textInputMedium {\n    width: 15rem;\n  }\n}\n\n@media screen and (max-width: 850px) {\n  .fieldWidth {\n    width: 100%;\n  }\n\n  .fieldWidthSmaller {\n    width: 100%;\n  }\n\n  .fieldWidthSmallest {\n    width: 100%;\n  }\n\n  .textInputMedium {\n    width: 100%;\n  }\n\n  .fieldWidthBigger {\n    width: 100%;\n  }\n\n  .textInputWide {\n    width: 100%;\n  }\n\n  .formGroup {\n    /* items 1 wide */\n    flex-direction: column !important;\n  }\n\n  .popover-obj.select {\n    /* need to adjust size for popover container at small widths */\n    width: 100%;\n  }\n\n  .popover-obj.select > span {\n    width: 100%;\n  }\n\n  /* items with tooltip should also be full width */\n  .cds--form-item {\n    flex: none;\n    width: 100%;\n  }\n}\n\n.cds--form-item {\n  flex: none; /* overwrite flex to fix inconsistent widths */\n}\n";
+var css_248z$1 = "/* vars and themes */\n:root {\n  --background: #ffffff;\n  --subForm: #f4f4f4;\n  --formInSubForm: #fffdfd;\n  --cds-text-primary: #161616;\n  --cds-text-secondary: #525252;\n  --cds-field: #f4f4f4;\n  --cds-border-strong: #8d8d8d;\n  --blue: #0f62fe;\n  --red: #da1e28;\n  --white: #ffffff;\n}\n\n.dark {\n  --background: #161616;\n  --subForm: #262626;\n  --formInSubForm: #414141;\n  --cds-text-primary: #f4f4f4;\n  --cds-text-secondary: #c6c6c6;\n  --cds-field: #363636;\n  --cds-border-strong: #8897a2;\n  --cds-layer: #262626;\n  --cds-layer-hover: #363636;\n  --cds-field-02: #363636;\n  --cds-icon-secondary: #c6c6c6;\n  --cds-icon-primary: #c6c6c6;\n  --placeholder: #565656;\n  --cds-field-hover: #464646;\n  --cds-layer-selected: #525252;\n  --cds-background-inverse: #f4f4f4;\n  --cds-text-inverse: #262626;\n}\n\n.subForm {\n  /* white background for subform input fields */\n  --cds-field: #ffffff;\n}\n\n.formInSubForm {\n  /* gray for formInSubForm input fields */\n  --cds-field: #f4f4f4;\n}\n\ninput:read-only {\n  /* read only fields should only have text */\n  --cds-border-strong: transparent;\n}\n\n.dark {\n  background-color: var(--background);\n}\n\n.dark p {\n  color: #f4f4f4;\n}\n\n.dark i.chevron > svg {\n  fill: #f4f4f4;\n}\n\n.dark h4 {\n  color: #f4f4f4;\n}\n\n.dark .underConstruction > svg {\n  fill: #ffffff;\n}\n/* styling for tooltip content in dark mode */\n.dark .cds--toggletip-content > p {\n  color: #363636;\n}\n\n.dark .subForm {\n  /* alternate background for dark subforms */\n  --cds-field: #414141;\n}\n\n.dark .formInSubForm {\n  /* alternate background for dark formInSubForm */\n  --cds-field: #363636;\n}\n\n.dark ::placeholder {\n  color: var(--placeholder);\n}\n\n/* general alignment classes */\n\n.displayFlex {\n  display: flex;\n}\n\n.alignItemsTop {\n  align-items: top;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n\n.fieldWidthSmallest {\n  width: 8rem;\n}\n\n.fieldWidthBigger {\n  width: 40rem;\n}\n\n.textInputWide {\n  width: 30rem;\n}\n\n.textInputMedium {\n  width: 20rem;\n}\n\n/* backhground classes */\n.formInSubForm {\n  margin-top: 0rem;\n  background: var(--formInSubForm);\n  padding: 1rem;\n}\n\n.subForm {\n  background: var(--subForm);\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n/* Tooltips */\n.labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -22px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n\n/* subnet tile form */\n\n.tileFormMargin {\n  margin-bottom: -0.5rem;\n  margin-top: 0.5rem;\n}\n\n.tileFormMargin.formInSubForm {\n  padding: 0px;\n}\n\n.marginRightSubnetTile {\n  margin-right: 10px;\n}\n\n/* StatefulTabPanel */\n\n.cds--tab-content.doc {\n  padding: 0.5rem 0;\n}\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}\n\n/* popover wrappers */\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  z-index: 9001;\n}\n\n/* buttons */\n\ni.chevron > svg {\n  display: block; /* remove extra padding on bottom of i which misaligns icon */\n  margin-right: 1rem;\n  margin-top: 0.15rem;\n}\n\n.chevron {\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: var(--blue) !important;\n  fill: var(--white) !important;\n  border-color: var(--blue) !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n  align-items: center;\n}\n\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: var(--red) !important;\n}\n\n.alignButtons {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important;\n}\n\n/* docs */\n.about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n\n/* empty resource tile */\n.iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: var(--subForm);\n}\n\n.marginTop {\n  margin-top: 1rem;\n}\n\n/* under construction */\n\n.underConstruction {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.flexDirectionColumn {\n  flex-direction: column;\n}\n\n/* f5 vsi */\n.wide {\n  width: 20rem !important;\n}\n\n.tight {\n  width: min-content; /* force invalid text to split line */\n}\n\n.passwordGenerateButton {\n  margin-top: 1.25rem;\n  margin-left: calc(-4rem - 3vw);\n}\n\n.passwordGenerateButton svg {\n  fill: var(--cds-icon-secondary, #525252) !important;\n}\n\n.passwordGenerateButton.invalid {\n  margin-left: calc(-5.75rem - 3vw);\n}\n\n.wrap {\n  flex-flow: wrap;\n}\n\n.docsUpdated {\n  display: flex;\n  align-items: flex-end;\n}\n\n.cds--list-box__menu {\n  width: fit-content;\n  text-align: left;\n}\n\n@media screen and (max-width: 1024px) {\n  .fieldWidth {\n    width: 11rem;\n  }\n\n  .fieldWidthSmaller {\n    width: 8rem;\n  }\n\n  .fieldWidthSmallest {\n    width: 5rem;\n  }\n\n  .textInputWide {\n    width: 20rem;\n  }\n\n  .fieldWidthBigger {\n    width: 30rem;\n  }\n\n  .textInputMedium {\n    width: 15rem;\n  }\n}\n\n@media screen and (max-width: 850px) {\n  .fieldWidth {\n    width: 100%;\n  }\n\n  .fieldWidthSmaller {\n    width: 100%;\n  }\n\n  .fieldWidthSmallest {\n    width: 100%;\n  }\n\n  .textInputMedium {\n    width: 100%;\n  }\n\n  .fieldWidthBigger {\n    width: 100%;\n  }\n\n  .textInputWide {\n    width: 100%;\n  }\n\n  .formGroup {\n    /* items 1 wide */\n    flex-direction: column !important;\n  }\n\n  .popover-obj.select {\n    /* need to adjust size for popover container at small widths */\n    width: 100%;\n  }\n\n  .popover-obj.select > span {\n    width: 100%;\n  }\n\n  /* items with tooltip should also be full width */\n  .cds--form-item {\n    flex: none;\n    width: 100%;\n  }\n}\n\n.cds--form-item {\n  flex: none; /* overwrite flex to fix inconsistent widths */\n}\n";
 styleInject(css_248z$1);
 
 const {
@@ -311,7 +311,7 @@ var docUtils = {
 };
 
 const {
-  isNullOrEmptyString: isNullOrEmptyString$4,
+  isNullOrEmptyString: isNullOrEmptyString$5,
   kebabCase: kebabCase$2
 } = lazyZ__default["default"];
 const {
@@ -326,7 +326,7 @@ const {
 function icseSelectParams$1(props) {
   let invalid =
   // automatically set to invalid if value is null or empty string and invalid not disabled
-  props.disableInvalid !== true && isNullOrEmptyString$4(props.value) ? true : props.invalid;
+  props.disableInvalid !== true && isNullOrEmptyString$5(props.value) ? true : props.invalid;
   let groups = props.groups.length === 0 ? [] // if no groups, empty array
   : prependEmptyStringWhenNull$1(
   // otherwise try and prepend empty string if null or empty string is allowed
@@ -653,174 +653,6 @@ var popoverWrapper = {
 };
 
 const {
-  isNullOrEmptyString: isNullOrEmptyString$3,
-  isIpv4CidrOrAddress: isIpv4CidrOrAddress$1
-} = lazyZ__default["default"];
-const {
-  RegexButWithWords: RegexButWithWords$2
-} = regexButWithWords__default["default"];
-const ipRangeExpression = new RegexButWithWords$2().wordBoundary().group(exp => {
-  exp.group(exp => {
-    exp.group(exp => {
-      exp.literal("2").set("1-5").set("0-6");
-    }).or().group(exp => {
-      exp.literal("1").digit(2);
-    }).or().group(exp => {
-      exp.digit(1, 2);
-    });
-  }).literal(".");
-}, 3).group(exp => {
-  exp.group(exp => {
-    exp.literal("2").set("1-5").set("0-6");
-  }).or().group(exp => {
-    exp.literal("1").digit(2);
-  }).or().group(exp => {
-    exp.digit(1, 2);
-  });
-}).literal("-").group(exp => {
-  exp.group(exp => {
-    exp.group(exp => {
-      exp.literal("2").set("1-5").set("0-6");
-    }).or().group(exp => {
-      exp.literal("1").digit(2);
-    }).or().group(exp => {
-      exp.digit(1, 2);
-    });
-  }).literal(".");
-}, 3).group(exp => {
-  exp.group(exp => {
-    exp.literal("2").set("1-5").set("0-6");
-  }).or().group(exp => {
-    exp.literal("1").digit(2);
-  }).or().group(exp => {
-    exp.digit(1, 2);
-  });
-}).wordBoundary().done("g");
-
-/**
- * create cbr invalid field sta
- * @param {*} field
- * @param {*} value
- * @returns {Object} invalid boolean invalidText string
- */
-function cbrInvalid(field, value) {
-  let invalid = {
-    invalid: false,
-    invalidText: ""
-  };
-  if (!isNullOrEmptyString$3(value) && (value.match(/^[0-9a-z-]+$/) === null || value.length >= 128)) {
-    invalid.invalid = true;
-    invalid.invalidText = `Invalid ${field}. Value must match regex expression /^[0-9a-z-]+$/.`;
-  }
-  return invalid;
-}
-
-/**
- * cbr value is invalid
- * @param {*} type
- * @param {*} value
- * @returns {Object} invalid boolean invalidText string
- */
-function cbrValueInvalid(type, value) {
-  let invalid = {
-    invalid: false,
-    invalidText: ""
-  };
-  if (isNullOrEmptyString$3(value)) {
-    invalid.invalid = true;
-    invalid.invalidText = `Invalid value for type ${type}. Cannot be empty string.`;
-  } else if (type === "ipAddress") {
-    if (!isIpv4CidrOrAddress$1(value) || value.includes("/")) {
-      invalid.invalid = true;
-      invalid.invalidText = `Invalid value for type ${type}. Value must be a valid IPV4 Address.`;
-    }
-  } else if (type === "ipRange") {
-    if (value.match(ipRangeExpression) === null) {
-      invalid.invalid = true;
-      invalid.invalidText = `Invalid value for type ${type}. Value must be a range of IPV4 Addresses.`;
-    }
-  } else {
-    invalid = cbrInvalid(type, value);
-  }
-  return invalid;
-}
-const cbrTypeNameMap = {
-  ipAddress: "IP Address",
-  ipRange: "IP Range",
-  subnet: "Subnet",
-  vpc: "VPC",
-  serviceRef: "Service Ref"
-};
-const cbrNameTypeMap = {
-  "IP Address": "ipAddress",
-  "IP Range": "ipRange",
-  Subnet: "subnet",
-  VPC: "vpc",
-  "Service Ref": "serviceRef"
-};
-
-/**
- * return a placeholder for value on exclusion/address form
- * @param {string} type
- * @returns
- */
-function cbrValuePlaceholder$1(type) {
-  return type === "ipAddress" ? "x.x.x.x" : type === "ipRange" ? "x.x.x.x-x.x.x.x" : `my-cbr-zone-${type}`;
-}
-
-/**
- * handle input change for cbr rules
- * @param {*} event
- * @param {Object} stateData
- * @returns object
- */
-function handleRuleInputChange$1(stateData, event) {
-  let {
-    name,
-    value
-  } = event.target;
-  let state = {
-    ...stateData
-  };
-  if (name === "enforcement_mode") {
-    state[name] = value.toLowerCase();
-  } else {
-    state[name] = value;
-  }
-  return state;
-}
-
-/**
- * handle exclusion and address input change
- * @param {*} event
- * @param {Object} stateData
- */
-function handleExclusionAddressInputChange(stateData, event) {
-  let {
-    name,
-    value
-  } = event.target;
-  let state = {
-    ...stateData
-  };
-  if (name === "type") state[name] = cbrNameTypeMap[value];else state[name] = value;
-  return state;
-}
-var cbrUtils = {
-  cbrInvalid,
-  cbrValueInvalid,
-  cbrValuePlaceholder: cbrValuePlaceholder$1,
-  handleRuleInputChange: handleRuleInputChange$1,
-  cbrTypeNameMap,
-  handleExclusionAddressInputChange
-};
-var cbrUtils_1 = cbrUtils.cbrInvalid;
-var cbrUtils_2 = cbrUtils.cbrValueInvalid;
-var cbrUtils_3 = cbrUtils.cbrValuePlaceholder;
-var cbrUtils_5 = cbrUtils.cbrTypeNameMap;
-var cbrUtils_6 = cbrUtils.handleExclusionAddressInputChange;
-
-const {
   toggleMarginBottom,
   addClassName,
   prependEmptyStringWhenNull,
@@ -873,10 +705,6 @@ const {
 const {
   popoverWrapperParams
 } = popoverWrapper;
-const {
-  handleRuleInputChange,
-  cbrValuePlaceholder
-} = cbrUtils;
 var lib = {
   onToggleEvent,
   toggleParams,
@@ -906,9 +734,7 @@ var lib = {
   icseHeadingParams,
   statelessToggleFormParams,
   statefulTabPanelParams,
-  popoverWrapperParams,
-  handleRuleInputChange,
-  cbrValuePlaceholder
+  popoverWrapperParams
 };
 var lib_3 = lib.docTextFieldParams;
 var lib_4 = lib.handleNumberDropdownEvent;
@@ -924,7 +750,6 @@ var lib_20 = lib.deleteButtonParams;
 var lib_22 = lib.icseFormTemplateParams;
 var lib_28 = lib.statefulTabPanelParams;
 var lib_29 = lib.popoverWrapperParams;
-var lib_30 = lib.handleRuleInputChange;
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -4045,9 +3870,9 @@ const {
   isInRange
 } = lazyZ__default["default"];
 const {
-  RegexButWithWords: RegexButWithWords$1
+  RegexButWithWords: RegexButWithWords$2
 } = regexButWithWords__default["default"];
-const commaSeparatedIpListExp = new RegexButWithWords$1().stringBegin().group(exp => {
+const commaSeparatedIpListExp = new RegexButWithWords$2().stringBegin().group(exp => {
   exp.group(exp => {
     exp.wordBoundary().group(exp => {
       exp.group(exp => {
@@ -4078,7 +3903,7 @@ const commaSeparatedIpListExp = new RegexButWithWords$1().stringBegin().group(ex
     });
   }).lazy();
 }).anyNumber().stringEnd().done("gm");
-const commaSeparatedIpListExpNoCidr = new RegexButWithWords$1().stringBegin().group(exp => {
+const commaSeparatedIpListExpNoCidr = new RegexButWithWords$2().stringBegin().group(exp => {
   exp.group(exp => {
     exp.wordBoundary().group(exp => {
       exp.group(exp => {
@@ -4103,7 +3928,7 @@ const commaSeparatedIpListExpNoCidr = new RegexButWithWords$1().stringBegin().gr
  * @param {*} value
  * @returns {boolean} true if null or empty string
  */
-function isNullOrEmptyString$2(value) {
+function isNullOrEmptyString$4(value) {
   return value === null || value === "";
 }
 
@@ -4115,7 +3940,7 @@ function isNullOrEmptyString$2(value) {
  * @returns {boolean} true if invalid
  */
 function isRangeInvalid(value, min, max) {
-  if (isNullOrEmptyString$2(value)) return false;
+  if (isNullOrEmptyString$4(value)) return false;
   value = parseFloat(value);
   if (!isWholeNumber(value) || !isInRange(value, min, max)) {
     return true;
@@ -4129,7 +3954,7 @@ function isRangeInvalid(value, min, max) {
  * @returns {boolean} true if invalid
  */
 function isIpStringInvalid(value) {
-  if (!isNullOrEmptyString$2(value) && value.match(commaSeparatedIpListExp) === null) {
+  if (!isNullOrEmptyString$4(value) && value.match(commaSeparatedIpListExp) === null) {
     return true;
   }
   return false;
@@ -4141,7 +3966,7 @@ function isIpStringInvalid(value) {
  * @returns {boolean} true if invalid
  */
 function isIpStringInvalidNoCidr(value) {
-  if (!isNullOrEmptyString$2(value) && value.match(commaSeparatedIpListExpNoCidr) === null) {
+  if (!isNullOrEmptyString$4(value) && value.match(commaSeparatedIpListExpNoCidr) === null) {
     return true;
   }
   return false;
@@ -4502,19 +4327,19 @@ F5VsiForm.propTypes = {
 };
 
 const {
-  RegexButWithWords
+  RegexButWithWords: RegexButWithWords$1
 } = regexButWithWords__default["default"];
 const {
-  isNullOrEmptyString: isNullOrEmptyString$1
+  isNullOrEmptyString: isNullOrEmptyString$3
 } = lazyZ__default["default"];
-const urlValidationExp = new RegexButWithWords().group(exp => {
+const urlValidationExp = new RegexButWithWords$1().group(exp => {
   exp.literal("ftp").or().literal("http").literal("s").lazy();
 }).literal("://").group("www.").lazy().group(exp => {
   exp.negatedSet('"\\/').oneOrMore().literal(".");
 }).group(exp => {
   exp.negatedSet('"\\/').oneOrMore().literal(".");
 }).oneOrMore().negatedSet('"\\/.').oneOrMore().literal("/").negatedSet(' "').anyNumber().stringEnd().done("g");
-const tmosAdminPasswordValidationExp = new RegexButWithWords().stringBegin().look.ahead(exp => {
+const tmosAdminPasswordValidationExp = new RegexButWithWords$1().stringBegin().look.ahead(exp => {
   exp.any().anyNumber().set("a-z");
 }).look.ahead(exp => {
   exp.any().anyNumber().set("A-Z");
@@ -4527,8 +4352,8 @@ const tmosAdminPasswordValidationExp = new RegexButWithWords().stringBegin().loo
  * @param {str} url
  * @returns {boolean} true when url is valid and not empty, false when invalid
  */
-function isValidUrl(url) {
-  if (isNullOrEmptyString$1(url) || url === "null") return true;
+function isValidUrl$1(url) {
+  if (isNullOrEmptyString$3(url) || url === "null") return true;
   return url.match(urlValidationExp) !== null;
 }
 
@@ -4537,8 +4362,8 @@ function isValidUrl(url) {
  * @param {str} password
  * @returns {boolean} true when password is valid
  */
-function isValidTmosAdminPassword(password) {
-  if (isNullOrEmptyString$1(password)) return true;else return password.match(tmosAdminPasswordValidationExp) !== null;
+function isValidTmosAdminPassword$1(password) {
+  if (isNullOrEmptyString$3(password)) return true;else return password.match(tmosAdminPasswordValidationExp) !== null;
 }
 
 /**
@@ -4579,7 +4404,7 @@ function generatePassword(length) {
  * @param {int} length
  * @returns {string} password that fits the requirements of the validation expression
  */
-function getValidAdminPassword(length) {
+function getValidAdminPassword$1(length) {
   let invalid = true;
   let count = 0;
   let result;
@@ -4596,10 +4421,10 @@ function getValidAdminPassword(length) {
   return result;
 }
 var f5 = {
-  getValidAdminPassword,
-  isNullOrEmptyString: isNullOrEmptyString$1,
-  isValidTmosAdminPassword,
-  isValidUrl
+  getValidAdminPassword: getValidAdminPassword$1,
+  isNullOrEmptyString: isNullOrEmptyString$3,
+  isValidTmosAdminPassword: isValidTmosAdminPassword$1,
+  isValidUrl: isValidUrl$1
 };
 var f5_1 = f5.getValidAdminPassword;
 var f5_2 = f5.isNullOrEmptyString;
@@ -5472,9 +5297,9 @@ const {
   capitalize,
   titleCase,
   kebabCase,
-  isIpv4CidrOrAddress,
+  isIpv4CidrOrAddress: isIpv4CidrOrAddress$1,
   validPortRange,
-  isNullOrEmptyString,
+  isNullOrEmptyString: isNullOrEmptyString$2,
   contains
 } = require("lazy-z");
 
@@ -5744,7 +5569,7 @@ const NetworkingRuleTextField = props => {
     placeholder: "x.x.x.x",
     invalidText: "Please provide a valid IPV4 IP address or CIDR notation.",
     invalidCallback: () => {
-      return isIpv4CidrOrAddress(props.state[props.name]) === false;
+      return isIpv4CidrOrAddress$1(props.state[props.name]) === false;
     }
   });
 };
@@ -5768,7 +5593,7 @@ const NetworkingRuleProtocolTextField = props => {
     placeholder: String(props.state.rule[props.name]),
     value: props.state.rule[props.name] || "",
     onChange: e => props.onChange(props.name, e),
-    invalid: validPortRange(props.name, props.state.rule[props.name] || -1) === false && isNullOrEmptyString(props.state.rule[props.name]) === false,
+    invalid: validPortRange(props.name, props.state.rule[props.name] || -1) === false && isNullOrEmptyString$2(props.state.rule[props.name]) === false,
     invalidText: contains(["type", "code"], props.name) ? `0 to ${props.name === "type" ? 254 : 255}` : "1 to 65535",
     className: "fieldWidthSmaller"
   });
@@ -10412,6 +10237,203 @@ CbrTagForm.propTypes = {
   arrayParentName: PropTypes__default["default"].string
 };
 
+const {
+  isNullOrEmptyString: isNullOrEmptyString$1,
+  isIpv4CidrOrAddress
+} = lazyZ__default["default"];
+const {
+  RegexButWithWords
+} = regexButWithWords__default["default"];
+const ipRangeExpression = new RegexButWithWords().wordBoundary().group(exp => {
+  exp.group(exp => {
+    exp.group(exp => {
+      exp.literal("2").set("1-5").set("0-6");
+    }).or().group(exp => {
+      exp.literal("1").digit(2);
+    }).or().group(exp => {
+      exp.digit(1, 2);
+    });
+  }).literal(".");
+}, 3).group(exp => {
+  exp.group(exp => {
+    exp.literal("2").set("1-5").set("0-6");
+  }).or().group(exp => {
+    exp.literal("1").digit(2);
+  }).or().group(exp => {
+    exp.digit(1, 2);
+  });
+}).literal("-").group(exp => {
+  exp.group(exp => {
+    exp.group(exp => {
+      exp.literal("2").set("1-5").set("0-6");
+    }).or().group(exp => {
+      exp.literal("1").digit(2);
+    }).or().group(exp => {
+      exp.digit(1, 2);
+    });
+  }).literal(".");
+}, 3).group(exp => {
+  exp.group(exp => {
+    exp.literal("2").set("1-5").set("0-6");
+  }).or().group(exp => {
+    exp.literal("1").digit(2);
+  }).or().group(exp => {
+    exp.digit(1, 2);
+  });
+}).wordBoundary().done("g");
+
+/**
+ * create cbr invalid field sta
+ * @param {*} field
+ * @param {*} value
+ * @returns {Object} invalid boolean invalidText string
+ */
+function cbrInvalid$1(field, value) {
+  let invalid = {
+    invalid: false,
+    invalidText: ""
+  };
+  if (!isNullOrEmptyString$1(value) && (value.match(/^[0-9a-z-]+$/) === null || value.length >= 128)) {
+    invalid.invalid = true;
+    invalid.invalidText = `Invalid ${field}. Value must match regex expression /^[0-9a-z-]+$/.`;
+  }
+  return invalid;
+}
+
+/**
+ * cbr value is invalid
+ * @param {*} type
+ * @param {*} value
+ * @returns {Object} invalid boolean invalidText string
+ */
+function cbrValueInvalid$1(type, value) {
+  let invalid = {
+    invalid: false,
+    invalidText: ""
+  };
+  if (isNullOrEmptyString$1(value)) {
+    invalid.invalid = true;
+    invalid.invalidText = `Invalid value for type ${type}. Cannot be empty string.`;
+  } else if (type === "ipAddress") {
+    if (!isIpv4CidrOrAddress(value) || value.includes("/")) {
+      invalid.invalid = true;
+      invalid.invalidText = `Invalid value for type ${type}. Value must be a valid IPV4 Address.`;
+    }
+  } else if (type === "ipRange") {
+    if (value.match(ipRangeExpression) === null) {
+      invalid.invalid = true;
+      invalid.invalidText = `Invalid value for type ${type}. Value must be a range of IPV4 Addresses.`;
+    }
+  } else {
+    invalid = cbrInvalid$1(type, value);
+  }
+  return invalid;
+}
+const cbrTypeNameMap$1 = {
+  ipAddress: "IP Address",
+  ipRange: "IP Range",
+  subnet: "Subnet",
+  vpc: "VPC",
+  serviceRef: "Service Ref"
+};
+const cbrNameTypeMap = {
+  "IP Address": "ipAddress",
+  "IP Range": "ipRange",
+  Subnet: "subnet",
+  VPC: "vpc",
+  "Service Ref": "serviceRef"
+};
+
+/**
+ * return a placeholder for value on exclusion/address form
+ * @param {string} type
+ * @returns
+ */
+function cbrValuePlaceholder$1(type) {
+  return type === "ipAddress" ? "x.x.x.x" : type === "ipRange" ? "x.x.x.x-x.x.x.x" : `my-cbr-zone-${type}`;
+}
+
+/**
+ * handle input change for cbr rules
+ * @param {*} event
+ * @param {Object} stateData
+ * @returns object
+ */
+function handleRuleInputChange$1(stateData, event) {
+  let {
+    name,
+    value
+  } = event.target;
+  let state = {
+    ...stateData
+  };
+  if (name === "enforcement_mode") {
+    state[name] = value.toLowerCase();
+  } else {
+    state[name] = value;
+  }
+  return state;
+}
+
+/**
+ * handle exclusion and address input change
+ * @param {*} event
+ * @param {Object} stateData
+ */
+function handleExclusionAddressInputChange$1(stateData, event) {
+  let {
+    name,
+    value
+  } = event.target;
+  let state = {
+    ...stateData
+  };
+  if (name === "type") state[name] = cbrNameTypeMap[value];else state[name] = value;
+  return state;
+}
+var cbrUtils = {
+  cbrInvalid: cbrInvalid$1,
+  cbrValueInvalid: cbrValueInvalid$1,
+  cbrValuePlaceholder: cbrValuePlaceholder$1,
+  handleRuleInputChange: handleRuleInputChange$1,
+  cbrTypeNameMap: cbrTypeNameMap$1,
+  handleExclusionAddressInputChange: handleExclusionAddressInputChange$1
+};
+var cbrUtils_1 = cbrUtils.cbrInvalid;
+var cbrUtils_2 = cbrUtils.cbrValueInvalid;
+var cbrUtils_3 = cbrUtils.cbrValuePlaceholder;
+var cbrUtils_5 = cbrUtils.cbrTypeNameMap;
+var cbrUtils_6 = cbrUtils.handleExclusionAddressInputChange;
+
+const {
+  cbrInvalid,
+  cbrValueInvalid,
+  cbrValuePlaceholder,
+  handleRuleInputChange,
+  cbrTypeNameMap,
+  handleExclusionAddressInputChange
+} = cbrUtils;
+const {
+  getValidAdminPassword,
+  isNullOrEmptyString,
+  isValidTmosAdminPassword,
+  isValidUrl
+} = f5;
+var forms = {
+  cbrInvalid,
+  cbrValueInvalid,
+  cbrValuePlaceholder,
+  handleRuleInputChange,
+  cbrTypeNameMap,
+  handleExclusionAddressInputChange,
+  getValidAdminPassword,
+  isNullOrEmptyString,
+  isValidTmosAdminPassword,
+  isValidUrl
+};
+var forms_1 = forms.cbrInvalid;
+var forms_4 = forms.handleRuleInputChange;
+
 /**
  * Context-based restriction rules
  */
@@ -10426,7 +10448,7 @@ class CbrRuleForm extends React.Component {
     buildFormFunctions(this);
   }
   handleInputChange(event) {
-    this.setState(lib_30(this.state, event));
+    this.setState(forms_4(this.state, event));
   }
   render() {
     // set up props for subforms
@@ -10820,7 +10842,7 @@ class CbrZoneForm extends React.Component {
       labelText: "Account ID" // needed to override titlecase capitalization
       ,
       onChange: this.handleInputChange
-    }, cbrUtils_1("account_id", this.state.account_id)))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
+    }, forms_1("account_id", this.state.account_id)))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
       id: this.props.data.name + "-cbr-zone-description",
       className: "textInputWide",
       name: "description",

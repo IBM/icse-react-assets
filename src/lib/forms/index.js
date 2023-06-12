@@ -1,6 +1,9 @@
 const {
-  handleRuleInputChange,
+  cbrInvalid,
+  cbrValueInvalid,
   cbrValuePlaceholder,
+  handleRuleInputChange,
+  cbrTypeNameMap,
   handleExclusionAddressInputChange,
 } = require("./cbr-utils");
 const {
@@ -11,8 +14,11 @@ const {
 } = require("./f5");
 
 module.exports = {
-  handleRuleInputChange,
+  cbrInvalid,
+  cbrValueInvalid,
   cbrValuePlaceholder,
+  handleRuleInputChange,
+  cbrTypeNameMap,
   handleExclusionAddressInputChange,
   getValidAdminPassword,
   isNullOrEmptyString,

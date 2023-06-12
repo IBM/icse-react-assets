@@ -13,7 +13,7 @@ import {
 import CbrContextForm from "./CbrContextForm";
 import CbrResourceAttributeForm from "./CbrResourceAttributeForm";
 import CbrTagForm from "./CbrTagForm";
-import { handleRuleInputChange } from "../../../lib/";
+import { handleRuleInputChange } from "../../../lib/forms";
 
 /**
  * Context-based restriction rules
