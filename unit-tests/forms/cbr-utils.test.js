@@ -5,7 +5,7 @@ const {
   cbrValuePlaceholder,
   handleRuleInputChange,
   handleExclusionAddressInputChange,
-} = require("../src/lib/cbr-utils");
+} = require("../../src/lib/forms/cbr-utils");
 
 describe("cbr-utils", () => {
   describe("cbrInvalid", () => {
@@ -125,14 +125,14 @@ describe("cbr-utils", () => {
     it("should lowercase enforcement mode", () => {
       let event = { target: { name: "enforcement_mode", value: "Disabled" } };
       let expectedData = { enforcement_mode: "disabled" };
-      assert.deepEqual(handleRuleInputChange(event, {}), expectedData);
+      assert.deepEqual(handleRuleInputChange({}, event), expectedData);
     });
     it("should pass through other values", () => {
       let event = {
         target: { name: "name", value: "name" },
       };
       let expectedData = { name: "name" };
-      assert.deepEqual(handleRuleInputChange(event, {}), expectedData);
+      assert.deepEqual(handleRuleInputChange({}, event), expectedData);
     });
   });
   describe("handleExclusionAddressInputChange", () => {
@@ -142,7 +142,7 @@ describe("cbr-utils", () => {
       };
       let expectedData = { type: "ipAddress" };
       assert.deepEqual(
-        handleExclusionAddressInputChange(event, {}),
+        handleExclusionAddressInputChange({}, event),
         expectedData
       );
     });
@@ -152,7 +152,7 @@ describe("cbr-utils", () => {
       };
       let expectedData = { blah: "hey" };
       assert.deepEqual(
-        handleExclusionAddressInputChange(event, {}),
+        handleExclusionAddressInputChange({}, event),
         expectedData
       );
     });

@@ -13,7 +13,7 @@ import {
 import CbrContextForm from "./CbrContextForm";
 import CbrResourceAttributeForm from "./CbrResourceAttributeForm";
 import CbrTagForm from "./CbrTagForm";
-import { handleRuleInputChange } from "../../../lib/";
+import { handleRuleInputChange } from "../../../lib/forms";
 
 /**
  * Context-based restriction rules
@@ -28,7 +28,7 @@ class CbrRuleForm extends Component {
   }
 
   handleInputChange(event) {
-    this.setState(handleRuleInputChange(event, this.state));
+    this.setState(handleRuleInputChange(this.state, event));
   }
 
   render() {

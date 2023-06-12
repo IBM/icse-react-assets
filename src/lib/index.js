@@ -34,7 +34,6 @@ const { onToggleEvent, toggleParams } = require("./input-utils");
 const { icseFormTemplateParams } = require("./icse-form-template");
 const { statefulTabPanelParams } = require("./stateful-tab-panel");
 const { popoverWrapperParams } = require("./popover-wrapper");
-const { handleRuleInputChange, cbrValuePlaceholder } = require("./cbr-utils");
 
 module.exports = {
   onToggleEvent,
@@ -66,6 +65,4 @@ module.exports = {
   statelessToggleFormParams,
   statefulTabPanelParams,
   popoverWrapperParams,
-  handleRuleInputChange,
-  cbrValuePlaceholder,
 };

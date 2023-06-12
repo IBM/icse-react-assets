@@ -1,10 +1,10 @@
 import '@carbon/styles/css/styles.css';
 import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, TextArea, PasswordInput, NumberInput, Dropdown, Tag } from '@carbon/react';
-import lazyZ, { kebabCase as kebabCase$4, isEmpty, buildNumberDropdownList, titleCase as titleCase$2, contains as contains$2, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$5, transpose, allFieldsNull, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual, parseIntFromZone, splat as splat$1, isWholeNumber as isWholeNumber$1, snakeCase as snakeCase$1, distinct, getObjectFromArray, isInRange as isInRange$1, eachKey } from 'lazy-z';
-import regexButWithWords from 'regex-but-with-words';
+import lazyZ, { titleCase as titleCase$2, kebabCase as kebabCase$4, isEmpty, buildNumberDropdownList, contains as contains$2, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$6, transpose, allFieldsNull, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual, parseIntFromZone, splat as splat$1, isWholeNumber as isWholeNumber$1, snakeCase as snakeCase$1, distinct, getObjectFromArray, isInRange as isInRange$1, eachKey } from 'lazy-z';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Information, Save, Add, ChevronDown, ChevronRight, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt, Password } from '@carbon/icons-react';
+import regexButWithWords from 'regex-but-with-words';
 import { contains as contains$3 } from 'regex-but-with-words/lib/utils';
 
 function styleInject(css, ref) {
@@ -34,7 +34,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$1 = "/* vars and themes */\n:root {\n  --background: #ffffff;\n  --subForm: #f4f4f4;\n  --formInSubForm: #fffdfd;\n  --cds-text-primary: #161616;\n  --cds-text-secondary: #525252;\n  --cds-field: #f4f4f4;\n  --cds-border-strong: #8d8d8d;\n  --blue: #0f62fe;\n  --red: #da1e28;\n  --white: #ffffff;\n}\n\n.dark {\n  --background: #161616;\n  --subForm: #262626;\n  --formInSubForm: #414141;\n  --cds-text-primary: #f4f4f4;\n  --cds-text-secondary: #c6c6c6;\n  --cds-field: #363636;\n  --cds-border-strong: #8897a2;\n  --cds-layer: #262626;\n  --cds-layer-hover: #363636;\n  --cds-field-02: #363636;\n  --cds-icon-secondary: #c6c6c6;\n  --cds-icon-primary: #c6c6c6;\n  --placeholder: #565656;\n  --cds-field-hover: #464646;\n  --cds-layer-selected: #525252;\n  --cds-background-inverse: #f4f4f4;\n  --cds-text-inverse: #262626;\n}\n\n.subForm {\n  /* white background for subform input fields */\n  --cds-field: #ffffff;\n}\n\n.formInSubForm {\n  /* gray for formInSubForm input fields */\n  --cds-field: #f4f4f4;\n}\n\ninput:read-only {\n  /* read only fields should only have text */\n  --cds-border-strong: transparent;\n}\n\n.dark {\n  background-color: var(--background);\n}\n\n.dark p {\n  color: #f4f4f4;\n}\n\n.dark i.chevron > svg {\n  fill: #f4f4f4;\n}\n\n.dark h4 {\n  color: #f4f4f4;\n}\n\n.dark .underConstruction > svg {\n  fill: #ffffff;\n}\n/* styling for tooltip content in dark mode */\n.dark .cds--toggletip-content > p {\n  color: #363636;\n}\n\n.dark .subForm {\n  /* alternate background for dark subforms */\n  --cds-field: #414141;\n}\n\n.dark .formInSubForm {\n  /* alternate background for dark formInSubForm */\n  --cds-field: #363636;\n}\n\n.dark ::placeholder {\n  color: var(--placeholder);\n}\n\n/* general alignment classes */\n\n.displayFlex {\n  display: flex;\n}\n\n.alignItemsTop {\n  align-items: top;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n\n.fieldWidthSmallest {\n  width: 8rem;\n}\n\n.fieldWidthBigger {\n  width: 40rem;\n}\n\n.textInputWide {\n  width: 30rem;\n}\n\n.textInputMedium {\n  width: 20rem;\n}\n\n/* backhground classes */\n.formInSubForm {\n  margin-top: 0rem;\n  background: var(--formInSubForm);\n  padding: 1rem;\n}\n\n.subForm {\n  background: var(--subForm);\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n/* Tooltips */\n.labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -22px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n\n/* subnet tile form */\n\n.tileFormMargin {\n  margin-bottom: -0.5rem;\n  margin-top: 0.5rem;\n}\n\n.tileFormMargin.formInSubForm {\n  padding: 0px;\n}\n\n.marginRightSubnetTile {\n  margin-right: 10px;\n}\n\n/* StatefulTabPanel */\n\n.cds--tab-content.doc {\n  padding: 0.5rem 0;\n}\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}\n\n/* popover wrappers */\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  z-index: 9001;\n}\n\n/* buttons */\n\ni.chevron > svg {\n  display: block; /* remove extra padding on bottom of i which misaligns icon */\n  margin-right: 1rem;\n  margin-top: 0.15rem;\n}\n\n.chevron {\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: var(--blue) !important;\n  fill: var(--white) !important;\n  border-color: var(--blue) !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: var(--red) !important;\n}\n\n.alignButtons {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important;\n}\n\n/* docs */\n.about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n\n/* empty resource tile */\n.iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: var(--subForm);\n}\n\n.marginTop {\n  margin-top: 1rem;\n}\n\n/* under construction */\n\n.underConstruction {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.flexDirectionColumn {\n  flex-direction: column;\n}\n\n/* f5 vsi */\n.wide {\n  width: 20rem !important;\n}\n\n.tight {\n  width: min-content; /* force invalid text to split line */\n}\n\n.passwordGenerateButton {\n  margin-top: 1.25rem;\n  margin-left: calc(-4rem - 3vw);\n}\n\n.passwordGenerateButton svg {\n  fill: var(--cds-icon-secondary, #525252) !important;\n}\n\n.passwordGenerateButton.invalid {\n  margin-left: calc(-5.75rem - 3vw);\n}\n\n.wrap {\n  flex-flow: wrap;\n}\n\n.docsUpdated {\n  display: flex;\n  align-items: flex-end;\n}\n\n.cds--list-box__menu {\n  width: fit-content;\n  text-align: left;\n}\n\n@media screen and (max-width: 1024px) {\n  .fieldWidth {\n    width: 11rem;\n  }\n\n  .fieldWidthSmaller {\n    width: 8rem;\n  }\n\n  .fieldWidthSmallest {\n    width: 5rem;\n  }\n\n  .textInputWide {\n    width: 20rem;\n  }\n\n  .fieldWidthBigger {\n    width: 30rem;\n  }\n\n  .textInputMedium {\n    width: 15rem;\n  }\n}\n\n@media screen and (max-width: 850px) {\n  .fieldWidth {\n    width: 100%;\n  }\n\n  .fieldWidthSmaller {\n    width: 100%;\n  }\n\n  .fieldWidthSmallest {\n    width: 100%;\n  }\n\n  .textInputMedium {\n    width: 100%;\n  }\n\n  .fieldWidthBigger {\n    width: 100%;\n  }\n\n  .textInputWide {\n    width: 100%;\n  }\n\n  .formGroup {\n    /* items 1 wide */\n    flex-direction: column !important;\n  }\n\n  .popover-obj.select {\n    /* need to adjust size for popover container at small widths */\n    width: 100%;\n  }\n\n  .popover-obj.select > span {\n    width: 100%;\n  }\n\n  /* items with tooltip should also be full width */\n  .cds--form-item {\n    flex: none;\n    width: 100%;\n  }\n}\n\n.cds--form-item {\n  flex: none; /* overwrite flex to fix inconsistent widths */\n}\n";
+var css_248z$1 = "/* vars and themes */\n:root {\n  --background: #ffffff;\n  --subForm: #f4f4f4;\n  --formInSubForm: #fffdfd;\n  --cds-text-primary: #161616;\n  --cds-text-secondary: #525252;\n  --cds-field: #f4f4f4;\n  --cds-border-strong: #8d8d8d;\n  --blue: #0f62fe;\n  --red: #da1e28;\n  --white: #ffffff;\n}\n\n.dark {\n  --background: #161616;\n  --subForm: #262626;\n  --formInSubForm: #414141;\n  --cds-text-primary: #f4f4f4;\n  --cds-text-secondary: #c6c6c6;\n  --cds-field: #363636;\n  --cds-border-strong: #8897a2;\n  --cds-layer: #262626;\n  --cds-layer-hover: #363636;\n  --cds-field-02: #363636;\n  --cds-icon-secondary: #c6c6c6;\n  --cds-icon-primary: #c6c6c6;\n  --placeholder: #565656;\n  --cds-field-hover: #464646;\n  --cds-layer-selected: #525252;\n  --cds-background-inverse: #f4f4f4;\n  --cds-text-inverse: #262626;\n}\n\n.subForm {\n  /* white background for subform input fields */\n  --cds-field: #ffffff;\n}\n\n.formInSubForm {\n  /* gray for formInSubForm input fields */\n  --cds-field: #f4f4f4;\n}\n\ninput:read-only {\n  /* read only fields should only have text */\n  --cds-border-strong: transparent;\n}\n\n.dark {\n  background-color: var(--background);\n}\n\n.dark p {\n  color: #f4f4f4;\n}\n\n.dark i.chevron > svg {\n  fill: #f4f4f4;\n}\n\n.dark h4 {\n  color: #f4f4f4;\n}\n\n.dark .underConstruction > svg {\n  fill: #ffffff;\n}\n/* styling for tooltip content in dark mode */\n.dark .cds--toggletip-content > p {\n  color: #363636;\n}\n\n.dark .subForm {\n  /* alternate background for dark subforms */\n  --cds-field: #414141;\n}\n\n.dark .formInSubForm {\n  /* alternate background for dark formInSubForm */\n  --cds-field: #363636;\n}\n\n.dark ::placeholder {\n  color: var(--placeholder);\n}\n\n/* general alignment classes */\n\n.displayFlex {\n  display: flex;\n}\n\n.alignItemsTop {\n  align-items: top;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n\n.fieldWidthSmallest {\n  width: 8rem;\n}\n\n.fieldWidthBigger {\n  width: 40rem;\n}\n\n.textInputWide {\n  width: 30rem;\n}\n\n.textInputMedium {\n  width: 20rem;\n}\n\n/* backhground classes */\n.formInSubForm {\n  margin-top: 0rem;\n  background: var(--formInSubForm);\n  padding: 1rem;\n}\n\n.subForm {\n  background: var(--subForm);\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n/* Tooltips */\n.labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -22px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n\n/* subnet tile form */\n\n.tileFormMargin {\n  margin-bottom: -0.5rem;\n  margin-top: 0.5rem;\n}\n\n.tileFormMargin.formInSubForm {\n  padding: 0px;\n}\n\n.marginRightSubnetTile {\n  margin-right: 10px;\n}\n\n/* StatefulTabPanel */\n\n.cds--tab-content.doc {\n  padding: 0.5rem 0;\n}\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}\n\n/* popover wrappers */\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  z-index: 9001;\n}\n\n/* buttons */\n\ni.chevron > svg {\n  display: block; /* remove extra padding on bottom of i which misaligns icon */\n  margin-right: 1rem;\n  margin-top: 0.15rem;\n}\n\n.chevron {\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: var(--blue) !important;\n  fill: var(--white) !important;\n  border-color: var(--blue) !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n  align-items: center;\n}\n\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: var(--red) !important;\n}\n\n.alignButtons {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important;\n}\n\n/* docs */\n.about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n\n/* empty resource tile */\n.iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: var(--subForm);\n}\n\n.marginTop {\n  margin-top: 1rem;\n}\n\n/* under construction */\n\n.underConstruction {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.flexDirectionColumn {\n  flex-direction: column;\n}\n\n/* f5 vsi */\n.wide {\n  width: 20rem !important;\n}\n\n.tight {\n  width: min-content; /* force invalid text to split line */\n}\n\n.passwordGenerateButton {\n  margin-top: 1.25rem;\n  margin-left: calc(-4rem - 3vw);\n}\n\n.passwordGenerateButton svg {\n  fill: var(--cds-icon-secondary, #525252) !important;\n}\n\n.passwordGenerateButton.invalid {\n  margin-left: calc(-5.75rem - 3vw);\n}\n\n.wrap {\n  flex-flow: wrap;\n}\n\n.docsUpdated {\n  display: flex;\n  align-items: flex-end;\n}\n\n.cds--list-box__menu {\n  width: fit-content;\n  text-align: left;\n}\n\n@media screen and (max-width: 1024px) {\n  .fieldWidth {\n    width: 11rem;\n  }\n\n  .fieldWidthSmaller {\n    width: 8rem;\n  }\n\n  .fieldWidthSmallest {\n    width: 5rem;\n  }\n\n  .textInputWide {\n    width: 20rem;\n  }\n\n  .fieldWidthBigger {\n    width: 30rem;\n  }\n\n  .textInputMedium {\n    width: 15rem;\n  }\n}\n\n@media screen and (max-width: 850px) {\n  .fieldWidth {\n    width: 100%;\n  }\n\n  .fieldWidthSmaller {\n    width: 100%;\n  }\n\n  .fieldWidthSmallest {\n    width: 100%;\n  }\n\n  .textInputMedium {\n    width: 100%;\n  }\n\n  .fieldWidthBigger {\n    width: 100%;\n  }\n\n  .textInputWide {\n    width: 100%;\n  }\n\n  .formGroup {\n    /* items 1 wide */\n    flex-direction: column !important;\n  }\n\n  .popover-obj.select {\n    /* need to adjust size for popover container at small widths */\n    width: 100%;\n  }\n\n  .popover-obj.select > span {\n    width: 100%;\n  }\n\n  /* items with tooltip should also be full width */\n  .cds--form-item {\n    flex: none;\n    width: 100%;\n  }\n}\n\n.cds--form-item {\n  flex: none; /* overwrite flex to fix inconsistent widths */\n}\n";
 styleInject(css_248z$1);
 
 const {
@@ -300,7 +300,7 @@ var docUtils = {
 };
 
 const {
-  isNullOrEmptyString: isNullOrEmptyString$4,
+  isNullOrEmptyString: isNullOrEmptyString$5,
   kebabCase: kebabCase$2
 } = lazyZ;
 const {
@@ -315,7 +315,7 @@ const {
 function icseSelectParams$1(props) {
   let invalid =
   // automatically set to invalid if value is null or empty string and invalid not disabled
-  props.disableInvalid !== true && isNullOrEmptyString$4(props.value) ? true : props.invalid;
+  props.disableInvalid !== true && isNullOrEmptyString$5(props.value) ? true : props.invalid;
   let groups = props.groups.length === 0 ? [] // if no groups, empty array
   : prependEmptyStringWhenNull$1(
   // otherwise try and prepend empty string if null or empty string is allowed
@@ -642,174 +642,6 @@ var popoverWrapper = {
 };
 
 const {
-  isNullOrEmptyString: isNullOrEmptyString$3,
-  isIpv4CidrOrAddress: isIpv4CidrOrAddress$1
-} = lazyZ;
-const {
-  RegexButWithWords: RegexButWithWords$2
-} = regexButWithWords;
-const ipRangeExpression = new RegexButWithWords$2().wordBoundary().group(exp => {
-  exp.group(exp => {
-    exp.group(exp => {
-      exp.literal("2").set("1-5").set("0-6");
-    }).or().group(exp => {
-      exp.literal("1").digit(2);
-    }).or().group(exp => {
-      exp.digit(1, 2);
-    });
-  }).literal(".");
-}, 3).group(exp => {
-  exp.group(exp => {
-    exp.literal("2").set("1-5").set("0-6");
-  }).or().group(exp => {
-    exp.literal("1").digit(2);
-  }).or().group(exp => {
-    exp.digit(1, 2);
-  });
-}).literal("-").group(exp => {
-  exp.group(exp => {
-    exp.group(exp => {
-      exp.literal("2").set("1-5").set("0-6");
-    }).or().group(exp => {
-      exp.literal("1").digit(2);
-    }).or().group(exp => {
-      exp.digit(1, 2);
-    });
-  }).literal(".");
-}, 3).group(exp => {
-  exp.group(exp => {
-    exp.literal("2").set("1-5").set("0-6");
-  }).or().group(exp => {
-    exp.literal("1").digit(2);
-  }).or().group(exp => {
-    exp.digit(1, 2);
-  });
-}).wordBoundary().done("g");
-
-/**
- * create cbr invalid field sta
- * @param {*} field
- * @param {*} value
- * @returns {Object} invalid boolean invalidText string
- */
-function cbrInvalid(field, value) {
-  let invalid = {
-    invalid: false,
-    invalidText: ""
-  };
-  if (!isNullOrEmptyString$3(value) && (value.match(/^[0-9a-z-]+$/) === null || value.length >= 128)) {
-    invalid.invalid = true;
-    invalid.invalidText = `Invalid ${field}. Value must match regex expression /^[0-9a-z-]+$/.`;
-  }
-  return invalid;
-}
-
-/**
- * cbr value is invalid
- * @param {*} type
- * @param {*} value
- * @returns {Object} invalid boolean invalidText string
- */
-function cbrValueInvalid(type, value) {
-  let invalid = {
-    invalid: false,
-    invalidText: ""
-  };
-  if (isNullOrEmptyString$3(value)) {
-    invalid.invalid = true;
-    invalid.invalidText = `Invalid value for type ${type}. Cannot be empty string.`;
-  } else if (type === "ipAddress") {
-    if (!isIpv4CidrOrAddress$1(value) || value.includes("/")) {
-      invalid.invalid = true;
-      invalid.invalidText = `Invalid value for type ${type}. Value must be a valid IPV4 Address.`;
-    }
-  } else if (type === "ipRange") {
-    if (value.match(ipRangeExpression) === null) {
-      invalid.invalid = true;
-      invalid.invalidText = `Invalid value for type ${type}. Value must be a range of IPV4 Addresses.`;
-    }
-  } else {
-    invalid = cbrInvalid(type, value);
-  }
-  return invalid;
-}
-const cbrTypeNameMap = {
-  ipAddress: "IP Address",
-  ipRange: "IP Range",
-  subnet: "Subnet",
-  vpc: "VPC",
-  serviceRef: "Service Ref"
-};
-const cbrNameTypeMap = {
-  "IP Address": "ipAddress",
-  "IP Range": "ipRange",
-  Subnet: "subnet",
-  VPC: "vpc",
-  "Service Ref": "serviceRef"
-};
-
-/**
- * return a placeholder for value on exclusion/address form
- * @param {string} type
- * @returns
- */
-function cbrValuePlaceholder$1(type) {
-  return type === "ipAddress" ? "x.x.x.x" : type === "ipRange" ? "x.x.x.x-x.x.x.x" : `my-cbr-zone-${type}`;
-}
-
-/**
- * handle input change for cbr rules
- * @param {*} event
- * @param {Object} stateData
- * @returns object
- */
-function handleRuleInputChange$1(event, stateData) {
-  let {
-    name,
-    value
-  } = event.target;
-  let state = {
-    ...stateData
-  };
-  if (name === "enforcement_mode") {
-    state[name] = value.toLowerCase();
-  } else {
-    state[name] = value;
-  }
-  return state;
-}
-
-/**
- * handle exclusion and address input change
- * @param {*} event
- * @param {Object} stateData
- */
-function handleExclusionAddressInputChange(event, stateData) {
-  let {
-    name,
-    value
-  } = event.target;
-  let state = {
-    ...stateData
-  };
-  if (name === "type") state[name] = cbrNameTypeMap[value];else state[name] = value;
-  return state;
-}
-var cbrUtils = {
-  cbrInvalid,
-  cbrValueInvalid,
-  cbrValuePlaceholder: cbrValuePlaceholder$1,
-  handleRuleInputChange: handleRuleInputChange$1,
-  cbrTypeNameMap,
-  handleExclusionAddressInputChange
-};
-var cbrUtils_1 = cbrUtils.cbrInvalid;
-var cbrUtils_2 = cbrUtils.cbrValueInvalid;
-var cbrUtils_3 = cbrUtils.cbrValuePlaceholder;
-var cbrUtils_5 = cbrUtils.cbrTypeNameMap;
-var cbrUtils_6 = cbrUtils.handleExclusionAddressInputChange;
-
-const {
   toggleMarginBottom,
   addClassName,
   prependEmptyStringWhenNull,
@@ -862,10 +694,6 @@ const {
 const {
   popoverWrapperParams
 } = popoverWrapper;
-const {
-  handleRuleInputChange,
-  cbrValuePlaceholder
-} = cbrUtils;
 var lib = {
   onToggleEvent,
   toggleParams,
@@ -895,9 +723,7 @@ var lib = {
   icseHeadingParams,
   statelessToggleFormParams,
   statefulTabPanelParams,
-  popoverWrapperParams,
-  handleRuleInputChange,
-  cbrValuePlaceholder
+  popoverWrapperParams
 };
 var lib_3 = lib.docTextFieldParams;
 var lib_4 = lib.handleNumberDropdownEvent;
@@ -913,7 +739,6 @@ var lib_20 = lib.deleteButtonParams;
 var lib_22 = lib.icseFormTemplateParams;
 var lib_28 = lib.statefulTabPanelParams;
 var lib_29 = lib.popoverWrapperParams;
-var lib_30 = lib.handleRuleInputChange;
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -1048,8 +873,8 @@ const ToolTipWrapper = props => {
   delete allProps.tooltip;
   delete allProps.noLabelText;
   //check for labelText prop for components where it is a valid param
-  if (!props.noLabelText && props.labelText === undefined) {
-    throw new Error("ToolTipWrapper expects `props.labelText` when rendering labelText to be provided, got neither. To not render label text, use the `noLabelText` prop.");
+  if (!props.noLabelText && props.labelText === undefined && props.field === undefined) {
+    throw new Error("ToolTipWrapper expects `props.labelText` or `props.field` when rendering labelText to be provided, got neither. To not render label text, use the `noLabelText` prop.");
   }
   // remove label text from components where it is not valid param
   if (props.noLabelText) delete allProps.labelText;else allProps.labelText = " ";
@@ -1067,7 +892,7 @@ const ToolTipWrapper = props => {
     className: "cds--label labelRow"
   }, /*#__PURE__*/React.createElement("label", {
     htmlFor: props.id
-  }, props.labelText), tooltip), props.children ? /*#__PURE__*/React.cloneElement(props.children, {
+  }, props.labelText || titleCase$2(props.field)), tooltip), props.children ? /*#__PURE__*/React.cloneElement(props.children, {
     // adjust props
     labelText: " ",
     // set labelText to empty
@@ -2955,9 +2780,9 @@ const SubnetMultiSelect = props => {
     titleText: "Subnets",
     name: props.name,
     label: props.label,
-    items: isNullOrEmptyString$5(props.vpc_name) ? [] : props.subnets,
+    items: isNullOrEmptyString$6(props.vpc_name) ? [] : props.subnets,
     initialSelectedItems: props.initialSelectedItems,
-    invalidText: isNullOrEmptyString$5(props.vpc_name) ? "Select a VPC." : "Select at least one subnet.",
+    invalidText: isNullOrEmptyString$6(props.vpc_name) ? "Select a VPC." : "Select at least one subnet.",
     invalid: props.initialSelectedItems.length === 0,
     disabled: props.disabled,
     onChange: event => props.onChange(event.selectedItems)
@@ -4034,9 +3859,9 @@ const {
   isInRange
 } = lazyZ;
 const {
-  RegexButWithWords: RegexButWithWords$1
+  RegexButWithWords: RegexButWithWords$2
 } = regexButWithWords;
-const commaSeparatedIpListExp = new RegexButWithWords$1().stringBegin().group(exp => {
+const commaSeparatedIpListExp = new RegexButWithWords$2().stringBegin().group(exp => {
   exp.group(exp => {
     exp.wordBoundary().group(exp => {
       exp.group(exp => {
@@ -4067,7 +3892,7 @@ const commaSeparatedIpListExp = new RegexButWithWords$1().stringBegin().group(ex
     });
   }).lazy();
 }).anyNumber().stringEnd().done("gm");
-const commaSeparatedIpListExpNoCidr = new RegexButWithWords$1().stringBegin().group(exp => {
+const commaSeparatedIpListExpNoCidr = new RegexButWithWords$2().stringBegin().group(exp => {
   exp.group(exp => {
     exp.wordBoundary().group(exp => {
       exp.group(exp => {
@@ -4092,7 +3917,7 @@ const commaSeparatedIpListExpNoCidr = new RegexButWithWords$1().stringBegin().gr
  * @param {*} value
  * @returns {boolean} true if null or empty string
  */
-function isNullOrEmptyString$2(value) {
+function isNullOrEmptyString$4(value) {
   return value === null || value === "";
 }
 
@@ -4104,7 +3929,7 @@ function isNullOrEmptyString$2(value) {
  * @returns {boolean} true if invalid
  */
 function isRangeInvalid(value, min, max) {
-  if (isNullOrEmptyString$2(value)) return false;
+  if (isNullOrEmptyString$4(value)) return false;
   value = parseFloat(value);
   if (!isWholeNumber(value) || !isInRange(value, min, max)) {
     return true;
@@ -4118,7 +3943,7 @@ function isRangeInvalid(value, min, max) {
  * @returns {boolean} true if invalid
  */
 function isIpStringInvalid(value) {
-  if (!isNullOrEmptyString$2(value) && value.match(commaSeparatedIpListExp) === null) {
+  if (!isNullOrEmptyString$4(value) && value.match(commaSeparatedIpListExp) === null) {
     return true;
   }
   return false;
@@ -4130,7 +3955,7 @@ function isIpStringInvalid(value) {
  * @returns {boolean} true if invalid
  */
 function isIpStringInvalidNoCidr(value) {
-  if (!isNullOrEmptyString$2(value) && value.match(commaSeparatedIpListExpNoCidr) === null) {
+  if (!isNullOrEmptyString$4(value) && value.match(commaSeparatedIpListExpNoCidr) === null) {
     return true;
   }
   return false;
@@ -4491,19 +4316,19 @@ F5VsiForm.propTypes = {
 };
 
 const {
-  RegexButWithWords
+  RegexButWithWords: RegexButWithWords$1
 } = regexButWithWords;
 const {
-  isNullOrEmptyString: isNullOrEmptyString$1
+  isNullOrEmptyString: isNullOrEmptyString$3
 } = lazyZ;
-const urlValidationExp = new RegexButWithWords().group(exp => {
+const urlValidationExp = new RegexButWithWords$1().group(exp => {
   exp.literal("ftp").or().literal("http").literal("s").lazy();
 }).literal("://").group("www.").lazy().group(exp => {
   exp.negatedSet('"\\/').oneOrMore().literal(".");
 }).group(exp => {
   exp.negatedSet('"\\/').oneOrMore().literal(".");
 }).oneOrMore().negatedSet('"\\/.').oneOrMore().literal("/").negatedSet(' "').anyNumber().stringEnd().done("g");
-const tmosAdminPasswordValidationExp = new RegexButWithWords().stringBegin().look.ahead(exp => {
+const tmosAdminPasswordValidationExp = new RegexButWithWords$1().stringBegin().look.ahead(exp => {
   exp.any().anyNumber().set("a-z");
 }).look.ahead(exp => {
   exp.any().anyNumber().set("A-Z");
@@ -4516,8 +4341,8 @@ const tmosAdminPasswordValidationExp = new RegexButWithWords().stringBegin().loo
  * @param {str} url
  * @returns {boolean} true when url is valid and not empty, false when invalid
  */
-function isValidUrl(url) {
-  if (isNullOrEmptyString$1(url) || url === "null") return true;
+function isValidUrl$1(url) {
+  if (isNullOrEmptyString$3(url) || url === "null") return true;
   return url.match(urlValidationExp) !== null;
 }
 
@@ -4526,8 +4351,8 @@ function isValidUrl(url) {
  * @param {str} password
  * @returns {boolean} true when password is valid
  */
-function isValidTmosAdminPassword(password) {
-  if (isNullOrEmptyString$1(password)) return true;else return password.match(tmosAdminPasswordValidationExp) !== null;
+function isValidTmosAdminPassword$1(password) {
+  if (isNullOrEmptyString$3(password)) return true;else return password.match(tmosAdminPasswordValidationExp) !== null;
 }
 
 /**
@@ -4568,7 +4393,7 @@ function generatePassword(length) {
  * @param {int} length
  * @returns {string} password that fits the requirements of the validation expression
  */
-function getValidAdminPassword(length) {
+function getValidAdminPassword$1(length) {
   let invalid = true;
   let count = 0;
   let result;
@@ -4584,16 +4409,16 @@ function getValidAdminPassword(length) {
   } while (invalid && count <= 5); // only be more than 5 times if you specified an invalid length. dummy counter for unit
   return result;
 }
-var f5Utils = {
-  getValidAdminPassword,
-  isNullOrEmptyString: isNullOrEmptyString$1,
-  isValidTmosAdminPassword,
-  isValidUrl
+var f5 = {
+  getValidAdminPassword: getValidAdminPassword$1,
+  isNullOrEmptyString: isNullOrEmptyString$3,
+  isValidTmosAdminPassword: isValidTmosAdminPassword$1,
+  isValidUrl: isValidUrl$1
 };
-var f5Utils_1 = f5Utils.getValidAdminPassword;
-var f5Utils_2 = f5Utils.isNullOrEmptyString;
-var f5Utils_3 = f5Utils.isValidTmosAdminPassword;
-var f5Utils_4 = f5Utils.isValidUrl;
+var f5_1 = f5.getValidAdminPassword;
+var f5_2 = f5.isNullOrEmptyString;
+var f5_3 = f5.isValidTmosAdminPassword;
+var f5_4 = f5.isValidUrl;
 
 /**
  * F5VsiTemplateForm
@@ -4652,7 +4477,7 @@ class F5VsiTemplateForm extends Component {
    */
   generateAdminPassword() {
     let length = Math.floor(Math.random() * 6 + 15); // between 15-20 chars, inclusive (20 - 15 + 1)
-    let password = f5Utils_1(length); // get a valid password
+    let password = f5_1(length); // get a valid password
     this.setState({
       tmos_admin_password: password
     }); // set password
@@ -4685,12 +4510,12 @@ class F5VsiTemplateForm extends Component {
       labelText: "TMOS Admin Password",
       name: "tmos_admin_password",
       value: this.state.tmos_admin_password || "",
-      invalid: this.props.invalidCallback("tmos_admin_password", this.state, this.props) || !f5Utils_3(this.state.tmos_admin_password),
+      invalid: this.props.invalidCallback("tmos_admin_password", this.state, this.props) || !f5_3(this.state.tmos_admin_password),
       invalidText: "Password must be at least 15 characters, contain one numeric, one uppercase, and one lowercase character.",
       onChange: this.handleTextInput
     })), /*#__PURE__*/React.createElement(PopoverWrapper, {
       hoverText: "Generate Password",
-      className: "passwordGenerateButton" + (f5Utils_3(this.state.tmos_admin_password) ? "" : " invalid")
+      className: "passwordGenerateButton" + (f5_3(this.state.tmos_admin_password) ? "" : " invalid")
     }, /*#__PURE__*/React.createElement(Button, {
       kind: "ghost",
       onClick: this.generateAdminPassword,
@@ -4707,7 +4532,7 @@ class F5VsiTemplateForm extends Component {
       innerForm: IcseTextInput,
       value: this.state.byol_license_basekey || "",
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("byol_license_basekey", this.state, this.props) || f5Utils_2(this.state.byol_license_basekey),
+      invalid: this.props.invalidCallback("byol_license_basekey", this.state, this.props) || f5_2(this.state.byol_license_basekey),
       invalidText: this.props.invalidTextCallback("byol_license_basekey", this.state, this.props)
     })), this.state.license_type != "byol" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(ToolTipWrapper, {
       tooltip: {
@@ -4721,7 +4546,7 @@ class F5VsiTemplateForm extends Component {
       innerForm: IcseTextInput,
       value: this.state.license_username || "",
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("license_username", this.state, this.props) || f5Utils_2(this.state.license_username),
+      invalid: this.props.invalidCallback("license_username", this.state, this.props) || f5_2(this.state.license_username),
       invalidText: this.props.invalidTextCallback("license_username", this.state, this.props)
     }), /*#__PURE__*/React.createElement("div", {
       className: "leftTextAlign tooltip"
@@ -4750,7 +4575,7 @@ class F5VsiTemplateForm extends Component {
       innerForm: IcseTextInput,
       value: this.state.license_host || "",
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("license_host", this.state, this.props) || f5Utils_2(this.state.license_host),
+      invalid: this.props.invalidCallback("license_host", this.state, this.props) || f5_2(this.state.license_host),
       invalidText: this.props.invalidTextCallback("license_host", this.state, this.props)
     }), /*#__PURE__*/React.createElement(ToolTipWrapper, {
       tooltip: {
@@ -4763,7 +4588,7 @@ class F5VsiTemplateForm extends Component {
       innerForm: IcseTextInput,
       value: this.state.license_pool || "",
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("license_pool", this.state, this.props) || f5Utils_2(this.state.license_pool),
+      invalid: this.props.invalidCallback("license_pool", this.state, this.props) || f5_2(this.state.license_pool),
       invalidText: this.props.invalidTextCallback("license_pool", this.state, this.props)
     })), this.state.license_type == "utilitypool" && /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(ToolTipWrapper, {
       tooltip: {
@@ -4777,7 +4602,7 @@ class F5VsiTemplateForm extends Component {
       innerForm: IcseTextInput,
       value: this.state.license_unit_of_measure || "",
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("license_unit_of_measure", this.state, this.props) || f5Utils_2(this.state.license_unit_of_measure),
+      invalid: this.props.invalidCallback("license_unit_of_measure", this.state, this.props) || f5_2(this.state.license_unit_of_measure),
       invalidText: this.props.invalidTextCallback("license_unit_of_measure", this.state, this.props)
     }), /*#__PURE__*/React.createElement(ToolTipWrapper, {
       tooltip: {
@@ -4790,7 +4615,7 @@ class F5VsiTemplateForm extends Component {
       innerForm: IcseTextInput,
       value: this.state.license_sku_keyword_1 || "",
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("license_sku_keyword_1", this.state, this.props) || f5Utils_2(this.state.license_sku_keyword_1),
+      invalid: this.props.invalidCallback("license_sku_keyword_1", this.state, this.props) || f5_2(this.state.license_sku_keyword_1),
       invalidText: this.props.invalidTextCallback("license_sku_keyword_1", this.state, this.props)
     }), /*#__PURE__*/React.createElement(ToolTipWrapper, {
       tooltip: {
@@ -4803,7 +4628,7 @@ class F5VsiTemplateForm extends Component {
       innerForm: IcseTextInput,
       value: this.state.license_sku_keyword_2 || "",
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("license_sku_keyword_2", this.state, this.props) || f5Utils_2(this.state.license_sku_keyword_2),
+      invalid: this.props.invalidCallback("license_sku_keyword_2", this.state, this.props) || f5_2(this.state.license_sku_keyword_2),
       invalidText: this.props.invalidTextCallback("license_sku_keyword_2", this.state, this.props)
     })))), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(ToolTipWrapper, {
       tooltip: {
@@ -4817,7 +4642,7 @@ class F5VsiTemplateForm extends Component {
       innerForm: IcseTextInput,
       value: this.state.template_version,
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("template_version", this.state, this.props) || f5Utils_2(this.state.template_version),
+      invalid: this.props.invalidCallback("template_version", this.state, this.props) || f5_2(this.state.template_version),
       invalidText: this.props.invalidTextCallback("template_version", this.state, this.props)
     }), /*#__PURE__*/React.createElement(ToolTipWrapper, {
       tooltip: {
@@ -4830,7 +4655,7 @@ class F5VsiTemplateForm extends Component {
       innerForm: IcseTextInput,
       value: this.state.template_source,
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("template_source", this.state, this.props) || f5Utils_2(this.state.template_source),
+      invalid: this.props.invalidCallback("template_source", this.state, this.props) || f5_2(this.state.template_source),
       invalidText: this.props.invalidTextCallback("template_source", this.state, this.props)
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(ToolTipWrapper, {
       tooltip: {
@@ -4857,7 +4682,7 @@ class F5VsiTemplateForm extends Component {
       innerForm: IcseTextInput,
       value: this.state.phone_home_url,
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("phone_home_url", this.state, this.props) || !f5Utils_4(this.state.phone_home_url),
+      invalid: this.props.invalidCallback("phone_home_url", this.state, this.props) || !f5_4(this.state.phone_home_url),
       invalidText: this.props.invalidTextCallback("phone_home_url", this.state, this.props)
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(ToolTipWrapper, {
       tooltip: {
@@ -4871,7 +4696,7 @@ class F5VsiTemplateForm extends Component {
       innerForm: IcseTextInput,
       value: this.state.do_declaration_url,
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("do_declaration_url", this.state, this.props) || !f5Utils_4(this.state.do_declaration_url),
+      invalid: this.props.invalidCallback("do_declaration_url", this.state, this.props) || !f5_4(this.state.do_declaration_url),
       invalidText: this.props.invalidTextCallback("do_declaration_url", this.state, this.props)
     }), /*#__PURE__*/React.createElement(ToolTipWrapper, {
       tooltip: {
@@ -4884,7 +4709,7 @@ class F5VsiTemplateForm extends Component {
       innerForm: IcseTextInput,
       value: this.state.as3_declaration_url,
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("as3_declaration_url", this.state, this.props) || !f5Utils_4(this.state.as3_declaration_url),
+      invalid: this.props.invalidCallback("as3_declaration_url", this.state, this.props) || !f5_4(this.state.as3_declaration_url),
       invalidText: this.props.invalidTextCallback("as3_declaration_url", this.state, this.props)
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(ToolTipWrapper, {
       tooltip: {
@@ -4898,7 +4723,7 @@ class F5VsiTemplateForm extends Component {
       innerForm: IcseTextInput,
       value: this.state.ts_declaration_url,
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("ts_declaration_url", this.state, this.props) || !f5Utils_4(this.state.ts_declaration_url),
+      invalid: this.props.invalidCallback("ts_declaration_url", this.state, this.props) || !f5_4(this.state.ts_declaration_url),
       invalidText: this.props.invalidTextCallback("ts_declaration_url", this.state, this.props)
     }), /*#__PURE__*/React.createElement(ToolTipWrapper, {
       tooltip: {
@@ -4911,7 +4736,7 @@ class F5VsiTemplateForm extends Component {
       innerForm: IcseTextInput,
       value: this.state.tgstandby_url,
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("tgstandby_url", this.state, this.props) || !f5Utils_4(this.state.tgstandby_url),
+      invalid: this.props.invalidCallback("tgstandby_url", this.state, this.props) || !f5_4(this.state.tgstandby_url),
       invalidText: this.props.invalidTextCallback("tgstandby_url", this.state, this.props)
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(ToolTipWrapper, {
       tooltip: {
@@ -4925,7 +4750,7 @@ class F5VsiTemplateForm extends Component {
       innerForm: IcseTextInput,
       value: this.state.tgrefresh_url,
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("tgrefresh_url", this.state, this.props) || !f5Utils_4(this.state.tgrefresh_url),
+      invalid: this.props.invalidCallback("tgrefresh_url", this.state, this.props) || !f5_4(this.state.tgrefresh_url),
       invalidText: this.props.invalidTextCallback("tgrefresh_url", this.state, this.props)
     }), /*#__PURE__*/React.createElement(ToolTipWrapper, {
       tooltip: {
@@ -4938,7 +4763,7 @@ class F5VsiTemplateForm extends Component {
       innerForm: IcseTextInput,
       value: this.state.tgactive_url,
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("tgactive_url", this.state, this.props) || !f5Utils_4(this.state.tgactive_url),
+      invalid: this.props.invalidCallback("tgactive_url", this.state, this.props) || !f5_4(this.state.tgactive_url),
       invalidText: this.props.invalidTextCallback("tgactive_url", this.state, this.props)
     })));
   }
@@ -5461,9 +5286,9 @@ const {
   capitalize,
   titleCase,
   kebabCase,
-  isIpv4CidrOrAddress,
+  isIpv4CidrOrAddress: isIpv4CidrOrAddress$1,
   validPortRange,
-  isNullOrEmptyString,
+  isNullOrEmptyString: isNullOrEmptyString$2,
   contains
 } = require("lazy-z");
 
@@ -5733,7 +5558,7 @@ const NetworkingRuleTextField = props => {
     placeholder: "x.x.x.x",
     invalidText: "Please provide a valid IPV4 IP address or CIDR notation.",
     invalidCallback: () => {
-      return isIpv4CidrOrAddress(props.state[props.name]) === false;
+      return isIpv4CidrOrAddress$1(props.state[props.name]) === false;
     }
   });
 };
@@ -5757,7 +5582,7 @@ const NetworkingRuleProtocolTextField = props => {
     placeholder: String(props.state.rule[props.name]),
     value: props.state.rule[props.name] || "",
     onChange: e => props.onChange(props.name, e),
-    invalid: validPortRange(props.name, props.state.rule[props.name] || -1) === false && isNullOrEmptyString(props.state.rule[props.name]) === false,
+    invalid: validPortRange(props.name, props.state.rule[props.name] || -1) === false && isNullOrEmptyString$2(props.state.rule[props.name]) === false,
     invalidText: contains(["type", "code"], props.name) ? `0 to ${props.name === "type" ? 254 : 255}` : "1 to 65535",
     className: "fieldWidthSmaller"
   });
@@ -6635,7 +6460,7 @@ class RoutingTableRouteForm extends Component {
     this.state = {
       ...this.props.data
     };
-    if (!isNullOrEmptyString$5(this.state.action) && this.state.action !== "deliver") {
+    if (!isNullOrEmptyString$6(this.state.action) && this.state.action !== "deliver") {
       this.state.next_hop = "0.0.0.0";
     }
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -6710,7 +6535,7 @@ class RoutingTableRouteForm extends Component {
       value: this.state.next_hop,
       labelText: "Next Hop",
       placeholder: "x.x.x.x",
-      invalidCallback: () => isNullOrEmptyString$5(this.state.next_hop) || isIpv4CidrOrAddress$2(this.state.next_hop) === false || contains$2(this.state.next_hop, `/`),
+      invalidCallback: () => isNullOrEmptyString$6(this.state.next_hop) || isIpv4CidrOrAddress$2(this.state.next_hop) === false || contains$2(this.state.next_hop, `/`),
       invalidText: "Next hop must be a valid IP",
       onChange: this.handleInputChange,
       disabled: this.state.action !== "deliver",
@@ -7459,7 +7284,7 @@ class SubnetForm extends React.Component {
       className: "fieldWidthSmaller",
       disabled: this.props.isModal || this.props.readOnly,
       disableInvalid: this.props.isModal || this.props.readOnly,
-      invalid: this.props.isModal || this.props.readOnly ? false : isNullOrEmptyString$5(this.state.network_acl),
+      invalid: this.props.isModal || this.props.readOnly ? false : isNullOrEmptyString$6(this.state.network_acl),
       invalidText: "Select a Network ACL."
     })), /*#__PURE__*/React.createElement(IcseFormGroup, {
       noMarginBottom: true
@@ -8823,7 +8648,7 @@ class VpnServerForm extends Component {
       groups: this.props.vpcList,
       value: this.state.vpc,
       handleInputChange: this.handleInputChange,
-      invalid: isNullOrEmptyString$5(this.state.vpc),
+      invalid: isNullOrEmptyString$6(this.state.vpc),
       invalidText: "Select a VPC.",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(SubnetMultiSelect, {
@@ -8842,7 +8667,7 @@ class VpnServerForm extends Component {
       onChange: value => this.handleMultiSelectChange("security_groups", value),
       securityGroups: this.getSecurityGroupList(),
       invalid: !(this.state.security_groups?.length > 0),
-      invalidText: !this.state.vpc || isNullOrEmptyString$5(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`,
+      invalidText: !this.state.vpc || isNullOrEmptyString$6(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`,
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: this.props.data.name + "-vpn-server-certificate-crn",
@@ -8908,7 +8733,7 @@ class VpnServerForm extends Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: !isNullOrEmptyString$5(this.state.port) && (!isWholeNumber$1(parseFloat(this.state.port)) || this.state.port < 1 || this.state.port > 65535),
+      invalid: !isNullOrEmptyString$6(this.state.port) && (!isWholeNumber$1(parseFloat(this.state.port)) || this.state.port < 1 || this.state.port > 65535),
       invalidText: "Must be a whole number between 1 and 65535.",
       className: "fieldWidthSmaller leftTextAlign"
     }), /*#__PURE__*/React.createElement(IcseSelect, {
@@ -8937,7 +8762,7 @@ class VpnServerForm extends Component {
       hideSteppers: true,
       min: 0,
       max: 28800,
-      invalid: !isNullOrEmptyString$5(this.state.client_idle_timeout) && (!isWholeNumber$1(parseFloat(this.state.client_idle_timeout)) || this.state.client_idle_timeout < 0 || this.state.client_idle_timeout > 28800),
+      invalid: !isNullOrEmptyString$6(this.state.client_idle_timeout) && (!isWholeNumber$1(parseFloat(this.state.client_idle_timeout)) || this.state.client_idle_timeout < 0 || this.state.client_idle_timeout > 28800),
       invalidText: "Must be a whole number between 0 and 28800.",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
@@ -9272,7 +9097,7 @@ class VsiForm extends Component {
       groups: this.props.encryptionKeys,
       value: this.state.encryption_key,
       handleInputChange: this.handleInputChange,
-      invalid: isNullOrEmptyString$5(this.state.encryption_key),
+      invalid: isNullOrEmptyString$6(this.state.encryption_key),
       invalidText: "Select a valid encryption key."
     }), /*#__PURE__*/React.createElement(IcseToggle, {
       id: composedId + "-fips-toggle",
@@ -9517,7 +9342,7 @@ class VsiLoadBalancerForm extends React.Component {
       groups: this.props.vpcList,
       value: this.state.vpc,
       handleInputChange: this.handleInputChange,
-      invalid: isNullOrEmptyString$5(this.state.vpc),
+      invalid: isNullOrEmptyString$6(this.state.vpc),
       invalidText: "Select a VPC.",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(SecurityGroupMultiSelect, {
@@ -9528,7 +9353,7 @@ class VsiLoadBalancerForm extends React.Component {
       onChange: value => this.handleMultiSelectChange("security_groups", value),
       securityGroups: this.getSecurityGroupList(),
       invalid: !(this.state.security_groups?.length > 0),
-      invalidText: !this.state.vpc || isNullOrEmptyString$5(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`,
+      invalidText: !this.state.vpc || isNullOrEmptyString$6(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`,
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseHeading, {
       type: "subHeading",
@@ -9561,7 +9386,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: isNullOrEmptyString$5(this.state.port || "") ? true : !isWholeNumber$1(this.state.port),
+      invalid: isNullOrEmptyString$6(this.state.port || "") ? true : !isWholeNumber$1(this.state.port),
       invalidText: "Must be a whole number between 1 and 65535",
       className: "fieldWidthSmaller"
     })), this.allVsi().map((row, index) => /*#__PURE__*/React.createElement(IcseFormGroup, {
@@ -9622,7 +9447,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 5,
       max: 3000,
-      invalid: isNullOrEmptyString$5(this.state.health_timeout || "") ? true : !isWholeNumber$1(this.state.health_timeout),
+      invalid: isNullOrEmptyString$6(this.state.health_timeout || "") ? true : !isWholeNumber$1(this.state.health_timeout),
       invalidText: "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(NumberInput, {
@@ -9637,7 +9462,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 5,
       max: 3000,
-      invalid: isNullOrEmptyString$5(this.state.health_delay || "") ? true : this.state.health_delay <= this.state.health_timeout || !isWholeNumber$1(this.state.health_delay),
+      invalid: isNullOrEmptyString$6(this.state.health_delay || "") ? true : this.state.health_delay <= this.state.health_timeout || !isWholeNumber$1(this.state.health_delay),
       invalidText: this.state.health_delay <= this.state.health_timeout ? "Must be greater than Health Timeout value" : "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(NumberInput, {
@@ -9652,7 +9477,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 5,
       max: 3000,
-      invalid: isNullOrEmptyString$5(this.state.health_retries || "") ? true : !isWholeNumber$1(this.state.health_retries),
+      invalid: isNullOrEmptyString$6(this.state.health_retries || "") ? true : !isWholeNumber$1(this.state.health_retries),
       invalidText: "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseHeading, {
@@ -9670,7 +9495,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: isNullOrEmptyString$5(this.state.listener_port || "") ? true : !isWholeNumber$1(this.state.listener_port),
+      invalid: isNullOrEmptyString$6(this.state.listener_port || "") ? true : !isWholeNumber$1(this.state.listener_port),
       invalidText: "Must be a whole number between 1 and 65535",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseSelect, {
@@ -9695,7 +9520,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 15000,
-      invalid: isNullOrEmptyString$5(this.state.connection_limit || "") ? false : isInRange$1(this.state.connection_limit, 1, 15000) === false || !isWholeNumber$1(this.state.connection_limit),
+      invalid: isNullOrEmptyString$6(this.state.connection_limit || "") ? false : isInRange$1(this.state.connection_limit, 1, 15000) === false || !isWholeNumber$1(this.state.connection_limit),
       invalidText: "Must be a whole number between 1 and 15000",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseHeading, {
@@ -9725,7 +9550,7 @@ class VsiLoadBalancerForm extends React.Component {
       isModal: this.props.isModal,
       labelText: "Session Cookie Name",
       value: this.state.session_persistence_app_cookie_name || "",
-      invalid: isNullOrEmptyString$5(this.state.session_persistence_app_cookie_name || "") ? false : this.props.invalidCallback(this.state, this.props),
+      invalid: isNullOrEmptyString$6(this.state.session_persistence_app_cookie_name || "") ? false : this.props.invalidCallback(this.state, this.props),
       onChange: this.handleInputChange,
       className: "fieldWidthSmaller"
     })));
@@ -9770,10 +9595,36 @@ VsiLoadBalancerForm.propTypes = {
   vsiDeployments: PropTypes.arrayOf(PropTypes.shape({})).isRequired
 };
 
+/**
+ * input change for resources in access group policies
+ * @param {Object} stateData
+ * @param {*} event
+ * @returns {Object} resources
+ */
+function handleInputResource(stateData, event) {
+  let {
+    name,
+    value
+  } = event.target;
+  let resources = {
+    ...stateData.resources
+  };
+  resources[name] = value;
+  return {
+    resources: resources
+  };
+}
+var acessGroups = {
+  handleInputResource
+};
+var acessGroups_1 = acessGroups.handleInputResource;
+
 class AccessGroupPolicyForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = {
+      ...this.props.data
+    };
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -9795,36 +9646,25 @@ class AccessGroupPolicyForm extends React.Component {
    * @param {*} value value to update
    */
   handleInputResource(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    let resources = {
-      ...this.state.resources
-    };
-    resources[name] = value;
-    this.setState({
-      resources
-    });
+    this.setState(acessGroups_1(this.state, event));
   }
   render() {
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
-      id: "name",
-      componentName: "policies",
+      id: `${this.props.data.name}-name`,
+      componentName: `${this.props.data.name}-name`,
       value: this.state.name,
       onChange: this.handleInputChange,
-      labelText: "Name",
       invalidText: this.props.invalidTextCallback(this.state, this.props),
       invalid: this.props.invalidCallback(this.state, this.props),
-      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props)
+      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props),
+      forceKebabCase: true
     })), /*#__PURE__*/React.createElement(IcseFormGroup, {
       className: "marginBottomSmall"
     }, /*#__PURE__*/React.createElement(IcseHeading, {
       name: "Resource Configuration",
       type: "subHeading"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
-      id: "resource",
-      componentName: "resource",
+      id: `${this.props.data.name}-resource`,
       tooltip: {
         content: "The resource of the policy definition",
         alignModal: "bottom-left"
@@ -9833,8 +9673,7 @@ class AccessGroupPolicyForm extends React.Component {
       field: "resource",
       value: this.state.resources.resource,
       invalid: false,
-      onChange: this.handleInputResource,
-      labelText: "Resource"
+      onChange: this.handleInputResource
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
       name: "resource_group",
       formName: `${kebabCase$4(this.props.data.name)}-agp-rg-select`,
@@ -9848,8 +9687,7 @@ class AccessGroupPolicyForm extends React.Component {
       },
       disableInvalid: true // resource group is not required
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
-      id: "resource_instance_id",
-      componentName: "resource_instance_id",
+      id: `${this.props.data.name}-resource_instance_id`,
       isModal: this.props.isModal,
       field: "resource_instance_id",
       value: this.state.resources.resource_instance_id,
@@ -9857,26 +9695,26 @@ class AccessGroupPolicyForm extends React.Component {
         content: "ID of a service instance to give permissions"
       },
       invalid: false,
-      labelText: "Resource Instance ID",
+      labelText: "Resource Instance ID" // needed to override Id in titleCase
+      ,
       onChange: this.handleInputResource
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
-      id: "service",
-      componentName: "service",
+      id: `${this.props.data.name}-service`,
       tooltip: {
         content: 'Name of the service type for the policy ex. "cloud-object-storage". You can run the `ibmcloud catalog service-marketplace` command to retrieve the service types. For account management services, you can find supported values in the following link.',
         link: "https://cloud.ibm.com/docs/account?topic=account-account-services#api-acct-mgmt",
         alignModal: "bottom-left",
         align: "top-left"
       },
-      labelText: "Service Type",
+      labelText: "Service Type" // override field, display text different
+      ,
       field: "service",
       value: this.state.resources.service,
       isModal: this.props.isModal,
       onChange: this.handleInputResource,
       invalid: false
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
-      id: "resource_type",
-      componentName: "resource_type",
+      id: `${this.props.data.name}-resource-type`,
       field: "resource_type",
       tooltip: {
         content: 'Name of the resource type for the policy ex. "resource-group"',
@@ -9885,8 +9723,7 @@ class AccessGroupPolicyForm extends React.Component {
       invalid: false,
       value: this.state.resources.resource_type,
       isModal: this.props.isModal,
-      onChange: this.handleInputResource,
-      labelText: "Resource Type"
+      onChange: this.handleInputResource
     })));
   }
 }
@@ -10404,6 +10241,203 @@ CbrTagForm.propTypes = {
   arrayParentName: PropTypes.string
 };
 
+const {
+  isNullOrEmptyString: isNullOrEmptyString$1,
+  isIpv4CidrOrAddress
+} = lazyZ;
+const {
+  RegexButWithWords
+} = regexButWithWords;
+const ipRangeExpression = new RegexButWithWords().wordBoundary().group(exp => {
+  exp.group(exp => {
+    exp.group(exp => {
+      exp.literal("2").set("1-5").set("0-6");
+    }).or().group(exp => {
+      exp.literal("1").digit(2);
+    }).or().group(exp => {
+      exp.digit(1, 2);
+    });
+  }).literal(".");
+}, 3).group(exp => {
+  exp.group(exp => {
+    exp.literal("2").set("1-5").set("0-6");
+  }).or().group(exp => {
+    exp.literal("1").digit(2);
+  }).or().group(exp => {
+    exp.digit(1, 2);
+  });
+}).literal("-").group(exp => {
+  exp.group(exp => {
+    exp.group(exp => {
+      exp.literal("2").set("1-5").set("0-6");
+    }).or().group(exp => {
+      exp.literal("1").digit(2);
+    }).or().group(exp => {
+      exp.digit(1, 2);
+    });
+  }).literal(".");
+}, 3).group(exp => {
+  exp.group(exp => {
+    exp.literal("2").set("1-5").set("0-6");
+  }).or().group(exp => {
+    exp.literal("1").digit(2);
+  }).or().group(exp => {
+    exp.digit(1, 2);
+  });
+}).wordBoundary().done("g");
+
+/**
+ * create cbr invalid field sta
+ * @param {*} field
+ * @param {*} value
+ * @returns {Object} invalid boolean invalidText string
+ */
+function cbrInvalid$1(field, value) {
+  let invalid = {
+    invalid: false,
+    invalidText: ""
+  };
+  if (!isNullOrEmptyString$1(value) && (value.match(/^[0-9a-z-]+$/) === null || value.length >= 128)) {
+    invalid.invalid = true;
+    invalid.invalidText = `Invalid ${field}. Value must match regex expression /^[0-9a-z-]+$/.`;
+  }
+  return invalid;
+}
+
+/**
+ * cbr value is invalid
+ * @param {*} type
+ * @param {*} value
+ * @returns {Object} invalid boolean invalidText string
+ */
+function cbrValueInvalid$1(type, value) {
+  let invalid = {
+    invalid: false,
+    invalidText: ""
+  };
+  if (isNullOrEmptyString$1(value)) {
+    invalid.invalid = true;
+    invalid.invalidText = `Invalid value for type ${type}. Cannot be empty string.`;
+  } else if (type === "ipAddress") {
+    if (!isIpv4CidrOrAddress(value) || value.includes("/")) {
+      invalid.invalid = true;
+      invalid.invalidText = `Invalid value for type ${type}. Value must be a valid IPV4 Address.`;
+    }
+  } else if (type === "ipRange") {
+    if (value.match(ipRangeExpression) === null) {
+      invalid.invalid = true;
+      invalid.invalidText = `Invalid value for type ${type}. Value must be a range of IPV4 Addresses.`;
+    }
+  } else {
+    invalid = cbrInvalid$1(type, value);
+  }
+  return invalid;
+}
+const cbrTypeNameMap$1 = {
+  ipAddress: "IP Address",
+  ipRange: "IP Range",
+  subnet: "Subnet",
+  vpc: "VPC",
+  serviceRef: "Service Ref"
+};
+const cbrNameTypeMap = {
+  "IP Address": "ipAddress",
+  "IP Range": "ipRange",
+  Subnet: "subnet",
+  VPC: "vpc",
+  "Service Ref": "serviceRef"
+};
+
+/**
+ * return a placeholder for value on exclusion/address form
+ * @param {string} type
+ * @returns
+ */
+function cbrValuePlaceholder$1(type) {
+  return type === "ipAddress" ? "x.x.x.x" : type === "ipRange" ? "x.x.x.x-x.x.x.x" : `my-cbr-zone-${type}`;
+}
+
+/**
+ * handle input change for cbr rules
+ * @param {*} event
+ * @param {Object} stateData
+ * @returns object
+ */
+function handleRuleInputChange$1(stateData, event) {
+  let {
+    name,
+    value
+  } = event.target;
+  let state = {
+    ...stateData
+  };
+  if (name === "enforcement_mode") {
+    state[name] = value.toLowerCase();
+  } else {
+    state[name] = value;
+  }
+  return state;
+}
+
+/**
+ * handle exclusion and address input change
+ * @param {*} event
+ * @param {Object} stateData
+ */
+function handleExclusionAddressInputChange$1(stateData, event) {
+  let {
+    name,
+    value
+  } = event.target;
+  let state = {
+    ...stateData
+  };
+  if (name === "type") state[name] = cbrNameTypeMap[value];else state[name] = value;
+  return state;
+}
+var cbrUtils = {
+  cbrInvalid: cbrInvalid$1,
+  cbrValueInvalid: cbrValueInvalid$1,
+  cbrValuePlaceholder: cbrValuePlaceholder$1,
+  handleRuleInputChange: handleRuleInputChange$1,
+  cbrTypeNameMap: cbrTypeNameMap$1,
+  handleExclusionAddressInputChange: handleExclusionAddressInputChange$1
+};
+var cbrUtils_1 = cbrUtils.cbrInvalid;
+var cbrUtils_2 = cbrUtils.cbrValueInvalid;
+var cbrUtils_3 = cbrUtils.cbrValuePlaceholder;
+var cbrUtils_5 = cbrUtils.cbrTypeNameMap;
+var cbrUtils_6 = cbrUtils.handleExclusionAddressInputChange;
+
+const {
+  cbrInvalid,
+  cbrValueInvalid,
+  cbrValuePlaceholder,
+  handleRuleInputChange,
+  cbrTypeNameMap,
+  handleExclusionAddressInputChange
+} = cbrUtils;
+const {
+  getValidAdminPassword,
+  isNullOrEmptyString,
+  isValidTmosAdminPassword,
+  isValidUrl
+} = f5;
+var forms = {
+  cbrInvalid,
+  cbrValueInvalid,
+  cbrValuePlaceholder,
+  handleRuleInputChange,
+  cbrTypeNameMap,
+  handleExclusionAddressInputChange,
+  getValidAdminPassword,
+  isNullOrEmptyString,
+  isValidTmosAdminPassword,
+  isValidUrl
+};
+var forms_1 = forms.cbrInvalid;
+var forms_4 = forms.handleRuleInputChange;
+
 /**
  * Context-based restriction rules
  */
@@ -10418,7 +10452,7 @@ class CbrRuleForm extends Component {
     buildFormFunctions(this);
   }
   handleInputChange(event) {
-    this.setState(lib_30(event, this.state));
+    this.setState(forms_4(this.state, event));
   }
   render() {
     // set up props for subforms
@@ -10648,7 +10682,7 @@ class CbrExclusionAddressForm extends Component {
    * @param {*} event
    */
   handleInputChange(event) {
-    this.setState(cbrUtils_6(event, this.state));
+    this.setState(cbrUtils_6(this.state, event));
   }
   render() {
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
@@ -10665,6 +10699,8 @@ class CbrExclusionAddressForm extends Component {
       id: this.props.data.name + "-cbr-account-id",
       componentName: this.props.data.name + "-cbr-zone",
       field: "account_id",
+      labelText: "Account ID" // need to override case on account id
+      ,
       value: this.state.account_id,
       onChange: this.handleInputChange,
       hideHelperText: true,
@@ -10812,7 +10848,7 @@ class CbrZoneForm extends Component {
       labelText: "Account ID" // needed to override titlecase capitalization
       ,
       onChange: this.handleInputChange
-    }, cbrUtils_1("account_id", this.state.account_id)))), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
+    }, forms_1("account_id", this.state.account_id)))), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
       id: this.props.data.name + "-cbr-zone-description",
       className: "textInputWide",
       name: "description",

@@ -2,7 +2,6 @@ import { TextArea } from "@carbon/react";
 import { transpose } from "lazy-z";
 import PropTypes from "prop-types";
 import React, { Component } from "react";
-import { IcseSelect } from "../../Dropdowns";
 import IcseFormTemplate from "../../IcseFormTemplate";
 import { IcseNameInput, IcseTextInput } from "../../Inputs";
 import { IcseFormGroup } from "../../Utils";
@@ -11,7 +10,7 @@ import {
   buildFormFunctions,
 } from "../../component-utils";
 import CbrExclusionAddressForm from "./CbrExclusionAddressForm.js";
-import { cbrInvalid } from "../../../lib/cbr-utils";
+import { cbrInvalid } from "../../../lib/forms";
 
 /**
  * Context-based restriction zones

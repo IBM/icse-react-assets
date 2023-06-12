@@ -153,7 +153,7 @@ function cbrValuePlaceholder(type) {
  * @param {Object} stateData
  * @returns object
  */
-function handleRuleInputChange(event, stateData) {
+function handleRuleInputChange(stateData, event) {
   let { name, value } = event.target;
   let state = { ...stateData };
   if (name === "enforcement_mode") {
@@ -169,7 +169,7 @@ function handleRuleInputChange(event, stateData) {
  * @param {*} event
  * @param {Object} stateData
  */
-function handleExclusionAddressInputChange(event, stateData) {
+function handleExclusionAddressInputChange(stateData, event) {
   let { name, value } = event.target;
   let state = { ...stateData };
   if (name === "type") state[name] = cbrNameTypeMap[value];

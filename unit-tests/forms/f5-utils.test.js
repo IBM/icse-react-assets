@@ -3,8 +3,8 @@ const {
   getValidAdminPassword,
   isValidUrl,
   isValidTmosAdminPassword,
-} = require("../src/lib/f5-utils");
-const { initMockWindow } = require("./mocks/window.mock");
+} = require("../../src/lib/forms/f5");
+const { initMockWindow } = require("../mocks/window.mock");
 const { RegexButWithWords } = require("regex-but-with-words");
 
 const tmosAdminPasswordValidationExp = new RegexButWithWords()
