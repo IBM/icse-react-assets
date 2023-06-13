@@ -10419,8 +10419,25 @@ function handleDnsResolverInputChange$1(stateData, event) {
   }
   return state;
 }
+
+/**
+ * handle dns form input change
+ * @param {*} event 
+ * @returns {Object} state update object
+ */
+function dnsFormInputChange$1(event) {
+  let {
+    name,
+    value
+  } = event.target;
+  if (name === "plan") value = value.toLowerCase();
+  return {
+    [name]: value
+  };
+}
 var dns = {
-  handleDnsResolverInputChange: handleDnsResolverInputChange$1
+  handleDnsResolverInputChange: handleDnsResolverInputChange$1,
+  dnsFormInputChange: dnsFormInputChange$1
 };
 
 const {
@@ -10432,7 +10449,8 @@ const {
   handleExclusionAddressInputChange
 } = cbrUtils;
 const {
-  handleDnsResolverInputChange
+  handleDnsResolverInputChange,
+  dnsFormInputChange
 } = dns;
 const {
   getValidAdminPassword,
@@ -10451,11 +10469,13 @@ var forms = {
   isNullOrEmptyString,
   isValidTmosAdminPassword,
   isValidUrl,
-  handleDnsResolverInputChange
+  handleDnsResolverInputChange,
+  dnsFormInputChange
 };
 var forms_1 = forms.cbrInvalid;
 var forms_4 = forms.handleRuleInputChange;
 var forms_11 = forms.handleDnsResolverInputChange;
+var forms_12 = forms.dnsFormInputChange;
 
 /**
  * Context-based restriction rules
@@ -11419,23 +11439,10 @@ class DnsForm extends React.Component {
       ...this.props.data
     };
     this.handleInputChange = this.handleInputChange.bind(this);
-    buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
   }
   handleInputChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    if (name === "plan") {
-      this.setState({
-        [name]: value.toLowerCase()
-      });
-    } else {
-      this.setState({
-        [name]: value
-      });
-    }
+    this.setState(forms_12(event));
   }
   render() {
     // set up props for subforms
@@ -11455,7 +11462,7 @@ class DnsForm extends React.Component {
       arrayParentName: this.props.data.name
     }, resolverInnerFormProps);
     return /*#__PURE__*/React__default["default"].createElement("div", {
-      id: "dns-form"
+      id: "dns-form-" + this.props.data.name
     }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       id: this.props.data.name + "-dns",
       componentName: this.props.data.name + "-dns",
@@ -11475,7 +11482,7 @@ class DnsForm extends React.Component {
       handleInputChange: this.handleInputChange
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       name: "resource_group",
-      formName: `${lazyZ.kebabCase(this.props.data.name)}-dns-rg-select`,
+      formName: `${this.props.data.name}-dns-rg-select`,
       groups: this.props.resourceGroups,
       value: this.state.resource_group,
       handleInputChange: this.handleInputChange,
