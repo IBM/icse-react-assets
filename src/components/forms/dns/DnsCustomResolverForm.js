@@ -6,6 +6,7 @@ import { IcseFormGroup } from "../../Utils";
 import { TextArea } from "@carbon/react";
 import { IcseSelect } from "../../Dropdowns";
 import { SubnetMultiSelect } from "../../MultiSelects";
+import { handleDnsResolverInputChange } from "../../../lib/forms";
 
 class DnsCustomResolverForm extends React.Component {
   constructor(props) {
@@ -23,12 +24,7 @@ class DnsCustomResolverForm extends React.Component {
    * @param {*} value value to update
    */
   handleInputChange(event) {
-    let { name, value } = event.target;
-    if (name === "vpc") {
-      this.setState({ [name]: value, subnets: [] });
-    } else {
-      this.setState({ [name]: value });
-    }
+    this.setState(handleDnsResolverInputChange(this.state, event));
   }
 
   /**
