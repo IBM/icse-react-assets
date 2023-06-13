@@ -1,9 +1,9 @@
-const { isFunction, splat } = require("lazy-z");
-const {
+import {
   eventTargetToNameAndValue,
-  toggleStateBoolean,
   setNameToValue,
-} = require("../src/lib/method-functions");
+  toggleStateBoolean,
+} from "../lib";
+const { isFunction, splat } = require("lazy-z");
 
 /**
  * build functions for modal forms
