@@ -74,6 +74,7 @@ class EncryptionKeyForm extends Component {
               content:
                 "Setting a rotation policy shortens the lifetime of the key at regular intervals. When it's time to rotate the key based on the rotation interval that you specify, the root key will be automatically replaced with new key material.",
               align: "bottom-left",
+              alignModal: "bottom-left",
             }}
             component={this.props.data.name}
             max={12}

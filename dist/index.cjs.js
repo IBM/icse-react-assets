@@ -3765,7 +3765,8 @@ class EncryptionKeyForm extends React.Component {
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
       tooltip: {
         content: "Setting a rotation policy shortens the lifetime of the key at regular intervals. When it's time to rotate the key based on the rotation interval that you specify, the root key will be automatically replaced with new key material.",
-        align: "bottom-left"
+        align: "bottom-left",
+        alignModal: "bottom-left"
       },
       component: this.props.data.name,
       max: 12,
