@@ -6,7 +6,7 @@ const {
   cbrTypeNameMap,
   handleExclusionAddressInputChange,
 } = require("./cbr-utils");
-const { handleDnsResolverInputChange } = require("./dns");
+const { handleDnsResolverInputChange, dnsFormInputChange } = require("./dns");
 const {
   getValidAdminPassword,
   isNullOrEmptyString,
@@ -26,4 +26,5 @@ module.exports = {
   isValidTmosAdminPassword,
   isValidUrl,
   handleDnsResolverInputChange,
+  dnsFormInputChange,
 };

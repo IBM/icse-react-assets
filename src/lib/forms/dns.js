@@ -16,6 +16,18 @@ function handleDnsResolverInputChange(stateData, event) {
   return state;
 }
 
+/**
+ * handle dns form input change
+ * @param {*} event 
+ * @returns {Object} state update object
+ */
+function dnsFormInputChange(event) {
+  let { name, value } = event.target;
+  if(name === "plan") value = value.toLowerCase();
+  return { [name]: value }
+}
+
 module.exports = {
   handleDnsResolverInputChange,
+  dnsFormInputChange
 };
