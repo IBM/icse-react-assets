@@ -210,7 +210,7 @@ input:read-only {
   margin-top: 0.5rem;
 }
 
-.tileFormMargin.formInSubForm {
+.tileFormMargin.subForm {
   padding: 0px;
 }
 
@@ -293,6 +293,10 @@ i.chevron > svg {
   outline: none;
   border: none;
   box-shadow: none;
+}
+
+.cds--tabs__nav-link:focus {
+  outline: none !important;
 }
 
 .marginRightSmall {
