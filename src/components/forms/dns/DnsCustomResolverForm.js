@@ -1,6 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { buildFormFunctions } from "../../component-utils";
+import {
+  buildFormDefaultInputMethods,
+  buildFormFunctions,
+} from "../../component-utils";
 import { IcseNameInput, IcseToggle } from "../../Inputs";
 import { IcseFormGroup } from "../../Utils";
 import { TextArea } from "@carbon/react";
@@ -16,6 +19,7 @@ class DnsCustomResolverForm extends React.Component {
     this.handleMultiSelect = this.handleMultiSelect.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
   }
 
   /**
@@ -37,10 +41,10 @@ class DnsCustomResolverForm extends React.Component {
 
   /**
    * handle subnet multiselect
-   * @param {event} event
+   * @param {value} value
    */
-  handleMultiSelect(name, event) {
-    this.setState({ [name]: event });
+  handleMultiSelect(name, value) {
+    this.setState(this.setNameToValue(name, value));
   }
 
   render() {

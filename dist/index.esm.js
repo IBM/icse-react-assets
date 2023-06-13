@@ -250,12 +250,12 @@ var buttonUtils = {
  * @param {*} event.target.value value to set
  * @returns {Object} object with key of name set to value
  */
-function eventTargetToNameAndValue$2(event) {
+function eventTargetToNameAndValue$1(event) {
   let {
     name,
     value
   } = event.target;
-  return setNameToValue$2(name, value);
+  return setNameToValue$1(name, value);
 }
 
 /**
@@ -264,20 +264,20 @@ function eventTargetToNameAndValue$2(event) {
  * @param {Object} stateData component state data
  * @returns {Object} object with key of field name set to boolean opposite in state
  */
-function toggleStateBoolean$2(fieldName, stateData) {
+function toggleStateBoolean$1(fieldName, stateData) {
   return {
     [fieldName]: !stateData[fieldName]
   };
 }
-function setNameToValue$2(name, value) {
+function setNameToValue$1(name, value) {
   return {
     [name]: value
   };
 }
 var methodFunctions = {
-  eventTargetToNameAndValue: eventTargetToNameAndValue$2,
-  toggleStateBoolean: toggleStateBoolean$2,
-  setNameToValue: setNameToValue$2
+  eventTargetToNameAndValue: eventTargetToNameAndValue$1,
+  toggleStateBoolean: toggleStateBoolean$1,
+  setNameToValue: setNameToValue$1
 };
 
 /**
@@ -660,9 +660,9 @@ const {
   deleteButtonParams
 } = buttonUtils;
 const {
-  eventTargetToNameAndValue: eventTargetToNameAndValue$1,
-  toggleStateBoolean: toggleStateBoolean$1,
-  setNameToValue: setNameToValue$1
+  eventTargetToNameAndValue,
+  toggleStateBoolean,
+  setNameToValue
 } = methodFunctions;
 const {
   docTextFieldParams
@@ -706,9 +706,9 @@ var lib = {
   checkNullorEmptyString,
   formatInputPlaceholder,
   saveChangeButtonClass,
-  eventTargetToNameAndValue: eventTargetToNameAndValue$1,
-  toggleStateBoolean: toggleStateBoolean$1,
-  setNameToValue: setNameToValue$1,
+  eventTargetToNameAndValue,
+  toggleStateBoolean,
+  setNameToValue,
   invalidRegex,
   handleClusterInputChange,
   subnetTierName,
@@ -730,6 +730,9 @@ var lib_4 = lib.handleNumberDropdownEvent;
 var lib_5 = lib.icseSelectParams;
 var lib_7 = lib.addClassName;
 var lib_9 = lib.checkNullorEmptyString;
+var lib_12 = lib.eventTargetToNameAndValue;
+var lib_13 = lib.toggleStateBoolean;
+var lib_14 = lib.setNameToValue;
 var lib_15 = lib.invalidRegex;
 var lib_16 = lib.handleClusterInputChange;
 var lib_17 = lib.subnetTierName;
@@ -2879,11 +2882,6 @@ const {
   isFunction,
   splat
 } = require("lazy-z");
-const {
-  eventTargetToNameAndValue,
-  toggleStateBoolean,
-  setNameToValue
-} = require("../src/lib/method-functions");
 
 /**
  * build functions for modal forms
@@ -2936,9 +2934,9 @@ function buildFormFunctions(component) {
  * @param {*} component React Component
  */
 function buildFormDefaultInputMethods(component) {
-  component.eventTargetToNameAndValue = eventTargetToNameAndValue.bind(component);
-  component.toggleStateBoolean = toggleStateBoolean.bind(component);
-  component.setNameToValue = setNameToValue.bind(component);
+  component.eventTargetToNameAndValue = lib_12.bind(component);
+  component.toggleStateBoolean = lib_13.bind(component);
+  component.setNameToValue = lib_14.bind(component);
 }
 
 class AppIdKeyForm extends React.Component {
@@ -10409,6 +10407,32 @@ var cbrUtils_3 = cbrUtils.cbrValuePlaceholder;
 var cbrUtils_5 = cbrUtils.cbrTypeNameMap;
 var cbrUtils_6 = cbrUtils.handleExclusionAddressInputChange;
 
+/**
+ * custom resolver input change
+ * @param {Object} stateData
+ * @param {*} event
+ * @returns {Object} new state
+ */
+function handleDnsResolverInputChange$1(stateData, event) {
+  let {
+    name,
+    value
+  } = event.target;
+  let state = {
+    ...stateData
+  };
+  if (name === "vpc") {
+    state[name] = value;
+    state.subnets = [];
+  } else {
+    state[name] = value;
+  }
+  return state;
+}
+var dns = {
+  handleDnsResolverInputChange: handleDnsResolverInputChange$1
+};
+
 const {
   cbrInvalid,
   cbrValueInvalid,
@@ -10417,6 +10441,9 @@ const {
   cbrTypeNameMap,
   handleExclusionAddressInputChange
 } = cbrUtils;
+const {
+  handleDnsResolverInputChange
+} = dns;
 const {
   getValidAdminPassword,
   isNullOrEmptyString,
@@ -10433,10 +10460,12 @@ var forms = {
   getValidAdminPassword,
   isNullOrEmptyString,
   isValidTmosAdminPassword,
-  isValidUrl
+  isValidUrl,
+  handleDnsResolverInputChange
 };
 var forms_1 = forms.cbrInvalid;
 var forms_4 = forms.handleRuleInputChange;
+var forms_11 = forms.handleDnsResolverInputChange;
 
 /**
  * Context-based restriction rules
@@ -11273,6 +11302,7 @@ class DnsCustomResolverForm extends React.Component {
     this.handleMultiSelect = this.handleMultiSelect.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
   }
 
   /**
@@ -11281,20 +11311,7 @@ class DnsCustomResolverForm extends React.Component {
    * @param {*} value value to update
    */
   handleInputChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    if (name === "vpc") {
-      this.setState({
-        [name]: value,
-        subnets: []
-      });
-    } else {
-      this.setState({
-        [name]: value
-      });
-    }
+    this.setState(forms_11(this.state, event));
   }
 
   /**
@@ -11302,19 +11319,15 @@ class DnsCustomResolverForm extends React.Component {
    * @param {string} name name of the object key to change
    */
   handleToggle(name) {
-    this.setState({
-      [name]: !this.state[name]
-    });
+    this.setState(this.toggleStateBoolean(name, this.state));
   }
 
   /**
    * handle subnet multiselect
-   * @param {event} event
+   * @param {value} value
    */
-  handleMultiSelect(name, event) {
-    this.setState({
-      [name]: event
-    });
+  handleMultiSelect(name, value) {
+    this.setState(this.setNameToValue(name, value));
   }
   render() {
     return /*#__PURE__*/React.createElement("div", {
@@ -11397,8 +11410,6 @@ DnsCustomResolverForm.propTypes = {
     vpc: PropTypes.string,
     subnets: PropTypes.arrayOf(PropTypes.string)
   }),
-  invalidCallback: PropTypes.func.isRequired,
-  invalidTextCallback: PropTypes.func.isRequired,
   invalidNameCallback: PropTypes.func.isRequired,
   invalidNameTextCallback: PropTypes.func.isRequired,
   invalidDescriptionCallback: PropTypes.func.isRequired,
