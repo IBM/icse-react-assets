@@ -50,25 +50,25 @@ class AccessGroupForm extends React.Component {
       <>
         <IcseFormGroup>
           <IcseNameInput
-            id="name"
+            id={this.props.data.name + "-name"}
             componentName="access_groups"
             value={this.state.name}
             onChange={this.handleInputChange}
             className="fieldWidth"
             hideHelperText
+            forceKebabCase
             invalid={this.props.invalidCallback(this.state, this.props)}
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
           />
         </IcseFormGroup>
         <IcseFormGroup>
           <IcseTextInput
-            id="description"
+            id={this.props.data.name + "-description"}
             componentName="description"
             tooltip={{
               content: "Description of the access group",
             }}
             field="description"
-            labelText="Description"
             value={this.state.description}
             onChange={this.handleInputChange}
             isModal={this.props.isModal}

@@ -1,6 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { buildFormFunctions } from "../component-utils";
+import {
+  buildFormDefaultInputMethods,
+  buildFormFunctions,
+} from "../../component-utils";
 import { IcseTextInput } from "../Inputs";
 
 class AppIdKeyForm extends React.Component {
@@ -9,6 +12,7 @@ class AppIdKeyForm extends React.Component {
     this.state = this.props.data;
     this.handleInputChange = this.handleInputChange.bind(this);
     buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
   }
 
   /**
@@ -17,18 +21,17 @@ class AppIdKeyForm extends React.Component {
    * @param {*} value value to update
    */
   handleInputChange(event) {
-    this.setState({ name: event.target.value });
+    this.setState(this.eventTargetToNameAndValue(event));
   }
 
   render() {
     return (
       <>
         <IcseTextInput
-          id={"app-id-key-name"}
+          id={this.props.data.name + "-app-id-key-name"}
           value={this.state.name}
           onChange={this.handleInputChange}
           field="name"
-          labelText="Name"
           componentName="appid"
           className="fieldWidthSmaller"
           invalid={this.props.invalidCallback(this.state, this.props)}
