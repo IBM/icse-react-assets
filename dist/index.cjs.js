@@ -11042,7 +11042,7 @@ class DnsRecordForm extends React.Component {
   render() {
     let dnsComponent = this.props.isModal ? "new-dns-record" : this.props.data.name;
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: this.state.name + "-name",
+      id: dnsComponent + "-name",
       labelText: "DNS Record Name",
       componentName: dnsComponent,
       value: this.state.name,
@@ -11095,7 +11095,6 @@ class DnsRecordForm extends React.Component {
     }), this.state.type === "MX" && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
       label: "Preference",
       id: dnsComponent + "-preference",
-      allowEmpty: false,
       value: this.state.preference,
       onChange: this.handleInputChange,
       name: "preference",
@@ -11109,7 +11108,6 @@ class DnsRecordForm extends React.Component {
     }))), this.state.type === "SRV" && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
       label: "DNS Record Port",
       id: dnsComponent + "-port",
-      allowEmpty: false,
       value: this.state.port,
       onChange: this.handleInputChange,
       name: "port",
@@ -11131,7 +11129,6 @@ class DnsRecordForm extends React.Component {
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
       label: "DNS Record Priority",
       id: dnsComponent + "-priority",
-      allowEmpty: false,
       value: this.state.priority,
       onChange: this.handleInputChange,
       name: "priority",
@@ -11155,7 +11152,6 @@ class DnsRecordForm extends React.Component {
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
       label: "DNS Record Weight",
       id: dnsComponent + "-weight",
-      allowEmpty: false,
       value: this.state.weight,
       onChange: this.handleInputChange,
       name: "weight",

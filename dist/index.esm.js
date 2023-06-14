@@ -11031,7 +11031,7 @@ class DnsRecordForm extends Component {
   render() {
     let dnsComponent = this.props.isModal ? "new-dns-record" : this.props.data.name;
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
-      id: this.state.name + "-name",
+      id: dnsComponent + "-name",
       labelText: "DNS Record Name",
       componentName: dnsComponent,
       value: this.state.name,
@@ -11084,7 +11084,6 @@ class DnsRecordForm extends Component {
     }), this.state.type === "MX" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(NumberInput, {
       label: "Preference",
       id: dnsComponent + "-preference",
-      allowEmpty: false,
       value: this.state.preference,
       onChange: this.handleInputChange,
       name: "preference",
@@ -11098,7 +11097,6 @@ class DnsRecordForm extends Component {
     }))), this.state.type === "SRV" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NumberInput, {
       label: "DNS Record Port",
       id: dnsComponent + "-port",
-      allowEmpty: false,
       value: this.state.port,
       onChange: this.handleInputChange,
       name: "port",
@@ -11120,7 +11118,6 @@ class DnsRecordForm extends Component {
     }), /*#__PURE__*/React.createElement(NumberInput, {
       label: "DNS Record Priority",
       id: dnsComponent + "-priority",
-      allowEmpty: false,
       value: this.state.priority,
       onChange: this.handleInputChange,
       name: "priority",
@@ -11144,7 +11141,6 @@ class DnsRecordForm extends Component {
     }), /*#__PURE__*/React.createElement(NumberInput, {
       label: "DNS Record Weight",
       id: dnsComponent + "-weight",
-      allowEmpty: false,
       value: this.state.weight,
       onChange: this.handleInputChange,
       name: "weight",
