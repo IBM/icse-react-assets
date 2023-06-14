@@ -131,7 +131,7 @@ const DnsRecordFormStory = () => {
         dns_zone: "zone1",
         type: "A",
         rdata: "fake resource data",
-        ttl: 300,
+        ttl: "300",
         port: 8080,
         protocol: "TCP",
         priority: 10,

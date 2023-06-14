@@ -269,8 +269,7 @@ i.chevron > svg {
 }
 
 .forceTertiaryButtonStyles {
-  padding-right: 0.4375rem !important;
-  padding-left: 0.4375rem !important;
+  padding: 0.4375rem !important;
   align-items: center;
 }
 

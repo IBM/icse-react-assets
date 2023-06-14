@@ -41,7 +41,7 @@ class DnsRecordForm extends Component {
       <>
         <IcseFormGroup>
           <IcseNameInput
-            id={this.state.name + "-name"}
+            id={dnsComponent + "-name"}
             labelText="DNS Record Name"
             componentName={dnsComponent}
             value={this.state.name}
@@ -93,11 +93,11 @@ class DnsRecordForm extends Component {
           <NumberInput
             label="Time To Live (s)"
             id={dnsComponent + "-ttl"}
-            allowEmpty={true}
+            allowEmpty
             value={this.state.ttl}
             onChange={this.handleInputChange}
             name="ttl"
-            hideSteppers={true}
+            hideSteppers
             min={300}
             max={2147483647}
             invalid={isRangeInvalid(this.state.ttl, 300, 2147483647)}
@@ -109,11 +109,10 @@ class DnsRecordForm extends Component {
               <NumberInput
                 label="Preference"
                 id={dnsComponent + "-preference"}
-                allowEmpty={false}
                 value={this.state.preference}
                 onChange={this.handleInputChange}
                 name="preference"
-                hideSteppers={true}
+                hideSteppers
                 min={0}
                 max={65535}
                 step={1}
@@ -130,11 +129,10 @@ class DnsRecordForm extends Component {
               <NumberInput
                 label="DNS Record Port"
                 id={dnsComponent + "-port"}
-                allowEmpty={false}
                 value={this.state.port}
                 onChange={this.handleInputChange}
                 name="port"
-                hideSteppers={true}
+                hideSteppers
                 min={1}
                 max={65535}
                 step={1}
@@ -154,11 +152,10 @@ class DnsRecordForm extends Component {
               <NumberInput
                 label="DNS Record Priority"
                 id={dnsComponent + "-priority"}
-                allowEmpty={false}
                 value={this.state.priority}
                 onChange={this.handleInputChange}
                 name="priority"
-                hideSteppers={true}
+                hideSteppers
                 min={0}
                 max={65535}
                 step={1}
@@ -187,11 +184,10 @@ class DnsRecordForm extends Component {
               <NumberInput
                 label="DNS Record Weight"
                 id={dnsComponent + "-weight"}
-                allowEmpty={false}
                 value={this.state.weight}
                 onChange={this.handleInputChange}
                 name="weight"
-                hideSteppers={true}
+                hideSteppers
                 min={0}
                 max={65535}
                 step={1}
