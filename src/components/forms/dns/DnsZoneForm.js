@@ -1,6 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { buildFormFunctions } from "../../component-utils";
+import {
+  buildFormDefaultInputMethods,
+  buildFormFunctions,
+} from "../../component-utils";
 import { IcseNameInput, IcseTextInput } from "../../Inputs";
 import { IcseFormGroup } from "../../Utils";
 import { TextArea } from "@carbon/react";
@@ -13,6 +16,7 @@ class DnsZoneForm extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleMultiSelect = this.handleMultiSelect.bind(this);
     buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
   }
 
   /**
@@ -21,8 +25,7 @@ class DnsZoneForm extends React.Component {
    * @param {*} value value to update
    */
   handleInputChange(event) {
-    let { name, value } = event.target;
-    this.setState({ [name]: value });
+    this.setState(this.eventTargetToNameAndValue(event));
   }
 
   /**
@@ -30,7 +33,7 @@ class DnsZoneForm extends React.Component {
    * @param {event} event
    */
   handleMultiSelect(name, event) {
-    this.setState({ [name]: event });
+    this.setState(this.setNameToValue(name, event));
   }
 
   render() {
@@ -39,10 +42,9 @@ class DnsZoneForm extends React.Component {
         <IcseFormGroup>
           <IcseNameInput
             id={this.props.data.name + "-dns-zone-name"}
-            componentName="dns-zone"
             value={this.state.name}
             onChange={this.handleInputChange}
-            hideHelperText={true}
+            hideHelperText
             invalidCallback={() =>
               this.props.invalidNameCallback(this.state, this.props)
             }
@@ -61,11 +63,9 @@ class DnsZoneForm extends React.Component {
           />
           <IcseTextInput
             id={this.props.data.label + "-dns-zone-label"}
-            labelText="Label"
             field="label"
             value={this.state.label}
             onChange={this.handleInputChange}
-            componentName="dns-zone"
             invalidCallback={() =>
               this.props.invalidLabelCallback(this.state, this.props)
             }
@@ -82,7 +82,7 @@ class DnsZoneForm extends React.Component {
           value={this.state.description}
           labelText="Description"
           onChange={this.handleInputChange}
-          enableCounter={true}
+          enableCounter
           invalid={this.props.invalidDescriptionCallback(
             this.state,
             this.props
