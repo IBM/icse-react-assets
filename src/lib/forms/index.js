@@ -13,6 +13,7 @@ const {
   isValidTmosAdminPassword,
   isValidUrl,
 } = require("./f5");
+const { handleCRNs, handleVpcSelect } = require("./transit-gateway");
 
 module.exports = {
   cbrInvalid,
@@ -27,4 +28,6 @@ module.exports = {
   isValidUrl,
   handleDnsResolverInputChange,
   dnsFormInputChange,
+  handleCRNs,
+  handleVpcSelect,
 };
