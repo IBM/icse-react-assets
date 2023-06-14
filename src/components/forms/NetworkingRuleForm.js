@@ -54,7 +54,10 @@ class NetworkingRuleForm extends Component {
    * @param event event
    */
   handleRuleDataUpdate(inputName, event) {
-    let value = parseInt(event.target.value) || null;
+    let value = parseInt(event.target.value);
+    if (isNaN(value)) {
+      value = null;
+    }
     this.setState((prevState) => ({
       rule: {
         // object that we want to update
@@ -384,16 +387,20 @@ NetworkingRuleTextField.propTypes = {
  * @param {Function} props.onChange onchange function
  */
 const NetworkingRuleProtocolTextField = (props) => {
+  let value = contains(["null", null, ""], props.state.rule[props.name])
+    ? -1 // set to an invalid number only in these cases
+    : props.state.rule[props.name]; // set to number otherwise
   return (
     <TextInput
       id={`${props.state.name}-nw-${kebabCase(props.name)}-input`}
       labelText={titleCase(props.name)}
       placeholder={String(props.state.rule[props.name])}
-      value={props.state.rule[props.name] || ""}
+      value={value === -1 ? "" : String(value)} // if invalid number value is empty string
       onChange={(e) => props.onChange(props.name, e)}
       invalid={
-        validPortRange(props.name, props.state.rule[props.name] || -1) ===
-          false && isNullOrEmptyString(props.state.rule[props.name]) === false
+        (!validPortRange(props.name, value) &&
+          !isNullOrEmptyString(props.state.rule[props.name])) ||
+        props.state.rule[props.name] === "null"
       }
       invalidText={
         contains(["type", "code"], props.name)

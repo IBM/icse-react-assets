@@ -5,13 +5,11 @@ import { IcseSelect } from "../../Dropdowns";
 import IcseFormTemplate from "../../IcseFormTemplate";
 import { IcseNameInput } from "../../Inputs";
 import { IcseFormGroup } from "../../Utils";
-import {
-  buildFormDefaultInputMethods,
-  buildFormFunctions,
-} from "../../component-utils";
+import { buildFormFunctions } from "../../component-utils";
 import DnsZoneForm from "./DnsZoneForm";
 import DnsCustomResolverForm from "./DnsCustomResolverForm";
 import DnsRecordForm from "./DnsRecordForm";
+import { dnsFormInputChange } from "../../../lib/forms";
 
 /**
  * Context-based restriction rules
@@ -21,17 +19,11 @@ class DnsForm extends Component {
     super(props);
     this.state = { ...this.props.data };
     this.handleInputChange = this.handleInputChange.bind(this);
-    buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
   }
 
   handleInputChange(event) {
-    let { name, value } = event.target;
-    if (name === "plan") {
-      this.setState({ [name]: value.toLowerCase() });
-    } else {
-      this.setState({ [name]: value });
-    }
+    this.setState(dnsFormInputChange(event));
   }
 
   render() {
@@ -58,7 +50,7 @@ class DnsForm extends Component {
     );
 
     return (
-      <div id="dns-form">
+      <div id={"dns-form-" + this.props.data.name}>
         <IcseFormGroup>
           <IcseNameInput
             id={this.props.data.name + "-dns"}
@@ -76,8 +68,8 @@ class DnsForm extends Component {
           />
           <IcseSelect
             id={this.props.data.name + "-dns-plan"}
-            name={"plan"}
-            className={"fieldWidthSmaller"}
+            name="plan"
+            className="fieldWidthSmaller"
             value={titleCase(this.state.plan)}
             labelText="Plan"
             groups={["Free", "Standard"]}
@@ -87,7 +79,7 @@ class DnsForm extends Component {
           {/* resource group */}
           <IcseSelect
             name="resource_group"
-            formName={`${kebabCase(this.props.data.name)}-dns-rg-select`}
+            formName={`${this.props.data.name}-dns-rg-select`}
             groups={this.props.resourceGroups}
             value={this.state.resource_group}
             handleInputChange={this.handleInputChange}

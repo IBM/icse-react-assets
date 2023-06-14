@@ -7,7 +7,7 @@ import {
   isNullOrEmptyString,
   isValidTmosAdminPassword,
   isValidUrl,
-} from "../../lib/f5-utils";
+} from "../../lib/forms/f5";
 import {
   buildFormDefaultInputMethods,
   buildFormFunctions,

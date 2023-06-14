@@ -74,10 +74,10 @@ class ObjectStorageInstancesForm extends Component {
                 "Object storage bucket names must be unique across an account. Append a random suffix to maintain unique names across deployments.",
               alignModal: "bottom",
             }}
-            id={composedId + "random-suffix"}
+            id={composedId + "use-random-suffix"}
             labelText="Append Random Suffix to Names"
-            toggleFieldName="random_suffix"
-            defaultToggled={this.state.random_suffix}
+            toggleFieldName="use_random_suffix"
+            defaultToggled={this.state.use_random_suffix}
             onToggle={this.handleInputChange}
             isModal={this.props.isModal}
           />

@@ -5,18 +5,18 @@ Object.defineProperty(exports, '__esModule', { value: true });
 require('@carbon/styles/css/styles.css');
 var react = require('@carbon/react');
 var lazyZ = require('lazy-z');
-var regexButWithWords = require('regex-but-with-words');
 var React = require('react');
 var PropTypes = require('prop-types');
 var iconsReact = require('@carbon/icons-react');
+var regexButWithWords = require('regex-but-with-words');
 var utils$1 = require('regex-but-with-words/lib/utils');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
 var lazyZ__default = /*#__PURE__*/_interopDefaultLegacy(lazyZ);
-var regexButWithWords__default = /*#__PURE__*/_interopDefaultLegacy(regexButWithWords);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 var PropTypes__default = /*#__PURE__*/_interopDefaultLegacy(PropTypes);
+var regexButWithWords__default = /*#__PURE__*/_interopDefaultLegacy(regexButWithWords);
 
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
@@ -45,7 +45,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$1 = "/* vars and themes */\n:root {\n  --background: #ffffff;\n  --subForm: #f4f4f4;\n  --formInSubForm: #fffdfd;\n  --cds-text-primary: #161616;\n  --cds-text-secondary: #525252;\n  --cds-field: #f4f4f4;\n  --cds-border-strong: #8d8d8d;\n  --blue: #0f62fe;\n  --red: #da1e28;\n  --white: #ffffff;\n}\n\n.dark {\n  --background: #161616;\n  --subForm: #262626;\n  --formInSubForm: #414141;\n  --cds-text-primary: #f4f4f4;\n  --cds-text-secondary: #c6c6c6;\n  --cds-field: #363636;\n  --cds-border-strong: #8897a2;\n  --cds-layer: #262626;\n  --cds-layer-hover: #363636;\n  --cds-field-02: #363636;\n  --cds-icon-secondary: #c6c6c6;\n  --cds-icon-primary: #c6c6c6;\n  --placeholder: #565656;\n  --cds-field-hover: #464646;\n  --cds-layer-selected: #525252;\n  --cds-background-inverse: #f4f4f4;\n  --cds-text-inverse: #262626;\n}\n\n.subForm {\n  /* white background for subform input fields */\n  --cds-field: #ffffff;\n}\n\n.formInSubForm {\n  /* gray for formInSubForm input fields */\n  --cds-field: #f4f4f4;\n}\n\ninput:read-only {\n  /* read only fields should only have text */\n  --cds-border-strong: transparent;\n}\n\n.dark {\n  background-color: var(--background);\n}\n\n.dark p {\n  color: #f4f4f4;\n}\n\n.dark i.chevron > svg {\n  fill: #f4f4f4;\n}\n\n.dark h4 {\n  color: #f4f4f4;\n}\n\n.dark .underConstruction > svg {\n  fill: #ffffff;\n}\n/* styling for tooltip content in dark mode */\n.dark .cds--toggletip-content > p {\n  color: #363636;\n}\n\n.dark .subForm {\n  /* alternate background for dark subforms */\n  --cds-field: #414141;\n}\n\n.dark .formInSubForm {\n  /* alternate background for dark formInSubForm */\n  --cds-field: #363636;\n}\n\n.dark ::placeholder {\n  color: var(--placeholder);\n}\n\n/* general alignment classes */\n\n.displayFlex {\n  display: flex;\n}\n\n.alignItemsTop {\n  align-items: top;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n\n.fieldWidthSmallest {\n  width: 8rem;\n}\n\n.fieldWidthBigger {\n  width: 40rem;\n}\n\n.textInputWide {\n  width: 30rem;\n}\n\n.textInputMedium {\n  width: 20rem;\n}\n\n/* backhground classes */\n.formInSubForm {\n  margin-top: 0rem;\n  background: var(--formInSubForm);\n  padding: 1rem;\n}\n\n.subForm {\n  background: var(--subForm);\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n/* Tooltips */\n.labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -22px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n\n/* subnet tile form */\n\n.tileFormMargin {\n  margin-bottom: -0.5rem;\n  margin-top: 0.5rem;\n}\n\n.tileFormMargin.formInSubForm {\n  padding: 0px;\n}\n\n.marginRightSubnetTile {\n  margin-right: 10px;\n}\n\n/* StatefulTabPanel */\n\n.cds--tab-content.doc {\n  padding: 0.5rem 0;\n}\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}\n\n/* popover wrappers */\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  z-index: 9001;\n}\n\n/* buttons */\n\ni.chevron > svg {\n  display: block; /* remove extra padding on bottom of i which misaligns icon */\n  margin-right: 1rem;\n  margin-top: 0.15rem;\n}\n\n.chevron {\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: var(--blue) !important;\n  fill: var(--white) !important;\n  border-color: var(--blue) !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding-right: 0.4375rem !important;\n  padding-left: 0.4375rem !important;\n}\n\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: var(--red) !important;\n}\n\n.alignButtons {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important;\n}\n\n/* docs */\n.about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n\n/* empty resource tile */\n.iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: var(--subForm);\n}\n\n.marginTop {\n  margin-top: 1rem;\n}\n\n/* under construction */\n\n.underConstruction {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.flexDirectionColumn {\n  flex-direction: column;\n}\n\n/* f5 vsi */\n.wide {\n  width: 20rem !important;\n}\n\n.tight {\n  width: min-content; /* force invalid text to split line */\n}\n\n.passwordGenerateButton {\n  margin-top: 1.25rem;\n  margin-left: calc(-4rem - 3vw);\n}\n\n.passwordGenerateButton svg {\n  fill: var(--cds-icon-secondary, #525252) !important;\n}\n\n.passwordGenerateButton.invalid {\n  margin-left: calc(-5.75rem - 3vw);\n}\n\n.wrap {\n  flex-flow: wrap;\n}\n\n.docsUpdated {\n  display: flex;\n  align-items: flex-end;\n}\n\n.cds--list-box__menu {\n  width: fit-content;\n  text-align: left;\n}\n\n@media screen and (max-width: 1024px) {\n  .fieldWidth {\n    width: 11rem;\n  }\n\n  .fieldWidthSmaller {\n    width: 8rem;\n  }\n\n  .fieldWidthSmallest {\n    width: 5rem;\n  }\n\n  .textInputWide {\n    width: 20rem;\n  }\n\n  .fieldWidthBigger {\n    width: 30rem;\n  }\n\n  .textInputMedium {\n    width: 15rem;\n  }\n}\n\n@media screen and (max-width: 850px) {\n  .fieldWidth {\n    width: 100%;\n  }\n\n  .fieldWidthSmaller {\n    width: 100%;\n  }\n\n  .fieldWidthSmallest {\n    width: 100%;\n  }\n\n  .textInputMedium {\n    width: 100%;\n  }\n\n  .fieldWidthBigger {\n    width: 100%;\n  }\n\n  .textInputWide {\n    width: 100%;\n  }\n\n  .formGroup {\n    /* items 1 wide */\n    flex-direction: column !important;\n  }\n\n  .popover-obj.select {\n    /* need to adjust size for popover container at small widths */\n    width: 100%;\n  }\n\n  .popover-obj.select > span {\n    width: 100%;\n  }\n\n  /* items with tooltip should also be full width */\n  .cds--form-item {\n    flex: none;\n    width: 100%;\n  }\n}\n\n.cds--form-item {\n  flex: none; /* overwrite flex to fix inconsistent widths */\n}\n";
+var css_248z$1 = "/* vars and themes */\n:root {\n  --background: #ffffff;\n  --subForm: #f4f4f4;\n  --formInSubForm: #fffdfd;\n  --cds-text-primary: #161616;\n  --cds-text-secondary: #525252;\n  --cds-field: #f4f4f4;\n  --cds-border-strong: #8d8d8d;\n  --blue: #0f62fe;\n  --red: #da1e28;\n  --white: #ffffff;\n}\n\n.dark {\n  --background: #161616;\n  --subForm: #262626;\n  --formInSubForm: #414141;\n  --cds-text-primary: #f4f4f4;\n  --cds-text-secondary: #c6c6c6;\n  --cds-field: #363636;\n  --cds-border-strong: #8897a2;\n  --cds-layer: #262626;\n  --cds-layer-hover: #363636;\n  --cds-field-02: #363636;\n  --cds-icon-secondary: #c6c6c6;\n  --cds-icon-primary: #c6c6c6;\n  --placeholder: #565656;\n  --cds-field-hover: #464646;\n  --cds-layer-selected: #525252;\n  --cds-background-inverse: #f4f4f4;\n  --cds-text-inverse: #262626;\n}\n\n.subForm {\n  /* white background for subform input fields */\n  --cds-field: #ffffff;\n}\n\n.formInSubForm {\n  /* gray for formInSubForm input fields */\n  --cds-field: #f4f4f4;\n}\n\ninput:read-only {\n  /* read only fields should only have text */\n  --cds-border-strong: transparent;\n}\n\n.dark {\n  background-color: var(--background);\n}\n\n.dark p {\n  color: #f4f4f4;\n}\n\n.dark i.chevron > svg {\n  fill: #f4f4f4;\n}\n\n.dark h4 {\n  color: #f4f4f4;\n}\n\n.dark .underConstruction > svg {\n  fill: #ffffff;\n}\n/* styling for tooltip content in dark mode */\n.dark .cds--toggletip-content > p {\n  color: #363636;\n}\n\n.dark .subForm {\n  /* alternate background for dark subforms */\n  --cds-field: #414141;\n}\n\n.dark .formInSubForm {\n  /* alternate background for dark formInSubForm */\n  --cds-field: #363636;\n}\n\n.dark ::placeholder {\n  color: var(--placeholder);\n}\n\n/* general alignment classes */\n\n.displayFlex {\n  display: flex;\n}\n\n.alignItemsTop {\n  align-items: top;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n\n.fieldWidthSmallest {\n  width: 8rem;\n}\n\n.fieldWidthBigger {\n  width: 40rem;\n}\n\n.textInputWide {\n  width: 30rem;\n}\n\n.textInputMedium {\n  width: 20rem;\n}\n\n/* backhground classes */\n.formInSubForm {\n  margin-top: 0rem;\n  background: var(--formInSubForm);\n  padding: 1rem;\n}\n\n.subForm {\n  background: var(--subForm);\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n/* Tooltips */\n.labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -22px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n\n/* subnet tile form */\n\n.tileFormMargin {\n  margin-bottom: -0.5rem;\n  margin-top: 0.5rem;\n}\n\n.tileFormMargin.subForm {\n  padding: 0px;\n}\n\n.marginRightSubnetTile {\n  margin-right: 10px;\n}\n\n/* StatefulTabPanel */\n\n.cds--tab-content.doc {\n  padding: 0.5rem 0;\n}\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}\n\n/* popover wrappers */\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  z-index: 9001;\n}\n\n/* buttons */\n\ni.chevron > svg {\n  display: block; /* remove extra padding on bottom of i which misaligns icon */\n  margin-right: 1rem;\n  margin-top: 0.15rem;\n}\n\n.chevron {\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: var(--blue) !important;\n  fill: var(--white) !important;\n  border-color: var(--blue) !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding: 0.4375rem !important;\n  align-items: center;\n}\n\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: var(--red) !important;\n}\n\n.alignButtons {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.cds--tabs__nav-link:focus {\n  outline: none !important;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important;\n}\n\n/* docs */\n.about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n\n/* empty resource tile */\n.iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: var(--subForm);\n}\n\n.marginTop {\n  margin-top: 1rem;\n}\n\n/* under construction */\n\n.underConstruction {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.flexDirectionColumn {\n  flex-direction: column;\n}\n\n/* f5 vsi */\n.wide {\n  width: 20rem !important;\n}\n\n.tight {\n  width: min-content; /* force invalid text to split line */\n}\n\n.passwordGenerateButton {\n  margin-top: 1.25rem;\n  margin-left: calc(-4rem - 3vw);\n}\n\n.passwordGenerateButton svg {\n  fill: var(--cds-icon-secondary, #525252) !important;\n}\n\n.passwordGenerateButton.invalid {\n  margin-left: calc(-5.75rem - 3vw);\n}\n\n.wrap {\n  flex-flow: wrap;\n}\n\n.docsUpdated {\n  display: flex;\n  align-items: flex-end;\n}\n\n.cds--list-box__menu {\n  width: fit-content;\n  text-align: left;\n}\n\n@media screen and (max-width: 1024px) {\n  .fieldWidth {\n    width: 11rem;\n  }\n\n  .fieldWidthSmaller {\n    width: 8rem;\n  }\n\n  .fieldWidthSmallest {\n    width: 5rem;\n  }\n\n  .textInputWide {\n    width: 20rem;\n  }\n\n  .fieldWidthBigger {\n    width: 30rem;\n  }\n\n  .textInputMedium {\n    width: 15rem;\n  }\n}\n\n@media screen and (max-width: 850px) {\n  .fieldWidth {\n    width: 100%;\n  }\n\n  .fieldWidthSmaller {\n    width: 100%;\n  }\n\n  .fieldWidthSmallest {\n    width: 100%;\n  }\n\n  .textInputMedium {\n    width: 100%;\n  }\n\n  .fieldWidthBigger {\n    width: 100%;\n  }\n\n  .textInputWide {\n    width: 100%;\n  }\n\n  .formGroup {\n    /* items 1 wide */\n    flex-direction: column !important;\n  }\n\n  .popover-obj.select {\n    /* need to adjust size for popover container at small widths */\n    width: 100%;\n  }\n\n  .popover-obj.select > span {\n    width: 100%;\n  }\n\n  /* items with tooltip should also be full width */\n  .cds--form-item {\n    flex: none;\n    width: 100%;\n  }\n}\n\n.cds--form-item {\n  flex: none; /* overwrite flex to fix inconsistent widths */\n}\n";
 styleInject(css_248z$1);
 
 const {
@@ -261,12 +261,12 @@ var buttonUtils = {
  * @param {*} event.target.value value to set
  * @returns {Object} object with key of name set to value
  */
-function eventTargetToNameAndValue$2(event) {
+function eventTargetToNameAndValue$1(event) {
   let {
     name,
     value
   } = event.target;
-  return setNameToValue$2(name, value);
+  return setNameToValue$1(name, value);
 }
 
 /**
@@ -275,20 +275,20 @@ function eventTargetToNameAndValue$2(event) {
  * @param {Object} stateData component state data
  * @returns {Object} object with key of field name set to boolean opposite in state
  */
-function toggleStateBoolean$2(fieldName, stateData) {
+function toggleStateBoolean$1(fieldName, stateData) {
   return {
     [fieldName]: !stateData[fieldName]
   };
 }
-function setNameToValue$2(name, value) {
+function setNameToValue$1(name, value) {
   return {
     [name]: value
   };
 }
 var methodFunctions = {
-  eventTargetToNameAndValue: eventTargetToNameAndValue$2,
-  toggleStateBoolean: toggleStateBoolean$2,
-  setNameToValue: setNameToValue$2
+  eventTargetToNameAndValue: eventTargetToNameAndValue$1,
+  toggleStateBoolean: toggleStateBoolean$1,
+  setNameToValue: setNameToValue$1
 };
 
 /**
@@ -311,7 +311,7 @@ var docUtils = {
 };
 
 const {
-  isNullOrEmptyString: isNullOrEmptyString$4,
+  isNullOrEmptyString: isNullOrEmptyString$5,
   kebabCase: kebabCase$2
 } = lazyZ__default["default"];
 const {
@@ -326,7 +326,7 @@ const {
 function icseSelectParams$1(props) {
   let invalid =
   // automatically set to invalid if value is null or empty string and invalid not disabled
-  props.disableInvalid !== true && isNullOrEmptyString$4(props.value) ? true : props.invalid;
+  props.disableInvalid !== true && isNullOrEmptyString$5(props.value) ? true : props.invalid;
   let groups = props.groups.length === 0 ? [] // if no groups, empty array
   : prependEmptyStringWhenNull$1(
   // otherwise try and prepend empty string if null or empty string is allowed
@@ -653,174 +653,6 @@ var popoverWrapper = {
 };
 
 const {
-  isNullOrEmptyString: isNullOrEmptyString$3,
-  isIpv4CidrOrAddress: isIpv4CidrOrAddress$1
-} = lazyZ__default["default"];
-const {
-  RegexButWithWords: RegexButWithWords$2
-} = regexButWithWords__default["default"];
-const ipRangeExpression = new RegexButWithWords$2().wordBoundary().group(exp => {
-  exp.group(exp => {
-    exp.group(exp => {
-      exp.literal("2").set("1-5").set("0-6");
-    }).or().group(exp => {
-      exp.literal("1").digit(2);
-    }).or().group(exp => {
-      exp.digit(1, 2);
-    });
-  }).literal(".");
-}, 3).group(exp => {
-  exp.group(exp => {
-    exp.literal("2").set("1-5").set("0-6");
-  }).or().group(exp => {
-    exp.literal("1").digit(2);
-  }).or().group(exp => {
-    exp.digit(1, 2);
-  });
-}).literal("-").group(exp => {
-  exp.group(exp => {
-    exp.group(exp => {
-      exp.literal("2").set("1-5").set("0-6");
-    }).or().group(exp => {
-      exp.literal("1").digit(2);
-    }).or().group(exp => {
-      exp.digit(1, 2);
-    });
-  }).literal(".");
-}, 3).group(exp => {
-  exp.group(exp => {
-    exp.literal("2").set("1-5").set("0-6");
-  }).or().group(exp => {
-    exp.literal("1").digit(2);
-  }).or().group(exp => {
-    exp.digit(1, 2);
-  });
-}).wordBoundary().done("g");
-
-/**
- * create cbr invalid field sta
- * @param {*} field
- * @param {*} value
- * @returns {Object} invalid boolean invalidText string
- */
-function cbrInvalid(field, value) {
-  let invalid = {
-    invalid: false,
-    invalidText: ""
-  };
-  if (!isNullOrEmptyString$3(value) && (value.match(/^[0-9a-z-]+$/) === null || value.length >= 128)) {
-    invalid.invalid = true;
-    invalid.invalidText = `Invalid ${field}. Value must match regex expression /^[0-9a-z-]+$/.`;
-  }
-  return invalid;
-}
-
-/**
- * cbr value is invalid
- * @param {*} type
- * @param {*} value
- * @returns {Object} invalid boolean invalidText string
- */
-function cbrValueInvalid(type, value) {
-  let invalid = {
-    invalid: false,
-    invalidText: ""
-  };
-  if (isNullOrEmptyString$3(value)) {
-    invalid.invalid = true;
-    invalid.invalidText = `Invalid value for type ${type}. Cannot be empty string.`;
-  } else if (type === "ipAddress") {
-    if (!isIpv4CidrOrAddress$1(value) || value.includes("/")) {
-      invalid.invalid = true;
-      invalid.invalidText = `Invalid value for type ${type}. Value must be a valid IPV4 Address.`;
-    }
-  } else if (type === "ipRange") {
-    if (value.match(ipRangeExpression) === null) {
-      invalid.invalid = true;
-      invalid.invalidText = `Invalid value for type ${type}. Value must be a range of IPV4 Addresses.`;
-    }
-  } else {
-    invalid = cbrInvalid(type, value);
-  }
-  return invalid;
-}
-const cbrTypeNameMap = {
-  ipAddress: "IP Address",
-  ipRange: "IP Range",
-  subnet: "Subnet",
-  vpc: "VPC",
-  serviceRef: "Service Ref"
-};
-const cbrNameTypeMap = {
-  "IP Address": "ipAddress",
-  "IP Range": "ipRange",
-  Subnet: "subnet",
-  VPC: "vpc",
-  "Service Ref": "serviceRef"
-};
-
-/**
- * return a placeholder for value on exclusion/address form
- * @param {string} type
- * @returns
- */
-function cbrValuePlaceholder$1(type) {
-  return type === "ipAddress" ? "x.x.x.x" : type === "ipRange" ? "x.x.x.x-x.x.x.x" : `my-cbr-zone-${type}`;
-}
-
-/**
- * handle input change for cbr rules
- * @param {*} event
- * @param {Object} stateData
- * @returns object
- */
-function handleRuleInputChange$1(event, stateData) {
-  let {
-    name,
-    value
-  } = event.target;
-  let state = {
-    ...stateData
-  };
-  if (name === "enforcement_mode") {
-    state[name] = value.toLowerCase();
-  } else {
-    state[name] = value;
-  }
-  return state;
-}
-
-/**
- * handle exclusion and address input change
- * @param {*} event
- * @param {Object} stateData
- */
-function handleExclusionAddressInputChange(event, stateData) {
-  let {
-    name,
-    value
-  } = event.target;
-  let state = {
-    ...stateData
-  };
-  if (name === "type") state[name] = cbrNameTypeMap[value];else state[name] = value;
-  return state;
-}
-var cbrUtils = {
-  cbrInvalid,
-  cbrValueInvalid,
-  cbrValuePlaceholder: cbrValuePlaceholder$1,
-  handleRuleInputChange: handleRuleInputChange$1,
-  cbrTypeNameMap,
-  handleExclusionAddressInputChange
-};
-var cbrUtils_1 = cbrUtils.cbrInvalid;
-var cbrUtils_2 = cbrUtils.cbrValueInvalid;
-var cbrUtils_3 = cbrUtils.cbrValuePlaceholder;
-var cbrUtils_5 = cbrUtils.cbrTypeNameMap;
-var cbrUtils_6 = cbrUtils.handleExclusionAddressInputChange;
-
-const {
   toggleMarginBottom,
   addClassName,
   prependEmptyStringWhenNull,
@@ -839,9 +671,9 @@ const {
   deleteButtonParams
 } = buttonUtils;
 const {
-  eventTargetToNameAndValue: eventTargetToNameAndValue$1,
-  toggleStateBoolean: toggleStateBoolean$1,
-  setNameToValue: setNameToValue$1
+  eventTargetToNameAndValue,
+  toggleStateBoolean,
+  setNameToValue
 } = methodFunctions;
 const {
   docTextFieldParams
@@ -873,10 +705,6 @@ const {
 const {
   popoverWrapperParams
 } = popoverWrapper;
-const {
-  handleRuleInputChange,
-  cbrValuePlaceholder
-} = cbrUtils;
 var lib = {
   onToggleEvent,
   toggleParams,
@@ -889,9 +717,9 @@ var lib = {
   checkNullorEmptyString,
   formatInputPlaceholder,
   saveChangeButtonClass,
-  eventTargetToNameAndValue: eventTargetToNameAndValue$1,
-  toggleStateBoolean: toggleStateBoolean$1,
-  setNameToValue: setNameToValue$1,
+  eventTargetToNameAndValue,
+  toggleStateBoolean,
+  setNameToValue,
   invalidRegex,
   handleClusterInputChange,
   subnetTierName,
@@ -906,15 +734,16 @@ var lib = {
   icseHeadingParams,
   statelessToggleFormParams,
   statefulTabPanelParams,
-  popoverWrapperParams,
-  handleRuleInputChange,
-  cbrValuePlaceholder
+  popoverWrapperParams
 };
 var lib_3 = lib.docTextFieldParams;
 var lib_4 = lib.handleNumberDropdownEvent;
 var lib_5 = lib.icseSelectParams;
 var lib_7 = lib.addClassName;
 var lib_9 = lib.checkNullorEmptyString;
+var lib_12 = lib.eventTargetToNameAndValue;
+var lib_13 = lib.toggleStateBoolean;
+var lib_14 = lib.setNameToValue;
 var lib_15 = lib.invalidRegex;
 var lib_16 = lib.handleClusterInputChange;
 var lib_17 = lib.subnetTierName;
@@ -924,7 +753,6 @@ var lib_20 = lib.deleteButtonParams;
 var lib_22 = lib.icseFormTemplateParams;
 var lib_28 = lib.statefulTabPanelParams;
 var lib_29 = lib.popoverWrapperParams;
-var lib_30 = lib.handleRuleInputChange;
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -1059,8 +887,8 @@ const ToolTipWrapper = props => {
   delete allProps.tooltip;
   delete allProps.noLabelText;
   //check for labelText prop for components where it is a valid param
-  if (!props.noLabelText && props.labelText === undefined) {
-    throw new Error("ToolTipWrapper expects `props.labelText` when rendering labelText to be provided, got neither. To not render label text, use the `noLabelText` prop.");
+  if (!props.noLabelText && props.labelText === undefined && props.field === undefined) {
+    throw new Error("ToolTipWrapper expects `props.labelText` or `props.field` when rendering labelText to be provided, got neither. To not render label text, use the `noLabelText` prop.");
   }
   // remove label text from components where it is not valid param
   if (props.noLabelText) delete allProps.labelText;else allProps.labelText = " ";
@@ -1078,7 +906,7 @@ const ToolTipWrapper = props => {
     className: "cds--label labelRow"
   }, /*#__PURE__*/React__default["default"].createElement("label", {
     htmlFor: props.id
-  }, props.labelText), tooltip), props.children ? /*#__PURE__*/React__default["default"].cloneElement(props.children, {
+  }, props.labelText || lazyZ.titleCase(props.field)), tooltip), props.children ? /*#__PURE__*/React__default["default"].cloneElement(props.children, {
     // adjust props
     labelText: " ",
     // set labelText to empty
@@ -3065,11 +2893,6 @@ const {
   isFunction,
   splat
 } = require("lazy-z");
-const {
-  eventTargetToNameAndValue,
-  toggleStateBoolean,
-  setNameToValue
-} = require("../src/lib/method-functions");
 
 /**
  * build functions for modal forms
@@ -3122,9 +2945,9 @@ function buildFormFunctions(component) {
  * @param {*} component React Component
  */
 function buildFormDefaultInputMethods(component) {
-  component.eventTargetToNameAndValue = eventTargetToNameAndValue.bind(component);
-  component.toggleStateBoolean = toggleStateBoolean.bind(component);
-  component.setNameToValue = setNameToValue.bind(component);
+  component.eventTargetToNameAndValue = lib_12.bind(component);
+  component.toggleStateBoolean = lib_13.bind(component);
+  component.setNameToValue = lib_14.bind(component);
 }
 
 class AppIdKeyForm extends React__default["default"].Component {
@@ -3897,8 +3720,6 @@ class EncryptionKeyForm extends React.Component {
     this.state = this.props.data;
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
-    this.handleTextInput = this.handleTextInput.bind(this);
-    this.toggleShow = this.toggleShow.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
@@ -3917,26 +3738,7 @@ class EncryptionKeyForm extends React.Component {
    * @param {string} name name of the object key to change
    */
   handleToggle(name) {
-    this.setState({
-      [name]: !this.state[name]
-    });
-  }
-
-  /**
-   * Handle input change for a text field
-   * @param {event} event
-   */
-  handleTextInput(event) {
-    this.setState({
-      [event.target.name]: event.target.value
-    });
-  }
-
-  // Handle toggle for showing/hiding details of keys
-  toggleShow() {
-    this.setState({
-      show: !this.state.show
-    });
+    this.setState(this.toggleStateFieldBoolean(name, this.state));
   }
   render() {
     let composedId = `encryption-key-${this.props.data.name}-`;
@@ -3945,7 +3747,7 @@ class EncryptionKeyForm extends React.Component {
       component: "kms_key",
       componentName: this.props.data.name,
       value: this.state.name,
-      onChange: this.handleTextInput,
+      onChange: this.handleInputChange,
       componentProps: this.props,
       placeholder: "my-encryption-key-name",
       hideHelperText: true,
@@ -3956,15 +3758,15 @@ class EncryptionKeyForm extends React.Component {
       field: "key_ring",
       labelText: "Key Ring Name",
       value: this.state.key_ring || "",
-      onChange: this.handleTextInput // nothing
-      ,
+      onChange: this.handleInputChange,
       id: this.props.data.name + "-key-ring",
       invalid: this.props.invalidRingCallback(this.state, this.props),
       invalidText: this.props.invalidRingText
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
       tooltip: {
         content: "Setting a rotation policy shortens the lifetime of the key at regular intervals. When it's time to rotate the key based on the rotation interval that you specify, the root key will be automatically replaced with new key material.",
-        align: "bottom-left"
+        align: "bottom-left",
+        alignModal: "bottom-left"
       },
       component: this.props.data.name,
       max: 12,
@@ -3978,7 +3780,7 @@ class EncryptionKeyForm extends React.Component {
       tooltip: {
         content: "Force deletion of a key refers to the deletion of any key that's actively protecting any registered cloud resources. KMS keys can be force-deleted by managers of the instance. However, the force-delete won't succeed if the key's associated resource is non-erasable due to a retention policy.",
         align: "bottom-left",
-        alignModal: "bottom-left"
+        alignModal: "right"
       },
       id: composedId + "kms-key-force-delete",
       labelText: "Force Deletion of KMS Key",
@@ -3990,7 +3792,7 @@ class EncryptionKeyForm extends React.Component {
       tooltip: {
         content: "Allow key to be deleted only by two users. One user can schedule the key for deletion, a second user must confirm it before the key will be destroyed.",
         align: "bottom-left",
-        alignModal: "bottom-left"
+        alignModal: "left"
       },
       id: composedId + "kms-key-dual-auth-delete",
       labelText: "Dual Authorization Deletion Policy",
@@ -4005,7 +3807,7 @@ class EncryptionKeyForm extends React.Component {
         content: "Root keys are symmetric key-wrapping keys used as roots of trust for encrypting/decrypting other keys. Can be either imported or generated by IBM Key Protect.",
         link: "https://cloud.ibm.com/docs/key-protect?topic=key-protect-envelope-encryption",
         align: "bottom-left",
-        alignModal: "bottom-left"
+        alignModal: "right"
       },
       id: composedId + "kms-key-root",
       labelText: "Set as a Root Key",
@@ -4045,9 +3847,9 @@ const {
   isInRange
 } = lazyZ__default["default"];
 const {
-  RegexButWithWords: RegexButWithWords$1
+  RegexButWithWords: RegexButWithWords$2
 } = regexButWithWords__default["default"];
-const commaSeparatedIpListExp = new RegexButWithWords$1().stringBegin().group(exp => {
+const commaSeparatedIpListExp = new RegexButWithWords$2().stringBegin().group(exp => {
   exp.group(exp => {
     exp.wordBoundary().group(exp => {
       exp.group(exp => {
@@ -4078,7 +3880,7 @@ const commaSeparatedIpListExp = new RegexButWithWords$1().stringBegin().group(ex
     });
   }).lazy();
 }).anyNumber().stringEnd().done("gm");
-const commaSeparatedIpListExpNoCidr = new RegexButWithWords$1().stringBegin().group(exp => {
+const commaSeparatedIpListExpNoCidr = new RegexButWithWords$2().stringBegin().group(exp => {
   exp.group(exp => {
     exp.wordBoundary().group(exp => {
       exp.group(exp => {
@@ -4103,7 +3905,7 @@ const commaSeparatedIpListExpNoCidr = new RegexButWithWords$1().stringBegin().gr
  * @param {*} value
  * @returns {boolean} true if null or empty string
  */
-function isNullOrEmptyString$2(value) {
+function isNullOrEmptyString$4(value) {
   return value === null || value === "";
 }
 
@@ -4115,7 +3917,7 @@ function isNullOrEmptyString$2(value) {
  * @returns {boolean} true if invalid
  */
 function isRangeInvalid(value, min, max) {
-  if (isNullOrEmptyString$2(value)) return false;
+  if (isNullOrEmptyString$4(value)) return false;
   value = parseFloat(value);
   if (!isWholeNumber(value) || !isInRange(value, min, max)) {
     return true;
@@ -4129,7 +3931,7 @@ function isRangeInvalid(value, min, max) {
  * @returns {boolean} true if invalid
  */
 function isIpStringInvalid(value) {
-  if (!isNullOrEmptyString$2(value) && value.match(commaSeparatedIpListExp) === null) {
+  if (!isNullOrEmptyString$4(value) && value.match(commaSeparatedIpListExp) === null) {
     return true;
   }
   return false;
@@ -4141,7 +3943,7 @@ function isIpStringInvalid(value) {
  * @returns {boolean} true if invalid
  */
 function isIpStringInvalidNoCidr(value) {
-  if (!isNullOrEmptyString$2(value) && value.match(commaSeparatedIpListExpNoCidr) === null) {
+  if (!isNullOrEmptyString$4(value) && value.match(commaSeparatedIpListExpNoCidr) === null) {
     return true;
   }
   return false;
@@ -4502,19 +4304,19 @@ F5VsiForm.propTypes = {
 };
 
 const {
-  RegexButWithWords
+  RegexButWithWords: RegexButWithWords$1
 } = regexButWithWords__default["default"];
 const {
-  isNullOrEmptyString: isNullOrEmptyString$1
+  isNullOrEmptyString: isNullOrEmptyString$3
 } = lazyZ__default["default"];
-const urlValidationExp = new RegexButWithWords().group(exp => {
+const urlValidationExp = new RegexButWithWords$1().group(exp => {
   exp.literal("ftp").or().literal("http").literal("s").lazy();
 }).literal("://").group("www.").lazy().group(exp => {
   exp.negatedSet('"\\/').oneOrMore().literal(".");
 }).group(exp => {
   exp.negatedSet('"\\/').oneOrMore().literal(".");
 }).oneOrMore().negatedSet('"\\/.').oneOrMore().literal("/").negatedSet(' "').anyNumber().stringEnd().done("g");
-const tmosAdminPasswordValidationExp = new RegexButWithWords().stringBegin().look.ahead(exp => {
+const tmosAdminPasswordValidationExp = new RegexButWithWords$1().stringBegin().look.ahead(exp => {
   exp.any().anyNumber().set("a-z");
 }).look.ahead(exp => {
   exp.any().anyNumber().set("A-Z");
@@ -4527,8 +4329,8 @@ const tmosAdminPasswordValidationExp = new RegexButWithWords().stringBegin().loo
  * @param {str} url
  * @returns {boolean} true when url is valid and not empty, false when invalid
  */
-function isValidUrl(url) {
-  if (isNullOrEmptyString$1(url) || url === "null") return true;
+function isValidUrl$1(url) {
+  if (isNullOrEmptyString$3(url) || url === "null") return true;
   return url.match(urlValidationExp) !== null;
 }
 
@@ -4537,8 +4339,8 @@ function isValidUrl(url) {
  * @param {str} password
  * @returns {boolean} true when password is valid
  */
-function isValidTmosAdminPassword(password) {
-  if (isNullOrEmptyString$1(password)) return true;else return password.match(tmosAdminPasswordValidationExp) !== null;
+function isValidTmosAdminPassword$1(password) {
+  if (isNullOrEmptyString$3(password)) return true;else return password.match(tmosAdminPasswordValidationExp) !== null;
 }
 
 /**
@@ -4579,7 +4381,7 @@ function generatePassword(length) {
  * @param {int} length
  * @returns {string} password that fits the requirements of the validation expression
  */
-function getValidAdminPassword(length) {
+function getValidAdminPassword$1(length) {
   let invalid = true;
   let count = 0;
   let result;
@@ -4595,16 +4397,16 @@ function getValidAdminPassword(length) {
   } while (invalid && count <= 5); // only be more than 5 times if you specified an invalid length. dummy counter for unit
   return result;
 }
-var f5Utils = {
-  getValidAdminPassword,
-  isNullOrEmptyString: isNullOrEmptyString$1,
-  isValidTmosAdminPassword,
-  isValidUrl
+var f5 = {
+  getValidAdminPassword: getValidAdminPassword$1,
+  isNullOrEmptyString: isNullOrEmptyString$3,
+  isValidTmosAdminPassword: isValidTmosAdminPassword$1,
+  isValidUrl: isValidUrl$1
 };
-var f5Utils_1 = f5Utils.getValidAdminPassword;
-var f5Utils_2 = f5Utils.isNullOrEmptyString;
-var f5Utils_3 = f5Utils.isValidTmosAdminPassword;
-var f5Utils_4 = f5Utils.isValidUrl;
+var f5_1 = f5.getValidAdminPassword;
+var f5_2 = f5.isNullOrEmptyString;
+var f5_3 = f5.isValidTmosAdminPassword;
+var f5_4 = f5.isValidUrl;
 
 /**
  * F5VsiTemplateForm
@@ -4663,7 +4465,7 @@ class F5VsiTemplateForm extends React.Component {
    */
   generateAdminPassword() {
     let length = Math.floor(Math.random() * 6 + 15); // between 15-20 chars, inclusive (20 - 15 + 1)
-    let password = f5Utils_1(length); // get a valid password
+    let password = f5_1(length); // get a valid password
     this.setState({
       tmos_admin_password: password
     }); // set password
@@ -4696,12 +4498,12 @@ class F5VsiTemplateForm extends React.Component {
       labelText: "TMOS Admin Password",
       name: "tmos_admin_password",
       value: this.state.tmos_admin_password || "",
-      invalid: this.props.invalidCallback("tmos_admin_password", this.state, this.props) || !f5Utils_3(this.state.tmos_admin_password),
+      invalid: this.props.invalidCallback("tmos_admin_password", this.state, this.props) || !f5_3(this.state.tmos_admin_password),
       invalidText: "Password must be at least 15 characters, contain one numeric, one uppercase, and one lowercase character.",
       onChange: this.handleTextInput
     })), /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
       hoverText: "Generate Password",
-      className: "passwordGenerateButton" + (f5Utils_3(this.state.tmos_admin_password) ? "" : " invalid")
+      className: "passwordGenerateButton" + (f5_3(this.state.tmos_admin_password) ? "" : " invalid")
     }, /*#__PURE__*/React__default["default"].createElement(react.Button, {
       kind: "ghost",
       onClick: this.generateAdminPassword,
@@ -4718,7 +4520,7 @@ class F5VsiTemplateForm extends React.Component {
       innerForm: IcseTextInput,
       value: this.state.byol_license_basekey || "",
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("byol_license_basekey", this.state, this.props) || f5Utils_2(this.state.byol_license_basekey),
+      invalid: this.props.invalidCallback("byol_license_basekey", this.state, this.props) || f5_2(this.state.byol_license_basekey),
       invalidText: this.props.invalidTextCallback("byol_license_basekey", this.state, this.props)
     })), this.state.license_type != "byol" && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
@@ -4732,7 +4534,7 @@ class F5VsiTemplateForm extends React.Component {
       innerForm: IcseTextInput,
       value: this.state.license_username || "",
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("license_username", this.state, this.props) || f5Utils_2(this.state.license_username),
+      invalid: this.props.invalidCallback("license_username", this.state, this.props) || f5_2(this.state.license_username),
       invalidText: this.props.invalidTextCallback("license_username", this.state, this.props)
     }), /*#__PURE__*/React__default["default"].createElement("div", {
       className: "leftTextAlign tooltip"
@@ -4761,7 +4563,7 @@ class F5VsiTemplateForm extends React.Component {
       innerForm: IcseTextInput,
       value: this.state.license_host || "",
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("license_host", this.state, this.props) || f5Utils_2(this.state.license_host),
+      invalid: this.props.invalidCallback("license_host", this.state, this.props) || f5_2(this.state.license_host),
       invalidText: this.props.invalidTextCallback("license_host", this.state, this.props)
     }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
@@ -4774,7 +4576,7 @@ class F5VsiTemplateForm extends React.Component {
       innerForm: IcseTextInput,
       value: this.state.license_pool || "",
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("license_pool", this.state, this.props) || f5Utils_2(this.state.license_pool),
+      invalid: this.props.invalidCallback("license_pool", this.state, this.props) || f5_2(this.state.license_pool),
       invalidText: this.props.invalidTextCallback("license_pool", this.state, this.props)
     })), this.state.license_type == "utilitypool" && /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
@@ -4788,7 +4590,7 @@ class F5VsiTemplateForm extends React.Component {
       innerForm: IcseTextInput,
       value: this.state.license_unit_of_measure || "",
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("license_unit_of_measure", this.state, this.props) || f5Utils_2(this.state.license_unit_of_measure),
+      invalid: this.props.invalidCallback("license_unit_of_measure", this.state, this.props) || f5_2(this.state.license_unit_of_measure),
       invalidText: this.props.invalidTextCallback("license_unit_of_measure", this.state, this.props)
     }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
@@ -4801,7 +4603,7 @@ class F5VsiTemplateForm extends React.Component {
       innerForm: IcseTextInput,
       value: this.state.license_sku_keyword_1 || "",
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("license_sku_keyword_1", this.state, this.props) || f5Utils_2(this.state.license_sku_keyword_1),
+      invalid: this.props.invalidCallback("license_sku_keyword_1", this.state, this.props) || f5_2(this.state.license_sku_keyword_1),
       invalidText: this.props.invalidTextCallback("license_sku_keyword_1", this.state, this.props)
     }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
@@ -4814,7 +4616,7 @@ class F5VsiTemplateForm extends React.Component {
       innerForm: IcseTextInput,
       value: this.state.license_sku_keyword_2 || "",
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("license_sku_keyword_2", this.state, this.props) || f5Utils_2(this.state.license_sku_keyword_2),
+      invalid: this.props.invalidCallback("license_sku_keyword_2", this.state, this.props) || f5_2(this.state.license_sku_keyword_2),
       invalidText: this.props.invalidTextCallback("license_sku_keyword_2", this.state, this.props)
     })))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
@@ -4828,7 +4630,7 @@ class F5VsiTemplateForm extends React.Component {
       innerForm: IcseTextInput,
       value: this.state.template_version,
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("template_version", this.state, this.props) || f5Utils_2(this.state.template_version),
+      invalid: this.props.invalidCallback("template_version", this.state, this.props) || f5_2(this.state.template_version),
       invalidText: this.props.invalidTextCallback("template_version", this.state, this.props)
     }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
@@ -4841,7 +4643,7 @@ class F5VsiTemplateForm extends React.Component {
       innerForm: IcseTextInput,
       value: this.state.template_source,
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("template_source", this.state, this.props) || f5Utils_2(this.state.template_source),
+      invalid: this.props.invalidCallback("template_source", this.state, this.props) || f5_2(this.state.template_source),
       invalidText: this.props.invalidTextCallback("template_source", this.state, this.props)
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
@@ -4868,7 +4670,7 @@ class F5VsiTemplateForm extends React.Component {
       innerForm: IcseTextInput,
       value: this.state.phone_home_url,
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("phone_home_url", this.state, this.props) || !f5Utils_4(this.state.phone_home_url),
+      invalid: this.props.invalidCallback("phone_home_url", this.state, this.props) || !f5_4(this.state.phone_home_url),
       invalidText: this.props.invalidTextCallback("phone_home_url", this.state, this.props)
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
@@ -4882,7 +4684,7 @@ class F5VsiTemplateForm extends React.Component {
       innerForm: IcseTextInput,
       value: this.state.do_declaration_url,
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("do_declaration_url", this.state, this.props) || !f5Utils_4(this.state.do_declaration_url),
+      invalid: this.props.invalidCallback("do_declaration_url", this.state, this.props) || !f5_4(this.state.do_declaration_url),
       invalidText: this.props.invalidTextCallback("do_declaration_url", this.state, this.props)
     }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
@@ -4895,7 +4697,7 @@ class F5VsiTemplateForm extends React.Component {
       innerForm: IcseTextInput,
       value: this.state.as3_declaration_url,
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("as3_declaration_url", this.state, this.props) || !f5Utils_4(this.state.as3_declaration_url),
+      invalid: this.props.invalidCallback("as3_declaration_url", this.state, this.props) || !f5_4(this.state.as3_declaration_url),
       invalidText: this.props.invalidTextCallback("as3_declaration_url", this.state, this.props)
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
@@ -4909,7 +4711,7 @@ class F5VsiTemplateForm extends React.Component {
       innerForm: IcseTextInput,
       value: this.state.ts_declaration_url,
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("ts_declaration_url", this.state, this.props) || !f5Utils_4(this.state.ts_declaration_url),
+      invalid: this.props.invalidCallback("ts_declaration_url", this.state, this.props) || !f5_4(this.state.ts_declaration_url),
       invalidText: this.props.invalidTextCallback("ts_declaration_url", this.state, this.props)
     }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
@@ -4922,7 +4724,7 @@ class F5VsiTemplateForm extends React.Component {
       innerForm: IcseTextInput,
       value: this.state.tgstandby_url,
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("tgstandby_url", this.state, this.props) || !f5Utils_4(this.state.tgstandby_url),
+      invalid: this.props.invalidCallback("tgstandby_url", this.state, this.props) || !f5_4(this.state.tgstandby_url),
       invalidText: this.props.invalidTextCallback("tgstandby_url", this.state, this.props)
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
@@ -4936,7 +4738,7 @@ class F5VsiTemplateForm extends React.Component {
       innerForm: IcseTextInput,
       value: this.state.tgrefresh_url,
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("tgrefresh_url", this.state, this.props) || !f5Utils_4(this.state.tgrefresh_url),
+      invalid: this.props.invalidCallback("tgrefresh_url", this.state, this.props) || !f5_4(this.state.tgrefresh_url),
       invalidText: this.props.invalidTextCallback("tgrefresh_url", this.state, this.props)
     }), /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
       tooltip: {
@@ -4949,7 +4751,7 @@ class F5VsiTemplateForm extends React.Component {
       innerForm: IcseTextInput,
       value: this.state.tgactive_url,
       onChange: this.handleTextInput,
-      invalid: this.props.invalidCallback("tgactive_url", this.state, this.props) || !f5Utils_4(this.state.tgactive_url),
+      invalid: this.props.invalidCallback("tgactive_url", this.state, this.props) || !f5_4(this.state.tgactive_url),
       invalidText: this.props.invalidTextCallback("tgactive_url", this.state, this.props)
     })));
   }
@@ -5472,9 +5274,9 @@ const {
   capitalize,
   titleCase,
   kebabCase,
-  isIpv4CidrOrAddress,
+  isIpv4CidrOrAddress: isIpv4CidrOrAddress$1,
   validPortRange,
-  isNullOrEmptyString,
+  isNullOrEmptyString: isNullOrEmptyString$2,
   contains
 } = require("lazy-z");
 
@@ -5517,7 +5319,10 @@ class NetworkingRuleForm extends React.Component {
    * @param event event
    */
   handleRuleDataUpdate(inputName, event) {
-    let value = parseInt(event.target.value) || null;
+    let value = parseInt(event.target.value);
+    if (isNaN(value)) {
+      value = null;
+    }
     this.setState(prevState => ({
       rule: {
         // object that we want to update
@@ -5744,7 +5549,7 @@ const NetworkingRuleTextField = props => {
     placeholder: "x.x.x.x",
     invalidText: "Please provide a valid IPV4 IP address or CIDR notation.",
     invalidCallback: () => {
-      return isIpv4CidrOrAddress(props.state[props.name]) === false;
+      return isIpv4CidrOrAddress$1(props.state[props.name]) === false;
     }
   });
 };
@@ -5762,13 +5567,16 @@ NetworkingRuleTextField.propTypes = {
  * @param {Function} props.onChange onchange function
  */
 const NetworkingRuleProtocolTextField = props => {
+  let value = contains(["null", null, ""], props.state.rule[props.name]) ? -1 // set to an invalid number only in these cases
+  : props.state.rule[props.name]; // set to number otherwise
   return /*#__PURE__*/React__default["default"].createElement(react.TextInput, {
     id: `${props.state.name}-nw-${kebabCase(props.name)}-input`,
     labelText: titleCase(props.name),
     placeholder: String(props.state.rule[props.name]),
-    value: props.state.rule[props.name] || "",
+    value: value === -1 ? "" : String(value) // if invalid number value is empty string
+    ,
     onChange: e => props.onChange(props.name, e),
-    invalid: validPortRange(props.name, props.state.rule[props.name] || -1) === false && isNullOrEmptyString(props.state.rule[props.name]) === false,
+    invalid: !validPortRange(props.name, value) && !isNullOrEmptyString$2(props.state.rule[props.name]) || props.state.rule[props.name] === "null",
     invalidText: contains(["type", "code"], props.name) ? `0 to ${props.name === "type" ? 254 : 255}` : "1 to 65535",
     className: "fieldWidthSmaller"
   });
@@ -6445,10 +6253,10 @@ class ObjectStorageInstancesForm extends React.Component {
         content: "Object storage bucket names must be unique across an account. Append a random suffix to maintain unique names across deployments.",
         alignModal: "bottom"
       },
-      id: composedId + "random-suffix",
+      id: composedId + "use-random-suffix",
       labelText: "Append Random Suffix to Names",
-      toggleFieldName: "random_suffix",
-      defaultToggled: this.state.random_suffix,
+      toggleFieldName: "use_random_suffix",
+      defaultToggled: this.state.use_random_suffix,
       onToggle: this.handleInputChange,
       isModal: this.props.isModal
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
@@ -9781,10 +9589,36 @@ VsiLoadBalancerForm.propTypes = {
   vsiDeployments: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired
 };
 
+/**
+ * input change for resources in access group policies
+ * @param {Object} stateData
+ * @param {*} event
+ * @returns {Object} resources
+ */
+function handleInputResource(stateData, event) {
+  let {
+    name,
+    value
+  } = event.target;
+  let resources = {
+    ...stateData.resources
+  };
+  resources[name] = value;
+  return {
+    resources: resources
+  };
+}
+var acessGroups = {
+  handleInputResource
+};
+var acessGroups_1 = acessGroups.handleInputResource;
+
 class AccessGroupPolicyForm extends React__default["default"].Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = {
+      ...this.props.data
+    };
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -9806,36 +9640,25 @@ class AccessGroupPolicyForm extends React__default["default"].Component {
    * @param {*} value value to update
    */
   handleInputResource(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    let resources = {
-      ...this.state.resources
-    };
-    resources[name] = value;
-    this.setState({
-      resources
-    });
+    this.setState(acessGroups_1(this.state, event));
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: "name",
-      componentName: "policies",
+      id: `${this.props.data.name}-name`,
+      componentName: `${this.props.data.name}-name`,
       value: this.state.name,
       onChange: this.handleInputChange,
-      labelText: "Name",
       invalidText: this.props.invalidTextCallback(this.state, this.props),
       invalid: this.props.invalidCallback(this.state, this.props),
-      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props)
+      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props),
+      forceKebabCase: true
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
       className: "marginBottomSmall"
     }, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
       name: "Resource Configuration",
       type: "subHeading"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: "resource",
-      componentName: "resource",
+      id: `${this.props.data.name}-resource`,
       tooltip: {
         content: "The resource of the policy definition",
         alignModal: "bottom-left"
@@ -9844,8 +9667,7 @@ class AccessGroupPolicyForm extends React__default["default"].Component {
       field: "resource",
       value: this.state.resources.resource,
       invalid: false,
-      onChange: this.handleInputResource,
-      labelText: "Resource"
+      onChange: this.handleInputResource
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       name: "resource_group",
       formName: `${lazyZ.kebabCase(this.props.data.name)}-agp-rg-select`,
@@ -9859,8 +9681,7 @@ class AccessGroupPolicyForm extends React__default["default"].Component {
       },
       disableInvalid: true // resource group is not required
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: "resource_instance_id",
-      componentName: "resource_instance_id",
+      id: `${this.props.data.name}-resource_instance_id`,
       isModal: this.props.isModal,
       field: "resource_instance_id",
       value: this.state.resources.resource_instance_id,
@@ -9868,26 +9689,26 @@ class AccessGroupPolicyForm extends React__default["default"].Component {
         content: "ID of a service instance to give permissions"
       },
       invalid: false,
-      labelText: "Resource Instance ID",
+      labelText: "Resource Instance ID" // needed to override Id in titleCase
+      ,
       onChange: this.handleInputResource
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: "service",
-      componentName: "service",
+      id: `${this.props.data.name}-service`,
       tooltip: {
         content: 'Name of the service type for the policy ex. "cloud-object-storage". You can run the `ibmcloud catalog service-marketplace` command to retrieve the service types. For account management services, you can find supported values in the following link.',
         link: "https://cloud.ibm.com/docs/account?topic=account-account-services#api-acct-mgmt",
         alignModal: "bottom-left",
         align: "top-left"
       },
-      labelText: "Service Type",
+      labelText: "Service Type" // override field, display text different
+      ,
       field: "service",
       value: this.state.resources.service,
       isModal: this.props.isModal,
       onChange: this.handleInputResource,
       invalid: false
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: "resource_type",
-      componentName: "resource_type",
+      id: `${this.props.data.name}-resource-type`,
       field: "resource_type",
       tooltip: {
         content: 'Name of the resource type for the policy ex. "resource-group"',
@@ -9896,8 +9717,7 @@ class AccessGroupPolicyForm extends React__default["default"].Component {
       invalid: false,
       value: this.state.resources.resource_type,
       isModal: this.props.isModal,
-      onChange: this.handleInputResource,
-      labelText: "Resource Type"
+      onChange: this.handleInputResource
     })));
   }
 }
@@ -10415,6 +10235,254 @@ CbrTagForm.propTypes = {
   arrayParentName: PropTypes__default["default"].string
 };
 
+const {
+  isNullOrEmptyString: isNullOrEmptyString$1,
+  isIpv4CidrOrAddress
+} = lazyZ__default["default"];
+const {
+  RegexButWithWords
+} = regexButWithWords__default["default"];
+const ipRangeExpression = new RegexButWithWords().wordBoundary().group(exp => {
+  exp.group(exp => {
+    exp.group(exp => {
+      exp.literal("2").set("1-5").set("0-6");
+    }).or().group(exp => {
+      exp.literal("1").digit(2);
+    }).or().group(exp => {
+      exp.digit(1, 2);
+    });
+  }).literal(".");
+}, 3).group(exp => {
+  exp.group(exp => {
+    exp.literal("2").set("1-5").set("0-6");
+  }).or().group(exp => {
+    exp.literal("1").digit(2);
+  }).or().group(exp => {
+    exp.digit(1, 2);
+  });
+}).literal("-").group(exp => {
+  exp.group(exp => {
+    exp.group(exp => {
+      exp.literal("2").set("1-5").set("0-6");
+    }).or().group(exp => {
+      exp.literal("1").digit(2);
+    }).or().group(exp => {
+      exp.digit(1, 2);
+    });
+  }).literal(".");
+}, 3).group(exp => {
+  exp.group(exp => {
+    exp.literal("2").set("1-5").set("0-6");
+  }).or().group(exp => {
+    exp.literal("1").digit(2);
+  }).or().group(exp => {
+    exp.digit(1, 2);
+  });
+}).wordBoundary().done("g");
+
+/**
+ * create cbr invalid field sta
+ * @param {*} field
+ * @param {*} value
+ * @returns {Object} invalid boolean invalidText string
+ */
+function cbrInvalid$1(field, value) {
+  let invalid = {
+    invalid: false,
+    invalidText: ""
+  };
+  if (!isNullOrEmptyString$1(value) && (value.match(/^[0-9a-z-]+$/) === null || value.length >= 128)) {
+    invalid.invalid = true;
+    invalid.invalidText = `Invalid ${field}. Value must match regex expression /^[0-9a-z-]+$/.`;
+  }
+  return invalid;
+}
+
+/**
+ * cbr value is invalid
+ * @param {*} type
+ * @param {*} value
+ * @returns {Object} invalid boolean invalidText string
+ */
+function cbrValueInvalid$1(type, value) {
+  let invalid = {
+    invalid: false,
+    invalidText: ""
+  };
+  if (isNullOrEmptyString$1(value)) {
+    invalid.invalid = true;
+    invalid.invalidText = `Invalid value for type ${type}. Cannot be empty string.`;
+  } else if (type === "ipAddress") {
+    if (!isIpv4CidrOrAddress(value) || value.includes("/")) {
+      invalid.invalid = true;
+      invalid.invalidText = `Invalid value for type ${type}. Value must be a valid IPV4 Address.`;
+    }
+  } else if (type === "ipRange") {
+    if (value.match(ipRangeExpression) === null) {
+      invalid.invalid = true;
+      invalid.invalidText = `Invalid value for type ${type}. Value must be a range of IPV4 Addresses.`;
+    }
+  } else {
+    invalid = cbrInvalid$1(type, value);
+  }
+  return invalid;
+}
+const cbrTypeNameMap$1 = {
+  ipAddress: "IP Address",
+  ipRange: "IP Range",
+  subnet: "Subnet",
+  vpc: "VPC",
+  serviceRef: "Service Ref"
+};
+const cbrNameTypeMap = {
+  "IP Address": "ipAddress",
+  "IP Range": "ipRange",
+  Subnet: "subnet",
+  VPC: "vpc",
+  "Service Ref": "serviceRef"
+};
+
+/**
+ * return a placeholder for value on exclusion/address form
+ * @param {string} type
+ * @returns
+ */
+function cbrValuePlaceholder$1(type) {
+  return type === "ipAddress" ? "x.x.x.x" : type === "ipRange" ? "x.x.x.x-x.x.x.x" : `my-cbr-zone-${type}`;
+}
+
+/**
+ * handle input change for cbr rules
+ * @param {*} event
+ * @param {Object} stateData
+ * @returns object
+ */
+function handleRuleInputChange$1(stateData, event) {
+  let {
+    name,
+    value
+  } = event.target;
+  let state = {
+    ...stateData
+  };
+  if (name === "enforcement_mode") {
+    state[name] = value.toLowerCase();
+  } else {
+    state[name] = value;
+  }
+  return state;
+}
+
+/**
+ * handle exclusion and address input change
+ * @param {*} event
+ * @param {Object} stateData
+ */
+function handleExclusionAddressInputChange$1(stateData, event) {
+  let {
+    name,
+    value
+  } = event.target;
+  let state = {
+    ...stateData
+  };
+  if (name === "type") state[name] = cbrNameTypeMap[value];else state[name] = value;
+  return state;
+}
+var cbrUtils = {
+  cbrInvalid: cbrInvalid$1,
+  cbrValueInvalid: cbrValueInvalid$1,
+  cbrValuePlaceholder: cbrValuePlaceholder$1,
+  handleRuleInputChange: handleRuleInputChange$1,
+  cbrTypeNameMap: cbrTypeNameMap$1,
+  handleExclusionAddressInputChange: handleExclusionAddressInputChange$1
+};
+var cbrUtils_1 = cbrUtils.cbrInvalid;
+var cbrUtils_2 = cbrUtils.cbrValueInvalid;
+var cbrUtils_3 = cbrUtils.cbrValuePlaceholder;
+var cbrUtils_5 = cbrUtils.cbrTypeNameMap;
+var cbrUtils_6 = cbrUtils.handleExclusionAddressInputChange;
+
+/**
+ * custom resolver input change
+ * @param {Object} stateData
+ * @param {*} event
+ * @returns {Object} new state
+ */
+function handleDnsResolverInputChange$1(stateData, event) {
+  let {
+    name,
+    value
+  } = event.target;
+  let state = {
+    ...stateData
+  };
+  if (name === "vpc") {
+    state[name] = value;
+    state.subnets = [];
+  } else {
+    state[name] = value;
+  }
+  return state;
+}
+
+/**
+ * handle dns form input change
+ * @param {*} event 
+ * @returns {Object} state update object
+ */
+function dnsFormInputChange$1(event) {
+  let {
+    name,
+    value
+  } = event.target;
+  if (name === "plan") value = value.toLowerCase();
+  return {
+    [name]: value
+  };
+}
+var dns = {
+  handleDnsResolverInputChange: handleDnsResolverInputChange$1,
+  dnsFormInputChange: dnsFormInputChange$1
+};
+
+const {
+  cbrInvalid,
+  cbrValueInvalid,
+  cbrValuePlaceholder,
+  handleRuleInputChange,
+  cbrTypeNameMap,
+  handleExclusionAddressInputChange
+} = cbrUtils;
+const {
+  handleDnsResolverInputChange,
+  dnsFormInputChange
+} = dns;
+const {
+  getValidAdminPassword,
+  isNullOrEmptyString,
+  isValidTmosAdminPassword,
+  isValidUrl
+} = f5;
+var forms = {
+  cbrInvalid,
+  cbrValueInvalid,
+  cbrValuePlaceholder,
+  handleRuleInputChange,
+  cbrTypeNameMap,
+  handleExclusionAddressInputChange,
+  getValidAdminPassword,
+  isNullOrEmptyString,
+  isValidTmosAdminPassword,
+  isValidUrl,
+  handleDnsResolverInputChange,
+  dnsFormInputChange
+};
+var forms_1 = forms.cbrInvalid;
+var forms_4 = forms.handleRuleInputChange;
+var forms_11 = forms.handleDnsResolverInputChange;
+var forms_12 = forms.dnsFormInputChange;
+
 /**
  * Context-based restriction rules
  */
@@ -10429,7 +10497,7 @@ class CbrRuleForm extends React.Component {
     buildFormFunctions(this);
   }
   handleInputChange(event) {
-    this.setState(lib_30(event, this.state));
+    this.setState(forms_4(this.state, event));
   }
   render() {
     // set up props for subforms
@@ -10471,8 +10539,12 @@ class CbrRuleForm extends React.Component {
       formName: "cbr-rule",
       handleInputChange: this.handleInputChange
     }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      tooltip: {
+        content: "APIs can be scoped for some service types that adopt CBR. This is mostly used for managed database services.",
+        align: "bottom-right",
+        alignModal: "bottom-right"
+      },
       id: this.props.data.name + "-cbr-rule-api-type-id",
-      componentName: this.props.data.name + "-cbr-rule",
       labelText: "API Type ID" // needed to override title case capitalization
       ,
       field: "api_type_id",
@@ -10659,7 +10731,7 @@ class CbrExclusionAddressForm extends React.Component {
    * @param {*} event
    */
   handleInputChange(event) {
-    this.setState(cbrUtils_6(event, this.state));
+    this.setState(cbrUtils_6(this.state, event));
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
@@ -10676,6 +10748,8 @@ class CbrExclusionAddressForm extends React.Component {
       id: this.props.data.name + "-cbr-account-id",
       componentName: this.props.data.name + "-cbr-zone",
       field: "account_id",
+      labelText: "Account ID" // need to override case on account id
+      ,
       value: this.state.account_id,
       onChange: this.handleInputChange,
       hideHelperText: true,
@@ -10823,7 +10897,7 @@ class CbrZoneForm extends React.Component {
       labelText: "Account ID" // needed to override titlecase capitalization
       ,
       onChange: this.handleInputChange
-    }, cbrUtils_1("account_id", this.state.account_id)))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
+    }, forms_1("account_id", this.state.account_id)))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
       id: this.props.data.name + "-cbr-zone-description",
       className: "textInputWide",
       name: "description",
@@ -10968,7 +11042,7 @@ class DnsRecordForm extends React.Component {
   render() {
     let dnsComponent = this.props.isModal ? "new-dns-record" : this.props.data.name;
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: this.state.name + "-name",
+      id: dnsComponent + "-name",
       labelText: "DNS Record Name",
       componentName: dnsComponent,
       value: this.state.name,
@@ -11021,7 +11095,6 @@ class DnsRecordForm extends React.Component {
     }), this.state.type === "MX" && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
       label: "Preference",
       id: dnsComponent + "-preference",
-      allowEmpty: false,
       value: this.state.preference,
       onChange: this.handleInputChange,
       name: "preference",
@@ -11035,7 +11108,6 @@ class DnsRecordForm extends React.Component {
     }))), this.state.type === "SRV" && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
       label: "DNS Record Port",
       id: dnsComponent + "-port",
-      allowEmpty: false,
       value: this.state.port,
       onChange: this.handleInputChange,
       name: "port",
@@ -11057,7 +11129,6 @@ class DnsRecordForm extends React.Component {
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
       label: "DNS Record Priority",
       id: dnsComponent + "-priority",
-      allowEmpty: false,
       value: this.state.priority,
       onChange: this.handleInputChange,
       name: "priority",
@@ -11081,7 +11152,6 @@ class DnsRecordForm extends React.Component {
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
       label: "DNS Record Weight",
       id: dnsComponent + "-weight",
-      allowEmpty: false,
       value: this.state.weight,
       onChange: this.handleInputChange,
       name: "weight",
@@ -11145,6 +11215,7 @@ class DnsZoneForm extends React__default["default"].Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleMultiSelect = this.handleMultiSelect.bind(this);
     buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
   }
 
   /**
@@ -11153,13 +11224,7 @@ class DnsZoneForm extends React__default["default"].Component {
    * @param {*} value value to update
    */
   handleInputChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    this.setState({
-      [name]: value
-    });
+    this.setState(this.eventTargetToNameAndValue(event));
   }
 
   /**
@@ -11167,16 +11232,13 @@ class DnsZoneForm extends React__default["default"].Component {
    * @param {event} event
    */
   handleMultiSelect(name, event) {
-    this.setState({
-      [name]: event
-    });
+    this.setState(this.setNameToValue(name, event));
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement("div", {
       id: "dns-zone-form"
     }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       id: this.props.data.name + "-dns-zone-name",
-      componentName: "dns-zone",
       value: this.state.name,
       onChange: this.handleInputChange,
       hideHelperText: true,
@@ -11191,11 +11253,9 @@ class DnsZoneForm extends React__default["default"].Component {
       invalid: this.state.vpcs.length === 0
     }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: this.props.data.label + "-dns-zone-label",
-      labelText: "Label",
       field: "label",
       value: this.state.label,
       onChange: this.handleInputChange,
-      componentName: "dns-zone",
       invalidCallback: () => this.props.invalidLabelCallback(this.state, this.props),
       invalidText: this.props.invalidLabelTextCallback(this.state, this.props)
     })), /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
@@ -11248,6 +11308,7 @@ class DnsCustomResolverForm extends React__default["default"].Component {
     this.handleMultiSelect = this.handleMultiSelect.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
   }
 
   /**
@@ -11256,20 +11317,7 @@ class DnsCustomResolverForm extends React__default["default"].Component {
    * @param {*} value value to update
    */
   handleInputChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    if (name === "vpc") {
-      this.setState({
-        [name]: value,
-        subnets: []
-      });
-    } else {
-      this.setState({
-        [name]: value
-      });
-    }
+    this.setState(forms_11(this.state, event));
   }
 
   /**
@@ -11277,19 +11325,15 @@ class DnsCustomResolverForm extends React__default["default"].Component {
    * @param {string} name name of the object key to change
    */
   handleToggle(name) {
-    this.setState({
-      [name]: !this.state[name]
-    });
+    this.setState(this.toggleStateBoolean(name, this.state));
   }
 
   /**
    * handle subnet multiselect
-   * @param {event} event
+   * @param {value} value
    */
-  handleMultiSelect(name, event) {
-    this.setState({
-      [name]: event
-    });
+  handleMultiSelect(name, value) {
+    this.setState(this.setNameToValue(name, value));
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement("div", {
@@ -11372,8 +11416,6 @@ DnsCustomResolverForm.propTypes = {
     vpc: PropTypes__default["default"].string,
     subnets: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string)
   }),
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
   invalidNameCallback: PropTypes__default["default"].func.isRequired,
   invalidNameTextCallback: PropTypes__default["default"].func.isRequired,
   invalidDescriptionCallback: PropTypes__default["default"].func.isRequired,
@@ -11393,23 +11435,10 @@ class DnsForm extends React.Component {
       ...this.props.data
     };
     this.handleInputChange = this.handleInputChange.bind(this);
-    buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
   }
   handleInputChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    if (name === "plan") {
-      this.setState({
-        [name]: value.toLowerCase()
-      });
-    } else {
-      this.setState({
-        [name]: value
-      });
-    }
+    this.setState(forms_12(event));
   }
   render() {
     // set up props for subforms
@@ -11429,7 +11458,7 @@ class DnsForm extends React.Component {
       arrayParentName: this.props.data.name
     }, resolverInnerFormProps);
     return /*#__PURE__*/React__default["default"].createElement("div", {
-      id: "dns-form"
+      id: "dns-form-" + this.props.data.name
     }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       id: this.props.data.name + "-dns",
       componentName: this.props.data.name + "-dns",
@@ -11449,7 +11478,7 @@ class DnsForm extends React.Component {
       handleInputChange: this.handleInputChange
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       name: "resource_group",
-      formName: `${lazyZ.kebabCase(this.props.data.name)}-dns-rg-select`,
+      formName: `${this.props.data.name}-dns-rg-select`,
       groups: this.props.resourceGroups,
       value: this.state.resource_group,
       handleInputChange: this.handleInputChange,

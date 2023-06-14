@@ -13,7 +13,7 @@ import {
 import CbrContextForm from "./CbrContextForm";
 import CbrResourceAttributeForm from "./CbrResourceAttributeForm";
 import CbrTagForm from "./CbrTagForm";
-import { handleRuleInputChange } from "../../../lib/";
+import { handleRuleInputChange } from "../../../lib/forms";
 
 /**
  * Context-based restriction rules
@@ -28,7 +28,7 @@ class CbrRuleForm extends Component {
   }
 
   handleInputChange(event) {
-    this.setState(handleRuleInputChange(event, this.state));
+    this.setState(handleRuleInputChange(this.state, event));
   }
 
   render() {
@@ -93,8 +93,13 @@ class CbrRuleForm extends Component {
             handleInputChange={this.handleInputChange}
           />
           <IcseTextInput
+            tooltip={{
+              content:
+                "APIs can be scoped for some service types that adopt CBR. This is mostly used for managed database services.",
+              align: "bottom-right",
+              alignModal: "bottom-right",
+            }}
             id={this.props.data.name + "-cbr-rule-api-type-id"}
-            componentName={this.props.data.name + "-cbr-rule"}
             labelText="API Type ID" // needed to override title case capitalization
             field={"api_type_id"}
             value={this.state.api_type_id}
