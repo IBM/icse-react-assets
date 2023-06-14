@@ -64,7 +64,6 @@ class AccessGroupForm extends React.Component {
         <IcseFormGroup>
           <IcseTextInput
             id={this.props.data.name + "-description"}
-            componentName="description"
             tooltip={{
               content: "Description of the access group",
             }}

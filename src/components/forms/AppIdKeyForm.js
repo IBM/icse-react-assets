@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import {
   buildFormDefaultInputMethods,
   buildFormFunctions,
-} from "../../component-utils";
+} from "../component-utils";
 import { IcseTextInput } from "../Inputs";
 
 class AppIdKeyForm extends React.Component {
