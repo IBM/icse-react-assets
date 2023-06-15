@@ -11749,7 +11749,8 @@ class LogDNAForm extends Component {
       invalidText: "Select a bucket."
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
       tooltip: {
-        content: "Create an archive with the LogDNA Provider"
+        content: "Create an archive with the LogDNA Provider",
+        align: "bottom-left"
       },
       labelText: "Archive",
       defaultToggled: this.state.archive,
