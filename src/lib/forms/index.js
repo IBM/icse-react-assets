@@ -1,3 +1,4 @@
+const { atrackerInputChange } = require("./atracker");
 const {
   cbrInvalid,
   cbrValueInvalid,
@@ -28,6 +29,7 @@ module.exports = {
   isValidUrl,
   handleDnsResolverInputChange,
   dnsFormInputChange,
+  atrackerInputChange,
   handleCRNs,
   handleVpcSelect,
 };

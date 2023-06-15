@@ -122,7 +122,7 @@ const AppIdFormStory = () => {
         },
         onDelete: () => {},
         onSave: () => {},
-        onCreate: () => {},
+        onSubmit: () => {},
       }}
     />
   );
