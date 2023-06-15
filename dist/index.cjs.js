@@ -11813,7 +11813,6 @@ class SysdigForm extends React.Component {
     }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
       labelText: "Enabled",
       defaultToggled: this.state.enabled,
-      name: "enabled",
       toggleFieldName: "enabled",
       onToggle: this.handleToggle,
       id: "sysdig-enabled",
@@ -11833,7 +11832,7 @@ class SysdigForm extends React.Component {
       invalidText: "Select a plan."
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       name: "resource_group",
-      formName: `${this.props.data.name}-sysdig-rg-select`,
+      id: `${this.props.data.name}-sysdig-rg-select`,
       groups: this.props.resourceGroups,
       value: this.state.resource_group,
       handleInputChange: this.handleInputChange,

@@ -55,7 +55,6 @@ class SysdigForm extends Component {
           <IcseToggle
             labelText="Enabled"
             defaultToggled={this.state.enabled}
-            name="enabled"
             toggleFieldName="enabled"
             onToggle={this.handleToggle}
             id="sysdig-enabled"
@@ -79,7 +78,7 @@ class SysdigForm extends Component {
         <IcseFormGroup>
           <IcseSelect
             name="resource_group"
-            formName={`${this.props.data.name}-sysdig-rg-select`}
+            id={`${this.props.data.name}-sysdig-rg-select`}
             groups={this.props.resourceGroups}
             value={this.state.resource_group}
             handleInputChange={this.handleInputChange}
