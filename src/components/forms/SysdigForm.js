@@ -78,7 +78,7 @@ class SysdigForm extends Component {
         <IcseFormGroup>
           <IcseSelect
             name="resource_group"
-            id={`${this.props.data.name}-sysdig-rg-select`}
+            formName={`${this.props.data.name}-sysdig-rg-select`}
             groups={this.props.resourceGroups}
             value={this.state.resource_group}
             handleInputChange={this.handleInputChange}
