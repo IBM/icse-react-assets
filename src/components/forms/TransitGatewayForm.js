@@ -10,15 +10,16 @@ import {
 } from "../component-utils";
 import PropTypes from "prop-types";
 import { splat } from "lazy-z";
+import { handleCRNs, handleVpcSelect } from "../../lib/forms";
 
 class TransitGatewayForm extends Component {
   constructor(props) {
     super(props);
     this.state = { ...this.props.data };
     this.handleToggle = this.handleToggle.bind(this);
-    this.handleVpcSelect = this.handleVpcSelect.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleCRNs = this.handleCRNs.bind(this);
+    this.handleVpcSelect = this.handleVpcSelect.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
@@ -28,21 +29,7 @@ class TransitGatewayForm extends Component {
    * @param {string} name name of the object key to change
    */
   handleToggle(name) {
-    this.setState({ [name]: !this.state[name] });
-  }
-
-  /**
-   * Handle vpc selection
-   * @param {event} event
-   */
-  handleVpcSelect(event) {
-    let connections = [];
-    event.forEach((vpc) => {
-      connections.push({ tgw: this.state.name, vpc: vpc });
-    });
-    this.setState({
-      connections: connections,
-    });
+    this.setState(this.toggleStateBoolean(name, this.state));
   }
 
   /**
@@ -58,14 +45,15 @@ class TransitGatewayForm extends Component {
    * @param {event} event
    */
   handleCRNs(event) {
-    let crnList = event.target.value
-      ? event.target.value
-          .replace(/\s\s+/g, "") // replace extra spaces
-          .replace(/,(?=,)/g, "") // prevent null tags from
-          .replace(/[^\w,-:]/g, "")
-          .split(",")
-      : [];
-    this.setState({ crns: crnList });
+    this.setState(handleCRNs(event));
+  }
+
+  /**
+   * Handle vpc selection
+   * @param {Array} selectedItems
+   */
+  handleVpcSelect(selectedItems) {
+    this.setState(handleVpcSelect(selectedItems, this.state.name));
   }
 
   render() {
@@ -79,14 +67,14 @@ class TransitGatewayForm extends Component {
             value={this.state.name}
             invalid={this.props.invalidCallback(this.state, this.props)}
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
-            id={this.state.name + "-tg-name"}
+            id={this.props.data.name + "-tg-name"}
           />
           <IcseSelect
             formName="Transit Gateway"
             value={this.state.resource_group}
             groups={this.props.resourceGroups}
             handleInputChange={this.handleInputChange}
-            id={this.state.name + "-resource_group"}
+            id={this.props.data.name + "-resource_group"}
             name="resource_group"
             labelText="Resource Group"
           />
@@ -95,7 +83,7 @@ class TransitGatewayForm extends Component {
           <IcseToggle
             labelText="Global Routing"
             toggleFieldName="global"
-            id={this.state.name + "-tg-global"}
+            id={this.props.data.name + "-tg-global"}
             onToggle={this.handleToggle}
             defaultToggled={this.state.global}
             tooltip={{
@@ -108,7 +96,7 @@ class TransitGatewayForm extends Component {
         <IcseHeading name="Connections" type="subHeading" />
         <IcseFormGroup>
           <VpcListMultiSelect
-            id={this.state.name + "-tg-vpc-multiselect"}
+            id={this.props.data.name + "-tg-vpc-multiselect"}
             titleText="Connected VPCs"
             initialSelectedItems={splat(this.state.connections, "vpc")}
             vpcList={this.props.vpcList}
@@ -121,7 +109,7 @@ class TransitGatewayForm extends Component {
         <IcseFormGroup>
           <TextArea
             className="textInputWide"
-            id="crns"
+            id={this.props.data.name + "crns"}
             labelText="Add a new connection from any region in the account"
             value={this.state.crns === undefined ? "" : String(this.state.crns)}
             onChange={this.handleCRNs}

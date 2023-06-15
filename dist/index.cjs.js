@@ -7836,6 +7836,297 @@ TeleportClaimToRoleForm.propTypes = {
   }).isRequired
 };
 
+const {
+  isNullOrEmptyString: isNullOrEmptyString$1,
+  isIpv4CidrOrAddress
+} = lazyZ__default["default"];
+const {
+  RegexButWithWords
+} = regexButWithWords__default["default"];
+const ipRangeExpression = new RegexButWithWords().wordBoundary().group(exp => {
+  exp.group(exp => {
+    exp.group(exp => {
+      exp.literal("2").set("1-5").set("0-6");
+    }).or().group(exp => {
+      exp.literal("1").digit(2);
+    }).or().group(exp => {
+      exp.digit(1, 2);
+    });
+  }).literal(".");
+}, 3).group(exp => {
+  exp.group(exp => {
+    exp.literal("2").set("1-5").set("0-6");
+  }).or().group(exp => {
+    exp.literal("1").digit(2);
+  }).or().group(exp => {
+    exp.digit(1, 2);
+  });
+}).literal("-").group(exp => {
+  exp.group(exp => {
+    exp.group(exp => {
+      exp.literal("2").set("1-5").set("0-6");
+    }).or().group(exp => {
+      exp.literal("1").digit(2);
+    }).or().group(exp => {
+      exp.digit(1, 2);
+    });
+  }).literal(".");
+}, 3).group(exp => {
+  exp.group(exp => {
+    exp.literal("2").set("1-5").set("0-6");
+  }).or().group(exp => {
+    exp.literal("1").digit(2);
+  }).or().group(exp => {
+    exp.digit(1, 2);
+  });
+}).wordBoundary().done("g");
+
+/**
+ * create cbr invalid field sta
+ * @param {*} field
+ * @param {*} value
+ * @returns {Object} invalid boolean invalidText string
+ */
+function cbrInvalid$1(field, value) {
+  let invalid = {
+    invalid: false,
+    invalidText: ""
+  };
+  if (!isNullOrEmptyString$1(value) && (value.match(/^[0-9a-z-]+$/) === null || value.length >= 128)) {
+    invalid.invalid = true;
+    invalid.invalidText = `Invalid ${field}. Value must match regex expression /^[0-9a-z-]+$/.`;
+  }
+  return invalid;
+}
+
+/**
+ * cbr value is invalid
+ * @param {*} type
+ * @param {*} value
+ * @returns {Object} invalid boolean invalidText string
+ */
+function cbrValueInvalid$1(type, value) {
+  let invalid = {
+    invalid: false,
+    invalidText: ""
+  };
+  if (isNullOrEmptyString$1(value)) {
+    invalid.invalid = true;
+    invalid.invalidText = `Invalid value for type ${type}. Cannot be empty string.`;
+  } else if (type === "ipAddress") {
+    if (!isIpv4CidrOrAddress(value) || value.includes("/")) {
+      invalid.invalid = true;
+      invalid.invalidText = `Invalid value for type ${type}. Value must be a valid IPV4 Address.`;
+    }
+  } else if (type === "ipRange") {
+    if (value.match(ipRangeExpression) === null) {
+      invalid.invalid = true;
+      invalid.invalidText = `Invalid value for type ${type}. Value must be a range of IPV4 Addresses.`;
+    }
+  } else {
+    invalid = cbrInvalid$1(type, value);
+  }
+  return invalid;
+}
+const cbrTypeNameMap$1 = {
+  ipAddress: "IP Address",
+  ipRange: "IP Range",
+  subnet: "Subnet",
+  vpc: "VPC",
+  serviceRef: "Service Ref"
+};
+const cbrNameTypeMap = {
+  "IP Address": "ipAddress",
+  "IP Range": "ipRange",
+  Subnet: "subnet",
+  VPC: "vpc",
+  "Service Ref": "serviceRef"
+};
+
+/**
+ * return a placeholder for value on exclusion/address form
+ * @param {string} type
+ * @returns
+ */
+function cbrValuePlaceholder$1(type) {
+  return type === "ipAddress" ? "x.x.x.x" : type === "ipRange" ? "x.x.x.x-x.x.x.x" : `my-cbr-zone-${type}`;
+}
+
+/**
+ * handle input change for cbr rules
+ * @param {*} event
+ * @param {Object} stateData
+ * @returns object
+ */
+function handleRuleInputChange$1(stateData, event) {
+  let {
+    name,
+    value
+  } = event.target;
+  let state = {
+    ...stateData
+  };
+  if (name === "enforcement_mode") {
+    state[name] = value.toLowerCase();
+  } else {
+    state[name] = value;
+  }
+  return state;
+}
+
+/**
+ * handle exclusion and address input change
+ * @param {*} event
+ * @param {Object} stateData
+ */
+function handleExclusionAddressInputChange$1(stateData, event) {
+  let {
+    name,
+    value
+  } = event.target;
+  let state = {
+    ...stateData
+  };
+  if (name === "type") state[name] = cbrNameTypeMap[value];else state[name] = value;
+  return state;
+}
+var cbrUtils = {
+  cbrInvalid: cbrInvalid$1,
+  cbrValueInvalid: cbrValueInvalid$1,
+  cbrValuePlaceholder: cbrValuePlaceholder$1,
+  handleRuleInputChange: handleRuleInputChange$1,
+  cbrTypeNameMap: cbrTypeNameMap$1,
+  handleExclusionAddressInputChange: handleExclusionAddressInputChange$1
+};
+var cbrUtils_1 = cbrUtils.cbrInvalid;
+var cbrUtils_2 = cbrUtils.cbrValueInvalid;
+var cbrUtils_3 = cbrUtils.cbrValuePlaceholder;
+var cbrUtils_5 = cbrUtils.cbrTypeNameMap;
+var cbrUtils_6 = cbrUtils.handleExclusionAddressInputChange;
+
+/**
+ * custom resolver input change
+ * @param {Object} stateData
+ * @param {*} event
+ * @returns {Object} new state
+ */
+function handleDnsResolverInputChange$1(stateData, event) {
+  let {
+    name,
+    value
+  } = event.target;
+  let state = {
+    ...stateData
+  };
+  if (name === "vpc") {
+    state[name] = value;
+    state.subnets = [];
+  } else {
+    state[name] = value;
+  }
+  return state;
+}
+
+/**
+ * handle dns form input change
+ * @param {*} event 
+ * @returns {Object} state update object
+ */
+function dnsFormInputChange$1(event) {
+  let {
+    name,
+    value
+  } = event.target;
+  if (name === "plan") value = value.toLowerCase();
+  return {
+    [name]: value
+  };
+}
+var dns = {
+  handleDnsResolverInputChange: handleDnsResolverInputChange$1,
+  dnsFormInputChange: dnsFormInputChange$1
+};
+
+/**
+ * Handle crn input
+ * @param {event} event
+ */
+function handleCRNs$1(event) {
+  let crns = event.target.value ? event.target.value.replace(/\s\s+/g, "") // replace extra spaces
+  .replace(/,(?=,)/g, "") // prevent null tags from
+  .replace(/[^\w,-:]/g, "").split(",") : [];
+  return {
+    crns: crns
+  };
+}
+
+/**
+ * Handle vpc selection
+ * @param {Array} selectedItems list of selected vpcs
+ * @param {String} tgw transit gateway name
+ */
+function handleVpcSelect$1(selectedItems, tgw) {
+  let connections = [];
+  selectedItems.forEach(vpc => {
+    connections.push({
+      tgw: tgw,
+      vpc: vpc
+    });
+  });
+  return {
+    connections: connections
+  };
+}
+var transitGateway = {
+  handleCRNs: handleCRNs$1,
+  handleVpcSelect: handleVpcSelect$1
+};
+
+const {
+  cbrInvalid,
+  cbrValueInvalid,
+  cbrValuePlaceholder,
+  handleRuleInputChange,
+  cbrTypeNameMap,
+  handleExclusionAddressInputChange
+} = cbrUtils;
+const {
+  handleDnsResolverInputChange,
+  dnsFormInputChange
+} = dns;
+const {
+  getValidAdminPassword,
+  isNullOrEmptyString,
+  isValidTmosAdminPassword,
+  isValidUrl
+} = f5;
+const {
+  handleCRNs,
+  handleVpcSelect
+} = transitGateway;
+var forms = {
+  cbrInvalid,
+  cbrValueInvalid,
+  cbrValuePlaceholder,
+  handleRuleInputChange,
+  cbrTypeNameMap,
+  handleExclusionAddressInputChange,
+  getValidAdminPassword,
+  isNullOrEmptyString,
+  isValidTmosAdminPassword,
+  isValidUrl,
+  handleDnsResolverInputChange,
+  dnsFormInputChange,
+  handleCRNs,
+  handleVpcSelect
+};
+var forms_1 = forms.cbrInvalid;
+var forms_4 = forms.handleRuleInputChange;
+var forms_11 = forms.handleDnsResolverInputChange;
+var forms_12 = forms.dnsFormInputChange;
+var forms_13 = forms.handleCRNs;
+var forms_14 = forms.handleVpcSelect;
+
 class TransitGatewayForm extends React.Component {
   constructor(props) {
     super(props);
@@ -7843,9 +8134,9 @@ class TransitGatewayForm extends React.Component {
       ...this.props.data
     };
     this.handleToggle = this.handleToggle.bind(this);
-    this.handleVpcSelect = this.handleVpcSelect.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleCRNs = this.handleCRNs.bind(this);
+    this.handleVpcSelect = this.handleVpcSelect.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
@@ -7855,26 +8146,7 @@ class TransitGatewayForm extends React.Component {
    * @param {string} name name of the object key to change
    */
   handleToggle(name) {
-    this.setState({
-      [name]: !this.state[name]
-    });
-  }
-
-  /**
-   * Handle vpc selection
-   * @param {event} event
-   */
-  handleVpcSelect(event) {
-    let connections = [];
-    event.forEach(vpc => {
-      connections.push({
-        tgw: this.state.name,
-        vpc: vpc
-      });
-    });
-    this.setState({
-      connections: connections
-    });
+    this.setState(this.toggleStateBoolean(name, this.state));
   }
 
   /**
@@ -7890,12 +8162,15 @@ class TransitGatewayForm extends React.Component {
    * @param {event} event
    */
   handleCRNs(event) {
-    let crnList = event.target.value ? event.target.value.replace(/\s\s+/g, "") // replace extra spaces
-    .replace(/,(?=,)/g, "") // prevent null tags from
-    .replace(/[^\w,-:]/g, "").split(",") : [];
-    this.setState({
-      crns: crnList
-    });
+    this.setState(forms_13(event));
+  }
+
+  /**
+   * Handle vpc selection
+   * @param {Array} selectedItems
+   */
+  handleVpcSelect(selectedItems) {
+    this.setState(forms_14(selectedItems, this.state.name));
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
@@ -7905,19 +8180,19 @@ class TransitGatewayForm extends React.Component {
       value: this.state.name,
       invalid: this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props),
-      id: this.state.name + "-tg-name"
+      id: this.props.data.name + "-tg-name"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       formName: "Transit Gateway",
       value: this.state.resource_group,
       groups: this.props.resourceGroups,
       handleInputChange: this.handleInputChange,
-      id: this.state.name + "-resource_group",
+      id: this.props.data.name + "-resource_group",
       name: "resource_group",
       labelText: "Resource Group"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
       labelText: "Global Routing",
       toggleFieldName: "global",
-      id: this.state.name + "-tg-global",
+      id: this.props.data.name + "-tg-global",
       onToggle: this.handleToggle,
       defaultToggled: this.state.global,
       tooltip: {
@@ -7928,7 +8203,7 @@ class TransitGatewayForm extends React.Component {
       name: "Connections",
       type: "subHeading"
     }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(VpcListMultiSelect, {
-      id: this.state.name + "-tg-vpc-multiselect",
+      id: this.props.data.name + "-tg-vpc-multiselect",
       titleText: "Connected VPCs",
       initialSelectedItems: lazyZ.splat(this.state.connections, "vpc"),
       vpcList: this.props.vpcList,
@@ -7940,7 +8215,7 @@ class TransitGatewayForm extends React.Component {
       type: "section"
     }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
       className: "textInputWide",
-      id: "crns",
+      id: this.props.data.name + "crns",
       labelText: "Add a new connection from any region in the account",
       value: this.state.crns === undefined ? "" : String(this.state.crns),
       onChange: this.handleCRNs,
@@ -10231,254 +10506,6 @@ CbrTagForm.propTypes = {
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
   arrayParentName: PropTypes__default["default"].string
 };
-
-const {
-  isNullOrEmptyString: isNullOrEmptyString$1,
-  isIpv4CidrOrAddress
-} = lazyZ__default["default"];
-const {
-  RegexButWithWords
-} = regexButWithWords__default["default"];
-const ipRangeExpression = new RegexButWithWords().wordBoundary().group(exp => {
-  exp.group(exp => {
-    exp.group(exp => {
-      exp.literal("2").set("1-5").set("0-6");
-    }).or().group(exp => {
-      exp.literal("1").digit(2);
-    }).or().group(exp => {
-      exp.digit(1, 2);
-    });
-  }).literal(".");
-}, 3).group(exp => {
-  exp.group(exp => {
-    exp.literal("2").set("1-5").set("0-6");
-  }).or().group(exp => {
-    exp.literal("1").digit(2);
-  }).or().group(exp => {
-    exp.digit(1, 2);
-  });
-}).literal("-").group(exp => {
-  exp.group(exp => {
-    exp.group(exp => {
-      exp.literal("2").set("1-5").set("0-6");
-    }).or().group(exp => {
-      exp.literal("1").digit(2);
-    }).or().group(exp => {
-      exp.digit(1, 2);
-    });
-  }).literal(".");
-}, 3).group(exp => {
-  exp.group(exp => {
-    exp.literal("2").set("1-5").set("0-6");
-  }).or().group(exp => {
-    exp.literal("1").digit(2);
-  }).or().group(exp => {
-    exp.digit(1, 2);
-  });
-}).wordBoundary().done("g");
-
-/**
- * create cbr invalid field sta
- * @param {*} field
- * @param {*} value
- * @returns {Object} invalid boolean invalidText string
- */
-function cbrInvalid$1(field, value) {
-  let invalid = {
-    invalid: false,
-    invalidText: ""
-  };
-  if (!isNullOrEmptyString$1(value) && (value.match(/^[0-9a-z-]+$/) === null || value.length >= 128)) {
-    invalid.invalid = true;
-    invalid.invalidText = `Invalid ${field}. Value must match regex expression /^[0-9a-z-]+$/.`;
-  }
-  return invalid;
-}
-
-/**
- * cbr value is invalid
- * @param {*} type
- * @param {*} value
- * @returns {Object} invalid boolean invalidText string
- */
-function cbrValueInvalid$1(type, value) {
-  let invalid = {
-    invalid: false,
-    invalidText: ""
-  };
-  if (isNullOrEmptyString$1(value)) {
-    invalid.invalid = true;
-    invalid.invalidText = `Invalid value for type ${type}. Cannot be empty string.`;
-  } else if (type === "ipAddress") {
-    if (!isIpv4CidrOrAddress(value) || value.includes("/")) {
-      invalid.invalid = true;
-      invalid.invalidText = `Invalid value for type ${type}. Value must be a valid IPV4 Address.`;
-    }
-  } else if (type === "ipRange") {
-    if (value.match(ipRangeExpression) === null) {
-      invalid.invalid = true;
-      invalid.invalidText = `Invalid value for type ${type}. Value must be a range of IPV4 Addresses.`;
-    }
-  } else {
-    invalid = cbrInvalid$1(type, value);
-  }
-  return invalid;
-}
-const cbrTypeNameMap$1 = {
-  ipAddress: "IP Address",
-  ipRange: "IP Range",
-  subnet: "Subnet",
-  vpc: "VPC",
-  serviceRef: "Service Ref"
-};
-const cbrNameTypeMap = {
-  "IP Address": "ipAddress",
-  "IP Range": "ipRange",
-  Subnet: "subnet",
-  VPC: "vpc",
-  "Service Ref": "serviceRef"
-};
-
-/**
- * return a placeholder for value on exclusion/address form
- * @param {string} type
- * @returns
- */
-function cbrValuePlaceholder$1(type) {
-  return type === "ipAddress" ? "x.x.x.x" : type === "ipRange" ? "x.x.x.x-x.x.x.x" : `my-cbr-zone-${type}`;
-}
-
-/**
- * handle input change for cbr rules
- * @param {*} event
- * @param {Object} stateData
- * @returns object
- */
-function handleRuleInputChange$1(stateData, event) {
-  let {
-    name,
-    value
-  } = event.target;
-  let state = {
-    ...stateData
-  };
-  if (name === "enforcement_mode") {
-    state[name] = value.toLowerCase();
-  } else {
-    state[name] = value;
-  }
-  return state;
-}
-
-/**
- * handle exclusion and address input change
- * @param {*} event
- * @param {Object} stateData
- */
-function handleExclusionAddressInputChange$1(stateData, event) {
-  let {
-    name,
-    value
-  } = event.target;
-  let state = {
-    ...stateData
-  };
-  if (name === "type") state[name] = cbrNameTypeMap[value];else state[name] = value;
-  return state;
-}
-var cbrUtils = {
-  cbrInvalid: cbrInvalid$1,
-  cbrValueInvalid: cbrValueInvalid$1,
-  cbrValuePlaceholder: cbrValuePlaceholder$1,
-  handleRuleInputChange: handleRuleInputChange$1,
-  cbrTypeNameMap: cbrTypeNameMap$1,
-  handleExclusionAddressInputChange: handleExclusionAddressInputChange$1
-};
-var cbrUtils_1 = cbrUtils.cbrInvalid;
-var cbrUtils_2 = cbrUtils.cbrValueInvalid;
-var cbrUtils_3 = cbrUtils.cbrValuePlaceholder;
-var cbrUtils_5 = cbrUtils.cbrTypeNameMap;
-var cbrUtils_6 = cbrUtils.handleExclusionAddressInputChange;
-
-/**
- * custom resolver input change
- * @param {Object} stateData
- * @param {*} event
- * @returns {Object} new state
- */
-function handleDnsResolverInputChange$1(stateData, event) {
-  let {
-    name,
-    value
-  } = event.target;
-  let state = {
-    ...stateData
-  };
-  if (name === "vpc") {
-    state[name] = value;
-    state.subnets = [];
-  } else {
-    state[name] = value;
-  }
-  return state;
-}
-
-/**
- * handle dns form input change
- * @param {*} event 
- * @returns {Object} state update object
- */
-function dnsFormInputChange$1(event) {
-  let {
-    name,
-    value
-  } = event.target;
-  if (name === "plan") value = value.toLowerCase();
-  return {
-    [name]: value
-  };
-}
-var dns = {
-  handleDnsResolverInputChange: handleDnsResolverInputChange$1,
-  dnsFormInputChange: dnsFormInputChange$1
-};
-
-const {
-  cbrInvalid,
-  cbrValueInvalid,
-  cbrValuePlaceholder,
-  handleRuleInputChange,
-  cbrTypeNameMap,
-  handleExclusionAddressInputChange
-} = cbrUtils;
-const {
-  handleDnsResolverInputChange,
-  dnsFormInputChange
-} = dns;
-const {
-  getValidAdminPassword,
-  isNullOrEmptyString,
-  isValidTmosAdminPassword,
-  isValidUrl
-} = f5;
-var forms = {
-  cbrInvalid,
-  cbrValueInvalid,
-  cbrValuePlaceholder,
-  handleRuleInputChange,
-  cbrTypeNameMap,
-  handleExclusionAddressInputChange,
-  getValidAdminPassword,
-  isNullOrEmptyString,
-  isValidTmosAdminPassword,
-  isValidUrl,
-  handleDnsResolverInputChange,
-  dnsFormInputChange
-};
-var forms_1 = forms.cbrInvalid;
-var forms_4 = forms.handleRuleInputChange;
-var forms_11 = forms.handleDnsResolverInputChange;
-var forms_12 = forms.dnsFormInputChange;
 
 /**
  * Context-based restriction rules
