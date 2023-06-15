@@ -10,6 +10,11 @@ export default {
       type: { required: false }, // required prop or not
       control: "none",
     },
+    ["data.enabled"]: {
+      description: "A boolean of whether or not a Sysdig instance is enabled",
+      control: "none",
+      type: { required: true }, // required prop or not
+    },
     ["data.plan"]: {
       description:
         "A string representing the plan. Options are `lite`, `7-day`, `14-day`, and `30-day`",

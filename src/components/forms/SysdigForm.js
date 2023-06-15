@@ -52,18 +52,15 @@ class SysdigForm extends Component {
             placeholder={this.props.prefix + "-sysdig"}
             className="fieldWidth"
           />
-          <IcseSelect
-            name="resource_group"
-            formName={`${this.props.data.name}-sysdig-rg-select`}
-            groups={this.props.resourceGroups}
-            value={this.state.resource_group}
-            handleInputChange={this.handleInputChange}
-            invalidText="Select a Resource Group."
-            labelText="Resource Group"
-            className="fieldWidth"
+          <IcseToggle
+            labelText="Enabled"
+            defaultToggled={this.state.enabled}
+            name="enabled"
+            toggleFieldName="enabled"
+            onToggle={this.handleToggle}
+            id="sysdig-enabled"
+            className="fieldWidthSmaller"
           />
-        </IcseFormGroup>
-        <IcseFormGroup>
           <IcseSelect
             tooltip={{
               content: "Each tier level allows for more time-series per month.",
@@ -77,6 +74,18 @@ class SysdigForm extends Component {
             className="fieldWidth"
             labelText="Plan"
             invalidText="Select a plan."
+          />
+        </IcseFormGroup>
+        <IcseFormGroup>
+          <IcseSelect
+            name="resource_group"
+            formName={`${this.props.data.name}-sysdig-rg-select`}
+            groups={this.props.resourceGroups}
+            value={this.state.resource_group}
+            handleInputChange={this.handleInputChange}
+            invalidText="Select a Resource Group."
+            labelText="Resource Group"
+            className="fieldWidth"
           />
           <IcseToggle
             labelText="Platform Logs"
@@ -95,6 +104,7 @@ class SysdigForm extends Component {
 
 SysdigForm.defaultProps = {
   data: {
+    enabled: false,
     plan: "tier-1",
     resource_group: "",
     platform_logs: false,
@@ -105,6 +115,7 @@ SysdigForm.defaultProps = {
 SysdigForm.propTypes = {
   isModal: PropTypes.bool.isRequired,
   data: PropTypes.shape({
+    enabled: PropTypes.bool,
     plan: PropTypes.string,
     resource_group: PropTypes.string,
     platform_logs: PropTypes.bool,
