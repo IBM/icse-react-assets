@@ -8,7 +8,8 @@ import { IcseSelect } from "../Dropdowns";
 import { IcseTextInput, IcseToggle } from "../Inputs";
 import { LocationsMultiSelect } from "../MultiSelects";
 import { IcseFormGroup } from "../Utils";
-import { titleCase, kebabCase } from "lazy-z";
+import { titleCase } from "lazy-z";
+import { atrackerInputChange } from "../../lib/forms";
 
 /**
  * Atracker
@@ -40,13 +41,15 @@ class AtrackerForm extends Component {
    * @param {*} value value to update
    */
   handleInputChange(event) {
-    let { name, value } = event.target;
-    if (name === "plan") value = kebabCase(value);
-    this.setState(this.setNameToValue(name, value));
+    this.setState(atrackerInputChange(this.state, event));
   }
 
-  handleMultiSelect(event) {
-    this.setState({ locations: event });
+  /**
+   * set locations
+   * @param {string} value
+   */
+  handleMultiSelect(value) {
+    this.setState(this.setNameToValue("locations", value));
   }
 
   /**
@@ -83,7 +86,7 @@ class AtrackerForm extends Component {
             defaultToggled={this.state.instance}
             toggleFieldName="instance"
             onToggle={this.handleToggle}
-            id="atracker-instance-"
+            id="atracker-instance"
           />
         </IcseFormGroup>
         {this.state.enabled && (
@@ -129,6 +132,8 @@ class AtrackerForm extends Component {
                 tooltip={{
                   content:
                     "Must be enabled in order to forward all logs to the Cloud Object Storage bucket",
+                  align: "bottom-left",
+                  alignModal: "bottom-left",
                 }}
                 labelText="Create Route"
                 defaultToggled={this.state.add_route}
@@ -167,9 +172,7 @@ class AtrackerForm extends Component {
                   groups={["Lite", "7 Day", "14 Day", "30 Day"]}
                   formName={this.props.data.name + "-atracker-plan"}
                   name="plan"
-                  value={titleCase(this.state.plan)
-                    .replace(/3 0/, "30")
-                    .replace(/1 4/, "14")}
+                  value={titleCase(this.state.plan)}
                   handleInputChange={this.handleInputChange}
                   className="fieldWidth"
                   labelText="Plan"

@@ -32,21 +32,14 @@ class AppIdForm extends Component {
    * @param {event} event event
    */
   handleInputChange(event) {
-    let newAppIdState = { ...this.state };
-    let { name, value } = event.target;
-    if (name === "name") {
-      newAppIdState.name = value;
-    } else newAppIdState.resource_group = value;
-    this.setState(newAppIdState);
+    this.setState(this.eventTargetToNameAndValue(event));
   }
 
   /**
    * Toggle on and off use_data param in state
    */
   handleToggle() {
-    let newAppIdState = { ...this.state };
-    newAppIdState.use_data = !newAppIdState.use_data;
-    this.setState(newAppIdState);
+    this.setState(this.toggleStateBoolean("use_data", this.state));
   }
 
   render() {
@@ -70,7 +63,7 @@ class AppIdForm extends Component {
             toggleFieldName="use_data"
             onToggle={this.handleToggle}
             className="fieldWidthSmallest"
-            id="app-id-existing-instance"
+            id={`${this.props.data.name}-app-id-existing-instance`}
           />
           {/* name text input */}
           <IcseNameInput
@@ -94,6 +87,7 @@ class AppIdForm extends Component {
             handleInputChange={this.handleInputChange}
             invalidText="Select a Resource Group."
             className={composedClassName}
+            id={`${this.props.data.name}-app-id-rg`}
           />
         </IcseFormGroup>
         {this.props.isModal !== true && (
