@@ -4368,6 +4368,51 @@ var iamUtils_2 = iamUtils.isIpStringInvalidNoCidr;
 var iamUtils_3 = iamUtils.isRangeInvalid;
 
 /**
+ *  handle allowed ips for event streams
+ * @param {Object} event
+ * @param {Object} stateData
+ * @returns {Object} new state
+ */
+function handleAllowedIps(event, stateData) {
+  let state = {
+    ...stateData
+  };
+  // removing white space and checking for empty value
+  let value = event.target.value.replace(/\s*/g, "");
+  state.private_ip_allowlist = value;
+  return state;
+}
+
+/**
+ * handle plan change for event streams
+ * @param {Object} event
+ * @param {Object} stateData
+ * @returns {Object} new state
+ */
+function handlePlanChange(event, stateData) {
+  let state = {
+    ...stateData
+  };
+  let value = event.target.value.toLowerCase();
+  state.plan = value;
+  if (value !== "enterprise") {
+    state = {
+      ...state,
+      throughput: "",
+      storage_size: "",
+      private_ip_allowlist: ""
+    };
+  }
+  return state;
+}
+var eventStreams = {
+  handleAllowedIps,
+  handlePlanChange
+};
+var eventStreams_1 = eventStreams.handleAllowedIps;
+var eventStreams_2 = eventStreams.handlePlanChange;
+
+/**
  * EventStreamsForm
  */
 class EventStreamsForm extends React.Component {
@@ -4388,11 +4433,7 @@ class EventStreamsForm extends React.Component {
    * @param {event} event
    */
   handleAllowedIps(event) {
-    // removing white space and checking for empty value
-    let value = event.target.value.replace(/\s*/g, "");
-    this.setState({
-      private_ip_allowlist: value
-    });
+    this.setState(eventStreams_1(event, this.state));
   }
 
   /**
@@ -4408,20 +4449,7 @@ class EventStreamsForm extends React.Component {
    * @param {event} event
    */
   handlePlanChange(event) {
-    let value = event.target.value.toLowerCase();
-    let tempState = {
-      ...this.state
-    };
-    tempState.plan = value;
-    if (value !== "enterprise") {
-      tempState = {
-        ...tempState,
-        throughput: "",
-        storage_size: "",
-        private_ip_allowlist: ""
-      };
-    }
-    this.setState(tempState);
+    this.setState(eventStreams_2(event, this.state));
   }
   render() {
     let composedId = `event-streams-form-${this.props.data.name}`;
@@ -4474,7 +4502,7 @@ class EventStreamsForm extends React.Component {
       },
       className: "textInputMedium",
       innerForm: react.TextArea,
-      id: "event-streams-private-ips",
+      id: this.props.data.name + "-event-streams-private-ips",
       labelText: "Allowed Private IPs",
       onChange: this.handleAllowedIps,
       placeholder: this.state.private_ip_allowlist || "X.X.X.X, X.X.X.X/X, ...",
