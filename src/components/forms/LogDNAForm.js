@@ -108,7 +108,10 @@ class LogDNAForm extends Component {
         </IcseFormGroup>
         <IcseFormGroup>
           <IcseToggle
-            tooltip={{ content: "Create an archive with the LogDNA Provider" }}
+            tooltip={{
+              content: "Create an archive with the LogDNA Provider",
+              align: "bottom-left",
+            }}
             labelText="Archive"
             defaultToggled={this.state.archive}
             name="archive"
