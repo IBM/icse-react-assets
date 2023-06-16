@@ -1,10 +1,6 @@
 import React from "react";
-import { DnsRecordForm } from "icse-react-assets";
-import { contains, kebabCase, splat } from "lazy-z";
-
 import "./App.css";
-import { Checkbox } from "@carbon/react";
-import { SecretsManagerChecklist } from "icse-react-assets";
+import { SecretsManagerForm } from "icse-react-assets";
 
 const exampleData = [
   {
@@ -27,50 +23,42 @@ const exampleData = [
   },
 ];
 
-class Secrets extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selected: ["Select All"].concat([...splat(this.props.secrets, "ref")]),
-    };
-
-    this.onCheckClick = this.onCheckClick.bind(this);
+const SecretsManagerFormStory = () => {
+  function validName(str) {
+    const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
+    if (str) return str.match(regex) !== null;
+    else return false;
   }
 
-  onCheckClick(ref) {
-    let selected = [];
-    if (ref === "Select All" && contains(this.state.selected, ref)) {
-      selected = [];
-    } else if (ref === "Select All") {
-      selected = ["Select All"].concat([...splat(this.props.secrets, "ref")]);
-    } else if (contains(this.state.selected, ref)) {
-      selected = [...this.state.selected];
-      selected.splice(selected.indexOf(ref), 1);
-    } else {
-      selected = [...this.state.selected].concat([ref]);
-    }
-    this.setState({ selected });
+  function invalidCallback(stateData, componentProps) {
+    return !validName(stateData.name);
   }
 
-  render() {
-    return (
-      <div>
-        {this.state.selected.map((value) => (
-          <Checkbox
-            id={value}
-            key={kebabCase(value)}
-            labelText={value}
-            checked={contains(this.state.selected, value)}
-            onChange={() => this.onCheckClick(value)}
-          />
-        ))}
-      </div>
-    );
+  function invalidTextCallback(stateData, componentProps) {
+    return !validName(stateData.name)
+      ? `Name ${stateData.name} is invalid.`
+      : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
   }
-}
+
+  return (
+    <SecretsManagerForm
+      data={{
+        name: "Example",
+        resource_group: "default",
+        encryption_key: "key1",
+        secrets: exampleData
+      }}
+      secrets={exampleData}
+      resourceGroups={["default_group", "foo", "bar"]}
+      encryptionKeys={["default_key", "foo"]}
+      invalidCallback={invalidCallback}
+      invalidTextCallback={invalidTextCallback}
+    />
+  );
+};
 
 function App() {
-  return <SecretsManagerChecklist secrets={exampleData} />;
+  return <SecretsManagerFormStory />;
 }
 
 export default App;

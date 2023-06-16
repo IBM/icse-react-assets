@@ -4,9 +4,11 @@ import {
   buildFormFunctions,
 } from "../component-utils";
 import { IcseNameInput } from "../Inputs";
-import { IcseFormGroup } from "../Utils";
+import { IcseFormGroup, StatelessToggleForm } from "../Utils";
 import PropTypes from "prop-types";
 import { IcseSelect } from "../Dropdowns";
+import { SecretsManagerChecklist } from "../..";
+import { splat } from "lazy-z";
 
 /**
  * SecretsManagerForm
@@ -68,6 +70,16 @@ class SecretsManagerForm extends Component {
             handleInputChange={this.handleInputChange}
           />
         </div>
+        <br />
+        <StatelessToggleForm>
+          <SecretsManagerChecklist
+            secrets={this.props.secrets}
+            selected={[...splat(this.props.data.secrets, "ref")]}
+            onSelectChange={(data) => {
+              console.log(data);
+            }}
+          />
+        </StatelessToggleForm>
       </>
     );
   }

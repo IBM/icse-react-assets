@@ -7419,6 +7419,12 @@ class SecretsManagerForm extends React.Component {
       className: "fieldWidth",
       labelText: "Encryption Key",
       handleInputChange: this.handleInputChange
+    })), /*#__PURE__*/React__default["default"].createElement("br", null), /*#__PURE__*/React__default["default"].createElement(StatelessToggleForm, null, /*#__PURE__*/React__default["default"].createElement(SecretsManagerChecklist, {
+      secrets: this.props.secrets,
+      selected: [...lazyZ.splat(this.props.data.secrets, "ref")],
+      onSelectChange: data => {
+        console.log(data);
+      }
     })));
   }
 }
@@ -12085,13 +12091,15 @@ class SecretsManagerChecklist extends React__default["default"].Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: this.props.selected ? this.props.selected : ["Select All"].concat([...lazyZ.splat(this.props.secrets, "ref")])
+      selected: this.props.selected && this.props.selected.length !== this.props.secrets.length ? this.props.selected : ["Select All"].concat([...lazyZ.splat(this.props.secrets, "ref")])
     };
     this.onCheckClick = this.onCheckClick.bind(this);
   }
   onCheckClick(ref) {
     this.setState({
       selected: forms_24(this.state.selected, ref, this.props.secrets)
+    }, () => {
+      this.props.onSelectChange(this.state.selected);
     });
   }
   render() {
@@ -12109,7 +12117,8 @@ SecretsManagerChecklist.defaultProps = {
 };
 SecretsManagerChecklist.propTypes = {
   selected: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string),
-  secrets: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired
+  secrets: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  onSelectChange: PropTypes__default["default"].func.isRequired
 };
 
 exports.AccessGroupDynamicPolicyForm = AccessGroupDynamicPolicyForm;
