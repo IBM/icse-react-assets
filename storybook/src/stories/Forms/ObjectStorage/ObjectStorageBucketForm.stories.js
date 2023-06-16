@@ -1,4 +1,4 @@
-import { ObjectStorageBucketForm } from "icse-react-assets";
+import { ObjectStorageBucketForm, IcseModal } from "icse-react-assets";
 import React from "react";
 import { contains } from "lazy-z";
 
@@ -127,4 +127,60 @@ const ObjectStorageBucketFormStory = () => {
   );
 };
 
+const ObjectStorageBucketFormModalStory = () => {
+  function validName(str) {
+    const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
+    if (str) return str.match(regex) !== null;
+    else return false;
+  }
+
+  function encryptionKeyFilter(stateData, componentProps) {
+    // add filter here
+    return componentProps.encryptionKeys;
+  }
+
+  function invalidCallback(stateData, componentProps) {
+    return (
+      !validName(stateData.name) || contains(["foo", "bar"], stateData.name)
+    );
+  }
+
+  function invalidTextCallback(stateData, componentProps) {
+    return contains(["foo", "bar"], stateData.name)
+      ? `Name ${stateData.name} already in use.`
+      : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
+  }
+
+  function composedNameCallback(stateData, componentProps) {
+    return `${stateData.name}-<random suffix>`;
+  }
+
+  return (
+    <IcseModal
+      heading={"Event Streams Modal"}
+      open={true}
+      primaryButtonText={"Create"}
+      onRequestSubmit={() => {}}
+      onRequestClose={() => {}}
+    >
+      <ObjectStorageBucketForm
+        data={{
+          force_delete: false,
+          name: "test-bucket",
+          storage_class: "Standard",
+          kms_key: "key1",
+          endpoint: "public",
+        }}
+        encryptionKeys={[]}
+        encryptionKeyFilter={encryptionKeyFilter}
+        invalidCallback={invalidCallback}
+        invalidTextCallback={invalidTextCallback}
+        IcseModal
+        composedNameCallback={composedNameCallback}
+      />
+    </IcseModal>
+  );
+};
+
 export const Default = ObjectStorageBucketFormStory.bind({});
+export const Modal = ObjectStorageBucketFormModalStory.bind({});

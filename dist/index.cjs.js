@@ -6263,15 +6263,14 @@ class NetworkAclForm extends React.Component {
   render() {
     return /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       id: this.state.name + "-name",
-      componentName: this.props.data.name,
       value: this.state.name,
       onChange: this.handleTextInput,
       placeholder: "my-network-acl-name",
-      component: "network_acls",
       helperTextCallback: () => this.props.helperTextCallback(this.state, this.props),
       invalidCallback: () => this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props)
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      id: this.props.data.name + "-rg",
       labelText: "Resource Group",
       name: "resource_group",
       formName: "resource_group",
@@ -6330,7 +6329,9 @@ NetworkAclForm.propTypes = {
 class ObjectStorageBucketForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = {
+      ...this.props.data
+    };
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
     this.handleToggle = this.handleToggle.bind(this);
@@ -6366,7 +6367,7 @@ class ObjectStorageBucketForm extends React.Component {
     // composed id for bucket
     let composedId = `bucket-form-${this.props.data.name ? this.props.data.name : "new-bucket"}`;
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: this.props.data.name + "-object-storage-bucket-name",
+      id: composedId + "-name",
       componentName: this.state.name,
       value: this.state.name,
       onChange: this.handleInputChange,
@@ -6375,7 +6376,7 @@ class ObjectStorageBucketForm extends React.Component {
       invalidText: this.props.invalidTextCallback(this.state, this.props),
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      component: this.state.name,
+      id: composedId + "-class",
       formName: this.props.data.name + "-object-storage-bucket-class",
       name: "storage_class",
       groups: ["Standard", "Vault", "Cold", "Smart"],
@@ -6384,14 +6385,15 @@ class ObjectStorageBucketForm extends React.Component {
       handleInputChange: this.handleStorageClassChange,
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      component: this.state.name,
+      id: composedId + "-key",
       formName: this.props.data.name + "-object-storage-bucket-key",
       name: "kms_key",
       groups: this.props.encryptionKeyFilter ? this.props.encryptionKeyFilter(this.state, this.props) : this.props.encryptionKeys,
       value: this.state.kms_key,
       labelText: "Encryption Key",
       handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
+      className: "fieldWidthSmaller",
+      invalidText: this.props.encryptionsKeys === [] ? "Select a KMS Instance." : "Select an Encryption Key."
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
       tooltip: {
         content: "Toggling this on will force delete contents of the bucket after the bucket is deleted"
