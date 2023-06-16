@@ -55,11 +55,9 @@ class NetworkAclForm extends Component {
         <IcseFormGroup>
           <IcseNameInput
             id={this.state.name + "-name"}
-            componentName={this.props.data.name}
             value={this.state.name}
             onChange={this.handleTextInput}
             placeholder="my-network-acl-name"
-            component="network_acls"
             helperTextCallback={() =>
               this.props.helperTextCallback(this.state, this.props)
             }
@@ -69,6 +67,7 @@ class NetworkAclForm extends Component {
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
           />
           <IcseSelect
+            id={this.props.data.name + "-rg"}
             labelText="Resource Group"
             name="resource_group"
             formName="resource_group"

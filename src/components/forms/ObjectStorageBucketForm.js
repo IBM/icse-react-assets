@@ -12,7 +12,7 @@ import PropTypes from "prop-types";
 class ObjectStorageBucketForm extends Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = { ...this.props.data };
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
     this.handleToggle = this.handleToggle.bind(this);
@@ -52,7 +52,7 @@ class ObjectStorageBucketForm extends Component {
       <>
         <IcseFormGroup>
           <IcseNameInput
-            id={this.props.data.name + "-object-storage-bucket-name"}
+            id={composedId + "-name"}
             componentName={this.state.name}
             value={this.state.name}
             onChange={this.handleInputChange}
@@ -64,7 +64,7 @@ class ObjectStorageBucketForm extends Component {
             className="fieldWidthSmaller"
           />
           <IcseSelect
-            component={this.state.name}
+            id={composedId + "-class"}
             formName={this.props.data.name + "-object-storage-bucket-class"}
             name="storage_class"
             groups={["Standard", "Vault", "Cold", "Smart"]}
@@ -74,7 +74,7 @@ class ObjectStorageBucketForm extends Component {
             className="fieldWidthSmaller"
           />
           <IcseSelect
-            component={this.state.name}
+            id={composedId + "-key"}
             formName={this.props.data.name + "-object-storage-bucket-key"}
             name="kms_key"
             groups={
@@ -86,6 +86,11 @@ class ObjectStorageBucketForm extends Component {
             labelText="Encryption Key"
             handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"
+            invalidText={
+              this.props.encryptionsKeys === []
+                ? "Select a KMS Instance."
+                : "Select an Encryption Key."
+            }
           />
         </IcseFormGroup>
         <IcseFormGroup>
