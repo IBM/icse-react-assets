@@ -2,12 +2,15 @@ import React from "react";
 import { Checkbox } from "@carbon/react";
 import { contains, distinct, kebabCase, splat } from "lazy-z";
 import { onCheckClick } from "../../lib/forms";
+import PropTypes from "prop-types";
 
 class SecretsManagerChecklist extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: ["Select All"].concat([...splat(this.props.secrets, "ref")]),
+      selected: this.props.selected
+        ? this.props.selected
+        : ["Select All"].concat([...splat(this.props.secrets, "ref")]),
     };
 
     this.onCheckClick = this.onCheckClick.bind(this);
@@ -37,5 +40,14 @@ class SecretsManagerChecklist extends React.Component {
     );
   }
 }
+
+SecretsManagerChecklist.defaultProps = {
+  secrets: [],
+};
+
+SecretsManagerChecklist.propTypes = {
+  selected: PropTypes.arrayOf(PropTypes.string),
+  secrets: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+};
 
 export default SecretsManagerChecklist;
