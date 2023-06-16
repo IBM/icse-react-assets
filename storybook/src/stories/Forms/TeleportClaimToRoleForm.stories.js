@@ -11,7 +11,8 @@ export default {
       control: "none",
     },
     ["data.email"]: {
-      description: "A string value for the email of the Teleport Claim to Role instance",
+      description:
+        "A string value for the email of the Teleport Claim to Role instance",
       control: "none",
       type: { required: true },
     },
@@ -42,7 +43,7 @@ const TeleportClaimToRoleFormStory = () => {
   function validRoles(roles) {
     return roles.length === 0 || roles[0].length >= 6;
   }
-  
+
   function invalidRolesCallback(stateData) {
     return !validRoles(stateData.roles);
   }

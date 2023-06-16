@@ -1,5 +1,8 @@
 const { assert } = require("chai");
-const { handleDnsResolverInputChange, dnsFormInputChange } = require("../../src/lib/forms");
+const {
+  handleDnsResolverInputChange,
+  dnsFormInputChange,
+} = require("../../src/lib/forms");
 
 describe("dns", () => {
   describe("handleDnsResolverInputChange", () => {
@@ -46,24 +49,24 @@ describe("dns", () => {
         dnsFormInputChange({
           target: {
             name: "plan",
-            value: "PLAN"
-          }
+            value: "PLAN",
+          },
         }),
-        {plan :"plan"},
+        { plan: "plan" },
         "it should return correct value"
-      )
-    })
+      );
+    });
     it("should return value", () => {
       assert.deepEqual(
         dnsFormInputChange({
           target: {
             name: "name",
-            value: "PLAN"
-          }
+            value: "PLAN",
+          },
         }),
-        {name :"PLAN"},
+        { name: "PLAN" },
         "it should return correct value"
-      )
-    })
-  })
+      );
+    });
+  });
 });

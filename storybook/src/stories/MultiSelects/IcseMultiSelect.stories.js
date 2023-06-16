@@ -80,8 +80,7 @@ export default {
   parameters: {
     docs: {
       description: {
-        component:
-          "IcseMultiSelect allows users to render MultiSelects",
+        component: "IcseMultiSelect allows users to render MultiSelects",
       },
     },
   },

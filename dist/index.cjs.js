@@ -320,7 +320,7 @@ const {
 
 /**
  * generate parameters for icse select
- * @param {*} props 
+ * @param {*} props
  * @returns {Object} parameters
  */
 function icseSelectParams$1(props) {
@@ -3350,7 +3350,7 @@ function handleDnsResolverInputChange$1(stateData, event) {
 
 /**
  * handle dns form input change
- * @param {*} event 
+ * @param {*} event
  * @returns {Object} state update object
  */
 function dnsFormInputChange$1(event) {
@@ -12085,7 +12085,7 @@ class SecretsManagerChecklist extends React__default["default"].Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: ["Select All"].concat([...lazyZ.splat(this.props.secrets, "ref")])
+      selected: this.props.selected ? this.props.selected : ["Select All"].concat([...lazyZ.splat(this.props.secrets, "ref")])
     };
     this.onCheckClick = this.onCheckClick.bind(this);
   }
@@ -12104,6 +12104,13 @@ class SecretsManagerChecklist extends React__default["default"].Component {
     })));
   }
 }
+SecretsManagerChecklist.defaultProps = {
+  secrets: []
+};
+SecretsManagerChecklist.propTypes = {
+  selected: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string),
+  secrets: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired
+};
 
 exports.AccessGroupDynamicPolicyForm = AccessGroupDynamicPolicyForm;
 exports.AccessGroupForm = AccessGroupForm;

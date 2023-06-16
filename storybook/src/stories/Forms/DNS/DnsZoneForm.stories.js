@@ -21,10 +21,10 @@ export default {
       type: { required: false }, // required prop or not
     },
     "data.label": {
-        description: "A string label for the zone",
-        control: "none",
-        type: { required: false }, // required prop or not
-      },
+      description: "A string label for the zone",
+      control: "none",
+      type: { required: false }, // required prop or not
+    },
     "data.vpcs": {
       description: "The permitted networks for the zone",
       control: "none",

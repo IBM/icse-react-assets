@@ -309,7 +309,7 @@ const {
 
 /**
  * generate parameters for icse select
- * @param {*} props 
+ * @param {*} props
  * @returns {Object} parameters
  */
 function icseSelectParams$1(props) {
@@ -3339,7 +3339,7 @@ function handleDnsResolverInputChange$1(stateData, event) {
 
 /**
  * handle dns form input change
- * @param {*} event 
+ * @param {*} event
  * @returns {Object} state update object
  */
 function dnsFormInputChange$1(event) {
@@ -12074,7 +12074,7 @@ class SecretsManagerChecklist extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: ["Select All"].concat([...splat$2(this.props.secrets, "ref")])
+      selected: this.props.selected ? this.props.selected : ["Select All"].concat([...splat$2(this.props.secrets, "ref")])
     };
     this.onCheckClick = this.onCheckClick.bind(this);
   }
@@ -12093,5 +12093,12 @@ class SecretsManagerChecklist extends React.Component {
     })));
   }
 }
+SecretsManagerChecklist.defaultProps = {
+  secrets: []
+};
+SecretsManagerChecklist.propTypes = {
+  selected: PropTypes.arrayOf(PropTypes.string),
+  secrets: PropTypes.arrayOf(PropTypes.shape({})).isRequired
+};
 
 export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, ClusterForm, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsForm, DnsRecordForm, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, LocationsMultiSelect, LogDNAForm, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, PopoverWrapper, RenderForm, ResourceGroupForm, RoutingTableForm, RoutingTableRouteForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerChecklist, SecretsManagerForm, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, SysdigForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VpnServerForm, VpnServerRouteForm, VsiForm, VsiLoadBalancerForm, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };

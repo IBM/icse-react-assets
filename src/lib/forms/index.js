@@ -50,5 +50,5 @@ module.exports = {
   getSubRule,
   swapArrayElements,
   getOrderCardClassName,
-  onCheckClick
+  onCheckClick,
 };
