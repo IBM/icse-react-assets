@@ -11,12 +11,7 @@ import { IcseSelect } from "../Dropdowns";
 class ObjectStorageKeyForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      name: this.props.data.name,
-      role: this.props.data.role || "Writer",
-      enable_hmac: this.props.data.enable_hmac,
-      use_random_suffix: this.props.data.use_random_suffix,
-    };
+    this.state = { ...this.props.data };
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
     this.handleToggle = this.handleToggle.bind(this);
@@ -51,10 +46,8 @@ class ObjectStorageKeyForm extends Component {
           {/* edit name */}
           <IcseNameInput
             id={this.state.name + "-name"}
-            componentName={this.props.data.name}
             value={this.state.name}
             onChange={this.handleInputChange}
-            componentProps={this.props}
             placeholder="my-cos-key-name"
             className={inputSize}
             helperTextCallback={() =>
@@ -86,14 +79,14 @@ class ObjectStorageKeyForm extends Component {
               link: "https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-uhc-hmac-credentials-main",
               content:
                 "HMAC (hash-based message authentication code) is required for Teleport VSI instances.",
-              alignModal: "bottom",
+              alignModal: "bottom-left",
             }}
             id={composedId + "cos-instance-key-hmac"}
             labelText="Enable HMAC"
             defaultToggled={this.props.forceEnableHmac}
             onToggle={this.handleToggle}
-            isModal={this.props.isModal}
             disabled={this.props.forceEnableHmac}
+            isModal={this.props.isModal}
           />
         </IcseFormGroup>
       </>
@@ -104,6 +97,7 @@ class ObjectStorageKeyForm extends Component {
 ObjectStorageKeyForm.defaultProps = {
   data: {
     name: "",
+    role: "",
     enable_hmac: false,
   },
   forceEnableHmac: false,
