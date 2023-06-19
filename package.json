@@ -8,7 +8,7 @@
   "dependencies": {
     "@carbon/icons-react": "^11.18.0",
     "@carbon/react": "^1.27.0",
-    "lazy-z": "^1.10.2",
+    "lazy-z": "^1.10.3",
     "regex-but-with-words": "^1.5.1",
     "web-vitals": "^2.1.4"
   },
