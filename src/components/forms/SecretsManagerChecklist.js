@@ -8,9 +8,11 @@ class SecretsManagerChecklist extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: this.props.selected && this.props.selected.length !== this.props.secrets.length
-        ? this.props.selected
-        : ["Select All"].concat([...splat(this.props.secrets, "ref")]),
+      selected:
+        this.props.selected &&
+        this.props.selected.length !== this.props.secrets.length
+          ? this.props.selected
+          : ["Select All"].concat([...splat(this.props.secrets, "ref")]),
     };
 
     this.onCheckClick = this.onCheckClick.bind(this);
@@ -29,11 +31,12 @@ class SecretsManagerChecklist extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="subForm secretChecklistMargin">
         {distinct(
           ["Select All"].concat([...splat(this.props.secrets, "ref")])
         ).map((value) => (
           <Checkbox
+            className="secretCheckBoxMargin"
             id={value}
             key={kebabCase(value)}
             labelText={value}
@@ -53,7 +56,7 @@ SecretsManagerChecklist.defaultProps = {
 SecretsManagerChecklist.propTypes = {
   selected: PropTypes.arrayOf(PropTypes.string),
   secrets: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  onSelectChange: PropTypes.func.isRequired
+  onSelectChange: PropTypes.func.isRequired,
 };
 
 export default SecretsManagerChecklist;
