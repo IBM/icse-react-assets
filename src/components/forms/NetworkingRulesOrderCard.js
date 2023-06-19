@@ -1,11 +1,17 @@
 import React, { Component } from "react";
 import NetworkingRuleForm from "./NetworkingRuleForm";
-import { containsKeys, allFieldsNull, transpose } from "lazy-z";
+import { containsKeys } from "lazy-z";
 import PropTypes from "prop-types";
 import { DynamicRender, IcseHeading, RenderForm } from "../Utils";
 import { SaveAddButton } from "../Buttons";
 import FormModal from "../FormModal";
 import EmptyResourceTile from "../EmptyResourceTile";
+import {
+  getRuleProtocol,
+  getSubRule,
+  swapArrayElements,
+  getOrderCardClassName,
+} from "../../lib/forms/";
 
 class NetworkingRulesOrderCard extends Component {
   constructor(props) {
@@ -17,15 +23,12 @@ class NetworkingRulesOrderCard extends Component {
       showModal: false,
     };
 
-    this.swapArrayElements = this.swapArrayElements.bind(this);
     this.handleUp = this.handleUp.bind(this);
     this.handleDown = this.handleDown.bind(this);
     this.toggleCollapse = this.toggleCollapse.bind(this);
     this.collapseAll = this.collapseAll.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.getRuleProtocol = this.getRuleProtocol.bind(this);
-    this.getSubRule = this.getSubRule.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -34,43 +37,6 @@ class NetworkingRulesOrderCard extends Component {
         this.collapseAll();
       });
     }
-  }
-
-  getRuleProtocol(rule) {
-    let protocol = "all";
-    // for each possible protocol
-    ["icmp", "tcp", "udp"].forEach((field) => {
-      // set protocol to that field if not all fields are null
-      if (allFieldsNull(rule[field]) === false) {
-        protocol = field;
-      }
-    });
-    return protocol;
-  }
-
-  /**
-   * create sub rule
-   * @param {*} rule rule object
-   * @param {string} protocol all, tcp, icmp, or udp
-   * @returns {Object} default rule object
-   */
-  getSubRule(rule) {
-    let defaultRule = {
-      port_max: null,
-      port_min: null,
-      source_port_max: null,
-      source_port_min: null,
-      type: null,
-      code: null,
-    };
-    if (this.props.isSecurityGroup) {
-      delete defaultRule.source_port_min;
-      delete defaultRule.source_port_max;
-    }
-    if (this.getRuleProtocol(rule) !== "all") {
-      transpose(rule[this.getRuleProtocol(rule)], defaultRule);
-    }
-    return defaultRule;
   }
 
   componentDidMount() {
@@ -109,25 +75,13 @@ class NetworkingRulesOrderCard extends Component {
   }
 
   /**
-   * Helper function to move items up and down in the list so they can be rendered properly
-   * @param {Array} arr
-   * @param {number} indexA
-   * @param {number} indexB
-   */
-  swapArrayElements(arr, indexA, indexB) {
-    let temp = arr[indexA];
-    arr[indexA] = arr[indexB];
-    arr[indexB] = temp;
-  }
-
-  /**
    * Move the card up
    * @param {number} index
    */
   handleUp(index) {
     let prevRulesState = [...this.state.rules];
     if (index !== 0) {
-      this.swapArrayElements(prevRulesState, index, index - 1);
+      swapArrayElements(prevRulesState, index, index - 1);
     }
     this.props.networkRuleOrderDidChange(prevRulesState);
     this.setState({ rules: prevRulesState });
@@ -141,7 +95,7 @@ class NetworkingRulesOrderCard extends Component {
     let prevRulesState = [...this.state.rules];
     let maxLen = prevRulesState.length - 1;
     if (index !== maxLen) {
-      this.swapArrayElements(prevRulesState, index, index + 1);
+      swapArrayElements(prevRulesState, index, index + 1);
     }
     this.props.networkRuleOrderDidChange(prevRulesState);
     this.setState({ rules: prevRulesState });
@@ -229,10 +183,7 @@ class NetworkingRulesOrderCard extends Component {
         {this.state.rules.map((rule, index) => (
           <div
             key={"rule-div-" + rule.name + "-wrapper"}
-            className={
-              "marginBottomSmall positionRelative " +
-              (this.props.isSecurityGroup ? "formInSubForm" : "subForm")
-            }
+            className={getOrderCardClassName(this.props)}
           >
             <NetworkingRuleForm
               hide={this.state.collapse[rule.name]}
@@ -251,8 +202,8 @@ class NetworkingRulesOrderCard extends Component {
                 direction: rule.direction,
                 source: rule.source,
                 destination: rule.destination || null,
-                ruleProtocol: this.getRuleProtocol(rule),
-                rule: this.getSubRule(rule),
+                ruleProtocol: getRuleProtocol(rule),
+                rule: getSubRule(rule, this.props.isSecurityGroup),
               }}
               disableSaveCallback={this.props.disableSaveCallback}
               isSecurityGroup={this.props.isSecurityGroup}

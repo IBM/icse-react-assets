@@ -3450,6 +3450,75 @@ var f5_2 = f5.isNullOrEmptyString;
 var f5_3 = f5.isValidTmosAdminPassword;
 var f5_4 = f5.isValidUrl;
 
+const {
+  allFieldsNull,
+  transpose
+} = lazyZ__default["default"];
+
+/**
+ * get which rule protocol is being used
+ * @param {string} rule
+ * @returns {string} protocol
+ */
+function getRuleProtocol$1(rule) {
+  let protocol = "all";
+  // for each possible protocol
+  ["icmp", "tcp", "udp"].forEach(field => {
+    // set protocol to that field if not all fields are null
+    if (allFieldsNull(rule[field]) === false) {
+      protocol = field;
+    }
+  });
+  return protocol;
+}
+
+/**
+ * create sub rule
+ * @param {*} rule rule object
+ * @param {string} protocol all, tcp, icmp, or udp
+ * @param {boolean} isSecurityGroup
+ * @returns {Object} default rule object
+ */
+function getSubRule$1(rule, isSecurityGroup) {
+  let defaultRule = {
+    port_max: null,
+    port_min: null,
+    source_port_max: null,
+    source_port_min: null,
+    type: null,
+    code: null
+  };
+  if (getRuleProtocol$1(rule) !== "all") {
+    transpose(rule[getRuleProtocol$1(rule)], defaultRule);
+  }
+  if (isSecurityGroup) {
+    delete defaultRule.source_port_min;
+    delete defaultRule.source_port_max;
+  }
+  return defaultRule;
+}
+
+/**
+ * Helper function to move items up and down in the list so they can be rendered properly
+ * @param {Array} arr
+ * @param {number} indexA
+ * @param {number} indexB
+ */
+function swapArrayElements$1(arr, indexA, indexB) {
+  let temp = arr[indexA];
+  arr[indexA] = arr[indexB];
+  arr[indexB] = temp;
+}
+function getOrderCardClassName$1(props) {
+  return "marginBottomSmall positionRelative " + (props.isSecurityGroup ? "formInSubForm" : "subForm");
+}
+var networkingOrderCard = {
+  getRuleProtocol: getRuleProtocol$1,
+  getSubRule: getSubRule$1,
+  swapArrayElements: swapArrayElements$1,
+  getOrderCardClassName: getOrderCardClassName$1
+};
+
 /**
  * Handle crn input
  * @param {event} event
@@ -3507,6 +3576,12 @@ const {
   isValidUrl
 } = f5;
 const {
+  getRuleProtocol,
+  getSubRule,
+  swapArrayElements,
+  getOrderCardClassName
+} = networkingOrderCard;
+const {
   handleCRNs,
   handleVpcSelect
 } = transitGateway;
@@ -3525,7 +3600,11 @@ var forms = {
   dnsFormInputChange,
   atrackerInputChange,
   handleCRNs,
-  handleVpcSelect
+  handleVpcSelect,
+  getRuleProtocol,
+  getSubRule,
+  swapArrayElements,
+  getOrderCardClassName
 };
 var forms_1 = forms.cbrInvalid;
 var forms_4 = forms.handleRuleInputChange;
@@ -3534,6 +3613,10 @@ var forms_12 = forms.dnsFormInputChange;
 var forms_13 = forms.atrackerInputChange;
 var forms_14 = forms.handleCRNs;
 var forms_15 = forms.handleVpcSelect;
+var forms_16 = forms.getRuleProtocol;
+var forms_17 = forms.getSubRule;
+var forms_18 = forms.swapArrayElements;
+var forms_19 = forms.getOrderCardClassName;
 
 /**
  * Atracker
@@ -5960,15 +6043,12 @@ class NetworkingRulesOrderCard extends React.Component {
       allCollapsed: false,
       showModal: false
     };
-    this.swapArrayElements = this.swapArrayElements.bind(this);
     this.handleUp = this.handleUp.bind(this);
     this.handleDown = this.handleDown.bind(this);
     this.toggleCollapse = this.toggleCollapse.bind(this);
     this.collapseAll = this.collapseAll.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.getRuleProtocol = this.getRuleProtocol.bind(this);
-    this.getSubRule = this.getSubRule.bind(this);
   }
   componentDidUpdate(prevProps) {
     if (prevProps.rules.length !== this.state.rules.length) {
@@ -5978,42 +6058,6 @@ class NetworkingRulesOrderCard extends React.Component {
         this.collapseAll();
       });
     }
-  }
-  getRuleProtocol(rule) {
-    let protocol = "all";
-    // for each possible protocol
-    ["icmp", "tcp", "udp"].forEach(field => {
-      // set protocol to that field if not all fields are null
-      if (lazyZ.allFieldsNull(rule[field]) === false) {
-        protocol = field;
-      }
-    });
-    return protocol;
-  }
-
-  /**
-   * create sub rule
-   * @param {*} rule rule object
-   * @param {string} protocol all, tcp, icmp, or udp
-   * @returns {Object} default rule object
-   */
-  getSubRule(rule) {
-    let defaultRule = {
-      port_max: null,
-      port_min: null,
-      source_port_max: null,
-      source_port_min: null,
-      type: null,
-      code: null
-    };
-    if (this.props.isSecurityGroup) {
-      delete defaultRule.source_port_min;
-      delete defaultRule.source_port_max;
-    }
-    if (this.getRuleProtocol(rule) !== "all") {
-      lazyZ.transpose(rule[this.getRuleProtocol(rule)], defaultRule);
-    }
-    return defaultRule;
   }
   componentDidMount() {
     if (this.state.allCollapsed === false && this.props.expandAll === false) this.collapseAll();
@@ -6053,25 +6097,13 @@ class NetworkingRulesOrderCard extends React.Component {
   }
 
   /**
-   * Helper function to move items up and down in the list so they can be rendered properly
-   * @param {Array} arr
-   * @param {number} indexA
-   * @param {number} indexB
-   */
-  swapArrayElements(arr, indexA, indexB) {
-    let temp = arr[indexA];
-    arr[indexA] = arr[indexB];
-    arr[indexB] = temp;
-  }
-
-  /**
    * Move the card up
    * @param {number} index
    */
   handleUp(index) {
     let prevRulesState = [...this.state.rules];
     if (index !== 0) {
-      this.swapArrayElements(prevRulesState, index, index - 1);
+      forms_18(prevRulesState, index, index - 1);
     }
     this.props.networkRuleOrderDidChange(prevRulesState);
     this.setState({
@@ -6087,7 +6119,7 @@ class NetworkingRulesOrderCard extends React.Component {
     let prevRulesState = [...this.state.rules];
     let maxLen = prevRulesState.length - 1;
     if (index !== maxLen) {
-      this.swapArrayElements(prevRulesState, index, index + 1);
+      forms_18(prevRulesState, index, index + 1);
     }
     this.props.networkRuleOrderDidChange(prevRulesState);
     this.setState({
@@ -6164,7 +6196,7 @@ class NetworkingRulesOrderCard extends React.Component {
       showIfEmpty: this.state.rules
     }), this.state.rules.map((rule, index) => /*#__PURE__*/React__default["default"].createElement("div", {
       key: "rule-div-" + rule.name + "-wrapper",
-      className: "marginBottomSmall positionRelative " + (this.props.isSecurityGroup ? "formInSubForm" : "subForm")
+      className: forms_19(this.props)
     }, /*#__PURE__*/React__default["default"].createElement(NetworkingRuleForm, {
       hide: this.state.collapse[rule.name],
       onToggle: () => this.toggleCollapse(rule.name),
@@ -6182,8 +6214,8 @@ class NetworkingRulesOrderCard extends React.Component {
         direction: rule.direction,
         source: rule.source,
         destination: rule.destination || null,
-        ruleProtocol: this.getRuleProtocol(rule),
-        rule: this.getSubRule(rule)
+        ruleProtocol: forms_16(rule),
+        rule: forms_17(rule, this.props.isSecurityGroup)
       },
       disableSaveCallback: this.props.disableSaveCallback,
       isSecurityGroup: this.props.isSecurityGroup,
