@@ -12,6 +12,15 @@ import {
   swapArrayElements,
   getOrderCardClassName,
 } from "../../lib/forms/";
+import {
+  DataTable,
+  Table,
+  TableHead,
+  TableRow,
+  TableHeader,
+  TableBody,
+  TableCell,
+} from "@carbon/react";
 
 class NetworkingRulesOrderCard extends Component {
   constructor(props) {
@@ -245,3 +254,29 @@ NetworkingRulesOrderCard.propTypes = {
 };
 
 export default NetworkingRulesOrderCard;
+
+const OrderCardDataTable = (props) => {
+  const headers = [
+    {
+      key: "name",
+      header: "Name",
+    },
+
+    { key: "direction", header: "Direction" },
+    { key: "source", header: "Source" },
+    { key: "protocol", header: "Protocol" },
+  ];
+
+  if (!props.isSecurityGroup) {
+    headers.splice(1, 0, {
+      // add extra fields if not security group
+      key: "action",
+      header: "Action",
+    });
+    headers.splice(4, 0, { key: "destination", header: "Destination" });
+  }
+};
+
+OrderCardDataTable.propTypes = {
+  isSecurityGroup: PropTypes.bool.isRequired,
+};
