@@ -6918,9 +6918,9 @@ class RoutingTableForm extends Component {
     };
     if (this.props.isModal) this.state.routes = [];
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
-    this.handleToggle = this.handleToggle.bind(this);
   }
 
   /**
@@ -6929,15 +6929,7 @@ class RoutingTableForm extends Component {
    * @param {*} value value to update
    */
   handleInputChange(event) {
-    let nextState = {
-      ...this.state
-    };
-    let {
-      name,
-      value
-    } = event.target;
-    nextState[name] = value;
-    this.setState(nextState);
+    this.setState(this.eventTargetToNameAndValue(event));
   }
   handleToggle(name) {
     this.setState(this.toggleStateBoolean(name, this.state));
