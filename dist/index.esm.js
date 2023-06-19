@@ -6488,7 +6488,7 @@ class ObjectStorageKeyForm extends Component {
 ObjectStorageKeyForm.defaultProps = {
   data: {
     name: "",
-    role: "",
+    role: "Writer",
     enable_hmac: false
   },
   forceEnableHmac: false

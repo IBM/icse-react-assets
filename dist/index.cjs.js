@@ -6499,7 +6499,7 @@ class ObjectStorageKeyForm extends React.Component {
 ObjectStorageKeyForm.defaultProps = {
   data: {
     name: "",
-    role: "",
+    role: "Writer",
     enable_hmac: false
   },
   forceEnableHmac: false
