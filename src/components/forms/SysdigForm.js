@@ -64,6 +64,7 @@ class SysdigForm extends Component {
             tooltip={{
               content: "Each tier level allows for more time-series per month.",
               link: "https://cloud.ibm.com/docs/monitoring?topic=monitoring-pricing_plans#graduated_secure",
+              align: "bottom-left",
             }}
             groups={["Tier 1", "Tier 2", "Tier 3", "Tier 4"]}
             formName={this.props.data.name + "-sysdig-plan"}

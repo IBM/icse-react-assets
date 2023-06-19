@@ -1,5 +1,5 @@
 import React from "react";
-import { EventStreamsForm } from "icse-react-assets";
+import { EventStreamsForm, IcseModal } from "icse-react-assets";
 
 export default {
   component: EventStreamsForm,
@@ -91,4 +91,40 @@ const EventStreamsFormStory = () => {
   );
 };
 
+const EventStreamsModalStory = () => {
+  function validName(str) {
+    const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
+    if (str) return str.match(regex) !== null;
+    else return false;
+  }
+
+  function invalidCallback(stateData, componentProps) {
+    return !validName(stateData.name);
+  }
+
+  function invalidTextCallback(stateData, componentProps) {
+    return !validName(stateData.name)
+      ? `Name ${stateData.name} is invalid.`
+      : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
+  }
+
+  return (
+    <IcseModal
+      heading={"Event Streams Modal"}
+      open={true}
+      primaryButtonText={"Create"}
+      onRequestSubmit={() => {}}
+      onRequestClose={() => {}}
+    >
+      <EventStreamsForm
+        resourceGroups={["test", "foo", "bar"]}
+        invalidCallback={invalidCallback}
+        invalidTextCallback={invalidTextCallback}
+        isModal
+      />
+    </IcseModal>
+  );
+};
+
 export const Default = EventStreamsFormStory.bind({});
+export const Modal = EventStreamsModalStory.bind({});

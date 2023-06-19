@@ -15,6 +15,12 @@ const {
   isValidTmosAdminPassword,
   isValidUrl,
 } = require("./f5");
+const {
+  getRuleProtocol,
+  getSubRule,
+  swapArrayElements,
+  getOrderCardClassName,
+} = require("./networking-order-card");
 const { handleCRNs, handleVpcSelect } = require("./transit-gateway");
 
 module.exports = {
@@ -34,4 +40,8 @@ module.exports = {
   handleRgToggle,
   handleCRNs,
   handleVpcSelect,
+  getRuleProtocol,
+  getSubRule,
+  swapArrayElements,
+  getOrderCardClassName,
 };

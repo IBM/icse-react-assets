@@ -11,6 +11,10 @@ import { isIpStringInvalid } from "../../lib/iam-utils";
 import { TextArea } from "@carbon/react";
 import { titleCase } from "lazy-z";
 import PropTypes from "prop-types";
+import {
+  handleAllowedIps,
+  handlePlanChange,
+} from "../../lib/forms/event-streams";
 
 /**
  * EventStreamsForm
@@ -31,9 +35,7 @@ class EventStreamsForm extends Component {
    * @param {event} event
    */
   handleAllowedIps(event) {
-    // removing white space and checking for empty value
-    let value = event.target.value.replace(/\s*/g, "");
-    this.setState({ private_ip_allowlist: value });
+    this.setState(handleAllowedIps(event, this.state));
   }
 
   /**
@@ -49,18 +51,7 @@ class EventStreamsForm extends Component {
    * @param {event} event
    */
   handlePlanChange(event) {
-    let value = event.target.value.toLowerCase();
-    let tempState = { ...this.state };
-    tempState.plan = value;
-    if (value !== "enterprise") {
-      tempState = {
-        ...tempState,
-        throughput: "",
-        storage_size: "",
-        private_ip_allowlist: "",
-      };
-    }
-    this.setState(tempState);
+    this.setState(handlePlanChange(event, this.state));
   }
 
   render() {
@@ -136,7 +127,7 @@ class EventStreamsForm extends Component {
                 }}
                 className="textInputMedium"
                 innerForm={TextArea}
-                id="event-streams-private-ips"
+                id={this.props.data.name + "-event-streams-private-ips"}
                 labelText="Allowed Private IPs"
                 onChange={this.handleAllowedIps}
                 placeholder={
