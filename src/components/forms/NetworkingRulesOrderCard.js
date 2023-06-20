@@ -189,6 +189,10 @@ class NetworkingRulesOrderCard extends Component {
           name="Network Rules"
           showIfEmpty={this.state.rules}
         />
+        <OrderCardDataTable
+          isSecurityGroup={this.props.isSecurityGroup}
+          rules={this.state.rules}
+        />
         {this.state.rules.map((rule, index) => (
           <div
             key={"rule-div-" + rule.name + "-wrapper"}
@@ -267,6 +271,15 @@ const OrderCardDataTable = (props) => {
     { key: "protocol", header: "Protocol" },
   ];
 
+  const rows = [...props.rules];
+  rows.forEach((row) => {
+    delete row.icmp;
+    delete row.tcp;
+    delete row.udp;
+    row.protocol = "all";
+  });
+  console.log(rows);
+
   if (!props.isSecurityGroup) {
     headers.splice(1, 0, {
       // add extra fields if not security group
@@ -275,6 +288,34 @@ const OrderCardDataTable = (props) => {
     });
     headers.splice(4, 0, { key: "destination", header: "Destination" });
   }
+
+  return (
+    <DataTable rows={rows} headers={headers}>
+      <Table>
+        <TableHead>
+          <TableRow>
+            {headers.map(
+              (header, index) =>
+                console.log(header) && (
+                  <TableHeader key={header.header + "-" + index}>
+                    {header.header}
+                  </TableHeader>
+                )
+            )}
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {rows.map((row) => (
+            <TableRow>
+              {Object.values(row).map((cell, index) => (
+                <TableCell key={row.name + "-" + index}>{cell.value}</TableCell>
+              ))}
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </DataTable>
+  );
 };
 
 OrderCardDataTable.propTypes = {

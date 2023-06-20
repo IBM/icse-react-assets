@@ -6194,6 +6194,9 @@ class NetworkingRulesOrderCard extends React.Component {
     })), /*#__PURE__*/React__default["default"].createElement(EmptyResourceTile, {
       name: "Network Rules",
       showIfEmpty: this.state.rules
+    }), /*#__PURE__*/React__default["default"].createElement(OrderCardDataTable, {
+      isSecurityGroup: this.props.isSecurityGroup,
+      rules: this.state.rules
     }), this.state.rules.map((rule, index) => /*#__PURE__*/React__default["default"].createElement("div", {
       key: "rule-div-" + rule.name + "-wrapper",
       className: forms_19(this.props)
@@ -6250,6 +6253,51 @@ NetworkingRulesOrderCard.propTypes = {
   onRuleSave: PropTypes__default["default"].func.isRequired,
   onRuleDelete: PropTypes__default["default"].func.isRequired,
   parent_name: PropTypes__default["default"].string.isRequired
+};
+const OrderCardDataTable = props => {
+  const headers = [{
+    key: "name",
+    header: "Name"
+  }, {
+    key: "direction",
+    header: "Direction"
+  }, {
+    key: "source",
+    header: "Source"
+  }, {
+    key: "protocol",
+    header: "Protocol"
+  }];
+  const rows = [...props.rules];
+  rows.forEach(row => {
+    delete row.icmp;
+    delete row.tcp;
+    delete row.udp;
+    row.protocol = "all";
+  });
+  console.log(rows);
+  if (!props.isSecurityGroup) {
+    headers.splice(1, 0, {
+      // add extra fields if not security group
+      key: "action",
+      header: "Action"
+    });
+    headers.splice(4, 0, {
+      key: "destination",
+      header: "Destination"
+    });
+  }
+  return /*#__PURE__*/React__default["default"].createElement(react.DataTable, {
+    rows: rows,
+    headers: headers
+  }, /*#__PURE__*/React__default["default"].createElement(react.Table, null, /*#__PURE__*/React__default["default"].createElement(react.TableHead, null, /*#__PURE__*/React__default["default"].createElement(react.TableRow, null, headers.map((header, index) => console.log(header) && /*#__PURE__*/React__default["default"].createElement(react.TableHeader, {
+    key: header.header + "-" + index
+  }, header.header)))), /*#__PURE__*/React__default["default"].createElement(react.TableBody, null, rows.map(row => /*#__PURE__*/React__default["default"].createElement(react.TableRow, null, Object.values(row).map((cell, index) => /*#__PURE__*/React__default["default"].createElement(react.TableCell, {
+    key: row.name + "-" + index
+  }, cell.value)))))));
+};
+OrderCardDataTable.propTypes = {
+  isSecurityGroup: PropTypes__default["default"].bool.isRequired
 };
 
 /** NetworkAclForm

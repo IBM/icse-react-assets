@@ -1,5 +1,5 @@
 import '@carbon/styles/css/styles.css';
-import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, TextArea, PasswordInput, NumberInput, Dropdown, Tag } from '@carbon/react';
+import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, TextArea, PasswordInput, NumberInput, DataTable, Table, TableHead, TableRow, TableHeader, TableBody, TableCell, Dropdown, Tag } from '@carbon/react';
 import lazyZ, { titleCase as titleCase$2, kebabCase as kebabCase$5, isEmpty, buildNumberDropdownList, contains as contains$2, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$6, transpose as transpose$1, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual, parseIntFromZone, splat as splat$1, isWholeNumber as isWholeNumber$1, snakeCase as snakeCase$1, distinct, getObjectFromArray, isInRange as isInRange$1, eachKey } from 'lazy-z';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -6183,6 +6183,9 @@ class NetworkingRulesOrderCard extends Component {
     })), /*#__PURE__*/React.createElement(EmptyResourceTile, {
       name: "Network Rules",
       showIfEmpty: this.state.rules
+    }), /*#__PURE__*/React.createElement(OrderCardDataTable, {
+      isSecurityGroup: this.props.isSecurityGroup,
+      rules: this.state.rules
     }), this.state.rules.map((rule, index) => /*#__PURE__*/React.createElement("div", {
       key: "rule-div-" + rule.name + "-wrapper",
       className: forms_19(this.props)
@@ -6239,6 +6242,51 @@ NetworkingRulesOrderCard.propTypes = {
   onRuleSave: PropTypes.func.isRequired,
   onRuleDelete: PropTypes.func.isRequired,
   parent_name: PropTypes.string.isRequired
+};
+const OrderCardDataTable = props => {
+  const headers = [{
+    key: "name",
+    header: "Name"
+  }, {
+    key: "direction",
+    header: "Direction"
+  }, {
+    key: "source",
+    header: "Source"
+  }, {
+    key: "protocol",
+    header: "Protocol"
+  }];
+  const rows = [...props.rules];
+  rows.forEach(row => {
+    delete row.icmp;
+    delete row.tcp;
+    delete row.udp;
+    row.protocol = "all";
+  });
+  console.log(rows);
+  if (!props.isSecurityGroup) {
+    headers.splice(1, 0, {
+      // add extra fields if not security group
+      key: "action",
+      header: "Action"
+    });
+    headers.splice(4, 0, {
+      key: "destination",
+      header: "Destination"
+    });
+  }
+  return /*#__PURE__*/React.createElement(DataTable, {
+    rows: rows,
+    headers: headers
+  }, /*#__PURE__*/React.createElement(Table, null, /*#__PURE__*/React.createElement(TableHead, null, /*#__PURE__*/React.createElement(TableRow, null, headers.map((header, index) => console.log(header) && /*#__PURE__*/React.createElement(TableHeader, {
+    key: header.header + "-" + index
+  }, header.header)))), /*#__PURE__*/React.createElement(TableBody, null, rows.map(row => /*#__PURE__*/React.createElement(TableRow, null, Object.values(row).map((cell, index) => /*#__PURE__*/React.createElement(TableCell, {
+    key: row.name + "-" + index
+  }, cell.value)))))));
+};
+OrderCardDataTable.propTypes = {
+  isSecurityGroup: PropTypes.bool.isRequired
 };
 
 /** NetworkAclForm

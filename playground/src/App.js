@@ -1,52 +1,122 @@
 import React from "react";
-import { DnsRecordForm } from "icse-react-assets";
+import { NetworkingRulesOrderCard } from "icse-react-assets";
 import { contains } from "lazy-z";
 
 import "./App.css";
 
-const DnsRecordFormStory = () => {
-  function validName(str) {
-    const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/s;
-    if (str) return str.match(regex) !== null;
-    else return false;
-  }
-
+const NetworkingRulesOrderCardSgStory = () => {
   function invalidCallback(stateData, componentProps) {
-    return !validName(stateData.name);
-  }
-
-  function helperTextCallback(stateData, componentProps) {
-    return "<prefix>-" + stateData.name;
+    return contains(["foo", "bar"], stateData.name);
   }
 
   function invalidTextCallback(stateData, componentProps) {
     return contains(["foo", "bar"], stateData.name)
-      ? `Cluster name ${stateData.name} already in use.`
+      ? `Rule name ${stateData.name} already in use.`
       : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
   }
 
-  function invalidRdata(stateData, componentProps) {
-    return !isNullOrEmptyString(stateData.rdata);
+  function shouldDisableSave(stateData, componentProps) {
+    return true;
   }
 
-  function invalidRdataText(stateData, componentProps) {
-    return "Resource Data text callback";
+  function disableModalSubmit(stateData, componentProps) {
+    return true;
+  }
+
+  function networkRuleOrderDidChange(newRulesOrder) {
+    // add logic here to save reordered network rules
+  }
+
+  function onSubmitCallback(newRulesOrder) {
+    // add logic here to create new rule
+  }
+
+  function onRuleSave(stateData, componentProp) {
+    // add logic here to save rule
+  }
+
+  function onRuleDelete(stateData, componentProp) {
+    // add logic here to delete rule
   }
 
   return (
-    <DnsRecordForm
-      invalidCallback={invalidCallback}
-      invalidTextCallback={invalidTextCallback}
-      helperTextCallback={helperTextCallback}
-      invalidRdata={invalidRdata}
-      invalidRdataText={invalidRdataText}
-      dnsZones={["zone1", "zone2", "zone3"]}
+    <NetworkingRulesOrderCard
+      vpc_name="example-vpc"
+      parent_name="example-security-group"
+      invalidRuleText={invalidCallback}
+      invalidRuleTextCallback={invalidTextCallback}
+      networkRuleOrderDidChange={networkRuleOrderDidChange}
+      isSecurityGroup
+      rules={[
+        {
+          direction: "inbound",
+          name: "allow-ibm-inbound",
+          source: "161.26.0.0/16",
+          icmp: {
+            type: null,
+            code: null,
+          },
+          tcp: {
+            port_min: null,
+            port_max: null,
+          },
+          udp: {
+            port_min: null,
+            port_max: null,
+            source_port_min: null,
+            source_port_max: null,
+          },
+        },
+        {
+          direction: "inbound",
+          name: "allow-all-network-inbound",
+          source: "10.0.0.0/8",
+          icmp: {
+            type: null,
+            code: null,
+          },
+          tcp: {
+            port_min: null,
+            port_max: null,
+          },
+          udp: {
+            port_min: null,
+            port_max: null,
+          },
+        },
+        {
+          direction: "outbound",
+          name: "allow-all-outbound",
+          source: "0.0.0.0/0",
+          icmp: {
+            type: null,
+            code: null,
+          },
+          tcp: {
+            port_min: null,
+            port_max: null,
+            source_port_min: null,
+            source_port_max: null,
+          },
+          udp: {
+            port_min: null,
+            port_max: null,
+            source_port_min: null,
+            source_port_max: null,
+          },
+        },
+      ]}
+      disableSaveCallback={shouldDisableSave}
+      disableModalSubmitCallback={disableModalSubmit}
+      onSubmitCallback={onSubmitCallback}
+      onRuleSave={onRuleSave}
+      onRuleDelete={onRuleDelete}
     />
   );
 };
 
 function App() {
-  return <DnsRecordFormStory />;
+  return <NetworkingRulesOrderCardSgStory />;
 }
 
 export default App;
