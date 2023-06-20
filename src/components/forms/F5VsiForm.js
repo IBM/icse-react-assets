@@ -99,13 +99,12 @@ class F5VsiForm extends Component {
                   <F5VsiTile
                     key={"f5-vsi-tile" + JSON.stringify(instance) + index}
                     data={instance}
-                    hide={false}
+                    hide={this.props.hideSaveCallback(instance)}
                     onSave={this.handleVsiSave}
                     totalZones={this.state.zones}
                     index={index}
                     resourceGroups={this.props.resourceGroups}
                     encryptionKeys={this.props.encryptionKeys}
-                    hideSaveCallback={this.props.hideSaveCallback}
                     propsMatchState={this.props.propsMatchState}
                   />
                 );
@@ -125,15 +124,10 @@ class F5VsiTile extends React.Component {
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.shouldHideSave = this.shouldHideSave.bind(this);
   }
 
   handleInputChange(event) {
     this.setState(this.eventTargetToNameAndValue(event));
-  }
-
-  shouldHideSave() {
-    return this.props.hideSaveCallback(this.state, this.props);
   }
 
   render() {
@@ -145,7 +139,7 @@ class F5VsiTile extends React.Component {
           className="marginBottomSmall"
           buttons={
             <DynamicRender
-              hide={this.shouldHideSave(this.state, this.props)}
+              hide={this.props.hide}
               show={
                 <SaveAddButton
                   name={this.props.name}

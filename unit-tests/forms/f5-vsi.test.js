@@ -1,5 +1,5 @@
 const { assert } = require("chai");
-const { f5VsiInputChange } = require("../../src/lib/forms");
+const { f5VsiInputChange, f5Vsis } = require("../../src/lib/forms");
 
 describe("f5_vsi", () => {
   describe("f5vsiInputChange", () => {
@@ -35,6 +35,70 @@ describe("f5_vsi", () => {
         event
       );
       assert.deepEqual(expectedData, actualData);
+    });
+  });
+  describe("f5Vsis", () => {
+    it("should return an array of f5 vsis", () => {
+      const stateData = {
+        zones: 3,
+        image: "f5-image",
+        resource_group: "resource-group",
+        ssh_keys: ["ssh-key"],
+        profile: "profile",
+      };
+
+      const componentProps = {
+        vsis: [],
+        edge_pattern: "edge-pattern",
+        f5_on_management: true,
+        initVsiCallback: (pattern, zone, useManagementVpc, params) => {
+          return {
+            pattern,
+            zone,
+            useManagementVpc,
+            params,
+          };
+        },
+      };
+
+      const expectedVsis = [
+        {
+          pattern: "edge-pattern",
+          zone: "zone-1",
+          useManagementVpc: true,
+          params: {
+            image: "f5-image",
+            resource_group: "resource-group",
+            ssh_keys: ["ssh-key"],
+            profile: "profile",
+          },
+        },
+        {
+          pattern: "edge-pattern",
+          zone: "zone-2",
+          useManagementVpc: true,
+          params: {
+            image: "f5-image",
+            resource_group: "resource-group",
+            ssh_keys: ["ssh-key"],
+            profile: "profile",
+          },
+        },
+        {
+          pattern: "edge-pattern",
+          zone: "zone-3",
+          useManagementVpc: true,
+          params: {
+            image: "f5-image",
+            resource_group: "resource-group",
+            ssh_keys: ["ssh-key"],
+            profile: "profile",
+          },
+        },
+      ];
+
+      const result = f5Vsis(stateData, componentProps);
+      assert.deepStrictEqual(result, expectedVsis);
     });
   });
 });
