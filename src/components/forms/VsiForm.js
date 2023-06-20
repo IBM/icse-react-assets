@@ -21,19 +21,16 @@ import VsiVolumeForm from "./VsiVolumeForm";
 class VsiForm extends Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
-
+    this.state = { ...this.props.data };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
-
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
 
   handleInputChange(event) {
     let { name, value } = event.target;
-
     let stateChangeParams = {
       [name]: name === "vsi_per_subnet" && value !== "" ? Number(value) : value,
     };
@@ -42,7 +39,6 @@ class VsiForm extends Component {
       this.props.isTeleport
         ? transpose({ subnet: "", security_groups: [] }, stateChangeParams)
         : transpose({ subnets: [], security_groups: [] }, stateChangeParams);
-
     this.setState(stateChangeParams);
   }
 
@@ -56,7 +52,6 @@ class VsiForm extends Component {
 
   render() {
     let composedId = `vsi-deployment-form-${this.props.data.name}`;
-
     let volumeProps = {
       invalidCallback: this.props.invalidVsiVolumeCallback,
       invalidTextCallback: this.props.invalidVsiVolumeTextCallback,

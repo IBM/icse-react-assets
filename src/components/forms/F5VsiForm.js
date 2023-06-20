@@ -11,26 +11,21 @@ import { FetchSelect, IcseSelect } from "../Dropdowns";
 import { IcseNameInput } from "../Inputs";
 import { SshKeyMultiSelect } from "../MultiSelects";
 import { DynamicRender, IcseFormGroup, IcseHeading } from "../Utils";
+import { f5VsiInputChange } from "../../lib/forms/f5-vsi";
 
 class F5VsiForm extends Component {
   constructor(props) {
     super(props);
-
     this.state = { ...this.props.data };
-
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
     this.handleVsiSave = this.handleVsiSave.bind(this);
-
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
 
   handleInputChange(event) {
-    let { name, value } = event.target;
-    if (name === "zones") {
-      this.setState({ zones: Number(value) });
-    } else this.setState({ [name]: value });
+    this.setState(f5VsiInputChange(this.state, event));
   }
 
   handleMultiSelectChange(name, value) {
