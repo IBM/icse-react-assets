@@ -46,9 +46,10 @@ const NetworkingRulesOrderCardSgStory = () => {
       invalidRuleText={invalidCallback}
       invalidRuleTextCallback={invalidTextCallback}
       networkRuleOrderDidChange={networkRuleOrderDidChange}
-      isSecurityGroup
       rules={[
         {
+          action: "allow",
+          destination: "10.0.0.0/8",
           direction: "inbound",
           name: "allow-ibm-inbound",
           source: "161.26.0.0/16",
@@ -59,6 +60,8 @@ const NetworkingRulesOrderCardSgStory = () => {
           tcp: {
             port_min: null,
             port_max: null,
+            source_port_min: null,
+            source_port_max: null,
           },
           udp: {
             port_min: null,
@@ -68,6 +71,8 @@ const NetworkingRulesOrderCardSgStory = () => {
           },
         },
         {
+          action: "allow",
+          destination: "10.0.0.0/8",
           direction: "inbound",
           name: "allow-all-network-inbound",
           source: "10.0.0.0/8",
@@ -78,13 +83,19 @@ const NetworkingRulesOrderCardSgStory = () => {
           tcp: {
             port_min: null,
             port_max: null,
+            source_port_min: null,
+            source_port_max: null,
           },
           udp: {
             port_min: null,
             port_max: null,
+            source_port_min: null,
+            source_port_max: null,
           },
         },
         {
+          action: "allow",
+          destination: "0.0.0.0/0",
           direction: "outbound",
           name: "allow-all-outbound",
           source: "0.0.0.0/0",

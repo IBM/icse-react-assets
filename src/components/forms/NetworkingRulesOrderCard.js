@@ -13,7 +13,6 @@ import {
   getOrderCardClassName,
 } from "../../lib/forms/";
 import {
-  DataTable,
   Table,
   TableHead,
   TableRow,
@@ -191,7 +190,7 @@ class NetworkingRulesOrderCard extends Component {
         />
         <OrderCardDataTable
           isSecurityGroup={this.props.isSecurityGroup}
-          rules={this.state.rules}
+          rules={[...this.state.rules]}
         />
         {this.state.rules.map((rule, index) => (
           <div
@@ -271,12 +270,12 @@ const OrderCardDataTable = (props) => {
     { key: "protocol", header: "Protocol" },
   ];
 
-  const rows = [...props.rules];
+  const rows = JSON.parse(JSON.stringify(props.rules));
   rows.forEach((row) => {
+    row.protocol = getRuleProtocol(row);
     delete row.icmp;
     delete row.tcp;
     delete row.udp;
-    row.protocol = "all";
   });
   console.log(rows);
 
@@ -290,31 +289,39 @@ const OrderCardDataTable = (props) => {
   }
 
   return (
-    <DataTable rows={rows} headers={headers}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            {headers.map(
-              (header, index) =>
-                console.log(header) && (
-                  <TableHeader key={header.header + "-" + index}>
-                    {header.header}
-                  </TableHeader>
-                )
-            )}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <TableRow>
-              {Object.values(row).map((cell, index) => (
-                <TableCell key={row.name + "-" + index}>{cell.value}</TableCell>
-              ))}
-            </TableRow>
+    <Table>
+      <TableHead>
+        <TableRow>
+          {headers.map((header, index) => (
+            <TableHeader key={header.header + "-" + index}>
+              {header.header}
+            </TableHeader>
           ))}
-        </TableBody>
-      </Table>
-    </DataTable>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {rows.map((row, index) => (
+          <TableRow key={row.name + "-" + index}>
+            <TableCell key={row.name + "-" + index}>{row.name}</TableCell>
+            {!props.isSecurityGroup && (
+              <TableCell key={row.action + "-" + index}>{row.action}</TableCell>
+            )}
+            <TableCell key={row.direction + "-" + index}>
+              {row.direction}
+            </TableCell>
+            <TableCell key={row.source + "-" + index}>{row.source}</TableCell>
+            {!props.isSecurityGroup && (
+              <TableCell key={row.destination + "-" + index}>
+                {row.destination}
+              </TableCell>
+            )}
+            <TableCell key={row.protocol + "-" + index}>
+              {row.protocol}
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
   );
 };
 

@@ -6196,7 +6196,7 @@ class NetworkingRulesOrderCard extends React.Component {
       showIfEmpty: this.state.rules
     }), /*#__PURE__*/React__default["default"].createElement(OrderCardDataTable, {
       isSecurityGroup: this.props.isSecurityGroup,
-      rules: this.state.rules
+      rules: [...this.state.rules]
     }), this.state.rules.map((rule, index) => /*#__PURE__*/React__default["default"].createElement("div", {
       key: "rule-div-" + rule.name + "-wrapper",
       className: forms_19(this.props)
@@ -6268,12 +6268,12 @@ const OrderCardDataTable = props => {
     key: "protocol",
     header: "Protocol"
   }];
-  const rows = [...props.rules];
+  const rows = JSON.parse(JSON.stringify(props.rules));
   rows.forEach(row => {
+    row.protocol = forms_16(row);
     delete row.icmp;
     delete row.tcp;
     delete row.udp;
-    row.protocol = "all";
   });
   console.log(rows);
   if (!props.isSecurityGroup) {
@@ -6287,14 +6287,23 @@ const OrderCardDataTable = props => {
       header: "Destination"
     });
   }
-  return /*#__PURE__*/React__default["default"].createElement(react.DataTable, {
-    rows: rows,
-    headers: headers
-  }, /*#__PURE__*/React__default["default"].createElement(react.Table, null, /*#__PURE__*/React__default["default"].createElement(react.TableHead, null, /*#__PURE__*/React__default["default"].createElement(react.TableRow, null, headers.map((header, index) => console.log(header) && /*#__PURE__*/React__default["default"].createElement(react.TableHeader, {
+  return /*#__PURE__*/React__default["default"].createElement(react.Table, null, /*#__PURE__*/React__default["default"].createElement(react.TableHead, null, /*#__PURE__*/React__default["default"].createElement(react.TableRow, null, headers.map((header, index) => /*#__PURE__*/React__default["default"].createElement(react.TableHeader, {
     key: header.header + "-" + index
-  }, header.header)))), /*#__PURE__*/React__default["default"].createElement(react.TableBody, null, rows.map(row => /*#__PURE__*/React__default["default"].createElement(react.TableRow, null, Object.values(row).map((cell, index) => /*#__PURE__*/React__default["default"].createElement(react.TableCell, {
+  }, header.header)))), /*#__PURE__*/React__default["default"].createElement(react.TableBody, null, rows.map((row, index) => /*#__PURE__*/React__default["default"].createElement(react.TableRow, {
     key: row.name + "-" + index
-  }, cell.value)))))));
+  }, /*#__PURE__*/React__default["default"].createElement(react.TableCell, {
+    key: row.name + "-" + index
+  }, row.name), !props.isSecurityGroup && /*#__PURE__*/React__default["default"].createElement(react.TableCell, {
+    key: row.action + "-" + index
+  }, row.action), /*#__PURE__*/React__default["default"].createElement(react.TableCell, {
+    key: row.direction + "-" + index
+  }, row.direction), /*#__PURE__*/React__default["default"].createElement(react.TableCell, {
+    key: row.source + "-" + index
+  }, row.source), !props.isSecurityGroup && /*#__PURE__*/React__default["default"].createElement(react.TableCell, {
+    key: row.destination + "-" + index
+  }, row.destination), /*#__PURE__*/React__default["default"].createElement(react.TableCell, {
+    key: row.protocol + "-" + index
+  }, row.protocol)))));
 };
 OrderCardDataTable.propTypes = {
   isSecurityGroup: PropTypes__default["default"].bool.isRequired
