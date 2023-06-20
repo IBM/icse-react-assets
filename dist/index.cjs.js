@@ -3134,6 +3134,29 @@ var atracker = {
   atrackerInputChange: atrackerInputChange$1
 };
 
+/**
+ * handle toggle for resource group
+ * @param {Object} stateData
+ * @param {string} name name of the object key to change
+ */
+function handleRgToggle$1(stateData, name) {
+  let state = {
+    ...stateData
+  };
+
+  // Turn off the use_prefix toggle when not using data.
+  if (name === "use_data" && state.use_data === false) {
+    state[name] = !state[name];
+    state.use_prefix = false;
+  } else {
+    state[name] = !state[name];
+  }
+  return state;
+}
+var resourceGroups = {
+  handleRgToggle: handleRgToggle$1
+};
+
 const {
   isNullOrEmptyString: isNullOrEmptyString$4,
   isIpv4CidrOrAddress: isIpv4CidrOrAddress$1
@@ -3558,6 +3581,9 @@ const {
   atrackerInputChange
 } = atracker;
 const {
+  handleRgToggle
+} = resourceGroups;
+const {
   cbrInvalid,
   cbrValueInvalid,
   cbrValuePlaceholder,
@@ -3599,6 +3625,7 @@ var forms = {
   handleDnsResolverInputChange,
   dnsFormInputChange,
   atrackerInputChange,
+  handleRgToggle,
   handleCRNs,
   handleVpcSelect,
   getRuleProtocol,
@@ -3611,12 +3638,13 @@ var forms_4 = forms.handleRuleInputChange;
 var forms_11 = forms.handleDnsResolverInputChange;
 var forms_12 = forms.dnsFormInputChange;
 var forms_13 = forms.atrackerInputChange;
-var forms_14 = forms.handleCRNs;
-var forms_15 = forms.handleVpcSelect;
-var forms_16 = forms.getRuleProtocol;
-var forms_17 = forms.getSubRule;
-var forms_18 = forms.swapArrayElements;
-var forms_19 = forms.getOrderCardClassName;
+var forms_14 = forms.handleRgToggle;
+var forms_15 = forms.handleCRNs;
+var forms_16 = forms.handleVpcSelect;
+var forms_17 = forms.getRuleProtocol;
+var forms_18 = forms.getSubRule;
+var forms_19 = forms.swapArrayElements;
+var forms_20 = forms.getOrderCardClassName;
 
 /**
  * Atracker
@@ -6103,7 +6131,7 @@ class NetworkingRulesOrderCard extends React.Component {
   handleUp(index) {
     let prevRulesState = [...this.state.rules];
     if (index !== 0) {
-      forms_18(prevRulesState, index, index - 1);
+      forms_19(prevRulesState, index, index - 1);
     }
     this.props.networkRuleOrderDidChange(prevRulesState);
     this.setState({
@@ -6119,7 +6147,7 @@ class NetworkingRulesOrderCard extends React.Component {
     let prevRulesState = [...this.state.rules];
     let maxLen = prevRulesState.length - 1;
     if (index !== maxLen) {
-      forms_18(prevRulesState, index, index + 1);
+      forms_19(prevRulesState, index, index + 1);
     }
     this.props.networkRuleOrderDidChange(prevRulesState);
     this.setState({
@@ -6196,7 +6224,7 @@ class NetworkingRulesOrderCard extends React.Component {
       showIfEmpty: this.state.rules
     }), this.state.rules.map((rule, index) => /*#__PURE__*/React__default["default"].createElement("div", {
       key: "rule-div-" + rule.name + "-wrapper",
-      className: forms_19(this.props)
+      className: forms_20(this.props)
     }, /*#__PURE__*/React__default["default"].createElement(NetworkingRuleForm, {
       hide: this.state.collapse[rule.name],
       onToggle: () => this.toggleCollapse(rule.name),
@@ -6214,8 +6242,8 @@ class NetworkingRulesOrderCard extends React.Component {
         direction: rule.direction,
         source: rule.source,
         destination: rule.destination || null,
-        ruleProtocol: forms_16(rule),
-        rule: forms_17(rule, this.props.isSecurityGroup)
+        ruleProtocol: forms_17(rule),
+        rule: forms_18(rule, this.props.isSecurityGroup)
       },
       disableSaveCallback: this.props.disableSaveCallback,
       isSecurityGroup: this.props.isSecurityGroup,
@@ -6733,17 +6761,7 @@ class ResourceGroupForm extends React.Component {
    * @param {string} name name of the object key to change
    */
   handleToggle(name) {
-    // Turn off the use_prefix toggle when not using data.
-    if (name === "use_data" && this.state.use_data === false) {
-      this.setState({
-        [name]: !this.state[name],
-        use_prefix: false
-      });
-    } else {
-      this.setState({
-        [name]: !this.state[name]
-      });
-    }
+    this.setState(forms_14(this.state, name));
   }
 
   /**
@@ -8228,7 +8246,7 @@ class TransitGatewayForm extends React.Component {
    * @param {event} event
    */
   handleCRNs(event) {
-    this.setState(forms_14(event));
+    this.setState(forms_15(event));
   }
 
   /**
@@ -8236,7 +8254,7 @@ class TransitGatewayForm extends React.Component {
    * @param {Array} selectedItems
    */
   handleVpcSelect(selectedItems) {
-    this.setState(forms_15(selectedItems, this.state.name));
+    this.setState(forms_16(selectedItems, this.state.name));
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
