@@ -1,4 +1,5 @@
 const { atrackerInputChange } = require("./atracker");
+const { handleRgToggle } = require("./resource-groups");
 const {
   cbrInvalid,
   cbrValueInvalid,
@@ -37,6 +38,7 @@ module.exports = {
   handleDnsResolverInputChange,
   dnsFormInputChange,
   atrackerInputChange,
+  handleRgToggle,
   handleCRNs,
   handleVpcSelect,
   getRuleProtocol,

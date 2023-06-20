@@ -5,6 +5,7 @@ import {
 } from "../component-utils";
 import { IcseNameInput, IcseToggle } from "../Inputs";
 import { IcseFormGroup } from "../Utils";
+import { handleRgToggle } from "../../lib/forms";
 import PropTypes from "prop-types";
 
 /** Resource Groups
@@ -24,12 +25,7 @@ class ResourceGroupForm extends Component {
    * @param {string} name name of the object key to change
    */
   handleToggle(name) {
-    // Turn off the use_prefix toggle when not using data.
-    if (name === "use_data" && this.state.use_data === false) {
-      this.setState({ [name]: !this.state[name], use_prefix: false });
-    } else {
-      this.setState({ [name]: !this.state[name] });
-    }
+    this.setState(handleRgToggle(this.state, name));
   }
 
   /**
