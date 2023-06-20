@@ -5,18 +5,18 @@ Object.defineProperty(exports, '__esModule', { value: true });
 require('@carbon/styles/css/styles.css');
 var react = require('@carbon/react');
 var lazyZ = require('lazy-z');
+var regexButWithWords = require('regex-but-with-words');
 var React = require('react');
 var PropTypes = require('prop-types');
 var iconsReact = require('@carbon/icons-react');
-var regexButWithWords = require('regex-but-with-words');
 var utils$1 = require('regex-but-with-words/lib/utils');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
 var lazyZ__default = /*#__PURE__*/_interopDefaultLegacy(lazyZ);
+var regexButWithWords__default = /*#__PURE__*/_interopDefaultLegacy(regexButWithWords);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 var PropTypes__default = /*#__PURE__*/_interopDefaultLegacy(PropTypes);
-var regexButWithWords__default = /*#__PURE__*/_interopDefaultLegacy(regexButWithWords);
 
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
@@ -49,7 +49,7 @@ var css_248z$1 = "/* vars and themes */\n:root {\n  --background: #ffffff;\n  --
 styleInject(css_248z$1);
 
 const {
-  contains: contains$1,
+  contains: contains$2,
   capitalize: capitalize$1
 } = lazyZ__default["default"];
 
@@ -139,7 +139,7 @@ function handleClusterInputChange$1(name, value, stateData) {
   return cluster;
 }
 function subnetTierName$1(tierName) {
-  if (contains$1(["vsi", "vpe", "vpn", "vpn-1", "vpn-2"], tierName)) {
+  if (contains$2(["vsi", "vpe", "vpn", "vpn-1", "vpn-2"], tierName)) {
     return tierName.toUpperCase() + " Subnet Tier";
   } else if (tierName === "") {
     return "New Subnet Tier";
@@ -653,6 +653,543 @@ var popoverWrapper = {
 };
 
 const {
+  kebabCase: kebabCase$1
+} = lazyZ__default["default"];
+
+/**
+ * handle input change for atracker
+ * @param {Object} stateData
+ * @param {Object} event
+ */
+function atrackerInputChange$1(stateData, event) {
+  let state = {
+    ...stateData
+  };
+  let {
+    name,
+    value
+  } = event.target;
+  if (name === "plan") state.plan = kebabCase$1(value);else state[name] = value;
+  return state;
+}
+var atracker = {
+  atrackerInputChange: atrackerInputChange$1
+};
+
+const {
+  isNullOrEmptyString: isNullOrEmptyString$4,
+  isIpv4CidrOrAddress: isIpv4CidrOrAddress$1
+} = lazyZ__default["default"];
+const {
+  RegexButWithWords: RegexButWithWords$2
+} = regexButWithWords__default["default"];
+const ipRangeExpression = new RegexButWithWords$2().wordBoundary().group(exp => {
+  exp.group(exp => {
+    exp.group(exp => {
+      exp.literal("2").set("1-5").set("0-6");
+    }).or().group(exp => {
+      exp.literal("1").digit(2);
+    }).or().group(exp => {
+      exp.digit(1, 2);
+    });
+  }).literal(".");
+}, 3).group(exp => {
+  exp.group(exp => {
+    exp.literal("2").set("1-5").set("0-6");
+  }).or().group(exp => {
+    exp.literal("1").digit(2);
+  }).or().group(exp => {
+    exp.digit(1, 2);
+  });
+}).literal("-").group(exp => {
+  exp.group(exp => {
+    exp.group(exp => {
+      exp.literal("2").set("1-5").set("0-6");
+    }).or().group(exp => {
+      exp.literal("1").digit(2);
+    }).or().group(exp => {
+      exp.digit(1, 2);
+    });
+  }).literal(".");
+}, 3).group(exp => {
+  exp.group(exp => {
+    exp.literal("2").set("1-5").set("0-6");
+  }).or().group(exp => {
+    exp.literal("1").digit(2);
+  }).or().group(exp => {
+    exp.digit(1, 2);
+  });
+}).wordBoundary().done("g");
+
+/**
+ * create cbr invalid field sta
+ * @param {*} field
+ * @param {*} value
+ * @returns {Object} invalid boolean invalidText string
+ */
+function cbrInvalid$1(field, value) {
+  let invalid = {
+    invalid: false,
+    invalidText: ""
+  };
+  if (!isNullOrEmptyString$4(value) && (value.match(/^[0-9a-z-]+$/) === null || value.length >= 128)) {
+    invalid.invalid = true;
+    invalid.invalidText = `Invalid ${field}. Value must match regex expression /^[0-9a-z-]+$/.`;
+  }
+  return invalid;
+}
+
+/**
+ * cbr value is invalid
+ * @param {*} type
+ * @param {*} value
+ * @returns {Object} invalid boolean invalidText string
+ */
+function cbrValueInvalid$1(type, value) {
+  let invalid = {
+    invalid: false,
+    invalidText: ""
+  };
+  if (isNullOrEmptyString$4(value)) {
+    invalid.invalid = true;
+    invalid.invalidText = `Invalid value for type ${type}. Cannot be empty string.`;
+  } else if (type === "ipAddress") {
+    if (!isIpv4CidrOrAddress$1(value) || value.includes("/")) {
+      invalid.invalid = true;
+      invalid.invalidText = `Invalid value for type ${type}. Value must be a valid IPV4 Address.`;
+    }
+  } else if (type === "ipRange") {
+    if (value.match(ipRangeExpression) === null) {
+      invalid.invalid = true;
+      invalid.invalidText = `Invalid value for type ${type}. Value must be a range of IPV4 Addresses.`;
+    }
+  } else {
+    invalid = cbrInvalid$1(type, value);
+  }
+  return invalid;
+}
+const cbrTypeNameMap$1 = {
+  ipAddress: "IP Address",
+  ipRange: "IP Range",
+  subnet: "Subnet",
+  vpc: "VPC",
+  serviceRef: "Service Ref"
+};
+const cbrNameTypeMap = {
+  "IP Address": "ipAddress",
+  "IP Range": "ipRange",
+  Subnet: "subnet",
+  VPC: "vpc",
+  "Service Ref": "serviceRef"
+};
+
+/**
+ * return a placeholder for value on exclusion/address form
+ * @param {string} type
+ * @returns
+ */
+function cbrValuePlaceholder$1(type) {
+  return type === "ipAddress" ? "x.x.x.x" : type === "ipRange" ? "x.x.x.x-x.x.x.x" : `my-cbr-zone-${type}`;
+}
+
+/**
+ * handle input change for cbr rules
+ * @param {*} event
+ * @param {Object} stateData
+ * @returns object
+ */
+function handleRuleInputChange$1(stateData, event) {
+  let {
+    name,
+    value
+  } = event.target;
+  let state = {
+    ...stateData
+  };
+  if (name === "enforcement_mode") {
+    state[name] = value.toLowerCase();
+  } else {
+    state[name] = value;
+  }
+  return state;
+}
+
+/**
+ * handle exclusion and address input change
+ * @param {*} event
+ * @param {Object} stateData
+ */
+function handleExclusionAddressInputChange$1(stateData, event) {
+  let {
+    name,
+    value
+  } = event.target;
+  let state = {
+    ...stateData
+  };
+  if (name === "type") state[name] = cbrNameTypeMap[value];else state[name] = value;
+  return state;
+}
+var cbrUtils = {
+  cbrInvalid: cbrInvalid$1,
+  cbrValueInvalid: cbrValueInvalid$1,
+  cbrValuePlaceholder: cbrValuePlaceholder$1,
+  handleRuleInputChange: handleRuleInputChange$1,
+  cbrTypeNameMap: cbrTypeNameMap$1,
+  handleExclusionAddressInputChange: handleExclusionAddressInputChange$1
+};
+var cbrUtils_1 = cbrUtils.cbrInvalid;
+var cbrUtils_2 = cbrUtils.cbrValueInvalid;
+var cbrUtils_3 = cbrUtils.cbrValuePlaceholder;
+var cbrUtils_5 = cbrUtils.cbrTypeNameMap;
+var cbrUtils_6 = cbrUtils.handleExclusionAddressInputChange;
+
+const {
+  contains: contains$1
+} = lazyZ__default["default"];
+
+/**
+ * filter function for kube version select
+ * @param {string} version
+ * @param {string} kube_type
+ * @returns {string} version
+ */
+function filterKubeVersion$2(version, kube_type) {
+  if (kube_type === "openshift" && contains$1(version, "openshift") ||
+  // is openshift and contains openshift
+  kube_type !== "openshift" && !contains$1(version, "openshift") ||
+  // is not openshift and does not contain openshift
+  version === "default" // or is default
+  ) {
+    return version.replace(/\s\(Default\)/g, ""); // replace default with empty string
+  }
+}
+
+var cluster = {
+  filterKubeVersion: filterKubeVersion$2
+};
+
+/**
+ * custom resolver input change
+ * @param {Object} stateData
+ * @param {*} event
+ * @returns {Object} new state
+ */
+function handleDnsResolverInputChange$1(stateData, event) {
+  let {
+    name,
+    value
+  } = event.target;
+  let state = {
+    ...stateData
+  };
+  if (name === "vpc") {
+    state[name] = value;
+    state.subnets = [];
+  } else {
+    state[name] = value;
+  }
+  return state;
+}
+
+/**
+ * handle dns form input change
+ * @param {*} event 
+ * @returns {Object} state update object
+ */
+function dnsFormInputChange$1(event) {
+  let {
+    name,
+    value
+  } = event.target;
+  if (name === "plan") value = value.toLowerCase();
+  return {
+    [name]: value
+  };
+}
+var dns = {
+  handleDnsResolverInputChange: handleDnsResolverInputChange$1,
+  dnsFormInputChange: dnsFormInputChange$1
+};
+
+const {
+  RegexButWithWords: RegexButWithWords$1
+} = regexButWithWords__default["default"];
+const {
+  isNullOrEmptyString: isNullOrEmptyString$3
+} = lazyZ__default["default"];
+const urlValidationExp = new RegexButWithWords$1().group(exp => {
+  exp.literal("ftp").or().literal("http").literal("s").lazy();
+}).literal("://").group("www.").lazy().group(exp => {
+  exp.negatedSet('"\\/').oneOrMore().literal(".");
+}).group(exp => {
+  exp.negatedSet('"\\/').oneOrMore().literal(".");
+}).oneOrMore().negatedSet('"\\/.').oneOrMore().literal("/").negatedSet(' "').anyNumber().stringEnd().done("g");
+const tmosAdminPasswordValidationExp = new RegexButWithWords$1().stringBegin().look.ahead(exp => {
+  exp.any().anyNumber().set("a-z");
+}).look.ahead(exp => {
+  exp.any().anyNumber().set("A-Z");
+}).look.ahead(exp => {
+  exp.any().anyNumber().set("0-9");
+}).any(15, "*").stringEnd().done("");
+
+/**
+ * url value is valid and not empty
+ * @param {str} url
+ * @returns {boolean} true when url is valid and not empty, false when invalid
+ */
+function isValidUrl$1(url) {
+  if (isNullOrEmptyString$3(url) || url === "null") return true;
+  return url.match(urlValidationExp) !== null;
+}
+
+/**
+ * verifies tmos admin password
+ * @param {str} password
+ * @returns {boolean} true when password is valid
+ */
+function isValidTmosAdminPassword$1(password) {
+  if (isNullOrEmptyString$3(password)) return true;else return password.match(tmosAdminPasswordValidationExp) !== null;
+}
+
+/**
+ * securely generates a random byte to be transformed into a character
+ * @returns {byte} random byte
+ */
+function getRandomByte() {
+  var result = new Uint8Array(1);
+  result = window.crypto.getRandomValues(result); // cryptographically secure random number generation
+  return result[0];
+}
+
+/**
+ * Checks if the random byte character generated is a valid character in the charset
+ * if it is, return the char, add it to the password String
+ * @param {int} length
+ * @returns {char} a valid char to go into the password
+ */
+function generatePassword(length) {
+  const charset = /[a-zA-Z0-9_\-+!$%^&*#]/; // valid chars for the password string
+  return Array.apply(null, {
+    length: length
+  }) // create an array of null of length specified
+  .map(function () {
+    // on each element
+    var result;
+    while (true) {
+      result = String.fromCharCode(getRandomByte()); // generate a char until it is a valid char in the charset
+      if (charset.test(result)) {
+        return result; // char is in the charset
+      }
+    }
+  }, this).join(""); // join all array elements into a single string
+}
+
+/**
+ * generates the password until it fits the validation expression
+ * @param {int} length
+ * @returns {string} password that fits the requirements of the validation expression
+ */
+function getValidAdminPassword$1(length) {
+  let invalid = true;
+  let count = 0;
+  let result;
+  do {
+    result = generatePassword(length); // generate a password until it is valid
+    if (tmosAdminPasswordValidationExp.test(result)) {
+      // we are valid if this test passes
+      invalid = false;
+    } else {
+      result = ""; // reset result
+      count++;
+    }
+  } while (invalid && count <= 5); // only be more than 5 times if you specified an invalid length. dummy counter for unit
+  return result;
+}
+var f5 = {
+  getValidAdminPassword: getValidAdminPassword$1,
+  isNullOrEmptyString: isNullOrEmptyString$3,
+  isValidTmosAdminPassword: isValidTmosAdminPassword$1,
+  isValidUrl: isValidUrl$1
+};
+var f5_1 = f5.getValidAdminPassword;
+var f5_2 = f5.isNullOrEmptyString;
+var f5_3 = f5.isValidTmosAdminPassword;
+var f5_4 = f5.isValidUrl;
+
+const {
+  allFieldsNull,
+  transpose
+} = lazyZ__default["default"];
+
+/**
+ * get which rule protocol is being used
+ * @param {string} rule
+ * @returns {string} protocol
+ */
+function getRuleProtocol$1(rule) {
+  let protocol = "all";
+  // for each possible protocol
+  ["icmp", "tcp", "udp"].forEach(field => {
+    // set protocol to that field if not all fields are null
+    if (allFieldsNull(rule[field]) === false) {
+      protocol = field;
+    }
+  });
+  return protocol;
+}
+
+/**
+ * create sub rule
+ * @param {*} rule rule object
+ * @param {string} protocol all, tcp, icmp, or udp
+ * @param {boolean} isSecurityGroup
+ * @returns {Object} default rule object
+ */
+function getSubRule$1(rule, isSecurityGroup) {
+  let defaultRule = {
+    port_max: null,
+    port_min: null,
+    source_port_max: null,
+    source_port_min: null,
+    type: null,
+    code: null
+  };
+  if (getRuleProtocol$1(rule) !== "all") {
+    transpose(rule[getRuleProtocol$1(rule)], defaultRule);
+  }
+  if (isSecurityGroup) {
+    delete defaultRule.source_port_min;
+    delete defaultRule.source_port_max;
+  }
+  return defaultRule;
+}
+
+/**
+ * Helper function to move items up and down in the list so they can be rendered properly
+ * @param {Array} arr
+ * @param {number} indexA
+ * @param {number} indexB
+ */
+function swapArrayElements$1(arr, indexA, indexB) {
+  let temp = arr[indexA];
+  arr[indexA] = arr[indexB];
+  arr[indexB] = temp;
+}
+function getOrderCardClassName$1(props) {
+  return "marginBottomSmall positionRelative " + (props.isSecurityGroup ? "formInSubForm" : "subForm");
+}
+var networkingOrderCard = {
+  getRuleProtocol: getRuleProtocol$1,
+  getSubRule: getSubRule$1,
+  swapArrayElements: swapArrayElements$1,
+  getOrderCardClassName: getOrderCardClassName$1
+};
+
+/**
+ * Handle crn input
+ * @param {event} event
+ */
+function handleCRNs$1(event) {
+  let crns = event.target.value ? event.target.value.replace(/\s\s+/g, "") // replace extra spaces
+  .replace(/,(?=,)/g, "") // prevent null tags from
+  .replace(/[^\w,-:]/g, "").split(",") : [];
+  return {
+    crns: crns
+  };
+}
+
+/**
+ * Handle vpc selection
+ * @param {Array} selectedItems list of selected vpcs
+ * @param {String} tgw transit gateway name
+ */
+function handleVpcSelect$1(selectedItems, tgw) {
+  let connections = [];
+  selectedItems.forEach(vpc => {
+    connections.push({
+      tgw: tgw,
+      vpc: vpc
+    });
+  });
+  return {
+    connections: connections
+  };
+}
+var transitGateway = {
+  handleCRNs: handleCRNs$1,
+  handleVpcSelect: handleVpcSelect$1
+};
+
+const {
+  atrackerInputChange
+} = atracker;
+const {
+  cbrInvalid,
+  cbrValueInvalid,
+  cbrValuePlaceholder,
+  handleRuleInputChange,
+  cbrTypeNameMap,
+  handleExclusionAddressInputChange
+} = cbrUtils;
+const {
+  filterKubeVersion: filterKubeVersion$1
+} = cluster;
+const {
+  handleDnsResolverInputChange,
+  dnsFormInputChange
+} = dns;
+const {
+  getValidAdminPassword,
+  isNullOrEmptyString: isNullOrEmptyString$2,
+  isValidTmosAdminPassword,
+  isValidUrl
+} = f5;
+const {
+  getRuleProtocol,
+  getSubRule,
+  swapArrayElements,
+  getOrderCardClassName
+} = networkingOrderCard;
+const {
+  handleCRNs,
+  handleVpcSelect
+} = transitGateway;
+var forms = {
+  cbrInvalid,
+  cbrValueInvalid,
+  cbrValuePlaceholder,
+  handleRuleInputChange,
+  cbrTypeNameMap,
+  handleExclusionAddressInputChange,
+  getValidAdminPassword,
+  isNullOrEmptyString: isNullOrEmptyString$2,
+  isValidTmosAdminPassword,
+  isValidUrl,
+  handleDnsResolverInputChange,
+  dnsFormInputChange,
+  atrackerInputChange,
+  handleCRNs,
+  handleVpcSelect,
+  getRuleProtocol,
+  getSubRule,
+  swapArrayElements,
+  getOrderCardClassName,
+  filterKubeVersion: filterKubeVersion$1
+};
+var forms_1 = forms.cbrInvalid;
+var forms_4 = forms.handleRuleInputChange;
+var forms_11 = forms.handleDnsResolverInputChange;
+var forms_12 = forms.dnsFormInputChange;
+var forms_13 = forms.atrackerInputChange;
+var forms_14 = forms.handleCRNs;
+var forms_15 = forms.handleVpcSelect;
+var forms_16 = forms.getRuleProtocol;
+var forms_17 = forms.getSubRule;
+var forms_18 = forms.swapArrayElements;
+var forms_19 = forms.getOrderCardClassName;
+
+const {
   toggleMarginBottom,
   addClassName,
   prependEmptyStringWhenNull,
@@ -705,6 +1242,9 @@ const {
 const {
   popoverWrapperParams
 } = popoverWrapper;
+const {
+  filterKubeVersion
+} = forms;
 var lib = {
   onToggleEvent,
   toggleParams,
@@ -734,7 +1274,8 @@ var lib = {
   icseHeadingParams,
   statelessToggleFormParams,
   statefulTabPanelParams,
-  popoverWrapperParams
+  popoverWrapperParams,
+  filterKubeVersion
 };
 var lib_3 = lib.docTextFieldParams;
 var lib_4 = lib.handleNumberDropdownEvent;
@@ -753,6 +1294,7 @@ var lib_20 = lib.deleteButtonParams;
 var lib_22 = lib.icseFormTemplateParams;
 var lib_28 = lib.statefulTabPanelParams;
 var lib_29 = lib.popoverWrapperParams;
+var lib_30 = lib.filterKubeVersion;
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -3110,514 +3652,6 @@ AppIdForm.propTypes = {
   invalidTextCallback: PropTypes__default["default"].func
 };
 
-const {
-  kebabCase: kebabCase$1
-} = lazyZ__default["default"];
-
-/**
- * handle input change for atracker
- * @param {Object} stateData
- * @param {Object} event
- */
-function atrackerInputChange$1(stateData, event) {
-  let state = {
-    ...stateData
-  };
-  let {
-    name,
-    value
-  } = event.target;
-  if (name === "plan") state.plan = kebabCase$1(value);else state[name] = value;
-  return state;
-}
-var atracker = {
-  atrackerInputChange: atrackerInputChange$1
-};
-
-const {
-  isNullOrEmptyString: isNullOrEmptyString$4,
-  isIpv4CidrOrAddress: isIpv4CidrOrAddress$1
-} = lazyZ__default["default"];
-const {
-  RegexButWithWords: RegexButWithWords$2
-} = regexButWithWords__default["default"];
-const ipRangeExpression = new RegexButWithWords$2().wordBoundary().group(exp => {
-  exp.group(exp => {
-    exp.group(exp => {
-      exp.literal("2").set("1-5").set("0-6");
-    }).or().group(exp => {
-      exp.literal("1").digit(2);
-    }).or().group(exp => {
-      exp.digit(1, 2);
-    });
-  }).literal(".");
-}, 3).group(exp => {
-  exp.group(exp => {
-    exp.literal("2").set("1-5").set("0-6");
-  }).or().group(exp => {
-    exp.literal("1").digit(2);
-  }).or().group(exp => {
-    exp.digit(1, 2);
-  });
-}).literal("-").group(exp => {
-  exp.group(exp => {
-    exp.group(exp => {
-      exp.literal("2").set("1-5").set("0-6");
-    }).or().group(exp => {
-      exp.literal("1").digit(2);
-    }).or().group(exp => {
-      exp.digit(1, 2);
-    });
-  }).literal(".");
-}, 3).group(exp => {
-  exp.group(exp => {
-    exp.literal("2").set("1-5").set("0-6");
-  }).or().group(exp => {
-    exp.literal("1").digit(2);
-  }).or().group(exp => {
-    exp.digit(1, 2);
-  });
-}).wordBoundary().done("g");
-
-/**
- * create cbr invalid field sta
- * @param {*} field
- * @param {*} value
- * @returns {Object} invalid boolean invalidText string
- */
-function cbrInvalid$1(field, value) {
-  let invalid = {
-    invalid: false,
-    invalidText: ""
-  };
-  if (!isNullOrEmptyString$4(value) && (value.match(/^[0-9a-z-]+$/) === null || value.length >= 128)) {
-    invalid.invalid = true;
-    invalid.invalidText = `Invalid ${field}. Value must match regex expression /^[0-9a-z-]+$/.`;
-  }
-  return invalid;
-}
-
-/**
- * cbr value is invalid
- * @param {*} type
- * @param {*} value
- * @returns {Object} invalid boolean invalidText string
- */
-function cbrValueInvalid$1(type, value) {
-  let invalid = {
-    invalid: false,
-    invalidText: ""
-  };
-  if (isNullOrEmptyString$4(value)) {
-    invalid.invalid = true;
-    invalid.invalidText = `Invalid value for type ${type}. Cannot be empty string.`;
-  } else if (type === "ipAddress") {
-    if (!isIpv4CidrOrAddress$1(value) || value.includes("/")) {
-      invalid.invalid = true;
-      invalid.invalidText = `Invalid value for type ${type}. Value must be a valid IPV4 Address.`;
-    }
-  } else if (type === "ipRange") {
-    if (value.match(ipRangeExpression) === null) {
-      invalid.invalid = true;
-      invalid.invalidText = `Invalid value for type ${type}. Value must be a range of IPV4 Addresses.`;
-    }
-  } else {
-    invalid = cbrInvalid$1(type, value);
-  }
-  return invalid;
-}
-const cbrTypeNameMap$1 = {
-  ipAddress: "IP Address",
-  ipRange: "IP Range",
-  subnet: "Subnet",
-  vpc: "VPC",
-  serviceRef: "Service Ref"
-};
-const cbrNameTypeMap = {
-  "IP Address": "ipAddress",
-  "IP Range": "ipRange",
-  Subnet: "subnet",
-  VPC: "vpc",
-  "Service Ref": "serviceRef"
-};
-
-/**
- * return a placeholder for value on exclusion/address form
- * @param {string} type
- * @returns
- */
-function cbrValuePlaceholder$1(type) {
-  return type === "ipAddress" ? "x.x.x.x" : type === "ipRange" ? "x.x.x.x-x.x.x.x" : `my-cbr-zone-${type}`;
-}
-
-/**
- * handle input change for cbr rules
- * @param {*} event
- * @param {Object} stateData
- * @returns object
- */
-function handleRuleInputChange$1(stateData, event) {
-  let {
-    name,
-    value
-  } = event.target;
-  let state = {
-    ...stateData
-  };
-  if (name === "enforcement_mode") {
-    state[name] = value.toLowerCase();
-  } else {
-    state[name] = value;
-  }
-  return state;
-}
-
-/**
- * handle exclusion and address input change
- * @param {*} event
- * @param {Object} stateData
- */
-function handleExclusionAddressInputChange$1(stateData, event) {
-  let {
-    name,
-    value
-  } = event.target;
-  let state = {
-    ...stateData
-  };
-  if (name === "type") state[name] = cbrNameTypeMap[value];else state[name] = value;
-  return state;
-}
-var cbrUtils = {
-  cbrInvalid: cbrInvalid$1,
-  cbrValueInvalid: cbrValueInvalid$1,
-  cbrValuePlaceholder: cbrValuePlaceholder$1,
-  handleRuleInputChange: handleRuleInputChange$1,
-  cbrTypeNameMap: cbrTypeNameMap$1,
-  handleExclusionAddressInputChange: handleExclusionAddressInputChange$1
-};
-var cbrUtils_1 = cbrUtils.cbrInvalid;
-var cbrUtils_2 = cbrUtils.cbrValueInvalid;
-var cbrUtils_3 = cbrUtils.cbrValuePlaceholder;
-var cbrUtils_5 = cbrUtils.cbrTypeNameMap;
-var cbrUtils_6 = cbrUtils.handleExclusionAddressInputChange;
-
-/**
- * custom resolver input change
- * @param {Object} stateData
- * @param {*} event
- * @returns {Object} new state
- */
-function handleDnsResolverInputChange$1(stateData, event) {
-  let {
-    name,
-    value
-  } = event.target;
-  let state = {
-    ...stateData
-  };
-  if (name === "vpc") {
-    state[name] = value;
-    state.subnets = [];
-  } else {
-    state[name] = value;
-  }
-  return state;
-}
-
-/**
- * handle dns form input change
- * @param {*} event 
- * @returns {Object} state update object
- */
-function dnsFormInputChange$1(event) {
-  let {
-    name,
-    value
-  } = event.target;
-  if (name === "plan") value = value.toLowerCase();
-  return {
-    [name]: value
-  };
-}
-var dns = {
-  handleDnsResolverInputChange: handleDnsResolverInputChange$1,
-  dnsFormInputChange: dnsFormInputChange$1
-};
-
-const {
-  RegexButWithWords: RegexButWithWords$1
-} = regexButWithWords__default["default"];
-const {
-  isNullOrEmptyString: isNullOrEmptyString$3
-} = lazyZ__default["default"];
-const urlValidationExp = new RegexButWithWords$1().group(exp => {
-  exp.literal("ftp").or().literal("http").literal("s").lazy();
-}).literal("://").group("www.").lazy().group(exp => {
-  exp.negatedSet('"\\/').oneOrMore().literal(".");
-}).group(exp => {
-  exp.negatedSet('"\\/').oneOrMore().literal(".");
-}).oneOrMore().negatedSet('"\\/.').oneOrMore().literal("/").negatedSet(' "').anyNumber().stringEnd().done("g");
-const tmosAdminPasswordValidationExp = new RegexButWithWords$1().stringBegin().look.ahead(exp => {
-  exp.any().anyNumber().set("a-z");
-}).look.ahead(exp => {
-  exp.any().anyNumber().set("A-Z");
-}).look.ahead(exp => {
-  exp.any().anyNumber().set("0-9");
-}).any(15, "*").stringEnd().done("");
-
-/**
- * url value is valid and not empty
- * @param {str} url
- * @returns {boolean} true when url is valid and not empty, false when invalid
- */
-function isValidUrl$1(url) {
-  if (isNullOrEmptyString$3(url) || url === "null") return true;
-  return url.match(urlValidationExp) !== null;
-}
-
-/**
- * verifies tmos admin password
- * @param {str} password
- * @returns {boolean} true when password is valid
- */
-function isValidTmosAdminPassword$1(password) {
-  if (isNullOrEmptyString$3(password)) return true;else return password.match(tmosAdminPasswordValidationExp) !== null;
-}
-
-/**
- * securely generates a random byte to be transformed into a character
- * @returns {byte} random byte
- */
-function getRandomByte() {
-  var result = new Uint8Array(1);
-  result = window.crypto.getRandomValues(result); // cryptographically secure random number generation
-  return result[0];
-}
-
-/**
- * Checks if the random byte character generated is a valid character in the charset
- * if it is, return the char, add it to the password String
- * @param {int} length
- * @returns {char} a valid char to go into the password
- */
-function generatePassword(length) {
-  const charset = /[a-zA-Z0-9_\-+!$%^&*#]/; // valid chars for the password string
-  return Array.apply(null, {
-    length: length
-  }) // create an array of null of length specified
-  .map(function () {
-    // on each element
-    var result;
-    while (true) {
-      result = String.fromCharCode(getRandomByte()); // generate a char until it is a valid char in the charset
-      if (charset.test(result)) {
-        return result; // char is in the charset
-      }
-    }
-  }, this).join(""); // join all array elements into a single string
-}
-
-/**
- * generates the password until it fits the validation expression
- * @param {int} length
- * @returns {string} password that fits the requirements of the validation expression
- */
-function getValidAdminPassword$1(length) {
-  let invalid = true;
-  let count = 0;
-  let result;
-  do {
-    result = generatePassword(length); // generate a password until it is valid
-    if (tmosAdminPasswordValidationExp.test(result)) {
-      // we are valid if this test passes
-      invalid = false;
-    } else {
-      result = ""; // reset result
-      count++;
-    }
-  } while (invalid && count <= 5); // only be more than 5 times if you specified an invalid length. dummy counter for unit
-  return result;
-}
-var f5 = {
-  getValidAdminPassword: getValidAdminPassword$1,
-  isNullOrEmptyString: isNullOrEmptyString$3,
-  isValidTmosAdminPassword: isValidTmosAdminPassword$1,
-  isValidUrl: isValidUrl$1
-};
-var f5_1 = f5.getValidAdminPassword;
-var f5_2 = f5.isNullOrEmptyString;
-var f5_3 = f5.isValidTmosAdminPassword;
-var f5_4 = f5.isValidUrl;
-
-const {
-  allFieldsNull,
-  transpose
-} = lazyZ__default["default"];
-
-/**
- * get which rule protocol is being used
- * @param {string} rule
- * @returns {string} protocol
- */
-function getRuleProtocol$1(rule) {
-  let protocol = "all";
-  // for each possible protocol
-  ["icmp", "tcp", "udp"].forEach(field => {
-    // set protocol to that field if not all fields are null
-    if (allFieldsNull(rule[field]) === false) {
-      protocol = field;
-    }
-  });
-  return protocol;
-}
-
-/**
- * create sub rule
- * @param {*} rule rule object
- * @param {string} protocol all, tcp, icmp, or udp
- * @param {boolean} isSecurityGroup
- * @returns {Object} default rule object
- */
-function getSubRule$1(rule, isSecurityGroup) {
-  let defaultRule = {
-    port_max: null,
-    port_min: null,
-    source_port_max: null,
-    source_port_min: null,
-    type: null,
-    code: null
-  };
-  if (getRuleProtocol$1(rule) !== "all") {
-    transpose(rule[getRuleProtocol$1(rule)], defaultRule);
-  }
-  if (isSecurityGroup) {
-    delete defaultRule.source_port_min;
-    delete defaultRule.source_port_max;
-  }
-  return defaultRule;
-}
-
-/**
- * Helper function to move items up and down in the list so they can be rendered properly
- * @param {Array} arr
- * @param {number} indexA
- * @param {number} indexB
- */
-function swapArrayElements$1(arr, indexA, indexB) {
-  let temp = arr[indexA];
-  arr[indexA] = arr[indexB];
-  arr[indexB] = temp;
-}
-function getOrderCardClassName$1(props) {
-  return "marginBottomSmall positionRelative " + (props.isSecurityGroup ? "formInSubForm" : "subForm");
-}
-var networkingOrderCard = {
-  getRuleProtocol: getRuleProtocol$1,
-  getSubRule: getSubRule$1,
-  swapArrayElements: swapArrayElements$1,
-  getOrderCardClassName: getOrderCardClassName$1
-};
-
-/**
- * Handle crn input
- * @param {event} event
- */
-function handleCRNs$1(event) {
-  let crns = event.target.value ? event.target.value.replace(/\s\s+/g, "") // replace extra spaces
-  .replace(/,(?=,)/g, "") // prevent null tags from
-  .replace(/[^\w,-:]/g, "").split(",") : [];
-  return {
-    crns: crns
-  };
-}
-
-/**
- * Handle vpc selection
- * @param {Array} selectedItems list of selected vpcs
- * @param {String} tgw transit gateway name
- */
-function handleVpcSelect$1(selectedItems, tgw) {
-  let connections = [];
-  selectedItems.forEach(vpc => {
-    connections.push({
-      tgw: tgw,
-      vpc: vpc
-    });
-  });
-  return {
-    connections: connections
-  };
-}
-var transitGateway = {
-  handleCRNs: handleCRNs$1,
-  handleVpcSelect: handleVpcSelect$1
-};
-
-const {
-  atrackerInputChange
-} = atracker;
-const {
-  cbrInvalid,
-  cbrValueInvalid,
-  cbrValuePlaceholder,
-  handleRuleInputChange,
-  cbrTypeNameMap,
-  handleExclusionAddressInputChange
-} = cbrUtils;
-const {
-  handleDnsResolverInputChange,
-  dnsFormInputChange
-} = dns;
-const {
-  getValidAdminPassword,
-  isNullOrEmptyString: isNullOrEmptyString$2,
-  isValidTmosAdminPassword,
-  isValidUrl
-} = f5;
-const {
-  getRuleProtocol,
-  getSubRule,
-  swapArrayElements,
-  getOrderCardClassName
-} = networkingOrderCard;
-const {
-  handleCRNs,
-  handleVpcSelect
-} = transitGateway;
-var forms = {
-  cbrInvalid,
-  cbrValueInvalid,
-  cbrValuePlaceholder,
-  handleRuleInputChange,
-  cbrTypeNameMap,
-  handleExclusionAddressInputChange,
-  getValidAdminPassword,
-  isNullOrEmptyString: isNullOrEmptyString$2,
-  isValidTmosAdminPassword,
-  isValidUrl,
-  handleDnsResolverInputChange,
-  dnsFormInputChange,
-  atrackerInputChange,
-  handleCRNs,
-  handleVpcSelect,
-  getRuleProtocol,
-  getSubRule,
-  swapArrayElements,
-  getOrderCardClassName
-};
-var forms_1 = forms.cbrInvalid;
-var forms_4 = forms.handleRuleInputChange;
-var forms_11 = forms.handleDnsResolverInputChange;
-var forms_12 = forms.dnsFormInputChange;
-var forms_13 = forms.atrackerInputChange;
-var forms_14 = forms.handleCRNs;
-var forms_15 = forms.handleVpcSelect;
-var forms_16 = forms.getRuleProtocol;
-var forms_17 = forms.getSubRule;
-var forms_18 = forms.swapArrayElements;
-var forms_19 = forms.getOrderCardClassName;
-
 /**
  * Atracker
  * @param {Object} props
@@ -3941,8 +3975,8 @@ class ClusterForm extends React.Component {
     };
     if (this.props.isModal) this.state.worker_pools = [];
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleToggleChange = this.handleToggleChange.bind(this);
     this.handleMultiSelect = this.handleMultiSelect.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
@@ -3960,16 +3994,12 @@ class ClusterForm extends React.Component {
   };
 
   /**
-   * handle toggle change
-   * @param {*} event event
+   * Toggle on and off param in state at name
+   * @param {string} name name of the object key to change
    */
-  handleToggleChange = () => {
-    let cluster = {
-      ...this.state
-    };
-    cluster.update_all_workers = !cluster.update_all_workers;
-    this.setState(cluster);
-  };
+  handleToggle(name) {
+    this.setState(this.toggleStateBoolean(name, this.state));
+  }
 
   /**
    * handle subnet multiselect
@@ -4078,17 +4108,7 @@ class ClusterForm extends React.Component {
       labelText: "Kube Version",
       value: this.state.kube_version || "",
       apiEndpoint: this.props.kubeVersionApiEndpoint,
-      filter: version => {
-        if (this.state.kube_type === "openshift" && version.indexOf("openshift") !== -1 ||
-        // is openshift and contains openshift
-        this.state.kube_type !== "openshift" && version.indexOf("openshift") === -1 ||
-        // is not openshift and does not contain openshift
-        version === "default" // or is default
-        ) {
-          return version.replace(/\s\(Default\)/g, ""); // replace default with empty string
-        }
-      },
-
+      filter: lib_30(version, this.state.kube_type),
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
@@ -4096,7 +4116,7 @@ class ClusterForm extends React.Component {
       labelText: "Update All Workers",
       toggleFieldName: "update_all_workers",
       defaultToggled: this.state.update_all_workers,
-      onToggle: this.handleToggleChange
+      onToggle: this.handleToggle
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       name: "encryption_key",
       formName: clusterComponent + "encryption_key",
@@ -4113,7 +4133,7 @@ class ClusterForm extends React.Component {
       labelText: "Private Endpoint",
       toggleFieldName: "private_endpoint",
       defaultToggled: this.state.private_endpoint,
-      onToggle: this.handleToggleChange
+      onToggle: this.handleToggle
     })), /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, this.props.isModal === false && /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
       name: "Worker Pools",
       subHeading: true,

@@ -7,6 +7,7 @@ const {
   cbrTypeNameMap,
   handleExclusionAddressInputChange,
 } = require("./cbr-utils");
+const { filterKubeVersion } = require("./cluster");
 const { handleDnsResolverInputChange, dnsFormInputChange } = require("./dns");
 const {
   getValidAdminPassword,
@@ -42,4 +43,5 @@ module.exports = {
   getSubRule,
   swapArrayElements,
   getOrderCardClassName,
+  filterKubeVersion,
 };
