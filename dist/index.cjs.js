@@ -2653,7 +2653,7 @@ IcseNameInput.propTypes = {
   className: PropTypes__default["default"].string,
   value: PropTypes__default["default"].string.isRequired,
   onChange: PropTypes__default["default"].func,
-  componentName: PropTypes__default["default"].string.isRequired,
+  componentName: PropTypes__default["default"].string,
   tooltip: PropTypes__default["default"].shape({
     content: PropTypes__default["default"].string.isRequired,
     link: PropTypes__default["default"].string,
@@ -3450,6 +3450,50 @@ var f5_2 = f5.isNullOrEmptyString;
 var f5_3 = f5.isValidTmosAdminPassword;
 var f5_4 = f5.isValidUrl;
 
+/**
+ * f5 vsi input change
+ * @param {Object} stateData
+ * @param {object} event
+ * @returns stateData
+ */
+function f5VsiInputChange$1(stateData, event) {
+  let state = {
+    ...stateData
+  };
+  let {
+    name,
+    value
+  } = event.target;
+  if (name === "zones") state.zones = Number(value);else state[name] = value;
+  return state;
+}
+
+/**
+ * initialize vsis
+ * @param {Object} stateData
+ * @param {Object} componentProps
+ * @returns {array} f5 vsis
+ */
+function f5Vsis(stateData, componentProps) {
+  let vsis = [...componentProps.vsis];
+  while (vsis.length < stateData.zones) {
+    // add a new vsi to display
+    vsis.push(componentProps.initVsiCallback(componentProps.edge_pattern, `zone-${vsis.length + 1}`, componentProps.f5_on_management, {
+      image: stateData.image,
+      resource_group: stateData.resource_group,
+      ssh_keys: stateData.ssh_keys,
+      profile: stateData.profile
+    }));
+  }
+  return vsis;
+}
+var f5Vsi = {
+  f5VsiInputChange: f5VsiInputChange$1,
+  f5Vsis
+};
+var f5Vsi_1 = f5Vsi.f5VsiInputChange;
+var f5Vsi_2 = f5Vsi.f5Vsis;
+
 const {
   allFieldsNull,
   transpose
@@ -3576,6 +3620,9 @@ const {
   isValidUrl
 } = f5;
 const {
+  f5VsiInputChange
+} = f5Vsi;
+const {
   getRuleProtocol,
   getSubRule,
   swapArrayElements,
@@ -3586,6 +3633,7 @@ const {
   handleVpcSelect
 } = transitGateway;
 var forms = {
+  f5VsiInputChange,
   cbrInvalid,
   cbrValueInvalid,
   cbrValuePlaceholder,
@@ -3606,17 +3654,17 @@ var forms = {
   swapArrayElements,
   getOrderCardClassName
 };
-var forms_1 = forms.cbrInvalid;
-var forms_4 = forms.handleRuleInputChange;
-var forms_11 = forms.handleDnsResolverInputChange;
-var forms_12 = forms.dnsFormInputChange;
-var forms_13 = forms.atrackerInputChange;
-var forms_14 = forms.handleCRNs;
-var forms_15 = forms.handleVpcSelect;
-var forms_16 = forms.getRuleProtocol;
-var forms_17 = forms.getSubRule;
-var forms_18 = forms.swapArrayElements;
-var forms_19 = forms.getOrderCardClassName;
+var forms_2 = forms.cbrInvalid;
+var forms_5 = forms.handleRuleInputChange;
+var forms_12 = forms.handleDnsResolverInputChange;
+var forms_13 = forms.dnsFormInputChange;
+var forms_14 = forms.atrackerInputChange;
+var forms_15 = forms.handleCRNs;
+var forms_16 = forms.handleVpcSelect;
+var forms_17 = forms.getRuleProtocol;
+var forms_18 = forms.getSubRule;
+var forms_19 = forms.swapArrayElements;
+var forms_20 = forms.getOrderCardClassName;
 
 /**
  * Atracker
@@ -3650,7 +3698,7 @@ class AtrackerForm extends React.Component {
    * @param {*} value value to update
    */
   handleInputChange(event) {
-    this.setState(forms_13(this.state, event));
+    this.setState(forms_14(this.state, event));
   }
 
   /**
@@ -4631,17 +4679,7 @@ class F5VsiForm extends React.Component {
     buildFormDefaultInputMethods(this);
   }
   handleInputChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    if (name === "zones") {
-      this.setState({
-        zones: Number(value)
-      });
-    } else this.setState({
-      [name]: value
-    });
+    this.setState(f5Vsi_1(this.state, event));
   }
   handleMultiSelectChange(name, value) {
     this.setState(this.setNameToValue(name, value));
@@ -4650,16 +4688,7 @@ class F5VsiForm extends React.Component {
     this.props.saveVsiCallback(stateData);
   }
   render() {
-    let vsis = [...this.props.vsis];
-    while (vsis.length < this.state.zones) {
-      // add a new vsi to display
-      vsis.push(this.props.initVsiCallback(this.props.edge_pattern, `zone-${vsis.length + 1}`, this.props.f5_on_management, {
-        image: this.state.image,
-        resource_group: this.state.resource_group,
-        ssh_keys: this.state.ssh_keys,
-        profile: this.state.profile
-      }));
-    }
+    let vsis = f5Vsi_2(this.state, this.props);
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       formName: "f5_vsi_form",
       name: "zones",
@@ -4701,7 +4730,7 @@ class F5VsiForm extends React.Component {
     }), /*#__PURE__*/React__default["default"].createElement("div", {
       className: "displayFlex evenSpacing"
     }, vsis.map((instance, index) => {
-      if (index < this.state.zones) return /*#__PURE__*/React__default["default"].createElement(F5VsiTile, {
+      return /*#__PURE__*/React__default["default"].createElement(F5VsiTile, {
         key: "f5-vsi-tile" + JSON.stringify(instance) + index,
         data: instance,
         hide: false,
@@ -4719,18 +4748,16 @@ class F5VsiForm extends React.Component {
 class F5VsiTile extends React__default["default"].Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = {
+      ...this.props.data
+    };
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.shouldHideSave = this.shouldHideSave.bind(this);
   }
   handleInputChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    this.setState({
-      [name]: value
-    });
+    this.setState(this.eventTargetToNameAndValue(event));
   }
   shouldHideSave() {
     return this.props.hideSaveCallback(this.state, this.props);
@@ -4755,12 +4782,12 @@ class F5VsiTile extends React__default["default"].Component {
       className: "marginBottomSmall"
     }, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       id: this.state.name,
-      componentName: "f5_vsi_form",
       value: this.state.name,
       onChange: this.handleInputChange,
       useData: true,
       readOnly: true,
-      invalidCallback: () => {},
+      invalidCallback: () => {} // empty stuff for required prop
+      ,
       invalidText: "",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
@@ -4786,6 +4813,29 @@ class F5VsiTile extends React__default["default"].Component {
     })));
   }
 }
+F5VsiTile.defaultProps = {
+  data: {
+    name: "",
+    resource_group: "",
+    encryption_key: ""
+  },
+  hide: false
+};
+F5VsiTile.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    resource_group: PropTypes__default["default"].string.isRequired,
+    encryption_key: PropTypes__default["default"].string.isRequired
+  }),
+  hide: PropTypes__default["default"].bool.isRequired,
+  onSave: PropTypes__default["default"].func.isRequired,
+  totalZones: PropTypes__default["default"].number.isRequired,
+  index: PropTypes__default["default"].number.isRequired,
+  resourceGroups: PropTypes__default["default"].array.isRequired,
+  encryptionKeys: PropTypes__default["default"].array.isRequired,
+  hideSaveCallback: PropTypes__default["default"].func.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired
+};
 F5VsiForm.defaultProps = {
   data: {
     zones: 0,
@@ -6103,7 +6153,7 @@ class NetworkingRulesOrderCard extends React.Component {
   handleUp(index) {
     let prevRulesState = [...this.state.rules];
     if (index !== 0) {
-      forms_18(prevRulesState, index, index - 1);
+      forms_19(prevRulesState, index, index - 1);
     }
     this.props.networkRuleOrderDidChange(prevRulesState);
     this.setState({
@@ -6119,7 +6169,7 @@ class NetworkingRulesOrderCard extends React.Component {
     let prevRulesState = [...this.state.rules];
     let maxLen = prevRulesState.length - 1;
     if (index !== maxLen) {
-      forms_18(prevRulesState, index, index + 1);
+      forms_19(prevRulesState, index, index + 1);
     }
     this.props.networkRuleOrderDidChange(prevRulesState);
     this.setState({
@@ -6196,7 +6246,7 @@ class NetworkingRulesOrderCard extends React.Component {
       showIfEmpty: this.state.rules
     }), this.state.rules.map((rule, index) => /*#__PURE__*/React__default["default"].createElement("div", {
       key: "rule-div-" + rule.name + "-wrapper",
-      className: forms_19(this.props)
+      className: forms_20(this.props)
     }, /*#__PURE__*/React__default["default"].createElement(NetworkingRuleForm, {
       hide: this.state.collapse[rule.name],
       onToggle: () => this.toggleCollapse(rule.name),
@@ -6214,8 +6264,8 @@ class NetworkingRulesOrderCard extends React.Component {
         direction: rule.direction,
         source: rule.source,
         destination: rule.destination || null,
-        ruleProtocol: forms_16(rule),
-        rule: forms_17(rule, this.props.isSecurityGroup)
+        ruleProtocol: forms_17(rule),
+        rule: forms_18(rule, this.props.isSecurityGroup)
       },
       disableSaveCallback: this.props.disableSaveCallback,
       isSecurityGroup: this.props.isSecurityGroup,
@@ -8228,7 +8278,7 @@ class TransitGatewayForm extends React.Component {
    * @param {event} event
    */
   handleCRNs(event) {
-    this.setState(forms_14(event));
+    this.setState(forms_15(event));
   }
 
   /**
@@ -8236,7 +8286,7 @@ class TransitGatewayForm extends React.Component {
    * @param {Array} selectedItems
    */
   handleVpcSelect(selectedItems) {
-    this.setState(forms_15(selectedItems, this.state.name));
+    this.setState(forms_16(selectedItems, this.state.name));
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
@@ -9286,7 +9336,9 @@ VsiVolumeForm.propTypes = {
 class VsiForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = {
+      ...this.props.data
+    };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
@@ -10587,7 +10639,7 @@ class CbrRuleForm extends React.Component {
     buildFormFunctions(this);
   }
   handleInputChange(event) {
-    this.setState(forms_4(this.state, event));
+    this.setState(forms_5(this.state, event));
   }
   render() {
     // set up props for subforms
@@ -10987,7 +11039,7 @@ class CbrZoneForm extends React.Component {
       labelText: "Account ID" // needed to override titlecase capitalization
       ,
       onChange: this.handleInputChange
-    }, forms_1("account_id", this.state.account_id)))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
+    }, forms_2("account_id", this.state.account_id)))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
       id: this.props.data.name + "-cbr-zone-description",
       className: "textInputWide",
       name: "description",
@@ -11407,7 +11459,7 @@ class DnsCustomResolverForm extends React__default["default"].Component {
    * @param {*} value value to update
    */
   handleInputChange(event) {
-    this.setState(forms_11(this.state, event));
+    this.setState(forms_12(this.state, event));
   }
 
   /**
@@ -11528,7 +11580,7 @@ class DnsForm extends React.Component {
     buildFormFunctions(this);
   }
   handleInputChange(event) {
-    this.setState(forms_12(event));
+    this.setState(forms_13(event));
   }
   render() {
     // set up props for subforms
