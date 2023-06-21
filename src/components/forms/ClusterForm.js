@@ -26,6 +26,7 @@ class ClusterForm extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleMultiSelect = this.handleMultiSelect.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
+    this.filterVersion = this.filterVersion.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
@@ -51,6 +52,15 @@ class ClusterForm extends Component {
    */
   handleMultiSelect(name, event) {
     this.setState({ [name]: event });
+  }
+
+  /**
+   * filter function for kube version select
+   * @param {string} version
+   * @returns {string} version
+   */
+  filterVersion(version) {
+    return filterKubeVersion(version, this.state.kube_type);
   }
 
   render() {
@@ -197,7 +207,7 @@ class ClusterForm extends Component {
             labelText="Kube Version"
             value={this.state.kube_version || ""}
             apiEndpoint={this.props.kubeVersionApiEndpoint}
-            filter={filterKubeVersion(version, this.state.kube_type)}
+            filter={this.filterVersion}
             handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"
           />
