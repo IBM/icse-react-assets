@@ -13,6 +13,7 @@ import {
   contains,
   titleCase,
 } from "lazy-z";
+import { routingTableRouteInputChange } from "../../lib/forms/routing-table";
 
 class RoutingTableRouteForm extends Component {
   constructor(props) {
@@ -35,15 +36,7 @@ class RoutingTableRouteForm extends Component {
    * @param {*} value value to update
    */
   handleInputChange(event) {
-    let nextState = { ...this.state };
-    let { name, value } = event.target;
-    nextState[name] = value;
-    if (name === "action" && value !== "deliver") {
-      nextState.next_hop = "0.0.0.0";
-    } else if (name === "action") {
-      nextState.next_hop = null;
-    }
-    this.setState(nextState);
+    this.setState(routingTableRouteInputChange(this.state, event));
   }
 
   render() {
@@ -51,7 +44,6 @@ class RoutingTableRouteForm extends Component {
       <>
         <IcseFormGroup>
           <IcseNameInput
-            componentName="routing-table-route"
             id={this.props.data.name + "-route-name"}
             hideHelperText
             value={this.state.name}
@@ -72,7 +64,6 @@ class RoutingTableRouteForm extends Component {
           />
           <IcseTextInput
             id={this.props.data.name + "-route-destination"}
-            componentName="routing-route-destination"
             name="destination"
             field="destination"
             value={this.state.destination}
@@ -93,15 +84,13 @@ class RoutingTableRouteForm extends Component {
             groups={["Delegate", "Deliver", "Delegate VPC", "Drop"]}
             labelText="Action"
             handleInputChange={this.handleInputChange}
-            value={titleCase(this.state.action).replace(/V P C/g, "VPC")}
+            value={titleCase(this.state.action)}
             className="fieldWidthSmaller"
           />
           <IcseTextInput
             id={this.props.data.name + "-next-hop"}
-            componentName="routing-next-hop"
             field="next_hop"
             value={this.state.next_hop}
-            labelText="Next Hop"
             placeholder="x.x.x.x"
             invalidCallback={() =>
               isNullOrEmptyString(this.state.next_hop) ||

@@ -1,4 +1,5 @@
 const { atrackerInputChange } = require("./atracker");
+const { handleRgToggle } = require("./resource-groups");
 const {
   cbrInvalid,
   cbrValueInvalid,
@@ -21,11 +22,13 @@ const {
   swapArrayElements,
   getOrderCardClassName,
 } = require("./networking-order-card");
+const { routingTableRouteInputChange } = require("./routing-table");
 const { handleCRNs, handleVpcSelect } = require("./transit-gateway");
 
 module.exports = {
   f5Vsis,
   f5VsiInputChange,
+  routingTableRouteInputChange,
   cbrInvalid,
   cbrValueInvalid,
   cbrValuePlaceholder,
@@ -39,6 +42,7 @@ module.exports = {
   handleDnsResolverInputChange,
   dnsFormInputChange,
   atrackerInputChange,
+  handleRgToggle,
   handleCRNs,
   handleVpcSelect,
   getRuleProtocol,
