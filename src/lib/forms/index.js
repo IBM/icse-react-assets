@@ -15,6 +15,7 @@ const {
   isValidTmosAdminPassword,
   isValidUrl,
 } = require("./f5");
+const { f5VsiInputChange, f5Vsis } = require("./f5-vsi");
 const {
   getRuleProtocol,
   getSubRule,
@@ -25,6 +26,8 @@ const { routingTableRouteInputChange } = require("./routing-table");
 const { handleCRNs, handleVpcSelect } = require("./transit-gateway");
 
 module.exports = {
+  f5Vsis,
+  f5VsiInputChange,
   routingTableRouteInputChange,
   cbrInvalid,
   cbrValueInvalid,
