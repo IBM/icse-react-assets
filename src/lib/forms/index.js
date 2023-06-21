@@ -21,9 +21,11 @@ const {
   swapArrayElements,
   getOrderCardClassName,
 } = require("./networking-order-card");
+const { routingTableRouteInputChange } = require("./routing-table");
 const { handleCRNs, handleVpcSelect } = require("./transit-gateway");
 
 module.exports = {
+  routingTableRouteInputChange,
   cbrInvalid,
   cbrValueInvalid,
   cbrValuePlaceholder,

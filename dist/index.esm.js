@@ -3532,6 +3532,32 @@ var networkingOrderCard = {
 };
 
 /**
+ * handle input change for routing tables
+ * @param {Object} stateData
+ * @param Object event
+ */
+function routingTableRouteInputChange$1(stateData, event) {
+  let state = {
+    ...stateData
+  };
+  let {
+    name,
+    value
+  } = event.target;
+  state[name] = value;
+  if (name === "action" && value !== "deliver") {
+    state.next_hop = "0.0.0.0";
+  } else if (name === "action") {
+    state.next_hop = null;
+  }
+  return state;
+}
+var routingTable = {
+  routingTableRouteInputChange: routingTableRouteInputChange$1
+};
+var routingTable_1 = routingTable.routingTableRouteInputChange;
+
+/**
  * Handle crn input
  * @param {event} event
  */
@@ -3597,10 +3623,14 @@ const {
   getOrderCardClassName
 } = networkingOrderCard;
 const {
+  routingTableRouteInputChange
+} = routingTable;
+const {
   handleCRNs,
   handleVpcSelect
 } = transitGateway;
 var forms = {
+  routingTableRouteInputChange,
   cbrInvalid,
   cbrValueInvalid,
   cbrValuePlaceholder,
@@ -3622,18 +3652,18 @@ var forms = {
   swapArrayElements,
   getOrderCardClassName
 };
-var forms_1 = forms.cbrInvalid;
-var forms_4 = forms.handleRuleInputChange;
-var forms_11 = forms.handleDnsResolverInputChange;
-var forms_12 = forms.dnsFormInputChange;
-var forms_13 = forms.atrackerInputChange;
-var forms_14 = forms.handleRgToggle;
-var forms_15 = forms.handleCRNs;
-var forms_16 = forms.handleVpcSelect;
-var forms_17 = forms.getRuleProtocol;
-var forms_18 = forms.getSubRule;
-var forms_19 = forms.swapArrayElements;
-var forms_20 = forms.getOrderCardClassName;
+var forms_2 = forms.cbrInvalid;
+var forms_5 = forms.handleRuleInputChange;
+var forms_12 = forms.handleDnsResolverInputChange;
+var forms_13 = forms.dnsFormInputChange;
+var forms_14 = forms.atrackerInputChange;
+var forms_15 = forms.handleRgToggle;
+var forms_16 = forms.handleCRNs;
+var forms_17 = forms.handleVpcSelect;
+var forms_18 = forms.getRuleProtocol;
+var forms_19 = forms.getSubRule;
+var forms_20 = forms.swapArrayElements;
+var forms_21 = forms.getOrderCardClassName;
 
 /**
  * Atracker
@@ -3667,7 +3697,7 @@ class AtrackerForm extends Component {
    * @param {*} value value to update
    */
   handleInputChange(event) {
-    this.setState(forms_13(this.state, event));
+    this.setState(forms_14(this.state, event));
   }
 
   /**
@@ -6120,7 +6150,7 @@ class NetworkingRulesOrderCard extends Component {
   handleUp(index) {
     let prevRulesState = [...this.state.rules];
     if (index !== 0) {
-      forms_19(prevRulesState, index, index - 1);
+      forms_20(prevRulesState, index, index - 1);
     }
     this.props.networkRuleOrderDidChange(prevRulesState);
     this.setState({
@@ -6136,7 +6166,7 @@ class NetworkingRulesOrderCard extends Component {
     let prevRulesState = [...this.state.rules];
     let maxLen = prevRulesState.length - 1;
     if (index !== maxLen) {
-      forms_19(prevRulesState, index, index + 1);
+      forms_20(prevRulesState, index, index + 1);
     }
     this.props.networkRuleOrderDidChange(prevRulesState);
     this.setState({
@@ -6213,7 +6243,7 @@ class NetworkingRulesOrderCard extends Component {
       showIfEmpty: this.state.rules
     }), this.state.rules.map((rule, index) => /*#__PURE__*/React.createElement("div", {
       key: "rule-div-" + rule.name + "-wrapper",
-      className: forms_20(this.props)
+      className: forms_21(this.props)
     }, /*#__PURE__*/React.createElement(NetworkingRuleForm, {
       hide: this.state.collapse[rule.name],
       onToggle: () => this.toggleCollapse(rule.name),
@@ -6231,8 +6261,8 @@ class NetworkingRulesOrderCard extends Component {
         direction: rule.direction,
         source: rule.source,
         destination: rule.destination || null,
-        ruleProtocol: forms_17(rule),
-        rule: forms_18(rule, this.props.isSecurityGroup)
+        ruleProtocol: forms_18(rule),
+        rule: forms_19(rule, this.props.isSecurityGroup)
       },
       disableSaveCallback: this.props.disableSaveCallback,
       isSecurityGroup: this.props.isSecurityGroup,
@@ -6750,7 +6780,7 @@ class ResourceGroupForm extends Component {
    * @param {string} name name of the object key to change
    */
   handleToggle(name) {
-    this.setState(forms_14(this.state, name));
+    this.setState(forms_15(this.state, name));
   }
 
   /**
@@ -6838,24 +6868,10 @@ class RoutingTableRouteForm extends Component {
    * @param {*} value value to update
    */
   handleInputChange(event) {
-    let nextState = {
-      ...this.state
-    };
-    let {
-      name,
-      value
-    } = event.target;
-    nextState[name] = value;
-    if (name === "action" && value !== "deliver") {
-      nextState.next_hop = "0.0.0.0";
-    } else if (name === "action") {
-      nextState.next_hop = null;
-    }
-    this.setState(nextState);
+    this.setState(routingTable_1(this.state, event));
   }
   render() {
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
-      componentName: "routing-table-route",
       id: this.props.data.name + "-route-name",
       hideHelperText: true,
       value: this.state.name,
@@ -6874,7 +6890,6 @@ class RoutingTableRouteForm extends Component {
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: this.props.data.name + "-route-destination",
-      componentName: "routing-route-destination",
       name: "destination",
       field: "destination",
       value: this.state.destination,
@@ -6890,14 +6905,12 @@ class RoutingTableRouteForm extends Component {
       groups: ["Delegate", "Deliver", "Delegate VPC", "Drop"],
       labelText: "Action",
       handleInputChange: this.handleInputChange,
-      value: titleCase$2(this.state.action).replace(/V P C/g, "VPC"),
+      value: titleCase$2(this.state.action),
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: this.props.data.name + "-next-hop",
-      componentName: "routing-next-hop",
       field: "next_hop",
       value: this.state.next_hop,
-      labelText: "Next Hop",
       placeholder: "x.x.x.x",
       invalidCallback: () => isNullOrEmptyString$6(this.state.next_hop) || isIpv4CidrOrAddress$2(this.state.next_hop) === false || contains$2(this.state.next_hop, `/`),
       invalidText: "Next hop must be a valid IP",
@@ -8235,7 +8248,7 @@ class TransitGatewayForm extends Component {
    * @param {event} event
    */
   handleCRNs(event) {
-    this.setState(forms_15(event));
+    this.setState(forms_16(event));
   }
 
   /**
@@ -8243,7 +8256,7 @@ class TransitGatewayForm extends Component {
    * @param {Array} selectedItems
    */
   handleVpcSelect(selectedItems) {
-    this.setState(forms_16(selectedItems, this.state.name));
+    this.setState(forms_17(selectedItems, this.state.name));
   }
   render() {
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
@@ -10594,7 +10607,7 @@ class CbrRuleForm extends Component {
     buildFormFunctions(this);
   }
   handleInputChange(event) {
-    this.setState(forms_4(this.state, event));
+    this.setState(forms_5(this.state, event));
   }
   render() {
     // set up props for subforms
@@ -10994,7 +11007,7 @@ class CbrZoneForm extends Component {
       labelText: "Account ID" // needed to override titlecase capitalization
       ,
       onChange: this.handleInputChange
-    }, forms_1("account_id", this.state.account_id)))), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
+    }, forms_2("account_id", this.state.account_id)))), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
       id: this.props.data.name + "-cbr-zone-description",
       className: "textInputWide",
       name: "description",
@@ -11414,7 +11427,7 @@ class DnsCustomResolverForm extends React.Component {
    * @param {*} value value to update
    */
   handleInputChange(event) {
-    this.setState(forms_11(this.state, event));
+    this.setState(forms_12(this.state, event));
   }
 
   /**
@@ -11535,7 +11548,7 @@ class DnsForm extends Component {
     buildFormFunctions(this);
   }
   handleInputChange(event) {
-    this.setState(forms_12(event));
+    this.setState(forms_13(event));
   }
   render() {
     // set up props for subforms
