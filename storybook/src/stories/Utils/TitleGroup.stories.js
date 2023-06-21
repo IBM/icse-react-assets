@@ -9,7 +9,8 @@ export default {
   },
   argTypes: {
     hide: {
-      description: "A boolean value for if the title group should have a margin bottom added", // description
+      description:
+        "A boolean value for if the title group should have a margin bottom added", // description
       type: { required: true }, // required prop or not
       control: "boolean",
       table: { defaultValue: { summary: "false" } },

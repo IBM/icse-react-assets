@@ -52,7 +52,10 @@ class SubnetForm extends React.Component {
     return (
       <Tile
         key={this.props.vpc_name + "-subnets-" + this.props.data.name}
-        className={"marginRightSubnetTile fieldWidth " + (this.props.isModal ? "formInSubForm" : "subForm")}
+        className={
+          "marginRightSubnetTile fieldWidth " +
+          (this.props.isModal ? "formInSubForm" : "subForm")
+        }
       >
         <IcseHeading
           name={this.props.data.name || "New Subnet"}
@@ -133,7 +136,11 @@ class SubnetForm extends React.Component {
             className="fieldWidthSmaller"
             disabled={this.props.isModal || this.props.readOnly}
             disableInvalid={this.props.isModal || this.props.readOnly}
-            invalid={this.props.isModal || this.props.readOnly ? false : isNullOrEmptyString(this.state.network_acl)}
+            invalid={
+              this.props.isModal || this.props.readOnly
+                ? false
+                : isNullOrEmptyString(this.state.network_acl)
+            }
             invalidText="Select a Network ACL."
           />
         </IcseFormGroup>
