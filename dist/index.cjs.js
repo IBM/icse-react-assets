@@ -3671,6 +3671,9 @@ function onCheckClick$1(items, ref, secrets) {
   } else {
     selected = [...items].concat([ref]);
   }
+  if (selected.length < secrets.length + 1 && contains$1(selected, "Select All")) {
+    selected.shift();
+  }
   return selected;
 }
 var secretsManager = {

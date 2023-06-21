@@ -19,6 +19,12 @@ function onCheckClick(items, ref, secrets) {
   } else {
     selected = [...items].concat([ref]);
   }
+  if (
+    selected.length < secrets.length + 1 &&
+    contains(selected, "Select All")
+  ) {
+    selected.shift();
+  }
   return selected;
 }
 

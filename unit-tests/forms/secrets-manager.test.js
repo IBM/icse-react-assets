@@ -5,7 +5,7 @@ describe("secrets manager", () => {
   describe("onCheckClick", () => {
     it("should return empty array when ref is select all", () => {
       assert.deepEqual(
-        onCheckClick(["Select All"], "Select All"),
+        onCheckClick(["Select All"], "Select All", []),
         [],
         "it should return correct selected"
       );
@@ -49,6 +49,20 @@ describe("secrets manager", () => {
           },
         ]),
         ["world", "hello"],
+        "it should return correct selected"
+      );
+    });
+    it("should add an item when clicked and remove select all", () => {
+      assert.deepEqual(
+        onCheckClick(["Select All"], "hello", [
+          {
+            ref: "hello",
+          },
+          {
+            ref: "world",
+          },
+        ]),
+        ["hello"],
         "it should return correct selected"
       );
     });
