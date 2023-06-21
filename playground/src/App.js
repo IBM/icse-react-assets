@@ -54,8 +54,8 @@ const NetworkingRulesOrderCardSgStory = () => {
           name: "allow-ibm-inbound",
           source: "161.26.0.0/16",
           icmp: {
-            type: null,
-            code: null,
+            type: 22,
+            code: 22,
           },
           tcp: {
             port_min: null,
@@ -81,10 +81,10 @@ const NetworkingRulesOrderCardSgStory = () => {
             code: null,
           },
           tcp: {
-            port_min: null,
-            port_max: null,
-            source_port_min: null,
-            source_port_max: null,
+            port_min: 23,
+            port_max: 25,
+            source_port_min: 24444,
+            source_port_max: 24445,
           },
           udp: {
             port_min: null,

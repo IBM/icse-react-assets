@@ -46,7 +46,6 @@ describe("f5_vsi", () => {
         ssh_keys: ["ssh-key"],
         profile: "profile",
       };
-
       const componentProps = {
         vsis: [],
         edge_pattern: "edge-pattern",
@@ -60,7 +59,6 @@ describe("f5_vsi", () => {
           };
         },
       };
-
       const expectedVsis = [
         {
           pattern: "edge-pattern",
@@ -96,7 +94,6 @@ describe("f5_vsi", () => {
           },
         },
       ];
-
       const result = f5Vsis(stateData, componentProps);
       assert.deepStrictEqual(result, expectedVsis);
     });
