@@ -1,6 +1,5 @@
 import React from "react";
-import { RoutingTableForm } from "icse-react-assets";
-import { contains } from "lazy-z";
+import { RoutingTableForm, IcseModal } from "icse-react-assets";
 
 export default {
   component: RoutingTableForm,
@@ -114,4 +113,66 @@ const RoutingTableRouteFormStory = () => {
   );
 };
 
+const RoutingTableFormModalStory = () => {
+  return (
+    <IcseModal
+      heading="Routing Table Modal"
+      open={true}
+      primaryButtonText="Create"
+      onRequestSubmit={() => {}}
+      onRequestClose={() => {}}
+    >
+      <RoutingTableForm
+        invalidCallback={(stateData, componentProps) => {
+          return true;
+        }}
+        invalidTextCallback={(stateData, componentProps) => {
+          return "Invalid Text";
+        }}
+        invalidRouteCallback={(stateData, componentProps) => {
+          return true;
+        }}
+        invalidRouteTextCallback={(stateData, componentProps) => {
+          return "Invalid Text";
+        }}
+        data={{
+          name: "table",
+          vpc: "management",
+          routes: [
+            {
+              name: "route",
+              zone: 1,
+              destination: "8.8.8.8",
+              action: "drop",
+            },
+          ],
+        }}
+        propsMatchState={() => {
+          return false;
+        }}
+        isModal={true}
+        vpcList={["management", "workload"]}
+        routeProps={{
+          disableSave: function () {
+            return false;
+          },
+          onDelete: function () {
+            return false;
+          },
+          onSave: function () {
+            return false;
+          },
+          onSubmit: function () {
+            return false;
+          },
+          propsMatchState: function () {
+            return false;
+          },
+        }}
+      />
+    </IcseModal>
+  );
+};
+
 export const Default = RoutingTableRouteFormStory.bind({});
+export const Modal = RoutingTableFormModalStory.bind({});

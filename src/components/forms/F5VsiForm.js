@@ -11,26 +11,21 @@ import { FetchSelect, IcseSelect } from "../Dropdowns";
 import { IcseNameInput } from "../Inputs";
 import { SshKeyMultiSelect } from "../MultiSelects";
 import { DynamicRender, IcseFormGroup, IcseHeading } from "../Utils";
+import { f5VsiInputChange, f5Vsis } from "../../lib/forms/f5-vsi";
 
 class F5VsiForm extends Component {
   constructor(props) {
     super(props);
-
     this.state = { ...this.props.data };
-
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
     this.handleVsiSave = this.handleVsiSave.bind(this);
-
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
 
   handleInputChange(event) {
-    let { name, value } = event.target;
-    if (name === "zones") {
-      this.setState({ zones: Number(value) });
-    } else this.setState({ [name]: value });
+    this.setState(f5VsiInputChange(this.state, event));
   }
 
   handleMultiSelectChange(name, value) {
@@ -42,24 +37,7 @@ class F5VsiForm extends Component {
   }
 
   render() {
-    let vsis = [...this.props.vsis];
-
-    while (vsis.length < this.state.zones) {
-      // add a new vsi to display
-      vsis.push(
-        this.props.initVsiCallback(
-          this.props.edge_pattern,
-          `zone-${vsis.length + 1}`,
-          this.props.f5_on_management,
-          {
-            image: this.state.image,
-            resource_group: this.state.resource_group,
-            ssh_keys: this.state.ssh_keys,
-            profile: this.state.profile,
-          }
-        )
-      );
-    }
+    let vsis = f5Vsis(this.state, this.props);
 
     return (
       <>
@@ -117,21 +95,19 @@ class F5VsiForm extends Component {
             />
             <div className="displayFlex evenSpacing">
               {vsis.map((instance, index) => {
-                if (index < this.state.zones)
-                  return (
-                    <F5VsiTile
-                      key={"f5-vsi-tile" + JSON.stringify(instance) + index}
-                      data={instance}
-                      hide={false}
-                      onSave={this.handleVsiSave}
-                      totalZones={this.state.zones}
-                      index={index}
-                      resourceGroups={this.props.resourceGroups}
-                      encryptionKeys={this.props.encryptionKeys}
-                      hideSaveCallback={this.props.hideSaveCallback}
-                      propsMatchState={this.props.propsMatchState}
-                    />
-                  );
+                return (
+                  <F5VsiTile
+                    key={"f5-vsi-tile" + JSON.stringify(instance) + index}
+                    data={instance}
+                    hide={this.props.hideSaveCallback(instance)}
+                    onSave={this.handleVsiSave}
+                    totalZones={this.state.zones}
+                    index={index}
+                    resourceGroups={this.props.resourceGroups}
+                    encryptionKeys={this.props.encryptionKeys}
+                    propsMatchState={this.props.propsMatchState}
+                  />
+                );
               })}
             </div>
           </div>
@@ -144,20 +120,14 @@ class F5VsiForm extends Component {
 class F5VsiTile extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = this.props.data;
-
+    this.state = { ...this.props.data };
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.shouldHideSave = this.shouldHideSave.bind(this);
   }
 
   handleInputChange(event) {
-    let { name, value } = event.target;
-    this.setState({ [name]: value });
-  }
-
-  shouldHideSave() {
-    return this.props.hideSaveCallback(this.state, this.props);
+    this.setState(this.eventTargetToNameAndValue(event));
   }
 
   render() {
@@ -169,7 +139,7 @@ class F5VsiTile extends React.Component {
           className="marginBottomSmall"
           buttons={
             <DynamicRender
-              hide={this.shouldHideSave(this.state, this.props)}
+              hide={this.props.hide}
               show={
                 <SaveAddButton
                   name={this.props.name}
@@ -188,13 +158,12 @@ class F5VsiTile extends React.Component {
         <IcseFormGroup className="marginBottomSmall">
           <IcseNameInput
             id={this.state.name}
-            componentName={"f5_vsi_form"}
             value={this.state.name}
             onChange={this.handleInputChange}
             useData
             readOnly
-            invalidCallback={() => {}}
-            invalidText={""}
+            invalidCallback={() => {}} // empty stuff for required prop
+            invalidText=""
             className="fieldWidthSmaller"
           />
         </IcseFormGroup>
@@ -224,6 +193,31 @@ class F5VsiTile extends React.Component {
     );
   }
 }
+
+F5VsiTile.defaultProps = {
+  data: {
+    name: "",
+    resource_group: "",
+    encryption_key: "",
+  },
+  hide: false,
+};
+
+F5VsiTile.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    resource_group: PropTypes.string.isRequired,
+    encryption_key: PropTypes.string.isRequired,
+  }),
+  hide: PropTypes.bool.isRequired,
+  onSave: PropTypes.func.isRequired,
+  totalZones: PropTypes.number.isRequired,
+  index: PropTypes.number.isRequired,
+  resourceGroups: PropTypes.array.isRequired,
+  encryptionKeys: PropTypes.array.isRequired,
+  hideSaveCallback: PropTypes.func.isRequired,
+  propsMatchState: PropTypes.func.isRequired,
+};
 
 F5VsiForm.defaultProps = {
   data: {

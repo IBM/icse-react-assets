@@ -236,7 +236,6 @@ const SubnetTierFormStory = () => {
   );
 };
 
-
 const SubnetTierFormModalStory = () => {
   function invalidCallback(stateData, componentProps) {
     return false;
@@ -297,7 +296,7 @@ const SubnetTierFormModalStory = () => {
         networkAcl: "example-acl-1",
         addPublicGateway: false,
       }}
-      disableModal={()=>{}}
+      disableModal={() => {}}
       shouldDisableSave={shouldDisableSave}
       shouldDisableSubmit={shouldDisableSave}
       disableSubnetSaveCallback={disableSubnetSaveCallback}
