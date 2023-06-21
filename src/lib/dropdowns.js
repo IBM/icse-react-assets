@@ -3,7 +3,7 @@ const { prependEmptyStringWhenNull } = require("./form-utils");
 
 /**
  * generate parameters for icse select
- * @param {*} props 
+ * @param {*} props
  * @returns {Object} parameters
  */
 function icseSelectParams(props) {

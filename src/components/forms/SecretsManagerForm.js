@@ -4,9 +4,12 @@ import {
   buildFormFunctions,
 } from "../component-utils";
 import { IcseNameInput } from "../Inputs";
-import { IcseFormGroup } from "../Utils";
+import { IcseFormGroup, StatelessToggleForm } from "../Utils";
 import PropTypes from "prop-types";
 import { IcseSelect } from "../Dropdowns";
+import { SecretsManagerChecklist } from "../..";
+import { getObjectFromArray, splat } from "lazy-z";
+import "./secrets-manager.css";
 
 /**
  * SecretsManagerForm
@@ -15,8 +18,13 @@ import { IcseSelect } from "../Dropdowns";
 class SecretsManagerForm extends Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = {
+      ...this.props.data,
+      importToggle: true,
+    };
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.toggleImportSecrets = this.toggleImportSecrets.bind(this);
+    this.onSelectChange = this.onSelectChange.bind(this);
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
   }
@@ -27,6 +35,24 @@ class SecretsManagerForm extends Component {
    */
   handleInputChange(event) {
     this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  toggleImportSecrets() {
+    this.setState(this.toggleStateBoolean("importToggle", this.state));
+  }
+
+  onSelectChange(items) {
+    let nextSecrets = [];
+    items.forEach((item) => {
+      if (item !== "Select All") {
+        nextSecrets.push(
+          getObjectFromArray(this.props.data.secrets, "ref", item)
+        );
+      }
+    });
+    this.setState({
+      secrets: nextSecrets,
+    });
   }
 
   render() {
@@ -68,6 +94,21 @@ class SecretsManagerForm extends Component {
             handleInputChange={this.handleInputChange}
           />
         </div>
+        <br />
+        <StatelessToggleForm
+          name="Import Existing Secrets"
+          hide={this.state.importToggle}
+          onIconClick={this.toggleImportSecrets}
+          className="subForm secretsChecklistPadding"
+          toggleFormTitle
+          noMarginBottom
+        >
+          <SecretsManagerChecklist
+            secrets={this.props.secrets}
+            selected={[...splat(this.props.data.secrets, "ref")]}
+            onSelectChange={this.onSelectChange}
+          />
+        </StatelessToggleForm>
       </>
     );
   }

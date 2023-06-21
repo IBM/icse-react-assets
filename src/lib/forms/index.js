@@ -24,6 +24,7 @@ const {
 } = require("./networking-order-card");
 const { routingTableRouteInputChange } = require("./routing-table");
 const { handleCRNs, handleVpcSelect } = require("./transit-gateway");
+const { onCheckClick } = require("./secrets-manager");
 
 module.exports = {
   f5Vsis,
@@ -49,4 +50,5 @@ module.exports = {
   getSubRule,
   swapArrayElements,
   getOrderCardClassName,
+  onCheckClick,
 };

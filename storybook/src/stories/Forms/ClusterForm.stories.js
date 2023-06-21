@@ -36,7 +36,7 @@ export default {
     "data.encryption_key": {
       description: "A string value of the Encryption Key selected",
       control: "none",
-      type: { required: false}, // required prop or not
+      type: { required: false }, // required prop or not
     },
     "data.cos": {
       description:

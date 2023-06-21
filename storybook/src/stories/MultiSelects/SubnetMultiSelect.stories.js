@@ -46,7 +46,8 @@ export default {
       table: { defaultValue: { summary: "false" } },
     },
     label: {
-      description: "Generic label that will be used as the textual representation of what this field is for",
+      description:
+        "Generic label that will be used as the textual representation of what this field is for",
       type: { required: false }, // required prop or not
       control: "text",
     },

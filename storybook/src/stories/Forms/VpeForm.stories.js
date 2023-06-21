@@ -178,10 +178,7 @@ const VpeFormStory = () => {
           vpc: "management",
         },
       ]}
-      secretsManagerInstances={[
-        "dev", 
-        "test"
-      ]}
+      secretsManagerInstances={["dev", "test"]}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
     />

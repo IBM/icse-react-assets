@@ -88,7 +88,7 @@ const IcseHeadingWithTooltipStory = ({ ...args }) => {
       buttons={<SaveAddButton type="add" noDeleteButton />}
       tooltip={{
         content: "Example tooltip",
-        align: "right"
+        align: "right",
       }}
     />
   );

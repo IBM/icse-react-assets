@@ -1,12 +1,31 @@
 import React from "react";
-import { DnsRecordForm } from "icse-react-assets";
-import { contains } from "lazy-z";
-
 import "./App.css";
+import { SecretsManagerForm } from "icse-react-assets";
 
-const DnsRecordFormStory = () => {
+const exampleData = [
+  {
+    cos: "atracker-cos",
+    key: "cos-bind-key",
+    ref: "ibm_resource_key.atracker_cos_object_storage_key_cos_bind_key",
+  },
+  {
+    appid: "default",
+    key: "test",
+    ref: "ibm_resource_key.default_key_test",
+  },
+  {
+    ref: "ibm_resource_key.logdna_key",
+    key: "logdna-key",
+  },
+  {
+    ref: "ibm_resource_key.sysdig_key",
+    key: "sysdig-key",
+  },
+];
+
+const SecretsManagerFormStory = () => {
   function validName(str) {
-    const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/s;
+    const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
     if (str) return str.match(regex) !== null;
     else return false;
   }
@@ -15,38 +34,31 @@ const DnsRecordFormStory = () => {
     return !validName(stateData.name);
   }
 
-  function helperTextCallback(stateData, componentProps) {
-    return "<prefix>-" + stateData.name;
-  }
-
   function invalidTextCallback(stateData, componentProps) {
-    return contains(["foo", "bar"], stateData.name)
-      ? `Cluster name ${stateData.name} already in use.`
+    return !validName(stateData.name)
+      ? `Name ${stateData.name} is invalid.`
       : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
   }
 
-  function invalidRdata(stateData, componentProps) {
-    return !isNullOrEmptyString(stateData.rdata);
-  }
-
-  function invalidRdataText(stateData, componentProps) {
-    return "Resource Data text callback";
-  }
-
   return (
-    <DnsRecordForm
+    <SecretsManagerForm
+      data={{
+        name: "Example",
+        resource_group: "default",
+        encryption_key: "key1",
+        secrets: exampleData
+      }}
+      secrets={exampleData}
+      resourceGroups={["default_group", "foo", "bar"]}
+      encryptionKeys={["default_key", "foo"]}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
-      helperTextCallback={helperTextCallback}
-      invalidRdata={invalidRdata}
-      invalidRdataText={invalidRdataText}
-      dnsZones={["zone1", "zone2", "zone3"]}
     />
   );
 };
 
 function App() {
-  return <DnsRecordFormStory />;
+  return <SecretsManagerFormStory />;
 }
 
 export default App;

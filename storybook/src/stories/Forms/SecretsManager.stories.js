@@ -85,11 +85,51 @@ const SecretsManagerFormStory = () => {
         name: "Example",
         resource_group: "default",
         encryption_key: "key1",
+        secrets: [
+          {
+            cos: "atracker-cos",
+            key: "cos-bind-key",
+            ref: "ibm_resource_key.atracker_cos_object_storage_key_cos_bind_key",
+          },
+          {
+            appid: "default",
+            key: "test",
+            ref: "ibm_resource_key.default_key_test",
+          },
+          {
+            ref: "ibm_resource_key.logdna_key",
+            key: "logdna-key",
+          },
+          {
+            ref: "ibm_resource_key.sysdig_key",
+            key: "sysdig-key",
+          },
+        ],
       }}
       resourceGroups={["default_group", "foo", "bar"]}
       encryptionKeys={["default_key", "foo"]}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
+      secrets={[
+        {
+          cos: "atracker-cos",
+          key: "cos-bind-key",
+          ref: "ibm_resource_key.atracker_cos_object_storage_key_cos_bind_key",
+        },
+        {
+          appid: "default",
+          key: "test",
+          ref: "ibm_resource_key.default_key_test",
+        },
+        {
+          ref: "ibm_resource_key.logdna_key",
+          key: "logdna-key",
+        },
+        {
+          ref: "ibm_resource_key.sysdig_key",
+          key: "sysdig-key",
+        },
+      ]}
     />
   );
 };
