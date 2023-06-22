@@ -9,6 +9,10 @@ import {
 import PropTypes from "prop-types";
 import { isIpStringInvalidNoCidr } from "../../lib/iam-utils";
 import {
+  handleVpnServerInputChange,
+  vpnServerRangeInvalid,
+} from "../../lib/forms";
+import {
   buildFormDefaultInputMethods,
   buildFormFunctions,
 } from "../component-utils";
@@ -26,41 +30,17 @@ class VpnServerForm extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
-    this.handleAllowedIps = this.handleAllowedIps.bind(this);
     this.handleMultiSelect = this.handleMultiSelect.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
 
+  /**
+   * Handle input change for vpn server form
+   * @param {event} event
+   */
   handleInputChange(event) {
-    let { name, value } = event.target;
-    let newState = { ...this.state };
-    //handle crn inputs
-    let crnList = value
-      ? value
-          .replace(/\s\s+/g, "") // replace extra spaces
-          .replace(/,(?=,)/g, "") // prevent null tags from
-          .replace(/[^\w,-:]/g, "")
-      : [];
-    if (name === "method") {
-      // Clear client_ca_crn when method changes
-      newState.method = value.toLowerCase();
-      newState.client_ca_crn = "";
-    } else if (name === "vpc") {
-      // Clear subnet and security groups when vpc changes
-      newState.vpc = value;
-      newState.subnets = [];
-      newState.security_groups = [];
-    } else if (name === "certificate_crn") {
-      newState.certificate_crn = crnList;
-    } else if (name === "client_ca_crn") {
-      newState.client_ca_crn = crnList;
-    } else if (name === "protocol") {
-      newState.protocol = value.toLowerCase();
-    } else {
-      newState = { [name]: value };
-    }
-    this.setState(newState);
+    this.setState(handleVpnServerInputChange(this.state, event));
   }
 
   /**
@@ -69,21 +49,6 @@ class VpnServerForm extends Component {
    */
   handleMultiSelect(name, event) {
     this.setState({ [name]: event });
-  }
-
-  /**
-   * Handle input change for  client_dns_server_ips text field
-   * @param {event} event
-   */
-  handleAllowedIps(event) {
-    // removing white space and checking for empty value
-    let value = event.target.value.replace(/\s*/g, "");
-    if (value === "") value = null;
-    this.setState({ client_dns_server_ips: value });
-  }
-
-  handleMultiSelectChange(name, value) {
-    this.setState(this.setNameToValue(name, value));
   }
 
   handleToggle(name) {
@@ -270,12 +235,7 @@ class VpnServerForm extends Component {
             hideSteppers={true}
             min={1}
             max={65535}
-            invalid={
-              !isNullOrEmptyString(this.state.port) &&
-              (!isWholeNumber(parseFloat(this.state.port)) ||
-                this.state.port < 1 ||
-                this.state.port > 65535)
-            }
+            invalid={vpnServerRangeInvalid(this.state.port, 1, 65535)}
             invalidText="Must be a whole number between 1 and 65535."
             className="fieldWidthSmaller leftTextAlign"
           />
@@ -314,12 +274,11 @@ class VpnServerForm extends Component {
             hideSteppers={true}
             min={0}
             max={28800}
-            invalid={
-              !isNullOrEmptyString(this.state.client_idle_timeout) &&
-              (!isWholeNumber(parseFloat(this.state.client_idle_timeout)) ||
-                this.state.client_idle_timeout < 0 ||
-                this.state.client_idle_timeout > 28800)
-            }
+            invalid={vpnServerRangeInvalid(
+              this.state.client_idle_timeout,
+              0,
+              28800
+            )}
             invalidText="Must be a whole number between 0 and 28800."
             className="fieldWidthSmaller"
           />
@@ -332,7 +291,7 @@ class VpnServerForm extends Component {
             labelText="Client DNS Server IPs"
             placeholder={"X.X.X.X, X.X.X.X, ..."}
             value={this.state.client_dns_server_ips || ""}
-            onChange={this.handleAllowedIps}
+            onChange={this.handleInputChange}
             invalid={isIpStringInvalidNoCidr(this.state.client_dns_server_ips)}
             invalidText="Please enter a comma separated list of IP addresses."
             helperText="Enter a comma separated list of IP addresses."
@@ -379,7 +338,6 @@ VpnServerForm.defaultProps = {
     protocol: "udp",
     resource_group: "",
     vpc: "",
-    subnet: "",
     security_groups: [],
     client_dns_server_ips: "",
     routes: [],

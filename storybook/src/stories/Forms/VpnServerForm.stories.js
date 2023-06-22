@@ -74,11 +74,6 @@ export default {
       control: "none",
       type: { required: true }, // required prop or not
     },
-    "data.subnet": {
-      description: "A string value representing the subnet for the VPN Server.",
-      control: "none",
-      type: { required: true }, // required prop or not
-    },
     "data.security_groups": {
       description:
         "An array of string values representing the security groups for the VPN Server.",
@@ -223,7 +218,6 @@ const VpnServerFormStory = () => {
       protocol: "udp",
       resource_group: "",
       vpc: "",
-      subnet: "",
       security_groups: [],
       client_dns_server_ips: "",
       routes: [
@@ -348,7 +342,6 @@ const VpnServerFormModalStory = () => {
       protocol: "udp",
       resource_group: "",
       vpc: "",
-      subnet: "",
       security_groups: [],
       client_dns_server_ips: "",
       routes: [
