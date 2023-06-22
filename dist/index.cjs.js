@@ -6385,7 +6385,9 @@ class NetworkingRulesOrderCard extends React.Component {
       rules: [...this.state.rules],
       toggleEditModal: this.toggleEditModal,
       toggleCreateModal: this.toggleModal,
-      vpc_name: this.props.vpc_name
+      vpc_name: this.props.vpc_name,
+      handleUp: this.handleUp,
+      handleDown: this.handleDown
     }), /*#__PURE__*/React__default["default"].createElement(FormModal, {
       name: `Edit ${this.state.editing}`,
       show: this.state.showEditModal,
@@ -6481,6 +6483,10 @@ const OrderCardDataTable = props => {
       header: "Destination"
     });
   }
+  headers.splice(headers.length, 0, {
+    key: "order",
+    header: "Order"
+  });
   return /*#__PURE__*/React__default["default"].createElement(react.DataTable, {
     headers: headers,
     rows: rows
@@ -6515,7 +6521,13 @@ const OrderCardDataTable = props => {
       className: "displayFlex cursor-pointer"
     }, /*#__PURE__*/React__default["default"].createElement(iconsReact.Edit, {
       className: "edit-margin-right"
-    }), cell.value) : /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, lazyZ.contains(["tcp", "udp", "all", "icmp"], cell.value) ? cell.value.toUpperCase() : cell.value))))))));
+    }), cell.value) : cell === row.cells[row.cells.length - 1] ? /*#__PURE__*/React__default["default"].createElement(UpDownButtons, {
+      name: row.cells[0],
+      handleUp: () => props.handleUp(index),
+      handleDown: () => props.handleDown(index),
+      disableUp: row === rows[0],
+      disableDown: row === rows[rows.length - 1]
+    }) : /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, lazyZ.contains(["tcp", "udp", "all", "icmp"], cell.value) ? cell.value.toUpperCase() : cell.value))))))));
   });
 };
 OrderCardDataTable.propTypes = {

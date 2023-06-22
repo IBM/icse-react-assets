@@ -3,7 +3,7 @@ import NetworkingRuleForm from "./NetworkingRuleForm";
 import { containsKeys, contains, getObjectFromArray } from "lazy-z";
 import PropTypes from "prop-types";
 import { DynamicRender, IcseHeading, RenderForm } from "../Utils";
-import { SaveAddButton } from "../Buttons";
+import { SaveAddButton, UpDownButtons } from "../Buttons";
 import FormModal from "../FormModal";
 import EmptyResourceTile from "../EmptyResourceTile";
 import {
@@ -209,6 +209,8 @@ class NetworkingRulesOrderCard extends Component {
           toggleEditModal={this.toggleEditModal}
           toggleCreateModal={this.toggleModal}
           vpc_name={this.props.vpc_name}
+          handleUp={this.handleUp}
+          handleDown={this.handleDown}
         />
         <FormModal
           name={`Edit ${this.state.editing}`}
@@ -316,7 +318,6 @@ const OrderCardDataTable = (props) => {
       key: "name",
       header: "Name",
     },
-
     { key: "direction", header: "Direction" },
     { key: "source", header: "Source" },
     { key: "protocol", header: "Protocol" },
@@ -345,6 +346,7 @@ const OrderCardDataTable = (props) => {
     });
     headers.splice(4, 0, { key: "destination", header: "Destination" });
   }
+  headers.splice(headers.length, 0, { key: "order", header: "Order" });
 
   return (
     <DataTable headers={headers} rows={rows}>
@@ -394,6 +396,14 @@ const OrderCardDataTable = (props) => {
                           <Edit className="edit-margin-right" />
                           {cell.value}
                         </div>
+                      ) : cell === row.cells[row.cells.length - 1] ? (
+                        <UpDownButtons
+                          name={row.cells[0]}
+                          handleUp={() => props.handleUp(index)}
+                          handleDown={() => props.handleDown(index)}
+                          disableUp={row === rows[0]}
+                          disableDown={row === rows[rows.length - 1]}
+                        />
                       ) : (
                         <>
                           {contains(["tcp", "udp", "all", "icmp"], cell.value)
