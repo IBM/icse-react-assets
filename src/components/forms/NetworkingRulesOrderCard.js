@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import NetworkingRuleForm from "./NetworkingRuleForm";
-import { containsKeys, getObjectFromArray } from "lazy-z";
+import { containsKeys, contains } from "lazy-z";
 import PropTypes from "prop-types";
 import { DynamicRender, IcseHeading, RenderForm } from "../Utils";
 import { SaveAddButton } from "../Buttons";
@@ -19,9 +19,6 @@ import {
   TableHeader,
   TableBody,
   TableCell,
-  TableExpandHeader,
-  TableExpandedRow,
-  TableExpandRow,
   DataTable,
 } from "@carbon/react";
 
@@ -272,14 +269,23 @@ const OrderCardDataTable = (props) => {
     { key: "direction", header: "Direction" },
     { key: "source", header: "Source" },
     { key: "protocol", header: "Protocol" },
+    { key: "port", header: "Port" },
   ];
 
   const rows = JSON.parse(JSON.stringify(props.rules)); // deep copy of nested array
+  // set up required data for each row
   rows.forEach((row) => {
     row.protocol = getRuleProtocol(row);
     row.id = row.name;
+    row.port =
+      row.protocol === "all"
+        ? "ALL"
+        : row.protocol === "icmp"
+        ? row.icmp.code
+        : `${row[row.protocol].port_min}-${row[row.protocol].port_max}`;
   });
 
+  // add in action and destination if not security group
   if (!props.isSecurityGroup) {
     headers.splice(1, 0, {
       // add extra fields if not security group
@@ -289,76 +295,14 @@ const OrderCardDataTable = (props) => {
     headers.splice(4, 0, { key: "destination", header: "Destination" });
   }
 
-  function getDataById(name) {
-    return getObjectFromArray(rows, "name", name);
-  }
-
-  function getExpandedCellData(rowData) {
-    switch (rowData.protocol) {
-      case "udp":
-      case "tcp":
-        return (
-          <div className="smallerText">
-            {!props.isSecurityGroup && (
-              <>
-                <div>
-                  <strong>Source Port Min: </strong>
-                  {rowData[rowData.protocol].source_port_min}
-                </div>
-                <div>
-                  <strong>Source Port Max: </strong>
-                  {rowData[rowData.protocol].source_port_max}
-                </div>
-              </>
-            )}
-            <div>
-              <strong>Port Min: </strong>
-              {rowData[rowData.protocol].port_min}
-            </div>
-            <div>
-              <strong>Port max: </strong>
-              {rowData[rowData.protocol].port_max}
-            </div>
-          </div>
-        );
-      case "icmp":
-        return (
-          <div className="smallerText">
-            <div>
-              <strong>Type: </strong>
-              {rowData.icmp.type}
-            </div>
-            <div>
-              <strong>Code: </strong>
-              {rowData.icmp.code}
-            </div>
-          </div>
-        );
-      default:
-        return <div />; // return nothing
-    }
-  }
-
-  function getExpandedRow(row, headers) {
-    const rowData = getObjectFromArray(rows, "name", row.id);
-    return (
-      row.isExpanded && (
-        <TableCell colSpan={headers.length + 1}>
-          {getExpandedCellData(rowData)}
-        </TableCell>
-      )
-    );
-  }
-
   return (
-    <DataTable expandable headers={headers} rows={rows}>
+    <DataTable headers={headers} rows={rows}>
       {(
         { rows, headers, getHeaderProps, getRowProps } // inherit props from data table api
       ) => (
         <Table>
           <TableHead>
             <TableRow>
-              <TableExpandHeader />
               {headers.map((header, index) => (
                 <TableHeader
                   key={header.header + "-" + index}
@@ -371,29 +315,15 @@ const OrderCardDataTable = (props) => {
           </TableHead>
           <TableBody>
             {rows.map((row, index) => (
-              <React.Fragment key={index}>
-                {getObjectFromArray(rows, "name", row.id).protocol === "all" ? (
-                  <TableRow
-                    key={row.name + "-" + index}
-                    {...getRowProps({ row })}
-                  >
-                    <TableCell /> {/* empty cell, cannot expand */}
-                    {row.cells.map((cell) => (
-                      <TableCell key={cell.id}>{cell.value}</TableCell>
-                    ))}
-                  </TableRow>
-                ) : (
-                  <TableExpandRow
-                    key={row.name + "-" + index}
-                    {...getRowProps({ row })}
-                  >
-                    {row.cells.map((cell) => (
-                      <TableCell key={cell.id}>{cell.value}</TableCell>
-                    ))}
-                  </TableExpandRow>
-                )}
-                {getExpandedRow(row, headers)}
-              </React.Fragment>
+              <TableRow key={row.name + "-" + index} {...getRowProps({ row })}>
+                {row.cells.map((cell) => (
+                  <TableCell key={cell.id}>
+                    {contains(["tcp", "udp", "all", "icmp"], cell.value)
+                      ? cell.value.toUpperCase()
+                      : cell.value}
+                  </TableCell>
+                ))}
+              </TableRow>
             ))}
           </TableBody>
         </Table>

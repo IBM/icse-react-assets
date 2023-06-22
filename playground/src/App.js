@@ -46,6 +46,7 @@ const NetworkingRulesOrderCardSgStory = () => {
       invalidRuleText={invalidCallback}
       invalidRuleTextCallback={invalidTextCallback}
       networkRuleOrderDidChange={networkRuleOrderDidChange}
+      isSecurityGroup
       rules={[
         {
           action: "allow",

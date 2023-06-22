@@ -6410,12 +6410,19 @@ const OrderCardDataTable = props => {
   }, {
     key: "protocol",
     header: "Protocol"
+  }, {
+    key: "port",
+    header: "Port"
   }];
   const rows = JSON.parse(JSON.stringify(props.rules)); // deep copy of nested array
+  // set up required data for each row
   rows.forEach(row => {
     row.protocol = forms_20(row);
     row.id = row.name;
+    row.port = row.protocol === "all" ? "ALL" : row.protocol === "icmp" ? row.icmp.code : `${row[row.protocol].port_min}-${row[row.protocol].port_max}`;
   });
+
+  // add in action and destination if not security group
   if (!props.isSecurityGroup) {
     headers.splice(1, 0, {
       // add extra fields if not security group
@@ -6427,31 +6434,7 @@ const OrderCardDataTable = props => {
       header: "Destination"
     });
   }
-  function getExpandedCellData(rowData) {
-    switch (rowData.protocol) {
-      case "udp":
-      case "tcp":
-        return /*#__PURE__*/React__default["default"].createElement("div", {
-          className: "smallerText"
-        }, !props.isSecurityGroup && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement("strong", null, "Source Port Min: "), rowData[rowData.protocol].source_port_min), /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement("strong", null, "Source Port Max: "), rowData[rowData.protocol].source_port_max)), /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement("strong", null, "Port Min: "), rowData[rowData.protocol].port_min), /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement("strong", null, "Port max: "), rowData[rowData.protocol].port_max));
-      case "icmp":
-        return /*#__PURE__*/React__default["default"].createElement("div", {
-          className: "smallerText"
-        }, /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement("strong", null, "Type: "), rowData.icmp.type), /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement("strong", null, "Code: "), rowData.icmp.code));
-      default:
-        return /*#__PURE__*/React__default["default"].createElement("div", null);
-      // return nothing
-    }
-  }
-
-  function getExpandedRow(row, headers) {
-    const rowData = lazyZ.getObjectFromArray(rows, "name", row.id);
-    return row.isExpanded && /*#__PURE__*/React__default["default"].createElement(react.TableCell, {
-      colSpan: headers.length + 1
-    }, getExpandedCellData(rowData));
-  }
   return /*#__PURE__*/React__default["default"].createElement(react.DataTable, {
-    expandable: true,
     headers: headers,
     rows: rows
   }, (_ref // inherit props from data table api
@@ -6462,25 +6445,17 @@ const OrderCardDataTable = props => {
       getHeaderProps,
       getRowProps
     } = _ref;
-    return /*#__PURE__*/React__default["default"].createElement(react.Table, null, /*#__PURE__*/React__default["default"].createElement(react.TableHead, null, /*#__PURE__*/React__default["default"].createElement(react.TableRow, null, /*#__PURE__*/React__default["default"].createElement(react.TableExpandHeader, null), headers.map((header, index) => /*#__PURE__*/React__default["default"].createElement(react.TableHeader, _extends({
+    return /*#__PURE__*/React__default["default"].createElement(react.Table, null, /*#__PURE__*/React__default["default"].createElement(react.TableHead, null, /*#__PURE__*/React__default["default"].createElement(react.TableRow, null, headers.map((header, index) => /*#__PURE__*/React__default["default"].createElement(react.TableHeader, _extends({
       key: header.header + "-" + index
     }, getHeaderProps({
       header
-    })), header.header)))), /*#__PURE__*/React__default["default"].createElement(react.TableBody, null, rows.map((row, index) => /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, {
-      key: index
-    }, lazyZ.getObjectFromArray(rows, "name", row.id).protocol === "all" ? /*#__PURE__*/React__default["default"].createElement(react.TableRow, _extends({
-      key: row.name + "-" + index
-    }, getRowProps({
-      row
-    })), /*#__PURE__*/React__default["default"].createElement(react.TableCell, null), " ", row.cells.map(cell => /*#__PURE__*/React__default["default"].createElement(react.TableCell, {
-      key: cell.id
-    }, cell.value))) : /*#__PURE__*/React__default["default"].createElement(react.TableExpandRow, _extends({
+    })), header.header)))), /*#__PURE__*/React__default["default"].createElement(react.TableBody, null, rows.map((row, index) => /*#__PURE__*/React__default["default"].createElement(react.TableRow, _extends({
       key: row.name + "-" + index
     }, getRowProps({
       row
     })), row.cells.map(cell => /*#__PURE__*/React__default["default"].createElement(react.TableCell, {
       key: cell.id
-    }, cell.value))), getExpandedRow(row, headers)))));
+    }, lazyZ.contains(["tcp", "udp", "all", "icmp"], cell.value) ? cell.value.toUpperCase() : cell.value))))));
   });
 };
 OrderCardDataTable.propTypes = {

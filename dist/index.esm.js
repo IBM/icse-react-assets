@@ -1,6 +1,6 @@
 import '@carbon/styles/css/styles.css';
-import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, TextArea, PasswordInput, NumberInput, DataTable, Table, TableHead, TableRow, TableExpandHeader, TableHeader, TableBody, TableCell, TableExpandRow, Dropdown, Tag, Checkbox } from '@carbon/react';
-import lazyZ, { titleCase as titleCase$2, kebabCase as kebabCase$5, isEmpty, buildNumberDropdownList, contains as contains$3, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$6, transpose as transpose$1, containsKeys, getObjectFromArray, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, splat as splat$2, deepEqual, parseIntFromZone, isWholeNumber as isWholeNumber$1, snakeCase as snakeCase$1, distinct, isInRange as isInRange$1, eachKey } from 'lazy-z';
+import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, TextArea, PasswordInput, NumberInput, DataTable, Table, TableHead, TableRow, TableHeader, TableBody, TableCell, Dropdown, Tag, Checkbox } from '@carbon/react';
+import lazyZ, { titleCase as titleCase$2, kebabCase as kebabCase$5, isEmpty, buildNumberDropdownList, contains as contains$3, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$6, transpose as transpose$1, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, getObjectFromArray, splat as splat$2, deepEqual, parseIntFromZone, isWholeNumber as isWholeNumber$1, snakeCase as snakeCase$1, distinct, isInRange as isInRange$1, eachKey } from 'lazy-z';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Information, Save, Add, ChevronDown, ChevronRight, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt, Password } from '@carbon/icons-react';
@@ -6399,12 +6399,19 @@ const OrderCardDataTable = props => {
   }, {
     key: "protocol",
     header: "Protocol"
+  }, {
+    key: "port",
+    header: "Port"
   }];
   const rows = JSON.parse(JSON.stringify(props.rules)); // deep copy of nested array
+  // set up required data for each row
   rows.forEach(row => {
     row.protocol = forms_20(row);
     row.id = row.name;
+    row.port = row.protocol === "all" ? "ALL" : row.protocol === "icmp" ? row.icmp.code : `${row[row.protocol].port_min}-${row[row.protocol].port_max}`;
   });
+
+  // add in action and destination if not security group
   if (!props.isSecurityGroup) {
     headers.splice(1, 0, {
       // add extra fields if not security group
@@ -6416,31 +6423,7 @@ const OrderCardDataTable = props => {
       header: "Destination"
     });
   }
-  function getExpandedCellData(rowData) {
-    switch (rowData.protocol) {
-      case "udp":
-      case "tcp":
-        return /*#__PURE__*/React.createElement("div", {
-          className: "smallerText"
-        }, !props.isSecurityGroup && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Source Port Min: "), rowData[rowData.protocol].source_port_min), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Source Port Max: "), rowData[rowData.protocol].source_port_max)), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Port Min: "), rowData[rowData.protocol].port_min), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Port max: "), rowData[rowData.protocol].port_max));
-      case "icmp":
-        return /*#__PURE__*/React.createElement("div", {
-          className: "smallerText"
-        }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Type: "), rowData.icmp.type), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("strong", null, "Code: "), rowData.icmp.code));
-      default:
-        return /*#__PURE__*/React.createElement("div", null);
-      // return nothing
-    }
-  }
-
-  function getExpandedRow(row, headers) {
-    const rowData = getObjectFromArray(rows, "name", row.id);
-    return row.isExpanded && /*#__PURE__*/React.createElement(TableCell, {
-      colSpan: headers.length + 1
-    }, getExpandedCellData(rowData));
-  }
   return /*#__PURE__*/React.createElement(DataTable, {
-    expandable: true,
     headers: headers,
     rows: rows
   }, (_ref // inherit props from data table api
@@ -6451,25 +6434,17 @@ const OrderCardDataTable = props => {
       getHeaderProps,
       getRowProps
     } = _ref;
-    return /*#__PURE__*/React.createElement(Table, null, /*#__PURE__*/React.createElement(TableHead, null, /*#__PURE__*/React.createElement(TableRow, null, /*#__PURE__*/React.createElement(TableExpandHeader, null), headers.map((header, index) => /*#__PURE__*/React.createElement(TableHeader, _extends({
+    return /*#__PURE__*/React.createElement(Table, null, /*#__PURE__*/React.createElement(TableHead, null, /*#__PURE__*/React.createElement(TableRow, null, headers.map((header, index) => /*#__PURE__*/React.createElement(TableHeader, _extends({
       key: header.header + "-" + index
     }, getHeaderProps({
       header
-    })), header.header)))), /*#__PURE__*/React.createElement(TableBody, null, rows.map((row, index) => /*#__PURE__*/React.createElement(React.Fragment, {
-      key: index
-    }, getObjectFromArray(rows, "name", row.id).protocol === "all" ? /*#__PURE__*/React.createElement(TableRow, _extends({
-      key: row.name + "-" + index
-    }, getRowProps({
-      row
-    })), /*#__PURE__*/React.createElement(TableCell, null), " ", row.cells.map(cell => /*#__PURE__*/React.createElement(TableCell, {
-      key: cell.id
-    }, cell.value))) : /*#__PURE__*/React.createElement(TableExpandRow, _extends({
+    })), header.header)))), /*#__PURE__*/React.createElement(TableBody, null, rows.map((row, index) => /*#__PURE__*/React.createElement(TableRow, _extends({
       key: row.name + "-" + index
     }, getRowProps({
       row
     })), row.cells.map(cell => /*#__PURE__*/React.createElement(TableCell, {
       key: cell.id
-    }, cell.value))), getExpandedRow(row, headers)))));
+    }, contains$3(["tcp", "udp", "all", "icmp"], cell.value) ? cell.value.toUpperCase() : cell.value))))));
   });
 };
 OrderCardDataTable.propTypes = {
