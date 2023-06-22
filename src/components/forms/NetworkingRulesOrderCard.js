@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import NetworkingRuleForm from "./NetworkingRuleForm";
-import { containsKeys, contains } from "lazy-z";
+import { containsKeys, contains, getObjectFromArray } from "lazy-z";
 import PropTypes from "prop-types";
 import { DynamicRender, IcseHeading, RenderForm } from "../Utils";
 import { SaveAddButton } from "../Buttons";
@@ -20,7 +20,14 @@ import {
   TableBody,
   TableCell,
   DataTable,
+  TableToolbar,
 } from "@carbon/react";
+import { Edit } from "@carbon/icons-react";
+import "./network-order-card.css";
+import {
+  buildFormDefaultInputMethods,
+  buildFormFunctions,
+} from "../component-utils";
 
 class NetworkingRulesOrderCard extends Component {
   constructor(props) {
@@ -30,14 +37,19 @@ class NetworkingRulesOrderCard extends Component {
       collapse: {},
       allCollapsed: false,
       showModal: false,
+      showEditModal: false,
+      editing: this.props.rules[0].name,
     };
-
     this.handleUp = this.handleUp.bind(this);
     this.handleDown = this.handleDown.bind(this);
     this.toggleCollapse = this.toggleCollapse.bind(this);
     this.collapseAll = this.collapseAll.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.getRuleData = this.getRuleData.bind(this);
+    this.toggleEditModal = this.toggleEditModal.bind(this);
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -55,6 +67,13 @@ class NetworkingRulesOrderCard extends Component {
 
   toggleModal() {
     this.setState({ showModal: !this.state.showModal });
+  }
+
+  toggleEditModal(name) {
+    this.setState({
+      showEditModal: !this.state.showEditModal,
+      editing: name,
+    });
   }
 
   /**
@@ -116,6 +135,16 @@ class NetworkingRulesOrderCard extends Component {
   handleSubmit(modalData) {
     this.props.onSubmitCallback(modalData, this.props);
     this.toggleModal();
+  }
+
+  getRuleData(name) {
+    let rule = { ...getObjectFromArray(this.props.rules, "name", name) }; // copy
+    rule.ruleProtocol = getRuleProtocol(rule); // get protocol
+    rule.rule = getSubRule(rule); // get sub rule from data
+    delete rule.icmp;
+    delete rule.tcp;
+    delete rule.udp;
+    return rule;
   }
 
   render() {
@@ -192,8 +221,43 @@ class NetworkingRulesOrderCard extends Component {
         <OrderCardDataTable
           isSecurityGroup={this.props.isSecurityGroup}
           rules={[...this.state.rules]}
+          toggleEditModal={this.toggleEditModal}
         />
-        {this.state.rules.map((rule, index) => (
+        <FormModal
+          name={`Edit ${this.state.editing}`}
+          show={this.state.showEditModal}
+          onRequestSubmit={this.handleSubmit}
+          onRequestClose={() => {
+            this.toggleEditModal(this.props.rules[0].name); // default editing
+          }}
+        >
+          {RenderForm(NetworkingRuleForm, {
+            ...this.props,
+            data: { ...this.getRuleData(this.state.editing) },
+            isSecurityGroup: this.props.isSecurityGroup,
+            invalidCallback: this.props.invalidRuleText,
+            invalidTextCallback: this.props.invalidRuleTextCallback,
+            parent_name: this.props.parent_name,
+            disableSave: this.props.disableSaveCallback,
+            shouldDisableSubmit: function () {
+              // references to `this` in function are intentionally vague
+              // in order to pass the correct functions and field values to the
+              // child modal component
+              // by passing `this` in a function that it scoped to the component
+              // we allow the function to be successfully bound to the modal form
+              // while still referencing the local value `enableSubmitField`
+              // to use it's own values for state and props including enableModal
+              // and disableModal, which are dynamically added to the component
+              // at time of render
+              if (this.props.disableSave(this.state, this.props) === false) {
+                this.props.enableModal();
+              } else {
+                this.props.disableModal();
+              }
+            },
+          })}
+        </FormModal>
+        {/* {this.state.rules.map((rule, index) => (
           <div
             key={"rule-div-" + rule.name + "-wrapper"}
             className={getOrderCardClassName(this.props)}
@@ -226,8 +290,8 @@ class NetworkingRulesOrderCard extends Component {
               innerFormProps={{ ...this.props }}
               dev={this.props.dev}
             />
-          </div>
-        ))}
+          </div> 
+            ))} */}
       </>
     );
   }
@@ -296,11 +360,12 @@ const OrderCardDataTable = (props) => {
   }
 
   return (
-    <DataTable headers={headers} rows={rows}>
+    <DataTable headers={headers} rows={rows} title="Rules" description="bleh">
       {(
         { rows, headers, getHeaderProps, getRowProps } // inherit props from data table api
       ) => (
         <Table>
+          <TableToolbar />
           <TableHead>
             <TableRow>
               {headers.map((header, index) => (
@@ -317,10 +382,26 @@ const OrderCardDataTable = (props) => {
             {rows.map((row, index) => (
               <TableRow key={row.name + "-" + index} {...getRowProps({ row })}>
                 {row.cells.map((cell) => (
-                  <TableCell key={cell.id}>
-                    {contains(["tcp", "udp", "all", "icmp"], cell.value)
-                      ? cell.value.toUpperCase()
-                      : cell.value}
+                  <TableCell
+                    key={cell.id}
+                    onClick={
+                      cell === row.cells[0] // check that it is the name column
+                        ? () => props.toggleEditModal(cell.value)
+                        : () => {}
+                    }
+                  >
+                    {cell === row.cells[0] ? (
+                      <div className="displayFlex cursor-pointer">
+                        <Edit className="edit-margin-right" />
+                        {cell.value}
+                      </div>
+                    ) : (
+                      <>
+                        {contains(["tcp", "udp", "all", "icmp"], cell.value)
+                          ? cell.value.toUpperCase()
+                          : cell.value}
+                      </>
+                    )}
                   </TableCell>
                 ))}
               </TableRow>
