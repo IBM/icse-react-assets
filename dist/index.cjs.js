@@ -7533,7 +7533,7 @@ class SecretsManagerForm extends React.Component {
       className: "fieldWidth",
       labelText: "Encryption Key",
       handleInputChange: this.handleInputChange
-    })), /*#__PURE__*/React__default["default"].createElement("br", null), /*#__PURE__*/React__default["default"].createElement(StatelessToggleForm, {
+    })), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, " ", /*#__PURE__*/React__default["default"].createElement("br", null), /*#__PURE__*/React__default["default"].createElement(StatelessToggleForm, {
       name: "Import Existing Secrets",
       hide: this.state.importToggle,
       onIconClick: this.toggleImportSecrets,
@@ -7544,7 +7544,7 @@ class SecretsManagerForm extends React.Component {
       secrets: this.props.secrets,
       selected: [...lazyZ.splat(this.props.data.secrets, "ref")],
       onSelectChange: this.onSelectChange
-    })));
+    })), " "));
   }
 }
 SecretsManagerForm.defaultProps = {

@@ -7522,7 +7522,7 @@ class SecretsManagerForm extends Component {
       className: "fieldWidth",
       labelText: "Encryption Key",
       handleInputChange: this.handleInputChange
-    })), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(StatelessToggleForm, {
+    })), this.props.isModal !== true && /*#__PURE__*/React.createElement(React.Fragment, null, " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(StatelessToggleForm, {
       name: "Import Existing Secrets",
       hide: this.state.importToggle,
       onIconClick: this.toggleImportSecrets,
@@ -7533,7 +7533,7 @@ class SecretsManagerForm extends Component {
       secrets: this.props.secrets,
       selected: [...splat$2(this.props.data.secrets, "ref")],
       onSelectChange: this.onSelectChange
-    })));
+    })), " "));
   }
 }
 SecretsManagerForm.defaultProps = {

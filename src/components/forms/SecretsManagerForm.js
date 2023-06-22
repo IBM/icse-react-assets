@@ -92,21 +92,26 @@ class SecretsManagerForm extends Component {
             handleInputChange={this.handleInputChange}
           />
         </div>
-        <br />
-        <StatelessToggleForm
-          name="Import Existing Secrets"
-          hide={this.state.importToggle}
-          onIconClick={this.toggleImportSecrets}
-          className="subForm secretsChecklistPadding"
-          toggleFormTitle
-          noMarginBottom
-        >
-          <SecretsManagerChecklist
-            secrets={this.props.secrets}
-            selected={[...splat(this.props.data.secrets, "ref")]}
-            onSelectChange={this.onSelectChange}
-          />
-        </StatelessToggleForm>
+        {this.props.isModal !== true && (
+          <>
+            {" "}
+            <br />
+            <StatelessToggleForm
+              name="Import Existing Secrets"
+              hide={this.state.importToggle}
+              onIconClick={this.toggleImportSecrets}
+              className="subForm secretsChecklistPadding"
+              toggleFormTitle
+              noMarginBottom
+            >
+              <SecretsManagerChecklist
+                secrets={this.props.secrets}
+                selected={[...splat(this.props.data.secrets, "ref")]}
+                onSelectChange={this.onSelectChange}
+              />
+            </StatelessToggleForm>{" "}
+          </>
+        )}
       </>
     );
   }
