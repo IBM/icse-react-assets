@@ -21,6 +21,8 @@ import {
   TableCell,
   DataTable,
   TableToolbar,
+  TableToolbarContent,
+  TableContainer,
 } from "@carbon/react";
 import { Edit } from "@carbon/icons-react";
 import "./network-order-card.css";
@@ -150,23 +152,6 @@ class NetworkingRulesOrderCard extends Component {
   render() {
     return (
       <>
-        <IcseHeading
-          name="Rules"
-          className="marginBottomSmall"
-          type="subHeading"
-          buttons={
-            <DynamicRender
-              hide={this.props.hideCreate}
-              show={
-                <SaveAddButton
-                  name={this.props.vpc_name}
-                  type="add"
-                  onClick={this.toggleModal}
-                />
-              }
-            />
-          }
-        />
         <FormModal
           name="Create a Network Rule"
           show={this.state.showModal}
@@ -222,6 +207,8 @@ class NetworkingRulesOrderCard extends Component {
           isSecurityGroup={this.props.isSecurityGroup}
           rules={[...this.state.rules]}
           toggleEditModal={this.toggleEditModal}
+          toggleCreateModal={this.toggleModal}
+          vpc_name={this.props.vpc_name}
         />
         <FormModal
           name={`Edit ${this.state.editing}`}
@@ -360,54 +347,67 @@ const OrderCardDataTable = (props) => {
   }
 
   return (
-    <DataTable headers={headers} rows={rows} title="Rules" description="bleh">
+    <DataTable headers={headers} rows={rows}>
       {(
         { rows, headers, getHeaderProps, getRowProps } // inherit props from data table api
       ) => (
-        <Table>
-          <TableToolbar />
-          <TableHead>
-            <TableRow>
-              {headers.map((header, index) => (
-                <TableHeader
-                  key={header.header + "-" + index}
-                  {...getHeaderProps({ header })}
-                >
-                  {header.header}
-                </TableHeader>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rows.map((row, index) => (
-              <TableRow key={row.name + "-" + index} {...getRowProps({ row })}>
-                {row.cells.map((cell) => (
-                  <TableCell
-                    key={cell.id}
-                    onClick={
-                      cell === row.cells[0] // check that it is the name column
-                        ? () => props.toggleEditModal(cell.value)
-                        : () => {}
-                    }
+        <TableContainer title="Rules" description="blehhhhh">
+          <TableToolbar>
+            <TableToolbarContent>
+              <SaveAddButton
+                name={props.vpc_name}
+                type="add"
+                onClick={props.toggleCreateModal}
+              />
+            </TableToolbarContent>
+          </TableToolbar>
+          <Table>
+            <TableHead>
+              <TableRow>
+                {headers.map((header, index) => (
+                  <TableHeader
+                    key={header.header + "-" + index}
+                    {...getHeaderProps({ header })}
                   >
-                    {cell === row.cells[0] ? (
-                      <div className="displayFlex cursor-pointer">
-                        <Edit className="edit-margin-right" />
-                        {cell.value}
-                      </div>
-                    ) : (
-                      <>
-                        {contains(["tcp", "udp", "all", "icmp"], cell.value)
-                          ? cell.value.toUpperCase()
-                          : cell.value}
-                      </>
-                    )}
-                  </TableCell>
+                    {header.header}
+                  </TableHeader>
                 ))}
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+            </TableHead>
+            <TableBody>
+              {rows.map((row, index) => (
+                <TableRow
+                  key={row.name + "-" + index}
+                  {...getRowProps({ row })}
+                >
+                  {row.cells.map((cell) => (
+                    <TableCell
+                      key={cell.id}
+                      onClick={
+                        cell === row.cells[0] // check that it is the name column
+                          ? () => props.toggleEditModal(cell.value)
+                          : () => {}
+                      }
+                    >
+                      {cell === row.cells[0] ? (
+                        <div className="displayFlex cursor-pointer">
+                          <Edit className="edit-margin-right" />
+                          {cell.value}
+                        </div>
+                      ) : (
+                        <>
+                          {contains(["tcp", "udp", "all", "icmp"], cell.value)
+                            ? cell.value.toUpperCase()
+                            : cell.value}
+                        </>
+                      )}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       )}
     </DataTable>
   );

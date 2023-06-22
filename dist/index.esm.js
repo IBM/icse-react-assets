@@ -1,5 +1,5 @@
 import '@carbon/styles/css/styles.css';
-import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, TextArea, PasswordInput, NumberInput, DataTable, Table, TableToolbar, TableHead, TableRow, TableHeader, TableBody, TableCell, Dropdown, Tag, Checkbox } from '@carbon/react';
+import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, TextArea, PasswordInput, NumberInput, DataTable, TableContainer, TableToolbar, TableToolbarContent, Table, TableHead, TableRow, TableHeader, TableBody, TableCell, Dropdown, Tag, Checkbox } from '@carbon/react';
 import lazyZ, { titleCase as titleCase$2, kebabCase as kebabCase$5, isEmpty, buildNumberDropdownList, contains as contains$4, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$6, transpose as transpose$1, containsKeys, getObjectFromArray, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, splat as splat$2, deepEqual, parseIntFromZone, isWholeNumber as isWholeNumber$1, snakeCase as snakeCase$1, distinct, isInRange as isInRange$1, eachKey } from 'lazy-z';
 import regexButWithWords from 'regex-but-with-words';
 import React, { Component } from 'react';
@@ -6322,19 +6322,7 @@ class NetworkingRulesOrderCard extends Component {
     return rule;
   }
   render() {
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseHeading, {
-      name: "Rules",
-      className: "marginBottomSmall",
-      type: "subHeading",
-      buttons: /*#__PURE__*/React.createElement(DynamicRender, {
-        hide: this.props.hideCreate,
-        show: /*#__PURE__*/React.createElement(SaveAddButton, {
-          name: this.props.vpc_name,
-          type: "add",
-          onClick: this.toggleModal
-        })
-      })
-    }), /*#__PURE__*/React.createElement(FormModal, {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(FormModal, {
       name: "Create a Network Rule",
       show: this.state.showModal,
       onRequestSubmit: this.handleSubmit,
@@ -6384,7 +6372,9 @@ class NetworkingRulesOrderCard extends Component {
     }), /*#__PURE__*/React.createElement(OrderCardDataTable, {
       isSecurityGroup: this.props.isSecurityGroup,
       rules: [...this.state.rules],
-      toggleEditModal: this.toggleEditModal
+      toggleEditModal: this.toggleEditModal,
+      toggleCreateModal: this.toggleModal,
+      vpc_name: this.props.vpc_name
     }), /*#__PURE__*/React.createElement(FormModal, {
       name: `Edit ${this.state.editing}`,
       show: this.state.showEditModal,
@@ -6482,9 +6472,7 @@ const OrderCardDataTable = props => {
   }
   return /*#__PURE__*/React.createElement(DataTable, {
     headers: headers,
-    rows: rows,
-    title: "Rules",
-    description: "bleh"
+    rows: rows
   }, (_ref // inherit props from data table api
   ) => {
     let {
@@ -6493,7 +6481,14 @@ const OrderCardDataTable = props => {
       getHeaderProps,
       getRowProps
     } = _ref;
-    return /*#__PURE__*/React.createElement(Table, null, /*#__PURE__*/React.createElement(TableToolbar, null), /*#__PURE__*/React.createElement(TableHead, null, /*#__PURE__*/React.createElement(TableRow, null, headers.map((header, index) => /*#__PURE__*/React.createElement(TableHeader, _extends({
+    return /*#__PURE__*/React.createElement(TableContainer, {
+      title: "Rules",
+      description: "blehhhhh"
+    }, /*#__PURE__*/React.createElement(TableToolbar, null, /*#__PURE__*/React.createElement(TableToolbarContent, null, /*#__PURE__*/React.createElement(SaveAddButton, {
+      name: props.vpc_name,
+      type: "add",
+      onClick: props.toggleCreateModal
+    }))), /*#__PURE__*/React.createElement(Table, null, /*#__PURE__*/React.createElement(TableHead, null, /*#__PURE__*/React.createElement(TableRow, null, headers.map((header, index) => /*#__PURE__*/React.createElement(TableHeader, _extends({
       key: header.header + "-" + index
     }, getHeaderProps({
       header
@@ -6509,7 +6504,7 @@ const OrderCardDataTable = props => {
       className: "displayFlex cursor-pointer"
     }, /*#__PURE__*/React.createElement(Edit, {
       className: "edit-margin-right"
-    }), cell.value) : /*#__PURE__*/React.createElement(React.Fragment, null, contains$4(["tcp", "udp", "all", "icmp"], cell.value) ? cell.value.toUpperCase() : cell.value)))))));
+    }), cell.value) : /*#__PURE__*/React.createElement(React.Fragment, null, contains$4(["tcp", "udp", "all", "icmp"], cell.value) ? cell.value.toUpperCase() : cell.value))))))));
   });
 };
 OrderCardDataTable.propTypes = {

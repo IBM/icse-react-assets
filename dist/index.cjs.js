@@ -6333,19 +6333,7 @@ class NetworkingRulesOrderCard extends React.Component {
     return rule;
   }
   render() {
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
-      name: "Rules",
-      className: "marginBottomSmall",
-      type: "subHeading",
-      buttons: /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
-        hide: this.props.hideCreate,
-        show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
-          name: this.props.vpc_name,
-          type: "add",
-          onClick: this.toggleModal
-        })
-      })
-    }), /*#__PURE__*/React__default["default"].createElement(FormModal, {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(FormModal, {
       name: "Create a Network Rule",
       show: this.state.showModal,
       onRequestSubmit: this.handleSubmit,
@@ -6395,7 +6383,9 @@ class NetworkingRulesOrderCard extends React.Component {
     }), /*#__PURE__*/React__default["default"].createElement(OrderCardDataTable, {
       isSecurityGroup: this.props.isSecurityGroup,
       rules: [...this.state.rules],
-      toggleEditModal: this.toggleEditModal
+      toggleEditModal: this.toggleEditModal,
+      toggleCreateModal: this.toggleModal,
+      vpc_name: this.props.vpc_name
     }), /*#__PURE__*/React__default["default"].createElement(FormModal, {
       name: `Edit ${this.state.editing}`,
       show: this.state.showEditModal,
@@ -6493,9 +6483,7 @@ const OrderCardDataTable = props => {
   }
   return /*#__PURE__*/React__default["default"].createElement(react.DataTable, {
     headers: headers,
-    rows: rows,
-    title: "Rules",
-    description: "bleh"
+    rows: rows
   }, (_ref // inherit props from data table api
   ) => {
     let {
@@ -6504,7 +6492,14 @@ const OrderCardDataTable = props => {
       getHeaderProps,
       getRowProps
     } = _ref;
-    return /*#__PURE__*/React__default["default"].createElement(react.Table, null, /*#__PURE__*/React__default["default"].createElement(react.TableToolbar, null), /*#__PURE__*/React__default["default"].createElement(react.TableHead, null, /*#__PURE__*/React__default["default"].createElement(react.TableRow, null, headers.map((header, index) => /*#__PURE__*/React__default["default"].createElement(react.TableHeader, _extends({
+    return /*#__PURE__*/React__default["default"].createElement(react.TableContainer, {
+      title: "Rules",
+      description: "blehhhhh"
+    }, /*#__PURE__*/React__default["default"].createElement(react.TableToolbar, null, /*#__PURE__*/React__default["default"].createElement(react.TableToolbarContent, null, /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+      name: props.vpc_name,
+      type: "add",
+      onClick: props.toggleCreateModal
+    }))), /*#__PURE__*/React__default["default"].createElement(react.Table, null, /*#__PURE__*/React__default["default"].createElement(react.TableHead, null, /*#__PURE__*/React__default["default"].createElement(react.TableRow, null, headers.map((header, index) => /*#__PURE__*/React__default["default"].createElement(react.TableHeader, _extends({
       key: header.header + "-" + index
     }, getHeaderProps({
       header
@@ -6520,7 +6515,7 @@ const OrderCardDataTable = props => {
       className: "displayFlex cursor-pointer"
     }, /*#__PURE__*/React__default["default"].createElement(iconsReact.Edit, {
       className: "edit-margin-right"
-    }), cell.value) : /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, lazyZ.contains(["tcp", "udp", "all", "icmp"], cell.value) ? cell.value.toUpperCase() : cell.value)))))));
+    }), cell.value) : /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, lazyZ.contains(["tcp", "udp", "all", "icmp"], cell.value) ? cell.value.toUpperCase() : cell.value))))))));
   });
 };
 OrderCardDataTable.propTypes = {
