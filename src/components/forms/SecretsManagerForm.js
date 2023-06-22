@@ -62,8 +62,6 @@ class SecretsManagerForm extends Component {
           {/* name text input */}
           <IcseNameInput
             id={this.state.name + "-name"}
-            componentName="Secrets Manager"
-            component="secrets_manager"
             value={this.state.name}
             onChange={this.handleInputChange}
             componentProps={this.props}
