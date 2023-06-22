@@ -7385,7 +7385,7 @@ SccForm.propTypes = {
   descriptionRegex: PropTypes.instanceOf(RegExp).isRequired
 };
 
-var css_248z$1 = ".secretsChecklistPadding {\n  margin-bottom: 0px !important;\n}\n\n.secretChecklistMargin {\n  margin-top: -1rem !important;\n}\n\n.secretCheckBoxMargin {\n  padding-left: 1rem !important;\n}\n";
+var css_248z$1 = ".secretsChecklistPadding {\n  margin-bottom: 0px !important;\n  margin-top: 1rem !important;\n}\n\n.secretChecklistMargin {\n  margin-top: -1rem !important;\n}\n\n.secretCheckBoxMargin {\n  padding-left: 1rem !important;\n}\n";
 styleInject(css_248z$1);
 
 /**
@@ -7396,11 +7396,9 @@ class SecretsManagerForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ...this.props.data,
-      importToggle: true
+      ...this.props.data
     };
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.toggleImportSecrets = this.toggleImportSecrets.bind(this);
     this.onSelectChange = this.onSelectChange.bind(this);
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
@@ -7413,14 +7411,11 @@ class SecretsManagerForm extends Component {
   handleInputChange(event) {
     this.setState(this.eventTargetToNameAndValue(event));
   }
-  toggleImportSecrets() {
-    this.setState(this.toggleStateBoolean("importToggle", this.state));
-  }
   onSelectChange(items) {
     let nextSecrets = [];
     items.forEach(item => {
       if (item !== "Select All") {
-        nextSecrets.push(getObjectFromArray(this.props.data.secrets, "ref", item));
+        nextSecrets.push(getObjectFromArray(this.props.secrets, "ref", item));
       }
     });
     this.setState({
@@ -7454,18 +7449,11 @@ class SecretsManagerForm extends Component {
       className: "fieldWidth",
       labelText: "Encryption Key",
       handleInputChange: this.handleInputChange
-    })), this.props.isModal !== true && /*#__PURE__*/React.createElement(React.Fragment, null, " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(StatelessToggleForm, {
-      name: "Import Existing Secrets",
-      hide: this.state.importToggle,
-      onIconClick: this.toggleImportSecrets,
-      className: "subForm secretsChecklistPadding",
-      toggleFormTitle: true,
-      noMarginBottom: true
-    }, /*#__PURE__*/React.createElement(SecretsManagerChecklist, {
+    })), this.props.isModal !== true && /*#__PURE__*/React.createElement(SecretsManagerChecklist, {
       secrets: this.props.secrets,
       selected: [...splat$2(this.props.data.secrets, "ref")],
       onSelectChange: this.onSelectChange
-    })), " "));
+    }));
   }
 }
 SecretsManagerForm.defaultProps = {
@@ -12131,20 +12119,33 @@ class SecretsManagerChecklist extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      hide: true,
       selected: this.props.selected && this.props.selected.length !== this.props.secrets.length ? this.props.selected : ["Select All"].concat([...splat$2(this.props.secrets, "ref")])
     };
     this.onCheckClick = this.onCheckClick.bind(this);
   }
   onCheckClick(ref) {
+    let selected = forms_25(this.state.selected, ref, this.props.secrets);
     this.setState({
-      selected: forms_25(this.state.selected, ref, this.props.secrets)
+      selected: selected
     }, () => {
-      this.props.onSelectChange(this.state.selected);
+      this.props.onSelectChange(selected);
     });
   }
   render() {
-    return /*#__PURE__*/React.createElement("div", {
-      className: "subForm secretChecklistMargin"
+    return /*#__PURE__*/React.createElement(StatelessToggleForm, {
+      name: "Import Existing Secrets",
+      hide: this.state.hide,
+      onIconClick: () => {
+        this.setState({
+          hide: !this.state.hide
+        });
+      },
+      className: "formInSubForm secretsChecklistPadding",
+      toggleFormTitle: true,
+      noMarginBottom: true
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "formInSubForm secretChecklistMargin"
     }, distinct(["Select All"].concat([...splat$2(this.props.secrets, "ref")])).map(value => /*#__PURE__*/React.createElement(Checkbox, {
       className: "secretCheckBoxMargin",
       id: value,
@@ -12152,7 +12153,7 @@ class SecretsManagerChecklist extends React.Component {
       labelText: value,
       checked: contains$4(this.state.selected, value),
       onChange: () => this.onCheckClick(value)
-    })));
+    }))));
   }
 }
 SecretsManagerChecklist.defaultProps = {
