@@ -7396,7 +7396,7 @@ SccForm.propTypes = {
   descriptionRegex: PropTypes__default["default"].instanceOf(RegExp).isRequired
 };
 
-var css_248z$1 = ".secretsChecklistPadding {\n  margin-bottom: 0px !important;\n}\n\n.secretChecklistMargin {\n  margin-top: -1rem !important;\n}\n\n.secretCheckBoxMargin {\n  padding-left: 1rem !important;\n}\n";
+var css_248z$1 = ".secretsChecklistPadding {\n  margin-bottom: 0px !important;\n  margin-top: 1rem !important;\n}\n\n.secretChecklistMargin {\n  margin-top: -1rem !important;\n}\n\n.secretCheckBoxMargin {\n  padding-left: 1rem !important;\n}\n";
 styleInject(css_248z$1);
 
 /**
@@ -7407,11 +7407,9 @@ class SecretsManagerForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      ...this.props.data,
-      importToggle: true
+      ...this.props.data
     };
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.toggleImportSecrets = this.toggleImportSecrets.bind(this);
     this.onSelectChange = this.onSelectChange.bind(this);
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
@@ -7424,14 +7422,11 @@ class SecretsManagerForm extends React.Component {
   handleInputChange(event) {
     this.setState(this.eventTargetToNameAndValue(event));
   }
-  toggleImportSecrets() {
-    this.setState(this.toggleStateBoolean("importToggle", this.state));
-  }
   onSelectChange(items) {
     let nextSecrets = [];
     items.forEach(item => {
       if (item !== "Select All") {
-        nextSecrets.push(lazyZ.getObjectFromArray(this.props.data.secrets, "ref", item));
+        nextSecrets.push(lazyZ.getObjectFromArray(this.props.secrets, "ref", item));
       }
     });
     this.setState({
@@ -7465,18 +7460,11 @@ class SecretsManagerForm extends React.Component {
       className: "fieldWidth",
       labelText: "Encryption Key",
       handleInputChange: this.handleInputChange
-    })), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, " ", /*#__PURE__*/React__default["default"].createElement("br", null), /*#__PURE__*/React__default["default"].createElement(StatelessToggleForm, {
-      name: "Import Existing Secrets",
-      hide: this.state.importToggle,
-      onIconClick: this.toggleImportSecrets,
-      className: "subForm secretsChecklistPadding",
-      toggleFormTitle: true,
-      noMarginBottom: true
-    }, /*#__PURE__*/React__default["default"].createElement(SecretsManagerChecklist, {
+    })), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(SecretsManagerChecklist, {
       secrets: this.props.secrets,
       selected: [...lazyZ.splat(this.props.data.secrets, "ref")],
       onSelectChange: this.onSelectChange
-    })), " "));
+    }));
   }
 }
 SecretsManagerForm.defaultProps = {
@@ -12142,20 +12130,35 @@ class SecretsManagerChecklist extends React__default["default"].Component {
   constructor(props) {
     super(props);
     this.state = {
+      hide: true,
       selected: this.props.selected && this.props.selected.length !== this.props.secrets.length ? this.props.selected : ["Select All"].concat([...lazyZ.splat(this.props.secrets, "ref")])
     };
     this.onCheckClick = this.onCheckClick.bind(this);
+    this.toggleHide = this.toggleHide.bind(this);
   }
   onCheckClick(ref) {
+    let selected = forms_25(this.state.selected, ref, this.props.secrets);
     this.setState({
-      selected: forms_25(this.state.selected, ref, this.props.secrets)
+      selected: selected
     }, () => {
-      this.props.onSelectChange(this.state.selected);
+      this.props.onSelectChange(selected);
+    });
+  }
+  toggleHide() {
+    this.setState({
+      hide: !this.state.hide
     });
   }
   render() {
-    return /*#__PURE__*/React__default["default"].createElement("div", {
-      className: "subForm secretChecklistMargin"
+    return /*#__PURE__*/React__default["default"].createElement(StatelessToggleForm, {
+      name: "Import Existing Secrets",
+      hide: this.state.hide,
+      onIconClick: this.toggleHide,
+      className: "formInSubForm secretsChecklistPadding",
+      toggleFormTitle: true,
+      noMarginBottom: true
+    }, /*#__PURE__*/React__default["default"].createElement("div", {
+      className: "formInSubForm secretChecklistMargin"
     }, lazyZ.distinct(["Select All"].concat([...lazyZ.splat(this.props.secrets, "ref")])).map(value => /*#__PURE__*/React__default["default"].createElement(react.Checkbox, {
       className: "secretCheckBoxMargin",
       id: value,
@@ -12163,7 +12166,7 @@ class SecretsManagerChecklist extends React__default["default"].Component {
       labelText: value,
       checked: lazyZ.contains(this.state.selected, value),
       onChange: () => this.onCheckClick(value)
-    })));
+    }))));
   }
 }
 SecretsManagerChecklist.defaultProps = {
