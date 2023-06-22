@@ -5,18 +5,18 @@ Object.defineProperty(exports, '__esModule', { value: true });
 require('@carbon/styles/css/styles.css');
 var react = require('@carbon/react');
 var lazyZ = require('lazy-z');
+var regexButWithWords = require('regex-but-with-words');
 var React = require('react');
 var PropTypes = require('prop-types');
 var iconsReact = require('@carbon/icons-react');
-var regexButWithWords = require('regex-but-with-words');
 var utils$1 = require('regex-but-with-words/lib/utils');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
 var lazyZ__default = /*#__PURE__*/_interopDefaultLegacy(lazyZ);
+var regexButWithWords__default = /*#__PURE__*/_interopDefaultLegacy(regexButWithWords);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 var PropTypes__default = /*#__PURE__*/_interopDefaultLegacy(PropTypes);
-var regexButWithWords__default = /*#__PURE__*/_interopDefaultLegacy(regexButWithWords);
 
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
@@ -45,11 +45,11 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$1 = "/* vars and themes */\n:root {\n  --background: #ffffff;\n  --subForm: #f4f4f4;\n  --formInSubForm: #fffdfd;\n  --cds-text-primary: #161616;\n  --cds-text-secondary: #525252;\n  --cds-field: #f4f4f4;\n  --cds-border-strong: #8d8d8d;\n  --blue: #0f62fe;\n  --red: #da1e28;\n  --white: #ffffff;\n}\n\n.dark {\n  --background: #161616;\n  --subForm: #262626;\n  --formInSubForm: #414141;\n  --cds-text-primary: #f4f4f4;\n  --cds-text-secondary: #c6c6c6;\n  --cds-field: #363636;\n  --cds-border-strong: #8897a2;\n  --cds-layer: #262626;\n  --cds-layer-hover: #363636;\n  --cds-field-02: #363636;\n  --cds-icon-secondary: #c6c6c6;\n  --cds-icon-primary: #c6c6c6;\n  --placeholder: #565656;\n  --cds-field-hover: #464646;\n  --cds-layer-selected: #525252;\n  --cds-background-inverse: #f4f4f4;\n  --cds-text-inverse: #262626;\n}\n\n.subForm {\n  /* white background for subform input fields */\n  --cds-field: #ffffff;\n}\n\n.formInSubForm {\n  /* gray for formInSubForm input fields */\n  --cds-field: #f4f4f4;\n}\n\ninput:read-only {\n  /* read only fields should only have text */\n  --cds-border-strong: transparent;\n}\n\n.dark {\n  background-color: var(--background);\n}\n\n.dark p {\n  color: #f4f4f4;\n}\n\n.dark i.chevron > svg {\n  fill: #f4f4f4;\n}\n\n.dark h4 {\n  color: #f4f4f4;\n}\n\n.dark .underConstruction > svg {\n  fill: #ffffff;\n}\n/* styling for tooltip content in dark mode */\n.dark .cds--toggletip-content > p {\n  color: #363636;\n}\n\n.dark .subForm {\n  /* alternate background for dark subforms */\n  --cds-field: #414141;\n}\n\n.dark .formInSubForm {\n  /* alternate background for dark formInSubForm */\n  --cds-field: #363636;\n}\n\n.dark ::placeholder {\n  color: var(--placeholder);\n}\n\n/* general alignment classes */\n\n.displayFlex {\n  display: flex;\n}\n\n.alignItemsTop {\n  align-items: top;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n\n.fieldWidthSmallest {\n  width: 8rem;\n}\n\n.fieldWidthBigger {\n  width: 40rem;\n}\n\n.textInputWide {\n  width: 30rem;\n}\n\n.textInputMedium {\n  width: 20rem;\n}\n\n/* backhground classes */\n.formInSubForm {\n  margin-top: 0rem;\n  background: var(--formInSubForm);\n  padding: 1rem;\n}\n\n.subForm {\n  background: var(--subForm);\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n/* Tooltips */\n.labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -22px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n\n/* subnet tile form */\n\n.tileFormMargin {\n  margin-bottom: -0.5rem;\n  margin-top: 0.5rem;\n}\n\n.tileFormMargin.subForm {\n  padding: 0px;\n}\n\n.marginRightSubnetTile {\n  margin-right: 10px;\n}\n\n/* StatefulTabPanel */\n\n.cds--tab-content.doc {\n  padding: 0.5rem 0;\n}\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}\n\n/* popover wrappers */\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  z-index: 9001;\n}\n\n/* buttons */\n\ni.chevron > svg {\n  display: block; /* remove extra padding on bottom of i which misaligns icon */\n  margin-right: 1rem;\n  margin-top: 0.15rem;\n}\n\n.chevron {\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: var(--blue) !important;\n  fill: var(--white) !important;\n  border-color: var(--blue) !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding: 0.4375rem !important;\n  align-items: center;\n}\n\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: var(--red) !important;\n}\n\n.alignButtons {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.cds--tabs__nav-link:focus {\n  outline: none !important;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important;\n}\n\n/* docs */\n.about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n\n/* empty resource tile */\n.iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: var(--subForm);\n}\n\n.marginTop {\n  margin-top: 1rem;\n}\n\n/* under construction */\n\n.underConstruction {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.flexDirectionColumn {\n  flex-direction: column;\n}\n\n/* f5 vsi */\n.wide {\n  width: 20rem !important;\n}\n\n.tight {\n  width: min-content; /* force invalid text to split line */\n}\n\n.passwordGenerateButton {\n  margin-top: 1.25rem;\n  margin-left: calc(-4rem - 3vw);\n}\n\n.passwordGenerateButton svg {\n  fill: var(--cds-icon-secondary, #525252) !important;\n}\n\n.passwordGenerateButton.invalid {\n  margin-left: calc(-5.75rem - 3vw);\n}\n\n.wrap {\n  flex-flow: wrap;\n}\n\n.docsUpdated {\n  display: flex;\n  align-items: flex-end;\n}\n\n.cds--list-box__menu {\n  width: fit-content;\n  text-align: left;\n}\n\n@media screen and (max-width: 1024px) {\n  .fieldWidth {\n    width: 11rem;\n  }\n\n  .fieldWidthSmaller {\n    width: 8rem;\n  }\n\n  .fieldWidthSmallest {\n    width: 5rem;\n  }\n\n  .textInputWide {\n    width: 20rem;\n  }\n\n  .fieldWidthBigger {\n    width: 30rem;\n  }\n\n  .textInputMedium {\n    width: 15rem;\n  }\n}\n\n@media screen and (max-width: 850px) {\n  .fieldWidth {\n    width: 100%;\n  }\n\n  .fieldWidthSmaller {\n    width: 100%;\n  }\n\n  .fieldWidthSmallest {\n    width: 100%;\n  }\n\n  .textInputMedium {\n    width: 100%;\n  }\n\n  .fieldWidthBigger {\n    width: 100%;\n  }\n\n  .textInputWide {\n    width: 100%;\n  }\n\n  .formGroup {\n    /* items 1 wide */\n    flex-direction: column !important;\n  }\n\n  .popover-obj.select {\n    /* need to adjust size for popover container at small widths */\n    width: 100%;\n  }\n\n  .popover-obj.select > span {\n    width: 100%;\n  }\n\n  /* items with tooltip should also be full width */\n  .cds--form-item {\n    flex: none;\n    width: 100%;\n  }\n}\n\n.cds--form-item {\n  flex: none; /* overwrite flex to fix inconsistent widths */\n}\n";
-styleInject(css_248z$1);
+var css_248z$2 = "/* vars and themes */\n:root {\n  --background: #ffffff;\n  --subForm: #f4f4f4;\n  --formInSubForm: #fffdfd;\n  --cds-text-primary: #161616;\n  --cds-text-secondary: #525252;\n  --cds-field: #f4f4f4;\n  --cds-border-strong: #8d8d8d;\n  --blue: #0f62fe;\n  --red: #da1e28;\n  --white: #ffffff;\n}\n\n.dark {\n  --background: #161616;\n  --subForm: #262626;\n  --formInSubForm: #414141;\n  --cds-text-primary: #f4f4f4;\n  --cds-text-secondary: #c6c6c6;\n  --cds-field: #363636;\n  --cds-border-strong: #8897a2;\n  --cds-layer: #262626;\n  --cds-layer-hover: #363636;\n  --cds-field-02: #363636;\n  --cds-icon-secondary: #c6c6c6;\n  --cds-icon-primary: #c6c6c6;\n  --placeholder: #565656;\n  --cds-field-hover: #464646;\n  --cds-layer-selected: #525252;\n  --cds-background-inverse: #f4f4f4;\n  --cds-text-inverse: #262626;\n}\n\n.subForm {\n  /* white background for subform input fields */\n  --cds-field: #ffffff;\n}\n\n.formInSubForm {\n  /* gray for formInSubForm input fields */\n  --cds-field: #f4f4f4;\n}\n\ninput:read-only {\n  /* read only fields should only have text */\n  --cds-border-strong: transparent;\n}\n\n.dark {\n  background-color: var(--background);\n}\n\n.dark p {\n  color: #f4f4f4;\n}\n\n.dark i.chevron > svg {\n  fill: #f4f4f4;\n}\n\n.dark h4 {\n  color: #f4f4f4;\n}\n\n.dark .underConstruction > svg {\n  fill: #ffffff;\n}\n/* styling for tooltip content in dark mode */\n.dark .cds--toggletip-content > p {\n  color: #363636;\n}\n\n.dark .subForm {\n  /* alternate background for dark subforms */\n  --cds-field: #414141;\n}\n\n.dark .formInSubForm {\n  /* alternate background for dark formInSubForm */\n  --cds-field: #363636;\n}\n\n.dark ::placeholder {\n  color: var(--placeholder);\n}\n\n/* general alignment classes */\n\n.displayFlex {\n  display: flex;\n}\n\n.alignItemsTop {\n  align-items: top;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n\n.fieldWidthSmallest {\n  width: 8rem;\n}\n\n.fieldWidthBigger {\n  width: 40rem;\n}\n\n.textInputWide {\n  width: 30rem;\n}\n\n.textInputMedium {\n  width: 20rem;\n}\n\n/* backhground classes */\n.formInSubForm {\n  margin-top: 0rem;\n  background: var(--formInSubForm);\n  padding: 1rem;\n}\n\n.subForm {\n  background: var(--subForm);\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n/* Tooltips */\n.labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -22px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n\n/* subnet tile form */\n\n.tileFormMargin {\n  margin-bottom: -0.5rem;\n  margin-top: 0.5rem;\n}\n\n.tileFormMargin.subForm {\n  padding: 0px;\n}\n\n.marginRightSubnetTile {\n  margin-right: 10px;\n}\n\n/* StatefulTabPanel */\n\n.cds--tab-content.doc {\n  padding: 0.5rem 0;\n}\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}\n\n/* popover wrappers */\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  z-index: 9001;\n}\n\n/* buttons */\n\ni.chevron > svg {\n  display: block; /* remove extra padding on bottom of i which misaligns icon */\n  margin-right: 1rem;\n  margin-top: 0.15rem;\n}\n\n.chevron {\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: var(--blue) !important;\n  fill: var(--white) !important;\n  border-color: var(--blue) !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding: 0.4375rem !important;\n  align-items: center;\n}\n\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: var(--red) !important;\n}\n\n.alignButtons {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.cds--tabs__nav-link:focus {\n  outline: none !important;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important;\n}\n\n/* docs */\n.about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n\n/* empty resource tile */\n.iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: var(--subForm);\n}\n\n.marginTop {\n  margin-top: 1rem;\n}\n\n/* under construction */\n\n.underConstruction {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.flexDirectionColumn {\n  flex-direction: column;\n}\n\n/* f5 vsi */\n.wide {\n  width: 20rem !important;\n}\n\n.tight {\n  width: min-content; /* force invalid text to split line */\n}\n\n.passwordGenerateButton {\n  margin-top: 1.25rem;\n  margin-left: calc(-4rem - 3vw);\n}\n\n.passwordGenerateButton svg {\n  fill: var(--cds-icon-secondary, #525252) !important;\n}\n\n.passwordGenerateButton.invalid {\n  margin-left: calc(-5.75rem - 3vw);\n}\n\n.wrap {\n  flex-flow: wrap;\n}\n\n.docsUpdated {\n  display: flex;\n  align-items: flex-end;\n}\n\n.cds--list-box__menu {\n  width: fit-content;\n  text-align: left;\n}\n\n@media screen and (max-width: 1024px) {\n  .fieldWidth {\n    width: 11rem;\n  }\n\n  .fieldWidthSmaller {\n    width: 8rem;\n  }\n\n  .fieldWidthSmallest {\n    width: 5rem;\n  }\n\n  .textInputWide {\n    width: 20rem;\n  }\n\n  .fieldWidthBigger {\n    width: 30rem;\n  }\n\n  .textInputMedium {\n    width: 15rem;\n  }\n}\n\n@media screen and (max-width: 850px) {\n  .fieldWidth {\n    width: 100%;\n  }\n\n  .fieldWidthSmaller {\n    width: 100%;\n  }\n\n  .fieldWidthSmallest {\n    width: 100%;\n  }\n\n  .textInputMedium {\n    width: 100%;\n  }\n\n  .fieldWidthBigger {\n    width: 100%;\n  }\n\n  .textInputWide {\n    width: 100%;\n  }\n\n  .formGroup {\n    /* items 1 wide */\n    flex-direction: column !important;\n  }\n\n  .popover-obj.select {\n    /* need to adjust size for popover container at small widths */\n    width: 100%;\n  }\n\n  .popover-obj.select > span {\n    width: 100%;\n  }\n\n  /* items with tooltip should also be full width */\n  .cds--form-item {\n    flex: none;\n    width: 100%;\n  }\n}\n\n.cds--form-item {\n  flex: none; /* overwrite flex to fix inconsistent widths */\n}\n";
+styleInject(css_248z$2);
 
 const {
-  contains: contains$1,
+  contains: contains$3,
   capitalize: capitalize$1
 } = lazyZ__default["default"];
 
@@ -139,7 +139,7 @@ function handleClusterInputChange$1(name, value, stateData) {
   return cluster;
 }
 function subnetTierName$1(tierName) {
-  if (contains$1(["vsi", "vpe", "vpn", "vpn-1", "vpn-2"], tierName)) {
+  if (contains$3(["vsi", "vpe", "vpn", "vpn-1", "vpn-2"], tierName)) {
     return tierName.toUpperCase() + " Subnet Tier";
   } else if (tierName === "") {
     return "New Subnet Tier";
@@ -320,7 +320,7 @@ const {
 
 /**
  * generate parameters for icse select
- * @param {*} props 
+ * @param {*} props
  * @returns {Object} parameters
  */
 function icseSelectParams$1(props) {
@@ -653,6 +653,689 @@ var popoverWrapper = {
 };
 
 const {
+  kebabCase: kebabCase$1
+} = lazyZ__default["default"];
+
+/**
+ * handle input change for atracker
+ * @param {Object} stateData
+ * @param {Object} event
+ */
+function atrackerInputChange$1(stateData, event) {
+  let state = {
+    ...stateData
+  };
+  let {
+    name,
+    value
+  } = event.target;
+  if (name === "plan") state.plan = kebabCase$1(value);else state[name] = value;
+  return state;
+}
+var atracker = {
+  atrackerInputChange: atrackerInputChange$1
+};
+
+/**
+ * handle toggle for resource group
+ * @param {Object} stateData
+ * @param {string} name name of the object key to change
+ */
+function handleRgToggle$1(stateData, name) {
+  let state = {
+    ...stateData
+  };
+
+  // Turn off the use_prefix toggle when not using data.
+  if (name === "use_data" && state.use_data === false) {
+    state[name] = !state[name];
+    state.use_prefix = false;
+  } else {
+    state[name] = !state[name];
+  }
+  return state;
+}
+var resourceGroups = {
+  handleRgToggle: handleRgToggle$1
+};
+
+const {
+  isNullOrEmptyString: isNullOrEmptyString$4,
+  isIpv4CidrOrAddress: isIpv4CidrOrAddress$1
+} = lazyZ__default["default"];
+const {
+  RegexButWithWords: RegexButWithWords$2
+} = regexButWithWords__default["default"];
+const ipRangeExpression = new RegexButWithWords$2().wordBoundary().group(exp => {
+  exp.group(exp => {
+    exp.group(exp => {
+      exp.literal("2").set("1-5").set("0-6");
+    }).or().group(exp => {
+      exp.literal("1").digit(2);
+    }).or().group(exp => {
+      exp.digit(1, 2);
+    });
+  }).literal(".");
+}, 3).group(exp => {
+  exp.group(exp => {
+    exp.literal("2").set("1-5").set("0-6");
+  }).or().group(exp => {
+    exp.literal("1").digit(2);
+  }).or().group(exp => {
+    exp.digit(1, 2);
+  });
+}).literal("-").group(exp => {
+  exp.group(exp => {
+    exp.group(exp => {
+      exp.literal("2").set("1-5").set("0-6");
+    }).or().group(exp => {
+      exp.literal("1").digit(2);
+    }).or().group(exp => {
+      exp.digit(1, 2);
+    });
+  }).literal(".");
+}, 3).group(exp => {
+  exp.group(exp => {
+    exp.literal("2").set("1-5").set("0-6");
+  }).or().group(exp => {
+    exp.literal("1").digit(2);
+  }).or().group(exp => {
+    exp.digit(1, 2);
+  });
+}).wordBoundary().done("g");
+
+/**
+ * create cbr invalid field sta
+ * @param {*} field
+ * @param {*} value
+ * @returns {Object} invalid boolean invalidText string
+ */
+function cbrInvalid$1(field, value) {
+  let invalid = {
+    invalid: false,
+    invalidText: ""
+  };
+  if (!isNullOrEmptyString$4(value) && (value.match(/^[0-9a-z-]+$/) === null || value.length >= 128)) {
+    invalid.invalid = true;
+    invalid.invalidText = `Invalid ${field}. Value must match regex expression /^[0-9a-z-]+$/.`;
+  }
+  return invalid;
+}
+
+/**
+ * cbr value is invalid
+ * @param {*} type
+ * @param {*} value
+ * @returns {Object} invalid boolean invalidText string
+ */
+function cbrValueInvalid$1(type, value) {
+  let invalid = {
+    invalid: false,
+    invalidText: ""
+  };
+  if (isNullOrEmptyString$4(value)) {
+    invalid.invalid = true;
+    invalid.invalidText = `Invalid value for type ${type}. Cannot be empty string.`;
+  } else if (type === "ipAddress") {
+    if (!isIpv4CidrOrAddress$1(value) || value.includes("/")) {
+      invalid.invalid = true;
+      invalid.invalidText = `Invalid value for type ${type}. Value must be a valid IPV4 Address.`;
+    }
+  } else if (type === "ipRange") {
+    if (value.match(ipRangeExpression) === null) {
+      invalid.invalid = true;
+      invalid.invalidText = `Invalid value for type ${type}. Value must be a range of IPV4 Addresses.`;
+    }
+  } else {
+    invalid = cbrInvalid$1(type, value);
+  }
+  return invalid;
+}
+const cbrTypeNameMap$1 = {
+  ipAddress: "IP Address",
+  ipRange: "IP Range",
+  subnet: "Subnet",
+  vpc: "VPC",
+  serviceRef: "Service Ref"
+};
+const cbrNameTypeMap = {
+  "IP Address": "ipAddress",
+  "IP Range": "ipRange",
+  Subnet: "subnet",
+  VPC: "vpc",
+  "Service Ref": "serviceRef"
+};
+
+/**
+ * return a placeholder for value on exclusion/address form
+ * @param {string} type
+ * @returns
+ */
+function cbrValuePlaceholder$1(type) {
+  return type === "ipAddress" ? "x.x.x.x" : type === "ipRange" ? "x.x.x.x-x.x.x.x" : `my-cbr-zone-${type}`;
+}
+
+/**
+ * handle input change for cbr rules
+ * @param {*} event
+ * @param {Object} stateData
+ * @returns object
+ */
+function handleRuleInputChange$1(stateData, event) {
+  let {
+    name,
+    value
+  } = event.target;
+  let state = {
+    ...stateData
+  };
+  if (name === "enforcement_mode") {
+    state[name] = value.toLowerCase();
+  } else {
+    state[name] = value;
+  }
+  return state;
+}
+
+/**
+ * handle exclusion and address input change
+ * @param {*} event
+ * @param {Object} stateData
+ */
+function handleExclusionAddressInputChange$1(stateData, event) {
+  let {
+    name,
+    value
+  } = event.target;
+  let state = {
+    ...stateData
+  };
+  if (name === "type") state[name] = cbrNameTypeMap[value];else state[name] = value;
+  return state;
+}
+var cbrUtils = {
+  cbrInvalid: cbrInvalid$1,
+  cbrValueInvalid: cbrValueInvalid$1,
+  cbrValuePlaceholder: cbrValuePlaceholder$1,
+  handleRuleInputChange: handleRuleInputChange$1,
+  cbrTypeNameMap: cbrTypeNameMap$1,
+  handleExclusionAddressInputChange: handleExclusionAddressInputChange$1
+};
+var cbrUtils_1 = cbrUtils.cbrInvalid;
+var cbrUtils_2 = cbrUtils.cbrValueInvalid;
+var cbrUtils_3 = cbrUtils.cbrValuePlaceholder;
+var cbrUtils_5 = cbrUtils.cbrTypeNameMap;
+var cbrUtils_6 = cbrUtils.handleExclusionAddressInputChange;
+
+const {
+  contains: contains$2
+} = lazyZ__default["default"];
+
+/**
+ * filter function for kube version select
+ * @param {string} version
+ * @param {string} kube_type
+ * @returns {string} version
+ */
+function filterKubeVersion$2(version, kube_type) {
+  if (kube_type === "openshift" && contains$2(version, "openshift") ||
+  // is openshift and contains openshift
+  kube_type !== "openshift" && !contains$2(version, "openshift") ||
+  // is not openshift and does not contain openshift
+  version === "default" // or is default
+  ) {
+    return version.replace(/\s\(Default\)/g, ""); // replace default with empty string
+  }
+}
+
+var cluster = {
+  filterKubeVersion: filterKubeVersion$2
+};
+
+/**
+ * custom resolver input change
+ * @param {Object} stateData
+ * @param {*} event
+ * @returns {Object} new state
+ */
+function handleDnsResolverInputChange$1(stateData, event) {
+  let {
+    name,
+    value
+  } = event.target;
+  let state = {
+    ...stateData
+  };
+  if (name === "vpc") {
+    state[name] = value;
+    state.subnets = [];
+  } else {
+    state[name] = value;
+  }
+  return state;
+}
+
+/**
+ * handle dns form input change
+ * @param {*} event
+ * @returns {Object} state update object
+ */
+function dnsFormInputChange$1(event) {
+  let {
+    name,
+    value
+  } = event.target;
+  if (name === "plan") value = value.toLowerCase();
+  return {
+    [name]: value
+  };
+}
+var dns = {
+  handleDnsResolverInputChange: handleDnsResolverInputChange$1,
+  dnsFormInputChange: dnsFormInputChange$1
+};
+
+const {
+  RegexButWithWords: RegexButWithWords$1
+} = regexButWithWords__default["default"];
+const {
+  isNullOrEmptyString: isNullOrEmptyString$3
+} = lazyZ__default["default"];
+const urlValidationExp = new RegexButWithWords$1().group(exp => {
+  exp.literal("ftp").or().literal("http").literal("s").lazy();
+}).literal("://").group("www.").lazy().group(exp => {
+  exp.negatedSet('"\\/').oneOrMore().literal(".");
+}).group(exp => {
+  exp.negatedSet('"\\/').oneOrMore().literal(".");
+}).oneOrMore().negatedSet('"\\/.').oneOrMore().literal("/").negatedSet(' "').anyNumber().stringEnd().done("g");
+const tmosAdminPasswordValidationExp = new RegexButWithWords$1().stringBegin().look.ahead(exp => {
+  exp.any().anyNumber().set("a-z");
+}).look.ahead(exp => {
+  exp.any().anyNumber().set("A-Z");
+}).look.ahead(exp => {
+  exp.any().anyNumber().set("0-9");
+}).any(15, "*").stringEnd().done("");
+
+/**
+ * url value is valid and not empty
+ * @param {str} url
+ * @returns {boolean} true when url is valid and not empty, false when invalid
+ */
+function isValidUrl$1(url) {
+  if (isNullOrEmptyString$3(url) || url === "null") return true;
+  return url.match(urlValidationExp) !== null;
+}
+
+/**
+ * verifies tmos admin password
+ * @param {str} password
+ * @returns {boolean} true when password is valid
+ */
+function isValidTmosAdminPassword$1(password) {
+  if (isNullOrEmptyString$3(password)) return true;else return password.match(tmosAdminPasswordValidationExp) !== null;
+}
+
+/**
+ * securely generates a random byte to be transformed into a character
+ * @returns {byte} random byte
+ */
+function getRandomByte() {
+  var result = new Uint8Array(1);
+  result = window.crypto.getRandomValues(result); // cryptographically secure random number generation
+  return result[0];
+}
+
+/**
+ * Checks if the random byte character generated is a valid character in the charset
+ * if it is, return the char, add it to the password String
+ * @param {int} length
+ * @returns {char} a valid char to go into the password
+ */
+function generatePassword(length) {
+  const charset = /[a-zA-Z0-9_\-+!$%^&*#]/; // valid chars for the password string
+  return Array.apply(null, {
+    length: length
+  }) // create an array of null of length specified
+  .map(function () {
+    // on each element
+    var result;
+    while (true) {
+      result = String.fromCharCode(getRandomByte()); // generate a char until it is a valid char in the charset
+      if (charset.test(result)) {
+        return result; // char is in the charset
+      }
+    }
+  }, this).join(""); // join all array elements into a single string
+}
+
+/**
+ * generates the password until it fits the validation expression
+ * @param {int} length
+ * @returns {string} password that fits the requirements of the validation expression
+ */
+function getValidAdminPassword$1(length) {
+  let invalid = true;
+  let count = 0;
+  let result;
+  do {
+    result = generatePassword(length); // generate a password until it is valid
+    if (tmosAdminPasswordValidationExp.test(result)) {
+      // we are valid if this test passes
+      invalid = false;
+    } else {
+      result = ""; // reset result
+      count++;
+    }
+  } while (invalid && count <= 5); // only be more than 5 times if you specified an invalid length. dummy counter for unit
+  return result;
+}
+var f5 = {
+  getValidAdminPassword: getValidAdminPassword$1,
+  isNullOrEmptyString: isNullOrEmptyString$3,
+  isValidTmosAdminPassword: isValidTmosAdminPassword$1,
+  isValidUrl: isValidUrl$1
+};
+var f5_1 = f5.getValidAdminPassword;
+var f5_2 = f5.isNullOrEmptyString;
+var f5_3 = f5.isValidTmosAdminPassword;
+var f5_4 = f5.isValidUrl;
+
+/**
+ * f5 vsi input change
+ * @param {Object} stateData
+ * @param {object} event
+ * @returns stateData
+ */
+function f5VsiInputChange$1(stateData, event) {
+  let state = {
+    ...stateData
+  };
+  let {
+    name,
+    value
+  } = event.target;
+  if (name === "zones") state.zones = Number(value);else state[name] = value;
+  return state;
+}
+
+/**
+ * initialize vsis
+ * @param {Object} stateData
+ * @param {Object} componentProps
+ * @returns {array} f5 vsis
+ */
+function f5Vsis$1(stateData, componentProps) {
+  let vsis = [...componentProps.vsis];
+  while (vsis.length < stateData.zones) {
+    // add a new vsi to display
+    vsis.push(componentProps.initVsiCallback(componentProps.edge_pattern, `zone-${vsis.length + 1}`, componentProps.f5_on_management, {
+      image: stateData.image,
+      resource_group: stateData.resource_group,
+      ssh_keys: stateData.ssh_keys,
+      profile: stateData.profile
+    }));
+  }
+  return vsis;
+}
+var f5Vsi = {
+  f5VsiInputChange: f5VsiInputChange$1,
+  f5Vsis: f5Vsis$1
+};
+var f5Vsi_1 = f5Vsi.f5VsiInputChange;
+var f5Vsi_2 = f5Vsi.f5Vsis;
+
+const {
+  allFieldsNull,
+  transpose
+} = lazyZ__default["default"];
+
+/**
+ * get which rule protocol is being used
+ * @param {string} rule
+ * @returns {string} protocol
+ */
+function getRuleProtocol$1(rule) {
+  let protocol = "all";
+  // for each possible protocol
+  ["icmp", "tcp", "udp"].forEach(field => {
+    // set protocol to that field if not all fields are null
+    if (allFieldsNull(rule[field]) === false) {
+      protocol = field;
+    }
+  });
+  return protocol;
+}
+
+/**
+ * create sub rule
+ * @param {*} rule rule object
+ * @param {string} protocol all, tcp, icmp, or udp
+ * @param {boolean} isSecurityGroup
+ * @returns {Object} default rule object
+ */
+function getSubRule$1(rule, isSecurityGroup) {
+  let defaultRule = {
+    port_max: null,
+    port_min: null,
+    source_port_max: null,
+    source_port_min: null,
+    type: null,
+    code: null
+  };
+  if (getRuleProtocol$1(rule) !== "all") {
+    transpose(rule[getRuleProtocol$1(rule)], defaultRule);
+  }
+  if (isSecurityGroup) {
+    delete defaultRule.source_port_min;
+    delete defaultRule.source_port_max;
+  }
+  return defaultRule;
+}
+
+/**
+ * Helper function to move items up and down in the list so they can be rendered properly
+ * @param {Array} arr
+ * @param {number} indexA
+ * @param {number} indexB
+ */
+function swapArrayElements$1(arr, indexA, indexB) {
+  let temp = arr[indexA];
+  arr[indexA] = arr[indexB];
+  arr[indexB] = temp;
+}
+function getOrderCardClassName$1(props) {
+  return "marginBottomSmall positionRelative " + (props.isSecurityGroup ? "formInSubForm" : "subForm");
+}
+var networkingOrderCard = {
+  getRuleProtocol: getRuleProtocol$1,
+  getSubRule: getSubRule$1,
+  swapArrayElements: swapArrayElements$1,
+  getOrderCardClassName: getOrderCardClassName$1
+};
+
+/**
+ * handle input change for routing tables
+ * @param {Object} stateData
+ * @param Object event
+ */
+function routingTableRouteInputChange$1(stateData, event) {
+  let state = {
+    ...stateData
+  };
+  let {
+    name,
+    value
+  } = event.target;
+  state[name] = value;
+  if (name === "action" && value !== "deliver") {
+    state.next_hop = "0.0.0.0";
+  } else if (name === "action") {
+    state.next_hop = null;
+  }
+  return state;
+}
+var routingTable = {
+  routingTableRouteInputChange: routingTableRouteInputChange$1
+};
+var routingTable_1 = routingTable.routingTableRouteInputChange;
+
+/**
+ * Handle crn input
+ * @param {event} event
+ */
+function handleCRNs$1(event) {
+  let crns = event.target.value ? event.target.value.replace(/\s\s+/g, "") // replace extra spaces
+  .replace(/,(?=,)/g, "") // prevent null tags from
+  .replace(/[^\w,-:]/g, "").split(",") : [];
+  return {
+    crns: crns
+  };
+}
+
+/**
+ * Handle vpc selection
+ * @param {Array} selectedItems list of selected vpcs
+ * @param {String} tgw transit gateway name
+ */
+function handleVpcSelect$1(selectedItems, tgw) {
+  let connections = [];
+  selectedItems.forEach(vpc => {
+    connections.push({
+      tgw: tgw,
+      vpc: vpc
+    });
+  });
+  return {
+    connections: connections
+  };
+}
+var transitGateway = {
+  handleCRNs: handleCRNs$1,
+  handleVpcSelect: handleVpcSelect$1
+};
+
+const {
+  contains: contains$1,
+  splat: splat$1
+} = lazyZ__default["default"];
+
+/**
+ * on checklist click
+ * @param {Array<string>} items items selected
+ * @param {string} ref reference to check
+ * @param {Array<object>} secrets list of secrets objects
+ * @returns {Array<string>} list of selected items
+ */
+function onCheckClick$1(items, ref, secrets) {
+  let selected = [];
+  if (ref === "Select All" && contains$1(items, ref)) {
+    selected = [];
+  } else if (ref === "Select All") {
+    selected = ["Select All"].concat([...splat$1(secrets, "ref")]);
+  } else if (contains$1(items, ref)) {
+    selected = [...items];
+    selected.splice(selected.indexOf(ref), 1);
+  } else {
+    selected = [...items].concat([ref]);
+  }
+  if (selected.length < secrets.length + 1 && contains$1(selected, "Select All")) {
+    selected.shift();
+  }
+  return selected;
+}
+var secretsManager = {
+  onCheckClick: onCheckClick$1
+};
+
+const {
+  atrackerInputChange
+} = atracker;
+const {
+  handleRgToggle
+} = resourceGroups;
+const {
+  cbrInvalid,
+  cbrValueInvalid,
+  cbrValuePlaceholder,
+  handleRuleInputChange,
+  cbrTypeNameMap,
+  handleExclusionAddressInputChange
+} = cbrUtils;
+const {
+  filterKubeVersion: filterKubeVersion$1
+} = cluster;
+const {
+  handleDnsResolverInputChange,
+  dnsFormInputChange
+} = dns;
+const {
+  getValidAdminPassword,
+  isNullOrEmptyString: isNullOrEmptyString$2,
+  isValidTmosAdminPassword,
+  isValidUrl
+} = f5;
+const {
+  f5VsiInputChange,
+  f5Vsis
+} = f5Vsi;
+const {
+  getRuleProtocol,
+  getSubRule,
+  swapArrayElements,
+  getOrderCardClassName
+} = networkingOrderCard;
+const {
+  routingTableRouteInputChange
+} = routingTable;
+const {
+  handleCRNs,
+  handleVpcSelect
+} = transitGateway;
+const {
+  onCheckClick
+} = secretsManager;
+var forms = {
+  f5Vsis,
+  f5VsiInputChange,
+  routingTableRouteInputChange,
+  cbrInvalid,
+  cbrValueInvalid,
+  cbrValuePlaceholder,
+  handleRuleInputChange,
+  cbrTypeNameMap,
+  handleExclusionAddressInputChange,
+  getValidAdminPassword,
+  isNullOrEmptyString: isNullOrEmptyString$2,
+  isValidTmosAdminPassword,
+  isValidUrl,
+  handleDnsResolverInputChange,
+  dnsFormInputChange,
+  atrackerInputChange,
+  handleRgToggle,
+  handleCRNs,
+  handleVpcSelect,
+  getRuleProtocol,
+  getSubRule,
+  swapArrayElements,
+  getOrderCardClassName,
+  filterKubeVersion: filterKubeVersion$1,
+  onCheckClick
+};
+var forms_4 = forms.cbrInvalid;
+var forms_7 = forms.handleRuleInputChange;
+var forms_14 = forms.handleDnsResolverInputChange;
+var forms_15 = forms.dnsFormInputChange;
+var forms_16 = forms.atrackerInputChange;
+var forms_17 = forms.handleRgToggle;
+var forms_18 = forms.handleCRNs;
+var forms_19 = forms.handleVpcSelect;
+var forms_20 = forms.getRuleProtocol;
+var forms_21 = forms.getSubRule;
+var forms_22 = forms.swapArrayElements;
+var forms_23 = forms.getOrderCardClassName;
+var forms_25 = forms.onCheckClick;
+
+const {
   toggleMarginBottom,
   addClassName,
   prependEmptyStringWhenNull,
@@ -705,6 +1388,9 @@ const {
 const {
   popoverWrapperParams
 } = popoverWrapper;
+const {
+  filterKubeVersion
+} = forms;
 var lib = {
   onToggleEvent,
   toggleParams,
@@ -734,7 +1420,8 @@ var lib = {
   icseHeadingParams,
   statelessToggleFormParams,
   statefulTabPanelParams,
-  popoverWrapperParams
+  popoverWrapperParams,
+  filterKubeVersion
 };
 var lib_3 = lib.docTextFieldParams;
 var lib_4 = lib.handleNumberDropdownEvent;
@@ -753,6 +1440,7 @@ var lib_20 = lib.deleteButtonParams;
 var lib_22 = lib.icseFormTemplateParams;
 var lib_28 = lib.statefulTabPanelParams;
 var lib_29 = lib.popoverWrapperParams;
+var lib_30 = lib.filterKubeVersion;
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -2653,7 +3341,7 @@ IcseNameInput.propTypes = {
   className: PropTypes__default["default"].string,
   value: PropTypes__default["default"].string.isRequired,
   onChange: PropTypes__default["default"].func,
-  componentName: PropTypes__default["default"].string.isRequired,
+  componentName: PropTypes__default["default"].string,
   tooltip: PropTypes__default["default"].shape({
     content: PropTypes__default["default"].string.isRequired,
     link: PropTypes__default["default"].string,
@@ -3110,542 +3798,6 @@ AppIdForm.propTypes = {
   invalidTextCallback: PropTypes__default["default"].func
 };
 
-const {
-  kebabCase: kebabCase$1
-} = lazyZ__default["default"];
-
-/**
- * handle input change for atracker
- * @param {Object} stateData
- * @param {Object} event
- */
-function atrackerInputChange$1(stateData, event) {
-  let state = {
-    ...stateData
-  };
-  let {
-    name,
-    value
-  } = event.target;
-  if (name === "plan") state.plan = kebabCase$1(value);else state[name] = value;
-  return state;
-}
-var atracker = {
-  atrackerInputChange: atrackerInputChange$1
-};
-
-/**
- * handle toggle for resource group
- * @param {Object} stateData
- * @param {string} name name of the object key to change
- */
-function handleRgToggle$1(stateData, name) {
-  let state = {
-    ...stateData
-  };
-
-  // Turn off the use_prefix toggle when not using data.
-  if (name === "use_data" && state.use_data === false) {
-    state[name] = !state[name];
-    state.use_prefix = false;
-  } else {
-    state[name] = !state[name];
-  }
-  return state;
-}
-var resourceGroups = {
-  handleRgToggle: handleRgToggle$1
-};
-
-const {
-  isNullOrEmptyString: isNullOrEmptyString$4,
-  isIpv4CidrOrAddress: isIpv4CidrOrAddress$1
-} = lazyZ__default["default"];
-const {
-  RegexButWithWords: RegexButWithWords$2
-} = regexButWithWords__default["default"];
-const ipRangeExpression = new RegexButWithWords$2().wordBoundary().group(exp => {
-  exp.group(exp => {
-    exp.group(exp => {
-      exp.literal("2").set("1-5").set("0-6");
-    }).or().group(exp => {
-      exp.literal("1").digit(2);
-    }).or().group(exp => {
-      exp.digit(1, 2);
-    });
-  }).literal(".");
-}, 3).group(exp => {
-  exp.group(exp => {
-    exp.literal("2").set("1-5").set("0-6");
-  }).or().group(exp => {
-    exp.literal("1").digit(2);
-  }).or().group(exp => {
-    exp.digit(1, 2);
-  });
-}).literal("-").group(exp => {
-  exp.group(exp => {
-    exp.group(exp => {
-      exp.literal("2").set("1-5").set("0-6");
-    }).or().group(exp => {
-      exp.literal("1").digit(2);
-    }).or().group(exp => {
-      exp.digit(1, 2);
-    });
-  }).literal(".");
-}, 3).group(exp => {
-  exp.group(exp => {
-    exp.literal("2").set("1-5").set("0-6");
-  }).or().group(exp => {
-    exp.literal("1").digit(2);
-  }).or().group(exp => {
-    exp.digit(1, 2);
-  });
-}).wordBoundary().done("g");
-
-/**
- * create cbr invalid field sta
- * @param {*} field
- * @param {*} value
- * @returns {Object} invalid boolean invalidText string
- */
-function cbrInvalid$1(field, value) {
-  let invalid = {
-    invalid: false,
-    invalidText: ""
-  };
-  if (!isNullOrEmptyString$4(value) && (value.match(/^[0-9a-z-]+$/) === null || value.length >= 128)) {
-    invalid.invalid = true;
-    invalid.invalidText = `Invalid ${field}. Value must match regex expression /^[0-9a-z-]+$/.`;
-  }
-  return invalid;
-}
-
-/**
- * cbr value is invalid
- * @param {*} type
- * @param {*} value
- * @returns {Object} invalid boolean invalidText string
- */
-function cbrValueInvalid$1(type, value) {
-  let invalid = {
-    invalid: false,
-    invalidText: ""
-  };
-  if (isNullOrEmptyString$4(value)) {
-    invalid.invalid = true;
-    invalid.invalidText = `Invalid value for type ${type}. Cannot be empty string.`;
-  } else if (type === "ipAddress") {
-    if (!isIpv4CidrOrAddress$1(value) || value.includes("/")) {
-      invalid.invalid = true;
-      invalid.invalidText = `Invalid value for type ${type}. Value must be a valid IPV4 Address.`;
-    }
-  } else if (type === "ipRange") {
-    if (value.match(ipRangeExpression) === null) {
-      invalid.invalid = true;
-      invalid.invalidText = `Invalid value for type ${type}. Value must be a range of IPV4 Addresses.`;
-    }
-  } else {
-    invalid = cbrInvalid$1(type, value);
-  }
-  return invalid;
-}
-const cbrTypeNameMap$1 = {
-  ipAddress: "IP Address",
-  ipRange: "IP Range",
-  subnet: "Subnet",
-  vpc: "VPC",
-  serviceRef: "Service Ref"
-};
-const cbrNameTypeMap = {
-  "IP Address": "ipAddress",
-  "IP Range": "ipRange",
-  Subnet: "subnet",
-  VPC: "vpc",
-  "Service Ref": "serviceRef"
-};
-
-/**
- * return a placeholder for value on exclusion/address form
- * @param {string} type
- * @returns
- */
-function cbrValuePlaceholder$1(type) {
-  return type === "ipAddress" ? "x.x.x.x" : type === "ipRange" ? "x.x.x.x-x.x.x.x" : `my-cbr-zone-${type}`;
-}
-
-/**
- * handle input change for cbr rules
- * @param {*} event
- * @param {Object} stateData
- * @returns object
- */
-function handleRuleInputChange$1(stateData, event) {
-  let {
-    name,
-    value
-  } = event.target;
-  let state = {
-    ...stateData
-  };
-  if (name === "enforcement_mode") {
-    state[name] = value.toLowerCase();
-  } else {
-    state[name] = value;
-  }
-  return state;
-}
-
-/**
- * handle exclusion and address input change
- * @param {*} event
- * @param {Object} stateData
- */
-function handleExclusionAddressInputChange$1(stateData, event) {
-  let {
-    name,
-    value
-  } = event.target;
-  let state = {
-    ...stateData
-  };
-  if (name === "type") state[name] = cbrNameTypeMap[value];else state[name] = value;
-  return state;
-}
-var cbrUtils = {
-  cbrInvalid: cbrInvalid$1,
-  cbrValueInvalid: cbrValueInvalid$1,
-  cbrValuePlaceholder: cbrValuePlaceholder$1,
-  handleRuleInputChange: handleRuleInputChange$1,
-  cbrTypeNameMap: cbrTypeNameMap$1,
-  handleExclusionAddressInputChange: handleExclusionAddressInputChange$1
-};
-var cbrUtils_1 = cbrUtils.cbrInvalid;
-var cbrUtils_2 = cbrUtils.cbrValueInvalid;
-var cbrUtils_3 = cbrUtils.cbrValuePlaceholder;
-var cbrUtils_5 = cbrUtils.cbrTypeNameMap;
-var cbrUtils_6 = cbrUtils.handleExclusionAddressInputChange;
-
-/**
- * custom resolver input change
- * @param {Object} stateData
- * @param {*} event
- * @returns {Object} new state
- */
-function handleDnsResolverInputChange$1(stateData, event) {
-  let {
-    name,
-    value
-  } = event.target;
-  let state = {
-    ...stateData
-  };
-  if (name === "vpc") {
-    state[name] = value;
-    state.subnets = [];
-  } else {
-    state[name] = value;
-  }
-  return state;
-}
-
-/**
- * handle dns form input change
- * @param {*} event 
- * @returns {Object} state update object
- */
-function dnsFormInputChange$1(event) {
-  let {
-    name,
-    value
-  } = event.target;
-  if (name === "plan") value = value.toLowerCase();
-  return {
-    [name]: value
-  };
-}
-var dns = {
-  handleDnsResolverInputChange: handleDnsResolverInputChange$1,
-  dnsFormInputChange: dnsFormInputChange$1
-};
-
-const {
-  RegexButWithWords: RegexButWithWords$1
-} = regexButWithWords__default["default"];
-const {
-  isNullOrEmptyString: isNullOrEmptyString$3
-} = lazyZ__default["default"];
-const urlValidationExp = new RegexButWithWords$1().group(exp => {
-  exp.literal("ftp").or().literal("http").literal("s").lazy();
-}).literal("://").group("www.").lazy().group(exp => {
-  exp.negatedSet('"\\/').oneOrMore().literal(".");
-}).group(exp => {
-  exp.negatedSet('"\\/').oneOrMore().literal(".");
-}).oneOrMore().negatedSet('"\\/.').oneOrMore().literal("/").negatedSet(' "').anyNumber().stringEnd().done("g");
-const tmosAdminPasswordValidationExp = new RegexButWithWords$1().stringBegin().look.ahead(exp => {
-  exp.any().anyNumber().set("a-z");
-}).look.ahead(exp => {
-  exp.any().anyNumber().set("A-Z");
-}).look.ahead(exp => {
-  exp.any().anyNumber().set("0-9");
-}).any(15, "*").stringEnd().done("");
-
-/**
- * url value is valid and not empty
- * @param {str} url
- * @returns {boolean} true when url is valid and not empty, false when invalid
- */
-function isValidUrl$1(url) {
-  if (isNullOrEmptyString$3(url) || url === "null") return true;
-  return url.match(urlValidationExp) !== null;
-}
-
-/**
- * verifies tmos admin password
- * @param {str} password
- * @returns {boolean} true when password is valid
- */
-function isValidTmosAdminPassword$1(password) {
-  if (isNullOrEmptyString$3(password)) return true;else return password.match(tmosAdminPasswordValidationExp) !== null;
-}
-
-/**
- * securely generates a random byte to be transformed into a character
- * @returns {byte} random byte
- */
-function getRandomByte() {
-  var result = new Uint8Array(1);
-  result = window.crypto.getRandomValues(result); // cryptographically secure random number generation
-  return result[0];
-}
-
-/**
- * Checks if the random byte character generated is a valid character in the charset
- * if it is, return the char, add it to the password String
- * @param {int} length
- * @returns {char} a valid char to go into the password
- */
-function generatePassword(length) {
-  const charset = /[a-zA-Z0-9_\-+!$%^&*#]/; // valid chars for the password string
-  return Array.apply(null, {
-    length: length
-  }) // create an array of null of length specified
-  .map(function () {
-    // on each element
-    var result;
-    while (true) {
-      result = String.fromCharCode(getRandomByte()); // generate a char until it is a valid char in the charset
-      if (charset.test(result)) {
-        return result; // char is in the charset
-      }
-    }
-  }, this).join(""); // join all array elements into a single string
-}
-
-/**
- * generates the password until it fits the validation expression
- * @param {int} length
- * @returns {string} password that fits the requirements of the validation expression
- */
-function getValidAdminPassword$1(length) {
-  let invalid = true;
-  let count = 0;
-  let result;
-  do {
-    result = generatePassword(length); // generate a password until it is valid
-    if (tmosAdminPasswordValidationExp.test(result)) {
-      // we are valid if this test passes
-      invalid = false;
-    } else {
-      result = ""; // reset result
-      count++;
-    }
-  } while (invalid && count <= 5); // only be more than 5 times if you specified an invalid length. dummy counter for unit
-  return result;
-}
-var f5 = {
-  getValidAdminPassword: getValidAdminPassword$1,
-  isNullOrEmptyString: isNullOrEmptyString$3,
-  isValidTmosAdminPassword: isValidTmosAdminPassword$1,
-  isValidUrl: isValidUrl$1
-};
-var f5_1 = f5.getValidAdminPassword;
-var f5_2 = f5.isNullOrEmptyString;
-var f5_3 = f5.isValidTmosAdminPassword;
-var f5_4 = f5.isValidUrl;
-
-const {
-  allFieldsNull,
-  transpose
-} = lazyZ__default["default"];
-
-/**
- * get which rule protocol is being used
- * @param {string} rule
- * @returns {string} protocol
- */
-function getRuleProtocol$1(rule) {
-  let protocol = "all";
-  // for each possible protocol
-  ["icmp", "tcp", "udp"].forEach(field => {
-    // set protocol to that field if not all fields are null
-    if (allFieldsNull(rule[field]) === false) {
-      protocol = field;
-    }
-  });
-  return protocol;
-}
-
-/**
- * create sub rule
- * @param {*} rule rule object
- * @param {string} protocol all, tcp, icmp, or udp
- * @param {boolean} isSecurityGroup
- * @returns {Object} default rule object
- */
-function getSubRule$1(rule, isSecurityGroup) {
-  let defaultRule = {
-    port_max: null,
-    port_min: null,
-    source_port_max: null,
-    source_port_min: null,
-    type: null,
-    code: null
-  };
-  if (getRuleProtocol$1(rule) !== "all") {
-    transpose(rule[getRuleProtocol$1(rule)], defaultRule);
-  }
-  if (isSecurityGroup) {
-    delete defaultRule.source_port_min;
-    delete defaultRule.source_port_max;
-  }
-  return defaultRule;
-}
-
-/**
- * Helper function to move items up and down in the list so they can be rendered properly
- * @param {Array} arr
- * @param {number} indexA
- * @param {number} indexB
- */
-function swapArrayElements$1(arr, indexA, indexB) {
-  let temp = arr[indexA];
-  arr[indexA] = arr[indexB];
-  arr[indexB] = temp;
-}
-function getOrderCardClassName$1(props) {
-  return "marginBottomSmall positionRelative " + (props.isSecurityGroup ? "formInSubForm" : "subForm");
-}
-var networkingOrderCard = {
-  getRuleProtocol: getRuleProtocol$1,
-  getSubRule: getSubRule$1,
-  swapArrayElements: swapArrayElements$1,
-  getOrderCardClassName: getOrderCardClassName$1
-};
-
-/**
- * Handle crn input
- * @param {event} event
- */
-function handleCRNs$1(event) {
-  let crns = event.target.value ? event.target.value.replace(/\s\s+/g, "") // replace extra spaces
-  .replace(/,(?=,)/g, "") // prevent null tags from
-  .replace(/[^\w,-:]/g, "").split(",") : [];
-  return {
-    crns: crns
-  };
-}
-
-/**
- * Handle vpc selection
- * @param {Array} selectedItems list of selected vpcs
- * @param {String} tgw transit gateway name
- */
-function handleVpcSelect$1(selectedItems, tgw) {
-  let connections = [];
-  selectedItems.forEach(vpc => {
-    connections.push({
-      tgw: tgw,
-      vpc: vpc
-    });
-  });
-  return {
-    connections: connections
-  };
-}
-var transitGateway = {
-  handleCRNs: handleCRNs$1,
-  handleVpcSelect: handleVpcSelect$1
-};
-
-const {
-  atrackerInputChange
-} = atracker;
-const {
-  handleRgToggle
-} = resourceGroups;
-const {
-  cbrInvalid,
-  cbrValueInvalid,
-  cbrValuePlaceholder,
-  handleRuleInputChange,
-  cbrTypeNameMap,
-  handleExclusionAddressInputChange
-} = cbrUtils;
-const {
-  handleDnsResolverInputChange,
-  dnsFormInputChange
-} = dns;
-const {
-  getValidAdminPassword,
-  isNullOrEmptyString: isNullOrEmptyString$2,
-  isValidTmosAdminPassword,
-  isValidUrl
-} = f5;
-const {
-  getRuleProtocol,
-  getSubRule,
-  swapArrayElements,
-  getOrderCardClassName
-} = networkingOrderCard;
-const {
-  handleCRNs,
-  handleVpcSelect
-} = transitGateway;
-var forms = {
-  cbrInvalid,
-  cbrValueInvalid,
-  cbrValuePlaceholder,
-  handleRuleInputChange,
-  cbrTypeNameMap,
-  handleExclusionAddressInputChange,
-  getValidAdminPassword,
-  isNullOrEmptyString: isNullOrEmptyString$2,
-  isValidTmosAdminPassword,
-  isValidUrl,
-  handleDnsResolverInputChange,
-  dnsFormInputChange,
-  atrackerInputChange,
-  handleRgToggle,
-  handleCRNs,
-  handleVpcSelect,
-  getRuleProtocol,
-  getSubRule,
-  swapArrayElements,
-  getOrderCardClassName
-};
-var forms_1 = forms.cbrInvalid;
-var forms_4 = forms.handleRuleInputChange;
-var forms_11 = forms.handleDnsResolverInputChange;
-var forms_12 = forms.dnsFormInputChange;
-var forms_13 = forms.atrackerInputChange;
-var forms_14 = forms.handleRgToggle;
-var forms_15 = forms.handleCRNs;
-var forms_16 = forms.handleVpcSelect;
-var forms_17 = forms.getRuleProtocol;
-var forms_18 = forms.getSubRule;
-var forms_19 = forms.swapArrayElements;
-var forms_20 = forms.getOrderCardClassName;
-
 /**
  * Atracker
  * @param {Object} props
@@ -3678,7 +3830,7 @@ class AtrackerForm extends React.Component {
    * @param {*} value value to update
    */
   handleInputChange(event) {
-    this.setState(forms_13(this.state, event));
+    this.setState(forms_16(this.state, event));
   }
 
   /**
@@ -3969,8 +4121,9 @@ class ClusterForm extends React.Component {
     };
     if (this.props.isModal) this.state.worker_pools = [];
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleToggleChange = this.handleToggleChange.bind(this);
     this.handleMultiSelect = this.handleMultiSelect.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    this.filterVersion = this.filterVersion.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
@@ -3988,16 +4141,12 @@ class ClusterForm extends React.Component {
   };
 
   /**
-   * handle toggle change
-   * @param {*} event event
+   * Toggle on and off param in state at name
+   * @param {string} name name of the object key to change
    */
-  handleToggleChange = () => {
-    let cluster = {
-      ...this.state
-    };
-    cluster.update_all_workers = !cluster.update_all_workers;
-    this.setState(cluster);
-  };
+  handleToggle(name) {
+    this.setState(this.toggleStateBoolean(name, this.state));
+  }
 
   /**
    * handle subnet multiselect
@@ -4007,6 +4156,15 @@ class ClusterForm extends React.Component {
     this.setState({
       [name]: event
     });
+  }
+
+  /**
+   * filter function for kube version select
+   * @param {string} version
+   * @returns {string} version
+   */
+  filterVersion(version) {
+    return lib_30(version, this.state.kube_type);
   }
   render() {
     let clusterComponent = this.props.isModal ? "new-cluster" : this.props.data.name;
@@ -4106,17 +4264,7 @@ class ClusterForm extends React.Component {
       labelText: "Kube Version",
       value: this.state.kube_version || "",
       apiEndpoint: this.props.kubeVersionApiEndpoint,
-      filter: version => {
-        if (this.state.kube_type === "openshift" && version.indexOf("openshift") !== -1 ||
-        // is openshift and contains openshift
-        this.state.kube_type !== "openshift" && version.indexOf("openshift") === -1 ||
-        // is not openshift and does not contain openshift
-        version === "default" // or is default
-        ) {
-          return version.replace(/\s\(Default\)/g, ""); // replace default with empty string
-        }
-      },
-
+      filter: this.filterVersion,
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
@@ -4124,7 +4272,7 @@ class ClusterForm extends React.Component {
       labelText: "Update All Workers",
       toggleFieldName: "update_all_workers",
       defaultToggled: this.state.update_all_workers,
-      onToggle: this.handleToggleChange
+      onToggle: this.handleToggle
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       name: "encryption_key",
       formName: clusterComponent + "encryption_key",
@@ -4141,7 +4289,7 @@ class ClusterForm extends React.Component {
       labelText: "Private Endpoint",
       toggleFieldName: "private_endpoint",
       defaultToggled: this.state.private_endpoint,
-      onToggle: this.handleToggleChange
+      onToggle: this.handleToggle
     })), /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, this.props.isModal === false && /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
       name: "Worker Pools",
       subHeading: true,
@@ -4659,17 +4807,7 @@ class F5VsiForm extends React.Component {
     buildFormDefaultInputMethods(this);
   }
   handleInputChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    if (name === "zones") {
-      this.setState({
-        zones: Number(value)
-      });
-    } else this.setState({
-      [name]: value
-    });
+    this.setState(f5Vsi_1(this.state, event));
   }
   handleMultiSelectChange(name, value) {
     this.setState(this.setNameToValue(name, value));
@@ -4678,16 +4816,7 @@ class F5VsiForm extends React.Component {
     this.props.saveVsiCallback(stateData);
   }
   render() {
-    let vsis = [...this.props.vsis];
-    while (vsis.length < this.state.zones) {
-      // add a new vsi to display
-      vsis.push(this.props.initVsiCallback(this.props.edge_pattern, `zone-${vsis.length + 1}`, this.props.f5_on_management, {
-        image: this.state.image,
-        resource_group: this.state.resource_group,
-        ssh_keys: this.state.ssh_keys,
-        profile: this.state.profile
-      }));
-    }
+    let vsis = f5Vsi_2(this.state, this.props);
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       formName: "f5_vsi_form",
       name: "zones",
@@ -4729,16 +4858,15 @@ class F5VsiForm extends React.Component {
     }), /*#__PURE__*/React__default["default"].createElement("div", {
       className: "displayFlex evenSpacing"
     }, vsis.map((instance, index) => {
-      if (index < this.state.zones) return /*#__PURE__*/React__default["default"].createElement(F5VsiTile, {
+      return /*#__PURE__*/React__default["default"].createElement(F5VsiTile, {
         key: "f5-vsi-tile" + JSON.stringify(instance) + index,
         data: instance,
-        hide: false,
+        hide: this.props.hideSaveCallback(instance),
         onSave: this.handleVsiSave,
         totalZones: this.state.zones,
         index: index,
         resourceGroups: this.props.resourceGroups,
         encryptionKeys: this.props.encryptionKeys,
-        hideSaveCallback: this.props.hideSaveCallback,
         propsMatchState: this.props.propsMatchState
       });
     }))));
@@ -4747,21 +4875,15 @@ class F5VsiForm extends React.Component {
 class F5VsiTile extends React__default["default"].Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = {
+      ...this.props.data
+    };
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.shouldHideSave = this.shouldHideSave.bind(this);
   }
   handleInputChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    this.setState({
-      [name]: value
-    });
-  }
-  shouldHideSave() {
-    return this.props.hideSaveCallback(this.state, this.props);
+    this.setState(this.eventTargetToNameAndValue(event));
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(react.Tile, {
@@ -4771,7 +4893,7 @@ class F5VsiTile extends React__default["default"].Component {
       type: "subHeading",
       className: "marginBottomSmall",
       buttons: /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
-        hide: this.shouldHideSave(this.state, this.props),
+        hide: this.props.hide,
         show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
           name: this.props.name,
           onClick: () => this.props.onSave(this.state),
@@ -4783,12 +4905,12 @@ class F5VsiTile extends React__default["default"].Component {
       className: "marginBottomSmall"
     }, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       id: this.state.name,
-      componentName: "f5_vsi_form",
       value: this.state.name,
       onChange: this.handleInputChange,
       useData: true,
       readOnly: true,
-      invalidCallback: () => {},
+      invalidCallback: () => {} // empty stuff for required prop
+      ,
       invalidText: "",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
@@ -4814,6 +4936,29 @@ class F5VsiTile extends React__default["default"].Component {
     })));
   }
 }
+F5VsiTile.defaultProps = {
+  data: {
+    name: "",
+    resource_group: "",
+    encryption_key: ""
+  },
+  hide: false
+};
+F5VsiTile.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    resource_group: PropTypes__default["default"].string.isRequired,
+    encryption_key: PropTypes__default["default"].string.isRequired
+  }),
+  hide: PropTypes__default["default"].bool.isRequired,
+  onSave: PropTypes__default["default"].func.isRequired,
+  totalZones: PropTypes__default["default"].number.isRequired,
+  index: PropTypes__default["default"].number.isRequired,
+  resourceGroups: PropTypes__default["default"].array.isRequired,
+  encryptionKeys: PropTypes__default["default"].array.isRequired,
+  hideSaveCallback: PropTypes__default["default"].func.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired
+};
 F5VsiForm.defaultProps = {
   data: {
     zones: 0,
@@ -6131,7 +6276,7 @@ class NetworkingRulesOrderCard extends React.Component {
   handleUp(index) {
     let prevRulesState = [...this.state.rules];
     if (index !== 0) {
-      forms_19(prevRulesState, index, index - 1);
+      forms_22(prevRulesState, index, index - 1);
     }
     this.props.networkRuleOrderDidChange(prevRulesState);
     this.setState({
@@ -6147,7 +6292,7 @@ class NetworkingRulesOrderCard extends React.Component {
     let prevRulesState = [...this.state.rules];
     let maxLen = prevRulesState.length - 1;
     if (index !== maxLen) {
-      forms_19(prevRulesState, index, index + 1);
+      forms_22(prevRulesState, index, index + 1);
     }
     this.props.networkRuleOrderDidChange(prevRulesState);
     this.setState({
@@ -6224,7 +6369,7 @@ class NetworkingRulesOrderCard extends React.Component {
       showIfEmpty: this.state.rules
     }), this.state.rules.map((rule, index) => /*#__PURE__*/React__default["default"].createElement("div", {
       key: "rule-div-" + rule.name + "-wrapper",
-      className: forms_20(this.props)
+      className: forms_23(this.props)
     }, /*#__PURE__*/React__default["default"].createElement(NetworkingRuleForm, {
       hide: this.state.collapse[rule.name],
       onToggle: () => this.toggleCollapse(rule.name),
@@ -6242,8 +6387,8 @@ class NetworkingRulesOrderCard extends React.Component {
         direction: rule.direction,
         source: rule.source,
         destination: rule.destination || null,
-        ruleProtocol: forms_17(rule),
-        rule: forms_18(rule, this.props.isSecurityGroup)
+        ruleProtocol: forms_20(rule),
+        rule: forms_21(rule, this.props.isSecurityGroup)
       },
       disableSaveCallback: this.props.disableSaveCallback,
       isSecurityGroup: this.props.isSecurityGroup,
@@ -6595,17 +6740,10 @@ class ObjectStorageInstancesForm extends React.Component {
 
   /**
    * handle input change
-   * @param {string} name key to change in the instance
-   * @param {*} value value
+   * @param {event} event event
    */
-  handleInputChange(name, value) {
-    let inst = {
-      ...this.state
-    };
-    inst[name] = value;
-    this.setState({
-      ...inst
-    });
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
   }
   render() {
     let composedId = `object-storage-form-${this.props.data.name}-`;
@@ -6656,12 +6794,12 @@ class ObjectStorageInstancesForm extends React.Component {
       labelText: "Key Management Instance",
       groups: this.props.kmsList,
       value: this.state.kms,
-      handleInputChange: event => this.handleInputChange("kms", event.target.value)
+      handleInputChange: this.handleInputChange
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       id: this.props.data.name + "-object-storage-name",
       componentName: this.props.data.name,
       value: this.state.name,
-      onChange: event => this.handleInputChange("name", event.target.value),
+      onChange: this.handleInputChange,
       helperTextCallback: () => this.props.composedNameCallback(this.state, this.props),
       invalid: this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props)
@@ -6671,7 +6809,7 @@ class ObjectStorageInstancesForm extends React.Component {
       labelText: "Resource Group",
       groups: this.props.resourceGroups,
       value: this.state.resource_group,
-      handleInputChange: event => this.handleInputChange("resource_group", event.target.value)
+      handleInputChange: this.handleInputChange
     })), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
       name: "Service Credentials",
       subHeading: true,
@@ -6761,7 +6899,7 @@ class ResourceGroupForm extends React.Component {
    * @param {string} name name of the object key to change
    */
   handleToggle(name) {
-    this.setState(forms_14(this.state, name));
+    this.setState(forms_17(this.state, name));
   }
 
   /**
@@ -6849,24 +6987,10 @@ class RoutingTableRouteForm extends React.Component {
    * @param {*} value value to update
    */
   handleInputChange(event) {
-    let nextState = {
-      ...this.state
-    };
-    let {
-      name,
-      value
-    } = event.target;
-    nextState[name] = value;
-    if (name === "action" && value !== "deliver") {
-      nextState.next_hop = "0.0.0.0";
-    } else if (name === "action") {
-      nextState.next_hop = null;
-    }
-    this.setState(nextState);
+    this.setState(routingTable_1(this.state, event));
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      componentName: "routing-table-route",
       id: this.props.data.name + "-route-name",
       hideHelperText: true,
       value: this.state.name,
@@ -6885,7 +7009,6 @@ class RoutingTableRouteForm extends React.Component {
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: this.props.data.name + "-route-destination",
-      componentName: "routing-route-destination",
       name: "destination",
       field: "destination",
       value: this.state.destination,
@@ -6901,14 +7024,12 @@ class RoutingTableRouteForm extends React.Component {
       groups: ["Delegate", "Deliver", "Delegate VPC", "Drop"],
       labelText: "Action",
       handleInputChange: this.handleInputChange,
-      value: lazyZ.titleCase(this.state.action).replace(/V P C/g, "VPC"),
+      value: lazyZ.titleCase(this.state.action),
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: this.props.data.name + "-next-hop",
-      componentName: "routing-next-hop",
       field: "next_hop",
       value: this.state.next_hop,
-      labelText: "Next Hop",
       placeholder: "x.x.x.x",
       invalidCallback: () => lazyZ.isNullOrEmptyString(this.state.next_hop) || lazyZ.isIpv4CidrOrAddress(this.state.next_hop) === false || lazyZ.contains(this.state.next_hop, `/`),
       invalidText: "Next hop must be a valid IP",
@@ -7275,6 +7396,9 @@ SccForm.propTypes = {
   descriptionRegex: PropTypes__default["default"].instanceOf(RegExp).isRequired
 };
 
+var css_248z$1 = ".secretsChecklistPadding {\n  margin-bottom: 0px !important;\n  margin-top: 1rem !important;\n}\n\n.secretChecklistMargin {\n  margin-top: -1rem !important;\n}\n\n.secretCheckBoxMargin {\n  padding-left: 1rem !important;\n}\n";
+styleInject(css_248z$1);
+
 /**
  * SecretsManagerForm
  * @param {Object} props
@@ -7282,8 +7406,11 @@ SccForm.propTypes = {
 class SecretsManagerForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = {
+      ...this.props.data
+    };
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.onSelectChange = this.onSelectChange.bind(this);
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
   }
@@ -7295,11 +7422,20 @@ class SecretsManagerForm extends React.Component {
   handleInputChange(event) {
     this.setState(this.eventTargetToNameAndValue(event));
   }
+  onSelectChange(items) {
+    let nextSecrets = [];
+    items.forEach(item => {
+      if (item !== "Select All") {
+        nextSecrets.push(lazyZ.getObjectFromArray(this.props.secrets, "ref", item));
+      }
+    });
+    this.setState({
+      secrets: nextSecrets
+    });
+  }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       id: this.state.name + "-name",
-      componentName: "Secrets Manager",
-      component: "secrets_manager",
       value: this.state.name,
       onChange: this.handleInputChange,
       componentProps: this.props,
@@ -7324,7 +7460,11 @@ class SecretsManagerForm extends React.Component {
       className: "fieldWidth",
       labelText: "Encryption Key",
       handleInputChange: this.handleInputChange
-    })));
+    })), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(SecretsManagerChecklist, {
+      secrets: this.props.secrets,
+      selected: [...lazyZ.splat(this.props.data.secrets, "ref")],
+      onSelectChange: this.onSelectChange
+    }));
   }
 }
 SecretsManagerForm.defaultProps = {
@@ -8246,7 +8386,7 @@ class TransitGatewayForm extends React.Component {
    * @param {event} event
    */
   handleCRNs(event) {
-    this.setState(forms_15(event));
+    this.setState(forms_18(event));
   }
 
   /**
@@ -8254,7 +8394,7 @@ class TransitGatewayForm extends React.Component {
    * @param {Array} selectedItems
    */
   handleVpcSelect(selectedItems) {
-    this.setState(forms_16(selectedItems, this.state.name));
+    this.setState(forms_19(selectedItems, this.state.name));
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
@@ -9304,7 +9444,9 @@ VsiVolumeForm.propTypes = {
 class VsiForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = {
+      ...this.props.data
+    };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
@@ -10605,7 +10747,7 @@ class CbrRuleForm extends React.Component {
     buildFormFunctions(this);
   }
   handleInputChange(event) {
-    this.setState(forms_4(this.state, event));
+    this.setState(forms_7(this.state, event));
   }
   render() {
     // set up props for subforms
@@ -11005,7 +11147,7 @@ class CbrZoneForm extends React.Component {
       labelText: "Account ID" // needed to override titlecase capitalization
       ,
       onChange: this.handleInputChange
-    }, forms_1("account_id", this.state.account_id)))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
+    }, forms_4("account_id", this.state.account_id)))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
       id: this.props.data.name + "-cbr-zone-description",
       className: "textInputWide",
       name: "description",
@@ -11425,7 +11567,7 @@ class DnsCustomResolverForm extends React__default["default"].Component {
    * @param {*} value value to update
    */
   handleInputChange(event) {
-    this.setState(forms_11(this.state, event));
+    this.setState(forms_14(this.state, event));
   }
 
   /**
@@ -11546,7 +11688,7 @@ class DnsForm extends React.Component {
     buildFormFunctions(this);
   }
   handleInputChange(event) {
-    this.setState(forms_12(event));
+    this.setState(forms_15(event));
   }
   render() {
     // set up props for subforms
@@ -11984,6 +12126,58 @@ SysdigForm.propTypes = {
   prefix: PropTypes__default["default"].string.isRequired
 };
 
+class SecretsManagerChecklist extends React__default["default"].Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      hide: true,
+      selected: this.props.selected && this.props.selected.length !== this.props.secrets.length ? this.props.selected : ["Select All"].concat([...lazyZ.splat(this.props.secrets, "ref")])
+    };
+    this.onCheckClick = this.onCheckClick.bind(this);
+    this.toggleHide = this.toggleHide.bind(this);
+  }
+  onCheckClick(ref) {
+    let selected = forms_25(this.state.selected, ref, this.props.secrets);
+    this.setState({
+      selected: selected
+    }, () => {
+      this.props.onSelectChange(selected);
+    });
+  }
+  toggleHide() {
+    this.setState({
+      hide: !this.state.hide
+    });
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(StatelessToggleForm, {
+      name: "Import Existing Secrets",
+      hide: this.state.hide,
+      onIconClick: this.toggleHide,
+      className: "formInSubForm secretsChecklistPadding",
+      toggleFormTitle: true,
+      noMarginBottom: true
+    }, /*#__PURE__*/React__default["default"].createElement("div", {
+      className: "formInSubForm secretChecklistMargin"
+    }, lazyZ.distinct(["Select All"].concat([...lazyZ.splat(this.props.secrets, "ref")])).map(value => /*#__PURE__*/React__default["default"].createElement(react.Checkbox, {
+      className: "secretCheckBoxMargin",
+      id: value,
+      key: lazyZ.kebabCase(value),
+      labelText: value,
+      checked: lazyZ.contains(this.state.selected, value),
+      onChange: () => this.onCheckClick(value)
+    }))));
+  }
+}
+SecretsManagerChecklist.defaultProps = {
+  secrets: []
+};
+SecretsManagerChecklist.propTypes = {
+  selected: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string),
+  secrets: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  onSelectChange: PropTypes__default["default"].func.isRequired
+};
+
 exports.AccessGroupDynamicPolicyForm = AccessGroupDynamicPolicyForm;
 exports.AccessGroupForm = AccessGroupForm;
 exports.AccessGroupPolicyForm = AccessGroupPolicyForm;
@@ -12046,6 +12240,7 @@ exports.RoutingTableRouteForm = RoutingTableRouteForm;
 exports.SaveAddButton = SaveAddButton;
 exports.SaveIcon = SaveIcon;
 exports.SccForm = SccForm;
+exports.SecretsManagerChecklist = SecretsManagerChecklist;
 exports.SecretsManagerForm = SecretsManagerForm;
 exports.SecurityGroupForm = SecurityGroupForm;
 exports.SecurityGroupMultiSelect = SecurityGroupMultiSelect;

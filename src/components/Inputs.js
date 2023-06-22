@@ -164,7 +164,7 @@ IcseNameInput.defaultProps = {
   invalidText: "",
   className: "fieldWidth",
   labelText: "Name",
-  forceKebabCase: false
+  forceKebabCase: false,
 };
 
 IcseNameInput.propTypes = {
@@ -172,7 +172,7 @@ IcseNameInput.propTypes = {
   className: PropTypes.string,
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func,
-  componentName: PropTypes.string.isRequired,
+  componentName: PropTypes.string,
   tooltip: PropTypes.shape({
     content: PropTypes.string.isRequired,
     link: PropTypes.string,

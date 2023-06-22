@@ -26,13 +26,10 @@ class ObjectStorageInstancesForm extends Component {
 
   /**
    * handle input change
-   * @param {string} name key to change in the instance
-   * @param {*} value value
+   * @param {event} event event
    */
-  handleInputChange(name, value) {
-    let inst = { ...this.state };
-    inst[name] = value;
-    this.setState({ ...inst });
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
   }
 
   render() {
@@ -87,9 +84,7 @@ class ObjectStorageInstancesForm extends Component {
             labelText="Key Management Instance"
             groups={this.props.kmsList}
             value={this.state.kms}
-            handleInputChange={(event) =>
-              this.handleInputChange("kms", event.target.value)
-            }
+            handleInputChange={this.handleInputChange}
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -97,9 +92,7 @@ class ObjectStorageInstancesForm extends Component {
             id={this.props.data.name + "-object-storage-name"}
             componentName={this.props.data.name}
             value={this.state.name}
-            onChange={(event) =>
-              this.handleInputChange("name", event.target.value)
-            }
+            onChange={this.handleInputChange}
             helperTextCallback={() =>
               this.props.composedNameCallback(this.state, this.props)
             }
@@ -112,9 +105,7 @@ class ObjectStorageInstancesForm extends Component {
             labelText="Resource Group"
             groups={this.props.resourceGroups}
             value={this.state.resource_group}
-            handleInputChange={(event) =>
-              this.handleInputChange("resource_group", event.target.value)
-            }
+            handleInputChange={this.handleInputChange}
           />
         </IcseFormGroup>
         {/* show keys and buckets if not modal */}

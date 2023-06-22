@@ -12,6 +12,7 @@ const {
   cbrTypeNameMap,
   handleExclusionAddressInputChange,
 } = require("./cbr-utils");
+const { filterKubeVersion } = require("./cluster");
 const { handleDnsResolverInputChange, dnsFormInputChange } = require("./dns");
 const {
   getValidAdminPassword,
@@ -19,15 +20,21 @@ const {
   isValidTmosAdminPassword,
   isValidUrl,
 } = require("./f5");
+const { f5VsiInputChange, f5Vsis } = require("./f5-vsi");
 const {
   getRuleProtocol,
   getSubRule,
   swapArrayElements,
   getOrderCardClassName,
 } = require("./networking-order-card");
+const { routingTableRouteInputChange } = require("./routing-table");
 const { handleCRNs, handleVpcSelect } = require("./transit-gateway");
+const { onCheckClick } = require("./secrets-manager");
 
 module.exports = {
+  f5Vsis,
+  f5VsiInputChange,
+  routingTableRouteInputChange,
   cbrInvalid,
   cbrValueInvalid,
   cbrValuePlaceholder,
@@ -48,6 +55,8 @@ module.exports = {
   getSubRule,
   swapArrayElements,
   getOrderCardClassName,
+  filterKubeVersion,
+  onCheckClick,
   handleVpnServerInputChange,
   vpnServerRangeInvalid,
 };

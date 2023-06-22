@@ -7,6 +7,9 @@ import { IcseNameInput } from "../Inputs";
 import { IcseFormGroup } from "../Utils";
 import PropTypes from "prop-types";
 import { IcseSelect } from "../Dropdowns";
+import { SecretsManagerChecklist } from "../..";
+import { getObjectFromArray, splat } from "lazy-z";
+import "./secrets-manager.css";
 
 /**
  * SecretsManagerForm
@@ -15,8 +18,11 @@ import { IcseSelect } from "../Dropdowns";
 class SecretsManagerForm extends Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = {
+      ...this.props.data,
+    };
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.onSelectChange = this.onSelectChange.bind(this);
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
   }
@@ -29,6 +35,18 @@ class SecretsManagerForm extends Component {
     this.setState(this.eventTargetToNameAndValue(event));
   }
 
+  onSelectChange(items) {
+    let nextSecrets = [];
+    items.forEach((item) => {
+      if (item !== "Select All") {
+        nextSecrets.push(getObjectFromArray(this.props.secrets, "ref", item));
+      }
+    });
+    this.setState({
+      secrets: nextSecrets,
+    });
+  }
+
   render() {
     return (
       <>
@@ -36,8 +54,6 @@ class SecretsManagerForm extends Component {
           {/* name text input */}
           <IcseNameInput
             id={this.state.name + "-name"}
-            componentName="Secrets Manager"
-            component="secrets_manager"
             value={this.state.name}
             onChange={this.handleInputChange}
             componentProps={this.props}
@@ -68,6 +84,13 @@ class SecretsManagerForm extends Component {
             handleInputChange={this.handleInputChange}
           />
         </div>
+        {this.props.isModal !== true && (
+          <SecretsManagerChecklist
+            secrets={this.props.secrets}
+            selected={[...splat(this.props.data.secrets, "ref")]}
+            onSelectChange={this.onSelectChange}
+          />
+        )}
       </>
     );
   }

@@ -3,7 +3,7 @@ import {
   buildFormDefaultInputMethods,
   buildFormFunctions,
 } from "../component-utils";
-import { handleClusterInputChange } from "../../lib";
+import { handleClusterInputChange, filterKubeVersion } from "../../lib";
 import { IcseNameInput, IcseToggle } from "../Inputs";
 import { IcseFormGroup } from "../Utils";
 import WorkerPoolForm from "./WorkerPoolForm";
@@ -24,8 +24,9 @@ class ClusterForm extends Component {
     this.state = { ...this.props.data };
     if (this.props.isModal) this.state.worker_pools = [];
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleToggleChange = this.handleToggleChange.bind(this);
     this.handleMultiSelect = this.handleMultiSelect.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    this.filterVersion = this.filterVersion.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
@@ -38,14 +39,12 @@ class ClusterForm extends Component {
   };
 
   /**
-   * handle toggle change
-   * @param {*} event event
+   * Toggle on and off param in state at name
+   * @param {string} name name of the object key to change
    */
-  handleToggleChange = () => {
-    let cluster = { ...this.state };
-    cluster.update_all_workers = !cluster.update_all_workers;
-    this.setState(cluster);
-  };
+  handleToggle(name) {
+    this.setState(this.toggleStateBoolean(name, this.state));
+  }
 
   /**
    * handle subnet multiselect
@@ -53,6 +52,15 @@ class ClusterForm extends Component {
    */
   handleMultiSelect(name, event) {
     this.setState({ [name]: event });
+  }
+
+  /**
+   * filter function for kube version select
+   * @param {string} version
+   * @returns {string} version
+   */
+  filterVersion(version) {
+    return filterKubeVersion(version, this.state.kube_type);
   }
 
   render() {
@@ -199,17 +207,7 @@ class ClusterForm extends Component {
             labelText="Kube Version"
             value={this.state.kube_version || ""}
             apiEndpoint={this.props.kubeVersionApiEndpoint}
-            filter={(version) => {
-              if (
-                (this.state.kube_type === "openshift" &&
-                  version.indexOf("openshift") !== -1) || // is openshift and contains openshift
-                (this.state.kube_type !== "openshift" &&
-                  version.indexOf("openshift") === -1) || // is not openshift and does not contain openshift
-                version === "default" // or is default
-              ) {
-                return version.replace(/\s\(Default\)/g, ""); // replace default with empty string
-              }
-            }}
+            filter={this.filterVersion}
             handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"
           />
@@ -219,7 +217,7 @@ class ClusterForm extends Component {
             labelText="Update All Workers"
             toggleFieldName="update_all_workers"
             defaultToggled={this.state.update_all_workers}
-            onToggle={this.handleToggleChange}
+            onToggle={this.handleToggle}
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -242,7 +240,7 @@ class ClusterForm extends Component {
             labelText="Private Endpoint"
             toggleFieldName="private_endpoint"
             defaultToggled={this.state.private_endpoint}
-            onToggle={this.handleToggleChange}
+            onToggle={this.handleToggle}
           />
         </IcseFormGroup>
         <>
