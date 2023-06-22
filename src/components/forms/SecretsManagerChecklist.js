@@ -18,6 +18,7 @@ class SecretsManagerChecklist extends React.Component {
     };
 
     this.onCheckClick = this.onCheckClick.bind(this);
+    this.toggleHide = this.toggleHide.bind(this);
   }
 
   onCheckClick(ref) {
@@ -32,14 +33,16 @@ class SecretsManagerChecklist extends React.Component {
     );
   }
 
+  toggleHide() {
+    this.setState({ hide: !this.state.hide });
+  }
+
   render() {
     return (
       <StatelessToggleForm
         name="Import Existing Secrets"
         hide={this.state.hide}
-        onIconClick={() => {
-          this.setState({ hide: !this.state.hide });
-        }}
+        onIconClick={this.toggleHide}
         className="formInSubForm secretsChecklistPadding"
         toggleFormTitle
         noMarginBottom

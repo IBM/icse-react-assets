@@ -12123,6 +12123,7 @@ class SecretsManagerChecklist extends React.Component {
       selected: this.props.selected && this.props.selected.length !== this.props.secrets.length ? this.props.selected : ["Select All"].concat([...splat$2(this.props.secrets, "ref")])
     };
     this.onCheckClick = this.onCheckClick.bind(this);
+    this.toggleHide = this.toggleHide.bind(this);
   }
   onCheckClick(ref) {
     let selected = forms_25(this.state.selected, ref, this.props.secrets);
@@ -12132,15 +12133,16 @@ class SecretsManagerChecklist extends React.Component {
       this.props.onSelectChange(selected);
     });
   }
+  toggleHide() {
+    this.setState({
+      hide: !this.state.hide
+    });
+  }
   render() {
     return /*#__PURE__*/React.createElement(StatelessToggleForm, {
       name: "Import Existing Secrets",
       hide: this.state.hide,
-      onIconClick: () => {
-        this.setState({
-          hide: !this.state.hide
-        });
-      },
+      onIconClick: this.toggleHide,
       className: "formInSubForm secretsChecklistPadding",
       toggleFormTitle: true,
       noMarginBottom: true
