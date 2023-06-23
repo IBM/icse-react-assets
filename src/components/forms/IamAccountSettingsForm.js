@@ -10,6 +10,7 @@ import { IcseSelect } from "../Dropdowns";
 import { IcseTextInput, IcseToggle } from "../Inputs";
 import { ToolTipWrapper } from "../Tooltips";
 import { IcseFormGroup } from "../Utils";
+import { handleNumberInputChange } from "../../lib/forms/iam";
 
 const restrictMenuItems = ["Unset", "Yes", "No"];
 const mfaMenuItems = [
@@ -118,9 +119,9 @@ class IamAccountSettingsForm extends Component {
    * @param {event} event
    */
   handleNumberInputChange(event) {
-    let value = parseInt(event.target.value) || null;
-    if (value || event.target.value === "") {
-      this.setState({ [event.target.name]: value });
+    let value = handleNumberInputChange(event);
+    if (value !== null) {
+      this.setState(value);
     }
   }
 
