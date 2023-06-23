@@ -1,7 +1,9 @@
 const { assert } = require("chai");
 const {
+  iamItems,
   handleNumberInputChange,
   handleAllowedIps,
+  handleSelectChange,
 } = require("../../src/lib/forms/iam");
 
 describe("iam", () => {
@@ -92,6 +94,31 @@ describe("iam", () => {
       let expectedValue = { allowed_ip_addresses: null };
       assert.deepEqual(actualValue, expectedValue);
     });
-
+  });
+  describe("handleSelectChange", () => {
+    it("should handle null case", () => {
+      let event = {
+        target: {
+          name: "null",
+          value: "null",
+        },
+      };
+      let actualValue = handleSelectChange(event);
+      let expectedValue = { null: iamItems[null].value };
+      assert.deepEqual(actualValue, expectedValue);
+    });
+    it("should return correct value", () => {
+      let event = {
+        target: {
+          name: "Email-Based MFA",
+          value: "LEVEL1",
+        },
+      };
+      let actualValue = handleSelectChange(event);
+      let expectedValue = {
+        "Email-Based MFA": iamItems["Email-Based MFA"].value,
+      };
+      assert.deepEqual(actualValue, expectedValue);
+    });
   });
 });

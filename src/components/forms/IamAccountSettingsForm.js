@@ -10,83 +10,14 @@ import { IcseSelect } from "../Dropdowns";
 import { IcseTextInput, IcseToggle } from "../Inputs";
 import { ToolTipWrapper } from "../Tooltips";
 import { IcseFormGroup } from "../Utils";
-import { handleAllowedIps, handleNumberInputChange } from "../../lib/forms/iam";
-
-const restrictMenuItems = ["Unset", "Yes", "No"];
-const mfaMenuItems = [
-  "NONE",
-  "TOTP",
-  "TOTP4ALL",
-  "Email-Based MFA",
-  "TOTP MFA",
-  "U2F MFA",
-];
-const iamItems = {
-  null: {
-    display: null,
-    value: null,
-  },
-  NONE: {
-    display: "NONE",
-    value: "NONE",
-  },
-  TOTP: {
-    display: "TOTP",
-    value: "TOTP",
-  },
-  TOTP4ALL: {
-    display: "TOTP4ALL",
-    value: "TOTP4ALL",
-  },
-  LEVEL1: {
-    display: "Email-Based MFA",
-    value: "LEVEL1",
-  },
-  LEVEL2: {
-    display: "TOTP MFA",
-    value: "LEVEL2",
-  },
-  LEVEL3: {
-    display: "U2F MFA",
-    value: "LEVEL3",
-  },
-  NOT_SET: {
-    display: "Unset",
-    value: "NOT_SET",
-  },
-  RESTRICTED: {
-    display: "Yes",
-    value: "RESTRICTED",
-  },
-  NOT_RESTRICTED: {
-    display: "No",
-    value: "NOT_RESTRICTED",
-  },
-  "Email-Based MFA": {
-    display: "Email-Based MFA",
-    value: "LEVEL1",
-  },
-  "TOTP MFA": {
-    display: "TOTP MFA",
-    value: "LEVEL2",
-  },
-  "U2F MFA": {
-    display: "U2F MFA",
-    value: "LEVEL3",
-  },
-  Unset: {
-    display: "Unset",
-    value: "NOT_SET",
-  },
-  Yes: {
-    display: "Yes",
-    value: "RESTRICTED",
-  },
-  No: {
-    display: "No",
-    value: "NOT_RESTRICTED",
-  },
-};
+import {
+  restrictMenuItems,
+  mfaMenuItems,
+  iamItems,
+  handleNumberInputChange,
+  handleAllowedIps,
+  handleSelectChange,
+} from "../../lib/forms/iam";
 
 /**
  * IAM Account Settings form
@@ -146,9 +77,7 @@ class IamAccountSettingsForm extends Component {
    * @param {event} event
    */
   handleSelectChange(event) {
-    let name = event.target.name;
-    let item = event.target.value;
-    this.setState({ [name]: iamItems[item].value });
+    this.setState(handleSelectChange(event));
   }
 
   render() {
