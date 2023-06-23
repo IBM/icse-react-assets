@@ -6331,7 +6331,6 @@ class NetworkingRulesOrderCard extends React.Component {
       parent_name: this.props.parent_name,
       vpc_name: this.props.vpc_name
     };
-    console.log(modalData, modalProps);
     this.props.onRuleSave(modalData, modalProps);
     this.toggleEditModal(this.props.rules[0].name);
   }
@@ -6358,7 +6357,19 @@ class NetworkingRulesOrderCard extends React.Component {
     });
   }
   render() {
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(FormModal, {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+      name: "Rules",
+      className: "marginBottomSmall",
+      type: "subHeading",
+      buttons: /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+        hide: this.props.hideCreate,
+        show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+          name: this.props.vpc_name,
+          type: "add",
+          onClick: this.toggleModal
+        })
+      })
+    }), /*#__PURE__*/React__default["default"].createElement(FormModal, {
       name: "Create a Network Rule",
       show: this.state.showModal,
       onRequestSubmit: this.handleSubmit,
@@ -6486,13 +6497,19 @@ const OrderCardDataTable = props => {
     key: "port",
     header: "Port"
   }];
-  const rows = JSON.parse(JSON.stringify(props.rules)); // deep copy of nested array
+  const [rows, setRows] = React.useState(JSON.parse(JSON.stringify(props.rules)));
+  // update on component update
+  React.useEffect(() => {
+    setRows(props.rules);
+  }, [props.rules]);
+
   // set up required data for each row
   rows.forEach(row => {
     row.protocol = forms_20(row);
     row.id = row.name;
     row.port = row.protocol === "all" ? "ALL" : row.protocol === "icmp" ? row.icmp.code : `${row[row.protocol].port_min}-${row[row.protocol].port_max}`;
   });
+  console.log(rows.length);
 
   // add in action and destination if not security group
   if (!props.isSecurityGroup) {
@@ -6512,7 +6529,8 @@ const OrderCardDataTable = props => {
   });
   return /*#__PURE__*/React__default["default"].createElement(react.DataTable, {
     headers: headers,
-    rows: rows
+    rows: rows,
+    key: rows
   }, (_ref // inherit props from data table api
   ) => {
     let {
@@ -6521,14 +6539,7 @@ const OrderCardDataTable = props => {
       getHeaderProps,
       getRowProps
     } = _ref;
-    return /*#__PURE__*/React__default["default"].createElement(react.TableContainer, {
-      title: "Rules",
-      description: "blehhhhh"
-    }, /*#__PURE__*/React__default["default"].createElement(react.TableToolbar, null, /*#__PURE__*/React__default["default"].createElement(react.TableToolbarContent, null, /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
-      name: props.vpc_name,
-      type: "add",
-      onClick: props.toggleCreateModal
-    }))), /*#__PURE__*/React__default["default"].createElement(react.Table, null, /*#__PURE__*/React__default["default"].createElement(react.TableHead, null, /*#__PURE__*/React__default["default"].createElement(react.TableRow, null, headers.map((header, index) => /*#__PURE__*/React__default["default"].createElement(react.TableHeader, _extends({
+    return /*#__PURE__*/React__default["default"].createElement(react.TableContainer, null, /*#__PURE__*/React__default["default"].createElement(react.Table, null, /*#__PURE__*/React__default["default"].createElement(react.TableHead, null, /*#__PURE__*/React__default["default"].createElement(react.TableRow, null, headers.map((header, index) => /*#__PURE__*/React__default["default"].createElement(react.TableHeader, _extends({
       key: header.header + "-" + index
     }, getHeaderProps({
       header
@@ -6545,6 +6556,7 @@ const OrderCardDataTable = props => {
     }, /*#__PURE__*/React__default["default"].createElement(iconsReact.Edit, {
       className: "edit-margin-right"
     }), cell.value) : cell === row.cells[row.cells.length - 1] ? /*#__PURE__*/React__default["default"].createElement(UpDownButtons, {
+      key: row.cells[0].value + "-up-down",
       name: row.cells[0].value,
       handleUp: () => props.handleUp(index),
       handleDown: () => props.handleDown(index),

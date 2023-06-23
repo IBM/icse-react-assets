@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import NetworkingRuleForm from "./NetworkingRuleForm";
 import { containsKeys, contains, getObjectFromArray } from "lazy-z";
 import PropTypes from "prop-types";
@@ -173,6 +173,23 @@ class NetworkingRulesOrderCard extends Component {
   render() {
     return (
       <>
+        <IcseHeading
+          name="Rules"
+          className="marginBottomSmall"
+          type="subHeading"
+          buttons={
+            <DynamicRender
+              hide={this.props.hideCreate}
+              show={
+                <SaveAddButton
+                  name={this.props.vpc_name}
+                  type="add"
+                  onClick={this.toggleModal}
+                />
+              }
+            />
+          }
+        />
         <FormModal
           name="Create a Network Rule"
           show={this.state.showModal}
@@ -308,7 +325,13 @@ const OrderCardDataTable = (props) => {
     { key: "port", header: "Port" },
   ];
 
-  const rows = JSON.parse(JSON.stringify(props.rules)); // deep copy of nested array
+  const [rows, setRows] = useState(JSON.parse(JSON.stringify(props.rules)));
+  // update on component update
+  useEffect(() => {
+    console.log("running useEffect");
+    setRows(props.rules);
+  }, [props.rules]);
+
   // set up required data for each row
   rows.forEach((row) => {
     row.protocol = getRuleProtocol(row);
@@ -320,6 +343,7 @@ const OrderCardDataTable = (props) => {
         ? row.icmp.code
         : `${row[row.protocol].port_min}-${row[row.protocol].port_max}`;
   });
+  console.log(rows.length);
 
   // add in action and destination if not security group
   if (!props.isSecurityGroup) {
@@ -333,20 +357,12 @@ const OrderCardDataTable = (props) => {
   headers.push({ key: "order", header: "Order" });
 
   return (
-    <DataTable headers={headers} rows={rows}>
+    <DataTable headers={headers} rows={rows} key={rows}>
       {(
         { rows, headers, getHeaderProps, getRowProps } // inherit props from data table api
       ) => (
-        <TableContainer title="Rules" description="blehhhhh">
-          <TableToolbar>
-            <TableToolbarContent>
-              <SaveAddButton
-                name={props.vpc_name}
-                type="add"
-                onClick={props.toggleCreateModal}
-              />
-            </TableToolbarContent>
-          </TableToolbar>
+        <TableContainer>
+          {/* force update */}
           <Table>
             <TableHead>
               <TableRow>

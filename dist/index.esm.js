@@ -1,8 +1,8 @@
 import '@carbon/styles/css/styles.css';
-import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, TextArea, PasswordInput, NumberInput, DataTable, TableContainer, TableToolbar, TableToolbarContent, Table, TableHead, TableRow, TableHeader, TableBody, TableCell, Dropdown, Tag, Checkbox } from '@carbon/react';
+import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, TextArea, PasswordInput, NumberInput, DataTable, TableContainer, Table, TableHead, TableRow, TableHeader, TableBody, TableCell, Dropdown, Tag, Checkbox } from '@carbon/react';
 import lazyZ, { titleCase as titleCase$2, kebabCase as kebabCase$5, isEmpty, buildNumberDropdownList, contains as contains$4, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$6, transpose as transpose$1, containsKeys, getObjectFromArray, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, splat as splat$2, deepEqual, parseIntFromZone, isWholeNumber as isWholeNumber$1, snakeCase as snakeCase$1, distinct, isInRange as isInRange$1, eachKey } from 'lazy-z';
 import regexButWithWords from 'regex-but-with-words';
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Information, Save, Add, ChevronDown, ChevronRight, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt, Password, Edit } from '@carbon/icons-react';
 import { contains as contains$5 } from 'regex-but-with-words/lib/utils';
@@ -6320,7 +6320,6 @@ class NetworkingRulesOrderCard extends Component {
       parent_name: this.props.parent_name,
       vpc_name: this.props.vpc_name
     };
-    console.log(modalData, modalProps);
     this.props.onRuleSave(modalData, modalProps);
     this.toggleEditModal(this.props.rules[0].name);
   }
@@ -6347,7 +6346,19 @@ class NetworkingRulesOrderCard extends Component {
     });
   }
   render() {
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(FormModal, {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseHeading, {
+      name: "Rules",
+      className: "marginBottomSmall",
+      type: "subHeading",
+      buttons: /*#__PURE__*/React.createElement(DynamicRender, {
+        hide: this.props.hideCreate,
+        show: /*#__PURE__*/React.createElement(SaveAddButton, {
+          name: this.props.vpc_name,
+          type: "add",
+          onClick: this.toggleModal
+        })
+      })
+    }), /*#__PURE__*/React.createElement(FormModal, {
       name: "Create a Network Rule",
       show: this.state.showModal,
       onRequestSubmit: this.handleSubmit,
@@ -6475,13 +6486,19 @@ const OrderCardDataTable = props => {
     key: "port",
     header: "Port"
   }];
-  const rows = JSON.parse(JSON.stringify(props.rules)); // deep copy of nested array
+  const [rows, setRows] = useState(JSON.parse(JSON.stringify(props.rules)));
+  // update on component update
+  useEffect(() => {
+    setRows(props.rules);
+  }, [props.rules]);
+
   // set up required data for each row
   rows.forEach(row => {
     row.protocol = forms_20(row);
     row.id = row.name;
     row.port = row.protocol === "all" ? "ALL" : row.protocol === "icmp" ? row.icmp.code : `${row[row.protocol].port_min}-${row[row.protocol].port_max}`;
   });
+  console.log(rows.length);
 
   // add in action and destination if not security group
   if (!props.isSecurityGroup) {
@@ -6501,7 +6518,8 @@ const OrderCardDataTable = props => {
   });
   return /*#__PURE__*/React.createElement(DataTable, {
     headers: headers,
-    rows: rows
+    rows: rows,
+    key: rows
   }, (_ref // inherit props from data table api
   ) => {
     let {
@@ -6510,14 +6528,7 @@ const OrderCardDataTable = props => {
       getHeaderProps,
       getRowProps
     } = _ref;
-    return /*#__PURE__*/React.createElement(TableContainer, {
-      title: "Rules",
-      description: "blehhhhh"
-    }, /*#__PURE__*/React.createElement(TableToolbar, null, /*#__PURE__*/React.createElement(TableToolbarContent, null, /*#__PURE__*/React.createElement(SaveAddButton, {
-      name: props.vpc_name,
-      type: "add",
-      onClick: props.toggleCreateModal
-    }))), /*#__PURE__*/React.createElement(Table, null, /*#__PURE__*/React.createElement(TableHead, null, /*#__PURE__*/React.createElement(TableRow, null, headers.map((header, index) => /*#__PURE__*/React.createElement(TableHeader, _extends({
+    return /*#__PURE__*/React.createElement(TableContainer, null, /*#__PURE__*/React.createElement(Table, null, /*#__PURE__*/React.createElement(TableHead, null, /*#__PURE__*/React.createElement(TableRow, null, headers.map((header, index) => /*#__PURE__*/React.createElement(TableHeader, _extends({
       key: header.header + "-" + index
     }, getHeaderProps({
       header
@@ -6534,6 +6545,7 @@ const OrderCardDataTable = props => {
     }, /*#__PURE__*/React.createElement(Edit, {
       className: "edit-margin-right"
     }), cell.value) : cell === row.cells[row.cells.length - 1] ? /*#__PURE__*/React.createElement(UpDownButtons, {
+      key: row.cells[0].value + "-up-down",
       name: row.cells[0].value,
       handleUp: () => props.handleUp(index),
       handleDown: () => props.handleDown(index),
