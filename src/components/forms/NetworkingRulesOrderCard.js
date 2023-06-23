@@ -51,6 +51,7 @@ class NetworkingRulesOrderCard extends Component {
     this.getRuleData = this.getRuleData.bind(this);
     this.toggleEditModal = this.toggleEditModal.bind(this);
     this.getExpandedRow = this.getExpandedRow.bind(this);
+    this.handleSave = this.handleSave.bind(this);
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
   }
@@ -140,6 +141,16 @@ class NetworkingRulesOrderCard extends Component {
     this.toggleModal();
   }
 
+  handleSave(modalData) {
+    let modalProps = {
+      data: { ...this.getRuleData(this.state.editing) },
+      parent_name: this.props.parent_name,
+      vpc_name: this.props.vpc_name,
+    };
+    this.props.onRuleSave(modalData, modalProps);
+    this.toggleEditModal(this.props.rules[0].name);
+  }
+
   /**
    * get rule data object
    * @param {string} name
@@ -225,10 +236,8 @@ class NetworkingRulesOrderCard extends Component {
         <FormModal
           name={`Edit ${this.state.editing}`}
           show={this.state.showEditModal}
-          onRequestSubmit={this.handleSubmit}
-          onRequestClose={() => {
-            this.toggleEditModal(this.props.rules[0].name); // default editing
-          }}
+          onRequestSubmit={this.handleSave}
+          onRequestClose={() => this.toggleEditModal(this.props.rules[0].name)}
         >
           {RenderForm(NetworkingRuleForm, {
             ...this.props,
@@ -373,7 +382,8 @@ const OrderCardDataTable = (props) => {
                         </div>
                       ) : cell === row.cells[row.cells.length - 1] ? (
                         <UpDownButtons
-                          name={row.cells[0]}
+                          key={row.cells[0].value + "-up-down"}
+                          name={row.cells[0].value}
                           handleUp={() => props.handleUp(index)}
                           handleDown={() => props.handleDown(index)}
                           disableUp={row === rows[0]}

@@ -16,11 +16,11 @@ const NetworkingRulesOrderCardSgStory = () => {
   }
 
   function shouldDisableSave(stateData, componentProps) {
-    return true;
+    return false;
   }
 
   function disableModalSubmit(stateData, componentProps) {
-    return true;
+    return false;
   }
 
   function networkRuleOrderDidChange(newRulesOrder) {

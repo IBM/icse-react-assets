@@ -1,5 +1,12 @@
 import React, { Component } from "react";
 import { TextInput } from "@carbon/react";
+import { buildFormFunctions } from "../component-utils";
+import { DeleteModal } from "../Modals";
+import PropTypes from "prop-types";
+import { DynamicRender, IcseFormGroup, StatelessToggleForm } from "../Utils";
+import { DeleteButton, SaveAddButton, UpDownButtons } from "../Buttons";
+import { IcseNameInput, IcseTextInput } from "../Inputs";
+import { IcseSelect } from "../Dropdowns";
 const {
   capitalize,
   titleCase,
@@ -9,13 +16,6 @@ const {
   isNullOrEmptyString,
   contains,
 } = require("lazy-z");
-import { buildFormFunctions } from "../component-utils";
-import { DeleteModal } from "../Modals";
-import PropTypes from "prop-types";
-import { DynamicRender, IcseFormGroup, StatelessToggleForm } from "../Utils";
-import { DeleteButton, SaveAddButton, UpDownButtons } from "../Buttons";
-import { IcseNameInput, IcseTextInput } from "../Inputs";
-import { IcseSelect } from "../Dropdowns";
 
 /** NetworkingRuleForm
  * @param {Object} props
