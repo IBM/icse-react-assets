@@ -50,6 +50,7 @@ class NetworkingRulesOrderCard extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getRuleData = this.getRuleData.bind(this);
     this.toggleEditModal = this.toggleEditModal.bind(this);
+    this.getExpandedRow = this.getExpandedRow.bind(this);
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
   }
@@ -139,6 +140,11 @@ class NetworkingRulesOrderCard extends Component {
     this.toggleModal();
   }
 
+  /**
+   * get rule data object
+   * @param {string} name
+   * @returns {object} rule data
+   */
   getRuleData(name) {
     let rule = { ...getObjectFromArray(this.props.rules, "name", name) }; // copy
     rule.ruleProtocol = getRuleProtocol(rule); // get protocol
@@ -147,6 +153,10 @@ class NetworkingRulesOrderCard extends Component {
     delete rule.tcp;
     delete rule.udp;
     return rule;
+  }
+
+  getExpandedRow(name) {
+    return <NetworkingRuleForm data={this.getRuleData(name)} />;
   }
 
   render() {
@@ -246,41 +256,6 @@ class NetworkingRulesOrderCard extends Component {
             },
           })}
         </FormModal>
-        {/* {this.state.rules.map((rule, index) => (
-          <div
-            key={"rule-div-" + rule.name + "-wrapper"}
-            className={getOrderCardClassName(this.props)}
-          >
-            <NetworkingRuleForm
-              hide={this.state.collapse[rule.name]}
-              onToggle={() => this.toggleCollapse(rule.name)}
-              disableUp={index === 0}
-              handleUp={() => this.handleUp(index)}
-              disableDown={index === this.state.rules.length - 1}
-              handleDown={() => this.handleDown(index)}
-              key={JSON.stringify(rule)}
-              id={this.props.vpc_name + "-nw-rule-form-" + rule.name}
-              invalidCallback={this.props.invalidRuleText}
-              invalidTextCallback={this.props.invalidRuleTextCallback}
-              data={{
-                name: rule.name,
-                action: rule.action || null,
-                direction: rule.direction,
-                source: rule.source,
-                destination: rule.destination || null,
-                ruleProtocol: getRuleProtocol(rule),
-                rule: getSubRule(rule, this.props.isSecurityGroup),
-              }}
-              disableSaveCallback={this.props.disableSaveCallback}
-              isSecurityGroup={this.props.isSecurityGroup}
-              onSave={this.props.onRuleSave}
-              onDelete={this.props.onRuleDelete}
-              parent_name={this.props.parent_name}
-              innerFormProps={{ ...this.props }}
-              dev={this.props.dev}
-            />
-          </div> 
-            ))} */}
       </>
     );
   }
@@ -346,7 +321,7 @@ const OrderCardDataTable = (props) => {
     });
     headers.splice(4, 0, { key: "destination", header: "Destination" });
   }
-  headers.splice(headers.length, 0, { key: "order", header: "Order" });
+  headers.push({ key: "order", header: "Order" });
 
   return (
     <DataTable headers={headers} rows={rows}>

@@ -6228,6 +6228,7 @@ class NetworkingRulesOrderCard extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getRuleData = this.getRuleData.bind(this);
     this.toggleEditModal = this.toggleEditModal.bind(this);
+    this.getExpandedRow = this.getExpandedRow.bind(this);
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
   }
@@ -6321,6 +6322,12 @@ class NetworkingRulesOrderCard extends React.Component {
     this.props.onSubmitCallback(modalData, this.props);
     this.toggleModal();
   }
+
+  /**
+   * get rule data object
+   * @param {string} name
+   * @returns {object} rule data
+   */
   getRuleData(name) {
     let rule = {
       ...lazyZ.getObjectFromArray(this.props.rules, "name", name)
@@ -6331,6 +6338,11 @@ class NetworkingRulesOrderCard extends React.Component {
     delete rule.tcp;
     delete rule.udp;
     return rule;
+  }
+  getExpandedRow(name) {
+    return /*#__PURE__*/React__default["default"].createElement(NetworkingRuleForm, {
+      data: this.getRuleData(name)
+    });
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(FormModal, {
@@ -6483,7 +6495,7 @@ const OrderCardDataTable = props => {
       header: "Destination"
     });
   }
-  headers.splice(headers.length, 0, {
+  headers.push({
     key: "order",
     header: "Order"
   });
