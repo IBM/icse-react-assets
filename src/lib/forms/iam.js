@@ -11,6 +11,19 @@ function handleNumberInputChange(event) {
   }
 }
 
+/**
+ * Handle input change for allowed ips text field
+ * @param {event} event
+ */
+function handleAllowedIps(event) {
+  let value = event.target.value.replace(/\s*/g, ""); // remove white space and check for empty value
+  if (value === "") {
+    value = null;
+  }
+  return { allowed_ip_addresses: value };
+}
+
 module.exports = {
   handleNumberInputChange,
+  handleAllowedIps,
 };

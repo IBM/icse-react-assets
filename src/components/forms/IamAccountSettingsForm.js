@@ -10,7 +10,7 @@ import { IcseSelect } from "../Dropdowns";
 import { IcseTextInput, IcseToggle } from "../Inputs";
 import { ToolTipWrapper } from "../Tooltips";
 import { IcseFormGroup } from "../Utils";
-import { handleNumberInputChange } from "../../lib/forms/iam";
+import { handleAllowedIps, handleNumberInputChange } from "../../lib/forms/iam";
 
 const restrictMenuItems = ["Unset", "Yes", "No"];
 const mfaMenuItems = [
@@ -138,10 +138,7 @@ class IamAccountSettingsForm extends Component {
    * @param {event} event
    */
   handleAllowedIps(event) {
-    // removing white space and checking for empty value
-    let value = event.target.value.replace(/\s*/g, "");
-    if (value === "") value = null;
-    this.setState({ allowed_ip_addresses: value });
+    this.setState(handleAllowedIps(event));
   }
 
   /**

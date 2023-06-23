@@ -1,5 +1,8 @@
 const { assert } = require("chai");
-const { handleNumberInputChange } = require("../../src/lib/forms/iam");
+const {
+  handleNumberInputChange,
+  handleAllowedIps,
+} = require("../../src/lib/forms/iam");
 
 describe("iam", () => {
   describe("handleNumberInputChange", () => {
@@ -47,5 +50,48 @@ describe("iam", () => {
       let expectedValue = null;
       assert.equal(actualValue, expectedValue);
     });
+  });
+  describe("handleAllowedIps", () => {
+    it("should cleanup value and return correct value", () => {
+      let event = {
+        target: {
+          value: "10.0.0.1   ",
+        },
+      };
+      let actualValue = handleAllowedIps(event);
+      let expectedValue = { allowed_ip_addresses: "10.0.0.1" };
+      assert.deepEqual(actualValue, expectedValue);
+    });
+    it("should handle multiple ips and return correct value", () => {
+      let event = {
+        target: {
+          value: "10.0.0.1, 10.0.0.2  ",
+        },
+      };
+      let actualValue = handleAllowedIps(event);
+      let expectedValue = { allowed_ip_addresses: "10.0.0.1,10.0.0.2" };
+      assert.deepEqual(actualValue, expectedValue);
+    });
+    it("should handle empty whitespace value and return correct value", () => {
+      let event = {
+        target: {
+          value: "   ",
+        },
+      };
+      let actualValue = handleAllowedIps(event);
+      let expectedValue = { allowed_ip_addresses: null };
+      assert.deepEqual(actualValue, expectedValue);
+    });
+    it("should handle empty value and return correct value", () => {
+      let event = {
+        target: {
+          value: "",
+        },
+      };
+      let actualValue = handleAllowedIps(event);
+      let expectedValue = { allowed_ip_addresses: null };
+      assert.deepEqual(actualValue, expectedValue);
+    });
+
   });
 });
