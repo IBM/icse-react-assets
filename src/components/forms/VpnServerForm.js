@@ -43,6 +43,10 @@ class VpnServerForm extends Component {
     this.setState(handleVpnServerInputChange(this.state, event));
   }
 
+  handleMultiSelectChange(name, value) {
+    this.setState(this.setNameToValue(name, value));
+  }
+
   /**
    * handle multiselects
    * @param {event} event
