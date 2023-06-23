@@ -127,10 +127,9 @@ class IamAccountSettingsForm extends Component {
   /**
    * Toggle on and off param in state at name
    * @param {string} name name of the object key to change
-   * @param {bool} setDefaults set default values, default is false
    */
   handleToggle(name) {
-    this.setState({ [name]: !this.state[name] });
+    this.setState(this.toggleStateBoolean(name, this.state));
   }
 
   /**
