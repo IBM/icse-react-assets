@@ -227,10 +227,12 @@ const SubnetTierFormStory = () => {
       shouldDisableSave={shouldDisableSave}
       disableSubnetSaveCallback={disableSubnetSaveCallback}
       invalidCallback={invalidCallback}
+      invalidSubnetCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
       networkAcls={["example-acl-1", "example-acl-2"]}
       enabledPublicGateways={[1, 2, 3]}
       subnetListCallback={subnetListCallback}
+      invalidSubnetTextCallback={invalidTextCallback}
       propsMatchState={propsMatchState}
     />
   );
@@ -306,6 +308,8 @@ const SubnetTierFormModalStory = () => {
       enabledPublicGateways={[1, 2, 3]}
       subnetListCallback={subnetListCallback}
       propsMatchState={propsMatchState}
+      invalidSubnetCallback={invalidCallback}
+      invalidSubnetTextCallback={invalidTextCallback}
       isModal
     />
   );
