@@ -8163,11 +8163,32 @@ class SubnetTierForm extends React.Component {
     this.onSave = this.onSave.bind(this);
     this.onDelete = this.onDelete.bind(this);
     this.handleShowToggle = this.handleShowToggle.bind(this);
+    this.handleSubnetTierToggle = this.handleSubnetTierToggle.bind(this);
     this.shouldDisableSubmit = this.shouldDisableSubmit.bind(this);
+    this.handleSelectZones = this.handleSelectZones.bind(this);
     this.onSubnetSave = this.onSubnetSave.bind(this);
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
   }
+  /**
+   * handle select zones
+   * @param {Object} event
+   */
+  handleSelectZones(event) {
+    this.setState(forms_3(event, this.state));
+  }
+
+  /**
+   * toggle
+   * @param {string} name
+   */
+  handleSubnetTierToggle(name) {
+    this.setState(forms_1(name, this.state));
+  }
+
+  /**
+   * show for modals toggle
+   */
   handleShowToggle() {
     this.setState(subnets_4(this.state, this.props));
   }
@@ -8226,7 +8247,7 @@ class SubnetTierForm extends React.Component {
     }, /*#__PURE__*/React.createElement(DeleteModal, {
       name: tierName,
       modalOpen: this.state.showDeleteModal,
-      onModalClose: () => forms_1("showDeleteModal", this.state),
+      onModalClose: () => this.handleSubnetTierToggle("showDeleteModal"),
       onModalSubmit: this.onDelete,
       useDefaultUnsavedMessage: false
     }), /*#__PURE__*/React.createElement(UnsavedChangesModal, {
@@ -8266,7 +8287,7 @@ class SubnetTierForm extends React.Component {
         hide: this.props.noDeleteButton,
         show: /*#__PURE__*/React.createElement(DeleteButton, {
           name: tierName,
-          onClick: this.toggleDeleteModal
+          onClick: () => this.handleSubnetTierToggle("showDeleteModal")
         })
       }))
     }, /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
@@ -8287,7 +8308,7 @@ class SubnetTierForm extends React.Component {
       invalidText: "Select at least one zone",
       items: ["1", "2", "3"],
       initialSelectedItems: forms_2(this.state, this.props),
-      onChange: event => forms_3(event, this.state)
+      onChange: this.handleSelectZones
     }) : /*#__PURE__*/React.createElement(IcseNumberSelect, {
       max: 3,
       value: this.state.zones ? this.state.zones : 1,
@@ -8306,7 +8327,7 @@ class SubnetTierForm extends React.Component {
       id: composedId + "-advanced",
       labelText: "Advanced Configuration",
       defaultToggled: this.state.advanced,
-      onToggle: () => forms_1("advanced", this.state),
+      onToggle: () => this.handleSubnetTierToggle("advanced"),
       className: "fieldWidthSmaller",
       disabled: this.props.dynamicSubnets || this.props.data.advanced
     })), /*#__PURE__*/React.createElement(IcseFormGroup, {
@@ -8333,7 +8354,7 @@ class SubnetTierForm extends React.Component {
       id: composedId + "-public-gateway",
       labelText: "Use Public Gateways",
       defaultToggled: this.state.addPublicGateway,
-      onToggle: () => forms_1("addPublicGateway", this.state),
+      onToggle: () => this.handleSubnetTierToggle("addPublicGateway"),
       isModal: this.props.isModal,
       disabled: this.state.advanced || this.props.data.advanced || this.props.enabledPublicGateways.length === 0,
       className: "fieldWidthSmaller"
