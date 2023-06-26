@@ -1236,6 +1236,83 @@ var secretsManager = {
   onCheckClick: onCheckClick$1
 };
 
+/**
+ * get list of strings from zone
+ * @param {Object} stateData
+ * @param {object} componentProps
+ * @returns {Array<string>} stringified zones
+ */
+function parseZoneStrings$1(stateData, componentProps) {
+  let stringZones = [];
+  stateData.select_zones.forEach(zone => {
+    stringZones.push(String(zone));
+  });
+  return stringZones;
+}
+
+/**
+ * Handle select zones
+ * @param {event} event
+ * @param {object} stateData
+ * @returns {object} new state
+ */
+function handleSelectZones$1(event, stateData) {
+  let items = [];
+  let state = {
+    ...stateData
+  };
+  event.selectedItems.forEach(item => {
+    items.push(Number(item));
+  });
+  state.select_zones = items;
+  return state;
+}
+
+/**
+ * @param {string} name
+ * @param {Object} stateData
+ * @returns {object} new state
+ */
+function handleSubnetTierToggle$1(name, stateData) {
+  let nextState = {
+    ...stateData
+  };
+  nextState[name] = !stateData[name];
+  if (name === "advanced" && nextState[name] === true) {
+    nextState.select_zones = [];
+    [1, 2, 3].forEach(zone => {
+      if (zone <= stateData.zones) nextState.select_zones.push(zone);
+    });
+  } else if (name === "advanced") {
+    nextState.zones = stateData.select_zones.length;
+    nextState.select_zones = null;
+  }
+  return nextState;
+}
+
+/**
+ * handle hide/show form data
+ */
+function handleSubnetShowToggle(stateData, componentProps) {
+  let state = {
+    ...stateData
+  };
+  if (componentProps.propsMatchState(stateData, componentProps) === false && stateData.hide === false && !stateData.showUnsavedChangesModal) {
+    state.showUnsavedChangesModal = true;
+  } else {
+    state.hide = !state.hide;
+    state.showUnsavedChangesModal = false;
+  }
+  return state;
+}
+var subnets = {
+  parseZoneStrings: parseZoneStrings$1,
+  handleSelectZones: handleSelectZones$1,
+  handleSubnetTierToggle: handleSubnetTierToggle$1,
+  handleSubnetShowToggle
+};
+var subnets_4 = subnets.handleSubnetShowToggle;
+
 const {
   atrackerInputChange
 } = atracker;
@@ -1283,7 +1360,15 @@ const {
 const {
   onCheckClick
 } = secretsManager;
+const {
+  parseZoneStrings,
+  handleSelectZones,
+  handleSubnetTierToggle
+} = subnets;
 var forms = {
+  handleSubnetTierToggle,
+  parseZoneStrings,
+  handleSelectZones,
   f5Vsis,
   f5VsiInputChange,
   routingTableRouteInputChange,
@@ -1310,19 +1395,22 @@ var forms = {
   filterKubeVersion: filterKubeVersion$1,
   onCheckClick
 };
-var forms_4 = forms.cbrInvalid;
-var forms_7 = forms.handleRuleInputChange;
-var forms_14 = forms.handleDnsResolverInputChange;
-var forms_15 = forms.dnsFormInputChange;
-var forms_16 = forms.atrackerInputChange;
-var forms_17 = forms.handleRgToggle;
-var forms_18 = forms.handleCRNs;
-var forms_19 = forms.handleVpcSelect;
-var forms_20 = forms.getRuleProtocol;
-var forms_21 = forms.getSubRule;
-var forms_22 = forms.swapArrayElements;
-var forms_23 = forms.getOrderCardClassName;
-var forms_25 = forms.onCheckClick;
+var forms_1 = forms.handleSubnetTierToggle;
+var forms_2 = forms.parseZoneStrings;
+var forms_3 = forms.handleSelectZones;
+var forms_7 = forms.cbrInvalid;
+var forms_10 = forms.handleRuleInputChange;
+var forms_17 = forms.handleDnsResolverInputChange;
+var forms_18 = forms.dnsFormInputChange;
+var forms_19 = forms.atrackerInputChange;
+var forms_20 = forms.handleRgToggle;
+var forms_21 = forms.handleCRNs;
+var forms_22 = forms.handleVpcSelect;
+var forms_23 = forms.getRuleProtocol;
+var forms_24 = forms.getSubRule;
+var forms_25 = forms.swapArrayElements;
+var forms_26 = forms.getOrderCardClassName;
+var forms_28 = forms.onCheckClick;
 
 const {
   toggleMarginBottom,
@@ -3819,7 +3907,7 @@ class AtrackerForm extends Component {
    * @param {*} value value to update
    */
   handleInputChange(event) {
-    this.setState(forms_16(this.state, event));
+    this.setState(forms_19(this.state, event));
   }
 
   /**
@@ -6265,7 +6353,7 @@ class NetworkingRulesOrderCard extends Component {
   handleUp(index) {
     let prevRulesState = [...this.state.rules];
     if (index !== 0) {
-      forms_22(prevRulesState, index, index - 1);
+      forms_25(prevRulesState, index, index - 1);
     }
     this.props.networkRuleOrderDidChange(prevRulesState);
     this.setState({
@@ -6281,7 +6369,7 @@ class NetworkingRulesOrderCard extends Component {
     let prevRulesState = [...this.state.rules];
     let maxLen = prevRulesState.length - 1;
     if (index !== maxLen) {
-      forms_22(prevRulesState, index, index + 1);
+      forms_25(prevRulesState, index, index + 1);
     }
     this.props.networkRuleOrderDidChange(prevRulesState);
     this.setState({
@@ -6358,7 +6446,7 @@ class NetworkingRulesOrderCard extends Component {
       showIfEmpty: this.state.rules
     }), this.state.rules.map((rule, index) => /*#__PURE__*/React.createElement("div", {
       key: "rule-div-" + rule.name + "-wrapper",
-      className: forms_23(this.props)
+      className: forms_26(this.props)
     }, /*#__PURE__*/React.createElement(NetworkingRuleForm, {
       hide: this.state.collapse[rule.name],
       onToggle: () => this.toggleCollapse(rule.name),
@@ -6376,8 +6464,8 @@ class NetworkingRulesOrderCard extends Component {
         direction: rule.direction,
         source: rule.source,
         destination: rule.destination || null,
-        ruleProtocol: forms_20(rule),
-        rule: forms_21(rule, this.props.isSecurityGroup)
+        ruleProtocol: forms_23(rule),
+        rule: forms_24(rule, this.props.isSecurityGroup)
       },
       disableSaveCallback: this.props.disableSaveCallback,
       isSecurityGroup: this.props.isSecurityGroup,
@@ -6888,7 +6976,7 @@ class ResourceGroupForm extends Component {
    * @param {string} name name of the object key to change
    */
   handleToggle(name) {
-    this.setState(forms_17(this.state, name));
+    this.setState(forms_20(this.state, name));
   }
 
   /**
@@ -7971,41 +8059,16 @@ class SubnetTierForm extends React.Component {
     }
     this.state.advancedSave = false;
     this.handleChange = this.handleChange.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
     this.onSave = this.onSave.bind(this);
     this.onDelete = this.onDelete.bind(this);
     this.handleShowToggle = this.handleShowToggle.bind(this);
     this.shouldDisableSubmit = this.shouldDisableSubmit.bind(this);
-    this.toggleDeleteModal = this.toggleDeleteModal.bind(this);
     this.onSubnetSave = this.onSubnetSave.bind(this);
-    this.handleSelectZones = this.handleSelectZones.bind(this);
-    this.parseZoneStrings = this.parseZoneStrings.bind(this);
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
   }
-
-  /**
-   * get list of strings from zone
-   * @returns {Array<string>} stringified zones
-   */
-  parseZoneStrings() {
-    let stringZones = [];
-    this.state.select_zones.forEach(zone => {
-      stringZones.push(String(zone));
-    });
-    return stringZones;
-  }
-
-  /**
-   * Handle select zones
-   * @param {event} event
-   */
-  handleSelectZones(event) {
-    let items = [];
-    event.selectedItems.forEach(item => {
-      items.push(Number(item));
-    });
-    this.setState({
-      select_zones: items
-    });
+  handleShowToggle() {
+    this.setState(subnets_4(this.state, this.props));
   }
 
   /**
@@ -8013,57 +8076,7 @@ class SubnetTierForm extends React.Component {
    * @param {event} event
    */
   handleChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    this.setState({
-      [name]: value
-    });
-  }
-
-  /**
-   * handle toggle
-   */
-  handleToggle(name) {
-    let nextState = {
-      ...this.state
-    };
-    nextState[name] = !this.state[name];
-    if (name === "advanced" && nextState[name] === true) {
-      nextState.select_zones = [];
-      [1, 2, 3].forEach(zone => {
-        if (zone <= this.state.zones) nextState.select_zones.push(zone);
-      });
-    } else if (name === "advanced") {
-      nextState.zones = this.state.select_zones.length;
-      nextState.select_zones = null;
-    }
-    this.setState(nextState);
-  }
-  /**
-   * toggle delete modal
-   */
-  toggleDeleteModal() {
-    this.setState({
-      showDeleteModal: !this.state.showDeleteModal
-    });
-  }
-
-  /**
-   * handle hide/show form data
-   */
-  handleShowToggle() {
-    if (this.props.propsMatchState(this.state, this.props) === false && this.state.hide === false && !this.state.showUnsavedChangesModal) {
-      this.setState({
-        showUnsavedChangesModal: true
-      });
-    } else {
-      this.setState({
-        hide: !this.state.hide,
-        showUnsavedChangesModal: false
-      });
-    }
+    this.setState(this.eventTargetToNameAndValue(event));
   }
   onSave() {
     if (this.state.advanced && !this.state.advancedSave && !this.props.data.advanced) {
@@ -8112,7 +8125,7 @@ class SubnetTierForm extends React.Component {
     }, /*#__PURE__*/React.createElement(DeleteModal, {
       name: tierName,
       modalOpen: this.state.showDeleteModal,
-      onModalClose: this.toggleDeleteModal,
+      onModalClose: () => forms_1("showDeleteModal", this.state),
       onModalSubmit: this.onDelete,
       useDefaultUnsavedMessage: false
     }), /*#__PURE__*/React.createElement(UnsavedChangesModal, {
@@ -8172,8 +8185,8 @@ class SubnetTierForm extends React.Component {
       invalid: this.state.select_zones.length === 0,
       invalidText: "Select at least one zone",
       items: ["1", "2", "3"],
-      initialSelectedItems: this.parseZoneStrings(),
-      onChange: this.handleSelectZones
+      initialSelectedItems: forms_2(this.state, this.props),
+      onChange: event => forms_3(event, this.state)
     }) : /*#__PURE__*/React.createElement(IcseNumberSelect, {
       max: 3,
       value: this.state.zones ? this.state.zones : 1,
@@ -8192,7 +8205,7 @@ class SubnetTierForm extends React.Component {
       id: composedId + "-advanced",
       labelText: "Advanced Configuration",
       defaultToggled: this.state.advanced,
-      onToggle: () => this.handleToggle("advanced"),
+      onToggle: () => forms_1("advanced", this.state),
       className: "fieldWidthSmaller",
       disabled: this.props.dynamicSubnets || this.props.data.advanced
     })), /*#__PURE__*/React.createElement(IcseFormGroup, {
@@ -8219,7 +8232,7 @@ class SubnetTierForm extends React.Component {
       id: composedId + "-public-gateway",
       labelText: "Use Public Gateways",
       defaultToggled: this.state.addPublicGateway,
-      onToggle: () => this.handleToggle("addPublicGateway"),
+      onToggle: () => forms_1("addPublicGateway", this.state),
       isModal: this.props.isModal,
       disabled: this.state.advanced || this.props.data.advanced || this.props.enabledPublicGateways.length === 0,
       className: "fieldWidthSmaller"
@@ -8387,7 +8400,7 @@ class TransitGatewayForm extends Component {
    * @param {event} event
    */
   handleCRNs(event) {
-    this.setState(forms_18(event));
+    this.setState(forms_21(event));
   }
 
   /**
@@ -8395,7 +8408,7 @@ class TransitGatewayForm extends Component {
    * @param {Array} selectedItems
    */
   handleVpcSelect(selectedItems) {
-    this.setState(forms_19(selectedItems, this.state.name));
+    this.setState(forms_22(selectedItems, this.state.name));
   }
   render() {
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
@@ -10748,7 +10761,7 @@ class CbrRuleForm extends Component {
     buildFormFunctions(this);
   }
   handleInputChange(event) {
-    this.setState(forms_7(this.state, event));
+    this.setState(forms_10(this.state, event));
   }
   render() {
     // set up props for subforms
@@ -11148,7 +11161,7 @@ class CbrZoneForm extends Component {
       labelText: "Account ID" // needed to override titlecase capitalization
       ,
       onChange: this.handleInputChange
-    }, forms_4("account_id", this.state.account_id)))), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
+    }, forms_7("account_id", this.state.account_id)))), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
       id: this.props.data.name + "-cbr-zone-description",
       className: "textInputWide",
       name: "description",
@@ -11568,7 +11581,7 @@ class DnsCustomResolverForm extends React.Component {
    * @param {*} value value to update
    */
   handleInputChange(event) {
-    this.setState(forms_14(this.state, event));
+    this.setState(forms_17(this.state, event));
   }
 
   /**
@@ -11689,7 +11702,7 @@ class DnsForm extends Component {
     buildFormFunctions(this);
   }
   handleInputChange(event) {
-    this.setState(forms_15(event));
+    this.setState(forms_18(event));
   }
   render() {
     // set up props for subforms
@@ -12137,7 +12150,7 @@ class SecretsManagerChecklist extends React.Component {
   }
   onCheckClick(ref) {
     this.setState({
-      selected: forms_25(this.state.selected, ref, this.props.secrets)
+      selected: forms_28(this.state.selected, ref, this.props.secrets)
     }, () => {
       this.props.onSelectChange(this.state.selected);
     });
