@@ -9,7 +9,6 @@ var regexButWithWords = require('regex-but-with-words');
 var React = require('react');
 var PropTypes = require('prop-types');
 var iconsReact = require('@carbon/icons-react');
-var utils$1 = require('regex-but-with-words/lib/utils');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -49,7 +48,7 @@ var css_248z$2 = "/* vars and themes */\n:root {\n  --background: #ffffff;\n  --
 styleInject(css_248z$2);
 
 const {
-  contains: contains$3,
+  contains: contains$4,
   capitalize: capitalize$1
 } = lazyZ__default["default"];
 
@@ -139,7 +138,7 @@ function handleClusterInputChange$1(name, value, stateData) {
   return cluster;
 }
 function subnetTierName$1(tierName) {
-  if (contains$3(["vsi", "vpe", "vpn", "vpn-1", "vpn-2"], tierName)) {
+  if (contains$4(["vsi", "vpe", "vpn", "vpn-1", "vpn-2"], tierName)) {
     return tierName.toUpperCase() + " Subnet Tier";
   } else if (tierName === "") {
     return "New Subnet Tier";
@@ -651,6 +650,31 @@ function popoverWrapperParams$1(props) {
 var popoverWrapper = {
   popoverWrapperParams: popoverWrapperParams$1
 };
+
+const {
+  contains: contains$3,
+  parseIntFromZone
+} = lazyZ__default["default"];
+function handlePgwToggle$1(zone, stateData) {
+  let vpc = {
+    ...stateData
+  };
+  let currentGw = [...stateData.publicGateways]; // new array
+  let zoneNumber = parseIntFromZone(zone);
+  // check if zone is already present
+  if (contains$3(currentGw, zoneNumber)) {
+    let index = currentGw.indexOf(zoneNumber);
+    currentGw.splice(index, 1);
+  } else {
+    currentGw.push(zoneNumber);
+  }
+  vpc.publicGateways = currentGw;
+  return vpc;
+}
+var vpc = {
+  handlePgwToggle: handlePgwToggle$1
+};
+var vpc_1 = vpc.handlePgwToggle;
 
 const {
   kebabCase: kebabCase$1
@@ -1387,6 +1411,9 @@ var subnets = {
 var subnets_4 = subnets.handleSubnetShowToggle;
 
 const {
+  handlePgwToggle
+} = vpc;
+const {
   atrackerInputChange
 } = atracker;
 const {
@@ -1472,7 +1499,8 @@ var forms = {
   filterKubeVersion: filterKubeVersion$1,
   onCheckClick,
   handleVpnServerInputChange,
-  vpnServerRangeInvalid
+  vpnServerRangeInvalid,
+  handlePgwToggle
 };
 var forms_1 = forms.handleSubnetTierToggle;
 var forms_2 = forms.parseZoneStrings;
@@ -8639,7 +8667,7 @@ class VpcNetworkForm extends React__default["default"].Component {
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
-    this.handPgwToggle = this.handPgwToggle.bind(this);
+    this.handlePgwToggle = this.handlePgwToggle.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
@@ -8664,57 +8692,35 @@ class VpcNetworkForm extends React__default["default"].Component {
    * @param {string} name name of the object key to change
    */
   handleToggle(name) {
-    this.setState({
-      [name]: !this.state[name]
-    });
+    this.setState(this.toggleStateBoolean(name, this.state));
   }
 
   /**
    * handle change of public gateway by zone
    * @param {string} zone zone-1, zone-2, or zone-3
    */
-  handPgwToggle(zone) {
-    let vpc = {
-      ...this.state
-    };
-    let currentGw = [...this.state.publicGateways]; // new array
-    let zoneNumber = lazyZ.parseIntFromZone(zone);
-    // check if zone is already present
-    if (utils$1.contains(currentGw, zoneNumber)) {
-      let index = currentGw.indexOf(zoneNumber);
-      currentGw.splice(index, 1);
-    } else {
-      currentGw.push(zoneNumber);
-    }
-    vpc.publicGateways = currentGw;
-    this.setState({
-      ...vpc
-    });
+  handlePgwToggle(zone) {
+    this.setState(vpc_1(zone, this.state));
   }
   render() {
     let composedId = `${this.props.data.name}-vpc-form`;
-    this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       tooltip: {
         content: "This name will be prepended to all components within this VPC.",
         alignModal: "bottom-left",
         align: "bottom-left"
       },
-      id: composedId + "-prefix",
-      componentProps: this.props,
-      component: "vpc",
-      componentName: this.props.data.name,
+      id: composedId + "-name",
       field: "name",
-      labelText: "Name",
       placeholder: "my-vpc-name",
       hideHelperText: true,
       value: this.state.name,
+      forceKebabCase: true,
       onChange: this.handleInputChange,
       invalid: this.props.invalidCallback("name", this.state, this.props),
       invalidText: this.props.invalidTextCallback("name", this.state, this.props),
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      labelText: "Resource Group",
       name: "resource_group",
       formName: "resource_group",
       groups: this.props.resourceGroups,
@@ -8737,14 +8743,15 @@ class VpcNetworkForm extends React__default["default"].Component {
       return /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
         id: composedId + "-" + field,
         key: this.props.data.name + "-" + lazyZ.kebabCase(field),
-        componentName: "VPC Network",
         field: field,
         labelText: lazyZ.titleCase(field),
         value: this.state[field],
         onChange: this.handleInputChange,
         invalid: this.props.invalidCallback(field, this.state, this.props),
         invalidText: this.props.invalidTextCallback(field, this.state, this.props),
-        className: "fieldWidthSmaller"
+        className: "fieldWidthSmaller",
+        optional: true,
+        forceKebabCase: true
       });
     })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
       name: "Public Gateways",
@@ -8758,7 +8765,7 @@ class VpcNetworkForm extends React__default["default"].Component {
       id: this.props.data.name + "-pgw-" + zone,
       labelText: "Create in Zone " + lazyZ.parseIntFromZone(zone),
       defaultToggled: this.state.publicGateways.indexOf(lazyZ.parseIntFromZone(zone)) !== -1,
-      onToggle: () => this.handPgwToggle(zone),
+      onToggle: () => this.handlePgwToggle(zone),
       className: "fieldWidthSmaller leftTextAlign"
     }))), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
       name: "Classic Access",

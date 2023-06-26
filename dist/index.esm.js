@@ -1,11 +1,10 @@
 import '@carbon/styles/css/styles.css';
 import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, TextArea, PasswordInput, NumberInput, Dropdown, Tag, Checkbox } from '@carbon/react';
-import lazyZ, { titleCase as titleCase$2, kebabCase as kebabCase$5, isEmpty, buildNumberDropdownList, contains as contains$4, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$7, transpose as transpose$1, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, getObjectFromArray, splat as splat$2, deepEqual, parseIntFromZone, snakeCase as snakeCase$1, distinct, isWholeNumber as isWholeNumber$2, isInRange as isInRange$1, eachKey } from 'lazy-z';
+import lazyZ, { titleCase as titleCase$2, kebabCase as kebabCase$5, isEmpty, buildNumberDropdownList, contains as contains$5, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$7, transpose as transpose$1, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, getObjectFromArray, splat as splat$2, deepEqual, parseIntFromZone as parseIntFromZone$1, snakeCase as snakeCase$1, distinct, isWholeNumber as isWholeNumber$2, isInRange as isInRange$1, eachKey } from 'lazy-z';
 import regexButWithWords from 'regex-but-with-words';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Information, Save, Add, ChevronDown, ChevronRight, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt, Password } from '@carbon/icons-react';
-import { contains as contains$5 } from 'regex-but-with-words/lib/utils';
 
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
@@ -38,7 +37,7 @@ var css_248z$2 = "/* vars and themes */\n:root {\n  --background: #ffffff;\n  --
 styleInject(css_248z$2);
 
 const {
-  contains: contains$3,
+  contains: contains$4,
   capitalize: capitalize$1
 } = lazyZ;
 
@@ -128,7 +127,7 @@ function handleClusterInputChange$1(name, value, stateData) {
   return cluster;
 }
 function subnetTierName$1(tierName) {
-  if (contains$3(["vsi", "vpe", "vpn", "vpn-1", "vpn-2"], tierName)) {
+  if (contains$4(["vsi", "vpe", "vpn", "vpn-1", "vpn-2"], tierName)) {
     return tierName.toUpperCase() + " Subnet Tier";
   } else if (tierName === "") {
     return "New Subnet Tier";
@@ -640,6 +639,31 @@ function popoverWrapperParams$1(props) {
 var popoverWrapper = {
   popoverWrapperParams: popoverWrapperParams$1
 };
+
+const {
+  contains: contains$3,
+  parseIntFromZone
+} = lazyZ;
+function handlePgwToggle$1(zone, stateData) {
+  let vpc = {
+    ...stateData
+  };
+  let currentGw = [...stateData.publicGateways]; // new array
+  let zoneNumber = parseIntFromZone(zone);
+  // check if zone is already present
+  if (contains$3(currentGw, zoneNumber)) {
+    let index = currentGw.indexOf(zoneNumber);
+    currentGw.splice(index, 1);
+  } else {
+    currentGw.push(zoneNumber);
+  }
+  vpc.publicGateways = currentGw;
+  return vpc;
+}
+var vpc = {
+  handlePgwToggle: handlePgwToggle$1
+};
+var vpc_1 = vpc.handlePgwToggle;
 
 const {
   kebabCase: kebabCase$1
@@ -1376,6 +1400,9 @@ var subnets = {
 var subnets_4 = subnets.handleSubnetShowToggle;
 
 const {
+  handlePgwToggle
+} = vpc;
+const {
   atrackerInputChange
 } = atracker;
 const {
@@ -1461,7 +1488,8 @@ var forms = {
   filterKubeVersion: filterKubeVersion$1,
   onCheckClick,
   handleVpnServerInputChange,
-  vpnServerRangeInvalid
+  vpnServerRangeInvalid,
+  handlePgwToggle
 };
 var forms_1 = forms.handleSubnetTierToggle;
 var forms_2 = forms.parseZoneStrings;
@@ -3138,7 +3166,7 @@ class IcseFormTemplate extends React.Component {
       // if a second param is passed
       let shownChildForms = [...this.state.shownChildForms]; // all forms
       // if contains index
-      if (contains$4(this.state.shownChildForms[index], childIndex)) {
+      if (contains$5(this.state.shownChildForms[index], childIndex)) {
         // remove index from list
         shownChildForms[index].splice(index, 1);
       } else {
@@ -3151,7 +3179,7 @@ class IcseFormTemplate extends React.Component {
     } else {
       // if only parent index
       let shownForms = [...this.state.shownArrayForms]; // all forms
-      if (contains$4(this.state.shownArrayForms, index)) {
+      if (contains$5(this.state.shownArrayForms, index)) {
         // remove if contains
         shownForms.splice(index, 1);
       } else shownForms.push(index);
@@ -3184,8 +3212,8 @@ class IcseFormTemplate extends React.Component {
    * @returns {bool} if the child forms should show
    */
   shouldShow(index) {
-    return this.props.parentToggle ? contains$4(this.props.parentToggle.shownChildren[this.props.parentToggle.index], index) // show children
-    : contains$4(this.state.shownArrayForms, index);
+    return this.props.parentToggle ? contains$5(this.props.parentToggle.shownChildren[this.props.parentToggle.index], index) // show children
+    : contains$5(this.state.shownArrayForms, index);
   }
   render() {
     let formattedName = kebabCase$5(this.props.name); // formatted component name
@@ -7221,7 +7249,7 @@ class RoutingTableRouteForm extends Component {
       field: "next_hop",
       value: this.state.next_hop,
       placeholder: "x.x.x.x",
-      invalidCallback: () => isNullOrEmptyString$7(this.state.next_hop) || isIpv4CidrOrAddress$2(this.state.next_hop) === false || contains$4(this.state.next_hop, `/`),
+      invalidCallback: () => isNullOrEmptyString$7(this.state.next_hop) || isIpv4CidrOrAddress$2(this.state.next_hop) === false || contains$5(this.state.next_hop, `/`),
       invalidText: "Next hop must be a valid IP",
       onChange: this.handleInputChange,
       disabled: this.state.action !== "deliver",
@@ -7926,7 +7954,7 @@ class SubnetForm extends React.Component {
    * @returns {boolean} true if not valid
    */
   cidrIsValid(cidr) {
-    return isIpv4CidrOrAddress$2(cidr) === false || !contains$4(cidr, "/");
+    return isIpv4CidrOrAddress$2(cidr) === false || !contains$5(cidr, "/");
   }
   render() {
     return /*#__PURE__*/React.createElement(Tile, {
@@ -8068,8 +8096,8 @@ class SubnetTileForm extends React.Component {
    * @param {string} stateData.name
    */
   shouldDisableGatewayToggle(stateData) {
-    let zone = parseIntFromZone(stateData.name);
-    if (contains$4(this.props.enabledPublicGateways, zone)) {
+    let zone = parseIntFromZone$1(stateData.name);
+    if (contains$5(this.props.enabledPublicGateways, zone)) {
       return false;
     } else return true;
   }
@@ -8086,7 +8114,7 @@ class SubnetTileForm extends React.Component {
     }), /*#__PURE__*/React.createElement("div", {
       className: "displayFlex"
     }, subnetMap.map((subnet, index) => {
-      if (!subnet || this.props.advanced && !contains$4(this.props.select_zones, index + 1)) {
+      if (!subnet || this.props.advanced && !contains$5(this.props.select_zones, index + 1)) {
         return /*#__PURE__*/React.createElement(SubnetForm, {
           key: `${"no-subnet-zone-" + (index + 1)}-tile-${this.props.tier}-${this.props.vpc_name}-${JSON.stringify(subnet)}`,
           vpc_name: this.props.vpc_name,
@@ -8628,7 +8656,7 @@ class VpcNetworkForm extends React.Component {
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
-    this.handPgwToggle = this.handPgwToggle.bind(this);
+    this.handlePgwToggle = this.handlePgwToggle.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
@@ -8653,57 +8681,35 @@ class VpcNetworkForm extends React.Component {
    * @param {string} name name of the object key to change
    */
   handleToggle(name) {
-    this.setState({
-      [name]: !this.state[name]
-    });
+    this.setState(this.toggleStateBoolean(name, this.state));
   }
 
   /**
    * handle change of public gateway by zone
    * @param {string} zone zone-1, zone-2, or zone-3
    */
-  handPgwToggle(zone) {
-    let vpc = {
-      ...this.state
-    };
-    let currentGw = [...this.state.publicGateways]; // new array
-    let zoneNumber = parseIntFromZone(zone);
-    // check if zone is already present
-    if (contains$5(currentGw, zoneNumber)) {
-      let index = currentGw.indexOf(zoneNumber);
-      currentGw.splice(index, 1);
-    } else {
-      currentGw.push(zoneNumber);
-    }
-    vpc.publicGateways = currentGw;
-    this.setState({
-      ...vpc
-    });
+  handlePgwToggle(zone) {
+    this.setState(vpc_1(zone, this.state));
   }
   render() {
     let composedId = `${this.props.data.name}-vpc-form`;
-    this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
       tooltip: {
         content: "This name will be prepended to all components within this VPC.",
         alignModal: "bottom-left",
         align: "bottom-left"
       },
-      id: composedId + "-prefix",
-      componentProps: this.props,
-      component: "vpc",
-      componentName: this.props.data.name,
+      id: composedId + "-name",
       field: "name",
-      labelText: "Name",
       placeholder: "my-vpc-name",
       hideHelperText: true,
       value: this.state.name,
+      forceKebabCase: true,
       onChange: this.handleInputChange,
       invalid: this.props.invalidCallback("name", this.state, this.props),
       invalidText: this.props.invalidTextCallback("name", this.state, this.props),
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseSelect, {
-      labelText: "Resource Group",
       name: "resource_group",
       formName: "resource_group",
       groups: this.props.resourceGroups,
@@ -8726,14 +8732,15 @@ class VpcNetworkForm extends React.Component {
       return /*#__PURE__*/React.createElement(IcseTextInput, {
         id: composedId + "-" + field,
         key: this.props.data.name + "-" + kebabCase$5(field),
-        componentName: "VPC Network",
         field: field,
         labelText: titleCase$2(field),
         value: this.state[field],
         onChange: this.handleInputChange,
         invalid: this.props.invalidCallback(field, this.state, this.props),
         invalidText: this.props.invalidTextCallback(field, this.state, this.props),
-        className: "fieldWidthSmaller"
+        className: "fieldWidthSmaller",
+        optional: true,
+        forceKebabCase: true
       });
     })), /*#__PURE__*/React.createElement(IcseHeading, {
       name: "Public Gateways",
@@ -8745,9 +8752,9 @@ class VpcNetworkForm extends React.Component {
     }), /*#__PURE__*/React.createElement(IcseFormGroup, null, ["zone-1", "zone-2", "zone-3"].map(zone => /*#__PURE__*/React.createElement(IcseToggle, {
       key: this.props.data.name + "-gateway-toggle-" + zone,
       id: this.props.data.name + "-pgw-" + zone,
-      labelText: "Create in Zone " + parseIntFromZone(zone),
-      defaultToggled: this.state.publicGateways.indexOf(parseIntFromZone(zone)) !== -1,
-      onToggle: () => this.handPgwToggle(zone),
+      labelText: "Create in Zone " + parseIntFromZone$1(zone),
+      defaultToggled: this.state.publicGateways.indexOf(parseIntFromZone$1(zone)) !== -1,
+      onToggle: () => this.handlePgwToggle(zone),
       className: "fieldWidthSmaller leftTextAlign"
     }))), /*#__PURE__*/React.createElement(IcseHeading, {
       name: "Classic Access",
@@ -9129,7 +9136,7 @@ class VpnServerRouteForm extends React.Component {
       value: this.state.destination,
       placeholder: "x.x.x.x",
       labelText: "Destination CIDR",
-      invalidCallback: () => isIpv4CidrOrAddress$2(this.state.destination) === false || !contains$4(this.state.destination, "/"),
+      invalidCallback: () => isIpv4CidrOrAddress$2(this.state.destination) === false || !contains$5(this.state.destination, "/"),
       invalidText: "Destination must be a valid IPV4 CIDR Block",
       onChange: this.handleInputChange,
       className: "fieldWidthSmaller"
@@ -9825,7 +9832,7 @@ class VsiLoadBalancerForm extends React.Component {
     let nextState = {
       ...this.state
     };
-    nextState[name] = contains$4(["name", "vpc", "resource_group", "type"], name) ? value : contains$4(["health_delay", "health_retries", "health_timeout", "port", "listener_port", "connection_limit"], name) ? Number(value) : snakeCase$1(value);
+    nextState[name] = contains$5(["name", "vpc", "resource_group", "type"], name) ? value : contains$5(["health_delay", "health_retries", "health_timeout", "port", "listener_port", "connection_limit"], name) ? Number(value) : snakeCase$1(value);
     if (name === "vpc") {
       nextState.subnets = [];
       nextState.security_groups = [];
@@ -11995,7 +12002,7 @@ class LogDNAForm extends Component {
       name,
       value
     } = event.target;
-    if (contains$4(["plan", "endpoints"], name)) value = kebabCase$5(value);
+    if (contains$5(["plan", "endpoints"], name)) value = kebabCase$5(value);
     this.setState(this.setNameToValue(name, value));
   }
 
@@ -12259,7 +12266,7 @@ class SecretsManagerChecklist extends React.Component {
       id: value,
       key: kebabCase$5(value),
       labelText: value,
-      checked: contains$4(this.state.selected, value),
+      checked: contains$5(this.state.selected, value),
       onChange: () => this.onCheckClick(value)
     }))));
   }

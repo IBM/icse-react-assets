@@ -1,3 +1,4 @@
+const { handlePgwToggle } = require("./vpc");
 const { atrackerInputChange } = require("./atracker");
 const { handleRgToggle } = require("./resource-groups");
 const {
@@ -67,4 +68,5 @@ module.exports = {
   onCheckClick,
   handleVpnServerInputChange,
   vpnServerRangeInvalid,
+  handlePgwToggle,
 };
