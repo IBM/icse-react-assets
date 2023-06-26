@@ -4632,7 +4632,7 @@ var iamUtils_3 = iamUtils.isRangeInvalid;
  * @param {Object} stateData
  * @returns {Object} new state
  */
-function handleAllowedIps(event, stateData) {
+function handleAllowedIps$1(event, stateData) {
   let state = {
     ...stateData
   };
@@ -4665,7 +4665,7 @@ function handlePlanChange(event, stateData) {
   return state;
 }
 var eventStreams = {
-  handleAllowedIps,
+  handleAllowedIps: handleAllowedIps$1,
   handlePlanChange
 };
 var eventStreams_1 = eventStreams.handleAllowedIps;
@@ -5466,6 +5466,63 @@ const iamItems = {
 };
 
 /**
+ * handle input change of number-only fields
+ * @param {event} event
+ */
+function handleNumberInputChange(event) {
+  let value = parseInt(event.target.value) || null;
+  if (value || event.target.value === "") {
+    return {
+      [event.target.name]: value
+    };
+  } else {
+    return null;
+  }
+}
+
+/**
+ * Handle input change for allowed ips text field
+ * @param {event} event
+ */
+function handleAllowedIps(event) {
+  let value = event.target.value.replace(/\s*/g, ""); // remove white space and check for empty value
+  if (value === "") {
+    value = null;
+  }
+  return {
+    allowed_ip_addresses: value
+  };
+}
+
+/**
+ * Handle input change for a select
+ * @param {event} event
+ */
+function handleSelectChange(event) {
+  let {
+    name,
+    value
+  } = event.target;
+  return {
+    [name]: iamItems[value].value
+  };
+}
+var iam = {
+  restrictMenuItems,
+  mfaMenuItems,
+  iamItems,
+  handleNumberInputChange,
+  handleAllowedIps,
+  handleSelectChange
+};
+var iam_1 = iam.restrictMenuItems;
+var iam_2 = iam.mfaMenuItems;
+var iam_3 = iam.iamItems;
+var iam_4 = iam.handleNumberInputChange;
+var iam_5 = iam.handleAllowedIps;
+var iam_6 = iam.handleSelectChange;
+
+/**
  * IAM Account Settings form
  */
 
@@ -5496,23 +5553,18 @@ class IamAccountSettingsForm extends React.Component {
    * @param {event} event
    */
   handleNumberInputChange(event) {
-    let value = parseInt(event.target.value) || null;
-    if (value || event.target.value === "") {
-      this.setState({
-        [event.target.name]: value
-      });
+    let value = iam_4(event);
+    if (value !== null) {
+      this.setState(value);
     }
   }
 
   /**
    * Toggle on and off param in state at name
    * @param {string} name name of the object key to change
-   * @param {bool} setDefaults set default values, default is false
    */
   handleToggle(name) {
-    this.setState({
-      [name]: !this.state[name]
-    });
+    this.setState(this.toggleStateBoolean(name, this.state));
   }
 
   /**
@@ -5520,12 +5572,7 @@ class IamAccountSettingsForm extends React.Component {
    * @param {event} event
    */
   handleAllowedIps(event) {
-    // removing white space and checking for empty value
-    let value = event.target.value.replace(/\s*/g, "");
-    if (value === "") value = null;
-    this.setState({
-      allowed_ip_addresses: value
-    });
+    this.setState(iam_5(event));
   }
 
   /**
@@ -5533,11 +5580,7 @@ class IamAccountSettingsForm extends React.Component {
    * @param {event} event
    */
   handleSelectChange(event) {
-    let name = event.target.name;
-    let item = event.target.value;
-    this.setState({
-      [name]: iamItems[item].value
-    });
+    this.setState(iam_6(event));
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
@@ -5556,10 +5599,10 @@ class IamAccountSettingsForm extends React.Component {
       invalid: this.props.invalidCallback("if_match", this.state, this.props),
       invalidText: this.props.invalidTextCallback("if_match", this.state, this.props)
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      value: iamItems[this.state.mfa].display,
+      value: iam_3[this.state.mfa].display,
       formName: "IAM Account Settings",
       className: "textInputMedium",
-      groups: mfaMenuItems,
+      groups: iam_2,
       handleInputChange: this.handleSelectChange,
       labelText: "Multi-Factor Authentication",
       name: "mfa"
@@ -5576,15 +5619,15 @@ class IamAccountSettingsForm extends React.Component {
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       formName: "IAM Account Settings",
       name: "restrict_create_service_id",
-      groups: restrictMenuItems,
-      value: iamItems[this.state.restrict_create_service_id].display,
+      groups: iam_1,
+      value: iam_3[this.state.restrict_create_service_id].display,
       labelText: "Restrict Creation of Service IDs",
       handleInputChange: this.handleSelectChange
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       formName: "IAM Account Settings",
       name: "restrict_create_platform_apikey",
-      groups: restrictMenuItems,
-      value: iamItems[this.state.restrict_create_platform_apikey].display,
+      groups: iam_1,
+      value: iam_3[this.state.restrict_create_platform_apikey].display,
       labelText: "Restrict Creation of API Keys",
       handleInputChange: this.handleSelectChange
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
@@ -5652,10 +5695,10 @@ class IamAccountSettingsForm extends React.Component {
 IamAccountSettingsForm.defaultProps = {
   data: {
     if_match: "",
-    mfa: mfaMenuItems[0],
+    mfa: iam_2[0],
     include_history: false,
-    restrict_create_service_id: iamItems[restrictMenuItems[0]].value,
-    restrict_create_platform_apikey: iamItems[restrictMenuItems[0]].value,
+    restrict_create_service_id: iam_3[iam_1[0]].value,
+    restrict_create_platform_apikey: iam_3[iam_1[0]].value,
     max_sessions_per_identity: "",
     session_expiration_in_seconds: "",
     session_invalidation_in_seconds: "",
@@ -5673,11 +5716,11 @@ IamAccountSettingsForm.propTypes = {
     if_match: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].string]),
     mfa: PropTypes__default["default"].string,
     include_history: PropTypes__default["default"].bool,
-    restrict_create_service_id: PropTypes__default["default"].oneOf(restrictMenuItems.map(item => {
-      return iamItems[item].value;
+    restrict_create_service_id: PropTypes__default["default"].oneOf(iam_1.map(item => {
+      return iam_3[item].value;
     })),
-    restrict_create_platform_apikey: PropTypes__default["default"].oneOf(restrictMenuItems.map(item => {
-      return iamItems[item].value;
+    restrict_create_platform_apikey: PropTypes__default["default"].oneOf(iam_1.map(item => {
+      return iam_3[item].value;
     })),
     max_sessions_per_identity: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].string]),
     session_expiration_in_seconds: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].string]),
