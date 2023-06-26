@@ -9,7 +9,7 @@ import {
 } from "../component-utils";
 import { kebabCase, parseIntFromZone, titleCase } from "lazy-z";
 import PropTypes from "prop-types";
-import { contains } from "regex-but-with-words/lib/utils";
+import { handlePgwToggle } from "../../lib/forms/vpc";
 
 const nameFields = [
   "default_network_acl_name",
@@ -24,7 +24,7 @@ class VpcNetworkForm extends React.Component {
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
-    this.handPgwToggle = this.handPgwToggle.bind(this);
+    this.handlePgwToggle = this.handlePgwToggle.bind(this);
 
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
@@ -48,33 +48,19 @@ class VpcNetworkForm extends React.Component {
    * @param {string} name name of the object key to change
    */
   handleToggle(name) {
-    this.setState({ [name]: !this.state[name] });
+    this.setState(this.toggleStateBoolean(name, this.state));
   }
 
   /**
    * handle change of public gateway by zone
    * @param {string} zone zone-1, zone-2, or zone-3
    */
-  handPgwToggle(zone) {
-    let vpc = { ...this.state };
-    let currentGw = [...this.state.publicGateways]; // new array
-    let zoneNumber = parseIntFromZone(zone);
-    // check if zone is already present
-    if (contains(currentGw, zoneNumber)) {
-      let index = currentGw.indexOf(zoneNumber);
-      currentGw.splice(index, 1);
-    } else {
-      currentGw.push(zoneNumber);
-    }
-    vpc.publicGateways = currentGw;
-    this.setState({ ...vpc });
+  handlePgwToggle(zone) {
+    this.setState(handlePgwToggle(zone, this.state));
   }
 
   render() {
     let composedId = `${this.props.data.name}-vpc-form`;
-    let classNameModalCheck = this.props.isModal
-      ? "fieldWidthSmaller"
-      : "fieldWidth";
     return (
       <>
         <IcseFormGroup>
@@ -87,14 +73,11 @@ class VpcNetworkForm extends React.Component {
               align: "bottom-left",
             }}
             id={composedId + "-prefix"}
-            componentProps={this.props}
-            component="vpc"
-            componentName={this.props.data.name}
             field="name"
-            labelText={"Name"}
             placeholder="my-vpc-name"
             hideHelperText
             value={this.state.name}
+            forceKebabCase
             onChange={this.handleInputChange}
             invalid={this.props.invalidCallback("name", this.state, this.props)}
             invalidText={this.props.invalidTextCallback(
@@ -106,7 +89,6 @@ class VpcNetworkForm extends React.Component {
           />
           {/* resource group */}
           <IcseSelect
-            labelText="Resource Group"
             name="resource_group"
             formName="resource_group"
             groups={this.props.resourceGroups}
@@ -138,7 +120,6 @@ class VpcNetworkForm extends React.Component {
               <IcseTextInput
                 id={composedId + "-" + field}
                 key={this.props.data.name + "-" + kebabCase(field)}
-                componentName="VPC Network"
                 field={field}
                 labelText={titleCase(field)}
                 value={this.state[field]}
@@ -154,6 +135,8 @@ class VpcNetworkForm extends React.Component {
                   this.props
                 )}
                 className="fieldWidthSmaller"
+                optional
+                forceKebabCase
               />
             );
           })}
@@ -178,7 +161,7 @@ class VpcNetworkForm extends React.Component {
               defaultToggled={
                 this.state.publicGateways.indexOf(parseIntFromZone(zone)) !== -1
               }
-              onToggle={() => this.handPgwToggle(zone)}
+              onToggle={() => this.handlePgwToggle(zone)}
               className="fieldWidthSmaller leftTextAlign"
             />
           ))}
