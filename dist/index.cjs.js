@@ -311,7 +311,7 @@ var docUtils = {
 };
 
 const {
-  isNullOrEmptyString: isNullOrEmptyString$6,
+  isNullOrEmptyString: isNullOrEmptyString$5,
   kebabCase: kebabCase$3
 } = lazyZ__default["default"];
 const {
@@ -326,7 +326,7 @@ const {
 function icseSelectParams$1(props) {
   let invalid =
   // automatically set to invalid if value is null or empty string and invalid not disabled
-  props.disableInvalid !== true && isNullOrEmptyString$6(props.value) ? true : props.invalid;
+  props.disableInvalid !== true && isNullOrEmptyString$5(props.value) ? true : props.invalid;
   let groups = props.groups.length === 0 ? [] // if no groups, empty array
   : prependEmptyStringWhenNull$1(
   // otherwise try and prepend empty string if null or empty string is allowed
@@ -697,68 +697,6 @@ function handleRgToggle$1(stateData, name) {
 }
 var resourceGroups = {
   handleRgToggle: handleRgToggle$1
-};
-
-const {
-  isNullOrEmptyString: isNullOrEmptyString$5,
-  isWholeNumber: isWholeNumber$1
-} = lazyZ__default["default"];
-
-/**
- * Handle vpn-server input
- * @param {event} event
- */
-function handleVpnServerInputChange$1(stateData, event) {
-  let {
-    name,
-    value
-  } = event.target;
-  let newState = {
-    ...stateData
-  };
-  //handle crn inputs
-  let crnList = value ? value.replace(/\s\s+/g, "") // replace extra spaces
-  .replace(/,(?=,)/g, "") // prevent null tags from
-  .replace(/[^\w,-:]/g, "") : [];
-  // client_dns_server_ips input: removing white space and checking for empty value
-  let clientDnsServerIps = value ? value.replace(/\s*/g, "") : null;
-  if (name === "method") {
-    // Clear client_ca_crn when method changes
-    newState.method = value.toLowerCase();
-    newState.client_ca_crn = "";
-  } else if (name === "vpc") {
-    // Clear subnet and security groups when vpc changes
-    newState.vpc = value;
-    newState.subnets = [];
-    newState.security_groups = [];
-  } else if (name === "certificate_crn") {
-    newState.certificate_crn = crnList;
-  } else if (name === "client_ca_crn") {
-    newState.client_ca_crn = crnList;
-  } else if (name === "protocol") {
-    newState.protocol = value.toLowerCase();
-  } else if (name === "client_dns_server_ips") {
-    newState.client_dns_server_ips = clientDnsServerIps;
-  } else {
-    newState = {
-      [name]: value
-    };
-  }
-  return newState;
-}
-
-/**
- * Handle port and client_idle_timeout invalidation check
- * @param {string} input
- * @param {number} minRange
- * @param {number} maxRange
- */
-function vpnServerRangeInvalid$1(input, minRange, maxRange) {
-  return !isNullOrEmptyString$5(input) && (!isWholeNumber$1(parseFloat(input)) || input < minRange || input > maxRange);
-}
-var vpnServer = {
-  handleVpnServerInputChange: handleVpnServerInputChange$1,
-  vpnServerRangeInvalid: vpnServerRangeInvalid$1
 };
 
 const {
@@ -1309,93 +1247,12 @@ var secretsManager = {
   onCheckClick: onCheckClick$1
 };
 
-/**
- * get list of strings from zone
- * @param {Object} stateData
- * @param {object} componentProps
- * @returns {Array<string>} stringified zones
- */
-function parseZoneStrings$1(stateData, componentProps) {
-  let stringZones = [];
-  stateData.select_zones.forEach(zone => {
-    stringZones.push(String(zone));
-  });
-  return stringZones;
-}
-
-/**
- * Handle select zones
- * @param {event} event
- * @param {object} stateData
- * @returns {object} new state
- */
-function handleSelectZones$1(event, stateData) {
-  let items = [];
-  let state = {
-    ...stateData
-  };
-  event.selectedItems.forEach(item => {
-    items.push(Number(item));
-  });
-  state.select_zones = items;
-  return state;
-}
-
-/**
- * @param {string} name
- * @param {Object} stateData
- * @returns {object} new state
- */
-function handleSubnetTierToggle$1(name, stateData) {
-  let nextState = {
-    ...stateData
-  };
-  nextState[name] = !stateData[name];
-  if (name === "advanced" && nextState[name] === true) {
-    nextState.select_zones = [];
-    [1, 2, 3].forEach(zone => {
-      if (zone <= stateData.zones) nextState.select_zones.push(zone);
-    });
-  } else if (name === "advanced") {
-    nextState.zones = stateData.select_zones.length;
-    nextState.select_zones = null;
-  }
-  return nextState;
-}
-
-/**
- * handle hide/show form data
- */
-function handleSubnetShowToggle(stateData, componentProps) {
-  let state = {
-    ...stateData
-  };
-  if (componentProps.propsMatchState(stateData, componentProps) === false && stateData.hide === false && !stateData.showUnsavedChangesModal) {
-    state.showUnsavedChangesModal = true;
-  } else {
-    state.hide = !state.hide;
-    state.showUnsavedChangesModal = false;
-  }
-  return state;
-}
-var subnets = {
-  parseZoneStrings: parseZoneStrings$1,
-  handleSelectZones: handleSelectZones$1,
-  handleSubnetTierToggle: handleSubnetTierToggle$1,
-  handleSubnetShowToggle
-};
-var subnets_4 = subnets.handleSubnetShowToggle;
-
 const {
   atrackerInputChange
 } = atracker;
 const {
   handleRgToggle
 } = resourceGroups;
-const {
-  handleVpnServerInputChange,
-  vpnServerRangeInvalid
-} = vpnServer;
 const {
   cbrInvalid,
   cbrValueInvalid,
@@ -1437,15 +1294,7 @@ const {
 const {
   onCheckClick
 } = secretsManager;
-const {
-  parseZoneStrings,
-  handleSelectZones,
-  handleSubnetTierToggle
-} = subnets;
 var forms = {
-  handleSubnetTierToggle,
-  parseZoneStrings,
-  handleSelectZones,
   f5Vsis,
   f5VsiInputChange,
   routingTableRouteInputChange,
@@ -1470,28 +1319,21 @@ var forms = {
   swapArrayElements,
   getOrderCardClassName,
   filterKubeVersion: filterKubeVersion$1,
-  onCheckClick,
-  handleVpnServerInputChange,
-  vpnServerRangeInvalid
+  onCheckClick
 };
-var forms_1 = forms.handleSubnetTierToggle;
-var forms_2 = forms.parseZoneStrings;
-var forms_3 = forms.handleSelectZones;
-var forms_7 = forms.cbrInvalid;
-var forms_10 = forms.handleRuleInputChange;
-var forms_17 = forms.handleDnsResolverInputChange;
-var forms_18 = forms.dnsFormInputChange;
-var forms_19 = forms.atrackerInputChange;
-var forms_20 = forms.handleRgToggle;
-var forms_21 = forms.handleCRNs;
-var forms_22 = forms.handleVpcSelect;
-var forms_23 = forms.getRuleProtocol;
-var forms_24 = forms.getSubRule;
-var forms_25 = forms.swapArrayElements;
-var forms_26 = forms.getOrderCardClassName;
-var forms_28 = forms.onCheckClick;
-var forms_29 = forms.handleVpnServerInputChange;
-var forms_30 = forms.vpnServerRangeInvalid;
+var forms_4 = forms.cbrInvalid;
+var forms_7 = forms.handleRuleInputChange;
+var forms_14 = forms.handleDnsResolverInputChange;
+var forms_15 = forms.dnsFormInputChange;
+var forms_16 = forms.atrackerInputChange;
+var forms_17 = forms.handleRgToggle;
+var forms_18 = forms.handleCRNs;
+var forms_19 = forms.handleVpcSelect;
+var forms_20 = forms.getRuleProtocol;
+var forms_21 = forms.getSubRule;
+var forms_22 = forms.swapArrayElements;
+var forms_23 = forms.getOrderCardClassName;
+var forms_25 = forms.onCheckClick;
 
 const {
   toggleMarginBottom,
@@ -3988,7 +3830,7 @@ class AtrackerForm extends React.Component {
    * @param {*} value value to update
    */
   handleInputChange(event) {
-    this.setState(forms_19(this.state, event));
+    this.setState(forms_16(this.state, event));
   }
 
   /**
@@ -6477,7 +6319,7 @@ class NetworkingRulesOrderCard extends React.Component {
   handleUp(index) {
     let prevRulesState = [...this.state.rules];
     if (index !== 0) {
-      forms_25(prevRulesState, index, index - 1);
+      forms_22(prevRulesState, index, index - 1);
     }
     this.props.networkRuleOrderDidChange(prevRulesState);
     this.setState({
@@ -6493,7 +6335,7 @@ class NetworkingRulesOrderCard extends React.Component {
     let prevRulesState = [...this.state.rules];
     let maxLen = prevRulesState.length - 1;
     if (index !== maxLen) {
-      forms_25(prevRulesState, index, index + 1);
+      forms_22(prevRulesState, index, index + 1);
     }
     this.props.networkRuleOrderDidChange(prevRulesState);
     this.setState({
@@ -6570,7 +6412,7 @@ class NetworkingRulesOrderCard extends React.Component {
       showIfEmpty: this.state.rules
     }), this.state.rules.map((rule, index) => /*#__PURE__*/React__default["default"].createElement("div", {
       key: "rule-div-" + rule.name + "-wrapper",
-      className: forms_26(this.props)
+      className: forms_23(this.props)
     }, /*#__PURE__*/React__default["default"].createElement(NetworkingRuleForm, {
       hide: this.state.collapse[rule.name],
       onToggle: () => this.toggleCollapse(rule.name),
@@ -6588,8 +6430,8 @@ class NetworkingRulesOrderCard extends React.Component {
         direction: rule.direction,
         source: rule.source,
         destination: rule.destination || null,
-        ruleProtocol: forms_23(rule),
-        rule: forms_24(rule, this.props.isSecurityGroup)
+        ruleProtocol: forms_20(rule),
+        rule: forms_21(rule, this.props.isSecurityGroup)
       },
       disableSaveCallback: this.props.disableSaveCallback,
       isSecurityGroup: this.props.isSecurityGroup,
@@ -7100,7 +6942,7 @@ class ResourceGroupForm extends React.Component {
    * @param {string} name name of the object key to change
    */
   handleToggle(name) {
-    this.setState(forms_20(this.state, name));
+    this.setState(forms_17(this.state, name));
   }
 
   /**
@@ -8171,16 +8013,41 @@ class SubnetTierForm extends React__default["default"].Component {
     }
     this.state.advancedSave = false;
     this.handleChange = this.handleChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
     this.onSave = this.onSave.bind(this);
     this.onDelete = this.onDelete.bind(this);
     this.handleShowToggle = this.handleShowToggle.bind(this);
     this.shouldDisableSubmit = this.shouldDisableSubmit.bind(this);
+    this.toggleDeleteModal = this.toggleDeleteModal.bind(this);
     this.onSubnetSave = this.onSubnetSave.bind(this);
-    buildFormDefaultInputMethods(this);
-    buildFormFunctions(this);
+    this.handleSelectZones = this.handleSelectZones.bind(this);
+    this.parseZoneStrings = this.parseZoneStrings.bind(this);
   }
-  handleShowToggle() {
-    this.setState(subnets_4(this.state, this.props));
+
+  /**
+   * get list of strings from zone
+   * @returns {Array<string>} stringified zones
+   */
+  parseZoneStrings() {
+    let stringZones = [];
+    this.state.select_zones.forEach(zone => {
+      stringZones.push(String(zone));
+    });
+    return stringZones;
+  }
+
+  /**
+   * Handle select zones
+   * @param {event} event
+   */
+  handleSelectZones(event) {
+    let items = [];
+    event.selectedItems.forEach(item => {
+      items.push(Number(item));
+    });
+    this.setState({
+      select_zones: items
+    });
   }
 
   /**
@@ -8188,7 +8055,57 @@ class SubnetTierForm extends React__default["default"].Component {
    * @param {event} event
    */
   handleChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
+    let {
+      name,
+      value
+    } = event.target;
+    this.setState({
+      [name]: value
+    });
+  }
+
+  /**
+   * handle toggle
+   */
+  handleToggle(name) {
+    let nextState = {
+      ...this.state
+    };
+    nextState[name] = !this.state[name];
+    if (name === "advanced" && nextState[name] === true) {
+      nextState.select_zones = [];
+      [1, 2, 3].forEach(zone => {
+        if (zone <= this.state.zones) nextState.select_zones.push(zone);
+      });
+    } else if (name === "advanced") {
+      nextState.zones = this.state.select_zones.length;
+      nextState.select_zones = null;
+    }
+    this.setState(nextState);
+  }
+  /**
+   * toggle delete modal
+   */
+  toggleDeleteModal() {
+    this.setState({
+      showDeleteModal: !this.state.showDeleteModal
+    });
+  }
+
+  /**
+   * handle hide/show form data
+   */
+  handleShowToggle() {
+    if (this.props.propsMatchState(this.state, this.props) === false && this.state.hide === false && !this.state.showUnsavedChangesModal) {
+      this.setState({
+        showUnsavedChangesModal: true
+      });
+    } else {
+      this.setState({
+        hide: !this.state.hide,
+        showUnsavedChangesModal: false
+      });
+    }
   }
   onSave() {
     if (this.state.advanced && !this.state.advancedSave && !this.props.data.advanced) {
@@ -8237,7 +8154,7 @@ class SubnetTierForm extends React__default["default"].Component {
     }, /*#__PURE__*/React__default["default"].createElement(DeleteModal, {
       name: tierName,
       modalOpen: this.state.showDeleteModal,
-      onModalClose: () => forms_1("showDeleteModal", this.state),
+      onModalClose: this.toggleDeleteModal,
       onModalSubmit: this.onDelete,
       useDefaultUnsavedMessage: false
     }), /*#__PURE__*/React__default["default"].createElement(UnsavedChangesModal, {
@@ -8297,8 +8214,8 @@ class SubnetTierForm extends React__default["default"].Component {
       invalid: this.state.select_zones.length === 0,
       invalidText: "Select at least one zone",
       items: ["1", "2", "3"],
-      initialSelectedItems: forms_2(this.state, this.props),
-      onChange: event => forms_3(event, this.state)
+      initialSelectedItems: this.parseZoneStrings(),
+      onChange: this.handleSelectZones
     }) : /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
       max: 3,
       value: this.state.zones ? this.state.zones : 1,
@@ -8317,7 +8234,7 @@ class SubnetTierForm extends React__default["default"].Component {
       id: composedId + "-advanced",
       labelText: "Advanced Configuration",
       defaultToggled: this.state.advanced,
-      onToggle: () => forms_1("advanced", this.state),
+      onToggle: () => this.handleToggle("advanced"),
       className: "fieldWidthSmaller",
       disabled: this.props.dynamicSubnets || this.props.data.advanced
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
@@ -8344,7 +8261,7 @@ class SubnetTierForm extends React__default["default"].Component {
       id: composedId + "-public-gateway",
       labelText: "Use Public Gateways",
       defaultToggled: this.state.addPublicGateway,
-      onToggle: () => forms_1("addPublicGateway", this.state),
+      onToggle: () => this.handleToggle("addPublicGateway"),
       isModal: this.props.isModal,
       disabled: this.state.advanced || this.props.data.advanced || this.props.enabledPublicGateways.length === 0,
       className: "fieldWidthSmaller"
@@ -8512,7 +8429,7 @@ class TransitGatewayForm extends React.Component {
    * @param {event} event
    */
   handleCRNs(event) {
-    this.setState(forms_21(event));
+    this.setState(forms_18(event));
   }
 
   /**
@@ -8520,7 +8437,7 @@ class TransitGatewayForm extends React.Component {
    * @param {Array} selectedItems
    */
   handleVpcSelect(selectedItems) {
-    this.setState(forms_22(selectedItems, this.state.name));
+    this.setState(forms_19(selectedItems, this.state.name));
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
@@ -9162,20 +9079,44 @@ class VpnServerForm extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
+    this.handleAllowedIps = this.handleAllowedIps.bind(this);
     this.handleMultiSelect = this.handleMultiSelect.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
-
-  /**
-   * Handle input change for vpn server form
-   * @param {event} event
-   */
   handleInputChange(event) {
-    this.setState(forms_29(this.state, event));
-  }
-  handleMultiSelectChange(name, value) {
-    this.setState(this.setNameToValue(name, value));
+    let {
+      name,
+      value
+    } = event.target;
+    let newState = {
+      ...this.state
+    };
+    //handle crn inputs
+    let crnList = value ? value.replace(/\s\s+/g, "") // replace extra spaces
+    .replace(/,(?=,)/g, "") // prevent null tags from
+    .replace(/[^\w,-:]/g, "") : [];
+    if (name === "method") {
+      // Clear client_ca_crn when method changes
+      newState.method = value.toLowerCase();
+      newState.client_ca_crn = "";
+    } else if (name === "vpc") {
+      // Clear subnet and security groups when vpc changes
+      newState.vpc = value;
+      newState.subnets = [];
+      newState.security_groups = [];
+    } else if (name === "certificate_crn") {
+      newState.certificate_crn = crnList;
+    } else if (name === "client_ca_crn") {
+      newState.client_ca_crn = crnList;
+    } else if (name === "protocol") {
+      newState.protocol = value.toLowerCase();
+    } else {
+      newState = {
+        [name]: value
+      };
+    }
+    this.setState(newState);
   }
 
   /**
@@ -9186,6 +9127,22 @@ class VpnServerForm extends React.Component {
     this.setState({
       [name]: event
     });
+  }
+
+  /**
+   * Handle input change for  client_dns_server_ips text field
+   * @param {event} event
+   */
+  handleAllowedIps(event) {
+    // removing white space and checking for empty value
+    let value = event.target.value.replace(/\s*/g, "");
+    if (value === "") value = null;
+    this.setState({
+      client_dns_server_ips: value
+    });
+  }
+  handleMultiSelectChange(name, value) {
+    this.setState(this.setNameToValue(name, value));
   }
   handleToggle(name) {
     this.setState(this.toggleStateBoolean(name, this.state));
@@ -9310,7 +9267,7 @@ class VpnServerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: forms_30(this.state.port, 1, 65535),
+      invalid: !lazyZ.isNullOrEmptyString(this.state.port) && (!lazyZ.isWholeNumber(parseFloat(this.state.port)) || this.state.port < 1 || this.state.port > 65535),
       invalidText: "Must be a whole number between 1 and 65535.",
       className: "fieldWidthSmaller leftTextAlign"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
@@ -9339,7 +9296,7 @@ class VpnServerForm extends React.Component {
       hideSteppers: true,
       min: 0,
       max: 28800,
-      invalid: forms_30(this.state.client_idle_timeout, 0, 28800),
+      invalid: !lazyZ.isNullOrEmptyString(this.state.client_idle_timeout) && (!lazyZ.isWholeNumber(parseFloat(this.state.client_idle_timeout)) || this.state.client_idle_timeout < 0 || this.state.client_idle_timeout > 28800),
       invalidText: "Must be a whole number between 0 and 28800.",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
@@ -9348,7 +9305,7 @@ class VpnServerForm extends React.Component {
       labelText: "Client DNS Server IPs",
       placeholder: "X.X.X.X, X.X.X.X, ...",
       value: this.state.client_dns_server_ips || "",
-      onChange: this.handleInputChange,
+      onChange: this.handleAllowedIps,
       invalid: iamUtils_2(this.state.client_dns_server_ips),
       invalidText: "Please enter a comma separated list of IP addresses.",
       helperText: "Enter a comma separated list of IP addresses."
@@ -9389,6 +9346,7 @@ VpnServerForm.defaultProps = {
     protocol: "udp",
     resource_group: "",
     vpc: "",
+    subnet: "",
     security_groups: [],
     client_dns_server_ips: "",
     routes: [],
@@ -10832,7 +10790,7 @@ class CbrRuleForm extends React.Component {
     buildFormFunctions(this);
   }
   handleInputChange(event) {
-    this.setState(forms_10(this.state, event));
+    this.setState(forms_7(this.state, event));
   }
   render() {
     // set up props for subforms
@@ -11232,7 +11190,7 @@ class CbrZoneForm extends React.Component {
       labelText: "Account ID" // needed to override titlecase capitalization
       ,
       onChange: this.handleInputChange
-    }, forms_7("account_id", this.state.account_id)))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
+    }, forms_4("account_id", this.state.account_id)))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
       id: this.props.data.name + "-cbr-zone-description",
       className: "textInputWide",
       name: "description",
@@ -11652,7 +11610,7 @@ class DnsCustomResolverForm extends React__default["default"].Component {
    * @param {*} value value to update
    */
   handleInputChange(event) {
-    this.setState(forms_17(this.state, event));
+    this.setState(forms_14(this.state, event));
   }
 
   /**
@@ -11773,7 +11731,7 @@ class DnsForm extends React.Component {
     buildFormFunctions(this);
   }
   handleInputChange(event) {
-    this.setState(forms_18(event));
+    this.setState(forms_15(event));
   }
   render() {
     // set up props for subforms
@@ -12222,7 +12180,7 @@ class SecretsManagerChecklist extends React__default["default"].Component {
     this.toggleHide = this.toggleHide.bind(this);
   }
   onCheckClick(ref) {
-    let selected = forms_28(this.state.selected, ref, this.props.secrets);
+    let selected = forms_25(this.state.selected, ref, this.props.secrets);
     this.setState({
       selected: selected
     }, () => {
