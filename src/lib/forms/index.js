@@ -31,8 +31,16 @@ const {
 const { routingTableRouteInputChange } = require("./routing-table");
 const { handleCRNs, handleVpcSelect } = require("./transit-gateway");
 const { onCheckClick } = require("./secrets-manager");
+const {
+  parseZoneStrings,
+  handleSelectZones,
+  handleSubnetTierToggle,
+} = require("./subnets");
 
 module.exports = {
+  handleSubnetTierToggle,
+  parseZoneStrings,
+  handleSelectZones,
   f5Vsis,
   f5VsiInputChange,
   routingTableRouteInputChange,
