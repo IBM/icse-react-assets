@@ -44,29 +44,13 @@ class NetworkingRulesOrderCard extends Component {
     };
     this.handleUp = this.handleUp.bind(this);
     this.handleDown = this.handleDown.bind(this);
-    this.toggleCollapse = this.toggleCollapse.bind(this);
-    this.collapseAll = this.collapseAll.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getRuleData = this.getRuleData.bind(this);
     this.toggleEditModal = this.toggleEditModal.bind(this);
-    this.getExpandedRow = this.getExpandedRow.bind(this);
     this.handleSave = this.handleSave.bind(this);
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.rules.length !== this.state.rules.length) {
-      this.setState({ rules: [...this.props.rules] }, () => {
-        this.collapseAll();
-      });
-    }
-  }
-
-  componentDidMount() {
-    if (this.state.allCollapsed === false && this.props.expandAll === false)
-      this.collapseAll();
   }
 
   toggleModal() {
@@ -77,32 +61,6 @@ class NetworkingRulesOrderCard extends Component {
     this.setState({
       showEditModal: !this.state.showEditModal,
       editing: name,
-    });
-  }
-
-  /**
-   * toggle collapse rule
-   * @param {string} ruleName rule name
-   */
-  toggleCollapse(ruleName) {
-    let collapse = this.state.collapse;
-    collapse[ruleName] = !containsKeys(this.state.collapse, ruleName) // if rule dies not exist
-      ? true // set to true
-      : !this.state.collapse[ruleName]; // otherwise set to opposite
-    this.setState({ collapse: collapse });
-  }
-
-  /**
-   * collapse each rule
-   */
-  collapseAll() {
-    let collapse = this.state.collapse;
-    this.state.rules.forEach((rule) => {
-      collapse[rule.name] = true;
-    });
-    this.setState({
-      collapse: collapse,
-      allCollapsed: true,
     });
   }
 
@@ -166,11 +124,8 @@ class NetworkingRulesOrderCard extends Component {
     return rule;
   }
 
-  getExpandedRow(name) {
-    return <NetworkingRuleForm data={this.getRuleData(name)} />;
-  }
-
   render() {
+    console.log("rules in order card", this.props.rules);
     return (
       <>
         <IcseHeading
@@ -242,8 +197,9 @@ class NetworkingRulesOrderCard extends Component {
           showIfEmpty={this.state.rules}
         />
         <OrderCardDataTable
+          key={JSON.stringify(this.state.rules)}
           isSecurityGroup={this.props.isSecurityGroup}
-          rules={[...this.state.rules]}
+          rules={this.state.rules}
           toggleEditModal={this.toggleEditModal}
           toggleCreateModal={this.toggleModal}
           vpc_name={this.props.vpc_name}
@@ -313,116 +269,143 @@ NetworkingRulesOrderCard.propTypes = {
 
 export default NetworkingRulesOrderCard;
 
-const OrderCardDataTable = (props) => {
-  const headers = [
-    {
-      key: "name",
-      header: "Name",
-    },
-    { key: "direction", header: "Direction" },
-    { key: "source", header: "Source" },
-    { key: "protocol", header: "Protocol" },
-    { key: "port", header: "Port" },
-  ];
+class OrderCardDataTable extends React.Component {
+  constructor(props) {
+    super(props);
 
-  const [rows, setRows] = useState(JSON.parse(JSON.stringify(props.rules)));
-  // update on component update
-  useEffect(() => {
-    console.log("running useEffect");
-    setRows(props.rules);
-  }, [props.rules]);
+    this.state = {
+      rows: this.props.rules,
+      headers: [],
+    };
 
-  // set up required data for each row
-  rows.forEach((row) => {
-    row.protocol = getRuleProtocol(row);
-    row.id = row.name;
-    row.port =
-      row.protocol === "all"
-        ? "ALL"
-        : row.protocol === "icmp"
-        ? row.icmp.code
-        : `${row[row.protocol].port_min}-${row[row.protocol].port_max}`;
-  });
-  console.log(rows.length);
-
-  // add in action and destination if not security group
-  if (!props.isSecurityGroup) {
-    headers.splice(1, 0, {
-      // add extra fields if not security group
-      key: "action",
-      header: "Action",
-    });
-    headers.splice(4, 0, { key: "destination", header: "Destination" });
+    this.setupRowsAndHeaders = this.setupRowsAndHeaders.bind(this);
   }
-  headers.push({ key: "order", header: "Order" });
 
-  return (
-    <DataTable headers={headers} rows={rows} key={rows}>
-      {(
-        { rows, headers, getHeaderProps, getRowProps } // inherit props from data table api
-      ) => (
-        <TableContainer>
-          {/* force update */}
-          <Table>
-            <TableHead>
-              <TableRow>
-                {headers.map((header, index) => (
-                  <TableHeader
-                    key={header.header + "-" + index}
-                    {...getHeaderProps({ header })}
-                  >
-                    {header.header}
-                  </TableHeader>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row, index) => (
-                <TableRow
-                  key={row.name + "-" + index}
-                  {...getRowProps({ row })}
-                >
-                  {row.cells.map((cell) => (
-                    <TableCell
-                      key={cell.id}
-                      onClick={
-                        cell === row.cells[0] // check that it is the name column
-                          ? () => props.toggleEditModal(cell.value)
-                          : () => {}
-                      }
+  componentDidMount() {
+    this.setupRowsAndHeaders();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.rules !== this.props.rules) {
+      console.log("update - rerunning setup");
+      this.setupRowsAndHeaders();
+    }
+  }
+
+  setupRowsAndHeaders() {
+    const { rules, isSecurityGroup } = { ...this.props };
+
+    const headers = [
+      {
+        key: "name",
+        header: "Name",
+      },
+      { key: "direction", header: "Direction" },
+      { key: "source", header: "Source" },
+      { key: "protocol", header: "Protocol" },
+      { key: "port", header: "Port" },
+    ];
+
+    const rows = JSON.parse(JSON.stringify(rules));
+
+    // set up required data for each row
+    rows.forEach((row) => {
+      row.protocol = getRuleProtocol(row);
+      row.id = row.name;
+      row.port =
+        row.protocol === "all"
+          ? "ALL"
+          : row.protocol === "icmp"
+          ? row.icmp.code
+          : `${row[row.protocol].port_min}-${row[row.protocol].port_max}`;
+    });
+
+    // add in action and destination if not security group
+    if (!isSecurityGroup) {
+      headers.splice(1, 0, {
+        // add extra fields if not security group
+        key: "action",
+        header: "Action",
+      });
+      headers.splice(4, 0, { key: "destination", header: "Destination" });
+    }
+    headers.push({ key: "order", header: "Order" });
+
+    this.setState({ rows, headers });
+  }
+
+  render() {
+    const { rows, headers } = { ...this.state };
+
+    return (
+      <DataTable
+        headers={headers}
+        rows={rows}
+        key={JSON.stringify(this.props.rules)}
+      >
+        {({ rows, headers, getHeaderProps, getRowProps }) => (
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  {headers.map((header, index) => (
+                    <TableHeader
+                      key={header.header + "-" + index}
+                      {...getHeaderProps({ header })}
                     >
-                      {cell === row.cells[0] ? (
-                        <div className="displayFlex cursor-pointer">
-                          <Edit className="edit-margin-right" />
-                          {cell.value}
-                        </div>
-                      ) : cell === row.cells[row.cells.length - 1] ? (
-                        <UpDownButtons
-                          key={row.cells[0].value + "-up-down"}
-                          name={row.cells[0].value}
-                          handleUp={() => props.handleUp(index)}
-                          handleDown={() => props.handleDown(index)}
-                          disableUp={row === rows[0]}
-                          disableDown={row === rows[rows.length - 1]}
-                        />
-                      ) : (
-                        <>
-                          {contains(["tcp", "udp", "all", "icmp"], cell.value)
-                            ? cell.value.toUpperCase()
-                            : cell.value}
-                        </>
-                      )}
-                    </TableCell>
+                      {header.header}
+                    </TableHeader>
                   ))}
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      )}
-    </DataTable>
-  );
-};
+              </TableHead>
+              <TableBody>
+                {rows.map((row, index) => (
+                  <TableRow
+                    key={row.name + "-" + index}
+                    {...getRowProps({ row })}
+                  >
+                    {row.cells.map((cell) => (
+                      <TableCell
+                        key={cell.id}
+                        onClick={
+                          cell === row.cells[0] // check that it is the name column
+                            ? () => this.props.toggleEditModal(cell.value)
+                            : () => {}
+                        }
+                      >
+                        {cell === row.cells[0] ? (
+                          <div className="displayFlex cursor-pointer">
+                            <Edit className="edit-margin-right" />
+                            {cell.value}
+                          </div>
+                        ) : cell === row.cells[row.cells.length - 1] ? (
+                          <UpDownButtons
+                            key={row.cells[0].value + "-up-down"}
+                            name={row.cells[0].value}
+                            handleUp={() => this.props.handleUp(index)}
+                            handleDown={() => this.props.handleDown(index)}
+                            disableUp={row === rows[0]}
+                            disableDown={row === rows[rows.length - 1]}
+                          />
+                        ) : (
+                          <>
+                            {contains(["tcp", "udp", "all", "icmp"], cell.value)
+                              ? cell.value.toUpperCase()
+                              : cell.value}
+                          </>
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        )}
+      </DataTable>
+    );
+  }
+}
 
 OrderCardDataTable.propTypes = {
   isSecurityGroup: PropTypes.bool.isRequired,

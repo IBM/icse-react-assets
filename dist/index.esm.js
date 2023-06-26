@@ -1,8 +1,8 @@
 import '@carbon/styles/css/styles.css';
 import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, TextArea, PasswordInput, NumberInput, DataTable, TableContainer, Table, TableHead, TableRow, TableHeader, TableBody, TableCell, Dropdown, Tag, Checkbox } from '@carbon/react';
-import lazyZ, { titleCase as titleCase$2, kebabCase as kebabCase$5, isEmpty, buildNumberDropdownList, contains as contains$4, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$6, transpose as transpose$1, containsKeys, getObjectFromArray, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, splat as splat$2, deepEqual, parseIntFromZone, isWholeNumber as isWholeNumber$1, snakeCase as snakeCase$1, distinct, isInRange as isInRange$1, eachKey } from 'lazy-z';
+import lazyZ, { titleCase as titleCase$2, kebabCase as kebabCase$5, isEmpty, buildNumberDropdownList, contains as contains$4, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$6, transpose as transpose$1, getObjectFromArray, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, splat as splat$2, deepEqual, parseIntFromZone, isWholeNumber as isWholeNumber$1, snakeCase as snakeCase$1, distinct, isInRange as isInRange$1, eachKey } from 'lazy-z';
 import regexButWithWords from 'regex-but-with-words';
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Information, Save, Add, ChevronDown, ChevronRight, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt, Password, Edit } from '@carbon/icons-react';
 import { contains as contains$5 } from 'regex-but-with-words/lib/utils';
@@ -5969,7 +5969,7 @@ class NetworkingRuleForm extends Component {
         buttons: this.props.isModal ? "" : this.props.hide === false ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(SaveAddButton, {
           name: ruleName,
           onClick: this.handleRuleUpdate,
-          disabled: this.shouldDisableSave()
+          disabled: () => this.shouldDisableSave()
         }), /*#__PURE__*/React.createElement(DeleteButton, {
           name: ruleName,
           onClick: this.toggleDeleteModal
@@ -6211,28 +6211,13 @@ class NetworkingRulesOrderCard extends Component {
     };
     this.handleUp = this.handleUp.bind(this);
     this.handleDown = this.handleDown.bind(this);
-    this.toggleCollapse = this.toggleCollapse.bind(this);
-    this.collapseAll = this.collapseAll.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.getRuleData = this.getRuleData.bind(this);
     this.toggleEditModal = this.toggleEditModal.bind(this);
-    this.getExpandedRow = this.getExpandedRow.bind(this);
     this.handleSave = this.handleSave.bind(this);
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
-  }
-  componentDidUpdate(prevProps) {
-    if (prevProps.rules.length !== this.state.rules.length) {
-      this.setState({
-        rules: [...this.props.rules]
-      }, () => {
-        this.collapseAll();
-      });
-    }
-  }
-  componentDidMount() {
-    if (this.state.allCollapsed === false && this.props.expandAll === false) this.collapseAll();
   }
   toggleModal() {
     this.setState({
@@ -6243,34 +6228,6 @@ class NetworkingRulesOrderCard extends Component {
     this.setState({
       showEditModal: !this.state.showEditModal,
       editing: name
-    });
-  }
-
-  /**
-   * toggle collapse rule
-   * @param {string} ruleName rule name
-   */
-  toggleCollapse(ruleName) {
-    let collapse = this.state.collapse;
-    collapse[ruleName] = !containsKeys(this.state.collapse, ruleName) // if rule dies not exist
-    ? true // set to true
-    : !this.state.collapse[ruleName]; // otherwise set to opposite
-    this.setState({
-      collapse: collapse
-    });
-  }
-
-  /**
-   * collapse each rule
-   */
-  collapseAll() {
-    let collapse = this.state.collapse;
-    this.state.rules.forEach(rule => {
-      collapse[rule.name] = true;
-    });
-    this.setState({
-      collapse: collapse,
-      allCollapsed: true
     });
   }
 
@@ -6340,12 +6297,8 @@ class NetworkingRulesOrderCard extends Component {
     delete rule.udp;
     return rule;
   }
-  getExpandedRow(name) {
-    return /*#__PURE__*/React.createElement(NetworkingRuleForm, {
-      data: this.getRuleData(name)
-    });
-  }
   render() {
+    console.log("rules in order card", this.props.rules);
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseHeading, {
       name: "Rules",
       className: "marginBottomSmall",
@@ -6406,8 +6359,9 @@ class NetworkingRulesOrderCard extends Component {
       name: "Network Rules",
       showIfEmpty: this.state.rules
     }), /*#__PURE__*/React.createElement(OrderCardDataTable, {
+      key: JSON.stringify(this.state.rules),
       isSecurityGroup: this.props.isSecurityGroup,
-      rules: [...this.state.rules],
+      rules: this.state.rules,
       toggleEditModal: this.toggleEditModal,
       toggleCreateModal: this.toggleModal,
       vpc_name: this.props.vpc_name,
@@ -6469,91 +6423,122 @@ NetworkingRulesOrderCard.propTypes = {
   onRuleDelete: PropTypes.func.isRequired,
   parent_name: PropTypes.string.isRequired
 };
-const OrderCardDataTable = props => {
-  const headers = [{
-    key: "name",
-    header: "Name"
-  }, {
-    key: "direction",
-    header: "Direction"
-  }, {
-    key: "source",
-    header: "Source"
-  }, {
-    key: "protocol",
-    header: "Protocol"
-  }, {
-    key: "port",
-    header: "Port"
-  }];
-  const [rows, setRows] = useState(JSON.parse(JSON.stringify(props.rules)));
-  // update on component update
-  useEffect(() => {
-    setRows(props.rules);
-  }, [props.rules]);
+class OrderCardDataTable extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      rows: this.props.rules,
+      headers: []
+    };
+    this.setupRowsAndHeaders = this.setupRowsAndHeaders.bind(this);
+  }
+  componentDidMount() {
+    this.setupRowsAndHeaders();
+  }
+  componentDidUpdate(prevProps) {
+    if (prevProps.rules !== this.props.rules) {
+      console.log("update - rerunning setup");
+      this.setupRowsAndHeaders();
+    }
+  }
+  setupRowsAndHeaders() {
+    const {
+      rules,
+      isSecurityGroup
+    } = {
+      ...this.props
+    };
+    const headers = [{
+      key: "name",
+      header: "Name"
+    }, {
+      key: "direction",
+      header: "Direction"
+    }, {
+      key: "source",
+      header: "Source"
+    }, {
+      key: "protocol",
+      header: "Protocol"
+    }, {
+      key: "port",
+      header: "Port"
+    }];
+    const rows = JSON.parse(JSON.stringify(rules));
 
-  // set up required data for each row
-  rows.forEach(row => {
-    row.protocol = forms_20(row);
-    row.id = row.name;
-    row.port = row.protocol === "all" ? "ALL" : row.protocol === "icmp" ? row.icmp.code : `${row[row.protocol].port_min}-${row[row.protocol].port_max}`;
-  });
-  console.log(rows.length);
-
-  // add in action and destination if not security group
-  if (!props.isSecurityGroup) {
-    headers.splice(1, 0, {
-      // add extra fields if not security group
-      key: "action",
-      header: "Action"
+    // set up required data for each row
+    rows.forEach(row => {
+      row.protocol = forms_20(row);
+      row.id = row.name;
+      row.port = row.protocol === "all" ? "ALL" : row.protocol === "icmp" ? row.icmp.code : `${row[row.protocol].port_min}-${row[row.protocol].port_max}`;
     });
-    headers.splice(4, 0, {
-      key: "destination",
-      header: "Destination"
+
+    // add in action and destination if not security group
+    if (!isSecurityGroup) {
+      headers.splice(1, 0, {
+        // add extra fields if not security group
+        key: "action",
+        header: "Action"
+      });
+      headers.splice(4, 0, {
+        key: "destination",
+        header: "Destination"
+      });
+    }
+    headers.push({
+      key: "order",
+      header: "Order"
+    });
+    this.setState({
+      rows,
+      headers
     });
   }
-  headers.push({
-    key: "order",
-    header: "Order"
-  });
-  return /*#__PURE__*/React.createElement(DataTable, {
-    headers: headers,
-    rows: rows,
-    key: rows
-  }, (_ref // inherit props from data table api
-  ) => {
-    let {
+  render() {
+    const {
       rows,
-      headers,
-      getHeaderProps,
-      getRowProps
-    } = _ref;
-    return /*#__PURE__*/React.createElement(TableContainer, null, /*#__PURE__*/React.createElement(Table, null, /*#__PURE__*/React.createElement(TableHead, null, /*#__PURE__*/React.createElement(TableRow, null, headers.map((header, index) => /*#__PURE__*/React.createElement(TableHeader, _extends({
-      key: header.header + "-" + index
-    }, getHeaderProps({
-      header
-    })), header.header)))), /*#__PURE__*/React.createElement(TableBody, null, rows.map((row, index) => /*#__PURE__*/React.createElement(TableRow, _extends({
-      key: row.name + "-" + index
-    }, getRowProps({
-      row
-    })), row.cells.map(cell => /*#__PURE__*/React.createElement(TableCell, {
-      key: cell.id,
-      onClick: cell === row.cells[0] // check that it is the name column
-      ? () => props.toggleEditModal(cell.value) : () => {}
-    }, cell === row.cells[0] ? /*#__PURE__*/React.createElement("div", {
-      className: "displayFlex cursor-pointer"
-    }, /*#__PURE__*/React.createElement(Edit, {
-      className: "edit-margin-right"
-    }), cell.value) : cell === row.cells[row.cells.length - 1] ? /*#__PURE__*/React.createElement(UpDownButtons, {
-      key: row.cells[0].value + "-up-down",
-      name: row.cells[0].value,
-      handleUp: () => props.handleUp(index),
-      handleDown: () => props.handleDown(index),
-      disableUp: row === rows[0],
-      disableDown: row === rows[rows.length - 1]
-    }) : /*#__PURE__*/React.createElement(React.Fragment, null, contains$4(["tcp", "udp", "all", "icmp"], cell.value) ? cell.value.toUpperCase() : cell.value))))))));
-  });
-};
+      headers
+    } = {
+      ...this.state
+    };
+    return /*#__PURE__*/React.createElement(DataTable, {
+      headers: headers,
+      rows: rows,
+      key: JSON.stringify(this.props.rules)
+    }, _ref => {
+      let {
+        rows,
+        headers,
+        getHeaderProps,
+        getRowProps
+      } = _ref;
+      return /*#__PURE__*/React.createElement(TableContainer, null, /*#__PURE__*/React.createElement(Table, null, /*#__PURE__*/React.createElement(TableHead, null, /*#__PURE__*/React.createElement(TableRow, null, headers.map((header, index) => /*#__PURE__*/React.createElement(TableHeader, _extends({
+        key: header.header + "-" + index
+      }, getHeaderProps({
+        header
+      })), header.header)))), /*#__PURE__*/React.createElement(TableBody, null, rows.map((row, index) => /*#__PURE__*/React.createElement(TableRow, _extends({
+        key: row.name + "-" + index
+      }, getRowProps({
+        row
+      })), row.cells.map(cell => /*#__PURE__*/React.createElement(TableCell, {
+        key: cell.id,
+        onClick: cell === row.cells[0] // check that it is the name column
+        ? () => this.props.toggleEditModal(cell.value) : () => {}
+      }, cell === row.cells[0] ? /*#__PURE__*/React.createElement("div", {
+        className: "displayFlex cursor-pointer"
+      }, /*#__PURE__*/React.createElement(Edit, {
+        className: "edit-margin-right"
+      }), cell.value) : cell === row.cells[row.cells.length - 1] ? /*#__PURE__*/React.createElement(UpDownButtons, {
+        key: row.cells[0].value + "-up-down",
+        name: row.cells[0].value,
+        handleUp: () => this.props.handleUp(index),
+        handleDown: () => this.props.handleDown(index),
+        disableUp: row === rows[0],
+        disableDown: row === rows[rows.length - 1]
+      }) : /*#__PURE__*/React.createElement(React.Fragment, null, contains$4(["tcp", "udp", "all", "icmp"], cell.value) ? cell.value.toUpperCase() : cell.value))))))));
+    });
+  }
+}
 OrderCardDataTable.propTypes = {
   isSecurityGroup: PropTypes.bool.isRequired,
   rules: PropTypes.array.isRequired
@@ -6565,7 +6550,9 @@ OrderCardDataTable.propTypes = {
 class NetworkAclForm extends Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = {
+      ...this.props.data
+    };
     this.handleTextInput = this.handleTextInput.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.networkRuleOrderDidChange = this.networkRuleOrderDidChange.bind(this);

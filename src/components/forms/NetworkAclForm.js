@@ -16,7 +16,7 @@ import { IcseSelect } from "../Dropdowns";
 class NetworkAclForm extends Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = { ...this.props.data };
 
     this.handleTextInput = this.handleTextInput.bind(this);
     this.handleToggle = this.handleToggle.bind(this);

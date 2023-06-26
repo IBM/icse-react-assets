@@ -141,7 +141,7 @@ class NetworkingRuleForm extends Component {
                       <SaveAddButton
                         name={ruleName}
                         onClick={this.handleRuleUpdate}
-                        disabled={this.shouldDisableSave()}
+                        disabled={() => this.shouldDisableSave()}
                       />
                       <DeleteButton
                         name={ruleName}
