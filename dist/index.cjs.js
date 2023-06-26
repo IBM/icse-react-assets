@@ -311,7 +311,7 @@ var docUtils = {
 };
 
 const {
-  isNullOrEmptyString: isNullOrEmptyString$5,
+  isNullOrEmptyString: isNullOrEmptyString$6,
   kebabCase: kebabCase$3
 } = lazyZ__default["default"];
 const {
@@ -326,7 +326,7 @@ const {
 function icseSelectParams$1(props) {
   let invalid =
   // automatically set to invalid if value is null or empty string and invalid not disabled
-  props.disableInvalid !== true && isNullOrEmptyString$5(props.value) ? true : props.invalid;
+  props.disableInvalid !== true && isNullOrEmptyString$6(props.value) ? true : props.invalid;
   let groups = props.groups.length === 0 ? [] // if no groups, empty array
   : prependEmptyStringWhenNull$1(
   // otherwise try and prepend empty string if null or empty string is allowed
@@ -697,6 +697,68 @@ function handleRgToggle$1(stateData, name) {
 }
 var resourceGroups = {
   handleRgToggle: handleRgToggle$1
+};
+
+const {
+  isNullOrEmptyString: isNullOrEmptyString$5,
+  isWholeNumber: isWholeNumber$1
+} = lazyZ__default["default"];
+
+/**
+ * Handle vpn-server input
+ * @param {event} event
+ */
+function handleVpnServerInputChange$1(stateData, event) {
+  let {
+    name,
+    value
+  } = event.target;
+  let newState = {
+    ...stateData
+  };
+  //handle crn inputs
+  let crnList = value ? value.replace(/\s\s+/g, "") // replace extra spaces
+  .replace(/,(?=,)/g, "") // prevent null tags from
+  .replace(/[^\w,-:]/g, "") : [];
+  // client_dns_server_ips input: removing white space and checking for empty value
+  let clientDnsServerIps = value ? value.replace(/\s*/g, "") : null;
+  if (name === "method") {
+    // Clear client_ca_crn when method changes
+    newState.method = value.toLowerCase();
+    newState.client_ca_crn = "";
+  } else if (name === "vpc") {
+    // Clear subnet and security groups when vpc changes
+    newState.vpc = value;
+    newState.subnets = [];
+    newState.security_groups = [];
+  } else if (name === "certificate_crn") {
+    newState.certificate_crn = crnList;
+  } else if (name === "client_ca_crn") {
+    newState.client_ca_crn = crnList;
+  } else if (name === "protocol") {
+    newState.protocol = value.toLowerCase();
+  } else if (name === "client_dns_server_ips") {
+    newState.client_dns_server_ips = clientDnsServerIps;
+  } else {
+    newState = {
+      [name]: value
+    };
+  }
+  return newState;
+}
+
+/**
+ * Handle port and client_idle_timeout invalidation check
+ * @param {string} input
+ * @param {number} minRange
+ * @param {number} maxRange
+ */
+function vpnServerRangeInvalid$1(input, minRange, maxRange) {
+  return !isNullOrEmptyString$5(input) && (!isWholeNumber$1(parseFloat(input)) || input < minRange || input > maxRange);
+}
+var vpnServer = {
+  handleVpnServerInputChange: handleVpnServerInputChange$1,
+  vpnServerRangeInvalid: vpnServerRangeInvalid$1
 };
 
 const {
@@ -1331,6 +1393,10 @@ const {
   handleRgToggle
 } = resourceGroups;
 const {
+  handleVpnServerInputChange,
+  vpnServerRangeInvalid
+} = vpnServer;
+const {
   cbrInvalid,
   cbrValueInvalid,
   cbrValuePlaceholder,
@@ -1404,7 +1470,9 @@ var forms = {
   swapArrayElements,
   getOrderCardClassName,
   filterKubeVersion: filterKubeVersion$1,
-  onCheckClick
+  onCheckClick,
+  handleVpnServerInputChange,
+  vpnServerRangeInvalid
 };
 var forms_1 = forms.handleSubnetTierToggle;
 var forms_2 = forms.parseZoneStrings;
@@ -1422,6 +1490,8 @@ var forms_24 = forms.getSubRule;
 var forms_25 = forms.swapArrayElements;
 var forms_26 = forms.getOrderCardClassName;
 var forms_28 = forms.onCheckClick;
+var forms_29 = forms.handleVpnServerInputChange;
+var forms_30 = forms.vpnServerRangeInvalid;
 
 const {
   toggleMarginBottom,
@@ -4720,7 +4790,7 @@ var iamUtils_3 = iamUtils.isRangeInvalid;
  * @param {Object} stateData
  * @returns {Object} new state
  */
-function handleAllowedIps(event, stateData) {
+function handleAllowedIps$1(event, stateData) {
   let state = {
     ...stateData
   };
@@ -4753,7 +4823,7 @@ function handlePlanChange(event, stateData) {
   return state;
 }
 var eventStreams = {
-  handleAllowedIps,
+  handleAllowedIps: handleAllowedIps$1,
   handlePlanChange
 };
 var eventStreams_1 = eventStreams.handleAllowedIps;
@@ -5554,6 +5624,63 @@ const iamItems = {
 };
 
 /**
+ * handle input change of number-only fields
+ * @param {event} event
+ */
+function handleNumberInputChange(event) {
+  let value = parseInt(event.target.value) || null;
+  if (value || event.target.value === "") {
+    return {
+      [event.target.name]: value
+    };
+  } else {
+    return null;
+  }
+}
+
+/**
+ * Handle input change for allowed ips text field
+ * @param {event} event
+ */
+function handleAllowedIps(event) {
+  let value = event.target.value.replace(/\s*/g, ""); // remove white space and check for empty value
+  if (value === "") {
+    value = null;
+  }
+  return {
+    allowed_ip_addresses: value
+  };
+}
+
+/**
+ * Handle input change for a select
+ * @param {event} event
+ */
+function handleSelectChange(event) {
+  let {
+    name,
+    value
+  } = event.target;
+  return {
+    [name]: iamItems[value].value
+  };
+}
+var iam = {
+  restrictMenuItems,
+  mfaMenuItems,
+  iamItems,
+  handleNumberInputChange,
+  handleAllowedIps,
+  handleSelectChange
+};
+var iam_1 = iam.restrictMenuItems;
+var iam_2 = iam.mfaMenuItems;
+var iam_3 = iam.iamItems;
+var iam_4 = iam.handleNumberInputChange;
+var iam_5 = iam.handleAllowedIps;
+var iam_6 = iam.handleSelectChange;
+
+/**
  * IAM Account Settings form
  */
 
@@ -5584,23 +5711,18 @@ class IamAccountSettingsForm extends React.Component {
    * @param {event} event
    */
   handleNumberInputChange(event) {
-    let value = parseInt(event.target.value) || null;
-    if (value || event.target.value === "") {
-      this.setState({
-        [event.target.name]: value
-      });
+    let value = iam_4(event);
+    if (value !== null) {
+      this.setState(value);
     }
   }
 
   /**
    * Toggle on and off param in state at name
    * @param {string} name name of the object key to change
-   * @param {bool} setDefaults set default values, default is false
    */
   handleToggle(name) {
-    this.setState({
-      [name]: !this.state[name]
-    });
+    this.setState(this.toggleStateBoolean(name, this.state));
   }
 
   /**
@@ -5608,12 +5730,7 @@ class IamAccountSettingsForm extends React.Component {
    * @param {event} event
    */
   handleAllowedIps(event) {
-    // removing white space and checking for empty value
-    let value = event.target.value.replace(/\s*/g, "");
-    if (value === "") value = null;
-    this.setState({
-      allowed_ip_addresses: value
-    });
+    this.setState(iam_5(event));
   }
 
   /**
@@ -5621,11 +5738,7 @@ class IamAccountSettingsForm extends React.Component {
    * @param {event} event
    */
   handleSelectChange(event) {
-    let name = event.target.name;
-    let item = event.target.value;
-    this.setState({
-      [name]: iamItems[item].value
-    });
+    this.setState(iam_6(event));
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
@@ -5644,10 +5757,10 @@ class IamAccountSettingsForm extends React.Component {
       invalid: this.props.invalidCallback("if_match", this.state, this.props),
       invalidText: this.props.invalidTextCallback("if_match", this.state, this.props)
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      value: iamItems[this.state.mfa].display,
+      value: iam_3[this.state.mfa].display,
       formName: "IAM Account Settings",
       className: "textInputMedium",
-      groups: mfaMenuItems,
+      groups: iam_2,
       handleInputChange: this.handleSelectChange,
       labelText: "Multi-Factor Authentication",
       name: "mfa"
@@ -5664,15 +5777,15 @@ class IamAccountSettingsForm extends React.Component {
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       formName: "IAM Account Settings",
       name: "restrict_create_service_id",
-      groups: restrictMenuItems,
-      value: iamItems[this.state.restrict_create_service_id].display,
+      groups: iam_1,
+      value: iam_3[this.state.restrict_create_service_id].display,
       labelText: "Restrict Creation of Service IDs",
       handleInputChange: this.handleSelectChange
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       formName: "IAM Account Settings",
       name: "restrict_create_platform_apikey",
-      groups: restrictMenuItems,
-      value: iamItems[this.state.restrict_create_platform_apikey].display,
+      groups: iam_1,
+      value: iam_3[this.state.restrict_create_platform_apikey].display,
       labelText: "Restrict Creation of API Keys",
       handleInputChange: this.handleSelectChange
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
@@ -5740,10 +5853,10 @@ class IamAccountSettingsForm extends React.Component {
 IamAccountSettingsForm.defaultProps = {
   data: {
     if_match: "",
-    mfa: mfaMenuItems[0],
+    mfa: iam_2[0],
     include_history: false,
-    restrict_create_service_id: iamItems[restrictMenuItems[0]].value,
-    restrict_create_platform_apikey: iamItems[restrictMenuItems[0]].value,
+    restrict_create_service_id: iam_3[iam_1[0]].value,
+    restrict_create_platform_apikey: iam_3[iam_1[0]].value,
     max_sessions_per_identity: "",
     session_expiration_in_seconds: "",
     session_invalidation_in_seconds: "",
@@ -5761,11 +5874,11 @@ IamAccountSettingsForm.propTypes = {
     if_match: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].string]),
     mfa: PropTypes__default["default"].string,
     include_history: PropTypes__default["default"].bool,
-    restrict_create_service_id: PropTypes__default["default"].oneOf(restrictMenuItems.map(item => {
-      return iamItems[item].value;
+    restrict_create_service_id: PropTypes__default["default"].oneOf(iam_1.map(item => {
+      return iam_3[item].value;
     })),
-    restrict_create_platform_apikey: PropTypes__default["default"].oneOf(restrictMenuItems.map(item => {
-      return iamItems[item].value;
+    restrict_create_platform_apikey: PropTypes__default["default"].oneOf(iam_1.map(item => {
+      return iam_3[item].value;
     })),
     max_sessions_per_identity: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].string]),
     session_expiration_in_seconds: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].string]),
@@ -7484,7 +7597,7 @@ SccForm.propTypes = {
   descriptionRegex: PropTypes__default["default"].instanceOf(RegExp).isRequired
 };
 
-var css_248z$1 = ".secretsChecklistPadding {\n  margin-bottom: 0px !important;\n}\n\n.secretChecklistMargin {\n  margin-top: -1rem !important;\n}\n\n.secretCheckBoxMargin {\n  padding-left: 1rem !important;\n}\n";
+var css_248z$1 = ".secretsChecklistPadding {\n  margin-bottom: 0px !important;\n  margin-top: 1rem !important;\n}\n\n.secretChecklistMargin {\n  margin-top: -1rem !important;\n}\n\n.secretCheckBoxMargin {\n  padding-left: 1rem !important;\n}\n";
 styleInject(css_248z$1);
 
 /**
@@ -7495,11 +7608,9 @@ class SecretsManagerForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      ...this.props.data,
-      importToggle: true
+      ...this.props.data
     };
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.toggleImportSecrets = this.toggleImportSecrets.bind(this);
     this.onSelectChange = this.onSelectChange.bind(this);
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
@@ -7512,14 +7623,11 @@ class SecretsManagerForm extends React.Component {
   handleInputChange(event) {
     this.setState(this.eventTargetToNameAndValue(event));
   }
-  toggleImportSecrets() {
-    this.setState(this.toggleStateBoolean("importToggle", this.state));
-  }
   onSelectChange(items) {
     let nextSecrets = [];
     items.forEach(item => {
       if (item !== "Select All") {
-        nextSecrets.push(lazyZ.getObjectFromArray(this.props.data.secrets, "ref", item));
+        nextSecrets.push(lazyZ.getObjectFromArray(this.props.secrets, "ref", item));
       }
     });
     this.setState({
@@ -7553,18 +7661,11 @@ class SecretsManagerForm extends React.Component {
       className: "fieldWidth",
       labelText: "Encryption Key",
       handleInputChange: this.handleInputChange
-    })), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, " ", /*#__PURE__*/React__default["default"].createElement("br", null), /*#__PURE__*/React__default["default"].createElement(StatelessToggleForm, {
-      name: "Import Existing Secrets",
-      hide: this.state.importToggle,
-      onIconClick: this.toggleImportSecrets,
-      className: "subForm secretsChecklistPadding",
-      toggleFormTitle: true,
-      noMarginBottom: true
-    }, /*#__PURE__*/React__default["default"].createElement(SecretsManagerChecklist, {
+    })), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(SecretsManagerChecklist, {
       secrets: this.props.secrets,
       selected: [...lazyZ.splat(this.props.data.secrets, "ref")],
       onSelectChange: this.onSelectChange
-    })), " "));
+    }));
   }
 }
 SecretsManagerForm.defaultProps = {
@@ -9061,44 +9162,20 @@ class VpnServerForm extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
-    this.handleAllowedIps = this.handleAllowedIps.bind(this);
     this.handleMultiSelect = this.handleMultiSelect.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
+
+  /**
+   * Handle input change for vpn server form
+   * @param {event} event
+   */
   handleInputChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    let newState = {
-      ...this.state
-    };
-    //handle crn inputs
-    let crnList = value ? value.replace(/\s\s+/g, "") // replace extra spaces
-    .replace(/,(?=,)/g, "") // prevent null tags from
-    .replace(/[^\w,-:]/g, "") : [];
-    if (name === "method") {
-      // Clear client_ca_crn when method changes
-      newState.method = value.toLowerCase();
-      newState.client_ca_crn = "";
-    } else if (name === "vpc") {
-      // Clear subnet and security groups when vpc changes
-      newState.vpc = value;
-      newState.subnets = [];
-      newState.security_groups = [];
-    } else if (name === "certificate_crn") {
-      newState.certificate_crn = crnList;
-    } else if (name === "client_ca_crn") {
-      newState.client_ca_crn = crnList;
-    } else if (name === "protocol") {
-      newState.protocol = value.toLowerCase();
-    } else {
-      newState = {
-        [name]: value
-      };
-    }
-    this.setState(newState);
+    this.setState(forms_29(this.state, event));
+  }
+  handleMultiSelectChange(name, value) {
+    this.setState(this.setNameToValue(name, value));
   }
 
   /**
@@ -9109,22 +9186,6 @@ class VpnServerForm extends React.Component {
     this.setState({
       [name]: event
     });
-  }
-
-  /**
-   * Handle input change for  client_dns_server_ips text field
-   * @param {event} event
-   */
-  handleAllowedIps(event) {
-    // removing white space and checking for empty value
-    let value = event.target.value.replace(/\s*/g, "");
-    if (value === "") value = null;
-    this.setState({
-      client_dns_server_ips: value
-    });
-  }
-  handleMultiSelectChange(name, value) {
-    this.setState(this.setNameToValue(name, value));
   }
   handleToggle(name) {
     this.setState(this.toggleStateBoolean(name, this.state));
@@ -9249,7 +9310,7 @@ class VpnServerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: !lazyZ.isNullOrEmptyString(this.state.port) && (!lazyZ.isWholeNumber(parseFloat(this.state.port)) || this.state.port < 1 || this.state.port > 65535),
+      invalid: forms_30(this.state.port, 1, 65535),
       invalidText: "Must be a whole number between 1 and 65535.",
       className: "fieldWidthSmaller leftTextAlign"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
@@ -9278,7 +9339,7 @@ class VpnServerForm extends React.Component {
       hideSteppers: true,
       min: 0,
       max: 28800,
-      invalid: !lazyZ.isNullOrEmptyString(this.state.client_idle_timeout) && (!lazyZ.isWholeNumber(parseFloat(this.state.client_idle_timeout)) || this.state.client_idle_timeout < 0 || this.state.client_idle_timeout > 28800),
+      invalid: forms_30(this.state.client_idle_timeout, 0, 28800),
       invalidText: "Must be a whole number between 0 and 28800.",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
@@ -9287,7 +9348,7 @@ class VpnServerForm extends React.Component {
       labelText: "Client DNS Server IPs",
       placeholder: "X.X.X.X, X.X.X.X, ...",
       value: this.state.client_dns_server_ips || "",
-      onChange: this.handleAllowedIps,
+      onChange: this.handleInputChange,
       invalid: iamUtils_2(this.state.client_dns_server_ips),
       invalidText: "Please enter a comma separated list of IP addresses.",
       helperText: "Enter a comma separated list of IP addresses."
@@ -9328,7 +9389,6 @@ VpnServerForm.defaultProps = {
     protocol: "udp",
     resource_group: "",
     vpc: "",
-    subnet: "",
     security_groups: [],
     client_dns_server_ips: "",
     routes: [],
@@ -12155,20 +12215,35 @@ class SecretsManagerChecklist extends React__default["default"].Component {
   constructor(props) {
     super(props);
     this.state = {
+      hide: true,
       selected: this.props.selected && this.props.selected.length !== this.props.secrets.length ? this.props.selected : ["Select All"].concat([...lazyZ.splat(this.props.secrets, "ref")])
     };
     this.onCheckClick = this.onCheckClick.bind(this);
+    this.toggleHide = this.toggleHide.bind(this);
   }
   onCheckClick(ref) {
+    let selected = forms_28(this.state.selected, ref, this.props.secrets);
     this.setState({
-      selected: forms_28(this.state.selected, ref, this.props.secrets)
+      selected: selected
     }, () => {
-      this.props.onSelectChange(this.state.selected);
+      this.props.onSelectChange(selected);
+    });
+  }
+  toggleHide() {
+    this.setState({
+      hide: !this.state.hide
     });
   }
   render() {
-    return /*#__PURE__*/React__default["default"].createElement("div", {
-      className: "subForm secretChecklistMargin"
+    return /*#__PURE__*/React__default["default"].createElement(StatelessToggleForm, {
+      name: "Import Existing Secrets",
+      hide: this.state.hide,
+      onIconClick: this.toggleHide,
+      className: "formInSubForm secretsChecklistPadding",
+      toggleFormTitle: true,
+      noMarginBottom: true
+    }, /*#__PURE__*/React__default["default"].createElement("div", {
+      className: "formInSubForm secretChecklistMargin"
     }, lazyZ.distinct(["Select All"].concat([...lazyZ.splat(this.props.secrets, "ref")])).map(value => /*#__PURE__*/React__default["default"].createElement(react.Checkbox, {
       className: "secretCheckBoxMargin",
       id: value,
@@ -12176,7 +12251,7 @@ class SecretsManagerChecklist extends React__default["default"].Component {
       labelText: value,
       checked: lazyZ.contains(this.state.selected, value),
       onChange: () => this.onCheckClick(value)
-    })));
+    }))));
   }
 }
 SecretsManagerChecklist.defaultProps = {

@@ -10,82 +10,14 @@ import { IcseSelect } from "../Dropdowns";
 import { IcseTextInput, IcseToggle } from "../Inputs";
 import { ToolTipWrapper } from "../Tooltips";
 import { IcseFormGroup } from "../Utils";
-
-const restrictMenuItems = ["Unset", "Yes", "No"];
-const mfaMenuItems = [
-  "NONE",
-  "TOTP",
-  "TOTP4ALL",
-  "Email-Based MFA",
-  "TOTP MFA",
-  "U2F MFA",
-];
-const iamItems = {
-  null: {
-    display: null,
-    value: null,
-  },
-  NONE: {
-    display: "NONE",
-    value: "NONE",
-  },
-  TOTP: {
-    display: "TOTP",
-    value: "TOTP",
-  },
-  TOTP4ALL: {
-    display: "TOTP4ALL",
-    value: "TOTP4ALL",
-  },
-  LEVEL1: {
-    display: "Email-Based MFA",
-    value: "LEVEL1",
-  },
-  LEVEL2: {
-    display: "TOTP MFA",
-    value: "LEVEL2",
-  },
-  LEVEL3: {
-    display: "U2F MFA",
-    value: "LEVEL3",
-  },
-  NOT_SET: {
-    display: "Unset",
-    value: "NOT_SET",
-  },
-  RESTRICTED: {
-    display: "Yes",
-    value: "RESTRICTED",
-  },
-  NOT_RESTRICTED: {
-    display: "No",
-    value: "NOT_RESTRICTED",
-  },
-  "Email-Based MFA": {
-    display: "Email-Based MFA",
-    value: "LEVEL1",
-  },
-  "TOTP MFA": {
-    display: "TOTP MFA",
-    value: "LEVEL2",
-  },
-  "U2F MFA": {
-    display: "U2F MFA",
-    value: "LEVEL3",
-  },
-  Unset: {
-    display: "Unset",
-    value: "NOT_SET",
-  },
-  Yes: {
-    display: "Yes",
-    value: "RESTRICTED",
-  },
-  No: {
-    display: "No",
-    value: "NOT_RESTRICTED",
-  },
-};
+import {
+  restrictMenuItems,
+  mfaMenuItems,
+  iamItems,
+  handleNumberInputChange,
+  handleAllowedIps,
+  handleSelectChange,
+} from "../../lib/forms/iam";
 
 /**
  * IAM Account Settings form
@@ -118,19 +50,18 @@ class IamAccountSettingsForm extends Component {
    * @param {event} event
    */
   handleNumberInputChange(event) {
-    let value = parseInt(event.target.value) || null;
-    if (value || event.target.value === "") {
-      this.setState({ [event.target.name]: value });
+    let value = handleNumberInputChange(event);
+    if (value !== null) {
+      this.setState(value);
     }
   }
 
   /**
    * Toggle on and off param in state at name
    * @param {string} name name of the object key to change
-   * @param {bool} setDefaults set default values, default is false
    */
   handleToggle(name) {
-    this.setState({ [name]: !this.state[name] });
+    this.setState(this.toggleStateBoolean(name, this.state));
   }
 
   /**
@@ -138,10 +69,7 @@ class IamAccountSettingsForm extends Component {
    * @param {event} event
    */
   handleAllowedIps(event) {
-    // removing white space and checking for empty value
-    let value = event.target.value.replace(/\s*/g, "");
-    if (value === "") value = null;
-    this.setState({ allowed_ip_addresses: value });
+    this.setState(handleAllowedIps(event));
   }
 
   /**
@@ -149,9 +77,7 @@ class IamAccountSettingsForm extends Component {
    * @param {event} event
    */
   handleSelectChange(event) {
-    let name = event.target.name;
-    let item = event.target.value;
-    this.setState({ [name]: iamItems[item].value });
+    this.setState(handleSelectChange(event));
   }
 
   render() {

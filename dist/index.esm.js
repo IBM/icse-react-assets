@@ -1,6 +1,6 @@
 import '@carbon/styles/css/styles.css';
 import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, TextArea, PasswordInput, NumberInput, Dropdown, Tag, Checkbox } from '@carbon/react';
-import lazyZ, { titleCase as titleCase$2, kebabCase as kebabCase$5, isEmpty, buildNumberDropdownList, contains as contains$4, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$6, transpose as transpose$1, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, getObjectFromArray, splat as splat$2, deepEqual, parseIntFromZone, isWholeNumber as isWholeNumber$1, snakeCase as snakeCase$1, distinct, isInRange as isInRange$1, eachKey } from 'lazy-z';
+import lazyZ, { titleCase as titleCase$2, kebabCase as kebabCase$5, isEmpty, buildNumberDropdownList, contains as contains$4, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$7, transpose as transpose$1, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, getObjectFromArray, splat as splat$2, deepEqual, parseIntFromZone, snakeCase as snakeCase$1, distinct, isWholeNumber as isWholeNumber$2, isInRange as isInRange$1, eachKey } from 'lazy-z';
 import regexButWithWords from 'regex-but-with-words';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -300,7 +300,7 @@ var docUtils = {
 };
 
 const {
-  isNullOrEmptyString: isNullOrEmptyString$5,
+  isNullOrEmptyString: isNullOrEmptyString$6,
   kebabCase: kebabCase$3
 } = lazyZ;
 const {
@@ -315,7 +315,7 @@ const {
 function icseSelectParams$1(props) {
   let invalid =
   // automatically set to invalid if value is null or empty string and invalid not disabled
-  props.disableInvalid !== true && isNullOrEmptyString$5(props.value) ? true : props.invalid;
+  props.disableInvalid !== true && isNullOrEmptyString$6(props.value) ? true : props.invalid;
   let groups = props.groups.length === 0 ? [] // if no groups, empty array
   : prependEmptyStringWhenNull$1(
   // otherwise try and prepend empty string if null or empty string is allowed
@@ -686,6 +686,68 @@ function handleRgToggle$1(stateData, name) {
 }
 var resourceGroups = {
   handleRgToggle: handleRgToggle$1
+};
+
+const {
+  isNullOrEmptyString: isNullOrEmptyString$5,
+  isWholeNumber: isWholeNumber$1
+} = lazyZ;
+
+/**
+ * Handle vpn-server input
+ * @param {event} event
+ */
+function handleVpnServerInputChange$1(stateData, event) {
+  let {
+    name,
+    value
+  } = event.target;
+  let newState = {
+    ...stateData
+  };
+  //handle crn inputs
+  let crnList = value ? value.replace(/\s\s+/g, "") // replace extra spaces
+  .replace(/,(?=,)/g, "") // prevent null tags from
+  .replace(/[^\w,-:]/g, "") : [];
+  // client_dns_server_ips input: removing white space and checking for empty value
+  let clientDnsServerIps = value ? value.replace(/\s*/g, "") : null;
+  if (name === "method") {
+    // Clear client_ca_crn when method changes
+    newState.method = value.toLowerCase();
+    newState.client_ca_crn = "";
+  } else if (name === "vpc") {
+    // Clear subnet and security groups when vpc changes
+    newState.vpc = value;
+    newState.subnets = [];
+    newState.security_groups = [];
+  } else if (name === "certificate_crn") {
+    newState.certificate_crn = crnList;
+  } else if (name === "client_ca_crn") {
+    newState.client_ca_crn = crnList;
+  } else if (name === "protocol") {
+    newState.protocol = value.toLowerCase();
+  } else if (name === "client_dns_server_ips") {
+    newState.client_dns_server_ips = clientDnsServerIps;
+  } else {
+    newState = {
+      [name]: value
+    };
+  }
+  return newState;
+}
+
+/**
+ * Handle port and client_idle_timeout invalidation check
+ * @param {string} input
+ * @param {number} minRange
+ * @param {number} maxRange
+ */
+function vpnServerRangeInvalid$1(input, minRange, maxRange) {
+  return !isNullOrEmptyString$5(input) && (!isWholeNumber$1(parseFloat(input)) || input < minRange || input > maxRange);
+}
+var vpnServer = {
+  handleVpnServerInputChange: handleVpnServerInputChange$1,
+  vpnServerRangeInvalid: vpnServerRangeInvalid$1
 };
 
 const {
@@ -1320,6 +1382,10 @@ const {
   handleRgToggle
 } = resourceGroups;
 const {
+  handleVpnServerInputChange,
+  vpnServerRangeInvalid
+} = vpnServer;
+const {
   cbrInvalid,
   cbrValueInvalid,
   cbrValuePlaceholder,
@@ -1393,7 +1459,9 @@ var forms = {
   swapArrayElements,
   getOrderCardClassName,
   filterKubeVersion: filterKubeVersion$1,
-  onCheckClick
+  onCheckClick,
+  handleVpnServerInputChange,
+  vpnServerRangeInvalid
 };
 var forms_1 = forms.handleSubnetTierToggle;
 var forms_2 = forms.parseZoneStrings;
@@ -1411,6 +1479,8 @@ var forms_24 = forms.getSubRule;
 var forms_25 = forms.swapArrayElements;
 var forms_26 = forms.getOrderCardClassName;
 var forms_28 = forms.onCheckClick;
+var forms_29 = forms.handleVpnServerInputChange;
+var forms_30 = forms.vpnServerRangeInvalid;
 
 const {
   toggleMarginBottom,
@@ -3559,9 +3629,9 @@ const SubnetMultiSelect = props => {
     titleText: "Subnets",
     name: props.name,
     label: props.label,
-    items: isNullOrEmptyString$6(props.vpc_name) ? [] : props.subnets,
+    items: isNullOrEmptyString$7(props.vpc_name) ? [] : props.subnets,
     initialSelectedItems: props.initialSelectedItems,
-    invalidText: isNullOrEmptyString$6(props.vpc_name) ? "Select a VPC." : "Select at least one subnet.",
+    invalidText: isNullOrEmptyString$7(props.vpc_name) ? "Select a VPC." : "Select at least one subnet.",
     invalid: props.initialSelectedItems.length === 0,
     disabled: props.disabled,
     onChange: event => props.onChange(event.selectedItems)
@@ -4709,7 +4779,7 @@ var iamUtils_3 = iamUtils.isRangeInvalid;
  * @param {Object} stateData
  * @returns {Object} new state
  */
-function handleAllowedIps(event, stateData) {
+function handleAllowedIps$1(event, stateData) {
   let state = {
     ...stateData
   };
@@ -4742,7 +4812,7 @@ function handlePlanChange(event, stateData) {
   return state;
 }
 var eventStreams = {
-  handleAllowedIps,
+  handleAllowedIps: handleAllowedIps$1,
   handlePlanChange
 };
 var eventStreams_1 = eventStreams.handleAllowedIps;
@@ -5543,6 +5613,63 @@ const iamItems = {
 };
 
 /**
+ * handle input change of number-only fields
+ * @param {event} event
+ */
+function handleNumberInputChange(event) {
+  let value = parseInt(event.target.value) || null;
+  if (value || event.target.value === "") {
+    return {
+      [event.target.name]: value
+    };
+  } else {
+    return null;
+  }
+}
+
+/**
+ * Handle input change for allowed ips text field
+ * @param {event} event
+ */
+function handleAllowedIps(event) {
+  let value = event.target.value.replace(/\s*/g, ""); // remove white space and check for empty value
+  if (value === "") {
+    value = null;
+  }
+  return {
+    allowed_ip_addresses: value
+  };
+}
+
+/**
+ * Handle input change for a select
+ * @param {event} event
+ */
+function handleSelectChange(event) {
+  let {
+    name,
+    value
+  } = event.target;
+  return {
+    [name]: iamItems[value].value
+  };
+}
+var iam = {
+  restrictMenuItems,
+  mfaMenuItems,
+  iamItems,
+  handleNumberInputChange,
+  handleAllowedIps,
+  handleSelectChange
+};
+var iam_1 = iam.restrictMenuItems;
+var iam_2 = iam.mfaMenuItems;
+var iam_3 = iam.iamItems;
+var iam_4 = iam.handleNumberInputChange;
+var iam_5 = iam.handleAllowedIps;
+var iam_6 = iam.handleSelectChange;
+
+/**
  * IAM Account Settings form
  */
 
@@ -5573,23 +5700,18 @@ class IamAccountSettingsForm extends Component {
    * @param {event} event
    */
   handleNumberInputChange(event) {
-    let value = parseInt(event.target.value) || null;
-    if (value || event.target.value === "") {
-      this.setState({
-        [event.target.name]: value
-      });
+    let value = iam_4(event);
+    if (value !== null) {
+      this.setState(value);
     }
   }
 
   /**
    * Toggle on and off param in state at name
    * @param {string} name name of the object key to change
-   * @param {bool} setDefaults set default values, default is false
    */
   handleToggle(name) {
-    this.setState({
-      [name]: !this.state[name]
-    });
+    this.setState(this.toggleStateBoolean(name, this.state));
   }
 
   /**
@@ -5597,12 +5719,7 @@ class IamAccountSettingsForm extends Component {
    * @param {event} event
    */
   handleAllowedIps(event) {
-    // removing white space and checking for empty value
-    let value = event.target.value.replace(/\s*/g, "");
-    if (value === "") value = null;
-    this.setState({
-      allowed_ip_addresses: value
-    });
+    this.setState(iam_5(event));
   }
 
   /**
@@ -5610,11 +5727,7 @@ class IamAccountSettingsForm extends Component {
    * @param {event} event
    */
   handleSelectChange(event) {
-    let name = event.target.name;
-    let item = event.target.value;
-    this.setState({
-      [name]: iamItems[item].value
-    });
+    this.setState(iam_6(event));
   }
   render() {
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
@@ -5633,10 +5746,10 @@ class IamAccountSettingsForm extends Component {
       invalid: this.props.invalidCallback("if_match", this.state, this.props),
       invalidText: this.props.invalidTextCallback("if_match", this.state, this.props)
     }), /*#__PURE__*/React.createElement(IcseSelect, {
-      value: iamItems[this.state.mfa].display,
+      value: iam_3[this.state.mfa].display,
       formName: "IAM Account Settings",
       className: "textInputMedium",
-      groups: mfaMenuItems,
+      groups: iam_2,
       handleInputChange: this.handleSelectChange,
       labelText: "Multi-Factor Authentication",
       name: "mfa"
@@ -5653,15 +5766,15 @@ class IamAccountSettingsForm extends Component {
     }), /*#__PURE__*/React.createElement(IcseSelect, {
       formName: "IAM Account Settings",
       name: "restrict_create_service_id",
-      groups: restrictMenuItems,
-      value: iamItems[this.state.restrict_create_service_id].display,
+      groups: iam_1,
+      value: iam_3[this.state.restrict_create_service_id].display,
       labelText: "Restrict Creation of Service IDs",
       handleInputChange: this.handleSelectChange
     }), /*#__PURE__*/React.createElement(IcseSelect, {
       formName: "IAM Account Settings",
       name: "restrict_create_platform_apikey",
-      groups: restrictMenuItems,
-      value: iamItems[this.state.restrict_create_platform_apikey].display,
+      groups: iam_1,
+      value: iam_3[this.state.restrict_create_platform_apikey].display,
       labelText: "Restrict Creation of API Keys",
       handleInputChange: this.handleSelectChange
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
@@ -5729,10 +5842,10 @@ class IamAccountSettingsForm extends Component {
 IamAccountSettingsForm.defaultProps = {
   data: {
     if_match: "",
-    mfa: mfaMenuItems[0],
+    mfa: iam_2[0],
     include_history: false,
-    restrict_create_service_id: iamItems[restrictMenuItems[0]].value,
-    restrict_create_platform_apikey: iamItems[restrictMenuItems[0]].value,
+    restrict_create_service_id: iam_3[iam_1[0]].value,
+    restrict_create_platform_apikey: iam_3[iam_1[0]].value,
     max_sessions_per_identity: "",
     session_expiration_in_seconds: "",
     session_invalidation_in_seconds: "",
@@ -5750,11 +5863,11 @@ IamAccountSettingsForm.propTypes = {
     if_match: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     mfa: PropTypes.string,
     include_history: PropTypes.bool,
-    restrict_create_service_id: PropTypes.oneOf(restrictMenuItems.map(item => {
-      return iamItems[item].value;
+    restrict_create_service_id: PropTypes.oneOf(iam_1.map(item => {
+      return iam_3[item].value;
     })),
-    restrict_create_platform_apikey: PropTypes.oneOf(restrictMenuItems.map(item => {
-      return iamItems[item].value;
+    restrict_create_platform_apikey: PropTypes.oneOf(iam_1.map(item => {
+      return iam_3[item].value;
     })),
     max_sessions_per_identity: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     session_expiration_in_seconds: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
@@ -7050,7 +7163,7 @@ class RoutingTableRouteForm extends Component {
     this.state = {
       ...this.props.data
     };
-    if (!isNullOrEmptyString$6(this.state.action) && this.state.action !== "deliver") {
+    if (!isNullOrEmptyString$7(this.state.action) && this.state.action !== "deliver") {
       this.state.next_hop = "0.0.0.0";
     }
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -7108,7 +7221,7 @@ class RoutingTableRouteForm extends Component {
       field: "next_hop",
       value: this.state.next_hop,
       placeholder: "x.x.x.x",
-      invalidCallback: () => isNullOrEmptyString$6(this.state.next_hop) || isIpv4CidrOrAddress$2(this.state.next_hop) === false || contains$4(this.state.next_hop, `/`),
+      invalidCallback: () => isNullOrEmptyString$7(this.state.next_hop) || isIpv4CidrOrAddress$2(this.state.next_hop) === false || contains$4(this.state.next_hop, `/`),
       invalidText: "Next hop must be a valid IP",
       onChange: this.handleInputChange,
       disabled: this.state.action !== "deliver",
@@ -7473,7 +7586,7 @@ SccForm.propTypes = {
   descriptionRegex: PropTypes.instanceOf(RegExp).isRequired
 };
 
-var css_248z$1 = ".secretsChecklistPadding {\n  margin-bottom: 0px !important;\n}\n\n.secretChecklistMargin {\n  margin-top: -1rem !important;\n}\n\n.secretCheckBoxMargin {\n  padding-left: 1rem !important;\n}\n";
+var css_248z$1 = ".secretsChecklistPadding {\n  margin-bottom: 0px !important;\n  margin-top: 1rem !important;\n}\n\n.secretChecklistMargin {\n  margin-top: -1rem !important;\n}\n\n.secretCheckBoxMargin {\n  padding-left: 1rem !important;\n}\n";
 styleInject(css_248z$1);
 
 /**
@@ -7484,11 +7597,9 @@ class SecretsManagerForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ...this.props.data,
-      importToggle: true
+      ...this.props.data
     };
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.toggleImportSecrets = this.toggleImportSecrets.bind(this);
     this.onSelectChange = this.onSelectChange.bind(this);
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
@@ -7501,14 +7612,11 @@ class SecretsManagerForm extends Component {
   handleInputChange(event) {
     this.setState(this.eventTargetToNameAndValue(event));
   }
-  toggleImportSecrets() {
-    this.setState(this.toggleStateBoolean("importToggle", this.state));
-  }
   onSelectChange(items) {
     let nextSecrets = [];
     items.forEach(item => {
       if (item !== "Select All") {
-        nextSecrets.push(getObjectFromArray(this.props.data.secrets, "ref", item));
+        nextSecrets.push(getObjectFromArray(this.props.secrets, "ref", item));
       }
     });
     this.setState({
@@ -7542,18 +7650,11 @@ class SecretsManagerForm extends Component {
       className: "fieldWidth",
       labelText: "Encryption Key",
       handleInputChange: this.handleInputChange
-    })), this.props.isModal !== true && /*#__PURE__*/React.createElement(React.Fragment, null, " ", /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement(StatelessToggleForm, {
-      name: "Import Existing Secrets",
-      hide: this.state.importToggle,
-      onIconClick: this.toggleImportSecrets,
-      className: "subForm secretsChecklistPadding",
-      toggleFormTitle: true,
-      noMarginBottom: true
-    }, /*#__PURE__*/React.createElement(SecretsManagerChecklist, {
+    })), this.props.isModal !== true && /*#__PURE__*/React.createElement(SecretsManagerChecklist, {
       secrets: this.props.secrets,
       selected: [...splat$2(this.props.data.secrets, "ref")],
       onSelectChange: this.onSelectChange
-    })), " "));
+    }));
   }
 }
 SecretsManagerForm.defaultProps = {
@@ -7880,7 +7981,7 @@ class SubnetForm extends React.Component {
       className: "fieldWidthSmaller",
       disabled: this.props.isModal || this.props.readOnly,
       disableInvalid: this.props.isModal || this.props.readOnly,
-      invalid: this.props.isModal || this.props.readOnly ? false : isNullOrEmptyString$6(this.state.network_acl),
+      invalid: this.props.isModal || this.props.readOnly ? false : isNullOrEmptyString$7(this.state.network_acl),
       invalidText: "Select a Network ACL."
     })), /*#__PURE__*/React.createElement(IcseFormGroup, {
       noMarginBottom: true
@@ -9050,44 +9151,20 @@ class VpnServerForm extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
-    this.handleAllowedIps = this.handleAllowedIps.bind(this);
     this.handleMultiSelect = this.handleMultiSelect.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
+
+  /**
+   * Handle input change for vpn server form
+   * @param {event} event
+   */
   handleInputChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    let newState = {
-      ...this.state
-    };
-    //handle crn inputs
-    let crnList = value ? value.replace(/\s\s+/g, "") // replace extra spaces
-    .replace(/,(?=,)/g, "") // prevent null tags from
-    .replace(/[^\w,-:]/g, "") : [];
-    if (name === "method") {
-      // Clear client_ca_crn when method changes
-      newState.method = value.toLowerCase();
-      newState.client_ca_crn = "";
-    } else if (name === "vpc") {
-      // Clear subnet and security groups when vpc changes
-      newState.vpc = value;
-      newState.subnets = [];
-      newState.security_groups = [];
-    } else if (name === "certificate_crn") {
-      newState.certificate_crn = crnList;
-    } else if (name === "client_ca_crn") {
-      newState.client_ca_crn = crnList;
-    } else if (name === "protocol") {
-      newState.protocol = value.toLowerCase();
-    } else {
-      newState = {
-        [name]: value
-      };
-    }
-    this.setState(newState);
+    this.setState(forms_29(this.state, event));
+  }
+  handleMultiSelectChange(name, value) {
+    this.setState(this.setNameToValue(name, value));
   }
 
   /**
@@ -9098,22 +9175,6 @@ class VpnServerForm extends Component {
     this.setState({
       [name]: event
     });
-  }
-
-  /**
-   * Handle input change for  client_dns_server_ips text field
-   * @param {event} event
-   */
-  handleAllowedIps(event) {
-    // removing white space and checking for empty value
-    let value = event.target.value.replace(/\s*/g, "");
-    if (value === "") value = null;
-    this.setState({
-      client_dns_server_ips: value
-    });
-  }
-  handleMultiSelectChange(name, value) {
-    this.setState(this.setNameToValue(name, value));
   }
   handleToggle(name) {
     this.setState(this.toggleStateBoolean(name, this.state));
@@ -9153,7 +9214,7 @@ class VpnServerForm extends Component {
       groups: this.props.vpcList,
       value: this.state.vpc,
       handleInputChange: this.handleInputChange,
-      invalid: isNullOrEmptyString$6(this.state.vpc),
+      invalid: isNullOrEmptyString$7(this.state.vpc),
       invalidText: "Select a VPC.",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(SubnetMultiSelect, {
@@ -9172,7 +9233,7 @@ class VpnServerForm extends Component {
       onChange: value => this.handleMultiSelectChange("security_groups", value),
       securityGroups: this.getSecurityGroupList(),
       invalid: !(this.state.security_groups?.length > 0),
-      invalidText: !this.state.vpc || isNullOrEmptyString$6(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`,
+      invalidText: !this.state.vpc || isNullOrEmptyString$7(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`,
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: this.props.data.name + "-vpn-server-certificate-crn",
@@ -9238,7 +9299,7 @@ class VpnServerForm extends Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: !isNullOrEmptyString$6(this.state.port) && (!isWholeNumber$1(parseFloat(this.state.port)) || this.state.port < 1 || this.state.port > 65535),
+      invalid: forms_30(this.state.port, 1, 65535),
       invalidText: "Must be a whole number between 1 and 65535.",
       className: "fieldWidthSmaller leftTextAlign"
     }), /*#__PURE__*/React.createElement(IcseSelect, {
@@ -9267,7 +9328,7 @@ class VpnServerForm extends Component {
       hideSteppers: true,
       min: 0,
       max: 28800,
-      invalid: !isNullOrEmptyString$6(this.state.client_idle_timeout) && (!isWholeNumber$1(parseFloat(this.state.client_idle_timeout)) || this.state.client_idle_timeout < 0 || this.state.client_idle_timeout > 28800),
+      invalid: forms_30(this.state.client_idle_timeout, 0, 28800),
       invalidText: "Must be a whole number between 0 and 28800.",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
@@ -9276,7 +9337,7 @@ class VpnServerForm extends Component {
       labelText: "Client DNS Server IPs",
       placeholder: "X.X.X.X, X.X.X.X, ...",
       value: this.state.client_dns_server_ips || "",
-      onChange: this.handleAllowedIps,
+      onChange: this.handleInputChange,
       invalid: iamUtils_2(this.state.client_dns_server_ips),
       invalidText: "Please enter a comma separated list of IP addresses.",
       helperText: "Enter a comma separated list of IP addresses."
@@ -9317,7 +9378,6 @@ VpnServerForm.defaultProps = {
     protocol: "udp",
     resource_group: "",
     vpc: "",
-    subnet: "",
     security_groups: [],
     client_dns_server_ips: "",
     routes: [],
@@ -9604,7 +9664,7 @@ class VsiForm extends Component {
       groups: this.props.encryptionKeys,
       value: this.state.encryption_key,
       handleInputChange: this.handleInputChange,
-      invalid: isNullOrEmptyString$6(this.state.encryption_key),
+      invalid: isNullOrEmptyString$7(this.state.encryption_key),
       invalidText: "Select a valid encryption key."
     }), /*#__PURE__*/React.createElement(IcseToggle, {
       id: composedId + "-fips-toggle",
@@ -9849,7 +9909,7 @@ class VsiLoadBalancerForm extends React.Component {
       groups: this.props.vpcList,
       value: this.state.vpc,
       handleInputChange: this.handleInputChange,
-      invalid: isNullOrEmptyString$6(this.state.vpc),
+      invalid: isNullOrEmptyString$7(this.state.vpc),
       invalidText: "Select a VPC.",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(SecurityGroupMultiSelect, {
@@ -9860,7 +9920,7 @@ class VsiLoadBalancerForm extends React.Component {
       onChange: value => this.handleMultiSelectChange("security_groups", value),
       securityGroups: this.getSecurityGroupList(),
       invalid: !(this.state.security_groups?.length > 0),
-      invalidText: !this.state.vpc || isNullOrEmptyString$6(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`,
+      invalidText: !this.state.vpc || isNullOrEmptyString$7(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`,
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseHeading, {
       type: "subHeading",
@@ -9893,7 +9953,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: isNullOrEmptyString$6(this.state.port || "") ? true : !isWholeNumber$1(this.state.port),
+      invalid: isNullOrEmptyString$7(this.state.port || "") ? true : !isWholeNumber$2(this.state.port),
       invalidText: "Must be a whole number between 1 and 65535",
       className: "fieldWidthSmaller"
     })), this.allVsi().map((row, index) => /*#__PURE__*/React.createElement(IcseFormGroup, {
@@ -9954,7 +10014,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 5,
       max: 3000,
-      invalid: isNullOrEmptyString$6(this.state.health_timeout || "") ? true : !isWholeNumber$1(this.state.health_timeout),
+      invalid: isNullOrEmptyString$7(this.state.health_timeout || "") ? true : !isWholeNumber$2(this.state.health_timeout),
       invalidText: "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(NumberInput, {
@@ -9969,7 +10029,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 5,
       max: 3000,
-      invalid: isNullOrEmptyString$6(this.state.health_delay || "") ? true : this.state.health_delay <= this.state.health_timeout || !isWholeNumber$1(this.state.health_delay),
+      invalid: isNullOrEmptyString$7(this.state.health_delay || "") ? true : this.state.health_delay <= this.state.health_timeout || !isWholeNumber$2(this.state.health_delay),
       invalidText: this.state.health_delay <= this.state.health_timeout ? "Must be greater than Health Timeout value" : "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(NumberInput, {
@@ -9984,7 +10044,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 5,
       max: 3000,
-      invalid: isNullOrEmptyString$6(this.state.health_retries || "") ? true : !isWholeNumber$1(this.state.health_retries),
+      invalid: isNullOrEmptyString$7(this.state.health_retries || "") ? true : !isWholeNumber$2(this.state.health_retries),
       invalidText: "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseHeading, {
@@ -10002,7 +10062,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: isNullOrEmptyString$6(this.state.listener_port || "") ? true : !isWholeNumber$1(this.state.listener_port),
+      invalid: isNullOrEmptyString$7(this.state.listener_port || "") ? true : !isWholeNumber$2(this.state.listener_port),
       invalidText: "Must be a whole number between 1 and 65535",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseSelect, {
@@ -10027,7 +10087,7 @@ class VsiLoadBalancerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 15000,
-      invalid: isNullOrEmptyString$6(this.state.connection_limit || "") ? false : isInRange$1(this.state.connection_limit, 1, 15000) === false || !isWholeNumber$1(this.state.connection_limit),
+      invalid: isNullOrEmptyString$7(this.state.connection_limit || "") ? false : isInRange$1(this.state.connection_limit, 1, 15000) === false || !isWholeNumber$2(this.state.connection_limit),
       invalidText: "Must be a whole number between 1 and 15000",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseHeading, {
@@ -10057,7 +10117,7 @@ class VsiLoadBalancerForm extends React.Component {
       isModal: this.props.isModal,
       labelText: "Session Cookie Name",
       value: this.state.session_persistence_app_cookie_name || "",
-      invalid: isNullOrEmptyString$6(this.state.session_persistence_app_cookie_name || "") ? false : this.props.invalidCallback(this.state, this.props),
+      invalid: isNullOrEmptyString$7(this.state.session_persistence_app_cookie_name || "") ? false : this.props.invalidCallback(this.state, this.props),
       onChange: this.handleInputChange,
       className: "fieldWidthSmaller"
     })));
@@ -12144,20 +12204,35 @@ class SecretsManagerChecklist extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      hide: true,
       selected: this.props.selected && this.props.selected.length !== this.props.secrets.length ? this.props.selected : ["Select All"].concat([...splat$2(this.props.secrets, "ref")])
     };
     this.onCheckClick = this.onCheckClick.bind(this);
+    this.toggleHide = this.toggleHide.bind(this);
   }
   onCheckClick(ref) {
+    let selected = forms_28(this.state.selected, ref, this.props.secrets);
     this.setState({
-      selected: forms_28(this.state.selected, ref, this.props.secrets)
+      selected: selected
     }, () => {
-      this.props.onSelectChange(this.state.selected);
+      this.props.onSelectChange(selected);
+    });
+  }
+  toggleHide() {
+    this.setState({
+      hide: !this.state.hide
     });
   }
   render() {
-    return /*#__PURE__*/React.createElement("div", {
-      className: "subForm secretChecklistMargin"
+    return /*#__PURE__*/React.createElement(StatelessToggleForm, {
+      name: "Import Existing Secrets",
+      hide: this.state.hide,
+      onIconClick: this.toggleHide,
+      className: "formInSubForm secretsChecklistPadding",
+      toggleFormTitle: true,
+      noMarginBottom: true
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "formInSubForm secretChecklistMargin"
     }, distinct(["Select All"].concat([...splat$2(this.props.secrets, "ref")])).map(value => /*#__PURE__*/React.createElement(Checkbox, {
       className: "secretCheckBoxMargin",
       id: value,
@@ -12165,7 +12240,7 @@ class SecretsManagerChecklist extends React.Component {
       labelText: value,
       checked: contains$4(this.state.selected, value),
       onChange: () => this.onCheckClick(value)
-    })));
+    }))));
   }
 }
 SecretsManagerChecklist.defaultProps = {

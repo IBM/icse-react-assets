@@ -1,6 +1,10 @@
 const { atrackerInputChange } = require("./atracker");
 const { handleRgToggle } = require("./resource-groups");
 const {
+  handleVpnServerInputChange,
+  vpnServerRangeInvalid,
+} = require("./vpn-server");
+const {
   cbrInvalid,
   cbrValueInvalid,
   cbrValuePlaceholder,
@@ -61,4 +65,6 @@ module.exports = {
   getOrderCardClassName,
   filterKubeVersion,
   onCheckClick,
+  handleVpnServerInputChange,
+  vpnServerRangeInvalid,
 };
