@@ -38,7 +38,6 @@ class SubnetTierForm extends React.Component {
     this.handleShowToggle = this.handleShowToggle.bind(this);
     this.shouldDisableSubmit = this.shouldDisableSubmit.bind(this);
     this.onSubnetSave = this.onSubnetSave.bind(this);
-
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
   }
