@@ -13,6 +13,16 @@ import { IcseNumberSelect, IcseSelect } from "../Dropdowns";
 import SubnetTileForm from "./SubnetTileForm";
 import { subnetTierName } from "../../lib";
 import { IcseMultiSelect } from "../MultiSelects";
+import {
+  handleSelectZones,
+  handleSubnetTierToggle,
+  parseZoneStrings,
+} from "../../lib/forms";
+import {
+  buildFormDefaultInputMethods,
+  buildFormFunctions,
+} from "../component-utils";
+import { handleSubnetShowToggle } from "../../lib/forms/subnets";
 
 class SubnetTierForm extends React.Component {
   constructor(props) {
@@ -23,39 +33,17 @@ class SubnetTierForm extends React.Component {
     }
     this.state.advancedSave = false;
     this.handleChange = this.handleChange.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
     this.onSave = this.onSave.bind(this);
     this.onDelete = this.onDelete.bind(this);
     this.handleShowToggle = this.handleShowToggle.bind(this);
     this.shouldDisableSubmit = this.shouldDisableSubmit.bind(this);
-    this.toggleDeleteModal = this.toggleDeleteModal.bind(this);
     this.onSubnetSave = this.onSubnetSave.bind(this);
-    this.handleSelectZones = this.handleSelectZones.bind(this);
-    this.parseZoneStrings = this.parseZoneStrings.bind(this);
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
   }
 
-  /**
-   * get list of strings from zone
-   * @returns {Array<string>} stringified zones
-   */
-  parseZoneStrings() {
-    let stringZones = [];
-    this.state.select_zones.forEach((zone) => {
-      stringZones.push(String(zone));
-    });
-    return stringZones;
-  }
-
-  /**
-   * Handle select zones
-   * @param {event} event
-   */
-  handleSelectZones(event) {
-    let items = [];
-    event.selectedItems.forEach((item) => {
-      items.push(Number(item));
-    });
-    this.setState({ select_zones: items });
+  handleShowToggle() {
+    this.setState(handleSubnetShowToggle(this.state, this.props));
   }
 
   /**
@@ -63,47 +51,7 @@ class SubnetTierForm extends React.Component {
    * @param {event} event
    */
   handleChange(event) {
-    let { name, value } = event.target;
-    this.setState({ [name]: value });
-  }
-
-  /**
-   * handle toggle
-   */
-  handleToggle(name) {
-    let nextState = { ...this.state };
-    nextState[name] = !this.state[name];
-    if (name === "advanced" && nextState[name] === true) {
-      nextState.select_zones = [];
-      [1, 2, 3].forEach((zone) => {
-        if (zone <= this.state.zones) nextState.select_zones.push(zone);
-      });
-    } else if (name === "advanced") {
-      nextState.zones = this.state.select_zones.length;
-      nextState.select_zones = null;
-    }
-    this.setState(nextState);
-  }
-  /**
-   * toggle delete modal
-   */
-  toggleDeleteModal() {
-    this.setState({ showDeleteModal: !this.state.showDeleteModal });
-  }
-
-  /**
-   * handle hide/show form data
-   */
-  handleShowToggle() {
-    if (
-      this.props.propsMatchState(this.state, this.props) === false &&
-      this.state.hide === false &&
-      !this.state.showUnsavedChangesModal
-    ) {
-      this.setState({ showUnsavedChangesModal: true });
-    } else {
-      this.setState({ hide: !this.state.hide, showUnsavedChangesModal: false });
-    }
+    this.setState(this.eventTargetToNameAndValue(event));
   }
 
   onSave() {
@@ -168,7 +116,9 @@ class SubnetTierForm extends React.Component {
         <DeleteModal
           name={tierName}
           modalOpen={this.state.showDeleteModal}
-          onModalClose={this.toggleDeleteModal}
+          onModalClose={() =>
+            handleSubnetTierToggle("showDeleteModal", this.state)
+          }
           onModalSubmit={this.onDelete}
           useDefaultUnsavedMessage={false}
         />
@@ -253,8 +203,11 @@ class SubnetTierForm extends React.Component {
                   invalid={this.state.select_zones.length === 0}
                   invalidText="Select at least one zone"
                   items={["1", "2", "3"]}
-                  initialSelectedItems={this.parseZoneStrings()}
-                  onChange={this.handleSelectZones}
+                  initialSelectedItems={parseZoneStrings(
+                    this.state,
+                    this.props
+                  )}
+                  onChange={(event) => handleSelectZones(event, this.state)}
                 />
               ) : (
                 <IcseNumberSelect
@@ -280,7 +233,7 @@ class SubnetTierForm extends React.Component {
                 id={composedId + "-advanced"}
                 labelText="Advanced Configuration"
                 defaultToggled={this.state.advanced}
-                onToggle={() => this.handleToggle("advanced")}
+                onToggle={() => handleSubnetTierToggle("advanced", this.state)}
                 className="fieldWidthSmaller"
                 disabled={this.props.dynamicSubnets || this.props.data.advanced}
               />
@@ -314,7 +267,9 @@ class SubnetTierForm extends React.Component {
                 id={composedId + "-public-gateway"}
                 labelText="Use Public Gateways"
                 defaultToggled={this.state.addPublicGateway}
-                onToggle={() => this.handleToggle("addPublicGateway")}
+                onToggle={() =>
+                  handleSubnetTierToggle("addPublicGateway", this.state)
+                }
                 isModal={this.props.isModal}
                 disabled={
                   this.state.advanced ||
