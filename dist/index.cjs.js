@@ -9,7 +9,6 @@ var regexButWithWords = require('regex-but-with-words');
 var React = require('react');
 var PropTypes = require('prop-types');
 var iconsReact = require('@carbon/icons-react');
-var utils$1 = require('regex-but-with-words/lib/utils');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -49,7 +48,7 @@ var css_248z$2 = "/* vars and themes */\n:root {\n  --background: #ffffff;\n  --
 styleInject(css_248z$2);
 
 const {
-  contains: contains$3,
+  contains: contains$4,
   capitalize: capitalize$1
 } = lazyZ__default["default"];
 
@@ -139,7 +138,7 @@ function handleClusterInputChange$1(name, value, stateData) {
   return cluster;
 }
 function subnetTierName$1(tierName) {
-  if (contains$3(["vsi", "vpe", "vpn", "vpn-1", "vpn-2"], tierName)) {
+  if (contains$4(["vsi", "vpe", "vpn", "vpn-1", "vpn-2"], tierName)) {
     return tierName.toUpperCase() + " Subnet Tier";
   } else if (tierName === "") {
     return "New Subnet Tier";
@@ -311,7 +310,7 @@ var docUtils = {
 };
 
 const {
-  isNullOrEmptyString: isNullOrEmptyString$5,
+  isNullOrEmptyString: isNullOrEmptyString$6,
   kebabCase: kebabCase$3
 } = lazyZ__default["default"];
 const {
@@ -326,7 +325,7 @@ const {
 function icseSelectParams$1(props) {
   let invalid =
   // automatically set to invalid if value is null or empty string and invalid not disabled
-  props.disableInvalid !== true && isNullOrEmptyString$5(props.value) ? true : props.invalid;
+  props.disableInvalid !== true && isNullOrEmptyString$6(props.value) ? true : props.invalid;
   let groups = props.groups.length === 0 ? [] // if no groups, empty array
   : prependEmptyStringWhenNull$1(
   // otherwise try and prepend empty string if null or empty string is allowed
@@ -653,6 +652,31 @@ var popoverWrapper = {
 };
 
 const {
+  contains: contains$3,
+  parseIntFromZone
+} = lazyZ__default["default"];
+function handlePgwToggle$1(zone, stateData) {
+  let vpc = {
+    ...stateData
+  };
+  let currentGw = [...stateData.publicGateways]; // new array
+  let zoneNumber = parseIntFromZone(zone);
+  // check if zone is already present
+  if (contains$3(currentGw, zoneNumber)) {
+    let index = currentGw.indexOf(zoneNumber);
+    currentGw.splice(index, 1);
+  } else {
+    currentGw.push(zoneNumber);
+  }
+  vpc.publicGateways = currentGw;
+  return vpc;
+}
+var vpc = {
+  handlePgwToggle: handlePgwToggle$1
+};
+var vpc_1 = vpc.handlePgwToggle;
+
+const {
   kebabCase: kebabCase$1
 } = lazyZ__default["default"];
 
@@ -697,6 +721,68 @@ function handleRgToggle$1(stateData, name) {
 }
 var resourceGroups = {
   handleRgToggle: handleRgToggle$1
+};
+
+const {
+  isNullOrEmptyString: isNullOrEmptyString$5,
+  isWholeNumber: isWholeNumber$1
+} = lazyZ__default["default"];
+
+/**
+ * Handle vpn-server input
+ * @param {event} event
+ */
+function handleVpnServerInputChange$1(stateData, event) {
+  let {
+    name,
+    value
+  } = event.target;
+  let newState = {
+    ...stateData
+  };
+  //handle crn inputs
+  let crnList = value ? value.replace(/\s\s+/g, "") // replace extra spaces
+  .replace(/,(?=,)/g, "") // prevent null tags from
+  .replace(/[^\w,-:]/g, "") : [];
+  // client_dns_server_ips input: removing white space and checking for empty value
+  let clientDnsServerIps = value ? value.replace(/\s*/g, "") : null;
+  if (name === "method") {
+    // Clear client_ca_crn when method changes
+    newState.method = value.toLowerCase();
+    newState.client_ca_crn = "";
+  } else if (name === "vpc") {
+    // Clear subnet and security groups when vpc changes
+    newState.vpc = value;
+    newState.subnets = [];
+    newState.security_groups = [];
+  } else if (name === "certificate_crn") {
+    newState.certificate_crn = crnList;
+  } else if (name === "client_ca_crn") {
+    newState.client_ca_crn = crnList;
+  } else if (name === "protocol") {
+    newState.protocol = value.toLowerCase();
+  } else if (name === "client_dns_server_ips") {
+    newState.client_dns_server_ips = clientDnsServerIps;
+  } else {
+    newState = {
+      [name]: value
+    };
+  }
+  return newState;
+}
+
+/**
+ * Handle port and client_idle_timeout invalidation check
+ * @param {string} input
+ * @param {number} minRange
+ * @param {number} maxRange
+ */
+function vpnServerRangeInvalid$1(input, minRange, maxRange) {
+  return !isNullOrEmptyString$5(input) && (!isWholeNumber$1(parseFloat(input)) || input < minRange || input > maxRange);
+}
+var vpnServer = {
+  handleVpnServerInputChange: handleVpnServerInputChange$1,
+  vpnServerRangeInvalid: vpnServerRangeInvalid$1
 };
 
 const {
@@ -1248,11 +1334,18 @@ var secretsManager = {
 };
 
 const {
+  handlePgwToggle
+} = vpc;
+const {
   atrackerInputChange
 } = atracker;
 const {
   handleRgToggle
 } = resourceGroups;
+const {
+  handleVpnServerInputChange,
+  vpnServerRangeInvalid
+} = vpnServer;
 const {
   cbrInvalid,
   cbrValueInvalid,
@@ -1319,7 +1412,10 @@ var forms = {
   swapArrayElements,
   getOrderCardClassName,
   filterKubeVersion: filterKubeVersion$1,
-  onCheckClick
+  onCheckClick,
+  handleVpnServerInputChange,
+  vpnServerRangeInvalid,
+  handlePgwToggle
 };
 var forms_4 = forms.cbrInvalid;
 var forms_7 = forms.handleRuleInputChange;
@@ -1334,6 +1430,8 @@ var forms_21 = forms.getSubRule;
 var forms_22 = forms.swapArrayElements;
 var forms_23 = forms.getOrderCardClassName;
 var forms_25 = forms.onCheckClick;
+var forms_26 = forms.handleVpnServerInputChange;
+var forms_27 = forms.vpnServerRangeInvalid;
 
 const {
   toggleMarginBottom,
@@ -8535,7 +8633,7 @@ class VpcNetworkForm extends React__default["default"].Component {
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
-    this.handPgwToggle = this.handPgwToggle.bind(this);
+    this.handlePgwToggle = this.handlePgwToggle.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
@@ -8560,57 +8658,35 @@ class VpcNetworkForm extends React__default["default"].Component {
    * @param {string} name name of the object key to change
    */
   handleToggle(name) {
-    this.setState({
-      [name]: !this.state[name]
-    });
+    this.setState(this.toggleStateBoolean(name, this.state));
   }
 
   /**
    * handle change of public gateway by zone
    * @param {string} zone zone-1, zone-2, or zone-3
    */
-  handPgwToggle(zone) {
-    let vpc = {
-      ...this.state
-    };
-    let currentGw = [...this.state.publicGateways]; // new array
-    let zoneNumber = lazyZ.parseIntFromZone(zone);
-    // check if zone is already present
-    if (utils$1.contains(currentGw, zoneNumber)) {
-      let index = currentGw.indexOf(zoneNumber);
-      currentGw.splice(index, 1);
-    } else {
-      currentGw.push(zoneNumber);
-    }
-    vpc.publicGateways = currentGw;
-    this.setState({
-      ...vpc
-    });
+  handlePgwToggle(zone) {
+    this.setState(vpc_1(zone, this.state));
   }
   render() {
     let composedId = `${this.props.data.name}-vpc-form`;
-    this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       tooltip: {
         content: "This name will be prepended to all components within this VPC.",
         alignModal: "bottom-left",
         align: "bottom-left"
       },
-      id: composedId + "-prefix",
-      componentProps: this.props,
-      component: "vpc",
-      componentName: this.props.data.name,
+      id: composedId + "-name",
       field: "name",
-      labelText: "Name",
       placeholder: "my-vpc-name",
       hideHelperText: true,
       value: this.state.name,
+      forceKebabCase: true,
       onChange: this.handleInputChange,
       invalid: this.props.invalidCallback("name", this.state, this.props),
       invalidText: this.props.invalidTextCallback("name", this.state, this.props),
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      labelText: "Resource Group",
       name: "resource_group",
       formName: "resource_group",
       groups: this.props.resourceGroups,
@@ -8633,14 +8709,15 @@ class VpcNetworkForm extends React__default["default"].Component {
       return /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
         id: composedId + "-" + field,
         key: this.props.data.name + "-" + lazyZ.kebabCase(field),
-        componentName: "VPC Network",
         field: field,
         labelText: lazyZ.titleCase(field),
         value: this.state[field],
         onChange: this.handleInputChange,
         invalid: this.props.invalidCallback(field, this.state, this.props),
         invalidText: this.props.invalidTextCallback(field, this.state, this.props),
-        className: "fieldWidthSmaller"
+        className: "fieldWidthSmaller",
+        optional: true,
+        forceKebabCase: true
       });
     })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
       name: "Public Gateways",
@@ -8654,7 +8731,7 @@ class VpcNetworkForm extends React__default["default"].Component {
       id: this.props.data.name + "-pgw-" + zone,
       labelText: "Create in Zone " + lazyZ.parseIntFromZone(zone),
       defaultToggled: this.state.publicGateways.indexOf(lazyZ.parseIntFromZone(zone)) !== -1,
-      onToggle: () => this.handPgwToggle(zone),
+      onToggle: () => this.handlePgwToggle(zone),
       className: "fieldWidthSmaller leftTextAlign"
     }))), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
       name: "Classic Access",
@@ -9079,44 +9156,20 @@ class VpnServerForm extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
-    this.handleAllowedIps = this.handleAllowedIps.bind(this);
     this.handleMultiSelect = this.handleMultiSelect.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
+
+  /**
+   * Handle input change for vpn server form
+   * @param {event} event
+   */
   handleInputChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    let newState = {
-      ...this.state
-    };
-    //handle crn inputs
-    let crnList = value ? value.replace(/\s\s+/g, "") // replace extra spaces
-    .replace(/,(?=,)/g, "") // prevent null tags from
-    .replace(/[^\w,-:]/g, "") : [];
-    if (name === "method") {
-      // Clear client_ca_crn when method changes
-      newState.method = value.toLowerCase();
-      newState.client_ca_crn = "";
-    } else if (name === "vpc") {
-      // Clear subnet and security groups when vpc changes
-      newState.vpc = value;
-      newState.subnets = [];
-      newState.security_groups = [];
-    } else if (name === "certificate_crn") {
-      newState.certificate_crn = crnList;
-    } else if (name === "client_ca_crn") {
-      newState.client_ca_crn = crnList;
-    } else if (name === "protocol") {
-      newState.protocol = value.toLowerCase();
-    } else {
-      newState = {
-        [name]: value
-      };
-    }
-    this.setState(newState);
+    this.setState(forms_26(this.state, event));
+  }
+  handleMultiSelectChange(name, value) {
+    this.setState(this.setNameToValue(name, value));
   }
 
   /**
@@ -9127,22 +9180,6 @@ class VpnServerForm extends React.Component {
     this.setState({
       [name]: event
     });
-  }
-
-  /**
-   * Handle input change for  client_dns_server_ips text field
-   * @param {event} event
-   */
-  handleAllowedIps(event) {
-    // removing white space and checking for empty value
-    let value = event.target.value.replace(/\s*/g, "");
-    if (value === "") value = null;
-    this.setState({
-      client_dns_server_ips: value
-    });
-  }
-  handleMultiSelectChange(name, value) {
-    this.setState(this.setNameToValue(name, value));
   }
   handleToggle(name) {
     this.setState(this.toggleStateBoolean(name, this.state));
@@ -9267,7 +9304,7 @@ class VpnServerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: !lazyZ.isNullOrEmptyString(this.state.port) && (!lazyZ.isWholeNumber(parseFloat(this.state.port)) || this.state.port < 1 || this.state.port > 65535),
+      invalid: forms_27(this.state.port, 1, 65535),
       invalidText: "Must be a whole number between 1 and 65535.",
       className: "fieldWidthSmaller leftTextAlign"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
@@ -9296,7 +9333,7 @@ class VpnServerForm extends React.Component {
       hideSteppers: true,
       min: 0,
       max: 28800,
-      invalid: !lazyZ.isNullOrEmptyString(this.state.client_idle_timeout) && (!lazyZ.isWholeNumber(parseFloat(this.state.client_idle_timeout)) || this.state.client_idle_timeout < 0 || this.state.client_idle_timeout > 28800),
+      invalid: forms_27(this.state.client_idle_timeout, 0, 28800),
       invalidText: "Must be a whole number between 0 and 28800.",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
@@ -9305,7 +9342,7 @@ class VpnServerForm extends React.Component {
       labelText: "Client DNS Server IPs",
       placeholder: "X.X.X.X, X.X.X.X, ...",
       value: this.state.client_dns_server_ips || "",
-      onChange: this.handleAllowedIps,
+      onChange: this.handleInputChange,
       invalid: iamUtils_2(this.state.client_dns_server_ips),
       invalidText: "Please enter a comma separated list of IP addresses.",
       helperText: "Enter a comma separated list of IP addresses."
@@ -9346,7 +9383,6 @@ VpnServerForm.defaultProps = {
     protocol: "udp",
     resource_group: "",
     vpc: "",
-    subnet: "",
     security_groups: [],
     client_dns_server_ips: "",
     routes: [],

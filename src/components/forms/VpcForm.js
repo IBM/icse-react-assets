@@ -1,5 +1,5 @@
 import React from "react";
-import { checkNullorEmptyString, setNameToValue } from "../../lib";
+import { checkNullorEmptyString } from "../../lib";
 import { IcseSelect } from "../Dropdowns";
 import { IcseHeading, IcseFormGroup } from "../Utils";
 import { IcseToggle, IcseTextInput, IcseNameInput } from "../Inputs";
@@ -72,7 +72,7 @@ class VpcNetworkForm extends React.Component {
               alignModal: "bottom-left",
               align: "bottom-left",
             }}
-            id={composedId + "-prefix"}
+            id={composedId + "-name"}
             field="name"
             placeholder="my-vpc-name"
             hideHelperText
