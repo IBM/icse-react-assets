@@ -1489,6 +1489,55 @@ var vpnGateways = {
   handleVpnGatewayChange: handleVpnGatewayChange$1
 };
 
+const services$1 = {
+  hpcs: "Hyper Protect Crypto Services",
+  kms: "Key Protect",
+  cos: "Object Storage",
+  icr: "Container Registry",
+  "Hyper Protect Crypto Services": "hpcs",
+  "Key Protect": "kms",
+  "Object Storage": "cos",
+  "Container Registry": "icr",
+  "secrets-manager": "Secrets Manager",
+  "Secrets Manager": "secrets-manager"
+};
+const serviceGroups$1 = ["Hyper Protect Crypto Services", "Key Protect", "Object Storage", "Container Registry", "Secrets Manager"];
+
+/**
+ * handle vpc dropdown
+ * @param {Object} event
+ * @param {Object} stateData
+ * @returns {object} new state
+ */
+function vpeVpcDropdown$1(event, stateData) {
+  let state = {
+    ...stateData
+  };
+  state.vpc = event.target.value;
+  state.security_groups = [];
+  state.subnets = [];
+  return state;
+}
+/**
+ * handle service dropdown
+ * @param {Object} event
+ * @param {Object} stateData
+ * @returns {object} new state
+ */
+function vpeServiceDropdown$1(event, stateData) {
+  let state = {
+    ...stateData
+  };
+  state.service = services$1[event.target.value];
+  return state;
+}
+var vpe = {
+  services: services$1,
+  serviceGroups: serviceGroups$1,
+  vpeVpcDropdown: vpeVpcDropdown$1,
+  vpeServiceDropdown: vpeServiceDropdown$1
+};
+
 const {
   handlePgwToggle
 } = vpc;
@@ -1557,7 +1606,17 @@ const {
 const {
   handleVpnGatewayChange
 } = vpnGateways;
+const {
+  services,
+  serviceGroups,
+  vpeVpcDropdown,
+  vpeServiceDropdown
+} = vpe;
 var forms = {
+  services,
+  serviceGroups,
+  vpeVpcDropdown,
+  vpeServiceDropdown,
   vsiHandleInputChange,
   vpnRouteInputChange,
   handleSubnetTierToggle,
@@ -1593,26 +1652,30 @@ var forms = {
   vpnServerRangeInvalid,
   handlePgwToggle
 };
-var forms_2 = forms.vpnRouteInputChange;
-var forms_3 = forms.handleSubnetTierToggle;
-var forms_4 = forms.parseZoneStrings;
-var forms_5 = forms.handleSelectZones;
-var forms_6 = forms.handleVpnGatewayChange;
-var forms_10 = forms.cbrInvalid;
-var forms_13 = forms.handleRuleInputChange;
-var forms_20 = forms.handleDnsResolverInputChange;
-var forms_21 = forms.dnsFormInputChange;
-var forms_22 = forms.atrackerInputChange;
-var forms_23 = forms.handleRgToggle;
-var forms_24 = forms.handleCRNs;
-var forms_25 = forms.handleVpcSelect;
-var forms_26 = forms.getRuleProtocol;
-var forms_27 = forms.getSubRule;
-var forms_28 = forms.swapArrayElements;
-var forms_29 = forms.getOrderCardClassName;
-var forms_31 = forms.onCheckClick;
-var forms_32 = forms.handleVpnServerInputChange;
-var forms_33 = forms.vpnServerRangeInvalid;
+var forms_1 = forms.services;
+var forms_2 = forms.serviceGroups;
+var forms_3 = forms.vpeVpcDropdown;
+var forms_4 = forms.vpeServiceDropdown;
+var forms_6 = forms.vpnRouteInputChange;
+var forms_7 = forms.handleSubnetTierToggle;
+var forms_8 = forms.parseZoneStrings;
+var forms_9 = forms.handleSelectZones;
+var forms_10 = forms.handleVpnGatewayChange;
+var forms_14 = forms.cbrInvalid;
+var forms_17 = forms.handleRuleInputChange;
+var forms_24 = forms.handleDnsResolverInputChange;
+var forms_25 = forms.dnsFormInputChange;
+var forms_26 = forms.atrackerInputChange;
+var forms_27 = forms.handleRgToggle;
+var forms_28 = forms.handleCRNs;
+var forms_29 = forms.handleVpcSelect;
+var forms_30 = forms.getRuleProtocol;
+var forms_31 = forms.getSubRule;
+var forms_32 = forms.swapArrayElements;
+var forms_33 = forms.getOrderCardClassName;
+var forms_35 = forms.onCheckClick;
+var forms_36 = forms.handleVpnServerInputChange;
+var forms_37 = forms.vpnServerRangeInvalid;
 
 const {
   toggleMarginBottom,
@@ -4109,7 +4172,7 @@ class AtrackerForm extends React.Component {
    * @param {*} value value to update
    */
   handleInputChange(event) {
-    this.setState(forms_22(this.state, event));
+    this.setState(forms_26(this.state, event));
   }
 
   /**
@@ -6598,7 +6661,7 @@ class NetworkingRulesOrderCard extends React.Component {
   handleUp(index) {
     let prevRulesState = [...this.state.rules];
     if (index !== 0) {
-      forms_28(prevRulesState, index, index - 1);
+      forms_32(prevRulesState, index, index - 1);
     }
     this.props.networkRuleOrderDidChange(prevRulesState);
     this.setState({
@@ -6614,7 +6677,7 @@ class NetworkingRulesOrderCard extends React.Component {
     let prevRulesState = [...this.state.rules];
     let maxLen = prevRulesState.length - 1;
     if (index !== maxLen) {
-      forms_28(prevRulesState, index, index + 1);
+      forms_32(prevRulesState, index, index + 1);
     }
     this.props.networkRuleOrderDidChange(prevRulesState);
     this.setState({
@@ -6691,7 +6754,7 @@ class NetworkingRulesOrderCard extends React.Component {
       showIfEmpty: this.state.rules
     }), this.state.rules.map((rule, index) => /*#__PURE__*/React__default["default"].createElement("div", {
       key: "rule-div-" + rule.name + "-wrapper",
-      className: forms_29(this.props)
+      className: forms_33(this.props)
     }, /*#__PURE__*/React__default["default"].createElement(NetworkingRuleForm, {
       hide: this.state.collapse[rule.name],
       onToggle: () => this.toggleCollapse(rule.name),
@@ -6709,8 +6772,8 @@ class NetworkingRulesOrderCard extends React.Component {
         direction: rule.direction,
         source: rule.source,
         destination: rule.destination || null,
-        ruleProtocol: forms_26(rule),
-        rule: forms_27(rule, this.props.isSecurityGroup)
+        ruleProtocol: forms_30(rule),
+        rule: forms_31(rule, this.props.isSecurityGroup)
       },
       disableSaveCallback: this.props.disableSaveCallback,
       isSecurityGroup: this.props.isSecurityGroup,
@@ -7221,7 +7284,7 @@ class ResourceGroupForm extends React.Component {
    * @param {string} name name of the object key to change
    */
   handleToggle(name) {
-    this.setState(forms_23(this.state, name));
+    this.setState(forms_27(this.state, name));
   }
 
   /**
@@ -8307,7 +8370,7 @@ class SubnetTierForm extends React__default["default"].Component {
    * @param {Object} event
    */
   handleSelectZones(event) {
-    this.setState(forms_5(event, this.state));
+    this.setState(forms_9(event, this.state));
   }
 
   /**
@@ -8315,7 +8378,7 @@ class SubnetTierForm extends React__default["default"].Component {
    * @param {string} name
    */
   handleSubnetTierToggle(name) {
-    this.setState(forms_3(name, this.state));
+    this.setState(forms_7(name, this.state));
   }
 
   /**
@@ -8439,7 +8502,7 @@ class SubnetTierForm extends React__default["default"].Component {
       invalid: this.state.select_zones.length === 0,
       invalidText: "Select at least one zone",
       items: ["1", "2", "3"],
-      initialSelectedItems: forms_4(this.state, this.props),
+      initialSelectedItems: forms_8(this.state, this.props),
       onChange: this.handleSelectZones
     }) : /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
       max: 3,
@@ -8654,7 +8717,7 @@ class TransitGatewayForm extends React.Component {
    * @param {event} event
    */
   handleCRNs(event) {
-    this.setState(forms_24(event));
+    this.setState(forms_28(event));
   }
 
   /**
@@ -8662,7 +8725,7 @@ class TransitGatewayForm extends React.Component {
    * @param {Array} selectedItems
    */
   handleVpcSelect(selectedItems) {
-    this.setState(forms_25(selectedItems, this.state.name));
+    this.setState(forms_29(selectedItems, this.state.name));
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
@@ -8911,20 +8974,6 @@ VpcNetworkForm.propTypes = {
   disableManualPrefixToggle: PropTypes__default["default"].bool.isRequired
 };
 
-const services = {
-  hpcs: "Hyper Protect Crypto Services",
-  kms: "Key Protect",
-  cos: "Object Storage",
-  icr: "Container Registry",
-  "Hyper Protect Crypto Services": "hpcs",
-  "Key Protect": "kms",
-  "Object Storage": "cos",
-  "Container Registry": "icr",
-  "secrets-manager": "Secrets Manager",
-  "Secrets Manager": "secrets-manager"
-};
-const serviceGroups = ["Hyper Protect Crypto Services", "Key Protect", "Object Storage", "Container Registry", "Secrets Manager"];
-
 /**
  * Vpe Form
  */
@@ -8938,7 +8987,6 @@ class VpeForm extends React.Component {
     this.handleServiceDropdown = this.handleServiceDropdown.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleMultiSelect = this.handleMultiSelect.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
@@ -8956,11 +9004,7 @@ class VpeForm extends React.Component {
    * @param {event} event event
    */
   handleVpcDropdown(event) {
-    this.setState({
-      vpc: event.target.value,
-      security_groups: [],
-      subnets: []
-    });
+    this.setState(forms_3(event, this.state));
   }
 
   /**
@@ -8968,19 +9012,7 @@ class VpeForm extends React.Component {
    * @param {event} event event
    */
   handleServiceDropdown(event) {
-    this.setState({
-      service: services[event.target.value]
-    });
-  }
-
-  /**
-   * Toggle on and off param in state at name
-   * @param {string} name name of the object key to change
-   */
-  handleToggle(name) {
-    this.setState({
-      [name]: !this.state[name]
-    });
+    this.setState(forms_4(event, this.state));
   }
 
   /**
@@ -8988,9 +9020,7 @@ class VpeForm extends React.Component {
    * @param {event} event
    */
   handleMultiSelect(name, event) {
-    this.setState({
-      [name]: event
-    });
+    this.setState(this.setNameToValue(name, event));
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
@@ -9015,8 +9045,8 @@ class VpeForm extends React.Component {
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       name: "service",
       formName: this.props.data.name + "vpce-service",
-      groups: serviceGroups,
-      value: services[this.state.service],
+      groups: forms_2,
+      value: forms_1[this.state.service],
       labelText: "Service Type",
       handleInputChange: this.handleServiceDropdown,
       className: "fieldWidthSmaller"
@@ -9111,7 +9141,7 @@ class VpnGatewayForm extends React.Component {
    * @param {event} event
    */
   handleInputChange(event) {
-    this.setState(forms_6(event));
+    this.setState(forms_10(event));
   }
   render() {
     let composedId = `vpn-gateway-form-${this.props.data.name}-`;
@@ -9203,7 +9233,7 @@ class VpnServerRouteForm extends React__default["default"].Component {
    * @param {event} event
    */
   handleInputChange(event) {
-    this.setState(forms_2(event, this.state));
+    this.setState(forms_6(event, this.state));
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
@@ -9274,7 +9304,7 @@ class VpnServerForm extends React.Component {
    * @param {event} event
    */
   handleInputChange(event) {
-    this.setState(forms_32(this.state, event));
+    this.setState(forms_36(this.state, event));
   }
   handleMultiSelectChange(name, value) {
     this.setState(this.setNameToValue(name, value));
@@ -9412,7 +9442,7 @@ class VpnServerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: forms_33(this.state.port, 1, 65535),
+      invalid: forms_37(this.state.port, 1, 65535),
       invalidText: "Must be a whole number between 1 and 65535.",
       className: "fieldWidthSmaller leftTextAlign"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
@@ -9441,7 +9471,7 @@ class VpnServerForm extends React.Component {
       hideSteppers: true,
       min: 0,
       max: 28800,
-      invalid: forms_33(this.state.client_idle_timeout, 0, 28800),
+      invalid: forms_37(this.state.client_idle_timeout, 0, 28800),
       invalidText: "Must be a whole number between 0 and 28800.",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
@@ -10917,7 +10947,7 @@ class CbrRuleForm extends React.Component {
     buildFormFunctions(this);
   }
   handleInputChange(event) {
-    this.setState(forms_13(this.state, event));
+    this.setState(forms_17(this.state, event));
   }
   render() {
     // set up props for subforms
@@ -11317,7 +11347,7 @@ class CbrZoneForm extends React.Component {
       labelText: "Account ID" // needed to override titlecase capitalization
       ,
       onChange: this.handleInputChange
-    }, forms_10("account_id", this.state.account_id)))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
+    }, forms_14("account_id", this.state.account_id)))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
       id: this.props.data.name + "-cbr-zone-description",
       className: "textInputWide",
       name: "description",
@@ -11737,7 +11767,7 @@ class DnsCustomResolverForm extends React__default["default"].Component {
    * @param {*} value value to update
    */
   handleInputChange(event) {
-    this.setState(forms_20(this.state, event));
+    this.setState(forms_24(this.state, event));
   }
 
   /**
@@ -11858,7 +11888,7 @@ class DnsForm extends React.Component {
     buildFormFunctions(this);
   }
   handleInputChange(event) {
-    this.setState(forms_21(event));
+    this.setState(forms_25(event));
   }
   render() {
     // set up props for subforms
@@ -12307,7 +12337,7 @@ class SecretsManagerChecklist extends React__default["default"].Component {
     this.toggleHide = this.toggleHide.bind(this);
   }
   onCheckClick(ref) {
-    let selected = forms_31(this.state.selected, ref, this.props.secrets);
+    let selected = forms_35(this.state.selected, ref, this.props.secrets);
     this.setState({
       selected: selected
     }, () => {
