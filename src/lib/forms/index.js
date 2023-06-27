@@ -36,10 +36,12 @@ const {
   handleSelectZones,
   handleSubnetTierToggle,
 } = require("./subnets");
+const { vpnRouteInputChange } = require("./vpn");
 const { vsiHandleInputChange } = require("./vsi");
 
 module.exports = {
   vsiHandleInputChange,
+  vpnRouteInputChange,
   handleSubnetTierToggle,
   parseZoneStrings,
   handleSelectZones,
