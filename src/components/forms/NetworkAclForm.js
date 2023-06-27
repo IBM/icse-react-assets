@@ -82,6 +82,7 @@ class NetworkAclForm extends Component {
         {!this.props.isModal && (
           // ability to move rules up and down
           <NetworkingRulesOrderCard
+            key={JSON.stringify(this.props.rules) + "-order-card"}
             {...this.props}
             rules={this.state.rules}
             vpc_name={this.props.vpc_name}

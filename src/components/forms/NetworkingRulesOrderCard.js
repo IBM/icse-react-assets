@@ -1,6 +1,6 @@
 import React, { Component, useEffect, useState } from "react";
 import NetworkingRuleForm from "./NetworkingRuleForm";
-import { containsKeys, contains, getObjectFromArray } from "lazy-z";
+import { deepEqual, contains, getObjectFromArray } from "lazy-z";
 import PropTypes from "prop-types";
 import { DynamicRender, IcseHeading, RenderForm } from "../Utils";
 import { SaveAddButton, UpDownButtons } from "../Buttons";
@@ -35,7 +35,7 @@ class NetworkingRulesOrderCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      rules: [...this.props.rules],
+      rules: JSON.parse(JSON.stringify(this.props.rules)),
       collapse: {},
       allCollapsed: false,
       showModal: false,
@@ -124,10 +124,17 @@ class NetworkingRulesOrderCard extends Component {
     return rule;
   }
 
+  componentDidUpdate(prevProps) {
+    console.log("running component did update in order card");
+    if (prevProps.rules !== this.props.rules) {
+      this.setState({ rules: this.props.rules });
+    }
+  }
+
   render() {
-    console.log("rules in order card", this.props.rules);
+    console.log("order card rerender", this.props.rules);
     return (
-      <>
+      <div key={JSON.stringify(this.props.rules) + "-container"}>
         <IcseHeading
           name="Rules"
           className="marginBottomSmall"
@@ -197,7 +204,7 @@ class NetworkingRulesOrderCard extends Component {
           showIfEmpty={this.state.rules}
         />
         <OrderCardDataTable
-          key={JSON.stringify(this.state.rules)}
+          key={JSON.stringify(this.props.rules) + "-oc-dt"}
           isSecurityGroup={this.props.isSecurityGroup}
           rules={this.state.rules}
           toggleEditModal={this.toggleEditModal}
@@ -238,7 +245,7 @@ class NetworkingRulesOrderCard extends Component {
             },
           })}
         </FormModal>
-      </>
+      </div>
     );
   }
 }
@@ -274,7 +281,7 @@ class OrderCardDataTable extends React.Component {
     super(props);
 
     this.state = {
-      rows: this.props.rules,
+      rows: JSON.parse(JSON.stringify(this.props.rules)),
       headers: [],
     };
 
@@ -286,8 +293,10 @@ class OrderCardDataTable extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.rules !== this.props.rules) {
-      console.log("update - rerunning setup");
+    console.log("component did update in data table");
+    console.log("prop stuff", prevProps, this.props);
+    if (!deepEqual(prevProps.rules, this.props.rules)) {
+      console.log("update - rerunning setup in data table");
       this.setupRowsAndHeaders();
     }
   }
@@ -306,7 +315,7 @@ class OrderCardDataTable extends React.Component {
       { key: "port", header: "Port" },
     ];
 
-    const rows = JSON.parse(JSON.stringify(rules));
+    let rows = JSON.parse(JSON.stringify(rules));
 
     // set up required data for each row
     rows.forEach((row) => {
@@ -341,7 +350,7 @@ class OrderCardDataTable extends React.Component {
       <DataTable
         headers={headers}
         rows={rows}
-        key={JSON.stringify(this.props.rules)}
+        key={JSON.stringify(rows) + "-dt"}
       >
         {({ rows, headers, getHeaderProps, getRowProps }) => (
           <TableContainer>
@@ -366,7 +375,7 @@ class OrderCardDataTable extends React.Component {
                   >
                     {row.cells.map((cell) => (
                       <TableCell
-                        key={cell.id}
+                        key={JSON.stringify(cell)}
                         onClick={
                           cell === row.cells[0] // check that it is the name column
                             ? () => this.props.toggleEditModal(cell.value)
@@ -374,8 +383,14 @@ class OrderCardDataTable extends React.Component {
                         }
                       >
                         {cell === row.cells[0] ? (
-                          <div className="displayFlex cursor-pointer">
-                            <Edit className="edit-margin-right" />
+                          <div
+                            className="displayFlex cursor-pointer"
+                            key={JSON.stringify(cell) + "-icon"}
+                          >
+                            <Edit
+                              className="edit-margin-right"
+                              key={JSON.stringify(cell) + "-edit"}
+                            />
                             {cell.value}
                           </div>
                         ) : cell === row.cells[row.cells.length - 1] ? (
@@ -388,11 +403,11 @@ class OrderCardDataTable extends React.Component {
                             disableDown={row === rows[rows.length - 1]}
                           />
                         ) : (
-                          <>
+                          <div key={JSON.stringify(cell) + "-port"}>
                             {contains(["tcp", "udp", "all", "icmp"], cell.value)
                               ? cell.value.toUpperCase()
                               : cell.value}
-                          </>
+                          </div>
                         )}
                       </TableCell>
                     ))}

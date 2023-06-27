@@ -6213,7 +6213,7 @@ class NetworkingRulesOrderCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      rules: [...this.props.rules],
+      rules: JSON.parse(JSON.stringify(this.props.rules)),
       collapse: {},
       allCollapsed: false,
       showModal: false,
@@ -6308,9 +6308,19 @@ class NetworkingRulesOrderCard extends React.Component {
     delete rule.udp;
     return rule;
   }
+  componentDidUpdate(prevProps) {
+    console.log("running component did update in order card");
+    if (prevProps.rules !== this.props.rules) {
+      this.setState({
+        rules: this.props.rules
+      });
+    }
+  }
   render() {
-    console.log("rules in order card", this.props.rules);
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+    console.log("order card rerender", this.props.rules);
+    return /*#__PURE__*/React__default["default"].createElement("div", {
+      key: JSON.stringify(this.props.rules) + "-container"
+    }, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
       name: "Rules",
       className: "marginBottomSmall",
       type: "subHeading",
@@ -6370,7 +6380,7 @@ class NetworkingRulesOrderCard extends React.Component {
       name: "Network Rules",
       showIfEmpty: this.state.rules
     }), /*#__PURE__*/React__default["default"].createElement(OrderCardDataTable, {
-      key: JSON.stringify(this.state.rules),
+      key: JSON.stringify(this.props.rules) + "-oc-dt",
       isSecurityGroup: this.props.isSecurityGroup,
       rules: this.state.rules,
       toggleEditModal: this.toggleEditModal,
@@ -6438,7 +6448,7 @@ class OrderCardDataTable extends React__default["default"].Component {
   constructor(props) {
     super(props);
     this.state = {
-      rows: this.props.rules,
+      rows: JSON.parse(JSON.stringify(this.props.rules)),
       headers: []
     };
     this.setupRowsAndHeaders = this.setupRowsAndHeaders.bind(this);
@@ -6447,8 +6457,10 @@ class OrderCardDataTable extends React__default["default"].Component {
     this.setupRowsAndHeaders();
   }
   componentDidUpdate(prevProps) {
-    if (prevProps.rules !== this.props.rules) {
-      console.log("update - rerunning setup");
+    console.log("component did update in data table");
+    console.log("prop stuff", prevProps, this.props);
+    if (!lazyZ.deepEqual(prevProps.rules, this.props.rules)) {
+      console.log("update - rerunning setup in data table");
       this.setupRowsAndHeaders();
     }
   }
@@ -6475,7 +6487,7 @@ class OrderCardDataTable extends React__default["default"].Component {
       key: "port",
       header: "Port"
     }];
-    const rows = JSON.parse(JSON.stringify(rules));
+    let rows = JSON.parse(JSON.stringify(rules));
 
     // set up required data for each row
     rows.forEach(row => {
@@ -6515,7 +6527,7 @@ class OrderCardDataTable extends React__default["default"].Component {
     return /*#__PURE__*/React__default["default"].createElement(react.DataTable, {
       headers: headers,
       rows: rows,
-      key: JSON.stringify(this.props.rules)
+      key: JSON.stringify(rows) + "-dt"
     }, _ref => {
       let {
         rows,
@@ -6532,13 +6544,15 @@ class OrderCardDataTable extends React__default["default"].Component {
       }, getRowProps({
         row
       })), row.cells.map(cell => /*#__PURE__*/React__default["default"].createElement(react.TableCell, {
-        key: cell.id,
+        key: JSON.stringify(cell),
         onClick: cell === row.cells[0] // check that it is the name column
         ? () => this.props.toggleEditModal(cell.value) : () => {}
       }, cell === row.cells[0] ? /*#__PURE__*/React__default["default"].createElement("div", {
-        className: "displayFlex cursor-pointer"
+        className: "displayFlex cursor-pointer",
+        key: JSON.stringify(cell) + "-icon"
       }, /*#__PURE__*/React__default["default"].createElement(iconsReact.Edit, {
-        className: "edit-margin-right"
+        className: "edit-margin-right",
+        key: JSON.stringify(cell) + "-edit"
       }), cell.value) : cell === row.cells[row.cells.length - 1] ? /*#__PURE__*/React__default["default"].createElement(UpDownButtons, {
         key: row.cells[0].value + "-up-down",
         name: row.cells[0].value,
@@ -6546,7 +6560,9 @@ class OrderCardDataTable extends React__default["default"].Component {
         handleDown: () => this.props.handleDown(index),
         disableUp: row === rows[0],
         disableDown: row === rows[rows.length - 1]
-      }) : /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, lazyZ.contains(["tcp", "udp", "all", "icmp"], cell.value) ? cell.value.toUpperCase() : cell.value))))))));
+      }) : /*#__PURE__*/React__default["default"].createElement("div", {
+        key: JSON.stringify(cell) + "-port"
+      }, lazyZ.contains(["tcp", "udp", "all", "icmp"], cell.value) ? cell.value.toUpperCase() : cell.value))))))));
     });
   }
 }
@@ -6619,7 +6635,9 @@ class NetworkAclForm extends React.Component {
     })), !this.props.isModal &&
     /*#__PURE__*/
     // ability to move rules up and down
-    React__default["default"].createElement(NetworkingRulesOrderCard, _extends({}, this.props, {
+    React__default["default"].createElement(NetworkingRulesOrderCard, _extends({
+      key: JSON.stringify(this.props.rules) + "-order-card"
+    }, this.props, {
       rules: this.state.rules,
       vpc_name: this.props.vpc_name,
       parent_name: this.props.data.name,
