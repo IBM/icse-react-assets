@@ -36,8 +36,10 @@ const {
   handleSelectZones,
   handleSubnetTierToggle,
 } = require("./subnets");
+const { vsiHandleInputChange } = require("./vsi");
 
 module.exports = {
+  vsiHandleInputChange,
   handleSubnetTierToggle,
   parseZoneStrings,
   handleSelectZones,
