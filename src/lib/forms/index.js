@@ -36,6 +36,7 @@ const {
   handleSelectZones,
   handleSubnetTierToggle,
 } = require("./subnets");
+const { vpnRouteInputChange } = require("./vpn");
 const {
   services,
   serviceGroups,
@@ -48,6 +49,7 @@ module.exports = {
   serviceGroups,
   vpeVpcDropdown,
   vpeServiceDropdown,
+  vpnRouteInputChange,
   handleSubnetTierToggle,
   parseZoneStrings,
   handleSelectZones,
