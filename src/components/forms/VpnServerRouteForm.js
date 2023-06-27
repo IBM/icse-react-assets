@@ -32,7 +32,6 @@ class VpnServerRouteForm extends React.Component {
       <IcseFormGroup>
         <IcseNameInput
           id={`${this.props.data.name}-name`}
-          componentName="vpn-server-name"
           value={this.state.name}
           onChange={this.handleInputChange}
           hideHelperText
@@ -41,11 +40,10 @@ class VpnServerRouteForm extends React.Component {
             this.props.invalidCallback(this.state, this.props)
           }
           invalidText={this.props.invalidTextCallback(this.state, this.props)}
+          forceKebabCase
         />
         <IcseTextInput
           id={`${this.props.data.name}-route-destination`}
-          componentName="vpn-server-route-destination"
-          name="destination"
           field="destination"
           value={this.state.destination}
           placeholder="x.x.x.x"
