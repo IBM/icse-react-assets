@@ -243,6 +243,17 @@ input:read-only {
 }
 
 /* buttons */
+.edit-view-btn:focus {
+  background-color: var(--white);
+}
+
+.cds--btn-tertiary:hover {
+  background-color: var(--blue);
+}
+
+.cds--btn-tertiary:hover > svg {
+  fill: white;
+}
 
 i.chevron > svg {
   display: block; /* remove extra padding on bottom of i which misaligns icon */

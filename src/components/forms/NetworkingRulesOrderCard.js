@@ -12,6 +12,8 @@ import {
   swapArrayElements,
   getOrderCardClassName,
 } from "../../lib/forms/";
+import { DataView, Edit } from "@carbon/icons-react";
+import OrderCardDataTable from "./OrderCardDataTable";
 
 class NetworkingRulesOrderCard extends Component {
   constructor(props) {
@@ -21,6 +23,7 @@ class NetworkingRulesOrderCard extends Component {
       collapse: {},
       allCollapsed: false,
       showModal: false,
+      showTable: true,
     };
 
     this.handleUp = this.handleUp.bind(this);
@@ -120,11 +123,22 @@ class NetworkingRulesOrderCard extends Component {
             <DynamicRender
               hide={this.props.hideCreate}
               show={
-                <SaveAddButton
-                  name={this.props.vpc_name}
-                  type="add"
-                  onClick={this.toggleModal}
-                />
+                <>
+                  <SaveAddButton
+                    type="custom"
+                    onClick={() => {
+                      this.setState({ showTable: !this.state.showTable });
+                    }}
+                    customIcon={this.state.showTable ? Edit : DataView}
+                    hoverText={this.state.showTable ? "Edit" : "View Data"}
+                    className="edit-view-btn"
+                  />
+                  <SaveAddButton
+                    name={this.props.vpc_name}
+                    type="add"
+                    onClick={this.toggleModal}
+                  />
+                </>
               }
             />
           }
@@ -180,41 +194,49 @@ class NetworkingRulesOrderCard extends Component {
           name="Network Rules"
           showIfEmpty={this.state.rules}
         />
-        {this.state.rules.map((rule, index) => (
-          <div
-            key={"rule-div-" + rule.name + "-wrapper"}
-            className={getOrderCardClassName(this.props)}
-          >
-            <NetworkingRuleForm
-              hide={this.state.collapse[rule.name]}
-              onToggle={() => this.toggleCollapse(rule.name)}
-              disableUp={index === 0}
-              handleUp={() => this.handleUp(index)}
-              disableDown={index === this.state.rules.length - 1}
-              handleDown={() => this.handleDown(index)}
-              key={JSON.stringify(rule)}
-              id={this.props.vpc_name + "-nw-rule-form-" + rule.name}
-              invalidCallback={this.props.invalidRuleText}
-              invalidTextCallback={this.props.invalidRuleTextCallback}
-              data={{
-                name: rule.name,
-                action: rule.action || null,
-                direction: rule.direction,
-                source: rule.source,
-                destination: rule.destination || null,
-                ruleProtocol: getRuleProtocol(rule),
-                rule: getSubRule(rule, this.props.isSecurityGroup),
-              }}
-              disableSaveCallback={this.props.disableSaveCallback}
-              isSecurityGroup={this.props.isSecurityGroup}
-              onSave={this.props.onRuleSave}
-              onDelete={this.props.onRuleDelete}
-              parent_name={this.props.parent_name}
-              innerFormProps={{ ...this.props }}
-              dev={this.props.dev}
-            />
-          </div>
-        ))}
+        {this.state.showTable ? (
+          <OrderCardDataTable
+            isSecurityGroup={this.props.isSecurityGroup}
+            rules={this.state.rules}
+            vpc_name={this.props.vpc_name}
+          />
+        ) : (
+          this.state.rules.map((rule, index) => (
+            <div
+              key={"rule-div-" + rule.name + "-wrapper"}
+              className={getOrderCardClassName(this.props)}
+            >
+              <NetworkingRuleForm
+                hide={this.state.collapse[rule.name]}
+                onToggle={() => this.toggleCollapse(rule.name)}
+                disableUp={index === 0}
+                handleUp={() => this.handleUp(index)}
+                disableDown={index === this.state.rules.length - 1}
+                handleDown={() => this.handleDown(index)}
+                key={JSON.stringify(rule)}
+                id={this.props.vpc_name + "-nw-rule-form-" + rule.name}
+                invalidCallback={this.props.invalidRuleText}
+                invalidTextCallback={this.props.invalidRuleTextCallback}
+                data={{
+                  name: rule.name,
+                  action: rule.action || null,
+                  direction: rule.direction,
+                  source: rule.source,
+                  destination: rule.destination || null,
+                  ruleProtocol: getRuleProtocol(rule),
+                  rule: getSubRule(rule, this.props.isSecurityGroup),
+                }}
+                disableSaveCallback={this.props.disableSaveCallback}
+                isSecurityGroup={this.props.isSecurityGroup}
+                onSave={this.props.onRuleSave}
+                onDelete={this.props.onRuleDelete}
+                parent_name={this.props.parent_name}
+                innerFormProps={{ ...this.props }}
+                dev={this.props.dev}
+              />
+            </div>
+          ))
+        )}
       </>
     );
   }
