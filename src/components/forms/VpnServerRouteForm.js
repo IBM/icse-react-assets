@@ -8,6 +8,7 @@ import { IcseNameInput, IcseTextInput } from "../Inputs";
 import { IcseFormGroup } from "../Utils";
 import { IcseSelect } from "../Dropdowns";
 import { isIpv4CidrOrAddress, titleCase, contains } from "lazy-z";
+import { vpnRouteInputChange } from "../../lib/forms";
 
 class VpnServerRouteForm extends React.Component {
   constructor(props) {
@@ -23,8 +24,7 @@ class VpnServerRouteForm extends React.Component {
    * @param {event} event
    */
   handleInputChange(event) {
-    let { name, value } = event.target;
-    this.setState({ [name]: value.toLowerCase() });
+    this.setState(vpnRouteInputChange(event, this.state));
   }
 
   render() {
