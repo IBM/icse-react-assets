@@ -17,6 +17,7 @@ import {
 import { DynamicRender, IcseFormGroup } from "../Utils";
 import IcseFormTemplate from "../IcseFormTemplate";
 import VsiVolumeForm from "./VsiVolumeForm";
+import { vsiHandleInputChange } from "../../lib/forms/vsi";
 
 class VsiForm extends Component {
   constructor(props) {
@@ -30,16 +31,7 @@ class VsiForm extends Component {
   }
 
   handleInputChange(event) {
-    let { name, value } = event.target;
-    let stateChangeParams = {
-      [name]: name === "vsi_per_subnet" && value !== "" ? Number(value) : value,
-    };
-    if (name === "vpc")
-      // Clear subnets and security groups when vpc changes
-      this.props.isTeleport
-        ? transpose({ subnet: "", security_groups: [] }, stateChangeParams)
-        : transpose({ subnets: [], security_groups: [] }, stateChangeParams);
-    this.setState(stateChangeParams);
+    this.setState(vsiHandleInputChange(event, this.state, this.props));
   }
 
   handleMultiSelectChange(name, value) {
@@ -65,15 +57,15 @@ class VsiForm extends Component {
           <IcseNameInput
             id={composedId}
             className="fieldWidthSmaller"
-            componentName={"vsi"}
             value={this.state.name}
             onChange={this.handleInputChange}
             invalid={this.props.invalidCallback(this.state, this.props)}
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
             hideHelperText
+            forceKebabCase
           />
           <IcseSelect
-            formName="vsi_form"
+            formName={composedId + "-rg"}
             name="resource_group"
             className="fieldWidthSmaller"
             labelText="Resource Group"
@@ -84,21 +76,21 @@ class VsiForm extends Component {
         </IcseFormGroup>
         <IcseFormGroup>
           <IcseSelect
-            formName="vsi_form"
+            formName={composedId + "-vpc"}
             name="vpc"
-            className="fieldWidthSmaller"
             labelText="VPC"
             groups={this.props.vpcList}
             value={this.state.vpc}
             handleInputChange={this.handleInputChange}
             invalid={checkNullorEmptyString(this.state.vpc)}
             invalidText="Select a VPC."
+            className="fieldWidthSmaller"
           />
           {/* subnets */}
           {this.props.isTeleport ? (
             // render dropdown for teleport instance
             <IcseSelect
-              formName="vsi_form"
+              formName={composedId + "-subnet"}
               name="subnet"
               className="fieldWidthSmaller"
               labelText="Subnet"
@@ -118,7 +110,7 @@ class VsiForm extends Component {
           ) : (
             <SubnetMultiSelect
               key={this.state.vpc + "-subnet"}
-              id="vsi-subnets"
+              id={composedId + "-vsi-subnets"}
               className="fieldWidthSmaller"
               initialSelectedItems={this.state.subnets}
               vpc_name={this.state.vpc}
@@ -150,7 +142,6 @@ class VsiForm extends Component {
           <NumberInput
             label="Instances per Subnet"
             id={composedId + "-vsi-per-subnet"}
-            allowEmpty={false}
             value={this.state.vsi_per_subnet}
             defaultValue={1}
             max={10}
@@ -162,7 +153,7 @@ class VsiForm extends Component {
             className="fieldWidthSmaller leftTextAlign"
           />
           <FetchSelect
-            formName="vsi_form"
+            formName={composedId + "-image"}
             labelText="Image"
             name="image_name"
             className="fieldWidthSmaller"
@@ -171,7 +162,7 @@ class VsiForm extends Component {
             value={this.state.image_name}
           />
           <FetchSelect
-            formName="vsi_form"
+            formName={composedId + "-profile"}
             labelText="Profile"
             name="profile"
             className="fieldWidthSmaller"
@@ -182,7 +173,7 @@ class VsiForm extends Component {
         </IcseFormGroup>
         <IcseFormGroup>
           <SshKeyMultiSelect
-            id="sshkey"
+            id={composedId + "-sshkey"}
             className="fieldWidthSmaller"
             sshKeys={this.props.sshKeys}
             initialSelectedItems={this.state.ssh_keys || []}
@@ -191,7 +182,7 @@ class VsiForm extends Component {
             }
           />
           <IcseSelect
-            formName="vsi_form"
+            formName={composedId + "-encryption_key"}
             name="encryption_key"
             className="fieldWidthSmaller"
             labelText="Encryption Key"
