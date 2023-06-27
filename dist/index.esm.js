@@ -1,6 +1,6 @@
 import '@carbon/styles/css/styles.css';
 import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, TextArea, PasswordInput, NumberInput, Dropdown, Tag, Checkbox } from '@carbon/react';
-import lazyZ, { titleCase as titleCase$2, kebabCase as kebabCase$5, isEmpty, buildNumberDropdownList, contains as contains$5, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$7, transpose as transpose$1, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, getObjectFromArray, splat as splat$2, deepEqual, parseIntFromZone as parseIntFromZone$1, snakeCase as snakeCase$1, distinct, isWholeNumber as isWholeNumber$2, isInRange as isInRange$1, eachKey } from 'lazy-z';
+import lazyZ, { titleCase as titleCase$2, kebabCase as kebabCase$5, isEmpty, buildNumberDropdownList, contains as contains$5, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$7, transpose as transpose$2, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, getObjectFromArray, splat as splat$2, deepEqual, parseIntFromZone as parseIntFromZone$1, snakeCase as snakeCase$1, distinct, isWholeNumber as isWholeNumber$2, isInRange as isInRange$1, eachKey } from 'lazy-z';
 import regexButWithWords from 'regex-but-with-words';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -1161,7 +1161,7 @@ var f5Vsi_2 = f5Vsi.f5Vsis;
 
 const {
   allFieldsNull,
-  transpose
+  transpose: transpose$1
 } = lazyZ;
 
 /**
@@ -1198,7 +1198,7 @@ function getSubRule$1(rule, isSecurityGroup) {
     code: null
   };
   if (getRuleProtocol$1(rule) !== "all") {
-    transpose(rule[getRuleProtocol$1(rule)], defaultRule);
+    transpose$1(rule[getRuleProtocol$1(rule)], defaultRule);
   }
   if (isSecurityGroup) {
     delete defaultRule.source_port_min;
@@ -1421,6 +1421,41 @@ var vpn = {
 };
 
 const {
+  transpose
+} = lazyZ;
+
+/**
+ *
+ * @param {Object} event
+ * @param {Object} stateData
+ * @param {Object} componentProps
+ */
+function vsiHandleInputChange$1(event, stateData, componentProps) {
+  let {
+    name,
+    value
+  } = event.target;
+  let stateChangeParams = {
+    ...stateData
+  };
+  stateChangeParams[name] = name === "vsi_per_subnet" && value !== "" ? Number(value) : value;
+  if (name === "vpc")
+    // Clear subnets and security groups when vpc changes
+    componentProps.isTeleport ? transpose({
+      subnet: "",
+      security_groups: []
+    }, stateChangeParams) : transpose({
+      subnets: [],
+      security_groups: []
+    }, stateChangeParams);
+  return stateChangeParams;
+}
+var vsi = {
+  vsiHandleInputChange: vsiHandleInputChange$1
+};
+var vsi_1 = vsi.vsiHandleInputChange;
+
+const {
   handlePgwToggle
 } = vpc;
 const {
@@ -1482,7 +1517,11 @@ const {
 const {
   vpnRouteInputChange
 } = vpn;
+const {
+  vsiHandleInputChange
+} = vsi;
 var forms = {
+  vsiHandleInputChange,
   vpnRouteInputChange,
   handleSubnetTierToggle,
   parseZoneStrings,
@@ -1516,25 +1555,25 @@ var forms = {
   vpnServerRangeInvalid,
   handlePgwToggle
 };
-var forms_1 = forms.vpnRouteInputChange;
-var forms_2 = forms.handleSubnetTierToggle;
-var forms_3 = forms.parseZoneStrings;
-var forms_4 = forms.handleSelectZones;
-var forms_8 = forms.cbrInvalid;
-var forms_11 = forms.handleRuleInputChange;
-var forms_18 = forms.handleDnsResolverInputChange;
-var forms_19 = forms.dnsFormInputChange;
-var forms_20 = forms.atrackerInputChange;
-var forms_21 = forms.handleRgToggle;
-var forms_22 = forms.handleCRNs;
-var forms_23 = forms.handleVpcSelect;
-var forms_24 = forms.getRuleProtocol;
-var forms_25 = forms.getSubRule;
-var forms_26 = forms.swapArrayElements;
-var forms_27 = forms.getOrderCardClassName;
-var forms_29 = forms.onCheckClick;
-var forms_30 = forms.handleVpnServerInputChange;
-var forms_31 = forms.vpnServerRangeInvalid;
+var forms_2 = forms.vpnRouteInputChange;
+var forms_3 = forms.handleSubnetTierToggle;
+var forms_4 = forms.parseZoneStrings;
+var forms_5 = forms.handleSelectZones;
+var forms_9 = forms.cbrInvalid;
+var forms_12 = forms.handleRuleInputChange;
+var forms_19 = forms.handleDnsResolverInputChange;
+var forms_20 = forms.dnsFormInputChange;
+var forms_21 = forms.atrackerInputChange;
+var forms_22 = forms.handleRgToggle;
+var forms_23 = forms.handleCRNs;
+var forms_24 = forms.handleVpcSelect;
+var forms_25 = forms.getRuleProtocol;
+var forms_26 = forms.getSubRule;
+var forms_27 = forms.swapArrayElements;
+var forms_28 = forms.getOrderCardClassName;
+var forms_30 = forms.onCheckClick;
+var forms_31 = forms.handleVpnServerInputChange;
+var forms_32 = forms.vpnServerRangeInvalid;
 
 const {
   toggleMarginBottom,
@@ -3919,7 +3958,7 @@ class AppIdForm extends Component {
       invalidTextCallback: this.props.invalidKeyTextCallback,
       arrayParentName: this.props.data.name
     };
-    transpose$1({
+    transpose$2({
       ...this.props.keyProps
     }, keyProps);
     let composedClassName = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
@@ -4031,7 +4070,7 @@ class AtrackerForm extends Component {
    * @param {*} value value to update
    */
   handleInputChange(event) {
-    this.setState(forms_20(this.state, event));
+    this.setState(forms_21(this.state, event));
   }
 
   /**
@@ -4376,7 +4415,7 @@ class ClusterForm extends Component {
       invalidCallback: this.props.invalidPoolCallback,
       subnetList: this.props.subnetList
     };
-    transpose$1({
+    transpose$2({
       ...this.props.workerPoolProps
     }, innerFormProps);
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
@@ -5987,7 +6026,7 @@ class KeyManagementForm extends Component {
       invalidRingText: this.props.invalidRingText,
       arrayParentName: this.props.data.name
     };
-    transpose$1({
+    transpose$2({
       ...this.props.encryptionKeyProps
     }, innerFormProps);
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
@@ -6520,7 +6559,7 @@ class NetworkingRulesOrderCard extends Component {
   handleUp(index) {
     let prevRulesState = [...this.state.rules];
     if (index !== 0) {
-      forms_26(prevRulesState, index, index - 1);
+      forms_27(prevRulesState, index, index - 1);
     }
     this.props.networkRuleOrderDidChange(prevRulesState);
     this.setState({
@@ -6536,7 +6575,7 @@ class NetworkingRulesOrderCard extends Component {
     let prevRulesState = [...this.state.rules];
     let maxLen = prevRulesState.length - 1;
     if (index !== maxLen) {
-      forms_26(prevRulesState, index, index + 1);
+      forms_27(prevRulesState, index, index + 1);
     }
     this.props.networkRuleOrderDidChange(prevRulesState);
     this.setState({
@@ -6613,7 +6652,7 @@ class NetworkingRulesOrderCard extends Component {
       showIfEmpty: this.state.rules
     }), this.state.rules.map((rule, index) => /*#__PURE__*/React.createElement("div", {
       key: "rule-div-" + rule.name + "-wrapper",
-      className: forms_27(this.props)
+      className: forms_28(this.props)
     }, /*#__PURE__*/React.createElement(NetworkingRuleForm, {
       hide: this.state.collapse[rule.name],
       onToggle: () => this.toggleCollapse(rule.name),
@@ -6631,8 +6670,8 @@ class NetworkingRulesOrderCard extends Component {
         direction: rule.direction,
         source: rule.source,
         destination: rule.destination || null,
-        ruleProtocol: forms_24(rule),
-        rule: forms_25(rule, this.props.isSecurityGroup)
+        ruleProtocol: forms_25(rule),
+        rule: forms_26(rule, this.props.isSecurityGroup)
       },
       disableSaveCallback: this.props.disableSaveCallback,
       isSecurityGroup: this.props.isSecurityGroup,
@@ -6998,7 +7037,7 @@ class ObjectStorageInstancesForm extends Component {
       arrayParentName: this.props.data.name,
       parent_name: this.props.data.name
     };
-    transpose$1({
+    transpose$2({
       ...this.props.bucketProps
     }, bucketInnerFormProps);
     let keyInnerFormProps = {
@@ -7007,7 +7046,7 @@ class ObjectStorageInstancesForm extends Component {
       composedNameCallback: this.props.composedNameCallback,
       arrayParentName: this.props.data.name
     };
-    transpose$1({
+    transpose$2({
       ...this.props.keyProps
     }, keyInnerFormProps);
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
@@ -7143,7 +7182,7 @@ class ResourceGroupForm extends Component {
    * @param {string} name name of the object key to change
    */
   handleToggle(name) {
-    this.setState(forms_21(this.state, name));
+    this.setState(forms_22(this.state, name));
   }
 
   /**
@@ -7336,7 +7375,7 @@ class RoutingTableForm extends Component {
       invalidTextCallback: this.props.invalidRouteTextCallback,
       invalidCallback: this.props.invalidRouteCallback
     };
-    transpose$1({
+    transpose$2({
       ...this.props.routeProps
     }, innerFormProps);
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
@@ -8229,7 +8268,7 @@ class SubnetTierForm extends React.Component {
    * @param {Object} event
    */
   handleSelectZones(event) {
-    this.setState(forms_4(event, this.state));
+    this.setState(forms_5(event, this.state));
   }
 
   /**
@@ -8237,7 +8276,7 @@ class SubnetTierForm extends React.Component {
    * @param {string} name
    */
   handleSubnetTierToggle(name) {
-    this.setState(forms_2(name, this.state));
+    this.setState(forms_3(name, this.state));
   }
 
   /**
@@ -8361,7 +8400,7 @@ class SubnetTierForm extends React.Component {
       invalid: this.state.select_zones.length === 0,
       invalidText: "Select at least one zone",
       items: ["1", "2", "3"],
-      initialSelectedItems: forms_3(this.state, this.props),
+      initialSelectedItems: forms_4(this.state, this.props),
       onChange: this.handleSelectZones
     }) : /*#__PURE__*/React.createElement(IcseNumberSelect, {
       max: 3,
@@ -8576,7 +8615,7 @@ class TransitGatewayForm extends Component {
    * @param {event} event
    */
   handleCRNs(event) {
-    this.setState(forms_22(event));
+    this.setState(forms_23(event));
   }
 
   /**
@@ -8584,7 +8623,7 @@ class TransitGatewayForm extends Component {
    * @param {Array} selectedItems
    */
   handleVpcSelect(selectedItems) {
-    this.setState(forms_23(selectedItems, this.state.name));
+    this.setState(forms_24(selectedItems, this.state.name));
   }
   render() {
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
@@ -9136,7 +9175,7 @@ class VpnServerRouteForm extends React.Component {
    * @param {event} event
    */
   handleInputChange(event) {
-    this.setState(forms_1(event, this.state));
+    this.setState(forms_2(event, this.state));
   }
   render() {
     return /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
@@ -9207,7 +9246,7 @@ class VpnServerForm extends Component {
    * @param {event} event
    */
   handleInputChange(event) {
-    this.setState(forms_30(this.state, event));
+    this.setState(forms_31(this.state, event));
   }
   handleMultiSelectChange(name, value) {
     this.setState(this.setNameToValue(name, value));
@@ -9233,7 +9272,7 @@ class VpnServerForm extends Component {
       arrayParentName: this.props.data.name,
       parent_name: this.props.data.name
     };
-    transpose$1({
+    transpose$2({
       ...this.props.vpnServerRouteProps
     }, routeProps);
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
@@ -9345,7 +9384,7 @@ class VpnServerForm extends Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: forms_31(this.state.port, 1, 65535),
+      invalid: forms_32(this.state.port, 1, 65535),
       invalidText: "Must be a whole number between 1 and 65535.",
       className: "fieldWidthSmaller leftTextAlign"
     }), /*#__PURE__*/React.createElement(IcseSelect, {
@@ -9374,7 +9413,7 @@ class VpnServerForm extends Component {
       hideSteppers: true,
       min: 0,
       max: 28800,
-      invalid: forms_31(this.state.client_idle_timeout, 0, 28800),
+      invalid: forms_32(this.state.client_idle_timeout, 0, 28800),
       invalidText: "Must be a whole number between 0 and 28800.",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
@@ -9574,23 +9613,7 @@ class VsiForm extends Component {
     buildFormDefaultInputMethods(this);
   }
   handleInputChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    let stateChangeParams = {
-      [name]: name === "vsi_per_subnet" && value !== "" ? Number(value) : value
-    };
-    if (name === "vpc")
-      // Clear subnets and security groups when vpc changes
-      this.props.isTeleport ? transpose$1({
-        subnet: "",
-        security_groups: []
-      }, stateChangeParams) : transpose$1({
-        subnets: [],
-        security_groups: []
-      }, stateChangeParams);
-    this.setState(stateChangeParams);
+    this.setState(vsi_1(event, this.state, this.props));
   }
   handleMultiSelectChange(name, value) {
     this.setState(this.setNameToValue(name, value));
@@ -9606,20 +9629,20 @@ class VsiForm extends Component {
       arrayParentName: this.props.data.name,
       parent_name: this.props.data.name
     };
-    transpose$1({
+    transpose$2({
       ...this.props.vsiVolumeProps
     }, volumeProps);
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
       id: composedId,
       className: "fieldWidthSmaller",
-      componentName: "vsi",
       value: this.state.name,
       onChange: this.handleInputChange,
       invalid: this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props),
-      hideHelperText: true
+      hideHelperText: true,
+      forceKebabCase: true
     }), /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: "vsi_form",
+      formName: composedId + "-rg",
       name: "resource_group",
       className: "fieldWidthSmaller",
       labelText: "Resource Group",
@@ -9627,20 +9650,20 @@ class VsiForm extends Component {
       value: this.state.resource_group,
       handleInputChange: this.handleInputChange
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: "vsi_form",
+      formName: composedId + "-vpc",
       name: "vpc",
-      className: "fieldWidthSmaller",
       labelText: "VPC",
       groups: this.props.vpcList,
       value: this.state.vpc,
       handleInputChange: this.handleInputChange,
       invalid: lib_9(this.state.vpc),
-      invalidText: "Select a VPC."
+      invalidText: "Select a VPC.",
+      className: "fieldWidthSmaller"
     }), this.props.isTeleport ?
     /*#__PURE__*/
     // render dropdown for teleport instance
     React.createElement(IcseSelect, {
-      formName: "vsi_form",
+      formName: composedId + "-subnet",
       name: "subnet",
       className: "fieldWidthSmaller",
       labelText: "Subnet",
@@ -9651,7 +9674,7 @@ class VsiForm extends Component {
       invalidText: lib_9(this.state.vpc) ? `No VPC Selected.` : `Select a Subnet.`
     }) : /*#__PURE__*/React.createElement(SubnetMultiSelect, {
       key: this.state.vpc + "-subnet",
-      id: "vsi-subnets",
+      id: composedId + "-vsi-subnets",
       className: "fieldWidthSmaller",
       initialSelectedItems: this.state.subnets,
       vpc_name: this.state.vpc,
@@ -9670,7 +9693,6 @@ class VsiForm extends Component {
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NumberInput, {
       label: "Instances per Subnet",
       id: composedId + "-vsi-per-subnet",
-      allowEmpty: false,
       value: this.state.vsi_per_subnet,
       defaultValue: 1,
       max: 10,
@@ -9681,7 +9703,7 @@ class VsiForm extends Component {
       invalidText: "Please input a number 1-10",
       className: "fieldWidthSmaller leftTextAlign"
     }), /*#__PURE__*/React.createElement(FetchSelect, {
-      formName: "vsi_form",
+      formName: composedId + "-image",
       labelText: "Image",
       name: "image_name",
       className: "fieldWidthSmaller",
@@ -9689,7 +9711,7 @@ class VsiForm extends Component {
       handleInputChange: this.handleInputChange,
       value: this.state.image_name
     }), /*#__PURE__*/React.createElement(FetchSelect, {
-      formName: "vsi_form",
+      formName: composedId + "-profile",
       labelText: "Profile",
       name: "profile",
       className: "fieldWidthSmaller",
@@ -9697,13 +9719,13 @@ class VsiForm extends Component {
       handleInputChange: this.handleInputChange,
       value: this.state.profile
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(SshKeyMultiSelect, {
-      id: "sshkey",
+      id: composedId + "-sshkey",
       className: "fieldWidthSmaller",
       sshKeys: this.props.sshKeys,
       initialSelectedItems: this.state.ssh_keys || [],
       onChange: value => this.handleMultiSelectChange("ssh_keys", value)
     }), /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: "vsi_form",
+      formName: composedId + "-encryption_key",
       name: "encryption_key",
       className: "fieldWidthSmaller",
       labelText: "Encryption Key",
@@ -10564,7 +10586,7 @@ class AccessGroupForm extends React.Component {
       arrayParentName: this.props.data.name,
       helperTextCallback: this.props.dynamicPolicyHelperTextCallback
     };
-    transpose$1({
+    transpose$2({
       ...this.props.dynamicPolicyProps
     }, dynamicPolicyProps);
     let policyProps = {
@@ -10573,7 +10595,7 @@ class AccessGroupForm extends React.Component {
       arrayParentName: this.props.data.name,
       helperTextCallback: this.props.policyHelperTextCallback
     };
-    transpose$1({
+    transpose$2({
       ...this.props.policyProps
     }, policyProps);
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
@@ -10867,22 +10889,22 @@ class CbrRuleForm extends Component {
     buildFormFunctions(this);
   }
   handleInputChange(event) {
-    this.setState(forms_11(this.state, event));
+    this.setState(forms_12(this.state, event));
   }
   render() {
     // set up props for subforms
     let contextInnerFormProps = {};
-    transpose$1({
+    transpose$2({
       ...this.props.contextProps,
       arrayParentName: this.props.data.name
     }, contextInnerFormProps);
     let resourceAttributeInnerFormProps = {};
-    transpose$1({
+    transpose$2({
       ...this.props.resourceAttributeProps,
       arrayParentName: this.props.data.name
     }, resourceAttributeInnerFormProps);
     let tagInnerFormProps = {};
-    transpose$1({
+    transpose$2({
       ...this.props.tagProps,
       arrayParentName: this.props.data.name
     }, tagInnerFormProps);
@@ -11236,7 +11258,7 @@ class CbrZoneForm extends Component {
       invalidTextCallback: this.props.invalidExclusionTextCallback,
       arrayParentName: this.props.data.name
     };
-    transpose$1({
+    transpose$2({
       ...this.props.exclusionProps
     }, exclusionInnerFormProps);
     let addressInnerFormProps = {
@@ -11245,7 +11267,7 @@ class CbrZoneForm extends Component {
       arrayParentName: this.props.data.name,
       type: "address"
     };
-    transpose$1({
+    transpose$2({
       ...this.props.addressProps
     }, addressInnerFormProps);
     return /*#__PURE__*/React.createElement("div", {
@@ -11267,7 +11289,7 @@ class CbrZoneForm extends Component {
       labelText: "Account ID" // needed to override titlecase capitalization
       ,
       onChange: this.handleInputChange
-    }, forms_8("account_id", this.state.account_id)))), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
+    }, forms_9("account_id", this.state.account_id)))), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
       id: this.props.data.name + "-cbr-zone-description",
       className: "textInputWide",
       name: "description",
@@ -11687,7 +11709,7 @@ class DnsCustomResolverForm extends React.Component {
    * @param {*} value value to update
    */
   handleInputChange(event) {
-    this.setState(forms_18(this.state, event));
+    this.setState(forms_19(this.state, event));
   }
 
   /**
@@ -11808,22 +11830,22 @@ class DnsForm extends Component {
     buildFormFunctions(this);
   }
   handleInputChange(event) {
-    this.setState(forms_19(event));
+    this.setState(forms_20(event));
   }
   render() {
     // set up props for subforms
     let zoneInnerFormProps = {};
-    transpose$1({
+    transpose$2({
       ...this.props.zoneProps,
       arrayParentName: this.props.data.name
     }, zoneInnerFormProps);
     let recordInnerFormProps = {};
-    transpose$1({
+    transpose$2({
       ...this.props.recordProps,
       arrayParentName: this.props.data.name
     }, recordInnerFormProps);
     let resolverInnerFormProps = {};
-    transpose$1({
+    transpose$2({
       ...this.props.resolverProps,
       arrayParentName: this.props.data.name
     }, resolverInnerFormProps);
@@ -12257,7 +12279,7 @@ class SecretsManagerChecklist extends React.Component {
     this.toggleHide = this.toggleHide.bind(this);
   }
   onCheckClick(ref) {
-    let selected = forms_29(this.state.selected, ref, this.props.secrets);
+    let selected = forms_30(this.state.selected, ref, this.props.secrets);
     this.setState({
       selected: selected
     }, () => {
