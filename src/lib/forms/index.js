@@ -36,8 +36,18 @@ const {
   handleSelectZones,
   handleSubnetTierToggle,
 } = require("./subnets");
+const {
+  services,
+  serviceGroups,
+  vpeVpcDropdown,
+  vpeServiceDropdown,
+} = require("./vpe");
 
 module.exports = {
+  services,
+  serviceGroups,
+  vpeVpcDropdown,
+  vpeServiceDropdown,
   handleSubnetTierToggle,
   parseZoneStrings,
   handleSelectZones,

@@ -8,26 +8,12 @@ import { IcseNameInput } from "../Inputs";
 import { IcseSelect } from "../Dropdowns";
 import { SecurityGroupMultiSelect, SubnetMultiSelect } from "../MultiSelects";
 import PropTypes from "prop-types";
-
-const services = {
-  hpcs: "Hyper Protect Crypto Services",
-  kms: "Key Protect",
-  cos: "Object Storage",
-  icr: "Container Registry",
-  "Hyper Protect Crypto Services": "hpcs",
-  "Key Protect": "kms",
-  "Object Storage": "cos",
-  "Container Registry": "icr",
-  "secrets-manager": "Secrets Manager",
-  "Secrets Manager": "secrets-manager",
-};
-const serviceGroups = [
-  "Hyper Protect Crypto Services",
-  "Key Protect",
-  "Object Storage",
-  "Container Registry",
-  "Secrets Manager",
-];
+import {
+  services,
+  serviceGroups,
+  vpeVpcDropdown,
+  vpeServiceDropdown,
+} from "../../lib/forms";
 
 /**
  * Vpe Form
@@ -40,7 +26,6 @@ class VpeForm extends Component {
     this.handleServiceDropdown = this.handleServiceDropdown.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleMultiSelect = this.handleMultiSelect.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
@@ -58,11 +43,7 @@ class VpeForm extends Component {
    * @param {event} event event
    */
   handleVpcDropdown(event) {
-    this.setState({
-      vpc: event.target.value,
-      security_groups: [],
-      subnets: [],
-    });
+    this.setState(vpeVpcDropdown(event));
   }
 
   /**
@@ -70,17 +51,7 @@ class VpeForm extends Component {
    * @param {event} event event
    */
   handleServiceDropdown(event) {
-    this.setState({
-      service: services[event.target.value],
-    });
-  }
-
-  /**
-   * Toggle on and off param in state at name
-   * @param {string} name name of the object key to change
-   */
-  handleToggle(name) {
-    this.setState({ [name]: !this.state[name] });
+    this.setState(vpeServiceDropdown(event));
   }
 
   /**
@@ -88,7 +59,7 @@ class VpeForm extends Component {
    * @param {event} event
    */
   handleMultiSelect(name, event) {
-    this.setState({ [name]: event });
+    this.setState(this.setNameToValue(name, event));
   }
 
   render() {
