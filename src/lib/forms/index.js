@@ -38,6 +38,7 @@ const {
 } = require("./subnets");
 const { vpnRouteInputChange } = require("./vpn");
 const { vsiHandleInputChange } = require("./vsi");
+const { handleVpnGatewayChange } = require("./vpn-gateways");
 const {
   services,
   serviceGroups,
@@ -55,6 +56,7 @@ module.exports = {
   handleSubnetTierToggle,
   parseZoneStrings,
   handleSelectZones,
+  handleVpnGatewayChange,
   f5Vsis,
   f5VsiInputChange,
   routingTableRouteInputChange,
