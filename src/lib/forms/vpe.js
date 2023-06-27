@@ -18,6 +18,12 @@ const serviceGroups = [
   "Secrets Manager",
 ];
 
+/**
+ * handle vpc dropdown
+ * @param {Object} event
+ * @param {Object} stateData
+ * @returns {object} new state
+ */
 function vpeVpcDropdown(event, stateData) {
   let state = { ...stateData };
   state.vpc = event.target.value;
@@ -25,7 +31,12 @@ function vpeVpcDropdown(event, stateData) {
   state.subnets = [];
   return state;
 }
-
+/**
+ * handle service dropdown
+ * @param {Object} event
+ * @param {Object} stateData
+ * @returns {object} new state
+ */
 function vpeServiceDropdown(event, stateData) {
   let state = { ...stateData };
   state.service = services[event.target.value];
