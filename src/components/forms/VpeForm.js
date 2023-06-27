@@ -43,7 +43,7 @@ class VpeForm extends Component {
    * @param {event} event event
    */
   handleVpcDropdown(event) {
-    this.setState(vpeVpcDropdown(event));
+    this.setState(vpeVpcDropdown(event, this.state));
   }
 
   /**
@@ -51,7 +51,7 @@ class VpeForm extends Component {
    * @param {event} event event
    */
   handleServiceDropdown(event) {
-    this.setState(vpeServiceDropdown(event));
+    this.setState(vpeServiceDropdown(event, this.state));
   }
 
   /**

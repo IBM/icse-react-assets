@@ -1412,6 +1412,13 @@ const services$1 = {
   "Secrets Manager": "secrets-manager"
 };
 const serviceGroups$1 = ["Hyper Protect Crypto Services", "Key Protect", "Object Storage", "Container Registry", "Secrets Manager"];
+
+/**
+ * handle vpc dropdown
+ * @param {Object} event
+ * @param {Object} stateData
+ * @returns {object} new state
+ */
 function vpeVpcDropdown$1(event, stateData) {
   let state = {
     ...stateData
@@ -1421,6 +1428,12 @@ function vpeVpcDropdown$1(event, stateData) {
   state.subnets = [];
   return state;
 }
+/**
+ * handle service dropdown
+ * @param {Object} event
+ * @param {Object} stateData
+ * @returns {object} new state
+ */
 function vpeServiceDropdown$1(event, stateData) {
   let state = {
     ...stateData
@@ -8887,7 +8900,7 @@ class VpeForm extends Component {
    * @param {event} event event
    */
   handleVpcDropdown(event) {
-    this.setState(forms_3(event));
+    this.setState(forms_3(event, this.state));
   }
 
   /**
@@ -8895,7 +8908,7 @@ class VpeForm extends Component {
    * @param {event} event event
    */
   handleServiceDropdown(event) {
-    this.setState(forms_4(event));
+    this.setState(forms_4(event, this.state));
   }
 
   /**
