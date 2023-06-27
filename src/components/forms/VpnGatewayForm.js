@@ -8,7 +8,7 @@ import { IcseNameInput } from "../Inputs";
 import { IcseSelect } from "../Dropdowns";
 import PropTypes from "prop-types";
 import { checkNullorEmptyString } from "../../lib";
-import { splat } from "lazy-z";
+import { handleVpnGatewayChange } from "../../lib/forms";
 
 /**
  * vpn gateway form
@@ -27,21 +27,7 @@ class VpnGatewayForm extends Component {
    * @param {event} event
    */
   handleInputChange(event) {
-    if (event.target.name === "vpc") {
-      this.setState({
-        vpc: event.target.value,
-        subnet: "",
-      });
-    } else if (
-      event.target.name === "subnet" &&
-      checkNullorEmptyString(this.state.vpc)
-    ) {
-      this.setState({
-        subnet: "",
-      });
-    } else {
-      this.setState(this.eventTargetToNameAndValue(event));
-    }
+    this.setState(handleVpnGatewayChange(event));
   }
 
   render() {
@@ -64,7 +50,7 @@ class VpnGatewayForm extends Component {
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
           />
           <IcseSelect
-            formName="resource_group"
+            formName={this.props.data.name + "-resource_group"}
             name="resource_group"
             labelText="Resource Group"
             groups={this.props.resourceGroups}
@@ -78,7 +64,7 @@ class VpnGatewayForm extends Component {
         <IcseFormGroup>
           <IcseSelect
             id={composedId}
-            formName="vpc"
+            formName={this.props.data.name + "-vpn-" + this.state.vpc}
             name="vpc"
             labelText="VPC"
             groups={this.props.vpcList}
