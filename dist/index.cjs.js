@@ -1468,7 +1468,7 @@ var vsi_1 = vsi.vsiHandleInputChange;
 
 /**
  * handle change for vpn gateway
- * @param {*} event 
+ * @param {*} event
  * @returns {object} state object
  */
 function handleVpnGatewayChange$1(event) {
@@ -1536,6 +1536,66 @@ var vpe = {
   serviceGroups: serviceGroups$1,
   vpeVpcDropdown: vpeVpcDropdown$1,
   vpeServiceDropdown: vpeServiceDropdown$1
+};
+
+/**
+ * initialize worker pool state
+ * @param {*} props
+ * @returns {Object} state initialization object
+ */
+
+function workerPoolInit$1(props) {
+  return props.isModal ? {
+    name: "",
+    flavor: props.cluster.flavor,
+    subnets: props.cluster.subnets || [],
+    vpc: props.cluster.vpc,
+    workers_per_subnet: props.cluster.workers_per_subnet,
+    entitlement: props.cluster.entitlement
+  } : {
+    ...props.data
+  };
+}
+
+/**
+ * handle worker pool input change
+ * @param {*} event
+ * @param {*} stateData
+ * @returns {Object} state data changed
+ */
+function workerPoolInputChange$1(event, stateData) {
+  let {
+    name,
+    value
+  } = event.target;
+  let pool = {
+    ...stateData
+  };
+  if (name === "workers_per_subnet") {
+    pool[name] = Number(value);
+  } else {
+    pool[name] = value === "null" ? null : value;
+  }
+  return pool;
+}
+
+/**
+ * handle worker pool subnet change
+ * @param {*} subnets
+ * @param {*} stateData
+ * @returns {Object} state data object
+ */
+function workerPoolSubnetChange$1(subnets, stateData) {
+  let pool = {
+    ...stateData
+  };
+  pool.subnets = subnets;
+  return pool;
+}
+var workerPools = {
+  workerPoolInit: workerPoolInit$1,
+  workerPoolInputChange: workerPoolInputChange$1,
+  workerPoolSubnetChange: workerPoolSubnetChange$1
 };
 
 const {
@@ -1612,7 +1672,15 @@ const {
   vpeVpcDropdown,
   vpeServiceDropdown
 } = vpe;
+const {
+  workerPoolInit,
+  workerPoolInputChange,
+  workerPoolSubnetChange
+} = workerPools;
 var forms = {
+  workerPoolSubnetChange,
+  workerPoolInputChange,
+  workerPoolInit,
   services,
   serviceGroups,
   vpeVpcDropdown,
@@ -1652,30 +1720,33 @@ var forms = {
   vpnServerRangeInvalid,
   handlePgwToggle
 };
-var forms_1 = forms.services;
-var forms_2 = forms.serviceGroups;
-var forms_3 = forms.vpeVpcDropdown;
-var forms_4 = forms.vpeServiceDropdown;
-var forms_6 = forms.vpnRouteInputChange;
-var forms_7 = forms.handleSubnetTierToggle;
-var forms_8 = forms.parseZoneStrings;
-var forms_9 = forms.handleSelectZones;
-var forms_10 = forms.handleVpnGatewayChange;
-var forms_14 = forms.cbrInvalid;
-var forms_17 = forms.handleRuleInputChange;
-var forms_24 = forms.handleDnsResolverInputChange;
-var forms_25 = forms.dnsFormInputChange;
-var forms_26 = forms.atrackerInputChange;
-var forms_27 = forms.handleRgToggle;
-var forms_28 = forms.handleCRNs;
-var forms_29 = forms.handleVpcSelect;
-var forms_30 = forms.getRuleProtocol;
-var forms_31 = forms.getSubRule;
-var forms_32 = forms.swapArrayElements;
-var forms_33 = forms.getOrderCardClassName;
-var forms_35 = forms.onCheckClick;
-var forms_36 = forms.handleVpnServerInputChange;
-var forms_37 = forms.vpnServerRangeInvalid;
+var forms_1 = forms.workerPoolSubnetChange;
+var forms_2 = forms.workerPoolInputChange;
+var forms_3 = forms.workerPoolInit;
+var forms_4 = forms.services;
+var forms_5 = forms.serviceGroups;
+var forms_6 = forms.vpeVpcDropdown;
+var forms_7 = forms.vpeServiceDropdown;
+var forms_9 = forms.vpnRouteInputChange;
+var forms_10 = forms.handleSubnetTierToggle;
+var forms_11 = forms.parseZoneStrings;
+var forms_12 = forms.handleSelectZones;
+var forms_13 = forms.handleVpnGatewayChange;
+var forms_17 = forms.cbrInvalid;
+var forms_20 = forms.handleRuleInputChange;
+var forms_27 = forms.handleDnsResolverInputChange;
+var forms_28 = forms.dnsFormInputChange;
+var forms_29 = forms.atrackerInputChange;
+var forms_30 = forms.handleRgToggle;
+var forms_31 = forms.handleCRNs;
+var forms_32 = forms.handleVpcSelect;
+var forms_33 = forms.getRuleProtocol;
+var forms_34 = forms.getSubRule;
+var forms_35 = forms.swapArrayElements;
+var forms_36 = forms.getOrderCardClassName;
+var forms_38 = forms.onCheckClick;
+var forms_39 = forms.handleVpnServerInputChange;
+var forms_40 = forms.vpnServerRangeInvalid;
 
 const {
   toggleMarginBottom,
@@ -4172,7 +4243,7 @@ class AtrackerForm extends React.Component {
    * @param {*} value value to update
    */
   handleInputChange(event) {
-    this.setState(forms_26(this.state, event));
+    this.setState(forms_29(this.state, event));
   }
 
   /**
@@ -4333,54 +4404,24 @@ AtrackerForm.propTypes = {
 class WorkerPoolForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.props.isModal ? {
-      name: "",
-      flavor: this.props.cluster.flavor,
-      subnets: this.props.cluster.subnets || [],
-      vpc: this.props.cluster.vpc,
-      workers_per_subnet: this.props.cluster.workers_per_subnet,
-      entitlement: this.props.cluster.entitlement
-    } : {
-      ...this.props.data
-    }, this.handleInputChange = this.handleInputChange.bind(this);
+    this.state = forms_3(this.props);
+    this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubnetChange = this.handleSubnetChange.bind(this);
     buildFormFunctions(this);
   }
-
-  // Handle pool input change
   handleInputChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    let pool = {
-      ...this.state
-    };
-    if (name === "workers_per_subnet") {
-      pool[name] = Number(value);
-    } else {
-      pool[name] = value === "null" ? null : value;
-    }
-    this.setState(pool);
+    this.setState(forms_2(event, this.state));
   }
-
-  // Handle subnet multiselect change
-  handleSubnetChange(event) {
-    let pool = {
-      ...this.state
-    };
-    pool.subnets = event;
-    this.setState(pool);
+  handleSubnetChange(subnets) {
+    this.setState(forms_1(subnets, this.state));
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       id: this.state.name + "-name",
       componentName: "Worker Pools",
       onChange: this.handleInputChange,
-      componentProps: this.props,
       value: this.state.name,
       className: "fieldWidthSmaller",
-      placeholder: "my-worker-pool-name",
       hideHelperText: true,
       invalid: this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props)
@@ -4455,6 +4496,55 @@ WorkerPoolForm.propTypes = {
   invalidTextCallback: PropTypes__default["default"].func.isRequired
 };
 
+const WorkerPools = props => {
+  return props.isModal ? "" : /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "Worker Pools",
+    subHeading: true,
+    addText: "Create a Worker Pool",
+    arrayData: props.worker_pools,
+    innerForm: WorkerPoolForm,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    innerFormProps: {
+      subnetList: props.subnetList,
+      cluster: props.cluster,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      flavorApiEndpoint: props.flavorApiEndpoint,
+      craig: props.craig
+    },
+    hideAbout: true,
+    toggleFormProps: {
+      hideName: true,
+      submissionFieldName: "worker_pools",
+      disableSave: props.disableSave,
+      type: "formInSubForm"
+    }
+  });
+};
+WorkerPools.defaultProps = {
+  isModal: false
+};
+WorkerPools.propTypes = {
+  isModal: PropTypes__default["default"].bool.isRequired,
+  worker_pools: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})),
+  disableSave: PropTypes__default["default"].func,
+  onDelete: PropTypes__default["default"].func,
+  onSave: PropTypes__default["default"].func,
+  onSubmit: PropTypes__default["default"].func,
+  propsMatchState: PropTypes__default["default"].func,
+  subnetList: PropTypes__default["default"].array,
+  cluster: PropTypes__default["default"].shape({}).isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  arrayParentName: PropTypes__default["default"].string,
+  flavorApiEndpoint: PropTypes__default["default"].string,
+  craig: PropTypes__default["default"].shape({})
+};
+
 class ClusterForm extends React.Component {
   constructor(props) {
     super(props);
@@ -4510,16 +4600,6 @@ class ClusterForm extends React.Component {
   }
   render() {
     let clusterComponent = this.props.isModal ? "new-cluster" : this.props.data.name;
-    let innerFormProps = {
-      arrayParentName: this.props.data.name,
-      cluster: this.props.data,
-      invalidTextCallback: this.props.invalidPoolTextCallback,
-      invalidCallback: this.props.invalidPoolCallback,
-      subnetList: this.props.subnetList
-    };
-    lazyZ.transpose({
-      ...this.props.workerPoolProps
-    }, innerFormProps);
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       id: this.state.name + "-name",
       labelText: "Cluster Name",
@@ -4632,28 +4712,20 @@ class ClusterForm extends React.Component {
       toggleFieldName: "private_endpoint",
       defaultToggled: this.state.private_endpoint,
       onToggle: this.handleToggle
-    })), /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, this.props.isModal === false && /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
-      name: "Worker Pools",
-      subHeading: true,
-      addText: "Create a Worker Pool",
-      arrayData: this.props.data.worker_pools,
-      innerForm: WorkerPoolForm,
+    })), /*#__PURE__*/React__default["default"].createElement(WorkerPools, {
+      worker_pools: this.props.data.worker_pools,
       disableSave: this.props.workerPoolProps.disableSave,
       onDelete: this.props.workerPoolProps.onDelete,
       onSave: this.props.workerPoolProps.onSave,
       onSubmit: this.props.workerPoolProps.onSubmit,
       propsMatchState: this.props.propsMatchState,
-      innerFormProps: {
-        ...innerFormProps
-      },
-      hideAbout: true,
-      toggleFormProps: {
-        hideName: true,
-        submissionFieldName: "worker_pools",
-        disableSave: this.props.workerPoolProps.disableSave,
-        type: "formInSubForm"
-      }
-    })));
+      cluster: this.props.data,
+      invalidCallback: this.props.invalidPoolCallback,
+      invalidTextCallback: this.props.invalidPoolCallback,
+      subnetList: this.props.subnetList,
+      craig: this.props.workerPoolProps.craig,
+      flavorApiEndpoint: this.props.workerPoolProps.flavorApiEndpoint
+    }));
   }
 }
 ClusterForm.defaultProps = {
@@ -6661,7 +6733,7 @@ class NetworkingRulesOrderCard extends React.Component {
   handleUp(index) {
     let prevRulesState = [...this.state.rules];
     if (index !== 0) {
-      forms_32(prevRulesState, index, index - 1);
+      forms_35(prevRulesState, index, index - 1);
     }
     this.props.networkRuleOrderDidChange(prevRulesState);
     this.setState({
@@ -6677,7 +6749,7 @@ class NetworkingRulesOrderCard extends React.Component {
     let prevRulesState = [...this.state.rules];
     let maxLen = prevRulesState.length - 1;
     if (index !== maxLen) {
-      forms_32(prevRulesState, index, index + 1);
+      forms_35(prevRulesState, index, index + 1);
     }
     this.props.networkRuleOrderDidChange(prevRulesState);
     this.setState({
@@ -6754,7 +6826,7 @@ class NetworkingRulesOrderCard extends React.Component {
       showIfEmpty: this.state.rules
     }), this.state.rules.map((rule, index) => /*#__PURE__*/React__default["default"].createElement("div", {
       key: "rule-div-" + rule.name + "-wrapper",
-      className: forms_33(this.props)
+      className: forms_36(this.props)
     }, /*#__PURE__*/React__default["default"].createElement(NetworkingRuleForm, {
       hide: this.state.collapse[rule.name],
       onToggle: () => this.toggleCollapse(rule.name),
@@ -6772,8 +6844,8 @@ class NetworkingRulesOrderCard extends React.Component {
         direction: rule.direction,
         source: rule.source,
         destination: rule.destination || null,
-        ruleProtocol: forms_30(rule),
-        rule: forms_31(rule, this.props.isSecurityGroup)
+        ruleProtocol: forms_33(rule),
+        rule: forms_34(rule, this.props.isSecurityGroup)
       },
       disableSaveCallback: this.props.disableSaveCallback,
       isSecurityGroup: this.props.isSecurityGroup,
@@ -7284,7 +7356,7 @@ class ResourceGroupForm extends React.Component {
    * @param {string} name name of the object key to change
    */
   handleToggle(name) {
-    this.setState(forms_27(this.state, name));
+    this.setState(forms_30(this.state, name));
   }
 
   /**
@@ -8370,7 +8442,7 @@ class SubnetTierForm extends React__default["default"].Component {
    * @param {Object} event
    */
   handleSelectZones(event) {
-    this.setState(forms_9(event, this.state));
+    this.setState(forms_12(event, this.state));
   }
 
   /**
@@ -8378,7 +8450,7 @@ class SubnetTierForm extends React__default["default"].Component {
    * @param {string} name
    */
   handleSubnetTierToggle(name) {
-    this.setState(forms_7(name, this.state));
+    this.setState(forms_10(name, this.state));
   }
 
   /**
@@ -8502,7 +8574,7 @@ class SubnetTierForm extends React__default["default"].Component {
       invalid: this.state.select_zones.length === 0,
       invalidText: "Select at least one zone",
       items: ["1", "2", "3"],
-      initialSelectedItems: forms_8(this.state, this.props),
+      initialSelectedItems: forms_11(this.state, this.props),
       onChange: this.handleSelectZones
     }) : /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
       max: 3,
@@ -8717,7 +8789,7 @@ class TransitGatewayForm extends React.Component {
    * @param {event} event
    */
   handleCRNs(event) {
-    this.setState(forms_28(event));
+    this.setState(forms_31(event));
   }
 
   /**
@@ -8725,7 +8797,7 @@ class TransitGatewayForm extends React.Component {
    * @param {Array} selectedItems
    */
   handleVpcSelect(selectedItems) {
-    this.setState(forms_29(selectedItems, this.state.name));
+    this.setState(forms_32(selectedItems, this.state.name));
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
@@ -9004,7 +9076,7 @@ class VpeForm extends React.Component {
    * @param {event} event event
    */
   handleVpcDropdown(event) {
-    this.setState(forms_3(event, this.state));
+    this.setState(forms_6(event, this.state));
   }
 
   /**
@@ -9012,7 +9084,7 @@ class VpeForm extends React.Component {
    * @param {event} event event
    */
   handleServiceDropdown(event) {
-    this.setState(forms_4(event, this.state));
+    this.setState(forms_7(event, this.state));
   }
 
   /**
@@ -9045,8 +9117,8 @@ class VpeForm extends React.Component {
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       name: "service",
       formName: this.props.data.name + "vpce-service",
-      groups: forms_2,
-      value: forms_1[this.state.service],
+      groups: forms_5,
+      value: forms_4[this.state.service],
       labelText: "Service Type",
       handleInputChange: this.handleServiceDropdown,
       className: "fieldWidthSmaller"
@@ -9141,7 +9213,7 @@ class VpnGatewayForm extends React.Component {
    * @param {event} event
    */
   handleInputChange(event) {
-    this.setState(forms_10(event));
+    this.setState(forms_13(event));
   }
   render() {
     let composedId = `vpn-gateway-form-${this.props.data.name}-`;
@@ -9233,7 +9305,7 @@ class VpnServerRouteForm extends React__default["default"].Component {
    * @param {event} event
    */
   handleInputChange(event) {
-    this.setState(forms_6(event, this.state));
+    this.setState(forms_9(event, this.state));
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
@@ -9304,7 +9376,7 @@ class VpnServerForm extends React.Component {
    * @param {event} event
    */
   handleInputChange(event) {
-    this.setState(forms_36(this.state, event));
+    this.setState(forms_39(this.state, event));
   }
   handleMultiSelectChange(name, value) {
     this.setState(this.setNameToValue(name, value));
@@ -9442,7 +9514,7 @@ class VpnServerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: forms_37(this.state.port, 1, 65535),
+      invalid: forms_40(this.state.port, 1, 65535),
       invalidText: "Must be a whole number between 1 and 65535.",
       className: "fieldWidthSmaller leftTextAlign"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
@@ -9471,7 +9543,7 @@ class VpnServerForm extends React.Component {
       hideSteppers: true,
       min: 0,
       max: 28800,
-      invalid: forms_37(this.state.client_idle_timeout, 0, 28800),
+      invalid: forms_40(this.state.client_idle_timeout, 0, 28800),
       invalidText: "Must be a whole number between 0 and 28800.",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
@@ -10947,7 +11019,7 @@ class CbrRuleForm extends React.Component {
     buildFormFunctions(this);
   }
   handleInputChange(event) {
-    this.setState(forms_17(this.state, event));
+    this.setState(forms_20(this.state, event));
   }
   render() {
     // set up props for subforms
@@ -11347,7 +11419,7 @@ class CbrZoneForm extends React.Component {
       labelText: "Account ID" // needed to override titlecase capitalization
       ,
       onChange: this.handleInputChange
-    }, forms_14("account_id", this.state.account_id)))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
+    }, forms_17("account_id", this.state.account_id)))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
       id: this.props.data.name + "-cbr-zone-description",
       className: "textInputWide",
       name: "description",
@@ -11767,7 +11839,7 @@ class DnsCustomResolverForm extends React__default["default"].Component {
    * @param {*} value value to update
    */
   handleInputChange(event) {
-    this.setState(forms_24(this.state, event));
+    this.setState(forms_27(this.state, event));
   }
 
   /**
@@ -11888,7 +11960,7 @@ class DnsForm extends React.Component {
     buildFormFunctions(this);
   }
   handleInputChange(event) {
-    this.setState(forms_25(event));
+    this.setState(forms_28(event));
   }
   render() {
     // set up props for subforms
@@ -12143,14 +12215,6 @@ class LogDNAForm extends React.Component {
       labelText: "Plan",
       invalidText: "Select a plan."
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: this.props.data.name + "-logdna-endpoints",
-      name: "endpoints",
-      labelText: "Endpoint",
-      value: lazyZ.titleCase(this.state.endpoints).replace(/And/g, "and"),
-      groups: ["Private", "Public", "Public and Private"],
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       name: "resource_group",
       formName: `${this.props.data.name}-logdna-rg-select`,
       groups: this.props.resourceGroups,
@@ -12195,7 +12259,6 @@ LogDNAForm.defaultProps = {
   data: {
     enabled: false,
     plan: "7-day",
-    endpoints: "private",
     resource_group: "",
     bucket: "",
     archive: false,
@@ -12208,7 +12271,6 @@ LogDNAForm.propTypes = {
   data: PropTypes__default["default"].shape({
     enabled: PropTypes__default["default"].bool,
     plan: PropTypes__default["default"].string,
-    endpoints: PropTypes__default["default"].string,
     resource_group: PropTypes__default["default"].string,
     bucket: PropTypes__default["default"].string,
     archive: PropTypes__default["default"].bool,
@@ -12337,7 +12399,7 @@ class SecretsManagerChecklist extends React__default["default"].Component {
     this.toggleHide = this.toggleHide.bind(this);
   }
   onCheckClick(ref) {
-    let selected = forms_35(this.state.selected, ref, this.props.secrets);
+    let selected = forms_38(this.state.selected, ref, this.props.secrets);
     this.setState({
       selected: selected
     }, () => {

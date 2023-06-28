@@ -46,7 +46,7 @@ const SecretsManagerFormStory = () => {
         name: "Example",
         resource_group: "default",
         encryption_key: "key1",
-        secrets: exampleData
+        secrets: exampleData,
       }}
       secrets={exampleData}
       resourceGroups={["default_group", "foo", "bar"]}

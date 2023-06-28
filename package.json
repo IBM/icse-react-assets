@@ -27,6 +27,7 @@
     "dev": "npm-run-all --parallel build-watch start-playground",
     "storybook": "npm-run-all --parallel build-watch start-storybook",
     "predeploy": "cd storybook && npm run build-storybook",
+    "pretty": "npx prettier --write .",
     "deploy-storybook": "gh-pages -d ./storybook/storybook-static"
   },
   "eslintConfig": {

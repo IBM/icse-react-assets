@@ -1,7 +1,6 @@
-
 /**
  * handle change for vpn gateway
- * @param {*} event 
+ * @param {*} event
  * @returns {object} state object
  */
 function handleVpnGatewayChange(event) {
@@ -18,5 +17,5 @@ function handleVpnGatewayChange(event) {
 }
 
 module.exports = {
-    handleVpnGatewayChange
-}
+  handleVpnGatewayChange,
+};

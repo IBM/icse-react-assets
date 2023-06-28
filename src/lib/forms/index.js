@@ -45,8 +45,16 @@ const {
   vpeVpcDropdown,
   vpeServiceDropdown,
 } = require("./vpe");
+const {
+  workerPoolInit,
+  workerPoolInputChange,
+  workerPoolSubnetChange,
+} = require("./worker-pools");
 
 module.exports = {
+  workerPoolSubnetChange,
+  workerPoolInputChange,
+  workerPoolInit,
   services,
   serviceGroups,
   vpeVpcDropdown,
