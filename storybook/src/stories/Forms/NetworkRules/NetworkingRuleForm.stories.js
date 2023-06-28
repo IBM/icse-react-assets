@@ -4,7 +4,7 @@ import { contains } from "lazy-z";
 
 export default {
   component: NetworkingRuleForm,
-  title: "Components/Forms/NetworkingRuleForm",
+  title: "Components/Forms/NetworkRules/NetworkingRuleForm",
   argTypes: {
     disableUp: {
       description:

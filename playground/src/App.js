@@ -1,64 +1,133 @@
 import React from "react";
+import { NetworkingRulesOrderCard } from "icse-react-assets";
+import { contains } from "lazy-z";
+
 import "./App.css";
-import { SecretsManagerForm } from "icse-react-assets";
 
-const exampleData = [
-  {
-    cos: "atracker-cos",
-    key: "cos-bind-key",
-    ref: "ibm_resource_key.atracker_cos_object_storage_key_cos_bind_key",
-  },
-  {
-    appid: "default",
-    key: "test",
-    ref: "ibm_resource_key.default_key_test",
-  },
-  {
-    ref: "ibm_resource_key.logdna_key",
-    key: "logdna-key",
-  },
-  {
-    ref: "ibm_resource_key.sysdig_key",
-    key: "sysdig-key",
-  },
-];
-
-const SecretsManagerFormStory = () => {
-  function validName(str) {
-    const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
-    if (str) return str.match(regex) !== null;
-    else return false;
-  }
-
+const NetworkingRulesOrderCardSgStory = () => {
   function invalidCallback(stateData, componentProps) {
-    return !validName(stateData.name);
+    return contains(["foo", "bar"], stateData.name);
   }
 
   function invalidTextCallback(stateData, componentProps) {
-    return !validName(stateData.name)
-      ? `Name ${stateData.name} is invalid.`
+    return contains(["foo", "bar"], stateData.name)
+      ? `Rule name ${stateData.name} already in use.`
       : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
   }
 
+  function shouldDisableSave(stateData, componentProps) {
+    return false;
+  }
+
+  function disableModalSubmit(stateData, componentProps) {
+    return false;
+  }
+
+  function networkRuleOrderDidChange(newRulesOrder) {
+    // add logic here to save reordered network rules
+  }
+
+  function onSubmitCallback(newRulesOrder) {
+    // add logic here to create new rule
+  }
+
+  function onRuleSave(stateData, componentProp) {
+    // add logic here to save rule
+  }
+
+  function onRuleDelete(stateData, componentProp) {
+    // add logic here to delete rule
+  }
+
   return (
-    <SecretsManagerForm
-      data={{
-        name: "Example",
-        resource_group: "default",
-        encryption_key: "key1",
-        secrets: exampleData,
-      }}
-      secrets={exampleData}
-      resourceGroups={["default_group", "foo", "bar"]}
-      encryptionKeys={["default_key", "foo"]}
-      invalidCallback={invalidCallback}
-      invalidTextCallback={invalidTextCallback}
+    <NetworkingRulesOrderCard
+      vpc_name="example-vpc"
+      parent_name="example-security-group"
+      invalidRuleText={invalidCallback}
+      invalidRuleTextCallback={invalidTextCallback}
+      networkRuleOrderDidChange={networkRuleOrderDidChange}
+      rules={[
+        {
+          action: "allow",
+          destination: "10.0.0.0/8",
+          direction: "inbound",
+          name: "allow-ibm-inbound",
+          source: "161.26.0.0/16",
+          icmp: {
+            type: 22,
+            code: 22,
+          },
+          tcp: {
+            port_min: null,
+            port_max: null,
+            source_port_min: null,
+            source_port_max: null,
+          },
+          udp: {
+            port_min: null,
+            port_max: null,
+            source_port_min: null,
+            source_port_max: null,
+          },
+        },
+        {
+          action: "allow",
+          destination: "10.0.0.0/8",
+          direction: "inbound",
+          name: "allow-all-network-inbound",
+          source: "10.0.0.0/8",
+          icmp: {
+            type: null,
+            code: null,
+          },
+          tcp: {
+            port_min: 23,
+            port_max: 25,
+            source_port_min: 24444,
+            source_port_max: 24445,
+          },
+          udp: {
+            port_min: null,
+            port_max: null,
+            source_port_min: null,
+            source_port_max: null,
+          },
+        },
+        {
+          action: "allow",
+          destination: "0.0.0.0/0",
+          direction: "outbound",
+          name: "allow-all-outbound",
+          source: "0.0.0.0/0",
+          icmp: {
+            type: null,
+            code: null,
+          },
+          tcp: {
+            port_min: null,
+            port_max: null,
+            source_port_min: null,
+            source_port_max: null,
+          },
+          udp: {
+            port_min: null,
+            port_max: null,
+            source_port_min: null,
+            source_port_max: null,
+          },
+        },
+      ]}
+      disableSaveCallback={shouldDisableSave}
+      disableModalSubmitCallback={disableModalSubmit}
+      onSubmitCallback={onSubmitCallback}
+      onRuleSave={onRuleSave}
+      onRuleDelete={onRuleDelete}
     />
   );
 };
 
 function App() {
-  return <SecretsManagerFormStory />;
+  return <NetworkingRulesOrderCardSgStory />;
 }
 
 export default App;

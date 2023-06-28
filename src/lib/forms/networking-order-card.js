@@ -55,6 +55,12 @@ function swapArrayElements(arr, indexA, indexB) {
   arr[indexB] = temp;
 }
 
+/**
+ *
+ * @param {Object} props
+ * @param {bool} props.isSecurityGroup
+ * @returns {string} classname
+ */
 function getOrderCardClassName(props) {
   return (
     "marginBottomSmall positionRelative " +
@@ -62,9 +68,61 @@ function getOrderCardClassName(props) {
   );
 }
 
+/**
+ * set up rows and headers
+ * @param {Object} componentProps
+ * @param {array} componentProps.rules
+ * @param {bool} componentProps.isSecurityGroup
+ * @returns {object} rows, headers for data table
+ */
+function setupRowsAndHeaders(componentProps) {
+  const { rules, isSecurityGroup } = { ...componentProps };
+
+  const headers = [
+    {
+      key: "name",
+      header: "Name",
+    },
+    { key: "direction", header: "Direction" },
+    { key: "source", header: "Source" },
+    { key: "protocol", header: "Protocol" },
+    { key: "port", header: "Port" },
+  ];
+
+  const rows = JSON.parse(JSON.stringify(rules));
+
+  // set up required data for each row
+  rows.forEach((row) => {
+    row.protocol = getRuleProtocol(row);
+    row.id = row.name;
+    row.port =
+      row.protocol === "all"
+        ? "ALL"
+        : row.protocol === "icmp"
+        ? row.icmp.code
+        : `${row[row.protocol].port_min}-${row[row.protocol].port_max}`;
+    delete row.icmp;
+    delete row.tcp;
+    delete row.udp;
+  });
+
+  // add in action and destination if not security group
+  if (!isSecurityGroup) {
+    headers.splice(1, 0, {
+      // add extra fields if not security group
+      key: "action",
+      header: "Action",
+    });
+    headers.splice(4, 0, { key: "destination", header: "Destination" });
+  }
+
+  return { rows: rows, headers: headers };
+}
+
 module.exports = {
   getRuleProtocol,
   getSubRule,
   swapArrayElements,
   getOrderCardClassName,
+  setupRowsAndHeaders,
 };

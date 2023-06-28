@@ -101,3 +101,4 @@ export { default as DnsForm } from "./forms/dns/DnsForm";
 export { default as LogDNAForm } from "./forms/LogDNAForm";
 export { default as SysdigForm } from "./forms/SysdigForm";
 export { default as SecretsManagerChecklist } from "./forms/SecretsManagerChecklist";
+export { default as OrderCardDataTable } from "./forms/OrderCardDataTable";
