@@ -77,15 +77,6 @@ class LogDNAForm extends Component {
         </IcseFormGroup>
         <IcseFormGroup>
           <IcseSelect
-            formName={this.props.data.name + "-logdna-endpoints"}
-            name="endpoints"
-            labelText="Endpoint"
-            value={titleCase(this.state.endpoints).replace(/And/g, "and")}
-            groups={["Private", "Public", "Public and Private"]}
-            handleInputChange={this.handleInputChange}
-            className="fieldWidthSmaller"
-          />
-          <IcseSelect
             name="resource_group"
             formName={`${this.props.data.name}-logdna-rg-select`}
             groups={this.props.resourceGroups}
@@ -139,7 +130,6 @@ LogDNAForm.defaultProps = {
   data: {
     enabled: false,
     plan: "7-day",
-    endpoints: "private",
     resource_group: "",
     bucket: "",
     archive: false,
@@ -153,7 +143,6 @@ LogDNAForm.propTypes = {
   data: PropTypes.shape({
     enabled: PropTypes.bool,
     plan: PropTypes.string,
-    endpoints: PropTypes.string,
     resource_group: PropTypes.string,
     bucket: PropTypes.string,
     archive: PropTypes.bool,

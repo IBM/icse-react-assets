@@ -39,8 +39,26 @@ const {
 const { vpnRouteInputChange } = require("./vpn");
 const { vsiHandleInputChange } = require("./vsi");
 const { handleVpnGatewayChange } = require("./vpn-gateways");
+const {
+  services,
+  serviceGroups,
+  vpeVpcDropdown,
+  vpeServiceDropdown,
+} = require("./vpe");
+const {
+  workerPoolInit,
+  workerPoolInputChange,
+  workerPoolSubnetChange,
+} = require("./worker-pools");
 
 module.exports = {
+  workerPoolSubnetChange,
+  workerPoolInputChange,
+  workerPoolInit,
+  services,
+  serviceGroups,
+  vpeVpcDropdown,
+  vpeServiceDropdown,
   vsiHandleInputChange,
   vpnRouteInputChange,
   handleSubnetTierToggle,

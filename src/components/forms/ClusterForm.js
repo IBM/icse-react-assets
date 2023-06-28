@@ -17,6 +17,7 @@ import { SubnetMultiSelect } from "../MultiSelects";
 import IcseFormTemplate from "../IcseFormTemplate";
 import PropTypes from "prop-types";
 import { transpose } from "lazy-z";
+import { WorkerPools } from "../crud-form-pages";
 
 class ClusterForm extends Component {
   constructor(props) {
@@ -67,14 +68,6 @@ class ClusterForm extends Component {
     let clusterComponent = this.props.isModal
       ? "new-cluster"
       : this.props.data.name;
-    let innerFormProps = {
-      arrayParentName: this.props.data.name,
-      cluster: this.props.data,
-      invalidTextCallback: this.props.invalidPoolTextCallback,
-      invalidCallback: this.props.invalidPoolCallback,
-      subnetList: this.props.subnetList,
-    };
-    transpose({ ...this.props.workerPoolProps }, innerFormProps);
     return (
       <>
         <IcseFormGroup>
@@ -243,30 +236,20 @@ class ClusterForm extends Component {
             onToggle={this.handleToggle}
           />
         </IcseFormGroup>
-        <>
-          {this.props.isModal === false && (
-            <IcseFormTemplate
-              name="Worker Pools"
-              subHeading
-              addText="Create a Worker Pool"
-              arrayData={this.props.data.worker_pools}
-              innerForm={WorkerPoolForm}
-              disableSave={this.props.workerPoolProps.disableSave}
-              onDelete={this.props.workerPoolProps.onDelete}
-              onSave={this.props.workerPoolProps.onSave}
-              onSubmit={this.props.workerPoolProps.onSubmit}
-              propsMatchState={this.props.propsMatchState}
-              innerFormProps={{ ...innerFormProps }}
-              hideAbout
-              toggleFormProps={{
-                hideName: true,
-                submissionFieldName: "worker_pools",
-                disableSave: this.props.workerPoolProps.disableSave,
-                type: "formInSubForm",
-              }}
-            />
-          )}
-        </>
+        <WorkerPools
+          worker_pools={this.props.data.worker_pools}
+          disableSave={this.props.workerPoolProps.disableSave}
+          onDelete={this.props.workerPoolProps.onDelete}
+          onSave={this.props.workerPoolProps.onSave}
+          onSubmit={this.props.workerPoolProps.onSubmit}
+          propsMatchState={this.props.propsMatchState}
+          cluster={this.props.data}
+          invalidCallback={this.props.invalidPoolCallback}
+          invalidTextCallback={this.props.invalidPoolCallback}
+          subnetList={this.props.subnetList}
+          craig={this.props.workerPoolProps.craig}
+          flavorApiEndpoint={this.props.workerPoolProps.flavorApiEndpoint}
+        />
       </>
     );
   }

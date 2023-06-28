@@ -5,42 +5,27 @@ import { EntitlementSelect, FetchSelect, IcseNumberSelect } from "../Dropdowns";
 import { SubnetMultiSelect } from "../MultiSelects";
 import { IcseFormGroup } from "../Utils";
 import PropTypes from "prop-types";
+import {
+  workerPoolInit,
+  workerPoolInputChange,
+  workerPoolSubnetChange,
+} from "../../lib/forms";
 
 class WorkerPoolForm extends Component {
   constructor(props) {
     super(props);
-    (this.state = this.props.isModal
-      ? {
-          name: "",
-          flavor: this.props.cluster.flavor,
-          subnets: this.props.cluster.subnets || [],
-          vpc: this.props.cluster.vpc,
-          workers_per_subnet: this.props.cluster.workers_per_subnet,
-          entitlement: this.props.cluster.entitlement,
-        }
-      : { ...this.props.data }),
-      (this.handleInputChange = this.handleInputChange.bind(this));
+    this.state = workerPoolInit(this.props);
+    this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubnetChange = this.handleSubnetChange.bind(this);
     buildFormFunctions(this);
   }
 
-  // Handle pool input change
   handleInputChange(event) {
-    let { name, value } = event.target;
-    let pool = { ...this.state };
-    if (name === "workers_per_subnet") {
-      pool[name] = Number(value);
-    } else {
-      pool[name] = value === "null" ? null : value;
-    }
-    this.setState(pool);
+    this.setState(workerPoolInputChange(event, this.state));
   }
 
-  // Handle subnet multiselect change
-  handleSubnetChange(event) {
-    let pool = { ...this.state };
-    pool.subnets = event;
-    this.setState(pool);
+  handleSubnetChange(subnets) {
+    this.setState(workerPoolSubnetChange(subnets, this.state));
   }
 
   render() {
@@ -52,10 +37,8 @@ class WorkerPoolForm extends Component {
             id={this.state.name + "-name"}
             componentName="Worker Pools"
             onChange={this.handleInputChange}
-            componentProps={this.props}
             value={this.state.name}
             className="fieldWidthSmaller"
-            placeholder="my-worker-pool-name"
             hideHelperText
             invalid={this.props.invalidCallback(this.state, this.props)}
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
