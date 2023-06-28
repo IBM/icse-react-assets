@@ -10,8 +10,6 @@ import {
 } from "@carbon/react";
 import React, { Component } from "react";
 import { contains } from "lazy-z";
-import { UpDownButtons } from "../Buttons";
-import { Edit } from "@carbon/icons-react";
 import PropTypes from "prop-types";
 import { setupRowsAndHeaders } from "../../lib/forms/networking-order-card";
 
@@ -20,6 +18,12 @@ class OrderCardDataTable extends Component {
     super(props);
 
     this.state = setupRowsAndHeaders(this.props);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.rules !== this.props.rules) {
+      this.setState(setupRowsAndHeaders(this.props));
+    }
   }
 
   render() {
@@ -49,7 +53,12 @@ class OrderCardDataTable extends Component {
                     {...getRowProps({ row })}
                   >
                     {row.cells.map((cell) => (
-                      <TableCell key={JSON.stringify(cell)}>
+                      <TableCell
+                        key={JSON.stringify(cell)}
+                        className={
+                          this.props.isSecurityGroup ? "dt-security-group" : ""
+                        }
+                      >
                         <div key={JSON.stringify(cell) + "-port"}>
                           {contains(["tcp", "udp", "all", "icmp"], cell.value)
                             ? cell.value.toUpperCase()

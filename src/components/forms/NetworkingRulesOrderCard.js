@@ -132,6 +132,7 @@ class NetworkingRulesOrderCard extends Component {
                     customIcon={this.state.showTable ? Edit : DataView}
                     hoverText={this.state.showTable ? "Edit" : "View Data"}
                     className="edit-view-btn"
+                    hide={this.state.rules.length < 0} // do not show edit if no rules
                   />
                   <SaveAddButton
                     name={this.props.vpc_name}
@@ -194,7 +195,7 @@ class NetworkingRulesOrderCard extends Component {
           name="Network Rules"
           showIfEmpty={this.state.rules}
         />
-        {this.state.showTable ? (
+        {this.state.showTable && this.state.rules.length > 0 ? (
           <OrderCardDataTable
             isSecurityGroup={this.props.isSecurityGroup}
             rules={this.state.rules}

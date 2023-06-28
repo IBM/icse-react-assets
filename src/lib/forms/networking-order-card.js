@@ -55,6 +55,12 @@ function swapArrayElements(arr, indexA, indexB) {
   arr[indexB] = temp;
 }
 
+/**
+ *
+ * @param {Object} props
+ * @param {bool} props.isSecurityGroup
+ * @returns {string} classname
+ */
 function getOrderCardClassName(props) {
   return (
     "marginBottomSmall positionRelative " +
@@ -62,6 +68,13 @@ function getOrderCardClassName(props) {
   );
 }
 
+/**
+ * set up rows and headers
+ * @param {Object} componentProps
+ * @param {array} componentProps.rules
+ * @param {bool} componentProps.isSecurityGroup
+ * @returns {object} rows, headers for data table
+ */
 function setupRowsAndHeaders(componentProps) {
   const { rules, isSecurityGroup } = { ...componentProps };
 
@@ -88,6 +101,9 @@ function setupRowsAndHeaders(componentProps) {
         : row.protocol === "icmp"
         ? row.icmp.code
         : `${row[row.protocol].port_min}-${row[row.protocol].port_max}`;
+    delete row.icmp;
+    delete row.tcp;
+    delete row.udp;
   });
 
   // add in action and destination if not security group
