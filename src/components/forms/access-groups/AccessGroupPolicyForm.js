@@ -1,5 +1,6 @@
 import React from "react";
 import { kebabCase } from "lazy-z";
+import PropTypes from "prop-types";
 import {
   buildFormFunctions,
   buildFormDefaultInputMethods,
@@ -7,8 +8,7 @@ import {
 import { IcseFormGroup, IcseHeading } from "../../Utils";
 import { IcseNameInput, IcseTextInput } from "../../Inputs";
 import { IcseSelect } from "../../Dropdowns";
-import PropTypes from "prop-types";
-import { handleInputResource } from "../../../lib/forms/acess-groups";
+import { handleInputResource } from "../../../lib/forms/access-groups";
 
 class AccessGroupPolicyForm extends React.Component {
   constructor(props) {
@@ -17,7 +17,7 @@ class AccessGroupPolicyForm extends React.Component {
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleInputResource = this.handleInputResource.bind(this);
+    this.handleInputResourceChange = this.handleInputResourceChange.bind(this);
   }
 
   /**
@@ -34,7 +34,7 @@ class AccessGroupPolicyForm extends React.Component {
    * @param {string} name key to change in state
    * @param {*} value value to update
    */
-  handleInputResource(event) {
+  handleInputResourceChange(event) {
     this.setState(handleInputResource(this.state, event));
   }
 

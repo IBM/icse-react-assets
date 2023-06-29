@@ -1,64 +1,48 @@
 import React from "react";
 import "./App.css";
-import { SecretsManagerForm } from "icse-react-assets";
+import { AccessGroupDynamicPolicyForm } from "icse-react-assets";
+function validName(str) {
+  const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
+  if (str) return str.match(regex) !== null;
+  else return false;
+}
 
-const exampleData = [
-  {
-    cos: "atracker-cos",
-    key: "cos-bind-key",
-    ref: "ibm_resource_key.atracker_cos_object_storage_key_cos_bind_key",
-  },
-  {
-    appid: "default",
-    key: "test",
-    ref: "ibm_resource_key.default_key_test",
-  },
-  {
-    ref: "ibm_resource_key.logdna_key",
-    key: "logdna-key",
-  },
-  {
-    ref: "ibm_resource_key.sysdig_key",
-    key: "sysdig-key",
-  },
-];
+function invalidCallback(stateData, componentProps) {
+  return !validName(stateData.name);
+}
 
-const SecretsManagerFormStory = () => {
-  function validName(str) {
-    const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
-    if (str) return str.match(regex) !== null;
-    else return false;
-  }
+function invalidTextCallback(stateData, componentProps) {
+  return !validName(stateData.name)
+    ? `Name ${stateData.name} is invalid.`
+    : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
+}
 
-  function invalidCallback(stateData, componentProps) {
-    return !validName(stateData.name);
-  }
+function composedNameCallback(stateData, componentProps) {
+  return `${stateData.name}-<random suffix>`;
+}
 
-  function invalidTextCallback(stateData, componentProps) {
-    return !validName(stateData.name)
-      ? `Name ${stateData.name} is invalid.`
-      : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
-  }
+function invalidIdentityProviderCallback(stateData, componentProps) {
+  return !(stateData.identity_provider.length >= 6);
+}
 
-  return (
-    <SecretsManagerForm
-      data={{
-        name: "Example",
-        resource_group: "default",
-        encryption_key: "key1",
-        secrets: exampleData
-      }}
-      secrets={exampleData}
-      resourceGroups={["default_group", "foo", "bar"]}
-      encryptionKeys={["default_key", "foo"]}
-      invalidCallback={invalidCallback}
-      invalidTextCallback={invalidTextCallback}
-    />
-  );
-};
 
 function App() {
-  return <SecretsManagerFormStory />;
+  return <AccessGroupDynamicPolicyForm
+  data={{
+    name: "test-dynamic-policy",
+    identity_provider: "test-uri-123-foo345.netweb.cloud123",
+    expiration: 1,
+    conditions: {
+      claim: "test-123",
+      operator: "EQUALS",
+      value: "test-123",
+    },
+  }}
+  invalidCallback={invalidCallback}
+  invalidTextCallback={invalidTextCallback}
+  helperTextCallback={composedNameCallback}
+  invalidIdentityProviderCallback={invalidIdentityProviderCallback}
+/>;
 }
 
 export default App;

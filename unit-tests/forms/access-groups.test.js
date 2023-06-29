@@ -1,5 +1,5 @@
 const { assert } = require("chai");
-const { handleInputResource } = require("../../src/lib/forms/acess-groups");
+const { handleInputResource } = require("../../src/lib/forms/access-groups");
 
 describe("access-groups", () => {
   describe("handleInputResource", () => {

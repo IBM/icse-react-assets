@@ -478,7 +478,7 @@ var emptyResourceTile = {
 var emptyResourceTile_1 = emptyResourceTile.emptyResourceTileParams;
 
 const {
-  snakeCase,
+  snakeCase: snakeCase$1,
   kebabCase: kebabCase$2,
   titleCase: titleCase$1,
   isBoolean
@@ -501,7 +501,7 @@ const {
  * @returns {Object} params object
  */
 function toggleParams$1(props) {
-  let toggleName = props.toggleFieldName || snakeCase(props.labelText);
+  let toggleName = props.toggleFieldName || snakeCase$1(props.labelText);
   let labelA = props.useOnOff ? "Off" : "False",
     labelB = props.useOnOff ? "On" : "True",
     labelText = props.tooltip ? " " : props.labelText,
@@ -10194,6 +10194,10 @@ VsiLoadBalancerForm.propTypes = {
   vsiDeployments: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired
 };
 
+const {
+  snakeCase
+} = lazyZ__default["default"];
+
 /**
  * input change for resources in access group policies
  * @param {Object} stateData
@@ -10213,10 +10217,49 @@ function handleInputResource(stateData, event) {
     resources: resources
   };
 }
-var acessGroups = {
+
+/**
+ * dynamic policy condition handler
+ * @param {Object} stateData
+ * @param {*} event
+ * @returns {Object} conditions
+ */
+function handleInputCondition(stateData, event) {
+  let {
+    name,
+    value
+  } = event.target;
+  let conditions = {
+    ...stateData.conditions
+  };
+  if (name === "operator") {
+    conditions[name] = snakeCase(value.replace(/[()]/g, "")).toUpperCase(); // remove all parentheses
+  } else {
+    conditions[name] = value;
+  }
+  return {
+    conditions
+  };
+}
+const conditionOperators = {
+  EQUALS: "Equals",
+  EQUALS_IGNORE_CASE: "Equals (Ignore Case)",
+  IN: "In",
+  NOT_EQUALS_IGNORE_CASE: "Not Equals (Ignore Case)",
+  NOT_EQUALS: "Not Equals",
+  CONTAINS: "Contains"
+};
+const conditionOperatorGroups = ["Equals", "Equals (Ignore Case)", "In", "Not Equals (Ignore Case)", "Not Equals", "Contains"];
+var accessGroups = {
+  conditionOperatorGroups,
+  conditionOperators,
+  handleInputCondition,
   handleInputResource
 };
-var acessGroups_1 = acessGroups.handleInputResource;
+var accessGroups_1 = accessGroups.conditionOperatorGroups;
+var accessGroups_2 = accessGroups.conditionOperators;
+var accessGroups_3 = accessGroups.handleInputCondition;
+var accessGroups_4 = accessGroups.handleInputResource;
 
 class AccessGroupPolicyForm extends React__default["default"].Component {
   constructor(props) {
@@ -10227,7 +10270,7 @@ class AccessGroupPolicyForm extends React__default["default"].Component {
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleInputResource = this.handleInputResource.bind(this);
+    this.handleInputResourceChange = this.handleInputResourceChange.bind(this);
   }
 
   /**
@@ -10244,8 +10287,8 @@ class AccessGroupPolicyForm extends React__default["default"].Component {
    * @param {string} name key to change in state
    * @param {*} value value to update
    */
-  handleInputResource(event) {
-    this.setState(acessGroups_1(this.state, event));
+  handleInputResourceChange(event) {
+    this.setState(accessGroups_4(this.state, event));
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
@@ -10359,14 +10402,6 @@ AccessGroupPolicyForm.propTypes = {
   helperTextCallback: PropTypes__default["default"].func.isRequired
 };
 
-const conditionOperators = {
-  EQUALS: "Equals",
-  EQUALS_IGNORE_CASE: "Equals (Ignore Case)",
-  IN: "In",
-  NOT_EQUALS_IGNORE_CASE: "Not Equals (Ignore Case)",
-  NOT_EQUALS: "Not Equals",
-  CONTAINS: "Contains"
-};
 class AccessGroupDynamicPolicyForm extends React__default["default"].Component {
   constructor(props) {
     super(props);
@@ -10379,45 +10414,25 @@ class AccessGroupDynamicPolicyForm extends React__default["default"].Component {
 
   /**
    * handle input change
-   * @param {string} name key to change in state
-   * @param {*} value value to update
+   * @param {*} event
    */
   handleInputChange(event) {
     this.setState(this.eventTargetToNameAndValue(event));
   }
 
   /**
-   * handle input change
-   * @param {string} name key to change in state
-   * @param {*} value value to update
+   * handle input change for conditions
+   * @param {*} event
    */
   handleInputCondition(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    let conditions = {
-      ...this.state.conditions
-    };
-    if (name === "operator") {
-      conditions[name] = lazyZ.snakeCase(value.replace(/[()]/g, "")).toUpperCase(); // remove all parentheses
-    } else {
-      conditions[name] = value;
-    }
-    this.setState({
-      conditions
-    });
+    this.setState(accessGroups_3(this.state, event));
   }
   render() {
-    let conditionOperatorGroups = [];
-    lazyZ.eachKey(conditionOperators, key => {
-      conditionOperatorGroups.push(conditionOperators[key]);
-    });
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       id: "name",
       componentName: "dynamic_policies",
       field: "name",
-      labelText: "Name",
+      forceKebabCase: true,
       value: this.state.name,
       onChange: this.handleInputChange,
       invalidText: this.props.invalidTextCallback(this.state, this.props),
@@ -10427,7 +10442,7 @@ class AccessGroupDynamicPolicyForm extends React__default["default"].Component {
       tooltip: {
         content: "How many hours authenticated users can work before refresh"
       },
-      formName: "expiration",
+      formName: "dynamic_policies",
       max: 24,
       value: this.state.expiration,
       name: "expiration",
@@ -10440,10 +10455,9 @@ class AccessGroupDynamicPolicyForm extends React__default["default"].Component {
         content: "URI for identity provider",
         alignModal: "bottom-left"
       },
-      componentName: "identity_provider",
+      componentName: "dynamic_policies",
       field: "identity_provider",
       isModal: this.props.isModal,
-      labelText: "Identity Provider",
       value: this.state.identity_provider,
       invalid: this.props.invalidIdentityProviderCallback(this.state, this.props),
       onChange: this.handleInputChange,
@@ -10459,7 +10473,7 @@ class AccessGroupDynamicPolicyForm extends React__default["default"].Component {
         content: "Key value to evaluate the condition against",
         alignModal: "bottom-left"
       },
-      componentName: "claim",
+      componentName: "dynamic_policies",
       field: "claim",
       isModal: this.props.isModal,
       labelText: "Condition Claim",
@@ -10471,8 +10485,8 @@ class AccessGroupDynamicPolicyForm extends React__default["default"].Component {
       tooltip: {
         content: "The operation to perform on the claim."
       },
-      value: conditionOperators[this.state.conditions.operator],
-      groups: conditionOperatorGroups,
+      value: accessGroups_2[this.state.conditions.operator],
+      groups: accessGroups_1,
       field: "operator",
       isModal: this.props.isModal,
       name: "operator",

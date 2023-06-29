@@ -1,22 +1,17 @@
 import React from "react";
+import PropTypes from "prop-types";
 import {
   buildFormFunctions,
   buildFormDefaultInputMethods,
 } from "../../component-utils";
-import { eachKey, snakeCase } from "lazy-z";
 import { IcseFormGroup, IcseHeading } from "../../Utils";
 import { IcseNameInput, IcseTextInput } from "../../Inputs";
 import { IcseSelect, IcseNumberSelect } from "../../Dropdowns";
-import PropTypes from "prop-types";
-
-const conditionOperators = {
-  EQUALS: "Equals",
-  EQUALS_IGNORE_CASE: "Equals (Ignore Case)",
-  IN: "In",
-  NOT_EQUALS_IGNORE_CASE: "Not Equals (Ignore Case)",
-  NOT_EQUALS: "Not Equals",
-  CONTAINS: "Contains",
-};
+import {
+  conditionOperators,
+  conditionOperatorGroups,
+  handleInputCondition,
+} from "../../../lib/forms/access-groups";
 
 class AccessGroupDynamicPolicyForm extends React.Component {
   constructor(props) {
@@ -30,34 +25,21 @@ class AccessGroupDynamicPolicyForm extends React.Component {
 
   /**
    * handle input change
-   * @param {string} name key to change in state
-   * @param {*} value value to update
+   * @param {*} event
    */
   handleInputChange(event) {
     this.setState(this.eventTargetToNameAndValue(event));
   }
 
   /**
-   * handle input change
-   * @param {string} name key to change in state
-   * @param {*} value value to update
+   * handle input change for conditions
+   * @param {*} event
    */
   handleInputCondition(event) {
-    let { name, value } = event.target;
-    let conditions = { ...this.state.conditions };
-    if (name === "operator") {
-      conditions[name] = snakeCase(value.replace(/[()]/g, "")).toUpperCase(); // remove all parentheses
-    } else {
-      conditions[name] = value;
-    }
-    this.setState({ conditions });
+    this.setState(handleInputCondition(this.state, event));
   }
 
   render() {
-    let conditionOperatorGroups = [];
-    eachKey(conditionOperators, (key) => {
-      conditionOperatorGroups.push(conditionOperators[key]);
-    });
     return (
       <>
         <IcseFormGroup>
@@ -65,7 +47,7 @@ class AccessGroupDynamicPolicyForm extends React.Component {
             id="name"
             componentName="dynamic_policies"
             field="name"
-            labelText="Name"
+            forceKebabCase={true}
             value={this.state.name}
             onChange={this.handleInputChange}
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
@@ -79,7 +61,7 @@ class AccessGroupDynamicPolicyForm extends React.Component {
               content:
                 "How many hours authenticated users can work before refresh",
             }}
-            formName="expiration"
+            formName="dynamic_policies"
             max={24}
             value={this.state.expiration}
             name="expiration"
@@ -95,10 +77,9 @@ class AccessGroupDynamicPolicyForm extends React.Component {
               content: "URI for identity provider",
               alignModal: "bottom-left",
             }}
-            componentName="identity_provider"
+            componentName="dynamic_policies"
             field="identity_provider"
             isModal={this.props.isModal}
-            labelText="Identity Provider"
             value={this.state.identity_provider}
             invalid={this.props.invalidIdentityProviderCallback(
               this.state,
@@ -118,7 +99,7 @@ class AccessGroupDynamicPolicyForm extends React.Component {
               content: "Key value to evaluate the condition against",
               alignModal: "bottom-left",
             }}
-            componentName="claim"
+            componentName="dynamic_policies"
             field="claim"
             isModal={this.props.isModal}
             labelText="Condition Claim"
