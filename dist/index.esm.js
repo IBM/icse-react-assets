@@ -10720,7 +10720,6 @@ class AccessGroupDynamicPolicyForm extends React.Component {
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
       id: "name",
       componentName: "dynamic_policies",
-      field: "name",
       forceKebabCase: true,
       value: this.state.name,
       onChange: this.handleInputChange,

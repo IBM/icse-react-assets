@@ -46,7 +46,6 @@ class AccessGroupDynamicPolicyForm extends React.Component {
           <IcseNameInput
             id="name"
             componentName="dynamic_policies"
-            field="name"
             forceKebabCase={true}
             value={this.state.name}
             onChange={this.handleInputChange}
