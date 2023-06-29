@@ -10527,7 +10527,7 @@ function handleInputCondition(stateData, event) {
     conditions[name] = value;
   }
   return {
-    conditions
+    conditions: conditions
   };
 }
 const conditionOperators = {

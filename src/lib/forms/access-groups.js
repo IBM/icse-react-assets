@@ -27,7 +27,7 @@ function handleInputCondition(stateData, event) {
   } else {
     conditions[name] = value;
   }
-  return { conditions };
+  return { conditions: conditions };
 }
 
 const conditionOperators = {
