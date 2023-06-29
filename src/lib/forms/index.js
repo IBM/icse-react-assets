@@ -1,3 +1,4 @@
+const { handlePgwToggle } = require("./vpc");
 const { atrackerInputChange } = require("./atracker");
 const { handleRgToggle } = require("./resource-groups");
 const {
@@ -35,11 +36,35 @@ const {
   handleSelectZones,
   handleSubnetTierToggle,
 } = require("./subnets");
+const { vpnRouteInputChange } = require("./vpn");
+const { vsiHandleInputChange } = require("./vsi");
+const { handleVpnGatewayChange } = require("./vpn-gateways");
+const {
+  services,
+  serviceGroups,
+  vpeVpcDropdown,
+  vpeServiceDropdown,
+} = require("./vpe");
+const {
+  workerPoolInit,
+  workerPoolInputChange,
+  workerPoolSubnetChange,
+} = require("./worker-pools");
 
 module.exports = {
+  workerPoolSubnetChange,
+  workerPoolInputChange,
+  workerPoolInit,
+  services,
+  serviceGroups,
+  vpeVpcDropdown,
+  vpeServiceDropdown,
+  vsiHandleInputChange,
+  vpnRouteInputChange,
   handleSubnetTierToggle,
   parseZoneStrings,
   handleSelectZones,
+  handleVpnGatewayChange,
   f5Vsis,
   f5VsiInputChange,
   routingTableRouteInputChange,
@@ -67,4 +92,5 @@ module.exports = {
   onCheckClick,
   handleVpnServerInputChange,
   vpnServerRangeInvalid,
+  handlePgwToggle,
 };

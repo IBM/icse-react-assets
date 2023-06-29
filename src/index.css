@@ -243,6 +243,9 @@ input:read-only {
 }
 
 /* buttons */
+.edit-view-btn:focus {
+  background-color: var(--white);
+}
 
 i.chevron > svg {
   display: block; /* remove extra padding on bottom of i which misaligns icon */
@@ -456,4 +459,9 @@ i.chevron > svg {
 
 .cds--form-item {
   flex: none; /* overwrite flex to fix inconsistent widths */
+}
+
+/* data table */
+div .dt-security-group {
+  background-color: white !important;
 }

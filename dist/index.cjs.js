@@ -9,7 +9,6 @@ var regexButWithWords = require('regex-but-with-words');
 var React = require('react');
 var PropTypes = require('prop-types');
 var iconsReact = require('@carbon/icons-react');
-var utils$1 = require('regex-but-with-words/lib/utils');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -45,11 +44,11 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$2 = "/* vars and themes */\n:root {\n  --background: #ffffff;\n  --subForm: #f4f4f4;\n  --formInSubForm: #fffdfd;\n  --cds-text-primary: #161616;\n  --cds-text-secondary: #525252;\n  --cds-field: #f4f4f4;\n  --cds-border-strong: #8d8d8d;\n  --blue: #0f62fe;\n  --red: #da1e28;\n  --white: #ffffff;\n}\n\n.dark {\n  --background: #161616;\n  --subForm: #262626;\n  --formInSubForm: #414141;\n  --cds-text-primary: #f4f4f4;\n  --cds-text-secondary: #c6c6c6;\n  --cds-field: #363636;\n  --cds-border-strong: #8897a2;\n  --cds-layer: #262626;\n  --cds-layer-hover: #363636;\n  --cds-field-02: #363636;\n  --cds-icon-secondary: #c6c6c6;\n  --cds-icon-primary: #c6c6c6;\n  --placeholder: #565656;\n  --cds-field-hover: #464646;\n  --cds-layer-selected: #525252;\n  --cds-background-inverse: #f4f4f4;\n  --cds-text-inverse: #262626;\n}\n\n.subForm {\n  /* white background for subform input fields */\n  --cds-field: #ffffff;\n}\n\n.formInSubForm {\n  /* gray for formInSubForm input fields */\n  --cds-field: #f4f4f4;\n}\n\ninput:read-only {\n  /* read only fields should only have text */\n  --cds-border-strong: transparent;\n}\n\n.dark {\n  background-color: var(--background);\n}\n\n.dark p {\n  color: #f4f4f4;\n}\n\n.dark i.chevron > svg {\n  fill: #f4f4f4;\n}\n\n.dark h4 {\n  color: #f4f4f4;\n}\n\n.dark .underConstruction > svg {\n  fill: #ffffff;\n}\n/* styling for tooltip content in dark mode */\n.dark .cds--toggletip-content > p {\n  color: #363636;\n}\n\n.dark .subForm {\n  /* alternate background for dark subforms */\n  --cds-field: #414141;\n}\n\n.dark .formInSubForm {\n  /* alternate background for dark formInSubForm */\n  --cds-field: #363636;\n}\n\n.dark ::placeholder {\n  color: var(--placeholder);\n}\n\n/* general alignment classes */\n\n.displayFlex {\n  display: flex;\n}\n\n.alignItemsTop {\n  align-items: top;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n\n.fieldWidthSmallest {\n  width: 8rem;\n}\n\n.fieldWidthBigger {\n  width: 40rem;\n}\n\n.textInputWide {\n  width: 30rem;\n}\n\n.textInputMedium {\n  width: 20rem;\n}\n\n/* backhground classes */\n.formInSubForm {\n  margin-top: 0rem;\n  background: var(--formInSubForm);\n  padding: 1rem;\n}\n\n.subForm {\n  background: var(--subForm);\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n/* Tooltips */\n.labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -22px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n\n/* subnet tile form */\n\n.tileFormMargin {\n  margin-bottom: -0.5rem;\n  margin-top: 0.5rem;\n}\n\n.tileFormMargin.subForm {\n  padding: 0px;\n}\n\n.marginRightSubnetTile {\n  margin-right: 10px;\n}\n\n/* StatefulTabPanel */\n\n.cds--tab-content.doc {\n  padding: 0.5rem 0;\n}\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}\n\n/* popover wrappers */\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  z-index: 9001;\n}\n\n/* buttons */\n\ni.chevron > svg {\n  display: block; /* remove extra padding on bottom of i which misaligns icon */\n  margin-right: 1rem;\n  margin-top: 0.15rem;\n}\n\n.chevron {\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: var(--blue) !important;\n  fill: var(--white) !important;\n  border-color: var(--blue) !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding: 0.4375rem !important;\n  align-items: center;\n}\n\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: var(--red) !important;\n}\n\n.alignButtons {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.cds--tabs__nav-link:focus {\n  outline: none !important;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important;\n}\n\n/* docs */\n.about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n\n/* empty resource tile */\n.iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: var(--subForm);\n}\n\n.marginTop {\n  margin-top: 1rem;\n}\n\n/* under construction */\n\n.underConstruction {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.flexDirectionColumn {\n  flex-direction: column;\n}\n\n/* f5 vsi */\n.wide {\n  width: 20rem !important;\n}\n\n.tight {\n  width: min-content; /* force invalid text to split line */\n}\n\n.passwordGenerateButton {\n  margin-top: 1.25rem;\n  margin-left: calc(-4rem - 3vw);\n}\n\n.passwordGenerateButton svg {\n  fill: var(--cds-icon-secondary, #525252) !important;\n}\n\n.passwordGenerateButton.invalid {\n  margin-left: calc(-5.75rem - 3vw);\n}\n\n.wrap {\n  flex-flow: wrap;\n}\n\n.docsUpdated {\n  display: flex;\n  align-items: flex-end;\n}\n\n.cds--list-box__menu {\n  width: fit-content;\n  text-align: left;\n}\n\n@media screen and (max-width: 1024px) {\n  .fieldWidth {\n    width: 11rem;\n  }\n\n  .fieldWidthSmaller {\n    width: 8rem;\n  }\n\n  .fieldWidthSmallest {\n    width: 5rem;\n  }\n\n  .textInputWide {\n    width: 20rem;\n  }\n\n  .fieldWidthBigger {\n    width: 30rem;\n  }\n\n  .textInputMedium {\n    width: 15rem;\n  }\n}\n\n@media screen and (max-width: 850px) {\n  .fieldWidth {\n    width: 100%;\n  }\n\n  .fieldWidthSmaller {\n    width: 100%;\n  }\n\n  .fieldWidthSmallest {\n    width: 100%;\n  }\n\n  .textInputMedium {\n    width: 100%;\n  }\n\n  .fieldWidthBigger {\n    width: 100%;\n  }\n\n  .textInputWide {\n    width: 100%;\n  }\n\n  .formGroup {\n    /* items 1 wide */\n    flex-direction: column !important;\n  }\n\n  .popover-obj.select {\n    /* need to adjust size for popover container at small widths */\n    width: 100%;\n  }\n\n  .popover-obj.select > span {\n    width: 100%;\n  }\n\n  /* items with tooltip should also be full width */\n  .cds--form-item {\n    flex: none;\n    width: 100%;\n  }\n}\n\n.cds--form-item {\n  flex: none; /* overwrite flex to fix inconsistent widths */\n}\n";
+var css_248z$2 = "/* vars and themes */\n:root {\n  --background: #ffffff;\n  --subForm: #f4f4f4;\n  --formInSubForm: #fffdfd;\n  --cds-text-primary: #161616;\n  --cds-text-secondary: #525252;\n  --cds-field: #f4f4f4;\n  --cds-border-strong: #8d8d8d;\n  --blue: #0f62fe;\n  --red: #da1e28;\n  --white: #ffffff;\n}\n\n.dark {\n  --background: #161616;\n  --subForm: #262626;\n  --formInSubForm: #414141;\n  --cds-text-primary: #f4f4f4;\n  --cds-text-secondary: #c6c6c6;\n  --cds-field: #363636;\n  --cds-border-strong: #8897a2;\n  --cds-layer: #262626;\n  --cds-layer-hover: #363636;\n  --cds-field-02: #363636;\n  --cds-icon-secondary: #c6c6c6;\n  --cds-icon-primary: #c6c6c6;\n  --placeholder: #565656;\n  --cds-field-hover: #464646;\n  --cds-layer-selected: #525252;\n  --cds-background-inverse: #f4f4f4;\n  --cds-text-inverse: #262626;\n}\n\n.subForm {\n  /* white background for subform input fields */\n  --cds-field: #ffffff;\n}\n\n.formInSubForm {\n  /* gray for formInSubForm input fields */\n  --cds-field: #f4f4f4;\n}\n\ninput:read-only {\n  /* read only fields should only have text */\n  --cds-border-strong: transparent;\n}\n\n.dark {\n  background-color: var(--background);\n}\n\n.dark p {\n  color: #f4f4f4;\n}\n\n.dark i.chevron > svg {\n  fill: #f4f4f4;\n}\n\n.dark h4 {\n  color: #f4f4f4;\n}\n\n.dark .underConstruction > svg {\n  fill: #ffffff;\n}\n/* styling for tooltip content in dark mode */\n.dark .cds--toggletip-content > p {\n  color: #363636;\n}\n\n.dark .subForm {\n  /* alternate background for dark subforms */\n  --cds-field: #414141;\n}\n\n.dark .formInSubForm {\n  /* alternate background for dark formInSubForm */\n  --cds-field: #363636;\n}\n\n.dark ::placeholder {\n  color: var(--placeholder);\n}\n\n/* general alignment classes */\n\n.displayFlex {\n  display: flex;\n}\n\n.alignItemsTop {\n  align-items: top;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n\n.fieldWidthSmallest {\n  width: 8rem;\n}\n\n.fieldWidthBigger {\n  width: 40rem;\n}\n\n.textInputWide {\n  width: 30rem;\n}\n\n.textInputMedium {\n  width: 20rem;\n}\n\n/* backhground classes */\n.formInSubForm {\n  margin-top: 0rem;\n  background: var(--formInSubForm);\n  padding: 1rem;\n}\n\n.subForm {\n  background: var(--subForm);\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n/* Tooltips */\n.labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -22px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n\n/* subnet tile form */\n\n.tileFormMargin {\n  margin-bottom: -0.5rem;\n  margin-top: 0.5rem;\n}\n\n.tileFormMargin.subForm {\n  padding: 0px;\n}\n\n.marginRightSubnetTile {\n  margin-right: 10px;\n}\n\n/* StatefulTabPanel */\n\n.cds--tab-content.doc {\n  padding: 0.5rem 0;\n}\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}\n\n/* popover wrappers */\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  z-index: 9001;\n}\n\n/* buttons */\n.edit-view-btn:focus {\n  background-color: var(--white);\n}\n\ni.chevron > svg {\n  display: block; /* remove extra padding on bottom of i which misaligns icon */\n  margin-right: 1rem;\n  margin-top: 0.15rem;\n}\n\n.chevron {\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: var(--blue) !important;\n  fill: var(--white) !important;\n  border-color: var(--blue) !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding: 0.4375rem !important;\n  align-items: center;\n}\n\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: var(--red) !important;\n}\n\n.alignButtons {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.cds--tabs__nav-link:focus {\n  outline: none !important;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important;\n}\n\n/* docs */\n.about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n\n/* empty resource tile */\n.iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: var(--subForm);\n}\n\n.marginTop {\n  margin-top: 1rem;\n}\n\n/* under construction */\n\n.underConstruction {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.flexDirectionColumn {\n  flex-direction: column;\n}\n\n/* f5 vsi */\n.wide {\n  width: 20rem !important;\n}\n\n.tight {\n  width: min-content; /* force invalid text to split line */\n}\n\n.passwordGenerateButton {\n  margin-top: 1.25rem;\n  margin-left: calc(-4rem - 3vw);\n}\n\n.passwordGenerateButton svg {\n  fill: var(--cds-icon-secondary, #525252) !important;\n}\n\n.passwordGenerateButton.invalid {\n  margin-left: calc(-5.75rem - 3vw);\n}\n\n.wrap {\n  flex-flow: wrap;\n}\n\n.docsUpdated {\n  display: flex;\n  align-items: flex-end;\n}\n\n.cds--list-box__menu {\n  width: fit-content;\n  text-align: left;\n}\n\n@media screen and (max-width: 1024px) {\n  .fieldWidth {\n    width: 11rem;\n  }\n\n  .fieldWidthSmaller {\n    width: 8rem;\n  }\n\n  .fieldWidthSmallest {\n    width: 5rem;\n  }\n\n  .textInputWide {\n    width: 20rem;\n  }\n\n  .fieldWidthBigger {\n    width: 30rem;\n  }\n\n  .textInputMedium {\n    width: 15rem;\n  }\n}\n\n@media screen and (max-width: 850px) {\n  .fieldWidth {\n    width: 100%;\n  }\n\n  .fieldWidthSmaller {\n    width: 100%;\n  }\n\n  .fieldWidthSmallest {\n    width: 100%;\n  }\n\n  .textInputMedium {\n    width: 100%;\n  }\n\n  .fieldWidthBigger {\n    width: 100%;\n  }\n\n  .textInputWide {\n    width: 100%;\n  }\n\n  .formGroup {\n    /* items 1 wide */\n    flex-direction: column !important;\n  }\n\n  .popover-obj.select {\n    /* need to adjust size for popover container at small widths */\n    width: 100%;\n  }\n\n  .popover-obj.select > span {\n    width: 100%;\n  }\n\n  /* items with tooltip should also be full width */\n  .cds--form-item {\n    flex: none;\n    width: 100%;\n  }\n}\n\n.cds--form-item {\n  flex: none; /* overwrite flex to fix inconsistent widths */\n}\n\n/* data table */\ndiv .dt-security-group {\n  background-color: white !important;\n}\n";
 styleInject(css_248z$2);
 
 const {
-  contains: contains$3,
+  contains: contains$4,
   capitalize: capitalize$1
 } = lazyZ__default["default"];
 
@@ -139,7 +138,7 @@ function handleClusterInputChange$1(name, value, stateData) {
   return cluster;
 }
 function subnetTierName$1(tierName) {
-  if (contains$3(["vsi", "vpe", "vpn", "vpn-1", "vpn-2"], tierName)) {
+  if (contains$4(["vsi", "vpe", "vpn", "vpn-1", "vpn-2"], tierName)) {
     return tierName.toUpperCase() + " Subnet Tier";
   } else if (tierName === "") {
     return "New Subnet Tier";
@@ -653,6 +652,31 @@ var popoverWrapper = {
 };
 
 const {
+  contains: contains$3,
+  parseIntFromZone
+} = lazyZ__default["default"];
+function handlePgwToggle$1(zone, stateData) {
+  let vpc = {
+    ...stateData
+  };
+  let currentGw = [...stateData.publicGateways]; // new array
+  let zoneNumber = parseIntFromZone(zone);
+  // check if zone is already present
+  if (contains$3(currentGw, zoneNumber)) {
+    let index = currentGw.indexOf(zoneNumber);
+    currentGw.splice(index, 1);
+  } else {
+    currentGw.push(zoneNumber);
+  }
+  vpc.publicGateways = currentGw;
+  return vpc;
+}
+var vpc = {
+  handlePgwToggle: handlePgwToggle$1
+};
+var vpc_1 = vpc.handlePgwToggle;
+
+const {
   kebabCase: kebabCase$1
 } = lazyZ__default["default"];
 
@@ -1148,7 +1172,7 @@ var f5Vsi_2 = f5Vsi.f5Vsis;
 
 const {
   allFieldsNull,
-  transpose
+  transpose: transpose$1
 } = lazyZ__default["default"];
 
 /**
@@ -1185,7 +1209,7 @@ function getSubRule$1(rule, isSecurityGroup) {
     code: null
   };
   if (getRuleProtocol$1(rule) !== "all") {
-    transpose(rule[getRuleProtocol$1(rule)], defaultRule);
+    transpose$1(rule[getRuleProtocol$1(rule)], defaultRule);
   }
   if (isSecurityGroup) {
     delete defaultRule.source_port_min;
@@ -1205,15 +1229,84 @@ function swapArrayElements$1(arr, indexA, indexB) {
   arr[indexA] = arr[indexB];
   arr[indexB] = temp;
 }
+
+/**
+ *
+ * @param {Object} props
+ * @param {bool} props.isSecurityGroup
+ * @returns {string} classname
+ */
 function getOrderCardClassName$1(props) {
   return "marginBottomSmall positionRelative " + (props.isSecurityGroup ? "formInSubForm" : "subForm");
+}
+
+/**
+ * set up rows and headers
+ * @param {Object} componentProps
+ * @param {array} componentProps.rules
+ * @param {bool} componentProps.isSecurityGroup
+ * @returns {object} rows, headers for data table
+ */
+function setupRowsAndHeaders(componentProps) {
+  const {
+    rules,
+    isSecurityGroup
+  } = {
+    ...componentProps
+  };
+  const headers = [{
+    key: "name",
+    header: "Name"
+  }, {
+    key: "direction",
+    header: "Direction"
+  }, {
+    key: "source",
+    header: "Source"
+  }, {
+    key: "protocol",
+    header: "Protocol"
+  }, {
+    key: "port",
+    header: "Port"
+  }];
+  const rows = JSON.parse(JSON.stringify(rules));
+
+  // set up required data for each row
+  rows.forEach(row => {
+    row.protocol = getRuleProtocol$1(row);
+    row.id = row.name;
+    row.port = row.protocol === "all" ? "ALL" : row.protocol === "icmp" ? row.icmp.code : `${row[row.protocol].port_min}-${row[row.protocol].port_max}`;
+    delete row.icmp;
+    delete row.tcp;
+    delete row.udp;
+  });
+
+  // add in action and destination if not security group
+  if (!isSecurityGroup) {
+    headers.splice(1, 0, {
+      // add extra fields if not security group
+      key: "action",
+      header: "Action"
+    });
+    headers.splice(4, 0, {
+      key: "destination",
+      header: "Destination"
+    });
+  }
+  return {
+    rows: rows,
+    headers: headers
+  };
 }
 var networkingOrderCard = {
   getRuleProtocol: getRuleProtocol$1,
   getSubRule: getSubRule$1,
   swapArrayElements: swapArrayElements$1,
-  getOrderCardClassName: getOrderCardClassName$1
+  getOrderCardClassName: getOrderCardClassName$1,
+  setupRowsAndHeaders
 };
+var networkingOrderCard_5 = networkingOrderCard.setupRowsAndHeaders;
 
 /**
  * handle input change for routing tables
@@ -1386,6 +1479,197 @@ var subnets = {
 };
 var subnets_4 = subnets.handleSubnetShowToggle;
 
+/**
+ * input change for vpn routes
+ * @param {Object} event
+ * @param {Object} stateData
+ * @returns {object} new state
+ */
+function vpnRouteInputChange$1(event, stateData) {
+  let {
+    name,
+    value
+  } = event.target;
+  let state = {
+    ...stateData
+  };
+  state[name] = value.toLowerCase();
+  return state;
+}
+var vpn = {
+  vpnRouteInputChange: vpnRouteInputChange$1
+};
+
+const {
+  transpose
+} = lazyZ__default["default"];
+
+/**
+ *
+ * @param {Object} event
+ * @param {Object} stateData
+ * @param {Object} componentProps
+ */
+function vsiHandleInputChange$1(event, stateData, componentProps) {
+  let {
+    name,
+    value
+  } = event.target;
+  let stateChangeParams = {
+    ...stateData
+  };
+  stateChangeParams[name] = name === "vsi_per_subnet" && value !== "" ? Number(value) : value;
+  if (name === "vpc")
+    // Clear subnets and security groups when vpc changes
+    componentProps.isTeleport ? transpose({
+      subnet: "",
+      security_groups: []
+    }, stateChangeParams) : transpose({
+      subnets: [],
+      security_groups: []
+    }, stateChangeParams);
+  return stateChangeParams;
+}
+var vsi = {
+  vsiHandleInputChange: vsiHandleInputChange$1
+};
+var vsi_1 = vsi.vsiHandleInputChange;
+
+/**
+ * handle change for vpn gateway
+ * @param {*} event
+ * @returns {object} state object
+ */
+function handleVpnGatewayChange$1(event) {
+  let {
+    name,
+    value
+  } = event.target;
+  if (name === "vpc") {
+    return {
+      vpc: value,
+      subnet: ""
+    };
+  } else return {
+    [name]: value
+  };
+}
+var vpnGateways = {
+  handleVpnGatewayChange: handleVpnGatewayChange$1
+};
+
+const services$1 = {
+  hpcs: "Hyper Protect Crypto Services",
+  kms: "Key Protect",
+  cos: "Object Storage",
+  icr: "Container Registry",
+  "Hyper Protect Crypto Services": "hpcs",
+  "Key Protect": "kms",
+  "Object Storage": "cos",
+  "Container Registry": "icr",
+  "secrets-manager": "Secrets Manager",
+  "Secrets Manager": "secrets-manager"
+};
+const serviceGroups$1 = ["Hyper Protect Crypto Services", "Key Protect", "Object Storage", "Container Registry", "Secrets Manager"];
+
+/**
+ * handle vpc dropdown
+ * @param {Object} event
+ * @param {Object} stateData
+ * @returns {object} new state
+ */
+function vpeVpcDropdown$1(event, stateData) {
+  let state = {
+    ...stateData
+  };
+  state.vpc = event.target.value;
+  state.security_groups = [];
+  state.subnets = [];
+  return state;
+}
+/**
+ * handle service dropdown
+ * @param {Object} event
+ * @param {Object} stateData
+ * @returns {object} new state
+ */
+function vpeServiceDropdown$1(event, stateData) {
+  let state = {
+    ...stateData
+  };
+  state.service = services$1[event.target.value];
+  return state;
+}
+var vpe = {
+  services: services$1,
+  serviceGroups: serviceGroups$1,
+  vpeVpcDropdown: vpeVpcDropdown$1,
+  vpeServiceDropdown: vpeServiceDropdown$1
+};
+
+/**
+ * initialize worker pool state
+ * @param {*} props
+ * @returns {Object} state initialization object
+ */
+
+function workerPoolInit$1(props) {
+  return props.isModal ? {
+    name: "",
+    flavor: props.cluster.flavor,
+    subnets: props.cluster.subnets || [],
+    vpc: props.cluster.vpc,
+    workers_per_subnet: props.cluster.workers_per_subnet,
+    entitlement: props.cluster.entitlement
+  } : {
+    ...props.data
+  };
+}
+
+/**
+ * handle worker pool input change
+ * @param {*} event
+ * @param {*} stateData
+ * @returns {Object} state data changed
+ */
+function workerPoolInputChange$1(event, stateData) {
+  let {
+    name,
+    value
+  } = event.target;
+  let pool = {
+    ...stateData
+  };
+  if (name === "workers_per_subnet") {
+    pool[name] = Number(value);
+  } else {
+    pool[name] = value === "null" ? null : value;
+  }
+  return pool;
+}
+
+/**
+ * handle worker pool subnet change
+ * @param {*} subnets
+ * @param {*} stateData
+ * @returns {Object} state data object
+ */
+function workerPoolSubnetChange$1(subnets, stateData) {
+  let pool = {
+    ...stateData
+  };
+  pool.subnets = subnets;
+  return pool;
+}
+var workerPools = {
+  workerPoolInit: workerPoolInit$1,
+  workerPoolInputChange: workerPoolInputChange$1,
+  workerPoolSubnetChange: workerPoolSubnetChange$1
+};
+
+const {
+  handlePgwToggle
+} = vpc;
 const {
   atrackerInputChange
 } = atracker;
@@ -1442,10 +1726,40 @@ const {
   handleSelectZones,
   handleSubnetTierToggle
 } = subnets;
+const {
+  vpnRouteInputChange
+} = vpn;
+const {
+  vsiHandleInputChange
+} = vsi;
+const {
+  handleVpnGatewayChange
+} = vpnGateways;
+const {
+  services,
+  serviceGroups,
+  vpeVpcDropdown,
+  vpeServiceDropdown
+} = vpe;
+const {
+  workerPoolInit,
+  workerPoolInputChange,
+  workerPoolSubnetChange
+} = workerPools;
 var forms = {
+  workerPoolSubnetChange,
+  workerPoolInputChange,
+  workerPoolInit,
+  services,
+  serviceGroups,
+  vpeVpcDropdown,
+  vpeServiceDropdown,
+  vsiHandleInputChange,
+  vpnRouteInputChange,
   handleSubnetTierToggle,
   parseZoneStrings,
   handleSelectZones,
+  handleVpnGatewayChange,
   f5Vsis,
   f5VsiInputChange,
   routingTableRouteInputChange,
@@ -1472,26 +1786,36 @@ var forms = {
   filterKubeVersion: filterKubeVersion$1,
   onCheckClick,
   handleVpnServerInputChange,
-  vpnServerRangeInvalid
+  vpnServerRangeInvalid,
+  handlePgwToggle
 };
-var forms_1 = forms.handleSubnetTierToggle;
-var forms_2 = forms.parseZoneStrings;
-var forms_3 = forms.handleSelectZones;
-var forms_7 = forms.cbrInvalid;
-var forms_10 = forms.handleRuleInputChange;
-var forms_17 = forms.handleDnsResolverInputChange;
-var forms_18 = forms.dnsFormInputChange;
-var forms_19 = forms.atrackerInputChange;
-var forms_20 = forms.handleRgToggle;
-var forms_21 = forms.handleCRNs;
-var forms_22 = forms.handleVpcSelect;
-var forms_23 = forms.getRuleProtocol;
-var forms_24 = forms.getSubRule;
-var forms_25 = forms.swapArrayElements;
-var forms_26 = forms.getOrderCardClassName;
-var forms_28 = forms.onCheckClick;
-var forms_29 = forms.handleVpnServerInputChange;
-var forms_30 = forms.vpnServerRangeInvalid;
+var forms_1 = forms.workerPoolSubnetChange;
+var forms_2 = forms.workerPoolInputChange;
+var forms_3 = forms.workerPoolInit;
+var forms_4 = forms.services;
+var forms_5 = forms.serviceGroups;
+var forms_6 = forms.vpeVpcDropdown;
+var forms_7 = forms.vpeServiceDropdown;
+var forms_9 = forms.vpnRouteInputChange;
+var forms_10 = forms.handleSubnetTierToggle;
+var forms_11 = forms.parseZoneStrings;
+var forms_12 = forms.handleSelectZones;
+var forms_13 = forms.handleVpnGatewayChange;
+var forms_17 = forms.cbrInvalid;
+var forms_20 = forms.handleRuleInputChange;
+var forms_27 = forms.handleDnsResolverInputChange;
+var forms_28 = forms.dnsFormInputChange;
+var forms_29 = forms.atrackerInputChange;
+var forms_30 = forms.handleRgToggle;
+var forms_31 = forms.handleCRNs;
+var forms_32 = forms.handleVpcSelect;
+var forms_33 = forms.getRuleProtocol;
+var forms_34 = forms.getSubRule;
+var forms_35 = forms.swapArrayElements;
+var forms_36 = forms.getOrderCardClassName;
+var forms_38 = forms.onCheckClick;
+var forms_39 = forms.handleVpnServerInputChange;
+var forms_40 = forms.vpnServerRangeInvalid;
 
 const {
   toggleMarginBottom,
@@ -3988,7 +4312,7 @@ class AtrackerForm extends React.Component {
    * @param {*} value value to update
    */
   handleInputChange(event) {
-    this.setState(forms_19(this.state, event));
+    this.setState(forms_29(this.state, event));
   }
 
   /**
@@ -4149,54 +4473,24 @@ AtrackerForm.propTypes = {
 class WorkerPoolForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.props.isModal ? {
-      name: "",
-      flavor: this.props.cluster.flavor,
-      subnets: this.props.cluster.subnets || [],
-      vpc: this.props.cluster.vpc,
-      workers_per_subnet: this.props.cluster.workers_per_subnet,
-      entitlement: this.props.cluster.entitlement
-    } : {
-      ...this.props.data
-    }, this.handleInputChange = this.handleInputChange.bind(this);
+    this.state = forms_3(this.props);
+    this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubnetChange = this.handleSubnetChange.bind(this);
     buildFormFunctions(this);
   }
-
-  // Handle pool input change
   handleInputChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    let pool = {
-      ...this.state
-    };
-    if (name === "workers_per_subnet") {
-      pool[name] = Number(value);
-    } else {
-      pool[name] = value === "null" ? null : value;
-    }
-    this.setState(pool);
+    this.setState(forms_2(event, this.state));
   }
-
-  // Handle subnet multiselect change
-  handleSubnetChange(event) {
-    let pool = {
-      ...this.state
-    };
-    pool.subnets = event;
-    this.setState(pool);
+  handleSubnetChange(subnets) {
+    this.setState(forms_1(subnets, this.state));
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       id: this.state.name + "-name",
       componentName: "Worker Pools",
       onChange: this.handleInputChange,
-      componentProps: this.props,
       value: this.state.name,
       className: "fieldWidthSmaller",
-      placeholder: "my-worker-pool-name",
       hideHelperText: true,
       invalid: this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props)
@@ -4271,6 +4565,55 @@ WorkerPoolForm.propTypes = {
   invalidTextCallback: PropTypes__default["default"].func.isRequired
 };
 
+const WorkerPools = props => {
+  return props.isModal ? "" : /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "Worker Pools",
+    subHeading: true,
+    addText: "Create a Worker Pool",
+    arrayData: props.worker_pools,
+    innerForm: WorkerPoolForm,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    innerFormProps: {
+      subnetList: props.subnetList,
+      cluster: props.cluster,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      flavorApiEndpoint: props.flavorApiEndpoint,
+      craig: props.craig
+    },
+    hideAbout: true,
+    toggleFormProps: {
+      hideName: true,
+      submissionFieldName: "worker_pools",
+      disableSave: props.disableSave,
+      type: "formInSubForm"
+    }
+  });
+};
+WorkerPools.defaultProps = {
+  isModal: false
+};
+WorkerPools.propTypes = {
+  isModal: PropTypes__default["default"].bool.isRequired,
+  worker_pools: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})),
+  disableSave: PropTypes__default["default"].func,
+  onDelete: PropTypes__default["default"].func,
+  onSave: PropTypes__default["default"].func,
+  onSubmit: PropTypes__default["default"].func,
+  propsMatchState: PropTypes__default["default"].func,
+  subnetList: PropTypes__default["default"].array,
+  cluster: PropTypes__default["default"].shape({}).isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  arrayParentName: PropTypes__default["default"].string,
+  flavorApiEndpoint: PropTypes__default["default"].string,
+  craig: PropTypes__default["default"].shape({})
+};
+
 class ClusterForm extends React.Component {
   constructor(props) {
     super(props);
@@ -4326,16 +4669,6 @@ class ClusterForm extends React.Component {
   }
   render() {
     let clusterComponent = this.props.isModal ? "new-cluster" : this.props.data.name;
-    let innerFormProps = {
-      arrayParentName: this.props.data.name,
-      cluster: this.props.data,
-      invalidTextCallback: this.props.invalidPoolTextCallback,
-      invalidCallback: this.props.invalidPoolCallback,
-      subnetList: this.props.subnetList
-    };
-    lazyZ.transpose({
-      ...this.props.workerPoolProps
-    }, innerFormProps);
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       id: this.state.name + "-name",
       labelText: "Cluster Name",
@@ -4448,28 +4781,20 @@ class ClusterForm extends React.Component {
       toggleFieldName: "private_endpoint",
       defaultToggled: this.state.private_endpoint,
       onToggle: this.handleToggle
-    })), /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, this.props.isModal === false && /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
-      name: "Worker Pools",
-      subHeading: true,
-      addText: "Create a Worker Pool",
-      arrayData: this.props.data.worker_pools,
-      innerForm: WorkerPoolForm,
+    })), /*#__PURE__*/React__default["default"].createElement(WorkerPools, {
+      worker_pools: this.props.data.worker_pools,
       disableSave: this.props.workerPoolProps.disableSave,
       onDelete: this.props.workerPoolProps.onDelete,
       onSave: this.props.workerPoolProps.onSave,
       onSubmit: this.props.workerPoolProps.onSubmit,
       propsMatchState: this.props.propsMatchState,
-      innerFormProps: {
-        ...innerFormProps
-      },
-      hideAbout: true,
-      toggleFormProps: {
-        hideName: true,
-        submissionFieldName: "worker_pools",
-        disableSave: this.props.workerPoolProps.disableSave,
-        type: "formInSubForm"
-      }
-    })));
+      cluster: this.props.data,
+      invalidCallback: this.props.invalidPoolCallback,
+      invalidTextCallback: this.props.invalidPoolCallback,
+      subnetList: this.props.subnetList,
+      craig: this.props.workerPoolProps.craig,
+      flavorApiEndpoint: this.props.workerPoolProps.flavorApiEndpoint
+    }));
   }
 }
 ClusterForm.defaultProps = {
@@ -6408,6 +6733,55 @@ NetworkingRuleSelect.propTypes = {
   groups: PropTypes__default["default"].array.isRequired
 };
 
+class OrderCardDataTable extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = networkingOrderCard_5(this.props);
+  }
+  componentDidUpdate(prevProps) {
+    if (prevProps.rules !== this.props.rules) {
+      this.setState(networkingOrderCard_5(this.props));
+    }
+  }
+  render() {
+    const {
+      rows,
+      headers
+    } = {
+      ...this.state
+    };
+    return /*#__PURE__*/React__default["default"].createElement(react.DataTable, {
+      headers: headers,
+      rows: rows
+    }, _ref => {
+      let {
+        rows,
+        headers,
+        getHeaderProps,
+        getRowProps
+      } = _ref;
+      return /*#__PURE__*/React__default["default"].createElement(react.TableContainer, null, /*#__PURE__*/React__default["default"].createElement(react.Table, null, /*#__PURE__*/React__default["default"].createElement(react.TableHead, null, /*#__PURE__*/React__default["default"].createElement(react.TableRow, null, headers.map((header, index) => /*#__PURE__*/React__default["default"].createElement(react.TableHeader, _extends({
+        key: header.header + "-" + index
+      }, getHeaderProps({
+        header
+      })), header.header)))), /*#__PURE__*/React__default["default"].createElement(react.TableBody, null, rows.map((row, index) => /*#__PURE__*/React__default["default"].createElement(react.TableRow, _extends({
+        key: row.name + "-" + index
+      }, getRowProps({
+        row
+      })), row.cells.map(cell => /*#__PURE__*/React__default["default"].createElement(react.TableCell, {
+        key: JSON.stringify(cell),
+        className: this.props.isSecurityGroup ? "dt-security-group" : ""
+      }, /*#__PURE__*/React__default["default"].createElement("div", {
+        key: JSON.stringify(cell) + "-port"
+      }, lazyZ.contains(["tcp", "udp", "all", "icmp"], cell.value) ? cell.value.toUpperCase() : cell.value))))))));
+    });
+  }
+}
+OrderCardDataTable.propTypes = {
+  isSecurityGroup: PropTypes__default["default"].bool.isRequired,
+  rules: PropTypes__default["default"].array.isRequired
+};
+
 class NetworkingRulesOrderCard extends React.Component {
   constructor(props) {
     super(props);
@@ -6415,7 +6789,8 @@ class NetworkingRulesOrderCard extends React.Component {
       rules: [...this.props.rules],
       collapse: {},
       allCollapsed: false,
-      showModal: false
+      showModal: false,
+      showTable: true
     };
     this.handleUp = this.handleUp.bind(this);
     this.handleDown = this.handleDown.bind(this);
@@ -6477,7 +6852,7 @@ class NetworkingRulesOrderCard extends React.Component {
   handleUp(index) {
     let prevRulesState = [...this.state.rules];
     if (index !== 0) {
-      forms_25(prevRulesState, index, index - 1);
+      forms_35(prevRulesState, index, index - 1);
     }
     this.props.networkRuleOrderDidChange(prevRulesState);
     this.setState({
@@ -6493,7 +6868,7 @@ class NetworkingRulesOrderCard extends React.Component {
     let prevRulesState = [...this.state.rules];
     let maxLen = prevRulesState.length - 1;
     if (index !== maxLen) {
-      forms_25(prevRulesState, index, index + 1);
+      forms_35(prevRulesState, index, index + 1);
     }
     this.props.networkRuleOrderDidChange(prevRulesState);
     this.setState({
@@ -6515,11 +6890,22 @@ class NetworkingRulesOrderCard extends React.Component {
       type: "subHeading",
       buttons: /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
         hide: this.props.hideCreate,
-        show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+        show: /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+          type: "custom",
+          onClick: () => {
+            this.setState({
+              showTable: !this.state.showTable
+            });
+          },
+          customIcon: this.state.showTable ? iconsReact.Edit : iconsReact.DataView,
+          hoverText: this.state.showTable ? "Edit" : "View Data",
+          className: "edit-view-btn",
+          hide: this.state.rules.length < 0 // do not show edit if no rules
+        }), /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
           name: this.props.vpc_name,
           type: "add",
           onClick: this.toggleModal
-        })
+        }))
       })
     }), /*#__PURE__*/React__default["default"].createElement(FormModal, {
       name: "Create a Network Rule",
@@ -6568,9 +6954,13 @@ class NetworkingRulesOrderCard extends React.Component {
     })), /*#__PURE__*/React__default["default"].createElement(EmptyResourceTile, {
       name: "Network Rules",
       showIfEmpty: this.state.rules
-    }), this.state.rules.map((rule, index) => /*#__PURE__*/React__default["default"].createElement("div", {
+    }), this.state.showTable && this.state.rules.length > 0 ? /*#__PURE__*/React__default["default"].createElement(OrderCardDataTable, {
+      isSecurityGroup: this.props.isSecurityGroup,
+      rules: this.state.rules,
+      vpc_name: this.props.vpc_name
+    }) : this.state.rules.map((rule, index) => /*#__PURE__*/React__default["default"].createElement("div", {
       key: "rule-div-" + rule.name + "-wrapper",
-      className: forms_26(this.props)
+      className: forms_36(this.props)
     }, /*#__PURE__*/React__default["default"].createElement(NetworkingRuleForm, {
       hide: this.state.collapse[rule.name],
       onToggle: () => this.toggleCollapse(rule.name),
@@ -6588,8 +6978,8 @@ class NetworkingRulesOrderCard extends React.Component {
         direction: rule.direction,
         source: rule.source,
         destination: rule.destination || null,
-        ruleProtocol: forms_23(rule),
-        rule: forms_24(rule, this.props.isSecurityGroup)
+        ruleProtocol: forms_33(rule),
+        rule: forms_34(rule, this.props.isSecurityGroup)
       },
       disableSaveCallback: this.props.disableSaveCallback,
       isSecurityGroup: this.props.isSecurityGroup,
@@ -7100,7 +7490,7 @@ class ResourceGroupForm extends React.Component {
    * @param {string} name name of the object key to change
    */
   handleToggle(name) {
-    this.setState(forms_20(this.state, name));
+    this.setState(forms_30(this.state, name));
   }
 
   /**
@@ -8186,7 +8576,7 @@ class SubnetTierForm extends React__default["default"].Component {
    * @param {Object} event
    */
   handleSelectZones(event) {
-    this.setState(forms_3(event, this.state));
+    this.setState(forms_12(event, this.state));
   }
 
   /**
@@ -8194,7 +8584,7 @@ class SubnetTierForm extends React__default["default"].Component {
    * @param {string} name
    */
   handleSubnetTierToggle(name) {
-    this.setState(forms_1(name, this.state));
+    this.setState(forms_10(name, this.state));
   }
 
   /**
@@ -8318,7 +8708,7 @@ class SubnetTierForm extends React__default["default"].Component {
       invalid: this.state.select_zones.length === 0,
       invalidText: "Select at least one zone",
       items: ["1", "2", "3"],
-      initialSelectedItems: forms_2(this.state, this.props),
+      initialSelectedItems: forms_11(this.state, this.props),
       onChange: this.handleSelectZones
     }) : /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
       max: 3,
@@ -8533,7 +8923,7 @@ class TransitGatewayForm extends React.Component {
    * @param {event} event
    */
   handleCRNs(event) {
-    this.setState(forms_21(event));
+    this.setState(forms_31(event));
   }
 
   /**
@@ -8541,7 +8931,7 @@ class TransitGatewayForm extends React.Component {
    * @param {Array} selectedItems
    */
   handleVpcSelect(selectedItems) {
-    this.setState(forms_22(selectedItems, this.state.name));
+    this.setState(forms_32(selectedItems, this.state.name));
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
@@ -8639,7 +9029,7 @@ class VpcNetworkForm extends React__default["default"].Component {
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
-    this.handPgwToggle = this.handPgwToggle.bind(this);
+    this.handlePgwToggle = this.handlePgwToggle.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
@@ -8664,57 +9054,35 @@ class VpcNetworkForm extends React__default["default"].Component {
    * @param {string} name name of the object key to change
    */
   handleToggle(name) {
-    this.setState({
-      [name]: !this.state[name]
-    });
+    this.setState(this.toggleStateBoolean(name, this.state));
   }
 
   /**
    * handle change of public gateway by zone
    * @param {string} zone zone-1, zone-2, or zone-3
    */
-  handPgwToggle(zone) {
-    let vpc = {
-      ...this.state
-    };
-    let currentGw = [...this.state.publicGateways]; // new array
-    let zoneNumber = lazyZ.parseIntFromZone(zone);
-    // check if zone is already present
-    if (utils$1.contains(currentGw, zoneNumber)) {
-      let index = currentGw.indexOf(zoneNumber);
-      currentGw.splice(index, 1);
-    } else {
-      currentGw.push(zoneNumber);
-    }
-    vpc.publicGateways = currentGw;
-    this.setState({
-      ...vpc
-    });
+  handlePgwToggle(zone) {
+    this.setState(vpc_1(zone, this.state));
   }
   render() {
     let composedId = `${this.props.data.name}-vpc-form`;
-    this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       tooltip: {
         content: "This name will be prepended to all components within this VPC.",
         alignModal: "bottom-left",
         align: "bottom-left"
       },
-      id: composedId + "-prefix",
-      componentProps: this.props,
-      component: "vpc",
-      componentName: this.props.data.name,
+      id: composedId + "-name",
       field: "name",
-      labelText: "Name",
       placeholder: "my-vpc-name",
       hideHelperText: true,
       value: this.state.name,
+      forceKebabCase: true,
       onChange: this.handleInputChange,
       invalid: this.props.invalidCallback("name", this.state, this.props),
       invalidText: this.props.invalidTextCallback("name", this.state, this.props),
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      labelText: "Resource Group",
       name: "resource_group",
       formName: "resource_group",
       groups: this.props.resourceGroups,
@@ -8737,14 +9105,15 @@ class VpcNetworkForm extends React__default["default"].Component {
       return /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
         id: composedId + "-" + field,
         key: this.props.data.name + "-" + lazyZ.kebabCase(field),
-        componentName: "VPC Network",
         field: field,
         labelText: lazyZ.titleCase(field),
         value: this.state[field],
         onChange: this.handleInputChange,
         invalid: this.props.invalidCallback(field, this.state, this.props),
         invalidText: this.props.invalidTextCallback(field, this.state, this.props),
-        className: "fieldWidthSmaller"
+        className: "fieldWidthSmaller",
+        optional: true,
+        forceKebabCase: true
       });
     })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
       name: "Public Gateways",
@@ -8758,7 +9127,7 @@ class VpcNetworkForm extends React__default["default"].Component {
       id: this.props.data.name + "-pgw-" + zone,
       labelText: "Create in Zone " + lazyZ.parseIntFromZone(zone),
       defaultToggled: this.state.publicGateways.indexOf(lazyZ.parseIntFromZone(zone)) !== -1,
-      onToggle: () => this.handPgwToggle(zone),
+      onToggle: () => this.handlePgwToggle(zone),
       className: "fieldWidthSmaller leftTextAlign"
     }))), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
       name: "Classic Access",
@@ -8811,20 +9180,6 @@ VpcNetworkForm.propTypes = {
   disableManualPrefixToggle: PropTypes__default["default"].bool.isRequired
 };
 
-const services = {
-  hpcs: "Hyper Protect Crypto Services",
-  kms: "Key Protect",
-  cos: "Object Storage",
-  icr: "Container Registry",
-  "Hyper Protect Crypto Services": "hpcs",
-  "Key Protect": "kms",
-  "Object Storage": "cos",
-  "Container Registry": "icr",
-  "secrets-manager": "Secrets Manager",
-  "Secrets Manager": "secrets-manager"
-};
-const serviceGroups = ["Hyper Protect Crypto Services", "Key Protect", "Object Storage", "Container Registry", "Secrets Manager"];
-
 /**
  * Vpe Form
  */
@@ -8838,7 +9193,6 @@ class VpeForm extends React.Component {
     this.handleServiceDropdown = this.handleServiceDropdown.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleMultiSelect = this.handleMultiSelect.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
@@ -8856,11 +9210,7 @@ class VpeForm extends React.Component {
    * @param {event} event event
    */
   handleVpcDropdown(event) {
-    this.setState({
-      vpc: event.target.value,
-      security_groups: [],
-      subnets: []
-    });
+    this.setState(forms_6(event, this.state));
   }
 
   /**
@@ -8868,19 +9218,7 @@ class VpeForm extends React.Component {
    * @param {event} event event
    */
   handleServiceDropdown(event) {
-    this.setState({
-      service: services[event.target.value]
-    });
-  }
-
-  /**
-   * Toggle on and off param in state at name
-   * @param {string} name name of the object key to change
-   */
-  handleToggle(name) {
-    this.setState({
-      [name]: !this.state[name]
-    });
+    this.setState(forms_7(event, this.state));
   }
 
   /**
@@ -8888,9 +9226,7 @@ class VpeForm extends React.Component {
    * @param {event} event
    */
   handleMultiSelect(name, event) {
-    this.setState({
-      [name]: event
-    });
+    this.setState(this.setNameToValue(name, event));
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
@@ -8915,8 +9251,8 @@ class VpeForm extends React.Component {
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       name: "service",
       formName: this.props.data.name + "vpce-service",
-      groups: serviceGroups,
-      value: services[this.state.service],
+      groups: forms_5,
+      value: forms_4[this.state.service],
       labelText: "Service Type",
       handleInputChange: this.handleServiceDropdown,
       className: "fieldWidthSmaller"
@@ -9011,18 +9347,7 @@ class VpnGatewayForm extends React.Component {
    * @param {event} event
    */
   handleInputChange(event) {
-    if (event.target.name === "vpc") {
-      this.setState({
-        vpc: event.target.value,
-        subnet: ""
-      });
-    } else if (event.target.name === "subnet" && lib_9(this.state.vpc)) {
-      this.setState({
-        subnet: ""
-      });
-    } else {
-      this.setState(this.eventTargetToNameAndValue(event));
-    }
+    this.setState(forms_13(event));
   }
   render() {
     let composedId = `vpn-gateway-form-${this.props.data.name}-`;
@@ -9038,7 +9363,7 @@ class VpnGatewayForm extends React.Component {
       invalidCallback: () => this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props)
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "resource_group",
+      formName: this.props.data.name + "-resource_group",
       name: "resource_group",
       labelText: "Resource Group",
       groups: this.props.resourceGroups,
@@ -9049,7 +9374,7 @@ class VpnGatewayForm extends React.Component {
       className: "fieldWidth"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       id: composedId,
-      formName: "vpc",
+      formName: this.props.data.name + "-vpn-" + this.state.vpc,
       name: "vpc",
       labelText: "VPC",
       groups: this.props.vpcList,
@@ -9114,28 +9439,20 @@ class VpnServerRouteForm extends React__default["default"].Component {
    * @param {event} event
    */
   handleInputChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    this.setState({
-      [name]: value.toLowerCase()
-    });
+    this.setState(forms_9(event, this.state));
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       id: `${this.props.data.name}-name`,
-      componentName: "vpn-server-name",
       value: this.state.name,
       onChange: this.handleInputChange,
       hideHelperText: true,
       className: "fieldWidthSmaller",
       invalidCallback: () => this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props)
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      forceKebabCase: true
     }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: `${this.props.data.name}-route-destination`,
-      componentName: "vpn-server-route-destination",
-      name: "destination",
       field: "destination",
       value: this.state.destination,
       placeholder: "x.x.x.x",
@@ -9193,7 +9510,7 @@ class VpnServerForm extends React.Component {
    * @param {event} event
    */
   handleInputChange(event) {
-    this.setState(forms_29(this.state, event));
+    this.setState(forms_39(this.state, event));
   }
   handleMultiSelectChange(name, value) {
     this.setState(this.setNameToValue(name, value));
@@ -9331,7 +9648,7 @@ class VpnServerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: forms_30(this.state.port, 1, 65535),
+      invalid: forms_40(this.state.port, 1, 65535),
       invalidText: "Must be a whole number between 1 and 65535.",
       className: "fieldWidthSmaller leftTextAlign"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
@@ -9360,7 +9677,7 @@ class VpnServerForm extends React.Component {
       hideSteppers: true,
       min: 0,
       max: 28800,
-      invalid: forms_30(this.state.client_idle_timeout, 0, 28800),
+      invalid: forms_40(this.state.client_idle_timeout, 0, 28800),
       invalidText: "Must be a whole number between 0 and 28800.",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
@@ -9560,23 +9877,7 @@ class VsiForm extends React.Component {
     buildFormDefaultInputMethods(this);
   }
   handleInputChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    let stateChangeParams = {
-      [name]: name === "vsi_per_subnet" && value !== "" ? Number(value) : value
-    };
-    if (name === "vpc")
-      // Clear subnets and security groups when vpc changes
-      this.props.isTeleport ? lazyZ.transpose({
-        subnet: "",
-        security_groups: []
-      }, stateChangeParams) : lazyZ.transpose({
-        subnets: [],
-        security_groups: []
-      }, stateChangeParams);
-    this.setState(stateChangeParams);
+    this.setState(vsi_1(event, this.state, this.props));
   }
   handleMultiSelectChange(name, value) {
     this.setState(this.setNameToValue(name, value));
@@ -9598,14 +9899,14 @@ class VsiForm extends React.Component {
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       id: composedId,
       className: "fieldWidthSmaller",
-      componentName: "vsi",
       value: this.state.name,
       onChange: this.handleInputChange,
       invalid: this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props),
-      hideHelperText: true
+      hideHelperText: true,
+      forceKebabCase: true
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "vsi_form",
+      formName: composedId + "-rg",
       name: "resource_group",
       className: "fieldWidthSmaller",
       labelText: "Resource Group",
@@ -9613,20 +9914,20 @@ class VsiForm extends React.Component {
       value: this.state.resource_group,
       handleInputChange: this.handleInputChange
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "vsi_form",
+      formName: composedId + "-vpc",
       name: "vpc",
-      className: "fieldWidthSmaller",
       labelText: "VPC",
       groups: this.props.vpcList,
       value: this.state.vpc,
       handleInputChange: this.handleInputChange,
       invalid: lib_9(this.state.vpc),
-      invalidText: "Select a VPC."
+      invalidText: "Select a VPC.",
+      className: "fieldWidthSmaller"
     }), this.props.isTeleport ?
     /*#__PURE__*/
     // render dropdown for teleport instance
     React__default["default"].createElement(IcseSelect, {
-      formName: "vsi_form",
+      formName: composedId + "-subnet",
       name: "subnet",
       className: "fieldWidthSmaller",
       labelText: "Subnet",
@@ -9637,7 +9938,7 @@ class VsiForm extends React.Component {
       invalidText: lib_9(this.state.vpc) ? `No VPC Selected.` : `Select a Subnet.`
     }) : /*#__PURE__*/React__default["default"].createElement(SubnetMultiSelect, {
       key: this.state.vpc + "-subnet",
-      id: "vsi-subnets",
+      id: composedId + "-vsi-subnets",
       className: "fieldWidthSmaller",
       initialSelectedItems: this.state.subnets,
       vpc_name: this.state.vpc,
@@ -9656,7 +9957,6 @@ class VsiForm extends React.Component {
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
       label: "Instances per Subnet",
       id: composedId + "-vsi-per-subnet",
-      allowEmpty: false,
       value: this.state.vsi_per_subnet,
       defaultValue: 1,
       max: 10,
@@ -9667,7 +9967,7 @@ class VsiForm extends React.Component {
       invalidText: "Please input a number 1-10",
       className: "fieldWidthSmaller leftTextAlign"
     }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
-      formName: "vsi_form",
+      formName: composedId + "-image",
       labelText: "Image",
       name: "image_name",
       className: "fieldWidthSmaller",
@@ -9675,7 +9975,7 @@ class VsiForm extends React.Component {
       handleInputChange: this.handleInputChange,
       value: this.state.image_name
     }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
-      formName: "vsi_form",
+      formName: composedId + "-profile",
       labelText: "Profile",
       name: "profile",
       className: "fieldWidthSmaller",
@@ -9683,13 +9983,13 @@ class VsiForm extends React.Component {
       handleInputChange: this.handleInputChange,
       value: this.state.profile
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(SshKeyMultiSelect, {
-      id: "sshkey",
+      id: composedId + "-sshkey",
       className: "fieldWidthSmaller",
       sshKeys: this.props.sshKeys,
       initialSelectedItems: this.state.ssh_keys || [],
       onChange: value => this.handleMultiSelectChange("ssh_keys", value)
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "vsi_form",
+      formName: composedId + "-encryption_key",
       name: "encryption_key",
       className: "fieldWidthSmaller",
       labelText: "Encryption Key",
@@ -10867,7 +11167,7 @@ class CbrRuleForm extends React.Component {
     buildFormFunctions(this);
   }
   handleInputChange(event) {
-    this.setState(forms_10(this.state, event));
+    this.setState(forms_20(this.state, event));
   }
   render() {
     // set up props for subforms
@@ -11267,7 +11567,7 @@ class CbrZoneForm extends React.Component {
       labelText: "Account ID" // needed to override titlecase capitalization
       ,
       onChange: this.handleInputChange
-    }, forms_7("account_id", this.state.account_id)))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
+    }, forms_17("account_id", this.state.account_id)))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
       id: this.props.data.name + "-cbr-zone-description",
       className: "textInputWide",
       name: "description",
@@ -11687,7 +11987,7 @@ class DnsCustomResolverForm extends React__default["default"].Component {
    * @param {*} value value to update
    */
   handleInputChange(event) {
-    this.setState(forms_17(this.state, event));
+    this.setState(forms_27(this.state, event));
   }
 
   /**
@@ -11808,7 +12108,7 @@ class DnsForm extends React.Component {
     buildFormFunctions(this);
   }
   handleInputChange(event) {
-    this.setState(forms_18(event));
+    this.setState(forms_28(event));
   }
   render() {
     // set up props for subforms
@@ -12063,14 +12363,6 @@ class LogDNAForm extends React.Component {
       labelText: "Plan",
       invalidText: "Select a plan."
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: this.props.data.name + "-logdna-endpoints",
-      name: "endpoints",
-      labelText: "Endpoint",
-      value: lazyZ.titleCase(this.state.endpoints).replace(/And/g, "and"),
-      groups: ["Private", "Public", "Public and Private"],
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       name: "resource_group",
       formName: `${this.props.data.name}-logdna-rg-select`,
       groups: this.props.resourceGroups,
@@ -12115,7 +12407,6 @@ LogDNAForm.defaultProps = {
   data: {
     enabled: false,
     plan: "7-day",
-    endpoints: "private",
     resource_group: "",
     bucket: "",
     archive: false,
@@ -12128,7 +12419,6 @@ LogDNAForm.propTypes = {
   data: PropTypes__default["default"].shape({
     enabled: PropTypes__default["default"].bool,
     plan: PropTypes__default["default"].string,
-    endpoints: PropTypes__default["default"].string,
     resource_group: PropTypes__default["default"].string,
     bucket: PropTypes__default["default"].string,
     archive: PropTypes__default["default"].bool,
@@ -12257,7 +12547,7 @@ class SecretsManagerChecklist extends React__default["default"].Component {
     this.toggleHide = this.toggleHide.bind(this);
   }
   onCheckClick(ref) {
-    let selected = forms_28(this.state.selected, ref, this.props.secrets);
+    let selected = forms_38(this.state.selected, ref, this.props.secrets);
     this.setState({
       selected: selected
     }, () => {
@@ -12352,6 +12642,7 @@ exports.NetworkingRulesOrderCard = NetworkingRulesOrderCard;
 exports.ObjectStorageBucketForm = ObjectStorageBucketForm;
 exports.ObjectStorageForm = ObjectStorageInstancesForm;
 exports.ObjectStorageKeyForm = ObjectStorageKeyForm;
+exports.OrderCardDataTable = OrderCardDataTable;
 exports.PopoverWrapper = PopoverWrapper;
 exports.RenderForm = RenderForm;
 exports.ResourceGroupForm = ResourceGroupForm;

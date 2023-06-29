@@ -4,7 +4,7 @@ import { contains } from "lazy-z";
 
 export default {
   component: NetworkingRulesOrderCard,
-  title: "Components/Forms/NetworkingRulesOrderCard",
+  title: "Components/Forms/NetworkRules/NetworkingRulesOrderCard",
   argTypes: {
     isSecurityGroup: {
       description:

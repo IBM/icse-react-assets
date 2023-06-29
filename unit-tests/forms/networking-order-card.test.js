@@ -5,6 +5,9 @@ const {
   swapArrayElements,
   getOrderCardClassName,
 } = require("../../src/lib/forms");
+const {
+  setupRowsAndHeaders,
+} = require("../../src/lib/forms/networking-order-card");
 
 describe("networking-order-card", () => {
   describe("getRuleProtocol", () => {
@@ -170,6 +173,120 @@ describe("networking-order-card", () => {
         "marginBottomSmall positionRelative subForm",
         getOrderCardClassName({ isSecurityGroup: false })
       );
+    });
+  });
+  describe("setupRowsAndHeaders", () => {
+    let componentProps;
+    beforeEach(() => {
+      componentProps = {
+        rules: [
+          {
+            action: "allow",
+            destination: "10.0.0.0/8",
+            direction: "inbound",
+            name: "allow-ibm-inbound",
+            source: "161.26.0.0/16",
+            icmp: {
+              type: null,
+              code: null,
+            },
+            tcp: {
+              port_min: null,
+              port_max: null,
+              source_port_min: null,
+              source_port_max: null,
+            },
+            udp: {
+              port_min: null,
+              port_max: null,
+              source_port_min: null,
+              source_port_max: null,
+            },
+          },
+        ],
+        isSecurityGroup: false,
+      };
+    });
+    it("should have all the headers when acl", () => {
+      let expectedRows = [
+        {
+          action: "allow",
+          destination: "10.0.0.0/8",
+          direction: "inbound",
+          name: "allow-ibm-inbound",
+          id: "allow-ibm-inbound",
+          source: "161.26.0.0/16",
+          protocol: "all",
+          port: "ALL",
+        },
+      ];
+      let expectedHeaders = [
+        {
+          key: "name",
+          header: "Name",
+        },
+        { key: "action", header: "Action" },
+        { key: "direction", header: "Direction" },
+        { key: "source", header: "Source" },
+        { key: "destination", header: "Destination" },
+        { key: "protocol", header: "Protocol" },
+        { key: "port", header: "Port" },
+      ];
+
+      let componentState = setupRowsAndHeaders(componentProps);
+      assert.deepEqual(expectedHeaders, componentState.headers);
+      assert.deepEqual(expectedRows, componentState.rows);
+    });
+    it("should not have destination or action when sg", () => {
+      componentProps.isSecurityGroup = true;
+      componentProps.rules[0].icmp.code = 12;
+      let expectedRows = [
+        {
+          action: "allow",
+          destination: "10.0.0.0/8",
+          direction: "inbound",
+          name: "allow-ibm-inbound",
+          id: "allow-ibm-inbound",
+          source: "161.26.0.0/16",
+          protocol: "icmp",
+          port: 12,
+        },
+      ];
+      let expectedHeaders = [
+        {
+          key: "name",
+          header: "Name",
+        },
+        { key: "direction", header: "Direction" },
+        { key: "source", header: "Source" },
+        { key: "protocol", header: "Protocol" },
+        { key: "port", header: "Port" },
+      ];
+
+      let componentState = setupRowsAndHeaders(componentProps);
+      assert.deepEqual(expectedHeaders, componentState.headers);
+      assert.deepEqual(expectedRows, componentState.rows);
+    });
+    it("should have port min and max on udp or tcp", () => {
+      componentProps.isSecurityGroup = true;
+      componentProps.rules[0].udp.port_min = 80;
+      componentProps.rules[0].udp.port_max = 8080;
+
+      let expectedRows = [
+        {
+          action: "allow",
+          destination: "10.0.0.0/8",
+          direction: "inbound",
+          name: "allow-ibm-inbound",
+          id: "allow-ibm-inbound",
+          source: "161.26.0.0/16",
+          protocol: "udp",
+          port: "80-8080",
+        },
+      ];
+
+      let componentState = setupRowsAndHeaders(componentProps);
+      assert.deepEqual(expectedRows, componentState.rows);
     });
   });
 });
