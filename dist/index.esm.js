@@ -1,6 +1,6 @@
 import '@carbon/styles/css/styles.css';
 import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, TextArea, PasswordInput, NumberInput, DataTable, TableContainer, Table, TableHead, TableRow, TableHeader, TableBody, TableCell, Dropdown, Tag, Checkbox } from '@carbon/react';
-import lazyZ, { titleCase as titleCase$2, kebabCase as kebabCase$5, isEmpty, buildNumberDropdownList, contains as contains$5, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$7, transpose as transpose$2, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, getObjectFromArray, splat as splat$2, deepEqual, parseIntFromZone as parseIntFromZone$1, snakeCase as snakeCase$1, distinct, isWholeNumber as isWholeNumber$2, isInRange as isInRange$1, eachKey } from 'lazy-z';
+import lazyZ, { titleCase as titleCase$2, kebabCase as kebabCase$5, isEmpty, buildNumberDropdownList, contains as contains$5, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$7, transpose as transpose$2, containsKeys, capitalize as capitalize$2, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, getObjectFromArray, splat as splat$2, deepEqual, parseIntFromZone as parseIntFromZone$1, snakeCase as snakeCase$2, distinct, isWholeNumber as isWholeNumber$2, isInRange as isInRange$1 } from 'lazy-z';
 import regexButWithWords from 'regex-but-with-words';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -466,7 +466,7 @@ var emptyResourceTile = {
 var emptyResourceTile_1 = emptyResourceTile.emptyResourceTileParams;
 
 const {
-  snakeCase,
+  snakeCase: snakeCase$1,
   kebabCase: kebabCase$2,
   titleCase: titleCase$1,
   isBoolean
@@ -489,7 +489,7 @@ const {
  * @returns {Object} params object
  */
 function toggleParams$1(props) {
-  let toggleName = props.toggleFieldName || snakeCase(props.labelText);
+  let toggleName = props.toggleFieldName || snakeCase$1(props.labelText);
   let labelA = props.useOnOff ? "Off" : "False",
     labelB = props.useOnOff ? "On" : "True",
     labelText = props.tooltip ? " " : props.labelText,
@@ -1218,9 +1218,24 @@ function swapArrayElements$1(arr, indexA, indexB) {
   arr[indexA] = arr[indexB];
   arr[indexB] = temp;
 }
+
+/**
+ *
+ * @param {Object} props
+ * @param {bool} props.isSecurityGroup
+ * @returns {string} classname
+ */
 function getOrderCardClassName$1(props) {
   return "marginBottomSmall positionRelative " + (props.isSecurityGroup ? "formInSubForm" : "subForm");
 }
+
+/**
+ * set up rows and headers
+ * @param {Object} componentProps
+ * @param {array} componentProps.rules
+ * @param {bool} componentProps.isSecurityGroup
+ * @returns {object} rows, headers for data table
+ */
 function setupRowsAndHeaders(componentProps) {
   const {
     rules,
@@ -6713,7 +6728,6 @@ class OrderCardDataTable extends Component {
     this.state = networkingOrderCard_5(this.props);
   }
   componentDidUpdate(prevProps) {
-    console.log("running cdu");
     if (prevProps.rules !== this.props.rules) {
       this.setState(networkingOrderCard_5(this.props));
     }
@@ -10111,7 +10125,7 @@ class VsiLoadBalancerForm extends React.Component {
     let nextState = {
       ...this.state
     };
-    nextState[name] = contains$5(["name", "vpc", "resource_group", "type"], name) ? value : contains$5(["health_delay", "health_retries", "health_timeout", "port", "listener_port", "connection_limit"], name) ? Number(value) : snakeCase$1(value);
+    nextState[name] = contains$5(["name", "vpc", "resource_group", "type"], name) ? value : contains$5(["health_delay", "health_retries", "health_timeout", "port", "listener_port", "connection_limit"], name) ? Number(value) : snakeCase$2(value);
     if (name === "vpc") {
       nextState.subnets = [];
       nextState.security_groups = [];
@@ -10122,7 +10136,7 @@ class VsiLoadBalancerForm extends React.Component {
     } else if (name === "session_persistence_type" && value !== "app_cookie") {
       nextState.session_persistence_app_cookie_name = null;
     } else if (name === "type") {
-      nextState.type = snakeCase$1(value.split(" ")[0]);
+      nextState.type = snakeCase$2(value.split(" ")[0]);
     }
     this.setState(nextState);
   }
@@ -10469,6 +10483,10 @@ VsiLoadBalancerForm.propTypes = {
   vsiDeployments: PropTypes.arrayOf(PropTypes.shape({})).isRequired
 };
 
+const {
+  snakeCase
+} = lazyZ;
+
 /**
  * input change for resources in access group policies
  * @param {Object} stateData
@@ -10488,10 +10506,36 @@ function handleInputResource(stateData, event) {
     resources: resources
   };
 }
-var acessGroups = {
+
+/**
+ * dynamic policy condition handler
+ * @param {Object} stateData
+ * @param {*} event
+ * @returns {Object} conditions
+ */
+function handleInputCondition(stateData, event) {
+  let {
+    name,
+    value
+  } = event.target;
+  let conditions = {
+    ...stateData.conditions
+  };
+  if (name === "operator") {
+    conditions[name] = snakeCase(value.replace(/[()]/g, "")).toUpperCase(); // remove all parentheses
+  } else {
+    conditions[name] = value;
+  }
+  return {
+    conditions: conditions
+  };
+}
+var accessGroups = {
+  handleInputCondition,
   handleInputResource
 };
-var acessGroups_1 = acessGroups.handleInputResource;
+var accessGroups_1 = accessGroups.handleInputCondition;
+var accessGroups_2 = accessGroups.handleInputResource;
 
 class AccessGroupPolicyForm extends React.Component {
   constructor(props) {
@@ -10502,7 +10546,7 @@ class AccessGroupPolicyForm extends React.Component {
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleInputResource = this.handleInputResource.bind(this);
+    this.handleInputResourceChange = this.handleInputResourceChange.bind(this);
   }
 
   /**
@@ -10519,8 +10563,8 @@ class AccessGroupPolicyForm extends React.Component {
    * @param {string} name key to change in state
    * @param {*} value value to update
    */
-  handleInputResource(event) {
-    this.setState(acessGroups_1(this.state, event));
+  handleInputResourceChange(event) {
+    this.setState(accessGroups_2(this.state, event));
   }
   render() {
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
@@ -10634,6 +10678,8 @@ AccessGroupPolicyForm.propTypes = {
   helperTextCallback: PropTypes.func.isRequired
 };
 
+// Access Groups
+
 const conditionOperators = {
   EQUALS: "Equals",
   EQUALS_IGNORE_CASE: "Equals (Ignore Case)",
@@ -10642,6 +10688,14 @@ const conditionOperators = {
   NOT_EQUALS: "Not Equals",
   CONTAINS: "Contains"
 };
+const conditionOperatorGroups = ["Equals", "Equals (Ignore Case)", "In", "Not Equals (Ignore Case)", "Not Equals", "Contains"];
+var constants = {
+  conditionOperatorGroups,
+  conditionOperators
+};
+var constants_1 = constants.conditionOperatorGroups;
+var constants_2 = constants.conditionOperators;
+
 class AccessGroupDynamicPolicyForm extends React.Component {
   constructor(props) {
     super(props);
@@ -10654,45 +10708,24 @@ class AccessGroupDynamicPolicyForm extends React.Component {
 
   /**
    * handle input change
-   * @param {string} name key to change in state
-   * @param {*} value value to update
+   * @param {*} event
    */
   handleInputChange(event) {
     this.setState(this.eventTargetToNameAndValue(event));
   }
 
   /**
-   * handle input change
-   * @param {string} name key to change in state
-   * @param {*} value value to update
+   * handle input change for conditions
+   * @param {*} event
    */
   handleInputCondition(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    let conditions = {
-      ...this.state.conditions
-    };
-    if (name === "operator") {
-      conditions[name] = snakeCase$1(value.replace(/[()]/g, "")).toUpperCase(); // remove all parentheses
-    } else {
-      conditions[name] = value;
-    }
-    this.setState({
-      conditions
-    });
+    this.setState(accessGroups_1(this.state, event));
   }
   render() {
-    let conditionOperatorGroups = [];
-    eachKey(conditionOperators, key => {
-      conditionOperatorGroups.push(conditionOperators[key]);
-    });
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
       id: "name",
       componentName: "dynamic_policies",
-      field: "name",
-      labelText: "Name",
+      forceKebabCase: true,
       value: this.state.name,
       onChange: this.handleInputChange,
       invalidText: this.props.invalidTextCallback(this.state, this.props),
@@ -10702,7 +10735,7 @@ class AccessGroupDynamicPolicyForm extends React.Component {
       tooltip: {
         content: "How many hours authenticated users can work before refresh"
       },
-      formName: "expiration",
+      formName: this.props.data.name + "-dynamic-policies",
       max: 24,
       value: this.state.expiration,
       name: "expiration",
@@ -10715,10 +10748,9 @@ class AccessGroupDynamicPolicyForm extends React.Component {
         content: "URI for identity provider",
         alignModal: "bottom-left"
       },
-      componentName: "identity_provider",
+      componentName: "dynamic_policies",
       field: "identity_provider",
       isModal: this.props.isModal,
-      labelText: "Identity Provider",
       value: this.state.identity_provider,
       invalid: this.props.invalidIdentityProviderCallback(this.state, this.props),
       onChange: this.handleInputChange,
@@ -10734,7 +10766,7 @@ class AccessGroupDynamicPolicyForm extends React.Component {
         content: "Key value to evaluate the condition against",
         alignModal: "bottom-left"
       },
-      componentName: "claim",
+      componentName: "dynamic_policies",
       field: "claim",
       isModal: this.props.isModal,
       labelText: "Condition Claim",
@@ -10742,12 +10774,12 @@ class AccessGroupDynamicPolicyForm extends React.Component {
       invalid: false,
       onChange: this.handleInputCondition
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: "dynamic_policies",
+      formName: this.props.data.name + "-dynamic-policies",
       tooltip: {
         content: "The operation to perform on the claim."
       },
-      value: conditionOperators[this.state.conditions.operator],
-      groups: conditionOperatorGroups,
+      value: constants_2[this.state.conditions.operator],
+      groups: constants_1,
       field: "operator",
       isModal: this.props.isModal,
       name: "operator",

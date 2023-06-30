@@ -1,133 +1,50 @@
 import React from "react";
-import { NetworkingRulesOrderCard } from "icse-react-assets";
-import { contains } from "lazy-z";
 
 import "./App.css";
+import { AccessGroupDynamicPolicyForm } from "icse-react-assets";
+function validName(str) {
+  const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
+  if (str) return str.match(regex) !== null;
+  else return false;
+}
 
-const NetworkingRulesOrderCardSgStory = () => {
-  function invalidCallback(stateData, componentProps) {
-    return contains(["foo", "bar"], stateData.name);
-  }
+function invalidCallback(stateData, componentProps) {
+  return !validName(stateData.name);
+}
 
-  function invalidTextCallback(stateData, componentProps) {
-    return contains(["foo", "bar"], stateData.name)
-      ? `Rule name ${stateData.name} already in use.`
-      : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
-  }
+function invalidTextCallback(stateData, componentProps) {
+  return !validName(stateData.name)
+    ? `Name ${stateData.name} is invalid.`
+    : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
+}
 
-  function shouldDisableSave(stateData, componentProps) {
-    return false;
-  }
+function composedNameCallback(stateData, componentProps) {
+  return `${stateData.name}-<random suffix>`;
+}
 
-  function disableModalSubmit(stateData, componentProps) {
-    return false;
-  }
-
-  function networkRuleOrderDidChange(newRulesOrder) {
-    // add logic here to save reordered network rules
-  }
-
-  function onSubmitCallback(newRulesOrder) {
-    // add logic here to create new rule
-  }
-
-  function onRuleSave(stateData, componentProp) {
-    // add logic here to save rule
-  }
-
-  function onRuleDelete(stateData, componentProp) {
-    // add logic here to delete rule
-  }
-
-  return (
-    <NetworkingRulesOrderCard
-      vpc_name="example-vpc"
-      parent_name="example-security-group"
-      invalidRuleText={invalidCallback}
-      invalidRuleTextCallback={invalidTextCallback}
-      networkRuleOrderDidChange={networkRuleOrderDidChange}
-      rules={[
-        {
-          action: "allow",
-          destination: "10.0.0.0/8",
-          direction: "inbound",
-          name: "allow-ibm-inbound",
-          source: "161.26.0.0/16",
-          icmp: {
-            type: 22,
-            code: 22,
-          },
-          tcp: {
-            port_min: null,
-            port_max: null,
-            source_port_min: null,
-            source_port_max: null,
-          },
-          udp: {
-            port_min: null,
-            port_max: null,
-            source_port_min: null,
-            source_port_max: null,
-          },
-        },
-        {
-          action: "allow",
-          destination: "10.0.0.0/8",
-          direction: "inbound",
-          name: "allow-all-network-inbound",
-          source: "10.0.0.0/8",
-          icmp: {
-            type: null,
-            code: null,
-          },
-          tcp: {
-            port_min: 23,
-            port_max: 25,
-            source_port_min: 24444,
-            source_port_max: 24445,
-          },
-          udp: {
-            port_min: null,
-            port_max: null,
-            source_port_min: null,
-            source_port_max: null,
-          },
-        },
-        {
-          action: "allow",
-          destination: "0.0.0.0/0",
-          direction: "outbound",
-          name: "allow-all-outbound",
-          source: "0.0.0.0/0",
-          icmp: {
-            type: null,
-            code: null,
-          },
-          tcp: {
-            port_min: null,
-            port_max: null,
-            source_port_min: null,
-            source_port_max: null,
-          },
-          udp: {
-            port_min: null,
-            port_max: null,
-            source_port_min: null,
-            source_port_max: null,
-          },
-        },
-      ]}
-      disableSaveCallback={shouldDisableSave}
-      disableModalSubmitCallback={disableModalSubmit}
-      onSubmitCallback={onSubmitCallback}
-      onRuleSave={onRuleSave}
-      onRuleDelete={onRuleDelete}
-    />
-  );
-};
+function invalidIdentityProviderCallback(stateData, componentProps) {
+  return !(stateData.identity_provider.length >= 6);
+}
 
 function App() {
-  return <NetworkingRulesOrderCardSgStory />;
+  return (
+    <AccessGroupDynamicPolicyForm
+      data={{
+        name: "test-dynamic-policy",
+        identity_provider: "test-uri-123-foo345.netweb.cloud123",
+        expiration: 1,
+        conditions: {
+          claim: "test-123",
+          operator: "EQUALS",
+          value: "test-123",
+        },
+      }}
+      invalidCallback={invalidCallback}
+      invalidTextCallback={invalidTextCallback}
+      helperTextCallback={composedNameCallback}
+      invalidIdentityProviderCallback={invalidIdentityProviderCallback}
+    />
+  );
 }
 
 export default App;
