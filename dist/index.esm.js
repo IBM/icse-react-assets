@@ -1218,9 +1218,24 @@ function swapArrayElements$1(arr, indexA, indexB) {
   arr[indexA] = arr[indexB];
   arr[indexB] = temp;
 }
+
+/**
+ *
+ * @param {Object} props
+ * @param {bool} props.isSecurityGroup
+ * @returns {string} classname
+ */
 function getOrderCardClassName$1(props) {
   return "marginBottomSmall positionRelative " + (props.isSecurityGroup ? "formInSubForm" : "subForm");
 }
+
+/**
+ * set up rows and headers
+ * @param {Object} componentProps
+ * @param {array} componentProps.rules
+ * @param {bool} componentProps.isSecurityGroup
+ * @returns {object} rows, headers for data table
+ */
 function setupRowsAndHeaders(componentProps) {
   const {
     rules,
@@ -4539,6 +4554,77 @@ WorkerPoolForm.propTypes = {
   invalidTextCallback: PropTypes.func.isRequired
 };
 
+const Clusters = props => {
+  return /*#__PURE__*/React.createElement(IcseFormTemplate, {
+    name: "Clusters",
+    addText: "Create a Cluster",
+    innerForm: ClusterForm,
+    arrayData: props.clusters,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    innerFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      invalidPoolCallback: props.invalidPoolCallback,
+      invalidPoolTextCallback: props.invalidPoolTextCallback,
+      resourceGroups: props.resourceGroups,
+      vpcList: props.vpcList,
+      encryptionKeys: props.encryptionKeys,
+      subnetList: props.subnetList,
+      kubeVersionApiEndpoint: props.kubeVersionApiEndpoint,
+      flavorApiEndpoint: props.flavorApiEndpoint,
+      helperTextCallback: props.helperTextCallback,
+      propsMatchState: props.propsMatchState,
+      cosNames: props.cosNames,
+      workerPoolProps: {
+        onSave: props.onPoolSave,
+        onDelete: props.onPoolDelete,
+        onSubmit: props.onPoolSubmit,
+        disableSave: props.disablePoolSave
+      }
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "clusters",
+      hideName: true
+    }
+  });
+};
+Clusters.propTypes = {
+  clusters: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  disableSave: PropTypes.func,
+  propsMatchState: PropTypes.func,
+  onDelete: PropTypes.func,
+  onSave: PropTypes.func,
+  onSubmit: PropTypes.func,
+  forceOpen: PropTypes.func,
+  craig: PropTypes.shape({}),
+  invalidTextCallback: PropTypes.func.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  encryptionKeys: PropTypes.arrayOf(PropTypes.string),
+  cosNames: PropTypes.arrayOf(PropTypes.string),
+  vpcList: PropTypes.arrayOf(PropTypes.string),
+  subnetList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  kubeVersionApiEndpoint: PropTypes.string.isRequired,
+  flavorApiEndpoint: PropTypes.string.isRequired,
+  onPoolSave: PropTypes.func.isRequired,
+  onPoolDelete: PropTypes.func.isRequired,
+  onPoolSubmit: PropTypes.func.isRequired,
+  disablePoolSave: PropTypes.func.isRequired,
+  invalidPoolCallback: PropTypes.func,
+  invalidPoolTextCallback: PropTypes.func,
+  helperTextCallback: PropTypes.func,
+  cosNames: PropTypes.arrayOf(PropTypes.string).isRequired
+};
+
 const WorkerPools = props => {
   return props.isModal ? "" : /*#__PURE__*/React.createElement(IcseFormTemplate, {
     name: "Worker Pools",
@@ -4557,7 +4643,8 @@ const WorkerPools = props => {
       invalidCallback: props.invalidCallback,
       invalidTextCallback: props.invalidTextCallback,
       flavorApiEndpoint: props.flavorApiEndpoint,
-      craig: props.craig
+      craig: props.craig,
+      arrayParentName: props.cluster.name
     },
     hideAbout: true,
     toggleFormProps: {
@@ -4586,6 +4673,134 @@ WorkerPools.propTypes = {
   arrayParentName: PropTypes.string,
   flavorApiEndpoint: PropTypes.string,
   craig: PropTypes.shape({})
+};
+
+/** Resource Groups
+ * @param {Object} props
+ */
+class ResourceGroupForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    this.handleTextInput = this.handleTextInput.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+  /**
+   * Toggle on and off param in state at name
+   * @param {string} name name of the object key to change
+   */
+  handleToggle(name) {
+    this.setState(forms_30(this.state, name));
+  }
+
+  /**
+   * Handle input change for a text field
+   * @param {event} event
+   */
+  handleTextInput(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  render() {
+    let composedId = `resource-group-${this.props.data.name}-`;
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
+      tooltip: {
+        content: "If true, get data from an existing resource group",
+        alignModal: "bottom"
+      },
+      labelText: "Use Existing Instance",
+      toggleFieldName: this.props.toggleName,
+      defaultToggled: this.state.use_data,
+      id: composedId + "-use-data-toggle",
+      onToggle: () => this.handleToggle("use_data"),
+      isModal: this.props.isModal
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, {
+      noMarginBottom: true
+    }, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: composedId,
+      componentName: "resource_groups",
+      value: this.state.name,
+      onChange: this.handleTextInput,
+      useData: this.state.use_data || this.state.use_prefix === false,
+      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props)
+    }), this.state.use_data === false && /*#__PURE__*/React.createElement(IcseToggle, {
+      tooltip: {
+        content: "Append your environment prefix to the beginning of the resource group.",
+        alignModal: "bottom"
+      },
+      labelText: "Use Prefix",
+      defaultToggled: this.state.use_prefix,
+      id: composedId + "-use-prefix-toggle",
+      onToggle: this.handleToggle,
+      isModal: this.props.isModal
+    })));
+  }
+}
+ResourceGroupForm.defaultProps = {
+  data: {
+    use_data: false,
+    name: "",
+    use_prefix: true
+  },
+  toggleName: "use_data",
+  isModal: false
+};
+ResourceGroupForm.propTypes = {
+  data: PropTypes.shape({
+    use_data: PropTypes.bool,
+    name: PropTypes.string.isRequired,
+    use_prefix: PropTypes.bool
+  }),
+  isModal: PropTypes.bool.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  helperTextCallback: PropTypes.func.isRequired
+};
+
+const ResourceGroups = props => {
+  return /*#__PURE__*/React.createElement(IcseFormTemplate, {
+    name: "Resource Groups",
+    addText: "Create a Resource Group",
+    innerForm: ResourceGroupForm,
+    arrayData: props.resource_groups,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    craig: props.craig,
+    deleteDisabled: props.deleteDisabled,
+    innerFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      helperTextCallback: props.helperTextCallback
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "resource_groups",
+      hideName: true
+    }
+  });
+};
+ResourceGroups.propTypes = {
+  disableSave: PropTypes.func,
+  propsMatchState: PropTypes.func,
+  onDelete: PropTypes.func,
+  onSave: PropTypes.func,
+  onSubmit: PropTypes.func,
+  forceOpen: PropTypes.func,
+  craig: PropTypes.shape({}),
+  invalidTextCallback: PropTypes.func.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  deleteDisabled: PropTypes.func.isRequired,
+  helperTextCallback: PropTypes.func.isRequired
 };
 
 class ClusterForm extends Component {
@@ -4764,10 +4979,11 @@ class ClusterForm extends Component {
       propsMatchState: this.props.propsMatchState,
       cluster: this.props.data,
       invalidCallback: this.props.invalidPoolCallback,
-      invalidTextCallback: this.props.invalidPoolCallback,
+      invalidTextCallback: this.props.invalidPoolTextCallback,
       subnetList: this.props.subnetList,
-      craig: this.props.workerPoolProps.craig,
-      flavorApiEndpoint: this.props.workerPoolProps.flavorApiEndpoint
+      craig: this.props.craig,
+      flavorApiEndpoint: this.props.flavorApiEndpoint,
+      isModal: this.props.isModal
     }));
   }
 }
@@ -6713,7 +6929,6 @@ class OrderCardDataTable extends Component {
     this.state = networkingOrderCard_5(this.props);
   }
   componentDidUpdate(prevProps) {
-    console.log("running cdu");
     if (prevProps.rules !== this.props.rules) {
       this.setState(networkingOrderCard_5(this.props));
     }
@@ -7446,91 +7661,6 @@ ObjectStorageInstancesForm.propTypes = {
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
   composedNameCallback: PropTypes.func.isRequired
-};
-
-/** Resource Groups
- * @param {Object} props
- */
-class ResourceGroupForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = this.props.data;
-    this.handleTextInput = this.handleTextInput.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-  }
-  /**
-   * Toggle on and off param in state at name
-   * @param {string} name name of the object key to change
-   */
-  handleToggle(name) {
-    this.setState(forms_30(this.state, name));
-  }
-
-  /**
-   * Handle input change for a text field
-   * @param {event} event
-   */
-  handleTextInput(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-  render() {
-    let composedId = `resource-group-${this.props.data.name}-`;
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
-      tooltip: {
-        content: "If true, get data from an existing resource group",
-        alignModal: "bottom"
-      },
-      labelText: "Use Existing Instance",
-      toggleFieldName: this.props.toggleName,
-      defaultToggled: this.state.use_data,
-      id: composedId + "-use-data-toggle",
-      onToggle: () => this.handleToggle("use_data"),
-      isModal: this.props.isModal
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, {
-      noMarginBottom: true
-    }, /*#__PURE__*/React.createElement(IcseNameInput, {
-      id: composedId,
-      componentName: "resource_groups",
-      value: this.state.name,
-      onChange: this.handleTextInput,
-      useData: this.state.use_data || this.state.use_prefix === false,
-      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props),
-      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props)
-    }), this.state.use_data === false && /*#__PURE__*/React.createElement(IcseToggle, {
-      tooltip: {
-        content: "Append your environment prefix to the beginning of the resource group.",
-        alignModal: "bottom"
-      },
-      labelText: "Use Prefix",
-      defaultToggled: this.state.use_prefix,
-      id: composedId + "-use-prefix-toggle",
-      onToggle: this.handleToggle,
-      isModal: this.props.isModal
-    })));
-  }
-}
-ResourceGroupForm.defaultProps = {
-  data: {
-    use_data: false,
-    name: "",
-    use_prefix: true
-  },
-  toggleName: "use_data",
-  isModal: false
-};
-ResourceGroupForm.propTypes = {
-  data: PropTypes.shape({
-    use_data: PropTypes.bool,
-    name: PropTypes.string.isRequired,
-    use_prefix: PropTypes.bool
-  }),
-  isModal: PropTypes.bool.isRequired,
-  invalidCallback: PropTypes.func.isRequired,
-  invalidTextCallback: PropTypes.func.isRequired,
-  helperTextCallback: PropTypes.func.isRequired
 };
 
 class RoutingTableRouteForm extends Component {
@@ -12549,4 +12679,4 @@ SecretsManagerChecklist.propTypes = {
   onSelectChange: PropTypes.func.isRequired
 };
 
-export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, ClusterForm, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsForm, DnsRecordForm, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, LocationsMultiSelect, LogDNAForm, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, OrderCardDataTable, PopoverWrapper, RenderForm, ResourceGroupForm, RoutingTableForm, RoutingTableRouteForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerChecklist, SecretsManagerForm, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, SysdigForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VpnServerForm, VpnServerRouteForm, VsiForm, VsiLoadBalancerForm, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, ClusterForm, Clusters as ClustersTemplate, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsForm, DnsRecordForm, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, LocationsMultiSelect, LogDNAForm, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, OrderCardDataTable, PopoverWrapper, RenderForm, ResourceGroupForm, ResourceGroups as ResourceGroupsTemplate, RoutingTableForm, RoutingTableRouteForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerChecklist, SecretsManagerForm, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, SysdigForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VpnServerForm, VpnServerRouteForm, VsiForm, VsiLoadBalancerForm, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };

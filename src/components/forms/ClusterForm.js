@@ -245,10 +245,11 @@ class ClusterForm extends Component {
           propsMatchState={this.props.propsMatchState}
           cluster={this.props.data}
           invalidCallback={this.props.invalidPoolCallback}
-          invalidTextCallback={this.props.invalidPoolCallback}
+          invalidTextCallback={this.props.invalidPoolTextCallback}
           subnetList={this.props.subnetList}
-          craig={this.props.workerPoolProps.craig}
-          flavorApiEndpoint={this.props.workerPoolProps.flavorApiEndpoint}
+          craig={this.props.craig}
+          flavorApiEndpoint={this.props.flavorApiEndpoint}
+          isModal={this.props.isModal}
         />
       </>
     );
