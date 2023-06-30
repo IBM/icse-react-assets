@@ -7,11 +7,11 @@ import {
 import { IcseFormGroup, IcseHeading } from "../../Utils";
 import { IcseNameInput, IcseTextInput } from "../../Inputs";
 import { IcseSelect, IcseNumberSelect } from "../../Dropdowns";
+import { handleInputCondition } from "../../../lib/forms/access-groups";
 import {
   conditionOperators,
   conditionOperatorGroups,
-  handleInputCondition,
-} from "../../../lib/forms/access-groups";
+} from "../../../lib/constants";
 
 class AccessGroupDynamicPolicyForm extends React.Component {
   constructor(props) {
@@ -46,7 +46,7 @@ class AccessGroupDynamicPolicyForm extends React.Component {
           <IcseNameInput
             id="name"
             componentName="dynamic_policies"
-            forceKebabCase={true}
+            forceKebabCase
             value={this.state.name}
             onChange={this.handleInputChange}
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
@@ -60,7 +60,7 @@ class AccessGroupDynamicPolicyForm extends React.Component {
               content:
                 "How many hours authenticated users can work before refresh",
             }}
-            formName="dynamic_policies"
+            formName={this.props.data.name + "-dynamic-policies"}
             max={24}
             value={this.state.expiration}
             name="expiration"
@@ -109,7 +109,7 @@ class AccessGroupDynamicPolicyForm extends React.Component {
         </IcseFormGroup>
         <IcseFormGroup>
           <IcseSelect
-            formName="dynamic_policies"
+            formName={this.props.data.name + "-dynamic-policies"}
             tooltip={{
               content: "The operation to perform on the claim.",
             }}

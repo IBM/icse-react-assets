@@ -10541,25 +10541,12 @@ function handleInputCondition(stateData, event) {
     conditions: conditions
   };
 }
-const conditionOperators = {
-  EQUALS: "Equals",
-  EQUALS_IGNORE_CASE: "Equals (Ignore Case)",
-  IN: "In",
-  NOT_EQUALS_IGNORE_CASE: "Not Equals (Ignore Case)",
-  NOT_EQUALS: "Not Equals",
-  CONTAINS: "Contains"
-};
-const conditionOperatorGroups = ["Equals", "Equals (Ignore Case)", "In", "Not Equals (Ignore Case)", "Not Equals", "Contains"];
 var accessGroups = {
-  conditionOperatorGroups,
-  conditionOperators,
   handleInputCondition,
   handleInputResource
 };
-var accessGroups_1 = accessGroups.conditionOperatorGroups;
-var accessGroups_2 = accessGroups.conditionOperators;
-var accessGroups_3 = accessGroups.handleInputCondition;
-var accessGroups_4 = accessGroups.handleInputResource;
+var accessGroups_1 = accessGroups.handleInputCondition;
+var accessGroups_2 = accessGroups.handleInputResource;
 
 class AccessGroupPolicyForm extends React__default["default"].Component {
   constructor(props) {
@@ -10588,7 +10575,7 @@ class AccessGroupPolicyForm extends React__default["default"].Component {
    * @param {*} value value to update
    */
   handleInputResourceChange(event) {
-    this.setState(accessGroups_4(this.state, event));
+    this.setState(accessGroups_2(this.state, event));
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
@@ -10702,6 +10689,24 @@ AccessGroupPolicyForm.propTypes = {
   helperTextCallback: PropTypes__default["default"].func.isRequired
 };
 
+// Access Groups
+
+const conditionOperators = {
+  EQUALS: "Equals",
+  EQUALS_IGNORE_CASE: "Equals (Ignore Case)",
+  IN: "In",
+  NOT_EQUALS_IGNORE_CASE: "Not Equals (Ignore Case)",
+  NOT_EQUALS: "Not Equals",
+  CONTAINS: "Contains"
+};
+const conditionOperatorGroups = ["Equals", "Equals (Ignore Case)", "In", "Not Equals (Ignore Case)", "Not Equals", "Contains"];
+var constants = {
+  conditionOperatorGroups,
+  conditionOperators
+};
+var constants_1 = constants.conditionOperatorGroups;
+var constants_2 = constants.conditionOperators;
+
 class AccessGroupDynamicPolicyForm extends React__default["default"].Component {
   constructor(props) {
     super(props);
@@ -10725,7 +10730,7 @@ class AccessGroupDynamicPolicyForm extends React__default["default"].Component {
    * @param {*} event
    */
   handleInputCondition(event) {
-    this.setState(accessGroups_3(this.state, event));
+    this.setState(accessGroups_1(this.state, event));
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
@@ -10741,7 +10746,7 @@ class AccessGroupDynamicPolicyForm extends React__default["default"].Component {
       tooltip: {
         content: "How many hours authenticated users can work before refresh"
       },
-      formName: "dynamic_policies",
+      formName: this.props.data.name + "-dynamic-policies",
       max: 24,
       value: this.state.expiration,
       name: "expiration",
@@ -10780,12 +10785,12 @@ class AccessGroupDynamicPolicyForm extends React__default["default"].Component {
       invalid: false,
       onChange: this.handleInputCondition
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "dynamic_policies",
+      formName: this.props.data.name + "-dynamic-policies",
       tooltip: {
         content: "The operation to perform on the claim."
       },
-      value: accessGroups_2[this.state.conditions.operator],
-      groups: accessGroups_1,
+      value: constants_2[this.state.conditions.operator],
+      groups: constants_1,
       field: "operator",
       isModal: this.props.isModal,
       name: "operator",
