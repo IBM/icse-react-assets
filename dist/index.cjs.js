@@ -4565,6 +4565,77 @@ WorkerPoolForm.propTypes = {
   invalidTextCallback: PropTypes__default["default"].func.isRequired
 };
 
+const Clusters = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "Clusters",
+    addText: "Create a Cluster",
+    innerForm: ClusterForm,
+    arrayData: props.clusters,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    innerFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      invalidPoolCallback: props.invalidPoolCallback,
+      invalidPoolTextCallback: props.invalidPoolTextCallback,
+      resourceGroups: props.resourceGroups,
+      vpcList: props.vpcList,
+      encryptionKeys: props.encryptionKeys,
+      subnetList: props.subnetList,
+      kubeVersionApiEndpoint: props.kubeVersionApiEndpoint,
+      flavorApiEndpoint: props.flavorApiEndpoint,
+      helperTextCallback: props.helperTextCallback,
+      propsMatchState: props.propsMatchState,
+      cosNames: props.cosNames,
+      workerPoolProps: {
+        onSave: props.onPoolSave,
+        onDelete: props.onPoolDelete,
+        onSubmit: props.onPoolSubmit,
+        disableSave: props.disablePoolSave
+      }
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "clusters",
+      hideName: true
+    }
+  });
+};
+Clusters.propTypes = {
+  clusters: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  disableSave: PropTypes__default["default"].func,
+  propsMatchState: PropTypes__default["default"].func,
+  onDelete: PropTypes__default["default"].func,
+  onSave: PropTypes__default["default"].func,
+  onSubmit: PropTypes__default["default"].func,
+  forceOpen: PropTypes__default["default"].func,
+  craig: PropTypes__default["default"].shape({}),
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  encryptionKeys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string),
+  cosNames: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string),
+  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string),
+  subnetList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].object).isRequired,
+  kubeVersionApiEndpoint: PropTypes__default["default"].string.isRequired,
+  flavorApiEndpoint: PropTypes__default["default"].string.isRequired,
+  onPoolSave: PropTypes__default["default"].func.isRequired,
+  onPoolDelete: PropTypes__default["default"].func.isRequired,
+  onPoolSubmit: PropTypes__default["default"].func.isRequired,
+  disablePoolSave: PropTypes__default["default"].func.isRequired,
+  invalidPoolCallback: PropTypes__default["default"].func,
+  invalidPoolTextCallback: PropTypes__default["default"].func,
+  helperTextCallback: PropTypes__default["default"].func,
+  cosNames: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+};
+
 const WorkerPools = props => {
   return props.isModal ? "" : /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
     name: "Worker Pools",
@@ -4583,7 +4654,8 @@ const WorkerPools = props => {
       invalidCallback: props.invalidCallback,
       invalidTextCallback: props.invalidTextCallback,
       flavorApiEndpoint: props.flavorApiEndpoint,
-      craig: props.craig
+      craig: props.craig,
+      arrayParentName: props.cluster.name
     },
     hideAbout: true,
     toggleFormProps: {
@@ -4612,6 +4684,134 @@ WorkerPools.propTypes = {
   arrayParentName: PropTypes__default["default"].string,
   flavorApiEndpoint: PropTypes__default["default"].string,
   craig: PropTypes__default["default"].shape({})
+};
+
+/** Resource Groups
+ * @param {Object} props
+ */
+class ResourceGroupForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    this.handleTextInput = this.handleTextInput.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+  /**
+   * Toggle on and off param in state at name
+   * @param {string} name name of the object key to change
+   */
+  handleToggle(name) {
+    this.setState(forms_30(this.state, name));
+  }
+
+  /**
+   * Handle input change for a text field
+   * @param {event} event
+   */
+  handleTextInput(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  render() {
+    let composedId = `resource-group-${this.props.data.name}-`;
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      tooltip: {
+        content: "If true, get data from an existing resource group",
+        alignModal: "bottom"
+      },
+      labelText: "Use Existing Instance",
+      toggleFieldName: this.props.toggleName,
+      defaultToggled: this.state.use_data,
+      id: composedId + "-use-data-toggle",
+      onToggle: () => this.handleToggle("use_data"),
+      isModal: this.props.isModal
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+      noMarginBottom: true
+    }, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: composedId,
+      componentName: "resource_groups",
+      value: this.state.name,
+      onChange: this.handleTextInput,
+      useData: this.state.use_data || this.state.use_prefix === false,
+      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props)
+    }), this.state.use_data === false && /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      tooltip: {
+        content: "Append your environment prefix to the beginning of the resource group.",
+        alignModal: "bottom"
+      },
+      labelText: "Use Prefix",
+      defaultToggled: this.state.use_prefix,
+      id: composedId + "-use-prefix-toggle",
+      onToggle: this.handleToggle,
+      isModal: this.props.isModal
+    })));
+  }
+}
+ResourceGroupForm.defaultProps = {
+  data: {
+    use_data: false,
+    name: "",
+    use_prefix: true
+  },
+  toggleName: "use_data",
+  isModal: false
+};
+ResourceGroupForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    use_data: PropTypes__default["default"].bool,
+    name: PropTypes__default["default"].string.isRequired,
+    use_prefix: PropTypes__default["default"].bool
+  }),
+  isModal: PropTypes__default["default"].bool.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  helperTextCallback: PropTypes__default["default"].func.isRequired
+};
+
+const ResourceGroups = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "Resource Groups",
+    addText: "Create a Resource Group",
+    innerForm: ResourceGroupForm,
+    arrayData: props.resource_groups,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    craig: props.craig,
+    deleteDisabled: props.deleteDisabled,
+    innerFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      helperTextCallback: props.helperTextCallback
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "resource_groups",
+      hideName: true
+    }
+  });
+};
+ResourceGroups.propTypes = {
+  disableSave: PropTypes__default["default"].func,
+  propsMatchState: PropTypes__default["default"].func,
+  onDelete: PropTypes__default["default"].func,
+  onSave: PropTypes__default["default"].func,
+  onSubmit: PropTypes__default["default"].func,
+  forceOpen: PropTypes__default["default"].func,
+  craig: PropTypes__default["default"].shape({}),
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  deleteDisabled: PropTypes__default["default"].func.isRequired,
+  helperTextCallback: PropTypes__default["default"].func.isRequired
 };
 
 class ClusterForm extends React.Component {
@@ -4790,10 +4990,11 @@ class ClusterForm extends React.Component {
       propsMatchState: this.props.propsMatchState,
       cluster: this.props.data,
       invalidCallback: this.props.invalidPoolCallback,
-      invalidTextCallback: this.props.invalidPoolCallback,
+      invalidTextCallback: this.props.invalidPoolTextCallback,
       subnetList: this.props.subnetList,
-      craig: this.props.workerPoolProps.craig,
-      flavorApiEndpoint: this.props.workerPoolProps.flavorApiEndpoint
+      craig: this.props.craig,
+      flavorApiEndpoint: this.props.flavorApiEndpoint,
+      isModal: this.props.isModal
     }));
   }
 }
@@ -7471,91 +7672,6 @@ ObjectStorageInstancesForm.propTypes = {
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
   composedNameCallback: PropTypes__default["default"].func.isRequired
-};
-
-/** Resource Groups
- * @param {Object} props
- */
-class ResourceGroupForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = this.props.data;
-    this.handleTextInput = this.handleTextInput.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-  }
-  /**
-   * Toggle on and off param in state at name
-   * @param {string} name name of the object key to change
-   */
-  handleToggle(name) {
-    this.setState(forms_30(this.state, name));
-  }
-
-  /**
-   * Handle input change for a text field
-   * @param {event} event
-   */
-  handleTextInput(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-  render() {
-    let composedId = `resource-group-${this.props.data.name}-`;
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      tooltip: {
-        content: "If true, get data from an existing resource group",
-        alignModal: "bottom"
-      },
-      labelText: "Use Existing Instance",
-      toggleFieldName: this.props.toggleName,
-      defaultToggled: this.state.use_data,
-      id: composedId + "-use-data-toggle",
-      onToggle: () => this.handleToggle("use_data"),
-      isModal: this.props.isModal
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
-      noMarginBottom: true
-    }, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: composedId,
-      componentName: "resource_groups",
-      value: this.state.name,
-      onChange: this.handleTextInput,
-      useData: this.state.use_data || this.state.use_prefix === false,
-      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props),
-      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props)
-    }), this.state.use_data === false && /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      tooltip: {
-        content: "Append your environment prefix to the beginning of the resource group.",
-        alignModal: "bottom"
-      },
-      labelText: "Use Prefix",
-      defaultToggled: this.state.use_prefix,
-      id: composedId + "-use-prefix-toggle",
-      onToggle: this.handleToggle,
-      isModal: this.props.isModal
-    })));
-  }
-}
-ResourceGroupForm.defaultProps = {
-  data: {
-    use_data: false,
-    name: "",
-    use_prefix: true
-  },
-  toggleName: "use_data",
-  isModal: false
-};
-ResourceGroupForm.propTypes = {
-  data: PropTypes__default["default"].shape({
-    use_data: PropTypes__default["default"].bool,
-    name: PropTypes__default["default"].string.isRequired,
-    use_prefix: PropTypes__default["default"].bool
-  }),
-  isModal: PropTypes__default["default"].bool.isRequired,
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  helperTextCallback: PropTypes__default["default"].func.isRequired
 };
 
 class RoutingTableRouteForm extends React.Component {
@@ -12605,6 +12721,7 @@ exports.CbrRuleForm = CbrRuleForm;
 exports.CbrTagForm = CbrTagForm;
 exports.CbrZoneForm = CbrZoneForm;
 exports.ClusterForm = ClusterForm;
+exports.ClustersTemplate = Clusters;
 exports.DeleteButton = DeleteButton;
 exports.DeleteModal = DeleteModal;
 exports.DnsCustomResolverForm = DnsCustomResolverForm;
@@ -12650,6 +12767,7 @@ exports.OrderCardDataTable = OrderCardDataTable;
 exports.PopoverWrapper = PopoverWrapper;
 exports.RenderForm = RenderForm;
 exports.ResourceGroupForm = ResourceGroupForm;
+exports.ResourceGroupsTemplate = ResourceGroups;
 exports.RoutingTableForm = RoutingTableForm;
 exports.RoutingTableRouteForm = RoutingTableRouteForm;
 exports.SaveAddButton = SaveAddButton;

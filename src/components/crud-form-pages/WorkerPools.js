@@ -25,6 +25,7 @@ export const WorkerPools = (props) => {
         invalidTextCallback: props.invalidTextCallback,
         flavorApiEndpoint: props.flavorApiEndpoint,
         craig: props.craig,
+        arrayParentName: props.cluster.name,
       }}
       hideAbout
       toggleFormProps={{
