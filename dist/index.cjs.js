@@ -4814,6 +4814,145 @@ ResourceGroups.propTypes = {
   helperTextCallback: PropTypes__default["default"].func.isRequired
 };
 
+var css_248z$1 = ".secretsChecklistPadding {\n  margin-bottom: 0px !important;\n  margin-top: 1rem !important;\n}\n\n.secretChecklistMargin {\n  margin-top: -1rem !important;\n}\n\n.secretCheckBoxMargin {\n  padding-left: 1rem !important;\n}\n";
+styleInject(css_248z$1);
+
+/**
+ * SecretsManagerForm
+ * @param {Object} props
+ */
+class SecretsManagerForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.onSelectChange = this.onSelectChange.bind(this);
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  onSelectChange(items) {
+    let nextSecrets = [];
+    items.forEach(item => {
+      if (item !== "Select All") {
+        nextSecrets.push(lazyZ.getObjectFromArray(this.props.secrets, "ref", item));
+      }
+    });
+    this.setState({
+      secrets: nextSecrets
+    });
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: this.state.name + "-name",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      componentProps: this.props,
+      hideHelperText: true,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: "Secrets Manager",
+      value: this.state.resource_group,
+      groups: this.props.resourceGroups,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidth",
+      name: "resource_group",
+      labelText: "Resource Group"
+    })), /*#__PURE__*/React__default["default"].createElement("div", {
+      className: "fieldWidth"
+    }, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      value: this.state.encryption_key,
+      groups: this.props.encryptionKeys,
+      formName: "Secrets Manager",
+      name: "encryption_key",
+      className: "fieldWidth",
+      labelText: "Encryption Key",
+      handleInputChange: this.handleInputChange
+    })), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(SecretsManagerChecklist, {
+      parentName: this.props.data.name,
+      secrets: this.props.secrets,
+      selected: [...lazyZ.splat(this.props.data.secrets, "ref")],
+      onSelectChange: this.onSelectChange
+    }));
+  }
+}
+SecretsManagerForm.defaultProps = {
+  data: {
+    name: "",
+    resource_group: null,
+    encryption_key: null
+  }
+};
+SecretsManagerForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string,
+    resource_group: PropTypes__default["default"].string,
+    encryption_key: PropTypes__default["default"].string
+  }).isRequired,
+  encryptionKeys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+};
+
+const SecretsManager = props => {
+  console.log(props);
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "Secrets Manager",
+    addText: "Create a Secrets Manager",
+    docs: props.docs,
+    innerForm: SecretsManagerForm,
+    arrayData: props.secrets_managers,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    innerFormProps: {
+      craig: props.craig,
+      resourceGroups: props.resourceGroups,
+      encryptionKeys: props.encryptionKeys,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      secrets: props.secrets,
+      propsMatchState: props.propsMatchState,
+      disableSave: props.disableSave
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "secrets_manager",
+      hide: true,
+      hideName: true
+    }
+  });
+};
+SecretsManager.propTypes = {
+  secrets_managers: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  onDelete: PropTypes__default["default"].func.isRequired,
+  onSave: PropTypes__default["default"].func.isRequired,
+  onSubmit: PropTypes__default["default"].func.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  forceOpen: PropTypes__default["default"].func.isRequired,
+  resourceGroups: PropTypes__default["default"].array.isRequired,
+  encryptionKeys: PropTypes__default["default"].array.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  secrets: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  craig: PropTypes__default["default"].shape({}),
+  docs: PropTypes__default["default"].func.isRequired
+};
+
 class ClusterForm extends React.Component {
   constructor(props) {
     super(props);
@@ -8101,94 +8240,6 @@ SccForm.propTypes = {
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
   descriptionRegex: PropTypes__default["default"].instanceOf(RegExp).isRequired
-};
-
-var css_248z$1 = ".secretsChecklistPadding {\n  margin-bottom: 0px !important;\n  margin-top: 1rem !important;\n}\n\n.secretChecklistMargin {\n  margin-top: -1rem !important;\n}\n\n.secretCheckBoxMargin {\n  padding-left: 1rem !important;\n}\n";
-styleInject(css_248z$1);
-
-/**
- * SecretsManagerForm
- * @param {Object} props
- */
-class SecretsManagerForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.onSelectChange = this.onSelectChange.bind(this);
-    buildFormDefaultInputMethods(this);
-    buildFormFunctions(this);
-  }
-
-  /**
-   * handle input change
-   * @param {event} event event
-   */
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-  onSelectChange(items) {
-    let nextSecrets = [];
-    items.forEach(item => {
-      if (item !== "Select All") {
-        nextSecrets.push(lazyZ.getObjectFromArray(this.props.secrets, "ref", item));
-      }
-    });
-    this.setState({
-      secrets: nextSecrets
-    });
-  }
-  render() {
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: this.state.name + "-name",
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      componentProps: this.props,
-      hideHelperText: true,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props)
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "Secrets Manager",
-      value: this.state.resource_group,
-      groups: this.props.resourceGroups,
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidth",
-      name: "resource_group",
-      labelText: "Resource Group"
-    })), /*#__PURE__*/React__default["default"].createElement("div", {
-      className: "fieldWidth"
-    }, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      value: this.state.encryption_key,
-      groups: this.props.encryptionKeys,
-      formName: "Secrets Manager",
-      name: "encryption_key",
-      className: "fieldWidth",
-      labelText: "Encryption Key",
-      handleInputChange: this.handleInputChange
-    })), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(SecretsManagerChecklist, {
-      secrets: this.props.secrets,
-      selected: [...lazyZ.splat(this.props.data.secrets, "ref")],
-      onSelectChange: this.onSelectChange
-    }));
-  }
-}
-SecretsManagerForm.defaultProps = {
-  data: {
-    name: "",
-    resource_group: null,
-    encryption_key: null
-  }
-};
-SecretsManagerForm.propTypes = {
-  data: PropTypes__default["default"].shape({
-    name: PropTypes__default["default"].string,
-    resource_group: PropTypes__default["default"].string,
-    encryption_key: PropTypes__default["default"].string
-  }).isRequired,
-  encryptionKeys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
 };
 
 /**
@@ -12681,6 +12732,7 @@ class SecretsManagerChecklist extends React__default["default"].Component {
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(StatelessToggleForm, {
+      id: this.props.parentName + "-toggle-form",
       name: "Import Existing Secrets",
       hide: this.state.hide,
       onIconClick: this.toggleHide,
@@ -12691,7 +12743,7 @@ class SecretsManagerChecklist extends React__default["default"].Component {
       className: "formInSubForm secretChecklistMargin"
     }, lazyZ.distinct(["Select All"].concat([...lazyZ.splat(this.props.secrets, "ref")])).map(value => /*#__PURE__*/React__default["default"].createElement(react.Checkbox, {
       className: "secretCheckBoxMargin",
-      id: value,
+      id: value + `-${this.props.parentName}`,
       key: lazyZ.kebabCase(value),
       labelText: value,
       checked: lazyZ.contains(this.state.selected, value),
@@ -12700,12 +12752,14 @@ class SecretsManagerChecklist extends React__default["default"].Component {
   }
 }
 SecretsManagerChecklist.defaultProps = {
-  secrets: []
+  secrets: [],
+  parentName: ""
 };
 SecretsManagerChecklist.propTypes = {
   selected: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string),
   secrets: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
-  onSelectChange: PropTypes__default["default"].func.isRequired
+  onSelectChange: PropTypes__default["default"].func.isRequired,
+  parentName: PropTypes__default["default"].string.isRequired
 };
 
 exports.AccessGroupDynamicPolicyForm = AccessGroupDynamicPolicyForm;
@@ -12775,6 +12829,7 @@ exports.SaveIcon = SaveIcon;
 exports.SccForm = SccForm;
 exports.SecretsManagerChecklist = SecretsManagerChecklist;
 exports.SecretsManagerForm = SecretsManagerForm;
+exports.SecretsManagerTemplate = SecretsManager;
 exports.SecurityGroupForm = SecurityGroupForm;
 exports.SecurityGroupMultiSelect = SecurityGroupMultiSelect;
 exports.SshKeyForm = SshKeyForm;

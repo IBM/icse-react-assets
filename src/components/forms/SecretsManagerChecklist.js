@@ -40,6 +40,7 @@ class SecretsManagerChecklist extends React.Component {
   render() {
     return (
       <StatelessToggleForm
+        id={this.props.parentName + "-toggle-form"}
         name="Import Existing Secrets"
         hide={this.state.hide}
         onIconClick={this.toggleHide}
@@ -53,7 +54,7 @@ class SecretsManagerChecklist extends React.Component {
           ).map((value) => (
             <Checkbox
               className="secretCheckBoxMargin"
-              id={value}
+              id={value + `-${this.props.parentName}`}
               key={kebabCase(value)}
               labelText={value}
               checked={contains(this.state.selected, value)}
@@ -68,12 +69,14 @@ class SecretsManagerChecklist extends React.Component {
 
 SecretsManagerChecklist.defaultProps = {
   secrets: [],
+  parentName: "",
 };
 
 SecretsManagerChecklist.propTypes = {
   selected: PropTypes.arrayOf(PropTypes.string),
   secrets: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   onSelectChange: PropTypes.func.isRequired,
+  parentName: PropTypes.string.isRequired,
 };
 
 export default SecretsManagerChecklist;

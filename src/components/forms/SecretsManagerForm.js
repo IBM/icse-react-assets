@@ -86,6 +86,7 @@ class SecretsManagerForm extends Component {
         </div>
         {this.props.isModal !== true && (
           <SecretsManagerChecklist
+            parentName={this.props.data.name}
             secrets={this.props.secrets}
             selected={[...splat(this.props.data.secrets, "ref")]}
             onSelectChange={this.onSelectChange}
