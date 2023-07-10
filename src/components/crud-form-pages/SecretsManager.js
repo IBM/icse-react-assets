@@ -4,7 +4,6 @@ import IcseFormTemplate from "../IcseFormTemplate";
 import PropTypes from "prop-types";
 
 export const SecretsManager = (props) => {
-  console.log(props);
   return (
     <IcseFormTemplate
       name="Secrets Manager"

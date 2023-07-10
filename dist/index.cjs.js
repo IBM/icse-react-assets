@@ -4904,7 +4904,6 @@ SecretsManagerForm.propTypes = {
 };
 
 const SecretsManager = props => {
-  console.log(props);
   return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
     name: "Secrets Manager",
     addText: "Create a Secrets Manager",
