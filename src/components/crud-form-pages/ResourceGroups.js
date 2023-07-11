@@ -8,6 +8,7 @@ export const ResourceGroups = (props) => {
     <IcseFormTemplate
       name="Resource Groups"
       addText="Create a Resource Group"
+      docs={props.docs}
       innerForm={ResourceGroupForm}
       arrayData={props.resource_groups}
       disableSave={props.disableSave}
@@ -47,4 +48,5 @@ ResourceGroups.propTypes = {
   invalidCallback: PropTypes.func.isRequired,
   deleteDisabled: PropTypes.func.isRequired,
   helperTextCallback: PropTypes.func.isRequired,
+  docs: PropTypes.func,
 };
