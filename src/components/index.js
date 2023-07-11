@@ -105,3 +105,4 @@ export { default as OrderCardDataTable } from "./forms/OrderCardDataTable";
 export { Clusters as ClustersTemplate } from "./crud-form-pages";
 export { ResourceGroups as ResourceGroupsTemplate } from "./crud-form-pages";
 export { SecretsManager as SecretsManagerTemplate } from "./crud-form-pages";
+export { KeyManagement as KeyManagementTemplate } from "./crud-form-pages";
