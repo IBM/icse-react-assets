@@ -16,6 +16,7 @@ export const Clusters = (props) => {
       onSubmit={props.onSubmit}
       propsMatchState={props.propsMatchState}
       forceOpen={props.forceOpen}
+      docs={props.docs}
       innerFormProps={{
         craig: props.craig,
         disableSave: props.disableSave,
@@ -75,4 +76,5 @@ Clusters.propTypes = {
   invalidPoolTextCallback: PropTypes.func,
   helperTextCallback: PropTypes.func,
   cosNames: PropTypes.arrayOf(PropTypes.string).isRequired,
+  docs: PropTypes.func,
 };
