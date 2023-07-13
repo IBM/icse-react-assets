@@ -1,16 +1,16 @@
 import React from "react";
-import SecretsManagerForm from "../forms/SecretsManagerForm";
+import TransitGatewayForm from "../forms/TransitGatewayForm";
 import IcseFormTemplate from "../IcseFormTemplate";
 import PropTypes from "prop-types";
 
-export const SecretsManager = (props) => {
+export const TransitGateways = (props) => {
   return (
     <IcseFormTemplate
-      name="Secrets Manager"
-      addText="Create a Secrets Manager"
+      name="Transit Gateways"
+      addText="Create a Transit Gateway"
       docs={props.docs}
-      innerForm={SecretsManagerForm}
-      arrayData={props.secrets_managers}
+      innerForm={TransitGatewayForm}
+      arrayData={props.transit_gateways}
       disableSave={props.disableSave}
       onDelete={props.onDelete}
       onSave={props.onSave}
@@ -19,18 +19,19 @@ export const SecretsManager = (props) => {
       forceOpen={props.forceOpen}
       innerFormProps={{
         craig: props.craig,
-        resourceGroups: props.resourceGroups,
-        encryptionKeys: props.encryptionKeys,
+        disableSave: props.disableSave,
         invalidCallback: props.invalidCallback,
         invalidTextCallback: props.invalidTextCallback,
-        secrets: props.secrets,
-        propsMatchState: props.propsMatchState,
-        disableSave: props.disableSave,
+        vpcList: props.vpcList,
+        readOnlyName: false,
+        invalidCrns: props.invalidCrns,
+        invalidCrnText: props.invalidCrnText,
+        resourceGroups: props.resourceGroups,
       }}
       toggleFormProps={{
         craig: props.craig,
         disableSave: props.disableSave,
-        submissionFieldName: "secrets_manager",
+        submissionFieldName: "transit_gateways",
         hide: true,
         hideName: true,
       }}
@@ -38,19 +39,21 @@ export const SecretsManager = (props) => {
   );
 };
 
-SecretsManager.propTypes = {
-  secrets_managers: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+TransitGateways.propTypes = {
+  docs: PropTypes.func.isRequired,
+  transit_gateways: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   disableSave: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   propsMatchState: PropTypes.func.isRequired,
   forceOpen: PropTypes.func.isRequired,
-  resourceGroups: PropTypes.array.isRequired,
-  encryptionKeys: PropTypes.array.isRequired,
+  craig: PropTypes.shape({}),
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
-  secrets: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  craig: PropTypes.shape({}),
-  docs: PropTypes.func.isRequired,
+  vpcList: PropTypes.arrayOf(PropTypes.string),
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  invalidCrns: PropTypes.func.isRequired,
+  invalidCrnText: PropTypes.func.isRequired,
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
