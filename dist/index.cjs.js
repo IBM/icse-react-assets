@@ -5756,6 +5756,190 @@ ObjectStorage.propTypes = {
   kmsList: PropTypes__default["default"].array.isRequired
 };
 
+class TransitGatewayForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleToggle = this.handleToggle.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleCRNs = this.handleCRNs.bind(this);
+    this.handleVpcSelect = this.handleVpcSelect.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+
+  /**
+   * Toggle on and off param in state at name
+   * @param {string} name name of the object key to change
+   */
+  handleToggle(name) {
+    this.setState(this.toggleStateBoolean(name, this.state));
+  }
+
+  /**
+   * Handle input change
+   * @param {event} event
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * Handle crn input
+   * @param {event} event
+   */
+  handleCRNs(event) {
+    this.setState(forms_31(event));
+  }
+
+  /**
+   * Handle vpc selection
+   * @param {Array} selectedItems
+   */
+  handleVpcSelect(selectedItems) {
+    this.setState(forms_32(selectedItems, this.state.name));
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      onChange: this.handleInputChange,
+      componentName: "Transit Gateway",
+      field: "name",
+      value: this.state.name,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      id: this.props.data.name + "-tg-name"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: "Transit Gateway",
+      value: this.state.resource_group,
+      groups: this.props.resourceGroups,
+      handleInputChange: this.handleInputChange,
+      id: this.props.data.name + "-resource_group",
+      name: "resource_group",
+      labelText: "Resource Group"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      labelText: "Global Routing",
+      toggleFieldName: "global",
+      id: this.props.data.name + "-tg-global",
+      onToggle: this.handleToggle,
+      defaultToggled: this.state.global,
+      tooltip: {
+        align: "right",
+        content: "Must be enabled in order to connect your IBM Cloud and on-premises networks in all IBM Cloud multizone regions."
+      }
+    })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+      name: "Connections",
+      type: "subHeading"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(VpcListMultiSelect, {
+      id: this.props.data.name + "-tg-vpc-multiselect",
+      titleText: "Connected VPCs",
+      initialSelectedItems: lazyZ.splat(this.state.connections, "vpc"),
+      vpcList: this.props.vpcList,
+      onChange: this.handleVpcSelect,
+      invalid: this.state.connections.length === 0,
+      invalidText: "At least one VPC must be connected"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+      name: "Additional connections",
+      type: "section"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
+      className: "textInputWide",
+      id: this.props.data.name + "crns",
+      labelText: "Add a new connection from any region in the account",
+      value: this.state.crns === undefined ? "" : String(this.state.crns),
+      onChange: this.handleCRNs,
+      invalid: this.props.invalidCrns(this.state, this.props),
+      invalidText: this.props.invalidCrnText(this.state, this.props),
+      helperText: "Enter a comma separated list of CRNs",
+      placeholder: "crn:v1:bluemix..."
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement("div", {
+      className: "marginBottomSmall textInputWide"
+    }, this.state.crns !== undefined && this.state.crns.length > 0 && this.state.crns.map((crn, i) => /*#__PURE__*/React__default["default"].createElement(react.Tag, {
+      key: "crn" + i,
+      size: "md",
+      type: "green"
+    }, crn)))));
+  }
+}
+TransitGatewayForm.defaultProps = {
+  data: {
+    global: true,
+    connections: [],
+    resource_group: "",
+    name: "",
+    crns: []
+  },
+  vpcList: [],
+  resourceGroups: []
+};
+TransitGatewayForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    global: PropTypes__default["default"].bool.isRequired,
+    connections: PropTypes__default["default"].array.isRequired,
+    resource_group: PropTypes__default["default"].string,
+    name: PropTypes__default["default"].string,
+    crns: PropTypes__default["default"].array
+  }),
+  vpcList: PropTypes__default["default"].array.isRequired,
+  resourceGroups: PropTypes__default["default"].array.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidCrns: PropTypes__default["default"].func.isRequired,
+  invalidCrnText: PropTypes__default["default"].func.isRequired
+};
+
+const TransitGateways = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "Transit Gateways",
+    addText: "Create a Transit Gateway",
+    docs: props.docs,
+    innerForm: TransitGatewayForm,
+    arrayData: props.transit_gateways,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    innerFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      vpcList: props.vpcList,
+      readOnlyName: false,
+      invalidCrns: props.invalidCrns,
+      invalidCrnText: props.invalidCrnText,
+      resourceGroups: props.resourceGroups
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "transit_gateways",
+      hide: true,
+      hideName: true
+    }
+  });
+};
+TransitGateways.propTypes = {
+  docs: PropTypes__default["default"].func.isRequired,
+  transit_gateways: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  onDelete: PropTypes__default["default"].func.isRequired,
+  onSave: PropTypes__default["default"].func.isRequired,
+  onSubmit: PropTypes__default["default"].func.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  forceOpen: PropTypes__default["default"].func.isRequired,
+  craig: PropTypes__default["default"].shape({}),
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string),
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  invalidCrns: PropTypes__default["default"].func.isRequired,
+  invalidCrnText: PropTypes__default["default"].func.isRequired,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+};
+
 class ClusterForm extends React.Component {
   constructor(props) {
     super(props);
@@ -9203,138 +9387,6 @@ TeleportClaimToRoleForm.propTypes = {
     email: PropTypes__default["default"].string.isRequired,
     roles: PropTypes__default["default"].array.isRequired
   }).isRequired
-};
-
-class TransitGatewayForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    this.handleToggle = this.handleToggle.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleCRNs = this.handleCRNs.bind(this);
-    this.handleVpcSelect = this.handleVpcSelect.bind(this);
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-  }
-
-  /**
-   * Toggle on and off param in state at name
-   * @param {string} name name of the object key to change
-   */
-  handleToggle(name) {
-    this.setState(this.toggleStateBoolean(name, this.state));
-  }
-
-  /**
-   * Handle input change
-   * @param {event} event
-   */
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-
-  /**
-   * Handle crn input
-   * @param {event} event
-   */
-  handleCRNs(event) {
-    this.setState(forms_31(event));
-  }
-
-  /**
-   * Handle vpc selection
-   * @param {Array} selectedItems
-   */
-  handleVpcSelect(selectedItems) {
-    this.setState(forms_32(selectedItems, this.state.name));
-  }
-  render() {
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      onChange: this.handleInputChange,
-      componentName: "Transit Gateway",
-      field: "name",
-      value: this.state.name,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props),
-      id: this.props.data.name + "-tg-name"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "Transit Gateway",
-      value: this.state.resource_group,
-      groups: this.props.resourceGroups,
-      handleInputChange: this.handleInputChange,
-      id: this.props.data.name + "-resource_group",
-      name: "resource_group",
-      labelText: "Resource Group"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      labelText: "Global Routing",
-      toggleFieldName: "global",
-      id: this.props.data.name + "-tg-global",
-      onToggle: this.handleToggle,
-      defaultToggled: this.state.global,
-      tooltip: {
-        align: "right",
-        content: "Must be enabled in order to connect your IBM Cloud and on-premises networks in all IBM Cloud multizone regions."
-      }
-    })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
-      name: "Connections",
-      type: "subHeading"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(VpcListMultiSelect, {
-      id: this.props.data.name + "-tg-vpc-multiselect",
-      titleText: "Connected VPCs",
-      initialSelectedItems: lazyZ.splat(this.state.connections, "vpc"),
-      vpcList: this.props.vpcList,
-      onChange: this.handleVpcSelect,
-      invalid: this.state.connections.length === 0,
-      invalidText: "At least one VPC must be connected"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
-      name: "Additional connections",
-      type: "section"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
-      className: "textInputWide",
-      id: this.props.data.name + "crns",
-      labelText: "Add a new connection from any region in the account",
-      value: this.state.crns === undefined ? "" : String(this.state.crns),
-      onChange: this.handleCRNs,
-      invalid: this.props.invalidCrns(this.state, this.props),
-      invalidText: this.props.invalidCrnText(this.state, this.props),
-      helperText: "Enter a comma separated list of CRNs",
-      placeholder: "crn:v1:bluemix..."
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement("div", {
-      className: "marginBottomSmall textInputWide"
-    }, this.state.crns !== undefined && this.state.crns.length > 0 && this.state.crns.map((crn, i) => /*#__PURE__*/React__default["default"].createElement(react.Tag, {
-      key: "crn" + i,
-      size: "md",
-      type: "green"
-    }, crn)))));
-  }
-}
-TransitGatewayForm.defaultProps = {
-  data: {
-    global: true,
-    connections: [],
-    resource_group: "",
-    name: "",
-    crns: []
-  },
-  vpcList: [],
-  resourceGroups: []
-};
-TransitGatewayForm.propTypes = {
-  data: PropTypes__default["default"].shape({
-    global: PropTypes__default["default"].bool.isRequired,
-    connections: PropTypes__default["default"].array.isRequired,
-    resource_group: PropTypes__default["default"].string,
-    name: PropTypes__default["default"].string,
-    crns: PropTypes__default["default"].array
-  }),
-  vpcList: PropTypes__default["default"].array.isRequired,
-  resourceGroups: PropTypes__default["default"].array.isRequired,
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  invalidCrns: PropTypes__default["default"].func.isRequired,
-  invalidCrnText: PropTypes__default["default"].func.isRequired
 };
 
 const nameFields = ["default_network_acl_name", "default_routing_table_name", "default_security_group_name"];
@@ -12998,6 +13050,7 @@ exports.TitleGroup = TitleGroup;
 exports.ToggleForm = ToggleForm;
 exports.ToolTipWrapper = ToolTipWrapper;
 exports.TransitGatewayForm = TransitGatewayForm;
+exports.TransitGatewayTemplate = TransitGateways;
 exports.UnderConstruction = UnderConstruction;
 exports.UnsavedChangesModal = UnsavedChangesModal;
 exports.UpDownButtons = UpDownButtons;

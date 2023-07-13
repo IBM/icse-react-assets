@@ -107,3 +107,4 @@ export { ResourceGroups as ResourceGroupsTemplate } from "./crud-form-pages";
 export { SecretsManager as SecretsManagerTemplate } from "./crud-form-pages";
 export { KeyManagement as KeyManagementTemplate } from "./crud-form-pages";
 export { ObjectStorage as ObjectStorageTemplate } from "./crud-form-pages";
+export { TransitGateways as TransitGatewayTemplate } from "./crud-form-pages";

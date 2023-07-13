@@ -1,5 +1,5 @@
 import '@carbon/styles/css/styles.css';
-import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, TextArea, PasswordInput, NumberInput, DataTable, TableContainer, Table, TableHead, TableRow, TableHeader, TableBody, TableCell, Dropdown, Tag, Checkbox } from '@carbon/react';
+import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, TextArea, Tag, PasswordInput, NumberInput, DataTable, TableContainer, Table, TableHead, TableRow, TableHeader, TableBody, TableCell, Dropdown, Checkbox } from '@carbon/react';
 import lazyZ, { titleCase as titleCase$2, kebabCase as kebabCase$5, isEmpty, buildNumberDropdownList, contains as contains$5, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$7, transpose as transpose$2, getObjectFromArray, splat as splat$2, capitalize as capitalize$2, containsKeys, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual, parseIntFromZone as parseIntFromZone$1, snakeCase as snakeCase$2, distinct, isWholeNumber as isWholeNumber$2, isInRange as isInRange$1 } from 'lazy-z';
 import regexButWithWords from 'regex-but-with-words';
 import React, { Component } from 'react';
@@ -5745,6 +5745,190 @@ ObjectStorage.propTypes = {
   kmsList: PropTypes.array.isRequired
 };
 
+class TransitGatewayForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleToggle = this.handleToggle.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleCRNs = this.handleCRNs.bind(this);
+    this.handleVpcSelect = this.handleVpcSelect.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+
+  /**
+   * Toggle on and off param in state at name
+   * @param {string} name name of the object key to change
+   */
+  handleToggle(name) {
+    this.setState(this.toggleStateBoolean(name, this.state));
+  }
+
+  /**
+   * Handle input change
+   * @param {event} event
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * Handle crn input
+   * @param {event} event
+   */
+  handleCRNs(event) {
+    this.setState(forms_31(event));
+  }
+
+  /**
+   * Handle vpc selection
+   * @param {Array} selectedItems
+   */
+  handleVpcSelect(selectedItems) {
+    this.setState(forms_32(selectedItems, this.state.name));
+  }
+  render() {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+      onChange: this.handleInputChange,
+      componentName: "Transit Gateway",
+      field: "name",
+      value: this.state.name,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      id: this.props.data.name + "-tg-name"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: "Transit Gateway",
+      value: this.state.resource_group,
+      groups: this.props.resourceGroups,
+      handleInputChange: this.handleInputChange,
+      id: this.props.data.name + "-resource_group",
+      name: "resource_group",
+      labelText: "Resource Group"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
+      labelText: "Global Routing",
+      toggleFieldName: "global",
+      id: this.props.data.name + "-tg-global",
+      onToggle: this.handleToggle,
+      defaultToggled: this.state.global,
+      tooltip: {
+        align: "right",
+        content: "Must be enabled in order to connect your IBM Cloud and on-premises networks in all IBM Cloud multizone regions."
+      }
+    })), /*#__PURE__*/React.createElement(IcseHeading, {
+      name: "Connections",
+      type: "subHeading"
+    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(VpcListMultiSelect, {
+      id: this.props.data.name + "-tg-vpc-multiselect",
+      titleText: "Connected VPCs",
+      initialSelectedItems: splat$2(this.state.connections, "vpc"),
+      vpcList: this.props.vpcList,
+      onChange: this.handleVpcSelect,
+      invalid: this.state.connections.length === 0,
+      invalidText: "At least one VPC must be connected"
+    })), /*#__PURE__*/React.createElement(IcseHeading, {
+      name: "Additional connections",
+      type: "section"
+    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
+      className: "textInputWide",
+      id: this.props.data.name + "crns",
+      labelText: "Add a new connection from any region in the account",
+      value: this.state.crns === undefined ? "" : String(this.state.crns),
+      onChange: this.handleCRNs,
+      invalid: this.props.invalidCrns(this.state, this.props),
+      invalidText: this.props.invalidCrnText(this.state, this.props),
+      helperText: "Enter a comma separated list of CRNs",
+      placeholder: "crn:v1:bluemix..."
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement("div", {
+      className: "marginBottomSmall textInputWide"
+    }, this.state.crns !== undefined && this.state.crns.length > 0 && this.state.crns.map((crn, i) => /*#__PURE__*/React.createElement(Tag, {
+      key: "crn" + i,
+      size: "md",
+      type: "green"
+    }, crn)))));
+  }
+}
+TransitGatewayForm.defaultProps = {
+  data: {
+    global: true,
+    connections: [],
+    resource_group: "",
+    name: "",
+    crns: []
+  },
+  vpcList: [],
+  resourceGroups: []
+};
+TransitGatewayForm.propTypes = {
+  data: PropTypes.shape({
+    global: PropTypes.bool.isRequired,
+    connections: PropTypes.array.isRequired,
+    resource_group: PropTypes.string,
+    name: PropTypes.string,
+    crns: PropTypes.array
+  }),
+  vpcList: PropTypes.array.isRequired,
+  resourceGroups: PropTypes.array.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  invalidCrns: PropTypes.func.isRequired,
+  invalidCrnText: PropTypes.func.isRequired
+};
+
+const TransitGateways = props => {
+  return /*#__PURE__*/React.createElement(IcseFormTemplate, {
+    name: "Transit Gateways",
+    addText: "Create a Transit Gateway",
+    docs: props.docs,
+    innerForm: TransitGatewayForm,
+    arrayData: props.transit_gateways,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    innerFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      vpcList: props.vpcList,
+      readOnlyName: false,
+      invalidCrns: props.invalidCrns,
+      invalidCrnText: props.invalidCrnText,
+      resourceGroups: props.resourceGroups
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "transit_gateways",
+      hide: true,
+      hideName: true
+    }
+  });
+};
+TransitGateways.propTypes = {
+  docs: PropTypes.func.isRequired,
+  transit_gateways: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  disableSave: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  propsMatchState: PropTypes.func.isRequired,
+  forceOpen: PropTypes.func.isRequired,
+  craig: PropTypes.shape({}),
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  vpcList: PropTypes.arrayOf(PropTypes.string),
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  invalidCrns: PropTypes.func.isRequired,
+  invalidCrnText: PropTypes.func.isRequired,
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired
+};
+
 class ClusterForm extends Component {
   constructor(props) {
     super(props);
@@ -9192,138 +9376,6 @@ TeleportClaimToRoleForm.propTypes = {
     email: PropTypes.string.isRequired,
     roles: PropTypes.array.isRequired
   }).isRequired
-};
-
-class TransitGatewayForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    this.handleToggle = this.handleToggle.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleCRNs = this.handleCRNs.bind(this);
-    this.handleVpcSelect = this.handleVpcSelect.bind(this);
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-  }
-
-  /**
-   * Toggle on and off param in state at name
-   * @param {string} name name of the object key to change
-   */
-  handleToggle(name) {
-    this.setState(this.toggleStateBoolean(name, this.state));
-  }
-
-  /**
-   * Handle input change
-   * @param {event} event
-   */
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-
-  /**
-   * Handle crn input
-   * @param {event} event
-   */
-  handleCRNs(event) {
-    this.setState(forms_31(event));
-  }
-
-  /**
-   * Handle vpc selection
-   * @param {Array} selectedItems
-   */
-  handleVpcSelect(selectedItems) {
-    this.setState(forms_32(selectedItems, this.state.name));
-  }
-  render() {
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
-      onChange: this.handleInputChange,
-      componentName: "Transit Gateway",
-      field: "name",
-      value: this.state.name,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props),
-      id: this.props.data.name + "-tg-name"
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: "Transit Gateway",
-      value: this.state.resource_group,
-      groups: this.props.resourceGroups,
-      handleInputChange: this.handleInputChange,
-      id: this.props.data.name + "-resource_group",
-      name: "resource_group",
-      labelText: "Resource Group"
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
-      labelText: "Global Routing",
-      toggleFieldName: "global",
-      id: this.props.data.name + "-tg-global",
-      onToggle: this.handleToggle,
-      defaultToggled: this.state.global,
-      tooltip: {
-        align: "right",
-        content: "Must be enabled in order to connect your IBM Cloud and on-premises networks in all IBM Cloud multizone regions."
-      }
-    })), /*#__PURE__*/React.createElement(IcseHeading, {
-      name: "Connections",
-      type: "subHeading"
-    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(VpcListMultiSelect, {
-      id: this.props.data.name + "-tg-vpc-multiselect",
-      titleText: "Connected VPCs",
-      initialSelectedItems: splat$2(this.state.connections, "vpc"),
-      vpcList: this.props.vpcList,
-      onChange: this.handleVpcSelect,
-      invalid: this.state.connections.length === 0,
-      invalidText: "At least one VPC must be connected"
-    })), /*#__PURE__*/React.createElement(IcseHeading, {
-      name: "Additional connections",
-      type: "section"
-    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
-      className: "textInputWide",
-      id: this.props.data.name + "crns",
-      labelText: "Add a new connection from any region in the account",
-      value: this.state.crns === undefined ? "" : String(this.state.crns),
-      onChange: this.handleCRNs,
-      invalid: this.props.invalidCrns(this.state, this.props),
-      invalidText: this.props.invalidCrnText(this.state, this.props),
-      helperText: "Enter a comma separated list of CRNs",
-      placeholder: "crn:v1:bluemix..."
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement("div", {
-      className: "marginBottomSmall textInputWide"
-    }, this.state.crns !== undefined && this.state.crns.length > 0 && this.state.crns.map((crn, i) => /*#__PURE__*/React.createElement(Tag, {
-      key: "crn" + i,
-      size: "md",
-      type: "green"
-    }, crn)))));
-  }
-}
-TransitGatewayForm.defaultProps = {
-  data: {
-    global: true,
-    connections: [],
-    resource_group: "",
-    name: "",
-    crns: []
-  },
-  vpcList: [],
-  resourceGroups: []
-};
-TransitGatewayForm.propTypes = {
-  data: PropTypes.shape({
-    global: PropTypes.bool.isRequired,
-    connections: PropTypes.array.isRequired,
-    resource_group: PropTypes.string,
-    name: PropTypes.string,
-    crns: PropTypes.array
-  }),
-  vpcList: PropTypes.array.isRequired,
-  resourceGroups: PropTypes.array.isRequired,
-  invalidCallback: PropTypes.func.isRequired,
-  invalidTextCallback: PropTypes.func.isRequired,
-  invalidCrns: PropTypes.func.isRequired,
-  invalidCrnText: PropTypes.func.isRequired
 };
 
 const nameFields = ["default_network_acl_name", "default_routing_table_name", "default_security_group_name"];
@@ -12901,4 +12953,4 @@ SecretsManagerChecklist.propTypes = {
   parentName: PropTypes.string.isRequired
 };
 
-export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, ClusterForm, Clusters as ClustersTemplate, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsForm, DnsRecordForm, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, KeyManagement as KeyManagementTemplate, LocationsMultiSelect, LogDNAForm, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, ObjectStorage as ObjectStorageTemplate, OrderCardDataTable, PopoverWrapper, RenderForm, ResourceGroupForm, ResourceGroups as ResourceGroupsTemplate, RoutingTableForm, RoutingTableRouteForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerChecklist, SecretsManagerForm, SecretsManager as SecretsManagerTemplate, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, SysdigForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VpnServerForm, VpnServerRouteForm, VsiForm, VsiLoadBalancerForm, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, ClusterForm, Clusters as ClustersTemplate, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsForm, DnsRecordForm, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, KeyManagement as KeyManagementTemplate, LocationsMultiSelect, LogDNAForm, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, ObjectStorage as ObjectStorageTemplate, OrderCardDataTable, PopoverWrapper, RenderForm, ResourceGroupForm, ResourceGroups as ResourceGroupsTemplate, RoutingTableForm, RoutingTableRouteForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerChecklist, SecretsManagerForm, SecretsManager as SecretsManagerTemplate, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, SysdigForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, TransitGateways as TransitGatewayTemplate, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VpnServerForm, VpnServerRouteForm, VsiForm, VsiLoadBalancerForm, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
