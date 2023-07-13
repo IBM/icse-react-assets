@@ -44,7 +44,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$2 = "/* vars and themes */\n:root {\n  --background: #ffffff;\n  --subForm: #f4f4f4;\n  --formInSubForm: #fffdfd;\n  --cds-text-primary: #161616;\n  --cds-text-secondary: #525252;\n  --cds-field: #f4f4f4;\n  --cds-border-strong: #8d8d8d;\n  --blue: #0f62fe;\n  --red: #da1e28;\n  --white: #ffffff;\n}\n\n.dark {\n  --background: #161616;\n  --subForm: #262626;\n  --formInSubForm: #414141;\n  --cds-text-primary: #f4f4f4;\n  --cds-text-secondary: #c6c6c6;\n  --cds-field: #363636;\n  --cds-border-strong: #8897a2;\n  --cds-layer: #262626;\n  --cds-layer-hover: #363636;\n  --cds-field-02: #363636;\n  --cds-icon-secondary: #c6c6c6;\n  --cds-icon-primary: #c6c6c6;\n  --placeholder: #565656;\n  --cds-field-hover: #464646;\n  --cds-layer-selected: #525252;\n  --cds-background-inverse: #f4f4f4;\n  --cds-text-inverse: #262626;\n}\n\n.subForm {\n  /* white background for subform input fields */\n  --cds-field: #ffffff;\n}\n\n.formInSubForm {\n  /* gray for formInSubForm input fields */\n  --cds-field: #f4f4f4;\n}\n\ninput:read-only {\n  /* read only fields should only have text */\n  --cds-border-strong: transparent;\n}\n\n.dark {\n  background-color: var(--background);\n}\n\n.dark p {\n  color: #f4f4f4;\n}\n\n.dark i.chevron > svg {\n  fill: #f4f4f4;\n}\n\n.dark h4 {\n  color: #f4f4f4;\n}\n\n.dark .underConstruction > svg {\n  fill: #ffffff;\n}\n/* styling for tooltip content in dark mode */\n.dark .cds--toggletip-content > p {\n  color: #363636;\n}\n\n.dark .subForm {\n  /* alternate background for dark subforms */\n  --cds-field: #414141;\n}\n\n.dark .formInSubForm {\n  /* alternate background for dark formInSubForm */\n  --cds-field: #363636;\n}\n\n.dark ::placeholder {\n  color: var(--placeholder);\n}\n\n/* general alignment classes */\n\n.displayFlex {\n  display: flex;\n}\n\n.alignItemsTop {\n  align-items: top;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n\n.fieldWidthSmallest {\n  width: 8rem;\n}\n\n.fieldWidthBigger {\n  width: 40rem;\n}\n\n.textInputWide {\n  width: 30rem;\n}\n\n.textInputMedium {\n  width: 20rem;\n}\n\n/* backhground classes */\n.formInSubForm {\n  margin-top: 0rem;\n  background: var(--formInSubForm);\n  padding: 1rem;\n}\n\n.subForm {\n  background: var(--subForm);\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n/* Tooltips */\n.labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -22px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n\n/* subnet tile form */\n\n.tileFormMargin {\n  margin-bottom: -0.5rem;\n  margin-top: 0.5rem;\n}\n\n.tileFormMargin.subForm {\n  padding: 0px;\n}\n\n.marginRightSubnetTile {\n  margin-right: 10px;\n}\n\n/* StatefulTabPanel */\n\n.cds--tab-content.doc {\n  padding: 0.5rem 0;\n}\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}\n\n/* popover wrappers */\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  z-index: 9001;\n}\n\n/* buttons */\n.edit-view-btn:focus {\n  background-color: var(--white);\n}\n\ni.chevron > svg {\n  display: block; /* remove extra padding on bottom of i which misaligns icon */\n  margin-right: 1rem;\n  margin-top: 0.15rem;\n}\n\n.chevron {\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: var(--blue) !important;\n  fill: var(--white) !important;\n  border-color: var(--blue) !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding: 0.4375rem !important;\n  align-items: center;\n}\n\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: var(--red) !important;\n}\n\n.alignButtons {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.cds--tabs__nav-link:focus {\n  outline: none !important;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important;\n}\n\n/* docs */\n.about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n\n/* empty resource tile */\n.iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: var(--subForm);\n}\n\n.marginTop {\n  margin-top: 1rem;\n}\n\n/* under construction */\n\n.underConstruction {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.flexDirectionColumn {\n  flex-direction: column;\n}\n\n/* f5 vsi */\n.wide {\n  width: 20rem !important;\n}\n\n.tight {\n  width: min-content; /* force invalid text to split line */\n}\n\n.passwordGenerateButton {\n  margin-top: 1.25rem;\n  margin-left: calc(-4rem - 3vw);\n}\n\n.passwordGenerateButton svg {\n  fill: var(--cds-icon-secondary, #525252) !important;\n}\n\n.passwordGenerateButton.invalid {\n  margin-left: calc(-5.75rem - 3vw);\n}\n\n.wrap {\n  flex-flow: wrap;\n}\n\n.docsUpdated {\n  display: flex;\n  align-items: flex-end;\n}\n\n.cds--list-box__menu {\n  width: fit-content;\n  text-align: left;\n}\n\n@media screen and (max-width: 1024px) {\n  .fieldWidth {\n    width: 11rem;\n  }\n\n  .fieldWidthSmaller {\n    width: 8rem;\n  }\n\n  .fieldWidthSmallest {\n    width: 5rem;\n  }\n\n  .textInputWide {\n    width: 20rem;\n  }\n\n  .fieldWidthBigger {\n    width: 30rem;\n  }\n\n  .textInputMedium {\n    width: 15rem;\n  }\n}\n\n@media screen and (max-width: 850px) {\n  .fieldWidth {\n    width: 100%;\n  }\n\n  .fieldWidthSmaller {\n    width: 100%;\n  }\n\n  .fieldWidthSmallest {\n    width: 100%;\n  }\n\n  .textInputMedium {\n    width: 100%;\n  }\n\n  .fieldWidthBigger {\n    width: 100%;\n  }\n\n  .textInputWide {\n    width: 100%;\n  }\n\n  .formGroup {\n    /* items 1 wide */\n    flex-direction: column !important;\n  }\n\n  .popover-obj.select {\n    /* need to adjust size for popover container at small widths */\n    width: 100%;\n  }\n\n  .popover-obj.select > span {\n    width: 100%;\n  }\n\n  /* items with tooltip should also be full width */\n  .cds--form-item {\n    flex: none;\n    width: 100%;\n  }\n}\n\n.cds--form-item {\n  flex: none; /* overwrite flex to fix inconsistent widths */\n}\n\n/* data table */\ndiv .dt-security-group {\n  background-color: white !important;\n}\n";
+var css_248z$2 = "/* vars and themes */\n:root {\n  --background: #ffffff;\n  --subForm: #f4f4f4;\n  --formInSubForm: #fffdfd;\n  --cds-text-primary: #161616;\n  --cds-text-secondary: #525252;\n  --cds-field: #f4f4f4;\n  --cds-border-strong: #8d8d8d;\n  --blue: #0f62fe;\n  --red: #da1e28;\n  --white: #ffffff;\n}\n\n.dark {\n  --background: #161616;\n  --subForm: #262626;\n  --formInSubForm: #414141;\n  --cds-text-primary: #f4f4f4;\n  --cds-text-secondary: #c6c6c6;\n  --cds-field: #363636;\n  --cds-border-strong: #8897a2;\n  --cds-layer: #262626;\n  --cds-layer-hover: #363636;\n  --cds-field-02: #363636;\n  --cds-icon-secondary: #c6c6c6;\n  --cds-icon-primary: #c6c6c6;\n  --placeholder: #565656;\n  --cds-field-hover: #464646;\n  --cds-layer-selected: #525252;\n  --cds-background-inverse: #f4f4f4;\n  --cds-text-inverse: #262626;\n}\n\n.subForm {\n  /* white background for subform input fields */\n  --cds-field: #ffffff;\n}\n\n.formInSubForm {\n  /* gray for formInSubForm input fields */\n  --cds-field: #f4f4f4;\n}\n\ninput:read-only {\n  /* read only fields should only have text */\n  --cds-border-strong: transparent;\n}\n\n.dark {\n  background-color: var(--background);\n}\n\n.dark p {\n  color: #f4f4f4;\n}\n\n.dark i.chevron > svg {\n  fill: #f4f4f4;\n}\n\n.dark h4 {\n  color: #f4f4f4;\n}\n\n.dark .underConstruction > svg {\n  fill: #ffffff;\n}\n/* styling for tooltip content in dark mode */\n.dark .cds--toggletip-content > p {\n  color: #363636;\n}\n\n.dark .subForm {\n  /* alternate background for dark subforms */\n  --cds-field: #414141;\n}\n\n.dark .formInSubForm {\n  /* alternate background for dark formInSubForm */\n  --cds-field: #363636;\n}\n\n.dark ::placeholder {\n  color: var(--placeholder);\n}\n\n/* general alignment classes */\n\n.displayFlex {\n  display: flex;\n}\n\n.alignItemsTop {\n  align-items: top;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n\n.fieldWidthSmallest {\n  width: 8rem;\n}\n\n.fieldWidthBigger {\n  width: 40rem;\n}\n\n.textInputWide {\n  width: 30rem;\n}\n\n.textInputMedium {\n  width: 20rem;\n}\n\n/* backhground classes */\n.formInSubForm {\n  margin-top: 0rem;\n  background: var(--formInSubForm);\n  padding: 1rem;\n}\n\n.subForm {\n  background: var(--subForm);\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n/* Tooltips */\n.labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -22px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n\n.tooltip > div.cds--select--invalid {\n  margin-top: -8px;\n}\n\n/* subnet tile form */\n\n.tileFormMargin {\n  margin-bottom: -0.5rem;\n  margin-top: 0.5rem;\n}\n\n.tileFormMargin.subForm {\n  padding: 0px;\n}\n\n.marginRightSubnetTile {\n  margin-right: 10px;\n}\n\n/* StatefulTabPanel */\n\n.cds--tab-content.doc {\n  padding: 0.5rem 0;\n}\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}\n\n/* popover wrappers */\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  z-index: 9001;\n}\n\n/* buttons */\n.edit-view-btn:focus {\n  background-color: var(--white);\n}\n\ni.chevron > svg {\n  display: block; /* remove extra padding on bottom of i which misaligns icon */\n  margin-right: 1rem;\n  margin-top: 0.15rem;\n}\n\n.chevron {\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: var(--blue) !important;\n  fill: var(--white) !important;\n  border-color: var(--blue) !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding: 0.4375rem !important;\n  align-items: center;\n}\n\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: var(--red) !important;\n}\n\n.alignButtons {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.cds--tabs__nav-link:focus {\n  outline: none !important;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important;\n}\n\n/* docs */\n.about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n\n/* empty resource tile */\n.iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: var(--subForm);\n}\n\n.marginTop {\n  margin-top: 1rem;\n}\n\n/* under construction */\n\n.underConstruction {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.flexDirectionColumn {\n  flex-direction: column;\n}\n\n/* f5 vsi */\n.wide {\n  width: 20rem !important;\n}\n\n.tight {\n  width: min-content; /* force invalid text to split line */\n}\n\n.passwordGenerateButton {\n  margin-top: 1.25rem;\n  margin-left: calc(-4rem - 3vw);\n}\n\n.passwordGenerateButton svg {\n  fill: var(--cds-icon-secondary, #525252) !important;\n}\n\n.passwordGenerateButton.invalid {\n  margin-left: calc(-5.75rem - 3vw);\n}\n\n.wrap {\n  flex-flow: wrap;\n}\n\n.docsUpdated {\n  display: flex;\n  align-items: flex-end;\n}\n\n.cds--list-box__menu {\n  width: fit-content;\n  text-align: left;\n}\n\n@media screen and (max-width: 1024px) {\n  .fieldWidth {\n    width: 11rem;\n  }\n\n  .fieldWidthSmaller {\n    width: 8rem;\n  }\n\n  .fieldWidthSmallest {\n    width: 5rem;\n  }\n\n  .textInputWide {\n    width: 20rem;\n  }\n\n  .fieldWidthBigger {\n    width: 30rem;\n  }\n\n  .textInputMedium {\n    width: 15rem;\n  }\n}\n\n@media screen and (max-width: 850px) {\n  .fieldWidth {\n    width: 100%;\n  }\n\n  .fieldWidthSmaller {\n    width: 100%;\n  }\n\n  .fieldWidthSmallest {\n    width: 100%;\n  }\n\n  .textInputMedium {\n    width: 100%;\n  }\n\n  .fieldWidthBigger {\n    width: 100%;\n  }\n\n  .textInputWide {\n    width: 100%;\n  }\n\n  .formGroup {\n    /* items 1 wide */\n    flex-direction: column !important;\n  }\n\n  .popover-obj.select {\n    /* need to adjust size for popover container at small widths */\n    width: 100%;\n  }\n\n  .popover-obj.select > span {\n    width: 100%;\n  }\n\n  /* items with tooltip should also be full width */\n  .cds--form-item {\n    flex: none;\n    width: 100%;\n  }\n}\n\n.cds--form-item {\n  flex: none; /* overwrite flex to fix inconsistent widths */\n}\n\n/* data table */\ndiv .dt-security-group {\n  background-color: white !important;\n}\n";
 styleInject(css_248z$2);
 
 const {
@@ -58,7 +58,7 @@ const {
  * @param {*} props arbitrary props
  * @param {string=} props.className additional classnames
  */
-function addClassName$3(className, props) {
+function addClassName$4(className, props) {
   let composedClassName = className;
   if (props?.className) {
     composedClassName += " " + props.className;
@@ -147,7 +147,7 @@ function subnetTierName$1(tierName) {
   }
 }
 var formUtils = {
-  addClassName: addClassName$3,
+  addClassName: addClassName$4,
   toggleMarginBottom: toggleMarginBottom$2,
   prependEmptyStringWhenNull: prependEmptyStringWhenNull$2,
   checkNullorEmptyString: checkNullorEmptyString$1,
@@ -314,7 +314,8 @@ const {
   kebabCase: kebabCase$3
 } = lazyZ__default["default"];
 const {
-  prependEmptyStringWhenNull: prependEmptyStringWhenNull$1
+  prependEmptyStringWhenNull: prependEmptyStringWhenNull$1,
+  addClassName: addClassName$3
 } = formUtils;
 
 /**
@@ -334,13 +335,15 @@ function icseSelectParams$1(props) {
   let wrapperId = kebabCase$3(props.name) + "-dropdown-tooltip";
   let selectId = kebabCase$3(props.formName + " " + props.name);
   let labelText = props.tooltip ? null : props.labelText;
+  let selectClassName = addClassName$3(`leftTextAlign${props.tooltip ? " tooltip" : ""}`, props);
   return {
     invalid,
     groups,
     popoverClassName,
     wrapperId,
     selectId,
-    labelText
+    labelText,
+    selectClassName
   };
 }
 var dropdowns = {
@@ -2581,7 +2584,8 @@ const IcseSelect = props => {
     popoverClassName,
     wrapperId,
     selectId,
-    labelText
+    labelText,
+    selectClassName
   } = lib_5(props);
   // please leave debug here
   if (props.debug) {
@@ -2599,7 +2603,7 @@ const IcseSelect = props => {
         name: props.name,
         labelText: labelText,
         value: props.value || undefined,
-        className: lib_7("leftTextAlign", props),
+        className: selectClassName,
         disabled: props.disabled,
         invalid: invalid,
         invalidText: props.invalidText,
@@ -5324,6 +5328,622 @@ KeyManagement.propTypes = {
   docs: PropTypes__default["default"].func.isRequired
 };
 
+class ObjectStorageBucketForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleStorageClassChange = this.handleStorageClassChange.bind(this);
+  }
+
+  /**
+   * Handler for toggle
+   */
+  handleToggle() {
+    this.setState(this.toggleStateBoolean("force_delete", this.state));
+  }
+
+  /**
+   * handle storage class change and convert to lowercase for value
+   * @param {event} event event
+   */
+  handleStorageClassChange(event) {
+    this.setState({
+      storage_class: event.target.value.toLowerCase()
+    });
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  render() {
+    // composed id for bucket
+    let composedId = `bucket-form-${this.props.data.name ? this.props.data.name : "new-bucket"}`;
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: composedId + "-name",
+      componentName: this.state.name,
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      helperTextCallback: () => this.props.composedNameCallback(this.state, this.props),
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      id: composedId + "-class",
+      formName: this.props.data.name + "-object-storage-bucket-class",
+      name: "storage_class",
+      groups: ["Standard", "Vault", "Cold", "Smart"],
+      value: lazyZ.capitalize(this.state.storage_class),
+      labelText: "Bucket Class",
+      handleInputChange: this.handleStorageClassChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      id: composedId + "-key",
+      formName: this.props.data.name + "-object-storage-bucket-key",
+      name: "kms_key",
+      groups: this.props.encryptionKeyFilter ? this.props.encryptionKeyFilter(this.state, this.props) : this.props.encryptionKeys,
+      value: this.state.kms_key,
+      labelText: "Encryption Key",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller",
+      invalidText: this.props.encryptionsKeys === [] ? "Select a KMS Instance." : "Select an Encryption Key."
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      tooltip: {
+        content: "Toggling this on will force delete contents of the bucket after the bucket is deleted"
+      },
+      id: composedId + "force-delete",
+      labelText: "Force Delete Contents",
+      defaultToggled: this.state.force_delete,
+      toggleFieldName: "force_delete",
+      onToggle: this.handleToggle
+    })));
+  }
+}
+ObjectStorageBucketForm.defaultProps = {
+  data: {
+    force_delete: false,
+    name: "",
+    storage_class: "Standard",
+    kms_key: "",
+    endpoint: "public"
+  },
+  encryptionKeys: []
+};
+ObjectStorageBucketForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    force_delete: PropTypes__default["default"].bool.isRequired,
+    name: PropTypes__default["default"].string.isRequired,
+    storage_class: PropTypes__default["default"].string.isRequired,
+    kms_key: PropTypes__default["default"].string,
+    endpoint: PropTypes__default["default"].string.isRequired
+  }).isRequired,
+  encryptionKeys: PropTypes__default["default"].array.isRequired,
+  encryptionKeyFilter: PropTypes__default["default"].func,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  composedNameCallback: PropTypes__default["default"].func.isRequired
+};
+
+class ObjectStorageKeyForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  /**
+   * Handler for toggle
+   * @param {String} name specifies the name of the state value you wish to change
+   */
+  handleToggle() {
+    this.setState(this.toggleStateBoolean("enable_hmac", this.state));
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  render() {
+    // composed id
+    let composedId = `key-form-${this.props.data.name ? this.props.data.name : "new-key"}`;
+    let inputSize = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+      noMarginBottom: true
+    }, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: this.state.name + "-name",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      placeholder: "my-cos-key-name",
+      className: inputSize,
+      helperTextCallback: () => this.props.composedNameCallback(this.state, this.props),
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      name: "role",
+      groups: ["Object Writer", "Object Reader", "Content Reader", "Reader", "Writer", "Manager"],
+      value: this.state.role,
+      labelText: "Role",
+      handleInputChange: this.handleInputChange,
+      className: inputSize,
+      formName: this.props.data.name + "-object-storage-key-role"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      tooltip: {
+        link: "https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-uhc-hmac-credentials-main",
+        content: "HMAC (hash-based message authentication code) is required for Teleport VSI instances.",
+        alignModal: "bottom-left"
+      },
+      id: composedId + "cos-instance-key-hmac",
+      labelText: "Enable HMAC",
+      defaultToggled: this.props.forceEnableHmac,
+      onToggle: this.handleToggle,
+      disabled: this.props.forceEnableHmac,
+      isModal: this.props.isModal
+    })));
+  }
+}
+ObjectStorageKeyForm.defaultProps = {
+  data: {
+    name: "",
+    role: "Writer",
+    enable_hmac: false
+  },
+  forceEnableHmac: false
+};
+ObjectStorageKeyForm.propTypes = {
+  isModal: PropTypes__default["default"].bool,
+  data: PropTypes__default["default"].shape({
+    enable_hmac: PropTypes__default["default"].bool.isRequired,
+    name: PropTypes__default["default"].string.isRequired,
+    role: PropTypes__default["default"].string
+  }),
+  shouldDisableSave: PropTypes__default["default"].func,
+  shouldDisableSubmit: PropTypes__default["default"].func,
+  forceEnableHmac: PropTypes__default["default"].bool.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  composedNameCallback: PropTypes__default["default"].func.isRequired
+};
+
+/**
+ * Object storage
+ */
+class ObjectStorageInstancesForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  render() {
+    let composedId = `object-storage-form-${this.props.data.name}-`;
+    let bucketInnerFormProps = {
+      invalidCallback: this.props.invalidBucketCallback,
+      invalidTextCallback: this.props.invalidBucketTextCallback,
+      composedNameCallback: this.props.composedNameCallback,
+      arrayParentName: this.props.data.name,
+      parent_name: this.props.data.name
+    };
+    lazyZ.transpose({
+      ...this.props.bucketProps
+    }, bucketInnerFormProps);
+    let keyInnerFormProps = {
+      invalidCallback: this.props.invalidKeyCallback,
+      invalidTextCallback: this.props.invalidKeyTextCallback,
+      composedNameCallback: this.props.composedNameCallback,
+      arrayParentName: this.props.data.name
+    };
+    lazyZ.transpose({
+      ...this.props.keyProps
+    }, keyInnerFormProps);
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      tooltip: {
+        content: "Service credentials and buckets will be created for your environment even when using an existing Object Storage instance.",
+        alignModal: "bottom"
+      },
+      id: composedId + "use-data",
+      toggleFieldName: "use_data",
+      labelText: "Use Existing Instance",
+      defaultToggled: this.state.use_data,
+      onToggle: this.handleInputChange,
+      isModal: this.props.isModal
+    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      tooltip: {
+        content: "Object storage bucket names must be unique across an account. Append a random suffix to maintain unique names across deployments.",
+        alignModal: "bottom"
+      },
+      id: composedId + "use-random-suffix",
+      labelText: "Append Random Suffix to Names",
+      toggleFieldName: "use_random_suffix",
+      defaultToggled: this.state.use_random_suffix,
+      onToggle: this.handleInputChange,
+      isModal: this.props.isModal
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: this.props.data.name + "-object-storage-kms",
+      name: "kms",
+      labelText: "Key Management Instance",
+      groups: this.props.kmsList,
+      value: this.state.kms,
+      handleInputChange: this.handleInputChange
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: this.props.data.name + "-object-storage-name",
+      componentName: this.props.data.name,
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      helperTextCallback: () => this.props.composedNameCallback(this.state, this.props),
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: this.props.data.name + "-object-storage-rg",
+      name: "resource_group",
+      labelText: "Resource Group",
+      groups: this.props.resourceGroups,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange
+    })), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+      name: "Service Credentials",
+      subHeading: true,
+      tooltip: {
+        content: "A service credential allows for a service instance to connect to Object Storage.",
+        link: "https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-service-credentials"
+      },
+      addText: "Create a Service Credential",
+      arrayData: this.props.data.keys,
+      innerForm: ObjectStorageKeyForm,
+      disableSave: this.props.keyProps.disableSave,
+      onDelete: this.props.keyProps.onDelete,
+      onSave: this.props.keyProps.onSave,
+      onSubmit: this.props.keyProps.onSubmit,
+      propsMatchState: this.props.propsMatchState,
+      innerFormProps: {
+        ...keyInnerFormProps
+      },
+      hideAbout: true,
+      toggleFormProps: {
+        hideName: true,
+        submissionFieldName: "cos_keys",
+        disableSave: this.props.keyProps.disableSave,
+        type: "formInSubForm"
+      }
+    }), /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+      name: "Buckets",
+      subHeading: true,
+      addText: "Create a Bucket",
+      arrayData: this.props.data.buckets,
+      innerForm: ObjectStorageBucketForm,
+      disableSave: this.props.bucketProps.disableSave,
+      onDelete: this.props.bucketProps.onDelete,
+      onSave: this.props.bucketProps.onSave,
+      onSubmit: this.props.bucketProps.onSubmit,
+      propsMatchState: this.props.propsMatchState,
+      innerFormProps: {
+        ...bucketInnerFormProps
+      },
+      hideAbout: true,
+      toggleFormProps: {
+        hideName: true,
+        submissionFieldName: "buckets",
+        disableSave: this.props.bucketProps.disableSave,
+        type: "formInSubForm"
+      }
+    })));
+  }
+}
+ObjectStorageInstancesForm.defaultProps = {
+  data: {
+    name: "",
+    use_data: false,
+    resource_group: "",
+    use_random_suffix: true
+  },
+  resourceGroups: []
+};
+ObjectStorageInstancesForm.propTypes = {
+  isModal: PropTypes__default["default"].bool,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    use_data: PropTypes__default["default"].bool.isRequired,
+    resource_group: PropTypes__default["default"].string,
+    use_random_suffix: PropTypes__default["default"].bool.isRequired
+  }),
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  composedNameCallback: PropTypes__default["default"].func.isRequired
+};
+
+const ObjectStorage = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "Object Storage",
+    addText: "Create an Object Storage Service",
+    docs: props.docs,
+    innerForm: ObjectStorageInstancesForm,
+    arrayData: props.object_storage,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    innerFormProps: {
+      craig: props.craig,
+      resourceGroups: props.resourceGroups,
+      kmsList: props.kmsList,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      invalidKeyCallback: props.invalidKeyCallback,
+      invalidKeyTextCallback: props.invalidKeyTextCallback,
+      invalidBucketCallback: props.invalidBucketCallback,
+      invalidBucketTextCallback: props.invalidBucketTextCallback,
+      propsMatchState: props.propsMatchState,
+      disableSave: props.disableSave,
+      composedNameCallback: props.composedNameCallback,
+      keyProps: {
+        craig: props.craig,
+        onSave: props.onKeySave,
+        onDelete: props.onKeyDelete,
+        onSubmit: props.onKeySubmit,
+        disableSave: props.disableSave
+      },
+      bucketProps: {
+        craig: props.craig,
+        onSave: props.onBucketSave,
+        onDelete: props.onBucketDelete,
+        onSubmit: props.onBucketSubmit,
+        disableSave: props.disableSave,
+        encryptionKeys: props.encryptionKeys,
+        encryptionKeyFilter: props.encryptionKeyFilter
+      }
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "object_storage",
+      hide: true,
+      hideName: true
+    }
+  });
+};
+ObjectStorage.propTypes = {
+  object_storage: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  onDelete: PropTypes__default["default"].func.isRequired,
+  onSave: PropTypes__default["default"].func.isRequired,
+  onSubmit: PropTypes__default["default"].func.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  forceOpen: PropTypes__default["default"].func.isRequired,
+  resourceGroups: PropTypes__default["default"].array.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidKeyCallback: PropTypes__default["default"].func.isRequired,
+  invalidKeyTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidBucketCallback: PropTypes__default["default"].func.isRequired,
+  invalidBucketTextCallback: PropTypes__default["default"].func.isRequired,
+  onKeySave: PropTypes__default["default"].func.isRequired,
+  onKeyDelete: PropTypes__default["default"].func.isRequired,
+  onKeySubmit: PropTypes__default["default"].func.isRequired,
+  onBucketSave: PropTypes__default["default"].func.isRequired,
+  onBucketDelete: PropTypes__default["default"].func.isRequired,
+  onBucketSubmit: PropTypes__default["default"].func.isRequired,
+  craig: PropTypes__default["default"].shape({}),
+  docs: PropTypes__default["default"].func.isRequired,
+  encryptionKeyFilter: PropTypes__default["default"].func.isRequired,
+  encryptionKeys: PropTypes__default["default"].array.isRequired,
+  composedNameCallback: PropTypes__default["default"].func.isRequired,
+  kmsList: PropTypes__default["default"].array.isRequired
+};
+
+class TransitGatewayForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleToggle = this.handleToggle.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleCRNs = this.handleCRNs.bind(this);
+    this.handleVpcSelect = this.handleVpcSelect.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+
+  /**
+   * Toggle on and off param in state at name
+   * @param {string} name name of the object key to change
+   */
+  handleToggle(name) {
+    this.setState(this.toggleStateBoolean(name, this.state));
+  }
+
+  /**
+   * Handle input change
+   * @param {event} event
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * Handle crn input
+   * @param {event} event
+   */
+  handleCRNs(event) {
+    this.setState(forms_31(event));
+  }
+
+  /**
+   * Handle vpc selection
+   * @param {Array} selectedItems
+   */
+  handleVpcSelect(selectedItems) {
+    this.setState(forms_32(selectedItems, this.state.name));
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      onChange: this.handleInputChange,
+      componentName: "Transit Gateway",
+      field: "name",
+      value: this.state.name,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      id: this.props.data.name + "-tg-name"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: "Transit Gateway",
+      value: this.state.resource_group,
+      groups: this.props.resourceGroups,
+      handleInputChange: this.handleInputChange,
+      id: this.props.data.name + "-resource_group",
+      name: "resource_group",
+      labelText: "Resource Group"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      labelText: "Global Routing",
+      toggleFieldName: "global",
+      id: this.props.data.name + "-tg-global",
+      onToggle: this.handleToggle,
+      defaultToggled: this.state.global,
+      tooltip: {
+        align: "right",
+        content: "Must be enabled in order to connect your IBM Cloud and on-premises networks in all IBM Cloud multizone regions."
+      }
+    })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+      name: "Connections",
+      type: "subHeading"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(VpcListMultiSelect, {
+      id: this.props.data.name + "-tg-vpc-multiselect",
+      titleText: "Connected VPCs",
+      initialSelectedItems: lazyZ.splat(this.state.connections, "vpc"),
+      vpcList: this.props.vpcList,
+      onChange: this.handleVpcSelect,
+      invalid: this.state.connections.length === 0,
+      invalidText: "At least one VPC must be connected"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+      name: "Additional connections",
+      type: "section"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
+      className: "textInputWide",
+      id: this.props.data.name + "crns",
+      labelText: "Add a new connection from any region in the account",
+      value: this.state.crns === undefined ? "" : String(this.state.crns),
+      onChange: this.handleCRNs,
+      invalid: this.props.invalidCrns(this.state, this.props),
+      invalidText: this.props.invalidCrnText(this.state, this.props),
+      helperText: "Enter a comma separated list of CRNs",
+      placeholder: "crn:v1:bluemix..."
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement("div", {
+      className: "marginBottomSmall textInputWide"
+    }, this.state.crns !== undefined && this.state.crns.length > 0 && this.state.crns.map((crn, i) => /*#__PURE__*/React__default["default"].createElement(react.Tag, {
+      key: "crn" + i,
+      size: "md",
+      type: "green"
+    }, crn)))));
+  }
+}
+TransitGatewayForm.defaultProps = {
+  data: {
+    global: true,
+    connections: [],
+    resource_group: "",
+    name: "",
+    crns: []
+  },
+  vpcList: [],
+  resourceGroups: []
+};
+TransitGatewayForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    global: PropTypes__default["default"].bool.isRequired,
+    connections: PropTypes__default["default"].array.isRequired,
+    resource_group: PropTypes__default["default"].string,
+    name: PropTypes__default["default"].string,
+    crns: PropTypes__default["default"].array
+  }),
+  vpcList: PropTypes__default["default"].array.isRequired,
+  resourceGroups: PropTypes__default["default"].array.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidCrns: PropTypes__default["default"].func.isRequired,
+  invalidCrnText: PropTypes__default["default"].func.isRequired
+};
+
+const TransitGateways = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "Transit Gateways",
+    addText: "Create a Transit Gateway",
+    docs: props.docs,
+    innerForm: TransitGatewayForm,
+    arrayData: props.transit_gateways,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    innerFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      vpcList: props.vpcList,
+      readOnlyName: false,
+      invalidCrns: props.invalidCrns,
+      invalidCrnText: props.invalidCrnText,
+      resourceGroups: props.resourceGroups
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "transit_gateways",
+      hide: true,
+      hideName: true
+    }
+  });
+};
+TransitGateways.propTypes = {
+  docs: PropTypes__default["default"].func.isRequired,
+  transit_gateways: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  onDelete: PropTypes__default["default"].func.isRequired,
+  onSave: PropTypes__default["default"].func.isRequired,
+  onSubmit: PropTypes__default["default"].func.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  forceOpen: PropTypes__default["default"].func.isRequired,
+  craig: PropTypes__default["default"].shape({}),
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string),
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  invalidCrns: PropTypes__default["default"].func.isRequired,
+  invalidCrnText: PropTypes__default["default"].func.isRequired,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+};
+
 class ClusterForm extends React.Component {
   constructor(props) {
     super(props);
@@ -7531,357 +8151,6 @@ NetworkAclForm.propTypes = {
   disableSaveCallback: PropTypes__default["default"].func.isRequired
 };
 
-class ObjectStorageBucketForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-    this.handleToggle = this.handleToggle.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleStorageClassChange = this.handleStorageClassChange.bind(this);
-  }
-
-  /**
-   * Handler for toggle
-   */
-  handleToggle() {
-    this.setState(this.toggleStateBoolean("force_delete", this.state));
-  }
-
-  /**
-   * handle storage class change and convert to lowercase for value
-   * @param {event} event event
-   */
-  handleStorageClassChange(event) {
-    this.setState({
-      storage_class: event.target.value.toLowerCase()
-    });
-  }
-
-  /**
-   * handle input change
-   * @param {event} event event
-   */
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-  render() {
-    // composed id for bucket
-    let composedId = `bucket-form-${this.props.data.name ? this.props.data.name : "new-bucket"}`;
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: composedId + "-name",
-      componentName: this.state.name,
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      helperTextCallback: () => this.props.composedNameCallback(this.state, this.props),
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props),
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      id: composedId + "-class",
-      formName: this.props.data.name + "-object-storage-bucket-class",
-      name: "storage_class",
-      groups: ["Standard", "Vault", "Cold", "Smart"],
-      value: lazyZ.capitalize(this.state.storage_class),
-      labelText: "Bucket Class",
-      handleInputChange: this.handleStorageClassChange,
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      id: composedId + "-key",
-      formName: this.props.data.name + "-object-storage-bucket-key",
-      name: "kms_key",
-      groups: this.props.encryptionKeyFilter ? this.props.encryptionKeyFilter(this.state, this.props) : this.props.encryptionKeys,
-      value: this.state.kms_key,
-      labelText: "Encryption Key",
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller",
-      invalidText: this.props.encryptionsKeys === [] ? "Select a KMS Instance." : "Select an Encryption Key."
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      tooltip: {
-        content: "Toggling this on will force delete contents of the bucket after the bucket is deleted"
-      },
-      id: composedId + "force-delete",
-      labelText: "Force Delete Contents",
-      defaultToggled: this.state.force_delete,
-      toggleFieldName: "force_delete",
-      onToggle: this.handleToggle
-    })));
-  }
-}
-ObjectStorageBucketForm.defaultProps = {
-  data: {
-    force_delete: false,
-    name: "",
-    storage_class: "Standard",
-    kms_key: "",
-    endpoint: "public"
-  },
-  encryptionKeys: []
-};
-ObjectStorageBucketForm.propTypes = {
-  data: PropTypes__default["default"].shape({
-    force_delete: PropTypes__default["default"].bool.isRequired,
-    name: PropTypes__default["default"].string.isRequired,
-    storage_class: PropTypes__default["default"].string.isRequired,
-    kms_key: PropTypes__default["default"].string,
-    endpoint: PropTypes__default["default"].string.isRequired
-  }).isRequired,
-  encryptionKeys: PropTypes__default["default"].array.isRequired,
-  encryptionKeyFilter: PropTypes__default["default"].func,
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  composedNameCallback: PropTypes__default["default"].func.isRequired
-};
-
-class ObjectStorageKeyForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-    this.handleToggle = this.handleToggle.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-  }
-
-  /**
-   * Handler for toggle
-   * @param {String} name specifies the name of the state value you wish to change
-   */
-  handleToggle() {
-    this.setState(this.toggleStateBoolean("enable_hmac", this.state));
-  }
-
-  /**
-   * handle input change
-   * @param {event} event event
-   */
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-  render() {
-    // composed id
-    let composedId = `key-form-${this.props.data.name ? this.props.data.name : "new-key"}`;
-    let inputSize = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
-      noMarginBottom: true
-    }, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: this.state.name + "-name",
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      placeholder: "my-cos-key-name",
-      className: inputSize,
-      helperTextCallback: () => this.props.composedNameCallback(this.state, this.props),
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props)
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      name: "role",
-      groups: ["Object Writer", "Object Reader", "Content Reader", "Reader", "Writer", "Manager"],
-      value: this.state.role,
-      labelText: "Role",
-      handleInputChange: this.handleInputChange,
-      className: inputSize,
-      formName: this.props.data.name + "-object-storage-key-role"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      tooltip: {
-        link: "https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-uhc-hmac-credentials-main",
-        content: "HMAC (hash-based message authentication code) is required for Teleport VSI instances.",
-        alignModal: "bottom-left"
-      },
-      id: composedId + "cos-instance-key-hmac",
-      labelText: "Enable HMAC",
-      defaultToggled: this.props.forceEnableHmac,
-      onToggle: this.handleToggle,
-      disabled: this.props.forceEnableHmac,
-      isModal: this.props.isModal
-    })));
-  }
-}
-ObjectStorageKeyForm.defaultProps = {
-  data: {
-    name: "",
-    role: "Writer",
-    enable_hmac: false
-  },
-  forceEnableHmac: false
-};
-ObjectStorageKeyForm.propTypes = {
-  isModal: PropTypes__default["default"].bool,
-  data: PropTypes__default["default"].shape({
-    enable_hmac: PropTypes__default["default"].bool.isRequired,
-    name: PropTypes__default["default"].string.isRequired,
-    role: PropTypes__default["default"].string
-  }),
-  shouldDisableSave: PropTypes__default["default"].func,
-  shouldDisableSubmit: PropTypes__default["default"].func,
-  forceEnableHmac: PropTypes__default["default"].bool.isRequired,
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  composedNameCallback: PropTypes__default["default"].func.isRequired
-};
-
-/**
- * Object storage
- */
-class ObjectStorageInstancesForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-  }
-
-  /**
-   * handle input change
-   * @param {event} event event
-   */
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-  render() {
-    let composedId = `object-storage-form-${this.props.data.name}-`;
-    let bucketInnerFormProps = {
-      invalidCallback: this.props.invalidBucketCallback,
-      invalidTextCallback: this.props.invalidBucketTextCallback,
-      composedNameCallback: this.props.composedNameCallback,
-      arrayParentName: this.props.data.name,
-      parent_name: this.props.data.name
-    };
-    lazyZ.transpose({
-      ...this.props.bucketProps
-    }, bucketInnerFormProps);
-    let keyInnerFormProps = {
-      invalidCallback: this.props.invalidKeyCallback,
-      invalidTextCallback: this.props.invalidKeyTextCallback,
-      composedNameCallback: this.props.composedNameCallback,
-      arrayParentName: this.props.data.name
-    };
-    lazyZ.transpose({
-      ...this.props.keyProps
-    }, keyInnerFormProps);
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      tooltip: {
-        content: "Service credentials and buckets will be created for your environment even when using an existing Object Storage instance.",
-        alignModal: "bottom"
-      },
-      id: composedId + "use-data",
-      toggleFieldName: "use_data",
-      labelText: "Use Existing Instance",
-      defaultToggled: this.state.use_data,
-      onToggle: this.handleInputChange,
-      isModal: this.props.isModal
-    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      tooltip: {
-        content: "Object storage bucket names must be unique across an account. Append a random suffix to maintain unique names across deployments.",
-        alignModal: "bottom"
-      },
-      id: composedId + "use-random-suffix",
-      labelText: "Append Random Suffix to Names",
-      toggleFieldName: "use_random_suffix",
-      defaultToggled: this.state.use_random_suffix,
-      onToggle: this.handleInputChange,
-      isModal: this.props.isModal
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: this.props.data.name + "-object-storage-kms",
-      name: "kms",
-      labelText: "Key Management Instance",
-      groups: this.props.kmsList,
-      value: this.state.kms,
-      handleInputChange: this.handleInputChange
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: this.props.data.name + "-object-storage-name",
-      componentName: this.props.data.name,
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      helperTextCallback: () => this.props.composedNameCallback(this.state, this.props),
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props)
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: this.props.data.name + "-object-storage-rg",
-      name: "resource_group",
-      labelText: "Resource Group",
-      groups: this.props.resourceGroups,
-      value: this.state.resource_group,
-      handleInputChange: this.handleInputChange
-    })), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
-      name: "Service Credentials",
-      subHeading: true,
-      tooltip: {
-        content: "A service credential allows for a service instance to connect to Object Storage.",
-        link: "https://cloud.ibm.com/docs/cloud-object-storage?topic=cloud-object-storage-service-credentials"
-      },
-      addText: "Create a Service Credential",
-      arrayData: this.props.data.keys,
-      innerForm: ObjectStorageKeyForm,
-      disableSave: this.props.keyProps.disableSave,
-      onDelete: this.props.keyProps.onDelete,
-      onSave: this.props.keyProps.onSave,
-      onSubmit: this.props.keyProps.onSubmit,
-      propsMatchState: this.props.propsMatchState,
-      innerFormProps: {
-        ...keyInnerFormProps
-      },
-      hideAbout: true,
-      toggleFormProps: {
-        hideName: true,
-        submissionFieldName: "cos_keys",
-        disableSave: this.props.keyProps.disableSave,
-        type: "formInSubForm"
-      }
-    }), /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
-      name: "Buckets",
-      subHeading: true,
-      addText: "Create a Bucket",
-      arrayData: this.props.data.buckets,
-      innerForm: ObjectStorageBucketForm,
-      disableSave: this.props.bucketProps.disableSave,
-      onDelete: this.props.bucketProps.onDelete,
-      onSave: this.props.bucketProps.onSave,
-      onSubmit: this.props.bucketProps.onSubmit,
-      propsMatchState: this.props.propsMatchState,
-      innerFormProps: {
-        ...bucketInnerFormProps
-      },
-      hideAbout: true,
-      toggleFormProps: {
-        hideName: true,
-        submissionFieldName: "buckets",
-        disableSave: this.props.bucketProps.disableSave,
-        type: "formInSubForm"
-      }
-    })));
-  }
-}
-ObjectStorageInstancesForm.defaultProps = {
-  data: {
-    name: "",
-    use_data: false,
-    resource_group: "",
-    use_random_suffix: true
-  },
-  resourceGroups: []
-};
-ObjectStorageInstancesForm.propTypes = {
-  isModal: PropTypes__default["default"].bool,
-  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  data: PropTypes__default["default"].shape({
-    name: PropTypes__default["default"].string.isRequired,
-    use_data: PropTypes__default["default"].bool.isRequired,
-    resource_group: PropTypes__default["default"].string,
-    use_random_suffix: PropTypes__default["default"].bool.isRequired
-  }),
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  composedNameCallback: PropTypes__default["default"].func.isRequired
-};
-
 class RoutingTableRouteForm extends React.Component {
   constructor(props) {
     super(props);
@@ -9122,138 +9391,6 @@ TeleportClaimToRoleForm.propTypes = {
     email: PropTypes__default["default"].string.isRequired,
     roles: PropTypes__default["default"].array.isRequired
   }).isRequired
-};
-
-class TransitGatewayForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    this.handleToggle = this.handleToggle.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleCRNs = this.handleCRNs.bind(this);
-    this.handleVpcSelect = this.handleVpcSelect.bind(this);
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-  }
-
-  /**
-   * Toggle on and off param in state at name
-   * @param {string} name name of the object key to change
-   */
-  handleToggle(name) {
-    this.setState(this.toggleStateBoolean(name, this.state));
-  }
-
-  /**
-   * Handle input change
-   * @param {event} event
-   */
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-
-  /**
-   * Handle crn input
-   * @param {event} event
-   */
-  handleCRNs(event) {
-    this.setState(forms_31(event));
-  }
-
-  /**
-   * Handle vpc selection
-   * @param {Array} selectedItems
-   */
-  handleVpcSelect(selectedItems) {
-    this.setState(forms_32(selectedItems, this.state.name));
-  }
-  render() {
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      onChange: this.handleInputChange,
-      componentName: "Transit Gateway",
-      field: "name",
-      value: this.state.name,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props),
-      id: this.props.data.name + "-tg-name"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "Transit Gateway",
-      value: this.state.resource_group,
-      groups: this.props.resourceGroups,
-      handleInputChange: this.handleInputChange,
-      id: this.props.data.name + "-resource_group",
-      name: "resource_group",
-      labelText: "Resource Group"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      labelText: "Global Routing",
-      toggleFieldName: "global",
-      id: this.props.data.name + "-tg-global",
-      onToggle: this.handleToggle,
-      defaultToggled: this.state.global,
-      tooltip: {
-        align: "right",
-        content: "Must be enabled in order to connect your IBM Cloud and on-premises networks in all IBM Cloud multizone regions."
-      }
-    })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
-      name: "Connections",
-      type: "subHeading"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(VpcListMultiSelect, {
-      id: this.props.data.name + "-tg-vpc-multiselect",
-      titleText: "Connected VPCs",
-      initialSelectedItems: lazyZ.splat(this.state.connections, "vpc"),
-      vpcList: this.props.vpcList,
-      onChange: this.handleVpcSelect,
-      invalid: this.state.connections.length === 0,
-      invalidText: "At least one VPC must be connected"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
-      name: "Additional connections",
-      type: "section"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
-      className: "textInputWide",
-      id: this.props.data.name + "crns",
-      labelText: "Add a new connection from any region in the account",
-      value: this.state.crns === undefined ? "" : String(this.state.crns),
-      onChange: this.handleCRNs,
-      invalid: this.props.invalidCrns(this.state, this.props),
-      invalidText: this.props.invalidCrnText(this.state, this.props),
-      helperText: "Enter a comma separated list of CRNs",
-      placeholder: "crn:v1:bluemix..."
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement("div", {
-      className: "marginBottomSmall textInputWide"
-    }, this.state.crns !== undefined && this.state.crns.length > 0 && this.state.crns.map((crn, i) => /*#__PURE__*/React__default["default"].createElement(react.Tag, {
-      key: "crn" + i,
-      size: "md",
-      type: "green"
-    }, crn)))));
-  }
-}
-TransitGatewayForm.defaultProps = {
-  data: {
-    global: true,
-    connections: [],
-    resource_group: "",
-    name: "",
-    crns: []
-  },
-  vpcList: [],
-  resourceGroups: []
-};
-TransitGatewayForm.propTypes = {
-  data: PropTypes__default["default"].shape({
-    global: PropTypes__default["default"].bool.isRequired,
-    connections: PropTypes__default["default"].array.isRequired,
-    resource_group: PropTypes__default["default"].string,
-    name: PropTypes__default["default"].string,
-    crns: PropTypes__default["default"].array
-  }),
-  vpcList: PropTypes__default["default"].array.isRequired,
-  resourceGroups: PropTypes__default["default"].array.isRequired,
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  invalidCrns: PropTypes__default["default"].func.isRequired,
-  invalidCrnText: PropTypes__default["default"].func.isRequired
 };
 
 const nameFields = ["default_network_acl_name", "default_routing_table_name", "default_security_group_name"];
@@ -12887,6 +13024,7 @@ exports.NetworkingRulesOrderCard = NetworkingRulesOrderCard;
 exports.ObjectStorageBucketForm = ObjectStorageBucketForm;
 exports.ObjectStorageForm = ObjectStorageInstancesForm;
 exports.ObjectStorageKeyForm = ObjectStorageKeyForm;
+exports.ObjectStorageTemplate = ObjectStorage;
 exports.OrderCardDataTable = OrderCardDataTable;
 exports.PopoverWrapper = PopoverWrapper;
 exports.RenderForm = RenderForm;
@@ -12916,6 +13054,7 @@ exports.TitleGroup = TitleGroup;
 exports.ToggleForm = ToggleForm;
 exports.ToolTipWrapper = ToolTipWrapper;
 exports.TransitGatewayForm = TransitGatewayForm;
+exports.TransitGatewayTemplate = TransitGateways;
 exports.UnderConstruction = UnderConstruction;
 exports.UnsavedChangesModal = UnsavedChangesModal;
 exports.UpDownButtons = UpDownButtons;

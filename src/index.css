@@ -203,6 +203,10 @@ input:read-only {
   margin-left: 3px;
 }
 
+.tooltip > div.cds--select--invalid {
+  margin-top: -8px;
+}
+
 /* subnet tile form */
 
 .tileFormMargin {
