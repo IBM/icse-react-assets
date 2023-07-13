@@ -11,8 +11,15 @@ import { DynamicToolTipWrapper } from "./Tooltips";
 import React from "react";
 
 export const IcseSelect = (props) => {
-  let { invalid, groups, popoverClassName, wrapperId, selectId, labelText } =
-    icseSelectParams(props);
+  let {
+    invalid,
+    groups,
+    popoverClassName,
+    wrapperId,
+    selectId,
+    labelText,
+    selectClassName,
+  } = icseSelectParams(props);
   // please leave debug here
   if (props.debug) {
     console.log("PROPS: ", props);
@@ -32,7 +39,7 @@ export const IcseSelect = (props) => {
               name={props.name}
               labelText={labelText}
               value={props.value || undefined}
-              className={addClassName("leftTextAlign", props)}
+              className={selectClassName}
               disabled={props.disabled}
               invalid={invalid}
               invalidText={props.invalidText}

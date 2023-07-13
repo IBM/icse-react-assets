@@ -11,6 +11,7 @@ describe("dropdown functions", () => {
         wrapperId: "select-dropdown-tooltip",
         selectId: "select-select",
         labelText: "hi",
+        selectClassName: "leftTextAlign",
       };
       let actualData = icseSelectParams({
         value: "toad",
@@ -35,6 +36,7 @@ describe("dropdown functions", () => {
         wrapperId: "select-dropdown-tooltip",
         selectId: "select-select",
         labelText: "hi",
+        selectClassName: "leftTextAlign",
       };
       let actualData = icseSelectParams({
         value: "toad",
@@ -59,6 +61,7 @@ describe("dropdown functions", () => {
         wrapperId: "select-dropdown-tooltip",
         selectId: "select-select",
         labelText: null,
+        selectClassName: "leftTextAlign tooltip",
       };
       let actualData = icseSelectParams({
         value: "toad",
@@ -86,6 +89,7 @@ describe("dropdown functions", () => {
         wrapperId: "select-dropdown-tooltip",
         selectId: "select-select",
         labelText: "hi",
+        selectClassName: "leftTextAlign",
       };
       let actualData = icseSelectParams({
         value: null,
@@ -110,6 +114,7 @@ describe("dropdown functions", () => {
         wrapperId: "select-dropdown-tooltip",
         selectId: "select-select",
         labelText: "hi",
+        selectClassName: "leftTextAlign",
       };
       let actualData = icseSelectParams({
         value: null,
