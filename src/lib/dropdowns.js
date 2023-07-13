@@ -1,5 +1,5 @@
 const { isNullOrEmptyString, kebabCase } = require("lazy-z");
-const { prependEmptyStringWhenNull } = require("./form-utils");
+const { prependEmptyStringWhenNull, addClassName } = require("./form-utils");
 
 /**
  * generate parameters for icse select
@@ -23,6 +23,10 @@ function icseSelectParams(props) {
   let wrapperId = kebabCase(props.name) + "-dropdown-tooltip";
   let selectId = kebabCase(props.formName + " " + props.name);
   let labelText = props.tooltip ? null : props.labelText;
+  let selectClassName = addClassName(
+    `leftTextAlign${props.tooltip ? " tooltip" : ""}`,
+    props
+  );
   return {
     invalid,
     groups,
@@ -30,6 +34,7 @@ function icseSelectParams(props) {
     wrapperId,
     selectId,
     labelText,
+    selectClassName,
   };
 }
 
