@@ -5944,6 +5944,50 @@ TransitGateways.propTypes = {
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
 };
 
+const AppId = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "App Id",
+    addText: "Create an App ID Instance",
+    docs: props.docs,
+    innerForm: AppIdForm,
+    arrayData: props.appid,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    craig: props.craig,
+    innerFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      helperTextCallback: props.helperTextCallback
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "appID",
+      hide: true,
+      hideName: true
+    }
+  });
+};
+AppId.propTypes = {
+  disableSave: PropTypes__default["default"].func,
+  propsMatchState: PropTypes__default["default"].func,
+  onDelete: PropTypes__default["default"].func,
+  onSave: PropTypes__default["default"].func,
+  onSubmit: PropTypes__default["default"].func,
+  forceOpen: PropTypes__default["default"].func,
+  craig: PropTypes__default["default"].shape({}),
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  helperTextCallback: PropTypes__default["default"].func.isRequired,
+  docs: PropTypes__default["default"].func
+};
+
 class ClusterForm extends React.Component {
   constructor(props) {
     super(props);
@@ -12973,6 +13017,7 @@ exports.AccessGroupForm = AccessGroupForm;
 exports.AccessGroupPolicyForm = AccessGroupPolicyForm;
 exports.AppIdForm = AppIdForm;
 exports.AppIdKeyForm = AppIdKeyForm;
+exports.AppIdTemplate = AppId;
 exports.AtrackerForm = AtrackerForm;
 exports.CbrContextForm = CbrContextForm;
 exports.CbrExclusionAddressForm = CbrExclusionAddressForm;
