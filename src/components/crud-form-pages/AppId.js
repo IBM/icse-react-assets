@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 export const AppId = (props) => {
   return (
     <IcseFormTemplate
-      name="App Id"
+      name="AppID"
       addText="Create an App ID Instance"
       docs={props.docs}
       innerForm={AppIdForm}

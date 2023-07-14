@@ -5960,32 +5960,49 @@ const AppId = props => {
     craig: props.craig,
     innerFormProps: {
       craig: props.craig,
+      resourceGroups: props.resourceGroups,
       disableSave: props.disableSave,
       invalidCallback: props.invalidCallback,
       invalidTextCallback: props.invalidTextCallback,
-      helperTextCallback: props.helperTextCallback
+      invalidKeyCallback: props.invalidKeyCallback,
+      invalidKeyTextCallback: props.invalidKeyTextCallback,
+      propsMatchState: props.propsMatchState,
+      disableSave: props.disableSave,
+      keyProps: {
+        craig: props.craig,
+        onSave: props.onKeySave,
+        onDelete: props.onKeyDelete,
+        onSubmit: props.onKeySubmit,
+        disableSave: props.disableSave
+      }
     },
     toggleFormProps: {
       craig: props.craig,
       disableSave: props.disableSave,
-      submissionFieldName: "appID",
+      submissionFieldName: "appid",
       hide: true,
       hideName: true
     }
   });
 };
 AppId.propTypes = {
-  disableSave: PropTypes__default["default"].func,
-  propsMatchState: PropTypes__default["default"].func,
-  onDelete: PropTypes__default["default"].func,
-  onSave: PropTypes__default["default"].func,
-  onSubmit: PropTypes__default["default"].func,
-  forceOpen: PropTypes__default["default"].func,
+  appid: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  onDelete: PropTypes__default["default"].func.isRequired,
+  onSave: PropTypes__default["default"].func.isRequired,
+  onSubmit: PropTypes__default["default"].func.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  forceOpen: PropTypes__default["default"].func.isRequired,
+  resourceGroups: PropTypes__default["default"].array.isRequired,
   craig: PropTypes__default["default"].shape({}),
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
   invalidCallback: PropTypes__default["default"].func.isRequired,
-  helperTextCallback: PropTypes__default["default"].func.isRequired,
-  docs: PropTypes__default["default"].func
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidKeyCallback: PropTypes__default["default"].func.isRequired,
+  invalidKeyTextCallback: PropTypes__default["default"].func.isRequired,
+  onKeySave: PropTypes__default["default"].func.isRequired,
+  onKeyDelete: PropTypes__default["default"].func.isRequired,
+  onKeySubmit: PropTypes__default["default"].func.isRequired,
+  docs: PropTypes__default["default"].func.isRequired
 };
 
 class ClusterForm extends React.Component {

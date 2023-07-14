@@ -5949,32 +5949,49 @@ const AppId = props => {
     craig: props.craig,
     innerFormProps: {
       craig: props.craig,
+      resourceGroups: props.resourceGroups,
       disableSave: props.disableSave,
       invalidCallback: props.invalidCallback,
       invalidTextCallback: props.invalidTextCallback,
-      helperTextCallback: props.helperTextCallback
+      invalidKeyCallback: props.invalidKeyCallback,
+      invalidKeyTextCallback: props.invalidKeyTextCallback,
+      propsMatchState: props.propsMatchState,
+      disableSave: props.disableSave,
+      keyProps: {
+        craig: props.craig,
+        onSave: props.onKeySave,
+        onDelete: props.onKeyDelete,
+        onSubmit: props.onKeySubmit,
+        disableSave: props.disableSave
+      }
     },
     toggleFormProps: {
       craig: props.craig,
       disableSave: props.disableSave,
-      submissionFieldName: "appID",
+      submissionFieldName: "appid",
       hide: true,
       hideName: true
     }
   });
 };
 AppId.propTypes = {
-  disableSave: PropTypes.func,
-  propsMatchState: PropTypes.func,
-  onDelete: PropTypes.func,
-  onSave: PropTypes.func,
-  onSubmit: PropTypes.func,
-  forceOpen: PropTypes.func,
+  appid: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  disableSave: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  propsMatchState: PropTypes.func.isRequired,
+  forceOpen: PropTypes.func.isRequired,
+  resourceGroups: PropTypes.array.isRequired,
   craig: PropTypes.shape({}),
-  invalidTextCallback: PropTypes.func.isRequired,
   invalidCallback: PropTypes.func.isRequired,
-  helperTextCallback: PropTypes.func.isRequired,
-  docs: PropTypes.func
+  invalidTextCallback: PropTypes.func.isRequired,
+  invalidKeyCallback: PropTypes.func.isRequired,
+  invalidKeyTextCallback: PropTypes.func.isRequired,
+  onKeySave: PropTypes.func.isRequired,
+  onKeyDelete: PropTypes.func.isRequired,
+  onKeySubmit: PropTypes.func.isRequired,
+  docs: PropTypes.func.isRequired
 };
 
 class ClusterForm extends Component {
