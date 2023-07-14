@@ -5946,7 +5946,7 @@ TransitGateways.propTypes = {
 
 const AppId = props => {
   return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
-    name: "App Id",
+    name: "AppID",
     addText: "Create an App ID Instance",
     docs: props.docs,
     innerForm: AppIdForm,
