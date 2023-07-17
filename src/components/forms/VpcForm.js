@@ -73,7 +73,6 @@ class VpcNetworkForm extends React.Component {
               align: "bottom-left",
             }}
             id={composedId + "-name"}
-            field="name"
             placeholder="my-vpc-name"
             hideHelperText
             value={this.state.name}
@@ -89,6 +88,7 @@ class VpcNetworkForm extends React.Component {
           />
           {/* resource group */}
           <IcseSelect
+            labelText="Resource Group"
             name="resource_group"
             formName="resource_group"
             groups={this.props.resourceGroups}
