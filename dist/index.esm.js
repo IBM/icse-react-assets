@@ -5933,6 +5933,67 @@ TransitGateways.propTypes = {
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
+const AppId = props => {
+  return /*#__PURE__*/React.createElement(IcseFormTemplate, {
+    name: "AppID",
+    addText: "Create an App ID Instance",
+    docs: props.docs,
+    innerForm: AppIdForm,
+    arrayData: props.appid,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    craig: props.craig,
+    innerFormProps: {
+      craig: props.craig,
+      resourceGroups: props.resourceGroups,
+      disableSave: props.disableSave,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      invalidKeyCallback: props.invalidKeyCallback,
+      invalidKeyTextCallback: props.invalidKeyTextCallback,
+      propsMatchState: props.propsMatchState,
+      disableSave: props.disableSave,
+      keyProps: {
+        craig: props.craig,
+        onSave: props.onKeySave,
+        onDelete: props.onKeyDelete,
+        onSubmit: props.onKeySubmit,
+        disableSave: props.disableSave
+      }
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "appid",
+      hide: true,
+      hideName: true
+    }
+  });
+};
+AppId.propTypes = {
+  appid: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  disableSave: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  propsMatchState: PropTypes.func.isRequired,
+  forceOpen: PropTypes.func.isRequired,
+  resourceGroups: PropTypes.array.isRequired,
+  craig: PropTypes.shape({}),
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  invalidKeyCallback: PropTypes.func.isRequired,
+  invalidKeyTextCallback: PropTypes.func.isRequired,
+  onKeySave: PropTypes.func.isRequired,
+  onKeyDelete: PropTypes.func.isRequired,
+  onKeySubmit: PropTypes.func.isRequired,
+  docs: PropTypes.func.isRequired
+};
+
 class ClusterForm extends Component {
   constructor(props) {
     super(props);
@@ -12957,4 +13018,4 @@ SecretsManagerChecklist.propTypes = {
   parentName: PropTypes.string.isRequired
 };
 
-export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AtrackerForm, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, ClusterForm, Clusters as ClustersTemplate, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsForm, DnsRecordForm, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, KeyManagement as KeyManagementTemplate, LocationsMultiSelect, LogDNAForm, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, ObjectStorage as ObjectStorageTemplate, OrderCardDataTable, PopoverWrapper, RenderForm, ResourceGroupForm, ResourceGroups as ResourceGroupsTemplate, RoutingTableForm, RoutingTableRouteForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerChecklist, SecretsManagerForm, SecretsManager as SecretsManagerTemplate, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, SysdigForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, TransitGateways as TransitGatewayTemplate, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VpnServerForm, VpnServerRouteForm, VsiForm, VsiLoadBalancerForm, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AppId as AppIdTemplate, AtrackerForm, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, ClusterForm, Clusters as ClustersTemplate, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsForm, DnsRecordForm, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, KeyManagement as KeyManagementTemplate, LocationsMultiSelect, LogDNAForm, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, ObjectStorage as ObjectStorageTemplate, OrderCardDataTable, PopoverWrapper, RenderForm, ResourceGroupForm, ResourceGroups as ResourceGroupsTemplate, RoutingTableForm, RoutingTableRouteForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerChecklist, SecretsManagerForm, SecretsManager as SecretsManagerTemplate, SecurityGroupForm, SecurityGroupMultiSelect, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, SysdigForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, TransitGateways as TransitGatewayTemplate, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, VpeForm, VpnGatewayForm, VpnServerForm, VpnServerRouteForm, VsiForm, VsiLoadBalancerForm, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
