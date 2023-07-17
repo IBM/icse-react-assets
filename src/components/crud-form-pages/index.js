@@ -6,3 +6,4 @@ export { KeyManagement } from "./KeyManagement";
 export { ObjectStorage } from "./ObjectStorage";
 export { TransitGateways } from "./TransitGateways";
 export { VpnGateways } from "./VpnGateways";
+export { AppId } from "./AppId";
