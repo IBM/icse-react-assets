@@ -4,6 +4,7 @@ export { KeyManagement } from "./KeyManagement";
 export { ObjectStorage } from "./ObjectStorage";
 export { ResourceGroups } from "./ResourceGroups";
 export { SecretsManager } from "./SecretsManager";
+export { SecurityGroups } from "./SecurityGroups";
 export { TransitGateways } from "./TransitGateways";
 export { Vpcs } from "./Vpc";
 export { VpnGateways } from "./VpnGateways";
