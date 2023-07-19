@@ -4569,6 +4569,67 @@ WorkerPoolForm.propTypes = {
   invalidTextCallback: PropTypes__default["default"].func.isRequired
 };
 
+const AppId = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "AppID",
+    addText: "Create an App ID Instance",
+    docs: props.docs,
+    innerForm: AppIdForm,
+    arrayData: props.appid,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    craig: props.craig,
+    innerFormProps: {
+      craig: props.craig,
+      resourceGroups: props.resourceGroups,
+      disableSave: props.disableSave,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      invalidKeyCallback: props.invalidKeyCallback,
+      invalidKeyTextCallback: props.invalidKeyTextCallback,
+      propsMatchState: props.propsMatchState,
+      disableSave: props.disableSave,
+      keyProps: {
+        craig: props.craig,
+        onSave: props.onKeySave,
+        onDelete: props.onKeyDelete,
+        onSubmit: props.onKeySubmit,
+        disableSave: props.disableSave
+      }
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "appid",
+      hide: true,
+      hideName: true
+    }
+  });
+};
+AppId.propTypes = {
+  appid: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  onDelete: PropTypes__default["default"].func.isRequired,
+  onSave: PropTypes__default["default"].func.isRequired,
+  onSubmit: PropTypes__default["default"].func.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  forceOpen: PropTypes__default["default"].func.isRequired,
+  resourceGroups: PropTypes__default["default"].array.isRequired,
+  craig: PropTypes__default["default"].shape({}),
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidKeyCallback: PropTypes__default["default"].func.isRequired,
+  invalidKeyTextCallback: PropTypes__default["default"].func.isRequired,
+  onKeySave: PropTypes__default["default"].func.isRequired,
+  onKeyDelete: PropTypes__default["default"].func.isRequired,
+  onKeySubmit: PropTypes__default["default"].func.isRequired,
+  docs: PropTypes__default["default"].func.isRequired
+};
+
 const Clusters = props => {
   return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
     name: "Clusters",
@@ -4640,324 +4701,6 @@ Clusters.propTypes = {
   helperTextCallback: PropTypes__default["default"].func,
   cosNames: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   docs: PropTypes__default["default"].func
-};
-
-const WorkerPools = props => {
-  return props.isModal ? "" : /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
-    name: "Worker Pools",
-    subHeading: true,
-    addText: "Create a Worker Pool",
-    arrayData: props.worker_pools,
-    innerForm: WorkerPoolForm,
-    disableSave: props.disableSave,
-    onDelete: props.onDelete,
-    onSave: props.onSave,
-    onSubmit: props.onSubmit,
-    propsMatchState: props.propsMatchState,
-    innerFormProps: {
-      subnetList: props.subnetList,
-      cluster: props.cluster,
-      invalidCallback: props.invalidCallback,
-      invalidTextCallback: props.invalidTextCallback,
-      flavorApiEndpoint: props.flavorApiEndpoint,
-      craig: props.craig,
-      arrayParentName: props.cluster.name
-    },
-    hideAbout: true,
-    toggleFormProps: {
-      hideName: true,
-      submissionFieldName: "worker_pools",
-      disableSave: props.disableSave,
-      type: "formInSubForm"
-    }
-  });
-};
-WorkerPools.defaultProps = {
-  isModal: false
-};
-WorkerPools.propTypes = {
-  isModal: PropTypes__default["default"].bool.isRequired,
-  worker_pools: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})),
-  disableSave: PropTypes__default["default"].func,
-  onDelete: PropTypes__default["default"].func,
-  onSave: PropTypes__default["default"].func,
-  onSubmit: PropTypes__default["default"].func,
-  propsMatchState: PropTypes__default["default"].func,
-  subnetList: PropTypes__default["default"].array,
-  cluster: PropTypes__default["default"].shape({}).isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  arrayParentName: PropTypes__default["default"].string,
-  flavorApiEndpoint: PropTypes__default["default"].string,
-  craig: PropTypes__default["default"].shape({})
-};
-
-/** Resource Groups
- * @param {Object} props
- */
-class ResourceGroupForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = this.props.data;
-    this.handleTextInput = this.handleTextInput.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-  }
-  /**
-   * Toggle on and off param in state at name
-   * @param {string} name name of the object key to change
-   */
-  handleToggle(name) {
-    this.setState(forms_30(this.state, name));
-  }
-
-  /**
-   * Handle input change for a text field
-   * @param {event} event
-   */
-  handleTextInput(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-  render() {
-    let composedId = `resource-group-${this.props.data.name}-`;
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      tooltip: {
-        content: "If true, get data from an existing resource group",
-        alignModal: "bottom"
-      },
-      labelText: "Use Existing Instance",
-      toggleFieldName: this.props.toggleName,
-      defaultToggled: this.state.use_data,
-      id: composedId + "-use-data-toggle",
-      onToggle: () => this.handleToggle("use_data"),
-      isModal: this.props.isModal
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
-      noMarginBottom: true
-    }, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: composedId,
-      componentName: "resource_groups",
-      value: this.state.name,
-      onChange: this.handleTextInput,
-      useData: this.state.use_data || this.state.use_prefix === false,
-      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props),
-      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props)
-    }), this.state.use_data === false && /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      tooltip: {
-        content: "Append your environment prefix to the beginning of the resource group.",
-        alignModal: "bottom"
-      },
-      labelText: "Use Prefix",
-      defaultToggled: this.state.use_prefix,
-      id: composedId + "-use-prefix-toggle",
-      onToggle: this.handleToggle,
-      isModal: this.props.isModal
-    })));
-  }
-}
-ResourceGroupForm.defaultProps = {
-  data: {
-    use_data: false,
-    name: "",
-    use_prefix: true
-  },
-  toggleName: "use_data",
-  isModal: false
-};
-ResourceGroupForm.propTypes = {
-  data: PropTypes__default["default"].shape({
-    use_data: PropTypes__default["default"].bool,
-    name: PropTypes__default["default"].string.isRequired,
-    use_prefix: PropTypes__default["default"].bool
-  }),
-  isModal: PropTypes__default["default"].bool.isRequired,
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  helperTextCallback: PropTypes__default["default"].func.isRequired
-};
-
-const ResourceGroups = props => {
-  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
-    name: "Resource Groups",
-    addText: "Create a Resource Group",
-    docs: props.docs,
-    innerForm: ResourceGroupForm,
-    arrayData: props.resource_groups,
-    disableSave: props.disableSave,
-    onDelete: props.onDelete,
-    onSave: props.onSave,
-    onSubmit: props.onSubmit,
-    propsMatchState: props.propsMatchState,
-    forceOpen: props.forceOpen,
-    craig: props.craig,
-    deleteDisabled: props.deleteDisabled,
-    innerFormProps: {
-      craig: props.craig,
-      disableSave: props.disableSave,
-      invalidCallback: props.invalidCallback,
-      invalidTextCallback: props.invalidTextCallback,
-      helperTextCallback: props.helperTextCallback
-    },
-    toggleFormProps: {
-      craig: props.craig,
-      disableSave: props.disableSave,
-      submissionFieldName: "resource_groups",
-      hideName: true
-    }
-  });
-};
-ResourceGroups.propTypes = {
-  disableSave: PropTypes__default["default"].func,
-  propsMatchState: PropTypes__default["default"].func,
-  onDelete: PropTypes__default["default"].func,
-  onSave: PropTypes__default["default"].func,
-  onSubmit: PropTypes__default["default"].func,
-  forceOpen: PropTypes__default["default"].func,
-  craig: PropTypes__default["default"].shape({}),
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  deleteDisabled: PropTypes__default["default"].func.isRequired,
-  helperTextCallback: PropTypes__default["default"].func.isRequired,
-  docs: PropTypes__default["default"].func
-};
-
-var css_248z$1 = ".secretsChecklistPadding {\n  margin-bottom: 0px !important;\n  margin-top: 1rem !important;\n}\n\n.secretChecklistMargin {\n  margin-top: -1rem !important;\n}\n\n.secretCheckBoxMargin {\n  padding-left: 1rem !important;\n}\n";
-styleInject(css_248z$1);
-
-/**
- * SecretsManagerForm
- * @param {Object} props
- */
-class SecretsManagerForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.onSelectChange = this.onSelectChange.bind(this);
-    buildFormDefaultInputMethods(this);
-    buildFormFunctions(this);
-  }
-
-  /**
-   * handle input change
-   * @param {event} event event
-   */
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-  onSelectChange(items) {
-    let nextSecrets = [];
-    items.forEach(item => {
-      if (item !== "Select All") {
-        nextSecrets.push(lazyZ.getObjectFromArray(this.props.secrets, "ref", item));
-      }
-    });
-    this.setState({
-      secrets: nextSecrets
-    });
-  }
-  render() {
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: this.state.name + "-name",
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      componentProps: this.props,
-      hideHelperText: true,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props)
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "Secrets Manager",
-      value: this.state.resource_group,
-      groups: this.props.resourceGroups,
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidth",
-      name: "resource_group",
-      labelText: "Resource Group"
-    })), /*#__PURE__*/React__default["default"].createElement("div", {
-      className: "fieldWidth"
-    }, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      value: this.state.encryption_key,
-      groups: this.props.encryptionKeys,
-      formName: "Secrets Manager",
-      name: "encryption_key",
-      className: "fieldWidth",
-      labelText: "Encryption Key",
-      handleInputChange: this.handleInputChange
-    })), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(SecretsManagerChecklist, {
-      parentName: this.props.data.name,
-      secrets: this.props.secrets,
-      selected: [...lazyZ.splat(this.props.data.secrets, "ref")],
-      onSelectChange: this.onSelectChange
-    }));
-  }
-}
-SecretsManagerForm.defaultProps = {
-  data: {
-    name: "",
-    resource_group: null,
-    encryption_key: null
-  }
-};
-SecretsManagerForm.propTypes = {
-  data: PropTypes__default["default"].shape({
-    name: PropTypes__default["default"].string,
-    resource_group: PropTypes__default["default"].string,
-    encryption_key: PropTypes__default["default"].string
-  }).isRequired,
-  encryptionKeys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
-};
-
-const SecretsManager = props => {
-  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
-    name: "Secrets Manager",
-    addText: "Create a Secrets Manager",
-    docs: props.docs,
-    innerForm: SecretsManagerForm,
-    arrayData: props.secrets_managers,
-    disableSave: props.disableSave,
-    onDelete: props.onDelete,
-    onSave: props.onSave,
-    onSubmit: props.onSubmit,
-    propsMatchState: props.propsMatchState,
-    forceOpen: props.forceOpen,
-    innerFormProps: {
-      craig: props.craig,
-      resourceGroups: props.resourceGroups,
-      encryptionKeys: props.encryptionKeys,
-      invalidCallback: props.invalidCallback,
-      invalidTextCallback: props.invalidTextCallback,
-      secrets: props.secrets,
-      propsMatchState: props.propsMatchState,
-      disableSave: props.disableSave
-    },
-    toggleFormProps: {
-      craig: props.craig,
-      disableSave: props.disableSave,
-      submissionFieldName: "secrets_manager",
-      hide: true,
-      hideName: true
-    }
-  });
-};
-SecretsManager.propTypes = {
-  secrets_managers: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
-  disableSave: PropTypes__default["default"].func.isRequired,
-  onDelete: PropTypes__default["default"].func.isRequired,
-  onSave: PropTypes__default["default"].func.isRequired,
-  onSubmit: PropTypes__default["default"].func.isRequired,
-  propsMatchState: PropTypes__default["default"].func.isRequired,
-  forceOpen: PropTypes__default["default"].func.isRequired,
-  resourceGroups: PropTypes__default["default"].array.isRequired,
-  encryptionKeys: PropTypes__default["default"].array.isRequired,
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  secrets: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
-  craig: PropTypes__default["default"].shape({}),
-  docs: PropTypes__default["default"].func.isRequired
 };
 
 /**
@@ -5760,6 +5503,274 @@ ObjectStorage.propTypes = {
   kmsList: PropTypes__default["default"].array.isRequired
 };
 
+/** Resource Groups
+ * @param {Object} props
+ */
+class ResourceGroupForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    this.handleTextInput = this.handleTextInput.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+  /**
+   * Toggle on and off param in state at name
+   * @param {string} name name of the object key to change
+   */
+  handleToggle(name) {
+    this.setState(forms_30(this.state, name));
+  }
+
+  /**
+   * Handle input change for a text field
+   * @param {event} event
+   */
+  handleTextInput(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  render() {
+    let composedId = `resource-group-${this.props.data.name}-`;
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      tooltip: {
+        content: "If true, get data from an existing resource group",
+        alignModal: "bottom"
+      },
+      labelText: "Use Existing Instance",
+      toggleFieldName: this.props.toggleName,
+      defaultToggled: this.state.use_data,
+      id: composedId + "-use-data-toggle",
+      onToggle: () => this.handleToggle("use_data"),
+      isModal: this.props.isModal
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+      noMarginBottom: true
+    }, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: composedId,
+      componentName: "resource_groups",
+      value: this.state.name,
+      onChange: this.handleTextInput,
+      useData: this.state.use_data || this.state.use_prefix === false,
+      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props)
+    }), this.state.use_data === false && /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      tooltip: {
+        content: "Append your environment prefix to the beginning of the resource group.",
+        alignModal: "bottom"
+      },
+      labelText: "Use Prefix",
+      defaultToggled: this.state.use_prefix,
+      id: composedId + "-use-prefix-toggle",
+      onToggle: this.handleToggle,
+      isModal: this.props.isModal
+    })));
+  }
+}
+ResourceGroupForm.defaultProps = {
+  data: {
+    use_data: false,
+    name: "",
+    use_prefix: true
+  },
+  toggleName: "use_data",
+  isModal: false
+};
+ResourceGroupForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    use_data: PropTypes__default["default"].bool,
+    name: PropTypes__default["default"].string.isRequired,
+    use_prefix: PropTypes__default["default"].bool
+  }),
+  isModal: PropTypes__default["default"].bool.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  helperTextCallback: PropTypes__default["default"].func.isRequired
+};
+
+const ResourceGroups = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "Resource Groups",
+    addText: "Create a Resource Group",
+    docs: props.docs,
+    innerForm: ResourceGroupForm,
+    arrayData: props.resource_groups,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    craig: props.craig,
+    deleteDisabled: props.deleteDisabled,
+    innerFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      helperTextCallback: props.helperTextCallback
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "resource_groups",
+      hideName: true
+    }
+  });
+};
+ResourceGroups.propTypes = {
+  disableSave: PropTypes__default["default"].func,
+  propsMatchState: PropTypes__default["default"].func,
+  onDelete: PropTypes__default["default"].func,
+  onSave: PropTypes__default["default"].func,
+  onSubmit: PropTypes__default["default"].func,
+  forceOpen: PropTypes__default["default"].func,
+  craig: PropTypes__default["default"].shape({}),
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  deleteDisabled: PropTypes__default["default"].func.isRequired,
+  helperTextCallback: PropTypes__default["default"].func.isRequired,
+  docs: PropTypes__default["default"].func
+};
+
+var css_248z$1 = ".secretsChecklistPadding {\n  margin-bottom: 0px !important;\n  margin-top: 1rem !important;\n}\n\n.secretChecklistMargin {\n  margin-top: -1rem !important;\n}\n\n.secretCheckBoxMargin {\n  padding-left: 1rem !important;\n}\n";
+styleInject(css_248z$1);
+
+/**
+ * SecretsManagerForm
+ * @param {Object} props
+ */
+class SecretsManagerForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.onSelectChange = this.onSelectChange.bind(this);
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  onSelectChange(items) {
+    let nextSecrets = [];
+    items.forEach(item => {
+      if (item !== "Select All") {
+        nextSecrets.push(lazyZ.getObjectFromArray(this.props.secrets, "ref", item));
+      }
+    });
+    this.setState({
+      secrets: nextSecrets
+    });
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: this.state.name + "-name",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      componentProps: this.props,
+      hideHelperText: true,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: "Secrets Manager",
+      value: this.state.resource_group,
+      groups: this.props.resourceGroups,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidth",
+      name: "resource_group",
+      labelText: "Resource Group"
+    })), /*#__PURE__*/React__default["default"].createElement("div", {
+      className: "fieldWidth"
+    }, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      value: this.state.encryption_key,
+      groups: this.props.encryptionKeys,
+      formName: "Secrets Manager",
+      name: "encryption_key",
+      className: "fieldWidth",
+      labelText: "Encryption Key",
+      handleInputChange: this.handleInputChange
+    })), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(SecretsManagerChecklist, {
+      parentName: this.props.data.name,
+      secrets: this.props.secrets,
+      selected: [...lazyZ.splat(this.props.data.secrets, "ref")],
+      onSelectChange: this.onSelectChange
+    }));
+  }
+}
+SecretsManagerForm.defaultProps = {
+  data: {
+    name: "",
+    resource_group: null,
+    encryption_key: null
+  }
+};
+SecretsManagerForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string,
+    resource_group: PropTypes__default["default"].string,
+    encryption_key: PropTypes__default["default"].string
+  }).isRequired,
+  encryptionKeys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+};
+
+const SecretsManager = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "Secrets Manager",
+    addText: "Create a Secrets Manager",
+    docs: props.docs,
+    innerForm: SecretsManagerForm,
+    arrayData: props.secrets_managers,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    innerFormProps: {
+      craig: props.craig,
+      resourceGroups: props.resourceGroups,
+      encryptionKeys: props.encryptionKeys,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      secrets: props.secrets,
+      propsMatchState: props.propsMatchState,
+      disableSave: props.disableSave
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "secrets_manager",
+      hide: true,
+      hideName: true
+    }
+  });
+};
+SecretsManager.propTypes = {
+  secrets_managers: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  onDelete: PropTypes__default["default"].func.isRequired,
+  onSave: PropTypes__default["default"].func.isRequired,
+  onSubmit: PropTypes__default["default"].func.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  forceOpen: PropTypes__default["default"].func.isRequired,
+  resourceGroups: PropTypes__default["default"].array.isRequired,
+  encryptionKeys: PropTypes__default["default"].array.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  secrets: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  craig: PropTypes__default["default"].shape({}),
+  docs: PropTypes__default["default"].func.isRequired
+};
+
 class TransitGatewayForm extends React.Component {
   constructor(props) {
     super(props);
@@ -5941,208 +5952,6 @@ TransitGateways.propTypes = {
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   invalidCrns: PropTypes__default["default"].func.isRequired,
   invalidCrnText: PropTypes__default["default"].func.isRequired
-};
-
-/**
- * vpn gateway form
- */
-class VpnGatewayForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = this.props.data;
-    this.handleInputChange = this.handleInputChange.bind(this);
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-  }
-
-  /**
-   * handle input change
-   * @param {event} event
-   */
-  handleInputChange(event) {
-    this.setState(forms_13(event));
-  }
-  render() {
-    let composedId = `vpn-gateway-form-${this.props.data.name}-`;
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: composedId,
-      component: "vpn_gateways",
-      componentName: this.props.data.name,
-      componentProps: this.props,
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      placeholder: "my-vpn-gateway-name",
-      hideHelperText: true,
-      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props)
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: this.props.data.name + "-resource_group",
-      name: "resource_group",
-      labelText: "Resource Group",
-      groups: this.props.resourceGroups,
-      value: this.state.resource_group,
-      handleInputChange: this.handleInputChange,
-      invalid: lib_9(this.state.resource_group),
-      invalidText: "Select a Resource Group.",
-      className: "fieldWidth"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      id: composedId,
-      formName: this.props.data.name + "-vpn-" + this.state.vpc,
-      name: "vpc",
-      labelText: "VPC",
-      groups: this.props.vpcList,
-      value: this.state.vpc,
-      handleInputChange: this.handleInputChange,
-      invalid: lib_9(this.state.vpc),
-      invalidText: "Select a VPC.",
-      className: "fieldWidth"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      id: composedId,
-      formName: "subnet",
-      name: "subnet",
-      labelText: "Subnet",
-      groups: this.getSubnetList(),
-      value: this.state.subnet,
-      handleInputChange: this.handleInputChange,
-      invalid: lib_9(this.state.vpc) || lib_9(this.state.subnet),
-      invalidText: lib_9(this.state.vpc) ? `No VPC Selected.` : `Select a Subnet.`,
-      className: "fieldWidth"
-    })));
-  }
-}
-VpnGatewayForm.defaultProps = {
-  data: {
-    name: "",
-    resource_group: "",
-    vpc: "",
-    subnet: null
-  },
-  isModal: false
-};
-VpnGatewayForm.propTypes = {
-  data: PropTypes__default["default"].shape({
-    name: PropTypes__default["default"].string.isRequired,
-    resource_group: PropTypes__default["default"].string,
-    // can be null
-    vpc: PropTypes__default["default"].string,
-    // can be null
-    subnet: PropTypes__default["default"].string // can be null
-  }).isRequired,
-  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  subnetList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].object).isRequired,
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  isModal: PropTypes__default["default"].bool.isRequired
-};
-
-const VpnGateways = props => {
-  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
-    name: "VPN Gateways",
-    addText: "Create a VPN Gateway",
-    docs: props.docs,
-    innerForm: VpnGatewayForm,
-    arrayData: props.vpn_gateways,
-    disableSave: props.disableSave,
-    onDelete: props.onDelete,
-    onSave: props.onSave,
-    onSubmit: props.onSubmit,
-    propsMatchState: props.propsMatchState,
-    forceOpen: props.forceOpen,
-    innerFormProps: {
-      craig: props.craig,
-      disableSave: props.disableSave,
-      invalidCallback: props.invalidCallback,
-      invalidTextCallback: props.invalidTextCallback,
-      vpcList: props.vpcList,
-      subnetList: props.subnetList,
-      resourceGroups: props.resourceGroups
-    },
-    toggleFormProps: {
-      craig: props.craig,
-      disableSave: props.disableSave,
-      submissionFieldName: "vpn_gateways",
-      hide: true,
-      hideName: true
-    }
-  });
-};
-VpnGateways.propTypes = {
-  docs: PropTypes__default["default"].func.isRequired,
-  vpn_gateways: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
-  disableSave: PropTypes__default["default"].func.isRequired,
-  onDelete: PropTypes__default["default"].func.isRequired,
-  onSave: PropTypes__default["default"].func.isRequired,
-  onSubmit: PropTypes__default["default"].func.isRequired,
-  propsMatchState: PropTypes__default["default"].func.isRequired,
-  forceOpen: PropTypes__default["default"].func.isRequired,
-  craig: PropTypes__default["default"].shape({}),
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  subnetList: PropTypes__default["default"].array.isRequired
-};
-
-const AppId = props => {
-  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
-    name: "AppID",
-    addText: "Create an App ID Instance",
-    docs: props.docs,
-    innerForm: AppIdForm,
-    arrayData: props.appid,
-    disableSave: props.disableSave,
-    onDelete: props.onDelete,
-    onSave: props.onSave,
-    onSubmit: props.onSubmit,
-    propsMatchState: props.propsMatchState,
-    forceOpen: props.forceOpen,
-    craig: props.craig,
-    innerFormProps: {
-      craig: props.craig,
-      resourceGroups: props.resourceGroups,
-      disableSave: props.disableSave,
-      invalidCallback: props.invalidCallback,
-      invalidTextCallback: props.invalidTextCallback,
-      invalidKeyCallback: props.invalidKeyCallback,
-      invalidKeyTextCallback: props.invalidKeyTextCallback,
-      propsMatchState: props.propsMatchState,
-      disableSave: props.disableSave,
-      keyProps: {
-        craig: props.craig,
-        onSave: props.onKeySave,
-        onDelete: props.onKeyDelete,
-        onSubmit: props.onKeySubmit,
-        disableSave: props.disableSave
-      }
-    },
-    toggleFormProps: {
-      craig: props.craig,
-      disableSave: props.disableSave,
-      submissionFieldName: "appid",
-      hide: true,
-      hideName: true
-    }
-  });
-};
-AppId.propTypes = {
-  appid: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
-  disableSave: PropTypes__default["default"].func.isRequired,
-  onDelete: PropTypes__default["default"].func.isRequired,
-  onSave: PropTypes__default["default"].func.isRequired,
-  onSubmit: PropTypes__default["default"].func.isRequired,
-  propsMatchState: PropTypes__default["default"].func.isRequired,
-  forceOpen: PropTypes__default["default"].func.isRequired,
-  resourceGroups: PropTypes__default["default"].array.isRequired,
-  craig: PropTypes__default["default"].shape({}),
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  invalidKeyCallback: PropTypes__default["default"].func.isRequired,
-  invalidKeyTextCallback: PropTypes__default["default"].func.isRequired,
-  onKeySave: PropTypes__default["default"].func.isRequired,
-  onKeyDelete: PropTypes__default["default"].func.isRequired,
-  onKeySubmit: PropTypes__default["default"].func.isRequired,
-  docs: PropTypes__default["default"].func.isRequired
 };
 
 const nameFields = ["default_network_acl_name", "default_routing_table_name", "default_security_group_name"];
@@ -6349,6 +6158,716 @@ Vpcs.propTypes = {
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+};
+
+/**
+ * vpn gateway form
+ */
+class VpnGatewayForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    this.handleInputChange = this.handleInputChange.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+
+  /**
+   * handle input change
+   * @param {event} event
+   */
+  handleInputChange(event) {
+    this.setState(forms_13(event));
+  }
+  render() {
+    let composedId = `vpn-gateway-form-${this.props.data.name}-`;
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: composedId,
+      component: "vpn_gateways",
+      componentName: this.props.data.name,
+      componentProps: this.props,
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      placeholder: "my-vpn-gateway-name",
+      hideHelperText: true,
+      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: this.props.data.name + "-resource_group",
+      name: "resource_group",
+      labelText: "Resource Group",
+      groups: this.props.resourceGroups,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange,
+      invalid: lib_9(this.state.resource_group),
+      invalidText: "Select a Resource Group.",
+      className: "fieldWidth"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      id: composedId,
+      formName: this.props.data.name + "-vpn-" + this.state.vpc,
+      name: "vpc",
+      labelText: "VPC",
+      groups: this.props.vpcList,
+      value: this.state.vpc,
+      handleInputChange: this.handleInputChange,
+      invalid: lib_9(this.state.vpc),
+      invalidText: "Select a VPC.",
+      className: "fieldWidth"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      id: composedId,
+      formName: "subnet",
+      name: "subnet",
+      labelText: "Subnet",
+      groups: this.getSubnetList(),
+      value: this.state.subnet,
+      handleInputChange: this.handleInputChange,
+      invalid: lib_9(this.state.vpc) || lib_9(this.state.subnet),
+      invalidText: lib_9(this.state.vpc) ? `No VPC Selected.` : `Select a Subnet.`,
+      className: "fieldWidth"
+    })));
+  }
+}
+VpnGatewayForm.defaultProps = {
+  data: {
+    name: "",
+    resource_group: "",
+    vpc: "",
+    subnet: null
+  },
+  isModal: false
+};
+VpnGatewayForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    resource_group: PropTypes__default["default"].string,
+    // can be null
+    vpc: PropTypes__default["default"].string,
+    // can be null
+    subnet: PropTypes__default["default"].string // can be null
+  }).isRequired,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  subnetList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].object).isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired
+};
+
+const VpnGateways = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "VPN Gateways",
+    addText: "Create a VPN Gateway",
+    docs: props.docs,
+    innerForm: VpnGatewayForm,
+    arrayData: props.vpn_gateways,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    innerFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      vpcList: props.vpcList,
+      subnetList: props.subnetList,
+      resourceGroups: props.resourceGroups
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "vpn_gateways",
+      hide: true,
+      hideName: true
+    }
+  });
+};
+VpnGateways.propTypes = {
+  docs: PropTypes__default["default"].func.isRequired,
+  vpn_gateways: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  onDelete: PropTypes__default["default"].func.isRequired,
+  onSave: PropTypes__default["default"].func.isRequired,
+  onSubmit: PropTypes__default["default"].func.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  forceOpen: PropTypes__default["default"].func.isRequired,
+  craig: PropTypes__default["default"].shape({}),
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  subnetList: PropTypes__default["default"].array.isRequired
+};
+
+const {
+  isWholeNumber,
+  isInRange
+} = lazyZ__default["default"];
+const {
+  RegexButWithWords
+} = regexButWithWords__default["default"];
+const commaSeparatedIpListExp = new RegexButWithWords().stringBegin().group(exp => {
+  exp.group(exp => {
+    exp.wordBoundary().group(exp => {
+      exp.group(exp => {
+        exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+      }).literal(".");
+    }, 3).group(exp => {
+      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+    }).wordBoundary().group(exp => {
+      exp.group(exp => {
+        exp.literal("/").group(exp => {
+          exp.literal("3").set("0-2").or().set("012").lazy().digit();
+        });
+      });
+    }).lazy();
+  });
+}).anyNumber().group(exp => {
+  exp.literal(",").whitespace().anyNumber().wordBoundary().group(exp => {
+    exp.group(exp => {
+      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+    }).literal(".");
+  }, 3).group(exp => {
+    exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+  }).wordBoundary().group(exp => {
+    exp.group(exp => {
+      exp.literal("/").group(exp => {
+        exp.literal("3").set("0-2").or().set("012").lazy().digit();
+      });
+    });
+  }).lazy();
+}).anyNumber().stringEnd().done("gm");
+const commaSeparatedIpListExpNoCidr = new RegexButWithWords().stringBegin().group(exp => {
+  exp.group(exp => {
+    exp.wordBoundary().group(exp => {
+      exp.group(exp => {
+        exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+      }).literal(".");
+    }, 3).group(exp => {
+      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+    }).lazy();
+  });
+}).anyNumber().group(exp => {
+  exp.literal(",").whitespace().anyNumber().wordBoundary().group(exp => {
+    exp.group(exp => {
+      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+    }).literal(".");
+  }, 3).group(exp => {
+    exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+  }).lazy();
+}).anyNumber().stringEnd().done("gm");
+
+/**
+ * return true if value is null or empty string
+ * @param {*} value
+ * @returns {boolean} true if null or empty string
+ */
+function isNullOrEmptyString$1(value) {
+  return value === null || value === "";
+}
+
+/**
+ * test for invalid range
+ * @param {*} value
+ * @param {number} min
+ * @param {number} max
+ * @returns {boolean} true if invalid
+ */
+function isRangeInvalid(value, min, max) {
+  if (isNullOrEmptyString$1(value)) return false;
+  value = parseFloat(value);
+  if (!isWholeNumber(value) || !isInRange(value, min, max)) {
+    return true;
+  }
+  return false;
+}
+
+/**
+ * test for invalid IP string/CIDR
+ * @param {string} value
+ * @returns {boolean} true if invalid
+ */
+function isIpStringInvalid(value) {
+  if (!isNullOrEmptyString$1(value) && value.match(commaSeparatedIpListExp) === null) {
+    return true;
+  }
+  return false;
+}
+
+/**
+ * test for invalid IP string no CIDR
+ * @param {string} value
+ * @returns {boolean} true if invalid
+ */
+function isIpStringInvalidNoCidr(value) {
+  if (!isNullOrEmptyString$1(value) && value.match(commaSeparatedIpListExpNoCidr) === null) {
+    return true;
+  }
+  return false;
+}
+var iamUtils = {
+  isIpStringInvalid,
+  isIpStringInvalidNoCidr,
+  isRangeInvalid
+};
+var iamUtils_1 = iamUtils.isIpStringInvalid;
+var iamUtils_2 = iamUtils.isIpStringInvalidNoCidr;
+var iamUtils_3 = iamUtils.isRangeInvalid;
+
+class VsiVolumeForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: this.props.data.name + "-vsi-volume-name",
+      componentName: this.state.name,
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      className: "fieldWidthSmaller",
+      hideHelperText: true
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      component: this.state.name,
+      formName: this.props.data.name + "-vsi-volume-profile",
+      name: "profile",
+      groups: ["3iops-tier", "5iops-tier", "10iops-tier"],
+      value: this.state.profile,
+      labelText: "Profile",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      component: this.state.name,
+      formName: this.props.data.name + "-object-storage-bucket-key",
+      name: "encryption_key",
+      groups: this.props.encryptionKeyFilter ? this.props.encryptionKeyFilter(this.state, this.props) : this.props.encryptionKeys,
+      value: this.state.encryption_key,
+      labelText: "Encryption Key",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      id: this.props.data.name + "vsi-volume-capacity",
+      name: "capacity",
+      label: "Capacity (GB)",
+      value: this.state.capacity || "",
+      onChange: this.handleInputChange,
+      allowEmpty: true,
+      step: 1,
+      hideSteppers: true,
+      placeholder: "100",
+      min: 10,
+      max: 16000,
+      invalid: iamUtils_3(this.state.capacity, 10, 16000),
+      invalidText: "Must be a whole number between 10 and 16000",
+      className: "fieldWidthSmaller leftTextAlign"
+    })));
+  }
+}
+VsiVolumeForm.defaultProps = {
+  data: {
+    name: "",
+    profile: "general-purpose",
+    encryption_key: "",
+    capacity: ""
+  },
+  encryptionKeys: []
+};
+VsiVolumeForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    profile: PropTypes__default["default"].string,
+    encryption_key: PropTypes__default["default"].string,
+    capacity: PropTypes__default["default"].oneOfType([PropTypes__default["default"].string, PropTypes__default["default"].number]).isRequired
+  }).isRequired,
+  encryptionKeys: PropTypes__default["default"].array.isRequired,
+  encryptionKeyFilter: PropTypes__default["default"].func,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired
+};
+
+class VsiForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+  handleInputChange(event) {
+    this.setState(vsi_1(event, this.state, this.props));
+  }
+  handleMultiSelectChange(name, value) {
+    this.setState(this.setNameToValue(name, value));
+  }
+  handleToggle(name) {
+    this.setState(this.toggleStateBoolean(name, this.state));
+  }
+  render() {
+    let composedId = `vsi-deployment-form-${this.props.data.name}`;
+    let volumeProps = {
+      invalidCallback: this.props.invalidVsiVolumeCallback,
+      invalidTextCallback: this.props.invalidVsiVolumeTextCallback,
+      arrayParentName: this.props.data.name,
+      parent_name: this.props.data.name
+    };
+    lazyZ.transpose({
+      ...this.props.vsiVolumeProps
+    }, volumeProps);
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: composedId,
+      className: "fieldWidthSmaller",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      hideHelperText: true,
+      forceKebabCase: true
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: composedId + "-rg",
+      name: "resource_group",
+      className: "fieldWidthSmaller",
+      labelText: "Resource Group",
+      groups: this.props.resourceGroups,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: composedId + "-vpc",
+      name: "vpc",
+      labelText: "VPC",
+      groups: this.props.vpcList,
+      value: this.state.vpc,
+      handleInputChange: this.handleInputChange,
+      invalid: lib_9(this.state.vpc),
+      invalidText: "Select a VPC.",
+      className: "fieldWidthSmaller"
+    }), this.props.isTeleport ?
+    /*#__PURE__*/
+    // render dropdown for teleport instance
+    React__default["default"].createElement(IcseSelect, {
+      formName: composedId + "-subnet",
+      name: "subnet",
+      className: "fieldWidthSmaller",
+      labelText: "Subnet",
+      groups: this.getSubnetList(),
+      value: this.state.subnet,
+      handleInputChange: this.handleInputChange,
+      invalid: lib_9(this.state.vpc) || lib_9(this.state.subnet),
+      invalidText: lib_9(this.state.vpc) ? `No VPC Selected.` : `Select a Subnet.`
+    }) : /*#__PURE__*/React__default["default"].createElement(SubnetMultiSelect, {
+      key: this.state.vpc + "-subnet",
+      id: composedId + "-vsi-subnets",
+      className: "fieldWidthSmaller",
+      initialSelectedItems: this.state.subnets,
+      vpc_name: this.state.vpc,
+      subnets: this.getSubnetList(),
+      onChange: value => this.handleMultiSelectChange("subnets", value)
+    }), /*#__PURE__*/React__default["default"].createElement(SecurityGroupMultiSelect, {
+      key: this.state.vpc + "-sg",
+      id: "vsi-security-groups",
+      className: "fieldWidthSmaller",
+      initialSelectedItems: this.state.security_groups || [],
+      vpc_name: this.state.vpc,
+      onChange: value => this.handleMultiSelectChange("security_groups", value),
+      securityGroups: this.getSecurityGroupList(),
+      invalid: !(this.state.security_groups?.length > 0),
+      invalidText: !this.state.vpc || lib_9(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      label: "Instances per Subnet",
+      id: composedId + "-vsi-per-subnet",
+      value: this.state.vsi_per_subnet,
+      defaultValue: 1,
+      max: 10,
+      min: 1,
+      onChange: this.handleInputChange,
+      name: "vsi_per_subnet",
+      hideSteppers: true,
+      invalidText: "Please input a number 1-10",
+      className: "fieldWidthSmaller leftTextAlign"
+    }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
+      formName: composedId + "-image",
+      labelText: "Image",
+      name: "image_name",
+      className: "fieldWidthSmaller",
+      apiEndpoint: this.props.apiEndpointImages,
+      handleInputChange: this.handleInputChange,
+      value: this.state.image_name
+    }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
+      formName: composedId + "-profile",
+      labelText: "Profile",
+      name: "profile",
+      className: "fieldWidthSmaller",
+      apiEndpoint: this.props.apiEndpointInstanceProfiles,
+      handleInputChange: this.handleInputChange,
+      value: this.state.profile
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(SshKeyMultiSelect, {
+      id: composedId + "-sshkey",
+      className: "fieldWidthSmaller",
+      sshKeys: this.props.sshKeys,
+      initialSelectedItems: this.state.ssh_keys || [],
+      onChange: value => this.handleMultiSelectChange("ssh_keys", value)
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: composedId + "-encryption_key",
+      name: "encryption_key",
+      className: "fieldWidthSmaller",
+      labelText: "Encryption Key",
+      groups: this.props.encryptionKeys,
+      value: this.state.encryption_key,
+      handleInputChange: this.handleInputChange,
+      invalid: lazyZ.isNullOrEmptyString(this.state.encryption_key),
+      invalidText: "Select a valid encryption key."
+    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      id: composedId + "-fips-toggle",
+      className: "fieldWidthSmaller",
+      labelText: "Enable Floating IP",
+      defaultToggled: this.state.enable_floating_ip,
+      onToggle: this.handleToggle
+    })), /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+      hide: this.props.isTeleport,
+      show: /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
+        id: composedId + "-vsi-user-data",
+        className: this.props.isModal ? "textInputWide" : "fieldWidthBigger",
+        placeholder: "Cloud init data",
+        labelText: "User Data",
+        name: "user_data",
+        value: this.state.user_data || "",
+        onChange: this.handleInputChange,
+        invalidText: "Invalid error message."
+      }))
+    }), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+      name: "Block Storage",
+      subHeading: true,
+      addText: "Create a Block Storage Volume",
+      arrayData: this.props.data.volumes,
+      innerForm: VsiVolumeForm,
+      disableSave: this.props.vsiVolumeProps.disableSave,
+      onDelete: this.props.vsiVolumeProps.onDelete,
+      onSave: this.props.vsiVolumeProps.onSave,
+      onSubmit: this.props.vsiVolumeProps.onSubmit,
+      propsMatchState: this.props.propsMatchState,
+      innerFormProps: {
+        ...volumeProps
+      },
+      hideAbout: true,
+      toggleFormProps: {
+        hideName: true,
+        submissionFieldName: "volumes",
+        disableSave: this.props.vsiVolumeProps.disableSave,
+        type: "formInSubForm"
+      }
+    })));
+  }
+}
+VsiForm.defaultProps = {
+  data: {
+    name: "",
+    resource_group: "",
+    vpc: "",
+    subnet: "",
+    subnets: [],
+    ssh_keys: [],
+    security_groups: [],
+    vsi_per_subnet: 1,
+    encryption_key: "",
+    image_name: "",
+    profile: "",
+    enable_floating_ip: false
+  },
+  isModal: false,
+  isTeleport: false,
+  encryptionKeys: [],
+  resourceGroups: [],
+  securityGroups: [],
+  sshKeys: [],
+  subnetList: [],
+  vpcList: [],
+  apiEndpointImages: "",
+  apiEndpointInstanceProfiles: ""
+};
+VsiForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string,
+    resource_group: PropTypes__default["default"].string,
+    vpc: PropTypes__default["default"].string,
+    subnet: PropTypes__default["default"].string,
+    subnets: PropTypes__default["default"].array,
+    security_groups: PropTypes__default["default"].array,
+    vsi_per_subnet: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].string]),
+    image_name: PropTypes__default["default"].string,
+    profile: PropTypes__default["default"].string,
+    ssh_keys: PropTypes__default["default"].array,
+    encryption_key: PropTypes__default["default"].string,
+    enable_floating_ip: PropTypes__default["default"].bool
+  }).isRequired,
+  /* bools */
+  isModal: PropTypes__default["default"].bool.isRequired,
+  isTeleport: PropTypes__default["default"].bool.isRequired,
+  /* lists */
+  encryptionKeys: PropTypes__default["default"].array.isRequired,
+  resourceGroups: PropTypes__default["default"].array.isRequired,
+  securityGroups: PropTypes__default["default"].array.isRequired,
+  sshKeys: PropTypes__default["default"].array.isRequired,
+  subnetList: PropTypes__default["default"].array.isRequired,
+  vpcList: PropTypes__default["default"].array.isRequired,
+  /* api endpoints */
+  apiEndpointImages: PropTypes__default["default"].string.isRequired,
+  apiEndpointInstanceProfiles: PropTypes__default["default"].string.isRequired,
+  /* callbacks */
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  /* forms */
+  vsiVolumeProps: PropTypes__default["default"].shape({
+    onSave: PropTypes__default["default"].func.isRequired,
+    onDelete: PropTypes__default["default"].func.isRequired,
+    onSubmit: PropTypes__default["default"].func.isRequired,
+    disableSave: PropTypes__default["default"].func.isRequired,
+    encryptionKeys: PropTypes__default["default"].array.isRequired
+  }).isRequired
+};
+
+const Vsi = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "Virtual Server Instances",
+    addText: "Create a VSI",
+    docs: props.docs,
+    arrayData: props.vsi,
+    innerForm: VsiForm,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    innerFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      readOnlyName: false,
+      resourceGroups: props.resourceGroups,
+      encryptionKeys: props.encryptionKeys,
+      subnetList: props.subnetList,
+      securityGroups: props.securityGroups,
+      vpcList: props.vpcList,
+      sshKeys: props.sshKeys,
+      apiEndpointImages: props.apiEndpointImages,
+      apiEndpointInstanceProfiles: props.apiEndpointInstanceProfiles,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      invalidVsiVolumeCallback: props.invalidVolumeCallback,
+      invalidVsiVolumeTextCallback: props.invalidVolumeTextCallback,
+      propsMatchState: props.propsMatchState,
+      vsiVolumeProps: {
+        disableSave: props.disableSave,
+        encryptionKeys: props.encryptionKeys,
+        craig: props.craig,
+        onSave: props.onVolumeSave,
+        onDelete: props.onVolumeDelete,
+        onSubmit: props.onVolumeCreate
+      }
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "vsi",
+      hide: true,
+      hideName: true
+    }
+  });
+};
+Vsi.propTypes = {
+  docs: PropTypes__default["default"].func.isRequired,
+  vsi: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  onDelete: PropTypes__default["default"].func.isRequired,
+  onSave: PropTypes__default["default"].func.isRequired,
+  onSubmit: PropTypes__default["default"].func.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  forceOpen: PropTypes__default["default"].func.isRequired,
+  craig: PropTypes__default["default"].shape({}),
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  encryptionKeys: PropTypes__default["default"].array.isRequired,
+  subnetList: PropTypes__default["default"].array.isRequired,
+  securityGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string),
+  sshKeys: PropTypes__default["default"].array,
+  apiEndpointImages: PropTypes__default["default"].string.isRequired,
+  apiEndpointInstanceProfiles: PropTypes__default["default"].string.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidVolumeCallback: PropTypes__default["default"].func.isRequired,
+  invalidVolumeTextCallback: PropTypes__default["default"].func.isRequired,
+  onVolumeSave: PropTypes__default["default"].func.isRequired,
+  onVolumeDelete: PropTypes__default["default"].func.isRequired,
+  onVolumeCreate: PropTypes__default["default"].func.isRequired
+};
+
+const WorkerPools = props => {
+  return props.isModal ? "" : /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "Worker Pools",
+    subHeading: true,
+    addText: "Create a Worker Pool",
+    arrayData: props.worker_pools,
+    innerForm: WorkerPoolForm,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    innerFormProps: {
+      subnetList: props.subnetList,
+      cluster: props.cluster,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      flavorApiEndpoint: props.flavorApiEndpoint,
+      craig: props.craig,
+      arrayParentName: props.cluster.name
+    },
+    hideAbout: true,
+    toggleFormProps: {
+      hideName: true,
+      submissionFieldName: "worker_pools",
+      disableSave: props.disableSave,
+      type: "formInSubForm"
+    }
+  });
+};
+WorkerPools.defaultProps = {
+  isModal: false
+};
+WorkerPools.propTypes = {
+  isModal: PropTypes__default["default"].bool.isRequired,
+  worker_pools: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})),
+  disableSave: PropTypes__default["default"].func,
+  onDelete: PropTypes__default["default"].func,
+  onSave: PropTypes__default["default"].func,
+  onSubmit: PropTypes__default["default"].func,
+  propsMatchState: PropTypes__default["default"].func,
+  subnetList: PropTypes__default["default"].array,
+  cluster: PropTypes__default["default"].shape({}).isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  arrayParentName: PropTypes__default["default"].string,
+  flavorApiEndpoint: PropTypes__default["default"].string,
+  craig: PropTypes__default["default"].shape({})
 };
 
 class ClusterForm extends React.Component {
@@ -6600,121 +7119,6 @@ ClusterForm.propTypes = {
     disableSave: PropTypes__default["default"].func.isRequired
   }).isRequired
 };
-
-const {
-  isWholeNumber,
-  isInRange
-} = lazyZ__default["default"];
-const {
-  RegexButWithWords
-} = regexButWithWords__default["default"];
-const commaSeparatedIpListExp = new RegexButWithWords().stringBegin().group(exp => {
-  exp.group(exp => {
-    exp.wordBoundary().group(exp => {
-      exp.group(exp => {
-        exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
-      }).literal(".");
-    }, 3).group(exp => {
-      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
-    }).wordBoundary().group(exp => {
-      exp.group(exp => {
-        exp.literal("/").group(exp => {
-          exp.literal("3").set("0-2").or().set("012").lazy().digit();
-        });
-      });
-    }).lazy();
-  });
-}).anyNumber().group(exp => {
-  exp.literal(",").whitespace().anyNumber().wordBoundary().group(exp => {
-    exp.group(exp => {
-      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
-    }).literal(".");
-  }, 3).group(exp => {
-    exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
-  }).wordBoundary().group(exp => {
-    exp.group(exp => {
-      exp.literal("/").group(exp => {
-        exp.literal("3").set("0-2").or().set("012").lazy().digit();
-      });
-    });
-  }).lazy();
-}).anyNumber().stringEnd().done("gm");
-const commaSeparatedIpListExpNoCidr = new RegexButWithWords().stringBegin().group(exp => {
-  exp.group(exp => {
-    exp.wordBoundary().group(exp => {
-      exp.group(exp => {
-        exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
-      }).literal(".");
-    }, 3).group(exp => {
-      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
-    }).lazy();
-  });
-}).anyNumber().group(exp => {
-  exp.literal(",").whitespace().anyNumber().wordBoundary().group(exp => {
-    exp.group(exp => {
-      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
-    }).literal(".");
-  }, 3).group(exp => {
-    exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
-  }).lazy();
-}).anyNumber().stringEnd().done("gm");
-
-/**
- * return true if value is null or empty string
- * @param {*} value
- * @returns {boolean} true if null or empty string
- */
-function isNullOrEmptyString$1(value) {
-  return value === null || value === "";
-}
-
-/**
- * test for invalid range
- * @param {*} value
- * @param {number} min
- * @param {number} max
- * @returns {boolean} true if invalid
- */
-function isRangeInvalid(value, min, max) {
-  if (isNullOrEmptyString$1(value)) return false;
-  value = parseFloat(value);
-  if (!isWholeNumber(value) || !isInRange(value, min, max)) {
-    return true;
-  }
-  return false;
-}
-
-/**
- * test for invalid IP string/CIDR
- * @param {string} value
- * @returns {boolean} true if invalid
- */
-function isIpStringInvalid(value) {
-  if (!isNullOrEmptyString$1(value) && value.match(commaSeparatedIpListExp) === null) {
-    return true;
-  }
-  return false;
-}
-
-/**
- * test for invalid IP string no CIDR
- * @param {string} value
- * @returns {boolean} true if invalid
- */
-function isIpStringInvalidNoCidr(value) {
-  if (!isNullOrEmptyString$1(value) && value.match(commaSeparatedIpListExpNoCidr) === null) {
-    return true;
-  }
-  return false;
-}
-var iamUtils = {
-  isIpStringInvalid,
-  isIpStringInvalidNoCidr,
-  isRangeInvalid
-};
-var iamUtils_1 = iamUtils.isIpStringInvalid;
-var iamUtils_2 = iamUtils.isIpStringInvalidNoCidr;
-var iamUtils_3 = iamUtils.isRangeInvalid;
 
 /**
  *  handle allowed ips for event streams
@@ -10305,335 +10709,6 @@ VpnServerForm.propTypes = {
   invalidCrnText: PropTypes__default["default"].func.isRequired
 };
 
-class VsiVolumeForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-  }
-
-  /**
-   * handle input change
-   * @param {event} event event
-   */
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-  render() {
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: this.props.data.name + "-vsi-volume-name",
-      componentName: this.state.name,
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props),
-      className: "fieldWidthSmaller",
-      hideHelperText: true
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      component: this.state.name,
-      formName: this.props.data.name + "-vsi-volume-profile",
-      name: "profile",
-      groups: ["3iops-tier", "5iops-tier", "10iops-tier"],
-      value: this.state.profile,
-      labelText: "Profile",
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      component: this.state.name,
-      formName: this.props.data.name + "-object-storage-bucket-key",
-      name: "encryption_key",
-      groups: this.props.encryptionKeyFilter ? this.props.encryptionKeyFilter(this.state, this.props) : this.props.encryptionKeys,
-      value: this.state.encryption_key,
-      labelText: "Encryption Key",
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
-      id: this.props.data.name + "vsi-volume-capacity",
-      name: "capacity",
-      label: "Capacity (GB)",
-      value: this.state.capacity || "",
-      onChange: this.handleInputChange,
-      allowEmpty: true,
-      step: 1,
-      hideSteppers: true,
-      placeholder: "100",
-      min: 10,
-      max: 16000,
-      invalid: iamUtils_3(this.state.capacity, 10, 16000),
-      invalidText: "Must be a whole number between 10 and 16000",
-      className: "fieldWidthSmaller leftTextAlign"
-    })));
-  }
-}
-VsiVolumeForm.defaultProps = {
-  data: {
-    name: "",
-    profile: "general-purpose",
-    encryption_key: "",
-    capacity: ""
-  },
-  encryptionKeys: []
-};
-VsiVolumeForm.propTypes = {
-  data: PropTypes__default["default"].shape({
-    name: PropTypes__default["default"].string.isRequired,
-    profile: PropTypes__default["default"].string,
-    encryption_key: PropTypes__default["default"].string,
-    capacity: PropTypes__default["default"].oneOfType([PropTypes__default["default"].string, PropTypes__default["default"].number]).isRequired
-  }).isRequired,
-  encryptionKeys: PropTypes__default["default"].array.isRequired,
-  encryptionKeyFilter: PropTypes__default["default"].func,
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired
-};
-
-class VsiForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-  }
-  handleInputChange(event) {
-    this.setState(vsi_1(event, this.state, this.props));
-  }
-  handleMultiSelectChange(name, value) {
-    this.setState(this.setNameToValue(name, value));
-  }
-  handleToggle(name) {
-    this.setState(this.toggleStateBoolean(name, this.state));
-  }
-  render() {
-    let composedId = `vsi-deployment-form-${this.props.data.name}`;
-    let volumeProps = {
-      invalidCallback: this.props.invalidVsiVolumeCallback,
-      invalidTextCallback: this.props.invalidVsiVolumeTextCallback,
-      arrayParentName: this.props.data.name,
-      parent_name: this.props.data.name
-    };
-    lazyZ.transpose({
-      ...this.props.vsiVolumeProps
-    }, volumeProps);
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: composedId,
-      className: "fieldWidthSmaller",
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props),
-      hideHelperText: true,
-      forceKebabCase: true
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: composedId + "-rg",
-      name: "resource_group",
-      className: "fieldWidthSmaller",
-      labelText: "Resource Group",
-      groups: this.props.resourceGroups,
-      value: this.state.resource_group,
-      handleInputChange: this.handleInputChange
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: composedId + "-vpc",
-      name: "vpc",
-      labelText: "VPC",
-      groups: this.props.vpcList,
-      value: this.state.vpc,
-      handleInputChange: this.handleInputChange,
-      invalid: lib_9(this.state.vpc),
-      invalidText: "Select a VPC.",
-      className: "fieldWidthSmaller"
-    }), this.props.isTeleport ?
-    /*#__PURE__*/
-    // render dropdown for teleport instance
-    React__default["default"].createElement(IcseSelect, {
-      formName: composedId + "-subnet",
-      name: "subnet",
-      className: "fieldWidthSmaller",
-      labelText: "Subnet",
-      groups: this.getSubnetList(),
-      value: this.state.subnet,
-      handleInputChange: this.handleInputChange,
-      invalid: lib_9(this.state.vpc) || lib_9(this.state.subnet),
-      invalidText: lib_9(this.state.vpc) ? `No VPC Selected.` : `Select a Subnet.`
-    }) : /*#__PURE__*/React__default["default"].createElement(SubnetMultiSelect, {
-      key: this.state.vpc + "-subnet",
-      id: composedId + "-vsi-subnets",
-      className: "fieldWidthSmaller",
-      initialSelectedItems: this.state.subnets,
-      vpc_name: this.state.vpc,
-      subnets: this.getSubnetList(),
-      onChange: value => this.handleMultiSelectChange("subnets", value)
-    }), /*#__PURE__*/React__default["default"].createElement(SecurityGroupMultiSelect, {
-      key: this.state.vpc + "-sg",
-      id: "vsi-security-groups",
-      className: "fieldWidthSmaller",
-      initialSelectedItems: this.state.security_groups || [],
-      vpc_name: this.state.vpc,
-      onChange: value => this.handleMultiSelectChange("security_groups", value),
-      securityGroups: this.getSecurityGroupList(),
-      invalid: !(this.state.security_groups?.length > 0),
-      invalidText: !this.state.vpc || lib_9(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
-      label: "Instances per Subnet",
-      id: composedId + "-vsi-per-subnet",
-      value: this.state.vsi_per_subnet,
-      defaultValue: 1,
-      max: 10,
-      min: 1,
-      onChange: this.handleInputChange,
-      name: "vsi_per_subnet",
-      hideSteppers: true,
-      invalidText: "Please input a number 1-10",
-      className: "fieldWidthSmaller leftTextAlign"
-    }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
-      formName: composedId + "-image",
-      labelText: "Image",
-      name: "image_name",
-      className: "fieldWidthSmaller",
-      apiEndpoint: this.props.apiEndpointImages,
-      handleInputChange: this.handleInputChange,
-      value: this.state.image_name
-    }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
-      formName: composedId + "-profile",
-      labelText: "Profile",
-      name: "profile",
-      className: "fieldWidthSmaller",
-      apiEndpoint: this.props.apiEndpointInstanceProfiles,
-      handleInputChange: this.handleInputChange,
-      value: this.state.profile
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(SshKeyMultiSelect, {
-      id: composedId + "-sshkey",
-      className: "fieldWidthSmaller",
-      sshKeys: this.props.sshKeys,
-      initialSelectedItems: this.state.ssh_keys || [],
-      onChange: value => this.handleMultiSelectChange("ssh_keys", value)
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: composedId + "-encryption_key",
-      name: "encryption_key",
-      className: "fieldWidthSmaller",
-      labelText: "Encryption Key",
-      groups: this.props.encryptionKeys,
-      value: this.state.encryption_key,
-      handleInputChange: this.handleInputChange,
-      invalid: lazyZ.isNullOrEmptyString(this.state.encryption_key),
-      invalidText: "Select a valid encryption key."
-    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      id: composedId + "-fips-toggle",
-      className: "fieldWidthSmaller",
-      labelText: "Enable Floating IP",
-      defaultToggled: this.state.enable_floating_ip,
-      onToggle: this.handleToggle
-    })), /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
-      hide: this.props.isTeleport,
-      show: /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
-        id: composedId + "-vsi-user-data",
-        className: this.props.isModal ? "textInputWide" : "fieldWidthBigger",
-        placeholder: "Cloud init data",
-        labelText: "User Data",
-        name: "user_data",
-        value: this.state.user_data || "",
-        onChange: this.handleInputChange,
-        invalidText: "Invalid error message."
-      }))
-    }), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
-      name: "Block Storage",
-      subHeading: true,
-      addText: "Create a Block Storage Volume",
-      arrayData: this.props.data.volumes,
-      innerForm: VsiVolumeForm,
-      disableSave: this.props.vsiVolumeProps.disableSave,
-      onDelete: this.props.vsiVolumeProps.onDelete,
-      onSave: this.props.vsiVolumeProps.onSave,
-      onSubmit: this.props.vsiVolumeProps.onSubmit,
-      propsMatchState: this.props.propsMatchState,
-      innerFormProps: {
-        ...volumeProps
-      },
-      hideAbout: true,
-      toggleFormProps: {
-        hideName: true,
-        submissionFieldName: "volumes",
-        disableSave: this.props.vsiVolumeProps.disableSave,
-        type: "formInSubForm"
-      }
-    })));
-  }
-}
-VsiForm.defaultProps = {
-  data: {
-    name: "",
-    resource_group: "",
-    vpc: "",
-    subnet: "",
-    subnets: [],
-    ssh_keys: [],
-    security_groups: [],
-    vsi_per_subnet: 1,
-    encryption_key: "",
-    image_name: "",
-    profile: "",
-    enable_floating_ip: false
-  },
-  isModal: false,
-  isTeleport: false,
-  encryptionKeys: [],
-  resourceGroups: [],
-  securityGroups: [],
-  sshKeys: [],
-  subnetList: [],
-  vpcList: [],
-  apiEndpointImages: "",
-  apiEndpointInstanceProfiles: ""
-};
-VsiForm.propTypes = {
-  data: PropTypes__default["default"].shape({
-    name: PropTypes__default["default"].string,
-    resource_group: PropTypes__default["default"].string,
-    vpc: PropTypes__default["default"].string,
-    subnet: PropTypes__default["default"].string,
-    subnets: PropTypes__default["default"].array,
-    security_groups: PropTypes__default["default"].array,
-    vsi_per_subnet: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].string]),
-    image_name: PropTypes__default["default"].string,
-    profile: PropTypes__default["default"].string,
-    ssh_keys: PropTypes__default["default"].array,
-    encryption_key: PropTypes__default["default"].string,
-    enable_floating_ip: PropTypes__default["default"].bool
-  }).isRequired,
-  /* bools */
-  isModal: PropTypes__default["default"].bool.isRequired,
-  isTeleport: PropTypes__default["default"].bool.isRequired,
-  /* lists */
-  encryptionKeys: PropTypes__default["default"].array.isRequired,
-  resourceGroups: PropTypes__default["default"].array.isRequired,
-  securityGroups: PropTypes__default["default"].array.isRequired,
-  sshKeys: PropTypes__default["default"].array.isRequired,
-  subnetList: PropTypes__default["default"].array.isRequired,
-  vpcList: PropTypes__default["default"].array.isRequired,
-  /* api endpoints */
-  apiEndpointImages: PropTypes__default["default"].string.isRequired,
-  apiEndpointInstanceProfiles: PropTypes__default["default"].string.isRequired,
-  /* callbacks */
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  /* forms */
-  vsiVolumeProps: PropTypes__default["default"].shape({
-    onSave: PropTypes__default["default"].func.isRequired,
-    onDelete: PropTypes__default["default"].func.isRequired,
-    onSubmit: PropTypes__default["default"].func.isRequired,
-    disableSave: PropTypes__default["default"].func.isRequired,
-    encryptionKeys: PropTypes__default["default"].array.isRequired
-  }).isRequired
-};
-
 var css_248z = ".tileTitle {\n  font-size: 80%;\n  font-weight: bold;\n}\n\n.tileContent {\n  font-size: 90%;\n}\n";
 styleInject(css_248z);
 
@@ -13223,6 +13298,7 @@ exports.VpnServerForm = VpnServerForm;
 exports.VpnServerRouteForm = VpnServerRouteForm;
 exports.VsiForm = VsiForm;
 exports.VsiLoadBalancerForm = VsiLoadBalancerForm;
+exports.VsiTemplate = Vsi;
 exports.VsiVolumeForm = VsiVolumeForm;
 exports.WorkerPoolForm = WorkerPoolForm;
 exports.buildFormDefaultInputMethods = buildFormDefaultInputMethods;

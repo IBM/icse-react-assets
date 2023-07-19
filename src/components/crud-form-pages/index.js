@@ -1,10 +1,11 @@
+export { AppId } from "./AppId";
 export { Clusters } from "./Clusters";
-export { WorkerPools } from "./WorkerPools";
-export { ResourceGroups } from "./ResourceGroups";
-export { SecretsManager } from "./SecretsManager";
 export { KeyManagement } from "./KeyManagement";
 export { ObjectStorage } from "./ObjectStorage";
+export { ResourceGroups } from "./ResourceGroups";
+export { SecretsManager } from "./SecretsManager";
 export { TransitGateways } from "./TransitGateways";
-export { VpnGateways } from "./VpnGateways";
-export { AppId } from "./AppId";
 export { Vpcs } from "./Vpc";
+export { VpnGateways } from "./VpnGateways";
+export { Vsi } from "./Vsi";
+export { WorkerPools } from "./WorkerPools";
