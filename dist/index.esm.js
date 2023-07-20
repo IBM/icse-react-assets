@@ -4199,15 +4199,7 @@ class AppIdForm extends Component {
     let composedClassName = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
     return /*#__PURE__*/React.createElement("div", {
       id: "appid-form"
-    }, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
-      labelText: "Use Existing Instance",
-      key: this.state.use_data,
-      defaultToggled: this.state.use_data,
-      toggleFieldName: "use_data",
-      onToggle: this.handleToggle,
-      className: "fieldWidthSmallest",
-      id: `${this.props.data.name}-app-id-existing-instance`
-    }), /*#__PURE__*/React.createElement(IcseNameInput, {
+    }, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
       id: this.props.data.name + "-appid-name",
       componentName: this.props.data.name + "-appid-name",
       placeholder: "my-appid-name",
@@ -4227,6 +4219,23 @@ class AppIdForm extends Component {
       invalidText: "Select a Resource Group.",
       className: composedClassName,
       id: `${this.props.data.name}-app-id-rg`
+    }), /*#__PURE__*/React.createElement(IcseToggle, {
+      labelText: "Use Existing Instance",
+      key: this.state.use_data,
+      defaultToggled: this.state.use_data,
+      toggleFieldName: "use_data",
+      onToggle: this.handleToggle,
+      className: "fieldWidthSmallest",
+      id: `${this.props.data.name}-app-id-existing-instance`
+    })), this.state.use_data === false && /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+      value: this.state.encryption_key,
+      groups: this.props.encryptionKeys,
+      formName: this.props.data.name + " AppID",
+      name: "encryption_key",
+      className: "fieldWidth",
+      labelText: "(Optional) Encryption Key",
+      handleInputChange: this.handleInputChange,
+      disableInvalid: true
     })), this.props.isModal !== true && /*#__PURE__*/React.createElement(IcseFormTemplate, {
       name: "AppID Keys",
       subHeading: true,
@@ -4270,7 +4279,8 @@ AppIdForm.propTypes = {
   }).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   invalidCallback: PropTypes.func,
-  invalidTextCallback: PropTypes.func
+  invalidTextCallback: PropTypes.func,
+  encryptionKeys: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
 /**

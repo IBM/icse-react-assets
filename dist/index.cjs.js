@@ -4210,15 +4210,7 @@ class AppIdForm extends React.Component {
     let composedClassName = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
     return /*#__PURE__*/React__default["default"].createElement("div", {
       id: "appid-form"
-    }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      labelText: "Use Existing Instance",
-      key: this.state.use_data,
-      defaultToggled: this.state.use_data,
-      toggleFieldName: "use_data",
-      onToggle: this.handleToggle,
-      className: "fieldWidthSmallest",
-      id: `${this.props.data.name}-app-id-existing-instance`
-    }), /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+    }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       id: this.props.data.name + "-appid-name",
       componentName: this.props.data.name + "-appid-name",
       placeholder: "my-appid-name",
@@ -4238,6 +4230,23 @@ class AppIdForm extends React.Component {
       invalidText: "Select a Resource Group.",
       className: composedClassName,
       id: `${this.props.data.name}-app-id-rg`
+    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      labelText: "Use Existing Instance",
+      key: this.state.use_data,
+      defaultToggled: this.state.use_data,
+      toggleFieldName: "use_data",
+      onToggle: this.handleToggle,
+      className: "fieldWidthSmallest",
+      id: `${this.props.data.name}-app-id-existing-instance`
+    })), this.state.use_data === false && /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      value: this.state.encryption_key,
+      groups: this.props.encryptionKeys,
+      formName: this.props.data.name + " AppID",
+      name: "encryption_key",
+      className: "fieldWidth",
+      labelText: "(Optional) Encryption Key",
+      handleInputChange: this.handleInputChange,
+      disableInvalid: true
     })), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
       name: "AppID Keys",
       subHeading: true,
@@ -4281,7 +4290,8 @@ AppIdForm.propTypes = {
   }).isRequired,
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   invalidCallback: PropTypes__default["default"].func,
-  invalidTextCallback: PropTypes__default["default"].func
+  invalidTextCallback: PropTypes__default["default"].func,
+  encryptionKeys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
 };
 
 /**
