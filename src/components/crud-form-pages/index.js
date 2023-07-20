@@ -11,3 +11,4 @@ export { VpnGateways } from "./VpnGateways";
 export { Vsi } from "./Vsi";
 export { WorkerPools } from "./WorkerPools";
 export { VsiLoadBalancer } from "./VsiLoadBalancer";
+export { Dns } from "./Dns";
