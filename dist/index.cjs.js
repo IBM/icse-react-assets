@@ -8116,6 +8116,1257 @@ VsiLoadBalancer.propTypes = {
   vsiDeployments: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired
 };
 
+class DnsZoneForm extends React__default["default"].Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleMultiSelect = this.handleMultiSelect.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * handle vpc multiselect
+   * @param {event} event
+   */
+  handleMultiSelect(name, event) {
+    this.setState(this.setNameToValue(name, event));
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement("div", {
+      id: "dns-zone-form"
+    }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: this.props.data.name + "-dns-zone-name",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      hideHelperText: true,
+      invalidCallback: () => this.props.invalidNameCallback(this.state, this.props),
+      invalidText: this.props.invalidNameTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(VpcListMultiSelect, {
+      id: this.props.data.name + "-vpc-multiselect",
+      titleText: "Permitted Networks",
+      initialSelectedItems: this.state.vpcs,
+      vpcList: this.props.vpcList,
+      onChange: event => this.handleMultiSelect("vpcs", event),
+      invalid: this.state.vpcs.length === 0
+    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: this.props.data.label + "-dns-zone-label",
+      field: "label",
+      value: this.state.label,
+      onChange: this.handleInputChange,
+      invalidCallback: () => this.props.invalidLabelCallback(this.state, this.props),
+      invalidText: this.props.invalidLabelTextCallback(this.state, this.props)
+    })), /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
+      id: this.props.data.name + "-dns-zone-description",
+      className: "textInputWide",
+      name: "description",
+      value: this.state.description,
+      labelText: "Description",
+      onChange: this.handleInputChange,
+      enableCounter: true,
+      invalid: this.props.invalidDescriptionCallback(this.state, this.props),
+      invalidText: this.props.invalidDescriptionTextCallback(this.state, this.props)
+    }));
+  }
+}
+DnsZoneForm.defaultProps = {
+  data: {
+    name: "",
+    description: "",
+    label: "",
+    vpcs: []
+  },
+  vpcList: [],
+  isModal: false
+};
+DnsZoneForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    description: PropTypes__default["default"].string,
+    label: PropTypes__default["default"].string,
+    vpcs: PropTypes__default["default"].array
+  }),
+  invalidLabelCallback: PropTypes__default["default"].func.isRequired,
+  invalidLabelTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidNameCallback: PropTypes__default["default"].func.isRequired,
+  invalidNameTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidDescriptionCallback: PropTypes__default["default"].func.isRequired,
+  invalidDescriptionTextCallback: PropTypes__default["default"].func.isRequired,
+  vpcList: PropTypes__default["default"].array.isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired
+};
+
+class DnsCustomResolverForm extends React__default["default"].Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleMultiSelect = this.handleMultiSelect.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputChange(event) {
+    this.setState(forms_27(this.state, event));
+  }
+
+  /**
+   * Toggle on and off param in state at name
+   * @param {string} name name of the object key to change
+   */
+  handleToggle(name) {
+    this.setState(this.toggleStateBoolean(name, this.state));
+  }
+
+  /**
+   * handle subnet multiselect
+   * @param {value} value
+   */
+  handleMultiSelect(name, value) {
+    this.setState(this.setNameToValue(name, value));
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement("div", {
+      id: "dns-custom-resolver-form"
+    }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: this.props.data.name + "-dns-custom-resolver",
+      componentName: this.props.data.name + "-dns-custom-resolver",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      hideHelperText: true,
+      invalidCallback: () => this.props.invalidNameCallback(this.state, this.props),
+      invalidText: this.props.invalidNameTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      tooltip: {
+        content: "To meet high availability status, configure custom resolvers with a minimum of two resolver locations",
+        align: "bottom-left"
+      },
+      labelText: "High Availability",
+      defaultToggled: this.state.high_availability,
+      onToggle: this.handleToggle,
+      className: "fieldWidth",
+      toggleFieldName: "high_availability",
+      id: this.props.data.name + "-high-availability"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      labelText: "Enabled",
+      key: this.state.enabled,
+      defaultToggled: this.state.enabled,
+      onToggle: this.handleToggle,
+      className: "fieldWidth",
+      toggleFieldName: "enabled",
+      id: this.props.data.name + "-enabled"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: `${this.props.data.name}-dns-custom-resolver-vpc`,
+      name: "vpc",
+      labelText: "VPC",
+      groups: this.props.vpcList,
+      value: this.state.vpc,
+      handleInputChange: this.handleInputChange,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: "Select a VPC.",
+      className: "fieldWidth"
+    }), /*#__PURE__*/React__default["default"].createElement(SubnetMultiSelect, {
+      key: this.state.vpc,
+      id: this.props.data.name + "-dns-resolver-subnets",
+      initialSelectedItems: [...this.state.subnets],
+      vpc_name: this.state.vpc,
+      onChange: event => this.handleMultiSelect("subnets", event),
+      subnets: [...this.getSubnetList()],
+      className: "fieldWidth"
+    })), /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
+      id: this.props.data.name + "-dns-resolver-description",
+      className: "textInputWide",
+      name: "description",
+      value: this.state.description,
+      labelText: "Description",
+      onChange: this.handleInputChange,
+      enableCounter: true,
+      invalid: this.props.invalidDescriptionCallback(this.state, this.props),
+      invalidText: this.props.invalidDescriptionTextCallback(this.state, this.props)
+    }));
+  }
+}
+DnsCustomResolverForm.defaultProps = {
+  data: {
+    name: "",
+    description: "",
+    high_availability: true,
+    enabled: false,
+    vpc: "",
+    subnets: []
+  },
+  isModal: false
+};
+DnsCustomResolverForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    description: PropTypes__default["default"].string,
+    enabled: PropTypes__default["default"].bool,
+    high_availability: PropTypes__default["default"].bool,
+    vpc: PropTypes__default["default"].string,
+    subnets: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string)
+  }),
+  invalidNameCallback: PropTypes__default["default"].func.isRequired,
+  invalidNameTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidDescriptionCallback: PropTypes__default["default"].func.isRequired,
+  invalidDescriptionTextCallback: PropTypes__default["default"].func.isRequired,
+  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  subnetList: PropTypes__default["default"].array.isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired
+};
+
+/**
+ * DnsRecordForm
+ * @param {Object} props
+ */
+class DnsRecordForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  render() {
+    let dnsComponent = this.props.isModal ? "new-dns-record" : this.props.data.name;
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: dnsComponent + "-name",
+      labelText: "DNS Record Name",
+      componentName: dnsComponent,
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props),
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      name: "dns_zone",
+      formName: dnsComponent + "-dns-zone",
+      labelText: "DNS Zone",
+      groups: this.props.dnsZones,
+      value: this.state.dns_zone,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a DNS Zone.",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      name: "type",
+      formName: dnsComponent + "-type",
+      labelText: "DNS Record Type",
+      groups: ["A", "AAAA", "CNAME", "PTR", "TXT", "MX", "SRV"],
+      value: this.state.type,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a DNS Record Type.",
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      componentName: "DNS Record",
+      field: "rdata",
+      labelText: "Resource Data",
+      value: this.state.rdata,
+      id: this.state.name + "-rdata",
+      onChange: this.handleInputChange,
+      invalidCallback: () => this.props.invalidRdata(this.state, this.props),
+      invalidText: this.props.invalidRdataText(this.state, this.props),
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      label: "Time To Live (s)",
+      id: dnsComponent + "-ttl",
+      allowEmpty: true,
+      value: this.state.ttl,
+      onChange: this.handleInputChange,
+      name: "ttl",
+      hideSteppers: true,
+      min: 300,
+      max: 2147483647,
+      invalid: iamUtils_3(this.state.ttl, 300, 2147483647),
+      invalidText: "Must be a whole number (representing seconds) within range 300 to 2147483647",
+      className: "fieldWidthSmaller"
+    }), this.state.type === "MX" && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      label: "Preference",
+      id: dnsComponent + "-preference",
+      value: this.state.preference,
+      onChange: this.handleInputChange,
+      name: "preference",
+      hideSteppers: true,
+      min: 0,
+      max: 65535,
+      step: 1,
+      invalid: iamUtils_3(this.state.preference, 0, 65535),
+      invalidText: "Must be a whole number within range 0 and 65535.",
+      className: "fieldWidthSmaller"
+    }))), this.state.type === "SRV" && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      label: "DNS Record Port",
+      id: dnsComponent + "-port",
+      value: this.state.port,
+      onChange: this.handleInputChange,
+      name: "port",
+      hideSteppers: true,
+      min: 1,
+      max: 65535,
+      step: 1,
+      invalid: iamUtils_3(this.state.port, 1, 65535),
+      invalidText: "Must be a whole number between 1 and 65535",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: dnsComponent + "-protocol",
+      name: "protocol",
+      groups: ["TCP", "UDP"],
+      value: this.state.protocol,
+      labelText: "DNS Record Protocol",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      label: "DNS Record Priority",
+      id: dnsComponent + "-priority",
+      value: this.state.priority,
+      onChange: this.handleInputChange,
+      name: "priority",
+      hideSteppers: true,
+      min: 0,
+      max: 65535,
+      step: 1,
+      invalid: iamUtils_3(this.state.priority, 0, 65535),
+      invalidText: "Must be a whole number between 0 and 65535",
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: dnsComponent + "-service",
+      componentName: "DNS Record",
+      field: "service",
+      value: this.state.service,
+      onChange: this.handleInputChange,
+      labelText: "DNS Record Service",
+      invalid: lib_9(this.state.service) || this.state.service === undefined ? true : this.state.service.charAt(0) !== "_",
+      invalidText: "Service must start with a '_'.",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      label: "DNS Record Weight",
+      id: dnsComponent + "-weight",
+      value: this.state.weight,
+      onChange: this.handleInputChange,
+      name: "weight",
+      hideSteppers: true,
+      min: 0,
+      max: 65535,
+      step: 1,
+      invalid: iamUtils_3(this.state.weight, 0, 65535),
+      invalidText: "Must be a whole number between 0 and 65535",
+      className: "fieldWidthSmaller"
+    }))));
+  }
+}
+DnsRecordForm.defaultProps = {
+  isModal: false,
+  data: {
+    name: "",
+    dns_zone: "",
+    type: "",
+    rdata: "",
+    ttl: 300
+  },
+  invalidCallback: () => {
+    return false;
+  },
+  invalidTextCallback: () => {
+    return "Invalid";
+  },
+  helperTextCallback: () => {
+    return "";
+  },
+  dnsZones: []
+};
+DnsRecordForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    dns_zone: PropTypes__default["default"].string.isRequired,
+    type: PropTypes__default["default"].string.isRequired,
+    rdata: PropTypes__default["default"].string.isRequired,
+    ttl: PropTypes__default["default"].string.isRequired,
+    port: PropTypes__default["default"].string,
+    protocol: PropTypes__default["default"].string,
+    priority: PropTypes__default["default"].string,
+    service: PropTypes__default["default"].string,
+    weight: PropTypes__default["default"].string,
+    preference: PropTypes__default["default"].string
+  }).isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  helperTextCallback: PropTypes__default["default"].func.isRequired,
+  dnsZones: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired
+};
+
+/**
+ * Context-based restriction rules
+ */
+class DnsForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    buildFormFunctions(this);
+  }
+  handleInputChange(event) {
+    this.setState(forms_28(event));
+  }
+  render() {
+    // set up props for subforms
+    let zoneInnerFormProps = {};
+    lazyZ.transpose({
+      ...this.props.zoneProps,
+      arrayParentName: this.props.data.name
+    }, zoneInnerFormProps);
+    let recordInnerFormProps = {};
+    lazyZ.transpose({
+      ...this.props.recordProps,
+      arrayParentName: this.props.data.name
+    }, recordInnerFormProps);
+    let resolverInnerFormProps = {};
+    lazyZ.transpose({
+      ...this.props.resolverProps,
+      arrayParentName: this.props.data.name
+    }, resolverInnerFormProps);
+    return /*#__PURE__*/React__default["default"].createElement("div", {
+      id: "dns-form-" + this.props.data.name
+    }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: this.props.data.name + "-dns",
+      componentName: this.props.data.name + "-dns",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      hideHelperText: true,
+      invalidCallback: () => this.props.invalidNameCallback(this.state, this.props),
+      invalidText: this.props.invalidNameTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      id: this.props.data.name + "-dns-plan",
+      name: "plan",
+      className: "fieldWidthSmaller",
+      value: lazyZ.titleCase(this.state.plan),
+      labelText: "Plan",
+      groups: ["Free", "Standard"],
+      formName: "dns-form",
+      handleInputChange: this.handleInputChange
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      name: "resource_group",
+      formName: `${this.props.data.name}-dns-rg-select`,
+      groups: this.props.resourceGroups,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a Resource Group.",
+      labelText: "Resource Group"
+    })), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+      name: "Zones",
+      subHeading: true,
+      addText: "Create a DNS Zone",
+      arrayData: this.props.data.zones,
+      innerForm: DnsZoneForm,
+      disableSave: this.props.zoneProps.disableSave,
+      onDelete: this.props.zoneProps.onDelete,
+      onSave: this.props.zoneProps.onSave,
+      onSubmit: this.props.zoneProps.onSubmit,
+      propsMatchState: this.props.propsMatchState,
+      innerFormProps: {
+        ...zoneInnerFormProps
+      },
+      hideAbout: true,
+      toggleFormProps: {
+        hideName: true,
+        submissionFieldName: "zones",
+        disableSave: this.props.zoneProps.disableSave,
+        type: "formInSubForm"
+      }
+    }), /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+      name: "Records",
+      subHeading: true,
+      addText: "Create a DNS Record",
+      arrayData: this.props.data.records,
+      innerForm: DnsRecordForm,
+      disableSave: this.props.recordProps.disableSave,
+      onDelete: this.props.recordProps.onDelete,
+      onSave: this.props.recordProps.onSave,
+      onSubmit: this.props.recordProps.onSubmit,
+      propsMatchState: this.props.propsMatchState,
+      innerFormProps: {
+        ...recordInnerFormProps
+      },
+      hideAbout: true,
+      toggleFormProps: {
+        hideName: true,
+        submissionFieldName: "records",
+        disableSave: this.props.recordProps.disableSave,
+        type: "formInSubForm"
+      }
+    }), /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+      name: "Custom Resolvers",
+      subHeading: true,
+      addText: "Create a Custom Resolver",
+      arrayData: this.props.data.custom_resolvers,
+      innerForm: DnsCustomResolverForm,
+      disableSave: this.props.resolverProps.disableSave,
+      onDelete: this.props.resolverProps.onDelete,
+      onSave: this.props.resolverProps.onSave,
+      onSubmit: this.props.resolverProps.onSubmit,
+      propsMatchState: this.props.propsMatchState,
+      innerFormProps: {
+        ...resolverInnerFormProps
+      },
+      hideAbout: true,
+      toggleFormProps: {
+        hideName: true,
+        submissionFieldName: "custom_resolvers",
+        disableSave: this.props.resolverProps.disableSave,
+        type: "formInSubForm"
+      }
+    })));
+  }
+}
+DnsForm.defaultProps = {
+  isModal: false,
+  data: {
+    name: "",
+    plan: "free",
+    resource_group: "service-rg",
+    zones: [],
+    records: [],
+    custom_resolvers: []
+  }
+};
+DnsForm.propTypes = {
+  isModal: PropTypes__default["default"].bool.isRequired,
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    plan: PropTypes__default["default"].string.isRequired,
+    resource_group: PropTypes__default["default"].string,
+    zones: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({
+      name: PropTypes__default["default"].string.isRequired,
+      description: PropTypes__default["default"].string,
+      label: PropTypes__default["default"].string,
+      vpcs: PropTypes__default["default"].array
+    })),
+    records: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({
+      name: PropTypes__default["default"].string.isRequired,
+      dns_zone: PropTypes__default["default"].string.isRequired,
+      type: PropTypes__default["default"].string.isRequired,
+      rdata: PropTypes__default["default"].string.isRequired,
+      ttl: PropTypes__default["default"].number.isRequired
+    })),
+    custom_resolvers: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({
+      name: PropTypes__default["default"].string.isRequired,
+      description: PropTypes__default["default"].string,
+      enabled: PropTypes__default["default"].bool,
+      high_availability: PropTypes__default["default"].bool,
+      vpc: PropTypes__default["default"].string,
+      subnets: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string)
+    }))
+  }),
+  zoneProps: PropTypes__default["default"].shape({
+    onSave: PropTypes__default["default"].func.isRequired,
+    onDelete: PropTypes__default["default"].func.isRequired,
+    onSubmit: PropTypes__default["default"].func.isRequired,
+    disableSave: PropTypes__default["default"].func.isRequired,
+    invalidLabelCallback: PropTypes__default["default"].func.isRequired,
+    invalidLabelTextCallback: PropTypes__default["default"].func.isRequired,
+    invalidDescriptionCallback: PropTypes__default["default"].func.isRequired,
+    invalidDescriptionTextCallback: PropTypes__default["default"].func.isRequired,
+    invalidNameCallback: PropTypes__default["default"].func.isRequired,
+    invalidNameTextCallback: PropTypes__default["default"].func.isRequired
+  }),
+  resolverProps: PropTypes__default["default"].shape({
+    onSave: PropTypes__default["default"].func.isRequired,
+    onDelete: PropTypes__default["default"].func.isRequired,
+    onSubmit: PropTypes__default["default"].func.isRequired,
+    disableSave: PropTypes__default["default"].func.isRequired,
+    subnetList: PropTypes__default["default"].array.isRequired,
+    vpcList: PropTypes__default["default"].array.isRequired,
+    invalidCallback: PropTypes__default["default"].func.isRequired,
+    invalidTextCallback: PropTypes__default["default"].func.isRequired,
+    invalidDescriptionCallback: PropTypes__default["default"].func.isRequired,
+    invalidDescriptionTextCallback: PropTypes__default["default"].func.isRequired,
+    invalidNameCallback: PropTypes__default["default"].func.isRequired,
+    invalidNameTextCallback: PropTypes__default["default"].func.isRequired
+  }),
+  recordProps: PropTypes__default["default"].shape({
+    onSave: PropTypes__default["default"].func.isRequired,
+    onDelete: PropTypes__default["default"].func.isRequired,
+    onSubmit: PropTypes__default["default"].func.isRequired,
+    disableSave: PropTypes__default["default"].func.isRequired,
+    invalidCallback: PropTypes__default["default"].func.isRequired,
+    invalidTextCallback: PropTypes__default["default"].func.isRequired,
+    invalidRdata: PropTypes__default["default"].func.isRequired,
+    invalidRdataText: PropTypes__default["default"].func.isRequired,
+    dnsZones: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+  })
+};
+
+const Dns = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "DNS Service",
+    addText: "Create a DNS service",
+    innerForm: DnsForm,
+    craig: props.craig,
+    arrayData: props.dns,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    docs: props.docs,
+    innerFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      invalidNameCallback: props.invalidCallback,
+      invalidNameTextCallback: props.invalidTextCallback,
+      vpcList: props.vpcList,
+      subnetList: props.subnetList,
+      resourceGroups: props.resourceGroups,
+      propsMatchState: props.propsMatchState,
+      zoneProps: {
+        craig: props.craig,
+        onSave: props.onZoneSave,
+        onDelete: props.onZoneDelete,
+        onSubmit: props.onZoneSubmit,
+        disableSave: props.disableSave,
+        invalidNameCallback: props.invalidZoneNameCallback,
+        invalidNameTextCallback: props.invalidZoneNameTextCallback,
+        invalidLabelCallback: props.invalidLabelCallback,
+        invalidLabelTextCallback: () => {
+          return "Label cannot be null or empty string.";
+        },
+        invalidDescriptionCallback: props.invalidDescriptionCallback,
+        invalidDescriptionTextCallback: props.invalidDescriptionTextCallback,
+        vpcList: props.vpcList,
+        propsMatchState: props.propsMatchState
+      },
+      recordProps: {
+        craig: props.craig,
+        disableSave: props.disableSave,
+        onSave: props.onRecordSave,
+        onDelete: props.onRecordDelete,
+        onSubmit: props.onRecordSubmit,
+        invalidCallback: props.invalidRecordCallback,
+        invalidTextCallback: props.invalidRecordTextCallback,
+        invalidRdata: props.invalidRdataCallback,
+        dnsZones: props.dnsZones,
+        invalidRdataText: () => {
+          return "Resource Data cannot be null or empty string.";
+        },
+        propsMatchState: props.propsMatchState
+      },
+      resolverProps: {
+        craig: props.craig,
+        onSave: props.onResolverSave,
+        onSubmit: props.onResolverSubmit,
+        onDelete: props.onResolverDelete,
+        disableSave: props.disableSave,
+        invalidNameCallback: props.invalidResolverNameCallback,
+        invalidNameTextCallback: props.invalidResolverNameTextCallback,
+        invalidCallback: () => {},
+        // these are only used on a select which handles its own invalid state
+        invalidTextCallback: () => {},
+        invalidDescriptionCallback: props.invalidResolverDescriptionCallback,
+        invalidDescriptionTextCallback: props.invalidResolverDescriptionTextCallback,
+        subnetList: props.subnetList,
+        vpcList: props.vpcList,
+        propsMatchState: props.propsMatchState
+      }
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "dns",
+      hideName: true
+    }
+  });
+};
+Dns.propTypes = {
+  craig: PropTypes__default["default"].shape({}).isRequired,
+  dns: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  disableSave: PropTypes__default["default"].func,
+  propsMatchState: PropTypes__default["default"].func,
+  onDelete: PropTypes__default["default"].func,
+  onSave: PropTypes__default["default"].func,
+  onSubmit: PropTypes__default["default"].func,
+  forceOpen: PropTypes__default["default"].func,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  onZoneSave: PropTypes__default["default"].func.isRequired,
+  onZoneDelete: PropTypes__default["default"].func.isRequired,
+  onZoneSubmit: PropTypes__default["default"].func.isRequired,
+  invalidZoneNameCallback: PropTypes__default["default"].func.isRequired,
+  invalidZoneNameTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidLabelCallback: PropTypes__default["default"].func.isRequired,
+  invalidDescriptionCallback: PropTypes__default["default"].func.isRequired,
+  invalidDescriptionTextCallback: PropTypes__default["default"].func.isRequired,
+  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string),
+  onRecordSave: PropTypes__default["default"].func.isRequired,
+  onRecordDelete: PropTypes__default["default"].func.isRequired,
+  onRecordSubmit: PropTypes__default["default"].func.isRequired,
+  invalidRecordCallback: PropTypes__default["default"].func.isRequired,
+  invalidRecordTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidRdataCallback: PropTypes__default["default"].func.isRequired,
+  dnsZones: PropTypes__default["default"].array,
+  onResolverSave: PropTypes__default["default"].func.isRequired,
+  onResolverSubmit: PropTypes__default["default"].func.isRequired,
+  onResolverDelete: PropTypes__default["default"].func.isRequired,
+  invalidResolverNameCallback: PropTypes__default["default"].func.isRequired,
+  invalidResolverNameTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidResolverDescriptionCallback: PropTypes__default["default"].func.isRequired,
+  invalidResolverDescriptionTextCallback: PropTypes__default["default"].func.isRequired,
+  subnetList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].object).isRequired,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+};
+
+class RoutingTableRouteForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    if (!lazyZ.isNullOrEmptyString(this.state.action) && this.state.action !== "deliver") {
+      this.state.next_hop = "0.0.0.0";
+    }
+    this.handleInputChange = this.handleInputChange.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputChange(event) {
+    this.setState(routingTable_1(this.state, event));
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: this.props.data.name + "-route-name",
+      hideHelperText: true,
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
+      formName: "routing-table-route",
+      value: this.state.zone || "",
+      min: 1,
+      max: 3,
+      name: "zone",
+      labelText: "Route Zone",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: this.props.data.name + "-route-destination",
+      name: "destination",
+      field: "destination",
+      value: this.state.destination,
+      placeholder: "x.x.x.x",
+      labelText: "Destination IP or CIDR",
+      invalidCallback: () => lazyZ.isIpv4CidrOrAddress(this.state.destination) === false,
+      invalidText: "Destination must be a valid IP or IPV4 CIDR block",
+      onChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      name: "action",
+      formName: this.props.data.name + "-routing-table-route-action",
+      groups: ["Delegate", "Deliver", "Delegate VPC", "Drop"],
+      labelText: "Action",
+      handleInputChange: this.handleInputChange,
+      value: lazyZ.titleCase(this.state.action),
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: this.props.data.name + "-next-hop",
+      field: "next_hop",
+      value: this.state.next_hop,
+      placeholder: "x.x.x.x",
+      invalidCallback: () => lazyZ.isNullOrEmptyString(this.state.next_hop) || lazyZ.isIpv4CidrOrAddress(this.state.next_hop) === false || lazyZ.contains(this.state.next_hop, `/`),
+      invalidText: "Next hop must be a valid IP",
+      onChange: this.handleInputChange,
+      disabled: this.state.action !== "deliver",
+      className: "fieldWidthSmaller"
+    })));
+  }
+}
+RoutingTableRouteForm.defaultProps = {
+  data: {
+    name: "",
+    zone: "",
+    destination: "",
+    action: "",
+    next_hop: ""
+  }
+};
+RoutingTableRouteForm.propTypes = {
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    destination: PropTypes__default["default"].string.isRequired,
+    action: PropTypes__default["default"].string.isRequired,
+    next_hop: PropTypes__default["default"].string,
+    zone: PropTypes__default["default"].number
+  }).isRequired
+};
+
+class RoutingTableForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    if (this.props.isModal) this.state.routes = [];
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  handleToggle(name) {
+    this.setState(this.toggleStateBoolean(name, this.state));
+  }
+  render() {
+    let composedId = this.props.data.name + "-route-form";
+    let innerFormProps = {
+      arrayParentName: this.props.data.name,
+      route: this.props.data,
+      invalidTextCallback: this.props.invalidRouteTextCallback,
+      invalidCallback: this.props.invalidRouteCallback
+    };
+    lazyZ.transpose({
+      ...this.props.routeProps
+    }, innerFormProps);
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      componentName: "routing-table-route",
+      id: this.props.data.name + "-route-name",
+      hideHelperText: true,
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: composedId + "-vpc",
+      name: "vpc",
+      labelText: "VPC",
+      groups: this.props.vpcList,
+      value: this.state.vpc,
+      handleInputChange: this.handleInputChange,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: "Select a VPC."
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      id: composedId + "-direct-link-toggle",
+      labelText: "Direct Link Ingress",
+      defaultToggled: this.state.route_direct_link_ingress,
+      name: "route_direct_link_ingress",
+      onToggle: this.handleToggle,
+      tooltip: {
+        content: "If set to true, the routing table is used to route traffic that originates from Direct Link to the VPC. To succeed, the VPC must not already have a routing table with the property set to true",
+        align: "bottom-left",
+        alignModal: "bottom-left"
+      }
+    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      id: composedId + "-route-internet-toggle",
+      labelText: "Internet Ingress",
+      defaultToggled: this.state.route_internet_ingress,
+      name: "route_internet_ingress",
+      onToggle: this.handleToggle,
+      tooltip: {
+        content: "If set to true, this routing table will be used to route traffic that originates from the internet. For this to succeed, the VPC must not already have a routing table with this property set to true",
+        align: "bottom-left",
+        alignModal: "bottom-left"
+      }
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      id: composedId + "-tgw-ingress",
+      labelText: "Transit Gateway Ingress",
+      defaultToggled: this.state.route_transit_gateway_ingress,
+      name: "route_transit_gateway_ingress",
+      onToggle: this.handleToggle,
+      tooltip: {
+        content: "If set to true, the routing table is used to route traffic that originates from Transit Gateway to the VPC. To succeed, the VPC must not already have a routing table with the property set to true",
+        align: "bottom-left",
+        alignModal: "bottom-left"
+      }
+    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      id: composedId + "-zone-ingress",
+      labelText: "VPC Zone Ingress",
+      defaultToggled: this.state.route_vpc_zone_ingress,
+      name: "route_vpc_zone_ingress",
+      onToggle: this.handleToggle,
+      tooltip: {
+        content: "If set to true, the routing table is used to route traffic that originates from subnets in other zones in the VPC. To succeed, the VPC must not already have a routing table with the property set to true",
+        align: "bottom-left",
+        alignModal: "bottom-left"
+      }
+    })), this.props.isModal === false && /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+      name: "Routes",
+      subHeading: true,
+      addText: "Create a Route",
+      arrayData: this.props.data.routes,
+      innerForm: RoutingTableRouteForm,
+      disableSave: this.props.routeProps.disableSave,
+      onDelete: this.props.routeProps.onDelete,
+      onSave: this.props.routeProps.onSave,
+      onSubmit: this.props.routeProps.onSubmit,
+      propsMatchState: this.props.propsMatchState,
+      innerFormProps: {
+        ...innerFormProps
+      },
+      hideAbout: true,
+      toggleFormProps: {
+        hideName: true,
+        submissionFieldName: "routes",
+        disableSave: this.props.routeProps.disableSave,
+        type: "formInSubForm"
+      }
+    }));
+  }
+}
+RoutingTableForm.defaultProps = {
+  isModal: false,
+  data: {
+    name: "",
+    vpc: null,
+    routes: [],
+    route_internet_ingress: false,
+    route_transit_gateway_ingress: false,
+    route_vpc_zone_ingress: false,
+    route_direct_link_ingress: false
+  }
+};
+RoutingTableForm.propTypes = {
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    vpc: PropTypes__default["default"].string,
+    routes: PropTypes__default["default"].array.isRequired,
+    route_internet_ingress: PropTypes__default["default"].bool.isRequired,
+    route_transit_gateway_ingress: PropTypes__default["default"].bool.isRequired,
+    route_vpc_zone_ingress: PropTypes__default["default"].bool.isRequired,
+    route_direct_link_ingress: PropTypes__default["default"].bool.isRequired
+  }).isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  invalidRouteCallback: PropTypes__default["default"].func.isRequired,
+  invalidRouteTextCallback: PropTypes__default["default"].func.isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired,
+  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  routeProps: PropTypes__default["default"].shape({
+    disableSave: PropTypes__default["default"].func.isRequired,
+    onDelete: PropTypes__default["default"].func.isRequired,
+    onSubmit: PropTypes__default["default"].func.isRequired,
+    onSave: PropTypes__default["default"].func.isRequired
+  }).isRequired
+};
+
+const RoutingTables = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "Routing Tables",
+    addText: "Create a Routing Table",
+    innerForm: RoutingTableForm,
+    arrayData: props.routing_tables,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    docs: props.docs,
+    innerFormProps: {
+      propsMatchState: props.propsMatchState,
+      craig: props.craig,
+      disableSave: props.disableSave,
+      vpcList: props.vpcList,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      invalidRouteCallback: props.invalidRouteCallback,
+      invalidRouteTextCallback: props.invalidRouteTextCallback,
+      routeProps: {
+        disableSave: props.disableSave,
+        onSave: props.onRouteSave,
+        onDelete: props.onRouteDelete,
+        onSubmit: props.onRouteSubmit,
+        craig: props.craig
+      }
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "routing_tables",
+      hideName: true
+    }
+  });
+};
+RoutingTables.propTypes = {
+  routing_tables: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  disableSave: PropTypes__default["default"].func,
+  propsMatchState: PropTypes__default["default"].func,
+  onDelete: PropTypes__default["default"].func,
+  onSave: PropTypes__default["default"].func,
+  onSubmit: PropTypes__default["default"].func,
+  forceOpen: PropTypes__default["default"].func,
+  craig: PropTypes__default["default"].shape({}),
+  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string),
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidRouteTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidRouteCallback: PropTypes__default["default"].func.isRequired,
+  onRouteSave: PropTypes__default["default"].func.isRequired,
+  onRouteDelete: PropTypes__default["default"].func.isRequired,
+  onRouteSubmit: PropTypes__default["default"].func.isRequired
+};
+
+/**
+ *  handle allowed ips for event streams
+ * @param {Object} event
+ * @param {Object} stateData
+ * @returns {Object} new state
+ */
+function handleAllowedIps$1(event, stateData) {
+  let state = {
+    ...stateData
+  };
+  // removing white space and checking for empty value
+  let value = event.target.value.replace(/\s*/g, "");
+  state.private_ip_allowlist = value;
+  return state;
+}
+
+/**
+ * handle plan change for event streams
+ * @param {Object} event
+ * @param {Object} stateData
+ * @returns {Object} new state
+ */
+function handlePlanChange(event, stateData) {
+  let state = {
+    ...stateData
+  };
+  let value = event.target.value.toLowerCase();
+  state.plan = value;
+  if (value !== "enterprise") {
+    state = {
+      ...state,
+      throughput: "",
+      storage_size: "",
+      private_ip_allowlist: ""
+    };
+  }
+  return state;
+}
+var eventStreams = {
+  handleAllowedIps: handleAllowedIps$1,
+  handlePlanChange
+};
+var eventStreams_1 = eventStreams.handleAllowedIps;
+var eventStreams_2 = eventStreams.handlePlanChange;
+
+/**
+ * EventStreamsForm
+ */
+class EventStreamsForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleAllowedIps = this.handleAllowedIps.bind(this);
+    this.handlePlanChange = this.handlePlanChange.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+
+  /**
+   * Handle input change for allowed ips text field
+   * @param {event} event
+   */
+  handleAllowedIps(event) {
+    this.setState(eventStreams_1(event, this.state));
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * Handle input change for a select
+   * @param {event} event
+   */
+  handlePlanChange(event) {
+    this.setState(eventStreams_2(event, this.state));
+  }
+  render() {
+    let composedId = `event-streams-form-${this.props.data.name}`;
+    let classNameModalCheck = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: composedId,
+      componentName: this.props.data.name + "-event-streams",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      hideHelperText: true,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      className: classNameModalCheck
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: this.props.data.name + "-event-streams",
+      value: lazyZ.titleCase(this.state.plan),
+      groups: ["Lite", "Standard", "Enterprise"],
+      handleInputChange: this.handlePlanChange,
+      className: classNameModalCheck,
+      name: "plan",
+      labelText: "Plan"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: this.props.data.name + "-event-streams",
+      value: this.state.resource_group,
+      groups: this.props.resourceGroups,
+      handleInputChange: this.handleInputChange,
+      className: classNameModalCheck,
+      name: "resource_group",
+      labelText: "Resource Group"
+    })), this.state.plan === "enterprise" && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: this.props.data.name + "-event-streams",
+      value: this.state.throughput,
+      groups: ["150MB/s", "300MB/s", "450MB/s"],
+      handleInputChange: this.handleInputChange,
+      className: classNameModalCheck,
+      name: "throughput",
+      labelText: "Throughput"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: this.props.data.name + "-event-streams",
+      value: this.state.storage_size,
+      groups: ["2TB", "4TB", "6TB", "8TB", "10TB", "12TB"],
+      handleInputChange: this.handleInputChange,
+      className: classNameModalCheck,
+      name: "storage_size",
+      labelText: "Storage Size"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
+      tooltip: {
+        content: "Private IP addresses or CIDR blocks to allowlist",
+        align: "top-left"
+      },
+      className: "textInputMedium",
+      innerForm: react.TextArea,
+      id: this.props.data.name + "-event-streams-private-ips",
+      labelText: "Allowed Private IPs",
+      onChange: this.handleAllowedIps,
+      placeholder: this.state.private_ip_allowlist || "X.X.X.X, X.X.X.X/X, ...",
+      invalid: iamUtils_1(this.state.private_ip_allowlist),
+      invalidText: "Please enter a comma separated list of IP addresses or CIDR blocks"
+    }))));
+  }
+}
+EventStreamsForm.defaultProps = {
+  data: {
+    name: "",
+    plan: "lite",
+    resource_group: "",
+    throughput: "",
+    storage_size: "",
+    private_ip_allowlist: ""
+  }
+};
+EventStreamsForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    plan: PropTypes__default["default"].string.isRequired,
+    resource_group: PropTypes__default["default"].string,
+    throughput: PropTypes__default["default"].string,
+    storage_size: PropTypes__default["default"].string,
+    private_ip_allowlist: PropTypes__default["default"].string
+  }),
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired
+};
+
+const EventStreams = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "Event Streams",
+    addText: "Create an Event Streams Service",
+    docs: props.docs,
+    innerForm: EventStreamsForm,
+    arrayData: props.event_streams,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    innerFormProps: {
+      craig: props.craig,
+      resourceGroups: props.resourceGroups,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      propsMatchState: props.propsMatchState,
+      disableSave: props.disableSave
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "event_streams",
+      hide: true,
+      hideName: true
+    }
+  });
+};
+EventStreams.propTypes = {
+  event_streams: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  onDelete: PropTypes__default["default"].func.isRequired,
+  onSave: PropTypes__default["default"].func.isRequired,
+  onSubmit: PropTypes__default["default"].func.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  forceOpen: PropTypes__default["default"].func.isRequired,
+  resourceGroups: PropTypes__default["default"].array.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  craig: PropTypes__default["default"].shape({}),
+  docs: PropTypes__default["default"].func.isRequired
+};
+
 class ClusterForm extends React.Component {
   constructor(props) {
     super(props);
@@ -8364,174 +9615,6 @@ ClusterForm.propTypes = {
     onSubmit: PropTypes__default["default"].func.isRequired,
     disableSave: PropTypes__default["default"].func.isRequired
   }).isRequired
-};
-
-/**
- *  handle allowed ips for event streams
- * @param {Object} event
- * @param {Object} stateData
- * @returns {Object} new state
- */
-function handleAllowedIps$1(event, stateData) {
-  let state = {
-    ...stateData
-  };
-  // removing white space and checking for empty value
-  let value = event.target.value.replace(/\s*/g, "");
-  state.private_ip_allowlist = value;
-  return state;
-}
-
-/**
- * handle plan change for event streams
- * @param {Object} event
- * @param {Object} stateData
- * @returns {Object} new state
- */
-function handlePlanChange(event, stateData) {
-  let state = {
-    ...stateData
-  };
-  let value = event.target.value.toLowerCase();
-  state.plan = value;
-  if (value !== "enterprise") {
-    state = {
-      ...state,
-      throughput: "",
-      storage_size: "",
-      private_ip_allowlist: ""
-    };
-  }
-  return state;
-}
-var eventStreams = {
-  handleAllowedIps: handleAllowedIps$1,
-  handlePlanChange
-};
-var eventStreams_1 = eventStreams.handleAllowedIps;
-var eventStreams_2 = eventStreams.handlePlanChange;
-
-/**
- * EventStreamsForm
- */
-class EventStreamsForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleAllowedIps = this.handleAllowedIps.bind(this);
-    this.handlePlanChange = this.handlePlanChange.bind(this);
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-  }
-
-  /**
-   * Handle input change for allowed ips text field
-   * @param {event} event
-   */
-  handleAllowedIps(event) {
-    this.setState(eventStreams_1(event, this.state));
-  }
-
-  /**
-   * handle input change
-   * @param {event} event event
-   */
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-
-  /**
-   * Handle input change for a select
-   * @param {event} event
-   */
-  handlePlanChange(event) {
-    this.setState(eventStreams_2(event, this.state));
-  }
-  render() {
-    let composedId = `event-streams-form-${this.props.data.name}`;
-    let classNameModalCheck = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: composedId,
-      componentName: this.props.data.name + "-event-streams",
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      hideHelperText: true,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props),
-      className: classNameModalCheck
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: this.props.data.name + "-event-streams",
-      value: lazyZ.titleCase(this.state.plan),
-      groups: ["Lite", "Standard", "Enterprise"],
-      handleInputChange: this.handlePlanChange,
-      className: classNameModalCheck,
-      name: "plan",
-      labelText: "Plan"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: this.props.data.name + "-event-streams",
-      value: this.state.resource_group,
-      groups: this.props.resourceGroups,
-      handleInputChange: this.handleInputChange,
-      className: classNameModalCheck,
-      name: "resource_group",
-      labelText: "Resource Group"
-    })), this.state.plan === "enterprise" && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: this.props.data.name + "-event-streams",
-      value: this.state.throughput,
-      groups: ["150MB/s", "300MB/s", "450MB/s"],
-      handleInputChange: this.handleInputChange,
-      className: classNameModalCheck,
-      name: "throughput",
-      labelText: "Throughput"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: this.props.data.name + "-event-streams",
-      value: this.state.storage_size,
-      groups: ["2TB", "4TB", "6TB", "8TB", "10TB", "12TB"],
-      handleInputChange: this.handleInputChange,
-      className: classNameModalCheck,
-      name: "storage_size",
-      labelText: "Storage Size"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
-      tooltip: {
-        content: "Private IP addresses or CIDR blocks to allowlist",
-        align: "top-left"
-      },
-      className: "textInputMedium",
-      innerForm: react.TextArea,
-      id: this.props.data.name + "-event-streams-private-ips",
-      labelText: "Allowed Private IPs",
-      onChange: this.handleAllowedIps,
-      placeholder: this.state.private_ip_allowlist || "X.X.X.X, X.X.X.X/X, ...",
-      invalid: iamUtils_1(this.state.private_ip_allowlist),
-      invalidText: "Please enter a comma separated list of IP addresses or CIDR blocks"
-    }))));
-  }
-}
-EventStreamsForm.defaultProps = {
-  data: {
-    name: "",
-    plan: "lite",
-    resource_group: "",
-    throughput: "",
-    storage_size: "",
-    private_ip_allowlist: ""
-  }
-};
-EventStreamsForm.propTypes = {
-  data: PropTypes__default["default"].shape({
-    name: PropTypes__default["default"].string.isRequired,
-    plan: PropTypes__default["default"].string.isRequired,
-    resource_group: PropTypes__default["default"].string,
-    throughput: PropTypes__default["default"].string,
-    storage_size: PropTypes__default["default"].string,
-    private_ip_allowlist: PropTypes__default["default"].string
-  }),
-  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired
 };
 
 class F5VsiForm extends React.Component {
@@ -9575,256 +10658,6 @@ NetworkAclForm.propTypes = {
   onRuleDelete: PropTypes__default["default"].func.isRequired,
   disableModalSubmitCallback: PropTypes__default["default"].func.isRequired,
   disableSaveCallback: PropTypes__default["default"].func.isRequired
-};
-
-class RoutingTableRouteForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    if (!lazyZ.isNullOrEmptyString(this.state.action) && this.state.action !== "deliver") {
-      this.state.next_hop = "0.0.0.0";
-    }
-    this.handleInputChange = this.handleInputChange.bind(this);
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-  }
-
-  /**
-   * handle input change
-   * @param {string} name key to change in state
-   * @param {*} value value to update
-   */
-  handleInputChange(event) {
-    this.setState(routingTable_1(this.state, event));
-  }
-  render() {
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: this.props.data.name + "-route-name",
-      hideHelperText: true,
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props),
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
-      formName: "routing-table-route",
-      value: this.state.zone || "",
-      min: 1,
-      max: 3,
-      name: "zone",
-      labelText: "Route Zone",
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: this.props.data.name + "-route-destination",
-      name: "destination",
-      field: "destination",
-      value: this.state.destination,
-      placeholder: "x.x.x.x",
-      labelText: "Destination IP or CIDR",
-      invalidCallback: () => lazyZ.isIpv4CidrOrAddress(this.state.destination) === false,
-      invalidText: "Destination must be a valid IP or IPV4 CIDR block",
-      onChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      name: "action",
-      formName: this.props.data.name + "-routing-table-route-action",
-      groups: ["Delegate", "Deliver", "Delegate VPC", "Drop"],
-      labelText: "Action",
-      handleInputChange: this.handleInputChange,
-      value: lazyZ.titleCase(this.state.action),
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: this.props.data.name + "-next-hop",
-      field: "next_hop",
-      value: this.state.next_hop,
-      placeholder: "x.x.x.x",
-      invalidCallback: () => lazyZ.isNullOrEmptyString(this.state.next_hop) || lazyZ.isIpv4CidrOrAddress(this.state.next_hop) === false || lazyZ.contains(this.state.next_hop, `/`),
-      invalidText: "Next hop must be a valid IP",
-      onChange: this.handleInputChange,
-      disabled: this.state.action !== "deliver",
-      className: "fieldWidthSmaller"
-    })));
-  }
-}
-RoutingTableRouteForm.defaultProps = {
-  data: {
-    name: "",
-    zone: "",
-    destination: "",
-    action: "",
-    next_hop: ""
-  }
-};
-RoutingTableRouteForm.propTypes = {
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  data: PropTypes__default["default"].shape({
-    name: PropTypes__default["default"].string.isRequired,
-    destination: PropTypes__default["default"].string.isRequired,
-    action: PropTypes__default["default"].string.isRequired,
-    next_hop: PropTypes__default["default"].string,
-    zone: PropTypes__default["default"].number
-  }).isRequired
-};
-
-class RoutingTableForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    if (this.props.isModal) this.state.routes = [];
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-  }
-
-  /**
-   * handle input change
-   * @param {string} name key to change in state
-   * @param {*} value value to update
-   */
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-  handleToggle(name) {
-    this.setState(this.toggleStateBoolean(name, this.state));
-  }
-  render() {
-    let composedId = this.props.data.name + "-route-form";
-    let innerFormProps = {
-      arrayParentName: this.props.data.name,
-      route: this.props.data,
-      invalidTextCallback: this.props.invalidRouteTextCallback,
-      invalidCallback: this.props.invalidRouteCallback
-    };
-    lazyZ.transpose({
-      ...this.props.routeProps
-    }, innerFormProps);
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      componentName: "routing-table-route",
-      id: this.props.data.name + "-route-name",
-      hideHelperText: true,
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props)
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: composedId + "-vpc",
-      name: "vpc",
-      labelText: "VPC",
-      groups: this.props.vpcList,
-      value: this.state.vpc,
-      handleInputChange: this.handleInputChange,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: "Select a VPC."
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      id: composedId + "-direct-link-toggle",
-      labelText: "Direct Link Ingress",
-      defaultToggled: this.state.route_direct_link_ingress,
-      name: "route_direct_link_ingress",
-      onToggle: this.handleToggle,
-      tooltip: {
-        content: "If set to true, the routing table is used to route traffic that originates from Direct Link to the VPC. To succeed, the VPC must not already have a routing table with the property set to true",
-        align: "bottom-left",
-        alignModal: "bottom-left"
-      }
-    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      id: composedId + "-route-internet-toggle",
-      labelText: "Internet Ingress",
-      defaultToggled: this.state.route_internet_ingress,
-      name: "route_internet_ingress",
-      onToggle: this.handleToggle,
-      tooltip: {
-        content: "If set to true, this routing table will be used to route traffic that originates from the internet. For this to succeed, the VPC must not already have a routing table with this property set to true",
-        align: "bottom-left",
-        alignModal: "bottom-left"
-      }
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      id: composedId + "-tgw-ingress",
-      labelText: "Transit Gateway Ingress",
-      defaultToggled: this.state.route_transit_gateway_ingress,
-      name: "route_transit_gateway_ingress",
-      onToggle: this.handleToggle,
-      tooltip: {
-        content: "If set to true, the routing table is used to route traffic that originates from Transit Gateway to the VPC. To succeed, the VPC must not already have a routing table with the property set to true",
-        align: "bottom-left",
-        alignModal: "bottom-left"
-      }
-    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      id: composedId + "-zone-ingress",
-      labelText: "VPC Zone Ingress",
-      defaultToggled: this.state.route_vpc_zone_ingress,
-      name: "route_vpc_zone_ingress",
-      onToggle: this.handleToggle,
-      tooltip: {
-        content: "If set to true, the routing table is used to route traffic that originates from subnets in other zones in the VPC. To succeed, the VPC must not already have a routing table with the property set to true",
-        align: "bottom-left",
-        alignModal: "bottom-left"
-      }
-    })), this.props.isModal === false && /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
-      name: "Routes",
-      subHeading: true,
-      addText: "Create a Route",
-      arrayData: this.props.data.routes,
-      innerForm: RoutingTableRouteForm,
-      disableSave: this.props.routeProps.disableSave,
-      onDelete: this.props.routeProps.onDelete,
-      onSave: this.props.routeProps.onSave,
-      onSubmit: this.props.routeProps.onSubmit,
-      propsMatchState: this.props.propsMatchState,
-      innerFormProps: {
-        ...innerFormProps
-      },
-      hideAbout: true,
-      toggleFormProps: {
-        hideName: true,
-        submissionFieldName: "routes",
-        disableSave: this.props.routeProps.disableSave,
-        type: "formInSubForm"
-      }
-    }));
-  }
-}
-RoutingTableForm.defaultProps = {
-  isModal: false,
-  data: {
-    name: "",
-    vpc: null,
-    routes: [],
-    route_internet_ingress: false,
-    route_transit_gateway_ingress: false,
-    route_vpc_zone_ingress: false,
-    route_direct_link_ingress: false
-  }
-};
-RoutingTableForm.propTypes = {
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  data: PropTypes__default["default"].shape({
-    name: PropTypes__default["default"].string.isRequired,
-    vpc: PropTypes__default["default"].string,
-    routes: PropTypes__default["default"].array.isRequired,
-    route_internet_ingress: PropTypes__default["default"].bool.isRequired,
-    route_transit_gateway_ingress: PropTypes__default["default"].bool.isRequired,
-    route_vpc_zone_ingress: PropTypes__default["default"].bool.isRequired,
-    route_direct_link_ingress: PropTypes__default["default"].bool.isRequired
-  }).isRequired,
-  propsMatchState: PropTypes__default["default"].func.isRequired,
-  invalidRouteCallback: PropTypes__default["default"].func.isRequired,
-  invalidRouteTextCallback: PropTypes__default["default"].func.isRequired,
-  isModal: PropTypes__default["default"].bool.isRequired,
-  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  routeProps: PropTypes__default["default"].shape({
-    disableSave: PropTypes__default["default"].func.isRequired,
-    onDelete: PropTypes__default["default"].func.isRequired,
-    onSubmit: PropTypes__default["default"].func.isRequired,
-    onSave: PropTypes__default["default"].func.isRequired
-  }).isRequired
 };
 
 const sccRegions = [{
@@ -12404,618 +13237,6 @@ CbrZoneForm.propTypes = {
   propsMatchState: PropTypes__default["default"].func.isRequired
 };
 
-/**
- * DnsRecordForm
- * @param {Object} props
- */
-class DnsRecordForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    buildFormDefaultInputMethods(this);
-    buildFormFunctions(this);
-  }
-
-  /**
-   * handle input change
-   * @param {string} name key to change in state
-   * @param {*} value value to update
-   */
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-  render() {
-    let dnsComponent = this.props.isModal ? "new-dns-record" : this.props.data.name;
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: dnsComponent + "-name",
-      labelText: "DNS Record Name",
-      componentName: dnsComponent,
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props),
-      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props),
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      name: "dns_zone",
-      formName: dnsComponent + "-dns-zone",
-      labelText: "DNS Zone",
-      groups: this.props.dnsZones,
-      value: this.state.dns_zone,
-      handleInputChange: this.handleInputChange,
-      invalidText: "Select a DNS Zone.",
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      name: "type",
-      formName: dnsComponent + "-type",
-      labelText: "DNS Record Type",
-      groups: ["A", "AAAA", "CNAME", "PTR", "TXT", "MX", "SRV"],
-      value: this.state.type,
-      handleInputChange: this.handleInputChange,
-      invalidText: "Select a DNS Record Type.",
-      className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      componentName: "DNS Record",
-      field: "rdata",
-      labelText: "Resource Data",
-      value: this.state.rdata,
-      id: this.state.name + "-rdata",
-      onChange: this.handleInputChange,
-      invalidCallback: () => this.props.invalidRdata(this.state, this.props),
-      invalidText: this.props.invalidRdataText(this.state, this.props),
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
-      label: "Time To Live (s)",
-      id: dnsComponent + "-ttl",
-      allowEmpty: true,
-      value: this.state.ttl,
-      onChange: this.handleInputChange,
-      name: "ttl",
-      hideSteppers: true,
-      min: 300,
-      max: 2147483647,
-      invalid: iamUtils_3(this.state.ttl, 300, 2147483647),
-      invalidText: "Must be a whole number (representing seconds) within range 300 to 2147483647",
-      className: "fieldWidthSmaller"
-    }), this.state.type === "MX" && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
-      label: "Preference",
-      id: dnsComponent + "-preference",
-      value: this.state.preference,
-      onChange: this.handleInputChange,
-      name: "preference",
-      hideSteppers: true,
-      min: 0,
-      max: 65535,
-      step: 1,
-      invalid: iamUtils_3(this.state.preference, 0, 65535),
-      invalidText: "Must be a whole number within range 0 and 65535.",
-      className: "fieldWidthSmaller"
-    }))), this.state.type === "SRV" && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
-      label: "DNS Record Port",
-      id: dnsComponent + "-port",
-      value: this.state.port,
-      onChange: this.handleInputChange,
-      name: "port",
-      hideSteppers: true,
-      min: 1,
-      max: 65535,
-      step: 1,
-      invalid: iamUtils_3(this.state.port, 1, 65535),
-      invalidText: "Must be a whole number between 1 and 65535",
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: dnsComponent + "-protocol",
-      name: "protocol",
-      groups: ["TCP", "UDP"],
-      value: this.state.protocol,
-      labelText: "DNS Record Protocol",
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
-      label: "DNS Record Priority",
-      id: dnsComponent + "-priority",
-      value: this.state.priority,
-      onChange: this.handleInputChange,
-      name: "priority",
-      hideSteppers: true,
-      min: 0,
-      max: 65535,
-      step: 1,
-      invalid: iamUtils_3(this.state.priority, 0, 65535),
-      invalidText: "Must be a whole number between 0 and 65535",
-      className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: dnsComponent + "-service",
-      componentName: "DNS Record",
-      field: "service",
-      value: this.state.service,
-      onChange: this.handleInputChange,
-      labelText: "DNS Record Service",
-      invalid: lib_9(this.state.service) || this.state.service === undefined ? true : this.state.service.charAt(0) !== "_",
-      invalidText: "Service must start with a '_'.",
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
-      label: "DNS Record Weight",
-      id: dnsComponent + "-weight",
-      value: this.state.weight,
-      onChange: this.handleInputChange,
-      name: "weight",
-      hideSteppers: true,
-      min: 0,
-      max: 65535,
-      step: 1,
-      invalid: iamUtils_3(this.state.weight, 0, 65535),
-      invalidText: "Must be a whole number between 0 and 65535",
-      className: "fieldWidthSmaller"
-    }))));
-  }
-}
-DnsRecordForm.defaultProps = {
-  isModal: false,
-  data: {
-    name: "",
-    dns_zone: "",
-    type: "",
-    rdata: "",
-    ttl: 300
-  },
-  invalidCallback: () => {
-    return false;
-  },
-  invalidTextCallback: () => {
-    return "Invalid";
-  },
-  helperTextCallback: () => {
-    return "";
-  },
-  dnsZones: []
-};
-DnsRecordForm.propTypes = {
-  data: PropTypes__default["default"].shape({
-    name: PropTypes__default["default"].string.isRequired,
-    dns_zone: PropTypes__default["default"].string.isRequired,
-    type: PropTypes__default["default"].string.isRequired,
-    rdata: PropTypes__default["default"].string.isRequired,
-    ttl: PropTypes__default["default"].string.isRequired,
-    port: PropTypes__default["default"].string,
-    protocol: PropTypes__default["default"].string,
-    priority: PropTypes__default["default"].string,
-    service: PropTypes__default["default"].string,
-    weight: PropTypes__default["default"].string,
-    preference: PropTypes__default["default"].string
-  }).isRequired,
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  helperTextCallback: PropTypes__default["default"].func.isRequired,
-  dnsZones: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  isModal: PropTypes__default["default"].bool.isRequired
-};
-
-class DnsZoneForm extends React__default["default"].Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleMultiSelect = this.handleMultiSelect.bind(this);
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-  }
-
-  /**
-   * handle input change
-   * @param {string} name key to change in state
-   * @param {*} value value to update
-   */
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-
-  /**
-   * handle vpc multiselect
-   * @param {event} event
-   */
-  handleMultiSelect(name, event) {
-    this.setState(this.setNameToValue(name, event));
-  }
-  render() {
-    return /*#__PURE__*/React__default["default"].createElement("div", {
-      id: "dns-zone-form"
-    }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: this.props.data.name + "-dns-zone-name",
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      hideHelperText: true,
-      invalidCallback: () => this.props.invalidNameCallback(this.state, this.props),
-      invalidText: this.props.invalidNameTextCallback(this.state, this.props)
-    }), /*#__PURE__*/React__default["default"].createElement(VpcListMultiSelect, {
-      id: this.props.data.name + "-vpc-multiselect",
-      titleText: "Permitted Networks",
-      initialSelectedItems: this.state.vpcs,
-      vpcList: this.props.vpcList,
-      onChange: event => this.handleMultiSelect("vpcs", event),
-      invalid: this.state.vpcs.length === 0
-    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: this.props.data.label + "-dns-zone-label",
-      field: "label",
-      value: this.state.label,
-      onChange: this.handleInputChange,
-      invalidCallback: () => this.props.invalidLabelCallback(this.state, this.props),
-      invalidText: this.props.invalidLabelTextCallback(this.state, this.props)
-    })), /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
-      id: this.props.data.name + "-dns-zone-description",
-      className: "textInputWide",
-      name: "description",
-      value: this.state.description,
-      labelText: "Description",
-      onChange: this.handleInputChange,
-      enableCounter: true,
-      invalid: this.props.invalidDescriptionCallback(this.state, this.props),
-      invalidText: this.props.invalidDescriptionTextCallback(this.state, this.props)
-    }));
-  }
-}
-DnsZoneForm.defaultProps = {
-  data: {
-    name: "",
-    description: "",
-    label: "",
-    vpcs: []
-  },
-  vpcList: [],
-  isModal: false
-};
-DnsZoneForm.propTypes = {
-  data: PropTypes__default["default"].shape({
-    name: PropTypes__default["default"].string.isRequired,
-    description: PropTypes__default["default"].string,
-    label: PropTypes__default["default"].string,
-    vpcs: PropTypes__default["default"].array
-  }),
-  invalidLabelCallback: PropTypes__default["default"].func.isRequired,
-  invalidLabelTextCallback: PropTypes__default["default"].func.isRequired,
-  invalidNameCallback: PropTypes__default["default"].func.isRequired,
-  invalidNameTextCallback: PropTypes__default["default"].func.isRequired,
-  invalidDescriptionCallback: PropTypes__default["default"].func.isRequired,
-  invalidDescriptionTextCallback: PropTypes__default["default"].func.isRequired,
-  vpcList: PropTypes__default["default"].array.isRequired,
-  isModal: PropTypes__default["default"].bool.isRequired
-};
-
-class DnsCustomResolverForm extends React__default["default"].Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleMultiSelect = this.handleMultiSelect.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-  }
-
-  /**
-   * handle input change
-   * @param {string} name key to change in state
-   * @param {*} value value to update
-   */
-  handleInputChange(event) {
-    this.setState(forms_27(this.state, event));
-  }
-
-  /**
-   * Toggle on and off param in state at name
-   * @param {string} name name of the object key to change
-   */
-  handleToggle(name) {
-    this.setState(this.toggleStateBoolean(name, this.state));
-  }
-
-  /**
-   * handle subnet multiselect
-   * @param {value} value
-   */
-  handleMultiSelect(name, value) {
-    this.setState(this.setNameToValue(name, value));
-  }
-  render() {
-    return /*#__PURE__*/React__default["default"].createElement("div", {
-      id: "dns-custom-resolver-form"
-    }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: this.props.data.name + "-dns-custom-resolver",
-      componentName: this.props.data.name + "-dns-custom-resolver",
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      hideHelperText: true,
-      invalidCallback: () => this.props.invalidNameCallback(this.state, this.props),
-      invalidText: this.props.invalidNameTextCallback(this.state, this.props)
-    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      tooltip: {
-        content: "To meet high availability status, configure custom resolvers with a minimum of two resolver locations",
-        align: "bottom-left"
-      },
-      labelText: "High Availability",
-      defaultToggled: this.state.high_availability,
-      onToggle: this.handleToggle,
-      className: "fieldWidth",
-      toggleFieldName: "high_availability",
-      id: this.props.data.name + "-high-availability"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      labelText: "Enabled",
-      key: this.state.enabled,
-      defaultToggled: this.state.enabled,
-      onToggle: this.handleToggle,
-      className: "fieldWidth",
-      toggleFieldName: "enabled",
-      id: this.props.data.name + "-enabled"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: `${this.props.data.name}-dns-custom-resolver-vpc`,
-      name: "vpc",
-      labelText: "VPC",
-      groups: this.props.vpcList,
-      value: this.state.vpc,
-      handleInputChange: this.handleInputChange,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: "Select a VPC.",
-      className: "fieldWidth"
-    }), /*#__PURE__*/React__default["default"].createElement(SubnetMultiSelect, {
-      key: this.state.vpc,
-      id: this.props.data.name + "-dns-resolver-subnets",
-      initialSelectedItems: [...this.state.subnets],
-      vpc_name: this.state.vpc,
-      onChange: event => this.handleMultiSelect("subnets", event),
-      subnets: [...this.getSubnetList()],
-      className: "fieldWidth"
-    })), /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
-      id: this.props.data.name + "-dns-resolver-description",
-      className: "textInputWide",
-      name: "description",
-      value: this.state.description,
-      labelText: "Description",
-      onChange: this.handleInputChange,
-      enableCounter: true,
-      invalid: this.props.invalidDescriptionCallback(this.state, this.props),
-      invalidText: this.props.invalidDescriptionTextCallback(this.state, this.props)
-    }));
-  }
-}
-DnsCustomResolverForm.defaultProps = {
-  data: {
-    name: "",
-    description: "",
-    high_availability: true,
-    enabled: false,
-    vpc: "",
-    subnets: []
-  },
-  isModal: false
-};
-DnsCustomResolverForm.propTypes = {
-  data: PropTypes__default["default"].shape({
-    name: PropTypes__default["default"].string.isRequired,
-    description: PropTypes__default["default"].string,
-    enabled: PropTypes__default["default"].bool,
-    high_availability: PropTypes__default["default"].bool,
-    vpc: PropTypes__default["default"].string,
-    subnets: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string)
-  }),
-  invalidNameCallback: PropTypes__default["default"].func.isRequired,
-  invalidNameTextCallback: PropTypes__default["default"].func.isRequired,
-  invalidDescriptionCallback: PropTypes__default["default"].func.isRequired,
-  invalidDescriptionTextCallback: PropTypes__default["default"].func.isRequired,
-  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  subnetList: PropTypes__default["default"].array.isRequired,
-  isModal: PropTypes__default["default"].bool.isRequired
-};
-
-/**
- * Context-based restriction rules
- */
-class DnsForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    buildFormFunctions(this);
-  }
-  handleInputChange(event) {
-    this.setState(forms_28(event));
-  }
-  render() {
-    // set up props for subforms
-    let zoneInnerFormProps = {};
-    lazyZ.transpose({
-      ...this.props.zoneProps,
-      arrayParentName: this.props.data.name
-    }, zoneInnerFormProps);
-    let recordInnerFormProps = {};
-    lazyZ.transpose({
-      ...this.props.recordProps,
-      arrayParentName: this.props.data.name
-    }, recordInnerFormProps);
-    let resolverInnerFormProps = {};
-    lazyZ.transpose({
-      ...this.props.resolverProps,
-      arrayParentName: this.props.data.name
-    }, resolverInnerFormProps);
-    return /*#__PURE__*/React__default["default"].createElement("div", {
-      id: "dns-form-" + this.props.data.name
-    }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: this.props.data.name + "-dns",
-      componentName: this.props.data.name + "-dns",
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      hideHelperText: true,
-      invalidCallback: () => this.props.invalidNameCallback(this.state, this.props),
-      invalidText: this.props.invalidNameTextCallback(this.state, this.props)
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      id: this.props.data.name + "-dns-plan",
-      name: "plan",
-      className: "fieldWidthSmaller",
-      value: lazyZ.titleCase(this.state.plan),
-      labelText: "Plan",
-      groups: ["Free", "Standard"],
-      formName: "dns-form",
-      handleInputChange: this.handleInputChange
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      name: "resource_group",
-      formName: `${this.props.data.name}-dns-rg-select`,
-      groups: this.props.resourceGroups,
-      value: this.state.resource_group,
-      handleInputChange: this.handleInputChange,
-      invalidText: "Select a Resource Group.",
-      labelText: "Resource Group"
-    })), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
-      name: "Zones",
-      subHeading: true,
-      addText: "Create a DNS Zone",
-      arrayData: this.props.data.zones,
-      innerForm: DnsZoneForm,
-      disableSave: this.props.zoneProps.disableSave,
-      onDelete: this.props.zoneProps.onDelete,
-      onSave: this.props.zoneProps.onSave,
-      onSubmit: this.props.zoneProps.onSubmit,
-      propsMatchState: this.props.propsMatchState,
-      innerFormProps: {
-        ...zoneInnerFormProps
-      },
-      hideAbout: true,
-      toggleFormProps: {
-        hideName: true,
-        submissionFieldName: "zones",
-        disableSave: this.props.zoneProps.disableSave,
-        type: "formInSubForm"
-      }
-    }), /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
-      name: "Records",
-      subHeading: true,
-      addText: "Create a DNS Record",
-      arrayData: this.props.data.records,
-      innerForm: DnsRecordForm,
-      disableSave: this.props.recordProps.disableSave,
-      onDelete: this.props.recordProps.onDelete,
-      onSave: this.props.recordProps.onSave,
-      onSubmit: this.props.recordProps.onSubmit,
-      propsMatchState: this.props.propsMatchState,
-      innerFormProps: {
-        ...recordInnerFormProps
-      },
-      hideAbout: true,
-      toggleFormProps: {
-        hideName: true,
-        submissionFieldName: "records",
-        disableSave: this.props.recordProps.disableSave,
-        type: "formInSubForm"
-      }
-    }), /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
-      name: "Custom Resolvers",
-      subHeading: true,
-      addText: "Create a Custom Resolver",
-      arrayData: this.props.data.custom_resolvers,
-      innerForm: DnsCustomResolverForm,
-      disableSave: this.props.resolverProps.disableSave,
-      onDelete: this.props.resolverProps.onDelete,
-      onSave: this.props.resolverProps.onSave,
-      onSubmit: this.props.resolverProps.onSubmit,
-      propsMatchState: this.props.propsMatchState,
-      innerFormProps: {
-        ...resolverInnerFormProps
-      },
-      hideAbout: true,
-      toggleFormProps: {
-        hideName: true,
-        submissionFieldName: "custom_resolvers",
-        disableSave: this.props.resolverProps.disableSave,
-        type: "formInSubForm"
-      }
-    })));
-  }
-}
-DnsForm.defaultProps = {
-  isModal: false,
-  data: {
-    name: "",
-    plan: "free",
-    resource_group: "service-rg",
-    zones: [],
-    records: [],
-    custom_resolvers: []
-  }
-};
-DnsForm.propTypes = {
-  isModal: PropTypes__default["default"].bool.isRequired,
-  data: PropTypes__default["default"].shape({
-    name: PropTypes__default["default"].string.isRequired,
-    plan: PropTypes__default["default"].string.isRequired,
-    resource_group: PropTypes__default["default"].string,
-    zones: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({
-      name: PropTypes__default["default"].string.isRequired,
-      description: PropTypes__default["default"].string,
-      label: PropTypes__default["default"].string,
-      vpcs: PropTypes__default["default"].array
-    })),
-    records: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({
-      name: PropTypes__default["default"].string.isRequired,
-      dns_zone: PropTypes__default["default"].string.isRequired,
-      type: PropTypes__default["default"].string.isRequired,
-      rdata: PropTypes__default["default"].string.isRequired,
-      ttl: PropTypes__default["default"].number.isRequired
-    })),
-    custom_resolvers: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({
-      name: PropTypes__default["default"].string.isRequired,
-      description: PropTypes__default["default"].string,
-      enabled: PropTypes__default["default"].bool,
-      high_availability: PropTypes__default["default"].bool,
-      vpc: PropTypes__default["default"].string,
-      subnets: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string)
-    }))
-  }),
-  zoneProps: PropTypes__default["default"].shape({
-    onSave: PropTypes__default["default"].func.isRequired,
-    onDelete: PropTypes__default["default"].func.isRequired,
-    onSubmit: PropTypes__default["default"].func.isRequired,
-    disableSave: PropTypes__default["default"].func.isRequired,
-    invalidLabelCallback: PropTypes__default["default"].func.isRequired,
-    invalidLabelTextCallback: PropTypes__default["default"].func.isRequired,
-    invalidDescriptionCallback: PropTypes__default["default"].func.isRequired,
-    invalidDescriptionTextCallback: PropTypes__default["default"].func.isRequired,
-    invalidNameCallback: PropTypes__default["default"].func.isRequired,
-    invalidNameTextCallback: PropTypes__default["default"].func.isRequired
-  }),
-  resolverProps: PropTypes__default["default"].shape({
-    onSave: PropTypes__default["default"].func.isRequired,
-    onDelete: PropTypes__default["default"].func.isRequired,
-    onSubmit: PropTypes__default["default"].func.isRequired,
-    disableSave: PropTypes__default["default"].func.isRequired,
-    subnetList: PropTypes__default["default"].array.isRequired,
-    vpcList: PropTypes__default["default"].array.isRequired,
-    invalidCallback: PropTypes__default["default"].func.isRequired,
-    invalidTextCallback: PropTypes__default["default"].func.isRequired,
-    invalidDescriptionCallback: PropTypes__default["default"].func.isRequired,
-    invalidDescriptionTextCallback: PropTypes__default["default"].func.isRequired,
-    invalidNameCallback: PropTypes__default["default"].func.isRequired,
-    invalidNameTextCallback: PropTypes__default["default"].func.isRequired
-  }),
-  recordProps: PropTypes__default["default"].shape({
-    onSave: PropTypes__default["default"].func.isRequired,
-    onDelete: PropTypes__default["default"].func.isRequired,
-    onSubmit: PropTypes__default["default"].func.isRequired,
-    disableSave: PropTypes__default["default"].func.isRequired,
-    invalidCallback: PropTypes__default["default"].func.isRequired,
-    invalidTextCallback: PropTypes__default["default"].func.isRequired,
-    invalidRdata: PropTypes__default["default"].func.isRequired,
-    invalidRdataText: PropTypes__default["default"].func.isRequired,
-    dnsZones: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
-  })
-};
-
 class LogDNAForm extends React.Component {
   constructor(props) {
     super(props);
@@ -13329,6 +13550,7 @@ exports.DeleteModal = DeleteModal;
 exports.DnsCustomResolverForm = DnsCustomResolverForm;
 exports.DnsForm = DnsForm;
 exports.DnsRecordForm = DnsRecordForm;
+exports.DnsTemplate = Dns;
 exports.DnsZoneForm = DnsZoneForm;
 exports.Docs = Docs;
 exports.DynamicRender = DynamicRender;
@@ -13339,6 +13561,7 @@ exports.EncryptionKeyForm = EncryptionKeyForm;
 exports.EndpointSelect = EndpointSelect;
 exports.EntitlementSelect = EntitlementSelect;
 exports.EventStreamsForm = EventStreamsForm;
+exports.EventStreamsTemplate = EventStreams;
 exports.F5VsiForm = F5VsiForm;
 exports.F5VsiTemplateForm = F5VsiTemplateForm;
 exports.FetchSelect = FetchSelect;
@@ -13374,6 +13597,7 @@ exports.ResourceGroupForm = ResourceGroupForm;
 exports.ResourceGroupsTemplate = ResourceGroups;
 exports.RoutingTableForm = RoutingTableForm;
 exports.RoutingTableRouteForm = RoutingTableRouteForm;
+exports.RoutingTableTemplate = RoutingTables;
 exports.SaveAddButton = SaveAddButton;
 exports.SaveIcon = SaveIcon;
 exports.SccForm = SccForm;
