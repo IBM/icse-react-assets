@@ -118,3 +118,4 @@ export { VsiLoadBalancer as VsiLoadBalancerTemplate } from "./crud-form-pages";
 export { Dns as DnsTemplate } from "./crud-form-pages";
 export { RoutingTables as RoutingTableTemplate } from "./crud-form-pages";
 export { EventStreams as EventStreamsTemplate } from "./crud-form-pages";
+export { VpnServers as VpnServerTemplate } from "./crud-form-pages";

@@ -15,3 +15,4 @@ export { VsiLoadBalancer } from "./VsiLoadBalancer";
 export { Dns } from "./Dns";
 export { RoutingTables } from "./RoutingTables";
 export { EventStreams } from "./EventStreams";
+export { VpnServers } from "./VpnServers";
