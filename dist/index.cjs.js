@@ -7679,6 +7679,443 @@ WorkerPools.propTypes = {
   craig: PropTypes__default["default"].shape({})
 };
 
+var css_248z = ".tileTitle {\n  font-size: 80%;\n  font-weight: bold;\n}\n\n.tileContent {\n  font-size: 90%;\n}\n";
+styleInject(css_248z);
+
+class VsiLoadBalancerForm extends React__default["default"].Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
+    this.allVsi = this.allVsi.bind(this);
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in the instance
+   * @param {*} value value
+   */
+  handleInputChange(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    let nextState = {
+      ...this.state
+    };
+    nextState[name] = lazyZ.contains(["name", "vpc", "resource_group", "type"], name) ? value : lazyZ.contains(["health_delay", "health_retries", "health_timeout", "port", "listener_port", "connection_limit"], name) ? Number(value) : lazyZ.snakeCase(value);
+    if (name === "vpc") {
+      nextState.subnets = [];
+      nextState.security_groups = [];
+      nextState.target_vsi = [];
+    } else if (name === "connection_limit" && nextState[name] === 0) {
+      // reset when 0
+      nextState[name] = "";
+    } else if (name === "session_persistence_type" && value !== "app_cookie") {
+      nextState.session_persistence_app_cookie_name = null;
+    } else if (name === "type") {
+      nextState.type = lazyZ.snakeCase(value.split(" ")[0]);
+    }
+    this.setState(nextState);
+  }
+
+  /**
+   * handle multiselect change
+   * @param {string} name key to change in the instance
+   * @param {*} value value
+   */
+  handleMultiSelectChange(name, value) {
+    let nextState = {
+      ...this.state
+    };
+    if (name === "target_vsi") {
+      nextState.subnets = [];
+      this.props.vsiDeployments.forEach(deployment => {
+        nextState.subnets = lazyZ.distinct(nextState.subnets.concat(deployment.subnets));
+      });
+    }
+    nextState[name] = value;
+    this.setState(nextState);
+  }
+
+  /**
+   * get all vsi
+   * @returns {Array<object>} list of vsi
+   */
+  allVsi() {
+    let allVsi = [];
+    this.state.target_vsi.forEach(deployment => {
+      let vsi = lazyZ.getObjectFromArray(this.props.vsiDeployments, "name", deployment);
+      let nextRow = [];
+      // for each subnet vsi
+      for (let subnet = 0; subnet < vsi.subnets.length; subnet++) {
+        // for each vsi per subnet
+        for (let count = 0; count < vsi.vsi_per_subnet; count++) {
+          nextRow.push({
+            name: deployment + "-" + (count + 1),
+            subnet: vsi.subnets[subnet]
+          });
+          if (nextRow.length === 3) {
+            allVsi.push(nextRow);
+            nextRow = [];
+          }
+        }
+      }
+      if (nextRow.length > 0) {
+        allVsi.push(nextRow);
+      }
+    });
+    return allVsi;
+  }
+  render() {
+    let componentName = this.props.data.name + "-lb";
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+      type: "subHeading",
+      name: "Load Balancer"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: componentName + "-name",
+      tooltip: {
+        content: "Name for the load balancer service. This name will be prepended to the components provisioned as part of the load balancer.",
+        align: "right"
+      },
+      componentName: componentName,
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      className: "fieldWidthSmaller",
+      hideHelperText: true
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: componentName + "-rg",
+      name: "resource_group",
+      labelText: "Resource Group",
+      groups: this.props.resourceGroups,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: componentName + "-type",
+      name: "type",
+      labelText: "Load Balancer Type",
+      groups: ["Public (ALB)", "Private (NLB)"],
+      value: this.state.type === "private" ? "Private (NLB)" : this.state.type === "public" ? "Public (ALB)" : "",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: "vsi_form",
+      name: "vpc",
+      labelText: "VPC",
+      groups: this.props.vpcList,
+      value: this.state.vpc,
+      handleInputChange: this.handleInputChange,
+      invalid: lazyZ.isNullOrEmptyString(this.state.vpc),
+      invalidText: "Select a VPC.",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(SecurityGroupMultiSelect, {
+      key: this.state.vpc + "-sg",
+      id: componentName + "-sg",
+      initialSelectedItems: this.state.security_groups || [],
+      vpc_name: this.state.vpc,
+      onChange: value => this.handleMultiSelectChange("security_groups", value),
+      securityGroups: this.getSecurityGroupList(),
+      invalid: !(this.state.security_groups?.length > 0),
+      invalidText: !this.state.vpc || lazyZ.isNullOrEmptyString(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+      type: "subHeading",
+      name: "Load Balancer VSI"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+      key: this.state.vpc + "-vsi",
+      className: "fieldWidthSmaller",
+      id: componentName + "-vsi",
+      titleText: "Deployment VSI",
+      items: lazyZ.splat(this.props.vsiDeployments.filter(deployment => {
+        if (deployment.vpc === this.state.vpc) {
+          return deployment;
+        }
+      }), "name"),
+      onChange: value => {
+        this.handleMultiSelectChange("target_vsi", value.selectedItems);
+      },
+      initialSelectedItems: this.state.target_vsi,
+      invalid: this.state.target_vsi.length === 0,
+      invalidText: "Select at least one VSI deployment"
+    }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      placeholder: "80",
+      label: "Application Port",
+      id: componentName + "-port",
+      allowEmpty: true,
+      value: this.state.port,
+      step: 1,
+      onChange: this.handleInputChange,
+      name: "port",
+      hideSteppers: true,
+      min: 1,
+      max: 65535,
+      invalid: lazyZ.isNullOrEmptyString(this.state.port || "") ? true : !lazyZ.isWholeNumber(this.state.port),
+      invalidText: "Must be a whole number between 1 and 65535",
+      className: "fieldWidthSmaller"
+    })), this.allVsi().map((row, index) => /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+      key: "row-" + index
+    }, row.map((vsi, vsiIndex) => /*#__PURE__*/React__default["default"].createElement(react.Tile, {
+      key: `${index}-${vsiIndex}`,
+      className: "fieldWidthSmaller tileFormMargin"
+    }, /*#__PURE__*/React__default["default"].createElement("p", {
+      className: "tileTitle"
+    }, "Name:"), /*#__PURE__*/React__default["default"].createElement("p", {
+      className: "tileContent"
+    }, vsi.name), /*#__PURE__*/React__default["default"].createElement("p", {
+      className: "tileTitle"
+    }, "Subnet:"), /*#__PURE__*/React__default["default"].createElement("p", {
+      className: "tileContent"
+    }, vsi.subnet))))), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+      type: "subHeading",
+      name: "Load Balancer Pool"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: componentName,
+      name: "algorithm",
+      labelText: "Load Balancing Algorithm",
+      groups: ["Round Robin", "Weighted Round Robin", "Least Connections"],
+      value: lazyZ.titleCase(this.state.algorithm || ""),
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: componentName,
+      name: "protocol",
+      labelText: "Pool Protocol",
+      groups: ["HTTPS", "HTTP", "TCP", "UDP"],
+      value: (this.state.protocol || "").toUpperCase(),
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller",
+      tooltip: {
+        content: "Protocol of the application running on VSI instances"
+      }
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: componentName,
+      name: "health_type",
+      labelText: "Pool Health Protocol",
+      groups: ["HTTPS", "HTTP", "TCP"],
+      value: (this.state.health_type || "").toUpperCase(),
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller",
+      tooltip: {
+        content: "Protocol used to check the health of member VSI instances"
+      }
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      placeholder: "5",
+      label: "Health Timeout (in Seconds)",
+      id: componentName + "-timeout",
+      allowEmpty: true,
+      value: this.state.health_timeout,
+      step: 1,
+      onChange: this.handleInputChange,
+      name: "health_timeout",
+      hideSteppers: true,
+      min: 5,
+      max: 3000,
+      invalid: lazyZ.isNullOrEmptyString(this.state.health_timeout || "") ? true : !lazyZ.isWholeNumber(this.state.health_timeout),
+      invalidText: "Must be a whole number between 5 and 300",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      placeholder: "5",
+      label: "Health Delay (in Seconds)",
+      id: componentName + "-delay",
+      allowEmpty: true,
+      value: this.state.health_delay,
+      step: 1,
+      onChange: this.handleInputChange,
+      name: "health_delay",
+      hideSteppers: true,
+      min: 5,
+      max: 3000,
+      invalid: lazyZ.isNullOrEmptyString(this.state.health_delay || "") ? true : this.state.health_delay <= this.state.health_timeout || !lazyZ.isWholeNumber(this.state.health_delay),
+      invalidText: this.state.health_delay <= this.state.health_timeout ? "Must be greater than Health Timeout value" : "Must be a whole number between 5 and 300",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      placeholder: "5",
+      label: "Health Retries",
+      id: componentName + "-retries",
+      allowEmpty: true,
+      value: this.state.health_retries,
+      step: 1,
+      onChange: this.handleInputChange,
+      name: "health_retries",
+      hideSteppers: true,
+      min: 5,
+      max: 3000,
+      invalid: lazyZ.isNullOrEmptyString(this.state.health_retries || "") ? true : !lazyZ.isWholeNumber(this.state.health_retries),
+      invalidText: "Must be a whole number between 5 and 300",
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+      type: "subHeading",
+      name: "Load Balancer Listener"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      placeholder: "443",
+      label: "Listener Port",
+      id: componentName + "-listener-port",
+      allowEmpty: true,
+      value: this.state.listener_port,
+      step: 1,
+      onChange: this.handleInputChange,
+      name: "listener_port",
+      hideSteppers: true,
+      min: 1,
+      max: 65535,
+      invalid: lazyZ.isNullOrEmptyString(this.state.listener_port || "") ? true : !lazyZ.isWholeNumber(this.state.listener_port),
+      invalidText: "Must be a whole number between 1 and 65535",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: componentName,
+      name: "listener_protocol",
+      labelText: "Listener Protocol",
+      groups: ["HTTPS", "HTTP", "TCP", "UDP"],
+      value: (this.state.listener_protocol || "").toUpperCase(),
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller",
+      tooltip: {
+        content: "Protocol of the listener for the load balancer"
+      }
+    }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      label: "Connection Limit",
+      id: componentName + "-connection-limit",
+      allowEmpty: true,
+      value: this.state.connection_limit || "",
+      step: 1,
+      onChange: this.handleInputChange,
+      name: "connection_limit",
+      hideSteppers: true,
+      min: 1,
+      max: 15000,
+      invalid: lazyZ.isNullOrEmptyString(this.state.connection_limit || "") ? false : lazyZ.isInRange(this.state.connection_limit, 1, 15000) === false || !lazyZ.isWholeNumber(this.state.connection_limit),
+      invalidText: "Must be a whole number between 1 and 15000",
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+      type: "subHeading",
+      name: "(Optional) Pool Customization"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: componentName,
+      name: "proxy_protocol",
+      labelText: "Proxy Protocol",
+      groups: ["Disabled", "V1", "V2"],
+      value: (this.state.proxy_protocol || "disabled").toUpperCase(),
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: componentName,
+      name: "session_persistence_type",
+      labelText: "Session Persistence Type",
+      groups: ["Source IP", "App Cookie", "HTTP Cookie"],
+      value: lazyZ.titleCase(this.state.session_persistence_type || "").replace(/Ip/s, "IP").replace(/Http/g, "HTTP"),
+      handleInputChange: this.handleInputChange,
+      disableInvalid: true,
+      className: "fieldWidthSmaller"
+    }), this.state.session_persistence_type === "app_cookie" && /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: componentName + "session_persistence_app_cookie_name",
+      componentName: componentName + "-cookie-name",
+      field: "session_persistence_app_cookie_name",
+      isModal: this.props.isModal,
+      labelText: "Session Cookie Name",
+      value: this.state.session_persistence_app_cookie_name || "",
+      invalid: lazyZ.isNullOrEmptyString(this.state.session_persistence_app_cookie_name || "") ? false : this.props.invalidCallback(this.state, this.props),
+      onChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    })));
+  }
+}
+VsiLoadBalancerForm.defaultProps = {
+  data: {
+    name: "",
+    resource_group: "",
+    vpc: "",
+    type: "",
+    security_groups: [],
+    algorithm: "",
+    protocol: "",
+    proxy_protocol: "",
+    health_type: "",
+    session_persistence_app_cookie_name: "",
+    target_vsi: [],
+    listener_protocol: "",
+    connection_limit: null,
+    port: "",
+    health_timeout: "",
+    health_delay: "",
+    health_retries: "",
+    listener_port: ""
+  },
+  isModal: false
+};
+VsiLoadBalancerForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    resource_group: PropTypes__default["default"].string,
+    vpc: PropTypes__default["default"].string,
+    security_groups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string)
+  }),
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string.isRequired),
+  isModal: PropTypes__default["default"].bool.isRequired,
+  securityGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  vsiDeployments: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired
+};
+
+const VsiLoadBalancer = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "VPC Load Balancers",
+    addText: "Create a Load Balancer",
+    docs: props.docs,
+    innerForm: VsiLoadBalancerForm,
+    arrayData: props.load_balancers,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    innerFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      resourceGroups: props.resourceGroups,
+      vpcList: props.vpcList,
+      securityGroups: props.securityGroups,
+      vsiDeployments: props.vsiDeployments
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "load_balancers",
+      hide: true,
+      hideName: true
+    }
+  });
+};
+VsiLoadBalancer.propTypes = {
+  docs: PropTypes__default["default"].func.isRequired,
+  load_balancers: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  onDelete: PropTypes__default["default"].func.isRequired,
+  onSave: PropTypes__default["default"].func.isRequired,
+  onSubmit: PropTypes__default["default"].func.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  forceOpen: PropTypes__default["default"].func.isRequired,
+  craig: PropTypes__default["default"].shape({}),
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string.isRequired),
+  securityGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  vsiDeployments: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired
+};
+
 class ClusterForm extends React.Component {
   constructor(props) {
     super(props);
@@ -10771,393 +11208,6 @@ VpnServerForm.propTypes = {
   invalidCrnText: PropTypes__default["default"].func.isRequired
 };
 
-var css_248z = ".tileTitle {\n  font-size: 80%;\n  font-weight: bold;\n}\n\n.tileContent {\n  font-size: 90%;\n}\n";
-styleInject(css_248z);
-
-class VsiLoadBalancerForm extends React__default["default"].Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
-    this.allVsi = this.allVsi.bind(this);
-  }
-
-  /**
-   * handle input change
-   * @param {string} name key to change in the instance
-   * @param {*} value value
-   */
-  handleInputChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    let nextState = {
-      ...this.state
-    };
-    nextState[name] = lazyZ.contains(["name", "vpc", "resource_group", "type"], name) ? value : lazyZ.contains(["health_delay", "health_retries", "health_timeout", "port", "listener_port", "connection_limit"], name) ? Number(value) : lazyZ.snakeCase(value);
-    if (name === "vpc") {
-      nextState.subnets = [];
-      nextState.security_groups = [];
-      nextState.target_vsi = [];
-    } else if (name === "connection_limit" && nextState[name] === 0) {
-      // reset when 0
-      nextState[name] = "";
-    } else if (name === "session_persistence_type" && value !== "app_cookie") {
-      nextState.session_persistence_app_cookie_name = null;
-    } else if (name === "type") {
-      nextState.type = lazyZ.snakeCase(value.split(" ")[0]);
-    }
-    this.setState(nextState);
-  }
-
-  /**
-   * handle multiselect change
-   * @param {string} name key to change in the instance
-   * @param {*} value value
-   */
-  handleMultiSelectChange(name, value) {
-    let nextState = {
-      ...this.state
-    };
-    if (name === "target_vsi") {
-      nextState.subnets = [];
-      this.props.vsiDeployments.forEach(deployment => {
-        nextState.subnets = lazyZ.distinct(nextState.subnets.concat(deployment.subnets));
-      });
-    }
-    nextState[name] = value;
-    this.setState(nextState);
-  }
-
-  /**
-   * get all vsi
-   * @returns {Array<object>} list of vsi
-   */
-  allVsi() {
-    let allVsi = [];
-    this.state.target_vsi.forEach(deployment => {
-      let vsi = lazyZ.getObjectFromArray(this.props.vsiDeployments, "name", deployment);
-      let nextRow = [];
-      // for each subnet vsi
-      for (let subnet = 0; subnet < vsi.subnets.length; subnet++) {
-        // for each vsi per subnet
-        for (let count = 0; count < vsi.vsi_per_subnet; count++) {
-          nextRow.push({
-            name: deployment + "-" + (count + 1),
-            subnet: vsi.subnets[subnet]
-          });
-          if (nextRow.length === 3) {
-            allVsi.push(nextRow);
-            nextRow = [];
-          }
-        }
-      }
-      if (nextRow.length > 0) {
-        allVsi.push(nextRow);
-      }
-    });
-    return allVsi;
-  }
-  render() {
-    let componentName = this.props.data.name + "-lb";
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
-      type: "subHeading",
-      name: "Load Balancer"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: componentName + "-name",
-      tooltip: {
-        content: "Name for the load balancer service. This name will be prepended to the components provisioned as part of the load balancer.",
-        align: "right"
-      },
-      componentName: componentName,
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props),
-      className: "fieldWidthSmaller",
-      hideHelperText: true
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: componentName + "-rg",
-      name: "resource_group",
-      labelText: "Resource Group",
-      groups: this.props.resourceGroups,
-      value: this.state.resource_group,
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: componentName + "-type",
-      name: "type",
-      labelText: "Load Balancer Type",
-      groups: ["Public (ALB)", "Private (NLB)"],
-      value: this.state.type === "private" ? "Private (NLB)" : this.state.type === "public" ? "Public (ALB)" : "",
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "vsi_form",
-      name: "vpc",
-      labelText: "VPC",
-      groups: this.props.vpcList,
-      value: this.state.vpc,
-      handleInputChange: this.handleInputChange,
-      invalid: lazyZ.isNullOrEmptyString(this.state.vpc),
-      invalidText: "Select a VPC.",
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React__default["default"].createElement(SecurityGroupMultiSelect, {
-      key: this.state.vpc + "-sg",
-      id: componentName + "-sg",
-      initialSelectedItems: this.state.security_groups || [],
-      vpc_name: this.state.vpc,
-      onChange: value => this.handleMultiSelectChange("security_groups", value),
-      securityGroups: this.getSecurityGroupList(),
-      invalid: !(this.state.security_groups?.length > 0),
-      invalidText: !this.state.vpc || lazyZ.isNullOrEmptyString(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`,
-      className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
-      type: "subHeading",
-      name: "Load Balancer VSI"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
-      key: this.state.vpc + "-vsi",
-      className: "fieldWidthSmaller",
-      id: componentName + "-vsi",
-      titleText: "Deployment VSI",
-      items: lazyZ.splat(this.props.vsiDeployments.filter(deployment => {
-        if (deployment.vpc === this.state.vpc) {
-          return deployment;
-        }
-      }), "name"),
-      onChange: value => {
-        this.handleMultiSelectChange("target_vsi", value.selectedItems);
-      },
-      initialSelectedItems: this.state.target_vsi,
-      invalid: this.state.target_vsi.length === 0,
-      invalidText: "Select at least one VSI deployment"
-    }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
-      placeholder: "80",
-      label: "Application Port",
-      id: componentName + "-port",
-      allowEmpty: true,
-      value: this.state.port,
-      step: 1,
-      onChange: this.handleInputChange,
-      name: "port",
-      hideSteppers: true,
-      min: 1,
-      max: 65535,
-      invalid: lazyZ.isNullOrEmptyString(this.state.port || "") ? true : !lazyZ.isWholeNumber(this.state.port),
-      invalidText: "Must be a whole number between 1 and 65535",
-      className: "fieldWidthSmaller"
-    })), this.allVsi().map((row, index) => /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
-      key: "row-" + index
-    }, row.map((vsi, vsiIndex) => /*#__PURE__*/React__default["default"].createElement(react.Tile, {
-      key: `${index}-${vsiIndex}`,
-      className: "fieldWidthSmaller tileFormMargin"
-    }, /*#__PURE__*/React__default["default"].createElement("p", {
-      className: "tileTitle"
-    }, "Name:"), /*#__PURE__*/React__default["default"].createElement("p", {
-      className: "tileContent"
-    }, vsi.name), /*#__PURE__*/React__default["default"].createElement("p", {
-      className: "tileTitle"
-    }, "Subnet:"), /*#__PURE__*/React__default["default"].createElement("p", {
-      className: "tileContent"
-    }, vsi.subnet))))), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
-      type: "subHeading",
-      name: "Load Balancer Pool"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: componentName,
-      name: "algorithm",
-      labelText: "Load Balancing Algorithm",
-      groups: ["Round Robin", "Weighted Round Robin", "Least Connections"],
-      value: lazyZ.titleCase(this.state.algorithm || ""),
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: componentName,
-      name: "protocol",
-      labelText: "Pool Protocol",
-      groups: ["HTTPS", "HTTP", "TCP", "UDP"],
-      value: (this.state.protocol || "").toUpperCase(),
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller",
-      tooltip: {
-        content: "Protocol of the application running on VSI instances"
-      }
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: componentName,
-      name: "health_type",
-      labelText: "Pool Health Protocol",
-      groups: ["HTTPS", "HTTP", "TCP"],
-      value: (this.state.health_type || "").toUpperCase(),
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller",
-      tooltip: {
-        content: "Protocol used to check the health of member VSI instances"
-      }
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
-      placeholder: "5",
-      label: "Health Timeout (in Seconds)",
-      id: componentName + "-timeout",
-      allowEmpty: true,
-      value: this.state.health_timeout,
-      step: 1,
-      onChange: this.handleInputChange,
-      name: "health_timeout",
-      hideSteppers: true,
-      min: 5,
-      max: 3000,
-      invalid: lazyZ.isNullOrEmptyString(this.state.health_timeout || "") ? true : !lazyZ.isWholeNumber(this.state.health_timeout),
-      invalidText: "Must be a whole number between 5 and 300",
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
-      placeholder: "5",
-      label: "Health Delay (in Seconds)",
-      id: componentName + "-delay",
-      allowEmpty: true,
-      value: this.state.health_delay,
-      step: 1,
-      onChange: this.handleInputChange,
-      name: "health_delay",
-      hideSteppers: true,
-      min: 5,
-      max: 3000,
-      invalid: lazyZ.isNullOrEmptyString(this.state.health_delay || "") ? true : this.state.health_delay <= this.state.health_timeout || !lazyZ.isWholeNumber(this.state.health_delay),
-      invalidText: this.state.health_delay <= this.state.health_timeout ? "Must be greater than Health Timeout value" : "Must be a whole number between 5 and 300",
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
-      placeholder: "5",
-      label: "Health Retries",
-      id: componentName + "-retries",
-      allowEmpty: true,
-      value: this.state.health_retries,
-      step: 1,
-      onChange: this.handleInputChange,
-      name: "health_retries",
-      hideSteppers: true,
-      min: 5,
-      max: 3000,
-      invalid: lazyZ.isNullOrEmptyString(this.state.health_retries || "") ? true : !lazyZ.isWholeNumber(this.state.health_retries),
-      invalidText: "Must be a whole number between 5 and 300",
-      className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
-      type: "subHeading",
-      name: "Load Balancer Listener"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
-      placeholder: "443",
-      label: "Listener Port",
-      id: componentName + "-listener-port",
-      allowEmpty: true,
-      value: this.state.listener_port,
-      step: 1,
-      onChange: this.handleInputChange,
-      name: "listener_port",
-      hideSteppers: true,
-      min: 1,
-      max: 65535,
-      invalid: lazyZ.isNullOrEmptyString(this.state.listener_port || "") ? true : !lazyZ.isWholeNumber(this.state.listener_port),
-      invalidText: "Must be a whole number between 1 and 65535",
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: componentName,
-      name: "listener_protocol",
-      labelText: "Listener Protocol",
-      groups: ["HTTPS", "HTTP", "TCP", "UDP"],
-      value: (this.state.listener_protocol || "").toUpperCase(),
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller",
-      tooltip: {
-        content: "Protocol of the listener for the load balancer"
-      }
-    }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
-      label: "Connection Limit",
-      id: componentName + "-connection-limit",
-      allowEmpty: true,
-      value: this.state.connection_limit || "",
-      step: 1,
-      onChange: this.handleInputChange,
-      name: "connection_limit",
-      hideSteppers: true,
-      min: 1,
-      max: 15000,
-      invalid: lazyZ.isNullOrEmptyString(this.state.connection_limit || "") ? false : lazyZ.isInRange(this.state.connection_limit, 1, 15000) === false || !lazyZ.isWholeNumber(this.state.connection_limit),
-      invalidText: "Must be a whole number between 1 and 15000",
-      className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
-      type: "subHeading",
-      name: "(Optional) Pool Customization"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: componentName,
-      name: "proxy_protocol",
-      labelText: "Proxy Protocol",
-      groups: ["Disabled", "V1", "V2"],
-      value: (this.state.proxy_protocol || "disabled").toUpperCase(),
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: componentName,
-      name: "session_persistence_type",
-      labelText: "Session Persistence Type",
-      groups: ["Source IP", "App Cookie", "HTTP Cookie"],
-      value: lazyZ.titleCase(this.state.session_persistence_type || "").replace(/Ip/s, "IP").replace(/Http/g, "HTTP"),
-      handleInputChange: this.handleInputChange,
-      disableInvalid: true,
-      className: "fieldWidthSmaller"
-    }), this.state.session_persistence_type === "app_cookie" && /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: componentName + "session_persistence_app_cookie_name",
-      componentName: componentName + "-cookie-name",
-      field: "session_persistence_app_cookie_name",
-      isModal: this.props.isModal,
-      labelText: "Session Cookie Name",
-      value: this.state.session_persistence_app_cookie_name || "",
-      invalid: lazyZ.isNullOrEmptyString(this.state.session_persistence_app_cookie_name || "") ? false : this.props.invalidCallback(this.state, this.props),
-      onChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    })));
-  }
-}
-VsiLoadBalancerForm.defaultProps = {
-  data: {
-    name: "",
-    resource_group: "",
-    vpc: "",
-    type: "",
-    security_groups: [],
-    algorithm: "",
-    protocol: "",
-    proxy_protocol: "",
-    health_type: "",
-    session_persistence_app_cookie_name: "",
-    target_vsi: [],
-    listener_protocol: "",
-    connection_limit: null,
-    port: "",
-    health_timeout: "",
-    health_delay: "",
-    health_retries: "",
-    listener_port: ""
-  },
-  isModal: false
-};
-VsiLoadBalancerForm.propTypes = {
-  data: PropTypes__default["default"].shape({
-    name: PropTypes__default["default"].string.isRequired,
-    resource_group: PropTypes__default["default"].string,
-    vpc: PropTypes__default["default"].string,
-    security_groups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string)
-  }),
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string.isRequired),
-  isModal: PropTypes__default["default"].bool.isRequired,
-  securityGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
-  vsiDeployments: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired
-};
-
 const {
   snakeCase
 } = lazyZ__default["default"];
@@ -13361,6 +13411,7 @@ exports.VpnServerForm = VpnServerForm;
 exports.VpnServerRouteForm = VpnServerRouteForm;
 exports.VsiForm = VsiForm;
 exports.VsiLoadBalancerForm = VsiLoadBalancerForm;
+exports.VsiLoadBalancerTemplate = VsiLoadBalancer;
 exports.VsiTemplate = Vsi;
 exports.VsiVolumeForm = VsiVolumeForm;
 exports.WorkerPoolForm = WorkerPoolForm;

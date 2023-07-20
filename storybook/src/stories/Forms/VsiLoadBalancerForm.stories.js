@@ -113,13 +113,6 @@ export default {
       table: { defaultValue: { summary: false } },
       control: "none",
     },
-    isTeleport: {
-      description:
-        "A boolean specifying whether or not the form is for a Teleport VSI",
-      type: { required: true }, // required prop or not
-      table: { defaultValue: { summary: false } },
-      control: "none",
-    },
     invalidCallback: {
       description:
         "Function that determines invalid state for specified field (defaults to `name`) field",
@@ -139,34 +132,6 @@ export default {
     },
     vpcList: {
       description: "An array of strings containing the names of VPCs to select",
-      type: { required: true }, // required prop or not
-      control: "none",
-    },
-    subnetList: {
-      description:
-        "An array of strings containing the names of subnet names to choose from",
-      type: { required: true }, // required prop or not
-      control: "none",
-    },
-    sshKeys: {
-      description: "An array of ssh key names to choose from",
-      type: { required: true }, // required prop or not
-      control: "none",
-    },
-    encryptionKeys: {
-      description: "An array of available encryption key names to choose from",
-      type: { required: true }, // required prop or not
-      control: "none",
-    },
-    apiEndpointImages: {
-      description:
-        "A string representing the api endpoint to fetch valid VSI images to choose from",
-      type: { required: true }, // required prop or not
-      control: "none",
-    },
-    apiEndpointInstanceProfiles: {
-      description:
-        "A string representing the api endpoint to fetch valid VSI profiles to choose from",
       type: { required: true }, // required prop or not
       control: "none",
     },

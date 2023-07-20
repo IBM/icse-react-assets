@@ -113,3 +113,4 @@ export { VpnGateways as VpnGatewayTemplate } from "./crud-form-pages";
 export { Vpcs as VpcTemplate } from "./crud-form-pages";
 export { Vsi as VsiTemplate } from "./crud-form-pages";
 export { SecurityGroups as SecurityGroupTemplate } from "./crud-form-pages";
+export { VsiLoadBalancer as VsiLoadBalancerTemplate } from "./crud-form-pages";
