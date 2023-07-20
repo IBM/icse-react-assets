@@ -25,7 +25,7 @@ describe("input utils", () => {
       assert.deepEqual(
         actualData,
         expectedData,
-        "it should return correct data"
+        "it should return correct data",
       );
     });
     it("should return correct params when using tooltip and no toggleFieldName", () => {
@@ -48,7 +48,7 @@ describe("input utils", () => {
       assert.deepEqual(
         actualData,
         expectedData,
-        "it should return correct data"
+        "it should return correct data",
       );
     });
   });
@@ -68,7 +68,7 @@ describe("input utils", () => {
           name: "test",
           event: "frog",
         },
-        "it should return data"
+        "it should return data",
       );
     });
   });
@@ -94,7 +94,7 @@ describe("input utils", () => {
       assert.deepEqual(
         actualData,
         expectedData,
-        "it should return correct data"
+        "it should return correct data",
       );
     });
     it("should return the correct params when no invalidText, invalidCallback, not optional, no placeholder, and no labelText", () => {
@@ -116,7 +116,7 @@ describe("input utils", () => {
       assert.deepEqual(
         actualData,
         expectedData,
-        "it should return correct data"
+        "it should return correct data",
       );
     });
     it("should return force kebab case data", () => {
@@ -146,7 +146,7 @@ describe("input utils", () => {
             value: "hello-world",
           },
         },
-        "it should return the correct data"
+        "it should return the correct data",
       );
     });
   });

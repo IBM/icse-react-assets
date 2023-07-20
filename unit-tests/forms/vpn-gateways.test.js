@@ -15,7 +15,7 @@ describe("vpn gateways", () => {
         vpc: "frog",
         subnet: "",
       },
-      "it should return correct data"
+      "it should return correct data",
     );
   });
   it("should return correct object for other cases", () => {
@@ -30,7 +30,7 @@ describe("vpn gateways", () => {
       {
         x: "frog",
       },
-      "it should return correct data"
+      "it should return correct data",
     );
   });
 });

@@ -69,7 +69,7 @@ class SubnetForm extends React.Component {
                   name={this.props.data.name || "New Subnet"}
                   disabled={this.props.disableSaveCallback(
                     this.state,
-                    this.props
+                    this.props,
                   )}
                   onClick={this.handleSave}
                   noDeleteButton

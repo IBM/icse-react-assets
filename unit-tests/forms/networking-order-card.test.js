@@ -165,13 +165,13 @@ describe("networking-order-card", () => {
     it("should have formInSubForm if sec group", () => {
       assert.deepEqual(
         "marginBottomSmall positionRelative formInSubForm",
-        getOrderCardClassName({ isSecurityGroup: true })
+        getOrderCardClassName({ isSecurityGroup: true }),
       );
     });
     it("should have subForm if not sec group", () => {
       assert.deepEqual(
         "marginBottomSmall positionRelative subForm",
-        getOrderCardClassName({ isSecurityGroup: false })
+        getOrderCardClassName({ isSecurityGroup: false }),
       );
     });
   });

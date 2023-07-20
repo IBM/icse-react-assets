@@ -11,7 +11,7 @@ describe("iam-utils", () => {
       assert.strictEqual(
         isIpStringInvalid("1.1.1.1, 2.2.2.2"),
         false,
-        "it should return false"
+        "it should return false",
       );
     });
 
@@ -19,7 +19,7 @@ describe("iam-utils", () => {
       assert.strictEqual(
         isIpStringInvalid("1.1, 2"),
         true,
-        "it should return true"
+        "it should return true",
       );
     });
 
@@ -27,7 +27,7 @@ describe("iam-utils", () => {
       assert.strictEqual(
         isIpStringInvalid(""),
         false,
-        "it should return false"
+        "it should return false",
       );
     });
   });
@@ -36,7 +36,7 @@ describe("iam-utils", () => {
       assert.strictEqual(
         isIpStringInvalidNoCidr("1.1.1.1, 2.2.2.2"),
         false,
-        "it should return false"
+        "it should return false",
       );
     });
 
@@ -44,7 +44,7 @@ describe("iam-utils", () => {
       assert.strictEqual(
         isIpStringInvalidNoCidr("1.1, 2"),
         true,
-        "it should return true"
+        "it should return true",
       );
     });
 
@@ -52,7 +52,7 @@ describe("iam-utils", () => {
       assert.strictEqual(
         isIpStringInvalidNoCidr("1.1.1.1/1, 2.2.2.2/2"),
         true,
-        "it should return true"
+        "it should return true",
       );
     });
 
@@ -60,7 +60,7 @@ describe("iam-utils", () => {
       assert.strictEqual(
         isIpStringInvalidNoCidr(""),
         false,
-        "it should return false"
+        "it should return false",
       );
     });
   });
@@ -69,38 +69,38 @@ describe("iam-utils", () => {
       assert.strictEqual(
         isRangeInvalid(11, 10, 100),
         false,
-        "should return false"
+        "should return false",
       );
     });
     it("should return true for invalid range", () => {
       assert.strictEqual(
         isRangeInvalid(0, 10, 100),
         true,
-        "should return true"
+        "should return true",
       );
     });
     it("should be inclusive", () => {
       assert.strictEqual(
         isRangeInvalid(10, 10, 100),
         false,
-        "should return false"
+        "should return false",
       );
       assert.strictEqual(
         isRangeInvalid(100, 10, 100),
         false,
-        "should return false"
+        "should return false",
       );
     });
     it("should be false for empty string and null", () => {
       assert.strictEqual(
         isRangeInvalid("", 10, 100),
         false,
-        "empty string should return false"
+        "empty string should return false",
       );
       assert.strictEqual(
         isRangeInvalid(null, 10, 100),
         false,
-        "null should return false"
+        "null should return false",
       );
     });
   });

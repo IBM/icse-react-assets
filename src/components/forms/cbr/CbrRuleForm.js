@@ -36,7 +36,7 @@ class CbrRuleForm extends Component {
     let contextInnerFormProps = {};
     transpose(
       { ...this.props.contextProps, arrayParentName: this.props.data.name },
-      contextInnerFormProps
+      contextInnerFormProps,
     );
 
     let resourceAttributeInnerFormProps = {};
@@ -45,13 +45,13 @@ class CbrRuleForm extends Component {
         ...this.props.resourceAttributeProps,
         arrayParentName: this.props.data.name,
       },
-      resourceAttributeInnerFormProps
+      resourceAttributeInnerFormProps,
     );
 
     let tagInnerFormProps = {};
     transpose(
       { ...this.props.tagProps, arrayParentName: this.props.data.name },
-      tagInnerFormProps
+      tagInnerFormProps,
     );
 
     return (
@@ -68,7 +68,7 @@ class CbrRuleForm extends Component {
             }
             invalidText={this.props.invalidNameTextCallback(
               this.state,
-              this.props
+              this.props,
             )}
             forceKebabCase
           />
@@ -82,12 +82,12 @@ class CbrRuleForm extends Component {
             invalid={this.props.invalidCallback(
               "enforcement_mode",
               this.state,
-              this.props
+              this.props,
             )}
             invalidText={this.props.invalidTextCallback(
               "enforcement_mode",
               this.state,
-              this.props
+              this.props,
             )}
             formName="cbr-rule"
             handleInputChange={this.handleInputChange}
@@ -110,7 +110,7 @@ class CbrRuleForm extends Component {
             invalidText={this.props.invalidTextCallback(
               "api_type_id",
               this.state,
-              this.props
+              this.props,
             )}
           />
         </IcseFormGroup>
@@ -125,12 +125,12 @@ class CbrRuleForm extends Component {
             invalid={this.props.invalidCallback(
               "description",
               this.state,
-              this.props
+              this.props,
             )}
             invalidText={this.props.invalidTextCallback(
               "description",
               this.state,
-              this.props
+              this.props,
             )}
             enableCounter={true}
           />
@@ -246,20 +246,20 @@ CbrRuleForm.propTypes = {
       PropTypes.shape({
         name: PropTypes.string.isRequired,
         value: PropTypes.string.isRequired,
-      }).isRequired
+      }).isRequired,
     ),
     resource_attributes: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
         value: PropTypes.string.isRequired,
-      }).isRequired
+      }).isRequired,
     ),
     tags: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string.isRequired,
         operator: PropTypes.string.isRequired,
         value: PropTypes.string.isRequired,
-      }).isRequired
+      }).isRequired,
     ),
   }),
   propsMatchState: PropTypes.func.isRequired,

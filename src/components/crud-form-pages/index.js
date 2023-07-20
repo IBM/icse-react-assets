@@ -7,6 +7,7 @@ export { SecretsManager } from "./SecretsManager";
 export { SecurityGroups } from "./SecurityGroups";
 export { TransitGateways } from "./TransitGateways";
 export { Vpcs } from "./Vpc";
+export { Vpe } from "./Vpe";
 export { VpnGateways } from "./VpnGateways";
 export { Vsi } from "./Vsi";
 export { WorkerPools } from "./WorkerPools";

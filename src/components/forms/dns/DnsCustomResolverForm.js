@@ -62,7 +62,7 @@ class DnsCustomResolverForm extends React.Component {
             }
             invalidText={this.props.invalidNameTextCallback(
               this.state,
-              this.props
+              this.props,
             )}
           />
           <IcseToggle
@@ -120,11 +120,11 @@ class DnsCustomResolverForm extends React.Component {
           enableCounter
           invalid={this.props.invalidDescriptionCallback(
             this.state,
-            this.props
+            this.props,
           )}
           invalidText={this.props.invalidDescriptionTextCallback(
             this.state,
-            this.props
+            this.props,
           )}
         />
       </div>
