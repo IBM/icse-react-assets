@@ -13,3 +13,4 @@ export { WorkerPools } from "./WorkerPools";
 export { VsiLoadBalancer } from "./VsiLoadBalancer";
 export { Dns } from "./Dns";
 export { RoutingTables } from "./RoutingTables";
+export { EventStreams } from "./EventStreams";

@@ -9143,6 +9143,219 @@ RoutingTables.propTypes = {
   onRouteSubmit: PropTypes.func.isRequired
 };
 
+/**
+ *  handle allowed ips for event streams
+ * @param {Object} event
+ * @param {Object} stateData
+ * @returns {Object} new state
+ */
+function handleAllowedIps$1(event, stateData) {
+  let state = {
+    ...stateData
+  };
+  // removing white space and checking for empty value
+  let value = event.target.value.replace(/\s*/g, "");
+  state.private_ip_allowlist = value;
+  return state;
+}
+
+/**
+ * handle plan change for event streams
+ * @param {Object} event
+ * @param {Object} stateData
+ * @returns {Object} new state
+ */
+function handlePlanChange(event, stateData) {
+  let state = {
+    ...stateData
+  };
+  let value = event.target.value.toLowerCase();
+  state.plan = value;
+  if (value !== "enterprise") {
+    state = {
+      ...state,
+      throughput: "",
+      storage_size: "",
+      private_ip_allowlist: ""
+    };
+  }
+  return state;
+}
+var eventStreams = {
+  handleAllowedIps: handleAllowedIps$1,
+  handlePlanChange
+};
+var eventStreams_1 = eventStreams.handleAllowedIps;
+var eventStreams_2 = eventStreams.handlePlanChange;
+
+/**
+ * EventStreamsForm
+ */
+class EventStreamsForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleAllowedIps = this.handleAllowedIps.bind(this);
+    this.handlePlanChange = this.handlePlanChange.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+
+  /**
+   * Handle input change for allowed ips text field
+   * @param {event} event
+   */
+  handleAllowedIps(event) {
+    this.setState(eventStreams_1(event, this.state));
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * Handle input change for a select
+   * @param {event} event
+   */
+  handlePlanChange(event) {
+    this.setState(eventStreams_2(event, this.state));
+  }
+  render() {
+    let composedId = `event-streams-form-${this.props.data.name}`;
+    let classNameModalCheck = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: composedId,
+      componentName: this.props.data.name + "-event-streams",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      hideHelperText: true,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      className: classNameModalCheck
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: this.props.data.name + "-event-streams",
+      value: titleCase$2(this.state.plan),
+      groups: ["Lite", "Standard", "Enterprise"],
+      handleInputChange: this.handlePlanChange,
+      className: classNameModalCheck,
+      name: "plan",
+      labelText: "Plan"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: this.props.data.name + "-event-streams",
+      value: this.state.resource_group,
+      groups: this.props.resourceGroups,
+      handleInputChange: this.handleInputChange,
+      className: classNameModalCheck,
+      name: "resource_group",
+      labelText: "Resource Group"
+    })), this.state.plan === "enterprise" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: this.props.data.name + "-event-streams",
+      value: this.state.throughput,
+      groups: ["150MB/s", "300MB/s", "450MB/s"],
+      handleInputChange: this.handleInputChange,
+      className: classNameModalCheck,
+      name: "throughput",
+      labelText: "Throughput"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: this.props.data.name + "-event-streams",
+      value: this.state.storage_size,
+      groups: ["2TB", "4TB", "6TB", "8TB", "10TB", "12TB"],
+      handleInputChange: this.handleInputChange,
+      className: classNameModalCheck,
+      name: "storage_size",
+      labelText: "Storage Size"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(ToolTipWrapper, {
+      tooltip: {
+        content: "Private IP addresses or CIDR blocks to allowlist",
+        align: "top-left"
+      },
+      className: "textInputMedium",
+      innerForm: TextArea,
+      id: this.props.data.name + "-event-streams-private-ips",
+      labelText: "Allowed Private IPs",
+      onChange: this.handleAllowedIps,
+      placeholder: this.state.private_ip_allowlist || "X.X.X.X, X.X.X.X/X, ...",
+      invalid: iamUtils_1(this.state.private_ip_allowlist),
+      invalidText: "Please enter a comma separated list of IP addresses or CIDR blocks"
+    }))));
+  }
+}
+EventStreamsForm.defaultProps = {
+  data: {
+    name: "",
+    plan: "lite",
+    resource_group: "",
+    throughput: "",
+    storage_size: "",
+    private_ip_allowlist: ""
+  }
+};
+EventStreamsForm.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    plan: PropTypes.string.isRequired,
+    resource_group: PropTypes.string,
+    throughput: PropTypes.string,
+    storage_size: PropTypes.string,
+    private_ip_allowlist: PropTypes.string
+  }),
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired
+};
+
+const EventStreams = props => {
+  return /*#__PURE__*/React.createElement(IcseFormTemplate, {
+    name: "Event Streams",
+    addText: "Create an Event Streams Service",
+    docs: props.docs,
+    innerForm: EventStreamsForm,
+    arrayData: props.event_streams,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    innerFormProps: {
+      craig: props.craig,
+      resourceGroups: props.resourceGroups,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      propsMatchState: props.propsMatchState,
+      disableSave: props.disableSave
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "event_streams",
+      hide: true,
+      hideName: true
+    }
+  });
+};
+EventStreams.propTypes = {
+  event_streams: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  disableSave: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  propsMatchState: PropTypes.func.isRequired,
+  forceOpen: PropTypes.func.isRequired,
+  resourceGroups: PropTypes.array.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  craig: PropTypes.shape({}),
+  docs: PropTypes.func.isRequired
+};
+
 class ClusterForm extends Component {
   constructor(props) {
     super(props);
@@ -9391,174 +9604,6 @@ ClusterForm.propTypes = {
     onSubmit: PropTypes.func.isRequired,
     disableSave: PropTypes.func.isRequired
   }).isRequired
-};
-
-/**
- *  handle allowed ips for event streams
- * @param {Object} event
- * @param {Object} stateData
- * @returns {Object} new state
- */
-function handleAllowedIps$1(event, stateData) {
-  let state = {
-    ...stateData
-  };
-  // removing white space and checking for empty value
-  let value = event.target.value.replace(/\s*/g, "");
-  state.private_ip_allowlist = value;
-  return state;
-}
-
-/**
- * handle plan change for event streams
- * @param {Object} event
- * @param {Object} stateData
- * @returns {Object} new state
- */
-function handlePlanChange(event, stateData) {
-  let state = {
-    ...stateData
-  };
-  let value = event.target.value.toLowerCase();
-  state.plan = value;
-  if (value !== "enterprise") {
-    state = {
-      ...state,
-      throughput: "",
-      storage_size: "",
-      private_ip_allowlist: ""
-    };
-  }
-  return state;
-}
-var eventStreams = {
-  handleAllowedIps: handleAllowedIps$1,
-  handlePlanChange
-};
-var eventStreams_1 = eventStreams.handleAllowedIps;
-var eventStreams_2 = eventStreams.handlePlanChange;
-
-/**
- * EventStreamsForm
- */
-class EventStreamsForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleAllowedIps = this.handleAllowedIps.bind(this);
-    this.handlePlanChange = this.handlePlanChange.bind(this);
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-  }
-
-  /**
-   * Handle input change for allowed ips text field
-   * @param {event} event
-   */
-  handleAllowedIps(event) {
-    this.setState(eventStreams_1(event, this.state));
-  }
-
-  /**
-   * handle input change
-   * @param {event} event event
-   */
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-
-  /**
-   * Handle input change for a select
-   * @param {event} event
-   */
-  handlePlanChange(event) {
-    this.setState(eventStreams_2(event, this.state));
-  }
-  render() {
-    let composedId = `event-streams-form-${this.props.data.name}`;
-    let classNameModalCheck = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
-      id: composedId,
-      componentName: this.props.data.name + "-event-streams",
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      hideHelperText: true,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props),
-      className: classNameModalCheck
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: this.props.data.name + "-event-streams",
-      value: titleCase$2(this.state.plan),
-      groups: ["Lite", "Standard", "Enterprise"],
-      handleInputChange: this.handlePlanChange,
-      className: classNameModalCheck,
-      name: "plan",
-      labelText: "Plan"
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: this.props.data.name + "-event-streams",
-      value: this.state.resource_group,
-      groups: this.props.resourceGroups,
-      handleInputChange: this.handleInputChange,
-      className: classNameModalCheck,
-      name: "resource_group",
-      labelText: "Resource Group"
-    })), this.state.plan === "enterprise" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: this.props.data.name + "-event-streams",
-      value: this.state.throughput,
-      groups: ["150MB/s", "300MB/s", "450MB/s"],
-      handleInputChange: this.handleInputChange,
-      className: classNameModalCheck,
-      name: "throughput",
-      labelText: "Throughput"
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: this.props.data.name + "-event-streams",
-      value: this.state.storage_size,
-      groups: ["2TB", "4TB", "6TB", "8TB", "10TB", "12TB"],
-      handleInputChange: this.handleInputChange,
-      className: classNameModalCheck,
-      name: "storage_size",
-      labelText: "Storage Size"
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(ToolTipWrapper, {
-      tooltip: {
-        content: "Private IP addresses or CIDR blocks to allowlist",
-        align: "top-left"
-      },
-      className: "textInputMedium",
-      innerForm: TextArea,
-      id: this.props.data.name + "-event-streams-private-ips",
-      labelText: "Allowed Private IPs",
-      onChange: this.handleAllowedIps,
-      placeholder: this.state.private_ip_allowlist || "X.X.X.X, X.X.X.X/X, ...",
-      invalid: iamUtils_1(this.state.private_ip_allowlist),
-      invalidText: "Please enter a comma separated list of IP addresses or CIDR blocks"
-    }))));
-  }
-}
-EventStreamsForm.defaultProps = {
-  data: {
-    name: "",
-    plan: "lite",
-    resource_group: "",
-    throughput: "",
-    storage_size: "",
-    private_ip_allowlist: ""
-  }
-};
-EventStreamsForm.propTypes = {
-  data: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    plan: PropTypes.string.isRequired,
-    resource_group: PropTypes.string,
-    throughput: PropTypes.string,
-    storage_size: PropTypes.string,
-    private_ip_allowlist: PropTypes.string
-  }),
-  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
-  invalidCallback: PropTypes.func.isRequired,
-  invalidTextCallback: PropTypes.func.isRequired
 };
 
 class F5VsiForm extends Component {
@@ -13474,4 +13519,4 @@ SecretsManagerChecklist.propTypes = {
   parentName: PropTypes.string.isRequired
 };
 
-export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AppId as AppIdTemplate, AtrackerForm, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, ClusterForm, Clusters as ClustersTemplate, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsForm, DnsRecordForm, Dns as DnsTemplate, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, KeyManagement as KeyManagementTemplate, LocationsMultiSelect, LogDNAForm, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, ObjectStorage as ObjectStorageTemplate, OrderCardDataTable, PopoverWrapper, RenderForm, ResourceGroupForm, ResourceGroups as ResourceGroupsTemplate, RoutingTableForm, RoutingTableRouteForm, RoutingTables as RoutingTableTemplate, SaveAddButton, SaveIcon, SccForm, SecretsManagerChecklist, SecretsManagerForm, SecretsManager as SecretsManagerTemplate, SecurityGroupForm, SecurityGroupMultiSelect, SecurityGroups as SecurityGroupTemplate, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, SysdigForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, TransitGateways as TransitGatewayTemplate, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, Vpcs as VpcTemplate, VpeForm, VpnGatewayForm, VpnGateways as VpnGatewayTemplate, VpnServerForm, VpnServerRouteForm, VsiForm, VsiLoadBalancerForm, VsiLoadBalancer as VsiLoadBalancerTemplate, Vsi as VsiTemplate, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AppId as AppIdTemplate, AtrackerForm, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, ClusterForm, Clusters as ClustersTemplate, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsForm, DnsRecordForm, Dns as DnsTemplate, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, EventStreams as EventStreamsTemplate, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, KeyManagement as KeyManagementTemplate, LocationsMultiSelect, LogDNAForm, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, ObjectStorage as ObjectStorageTemplate, OrderCardDataTable, PopoverWrapper, RenderForm, ResourceGroupForm, ResourceGroups as ResourceGroupsTemplate, RoutingTableForm, RoutingTableRouteForm, RoutingTables as RoutingTableTemplate, SaveAddButton, SaveIcon, SccForm, SecretsManagerChecklist, SecretsManagerForm, SecretsManager as SecretsManagerTemplate, SecurityGroupForm, SecurityGroupMultiSelect, SecurityGroups as SecurityGroupTemplate, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, SysdigForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, TransitGateways as TransitGatewayTemplate, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, Vpcs as VpcTemplate, VpeForm, VpnGatewayForm, VpnGateways as VpnGatewayTemplate, VpnServerForm, VpnServerRouteForm, VsiForm, VsiLoadBalancerForm, VsiLoadBalancer as VsiLoadBalancerTemplate, Vsi as VsiTemplate, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };

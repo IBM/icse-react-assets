@@ -9154,6 +9154,219 @@ RoutingTables.propTypes = {
   onRouteSubmit: PropTypes__default["default"].func.isRequired
 };
 
+/**
+ *  handle allowed ips for event streams
+ * @param {Object} event
+ * @param {Object} stateData
+ * @returns {Object} new state
+ */
+function handleAllowedIps$1(event, stateData) {
+  let state = {
+    ...stateData
+  };
+  // removing white space and checking for empty value
+  let value = event.target.value.replace(/\s*/g, "");
+  state.private_ip_allowlist = value;
+  return state;
+}
+
+/**
+ * handle plan change for event streams
+ * @param {Object} event
+ * @param {Object} stateData
+ * @returns {Object} new state
+ */
+function handlePlanChange(event, stateData) {
+  let state = {
+    ...stateData
+  };
+  let value = event.target.value.toLowerCase();
+  state.plan = value;
+  if (value !== "enterprise") {
+    state = {
+      ...state,
+      throughput: "",
+      storage_size: "",
+      private_ip_allowlist: ""
+    };
+  }
+  return state;
+}
+var eventStreams = {
+  handleAllowedIps: handleAllowedIps$1,
+  handlePlanChange
+};
+var eventStreams_1 = eventStreams.handleAllowedIps;
+var eventStreams_2 = eventStreams.handlePlanChange;
+
+/**
+ * EventStreamsForm
+ */
+class EventStreamsForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleAllowedIps = this.handleAllowedIps.bind(this);
+    this.handlePlanChange = this.handlePlanChange.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+
+  /**
+   * Handle input change for allowed ips text field
+   * @param {event} event
+   */
+  handleAllowedIps(event) {
+    this.setState(eventStreams_1(event, this.state));
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * Handle input change for a select
+   * @param {event} event
+   */
+  handlePlanChange(event) {
+    this.setState(eventStreams_2(event, this.state));
+  }
+  render() {
+    let composedId = `event-streams-form-${this.props.data.name}`;
+    let classNameModalCheck = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: composedId,
+      componentName: this.props.data.name + "-event-streams",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      hideHelperText: true,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      className: classNameModalCheck
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: this.props.data.name + "-event-streams",
+      value: lazyZ.titleCase(this.state.plan),
+      groups: ["Lite", "Standard", "Enterprise"],
+      handleInputChange: this.handlePlanChange,
+      className: classNameModalCheck,
+      name: "plan",
+      labelText: "Plan"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: this.props.data.name + "-event-streams",
+      value: this.state.resource_group,
+      groups: this.props.resourceGroups,
+      handleInputChange: this.handleInputChange,
+      className: classNameModalCheck,
+      name: "resource_group",
+      labelText: "Resource Group"
+    })), this.state.plan === "enterprise" && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: this.props.data.name + "-event-streams",
+      value: this.state.throughput,
+      groups: ["150MB/s", "300MB/s", "450MB/s"],
+      handleInputChange: this.handleInputChange,
+      className: classNameModalCheck,
+      name: "throughput",
+      labelText: "Throughput"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: this.props.data.name + "-event-streams",
+      value: this.state.storage_size,
+      groups: ["2TB", "4TB", "6TB", "8TB", "10TB", "12TB"],
+      handleInputChange: this.handleInputChange,
+      className: classNameModalCheck,
+      name: "storage_size",
+      labelText: "Storage Size"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
+      tooltip: {
+        content: "Private IP addresses or CIDR blocks to allowlist",
+        align: "top-left"
+      },
+      className: "textInputMedium",
+      innerForm: react.TextArea,
+      id: this.props.data.name + "-event-streams-private-ips",
+      labelText: "Allowed Private IPs",
+      onChange: this.handleAllowedIps,
+      placeholder: this.state.private_ip_allowlist || "X.X.X.X, X.X.X.X/X, ...",
+      invalid: iamUtils_1(this.state.private_ip_allowlist),
+      invalidText: "Please enter a comma separated list of IP addresses or CIDR blocks"
+    }))));
+  }
+}
+EventStreamsForm.defaultProps = {
+  data: {
+    name: "",
+    plan: "lite",
+    resource_group: "",
+    throughput: "",
+    storage_size: "",
+    private_ip_allowlist: ""
+  }
+};
+EventStreamsForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    plan: PropTypes__default["default"].string.isRequired,
+    resource_group: PropTypes__default["default"].string,
+    throughput: PropTypes__default["default"].string,
+    storage_size: PropTypes__default["default"].string,
+    private_ip_allowlist: PropTypes__default["default"].string
+  }),
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired
+};
+
+const EventStreams = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "Event Streams",
+    addText: "Create an Event Streams Service",
+    docs: props.docs,
+    innerForm: EventStreamsForm,
+    arrayData: props.event_streams,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    innerFormProps: {
+      craig: props.craig,
+      resourceGroups: props.resourceGroups,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      propsMatchState: props.propsMatchState,
+      disableSave: props.disableSave
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "event_streams",
+      hide: true,
+      hideName: true
+    }
+  });
+};
+EventStreams.propTypes = {
+  event_streams: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  onDelete: PropTypes__default["default"].func.isRequired,
+  onSave: PropTypes__default["default"].func.isRequired,
+  onSubmit: PropTypes__default["default"].func.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  forceOpen: PropTypes__default["default"].func.isRequired,
+  resourceGroups: PropTypes__default["default"].array.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  craig: PropTypes__default["default"].shape({}),
+  docs: PropTypes__default["default"].func.isRequired
+};
+
 class ClusterForm extends React.Component {
   constructor(props) {
     super(props);
@@ -9402,174 +9615,6 @@ ClusterForm.propTypes = {
     onSubmit: PropTypes__default["default"].func.isRequired,
     disableSave: PropTypes__default["default"].func.isRequired
   }).isRequired
-};
-
-/**
- *  handle allowed ips for event streams
- * @param {Object} event
- * @param {Object} stateData
- * @returns {Object} new state
- */
-function handleAllowedIps$1(event, stateData) {
-  let state = {
-    ...stateData
-  };
-  // removing white space and checking for empty value
-  let value = event.target.value.replace(/\s*/g, "");
-  state.private_ip_allowlist = value;
-  return state;
-}
-
-/**
- * handle plan change for event streams
- * @param {Object} event
- * @param {Object} stateData
- * @returns {Object} new state
- */
-function handlePlanChange(event, stateData) {
-  let state = {
-    ...stateData
-  };
-  let value = event.target.value.toLowerCase();
-  state.plan = value;
-  if (value !== "enterprise") {
-    state = {
-      ...state,
-      throughput: "",
-      storage_size: "",
-      private_ip_allowlist: ""
-    };
-  }
-  return state;
-}
-var eventStreams = {
-  handleAllowedIps: handleAllowedIps$1,
-  handlePlanChange
-};
-var eventStreams_1 = eventStreams.handleAllowedIps;
-var eventStreams_2 = eventStreams.handlePlanChange;
-
-/**
- * EventStreamsForm
- */
-class EventStreamsForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleAllowedIps = this.handleAllowedIps.bind(this);
-    this.handlePlanChange = this.handlePlanChange.bind(this);
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-  }
-
-  /**
-   * Handle input change for allowed ips text field
-   * @param {event} event
-   */
-  handleAllowedIps(event) {
-    this.setState(eventStreams_1(event, this.state));
-  }
-
-  /**
-   * handle input change
-   * @param {event} event event
-   */
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-
-  /**
-   * Handle input change for a select
-   * @param {event} event
-   */
-  handlePlanChange(event) {
-    this.setState(eventStreams_2(event, this.state));
-  }
-  render() {
-    let composedId = `event-streams-form-${this.props.data.name}`;
-    let classNameModalCheck = this.props.isModal ? "fieldWidthSmaller" : "fieldWidth";
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: composedId,
-      componentName: this.props.data.name + "-event-streams",
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      hideHelperText: true,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props),
-      className: classNameModalCheck
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: this.props.data.name + "-event-streams",
-      value: lazyZ.titleCase(this.state.plan),
-      groups: ["Lite", "Standard", "Enterprise"],
-      handleInputChange: this.handlePlanChange,
-      className: classNameModalCheck,
-      name: "plan",
-      labelText: "Plan"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: this.props.data.name + "-event-streams",
-      value: this.state.resource_group,
-      groups: this.props.resourceGroups,
-      handleInputChange: this.handleInputChange,
-      className: classNameModalCheck,
-      name: "resource_group",
-      labelText: "Resource Group"
-    })), this.state.plan === "enterprise" && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: this.props.data.name + "-event-streams",
-      value: this.state.throughput,
-      groups: ["150MB/s", "300MB/s", "450MB/s"],
-      handleInputChange: this.handleInputChange,
-      className: classNameModalCheck,
-      name: "throughput",
-      labelText: "Throughput"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: this.props.data.name + "-event-streams",
-      value: this.state.storage_size,
-      groups: ["2TB", "4TB", "6TB", "8TB", "10TB", "12TB"],
-      handleInputChange: this.handleInputChange,
-      className: classNameModalCheck,
-      name: "storage_size",
-      labelText: "Storage Size"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(ToolTipWrapper, {
-      tooltip: {
-        content: "Private IP addresses or CIDR blocks to allowlist",
-        align: "top-left"
-      },
-      className: "textInputMedium",
-      innerForm: react.TextArea,
-      id: this.props.data.name + "-event-streams-private-ips",
-      labelText: "Allowed Private IPs",
-      onChange: this.handleAllowedIps,
-      placeholder: this.state.private_ip_allowlist || "X.X.X.X, X.X.X.X/X, ...",
-      invalid: iamUtils_1(this.state.private_ip_allowlist),
-      invalidText: "Please enter a comma separated list of IP addresses or CIDR blocks"
-    }))));
-  }
-}
-EventStreamsForm.defaultProps = {
-  data: {
-    name: "",
-    plan: "lite",
-    resource_group: "",
-    throughput: "",
-    storage_size: "",
-    private_ip_allowlist: ""
-  }
-};
-EventStreamsForm.propTypes = {
-  data: PropTypes__default["default"].shape({
-    name: PropTypes__default["default"].string.isRequired,
-    plan: PropTypes__default["default"].string.isRequired,
-    resource_group: PropTypes__default["default"].string,
-    throughput: PropTypes__default["default"].string,
-    storage_size: PropTypes__default["default"].string,
-    private_ip_allowlist: PropTypes__default["default"].string
-  }),
-  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired
 };
 
 class F5VsiForm extends React.Component {
@@ -13516,6 +13561,7 @@ exports.EncryptionKeyForm = EncryptionKeyForm;
 exports.EndpointSelect = EndpointSelect;
 exports.EntitlementSelect = EntitlementSelect;
 exports.EventStreamsForm = EventStreamsForm;
+exports.EventStreamsTemplate = EventStreams;
 exports.F5VsiForm = F5VsiForm;
 exports.F5VsiTemplateForm = F5VsiTemplateForm;
 exports.FetchSelect = FetchSelect;
