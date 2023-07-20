@@ -28,6 +28,7 @@ export const AppId = (props) => {
         invalidKeyTextCallback: props.invalidKeyTextCallback,
         propsMatchState: props.propsMatchState,
         disableSave: props.disableSave,
+        encryptionKeys: props.encryptionKeys,
         keyProps: {
           craig: props.craig,
           onSave: props.onKeySave,
@@ -65,4 +66,5 @@ AppId.propTypes = {
   onKeyDelete: PropTypes.func.isRequired,
   onKeySubmit: PropTypes.func.isRequired,
   docs: PropTypes.func.isRequired,
+  encryptionKeys: PropTypes.array.isRequired,
 };
