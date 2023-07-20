@@ -1,6 +1,6 @@
 import '@carbon/styles/css/styles.css';
 import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, DataTable, TableContainer, Table, TableHead, TableRow, TableHeader, TableBody, TableCell, TextArea, Tag, NumberInput, PasswordInput, Dropdown, Checkbox } from '@carbon/react';
-import lazyZ, { titleCase as titleCase$2, kebabCase as kebabCase$5, isEmpty, buildNumberDropdownList, contains as contains$5, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$7, transpose as transpose$2, capitalize as capitalize$2, getObjectFromArray, splat as splat$2, containsKeys, parseIntFromZone as parseIntFromZone$1, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual, snakeCase as snakeCase$2, distinct, isWholeNumber as isWholeNumber$2, isInRange as isInRange$1 } from 'lazy-z';
+import lazyZ, { titleCase as titleCase$2, kebabCase as kebabCase$5, isEmpty, buildNumberDropdownList, contains as contains$5, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$7, transpose as transpose$2, capitalize as capitalize$2, getObjectFromArray, splat as splat$2, containsKeys, parseIntFromZone as parseIntFromZone$1, snakeCase as snakeCase$2, distinct, isWholeNumber as isWholeNumber$2, isInRange as isInRange$1, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual } from 'lazy-z';
 import regexButWithWords from 'regex-but-with-words';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -7668,6 +7668,443 @@ WorkerPools.propTypes = {
   craig: PropTypes.shape({})
 };
 
+var css_248z = ".tileTitle {\n  font-size: 80%;\n  font-weight: bold;\n}\n\n.tileContent {\n  font-size: 90%;\n}\n";
+styleInject(css_248z);
+
+class VsiLoadBalancerForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
+    this.allVsi = this.allVsi.bind(this);
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in the instance
+   * @param {*} value value
+   */
+  handleInputChange(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    let nextState = {
+      ...this.state
+    };
+    nextState[name] = contains$5(["name", "vpc", "resource_group", "type"], name) ? value : contains$5(["health_delay", "health_retries", "health_timeout", "port", "listener_port", "connection_limit"], name) ? Number(value) : snakeCase$2(value);
+    if (name === "vpc") {
+      nextState.subnets = [];
+      nextState.security_groups = [];
+      nextState.target_vsi = [];
+    } else if (name === "connection_limit" && nextState[name] === 0) {
+      // reset when 0
+      nextState[name] = "";
+    } else if (name === "session_persistence_type" && value !== "app_cookie") {
+      nextState.session_persistence_app_cookie_name = null;
+    } else if (name === "type") {
+      nextState.type = snakeCase$2(value.split(" ")[0]);
+    }
+    this.setState(nextState);
+  }
+
+  /**
+   * handle multiselect change
+   * @param {string} name key to change in the instance
+   * @param {*} value value
+   */
+  handleMultiSelectChange(name, value) {
+    let nextState = {
+      ...this.state
+    };
+    if (name === "target_vsi") {
+      nextState.subnets = [];
+      this.props.vsiDeployments.forEach(deployment => {
+        nextState.subnets = distinct(nextState.subnets.concat(deployment.subnets));
+      });
+    }
+    nextState[name] = value;
+    this.setState(nextState);
+  }
+
+  /**
+   * get all vsi
+   * @returns {Array<object>} list of vsi
+   */
+  allVsi() {
+    let allVsi = [];
+    this.state.target_vsi.forEach(deployment => {
+      let vsi = getObjectFromArray(this.props.vsiDeployments, "name", deployment);
+      let nextRow = [];
+      // for each subnet vsi
+      for (let subnet = 0; subnet < vsi.subnets.length; subnet++) {
+        // for each vsi per subnet
+        for (let count = 0; count < vsi.vsi_per_subnet; count++) {
+          nextRow.push({
+            name: deployment + "-" + (count + 1),
+            subnet: vsi.subnets[subnet]
+          });
+          if (nextRow.length === 3) {
+            allVsi.push(nextRow);
+            nextRow = [];
+          }
+        }
+      }
+      if (nextRow.length > 0) {
+        allVsi.push(nextRow);
+      }
+    });
+    return allVsi;
+  }
+  render() {
+    let componentName = this.props.data.name + "-lb";
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseHeading, {
+      type: "subHeading",
+      name: "Load Balancer"
+    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: componentName + "-name",
+      tooltip: {
+        content: "Name for the load balancer service. This name will be prepended to the components provisioned as part of the load balancer.",
+        align: "right"
+      },
+      componentName: componentName,
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      className: "fieldWidthSmaller",
+      hideHelperText: true
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: componentName + "-rg",
+      name: "resource_group",
+      labelText: "Resource Group",
+      groups: this.props.resourceGroups,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: componentName + "-type",
+      name: "type",
+      labelText: "Load Balancer Type",
+      groups: ["Public (ALB)", "Private (NLB)"],
+      value: this.state.type === "private" ? "Private (NLB)" : this.state.type === "public" ? "Public (ALB)" : "",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: "vsi_form",
+      name: "vpc",
+      labelText: "VPC",
+      groups: this.props.vpcList,
+      value: this.state.vpc,
+      handleInputChange: this.handleInputChange,
+      invalid: isNullOrEmptyString$7(this.state.vpc),
+      invalidText: "Select a VPC.",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(SecurityGroupMultiSelect, {
+      key: this.state.vpc + "-sg",
+      id: componentName + "-sg",
+      initialSelectedItems: this.state.security_groups || [],
+      vpc_name: this.state.vpc,
+      onChange: value => this.handleMultiSelectChange("security_groups", value),
+      securityGroups: this.getSecurityGroupList(),
+      invalid: !(this.state.security_groups?.length > 0),
+      invalidText: !this.state.vpc || isNullOrEmptyString$7(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React.createElement(IcseHeading, {
+      type: "subHeading",
+      name: "Load Balancer VSI"
+    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseMultiSelect, {
+      key: this.state.vpc + "-vsi",
+      className: "fieldWidthSmaller",
+      id: componentName + "-vsi",
+      titleText: "Deployment VSI",
+      items: splat$2(this.props.vsiDeployments.filter(deployment => {
+        if (deployment.vpc === this.state.vpc) {
+          return deployment;
+        }
+      }), "name"),
+      onChange: value => {
+        this.handleMultiSelectChange("target_vsi", value.selectedItems);
+      },
+      initialSelectedItems: this.state.target_vsi,
+      invalid: this.state.target_vsi.length === 0,
+      invalidText: "Select at least one VSI deployment"
+    }), /*#__PURE__*/React.createElement(NumberInput, {
+      placeholder: "80",
+      label: "Application Port",
+      id: componentName + "-port",
+      allowEmpty: true,
+      value: this.state.port,
+      step: 1,
+      onChange: this.handleInputChange,
+      name: "port",
+      hideSteppers: true,
+      min: 1,
+      max: 65535,
+      invalid: isNullOrEmptyString$7(this.state.port || "") ? true : !isWholeNumber$2(this.state.port),
+      invalidText: "Must be a whole number between 1 and 65535",
+      className: "fieldWidthSmaller"
+    })), this.allVsi().map((row, index) => /*#__PURE__*/React.createElement(IcseFormGroup, {
+      key: "row-" + index
+    }, row.map((vsi, vsiIndex) => /*#__PURE__*/React.createElement(Tile, {
+      key: `${index}-${vsiIndex}`,
+      className: "fieldWidthSmaller tileFormMargin"
+    }, /*#__PURE__*/React.createElement("p", {
+      className: "tileTitle"
+    }, "Name:"), /*#__PURE__*/React.createElement("p", {
+      className: "tileContent"
+    }, vsi.name), /*#__PURE__*/React.createElement("p", {
+      className: "tileTitle"
+    }, "Subnet:"), /*#__PURE__*/React.createElement("p", {
+      className: "tileContent"
+    }, vsi.subnet))))), /*#__PURE__*/React.createElement(IcseHeading, {
+      type: "subHeading",
+      name: "Load Balancer Pool"
+    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: componentName,
+      name: "algorithm",
+      labelText: "Load Balancing Algorithm",
+      groups: ["Round Robin", "Weighted Round Robin", "Least Connections"],
+      value: titleCase$2(this.state.algorithm || ""),
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: componentName,
+      name: "protocol",
+      labelText: "Pool Protocol",
+      groups: ["HTTPS", "HTTP", "TCP", "UDP"],
+      value: (this.state.protocol || "").toUpperCase(),
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller",
+      tooltip: {
+        content: "Protocol of the application running on VSI instances"
+      }
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: componentName,
+      name: "health_type",
+      labelText: "Pool Health Protocol",
+      groups: ["HTTPS", "HTTP", "TCP"],
+      value: (this.state.health_type || "").toUpperCase(),
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller",
+      tooltip: {
+        content: "Protocol used to check the health of member VSI instances"
+      }
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NumberInput, {
+      placeholder: "5",
+      label: "Health Timeout (in Seconds)",
+      id: componentName + "-timeout",
+      allowEmpty: true,
+      value: this.state.health_timeout,
+      step: 1,
+      onChange: this.handleInputChange,
+      name: "health_timeout",
+      hideSteppers: true,
+      min: 5,
+      max: 3000,
+      invalid: isNullOrEmptyString$7(this.state.health_timeout || "") ? true : !isWholeNumber$2(this.state.health_timeout),
+      invalidText: "Must be a whole number between 5 and 300",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(NumberInput, {
+      placeholder: "5",
+      label: "Health Delay (in Seconds)",
+      id: componentName + "-delay",
+      allowEmpty: true,
+      value: this.state.health_delay,
+      step: 1,
+      onChange: this.handleInputChange,
+      name: "health_delay",
+      hideSteppers: true,
+      min: 5,
+      max: 3000,
+      invalid: isNullOrEmptyString$7(this.state.health_delay || "") ? true : this.state.health_delay <= this.state.health_timeout || !isWholeNumber$2(this.state.health_delay),
+      invalidText: this.state.health_delay <= this.state.health_timeout ? "Must be greater than Health Timeout value" : "Must be a whole number between 5 and 300",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(NumberInput, {
+      placeholder: "5",
+      label: "Health Retries",
+      id: componentName + "-retries",
+      allowEmpty: true,
+      value: this.state.health_retries,
+      step: 1,
+      onChange: this.handleInputChange,
+      name: "health_retries",
+      hideSteppers: true,
+      min: 5,
+      max: 3000,
+      invalid: isNullOrEmptyString$7(this.state.health_retries || "") ? true : !isWholeNumber$2(this.state.health_retries),
+      invalidText: "Must be a whole number between 5 and 300",
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React.createElement(IcseHeading, {
+      type: "subHeading",
+      name: "Load Balancer Listener"
+    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NumberInput, {
+      placeholder: "443",
+      label: "Listener Port",
+      id: componentName + "-listener-port",
+      allowEmpty: true,
+      value: this.state.listener_port,
+      step: 1,
+      onChange: this.handleInputChange,
+      name: "listener_port",
+      hideSteppers: true,
+      min: 1,
+      max: 65535,
+      invalid: isNullOrEmptyString$7(this.state.listener_port || "") ? true : !isWholeNumber$2(this.state.listener_port),
+      invalidText: "Must be a whole number between 1 and 65535",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: componentName,
+      name: "listener_protocol",
+      labelText: "Listener Protocol",
+      groups: ["HTTPS", "HTTP", "TCP", "UDP"],
+      value: (this.state.listener_protocol || "").toUpperCase(),
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller",
+      tooltip: {
+        content: "Protocol of the listener for the load balancer"
+      }
+    }), /*#__PURE__*/React.createElement(NumberInput, {
+      label: "Connection Limit",
+      id: componentName + "-connection-limit",
+      allowEmpty: true,
+      value: this.state.connection_limit || "",
+      step: 1,
+      onChange: this.handleInputChange,
+      name: "connection_limit",
+      hideSteppers: true,
+      min: 1,
+      max: 15000,
+      invalid: isNullOrEmptyString$7(this.state.connection_limit || "") ? false : isInRange$1(this.state.connection_limit, 1, 15000) === false || !isWholeNumber$2(this.state.connection_limit),
+      invalidText: "Must be a whole number between 1 and 15000",
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React.createElement(IcseHeading, {
+      type: "subHeading",
+      name: "(Optional) Pool Customization"
+    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: componentName,
+      name: "proxy_protocol",
+      labelText: "Proxy Protocol",
+      groups: ["Disabled", "V1", "V2"],
+      value: (this.state.proxy_protocol || "disabled").toUpperCase(),
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: componentName,
+      name: "session_persistence_type",
+      labelText: "Session Persistence Type",
+      groups: ["Source IP", "App Cookie", "HTTP Cookie"],
+      value: titleCase$2(this.state.session_persistence_type || "").replace(/Ip/s, "IP").replace(/Http/g, "HTTP"),
+      handleInputChange: this.handleInputChange,
+      disableInvalid: true,
+      className: "fieldWidthSmaller"
+    }), this.state.session_persistence_type === "app_cookie" && /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: componentName + "session_persistence_app_cookie_name",
+      componentName: componentName + "-cookie-name",
+      field: "session_persistence_app_cookie_name",
+      isModal: this.props.isModal,
+      labelText: "Session Cookie Name",
+      value: this.state.session_persistence_app_cookie_name || "",
+      invalid: isNullOrEmptyString$7(this.state.session_persistence_app_cookie_name || "") ? false : this.props.invalidCallback(this.state, this.props),
+      onChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    })));
+  }
+}
+VsiLoadBalancerForm.defaultProps = {
+  data: {
+    name: "",
+    resource_group: "",
+    vpc: "",
+    type: "",
+    security_groups: [],
+    algorithm: "",
+    protocol: "",
+    proxy_protocol: "",
+    health_type: "",
+    session_persistence_app_cookie_name: "",
+    target_vsi: [],
+    listener_protocol: "",
+    connection_limit: null,
+    port: "",
+    health_timeout: "",
+    health_delay: "",
+    health_retries: "",
+    listener_port: ""
+  },
+  isModal: false
+};
+VsiLoadBalancerForm.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    resource_group: PropTypes.string,
+    vpc: PropTypes.string,
+    security_groups: PropTypes.arrayOf(PropTypes.string)
+  }),
+  invalidTextCallback: PropTypes.func.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  vpcList: PropTypes.arrayOf(PropTypes.string.isRequired),
+  isModal: PropTypes.bool.isRequired,
+  securityGroups: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  vsiDeployments: PropTypes.arrayOf(PropTypes.shape({})).isRequired
+};
+
+const VsiLoadBalancer = props => {
+  return /*#__PURE__*/React.createElement(IcseFormTemplate, {
+    name: "VPC Load Balancers",
+    addText: "Create a Load Balancer",
+    docs: props.docs,
+    innerForm: VsiLoadBalancerForm,
+    arrayData: props.load_balancers,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    innerFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      resourceGroups: props.resourceGroups,
+      vpcList: props.vpcList,
+      securityGroups: props.securityGroups,
+      vsiDeployments: props.vsiDeployments
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "load_balancers",
+      hide: true,
+      hideName: true
+    }
+  });
+};
+VsiLoadBalancer.propTypes = {
+  docs: PropTypes.func.isRequired,
+  load_balancers: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  disableSave: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  propsMatchState: PropTypes.func.isRequired,
+  forceOpen: PropTypes.func.isRequired,
+  craig: PropTypes.shape({}),
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  vpcList: PropTypes.arrayOf(PropTypes.string.isRequired),
+  securityGroups: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  vsiDeployments: PropTypes.arrayOf(PropTypes.shape({})).isRequired
+};
+
 class ClusterForm extends Component {
   constructor(props) {
     super(props);
@@ -10760,393 +11197,6 @@ VpnServerForm.propTypes = {
   invalidCrnText: PropTypes.func.isRequired
 };
 
-var css_248z = ".tileTitle {\n  font-size: 80%;\n  font-weight: bold;\n}\n\n.tileContent {\n  font-size: 90%;\n}\n";
-styleInject(css_248z);
-
-class VsiLoadBalancerForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
-    this.allVsi = this.allVsi.bind(this);
-  }
-
-  /**
-   * handle input change
-   * @param {string} name key to change in the instance
-   * @param {*} value value
-   */
-  handleInputChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    let nextState = {
-      ...this.state
-    };
-    nextState[name] = contains$5(["name", "vpc", "resource_group", "type"], name) ? value : contains$5(["health_delay", "health_retries", "health_timeout", "port", "listener_port", "connection_limit"], name) ? Number(value) : snakeCase$2(value);
-    if (name === "vpc") {
-      nextState.subnets = [];
-      nextState.security_groups = [];
-      nextState.target_vsi = [];
-    } else if (name === "connection_limit" && nextState[name] === 0) {
-      // reset when 0
-      nextState[name] = "";
-    } else if (name === "session_persistence_type" && value !== "app_cookie") {
-      nextState.session_persistence_app_cookie_name = null;
-    } else if (name === "type") {
-      nextState.type = snakeCase$2(value.split(" ")[0]);
-    }
-    this.setState(nextState);
-  }
-
-  /**
-   * handle multiselect change
-   * @param {string} name key to change in the instance
-   * @param {*} value value
-   */
-  handleMultiSelectChange(name, value) {
-    let nextState = {
-      ...this.state
-    };
-    if (name === "target_vsi") {
-      nextState.subnets = [];
-      this.props.vsiDeployments.forEach(deployment => {
-        nextState.subnets = distinct(nextState.subnets.concat(deployment.subnets));
-      });
-    }
-    nextState[name] = value;
-    this.setState(nextState);
-  }
-
-  /**
-   * get all vsi
-   * @returns {Array<object>} list of vsi
-   */
-  allVsi() {
-    let allVsi = [];
-    this.state.target_vsi.forEach(deployment => {
-      let vsi = getObjectFromArray(this.props.vsiDeployments, "name", deployment);
-      let nextRow = [];
-      // for each subnet vsi
-      for (let subnet = 0; subnet < vsi.subnets.length; subnet++) {
-        // for each vsi per subnet
-        for (let count = 0; count < vsi.vsi_per_subnet; count++) {
-          nextRow.push({
-            name: deployment + "-" + (count + 1),
-            subnet: vsi.subnets[subnet]
-          });
-          if (nextRow.length === 3) {
-            allVsi.push(nextRow);
-            nextRow = [];
-          }
-        }
-      }
-      if (nextRow.length > 0) {
-        allVsi.push(nextRow);
-      }
-    });
-    return allVsi;
-  }
-  render() {
-    let componentName = this.props.data.name + "-lb";
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseHeading, {
-      type: "subHeading",
-      name: "Load Balancer"
-    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
-      id: componentName + "-name",
-      tooltip: {
-        content: "Name for the load balancer service. This name will be prepended to the components provisioned as part of the load balancer.",
-        align: "right"
-      },
-      componentName: componentName,
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props),
-      className: "fieldWidthSmaller",
-      hideHelperText: true
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: componentName + "-rg",
-      name: "resource_group",
-      labelText: "Resource Group",
-      groups: this.props.resourceGroups,
-      value: this.state.resource_group,
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: componentName + "-type",
-      name: "type",
-      labelText: "Load Balancer Type",
-      groups: ["Public (ALB)", "Private (NLB)"],
-      value: this.state.type === "private" ? "Private (NLB)" : this.state.type === "public" ? "Public (ALB)" : "",
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: "vsi_form",
-      name: "vpc",
-      labelText: "VPC",
-      groups: this.props.vpcList,
-      value: this.state.vpc,
-      handleInputChange: this.handleInputChange,
-      invalid: isNullOrEmptyString$7(this.state.vpc),
-      invalidText: "Select a VPC.",
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(SecurityGroupMultiSelect, {
-      key: this.state.vpc + "-sg",
-      id: componentName + "-sg",
-      initialSelectedItems: this.state.security_groups || [],
-      vpc_name: this.state.vpc,
-      onChange: value => this.handleMultiSelectChange("security_groups", value),
-      securityGroups: this.getSecurityGroupList(),
-      invalid: !(this.state.security_groups?.length > 0),
-      invalidText: !this.state.vpc || isNullOrEmptyString$7(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`,
-      className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React.createElement(IcseHeading, {
-      type: "subHeading",
-      name: "Load Balancer VSI"
-    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseMultiSelect, {
-      key: this.state.vpc + "-vsi",
-      className: "fieldWidthSmaller",
-      id: componentName + "-vsi",
-      titleText: "Deployment VSI",
-      items: splat$2(this.props.vsiDeployments.filter(deployment => {
-        if (deployment.vpc === this.state.vpc) {
-          return deployment;
-        }
-      }), "name"),
-      onChange: value => {
-        this.handleMultiSelectChange("target_vsi", value.selectedItems);
-      },
-      initialSelectedItems: this.state.target_vsi,
-      invalid: this.state.target_vsi.length === 0,
-      invalidText: "Select at least one VSI deployment"
-    }), /*#__PURE__*/React.createElement(NumberInput, {
-      placeholder: "80",
-      label: "Application Port",
-      id: componentName + "-port",
-      allowEmpty: true,
-      value: this.state.port,
-      step: 1,
-      onChange: this.handleInputChange,
-      name: "port",
-      hideSteppers: true,
-      min: 1,
-      max: 65535,
-      invalid: isNullOrEmptyString$7(this.state.port || "") ? true : !isWholeNumber$2(this.state.port),
-      invalidText: "Must be a whole number between 1 and 65535",
-      className: "fieldWidthSmaller"
-    })), this.allVsi().map((row, index) => /*#__PURE__*/React.createElement(IcseFormGroup, {
-      key: "row-" + index
-    }, row.map((vsi, vsiIndex) => /*#__PURE__*/React.createElement(Tile, {
-      key: `${index}-${vsiIndex}`,
-      className: "fieldWidthSmaller tileFormMargin"
-    }, /*#__PURE__*/React.createElement("p", {
-      className: "tileTitle"
-    }, "Name:"), /*#__PURE__*/React.createElement("p", {
-      className: "tileContent"
-    }, vsi.name), /*#__PURE__*/React.createElement("p", {
-      className: "tileTitle"
-    }, "Subnet:"), /*#__PURE__*/React.createElement("p", {
-      className: "tileContent"
-    }, vsi.subnet))))), /*#__PURE__*/React.createElement(IcseHeading, {
-      type: "subHeading",
-      name: "Load Balancer Pool"
-    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: componentName,
-      name: "algorithm",
-      labelText: "Load Balancing Algorithm",
-      groups: ["Round Robin", "Weighted Round Robin", "Least Connections"],
-      value: titleCase$2(this.state.algorithm || ""),
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: componentName,
-      name: "protocol",
-      labelText: "Pool Protocol",
-      groups: ["HTTPS", "HTTP", "TCP", "UDP"],
-      value: (this.state.protocol || "").toUpperCase(),
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller",
-      tooltip: {
-        content: "Protocol of the application running on VSI instances"
-      }
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: componentName,
-      name: "health_type",
-      labelText: "Pool Health Protocol",
-      groups: ["HTTPS", "HTTP", "TCP"],
-      value: (this.state.health_type || "").toUpperCase(),
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller",
-      tooltip: {
-        content: "Protocol used to check the health of member VSI instances"
-      }
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NumberInput, {
-      placeholder: "5",
-      label: "Health Timeout (in Seconds)",
-      id: componentName + "-timeout",
-      allowEmpty: true,
-      value: this.state.health_timeout,
-      step: 1,
-      onChange: this.handleInputChange,
-      name: "health_timeout",
-      hideSteppers: true,
-      min: 5,
-      max: 3000,
-      invalid: isNullOrEmptyString$7(this.state.health_timeout || "") ? true : !isWholeNumber$2(this.state.health_timeout),
-      invalidText: "Must be a whole number between 5 and 300",
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(NumberInput, {
-      placeholder: "5",
-      label: "Health Delay (in Seconds)",
-      id: componentName + "-delay",
-      allowEmpty: true,
-      value: this.state.health_delay,
-      step: 1,
-      onChange: this.handleInputChange,
-      name: "health_delay",
-      hideSteppers: true,
-      min: 5,
-      max: 3000,
-      invalid: isNullOrEmptyString$7(this.state.health_delay || "") ? true : this.state.health_delay <= this.state.health_timeout || !isWholeNumber$2(this.state.health_delay),
-      invalidText: this.state.health_delay <= this.state.health_timeout ? "Must be greater than Health Timeout value" : "Must be a whole number between 5 and 300",
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(NumberInput, {
-      placeholder: "5",
-      label: "Health Retries",
-      id: componentName + "-retries",
-      allowEmpty: true,
-      value: this.state.health_retries,
-      step: 1,
-      onChange: this.handleInputChange,
-      name: "health_retries",
-      hideSteppers: true,
-      min: 5,
-      max: 3000,
-      invalid: isNullOrEmptyString$7(this.state.health_retries || "") ? true : !isWholeNumber$2(this.state.health_retries),
-      invalidText: "Must be a whole number between 5 and 300",
-      className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React.createElement(IcseHeading, {
-      type: "subHeading",
-      name: "Load Balancer Listener"
-    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NumberInput, {
-      placeholder: "443",
-      label: "Listener Port",
-      id: componentName + "-listener-port",
-      allowEmpty: true,
-      value: this.state.listener_port,
-      step: 1,
-      onChange: this.handleInputChange,
-      name: "listener_port",
-      hideSteppers: true,
-      min: 1,
-      max: 65535,
-      invalid: isNullOrEmptyString$7(this.state.listener_port || "") ? true : !isWholeNumber$2(this.state.listener_port),
-      invalidText: "Must be a whole number between 1 and 65535",
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: componentName,
-      name: "listener_protocol",
-      labelText: "Listener Protocol",
-      groups: ["HTTPS", "HTTP", "TCP", "UDP"],
-      value: (this.state.listener_protocol || "").toUpperCase(),
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller",
-      tooltip: {
-        content: "Protocol of the listener for the load balancer"
-      }
-    }), /*#__PURE__*/React.createElement(NumberInput, {
-      label: "Connection Limit",
-      id: componentName + "-connection-limit",
-      allowEmpty: true,
-      value: this.state.connection_limit || "",
-      step: 1,
-      onChange: this.handleInputChange,
-      name: "connection_limit",
-      hideSteppers: true,
-      min: 1,
-      max: 15000,
-      invalid: isNullOrEmptyString$7(this.state.connection_limit || "") ? false : isInRange$1(this.state.connection_limit, 1, 15000) === false || !isWholeNumber$2(this.state.connection_limit),
-      invalidText: "Must be a whole number between 1 and 15000",
-      className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React.createElement(IcseHeading, {
-      type: "subHeading",
-      name: "(Optional) Pool Customization"
-    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: componentName,
-      name: "proxy_protocol",
-      labelText: "Proxy Protocol",
-      groups: ["Disabled", "V1", "V2"],
-      value: (this.state.proxy_protocol || "disabled").toUpperCase(),
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: componentName,
-      name: "session_persistence_type",
-      labelText: "Session Persistence Type",
-      groups: ["Source IP", "App Cookie", "HTTP Cookie"],
-      value: titleCase$2(this.state.session_persistence_type || "").replace(/Ip/s, "IP").replace(/Http/g, "HTTP"),
-      handleInputChange: this.handleInputChange,
-      disableInvalid: true,
-      className: "fieldWidthSmaller"
-    }), this.state.session_persistence_type === "app_cookie" && /*#__PURE__*/React.createElement(IcseTextInput, {
-      id: componentName + "session_persistence_app_cookie_name",
-      componentName: componentName + "-cookie-name",
-      field: "session_persistence_app_cookie_name",
-      isModal: this.props.isModal,
-      labelText: "Session Cookie Name",
-      value: this.state.session_persistence_app_cookie_name || "",
-      invalid: isNullOrEmptyString$7(this.state.session_persistence_app_cookie_name || "") ? false : this.props.invalidCallback(this.state, this.props),
-      onChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    })));
-  }
-}
-VsiLoadBalancerForm.defaultProps = {
-  data: {
-    name: "",
-    resource_group: "",
-    vpc: "",
-    type: "",
-    security_groups: [],
-    algorithm: "",
-    protocol: "",
-    proxy_protocol: "",
-    health_type: "",
-    session_persistence_app_cookie_name: "",
-    target_vsi: [],
-    listener_protocol: "",
-    connection_limit: null,
-    port: "",
-    health_timeout: "",
-    health_delay: "",
-    health_retries: "",
-    listener_port: ""
-  },
-  isModal: false
-};
-VsiLoadBalancerForm.propTypes = {
-  data: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    resource_group: PropTypes.string,
-    vpc: PropTypes.string,
-    security_groups: PropTypes.arrayOf(PropTypes.string)
-  }),
-  invalidTextCallback: PropTypes.func.isRequired,
-  invalidCallback: PropTypes.func.isRequired,
-  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
-  vpcList: PropTypes.arrayOf(PropTypes.string.isRequired),
-  isModal: PropTypes.bool.isRequired,
-  securityGroups: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  vsiDeployments: PropTypes.arrayOf(PropTypes.shape({})).isRequired
-};
-
 const {
   snakeCase
 } = lazyZ;
@@ -13248,4 +13298,4 @@ SecretsManagerChecklist.propTypes = {
   parentName: PropTypes.string.isRequired
 };
 
-export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AppId as AppIdTemplate, AtrackerForm, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, ClusterForm, Clusters as ClustersTemplate, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsForm, DnsRecordForm, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, KeyManagement as KeyManagementTemplate, LocationsMultiSelect, LogDNAForm, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, ObjectStorage as ObjectStorageTemplate, OrderCardDataTable, PopoverWrapper, RenderForm, ResourceGroupForm, ResourceGroups as ResourceGroupsTemplate, RoutingTableForm, RoutingTableRouteForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerChecklist, SecretsManagerForm, SecretsManager as SecretsManagerTemplate, SecurityGroupForm, SecurityGroupMultiSelect, SecurityGroups as SecurityGroupTemplate, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, SysdigForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, TransitGateways as TransitGatewayTemplate, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, Vpcs as VpcTemplate, VpeForm, VpnGatewayForm, VpnGateways as VpnGatewayTemplate, VpnServerForm, VpnServerRouteForm, VsiForm, VsiLoadBalancerForm, Vsi as VsiTemplate, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AppId as AppIdTemplate, AtrackerForm, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, ClusterForm, Clusters as ClustersTemplate, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsForm, DnsRecordForm, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, KeyManagement as KeyManagementTemplate, LocationsMultiSelect, LogDNAForm, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, ObjectStorage as ObjectStorageTemplate, OrderCardDataTable, PopoverWrapper, RenderForm, ResourceGroupForm, ResourceGroups as ResourceGroupsTemplate, RoutingTableForm, RoutingTableRouteForm, SaveAddButton, SaveIcon, SccForm, SecretsManagerChecklist, SecretsManagerForm, SecretsManager as SecretsManagerTemplate, SecurityGroupForm, SecurityGroupMultiSelect, SecurityGroups as SecurityGroupTemplate, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, SysdigForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, TransitGateways as TransitGatewayTemplate, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, Vpcs as VpcTemplate, VpeForm, VpnGatewayForm, VpnGateways as VpnGatewayTemplate, VpnServerForm, VpnServerRouteForm, VsiForm, VsiLoadBalancerForm, VsiLoadBalancer as VsiLoadBalancerTemplate, Vsi as VsiTemplate, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
