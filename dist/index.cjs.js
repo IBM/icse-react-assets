@@ -4569,6 +4569,67 @@ WorkerPoolForm.propTypes = {
   invalidTextCallback: PropTypes__default["default"].func.isRequired
 };
 
+const AppId = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "AppID",
+    addText: "Create an App ID Instance",
+    docs: props.docs,
+    innerForm: AppIdForm,
+    arrayData: props.appid,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    craig: props.craig,
+    innerFormProps: {
+      craig: props.craig,
+      resourceGroups: props.resourceGroups,
+      disableSave: props.disableSave,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      invalidKeyCallback: props.invalidKeyCallback,
+      invalidKeyTextCallback: props.invalidKeyTextCallback,
+      propsMatchState: props.propsMatchState,
+      disableSave: props.disableSave,
+      keyProps: {
+        craig: props.craig,
+        onSave: props.onKeySave,
+        onDelete: props.onKeyDelete,
+        onSubmit: props.onKeySubmit,
+        disableSave: props.disableSave
+      }
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "appid",
+      hide: true,
+      hideName: true
+    }
+  });
+};
+AppId.propTypes = {
+  appid: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  onDelete: PropTypes__default["default"].func.isRequired,
+  onSave: PropTypes__default["default"].func.isRequired,
+  onSubmit: PropTypes__default["default"].func.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  forceOpen: PropTypes__default["default"].func.isRequired,
+  resourceGroups: PropTypes__default["default"].array.isRequired,
+  craig: PropTypes__default["default"].shape({}),
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidKeyCallback: PropTypes__default["default"].func.isRequired,
+  invalidKeyTextCallback: PropTypes__default["default"].func.isRequired,
+  onKeySave: PropTypes__default["default"].func.isRequired,
+  onKeyDelete: PropTypes__default["default"].func.isRequired,
+  onKeySubmit: PropTypes__default["default"].func.isRequired,
+  docs: PropTypes__default["default"].func.isRequired
+};
+
 const Clusters = props => {
   return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
     name: "Clusters",
@@ -4640,324 +4701,6 @@ Clusters.propTypes = {
   helperTextCallback: PropTypes__default["default"].func,
   cosNames: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   docs: PropTypes__default["default"].func
-};
-
-const WorkerPools = props => {
-  return props.isModal ? "" : /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
-    name: "Worker Pools",
-    subHeading: true,
-    addText: "Create a Worker Pool",
-    arrayData: props.worker_pools,
-    innerForm: WorkerPoolForm,
-    disableSave: props.disableSave,
-    onDelete: props.onDelete,
-    onSave: props.onSave,
-    onSubmit: props.onSubmit,
-    propsMatchState: props.propsMatchState,
-    innerFormProps: {
-      subnetList: props.subnetList,
-      cluster: props.cluster,
-      invalidCallback: props.invalidCallback,
-      invalidTextCallback: props.invalidTextCallback,
-      flavorApiEndpoint: props.flavorApiEndpoint,
-      craig: props.craig,
-      arrayParentName: props.cluster.name
-    },
-    hideAbout: true,
-    toggleFormProps: {
-      hideName: true,
-      submissionFieldName: "worker_pools",
-      disableSave: props.disableSave,
-      type: "formInSubForm"
-    }
-  });
-};
-WorkerPools.defaultProps = {
-  isModal: false
-};
-WorkerPools.propTypes = {
-  isModal: PropTypes__default["default"].bool.isRequired,
-  worker_pools: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})),
-  disableSave: PropTypes__default["default"].func,
-  onDelete: PropTypes__default["default"].func,
-  onSave: PropTypes__default["default"].func,
-  onSubmit: PropTypes__default["default"].func,
-  propsMatchState: PropTypes__default["default"].func,
-  subnetList: PropTypes__default["default"].array,
-  cluster: PropTypes__default["default"].shape({}).isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  arrayParentName: PropTypes__default["default"].string,
-  flavorApiEndpoint: PropTypes__default["default"].string,
-  craig: PropTypes__default["default"].shape({})
-};
-
-/** Resource Groups
- * @param {Object} props
- */
-class ResourceGroupForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = this.props.data;
-    this.handleTextInput = this.handleTextInput.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-  }
-  /**
-   * Toggle on and off param in state at name
-   * @param {string} name name of the object key to change
-   */
-  handleToggle(name) {
-    this.setState(forms_30(this.state, name));
-  }
-
-  /**
-   * Handle input change for a text field
-   * @param {event} event
-   */
-  handleTextInput(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-  render() {
-    let composedId = `resource-group-${this.props.data.name}-`;
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      tooltip: {
-        content: "If true, get data from an existing resource group",
-        alignModal: "bottom"
-      },
-      labelText: "Use Existing Instance",
-      toggleFieldName: this.props.toggleName,
-      defaultToggled: this.state.use_data,
-      id: composedId + "-use-data-toggle",
-      onToggle: () => this.handleToggle("use_data"),
-      isModal: this.props.isModal
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
-      noMarginBottom: true
-    }, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: composedId,
-      componentName: "resource_groups",
-      value: this.state.name,
-      onChange: this.handleTextInput,
-      useData: this.state.use_data || this.state.use_prefix === false,
-      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props),
-      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props)
-    }), this.state.use_data === false && /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      tooltip: {
-        content: "Append your environment prefix to the beginning of the resource group.",
-        alignModal: "bottom"
-      },
-      labelText: "Use Prefix",
-      defaultToggled: this.state.use_prefix,
-      id: composedId + "-use-prefix-toggle",
-      onToggle: this.handleToggle,
-      isModal: this.props.isModal
-    })));
-  }
-}
-ResourceGroupForm.defaultProps = {
-  data: {
-    use_data: false,
-    name: "",
-    use_prefix: true
-  },
-  toggleName: "use_data",
-  isModal: false
-};
-ResourceGroupForm.propTypes = {
-  data: PropTypes__default["default"].shape({
-    use_data: PropTypes__default["default"].bool,
-    name: PropTypes__default["default"].string.isRequired,
-    use_prefix: PropTypes__default["default"].bool
-  }),
-  isModal: PropTypes__default["default"].bool.isRequired,
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  helperTextCallback: PropTypes__default["default"].func.isRequired
-};
-
-const ResourceGroups = props => {
-  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
-    name: "Resource Groups",
-    addText: "Create a Resource Group",
-    docs: props.docs,
-    innerForm: ResourceGroupForm,
-    arrayData: props.resource_groups,
-    disableSave: props.disableSave,
-    onDelete: props.onDelete,
-    onSave: props.onSave,
-    onSubmit: props.onSubmit,
-    propsMatchState: props.propsMatchState,
-    forceOpen: props.forceOpen,
-    craig: props.craig,
-    deleteDisabled: props.deleteDisabled,
-    innerFormProps: {
-      craig: props.craig,
-      disableSave: props.disableSave,
-      invalidCallback: props.invalidCallback,
-      invalidTextCallback: props.invalidTextCallback,
-      helperTextCallback: props.helperTextCallback
-    },
-    toggleFormProps: {
-      craig: props.craig,
-      disableSave: props.disableSave,
-      submissionFieldName: "resource_groups",
-      hideName: true
-    }
-  });
-};
-ResourceGroups.propTypes = {
-  disableSave: PropTypes__default["default"].func,
-  propsMatchState: PropTypes__default["default"].func,
-  onDelete: PropTypes__default["default"].func,
-  onSave: PropTypes__default["default"].func,
-  onSubmit: PropTypes__default["default"].func,
-  forceOpen: PropTypes__default["default"].func,
-  craig: PropTypes__default["default"].shape({}),
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  deleteDisabled: PropTypes__default["default"].func.isRequired,
-  helperTextCallback: PropTypes__default["default"].func.isRequired,
-  docs: PropTypes__default["default"].func
-};
-
-var css_248z$1 = ".secretsChecklistPadding {\n  margin-bottom: 0px !important;\n  margin-top: 1rem !important;\n}\n\n.secretChecklistMargin {\n  margin-top: -1rem !important;\n}\n\n.secretCheckBoxMargin {\n  padding-left: 1rem !important;\n}\n";
-styleInject(css_248z$1);
-
-/**
- * SecretsManagerForm
- * @param {Object} props
- */
-class SecretsManagerForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.onSelectChange = this.onSelectChange.bind(this);
-    buildFormDefaultInputMethods(this);
-    buildFormFunctions(this);
-  }
-
-  /**
-   * handle input change
-   * @param {event} event event
-   */
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-  onSelectChange(items) {
-    let nextSecrets = [];
-    items.forEach(item => {
-      if (item !== "Select All") {
-        nextSecrets.push(lazyZ.getObjectFromArray(this.props.secrets, "ref", item));
-      }
-    });
-    this.setState({
-      secrets: nextSecrets
-    });
-  }
-  render() {
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: this.state.name + "-name",
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      componentProps: this.props,
-      hideHelperText: true,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props)
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "Secrets Manager",
-      value: this.state.resource_group,
-      groups: this.props.resourceGroups,
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidth",
-      name: "resource_group",
-      labelText: "Resource Group"
-    })), /*#__PURE__*/React__default["default"].createElement("div", {
-      className: "fieldWidth"
-    }, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      value: this.state.encryption_key,
-      groups: this.props.encryptionKeys,
-      formName: "Secrets Manager",
-      name: "encryption_key",
-      className: "fieldWidth",
-      labelText: "Encryption Key",
-      handleInputChange: this.handleInputChange
-    })), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(SecretsManagerChecklist, {
-      parentName: this.props.data.name,
-      secrets: this.props.secrets,
-      selected: [...lazyZ.splat(this.props.data.secrets, "ref")],
-      onSelectChange: this.onSelectChange
-    }));
-  }
-}
-SecretsManagerForm.defaultProps = {
-  data: {
-    name: "",
-    resource_group: null,
-    encryption_key: null
-  }
-};
-SecretsManagerForm.propTypes = {
-  data: PropTypes__default["default"].shape({
-    name: PropTypes__default["default"].string,
-    resource_group: PropTypes__default["default"].string,
-    encryption_key: PropTypes__default["default"].string
-  }).isRequired,
-  encryptionKeys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
-};
-
-const SecretsManager = props => {
-  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
-    name: "Secrets Manager",
-    addText: "Create a Secrets Manager",
-    docs: props.docs,
-    innerForm: SecretsManagerForm,
-    arrayData: props.secrets_managers,
-    disableSave: props.disableSave,
-    onDelete: props.onDelete,
-    onSave: props.onSave,
-    onSubmit: props.onSubmit,
-    propsMatchState: props.propsMatchState,
-    forceOpen: props.forceOpen,
-    innerFormProps: {
-      craig: props.craig,
-      resourceGroups: props.resourceGroups,
-      encryptionKeys: props.encryptionKeys,
-      invalidCallback: props.invalidCallback,
-      invalidTextCallback: props.invalidTextCallback,
-      secrets: props.secrets,
-      propsMatchState: props.propsMatchState,
-      disableSave: props.disableSave
-    },
-    toggleFormProps: {
-      craig: props.craig,
-      disableSave: props.disableSave,
-      submissionFieldName: "secrets_manager",
-      hide: true,
-      hideName: true
-    }
-  });
-};
-SecretsManager.propTypes = {
-  secrets_managers: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
-  disableSave: PropTypes__default["default"].func.isRequired,
-  onDelete: PropTypes__default["default"].func.isRequired,
-  onSave: PropTypes__default["default"].func.isRequired,
-  onSubmit: PropTypes__default["default"].func.isRequired,
-  propsMatchState: PropTypes__default["default"].func.isRequired,
-  forceOpen: PropTypes__default["default"].func.isRequired,
-  resourceGroups: PropTypes__default["default"].array.isRequired,
-  encryptionKeys: PropTypes__default["default"].array.isRequired,
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  secrets: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
-  craig: PropTypes__default["default"].shape({}),
-  docs: PropTypes__default["default"].func.isRequired
 };
 
 /**
@@ -5760,6 +5503,1083 @@ ObjectStorage.propTypes = {
   kmsList: PropTypes__default["default"].array.isRequired
 };
 
+/** Resource Groups
+ * @param {Object} props
+ */
+class ResourceGroupForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    this.handleTextInput = this.handleTextInput.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+  /**
+   * Toggle on and off param in state at name
+   * @param {string} name name of the object key to change
+   */
+  handleToggle(name) {
+    this.setState(forms_30(this.state, name));
+  }
+
+  /**
+   * Handle input change for a text field
+   * @param {event} event
+   */
+  handleTextInput(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  render() {
+    let composedId = `resource-group-${this.props.data.name}-`;
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      tooltip: {
+        content: "If true, get data from an existing resource group",
+        alignModal: "bottom"
+      },
+      labelText: "Use Existing Instance",
+      toggleFieldName: this.props.toggleName,
+      defaultToggled: this.state.use_data,
+      id: composedId + "-use-data-toggle",
+      onToggle: () => this.handleToggle("use_data"),
+      isModal: this.props.isModal
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+      noMarginBottom: true
+    }, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: composedId,
+      componentName: "resource_groups",
+      value: this.state.name,
+      onChange: this.handleTextInput,
+      useData: this.state.use_data || this.state.use_prefix === false,
+      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props)
+    }), this.state.use_data === false && /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      tooltip: {
+        content: "Append your environment prefix to the beginning of the resource group.",
+        alignModal: "bottom"
+      },
+      labelText: "Use Prefix",
+      defaultToggled: this.state.use_prefix,
+      id: composedId + "-use-prefix-toggle",
+      onToggle: this.handleToggle,
+      isModal: this.props.isModal
+    })));
+  }
+}
+ResourceGroupForm.defaultProps = {
+  data: {
+    use_data: false,
+    name: "",
+    use_prefix: true
+  },
+  toggleName: "use_data",
+  isModal: false
+};
+ResourceGroupForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    use_data: PropTypes__default["default"].bool,
+    name: PropTypes__default["default"].string.isRequired,
+    use_prefix: PropTypes__default["default"].bool
+  }),
+  isModal: PropTypes__default["default"].bool.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  helperTextCallback: PropTypes__default["default"].func.isRequired
+};
+
+const ResourceGroups = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "Resource Groups",
+    addText: "Create a Resource Group",
+    docs: props.docs,
+    innerForm: ResourceGroupForm,
+    arrayData: props.resource_groups,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    craig: props.craig,
+    deleteDisabled: props.deleteDisabled,
+    innerFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      helperTextCallback: props.helperTextCallback
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "resource_groups",
+      hideName: true
+    }
+  });
+};
+ResourceGroups.propTypes = {
+  disableSave: PropTypes__default["default"].func,
+  propsMatchState: PropTypes__default["default"].func,
+  onDelete: PropTypes__default["default"].func,
+  onSave: PropTypes__default["default"].func,
+  onSubmit: PropTypes__default["default"].func,
+  forceOpen: PropTypes__default["default"].func,
+  craig: PropTypes__default["default"].shape({}),
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  deleteDisabled: PropTypes__default["default"].func.isRequired,
+  helperTextCallback: PropTypes__default["default"].func.isRequired,
+  docs: PropTypes__default["default"].func
+};
+
+var css_248z$1 = ".secretsChecklistPadding {\n  margin-bottom: 0px !important;\n  margin-top: 1rem !important;\n}\n\n.secretChecklistMargin {\n  margin-top: -1rem !important;\n}\n\n.secretCheckBoxMargin {\n  padding-left: 1rem !important;\n}\n";
+styleInject(css_248z$1);
+
+/**
+ * SecretsManagerForm
+ * @param {Object} props
+ */
+class SecretsManagerForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.onSelectChange = this.onSelectChange.bind(this);
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  onSelectChange(items) {
+    let nextSecrets = [];
+    items.forEach(item => {
+      if (item !== "Select All") {
+        nextSecrets.push(lazyZ.getObjectFromArray(this.props.secrets, "ref", item));
+      }
+    });
+    this.setState({
+      secrets: nextSecrets
+    });
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: this.state.name + "-name",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      componentProps: this.props,
+      hideHelperText: true,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: "Secrets Manager",
+      value: this.state.resource_group,
+      groups: this.props.resourceGroups,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidth",
+      name: "resource_group",
+      labelText: "Resource Group"
+    })), /*#__PURE__*/React__default["default"].createElement("div", {
+      className: "fieldWidth"
+    }, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      value: this.state.encryption_key,
+      groups: this.props.encryptionKeys,
+      formName: "Secrets Manager",
+      name: "encryption_key",
+      className: "fieldWidth",
+      labelText: "Encryption Key",
+      handleInputChange: this.handleInputChange
+    })), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(SecretsManagerChecklist, {
+      parentName: this.props.data.name,
+      secrets: this.props.secrets,
+      selected: [...lazyZ.splat(this.props.data.secrets, "ref")],
+      onSelectChange: this.onSelectChange
+    }));
+  }
+}
+SecretsManagerForm.defaultProps = {
+  data: {
+    name: "",
+    resource_group: null,
+    encryption_key: null
+  }
+};
+SecretsManagerForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string,
+    resource_group: PropTypes__default["default"].string,
+    encryption_key: PropTypes__default["default"].string
+  }).isRequired,
+  encryptionKeys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+};
+
+const SecretsManager = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "Secrets Manager",
+    addText: "Create a Secrets Manager",
+    docs: props.docs,
+    innerForm: SecretsManagerForm,
+    arrayData: props.secrets_managers,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    innerFormProps: {
+      craig: props.craig,
+      resourceGroups: props.resourceGroups,
+      encryptionKeys: props.encryptionKeys,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      secrets: props.secrets,
+      propsMatchState: props.propsMatchState,
+      disableSave: props.disableSave
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "secrets_manager",
+      hide: true,
+      hideName: true
+    }
+  });
+};
+SecretsManager.propTypes = {
+  secrets_managers: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  onDelete: PropTypes__default["default"].func.isRequired,
+  onSave: PropTypes__default["default"].func.isRequired,
+  onSubmit: PropTypes__default["default"].func.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  forceOpen: PropTypes__default["default"].func.isRequired,
+  resourceGroups: PropTypes__default["default"].array.isRequired,
+  encryptionKeys: PropTypes__default["default"].array.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  secrets: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  craig: PropTypes__default["default"].shape({}),
+  docs: PropTypes__default["default"].func.isRequired
+};
+
+const {
+  capitalize,
+  titleCase,
+  kebabCase,
+  isIpv4CidrOrAddress,
+  validPortRange,
+  isNullOrEmptyString: isNullOrEmptyString$1,
+  contains
+} = require("lazy-z");
+
+/** NetworkingRuleForm
+ * @param {Object} props
+ * @param {configDotJson} props.configDotJson config dot json
+ * @param {slz} props.slz slz state store
+ */
+class NetworkingRuleForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInput = this.handleInput.bind(this);
+    this.handleRuleUpdate = this.handleRuleUpdate.bind(this);
+    this.handleRuleDelete = this.handleRuleDelete.bind(this);
+    this.handleRuleDataUpdate = this.handleRuleDataUpdate.bind(this);
+    this.toggleDeleteModal = this.toggleDeleteModal.bind(this);
+    this.shouldDisableSave = this.shouldDisableSave.bind(this);
+    buildFormFunctions(this);
+  }
+
+  /**
+   * Handle input change for a text field
+   * @param {String} inputName name of the field to set state
+   * @param {event} event
+   * @param {boolean=} lowercase set value to lowercase
+   */
+  handleInput(inputName, event, lowercase) {
+    let newValue = lowercase ? event.target.value.toLowerCase() : event.target.value;
+    this.setState({
+      [inputName]: newValue
+    });
+  }
+
+  /**
+   * Handler function for the rule updates
+   * @param {String} inputName name of the field to set state in Rule
+   * @param event event
+   */
+  handleRuleDataUpdate(inputName, event) {
+    let value = parseInt(event.target.value);
+    if (isNaN(value)) {
+      value = null;
+    }
+    this.setState(prevState => ({
+      rule: {
+        // object that we want to update
+        ...prevState.rule,
+        // keep all other key-value pairs
+        [inputName]: value // update the value of specific key
+      }
+    }));
+  }
+
+  /**
+   * update a network rule
+   */
+  handleRuleUpdate() {
+    this.props.onSave(this.state, this.props);
+  }
+
+  /**
+   * delete a network rule
+   */
+  handleRuleDelete() {
+    this.props.onDelete(this.state, this.props);
+  }
+
+  /**
+   * toggle delete modal
+   */
+  toggleDeleteModal() {
+    this.setState({
+      showDeleteModal: !this.state.showDeleteModal
+    });
+  }
+
+  /**
+   * Returns true if save should be disabled or if props match state (save disabled)
+   * @returns {boolean} if save is disabled
+   */
+  shouldDisableSave() {
+    if (this.props.isModal) {
+      this.props.disableModalSubmit(this.state, this.props);
+    } else {
+      let shouldBeDisabled = this.props.disableSaveCallback(this.state, this.props);
+      return shouldBeDisabled;
+    }
+  }
+  render() {
+    let ruleName = this.props.isModal ? "new-rule" : this.props.data.name;
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement("div", {
+      key: "rule-div-" + ruleName,
+      className: this.props.hide ? "" : "marginBottomSmall" // add margin bottom small if shown
+    }, this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(DeleteModal, {
+      name: ruleName,
+      modalOpen: this.state.showDeleteModal,
+      onModalClose: this.toggleDeleteModal,
+      onModalSubmit: this.handleRuleDelete
+    }), /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+      hide: this.props.hide && this.props.isModal === true,
+      show: /*#__PURE__*/React__default["default"].createElement(StatelessToggleForm, {
+        key: "rule-name-" + ruleName,
+        name: this.props.isModal ? "" : ruleName // do not show name when modal
+        ,
+        onIconClick: this.props.onToggle,
+        toggleFormTitle: true,
+        hide: this.props.hide && this.props.isModal !== true,
+        hideIcon: this.props.isModal,
+        alwaysShowButtons: true,
+        buttons: this.props.isModal ? "" : this.props.hide === false ? /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+          name: ruleName,
+          onClick: this.handleRuleUpdate,
+          disabled: this.shouldDisableSave()
+        }), /*#__PURE__*/React__default["default"].createElement(DeleteButton, {
+          name: ruleName,
+          onClick: this.toggleDeleteModal
+        })) : /*#__PURE__*/React__default["default"].createElement(UpDownButtons, {
+          name: ruleName,
+          handleUp: this.props.handleUp,
+          handleDown: this.props.handleDown,
+          disableUp: this.props.disableUp,
+          disableDown: this.props.disableDown
+        })
+      }, /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+        id: this.state.name + "-name",
+        componentName: this.props.data.name + "-rule",
+        value: this.state.name,
+        onChange: event => this.handleInput("name", event),
+        invalidCallback: () => this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props),
+        hideHelperText: true,
+        className: "fieldWidthSmaller"
+      }), !this.props.isSecurityGroup && /*#__PURE__*/React__default["default"].createElement(NetworkingRuleSelect, {
+        state: this.state,
+        name: "action",
+        onChange: this.handleInput,
+        groups: ["Allow", "Deny"],
+        props: this.props
+      }), /*#__PURE__*/React__default["default"].createElement(NetworkingRuleSelect, {
+        name: "direction",
+        state: this.state,
+        onChange: this.handleInput,
+        groups: ["Inbound", "Outbound"],
+        props: this.props
+      }), this.props.isSecurityGroup && /*#__PURE__*/React__default["default"].createElement(NetworkingRuleTextField, {
+        name: "source",
+        state: this.state,
+        onChange: this.handleInput
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, !this.props.isSecurityGroup && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(NetworkingRuleTextField, {
+        name: "source",
+        state: this.state,
+        onChange: this.handleInput
+      }), /*#__PURE__*/React__default["default"].createElement(NetworkingRuleTextField, {
+        name: "destination",
+        state: this.state,
+        onChange: this.handleInput
+      })), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: ruleName + "-protocol",
+        groups: ["ALL", "TCP", "UDP", "ICMP"],
+        value: this.state.ruleProtocol.toUpperCase(),
+        labelText: "Protocol",
+        name: "ruleProtocol",
+        handleInputChange: event => this.handleInput("ruleProtocol", event, true),
+        className: "fieldWidthSmaller"
+      })), (this.state.ruleProtocol === "tcp" || this.state.ruleProtocol === "udp") && /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(NetworkingRuleProtocolTextField, {
+        name: "port_min",
+        state: this.state,
+        onChange: this.handleRuleDataUpdate
+      }), /*#__PURE__*/React__default["default"].createElement(NetworkingRuleProtocolTextField, {
+        name: "port_max",
+        state: this.state,
+        onChange: this.handleRuleDataUpdate
+      })), !this.props.isSecurityGroup && /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(NetworkingRuleProtocolTextField, {
+        name: "source_port_min",
+        state: this.state,
+        onChange: this.handleRuleDataUpdate
+      }), /*#__PURE__*/React__default["default"].createElement(NetworkingRuleProtocolTextField, {
+        name: "source_port_max",
+        state: this.state,
+        onChange: this.handleRuleDataUpdate
+      }))), this.state.ruleProtocol === "icmp" && /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(NetworkingRuleProtocolTextField, {
+        name: "type",
+        state: this.state,
+        onChange: this.handleRuleDataUpdate
+      }), /*#__PURE__*/React__default["default"].createElement(NetworkingRuleProtocolTextField, {
+        name: "code",
+        state: this.state,
+        onChange: this.handleRuleDataUpdate
+      }))))
+    })));
+  }
+}
+NetworkingRuleForm.defaultProps = {
+  isSecurityGroup: false,
+  isModal: false,
+  disableUp: false,
+  disableDown: false,
+  data: {
+    name: "",
+    action: "allow",
+    direction: "inbound",
+    source: "",
+    destination: "",
+    ruleProtocol: "all",
+    rule: {
+      port_max: null,
+      port_min: null,
+      source_port_max: null,
+      source_port_min: null,
+      type: null,
+      code: null
+    }
+  },
+  hide: false
+};
+NetworkingRuleForm.propTypes = {
+  isModal: PropTypes__default["default"].bool.isRequired,
+  // functions only used when not modal
+  onSave: PropTypes__default["default"].func,
+  onDelete: PropTypes__default["default"].func,
+  onToggle: PropTypes__default["default"].func,
+  disableDown: PropTypes__default["default"].bool,
+  disableUp: PropTypes__default["default"].bool,
+  handleDown: PropTypes__default["default"].func,
+  handleUp: PropTypes__default["default"].func,
+  disableSaveCallback: PropTypes__default["default"].func,
+  // functions for components
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  hide: PropTypes__default["default"].bool.isRequired,
+  data: PropTypes__default["default"].shape({
+    action: PropTypes__default["default"].string,
+    // not required for sg
+    destination: PropTypes__default["default"].string,
+    // not required for sg
+    direction: PropTypes__default["default"].string.isRequired,
+    name: PropTypes__default["default"].string.isRequired,
+    rule: PropTypes__default["default"].shape({
+      // can be null
+      port_min: PropTypes__default["default"].number,
+      port_max: PropTypes__default["default"].number,
+      source_port_min: PropTypes__default["default"].number,
+      source_port_max: PropTypes__default["default"].number,
+      type: PropTypes__default["default"].number,
+      code: PropTypes__default["default"].number
+    }).isRequired,
+    source: PropTypes__default["default"].string.isRequired
+  }),
+  isSecurityGroup: PropTypes__default["default"].bool.isRequired
+};
+
+/**
+ * readability shortcut for nw rules
+ * @param {*} props
+ * @param {string} props.name field to update
+ * @param {Object} props.state parent state
+ * @param {Function} props.onChange onchange function
+ */
+const NetworkingRuleTextField = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+    id: `${props.state.name}-nw-${kebabCase(props.name)}-input`,
+    field: props.name,
+    labelText: titleCase(props.name),
+    value: String(props.state[props.name]),
+    onChange: e => props.onChange(props.name, e),
+    className: "fieldWidthSmaller",
+    placeholder: "x.x.x.x",
+    invalidText: "Please provide a valid IPV4 IP address or CIDR notation.",
+    invalidCallback: () => {
+      return isIpv4CidrOrAddress(props.state[props.name]) === false;
+    }
+  });
+};
+NetworkingRuleTextField.propTypes = {
+  name: PropTypes__default["default"].string.isRequired,
+  state: PropTypes__default["default"].shape({}).isRequired,
+  onChange: PropTypes__default["default"].func.isRequired
+};
+
+/**
+ * rule protocol text field
+ * @param {*} props
+ * @param {string} props.name field to update
+ * @param {Object} props.state parent state
+ * @param {Function} props.onChange onchange function
+ */
+const NetworkingRuleProtocolTextField = props => {
+  let value = contains(["null", null, ""], props.state.rule[props.name]) ? -1 // set to an invalid number only in these cases
+  : props.state.rule[props.name]; // set to number otherwise
+  return /*#__PURE__*/React__default["default"].createElement(react.TextInput, {
+    id: `${props.state.name}-nw-${kebabCase(props.name)}-input`,
+    labelText: titleCase(props.name),
+    placeholder: String(props.state.rule[props.name]),
+    value: value === -1 ? "" : String(value) // if invalid number value is empty string
+    ,
+    onChange: e => props.onChange(props.name, e),
+    invalid: !validPortRange(props.name, value) && !isNullOrEmptyString$1(props.state.rule[props.name]) || props.state.rule[props.name] === "null",
+    invalidText: contains(["type", "code"], props.name) ? `0 to ${props.name === "type" ? 254 : 255}` : "1 to 65535",
+    className: "fieldWidthSmaller"
+  });
+};
+NetworkingRuleProtocolTextField.propTypes = {
+  name: PropTypes__default["default"].string.isRequired,
+  state: PropTypes__default["default"].shape({
+    rule: PropTypes__default["default"].shape({}).isRequired
+  }).isRequired,
+  onChange: PropTypes__default["default"].func.isRequired
+};
+
+/**
+ * readability shortcut for nw rules
+ * @param {*} props
+ * @param {string} props.name field to update
+ * @param {Object} props.state parent state
+ * @param {Function} props.onChange onchange function
+ * @param {Array<string>} props.groups list of groups for select
+ */
+const NetworkingRuleSelect = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+    formName: props.state.name + "-nw-rule-" + props.name,
+    name: props.name,
+    groups: props.groups,
+    value: capitalize(props.state[props.name]),
+    labelText: capitalize(props.name),
+    handleInputChange: e => props.onChange(props.name, e, true),
+    className: "fieldWidthSmaller"
+  });
+};
+NetworkingRuleSelect.propTypes = {
+  name: PropTypes__default["default"].string.isRequired,
+  state: PropTypes__default["default"].shape({
+    rule: PropTypes__default["default"].shape({}).isRequired,
+    name: PropTypes__default["default"].string
+  }).isRequired,
+  onChange: PropTypes__default["default"].func.isRequired,
+  groups: PropTypes__default["default"].array.isRequired
+};
+
+class OrderCardDataTable extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = networkingOrderCard_5(this.props);
+  }
+  componentDidUpdate(prevProps) {
+    if (prevProps.rules !== this.props.rules) {
+      this.setState(networkingOrderCard_5(this.props));
+    }
+  }
+  render() {
+    const {
+      rows,
+      headers
+    } = {
+      ...this.state
+    };
+    return /*#__PURE__*/React__default["default"].createElement(react.DataTable, {
+      headers: headers,
+      rows: rows
+    }, _ref => {
+      let {
+        rows,
+        headers,
+        getHeaderProps,
+        getRowProps
+      } = _ref;
+      return /*#__PURE__*/React__default["default"].createElement(react.TableContainer, null, /*#__PURE__*/React__default["default"].createElement(react.Table, null, /*#__PURE__*/React__default["default"].createElement(react.TableHead, null, /*#__PURE__*/React__default["default"].createElement(react.TableRow, null, headers.map((header, index) => /*#__PURE__*/React__default["default"].createElement(react.TableHeader, _extends({
+        key: header.header + "-" + index
+      }, getHeaderProps({
+        header
+      })), header.header)))), /*#__PURE__*/React__default["default"].createElement(react.TableBody, null, rows.map((row, index) => /*#__PURE__*/React__default["default"].createElement(react.TableRow, _extends({
+        key: row.name + "-" + index
+      }, getRowProps({
+        row
+      })), row.cells.map(cell => /*#__PURE__*/React__default["default"].createElement(react.TableCell, {
+        key: JSON.stringify(cell),
+        className: this.props.isSecurityGroup ? "dt-security-group" : ""
+      }, /*#__PURE__*/React__default["default"].createElement("div", {
+        key: JSON.stringify(cell) + "-port"
+      }, lazyZ.contains(["tcp", "udp", "all", "icmp"], cell.value) ? cell.value.toUpperCase() : cell.value))))))));
+    });
+  }
+}
+OrderCardDataTable.propTypes = {
+  isSecurityGroup: PropTypes__default["default"].bool.isRequired,
+  rules: PropTypes__default["default"].array.isRequired
+};
+
+class NetworkingRulesOrderCard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      rules: [...this.props.rules],
+      collapse: {},
+      allCollapsed: false,
+      showModal: false,
+      showTable: true
+    };
+    this.handleUp = this.handleUp.bind(this);
+    this.handleDown = this.handleDown.bind(this);
+    this.toggleCollapse = this.toggleCollapse.bind(this);
+    this.collapseAll = this.collapseAll.bind(this);
+    this.toggleModal = this.toggleModal.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  componentDidUpdate(prevProps) {
+    if (prevProps.rules.length !== this.state.rules.length) {
+      this.setState({
+        rules: [...this.props.rules]
+      }, () => {
+        this.collapseAll();
+      });
+    }
+  }
+  componentDidMount() {
+    if (this.state.allCollapsed === false && this.props.expandAll === false) this.collapseAll();
+  }
+  toggleModal() {
+    this.setState({
+      showModal: !this.state.showModal
+    });
+  }
+
+  /**
+   * toggle collapse rule
+   * @param {string} ruleName rule name
+   */
+  toggleCollapse(ruleName) {
+    let collapse = this.state.collapse;
+    collapse[ruleName] = !lazyZ.containsKeys(this.state.collapse, ruleName) // if rule dies not exist
+    ? true // set to true
+    : !this.state.collapse[ruleName]; // otherwise set to opposite
+    this.setState({
+      collapse: collapse
+    });
+  }
+
+  /**
+   * collapse each rule
+   */
+  collapseAll() {
+    let collapse = this.state.collapse;
+    this.state.rules.forEach(rule => {
+      collapse[rule.name] = true;
+    });
+    this.setState({
+      collapse: collapse,
+      allCollapsed: true
+    });
+  }
+
+  /**
+   * Move the card up
+   * @param {number} index
+   */
+  handleUp(index) {
+    let prevRulesState = [...this.state.rules];
+    if (index !== 0) {
+      forms_35(prevRulesState, index, index - 1);
+    }
+    this.props.networkRuleOrderDidChange(prevRulesState);
+    this.setState({
+      rules: prevRulesState
+    });
+  }
+
+  /**
+   * Move the card down
+   * @param {number} index
+   */
+  handleDown(index) {
+    let prevRulesState = [...this.state.rules];
+    let maxLen = prevRulesState.length - 1;
+    if (index !== maxLen) {
+      forms_35(prevRulesState, index, index + 1);
+    }
+    this.props.networkRuleOrderDidChange(prevRulesState);
+    this.setState({
+      rules: prevRulesState
+    });
+  }
+
+  /**
+   * @param {Object} modalData data from the modal form passed back from instanceFormModal
+   */
+  handleSubmit(modalData) {
+    this.props.onSubmitCallback(modalData, this.props);
+    this.toggleModal();
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+      name: "Rules",
+      className: "marginBottomSmall",
+      type: "subHeading",
+      buttons: /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+        hide: this.props.hideCreate,
+        show: /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+          type: "custom",
+          onClick: () => {
+            this.setState({
+              showTable: !this.state.showTable
+            });
+          },
+          customIcon: this.state.showTable ? iconsReact.Edit : iconsReact.DataView,
+          hoverText: this.state.showTable ? "Edit" : "View Data",
+          className: "edit-view-btn",
+          hide: this.state.rules.length < 0 // do not show edit if no rules
+        }), /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+          name: this.props.vpc_name,
+          type: "add",
+          onClick: this.toggleModal
+        }))
+      })
+    }), /*#__PURE__*/React__default["default"].createElement(FormModal, {
+      name: "Create a Network Rule",
+      show: this.state.showModal,
+      onRequestSubmit: this.handleSubmit,
+      onRequestClose: this.toggleModal
+    }, RenderForm(NetworkingRuleForm, {
+      ...this.props,
+      data: {
+        name: "",
+        action: "allow",
+        direction: "inbound",
+        source: "",
+        destination: "",
+        ruleProtocol: "all",
+        rule: {
+          port_max: null,
+          port_min: null,
+          source_port_max: null,
+          source_port_min: null,
+          type: null,
+          code: null
+        }
+      },
+      isSecurityGroup: this.props.isSecurityGroup,
+      invalidCallback: this.props.invalidRuleText,
+      invalidTextCallback: this.props.invalidRuleTextCallback,
+      parent_name: this.props.parent_name,
+      disableSave: this.props.disableSaveCallback,
+      shouldDisableSubmit: function () {
+        // references to `this` in function are intentionally vague
+        // in order to pass the correct functions and field values to the
+        // child modal component
+        // by passing `this` in a function that it scoped to the component
+        // we allow the function to be successfully bound to the modal form
+        // while still referencing the local value `enableSubmitField`
+        // to use it's own values for state and props including enableModal
+        // and disableModal, which are dynamically added to the component
+        // at time of render
+        if (this.props.disableSave(this.state, this.props) === false) {
+          this.props.enableModal();
+        } else {
+          this.props.disableModal();
+        }
+      }
+    })), /*#__PURE__*/React__default["default"].createElement(EmptyResourceTile, {
+      name: "Network Rules",
+      showIfEmpty: this.state.rules
+    }), this.state.showTable && this.state.rules.length > 0 ? /*#__PURE__*/React__default["default"].createElement(OrderCardDataTable, {
+      isSecurityGroup: this.props.isSecurityGroup,
+      rules: this.state.rules,
+      vpc_name: this.props.vpc_name
+    }) : this.state.rules.map((rule, index) => /*#__PURE__*/React__default["default"].createElement("div", {
+      key: "rule-div-" + rule.name + "-wrapper",
+      className: forms_36(this.props)
+    }, /*#__PURE__*/React__default["default"].createElement(NetworkingRuleForm, {
+      hide: this.state.collapse[rule.name],
+      onToggle: () => this.toggleCollapse(rule.name),
+      disableUp: index === 0,
+      handleUp: () => this.handleUp(index),
+      disableDown: index === this.state.rules.length - 1,
+      handleDown: () => this.handleDown(index),
+      key: JSON.stringify(rule),
+      id: this.props.vpc_name + "-nw-rule-form-" + rule.name,
+      invalidCallback: this.props.invalidRuleText,
+      invalidTextCallback: this.props.invalidRuleTextCallback,
+      data: {
+        name: rule.name,
+        action: rule.action || null,
+        direction: rule.direction,
+        source: rule.source,
+        destination: rule.destination || null,
+        ruleProtocol: forms_33(rule),
+        rule: forms_34(rule, this.props.isSecurityGroup)
+      },
+      disableSaveCallback: this.props.disableSaveCallback,
+      isSecurityGroup: this.props.isSecurityGroup,
+      onSave: this.props.onRuleSave,
+      onDelete: this.props.onRuleDelete,
+      parent_name: this.props.parent_name,
+      innerFormProps: {
+        ...this.props
+      },
+      dev: this.props.dev
+    }))));
+  }
+}
+NetworkingRulesOrderCard.defaultProps = {
+  rules: [],
+  hideCreate: false,
+  isSecurityGroup: false,
+  expandAll: false
+};
+NetworkingRulesOrderCard.propTypes = {
+  isSecurityGroup: PropTypes__default["default"].bool.isRequired,
+  rules: PropTypes__default["default"].array.isRequired,
+  hideCreate: PropTypes__default["default"].bool.isRequired,
+  expandAll: PropTypes__default["default"].bool.isRequired,
+  disableModalSubmitCallback: PropTypes__default["default"].func.isRequired,
+  disableSaveCallback: PropTypes__default["default"].func.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  vpc_name: PropTypes__default["default"].string,
+  networkRuleOrderDidChange: PropTypes__default["default"].func.isRequired,
+  onSubmitCallback: PropTypes__default["default"].func.isRequired,
+  onRuleSave: PropTypes__default["default"].func.isRequired,
+  onRuleDelete: PropTypes__default["default"].func.isRequired,
+  parent_name: PropTypes__default["default"].string.isRequired
+};
+
+/**
+ * security group form
+ */
+class SecurityGroupForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data,
+      show: false
+    };
+    if (this.props.isModal) this.state.rules = [];
+    this.handleInputChange = this.handleInputChange.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleShowToggle = this.handleShowToggle.bind(this);
+    this.networkRuleOrderDidChange = this.networkRuleOrderDidChange.bind(this);
+  }
+
+  /**
+   * handle input change
+   * @param {event} event
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  handleShowToggle() {
+    this.setState(this.toggleStateBoolean("show", this.state));
+  }
+
+  /**
+   * Check if the order of network rules updated - then update state to allow save
+   * @param {Array} rules list of rule objects
+   */
+  networkRuleOrderDidChange(rules) {
+    this.props.networkRuleOrderDidChange(this.state, this.props);
+    this.setState({
+      rules: rules
+    }); // if the order of the rules changed, update rules state
+  }
+
+  render() {
+    let composedId = `security-group-form-${this.props.data.name}`;
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: composedId,
+      componentName: "security_groups",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      hideHelperText: true,
+      className: "fieldWidthSmaller",
+      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: "security_Group",
+      name: "resource_group",
+      labelText: "Resource Group",
+      groups: this.props.resourceGroups,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: "security_Group",
+      name: "vpc",
+      labelText: "VPC",
+      groups: this.props.vpcList,
+      value: this.state.vpc,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    })), !this.props.isModal && /*#__PURE__*/React__default["default"].createElement(NetworkingRulesOrderCard, {
+      key: JSON.stringify(this.props.rules),
+      rules: this.props.data.rules,
+      vpc_name: this.state.vpc,
+      parent_name: this.props.data.name,
+      isSecurityGroup: true,
+      networkRuleOrderDidChange: this.networkRuleOrderDidChange,
+      invalidCallback: this.props.invalidCallback,
+      invalidTextCallback: this.props.invalidTextCallback,
+      onSubmitCallback: this.props.onSubmitCallback,
+      onRuleSave: this.props.onRuleSave,
+      onRuleDelete: this.props.onRuleDelete,
+      disableModalSubmitCallback: this.props.disableModalSubmitCallback,
+      disableSaveCallback: this.props.disableSaveCallback,
+      invalidRuleTextCallback: this.props.invalidRuleTextCallback,
+      invalidRuleText: this.props.invalidRuleText
+    }));
+  }
+}
+SecurityGroupForm.defaultProps = {
+  data: {
+    name: "",
+    resource_group: "",
+    vpc: "",
+    rules: []
+  },
+  isModal: false
+};
+SecurityGroupForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    vpc: PropTypes__default["default"].string,
+    resource_group: PropTypes__default["default"].string,
+    rules: PropTypes__default["default"].array
+  }).isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired,
+  networkRuleOrderDidChange: PropTypes__default["default"].func,
+  // can be undefined
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  onSubmitCallback: PropTypes__default["default"].func.isRequired,
+  onRuleSave: PropTypes__default["default"].func.isRequired,
+  onRuleDelete: PropTypes__default["default"].func.isRequired,
+  disableModalSubmitCallback: PropTypes__default["default"].func.isRequired,
+  disableSaveCallback: PropTypes__default["default"].func.isRequired,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+};
+
+const SecurityGroups = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "Security Groups",
+    addText: "Create a Security Group",
+    docs: props.docs,
+    innerForm: SecurityGroupForm,
+    arrayData: props.security_groups,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    isSecurityGroup: true,
+    innerFormProps: {
+      craig: props.craig,
+      resourceGroups: props.resourceGroups,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      propsMatchState: props.propsMatchState,
+      disableSave: props.disableSave,
+      invalidRuleText: props.invalidRuleText,
+      invalidRuleTextCallback: props.invalidRuleTextCallback,
+      onSubmitCallback: props.onSubmitCallback,
+      onRuleSave: props.onRuleSave,
+      onRuleDelete: props.onRuleDelete,
+      disableModalSubmitCallback: () => {},
+      // investigate
+      disableSaveCallback: props.disableSaveCallback,
+      vpcList: props.vpcList
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "security_groups",
+      hide: true,
+      hideName: true
+    }
+  });
+};
+SecurityGroups.propTypes = {
+  security_groups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  onDelete: PropTypes__default["default"].func.isRequired,
+  onSave: PropTypes__default["default"].func.isRequired,
+  onSubmit: PropTypes__default["default"].func.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  forceOpen: PropTypes__default["default"].func.isRequired,
+  resourceGroups: PropTypes__default["default"].array.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  craig: PropTypes__default["default"].shape({}),
+  docs: PropTypes__default["default"].func.isRequired,
+  invalidRuleText: PropTypes__default["default"].func.isRequired,
+  invalidRuleTextCallback: PropTypes__default["default"].func.isRequired,
+  onSubmitCallback: PropTypes__default["default"].func.isRequired,
+  onRuleSave: PropTypes__default["default"].func.isRequired,
+  onRuleDelete: PropTypes__default["default"].func.isRequired,
+  disableSaveCallback: PropTypes__default["default"].func.isRequired,
+  vpcList: PropTypes__default["default"].array.isRequired
+};
+
 class TransitGatewayForm extends React.Component {
   constructor(props) {
     super(props);
@@ -5941,208 +6761,6 @@ TransitGateways.propTypes = {
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   invalidCrns: PropTypes__default["default"].func.isRequired,
   invalidCrnText: PropTypes__default["default"].func.isRequired
-};
-
-/**
- * vpn gateway form
- */
-class VpnGatewayForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = this.props.data;
-    this.handleInputChange = this.handleInputChange.bind(this);
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-  }
-
-  /**
-   * handle input change
-   * @param {event} event
-   */
-  handleInputChange(event) {
-    this.setState(forms_13(event));
-  }
-  render() {
-    let composedId = `vpn-gateway-form-${this.props.data.name}-`;
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: composedId,
-      component: "vpn_gateways",
-      componentName: this.props.data.name,
-      componentProps: this.props,
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      placeholder: "my-vpn-gateway-name",
-      hideHelperText: true,
-      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props)
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: this.props.data.name + "-resource_group",
-      name: "resource_group",
-      labelText: "Resource Group",
-      groups: this.props.resourceGroups,
-      value: this.state.resource_group,
-      handleInputChange: this.handleInputChange,
-      invalid: lib_9(this.state.resource_group),
-      invalidText: "Select a Resource Group.",
-      className: "fieldWidth"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      id: composedId,
-      formName: this.props.data.name + "-vpn-" + this.state.vpc,
-      name: "vpc",
-      labelText: "VPC",
-      groups: this.props.vpcList,
-      value: this.state.vpc,
-      handleInputChange: this.handleInputChange,
-      invalid: lib_9(this.state.vpc),
-      invalidText: "Select a VPC.",
-      className: "fieldWidth"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      id: composedId,
-      formName: "subnet",
-      name: "subnet",
-      labelText: "Subnet",
-      groups: this.getSubnetList(),
-      value: this.state.subnet,
-      handleInputChange: this.handleInputChange,
-      invalid: lib_9(this.state.vpc) || lib_9(this.state.subnet),
-      invalidText: lib_9(this.state.vpc) ? `No VPC Selected.` : `Select a Subnet.`,
-      className: "fieldWidth"
-    })));
-  }
-}
-VpnGatewayForm.defaultProps = {
-  data: {
-    name: "",
-    resource_group: "",
-    vpc: "",
-    subnet: null
-  },
-  isModal: false
-};
-VpnGatewayForm.propTypes = {
-  data: PropTypes__default["default"].shape({
-    name: PropTypes__default["default"].string.isRequired,
-    resource_group: PropTypes__default["default"].string,
-    // can be null
-    vpc: PropTypes__default["default"].string,
-    // can be null
-    subnet: PropTypes__default["default"].string // can be null
-  }).isRequired,
-  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  subnetList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].object).isRequired,
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  isModal: PropTypes__default["default"].bool.isRequired
-};
-
-const VpnGateways = props => {
-  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
-    name: "VPN Gateways",
-    addText: "Create a VPN Gateway",
-    docs: props.docs,
-    innerForm: VpnGatewayForm,
-    arrayData: props.vpn_gateways,
-    disableSave: props.disableSave,
-    onDelete: props.onDelete,
-    onSave: props.onSave,
-    onSubmit: props.onSubmit,
-    propsMatchState: props.propsMatchState,
-    forceOpen: props.forceOpen,
-    innerFormProps: {
-      craig: props.craig,
-      disableSave: props.disableSave,
-      invalidCallback: props.invalidCallback,
-      invalidTextCallback: props.invalidTextCallback,
-      vpcList: props.vpcList,
-      subnetList: props.subnetList,
-      resourceGroups: props.resourceGroups
-    },
-    toggleFormProps: {
-      craig: props.craig,
-      disableSave: props.disableSave,
-      submissionFieldName: "vpn_gateways",
-      hide: true,
-      hideName: true
-    }
-  });
-};
-VpnGateways.propTypes = {
-  docs: PropTypes__default["default"].func.isRequired,
-  vpn_gateways: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
-  disableSave: PropTypes__default["default"].func.isRequired,
-  onDelete: PropTypes__default["default"].func.isRequired,
-  onSave: PropTypes__default["default"].func.isRequired,
-  onSubmit: PropTypes__default["default"].func.isRequired,
-  propsMatchState: PropTypes__default["default"].func.isRequired,
-  forceOpen: PropTypes__default["default"].func.isRequired,
-  craig: PropTypes__default["default"].shape({}),
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  subnetList: PropTypes__default["default"].array.isRequired
-};
-
-const AppId = props => {
-  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
-    name: "AppID",
-    addText: "Create an App ID Instance",
-    docs: props.docs,
-    innerForm: AppIdForm,
-    arrayData: props.appid,
-    disableSave: props.disableSave,
-    onDelete: props.onDelete,
-    onSave: props.onSave,
-    onSubmit: props.onSubmit,
-    propsMatchState: props.propsMatchState,
-    forceOpen: props.forceOpen,
-    craig: props.craig,
-    innerFormProps: {
-      craig: props.craig,
-      resourceGroups: props.resourceGroups,
-      disableSave: props.disableSave,
-      invalidCallback: props.invalidCallback,
-      invalidTextCallback: props.invalidTextCallback,
-      invalidKeyCallback: props.invalidKeyCallback,
-      invalidKeyTextCallback: props.invalidKeyTextCallback,
-      propsMatchState: props.propsMatchState,
-      disableSave: props.disableSave,
-      keyProps: {
-        craig: props.craig,
-        onSave: props.onKeySave,
-        onDelete: props.onKeyDelete,
-        onSubmit: props.onKeySubmit,
-        disableSave: props.disableSave
-      }
-    },
-    toggleFormProps: {
-      craig: props.craig,
-      disableSave: props.disableSave,
-      submissionFieldName: "appid",
-      hide: true,
-      hideName: true
-    }
-  });
-};
-AppId.propTypes = {
-  appid: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
-  disableSave: PropTypes__default["default"].func.isRequired,
-  onDelete: PropTypes__default["default"].func.isRequired,
-  onSave: PropTypes__default["default"].func.isRequired,
-  onSubmit: PropTypes__default["default"].func.isRequired,
-  propsMatchState: PropTypes__default["default"].func.isRequired,
-  forceOpen: PropTypes__default["default"].func.isRequired,
-  resourceGroups: PropTypes__default["default"].array.isRequired,
-  craig: PropTypes__default["default"].shape({}),
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  invalidKeyCallback: PropTypes__default["default"].func.isRequired,
-  invalidKeyTextCallback: PropTypes__default["default"].func.isRequired,
-  onKeySave: PropTypes__default["default"].func.isRequired,
-  onKeyDelete: PropTypes__default["default"].func.isRequired,
-  onKeySubmit: PropTypes__default["default"].func.isRequired,
-  docs: PropTypes__default["default"].func.isRequired
 };
 
 const nameFields = ["default_network_acl_name", "default_routing_table_name", "default_security_group_name"];
@@ -6349,6 +6967,716 @@ Vpcs.propTypes = {
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+};
+
+/**
+ * vpn gateway form
+ */
+class VpnGatewayForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    this.handleInputChange = this.handleInputChange.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+
+  /**
+   * handle input change
+   * @param {event} event
+   */
+  handleInputChange(event) {
+    this.setState(forms_13(event));
+  }
+  render() {
+    let composedId = `vpn-gateway-form-${this.props.data.name}-`;
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: composedId,
+      component: "vpn_gateways",
+      componentName: this.props.data.name,
+      componentProps: this.props,
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      placeholder: "my-vpn-gateway-name",
+      hideHelperText: true,
+      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: this.props.data.name + "-resource_group",
+      name: "resource_group",
+      labelText: "Resource Group",
+      groups: this.props.resourceGroups,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange,
+      invalid: lib_9(this.state.resource_group),
+      invalidText: "Select a Resource Group.",
+      className: "fieldWidth"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      id: composedId,
+      formName: this.props.data.name + "-vpn-" + this.state.vpc,
+      name: "vpc",
+      labelText: "VPC",
+      groups: this.props.vpcList,
+      value: this.state.vpc,
+      handleInputChange: this.handleInputChange,
+      invalid: lib_9(this.state.vpc),
+      invalidText: "Select a VPC.",
+      className: "fieldWidth"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      id: composedId,
+      formName: "subnet",
+      name: "subnet",
+      labelText: "Subnet",
+      groups: this.getSubnetList(),
+      value: this.state.subnet,
+      handleInputChange: this.handleInputChange,
+      invalid: lib_9(this.state.vpc) || lib_9(this.state.subnet),
+      invalidText: lib_9(this.state.vpc) ? `No VPC Selected.` : `Select a Subnet.`,
+      className: "fieldWidth"
+    })));
+  }
+}
+VpnGatewayForm.defaultProps = {
+  data: {
+    name: "",
+    resource_group: "",
+    vpc: "",
+    subnet: null
+  },
+  isModal: false
+};
+VpnGatewayForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    resource_group: PropTypes__default["default"].string,
+    // can be null
+    vpc: PropTypes__default["default"].string,
+    // can be null
+    subnet: PropTypes__default["default"].string // can be null
+  }).isRequired,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  subnetList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].object).isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired
+};
+
+const VpnGateways = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "VPN Gateways",
+    addText: "Create a VPN Gateway",
+    docs: props.docs,
+    innerForm: VpnGatewayForm,
+    arrayData: props.vpn_gateways,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    innerFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      vpcList: props.vpcList,
+      subnetList: props.subnetList,
+      resourceGroups: props.resourceGroups
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "vpn_gateways",
+      hide: true,
+      hideName: true
+    }
+  });
+};
+VpnGateways.propTypes = {
+  docs: PropTypes__default["default"].func.isRequired,
+  vpn_gateways: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  onDelete: PropTypes__default["default"].func.isRequired,
+  onSave: PropTypes__default["default"].func.isRequired,
+  onSubmit: PropTypes__default["default"].func.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  forceOpen: PropTypes__default["default"].func.isRequired,
+  craig: PropTypes__default["default"].shape({}),
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  subnetList: PropTypes__default["default"].array.isRequired
+};
+
+const {
+  isWholeNumber,
+  isInRange
+} = lazyZ__default["default"];
+const {
+  RegexButWithWords
+} = regexButWithWords__default["default"];
+const commaSeparatedIpListExp = new RegexButWithWords().stringBegin().group(exp => {
+  exp.group(exp => {
+    exp.wordBoundary().group(exp => {
+      exp.group(exp => {
+        exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+      }).literal(".");
+    }, 3).group(exp => {
+      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+    }).wordBoundary().group(exp => {
+      exp.group(exp => {
+        exp.literal("/").group(exp => {
+          exp.literal("3").set("0-2").or().set("012").lazy().digit();
+        });
+      });
+    }).lazy();
+  });
+}).anyNumber().group(exp => {
+  exp.literal(",").whitespace().anyNumber().wordBoundary().group(exp => {
+    exp.group(exp => {
+      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+    }).literal(".");
+  }, 3).group(exp => {
+    exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+  }).wordBoundary().group(exp => {
+    exp.group(exp => {
+      exp.literal("/").group(exp => {
+        exp.literal("3").set("0-2").or().set("012").lazy().digit();
+      });
+    });
+  }).lazy();
+}).anyNumber().stringEnd().done("gm");
+const commaSeparatedIpListExpNoCidr = new RegexButWithWords().stringBegin().group(exp => {
+  exp.group(exp => {
+    exp.wordBoundary().group(exp => {
+      exp.group(exp => {
+        exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+      }).literal(".");
+    }, 3).group(exp => {
+      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+    }).lazy();
+  });
+}).anyNumber().group(exp => {
+  exp.literal(",").whitespace().anyNumber().wordBoundary().group(exp => {
+    exp.group(exp => {
+      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+    }).literal(".");
+  }, 3).group(exp => {
+    exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+  }).lazy();
+}).anyNumber().stringEnd().done("gm");
+
+/**
+ * return true if value is null or empty string
+ * @param {*} value
+ * @returns {boolean} true if null or empty string
+ */
+function isNullOrEmptyString(value) {
+  return value === null || value === "";
+}
+
+/**
+ * test for invalid range
+ * @param {*} value
+ * @param {number} min
+ * @param {number} max
+ * @returns {boolean} true if invalid
+ */
+function isRangeInvalid(value, min, max) {
+  if (isNullOrEmptyString(value)) return false;
+  value = parseFloat(value);
+  if (!isWholeNumber(value) || !isInRange(value, min, max)) {
+    return true;
+  }
+  return false;
+}
+
+/**
+ * test for invalid IP string/CIDR
+ * @param {string} value
+ * @returns {boolean} true if invalid
+ */
+function isIpStringInvalid(value) {
+  if (!isNullOrEmptyString(value) && value.match(commaSeparatedIpListExp) === null) {
+    return true;
+  }
+  return false;
+}
+
+/**
+ * test for invalid IP string no CIDR
+ * @param {string} value
+ * @returns {boolean} true if invalid
+ */
+function isIpStringInvalidNoCidr(value) {
+  if (!isNullOrEmptyString(value) && value.match(commaSeparatedIpListExpNoCidr) === null) {
+    return true;
+  }
+  return false;
+}
+var iamUtils = {
+  isIpStringInvalid,
+  isIpStringInvalidNoCidr,
+  isRangeInvalid
+};
+var iamUtils_1 = iamUtils.isIpStringInvalid;
+var iamUtils_2 = iamUtils.isIpStringInvalidNoCidr;
+var iamUtils_3 = iamUtils.isRangeInvalid;
+
+class VsiVolumeForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: this.props.data.name + "-vsi-volume-name",
+      componentName: this.state.name,
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      className: "fieldWidthSmaller",
+      hideHelperText: true
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      component: this.state.name,
+      formName: this.props.data.name + "-vsi-volume-profile",
+      name: "profile",
+      groups: ["3iops-tier", "5iops-tier", "10iops-tier"],
+      value: this.state.profile,
+      labelText: "Profile",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      component: this.state.name,
+      formName: this.props.data.name + "-object-storage-bucket-key",
+      name: "encryption_key",
+      groups: this.props.encryptionKeyFilter ? this.props.encryptionKeyFilter(this.state, this.props) : this.props.encryptionKeys,
+      value: this.state.encryption_key,
+      labelText: "Encryption Key",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      id: this.props.data.name + "vsi-volume-capacity",
+      name: "capacity",
+      label: "Capacity (GB)",
+      value: this.state.capacity || "",
+      onChange: this.handleInputChange,
+      allowEmpty: true,
+      step: 1,
+      hideSteppers: true,
+      placeholder: "100",
+      min: 10,
+      max: 16000,
+      invalid: iamUtils_3(this.state.capacity, 10, 16000),
+      invalidText: "Must be a whole number between 10 and 16000",
+      className: "fieldWidthSmaller leftTextAlign"
+    })));
+  }
+}
+VsiVolumeForm.defaultProps = {
+  data: {
+    name: "",
+    profile: "general-purpose",
+    encryption_key: "",
+    capacity: ""
+  },
+  encryptionKeys: []
+};
+VsiVolumeForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    profile: PropTypes__default["default"].string,
+    encryption_key: PropTypes__default["default"].string,
+    capacity: PropTypes__default["default"].oneOfType([PropTypes__default["default"].string, PropTypes__default["default"].number]).isRequired
+  }).isRequired,
+  encryptionKeys: PropTypes__default["default"].array.isRequired,
+  encryptionKeyFilter: PropTypes__default["default"].func,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired
+};
+
+class VsiForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+  handleInputChange(event) {
+    this.setState(vsi_1(event, this.state, this.props));
+  }
+  handleMultiSelectChange(name, value) {
+    this.setState(this.setNameToValue(name, value));
+  }
+  handleToggle(name) {
+    this.setState(this.toggleStateBoolean(name, this.state));
+  }
+  render() {
+    let composedId = `vsi-deployment-form-${this.props.data.name}`;
+    let volumeProps = {
+      invalidCallback: this.props.invalidVsiVolumeCallback,
+      invalidTextCallback: this.props.invalidVsiVolumeTextCallback,
+      arrayParentName: this.props.data.name,
+      parent_name: this.props.data.name
+    };
+    lazyZ.transpose({
+      ...this.props.vsiVolumeProps
+    }, volumeProps);
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: composedId,
+      className: "fieldWidthSmaller",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      hideHelperText: true,
+      forceKebabCase: true
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: composedId + "-rg",
+      name: "resource_group",
+      className: "fieldWidthSmaller",
+      labelText: "Resource Group",
+      groups: this.props.resourceGroups,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: composedId + "-vpc",
+      name: "vpc",
+      labelText: "VPC",
+      groups: this.props.vpcList,
+      value: this.state.vpc,
+      handleInputChange: this.handleInputChange,
+      invalid: lib_9(this.state.vpc),
+      invalidText: "Select a VPC.",
+      className: "fieldWidthSmaller"
+    }), this.props.isTeleport ?
+    /*#__PURE__*/
+    // render dropdown for teleport instance
+    React__default["default"].createElement(IcseSelect, {
+      formName: composedId + "-subnet",
+      name: "subnet",
+      className: "fieldWidthSmaller",
+      labelText: "Subnet",
+      groups: this.getSubnetList(),
+      value: this.state.subnet,
+      handleInputChange: this.handleInputChange,
+      invalid: lib_9(this.state.vpc) || lib_9(this.state.subnet),
+      invalidText: lib_9(this.state.vpc) ? `No VPC Selected.` : `Select a Subnet.`
+    }) : /*#__PURE__*/React__default["default"].createElement(SubnetMultiSelect, {
+      key: this.state.vpc + "-subnet",
+      id: composedId + "-vsi-subnets",
+      className: "fieldWidthSmaller",
+      initialSelectedItems: this.state.subnets,
+      vpc_name: this.state.vpc,
+      subnets: this.getSubnetList(),
+      onChange: value => this.handleMultiSelectChange("subnets", value)
+    }), /*#__PURE__*/React__default["default"].createElement(SecurityGroupMultiSelect, {
+      key: this.state.vpc + "-sg",
+      id: "vsi-security-groups",
+      className: "fieldWidthSmaller",
+      initialSelectedItems: this.state.security_groups || [],
+      vpc_name: this.state.vpc,
+      onChange: value => this.handleMultiSelectChange("security_groups", value),
+      securityGroups: this.getSecurityGroupList(),
+      invalid: !(this.state.security_groups?.length > 0),
+      invalidText: !this.state.vpc || lib_9(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      label: "Instances per Subnet",
+      id: composedId + "-vsi-per-subnet",
+      value: this.state.vsi_per_subnet,
+      defaultValue: 1,
+      max: 10,
+      min: 1,
+      onChange: this.handleInputChange,
+      name: "vsi_per_subnet",
+      hideSteppers: true,
+      invalidText: "Please input a number 1-10",
+      className: "fieldWidthSmaller leftTextAlign"
+    }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
+      formName: composedId + "-image",
+      labelText: "Image",
+      name: "image_name",
+      className: "fieldWidthSmaller",
+      apiEndpoint: this.props.apiEndpointImages,
+      handleInputChange: this.handleInputChange,
+      value: this.state.image_name
+    }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
+      formName: composedId + "-profile",
+      labelText: "Profile",
+      name: "profile",
+      className: "fieldWidthSmaller",
+      apiEndpoint: this.props.apiEndpointInstanceProfiles,
+      handleInputChange: this.handleInputChange,
+      value: this.state.profile
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(SshKeyMultiSelect, {
+      id: composedId + "-sshkey",
+      className: "fieldWidthSmaller",
+      sshKeys: this.props.sshKeys,
+      initialSelectedItems: this.state.ssh_keys || [],
+      onChange: value => this.handleMultiSelectChange("ssh_keys", value)
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: composedId + "-encryption_key",
+      name: "encryption_key",
+      className: "fieldWidthSmaller",
+      labelText: "Encryption Key",
+      groups: this.props.encryptionKeys,
+      value: this.state.encryption_key,
+      handleInputChange: this.handleInputChange,
+      invalid: lazyZ.isNullOrEmptyString(this.state.encryption_key),
+      invalidText: "Select a valid encryption key."
+    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      id: composedId + "-fips-toggle",
+      className: "fieldWidthSmaller",
+      labelText: "Enable Floating IP",
+      defaultToggled: this.state.enable_floating_ip,
+      onToggle: this.handleToggle
+    })), /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
+      hide: this.props.isTeleport,
+      show: /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
+        id: composedId + "-vsi-user-data",
+        className: this.props.isModal ? "textInputWide" : "fieldWidthBigger",
+        placeholder: "Cloud init data",
+        labelText: "User Data",
+        name: "user_data",
+        value: this.state.user_data || "",
+        onChange: this.handleInputChange,
+        invalidText: "Invalid error message."
+      }))
+    }), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+      name: "Block Storage",
+      subHeading: true,
+      addText: "Create a Block Storage Volume",
+      arrayData: this.props.data.volumes,
+      innerForm: VsiVolumeForm,
+      disableSave: this.props.vsiVolumeProps.disableSave,
+      onDelete: this.props.vsiVolumeProps.onDelete,
+      onSave: this.props.vsiVolumeProps.onSave,
+      onSubmit: this.props.vsiVolumeProps.onSubmit,
+      propsMatchState: this.props.propsMatchState,
+      innerFormProps: {
+        ...volumeProps
+      },
+      hideAbout: true,
+      toggleFormProps: {
+        hideName: true,
+        submissionFieldName: "volumes",
+        disableSave: this.props.vsiVolumeProps.disableSave,
+        type: "formInSubForm"
+      }
+    })));
+  }
+}
+VsiForm.defaultProps = {
+  data: {
+    name: "",
+    resource_group: "",
+    vpc: "",
+    subnet: "",
+    subnets: [],
+    ssh_keys: [],
+    security_groups: [],
+    vsi_per_subnet: 1,
+    encryption_key: "",
+    image_name: "",
+    profile: "",
+    enable_floating_ip: false
+  },
+  isModal: false,
+  isTeleport: false,
+  encryptionKeys: [],
+  resourceGroups: [],
+  securityGroups: [],
+  sshKeys: [],
+  subnetList: [],
+  vpcList: [],
+  apiEndpointImages: "",
+  apiEndpointInstanceProfiles: ""
+};
+VsiForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string,
+    resource_group: PropTypes__default["default"].string,
+    vpc: PropTypes__default["default"].string,
+    subnet: PropTypes__default["default"].string,
+    subnets: PropTypes__default["default"].array,
+    security_groups: PropTypes__default["default"].array,
+    vsi_per_subnet: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].string]),
+    image_name: PropTypes__default["default"].string,
+    profile: PropTypes__default["default"].string,
+    ssh_keys: PropTypes__default["default"].array,
+    encryption_key: PropTypes__default["default"].string,
+    enable_floating_ip: PropTypes__default["default"].bool
+  }).isRequired,
+  /* bools */
+  isModal: PropTypes__default["default"].bool.isRequired,
+  isTeleport: PropTypes__default["default"].bool.isRequired,
+  /* lists */
+  encryptionKeys: PropTypes__default["default"].array.isRequired,
+  resourceGroups: PropTypes__default["default"].array.isRequired,
+  securityGroups: PropTypes__default["default"].array.isRequired,
+  sshKeys: PropTypes__default["default"].array.isRequired,
+  subnetList: PropTypes__default["default"].array.isRequired,
+  vpcList: PropTypes__default["default"].array.isRequired,
+  /* api endpoints */
+  apiEndpointImages: PropTypes__default["default"].string.isRequired,
+  apiEndpointInstanceProfiles: PropTypes__default["default"].string.isRequired,
+  /* callbacks */
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  /* forms */
+  vsiVolumeProps: PropTypes__default["default"].shape({
+    onSave: PropTypes__default["default"].func.isRequired,
+    onDelete: PropTypes__default["default"].func.isRequired,
+    onSubmit: PropTypes__default["default"].func.isRequired,
+    disableSave: PropTypes__default["default"].func.isRequired,
+    encryptionKeys: PropTypes__default["default"].array.isRequired
+  }).isRequired
+};
+
+const Vsi = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "Virtual Server Instances",
+    addText: "Create a VSI",
+    docs: props.docs,
+    arrayData: props.vsi,
+    innerForm: VsiForm,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    innerFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      readOnlyName: false,
+      resourceGroups: props.resourceGroups,
+      encryptionKeys: props.encryptionKeys,
+      subnetList: props.subnetList,
+      securityGroups: props.securityGroups,
+      vpcList: props.vpcList,
+      sshKeys: props.sshKeys,
+      apiEndpointImages: props.apiEndpointImages,
+      apiEndpointInstanceProfiles: props.apiEndpointInstanceProfiles,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      invalidVsiVolumeCallback: props.invalidVolumeCallback,
+      invalidVsiVolumeTextCallback: props.invalidVolumeTextCallback,
+      propsMatchState: props.propsMatchState,
+      vsiVolumeProps: {
+        disableSave: props.disableSave,
+        encryptionKeys: props.encryptionKeys,
+        craig: props.craig,
+        onSave: props.onVolumeSave,
+        onDelete: props.onVolumeDelete,
+        onSubmit: props.onVolumeCreate
+      }
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "vsi",
+      hide: true,
+      hideName: true
+    }
+  });
+};
+Vsi.propTypes = {
+  docs: PropTypes__default["default"].func.isRequired,
+  vsi: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  onDelete: PropTypes__default["default"].func.isRequired,
+  onSave: PropTypes__default["default"].func.isRequired,
+  onSubmit: PropTypes__default["default"].func.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  forceOpen: PropTypes__default["default"].func.isRequired,
+  craig: PropTypes__default["default"].shape({}),
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  encryptionKeys: PropTypes__default["default"].array.isRequired,
+  subnetList: PropTypes__default["default"].array.isRequired,
+  securityGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string),
+  sshKeys: PropTypes__default["default"].array,
+  apiEndpointImages: PropTypes__default["default"].string.isRequired,
+  apiEndpointInstanceProfiles: PropTypes__default["default"].string.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidVolumeCallback: PropTypes__default["default"].func.isRequired,
+  invalidVolumeTextCallback: PropTypes__default["default"].func.isRequired,
+  onVolumeSave: PropTypes__default["default"].func.isRequired,
+  onVolumeDelete: PropTypes__default["default"].func.isRequired,
+  onVolumeCreate: PropTypes__default["default"].func.isRequired
+};
+
+const WorkerPools = props => {
+  return props.isModal ? "" : /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "Worker Pools",
+    subHeading: true,
+    addText: "Create a Worker Pool",
+    arrayData: props.worker_pools,
+    innerForm: WorkerPoolForm,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    innerFormProps: {
+      subnetList: props.subnetList,
+      cluster: props.cluster,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      flavorApiEndpoint: props.flavorApiEndpoint,
+      craig: props.craig,
+      arrayParentName: props.cluster.name
+    },
+    hideAbout: true,
+    toggleFormProps: {
+      hideName: true,
+      submissionFieldName: "worker_pools",
+      disableSave: props.disableSave,
+      type: "formInSubForm"
+    }
+  });
+};
+WorkerPools.defaultProps = {
+  isModal: false
+};
+WorkerPools.propTypes = {
+  isModal: PropTypes__default["default"].bool.isRequired,
+  worker_pools: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})),
+  disableSave: PropTypes__default["default"].func,
+  onDelete: PropTypes__default["default"].func,
+  onSave: PropTypes__default["default"].func,
+  onSubmit: PropTypes__default["default"].func,
+  propsMatchState: PropTypes__default["default"].func,
+  subnetList: PropTypes__default["default"].array,
+  cluster: PropTypes__default["default"].shape({}).isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  arrayParentName: PropTypes__default["default"].string,
+  flavorApiEndpoint: PropTypes__default["default"].string,
+  craig: PropTypes__default["default"].shape({})
 };
 
 class ClusterForm extends React.Component {
@@ -6600,121 +7928,6 @@ ClusterForm.propTypes = {
     disableSave: PropTypes__default["default"].func.isRequired
   }).isRequired
 };
-
-const {
-  isWholeNumber,
-  isInRange
-} = lazyZ__default["default"];
-const {
-  RegexButWithWords
-} = regexButWithWords__default["default"];
-const commaSeparatedIpListExp = new RegexButWithWords().stringBegin().group(exp => {
-  exp.group(exp => {
-    exp.wordBoundary().group(exp => {
-      exp.group(exp => {
-        exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
-      }).literal(".");
-    }, 3).group(exp => {
-      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
-    }).wordBoundary().group(exp => {
-      exp.group(exp => {
-        exp.literal("/").group(exp => {
-          exp.literal("3").set("0-2").or().set("012").lazy().digit();
-        });
-      });
-    }).lazy();
-  });
-}).anyNumber().group(exp => {
-  exp.literal(",").whitespace().anyNumber().wordBoundary().group(exp => {
-    exp.group(exp => {
-      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
-    }).literal(".");
-  }, 3).group(exp => {
-    exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
-  }).wordBoundary().group(exp => {
-    exp.group(exp => {
-      exp.literal("/").group(exp => {
-        exp.literal("3").set("0-2").or().set("012").lazy().digit();
-      });
-    });
-  }).lazy();
-}).anyNumber().stringEnd().done("gm");
-const commaSeparatedIpListExpNoCidr = new RegexButWithWords().stringBegin().group(exp => {
-  exp.group(exp => {
-    exp.wordBoundary().group(exp => {
-      exp.group(exp => {
-        exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
-      }).literal(".");
-    }, 3).group(exp => {
-      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
-    }).lazy();
-  });
-}).anyNumber().group(exp => {
-  exp.literal(",").whitespace().anyNumber().wordBoundary().group(exp => {
-    exp.group(exp => {
-      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
-    }).literal(".");
-  }, 3).group(exp => {
-    exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
-  }).lazy();
-}).anyNumber().stringEnd().done("gm");
-
-/**
- * return true if value is null or empty string
- * @param {*} value
- * @returns {boolean} true if null or empty string
- */
-function isNullOrEmptyString$1(value) {
-  return value === null || value === "";
-}
-
-/**
- * test for invalid range
- * @param {*} value
- * @param {number} min
- * @param {number} max
- * @returns {boolean} true if invalid
- */
-function isRangeInvalid(value, min, max) {
-  if (isNullOrEmptyString$1(value)) return false;
-  value = parseFloat(value);
-  if (!isWholeNumber(value) || !isInRange(value, min, max)) {
-    return true;
-  }
-  return false;
-}
-
-/**
- * test for invalid IP string/CIDR
- * @param {string} value
- * @returns {boolean} true if invalid
- */
-function isIpStringInvalid(value) {
-  if (!isNullOrEmptyString$1(value) && value.match(commaSeparatedIpListExp) === null) {
-    return true;
-  }
-  return false;
-}
-
-/**
- * test for invalid IP string no CIDR
- * @param {string} value
- * @returns {boolean} true if invalid
- */
-function isIpStringInvalidNoCidr(value) {
-  if (!isNullOrEmptyString$1(value) && value.match(commaSeparatedIpListExpNoCidr) === null) {
-    return true;
-  }
-  return false;
-}
-var iamUtils = {
-  isIpStringInvalid,
-  isIpStringInvalidNoCidr,
-  isRangeInvalid
-};
-var iamUtils_1 = iamUtils.isIpStringInvalid;
-var iamUtils_2 = iamUtils.isIpStringInvalidNoCidr;
-var iamUtils_3 = iamUtils.isRangeInvalid;
 
 /**
  *  handle allowed ips for event streams
@@ -7821,637 +9034,6 @@ IamAccountSettingsForm.propTypes = {
   invalidTextCallback: PropTypes__default["default"].func.isRequired
 };
 
-const {
-  capitalize,
-  titleCase,
-  kebabCase,
-  isIpv4CidrOrAddress,
-  validPortRange,
-  isNullOrEmptyString,
-  contains
-} = require("lazy-z");
-
-/** NetworkingRuleForm
- * @param {Object} props
- * @param {configDotJson} props.configDotJson config dot json
- * @param {slz} props.slz slz state store
- */
-class NetworkingRuleForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    this.handleInput = this.handleInput.bind(this);
-    this.handleRuleUpdate = this.handleRuleUpdate.bind(this);
-    this.handleRuleDelete = this.handleRuleDelete.bind(this);
-    this.handleRuleDataUpdate = this.handleRuleDataUpdate.bind(this);
-    this.toggleDeleteModal = this.toggleDeleteModal.bind(this);
-    this.shouldDisableSave = this.shouldDisableSave.bind(this);
-    buildFormFunctions(this);
-  }
-
-  /**
-   * Handle input change for a text field
-   * @param {String} inputName name of the field to set state
-   * @param {event} event
-   * @param {boolean=} lowercase set value to lowercase
-   */
-  handleInput(inputName, event, lowercase) {
-    let newValue = lowercase ? event.target.value.toLowerCase() : event.target.value;
-    this.setState({
-      [inputName]: newValue
-    });
-  }
-
-  /**
-   * Handler function for the rule updates
-   * @param {String} inputName name of the field to set state in Rule
-   * @param event event
-   */
-  handleRuleDataUpdate(inputName, event) {
-    let value = parseInt(event.target.value);
-    if (isNaN(value)) {
-      value = null;
-    }
-    this.setState(prevState => ({
-      rule: {
-        // object that we want to update
-        ...prevState.rule,
-        // keep all other key-value pairs
-        [inputName]: value // update the value of specific key
-      }
-    }));
-  }
-
-  /**
-   * update a network rule
-   */
-  handleRuleUpdate() {
-    this.props.onSave(this.state, this.props);
-  }
-
-  /**
-   * delete a network rule
-   */
-  handleRuleDelete() {
-    this.props.onDelete(this.state, this.props);
-  }
-
-  /**
-   * toggle delete modal
-   */
-  toggleDeleteModal() {
-    this.setState({
-      showDeleteModal: !this.state.showDeleteModal
-    });
-  }
-
-  /**
-   * Returns true if save should be disabled or if props match state (save disabled)
-   * @returns {boolean} if save is disabled
-   */
-  shouldDisableSave() {
-    if (this.props.isModal) {
-      this.props.disableModalSubmit(this.state, this.props);
-    } else {
-      let shouldBeDisabled = this.props.disableSaveCallback(this.state, this.props);
-      return shouldBeDisabled;
-    }
-  }
-  render() {
-    let ruleName = this.props.isModal ? "new-rule" : this.props.data.name;
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement("div", {
-      key: "rule-div-" + ruleName,
-      className: this.props.hide ? "" : "marginBottomSmall" // add margin bottom small if shown
-    }, this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(DeleteModal, {
-      name: ruleName,
-      modalOpen: this.state.showDeleteModal,
-      onModalClose: this.toggleDeleteModal,
-      onModalSubmit: this.handleRuleDelete
-    }), /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
-      hide: this.props.hide && this.props.isModal === true,
-      show: /*#__PURE__*/React__default["default"].createElement(StatelessToggleForm, {
-        key: "rule-name-" + ruleName,
-        name: this.props.isModal ? "" : ruleName // do not show name when modal
-        ,
-        onIconClick: this.props.onToggle,
-        toggleFormTitle: true,
-        hide: this.props.hide && this.props.isModal !== true,
-        hideIcon: this.props.isModal,
-        alwaysShowButtons: true,
-        buttons: this.props.isModal ? "" : this.props.hide === false ? /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
-          name: ruleName,
-          onClick: this.handleRuleUpdate,
-          disabled: this.shouldDisableSave()
-        }), /*#__PURE__*/React__default["default"].createElement(DeleteButton, {
-          name: ruleName,
-          onClick: this.toggleDeleteModal
-        })) : /*#__PURE__*/React__default["default"].createElement(UpDownButtons, {
-          name: ruleName,
-          handleUp: this.props.handleUp,
-          handleDown: this.props.handleDown,
-          disableUp: this.props.disableUp,
-          disableDown: this.props.disableDown
-        })
-      }, /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-        id: this.state.name + "-name",
-        componentName: this.props.data.name + "-rule",
-        value: this.state.name,
-        onChange: event => this.handleInput("name", event),
-        invalidCallback: () => this.props.invalidCallback(this.state, this.props),
-        invalidText: this.props.invalidTextCallback(this.state, this.props),
-        hideHelperText: true,
-        className: "fieldWidthSmaller"
-      }), !this.props.isSecurityGroup && /*#__PURE__*/React__default["default"].createElement(NetworkingRuleSelect, {
-        state: this.state,
-        name: "action",
-        onChange: this.handleInput,
-        groups: ["Allow", "Deny"],
-        props: this.props
-      }), /*#__PURE__*/React__default["default"].createElement(NetworkingRuleSelect, {
-        name: "direction",
-        state: this.state,
-        onChange: this.handleInput,
-        groups: ["Inbound", "Outbound"],
-        props: this.props
-      }), this.props.isSecurityGroup && /*#__PURE__*/React__default["default"].createElement(NetworkingRuleTextField, {
-        name: "source",
-        state: this.state,
-        onChange: this.handleInput
-      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, !this.props.isSecurityGroup && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(NetworkingRuleTextField, {
-        name: "source",
-        state: this.state,
-        onChange: this.handleInput
-      }), /*#__PURE__*/React__default["default"].createElement(NetworkingRuleTextField, {
-        name: "destination",
-        state: this.state,
-        onChange: this.handleInput
-      })), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-        formName: ruleName + "-protocol",
-        groups: ["ALL", "TCP", "UDP", "ICMP"],
-        value: this.state.ruleProtocol.toUpperCase(),
-        labelText: "Protocol",
-        name: "ruleProtocol",
-        handleInputChange: event => this.handleInput("ruleProtocol", event, true),
-        className: "fieldWidthSmaller"
-      })), (this.state.ruleProtocol === "tcp" || this.state.ruleProtocol === "udp") && /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(NetworkingRuleProtocolTextField, {
-        name: "port_min",
-        state: this.state,
-        onChange: this.handleRuleDataUpdate
-      }), /*#__PURE__*/React__default["default"].createElement(NetworkingRuleProtocolTextField, {
-        name: "port_max",
-        state: this.state,
-        onChange: this.handleRuleDataUpdate
-      })), !this.props.isSecurityGroup && /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(NetworkingRuleProtocolTextField, {
-        name: "source_port_min",
-        state: this.state,
-        onChange: this.handleRuleDataUpdate
-      }), /*#__PURE__*/React__default["default"].createElement(NetworkingRuleProtocolTextField, {
-        name: "source_port_max",
-        state: this.state,
-        onChange: this.handleRuleDataUpdate
-      }))), this.state.ruleProtocol === "icmp" && /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(NetworkingRuleProtocolTextField, {
-        name: "type",
-        state: this.state,
-        onChange: this.handleRuleDataUpdate
-      }), /*#__PURE__*/React__default["default"].createElement(NetworkingRuleProtocolTextField, {
-        name: "code",
-        state: this.state,
-        onChange: this.handleRuleDataUpdate
-      }))))
-    })));
-  }
-}
-NetworkingRuleForm.defaultProps = {
-  isSecurityGroup: false,
-  isModal: false,
-  disableUp: false,
-  disableDown: false,
-  data: {
-    name: "",
-    action: "allow",
-    direction: "inbound",
-    source: "",
-    destination: "",
-    ruleProtocol: "all",
-    rule: {
-      port_max: null,
-      port_min: null,
-      source_port_max: null,
-      source_port_min: null,
-      type: null,
-      code: null
-    }
-  },
-  hide: false
-};
-NetworkingRuleForm.propTypes = {
-  isModal: PropTypes__default["default"].bool.isRequired,
-  // functions only used when not modal
-  onSave: PropTypes__default["default"].func,
-  onDelete: PropTypes__default["default"].func,
-  onToggle: PropTypes__default["default"].func,
-  disableDown: PropTypes__default["default"].bool,
-  disableUp: PropTypes__default["default"].bool,
-  handleDown: PropTypes__default["default"].func,
-  handleUp: PropTypes__default["default"].func,
-  disableSaveCallback: PropTypes__default["default"].func,
-  // functions for components
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  hide: PropTypes__default["default"].bool.isRequired,
-  data: PropTypes__default["default"].shape({
-    action: PropTypes__default["default"].string,
-    // not required for sg
-    destination: PropTypes__default["default"].string,
-    // not required for sg
-    direction: PropTypes__default["default"].string.isRequired,
-    name: PropTypes__default["default"].string.isRequired,
-    rule: PropTypes__default["default"].shape({
-      // can be null
-      port_min: PropTypes__default["default"].number,
-      port_max: PropTypes__default["default"].number,
-      source_port_min: PropTypes__default["default"].number,
-      source_port_max: PropTypes__default["default"].number,
-      type: PropTypes__default["default"].number,
-      code: PropTypes__default["default"].number
-    }).isRequired,
-    source: PropTypes__default["default"].string.isRequired
-  }),
-  isSecurityGroup: PropTypes__default["default"].bool.isRequired
-};
-
-/**
- * readability shortcut for nw rules
- * @param {*} props
- * @param {string} props.name field to update
- * @param {Object} props.state parent state
- * @param {Function} props.onChange onchange function
- */
-const NetworkingRuleTextField = props => {
-  return /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-    id: `${props.state.name}-nw-${kebabCase(props.name)}-input`,
-    field: props.name,
-    labelText: titleCase(props.name),
-    value: String(props.state[props.name]),
-    onChange: e => props.onChange(props.name, e),
-    className: "fieldWidthSmaller",
-    placeholder: "x.x.x.x",
-    invalidText: "Please provide a valid IPV4 IP address or CIDR notation.",
-    invalidCallback: () => {
-      return isIpv4CidrOrAddress(props.state[props.name]) === false;
-    }
-  });
-};
-NetworkingRuleTextField.propTypes = {
-  name: PropTypes__default["default"].string.isRequired,
-  state: PropTypes__default["default"].shape({}).isRequired,
-  onChange: PropTypes__default["default"].func.isRequired
-};
-
-/**
- * rule protocol text field
- * @param {*} props
- * @param {string} props.name field to update
- * @param {Object} props.state parent state
- * @param {Function} props.onChange onchange function
- */
-const NetworkingRuleProtocolTextField = props => {
-  let value = contains(["null", null, ""], props.state.rule[props.name]) ? -1 // set to an invalid number only in these cases
-  : props.state.rule[props.name]; // set to number otherwise
-  return /*#__PURE__*/React__default["default"].createElement(react.TextInput, {
-    id: `${props.state.name}-nw-${kebabCase(props.name)}-input`,
-    labelText: titleCase(props.name),
-    placeholder: String(props.state.rule[props.name]),
-    value: value === -1 ? "" : String(value) // if invalid number value is empty string
-    ,
-    onChange: e => props.onChange(props.name, e),
-    invalid: !validPortRange(props.name, value) && !isNullOrEmptyString(props.state.rule[props.name]) || props.state.rule[props.name] === "null",
-    invalidText: contains(["type", "code"], props.name) ? `0 to ${props.name === "type" ? 254 : 255}` : "1 to 65535",
-    className: "fieldWidthSmaller"
-  });
-};
-NetworkingRuleProtocolTextField.propTypes = {
-  name: PropTypes__default["default"].string.isRequired,
-  state: PropTypes__default["default"].shape({
-    rule: PropTypes__default["default"].shape({}).isRequired
-  }).isRequired,
-  onChange: PropTypes__default["default"].func.isRequired
-};
-
-/**
- * readability shortcut for nw rules
- * @param {*} props
- * @param {string} props.name field to update
- * @param {Object} props.state parent state
- * @param {Function} props.onChange onchange function
- * @param {Array<string>} props.groups list of groups for select
- */
-const NetworkingRuleSelect = props => {
-  return /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-    formName: props.state.name + "-nw-rule-" + props.name,
-    name: props.name,
-    groups: props.groups,
-    value: capitalize(props.state[props.name]),
-    labelText: capitalize(props.name),
-    handleInputChange: e => props.onChange(props.name, e, true),
-    className: "fieldWidthSmaller"
-  });
-};
-NetworkingRuleSelect.propTypes = {
-  name: PropTypes__default["default"].string.isRequired,
-  state: PropTypes__default["default"].shape({
-    rule: PropTypes__default["default"].shape({}).isRequired,
-    name: PropTypes__default["default"].string
-  }).isRequired,
-  onChange: PropTypes__default["default"].func.isRequired,
-  groups: PropTypes__default["default"].array.isRequired
-};
-
-class OrderCardDataTable extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = networkingOrderCard_5(this.props);
-  }
-  componentDidUpdate(prevProps) {
-    if (prevProps.rules !== this.props.rules) {
-      this.setState(networkingOrderCard_5(this.props));
-    }
-  }
-  render() {
-    const {
-      rows,
-      headers
-    } = {
-      ...this.state
-    };
-    return /*#__PURE__*/React__default["default"].createElement(react.DataTable, {
-      headers: headers,
-      rows: rows
-    }, _ref => {
-      let {
-        rows,
-        headers,
-        getHeaderProps,
-        getRowProps
-      } = _ref;
-      return /*#__PURE__*/React__default["default"].createElement(react.TableContainer, null, /*#__PURE__*/React__default["default"].createElement(react.Table, null, /*#__PURE__*/React__default["default"].createElement(react.TableHead, null, /*#__PURE__*/React__default["default"].createElement(react.TableRow, null, headers.map((header, index) => /*#__PURE__*/React__default["default"].createElement(react.TableHeader, _extends({
-        key: header.header + "-" + index
-      }, getHeaderProps({
-        header
-      })), header.header)))), /*#__PURE__*/React__default["default"].createElement(react.TableBody, null, rows.map((row, index) => /*#__PURE__*/React__default["default"].createElement(react.TableRow, _extends({
-        key: row.name + "-" + index
-      }, getRowProps({
-        row
-      })), row.cells.map(cell => /*#__PURE__*/React__default["default"].createElement(react.TableCell, {
-        key: JSON.stringify(cell),
-        className: this.props.isSecurityGroup ? "dt-security-group" : ""
-      }, /*#__PURE__*/React__default["default"].createElement("div", {
-        key: JSON.stringify(cell) + "-port"
-      }, lazyZ.contains(["tcp", "udp", "all", "icmp"], cell.value) ? cell.value.toUpperCase() : cell.value))))))));
-    });
-  }
-}
-OrderCardDataTable.propTypes = {
-  isSecurityGroup: PropTypes__default["default"].bool.isRequired,
-  rules: PropTypes__default["default"].array.isRequired
-};
-
-class NetworkingRulesOrderCard extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      rules: [...this.props.rules],
-      collapse: {},
-      allCollapsed: false,
-      showModal: false,
-      showTable: true
-    };
-    this.handleUp = this.handleUp.bind(this);
-    this.handleDown = this.handleDown.bind(this);
-    this.toggleCollapse = this.toggleCollapse.bind(this);
-    this.collapseAll = this.collapseAll.bind(this);
-    this.toggleModal = this.toggleModal.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-  componentDidUpdate(prevProps) {
-    if (prevProps.rules.length !== this.state.rules.length) {
-      this.setState({
-        rules: [...this.props.rules]
-      }, () => {
-        this.collapseAll();
-      });
-    }
-  }
-  componentDidMount() {
-    if (this.state.allCollapsed === false && this.props.expandAll === false) this.collapseAll();
-  }
-  toggleModal() {
-    this.setState({
-      showModal: !this.state.showModal
-    });
-  }
-
-  /**
-   * toggle collapse rule
-   * @param {string} ruleName rule name
-   */
-  toggleCollapse(ruleName) {
-    let collapse = this.state.collapse;
-    collapse[ruleName] = !lazyZ.containsKeys(this.state.collapse, ruleName) // if rule dies not exist
-    ? true // set to true
-    : !this.state.collapse[ruleName]; // otherwise set to opposite
-    this.setState({
-      collapse: collapse
-    });
-  }
-
-  /**
-   * collapse each rule
-   */
-  collapseAll() {
-    let collapse = this.state.collapse;
-    this.state.rules.forEach(rule => {
-      collapse[rule.name] = true;
-    });
-    this.setState({
-      collapse: collapse,
-      allCollapsed: true
-    });
-  }
-
-  /**
-   * Move the card up
-   * @param {number} index
-   */
-  handleUp(index) {
-    let prevRulesState = [...this.state.rules];
-    if (index !== 0) {
-      forms_35(prevRulesState, index, index - 1);
-    }
-    this.props.networkRuleOrderDidChange(prevRulesState);
-    this.setState({
-      rules: prevRulesState
-    });
-  }
-
-  /**
-   * Move the card down
-   * @param {number} index
-   */
-  handleDown(index) {
-    let prevRulesState = [...this.state.rules];
-    let maxLen = prevRulesState.length - 1;
-    if (index !== maxLen) {
-      forms_35(prevRulesState, index, index + 1);
-    }
-    this.props.networkRuleOrderDidChange(prevRulesState);
-    this.setState({
-      rules: prevRulesState
-    });
-  }
-
-  /**
-   * @param {Object} modalData data from the modal form passed back from instanceFormModal
-   */
-  handleSubmit(modalData) {
-    this.props.onSubmitCallback(modalData, this.props);
-    this.toggleModal();
-  }
-  render() {
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
-      name: "Rules",
-      className: "marginBottomSmall",
-      type: "subHeading",
-      buttons: /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
-        hide: this.props.hideCreate,
-        show: /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
-          type: "custom",
-          onClick: () => {
-            this.setState({
-              showTable: !this.state.showTable
-            });
-          },
-          customIcon: this.state.showTable ? iconsReact.Edit : iconsReact.DataView,
-          hoverText: this.state.showTable ? "Edit" : "View Data",
-          className: "edit-view-btn",
-          hide: this.state.rules.length < 0 // do not show edit if no rules
-        }), /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
-          name: this.props.vpc_name,
-          type: "add",
-          onClick: this.toggleModal
-        }))
-      })
-    }), /*#__PURE__*/React__default["default"].createElement(FormModal, {
-      name: "Create a Network Rule",
-      show: this.state.showModal,
-      onRequestSubmit: this.handleSubmit,
-      onRequestClose: this.toggleModal
-    }, RenderForm(NetworkingRuleForm, {
-      ...this.props,
-      data: {
-        name: "",
-        action: "allow",
-        direction: "inbound",
-        source: "",
-        destination: "",
-        ruleProtocol: "all",
-        rule: {
-          port_max: null,
-          port_min: null,
-          source_port_max: null,
-          source_port_min: null,
-          type: null,
-          code: null
-        }
-      },
-      isSecurityGroup: this.props.isSecurityGroup,
-      invalidCallback: this.props.invalidRuleText,
-      invalidTextCallback: this.props.invalidRuleTextCallback,
-      parent_name: this.props.parent_name,
-      disableSave: this.props.disableSaveCallback,
-      shouldDisableSubmit: function () {
-        // references to `this` in function are intentionally vague
-        // in order to pass the correct functions and field values to the
-        // child modal component
-        // by passing `this` in a function that it scoped to the component
-        // we allow the function to be successfully bound to the modal form
-        // while still referencing the local value `enableSubmitField`
-        // to use it's own values for state and props including enableModal
-        // and disableModal, which are dynamically added to the component
-        // at time of render
-        if (this.props.disableSave(this.state, this.props) === false) {
-          this.props.enableModal();
-        } else {
-          this.props.disableModal();
-        }
-      }
-    })), /*#__PURE__*/React__default["default"].createElement(EmptyResourceTile, {
-      name: "Network Rules",
-      showIfEmpty: this.state.rules
-    }), this.state.showTable && this.state.rules.length > 0 ? /*#__PURE__*/React__default["default"].createElement(OrderCardDataTable, {
-      isSecurityGroup: this.props.isSecurityGroup,
-      rules: this.state.rules,
-      vpc_name: this.props.vpc_name
-    }) : this.state.rules.map((rule, index) => /*#__PURE__*/React__default["default"].createElement("div", {
-      key: "rule-div-" + rule.name + "-wrapper",
-      className: forms_36(this.props)
-    }, /*#__PURE__*/React__default["default"].createElement(NetworkingRuleForm, {
-      hide: this.state.collapse[rule.name],
-      onToggle: () => this.toggleCollapse(rule.name),
-      disableUp: index === 0,
-      handleUp: () => this.handleUp(index),
-      disableDown: index === this.state.rules.length - 1,
-      handleDown: () => this.handleDown(index),
-      key: JSON.stringify(rule),
-      id: this.props.vpc_name + "-nw-rule-form-" + rule.name,
-      invalidCallback: this.props.invalidRuleText,
-      invalidTextCallback: this.props.invalidRuleTextCallback,
-      data: {
-        name: rule.name,
-        action: rule.action || null,
-        direction: rule.direction,
-        source: rule.source,
-        destination: rule.destination || null,
-        ruleProtocol: forms_33(rule),
-        rule: forms_34(rule, this.props.isSecurityGroup)
-      },
-      disableSaveCallback: this.props.disableSaveCallback,
-      isSecurityGroup: this.props.isSecurityGroup,
-      onSave: this.props.onRuleSave,
-      onDelete: this.props.onRuleDelete,
-      parent_name: this.props.parent_name,
-      innerFormProps: {
-        ...this.props
-      },
-      dev: this.props.dev
-    }))));
-  }
-}
-NetworkingRulesOrderCard.defaultProps = {
-  rules: [],
-  hideCreate: false,
-  isSecurityGroup: false,
-  expandAll: false
-};
-NetworkingRulesOrderCard.propTypes = {
-  isSecurityGroup: PropTypes__default["default"].bool.isRequired,
-  rules: PropTypes__default["default"].array.isRequired,
-  hideCreate: PropTypes__default["default"].bool.isRequired,
-  expandAll: PropTypes__default["default"].bool.isRequired,
-  disableModalSubmitCallback: PropTypes__default["default"].func.isRequired,
-  disableSaveCallback: PropTypes__default["default"].func.isRequired,
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  vpc_name: PropTypes__default["default"].string,
-  networkRuleOrderDidChange: PropTypes__default["default"].func.isRequired,
-  onSubmitCallback: PropTypes__default["default"].func.isRequired,
-  onRuleSave: PropTypes__default["default"].func.isRequired,
-  onRuleDelete: PropTypes__default["default"].func.isRequired,
-  parent_name: PropTypes__default["default"].string.isRequired
-};
-
 /** NetworkAclForm
  * @param {Object} props
  */
@@ -8985,122 +9567,6 @@ SccForm.propTypes = {
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
   descriptionRegex: PropTypes__default["default"].instanceOf(RegExp).isRequired
-};
-
-/**
- * security group form
- */
-class SecurityGroupForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data,
-      show: false
-    };
-    if (this.props.isModal) this.state.rules = [];
-    this.handleInputChange = this.handleInputChange.bind(this);
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-    this.handleShowToggle = this.handleShowToggle.bind(this);
-    this.networkRuleOrderDidChange = this.networkRuleOrderDidChange.bind(this);
-  }
-
-  /**
-   * handle input change
-   * @param {event} event
-   */
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-  handleShowToggle() {
-    this.setState(this.toggleStateBoolean("show", this.state));
-  }
-
-  /**
-   * Check if the order of network rules updated - then update state to allow save
-   * @param {Array} rules list of rule objects
-   */
-  networkRuleOrderDidChange(rules) {
-    this.props.networkRuleOrderDidChange(this.state, this.props);
-    this.setState({
-      rules: rules
-    }); // if the order of the rules changed, update rules state
-  }
-
-  render() {
-    let composedId = `security-group-form-${this.props.data.name}`;
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: composedId,
-      componentName: "security_groups",
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      hideHelperText: true,
-      className: "fieldWidthSmaller",
-      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props)
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "security_Group",
-      name: "resource_group",
-      labelText: "Resource Group",
-      groups: this.props.resourceGroups,
-      value: this.state.resource_group,
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "security_Group",
-      name: "vpc",
-      labelText: "VPC",
-      groups: this.props.vpcList,
-      value: this.state.vpc,
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    })), !this.props.isModal && /*#__PURE__*/React__default["default"].createElement(NetworkingRulesOrderCard, {
-      key: JSON.stringify(this.props.rules),
-      rules: this.props.data.rules,
-      vpc_name: this.state.vpc,
-      parent_name: this.props.data.name,
-      isSecurityGroup: true,
-      networkRuleOrderDidChange: this.networkRuleOrderDidChange,
-      invalidCallback: this.props.invalidCallback,
-      invalidTextCallback: this.props.invalidTextCallback,
-      onSubmitCallback: this.props.onSubmitCallback,
-      onRuleSave: this.props.onRuleSave,
-      onRuleDelete: this.props.onRuleDelete,
-      disableModalSubmitCallback: this.props.disableModalSubmitCallback,
-      disableSaveCallback: this.props.disableSaveCallback,
-      invalidRuleTextCallback: this.props.invalidRuleTextCallback,
-      invalidRuleText: this.props.invalidRuleText
-    }));
-  }
-}
-SecurityGroupForm.defaultProps = {
-  data: {
-    name: "",
-    resource_group: "",
-    vpc: "",
-    rules: []
-  },
-  isModal: false
-};
-SecurityGroupForm.propTypes = {
-  data: PropTypes__default["default"].shape({
-    name: PropTypes__default["default"].string.isRequired,
-    vpc: PropTypes__default["default"].string,
-    resource_group: PropTypes__default["default"].string,
-    rules: PropTypes__default["default"].array
-  }).isRequired,
-  isModal: PropTypes__default["default"].bool.isRequired,
-  networkRuleOrderDidChange: PropTypes__default["default"].func,
-  // can be undefined
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  onSubmitCallback: PropTypes__default["default"].func.isRequired,
-  onRuleSave: PropTypes__default["default"].func.isRequired,
-  onRuleDelete: PropTypes__default["default"].func.isRequired,
-  disableModalSubmitCallback: PropTypes__default["default"].func.isRequired,
-  disableSaveCallback: PropTypes__default["default"].func.isRequired,
-  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
 };
 
 /**
@@ -10303,335 +10769,6 @@ VpnServerForm.propTypes = {
   }).isRequired,
   invalidCrns: PropTypes__default["default"].func.isRequired,
   invalidCrnText: PropTypes__default["default"].func.isRequired
-};
-
-class VsiVolumeForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-  }
-
-  /**
-   * handle input change
-   * @param {event} event event
-   */
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-  render() {
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: this.props.data.name + "-vsi-volume-name",
-      componentName: this.state.name,
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props),
-      className: "fieldWidthSmaller",
-      hideHelperText: true
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      component: this.state.name,
-      formName: this.props.data.name + "-vsi-volume-profile",
-      name: "profile",
-      groups: ["3iops-tier", "5iops-tier", "10iops-tier"],
-      value: this.state.profile,
-      labelText: "Profile",
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      component: this.state.name,
-      formName: this.props.data.name + "-object-storage-bucket-key",
-      name: "encryption_key",
-      groups: this.props.encryptionKeyFilter ? this.props.encryptionKeyFilter(this.state, this.props) : this.props.encryptionKeys,
-      value: this.state.encryption_key,
-      labelText: "Encryption Key",
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
-      id: this.props.data.name + "vsi-volume-capacity",
-      name: "capacity",
-      label: "Capacity (GB)",
-      value: this.state.capacity || "",
-      onChange: this.handleInputChange,
-      allowEmpty: true,
-      step: 1,
-      hideSteppers: true,
-      placeholder: "100",
-      min: 10,
-      max: 16000,
-      invalid: iamUtils_3(this.state.capacity, 10, 16000),
-      invalidText: "Must be a whole number between 10 and 16000",
-      className: "fieldWidthSmaller leftTextAlign"
-    })));
-  }
-}
-VsiVolumeForm.defaultProps = {
-  data: {
-    name: "",
-    profile: "general-purpose",
-    encryption_key: "",
-    capacity: ""
-  },
-  encryptionKeys: []
-};
-VsiVolumeForm.propTypes = {
-  data: PropTypes__default["default"].shape({
-    name: PropTypes__default["default"].string.isRequired,
-    profile: PropTypes__default["default"].string,
-    encryption_key: PropTypes__default["default"].string,
-    capacity: PropTypes__default["default"].oneOfType([PropTypes__default["default"].string, PropTypes__default["default"].number]).isRequired
-  }).isRequired,
-  encryptionKeys: PropTypes__default["default"].array.isRequired,
-  encryptionKeyFilter: PropTypes__default["default"].func,
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired
-};
-
-class VsiForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-  }
-  handleInputChange(event) {
-    this.setState(vsi_1(event, this.state, this.props));
-  }
-  handleMultiSelectChange(name, value) {
-    this.setState(this.setNameToValue(name, value));
-  }
-  handleToggle(name) {
-    this.setState(this.toggleStateBoolean(name, this.state));
-  }
-  render() {
-    let composedId = `vsi-deployment-form-${this.props.data.name}`;
-    let volumeProps = {
-      invalidCallback: this.props.invalidVsiVolumeCallback,
-      invalidTextCallback: this.props.invalidVsiVolumeTextCallback,
-      arrayParentName: this.props.data.name,
-      parent_name: this.props.data.name
-    };
-    lazyZ.transpose({
-      ...this.props.vsiVolumeProps
-    }, volumeProps);
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: composedId,
-      className: "fieldWidthSmaller",
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props),
-      hideHelperText: true,
-      forceKebabCase: true
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: composedId + "-rg",
-      name: "resource_group",
-      className: "fieldWidthSmaller",
-      labelText: "Resource Group",
-      groups: this.props.resourceGroups,
-      value: this.state.resource_group,
-      handleInputChange: this.handleInputChange
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: composedId + "-vpc",
-      name: "vpc",
-      labelText: "VPC",
-      groups: this.props.vpcList,
-      value: this.state.vpc,
-      handleInputChange: this.handleInputChange,
-      invalid: lib_9(this.state.vpc),
-      invalidText: "Select a VPC.",
-      className: "fieldWidthSmaller"
-    }), this.props.isTeleport ?
-    /*#__PURE__*/
-    // render dropdown for teleport instance
-    React__default["default"].createElement(IcseSelect, {
-      formName: composedId + "-subnet",
-      name: "subnet",
-      className: "fieldWidthSmaller",
-      labelText: "Subnet",
-      groups: this.getSubnetList(),
-      value: this.state.subnet,
-      handleInputChange: this.handleInputChange,
-      invalid: lib_9(this.state.vpc) || lib_9(this.state.subnet),
-      invalidText: lib_9(this.state.vpc) ? `No VPC Selected.` : `Select a Subnet.`
-    }) : /*#__PURE__*/React__default["default"].createElement(SubnetMultiSelect, {
-      key: this.state.vpc + "-subnet",
-      id: composedId + "-vsi-subnets",
-      className: "fieldWidthSmaller",
-      initialSelectedItems: this.state.subnets,
-      vpc_name: this.state.vpc,
-      subnets: this.getSubnetList(),
-      onChange: value => this.handleMultiSelectChange("subnets", value)
-    }), /*#__PURE__*/React__default["default"].createElement(SecurityGroupMultiSelect, {
-      key: this.state.vpc + "-sg",
-      id: "vsi-security-groups",
-      className: "fieldWidthSmaller",
-      initialSelectedItems: this.state.security_groups || [],
-      vpc_name: this.state.vpc,
-      onChange: value => this.handleMultiSelectChange("security_groups", value),
-      securityGroups: this.getSecurityGroupList(),
-      invalid: !(this.state.security_groups?.length > 0),
-      invalidText: !this.state.vpc || lib_9(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
-      label: "Instances per Subnet",
-      id: composedId + "-vsi-per-subnet",
-      value: this.state.vsi_per_subnet,
-      defaultValue: 1,
-      max: 10,
-      min: 1,
-      onChange: this.handleInputChange,
-      name: "vsi_per_subnet",
-      hideSteppers: true,
-      invalidText: "Please input a number 1-10",
-      className: "fieldWidthSmaller leftTextAlign"
-    }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
-      formName: composedId + "-image",
-      labelText: "Image",
-      name: "image_name",
-      className: "fieldWidthSmaller",
-      apiEndpoint: this.props.apiEndpointImages,
-      handleInputChange: this.handleInputChange,
-      value: this.state.image_name
-    }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
-      formName: composedId + "-profile",
-      labelText: "Profile",
-      name: "profile",
-      className: "fieldWidthSmaller",
-      apiEndpoint: this.props.apiEndpointInstanceProfiles,
-      handleInputChange: this.handleInputChange,
-      value: this.state.profile
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(SshKeyMultiSelect, {
-      id: composedId + "-sshkey",
-      className: "fieldWidthSmaller",
-      sshKeys: this.props.sshKeys,
-      initialSelectedItems: this.state.ssh_keys || [],
-      onChange: value => this.handleMultiSelectChange("ssh_keys", value)
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: composedId + "-encryption_key",
-      name: "encryption_key",
-      className: "fieldWidthSmaller",
-      labelText: "Encryption Key",
-      groups: this.props.encryptionKeys,
-      value: this.state.encryption_key,
-      handleInputChange: this.handleInputChange,
-      invalid: lazyZ.isNullOrEmptyString(this.state.encryption_key),
-      invalidText: "Select a valid encryption key."
-    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      id: composedId + "-fips-toggle",
-      className: "fieldWidthSmaller",
-      labelText: "Enable Floating IP",
-      defaultToggled: this.state.enable_floating_ip,
-      onToggle: this.handleToggle
-    })), /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
-      hide: this.props.isTeleport,
-      show: /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
-        id: composedId + "-vsi-user-data",
-        className: this.props.isModal ? "textInputWide" : "fieldWidthBigger",
-        placeholder: "Cloud init data",
-        labelText: "User Data",
-        name: "user_data",
-        value: this.state.user_data || "",
-        onChange: this.handleInputChange,
-        invalidText: "Invalid error message."
-      }))
-    }), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
-      name: "Block Storage",
-      subHeading: true,
-      addText: "Create a Block Storage Volume",
-      arrayData: this.props.data.volumes,
-      innerForm: VsiVolumeForm,
-      disableSave: this.props.vsiVolumeProps.disableSave,
-      onDelete: this.props.vsiVolumeProps.onDelete,
-      onSave: this.props.vsiVolumeProps.onSave,
-      onSubmit: this.props.vsiVolumeProps.onSubmit,
-      propsMatchState: this.props.propsMatchState,
-      innerFormProps: {
-        ...volumeProps
-      },
-      hideAbout: true,
-      toggleFormProps: {
-        hideName: true,
-        submissionFieldName: "volumes",
-        disableSave: this.props.vsiVolumeProps.disableSave,
-        type: "formInSubForm"
-      }
-    })));
-  }
-}
-VsiForm.defaultProps = {
-  data: {
-    name: "",
-    resource_group: "",
-    vpc: "",
-    subnet: "",
-    subnets: [],
-    ssh_keys: [],
-    security_groups: [],
-    vsi_per_subnet: 1,
-    encryption_key: "",
-    image_name: "",
-    profile: "",
-    enable_floating_ip: false
-  },
-  isModal: false,
-  isTeleport: false,
-  encryptionKeys: [],
-  resourceGroups: [],
-  securityGroups: [],
-  sshKeys: [],
-  subnetList: [],
-  vpcList: [],
-  apiEndpointImages: "",
-  apiEndpointInstanceProfiles: ""
-};
-VsiForm.propTypes = {
-  data: PropTypes__default["default"].shape({
-    name: PropTypes__default["default"].string,
-    resource_group: PropTypes__default["default"].string,
-    vpc: PropTypes__default["default"].string,
-    subnet: PropTypes__default["default"].string,
-    subnets: PropTypes__default["default"].array,
-    security_groups: PropTypes__default["default"].array,
-    vsi_per_subnet: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].string]),
-    image_name: PropTypes__default["default"].string,
-    profile: PropTypes__default["default"].string,
-    ssh_keys: PropTypes__default["default"].array,
-    encryption_key: PropTypes__default["default"].string,
-    enable_floating_ip: PropTypes__default["default"].bool
-  }).isRequired,
-  /* bools */
-  isModal: PropTypes__default["default"].bool.isRequired,
-  isTeleport: PropTypes__default["default"].bool.isRequired,
-  /* lists */
-  encryptionKeys: PropTypes__default["default"].array.isRequired,
-  resourceGroups: PropTypes__default["default"].array.isRequired,
-  securityGroups: PropTypes__default["default"].array.isRequired,
-  sshKeys: PropTypes__default["default"].array.isRequired,
-  subnetList: PropTypes__default["default"].array.isRequired,
-  vpcList: PropTypes__default["default"].array.isRequired,
-  /* api endpoints */
-  apiEndpointImages: PropTypes__default["default"].string.isRequired,
-  apiEndpointInstanceProfiles: PropTypes__default["default"].string.isRequired,
-  /* callbacks */
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  /* forms */
-  vsiVolumeProps: PropTypes__default["default"].shape({
-    onSave: PropTypes__default["default"].func.isRequired,
-    onDelete: PropTypes__default["default"].func.isRequired,
-    onSubmit: PropTypes__default["default"].func.isRequired,
-    disableSave: PropTypes__default["default"].func.isRequired,
-    encryptionKeys: PropTypes__default["default"].array.isRequired
-  }).isRequired
 };
 
 var css_248z = ".tileTitle {\n  font-size: 80%;\n  font-weight: bold;\n}\n\n.tileContent {\n  font-size: 90%;\n}\n";
@@ -13195,6 +13332,7 @@ exports.SecretsManagerForm = SecretsManagerForm;
 exports.SecretsManagerTemplate = SecretsManager;
 exports.SecurityGroupForm = SecurityGroupForm;
 exports.SecurityGroupMultiSelect = SecurityGroupMultiSelect;
+exports.SecurityGroupTemplate = SecurityGroups;
 exports.SshKeyForm = SshKeyForm;
 exports.SshKeyMultiSelect = SshKeyMultiSelect;
 exports.StatefulTabPanel = StatefulTabPanel;
@@ -13223,6 +13361,7 @@ exports.VpnServerForm = VpnServerForm;
 exports.VpnServerRouteForm = VpnServerRouteForm;
 exports.VsiForm = VsiForm;
 exports.VsiLoadBalancerForm = VsiLoadBalancerForm;
+exports.VsiTemplate = Vsi;
 exports.VsiVolumeForm = VsiVolumeForm;
 exports.WorkerPoolForm = WorkerPoolForm;
 exports.buildFormDefaultInputMethods = buildFormDefaultInputMethods;
