@@ -20,7 +20,7 @@ describe("vpn-server", () => {
       };
       assert.deepEqual(
         handleVpnServerInputChange(currentState, event),
-        expectedData
+        expectedData,
       );
     });
     it("should clear subnet and security groups when vpc changes", () => {
@@ -39,7 +39,7 @@ describe("vpn-server", () => {
       };
       assert.deepEqual(
         handleVpnServerInputChange(currentState, event),
-        expectedData
+        expectedData,
       );
     });
     it("should handle crn input for certificate_crn", () => {
@@ -57,7 +57,7 @@ describe("vpn-server", () => {
       };
       assert.deepEqual(
         handleVpnServerInputChange(currentState, event),
-        expectedData
+        expectedData,
       );
     });
     it("should handle crn input for client_ca_crn", () => {
@@ -75,7 +75,7 @@ describe("vpn-server", () => {
       };
       assert.deepEqual(
         handleVpnServerInputChange(currentState, event),
-        expectedData
+        expectedData,
       );
     });
     it("should handle crn input for empty string case", () => {
@@ -91,7 +91,7 @@ describe("vpn-server", () => {
       };
       assert.deepEqual(
         handleVpnServerInputChange(currentState, event),
-        expectedData
+        expectedData,
       );
     });
     it("should handle protocol input", () => {
@@ -107,7 +107,7 @@ describe("vpn-server", () => {
       };
       assert.deepEqual(
         handleVpnServerInputChange(currentState, event),
-        expectedData
+        expectedData,
       );
     });
     it("should handle empty spaces in client_dns_server_ip input", () => {
@@ -123,7 +123,7 @@ describe("vpn-server", () => {
       };
       assert.deepEqual(
         handleVpnServerInputChange(currentState, event),
-        expectedData
+        expectedData,
       );
     });
     it("should handle client_dns_server_ip input for empty string case", () => {
@@ -139,7 +139,7 @@ describe("vpn-server", () => {
       };
       assert.deepEqual(
         handleVpnServerInputChange(currentState, event),
-        expectedData
+        expectedData,
       );
     });
     it("should handle all other inputs", () => {
@@ -155,7 +155,7 @@ describe("vpn-server", () => {
       };
       assert.deepEqual(
         handleVpnServerInputChange(currentState, event),
-        expectedData
+        expectedData,
       );
     });
   });

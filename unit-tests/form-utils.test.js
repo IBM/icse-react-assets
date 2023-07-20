@@ -15,7 +15,7 @@ describe("form-utils", () => {
       assert.deepEqual(
         addClassName("hi", { className: "mom" }),
         "hi mom",
-        "it should return class"
+        "it should return class",
       );
     });
     it("should return classname if not found", () => {
@@ -28,7 +28,7 @@ describe("form-utils", () => {
           noMarginRight: true,
         }),
         "hi mom marginRightSmall frog",
-        "it should return class"
+        "it should return class",
       );
     });
   });
@@ -37,14 +37,14 @@ describe("form-utils", () => {
       assert.deepEqual(
         toggleMarginBottom(true),
         "",
-        "it should return className"
+        "it should return className",
       );
     });
     it("should return empty string when not shown or toggle form", () => {
       assert.deepEqual(
         toggleMarginBottom(false),
         " marginBottomSmall",
-        "it should return className"
+        "it should return className",
       );
     });
   });
@@ -64,14 +64,14 @@ describe("form-utils", () => {
       assert.deepEqual(
         prependEmptyStringWhenNull(null, ["hi"]),
         ["", "hi"],
-        "it should prepend empty string"
+        "it should prepend empty string",
       );
     });
     it("should return array if value is not null", () => {
       assert.deepEqual(
         prependEmptyStringWhenNull("hm", ["hi"]),
         ["hi"],
-        "it should not prepend empty string"
+        "it should not prepend empty string",
       );
     });
   });
@@ -81,12 +81,12 @@ describe("form-utils", () => {
         invalidRegex(
           "scope_name",
           "test-name",
-          /^[A-z]([a-z0-9-]*[a-z0-9])?$/i
+          /^[A-z]([a-z0-9-]*[a-z0-9])?$/i,
         ),
         {
           invalid: false,
           invalidText: `Invalid scope_name. Must match regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`,
-        }
+        },
       );
     });
     it("should return true and with correct error text", () => {
@@ -94,12 +94,12 @@ describe("form-utils", () => {
         invalidRegex(
           "scope_name",
           "test name wrong",
-          /^[A-z]([a-z0-9-]*[a-z0-9])?$/i
+          /^[A-z]([a-z0-9-]*[a-z0-9])?$/i,
         ),
         {
           invalid: true,
           invalidText: `Invalid scope_name. Must match regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`,
-        }
+        },
       );
     });
   });
@@ -110,7 +110,7 @@ describe("form-utils", () => {
       assert.deepEqual(
         actualData,
         expectedData,
-        "it should return correct data"
+        "it should return correct data",
       );
     });
     it("should create a display name for modal", () => {
@@ -119,7 +119,7 @@ describe("form-utils", () => {
       assert.deepEqual(
         actualData,
         expectedData,
-        "it should return correct data"
+        "it should return correct data",
       );
     });
     it("should create a display name", () => {
@@ -128,7 +128,7 @@ describe("form-utils", () => {
       assert.deepEqual(
         actualData,
         expectedData,
-        "it should return correct data"
+        "it should return correct data",
       );
     });
   });
@@ -156,7 +156,7 @@ describe("form-utils", () => {
       handleClusterInputChange(
         "kube_type",
         "IBM Kubernetes Service",
-        testCluster
+        testCluster,
       );
       assert.deepEqual(testCluster.kube_type, "iks", "it should return true");
       assert.deepEqual(testCluster.cos_name, "", "it should return true");
@@ -167,7 +167,7 @@ describe("form-utils", () => {
       assert.deepEqual(
         testCluster.workers_per_subnet,
         4,
-        "it should return true"
+        "it should return true",
       );
     });
     it("should return testCluster with new vpc name: `management` (should reset subnets)", () => {

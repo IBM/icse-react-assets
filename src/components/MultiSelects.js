@@ -90,7 +90,7 @@ export const SecurityGroupMultiSelect = (props) => {
     // undefined error that happens as part of MultiSelect
     throw new Error(
       "SecurityGroupMultiselect requires a securityGroups object. Got " +
-        prettyJSON(props.securityGroups)
+        prettyJSON(props.securityGroups),
     );
   }
   return (
@@ -188,7 +188,7 @@ export const VpcListMultiSelect = (props) => {
   if (!props.vpcList) {
     throw new Error(
       "VpcListMultiSelect requires a list of VPCs using the prop `vpcList`. Got " +
-        prettyJSON(props.vpcList)
+        prettyJSON(props.vpcList),
     );
   }
   return (
@@ -225,7 +225,7 @@ export const LocationsMultiSelect = (props) => {
   if (!props.region) {
     throw new Error(
       "LocationsMultiSelect requires a region using the prop `region`. Got " +
-        props.region
+        props.region,
     );
   }
   return (

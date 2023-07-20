@@ -46,8 +46,8 @@ describe("f5-utils", () => {
     it("should be true for valid url", () => {
       assert.isTrue(
         isValidUrl(
-          "https://declarations.s3.us-east.cloud-object-storage.appdomain.cloud/do_declaration.json"
-        )
+          "https://declarations.s3.us-east.cloud-object-storage.appdomain.cloud/do_declaration.json",
+        ),
       );
     });
   });
@@ -55,7 +55,7 @@ describe("f5-utils", () => {
   describe("isValidTmosAdminPassword", () => {
     it("should return true if empty or null", () => {
       assert.isTrue(
-        isValidTmosAdminPassword("") && isValidTmosAdminPassword(null)
+        isValidTmosAdminPassword("") && isValidTmosAdminPassword(null),
       );
     });
     it("should return true if valid password", () => {

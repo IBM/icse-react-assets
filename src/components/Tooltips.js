@@ -101,7 +101,7 @@ export const ToolTipWrapper = (props) => {
     props.field === undefined
   ) {
     throw new Error(
-      "ToolTipWrapper expects `props.labelText` or `props.field` when rendering labelText to be provided, got neither. To not render label text, use the `noLabelText` prop."
+      "ToolTipWrapper expects `props.labelText` or `props.field` when rendering labelText to be provided, got neither. To not render label text, use the `noLabelText` prop.",
     );
   }
   // remove label text from components where it is not valid param
@@ -161,7 +161,7 @@ export const DynamicToolTipWrapper = (props) => {
   //make sure that either children or innerForm are passed as a prop
   if (props.children === undefined && props.innerForm === undefined) {
     throw new Error(
-      "DynamicToolTipWrapper expects either `props.children` or `props.innerForm` when rendering ToolTipWrapper, got neither."
+      "DynamicToolTipWrapper expects either `props.children` or `props.innerForm` when rendering ToolTipWrapper, got neither.",
     );
   }
   return props.tooltip ? (
