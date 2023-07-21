@@ -1,50 +1,61 @@
 import React from "react";
+import { contains } from "lazy-z";
 
 import "./App.css";
-import { AccessGroupDynamicPolicyForm } from "icse-react-assets";
-function validName(str) {
-  const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
-  if (str) return str.match(regex) !== null;
-  else return false;
-}
+import { AppIdForm } from "icse-react-assets";
 
-function invalidCallback(stateData, componentProps) {
-  return !validName(stateData.name);
-}
+const App = () => {
+  function validName(str) {
+    // regex name validation that only allows alphanumerical characters and "-", string cannot end with "-"
+    const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
+    if (str) return str.match(regex) !== null;
+    else return false;
+  }
 
-function invalidTextCallback(stateData, componentProps) {
-  return !validName(stateData.name)
-    ? `Name ${stateData.name} is invalid.`
-    : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
-}
+  function invalidCallback(stateData, componentProps) {
+    return (
+      !validName(stateData.name) || contains(["foo", "bar"], stateData.name)
+    );
+  }
 
-function composedNameCallback(stateData, componentProps) {
-  return `${stateData.name}-<random suffix>`;
-}
+  function invalidTextCallback(stateData, componentProps) {
+    return `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
+  }
 
-function invalidIdentityProviderCallback(stateData, componentProps) {
-  return !(stateData.identity_provider.length >= 6);
-}
-
-function App() {
   return (
-    <AccessGroupDynamicPolicyForm
+    <AppIdForm
       data={{
-        name: "test-dynamic-policy",
-        identity_provider: "test-uri-123-foo345.netweb.cloud123",
-        expiration: 1,
-        conditions: {
-          claim: "test-123",
-          operator: "EQUALS",
-          value: "test-123",
-        },
+        name: "dev",
+        resource_group: "service-rg",
+        use_data: false,
+        keys: [
+          {
+            appid: "dev",
+            name: "frog",
+          },
+          {
+            appid: "dev",
+            name: "toad",
+          },
+        ],
       }}
+      propsMatchState={function () {
+        return false;
+      }}
+      resourceGroups={["service-rg", "management-rg", "workload-rg"]}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
-      helperTextCallback={composedNameCallback}
-      invalidIdentityProviderCallback={invalidIdentityProviderCallback}
+      invalidKeyCallback={invalidCallback}
+      invalidKeyTextCallback={invalidTextCallback}
+      keyProps={{
+        disableSave: function () {
+          return false;
+        },
+        onDelete: () => {},
+        onSave: () => {},
+        onSubmit: () => {},
+      }}
     />
   );
-}
-
+};
 export default App;

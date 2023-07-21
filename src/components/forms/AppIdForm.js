@@ -55,16 +55,6 @@ class AppIdForm extends Component {
     return (
       <div id="appid-form">
         <IcseFormGroup>
-          {/* use data toggle */}
-          <IcseToggle
-            labelText="Use Existing Instance"
-            key={this.state.use_data}
-            defaultToggled={this.state.use_data}
-            toggleFieldName="use_data"
-            onToggle={this.handleToggle}
-            className="fieldWidthSmallest"
-            id={`${this.props.data.name}-app-id-existing-instance`}
-          />
           {/* name text input */}
           <IcseNameInput
             id={this.props.data.name + "-appid-name"}
@@ -89,7 +79,31 @@ class AppIdForm extends Component {
             className={composedClassName}
             id={`${this.props.data.name}-app-id-rg`}
           />
+          {/* use data toggle */}
+          <IcseToggle
+            labelText="Use Existing Instance"
+            key={this.state.use_data}
+            defaultToggled={this.state.use_data}
+            toggleFieldName="use_data"
+            onToggle={this.handleToggle}
+            className="fieldWidthSmallest"
+            id={`${this.props.data.name}-app-id-existing-instance`}
+          />
         </IcseFormGroup>
+        {this.state.use_data === false && (
+          <IcseFormGroup>
+            <IcseSelect
+              value={this.state.encryption_key}
+              groups={this.props.encryptionKeys}
+              formName={this.props.data.name + " AppID"}
+              name="encryption_key"
+              className="fieldWidth"
+              labelText="(Optional) Encryption Key"
+              handleInputChange={this.handleInputChange}
+              disableInvalid
+            />
+          </IcseFormGroup>
+        )}
         {this.props.isModal !== true && (
           <IcseFormTemplate
             name="AppID Keys"
@@ -134,10 +148,12 @@ AppIdForm.propTypes = {
     resource_group: PropTypes.string,
     use_data: PropTypes.bool,
     keys: PropTypes.array.isRequired,
+    encryption_key: PropTypes.string,
   }).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   invalidCallback: PropTypes.func,
   invalidTextCallback: PropTypes.func,
+  encryptionKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default AppIdForm;

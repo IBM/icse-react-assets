@@ -27,6 +27,11 @@ export default {
       control: "none",
       type: { required: false }, // required prop or not
     },
+    ["data.encryption_key"]: {
+      description: "A string value of the encryption key",
+      control: "none",
+      type: { required: false }, // required prop or not
+    },
     ["data.keys"]: {
       description: "An array of strings containing the list of AppID keys",
       control: "none",
@@ -59,6 +64,11 @@ export default {
     invalidKeyTextCallback: {
       description:
         "Function that determines invalid text child key forms `name` field",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
+    encryptionKeys: {
+      description: "An array of string encryption key names",
       type: { required: true }, // required prop or not
       control: "none",
     },
