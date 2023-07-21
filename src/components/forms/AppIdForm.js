@@ -97,7 +97,6 @@ class AppIdForm extends Component {
               groups={this.props.encryptionKeys}
               formName={this.props.data.name + " AppID"}
               name="encryption_key"
-              className="fieldWidth"
               labelText="(Optional) Encryption Key"
               handleInputChange={this.handleInputChange}
               disableInvalid
