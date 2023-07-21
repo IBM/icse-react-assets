@@ -102,12 +102,12 @@ class IamAccountSettingsForm extends Component {
             invalid={this.props.invalidCallback(
               "if_match",
               this.state,
-              this.props,
+              this.props
             )}
             invalidText={this.props.invalidTextCallback(
               "if_match",
               this.state,
-              this.props,
+              this.props
             )}
           />
           {/* mfa dropdown*/}
@@ -172,12 +172,12 @@ class IamAccountSettingsForm extends Component {
             invalid={this.props.invalidCallback(
               "max_sessions_per_identity",
               this.state,
-              this.props,
+              this.props
             )}
             invalidText={this.props.invalidTextCallback(
               "max_sessions_per_identity",
               this.state,
-              this.props,
+              this.props
             )}
             id="iam-max-sessions-per-id"
           />
@@ -197,7 +197,7 @@ class IamAccountSettingsForm extends Component {
             invalid={isRangeInvalid(
               this.state.session_expiration_in_seconds,
               900,
-              86400,
+              86400
             )}
             invalidText="Must be a whole number between 900 and 86400"
             className="fieldWidth leftTextAlign"
@@ -216,7 +216,7 @@ class IamAccountSettingsForm extends Component {
             invalid={isRangeInvalid(
               this.state.session_invalidation_in_seconds,
               900,
-              7200,
+              7200
             )}
             invalidText="Must be a whole number between 900 and 7200"
             className="fieldWidth leftTextAlign"
@@ -277,12 +277,12 @@ IamAccountSettingsForm.propTypes = {
     restrict_create_service_id: PropTypes.oneOf(
       restrictMenuItems.map((item) => {
         return iamItems[item].value;
-      }),
+      })
     ),
     restrict_create_platform_apikey: PropTypes.oneOf(
       restrictMenuItems.map((item) => {
         return iamItems[item].value;
-      }),
+      })
     ),
     max_sessions_per_identity: PropTypes.oneOfType([
       PropTypes.number,

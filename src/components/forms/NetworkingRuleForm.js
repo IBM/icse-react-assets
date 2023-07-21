@@ -98,7 +98,7 @@ class NetworkingRuleForm extends Component {
     } else {
       let shouldBeDisabled = this.props.disableSaveCallback(
         this.state,
-        this.props,
+        this.props
       );
       return shouldBeDisabled;
     }
@@ -171,7 +171,7 @@ class NetworkingRuleForm extends Component {
                       }
                       invalidText={this.props.invalidTextCallback(
                         this.state,
-                        this.props,
+                        this.props
                       )}
                       hideHelperText
                       className="fieldWidthSmaller"

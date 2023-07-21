@@ -4232,7 +4232,6 @@ class AppIdForm extends Component {
       groups: this.props.encryptionKeys,
       formName: this.props.data.name + " AppID",
       name: "encryption_key",
-      className: "fieldWidth",
       labelText: "(Optional) Encryption Key",
       handleInputChange: this.handleInputChange,
       disableInvalid: true
@@ -10030,6 +10029,203 @@ VpnServers.propTypes = {
   vpcList: PropTypes.arrayOf(PropTypes.string)
 };
 
+function none() {}
+class NetworkAclPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      showToggleForm: false,
+      sourceAcl: null,
+      destinationVpc: null,
+      addClusterRuleAcl: null
+    };
+    this.onModalSubmit = this.onModalSubmit.bind(this);
+    this.handleSelect = this.handleSelect.bind(this);
+  }
+  onModalSubmit(data) {
+    this.props.onAclSubmit(data, {
+      vpc_name: this.props.data.name
+    });
+    this.props.handleModalToggle();
+  }
+  handleSelect(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    this.setState({
+      [name]: value
+    });
+  }
+  render() {
+    let {
+      disableSave,
+      propsMatchState
+    } = this.props;
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(FormModal, {
+      name: "Add a Network ACL",
+      show: this.props.showSubModal,
+      onRequestSubmit: this.onModalSubmit,
+      onRequestClose: this.props.handleModalToggle
+    }, /*#__PURE__*/React.createElement(NetworkAclForm$1, {
+      invalidTextCallback: this.props.invalidTextCallback,
+      invalidCallback: this.props.invalidCallback,
+      craig: this.props.craig,
+      resourceGroups: this.props.resourceGroups,
+      vpc_name: this.props.data.name,
+      shouldDisableSubmit: function () {
+        // set modal form enable submit
+        if (disableSave("acls", this.state, this.props) === false) {
+          this.props.enableModal();
+        } else {
+          this.props.disableModal();
+        }
+      },
+      isModal: true
+      /* below functions only needed when not modal but are required */,
+      disableSaveCallback: none,
+      helperTextCallback: none,
+      onRuleSave: none,
+      onRuleDelete: none,
+      disableModalSubmitCallback: none,
+      onSubmitCallback: none
+    })), /*#__PURE__*/React.createElement(IcseHeading, {
+      name: "Network Access Control Lists",
+      className: "marginBottomSmall",
+      type: "subHeading",
+      buttons: /*#__PURE__*/React.createElement(SaveAddButton, {
+        onClick: () => this.props.handleModalToggle(),
+        type: "add",
+        noDeleteButton: true
+      })
+    }), /*#__PURE__*/React.createElement(IcseFormTemplate, {
+      arrayData: this.props.data.acls,
+      onSubmit: none // no modal
+      ,
+      onDelete: this.props.onDelete,
+      onSave: this.props.onSave,
+      innerForm: NetworkAclForm$1,
+      isMiddleForm: true,
+      innerFormProps: {
+        invalidTextCallback: this.props.invalidTextCallback,
+        invalidCallback: this.props.invalidCallback,
+        invalidRuleTextCallback: this.props.invalidRuleTextCallback,
+        invalidRuleText: this.props.invalidRuleText,
+        disableSaveCallback: function (stateData, componentProps) {
+          return disableSave("acl_rules", stateData, componentProps) || propsMatchState("acl_rules", stateData, componentProps);
+        },
+        helperTextCallback: this.props.helperTextCallback,
+        onRuleSave: this.props.onRuleSave,
+        onRuleDelete: this.props.onRuleDelete,
+        onSubmitCallback: this.props.onSubmitCallback,
+        resourceGroups: this.props.resourceGroups,
+        vpc_name: this.props.data.name,
+        craig: this.props.craig,
+        disableModalSubmitCallback: none
+      },
+      disableSave: this.props.disableSave,
+      propsMatchState: this.props.propsMatchState,
+      toggleFormProps: {
+        submissionFieldName: "acls",
+        hideName: true,
+        type: "formInSubForm",
+        disableSave: this.props.disableSave,
+        propsMatchState: this.props.propsMatchState,
+        vpc_name: this.props.data.name
+      },
+      hideAbout: true
+    }), this.props.child ? RenderForm(this.props.child, {
+      data: this.props.data,
+      craig: this.props.craig
+    }) : "");
+  }
+}
+NetworkAclPage.propTypes = {
+  craig: PropTypes.shape({}).isRequired,
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    acls: PropTypes.array
+  }).isRequired,
+  onAclSubmit: PropTypes.func.isRequired,
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  handleModalToggle: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidRuleTextCallback: PropTypes.func.isRequired,
+  invalidRuleText: PropTypes.func.isRequired,
+  disableSave: PropTypes.func.isRequired,
+  propsMatchState: PropTypes.func.isRequired,
+  helperTextCallback: PropTypes.func.isRequired,
+  onRuleSave: PropTypes.func.isRequired,
+  onRuleDelete: PropTypes.func.isRequired,
+  onSubmitCallback: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired
+};
+const NetworkAcls = props => {
+  return /*#__PURE__*/React.createElement(IcseFormTemplate, {
+    name: "Network Access Control Lists",
+    innerForm: NetworkAclPage,
+    arrayData: props.vpcs,
+    docs: props.docs,
+    onSubmit: none,
+    onDelete: none,
+    onSave: none,
+    disableSave: none,
+    propsMatchState: none,
+    forceOpen: props.forceOpen,
+    hideFormTitleButton: true,
+    innerFormProps: {
+      craig: props.craig,
+      onAclSubmit: props.onAclSubmit,
+      resourceGroups: props.resourceGroups,
+      child: props.child,
+      invalidTextCallback: props.invalidTextCallback,
+      invalidCallback: props.invalidCallback,
+      invalidRuleTextCallback: props.invalidRuleTextCallback,
+      invalidRuleText: props.invalidRuleText,
+      disableSave: props.disableSave,
+      propsMatchState: props.propsMatchState,
+      helperTextCallback: props.helperTextCallback,
+      onRuleSave: props.onRuleSave,
+      onRuleDelete: props.onRuleDelete,
+      onSubmitCallback: props.onSubmitCallback,
+      onSave: props.onSave,
+      onDelete: props.onDelete
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      noDeleteButton: true,
+      noSaveButton: true,
+      hideName: true,
+      submissionFieldName: "network_acls",
+      disableSave: none,
+      propsMatchState: none,
+      nullRef: true
+    }
+  });
+};
+NetworkAcls.propTypes = {
+  vpcs: PropTypes.array.isRequired,
+  docs: PropTypes.func.isRequired,
+  forceOpen: PropTypes.func.isRequired,
+  craig: PropTypes.shape({}).isRequired,
+  onAclSubmit: PropTypes.func.isRequired,
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidRuleTextCallback: PropTypes.func.isRequired,
+  invalidRuleText: PropTypes.func.isRequired,
+  disableSave: PropTypes.func.isRequired,
+  propsMatchState: PropTypes.func.isRequired,
+  helperTextCallback: PropTypes.func.isRequired,
+  onRuleSave: PropTypes.func.isRequired,
+  onRuleDelete: PropTypes.func.isRequired,
+  onSubmitCallback: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired
+};
+
 class ClusterForm extends Component {
   constructor(props) {
     super(props);
@@ -11322,6 +11518,7 @@ NetworkAclForm.propTypes = {
   disableModalSubmitCallback: PropTypes.func.isRequired,
   disableSaveCallback: PropTypes.func.isRequired
 };
+var NetworkAclForm$1 = NetworkAclForm;
 
 const sccRegions = [{
   id: "us",
@@ -13688,4 +13885,4 @@ SecretsManagerChecklist.propTypes = {
   parentName: PropTypes.string.isRequired
 };
 
-export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AppId as AppIdTemplate, AtrackerForm, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, ClusterForm, Clusters as ClustersTemplate, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsForm, DnsRecordForm, Dns as DnsTemplate, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, EventStreams as EventStreamsTemplate, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, KeyManagement as KeyManagementTemplate, LocationsMultiSelect, LogDNAForm, NetworkAclForm, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, ObjectStorage as ObjectStorageTemplate, OrderCardDataTable, PopoverWrapper, RenderForm, ResourceGroupForm, ResourceGroups as ResourceGroupsTemplate, RoutingTableForm, RoutingTableRouteForm, RoutingTables as RoutingTableTemplate, SaveAddButton, SaveIcon, SccForm, SecretsManagerChecklist, SecretsManagerForm, SecretsManager as SecretsManagerTemplate, SecurityGroupForm, SecurityGroupMultiSelect, SecurityGroups as SecurityGroupTemplate, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, SysdigForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, TransitGateways as TransitGatewayTemplate, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, Vpcs as VpcTemplate, VpeForm, Vpe as VpeTemplate, VpnGatewayForm, VpnGateways as VpnGatewayTemplate, VpnServerForm, VpnServerRouteForm, VpnServers as VpnServerTemplate, VsiForm, VsiLoadBalancerForm, VsiLoadBalancer as VsiLoadBalancerTemplate, Vsi as VsiTemplate, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AppIdForm, AppIdKeyForm, AppId as AppIdTemplate, AtrackerForm, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, ClusterForm, Clusters as ClustersTemplate, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsForm, DnsRecordForm, Dns as DnsTemplate, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, EventStreams as EventStreamsTemplate, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, KeyManagement as KeyManagementTemplate, LocationsMultiSelect, LogDNAForm, NetworkAclForm$1 as NetworkAclForm, NetworkAcls as NetworkAclTemplate, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, ObjectStorage as ObjectStorageTemplate, OrderCardDataTable, PopoverWrapper, RenderForm, ResourceGroupForm, ResourceGroups as ResourceGroupsTemplate, RoutingTableForm, RoutingTableRouteForm, RoutingTables as RoutingTableTemplate, SaveAddButton, SaveIcon, SccForm, SecretsManagerChecklist, SecretsManagerForm, SecretsManager as SecretsManagerTemplate, SecurityGroupForm, SecurityGroupMultiSelect, SecurityGroups as SecurityGroupTemplate, SshKeyForm, SshKeyMultiSelect, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, SysdigForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, TransitGateways as TransitGatewayTemplate, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, Vpcs as VpcTemplate, VpeForm, Vpe as VpeTemplate, VpnGatewayForm, VpnGateways as VpnGatewayTemplate, VpnServerForm, VpnServerRouteForm, VpnServers as VpnServerTemplate, VsiForm, VsiLoadBalancerForm, VsiLoadBalancer as VsiLoadBalancerTemplate, Vsi as VsiTemplate, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };

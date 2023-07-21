@@ -7,7 +7,7 @@ describe("text-utils", () => {
       assert.deepEqual(
         "my-component-name-field-name",
         formatInputPlaceholder("component name", "field name"),
-        "it should return true",
+        "it should return true"
       );
     });
   });

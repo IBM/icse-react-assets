@@ -124,7 +124,7 @@ class F5VsiTemplateForm extends Component {
                 this.props.invalidCallback(
                   "tmos_admin_password",
                   this.state,
-                  this.props,
+                  this.props
                 ) || !isValidTmosAdminPassword(this.state.tmos_admin_password)
               }
               invalidText="Password must be at least 15 characters, contain one numeric, one uppercase, and one lowercase character."
@@ -175,13 +175,13 @@ class F5VsiTemplateForm extends Component {
                       this.props.invalidCallback(
                         "byol_license_basekey",
                         this.state,
-                        this.props,
+                        this.props
                       ) || isNullOrEmptyString(this.state.byol_license_basekey)
                     }
                     invalidText={this.props.invalidTextCallback(
                       "byol_license_basekey",
                       this.state,
-                      this.props,
+                      this.props
                     )}
                   />
                 </IcseFormGroup>
@@ -208,13 +208,13 @@ class F5VsiTemplateForm extends Component {
                       this.props.invalidCallback(
                         "license_username",
                         this.state,
-                        this.props,
+                        this.props
                       ) || isNullOrEmptyString(this.state.license_username)
                     }
                     invalidText={this.props.invalidTextCallback(
                       "license_username",
                       this.state,
-                      this.props,
+                      this.props
                     )}
                   />
 
@@ -235,12 +235,12 @@ class F5VsiTemplateForm extends Component {
                       invalid={this.props.invalidCallback(
                         "license_password",
                         this.state,
-                        this.props,
+                        this.props
                       )}
                       invalidText={this.props.invalidTextCallback(
                         "license_password",
                         this.state,
-                        this.props,
+                        this.props
                       )}
                     />
                   </div>
@@ -264,13 +264,13 @@ class F5VsiTemplateForm extends Component {
                       this.props.invalidCallback(
                         "license_host",
                         this.state,
-                        this.props,
+                        this.props
                       ) || isNullOrEmptyString(this.state.license_host)
                     }
                     invalidText={this.props.invalidTextCallback(
                       "license_host",
                       this.state,
-                      this.props,
+                      this.props
                     )}
                   />
 
@@ -291,13 +291,13 @@ class F5VsiTemplateForm extends Component {
                       this.props.invalidCallback(
                         "license_pool",
                         this.state,
-                        this.props,
+                        this.props
                       ) || isNullOrEmptyString(this.state.license_pool)
                     }
                     invalidText={this.props.invalidTextCallback(
                       "license_pool",
                       this.state,
-                      this.props,
+                      this.props
                     )}
                   />
                 </IcseFormGroup>
@@ -322,14 +322,14 @@ class F5VsiTemplateForm extends Component {
                         this.props.invalidCallback(
                           "license_unit_of_measure",
                           this.state,
-                          this.props,
+                          this.props
                         ) ||
                         isNullOrEmptyString(this.state.license_unit_of_measure)
                       }
                       invalidText={this.props.invalidTextCallback(
                         "license_unit_of_measure",
                         this.state,
-                        this.props,
+                        this.props
                       )}
                     />
                     {/* license_sku_keyword_1 */}
@@ -349,14 +349,14 @@ class F5VsiTemplateForm extends Component {
                         this.props.invalidCallback(
                           "license_sku_keyword_1",
                           this.state,
-                          this.props,
+                          this.props
                         ) ||
                         isNullOrEmptyString(this.state.license_sku_keyword_1)
                       }
                       invalidText={this.props.invalidTextCallback(
                         "license_sku_keyword_1",
                         this.state,
-                        this.props,
+                        this.props
                       )}
                     />
 
@@ -378,14 +378,14 @@ class F5VsiTemplateForm extends Component {
                         this.props.invalidCallback(
                           "license_sku_keyword_2",
                           this.state,
-                          this.props,
+                          this.props
                         ) ||
                         isNullOrEmptyString(this.state.license_sku_keyword_2)
                       }
                       invalidText={this.props.invalidTextCallback(
                         "license_sku_keyword_2",
                         this.state,
-                        this.props,
+                        this.props
                       )}
                     />
                   </IcseFormGroup>
@@ -413,13 +413,13 @@ class F5VsiTemplateForm extends Component {
               this.props.invalidCallback(
                 "template_version",
                 this.state,
-                this.props,
+                this.props
               ) || isNullOrEmptyString(this.state.template_version)
             }
             invalidText={this.props.invalidTextCallback(
               "template_version",
               this.state,
-              this.props,
+              this.props
             )}
           />
           {/* template_source */}
@@ -439,13 +439,13 @@ class F5VsiTemplateForm extends Component {
               this.props.invalidCallback(
                 "template_source",
                 this.state,
-                this.props,
+                this.props
               ) || isNullOrEmptyString(this.state.template_source)
             }
             invalidText={this.props.invalidTextCallback(
               "template_source",
               this.state,
-              this.props,
+              this.props
             )}
           />
         </IcseFormGroup>
@@ -467,12 +467,12 @@ class F5VsiTemplateForm extends Component {
             invalid={this.props.invalidCallback(
               "app_id",
               this.state,
-              this.props,
+              this.props
             )}
             invalidText={this.props.invalidTextCallback(
               "app_id",
               this.state,
-              this.props,
+              this.props
             )}
           />
           {/* phone_home_url */}
@@ -492,13 +492,13 @@ class F5VsiTemplateForm extends Component {
               this.props.invalidCallback(
                 "phone_home_url",
                 this.state,
-                this.props,
+                this.props
               ) || !isValidUrl(this.state.phone_home_url)
             }
             invalidText={this.props.invalidTextCallback(
               "phone_home_url",
               this.state,
-              this.props,
+              this.props
             )}
           />
         </IcseFormGroup>
@@ -521,13 +521,13 @@ class F5VsiTemplateForm extends Component {
               this.props.invalidCallback(
                 "do_declaration_url",
                 this.state,
-                this.props,
+                this.props
               ) || !isValidUrl(this.state.do_declaration_url)
             }
             invalidText={this.props.invalidTextCallback(
               "do_declaration_url",
               this.state,
-              this.props,
+              this.props
             )}
           />
           {/* as3_declaration_url */}
@@ -547,13 +547,13 @@ class F5VsiTemplateForm extends Component {
               this.props.invalidCallback(
                 "as3_declaration_url",
                 this.state,
-                this.props,
+                this.props
               ) || !isValidUrl(this.state.as3_declaration_url)
             }
             invalidText={this.props.invalidTextCallback(
               "as3_declaration_url",
               this.state,
-              this.props,
+              this.props
             )}
           />
         </IcseFormGroup>
@@ -576,13 +576,13 @@ class F5VsiTemplateForm extends Component {
               this.props.invalidCallback(
                 "ts_declaration_url",
                 this.state,
-                this.props,
+                this.props
               ) || !isValidUrl(this.state.ts_declaration_url)
             }
             invalidText={this.props.invalidTextCallback(
               "ts_declaration_url",
               this.state,
-              this.props,
+              this.props
             )}
           />
           {/* tgstandby_url */}
@@ -602,13 +602,13 @@ class F5VsiTemplateForm extends Component {
               this.props.invalidCallback(
                 "tgstandby_url",
                 this.state,
-                this.props,
+                this.props
               ) || !isValidUrl(this.state.tgstandby_url)
             }
             invalidText={this.props.invalidTextCallback(
               "tgstandby_url",
               this.state,
-              this.props,
+              this.props
             )}
           />
         </IcseFormGroup>
@@ -631,13 +631,13 @@ class F5VsiTemplateForm extends Component {
               this.props.invalidCallback(
                 "tgrefresh_url",
                 this.state,
-                this.props,
+                this.props
               ) || !isValidUrl(this.state.tgrefresh_url)
             }
             invalidText={this.props.invalidTextCallback(
               "tgrefresh_url",
               this.state,
-              this.props,
+              this.props
             )}
           />
           {/* tgactive_url */}
@@ -657,13 +657,13 @@ class F5VsiTemplateForm extends Component {
               this.props.invalidCallback(
                 "tgactive_url",
                 this.state,
-                this.props,
+                this.props
               ) || !isValidUrl(this.state.tgactive_url)
             }
             invalidText={this.props.invalidTextCallback(
               "tgactive_url",
               this.state,
-              this.props,
+              this.props
             )}
           />
         </IcseFormGroup>

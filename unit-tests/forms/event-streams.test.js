@@ -32,7 +32,7 @@ describe("event-streams", () => {
             plan: "enterprise",
             private_ip_allowlist: "0.0.0.0/16",
           }),
-          expectedData,
+          expectedData
         );
       });
     });
@@ -52,7 +52,7 @@ describe("event-streams", () => {
           plan: "enterprise",
           private_ip_allowlist: "0.0.0.0/16",
         }),
-        expectedData,
+        expectedData
       );
     });
   });

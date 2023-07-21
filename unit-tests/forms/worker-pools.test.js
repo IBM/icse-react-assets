@@ -29,7 +29,7 @@ describe("worker pool functions", () => {
       assert.deepEqual(
         actualData,
         expectedData,
-        "it should return correct data",
+        "it should return correct data"
       );
     });
     it("should create correct data when modal and no subnets", () => {
@@ -53,7 +53,7 @@ describe("worker pool functions", () => {
       assert.deepEqual(
         actualData,
         expectedData,
-        "it should return correct data",
+        "it should return correct data"
       );
     });
     it("should create correct data when not modal", () => {
@@ -62,7 +62,7 @@ describe("worker pool functions", () => {
       assert.deepEqual(
         actualData,
         expectedData,
-        "it should return correct data",
+        "it should return correct data"
       );
     });
   });
@@ -75,13 +75,13 @@ describe("worker pool functions", () => {
             value: "12",
           },
         },
-        {},
+        {}
       );
       let expectedData = { workers_per_subnet: 12 };
       assert.deepEqual(
         actualData,
         expectedData,
-        "it should return correct data",
+        "it should return correct data"
       );
     });
     it("should return correct value when changing null value", () => {
@@ -92,13 +92,13 @@ describe("worker pool functions", () => {
             value: "null",
           },
         },
-        {},
+        {}
       );
       let expectedData = { frog: null };
       assert.deepEqual(
         actualData,
         expectedData,
-        "it should return correct data",
+        "it should return correct data"
       );
     });
     it("should return correct value when changing non null value", () => {
@@ -109,13 +109,13 @@ describe("worker pool functions", () => {
             value: "not-null",
           },
         },
-        {},
+        {}
       );
       let expectedData = { frog: "not-null" };
       assert.deepEqual(
         actualData,
         expectedData,
-        "it should return correct data",
+        "it should return correct data"
       );
     });
   });
@@ -126,7 +126,7 @@ describe("worker pool functions", () => {
       assert.deepEqual(
         actualData,
         expectedData,
-        "it should return correct data",
+        "it should return correct data"
       );
     });
   });
