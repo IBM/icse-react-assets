@@ -10156,10 +10156,10 @@ NetworkAclPage.propTypes = {
   data: PropTypes__default["default"].shape({
     name: PropTypes__default["default"].string.isRequired,
     acls: PropTypes__default["default"].array
-  }).isRequired,
+  }),
   onAclSubmit: PropTypes__default["default"].func.isRequired,
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  handleModalToggle: PropTypes__default["default"].func.isRequired,
+  handleModalToggle: PropTypes__default["default"].func,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidRuleTextCallback: PropTypes__default["default"].func.isRequired,
@@ -10235,6 +10235,56 @@ NetworkAcls.propTypes = {
   onSubmitCallback: PropTypes__default["default"].func.isRequired,
   onSave: PropTypes__default["default"].func.isRequired,
   onDelete: PropTypes__default["default"].func.isRequired
+};
+
+const SshKeys = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "SSH Keys",
+    addText: "Create an SSH Key",
+    docs: props.docs,
+    innerForm: SshKeyForm,
+    arrayData: props.ssh_keys,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    deleteDisabled: props.deleteDisabled,
+    deleteDisabledMessage: "SSH Key currently in use",
+    innerFormProps: {
+      craig: props.craig,
+      resourceGroups: props.resourceGroups,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      propsMatchState: props.propsMatchState,
+      disableSave: props.disableSave,
+      invalidKeyCallback: props.invalidKeyCallback
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "ssh_keys",
+      hide: true,
+      hideName: true
+    }
+  });
+};
+SshKeys.propTypes = {
+  ssh_keys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  onDelete: PropTypes__default["default"].func.isRequired,
+  onSave: PropTypes__default["default"].func.isRequired,
+  onSubmit: PropTypes__default["default"].func.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  forceOpen: PropTypes__default["default"].func.isRequired,
+  resourceGroups: PropTypes__default["default"].array.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  craig: PropTypes__default["default"].shape({}),
+  docs: PropTypes__default["default"].func.isRequired,
+  deleteDisabled: PropTypes__default["default"].func.isRequired,
+  invalidKeyCallback: PropTypes__default["default"].func.isRequired
 };
 
 class ClusterForm extends React.Component {
@@ -13976,6 +14026,7 @@ exports.SecurityGroupMultiSelect = SecurityGroupMultiSelect;
 exports.SecurityGroupTemplate = SecurityGroups;
 exports.SshKeyForm = SshKeyForm;
 exports.SshKeyMultiSelect = SshKeyMultiSelect;
+exports.SshKeysTemplate = SshKeys;
 exports.StatefulTabPanel = StatefulTabPanel;
 exports.StatelessToggleForm = StatelessToggleForm;
 exports.SubnetForm = SubnetForm;
