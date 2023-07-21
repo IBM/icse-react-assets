@@ -4286,7 +4286,8 @@ AppIdForm.propTypes = {
     name: PropTypes__default["default"].string,
     resource_group: PropTypes__default["default"].string,
     use_data: PropTypes__default["default"].bool,
-    keys: PropTypes__default["default"].array.isRequired
+    keys: PropTypes__default["default"].array.isRequired,
+    encryption_key: PropTypes__default["default"].string
   }).isRequired,
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   invalidCallback: PropTypes__default["default"].func,
@@ -4603,6 +4604,7 @@ const AppId = props => {
       invalidKeyTextCallback: props.invalidKeyTextCallback,
       propsMatchState: props.propsMatchState,
       disableSave: props.disableSave,
+      encryptionKeys: props.encryptionKeys,
       keyProps: {
         craig: props.craig,
         onSave: props.onKeySave,
@@ -4637,7 +4639,8 @@ AppId.propTypes = {
   onKeySave: PropTypes__default["default"].func.isRequired,
   onKeyDelete: PropTypes__default["default"].func.isRequired,
   onKeySubmit: PropTypes__default["default"].func.isRequired,
-  docs: PropTypes__default["default"].func.isRequired
+  docs: PropTypes__default["default"].func.isRequired,
+  encryptionKeys: PropTypes__default["default"].array.isRequired
 };
 
 const Clusters = props => {

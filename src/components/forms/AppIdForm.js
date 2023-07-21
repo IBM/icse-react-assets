@@ -148,6 +148,7 @@ AppIdForm.propTypes = {
     resource_group: PropTypes.string,
     use_data: PropTypes.bool,
     keys: PropTypes.array.isRequired,
+    encryption_key: PropTypes.string,
   }).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   invalidCallback: PropTypes.func,
