@@ -121,3 +121,4 @@ export { EventStreams as EventStreamsTemplate } from "./crud-form-pages";
 export { VpnServers as VpnServerTemplate } from "./crud-form-pages";
 export { NetworkAcls as NetworkAclTemplate } from "./crud-form-pages";
 export { SshKeys as SshKeysTemplate } from "./crud-form-pages";
+export { AccessGroups as AccessGroupsTemplate } from "./crud-form-pages";

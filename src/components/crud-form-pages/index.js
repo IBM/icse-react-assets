@@ -1,3 +1,4 @@
+export { AccessGroups } from "./AccessGroups";
 export { AppId } from "./AppId";
 export { Clusters } from "./Clusters";
 export { KeyManagement } from "./KeyManagement";

@@ -4579,6 +4579,556 @@ WorkerPoolForm.propTypes = {
   invalidTextCallback: PropTypes__default["default"].func.isRequired
 };
 
+const {
+  snakeCase
+} = lazyZ__default["default"];
+
+/**
+ * input change for resources in access group policies
+ * @param {Object} stateData
+ * @param {*} event
+ * @returns {Object} resources
+ */
+function handleInputResource(stateData, event) {
+  let {
+    name,
+    value
+  } = event.target;
+  let resources = {
+    ...stateData.resources
+  };
+  resources[name] = value;
+  return {
+    resources: resources
+  };
+}
+
+/**
+ * dynamic policy condition handler
+ * @param {Object} stateData
+ * @param {*} event
+ * @returns {Object} conditions
+ */
+function handleInputCondition(stateData, event) {
+  let {
+    name,
+    value
+  } = event.target;
+  let conditions = {
+    ...stateData.conditions
+  };
+  if (name === "operator") {
+    conditions[name] = snakeCase(value.replace(/[()]/g, "")).toUpperCase(); // remove all parentheses
+  } else {
+    conditions[name] = value;
+  }
+  return {
+    conditions: conditions
+  };
+}
+var accessGroups = {
+  handleInputCondition,
+  handleInputResource
+};
+var accessGroups_1 = accessGroups.handleInputCondition;
+var accessGroups_2 = accessGroups.handleInputResource;
+
+class AccessGroupPolicyForm extends React__default["default"].Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleInputResourceChange = this.handleInputResourceChange.bind(this);
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputResourceChange(event) {
+    this.setState(accessGroups_2(this.state, event));
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: `${this.props.data.name}-name`,
+      componentName: `${this.props.data.name}-name`,
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      invalid: this.props.invalidCallback(this.state, this.props),
+      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props),
+      forceKebabCase: true
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+      className: "marginBottomSmall"
+    }, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+      name: "Resource Configuration",
+      type: "subHeading"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: `${this.props.data.name}-resource`,
+      tooltip: {
+        content: "The resource of the policy definition",
+        alignModal: "bottom-left"
+      },
+      isModal: this.props.isModal,
+      field: "resource",
+      value: this.state.resources.resource,
+      invalid: false,
+      onChange: this.handleInputResourceChange
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      name: "resource_group",
+      formName: `${lazyZ.kebabCase(this.props.data.name)}-agp-rg-select`,
+      groups: this.props.resourceGroups,
+      value: this.state.resources.resource_group,
+      handleInputChange: this.handleInputResourceChange,
+      labelText: "Resource Group",
+      tooltip: {
+        content: "Name of the resource group the policy will apply to",
+        alignModal: "bottom-left"
+      },
+      disableInvalid: true // resource group is not required
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: `${this.props.data.name}-resource_instance_id`,
+      isModal: this.props.isModal,
+      field: "resource_instance_id",
+      value: this.state.resources.resource_instance_id,
+      tooltip: {
+        content: "ID of a service instance to give permissions"
+      },
+      invalid: false,
+      labelText: "Resource Instance ID" // needed to override Id in titleCase
+      ,
+      onChange: this.handleInputResourceChange
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: `${this.props.data.name}-service`,
+      tooltip: {
+        content: 'Name of the service type for the policy ex. "cloud-object-storage". You can run the `ibmcloud catalog service-marketplace` command to retrieve the service types. For account management services, you can find supported values in the following link.',
+        link: "https://cloud.ibm.com/docs/account?topic=account-account-services#api-acct-mgmt",
+        alignModal: "bottom-left",
+        align: "top-left"
+      },
+      labelText: "Service Type" // override field, display text different
+      ,
+      field: "service",
+      value: this.state.resources.service,
+      isModal: this.props.isModal,
+      onChange: this.handleInputResourceChange,
+      invalid: false
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: `${this.props.data.name}-resource-type`,
+      field: "resource_type",
+      tooltip: {
+        content: 'Name of the resource type for the policy ex. "resource-group"',
+        alignModal: "bottom-left"
+      },
+      invalid: false,
+      value: this.state.resources.resource_type,
+      isModal: this.props.isModal,
+      onChange: this.handleInputResourceChange
+    })));
+  }
+}
+AccessGroupPolicyForm.defaultProps = {
+  data: {
+    name: "",
+    resources: {
+      resource_group: "",
+      resource_type: "",
+      resource: "",
+      service: "",
+      resource_instance_id: ""
+    }
+  },
+  resourceGroups: [],
+  isModal: false
+};
+AccessGroupPolicyForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    resources: PropTypes__default["default"].shape({
+      resource_group: PropTypes__default["default"].string,
+      // can be null
+      resource_type: PropTypes__default["default"].string,
+      resource: PropTypes__default["default"].string,
+      service: PropTypes__default["default"].string,
+      resource_instance_id: PropTypes__default["default"].string
+    }).isRequired
+  }).isRequired,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  helperTextCallback: PropTypes__default["default"].func.isRequired
+};
+
+// Access Groups
+
+const conditionOperators = {
+  EQUALS: "Equals",
+  EQUALS_IGNORE_CASE: "Equals (Ignore Case)",
+  IN: "In",
+  NOT_EQUALS_IGNORE_CASE: "Not Equals (Ignore Case)",
+  NOT_EQUALS: "Not Equals",
+  CONTAINS: "Contains"
+};
+const conditionOperatorGroups = ["Equals", "Equals (Ignore Case)", "In", "Not Equals (Ignore Case)", "Not Equals", "Contains"];
+var constants = {
+  conditionOperatorGroups,
+  conditionOperators
+};
+var constants_1 = constants.conditionOperatorGroups;
+var constants_2 = constants.conditionOperators;
+
+class AccessGroupDynamicPolicyForm extends React__default["default"].Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleInputCondition = this.handleInputCondition.bind(this);
+  }
+
+  /**
+   * handle input change
+   * @param {*} event
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * handle input change for conditions
+   * @param {*} event
+   */
+  handleInputCondition(event) {
+    this.setState(accessGroups_1(this.state, event));
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: "name",
+      componentName: "dynamic_policies",
+      forceKebabCase: true,
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      invalid: this.props.invalidCallback(this.state, this.props),
+      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
+      tooltip: {
+        content: "How many hours authenticated users can work before refresh"
+      },
+      formName: this.props.data.name + "-dynamic-policies",
+      max: 24,
+      value: this.state.expiration,
+      name: "expiration",
+      labelText: "Expiration Hours",
+      isModal: this.props.isModal,
+      handleInputChange: this.handleInputChange
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: "identity_provider",
+      tooltip: {
+        content: "URI for identity provider",
+        alignModal: "bottom-left"
+      },
+      componentName: "dynamic_policies",
+      field: "identity_provider",
+      isModal: this.props.isModal,
+      value: this.state.identity_provider,
+      invalid: this.props.invalidIdentityProviderCallback(this.state, this.props),
+      onChange: this.handleInputChange,
+      className: "textInputWide"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+      className: "marginBottomSmall"
+    }, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+      name: "Condition Configuration",
+      type: "subHeading"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: "claim",
+      tooltip: {
+        content: "Key value to evaluate the condition against",
+        alignModal: "bottom-left"
+      },
+      componentName: "dynamic_policies",
+      field: "claim",
+      isModal: this.props.isModal,
+      labelText: "Condition Claim",
+      value: this.state.conditions.claim,
+      invalid: false,
+      onChange: this.handleInputCondition
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: this.props.data.name + "-dynamic-policies",
+      tooltip: {
+        content: "The operation to perform on the claim."
+      },
+      value: constants_2[this.state.conditions.operator],
+      groups: constants_1,
+      field: "operator",
+      isModal: this.props.isModal,
+      name: "operator",
+      disableInvalid: true,
+      labelText: "Condition Operator",
+      handleInputChange: this.handleInputCondition
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: "value",
+      tooltip: {
+        content: "Value to be compared against"
+      },
+      componentName: "value",
+      field: "value",
+      isModal: this.props.isModal,
+      value: this.state.conditions.value,
+      labelText: "Condition Value",
+      invalid: false,
+      onChange: this.handleInputCondition
+    })));
+  }
+}
+AccessGroupDynamicPolicyForm.defaultProps = {
+  data: {
+    name: "",
+    identity_provider: "",
+    expiration: 1,
+    conditions: {
+      claim: "",
+      operator: "",
+      value: ""
+    }
+  },
+  isModal: false
+};
+AccessGroupDynamicPolicyForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    identity_provider: PropTypes__default["default"].string.isRequired,
+    expiration: PropTypes__default["default"].number.isRequired,
+    conditions: PropTypes__default["default"].shape({
+      claim: PropTypes__default["default"].string.isRequired,
+      operator: PropTypes__default["default"].string.isRequired,
+      value: PropTypes__default["default"].string.isRequired
+    }).isRequired
+  }).isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  helperTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidIdentityProviderCallback: PropTypes__default["default"].func.isRequired
+};
+
+class AccessGroupForm extends React__default["default"].Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  /**
+   * handle input change
+   * @param {string} name key to change in state
+   * @param {*} value value to update
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  render() {
+    let dynamicPolicyProps = {
+      invalidCallback: this.props.invalidDynamicPolicyCallback,
+      invalidTextCallback: this.props.invalidDynamicPolicyTextCallback,
+      invalidIdentityProviderCallback: this.props.invalidIdentityProviderCallback,
+      arrayParentName: this.props.data.name,
+      helperTextCallback: this.props.dynamicPolicyHelperTextCallback
+    };
+    lazyZ.transpose({
+      ...this.props.dynamicPolicyProps
+    }, dynamicPolicyProps);
+    let policyProps = {
+      invalidCallback: this.props.invalidPolicyCallback,
+      invalidTextCallback: this.props.invalidPolicyTextCallback,
+      arrayParentName: this.props.data.name,
+      helperTextCallback: this.props.policyHelperTextCallback
+    };
+    lazyZ.transpose({
+      ...this.props.policyProps
+    }, policyProps);
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: this.props.data.name + "-name",
+      componentName: "access_groups",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      className: "fieldWidth",
+      hideHelperText: true,
+      forceKebabCase: true,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: this.props.data.name + "-description",
+      tooltip: {
+        content: "Description of the access group"
+      },
+      field: "description",
+      value: this.state.description,
+      onChange: this.handleInputChange,
+      isModal: this.props.isModal,
+      className: "textInputWide",
+      hideHelperText: true,
+      invalid: false
+    })), this.props.isModal === false && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+      name: "Policies",
+      subHeading: true,
+      addText: "Create a Policy",
+      arrayData: this.props.data.policies,
+      innerForm: AccessGroupPolicyForm,
+      disableSave: this.props.policyProps.disableSave,
+      onDelete: this.props.policyProps.onDelete,
+      onSave: this.props.policyProps.onSave,
+      onSubmit: this.props.policyProps.onSubmit,
+      propsMatchState: this.props.propsMatchState,
+      innerFormProps: {
+        ...policyProps
+      },
+      hideAbout: true,
+      toggleFormProps: {
+        hideName: true,
+        submissionFieldName: "policies",
+        disableSave: this.props.policyProps.disableSave,
+        type: "formInSubForm"
+      }
+    }), /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+      name: "Dynamic Policies",
+      subHeading: true,
+      addText: "Create a Dynamic Policy",
+      arrayData: this.props.data.dynamic_policies,
+      innerForm: AccessGroupDynamicPolicyForm,
+      disableSave: this.props.dynamicPolicyProps.disableSave,
+      onDelete: this.props.dynamicPolicyProps.onDelete,
+      onSave: this.props.dynamicPolicyProps.onSave,
+      onSubmit: this.props.dynamicPolicyProps.onSubmit,
+      propsMatchState: this.props.propsMatchState,
+      innerFormProps: {
+        ...dynamicPolicyProps
+      },
+      hideAbout: true,
+      toggleFormProps: {
+        hideName: true,
+        submissionFieldName: "dynamic_policies",
+        disableSave: this.props.dynamicPolicyProps.disableSave,
+        type: "formInSubForm"
+      }
+    })));
+  }
+}
+AccessGroupForm.defaultProps = {
+  data: {
+    name: "",
+    description: ""
+  },
+  isModal: false
+};
+AccessGroupForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    description: PropTypes__default["default"].string.isRequired
+  }).isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired
+};
+
+const AccessGroups = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "Access Groups",
+    addText: "Create Access Groups",
+    docs: props.docs,
+    innerForm: AccessGroupForm,
+    arrayData: props.access_groups,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    forceOpen: props.forceOpen,
+    propsMatchState: props.propsMatchState,
+    innerFormProps: {
+      craig: props.craig,
+      resourceGroups: props.resourceGroups,
+      disableSave: props.disableSave,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      propsMatchState: props.propsMatchState,
+      invalidPolicyCallback: props.invalidPolicyCallback,
+      invalidPolicyTextCallback: props.invalidDynamicPolicyTextCallback,
+      policyHelperTextCallback: props.policyHelperTextCallback,
+      policyProps: {
+        onSave: props.onPolicySave,
+        onDelete: props.onPolicyDelete,
+        onSubmit: props.onPolicySubmit,
+        disableSave: props.disableSave,
+        craig: props.craig,
+        resourceGroups: props.resourceGroups
+      },
+      invalidDynamicPolicyCallback: props.invalidDynamicPolicyCallback,
+      invalidDynamicPolicyTextCallback: props.invalidDynamicPolicyTextCallback,
+      dynamicPolicyHelperTextCallback: props.dynamicPolicyHelperTextCallback,
+      invalidIdentityProviderCallback: props.invalidIdentityProviderCallback,
+      dynamicPolicyProps: {
+        onSave: props.onDynamicPolicySave,
+        onDelete: props.onDynamicPolicyDelete,
+        onSubmit: props.onDynamicPolicySubmit,
+        disableSave: props.disableSave,
+        craig: props.craig
+      }
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "access_groups",
+      hide: true,
+      hideName: true
+    }
+  });
+};
+AccessGroups.propTypes = {
+  docs: PropTypes__default["default"].func.isRequired,
+  access_groups: PropTypes__default["default"].array.isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  forceOpen: PropTypes__default["default"].func.isRequired,
+  onDelete: PropTypes__default["default"].func.isRequired,
+  onSave: PropTypes__default["default"].func.isRequired,
+  onSubmit: PropTypes__default["default"].func.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidPolicyCallback: PropTypes__default["default"].func.isRequired,
+  invalidPolicyTextCallback: PropTypes__default["default"].func.isRequired,
+  policyHelperTextCallback: PropTypes__default["default"].func.isRequired,
+  onPolicyDelete: PropTypes__default["default"].func.isRequired,
+  onPolicySave: PropTypes__default["default"].func.isRequired,
+  onPolicySubmit: PropTypes__default["default"].func.isRequired,
+  craig: PropTypes__default["default"].shape({}).isRequired,
+  resourceGroups: PropTypes__default["default"].array.isRequired,
+  invalidDynamicPolicyCallback: PropTypes__default["default"].func.isRequired,
+  invalidDynamicPolicyTextCallback: PropTypes__default["default"].func.isRequired,
+  dynamicPolicyHelperTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidIdentityProviderCallback: PropTypes__default["default"].func.isRequired,
+  onDynamicPolicyDelete: PropTypes__default["default"].func.isRequired,
+  onDynamicPolicySave: PropTypes__default["default"].func.isRequired,
+  onDynamicPolicySubmit: PropTypes__default["default"].func.isRequired
+};
+
 const AppId = props => {
   return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
     name: "AppID",
@@ -12457,476 +13007,6 @@ TeleportClaimToRoleForm.propTypes = {
   }).isRequired
 };
 
-const {
-  snakeCase
-} = lazyZ__default["default"];
-
-/**
- * input change for resources in access group policies
- * @param {Object} stateData
- * @param {*} event
- * @returns {Object} resources
- */
-function handleInputResource(stateData, event) {
-  let {
-    name,
-    value
-  } = event.target;
-  let resources = {
-    ...stateData.resources
-  };
-  resources[name] = value;
-  return {
-    resources: resources
-  };
-}
-
-/**
- * dynamic policy condition handler
- * @param {Object} stateData
- * @param {*} event
- * @returns {Object} conditions
- */
-function handleInputCondition(stateData, event) {
-  let {
-    name,
-    value
-  } = event.target;
-  let conditions = {
-    ...stateData.conditions
-  };
-  if (name === "operator") {
-    conditions[name] = snakeCase(value.replace(/[()]/g, "")).toUpperCase(); // remove all parentheses
-  } else {
-    conditions[name] = value;
-  }
-  return {
-    conditions: conditions
-  };
-}
-var accessGroups = {
-  handleInputCondition,
-  handleInputResource
-};
-var accessGroups_1 = accessGroups.handleInputCondition;
-var accessGroups_2 = accessGroups.handleInputResource;
-
-class AccessGroupPolicyForm extends React__default["default"].Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleInputResourceChange = this.handleInputResourceChange.bind(this);
-  }
-
-  /**
-   * handle input change
-   * @param {string} name key to change in state
-   * @param {*} value value to update
-   */
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-
-  /**
-   * handle input change
-   * @param {string} name key to change in state
-   * @param {*} value value to update
-   */
-  handleInputResourceChange(event) {
-    this.setState(accessGroups_2(this.state, event));
-  }
-  render() {
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: `${this.props.data.name}-name`,
-      componentName: `${this.props.data.name}-name`,
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      invalidText: this.props.invalidTextCallback(this.state, this.props),
-      invalid: this.props.invalidCallback(this.state, this.props),
-      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props),
-      forceKebabCase: true
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
-      className: "marginBottomSmall"
-    }, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
-      name: "Resource Configuration",
-      type: "subHeading"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: `${this.props.data.name}-resource`,
-      tooltip: {
-        content: "The resource of the policy definition",
-        alignModal: "bottom-left"
-      },
-      isModal: this.props.isModal,
-      field: "resource",
-      value: this.state.resources.resource,
-      invalid: false,
-      onChange: this.handleInputResource
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      name: "resource_group",
-      formName: `${lazyZ.kebabCase(this.props.data.name)}-agp-rg-select`,
-      groups: this.props.resourceGroups,
-      value: this.state.resources.resource_group,
-      handleInputChange: this.handleInputResource,
-      labelText: "Resource Group",
-      tooltip: {
-        content: "Name of the resource group the policy will apply to",
-        alignModal: "bottom-left"
-      },
-      disableInvalid: true // resource group is not required
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: `${this.props.data.name}-resource_instance_id`,
-      isModal: this.props.isModal,
-      field: "resource_instance_id",
-      value: this.state.resources.resource_instance_id,
-      tooltip: {
-        content: "ID of a service instance to give permissions"
-      },
-      invalid: false,
-      labelText: "Resource Instance ID" // needed to override Id in titleCase
-      ,
-      onChange: this.handleInputResource
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: `${this.props.data.name}-service`,
-      tooltip: {
-        content: 'Name of the service type for the policy ex. "cloud-object-storage". You can run the `ibmcloud catalog service-marketplace` command to retrieve the service types. For account management services, you can find supported values in the following link.',
-        link: "https://cloud.ibm.com/docs/account?topic=account-account-services#api-acct-mgmt",
-        alignModal: "bottom-left",
-        align: "top-left"
-      },
-      labelText: "Service Type" // override field, display text different
-      ,
-      field: "service",
-      value: this.state.resources.service,
-      isModal: this.props.isModal,
-      onChange: this.handleInputResource,
-      invalid: false
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: `${this.props.data.name}-resource-type`,
-      field: "resource_type",
-      tooltip: {
-        content: 'Name of the resource type for the policy ex. "resource-group"',
-        alignModal: "bottom-left"
-      },
-      invalid: false,
-      value: this.state.resources.resource_type,
-      isModal: this.props.isModal,
-      onChange: this.handleInputResource
-    })));
-  }
-}
-AccessGroupPolicyForm.defaultProps = {
-  data: {
-    name: "",
-    resources: {
-      resource_group: "",
-      resource_type: "",
-      resource: "",
-      service: "",
-      resource_instance_id: ""
-    }
-  },
-  resourceGroups: [],
-  isModal: false
-};
-AccessGroupPolicyForm.propTypes = {
-  data: PropTypes__default["default"].shape({
-    name: PropTypes__default["default"].string.isRequired,
-    resources: PropTypes__default["default"].shape({
-      resource_group: PropTypes__default["default"].string,
-      // can be null
-      resource_type: PropTypes__default["default"].string,
-      resource: PropTypes__default["default"].string,
-      service: PropTypes__default["default"].string,
-      resource_instance_id: PropTypes__default["default"].string
-    }).isRequired
-  }).isRequired,
-  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  isModal: PropTypes__default["default"].bool.isRequired,
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  helperTextCallback: PropTypes__default["default"].func.isRequired
-};
-
-// Access Groups
-
-const conditionOperators = {
-  EQUALS: "Equals",
-  EQUALS_IGNORE_CASE: "Equals (Ignore Case)",
-  IN: "In",
-  NOT_EQUALS_IGNORE_CASE: "Not Equals (Ignore Case)",
-  NOT_EQUALS: "Not Equals",
-  CONTAINS: "Contains"
-};
-const conditionOperatorGroups = ["Equals", "Equals (Ignore Case)", "In", "Not Equals (Ignore Case)", "Not Equals", "Contains"];
-var constants = {
-  conditionOperatorGroups,
-  conditionOperators
-};
-var constants_1 = constants.conditionOperatorGroups;
-var constants_2 = constants.conditionOperators;
-
-class AccessGroupDynamicPolicyForm extends React__default["default"].Component {
-  constructor(props) {
-    super(props);
-    this.state = this.props.data;
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleInputCondition = this.handleInputCondition.bind(this);
-  }
-
-  /**
-   * handle input change
-   * @param {*} event
-   */
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-
-  /**
-   * handle input change for conditions
-   * @param {*} event
-   */
-  handleInputCondition(event) {
-    this.setState(accessGroups_1(this.state, event));
-  }
-  render() {
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: "name",
-      componentName: "dynamic_policies",
-      forceKebabCase: true,
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      invalidText: this.props.invalidTextCallback(this.state, this.props),
-      invalid: this.props.invalidCallback(this.state, this.props),
-      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props)
-    }), /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
-      tooltip: {
-        content: "How many hours authenticated users can work before refresh"
-      },
-      formName: this.props.data.name + "-dynamic-policies",
-      max: 24,
-      value: this.state.expiration,
-      name: "expiration",
-      labelText: "Expiration Hours",
-      isModal: this.props.isModal,
-      handleInputChange: this.handleInputChange
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: "identity_provider",
-      tooltip: {
-        content: "URI for identity provider",
-        alignModal: "bottom-left"
-      },
-      componentName: "dynamic_policies",
-      field: "identity_provider",
-      isModal: this.props.isModal,
-      value: this.state.identity_provider,
-      invalid: this.props.invalidIdentityProviderCallback(this.state, this.props),
-      onChange: this.handleInputChange,
-      className: "textInputWide"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
-      className: "marginBottomSmall"
-    }, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
-      name: "Condition Configuration",
-      type: "subHeading"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: "claim",
-      tooltip: {
-        content: "Key value to evaluate the condition against",
-        alignModal: "bottom-left"
-      },
-      componentName: "dynamic_policies",
-      field: "claim",
-      isModal: this.props.isModal,
-      labelText: "Condition Claim",
-      value: this.state.conditions.claim,
-      invalid: false,
-      onChange: this.handleInputCondition
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: this.props.data.name + "-dynamic-policies",
-      tooltip: {
-        content: "The operation to perform on the claim."
-      },
-      value: constants_2[this.state.conditions.operator],
-      groups: constants_1,
-      field: "operator",
-      isModal: this.props.isModal,
-      name: "operator",
-      disableInvalid: true,
-      labelText: "Condition Operator",
-      handleInputChange: this.handleInputCondition
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: "value",
-      tooltip: {
-        content: "Value to be compared against"
-      },
-      componentName: "value",
-      field: "value",
-      isModal: this.props.isModal,
-      value: this.state.conditions.value,
-      labelText: "Condition Value",
-      invalid: false,
-      onChange: this.handleInputCondition
-    })));
-  }
-}
-AccessGroupDynamicPolicyForm.defaultProps = {
-  data: {
-    name: "",
-    identity_provider: "",
-    expiration: 1,
-    conditions: {
-      claim: "",
-      operator: "",
-      value: ""
-    }
-  },
-  isModal: false
-};
-AccessGroupDynamicPolicyForm.propTypes = {
-  data: PropTypes__default["default"].shape({
-    name: PropTypes__default["default"].string.isRequired,
-    identity_provider: PropTypes__default["default"].string.isRequired,
-    expiration: PropTypes__default["default"].number.isRequired,
-    conditions: PropTypes__default["default"].shape({
-      claim: PropTypes__default["default"].string.isRequired,
-      operator: PropTypes__default["default"].string.isRequired,
-      value: PropTypes__default["default"].string.isRequired
-    }).isRequired
-  }).isRequired,
-  isModal: PropTypes__default["default"].bool.isRequired,
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  helperTextCallback: PropTypes__default["default"].func.isRequired,
-  invalidIdentityProviderCallback: PropTypes__default["default"].func.isRequired
-};
-
-class AccessGroupForm extends React__default["default"].Component {
-  constructor(props) {
-    super(props);
-    this.state = this.props.data;
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-  }
-
-  /**
-   * handle input change
-   * @param {string} name key to change in state
-   * @param {*} value value to update
-   */
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-  render() {
-    let dynamicPolicyProps = {
-      invalidCallback: this.props.invalidDynamicPolicyCallback,
-      invalidTextCallback: this.props.invalidDynamicPolicyTextCallback,
-      invalidIdentityProviderCallback: this.props.invalidIdentityProviderCallback,
-      arrayParentName: this.props.data.name,
-      helperTextCallback: this.props.dynamicPolicyHelperTextCallback
-    };
-    lazyZ.transpose({
-      ...this.props.dynamicPolicyProps
-    }, dynamicPolicyProps);
-    let policyProps = {
-      invalidCallback: this.props.invalidPolicyCallback,
-      invalidTextCallback: this.props.invalidPolicyTextCallback,
-      arrayParentName: this.props.data.name,
-      helperTextCallback: this.props.policyHelperTextCallback
-    };
-    lazyZ.transpose({
-      ...this.props.policyProps
-    }, policyProps);
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: this.props.data.name + "-name",
-      componentName: "access_groups",
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      className: "fieldWidth",
-      hideHelperText: true,
-      forceKebabCase: true,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props)
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: this.props.data.name + "-description",
-      tooltip: {
-        content: "Description of the access group"
-      },
-      field: "description",
-      value: this.state.description,
-      onChange: this.handleInputChange,
-      isModal: this.props.isModal,
-      className: "textInputWide",
-      hideHelperText: true,
-      invalid: false
-    })), this.props.isModal === false && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
-      name: "Policies",
-      subHeading: true,
-      addText: "Create a Policy",
-      arrayData: this.props.data.policies,
-      innerForm: AccessGroupPolicyForm,
-      disableSave: this.props.policyProps.disableSave,
-      onDelete: this.props.policyProps.onDelete,
-      onSave: this.props.policyProps.onSave,
-      onSubmit: this.props.policyProps.onSubmit,
-      propsMatchState: this.props.propsMatchState,
-      innerFormProps: {
-        ...policyProps
-      },
-      hideAbout: true,
-      toggleFormProps: {
-        hideName: true,
-        submissionFieldName: "policies",
-        disableSave: this.props.policyProps.disableSave,
-        type: "formInSubForm"
-      }
-    }), /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
-      name: "Dynamic Policies",
-      subHeading: true,
-      addText: "Create a Dynamic Policy",
-      arrayData: this.props.data.dynamic_policies,
-      innerForm: AccessGroupDynamicPolicyForm,
-      disableSave: this.props.dynamicPolicyProps.disableSave,
-      onDelete: this.props.dynamicPolicyProps.onDelete,
-      onSave: this.props.dynamicPolicyProps.onSave,
-      onSubmit: this.props.dynamicPolicyProps.onSubmit,
-      propsMatchState: this.props.propsMatchState,
-      innerFormProps: {
-        ...dynamicPolicyProps
-      },
-      hideAbout: true,
-      toggleFormProps: {
-        hideName: true,
-        submissionFieldName: "dynamic_policies",
-        disableSave: this.props.dynamicPolicyProps.disableSave,
-        type: "formInSubForm"
-      }
-    })));
-  }
-}
-AccessGroupForm.defaultProps = {
-  data: {
-    name: "",
-    description: ""
-  },
-  isModal: false
-};
-AccessGroupForm.propTypes = {
-  data: PropTypes__default["default"].shape({
-    name: PropTypes__default["default"].string.isRequired,
-    description: PropTypes__default["default"].string.isRequired
-  }).isRequired,
-  isModal: PropTypes__default["default"].bool.isRequired,
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired
-};
-
 class CbrContextForm extends React.Component {
   constructor(props) {
     super(props);
@@ -13949,6 +14029,7 @@ SecretsManagerChecklist.propTypes = {
 exports.AccessGroupDynamicPolicyForm = AccessGroupDynamicPolicyForm;
 exports.AccessGroupForm = AccessGroupForm;
 exports.AccessGroupPolicyForm = AccessGroupPolicyForm;
+exports.AccessGroupsTemplate = AccessGroups;
 exports.AppIdForm = AppIdForm;
 exports.AppIdKeyForm = AppIdKeyForm;
 exports.AppIdTemplate = AppId;
