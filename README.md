@@ -4,14 +4,42 @@
 
 Documentation for all components is available on storybook: http://ibm.github.io/icse-react-assets
 
-## Getting Started
+## Installation
+
+### Prerequisites
+
+- [@carbon/react](https://github.com/carbon-design-system/carbon/tree/main/packages/react)
+- Ensure all Carbon styles are imported into your project
+
+### Installing icse-react-assets
+
+1. From your React client directory use the command `npm i icse-react-assets`
+2. Import components using ES6 import statements. 
+
+### Example Import
+
+```js
+import { IcseHeading } from "icse-react-assets";
+```
+
+## Running the Local Development Environment
 
 1. `git clone https://github.ibm.com/icse/icse-react-assets.git && cd icse-react-assets`
 2. `npm run i-all`
 3. Test a build with `npm update && npm run build`
 4. Run `npm run dev` to run the playground environment to test any components
 
-## Building the Library Locally for Testing
+## Running Unit Tests
+
+### Running Tests
+
+To run local unit tests with mocha, use the command `npm run test`.
+
+### Getting Test Coverage
+
+Use the command `npm run coverage` to determine unit test coverage for this package. Currently only tests in `/src/lib` are covered when using this command.
+
+## Building the Library for Local Development
 
 To use the library within an application to test your changes, navigate to the base directory where your application is cloned:
 
