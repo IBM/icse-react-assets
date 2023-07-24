@@ -31,7 +31,7 @@ describe("utils", () => {
             value: 1,
           },
         },
-        "it should return correct value",
+        "it should return correct value"
       );
     });
   });

@@ -92,7 +92,7 @@ class SubnetTierForm extends React.Component {
         },
         () => {
           this.props.onSave(noToggleState, this.props);
-        },
+        }
       );
     }
   }
@@ -211,7 +211,7 @@ class SubnetTierForm extends React.Component {
                 invalid={this.props.invalidCallback(this.state, this.props)}
                 invalidText={this.props.invalidTextCallback(
                   this.state,
-                  this.props,
+                  this.props
                 )}
                 hideHelperText
               />
@@ -225,7 +225,7 @@ class SubnetTierForm extends React.Component {
                   items={["1", "2", "3"]}
                   initialSelectedItems={parseZoneStrings(
                     this.state,
-                    this.props,
+                    this.props
                   )}
                   onChange={this.handleSelectZones}
                 />

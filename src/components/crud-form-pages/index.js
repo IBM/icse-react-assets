@@ -1,3 +1,4 @@
+export { AccessGroups } from "./AccessGroups";
 export { AppId } from "./AppId";
 export { Clusters } from "./Clusters";
 export { KeyManagement } from "./KeyManagement";
@@ -16,3 +17,5 @@ export { Dns } from "./Dns";
 export { RoutingTables } from "./RoutingTables";
 export { EventStreams } from "./EventStreams";
 export { VpnServers } from "./VpnServers";
+export { NetworkAcls } from "./NetworkAcls";
+export { SshKeys } from "./SshKeys";

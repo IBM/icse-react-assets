@@ -69,7 +69,7 @@ class AccessGroupPolicyForm extends React.Component {
             field="resource"
             value={this.state.resources.resource}
             invalid={false}
-            onChange={this.handleInputResource}
+            onChange={this.handleInputResourceChange}
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -78,7 +78,7 @@ class AccessGroupPolicyForm extends React.Component {
             formName={`${kebabCase(this.props.data.name)}-agp-rg-select`}
             groups={this.props.resourceGroups}
             value={this.state.resources.resource_group}
-            handleInputChange={this.handleInputResource}
+            handleInputChange={this.handleInputResourceChange}
             labelText="Resource Group"
             tooltip={{
               content: "Name of the resource group the policy will apply to",
@@ -98,7 +98,7 @@ class AccessGroupPolicyForm extends React.Component {
             }}
             invalid={false}
             labelText="Resource Instance ID" // needed to override Id in titleCase
-            onChange={this.handleInputResource}
+            onChange={this.handleInputResourceChange}
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -115,7 +115,7 @@ class AccessGroupPolicyForm extends React.Component {
             field="service"
             value={this.state.resources.service}
             isModal={this.props.isModal}
-            onChange={this.handleInputResource}
+            onChange={this.handleInputResourceChange}
             invalid={false}
           />
         </IcseFormGroup>
@@ -131,7 +131,7 @@ class AccessGroupPolicyForm extends React.Component {
             invalid={false}
             value={this.state.resources.resource_type}
             isModal={this.props.isModal}
-            onChange={this.handleInputResource}
+            onChange={this.handleInputResourceChange}
           />
         </IcseFormGroup>
       </>

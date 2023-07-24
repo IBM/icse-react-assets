@@ -12,26 +12,26 @@ describe("cbr-utils", () => {
     it("should return invalid false if valid", () => {
       assert.isFalse(
         cbrInvalid("account_id", "hoidfiasfjoasfd").invalid,
-        "it should be valid",
+        "it should be valid"
       );
     });
     it("should return invalid false if empty string", () => {
       assert.isFalse(
         cbrInvalid("account_id", "").invalid,
-        "it should be invalid",
+        "it should be invalid"
       );
     });
     it("should return invalid true if too long", () => {
       assert.deepEqual(
         cbrInvalid(
           "account_id",
-          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
         ),
         {
           invalid: true,
           invalidText: `Invalid account_id. Value must match regex expression /^[0-9a-z-]+$/.`,
         },
-        "it should return correct data",
+        "it should return correct data"
       );
     });
   });
@@ -45,7 +45,7 @@ describe("cbr-utils", () => {
           invalidText:
             "Invalid value for type ipAddress. Cannot be empty string.",
         },
-        "it should return correct data",
+        "it should return correct data"
       );
     });
 
@@ -58,14 +58,14 @@ describe("cbr-utils", () => {
           invalidText:
             "Invalid value for type ipAddress. Value must be a valid IPV4 Address.",
         },
-        "it should return correct data",
+        "it should return correct data"
       );
     });
 
     it("should return an invalid object with a message when value is not a range of valid IPV4 addresses for ipRange type", () => {
       let result = cbrValueInvalid(
         "ipRange",
-        "2.2.2.2", // not range
+        "2.2.2.2" // not range
       );
       assert.deepEqual(
         result,
@@ -74,13 +74,13 @@ describe("cbr-utils", () => {
           invalidText:
             "Invalid value for type ipRange. Value must be a range of IPV4 Addresses.",
         },
-        "it should return correct data",
+        "it should return correct data"
       );
     });
     it("should return a valid object when valid ipRange", () => {
       let result = cbrValueInvalid(
         "ipRange",
-        "2.2.2.2-3.3.3.3", // not range
+        "2.2.2.2-3.3.3.3" // not range
       );
       assert.deepEqual(result, {
         invalid: false,
@@ -95,7 +95,7 @@ describe("cbr-utils", () => {
           invalid: false,
           invalidText: "",
         },
-        "it should return correct data",
+        "it should return correct data"
       );
     });
     it("should use cbrInvalid when type is not ipAddress or ipRange", () => {
@@ -106,7 +106,7 @@ describe("cbr-utils", () => {
           invalid: false,
           invalidText: "",
         },
-        "it should return correct data",
+        "it should return correct data"
       );
     });
   });
@@ -143,7 +143,7 @@ describe("cbr-utils", () => {
       let expectedData = { type: "ipAddress" };
       assert.deepEqual(
         handleExclusionAddressInputChange({}, event),
-        expectedData,
+        expectedData
       );
     });
     it("should pass through other values", () => {
@@ -153,7 +153,7 @@ describe("cbr-utils", () => {
       let expectedData = { blah: "hey" };
       assert.deepEqual(
         handleExclusionAddressInputChange({}, event),
-        expectedData,
+        expectedData
       );
     });
   });

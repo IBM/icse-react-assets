@@ -29,7 +29,7 @@ function buildFormFunctions(component) {
         component.props.subnetList.filter((subnet) => {
           if (subnet.vpc === component.state.vpc) return subnet;
         }),
-        "name",
+        "name"
       );
     }.bind(component);
   }
@@ -40,7 +40,7 @@ function buildFormFunctions(component) {
         component.props.securityGroups.filter((sg) => {
           if (sg.vpc === component.state.vpc) return sg;
         }),
-        "name",
+        "name"
       );
     };
   }
