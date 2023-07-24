@@ -6,3 +6,4 @@ unit-tests/data-files/
 old/
 *.yml
 *.md
+dist/
