@@ -12677,7 +12677,6 @@ class SubnetTierForm extends React.Component {
     this.handleSelectZones = this.handleSelectZones.bind(this);
     this.onSubnetSave = this.onSubnetSave.bind(this);
     buildFormDefaultInputMethods(this);
-    buildFormFunctions(this);
   }
   /**
    * handle select zones
