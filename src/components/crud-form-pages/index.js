@@ -19,3 +19,4 @@ export { EventStreams } from "./EventStreams";
 export { VpnServers } from "./VpnServers";
 export { NetworkAcls } from "./NetworkAcls";
 export { SshKeys } from "./SshKeys";
+export { Subnets } from "./Subnets";

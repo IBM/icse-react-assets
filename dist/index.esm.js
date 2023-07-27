@@ -5,6 +5,7 @@ import regexButWithWords from 'regex-but-with-words';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Information, Save, Add, ChevronDown, ChevronRight, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt, Edit, DataView, Password } from '@carbon/icons-react';
+import { FormModal as FormModal$1, SubnetTierForm as SubnetTierForm$1, IcseHeading as IcseHeading$1, SaveAddButton as SaveAddButton$1, EmptyResourceTile as EmptyResourceTile$1, IcseFormTemplate as IcseFormTemplate$1 } from 'icse-react-assets';
 
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
@@ -10579,7 +10580,7 @@ VpnServers.propTypes = {
   vpcList: PropTypes.arrayOf(PropTypes.string)
 };
 
-function none() {}
+function none$1() {}
 class NetworkAclPage extends React.Component {
   constructor(props) {
     super(props);
@@ -10633,12 +10634,12 @@ class NetworkAclPage extends React.Component {
       },
       isModal: true
       /* below functions only needed when not modal but are required */,
-      disableSaveCallback: none,
-      helperTextCallback: none,
-      onRuleSave: none,
-      onRuleDelete: none,
-      disableModalSubmitCallback: none,
-      onSubmitCallback: none
+      disableSaveCallback: none$1,
+      helperTextCallback: none$1,
+      onRuleSave: none$1,
+      onRuleDelete: none$1,
+      disableModalSubmitCallback: none$1,
+      onSubmitCallback: none$1
     })), /*#__PURE__*/React.createElement(IcseHeading, {
       name: "Network Access Control Lists",
       className: "marginBottomSmall",
@@ -10650,7 +10651,7 @@ class NetworkAclPage extends React.Component {
       })
     }), /*#__PURE__*/React.createElement(IcseFormTemplate, {
       arrayData: this.props.data.acls,
-      onSubmit: none // no modal
+      onSubmit: none$1 // no modal
       ,
       onDelete: this.props.onDelete,
       onSave: this.props.onSave,
@@ -10671,7 +10672,7 @@ class NetworkAclPage extends React.Component {
         resourceGroups: this.props.resourceGroups,
         vpc_name: this.props.data.name,
         craig: this.props.craig,
-        disableModalSubmitCallback: none
+        disableModalSubmitCallback: none$1
       },
       disableSave: this.props.disableSave,
       propsMatchState: this.props.propsMatchState,
@@ -10718,11 +10719,11 @@ const NetworkAcls = props => {
     innerForm: NetworkAclPage,
     arrayData: props.vpcs,
     docs: props.docs,
-    onSubmit: none,
-    onDelete: none,
-    onSave: none,
-    disableSave: none,
-    propsMatchState: none,
+    onSubmit: none$1,
+    onDelete: none$1,
+    onSave: none$1,
+    disableSave: none$1,
+    propsMatchState: none$1,
     forceOpen: props.forceOpen,
     hideFormTitleButton: true,
     innerFormProps: {
@@ -10749,8 +10750,8 @@ const NetworkAcls = props => {
       noSaveButton: true,
       hideName: true,
       submissionFieldName: "network_acls",
-      disableSave: none,
-      propsMatchState: none,
+      disableSave: none$1,
+      propsMatchState: none$1,
       nullRef: true
     }
   });
@@ -10824,6 +10825,184 @@ SshKeys.propTypes = {
   docs: PropTypes.func.isRequired,
   deleteDisabled: PropTypes.func.isRequired,
   invalidKeyCallback: PropTypes.func.isRequired
+};
+
+function none() {}
+class SubnetsPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.onModalSubmit = this.onModalSubmit.bind(this);
+  }
+  onModalSubmit(data) {
+    this.props.onSubnetSubmit.create(data, {
+      vpc_name: this.props.data.name
+    });
+    this.props.handleModalToggle();
+  }
+  render() {
+    let tiers = [...this.props.subnetTiers[this.props.data.name]];
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(FormModal$1, {
+      name: "Add a Subnet Tier",
+      show: this.props.showSubModal,
+      onRequestSubmit: this.onModalSubmit,
+      onRequestClose: this.props.handleModalToggle
+    }, /*#__PURE__*/React.createElement(SubnetTierForm$1, {
+      dynamicSubnets: this.props.dynamicSubnets,
+      networkAcls: splat$2(this.props.data.acls, "name"),
+      enabledPublicGateways: this.props.data.publicGateways,
+      vpc_name: this.props.data.name,
+      subnetListCallback: this.props.subnetListCallback,
+      craig: this.props.craig,
+      disableSubnetSaveCallback: none,
+      propsMatchState: none,
+      shouldDisableSave: none,
+      shouldDisableSubmit: (stateData, componentProps) => {
+        return this.props.disableSave("subnetTier", stateData, componentProps);
+      },
+      invalidTextCallback: this.props.invalidSubnetTierText,
+      invalidCallback: this.props.invalidSubnetTierName,
+      invalidCidr: this.props.invalidCidr(this.props.craig),
+      invalidCidrText: this.props.invalidCidrText(this.props.craig),
+      invalidSubnetCallback: this.props.invalidName("subnet", this.props.craig),
+      invalidSubnetTextCallback: this.props.invalidNameText("subnet", this.props.craig)
+    })), /*#__PURE__*/React.createElement(IcseHeading$1, {
+      name: "Subnet Tiers",
+      className: "marginBottomSmall",
+      type: "subHeading",
+      buttons: /*#__PURE__*/React.createElement(SaveAddButton$1, {
+        onClick: () => this.props.handleModalToggle(),
+        type: "add",
+        noDeleteButton: true
+      })
+    }), tiers.length === 0 && /*#__PURE__*/React.createElement(EmptyResourceTile$1, {
+      name: "Subnet Tiers for " + titleCase$2(this.props.data.name) + " VPC"
+    }), this.props.subnetTiers[this.props.data.name].map((tier, index) => /*#__PURE__*/React.createElement(SubnetTierForm$1, {
+      key: JSON.stringify(tier),
+      data: this.props.getSubnetTierStateData(tier, this.props.data),
+      index: index,
+      onSave: this.props.onSubnetTierSave,
+      onDelete: this.props.onSubnetTierDelete,
+      networkAcls: splat$2(this.props.data.acls, "name"),
+      enabledPublicGateways: this.props.data.publicGateways,
+      vpc_name: this.props.data.name,
+      subnetListCallback: this.props.getTierSubnets(tier, {
+        ...this.props.data
+      }),
+      craig: this.props.craig,
+      dynamicSubnets: this.props.dynamicSubnets,
+      disableSubnetSaveCallback: (stateData, componentProps) => {
+        return this.props.propsMatchState("subnet", stateData, componentProps) || this.props.disableSave("subnet", stateData, componentProps, this.props.craig);
+      },
+      shouldDisableSave: (stateData, componentProps) => {
+        return this.props.propsMatchState("subnetTier", stateData, componentProps) || this.props.disableSave("subnetTier", stateData, componentProps);
+      },
+      propsMatchState: (stateData, componentProps) => {
+        return this.props.propsMatchState("subnetTier", stateData, componentProps);
+      },
+      shouldDisableSubmit: none,
+      invalidTextCallback: this.props.invalidSubnetTierText,
+      invalidCallback: this.props.invalidSubnetTierName,
+      invalidCidr: this.props.invalidCidr(this.props.craig),
+      invalidCidrText: this.props.invalidCidrText(this.props.craig),
+      invalidSubnetCallback: this.props.invalidName("subnet", this.props.craig),
+      invalidSubnetTextCallback: this.props.invalidNameText("subnet", this.props.craig),
+      onSubnetSave: this.props.onSubnetSave
+    })));
+  }
+}
+SubnetsPage.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    acls: PropTypes.array.isRequired
+  }),
+  onSubnetSubmit: PropTypes.func.isRequired,
+  subnetTiers: PropTypes.shape({}).isRequired,
+  showSubModal: PropTypes.bool,
+  handleModalToggle: PropTypes.func,
+  dynamicSubnets: PropTypes.bool,
+  subnetListCallback: PropTypes.func.isRequired,
+  craig: PropTypes.shape({}).isRequired,
+  propsMatchState: PropTypes.func.isRequired,
+  disableSave: PropTypes.func.isRequired,
+  invalidSubnetTierText: PropTypes.func.isRequired,
+  invalidSubnetTierName: PropTypes.func.isRequired,
+  invalidCidr: PropTypes.func.isRequired,
+  invalidCidrText: PropTypes.func.isRequired,
+  invalidName: PropTypes.func.isRequired,
+  invalidNameText: PropTypes.func.isRequired,
+  getSubnetTierStateData: PropTypes.func.isRequired,
+  getTierSubnets: PropTypes.func.isRequired,
+  onSubnetSave: PropTypes.func.isRequired,
+  onSubnetTierSave: PropTypes.func.isRequired,
+  onSubnetTierDelete: PropTypes.func.isRequired
+};
+const Subnets = props => {
+  return /*#__PURE__*/React.createElement(IcseFormTemplate$1, {
+    name: "VPC Subnets",
+    innerForm: SubnetsPage,
+    arrayData: props.vpcs,
+    docs: props.docs,
+    onSubmit: none,
+    onDelete: none,
+    onSave: none,
+    disableSave: none,
+    propsMatchState: none,
+    forceOpen: props.forceOpen,
+    hideFormTitleButton: true,
+    innerFormProps: {
+      craig: props.craig,
+      onSubnetSubmit: props.onSubnetSubmit,
+      subnetTiers: props.subnetTiers,
+      dynamicSubnets: props.dynamicSubnets,
+      subnetListCallback: props.subnetListCallback,
+      propsMatchState: props.propsMatchState,
+      disableSave: props.disableSave,
+      invalidSubnetTierText: props.invalidSubnetTierText,
+      invalidSubnetTierName: props.invalidSubnetTierName,
+      invalidCidr: props.invalidCidr,
+      invalidCidrText: props.invalidCidrText,
+      invalidName: props.invalidName,
+      invalidNameText: props.invalidNameText,
+      getSubnetTierStateData: props.getSubnetTierStateData,
+      getTierSubnets: props.getTierSubnets,
+      onSubnetSave: props.onSubnetSave,
+      onSubnetTierSave: props.onSubnetTierSave,
+      onSubnetTierDelete: props.onSubnetTierDelete
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      noDeleteButton: true,
+      noSaveButton: true,
+      hideName: true,
+      submissionFieldName: "subnets",
+      disableSave: none,
+      propsMatchState: none,
+      nullRef: true
+    }
+  });
+};
+Subnets.propTypes = {
+  vpcs: PropTypes.array.isRequired,
+  docs: PropTypes.func.isRequired,
+  forceOpen: PropTypes.func.isRequired,
+  onSubnetSubmit: PropTypes.func.isRequired,
+  subnetTiers: PropTypes.shape({}).isRequired,
+  dynamicSubnets: PropTypes.bool,
+  subnetListCallback: PropTypes.func.isRequired,
+  craig: PropTypes.shape({}).isRequired,
+  propsMatchState: PropTypes.func.isRequired,
+  disableSave: PropTypes.func.isRequired,
+  invalidSubnetTierText: PropTypes.func.isRequired,
+  invalidSubnetTierName: PropTypes.func.isRequired,
+  invalidCidr: PropTypes.func.isRequired,
+  invalidCidrText: PropTypes.func.isRequired,
+  invalidName: PropTypes.func.isRequired,
+  invalidNameText: PropTypes.func.isRequired,
+  getSubnetTierStateData: PropTypes.func.isRequired,
+  getTierSubnets: PropTypes.func.isRequired,
+  onSubnetSave: PropTypes.func.isRequired,
+  onSubnetTierSave: PropTypes.func.isRequired,
+  onSubnetTierDelete: PropTypes.func.isRequired
 };
 
 class ClusterForm extends Component {
@@ -14014,4 +14193,4 @@ SecretsManagerChecklist.propTypes = {
   parentName: PropTypes.string.isRequired
 };
 
-export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AccessGroups as AccessGroupsTemplate, AppIdForm, AppIdKeyForm, AppId as AppIdTemplate, AtrackerForm, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, ClusterForm, Clusters as ClustersTemplate, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsForm, DnsRecordForm, Dns as DnsTemplate, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, EventStreams as EventStreamsTemplate, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, KeyManagement as KeyManagementTemplate, LocationsMultiSelect, LogDNAForm, NetworkAclForm$1 as NetworkAclForm, NetworkAcls as NetworkAclTemplate, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, ObjectStorage as ObjectStorageTemplate, OrderCardDataTable, PopoverWrapper, RenderForm, ResourceGroupForm, ResourceGroups as ResourceGroupsTemplate, RoutingTableForm, RoutingTableRouteForm, RoutingTables as RoutingTableTemplate, SaveAddButton, SaveIcon, SccForm, SecretsManagerChecklist, SecretsManagerForm, SecretsManager as SecretsManagerTemplate, SecurityGroupForm, SecurityGroupMultiSelect, SecurityGroups as SecurityGroupTemplate, SshKeyForm, SshKeyMultiSelect, SshKeys as SshKeysTemplate, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, SubnetTierForm, SubnetTileForm, SysdigForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, TransitGateways as TransitGatewayTemplate, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, Vpcs as VpcTemplate, VpeForm, Vpe as VpeTemplate, VpnGatewayForm, VpnGateways as VpnGatewayTemplate, VpnServerForm, VpnServerRouteForm, VpnServers as VpnServerTemplate, VsiForm, VsiLoadBalancerForm, VsiLoadBalancer as VsiLoadBalancerTemplate, Vsi as VsiTemplate, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AccessGroups as AccessGroupsTemplate, AppIdForm, AppIdKeyForm, AppId as AppIdTemplate, AtrackerForm, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, ClusterForm, Clusters as ClustersTemplate, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsForm, DnsRecordForm, Dns as DnsTemplate, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, EventStreams as EventStreamsTemplate, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, KeyManagement as KeyManagementTemplate, LocationsMultiSelect, LogDNAForm, NetworkAclForm$1 as NetworkAclForm, NetworkAcls as NetworkAclTemplate, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, ObjectStorage as ObjectStorageTemplate, OrderCardDataTable, PopoverWrapper, RenderForm, ResourceGroupForm, ResourceGroups as ResourceGroupsTemplate, RoutingTableForm, RoutingTableRouteForm, RoutingTables as RoutingTableTemplate, SaveAddButton, SaveIcon, SccForm, SecretsManagerChecklist, SecretsManagerForm, SecretsManager as SecretsManagerTemplate, SecurityGroupForm, SecurityGroupMultiSelect, SecurityGroups as SecurityGroupTemplate, SshKeyForm, SshKeyMultiSelect, SshKeys as SshKeysTemplate, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, Subnets as SubnetPageTemplate, SubnetTierForm, SubnetTileForm, SysdigForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, TransitGateways as TransitGatewayTemplate, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, Vpcs as VpcTemplate, VpeForm, Vpe as VpeTemplate, VpnGatewayForm, VpnGateways as VpnGatewayTemplate, VpnServerForm, VpnServerRouteForm, VpnServers as VpnServerTemplate, VsiForm, VsiLoadBalancerForm, VsiLoadBalancer as VsiLoadBalancerTemplate, Vsi as VsiTemplate, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };

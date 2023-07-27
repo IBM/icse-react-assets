@@ -9,6 +9,7 @@ var regexButWithWords = require('regex-but-with-words');
 var React = require('react');
 var PropTypes = require('prop-types');
 var iconsReact = require('@carbon/icons-react');
+var icseReactAssets = require('icse-react-assets');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -10590,7 +10591,7 @@ VpnServers.propTypes = {
   vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string)
 };
 
-function none() {}
+function none$1() {}
 class NetworkAclPage extends React__default["default"].Component {
   constructor(props) {
     super(props);
@@ -10644,12 +10645,12 @@ class NetworkAclPage extends React__default["default"].Component {
       },
       isModal: true
       /* below functions only needed when not modal but are required */,
-      disableSaveCallback: none,
-      helperTextCallback: none,
-      onRuleSave: none,
-      onRuleDelete: none,
-      disableModalSubmitCallback: none,
-      onSubmitCallback: none
+      disableSaveCallback: none$1,
+      helperTextCallback: none$1,
+      onRuleSave: none$1,
+      onRuleDelete: none$1,
+      disableModalSubmitCallback: none$1,
+      onSubmitCallback: none$1
     })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
       name: "Network Access Control Lists",
       className: "marginBottomSmall",
@@ -10661,7 +10662,7 @@ class NetworkAclPage extends React__default["default"].Component {
       })
     }), /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
       arrayData: this.props.data.acls,
-      onSubmit: none // no modal
+      onSubmit: none$1 // no modal
       ,
       onDelete: this.props.onDelete,
       onSave: this.props.onSave,
@@ -10682,7 +10683,7 @@ class NetworkAclPage extends React__default["default"].Component {
         resourceGroups: this.props.resourceGroups,
         vpc_name: this.props.data.name,
         craig: this.props.craig,
-        disableModalSubmitCallback: none
+        disableModalSubmitCallback: none$1
       },
       disableSave: this.props.disableSave,
       propsMatchState: this.props.propsMatchState,
@@ -10729,11 +10730,11 @@ const NetworkAcls = props => {
     innerForm: NetworkAclPage,
     arrayData: props.vpcs,
     docs: props.docs,
-    onSubmit: none,
-    onDelete: none,
-    onSave: none,
-    disableSave: none,
-    propsMatchState: none,
+    onSubmit: none$1,
+    onDelete: none$1,
+    onSave: none$1,
+    disableSave: none$1,
+    propsMatchState: none$1,
     forceOpen: props.forceOpen,
     hideFormTitleButton: true,
     innerFormProps: {
@@ -10760,8 +10761,8 @@ const NetworkAcls = props => {
       noSaveButton: true,
       hideName: true,
       submissionFieldName: "network_acls",
-      disableSave: none,
-      propsMatchState: none,
+      disableSave: none$1,
+      propsMatchState: none$1,
       nullRef: true
     }
   });
@@ -10835,6 +10836,184 @@ SshKeys.propTypes = {
   docs: PropTypes__default["default"].func.isRequired,
   deleteDisabled: PropTypes__default["default"].func.isRequired,
   invalidKeyCallback: PropTypes__default["default"].func.isRequired
+};
+
+function none() {}
+class SubnetsPage extends React__default["default"].Component {
+  constructor(props) {
+    super(props);
+    this.onModalSubmit = this.onModalSubmit.bind(this);
+  }
+  onModalSubmit(data) {
+    this.props.onSubnetSubmit.create(data, {
+      vpc_name: this.props.data.name
+    });
+    this.props.handleModalToggle();
+  }
+  render() {
+    let tiers = [...this.props.subnetTiers[this.props.data.name]];
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(icseReactAssets.FormModal, {
+      name: "Add a Subnet Tier",
+      show: this.props.showSubModal,
+      onRequestSubmit: this.onModalSubmit,
+      onRequestClose: this.props.handleModalToggle
+    }, /*#__PURE__*/React__default["default"].createElement(icseReactAssets.SubnetTierForm, {
+      dynamicSubnets: this.props.dynamicSubnets,
+      networkAcls: lazyZ.splat(this.props.data.acls, "name"),
+      enabledPublicGateways: this.props.data.publicGateways,
+      vpc_name: this.props.data.name,
+      subnetListCallback: this.props.subnetListCallback,
+      craig: this.props.craig,
+      disableSubnetSaveCallback: none,
+      propsMatchState: none,
+      shouldDisableSave: none,
+      shouldDisableSubmit: (stateData, componentProps) => {
+        return this.props.disableSave("subnetTier", stateData, componentProps);
+      },
+      invalidTextCallback: this.props.invalidSubnetTierText,
+      invalidCallback: this.props.invalidSubnetTierName,
+      invalidCidr: this.props.invalidCidr(this.props.craig),
+      invalidCidrText: this.props.invalidCidrText(this.props.craig),
+      invalidSubnetCallback: this.props.invalidName("subnet", this.props.craig),
+      invalidSubnetTextCallback: this.props.invalidNameText("subnet", this.props.craig)
+    })), /*#__PURE__*/React__default["default"].createElement(icseReactAssets.IcseHeading, {
+      name: "Subnet Tiers",
+      className: "marginBottomSmall",
+      type: "subHeading",
+      buttons: /*#__PURE__*/React__default["default"].createElement(icseReactAssets.SaveAddButton, {
+        onClick: () => this.props.handleModalToggle(),
+        type: "add",
+        noDeleteButton: true
+      })
+    }), tiers.length === 0 && /*#__PURE__*/React__default["default"].createElement(icseReactAssets.EmptyResourceTile, {
+      name: "Subnet Tiers for " + lazyZ.titleCase(this.props.data.name) + " VPC"
+    }), this.props.subnetTiers[this.props.data.name].map((tier, index) => /*#__PURE__*/React__default["default"].createElement(icseReactAssets.SubnetTierForm, {
+      key: JSON.stringify(tier),
+      data: this.props.getSubnetTierStateData(tier, this.props.data),
+      index: index,
+      onSave: this.props.onSubnetTierSave,
+      onDelete: this.props.onSubnetTierDelete,
+      networkAcls: lazyZ.splat(this.props.data.acls, "name"),
+      enabledPublicGateways: this.props.data.publicGateways,
+      vpc_name: this.props.data.name,
+      subnetListCallback: this.props.getTierSubnets(tier, {
+        ...this.props.data
+      }),
+      craig: this.props.craig,
+      dynamicSubnets: this.props.dynamicSubnets,
+      disableSubnetSaveCallback: (stateData, componentProps) => {
+        return this.props.propsMatchState("subnet", stateData, componentProps) || this.props.disableSave("subnet", stateData, componentProps, this.props.craig);
+      },
+      shouldDisableSave: (stateData, componentProps) => {
+        return this.props.propsMatchState("subnetTier", stateData, componentProps) || this.props.disableSave("subnetTier", stateData, componentProps);
+      },
+      propsMatchState: (stateData, componentProps) => {
+        return this.props.propsMatchState("subnetTier", stateData, componentProps);
+      },
+      shouldDisableSubmit: none,
+      invalidTextCallback: this.props.invalidSubnetTierText,
+      invalidCallback: this.props.invalidSubnetTierName,
+      invalidCidr: this.props.invalidCidr(this.props.craig),
+      invalidCidrText: this.props.invalidCidrText(this.props.craig),
+      invalidSubnetCallback: this.props.invalidName("subnet", this.props.craig),
+      invalidSubnetTextCallback: this.props.invalidNameText("subnet", this.props.craig),
+      onSubnetSave: this.props.onSubnetSave
+    })));
+  }
+}
+SubnetsPage.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    acls: PropTypes__default["default"].array.isRequired
+  }),
+  onSubnetSubmit: PropTypes__default["default"].func.isRequired,
+  subnetTiers: PropTypes__default["default"].shape({}).isRequired,
+  showSubModal: PropTypes__default["default"].bool,
+  handleModalToggle: PropTypes__default["default"].func,
+  dynamicSubnets: PropTypes__default["default"].bool,
+  subnetListCallback: PropTypes__default["default"].func.isRequired,
+  craig: PropTypes__default["default"].shape({}).isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  invalidSubnetTierText: PropTypes__default["default"].func.isRequired,
+  invalidSubnetTierName: PropTypes__default["default"].func.isRequired,
+  invalidCidr: PropTypes__default["default"].func.isRequired,
+  invalidCidrText: PropTypes__default["default"].func.isRequired,
+  invalidName: PropTypes__default["default"].func.isRequired,
+  invalidNameText: PropTypes__default["default"].func.isRequired,
+  getSubnetTierStateData: PropTypes__default["default"].func.isRequired,
+  getTierSubnets: PropTypes__default["default"].func.isRequired,
+  onSubnetSave: PropTypes__default["default"].func.isRequired,
+  onSubnetTierSave: PropTypes__default["default"].func.isRequired,
+  onSubnetTierDelete: PropTypes__default["default"].func.isRequired
+};
+const Subnets = props => {
+  return /*#__PURE__*/React__default["default"].createElement(icseReactAssets.IcseFormTemplate, {
+    name: "VPC Subnets",
+    innerForm: SubnetsPage,
+    arrayData: props.vpcs,
+    docs: props.docs,
+    onSubmit: none,
+    onDelete: none,
+    onSave: none,
+    disableSave: none,
+    propsMatchState: none,
+    forceOpen: props.forceOpen,
+    hideFormTitleButton: true,
+    innerFormProps: {
+      craig: props.craig,
+      onSubnetSubmit: props.onSubnetSubmit,
+      subnetTiers: props.subnetTiers,
+      dynamicSubnets: props.dynamicSubnets,
+      subnetListCallback: props.subnetListCallback,
+      propsMatchState: props.propsMatchState,
+      disableSave: props.disableSave,
+      invalidSubnetTierText: props.invalidSubnetTierText,
+      invalidSubnetTierName: props.invalidSubnetTierName,
+      invalidCidr: props.invalidCidr,
+      invalidCidrText: props.invalidCidrText,
+      invalidName: props.invalidName,
+      invalidNameText: props.invalidNameText,
+      getSubnetTierStateData: props.getSubnetTierStateData,
+      getTierSubnets: props.getTierSubnets,
+      onSubnetSave: props.onSubnetSave,
+      onSubnetTierSave: props.onSubnetTierSave,
+      onSubnetTierDelete: props.onSubnetTierDelete
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      noDeleteButton: true,
+      noSaveButton: true,
+      hideName: true,
+      submissionFieldName: "subnets",
+      disableSave: none,
+      propsMatchState: none,
+      nullRef: true
+    }
+  });
+};
+Subnets.propTypes = {
+  vpcs: PropTypes__default["default"].array.isRequired,
+  docs: PropTypes__default["default"].func.isRequired,
+  forceOpen: PropTypes__default["default"].func.isRequired,
+  onSubnetSubmit: PropTypes__default["default"].func.isRequired,
+  subnetTiers: PropTypes__default["default"].shape({}).isRequired,
+  dynamicSubnets: PropTypes__default["default"].bool,
+  subnetListCallback: PropTypes__default["default"].func.isRequired,
+  craig: PropTypes__default["default"].shape({}).isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  invalidSubnetTierText: PropTypes__default["default"].func.isRequired,
+  invalidSubnetTierName: PropTypes__default["default"].func.isRequired,
+  invalidCidr: PropTypes__default["default"].func.isRequired,
+  invalidCidrText: PropTypes__default["default"].func.isRequired,
+  invalidName: PropTypes__default["default"].func.isRequired,
+  invalidNameText: PropTypes__default["default"].func.isRequired,
+  getSubnetTierStateData: PropTypes__default["default"].func.isRequired,
+  getTierSubnets: PropTypes__default["default"].func.isRequired,
+  onSubnetSave: PropTypes__default["default"].func.isRequired,
+  onSubnetTierSave: PropTypes__default["default"].func.isRequired,
+  onSubnetTierDelete: PropTypes__default["default"].func.isRequired
 };
 
 class ClusterForm extends React.Component {
@@ -14111,6 +14290,7 @@ exports.StatefulTabPanel = StatefulTabPanel;
 exports.StatelessToggleForm = StatelessToggleForm;
 exports.SubnetForm = SubnetForm;
 exports.SubnetMultiSelect = SubnetMultiSelect;
+exports.SubnetPageTemplate = Subnets;
 exports.SubnetTierForm = SubnetTierForm;
 exports.SubnetTileForm = SubnetTileForm;
 exports.SysdigForm = SysdigForm;
