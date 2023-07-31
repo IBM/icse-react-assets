@@ -4515,10 +4515,10 @@ class CloudDatabaseForm extends Component {
     let nextState = {
       ...this.state
     };
-    if (this.state.sharedCpu === false) {
+    if (this.state.shared_cpu === false) {
       nextState.cpu = 0;
-      nextState.sharedCpu = true;
-    } else nextState.sharedCpu = false;
+      nextState.shared_cpu = true;
+    } else nextState.shared_cpu = false;
     this.setState(nextState);
   }
   render() {
@@ -4607,7 +4607,7 @@ class CloudDatabaseForm extends Component {
       hideSteppers: true,
       invalidText: "Disk must be a minimum of 5GB and a maximum 4096GB per member",
       className: "fieldWidthSmaller leftTextAlign"
-    }), this.props.sharedCpu !== true && /*#__PURE__*/React.createElement(NumberInput, {
+    }), this.props.shared_cpu !== true && /*#__PURE__*/React.createElement(NumberInput, {
       label: "CPU",
       id: this.props.data.name + "-db-cpu",
       value: this.state.cpu,
@@ -4622,7 +4622,7 @@ class CloudDatabaseForm extends Component {
       className: "fieldWidthSmaller leftTextAlign"
     }), /*#__PURE__*/React.createElement(IcseToggle, {
       labelText: "Shared CPU",
-      key: this.state.sharedCpu,
+      key: this.state.shared_cpu,
       defaultToggled: false,
       toggleFieldName: "shared_cpu",
       onToggle: this.handleCpuToggle,
@@ -4651,7 +4651,7 @@ CloudDatabaseForm.defaultProps = {
     memory: 1024,
     disk: 1024,
     cpu: 0,
-    sharedCpu: false
+    shared_cpu: false
   }
 };
 CloudDatabaseForm.propTypes = {
@@ -4665,7 +4665,7 @@ CloudDatabaseForm.propTypes = {
     memory: PropTypes.number,
     disk: PropTypes.number,
     cpu: PropTypes.number,
-    sharedCpu: PropTypes.bool,
+    shared_cpu: PropTypes.bool,
     encryption_key: PropTypes.string
   }).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,

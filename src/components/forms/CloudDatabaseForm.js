@@ -47,10 +47,10 @@ class CloudDatabaseForm extends Component {
    */
   handleCpuToggle() {
     let nextState = { ...this.state };
-    if(this.state.sharedCpu === false) {
+    if(this.state.shared_cpu === false) {
       nextState.cpu = 0;
-      nextState.sharedCpu = true;
-    } else nextState.sharedCpu = false;
+      nextState.shared_cpu = true;
+    } else nextState.shared_cpu = false;
     this.setState(nextState);
   }
 
@@ -162,7 +162,7 @@ class CloudDatabaseForm extends Component {
             className="fieldWidthSmaller leftTextAlign"
           />
         {/* cpu text input */}
-        {this.props.sharedCpu !== true && (
+        {this.props.shared_cpu !== true && (
         <NumberInput
             label="CPU"
             id={this.props.data.name + "-db-cpu"}
@@ -181,7 +181,7 @@ class CloudDatabaseForm extends Component {
         {/* shared cpu toggle */}
         <IcseToggle
           labelText="Shared CPU"
-          key={this.state.sharedCpu}
+          key={this.state.shared_cpu}
           defaultToggled={false}
           toggleFieldName="shared_cpu"
           onToggle={this.handleCpuToggle}
@@ -218,7 +218,7 @@ CloudDatabaseForm.defaultProps = {
     memory: 1024,
     disk: 1024,
     cpu: 0,
-    sharedCpu: false,
+    shared_cpu: false,
   }
 };
 
@@ -233,7 +233,7 @@ CloudDatabaseForm.propTypes = {
     memory: PropTypes.number,
     disk: PropTypes.number,
     cpu: PropTypes.number,
-    sharedCpu: PropTypes.bool,
+    shared_cpu: PropTypes.bool,
     encryption_key: PropTypes.string,
   }).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
