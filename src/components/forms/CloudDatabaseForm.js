@@ -211,7 +211,7 @@ CloudDatabaseForm.propTypes = {
   invalidCallback: PropTypes.func,
   invalidTextCallback: PropTypes.func,
   invalidCpuCallback: PropTypes.func,
-  invalidTextCpuCallback: PropTypes.func,
+  invalidCpuTextCallback: PropTypes.func,
 };
 
 export default CloudDatabaseForm;

@@ -4656,7 +4656,7 @@ CloudDatabaseForm.propTypes = {
   invalidCallback: PropTypes__default["default"].func,
   invalidTextCallback: PropTypes__default["default"].func,
   invalidCpuCallback: PropTypes__default["default"].func,
-  invalidTextCpuCallback: PropTypes__default["default"].func
+  invalidCpuTextCallback: PropTypes__default["default"].func
 };
 
 class WorkerPoolForm extends React.Component {

@@ -153,7 +153,7 @@ const CloudDatabaseFormStory = () => {
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
       invalidCpuCallback={invalidCpuCallback}
-      invalidTextCpuCallback={invalidTextCpuCallback}
+      invalidCpuTextCallback={invalidCpuTextCallback}
     />
   );
 };
