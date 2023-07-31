@@ -18,10 +18,7 @@ import {
   handleSubnetTierToggle,
   parseZoneStrings,
 } from "../../lib/forms";
-import {
-  buildFormDefaultInputMethods,
-  buildFormFunctions,
-} from "../component-utils";
+import { buildFormDefaultInputMethods } from "../component-utils";
 import { handleSubnetShowToggle } from "../../lib/forms/subnets";
 
 class SubnetTierForm extends React.Component {
@@ -41,7 +38,6 @@ class SubnetTierForm extends React.Component {
     this.handleSelectZones = this.handleSelectZones.bind(this);
     this.onSubnetSave = this.onSubnetSave.bind(this);
     buildFormDefaultInputMethods(this);
-    buildFormFunctions(this);
   }
   /**
    * handle select zones
