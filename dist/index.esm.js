@@ -4541,11 +4541,10 @@ class CloudDatabaseForm extends Component {
       labelText: "Plan",
       name: "plan",
       formName: this.props.data.name + "-db-plan",
-      groups: ["standard", "enterprise"],
+      groups: ["standard"],
       value: this.state.plan,
       handleInputChange: this.handleInputChange,
-      invalid: this.state.plan === "enterprise" && this.state.service !== "databases-for-mongodb",
-      invalidText: "Select a Plan. Enterprise plan is supported only for MondoDB.",
+      invalidText: "Select a Plan.",
       className: "fieldWidth",
       id: `${this.props.data.name}-db-plan`
     }), /*#__PURE__*/React.createElement(IcseSelect, {
