@@ -123,7 +123,9 @@ const CloudDatabaseFormStory = () => {
 
   function invalidCpuCallback(stateData, componentProps) {
     return (
-        !isWholeNumber(stateData.cpu) || (stateData.cpu !== 0 || (stateData.cpu < 3 && stateData.cpu > 28))
+        !isWholeNumber(Number(stateData.cpu)) || 
+        (Number(stateData.cpu) !== 0 && Number(stateData.cpu) < 3) ||
+        Number(stateData.cpu) > 28
     );
   }
 

@@ -4496,7 +4496,6 @@ class CloudDatabaseForm extends Component {
    * @param {event} event event
    */
   handleInputChange(event) {
-    console.log(this.state);
     this.setState(this.eventTargetToNameAndValue(event));
   }
 
@@ -4595,9 +4594,10 @@ class CloudDatabaseForm extends Component {
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: this.props.data.name + "-db-cpu",
       componentName: this.props.data.name + "-db-cpu",
+      placeholder: "",
       field: "cpu",
       labelText: "CPU",
-      value: this.state.cpu || "",
+      value: this.state.cpu,
       onChange: this.handleInputChange,
       invalid: this.props.invalidCpuCallback(this.state, this.props),
       invalidText: this.props.invalidCpuTextCallback(this.state, this.props),
