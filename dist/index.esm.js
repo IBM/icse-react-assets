@@ -4591,7 +4591,7 @@ class CloudDatabaseForm extends Component {
       max: 112,
       min: 1,
       onChange: this.handleInputChange,
-      name: "db-memory",
+      name: "memory",
       hideSteppers: true,
       invalidText: "RAM must be a minimum of 1GB and a maximum 112GB per member",
       className: "fieldWidthSmaller leftTextAlign"
@@ -4603,7 +4603,7 @@ class CloudDatabaseForm extends Component {
       max: 4096,
       min: 5,
       onChange: this.handleInputChange,
-      name: "db-disk",
+      name: "disk",
       hideSteppers: true,
       invalidText: "Disk must be a minimum of 5GB and a maximum 4096GB per member",
       className: "fieldWidthSmaller leftTextAlign"
@@ -4615,7 +4615,7 @@ class CloudDatabaseForm extends Component {
       max: 28,
       min: 3,
       onChange: this.handleInputChange,
-      name: "db-cpu",
+      name: "cpu",
       hideSteppers: true,
       invalid: this.state.cpu !== 0,
       invalidText: "Using dedicated cores requires a minimum of 3 cores and a maximum of 28 cores per member. For shared CPU, use toggle.",
