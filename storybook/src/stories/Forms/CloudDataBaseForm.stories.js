@@ -127,7 +127,7 @@ const CloudDatabaseFormStory = () => {
     );
   }
 
-  function invalidTextCallback(stateData, componentProps) {
+  function invalidCpuTextCallback(stateData, componentProps) {
     return `Using dedicated cores requires a minimum of 3 cores and a maximum of 28 cores per member. For shared CPU, select 0 cores.`;
   }
 
