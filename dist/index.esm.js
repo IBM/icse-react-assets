@@ -4487,7 +4487,6 @@ class CloudDatabaseForm extends Component {
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
-    this.handleCpuToggle = this.handleCpuToggle.bind(this);
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
   }
@@ -4506,20 +4505,6 @@ class CloudDatabaseForm extends Component {
    */
   handleToggle() {
     this.setState(this.toggleStateBoolean("use_data", this.state));
-  }
-
-  /**
-   * Toggle on and off shared cpu param in state
-   */
-  handleCpuToggle() {
-    let nextState = {
-      ...this.state
-    };
-    if (this.state.shared_cpu === false) {
-      nextState.cpu = 0;
-      nextState.shared_cpu = true;
-    } else nextState.shared_cpu = false;
-    this.setState(nextState);
   }
   render() {
     return /*#__PURE__*/React.createElement("div", {
@@ -4586,7 +4571,7 @@ class CloudDatabaseForm extends Component {
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NumberInput, {
       label: "Memory",
       id: this.props.data.name + "-db-memory",
-      value: this.state.memory * 1024,
+      value: this.state.memory,
       defaultValue: 1,
       max: 112,
       min: 1,
@@ -4598,7 +4583,7 @@ class CloudDatabaseForm extends Component {
     }), /*#__PURE__*/React.createElement(NumberInput, {
       label: "Disk",
       id: this.props.data.name + "-db-disk",
-      value: this.state.disk * 1024,
+      value: this.state.disk,
       defaultValue: 1,
       max: 4096,
       min: 5,
@@ -4607,27 +4592,16 @@ class CloudDatabaseForm extends Component {
       hideSteppers: true,
       invalidText: "Disk must be a minimum of 5GB and a maximum 4096GB per member",
       className: "fieldWidthSmaller leftTextAlign"
-    }), this.props.shared_cpu !== true && /*#__PURE__*/React.createElement(NumberInput, {
-      label: "CPU",
+    }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: this.props.data.name + "-db-cpu",
-      value: this.state.cpu,
-      defaultValue: 1,
-      max: 28,
-      min: 3,
+      componentName: this.props.data.name + "-db-cpu",
+      field: "cpu",
+      labelText: "CPU",
+      value: this.state.cpu || "",
       onChange: this.handleInputChange,
-      name: "cpu",
-      hideSteppers: true,
-      invalid: this.state.cpu !== 0,
-      invalidText: "Using dedicated cores requires a minimum of 3 cores and a maximum of 28 cores per member. For shared CPU, use toggle.",
-      className: "fieldWidthSmaller leftTextAlign"
-    }), /*#__PURE__*/React.createElement(IcseToggle, {
-      labelText: "Shared CPU",
-      key: this.state.shared_cpu,
-      defaultToggled: false,
-      toggleFieldName: "shared_cpu",
-      onToggle: this.handleCpuToggle,
-      className: "fieldWidthSmallest",
-      id: `${this.props.data.name}-db-shared-cpu`
+      invalid: this.props.invalidCpuCallback(this.state, this.props),
+      invalidText: this.props.invalidCpuTextCallback(this.state, this.props),
+      className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
       value: this.state.encryption_key,
       groups: this.props.encryptionKeys,
@@ -4650,8 +4624,7 @@ CloudDatabaseForm.defaultProps = {
     group_id: "",
     memory: 1024,
     disk: 1024,
-    cpu: 0,
-    shared_cpu: false
+    cpu: 0
   }
 };
 CloudDatabaseForm.propTypes = {
@@ -4665,13 +4638,14 @@ CloudDatabaseForm.propTypes = {
     memory: PropTypes.number,
     disk: PropTypes.number,
     cpu: PropTypes.number,
-    shared_cpu: PropTypes.bool,
     encryption_key: PropTypes.string
   }).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  encryptionKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
   invalidCallback: PropTypes.func,
   invalidTextCallback: PropTypes.func,
-  encryptionKeys: PropTypes.arrayOf(PropTypes.string).isRequired
+  invalidCpuCallback: PropTypes.func,
+  invalidTextCpuCallback: PropTypes.func
 };
 
 class WorkerPoolForm extends Component {

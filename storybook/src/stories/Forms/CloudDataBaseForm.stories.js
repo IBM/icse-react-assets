@@ -1,7 +1,6 @@
 import React from "react";
 import { CloudDatabaseForm } from "icse-react-assets";
-import { contains } from "lazy-z";
-import { Cloud } from "@carbon/icons-react";
+import { contains, isWholeNumber } from "lazy-z";
 
 export default {
   component: CloudDatabaseForm,
@@ -58,12 +57,6 @@ export default {
         control: "none",
         type: { required: false }, // required prop or not
       },
-      ["data.shared_cpu"]: {
-        description:
-          "A boolean specifying if cpu should be shared (0 dedicated cores for cpu value)",
-        control: "none",
-        type: { required: false }, // required prop or not
-      },
     resourceGroups: {
       description:
         "An array of strings containing the names of resource groups to select",
@@ -77,6 +70,18 @@ export default {
       control: "none",
     },
     invalidTextCallback: {
+      description:
+        "A function to determine the invalid text displayed to the user and returns the string to display",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
+    invalidCpuCallback: {
+      description:
+        "Function that determines invalid state and invalid text for `cpu` field",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
+    invalidCpuTextCallback: {
       description:
         "A function to determine the invalid text displayed to the user and returns the string to display",
       type: { required: true }, // required prop or not
@@ -116,6 +121,16 @@ const CloudDatabaseFormStory = () => {
     return `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
   }
 
+  function invalidCpuCallback(stateData, componentProps) {
+    return (
+        !isWholeNumber(stateData.cpu) || (stateData.cpu !== 0 || (stateData.cpu < 3 && stateData.cpu > 28))
+    );
+  }
+
+  function invalidTextCallback(stateData, componentProps) {
+    return `Using dedicated cores requires a minimum of 3 cores and a maximum of 28 cores per member. For shared CPU, select 0 cores.`;
+  }
+
   return (
     <CloudDatabaseForm
       data={{
@@ -129,7 +144,6 @@ const CloudDatabaseFormStory = () => {
         memory: 0,
         disk: 0,
         cpu: 0,
-        shared_cpu: false,
       }}
       propsMatchState={function () {
         return false;
@@ -138,6 +152,8 @@ const CloudDatabaseFormStory = () => {
       encryptionKeys={["ekey1", "ekey2", "ekey3"]}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
+      invalidCpuCallback={invalidCpuCallback}
+      invalidTextCpuCallback={invalidTextCpuCallback}
     />
   );
 };
