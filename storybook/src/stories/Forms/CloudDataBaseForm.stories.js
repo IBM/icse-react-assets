@@ -58,6 +58,12 @@ export default {
         control: "none",
         type: { required: false }, // required prop or not
       },
+      ["data.shared_cpu"]: {
+        description:
+          "A boolean specifying if cpu should be shared (0 dedicated cores for cpu value)",
+        control: "none",
+        type: { required: false }, // required prop or not
+      },
     resourceGroups: {
       description:
         "An array of strings containing the names of resource groups to select",
@@ -123,7 +129,7 @@ const CloudDatabaseFormStory = () => {
         memory: 0,
         disk: 0,
         cpu: 0,
-        sharedCpu: false,
+        shared_cpu: false,
       }}
       propsMatchState={function () {
         return false;
