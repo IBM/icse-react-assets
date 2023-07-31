@@ -43,41 +43,32 @@ class CloudDatabaseForm extends Component {
   }
 
   render() {
-    let keyProps = {
-      invalidCallback: this.props.invalidKeyCallback,
-      invalidTextCallback: this.props.invalidKeyTextCallback,
-      arrayParentName: this.props.data.name,
-    };
-    transpose({ ...this.props.keyProps }, keyProps);
-    let composedClassName = this.props.isModal
-      ? "fieldWidthSmaller"
-      : "fieldWidth";
     return (
-      <div id="appid-form">
+      <div id="db-form">
         <IcseFormGroup>
           {/* name text input */}
           <IcseNameInput
-            id={this.props.data.name + "-appid-name"}
-            componentName={this.props.data.name + "-appid-name"}
-            placeholder="my-appid-name"
+            id={this.props.data.name + "-db-name"}
+            componentName={this.props.data.name + "-db-name"}
+            placeholder="my-db-name"
             value={this.state.name}
             onChange={this.handleInputChange}
             hideHelperText
             invalid={this.props.invalidCallback(this.state, this.props)}
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
-            className={composedClassName}
+            className="fieldWidth"
           />
           {/* Select Resource Group */}
           <IcseSelect
             labelText="Resource Group"
             name="resource_group"
-            formName={this.props.data.name + "-appid-rg"}
+            formName={this.props.data.name + "-db-rg"}
             groups={this.props.resourceGroups}
             value={this.state.resource_group}
             handleInputChange={this.handleInputChange}
             invalidText="Select a Resource Group."
-            className={composedClassName}
-            id={`${this.props.data.name}-app-id-rg`}
+            className="fieldWidth"
+            id={`${this.props.data.name}-db-rg`}
           />
           {/* use data toggle */}
           <IcseToggle
@@ -87,44 +78,90 @@ class CloudDatabaseForm extends Component {
             toggleFieldName="use_data"
             onToggle={this.handleToggle}
             className="fieldWidthSmallest"
-            id={`${this.props.data.name}-app-id-existing-instance`}
+            id={`${this.props.data.name}-db-existing-instance`}
           />
         </IcseFormGroup>
-        {this.state.use_data === false && (
-          <IcseFormGroup>
-            <IcseSelect
-              value={this.state.encryption_key}
-              groups={this.props.encryptionKeys}
-              formName={this.props.data.name + " AppID"}
-              name="encryption_key"
-              labelText="(Optional) Encryption Key"
-              handleInputChange={this.handleInputChange}
-              disableInvalid
-            />
-          </IcseFormGroup>
-        )}
-        {this.props.isModal !== true && (
-          <IcseFormTemplate
-            name="AppID Keys"
-            subHeading
-            addText="Create an AppID Key"
-            arrayData={this.props.data.keys}
-            innerForm={AppIdKeyForm}
-            disableSave={this.props.keyProps.disableSave}
-            onDelete={this.props.keyProps.onDelete}
-            onSave={this.props.keyProps.onSave}
-            onSubmit={this.props.keyProps.onSubmit}
-            propsMatchState={this.props.propsMatchState}
-            innerFormProps={{ ...keyProps }}
-            hideAbout
-            toggleFormProps={{
-              hideName: true,
-              submissionFieldName: "appid_key",
-              disableSave: this.props.keyProps.disableSave,
-              type: "formInSubForm",
-            }}
+        <IcseFormGroup>
+        {/* Select Encryption Key */}
+        <IcseSelect
+            value={this.state.encryption_key}
+            groups={this.props.encryptionKeys}
+            formName={this.props.data.name + " CloudDatabase"}
+            name="encryption_key"
+            labelText="(Optional) Encryption Key"
+            handleInputChange={this.handleInputChange}
+            disableInvalid
+        />
+        {/* Select Service */}
+        <IcseSelect
+        labelText="Cloud Database"
+        name="cloud_database_service"
+        formName={this.props.data.name + "-db-service"}
+        groups={["databases-for-postgresql", "databases-for-etcd", "databases-for-redis", "databases-for-mongodb", "databases-for-mysql"]}
+        value={this.state.service}
+        handleInputChange={this.handleInputChange}
+        invalidText="Select a Cloud Database."
+        className="fieldWidth"
+        id={`${this.props.data.name}-db-service`}
+        />
+        {/* Select Group ID */}
+        <IcseSelect
+        labelText="Group ID"
+        name="group_id"
+        formName={this.props.data.name + "-db-groupId"}
+        groups={["member", "analytcs", "bi_connector", "search"]}
+        value={this.state.group_id}
+        handleInputChange={this.handleInputChange}
+        invalidText="Select a Group ID."
+        className="fieldWidth"
+        id={`${this.props.data.name}-db-groupId`}
+        />
+        </IcseFormGroup>
+        <IcseFormGroup>
+        {/* memory number input */}
+        <NumberInput
+            label="Memory"
+            id={this.props.data.name + "-db-memory"}
+            value={this.state.memory * 1024}
+            defaultValue={1}
+            max={112}
+            min={1}
+            onChange={this.handleInputChange}
+            name="db-memory"
+            hideSteppers={true}
+            invalidText="RAM must be a minimum of 1GB and a maximum 112GB per member"
+            className="fieldWidthSmaller leftTextAlign"
           />
-        )}
+        {/* disk text input */}
+        <NumberInput
+            label="Disk"
+            id={this.props.data.name + "-db-disk"}
+            value={this.state.disk * 1024}
+            defaultValue={1}
+            max={4096}
+            min={5}
+            onChange={this.handleInputChange}
+            name="db-disk"
+            hideSteppers={true}
+            invalidText="Disk must be a minimum of 5GB and a maximum 4096GB per member"
+            className="fieldWidthSmaller leftTextAlign"
+          />
+        {/* cpu text input */}
+        <NumberInput
+            label="CPU"
+            id={this.props.data.name + "-db-cpu"}
+            value={this.state.cpu}
+            defaultValue={1}
+            max={28}
+            min={0}
+            onChange={this.handleInputChange}
+            name="db-cpu"
+            hideSteppers={true}
+            invalid={this.state.cpu === 1 || this.state.cpu === 2}
+            invalidText="Using dedicated cores requires a minimum of 3 cores and a maximum of 28 cores per member. For shared CPU, select 0 cores"
+            className="fieldWidthSmaller leftTextAlign"
+          />
+        </IcseFormGroup>
       </div>
     );
   }
@@ -135,18 +172,26 @@ CloudDatabaseForm.defaultProps = {
     name: "",
     resource_group: "",
     use_data: false,
-    keys: [],
-  },
-  isModal: false,
+    plan: "standard",
+    service: "",
+    group_id: "",
+    memory: 1024,
+    disk: 1024,
+    cpu: 0,
+  }
 };
 
 CloudDatabaseForm.propTypes = {
-  isModal: PropTypes.bool.isRequired,
   data: PropTypes.shape({
     name: PropTypes.string,
     resource_group: PropTypes.string,
     use_data: PropTypes.bool,
-    keys: PropTypes.array.isRequired,
+    plan: PropTypes.string,
+    service: PropTypes.string.isRequired,
+    group_id: PropTypes.string,
+    memory: PropTypes.number,
+    disk: PropTypes.number,
+    cpu: PropTypes.number,
     encryption_key: PropTypes.string,
   }).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
