@@ -82,16 +82,19 @@ class CloudDatabaseForm extends Component {
           />
         </IcseFormGroup>
         <IcseFormGroup>
-        {/* Select Encryption Key */}
-        <IcseSelect
-            value={this.state.encryption_key}
-            groups={this.props.encryptionKeys}
-            formName={this.props.data.name + " CloudDatabase"}
-            name="encryption_key"
-            labelText="(Optional) Encryption Key"
+          {/* Select Plan */}
+          <IcseSelect
+            labelText="Plan"
+            name="plan"
+            formName={this.props.data.name + "-db-plan"}
+            groups={["standard", "enterprise"]}
+            value={this.state.plan}
             handleInputChange={this.handleInputChange}
-            disableInvalid
-        />
+            invalid={this.state.plan === "enterprise" && this.state.service !== "databases-for-mongodb"}
+            invalidText="Select a Plan. Enterprise plan is supported only for MondoDB."
+            className="fieldWidth"
+            id={`${this.props.data.name}-db-plan`}
+          />
         {/* Select Service */}
         <IcseSelect
         labelText="Cloud Database"
@@ -162,6 +165,18 @@ class CloudDatabaseForm extends Component {
             className="fieldWidthSmaller leftTextAlign"
           />
         </IcseFormGroup>
+        <IcseFormGroup>
+        {/* Select Encryption Key */}
+        <IcseSelect
+            value={this.state.encryption_key}
+            groups={this.props.encryptionKeys}
+            formName={this.props.data.name + " CloudDatabase"}
+            name="encryption_key"
+            labelText="(Optional) Encryption Key"
+            handleInputChange={this.handleInputChange}
+            disableInvalid
+        />
+        </IcseFormGroup>
       </div>
     );
   }
@@ -173,6 +188,7 @@ CloudDatabaseForm.defaultProps = {
     resource_group: "",
     use_data: false,
     plan: "standard",
+    encryption_key: "",
     service: "",
     group_id: "",
     memory: 1024,
