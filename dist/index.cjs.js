@@ -4484,6 +4484,181 @@ AtrackerForm.propTypes = {
   logdnaEnabled: PropTypes__default["default"].bool.isRequired
 };
 
+/**
+ * CloudDatabaseForm
+ * @param {Object} props
+ * @param {configDotJson} props.configDotJson config dot json
+ * @param {slz} props.slz slz state store
+ */
+class CloudDatabaseForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * Toggle on and off use_data param in state
+   */
+  handleToggle() {
+    this.setState(this.toggleStateBoolean("use_data", this.state));
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement("div", {
+      id: "db-form"
+    }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: this.props.data.name + "-db-name",
+      componentName: this.props.data.name + "-db-name",
+      placeholder: "my-db-name",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      hideHelperText: true,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      className: "fieldWidth"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      labelText: "Resource Group",
+      name: "resource_group",
+      formName: this.props.data.name + "-db-rg",
+      groups: this.props.resourceGroups,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a Resource Group.",
+      className: "fieldWidth",
+      id: `${this.props.data.name}-db-rg`
+    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      labelText: "Use Existing Instance",
+      key: this.state.use_data,
+      defaultToggled: this.state.use_data,
+      toggleFieldName: "use_data",
+      onToggle: this.handleToggle,
+      className: "fieldWidthSmallest",
+      id: `${this.props.data.name}-db-existing-instance`
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      labelText: "Plan",
+      name: "plan",
+      formName: this.props.data.name + "-db-plan",
+      groups: ["standard", "enterprise"],
+      value: this.state.plan,
+      handleInputChange: this.handleInputChange,
+      invalid: this.state.plan === "enterprise" && this.state.service !== "databases-for-mongodb",
+      invalidText: "Select a Plan. Enterprise plan is supported only for MondoDB.",
+      className: "fieldWidth",
+      id: `${this.props.data.name}-db-plan`
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      labelText: "Cloud Database",
+      name: "cloud_database_service",
+      formName: this.props.data.name + "-db-service",
+      groups: ["databases-for-postgresql", "databases-for-etcd", "databases-for-redis", "databases-for-mongodb", "databases-for-mysql"],
+      value: this.state.service,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a Cloud Database.",
+      className: "fieldWidth",
+      id: `${this.props.data.name}-db-service`
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      labelText: "Group ID",
+      name: "group_id",
+      formName: this.props.data.name + "-db-groupId",
+      groups: ["member", "analytcs", "bi_connector", "search"],
+      value: this.state.group_id,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a Group ID.",
+      className: "fieldWidth",
+      id: `${this.props.data.name}-db-groupId`
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(NumberInput, {
+      label: "Memory",
+      id: this.props.data.name + "-db-memory",
+      value: this.state.memory * 1024,
+      defaultValue: 1,
+      max: 112,
+      min: 1,
+      onChange: this.handleInputChange,
+      name: "db-memory",
+      hideSteppers: true,
+      invalidText: "RAM must be a minimum of 1GB and a maximum 112GB per member",
+      className: "fieldWidthSmaller leftTextAlign"
+    }), /*#__PURE__*/React__default["default"].createElement(NumberInput, {
+      label: "Disk",
+      id: this.props.data.name + "-db-disk",
+      value: this.state.disk * 1024,
+      defaultValue: 1,
+      max: 4096,
+      min: 5,
+      onChange: this.handleInputChange,
+      name: "db-disk",
+      hideSteppers: true,
+      invalidText: "Disk must be a minimum of 5GB and a maximum 4096GB per member",
+      className: "fieldWidthSmaller leftTextAlign"
+    }), /*#__PURE__*/React__default["default"].createElement(NumberInput, {
+      label: "CPU",
+      id: this.props.data.name + "-db-cpu",
+      value: this.state.cpu,
+      defaultValue: 1,
+      max: 28,
+      min: 0,
+      onChange: this.handleInputChange,
+      name: "db-cpu",
+      hideSteppers: true,
+      invalid: this.state.cpu === 1 || this.state.cpu === 2,
+      invalidText: "Using dedicated cores requires a minimum of 3 cores and a maximum of 28 cores per member. For shared CPU, select 0 cores",
+      className: "fieldWidthSmaller leftTextAlign"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      value: this.state.encryption_key,
+      groups: this.props.encryptionKeys,
+      formName: this.props.data.name + " CloudDatabase",
+      name: "encryption_key",
+      labelText: "(Optional) Encryption Key",
+      handleInputChange: this.handleInputChange,
+      disableInvalid: true
+    })));
+  }
+}
+CloudDatabaseForm.defaultProps = {
+  data: {
+    name: "",
+    resource_group: "",
+    use_data: false,
+    plan: "standard",
+    encryption_key: "",
+    service: "",
+    group_id: "",
+    memory: 1024,
+    disk: 1024,
+    cpu: 0
+  }
+};
+CloudDatabaseForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string,
+    resource_group: PropTypes__default["default"].string,
+    use_data: PropTypes__default["default"].bool,
+    plan: PropTypes__default["default"].string,
+    service: PropTypes__default["default"].string.isRequired,
+    group_id: PropTypes__default["default"].string,
+    memory: PropTypes__default["default"].number,
+    disk: PropTypes__default["default"].number,
+    cpu: PropTypes__default["default"].number,
+    encryption_key: PropTypes__default["default"].string
+  }).isRequired,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  invalidCallback: PropTypes__default["default"].func,
+  invalidTextCallback: PropTypes__default["default"].func,
+  encryptionKeys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+};
+
 class WorkerPoolForm extends React.Component {
   constructor(props) {
     super(props);
@@ -6701,28 +6876,25 @@ class OrderCardDataTable extends React.Component {
     return /*#__PURE__*/React__default["default"].createElement(react.DataTable, {
       headers: headers,
       rows: rows
-    }, _ref => {
-      let {
-        rows,
-        headers,
-        getHeaderProps,
-        getRowProps
-      } = _ref;
-      return /*#__PURE__*/React__default["default"].createElement(react.TableContainer, null, /*#__PURE__*/React__default["default"].createElement(react.Table, null, /*#__PURE__*/React__default["default"].createElement(react.TableHead, null, /*#__PURE__*/React__default["default"].createElement(react.TableRow, null, headers.map((header, index) => /*#__PURE__*/React__default["default"].createElement(react.TableHeader, _extends({
-        key: header.header + "-" + index
-      }, getHeaderProps({
-        header
-      })), header.header)))), /*#__PURE__*/React__default["default"].createElement(react.TableBody, null, rows.map((row, index) => /*#__PURE__*/React__default["default"].createElement(react.TableRow, _extends({
-        key: row.name + "-" + index
-      }, getRowProps({
-        row
-      })), row.cells.map(cell => /*#__PURE__*/React__default["default"].createElement(react.TableCell, {
-        key: JSON.stringify(cell),
-        className: this.props.isSecurityGroup ? "dt-security-group" : ""
-      }, /*#__PURE__*/React__default["default"].createElement("div", {
-        key: JSON.stringify(cell) + "-port"
-      }, lazyZ.contains(["tcp", "udp", "all", "icmp"], cell.value) ? cell.value.toUpperCase() : cell.value))))))));
-    });
+    }, ({
+      rows,
+      headers,
+      getHeaderProps,
+      getRowProps
+    }) => /*#__PURE__*/React__default["default"].createElement(react.TableContainer, null, /*#__PURE__*/React__default["default"].createElement(react.Table, null, /*#__PURE__*/React__default["default"].createElement(react.TableHead, null, /*#__PURE__*/React__default["default"].createElement(react.TableRow, null, headers.map((header, index) => /*#__PURE__*/React__default["default"].createElement(react.TableHeader, _extends({
+      key: header.header + "-" + index
+    }, getHeaderProps({
+      header
+    })), header.header)))), /*#__PURE__*/React__default["default"].createElement(react.TableBody, null, rows.map((row, index) => /*#__PURE__*/React__default["default"].createElement(react.TableRow, _extends({
+      key: row.name + "-" + index
+    }, getRowProps({
+      row
+    })), row.cells.map(cell => /*#__PURE__*/React__default["default"].createElement(react.TableCell, {
+      key: JSON.stringify(cell),
+      className: this.props.isSecurityGroup ? "dt-security-group" : ""
+    }, /*#__PURE__*/React__default["default"].createElement("div", {
+      key: JSON.stringify(cell) + "-port"
+    }, lazyZ.contains(["tcp", "udp", "all", "icmp"], cell.value) ? cell.value.toUpperCase() : cell.value)))))))));
   }
 }
 OrderCardDataTable.propTypes = {
@@ -14040,6 +14212,7 @@ exports.CbrResourceAttributeForm = CbrResourceAttributeForm;
 exports.CbrRuleForm = CbrRuleForm;
 exports.CbrTagForm = CbrTagForm;
 exports.CbrZoneForm = CbrZoneForm;
+exports.CloudDatabaseForm = CloudDatabaseForm;
 exports.ClusterForm = ClusterForm;
 exports.ClustersTemplate = Clusters;
 exports.DeleteButton = DeleteButton;
