@@ -36,7 +36,7 @@ export default {
     ["data.service"]: {
       description: "A string value of the Cloud Database Service selected",
       control: "none",
-      type: { required: false }, // required prop or not
+      type: { required: true }, // required prop or not
     },
     ["data.group_id"]: {
       description: "A string value of the scaling group ID selected",
@@ -120,9 +120,10 @@ const CloudDatabaseFormStory = () => {
         encryption_key: "",
         service: "",
         group_id: "",
-        memory: 1024,
-        disk: 1024,
+        memory: 0,
+        disk: 0,
         cpu: 0,
+        sharedCpu: false,
       }}
       propsMatchState={function () {
         return false;

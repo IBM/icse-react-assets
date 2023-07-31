@@ -21,6 +21,7 @@ class CloudDatabaseForm extends Component {
     this.state = { ...this.props.data };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
+    this.handleCpuToggle = this.handleCpuToggle.bind(this);
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
   }
@@ -30,6 +31,7 @@ class CloudDatabaseForm extends Component {
    * @param {event} event event
    */
   handleInputChange(event) {
+    console.log(this.state);
     this.setState(this.eventTargetToNameAndValue(event));
   }
 
@@ -38,6 +40,18 @@ class CloudDatabaseForm extends Component {
    */
   handleToggle() {
     this.setState(this.toggleStateBoolean("use_data", this.state));
+  }
+
+  /**
+   * Toggle on and off shared cpu param in state
+   */
+  handleCpuToggle() {
+    let nextState = { ...this.state };
+    if(this.state.sharedCpu === false) {
+      nextState.cpu = 0;
+      nextState.sharedCpu = true;
+    } else nextState.sharedCpu = false;
+    this.setState(nextState);
   }
 
   render() {
@@ -96,7 +110,7 @@ class CloudDatabaseForm extends Component {
         {/* Select Service */}
         <IcseSelect
         labelText="Cloud Database"
-        name="cloud_database_service"
+        name="service"
         formName={this.props.data.name + "-db-service"}
         groups={["databases-for-postgresql", "databases-for-etcd", "databases-for-redis", "databases-for-mongodb", "databases-for-mysql"]}
         value={this.state.service}
@@ -148,20 +162,32 @@ class CloudDatabaseForm extends Component {
             className="fieldWidthSmaller leftTextAlign"
           />
         {/* cpu text input */}
+        {this.props.sharedCpu !== true && (
         <NumberInput
             label="CPU"
             id={this.props.data.name + "-db-cpu"}
             value={this.state.cpu}
             defaultValue={1}
             max={28}
-            min={0}
+            min={3}
             onChange={this.handleInputChange}
             name="db-cpu"
             hideSteppers={true}
-            invalid={this.state.cpu === 1 || this.state.cpu === 2}
-            invalidText="Using dedicated cores requires a minimum of 3 cores and a maximum of 28 cores per member. For shared CPU, select 0 cores"
+            invalid={this.state.cpu !== 0}
+            invalidText="Using dedicated cores requires a minimum of 3 cores and a maximum of 28 cores per member. For shared CPU, use toggle."
             className="fieldWidthSmaller leftTextAlign"
           />
+        )}
+        {/* shared cpu toggle */}
+        <IcseToggle
+          labelText="Shared CPU"
+          key={this.state.sharedCpu}
+          defaultToggled={false}
+          toggleFieldName="shared_cpu"
+          onToggle={this.handleCpuToggle}
+          className="fieldWidthSmallest"
+          id={`${this.props.data.name}-db-shared-cpu`}
+        />
         </IcseFormGroup>
         <IcseFormGroup>
         {/* Select Encryption Key */}
@@ -192,6 +218,7 @@ CloudDatabaseForm.defaultProps = {
     memory: 1024,
     disk: 1024,
     cpu: 0,
+    sharedCpu: false,
   }
 };
 
@@ -206,6 +233,7 @@ CloudDatabaseForm.propTypes = {
     memory: PropTypes.number,
     disk: PropTypes.number,
     cpu: PropTypes.number,
+    sharedCpu: PropTypes.bool,
     encryption_key: PropTypes.string,
   }).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,

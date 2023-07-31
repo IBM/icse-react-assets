@@ -4498,6 +4498,7 @@ class CloudDatabaseForm extends React.Component {
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
+    this.handleCpuToggle = this.handleCpuToggle.bind(this);
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
   }
@@ -4507,6 +4508,7 @@ class CloudDatabaseForm extends React.Component {
    * @param {event} event event
    */
   handleInputChange(event) {
+    console.log(this.state);
     this.setState(this.eventTargetToNameAndValue(event));
   }
 
@@ -4515,6 +4517,20 @@ class CloudDatabaseForm extends React.Component {
    */
   handleToggle() {
     this.setState(this.toggleStateBoolean("use_data", this.state));
+  }
+
+  /**
+   * Toggle on and off shared cpu param in state
+   */
+  handleCpuToggle() {
+    let nextState = {
+      ...this.state
+    };
+    if (this.state.sharedCpu === false) {
+      nextState.cpu = 0;
+      nextState.sharedCpu = true;
+    } else nextState.sharedCpu = false;
+    this.setState(nextState);
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement("div", {
@@ -4560,7 +4576,7 @@ class CloudDatabaseForm extends React.Component {
       id: `${this.props.data.name}-db-plan`
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       labelText: "Cloud Database",
-      name: "cloud_database_service",
+      name: "service",
       formName: this.props.data.name + "-db-service",
       groups: ["databases-for-postgresql", "databases-for-etcd", "databases-for-redis", "databases-for-mongodb", "databases-for-mysql"],
       value: this.state.service,
@@ -4578,7 +4594,7 @@ class CloudDatabaseForm extends React.Component {
       invalidText: "Select a Group ID.",
       className: "fieldWidth",
       id: `${this.props.data.name}-db-groupId`
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(NumberInput, {
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
       label: "Memory",
       id: this.props.data.name + "-db-memory",
       value: this.state.memory * 1024,
@@ -4590,7 +4606,7 @@ class CloudDatabaseForm extends React.Component {
       hideSteppers: true,
       invalidText: "RAM must be a minimum of 1GB and a maximum 112GB per member",
       className: "fieldWidthSmaller leftTextAlign"
-    }), /*#__PURE__*/React__default["default"].createElement(NumberInput, {
+    }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
       label: "Disk",
       id: this.props.data.name + "-db-disk",
       value: this.state.disk * 1024,
@@ -4602,19 +4618,27 @@ class CloudDatabaseForm extends React.Component {
       hideSteppers: true,
       invalidText: "Disk must be a minimum of 5GB and a maximum 4096GB per member",
       className: "fieldWidthSmaller leftTextAlign"
-    }), /*#__PURE__*/React__default["default"].createElement(NumberInput, {
+    }), this.props.sharedCpu !== true && /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
       label: "CPU",
       id: this.props.data.name + "-db-cpu",
       value: this.state.cpu,
       defaultValue: 1,
       max: 28,
-      min: 0,
+      min: 3,
       onChange: this.handleInputChange,
       name: "db-cpu",
       hideSteppers: true,
-      invalid: this.state.cpu === 1 || this.state.cpu === 2,
-      invalidText: "Using dedicated cores requires a minimum of 3 cores and a maximum of 28 cores per member. For shared CPU, select 0 cores",
+      invalid: this.state.cpu !== 0,
+      invalidText: "Using dedicated cores requires a minimum of 3 cores and a maximum of 28 cores per member. For shared CPU, use toggle.",
       className: "fieldWidthSmaller leftTextAlign"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      labelText: "Shared CPU",
+      key: this.state.sharedCpu,
+      defaultToggled: false,
+      toggleFieldName: "shared_cpu",
+      onToggle: this.handleCpuToggle,
+      className: "fieldWidthSmallest",
+      id: `${this.props.data.name}-db-shared-cpu`
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       value: this.state.encryption_key,
       groups: this.props.encryptionKeys,
@@ -4637,7 +4661,8 @@ CloudDatabaseForm.defaultProps = {
     group_id: "",
     memory: 1024,
     disk: 1024,
-    cpu: 0
+    cpu: 0,
+    sharedCpu: false
   }
 };
 CloudDatabaseForm.propTypes = {
@@ -4651,6 +4676,7 @@ CloudDatabaseForm.propTypes = {
     memory: PropTypes__default["default"].number,
     disk: PropTypes__default["default"].number,
     cpu: PropTypes__default["default"].number,
+    sharedCpu: PropTypes__default["default"].bool,
     encryption_key: PropTypes__default["default"].string
   }).isRequired,
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,

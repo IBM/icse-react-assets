@@ -1,5 +1,5 @@
 import '@carbon/styles/css/styles.css';
-import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, DataTable, TableContainer, Table, TableHead, TableRow, TableHeader, TableBody, TableCell, TextArea, Tag, NumberInput as NumberInput$1, PasswordInput, Dropdown, Checkbox } from '@carbon/react';
+import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, NumberInput, DataTable, TableContainer, Table, TableHead, TableRow, TableHeader, TableBody, TableCell, TextArea, Tag, PasswordInput, Dropdown, Checkbox } from '@carbon/react';
 import lazyZ, { titleCase as titleCase$2, kebabCase as kebabCase$5, isEmpty, buildNumberDropdownList, contains as contains$5, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$7, transpose as transpose$2, capitalize as capitalize$2, getObjectFromArray, splat as splat$2, containsKeys, parseIntFromZone as parseIntFromZone$1, snakeCase as snakeCase$2, distinct, isWholeNumber as isWholeNumber$2, isInRange as isInRange$1, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual } from 'lazy-z';
 import regexButWithWords from 'regex-but-with-words';
 import React, { Component } from 'react';
@@ -4487,6 +4487,7 @@ class CloudDatabaseForm extends Component {
     };
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
+    this.handleCpuToggle = this.handleCpuToggle.bind(this);
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
   }
@@ -4496,6 +4497,7 @@ class CloudDatabaseForm extends Component {
    * @param {event} event event
    */
   handleInputChange(event) {
+    console.log(this.state);
     this.setState(this.eventTargetToNameAndValue(event));
   }
 
@@ -4504,6 +4506,20 @@ class CloudDatabaseForm extends Component {
    */
   handleToggle() {
     this.setState(this.toggleStateBoolean("use_data", this.state));
+  }
+
+  /**
+   * Toggle on and off shared cpu param in state
+   */
+  handleCpuToggle() {
+    let nextState = {
+      ...this.state
+    };
+    if (this.state.sharedCpu === false) {
+      nextState.cpu = 0;
+      nextState.sharedCpu = true;
+    } else nextState.sharedCpu = false;
+    this.setState(nextState);
   }
   render() {
     return /*#__PURE__*/React.createElement("div", {
@@ -4549,7 +4565,7 @@ class CloudDatabaseForm extends Component {
       id: `${this.props.data.name}-db-plan`
     }), /*#__PURE__*/React.createElement(IcseSelect, {
       labelText: "Cloud Database",
-      name: "cloud_database_service",
+      name: "service",
       formName: this.props.data.name + "-db-service",
       groups: ["databases-for-postgresql", "databases-for-etcd", "databases-for-redis", "databases-for-mongodb", "databases-for-mysql"],
       value: this.state.service,
@@ -4591,19 +4607,27 @@ class CloudDatabaseForm extends Component {
       hideSteppers: true,
       invalidText: "Disk must be a minimum of 5GB and a maximum 4096GB per member",
       className: "fieldWidthSmaller leftTextAlign"
-    }), /*#__PURE__*/React.createElement(NumberInput, {
+    }), this.props.sharedCpu !== true && /*#__PURE__*/React.createElement(NumberInput, {
       label: "CPU",
       id: this.props.data.name + "-db-cpu",
       value: this.state.cpu,
       defaultValue: 1,
       max: 28,
-      min: 0,
+      min: 3,
       onChange: this.handleInputChange,
       name: "db-cpu",
       hideSteppers: true,
-      invalid: this.state.cpu === 1 || this.state.cpu === 2,
-      invalidText: "Using dedicated cores requires a minimum of 3 cores and a maximum of 28 cores per member. For shared CPU, select 0 cores",
+      invalid: this.state.cpu !== 0,
+      invalidText: "Using dedicated cores requires a minimum of 3 cores and a maximum of 28 cores per member. For shared CPU, use toggle.",
       className: "fieldWidthSmaller leftTextAlign"
+    }), /*#__PURE__*/React.createElement(IcseToggle, {
+      labelText: "Shared CPU",
+      key: this.state.sharedCpu,
+      defaultToggled: false,
+      toggleFieldName: "shared_cpu",
+      onToggle: this.handleCpuToggle,
+      className: "fieldWidthSmallest",
+      id: `${this.props.data.name}-db-shared-cpu`
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
       value: this.state.encryption_key,
       groups: this.props.encryptionKeys,
@@ -4626,7 +4650,8 @@ CloudDatabaseForm.defaultProps = {
     group_id: "",
     memory: 1024,
     disk: 1024,
-    cpu: 0
+    cpu: 0,
+    sharedCpu: false
   }
 };
 CloudDatabaseForm.propTypes = {
@@ -4640,6 +4665,7 @@ CloudDatabaseForm.propTypes = {
     memory: PropTypes.number,
     disk: PropTypes.number,
     cpu: PropTypes.number,
+    sharedCpu: PropTypes.bool,
     encryption_key: PropTypes.string
   }).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -8197,7 +8223,7 @@ class VsiVolumeForm extends Component {
       labelText: "Encryption Key",
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NumberInput$1, {
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NumberInput, {
       id: this.props.data.name + "vsi-volume-capacity",
       name: "capacity",
       label: "Capacity (GB)",
@@ -8327,7 +8353,7 @@ class VsiForm extends Component {
       securityGroups: this.getSecurityGroupList(),
       invalid: !(this.state.security_groups?.length > 0),
       invalidText: !this.state.vpc || lib_9(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NumberInput$1, {
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NumberInput, {
       label: "Instances per Subnet",
       id: composedId + "-vsi-per-subnet",
       value: this.state.vsi_per_subnet,
@@ -8771,7 +8797,7 @@ class VsiLoadBalancerForm extends React.Component {
       initialSelectedItems: this.state.target_vsi,
       invalid: this.state.target_vsi.length === 0,
       invalidText: "Select at least one VSI deployment"
-    }), /*#__PURE__*/React.createElement(NumberInput$1, {
+    }), /*#__PURE__*/React.createElement(NumberInput, {
       placeholder: "80",
       label: "Application Port",
       id: componentName + "-port",
@@ -8832,7 +8858,7 @@ class VsiLoadBalancerForm extends React.Component {
       tooltip: {
         content: "Protocol used to check the health of member VSI instances"
       }
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NumberInput$1, {
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NumberInput, {
       placeholder: "5",
       label: "Health Timeout (in Seconds)",
       id: componentName + "-timeout",
@@ -8847,7 +8873,7 @@ class VsiLoadBalancerForm extends React.Component {
       invalid: isNullOrEmptyString$7(this.state.health_timeout || "") ? true : !isWholeNumber$2(this.state.health_timeout),
       invalidText: "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(NumberInput$1, {
+    }), /*#__PURE__*/React.createElement(NumberInput, {
       placeholder: "5",
       label: "Health Delay (in Seconds)",
       id: componentName + "-delay",
@@ -8862,7 +8888,7 @@ class VsiLoadBalancerForm extends React.Component {
       invalid: isNullOrEmptyString$7(this.state.health_delay || "") ? true : this.state.health_delay <= this.state.health_timeout || !isWholeNumber$2(this.state.health_delay),
       invalidText: this.state.health_delay <= this.state.health_timeout ? "Must be greater than Health Timeout value" : "Must be a whole number between 5 and 300",
       className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(NumberInput$1, {
+    }), /*#__PURE__*/React.createElement(NumberInput, {
       placeholder: "5",
       label: "Health Retries",
       id: componentName + "-retries",
@@ -8880,7 +8906,7 @@ class VsiLoadBalancerForm extends React.Component {
     })), /*#__PURE__*/React.createElement(IcseHeading, {
       type: "subHeading",
       name: "Load Balancer Listener"
-    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NumberInput$1, {
+    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NumberInput, {
       placeholder: "443",
       label: "Listener Port",
       id: componentName + "-listener-port",
@@ -8906,7 +8932,7 @@ class VsiLoadBalancerForm extends React.Component {
       tooltip: {
         content: "Protocol of the listener for the load balancer"
       }
-    }), /*#__PURE__*/React.createElement(NumberInput$1, {
+    }), /*#__PURE__*/React.createElement(NumberInput, {
       label: "Connection Limit",
       id: componentName + "-connection-limit",
       allowEmpty: true,
@@ -9324,7 +9350,7 @@ class DnsRecordForm extends Component {
       invalidCallback: () => this.props.invalidRdata(this.state, this.props),
       invalidText: this.props.invalidRdataText(this.state, this.props),
       className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(NumberInput$1, {
+    }), /*#__PURE__*/React.createElement(NumberInput, {
       label: "Time To Live (s)",
       id: dnsComponent + "-ttl",
       allowEmpty: true,
@@ -9337,7 +9363,7 @@ class DnsRecordForm extends Component {
       invalid: iamUtils_3(this.state.ttl, 300, 2147483647),
       invalidText: "Must be a whole number (representing seconds) within range 300 to 2147483647",
       className: "fieldWidthSmaller"
-    }), this.state.type === "MX" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(NumberInput$1, {
+    }), this.state.type === "MX" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(NumberInput, {
       label: "Preference",
       id: dnsComponent + "-preference",
       value: this.state.preference,
@@ -9350,7 +9376,7 @@ class DnsRecordForm extends Component {
       invalid: iamUtils_3(this.state.preference, 0, 65535),
       invalidText: "Must be a whole number within range 0 and 65535.",
       className: "fieldWidthSmaller"
-    }))), this.state.type === "SRV" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NumberInput$1, {
+    }))), this.state.type === "SRV" && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NumberInput, {
       label: "DNS Record Port",
       id: dnsComponent + "-port",
       value: this.state.port,
@@ -9371,7 +9397,7 @@ class DnsRecordForm extends Component {
       labelText: "DNS Record Protocol",
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(NumberInput$1, {
+    }), /*#__PURE__*/React.createElement(NumberInput, {
       label: "DNS Record Priority",
       id: dnsComponent + "-priority",
       value: this.state.priority,
@@ -9394,7 +9420,7 @@ class DnsRecordForm extends Component {
       invalid: lib_9(this.state.service) || this.state.service === undefined ? true : this.state.service.charAt(0) !== "_",
       invalidText: "Service must start with a '_'.",
       className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(NumberInput$1, {
+    }), /*#__PURE__*/React.createElement(NumberInput, {
       label: "DNS Record Weight",
       id: dnsComponent + "-weight",
       value: this.state.weight,
@@ -10507,7 +10533,7 @@ class VpnServerForm extends Component {
       invalidText: this.props.invalidClientIpPoolTextCallback(this.state, this.props),
       onChange: this.handleInputChange,
       className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NumberInput$1, {
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NumberInput, {
       id: this.props.data.name + "-vpn-server-port",
       label: "Port",
       allowEmpty: true,
@@ -10535,7 +10561,7 @@ class VpnServerForm extends Component {
       defaultToggled: this.state.enable_split_tunneling,
       onToggle: () => this.handleToggle("enable_split_tunneling"),
       className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(NumberInput$1, {
+    }), /*#__PURE__*/React.createElement(NumberInput, {
       id: this.props.data.name + "-vpn-server-client-idle-timeout-seconds",
       name: "client_idle_timeout",
       placeholder: "600",
@@ -12100,7 +12126,7 @@ class IamAccountSettingsForm extends Component {
       invalid: this.props.invalidCallback("max_sessions_per_identity", this.state, this.props),
       invalidText: this.props.invalidTextCallback("max_sessions_per_identity", this.state, this.props),
       id: "iam-max-sessions-per-id"
-    }), /*#__PURE__*/React.createElement(NumberInput$1, {
+    }), /*#__PURE__*/React.createElement(NumberInput, {
       placeholder: "900",
       label: "Session Expiration (sec)",
       id: "iam-session-expiration-seconds",
@@ -12115,7 +12141,7 @@ class IamAccountSettingsForm extends Component {
       invalid: iamUtils_3(this.state.session_expiration_in_seconds, 900, 86400),
       invalidText: "Must be a whole number between 900 and 86400",
       className: "fieldWidth leftTextAlign"
-    }), /*#__PURE__*/React.createElement(NumberInput$1, {
+    }), /*#__PURE__*/React.createElement(NumberInput, {
       placeholder: "900",
       label: "Session Invalidation (sec)",
       id: "iam-session-invalidation-seconds",
