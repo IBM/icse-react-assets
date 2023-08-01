@@ -1,5 +1,5 @@
 import React from "react";
-import { contains } from "lazy-z";
+import { contains, isWholeNumber } from "lazy-z";
 
 import "./App.css";
 import { CloudDatabaseForm } from "icse-react-assets";
