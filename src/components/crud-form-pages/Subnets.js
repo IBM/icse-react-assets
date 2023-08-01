@@ -6,7 +6,7 @@ import {
   SubnetTierForm,
   EmptyResourceTile,
   IcseFormTemplate,
-} from "icse-react-assets";
+} from "../../";
 import PropTypes from "prop-types";
 import { titleCase, splat } from "lazy-z";
 

@@ -9,7 +9,6 @@ var regexButWithWords = require('regex-but-with-words');
 var React = require('react');
 var PropTypes = require('prop-types');
 var iconsReact = require('@carbon/icons-react');
-var icseReactAssets = require('icse-react-assets');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -4552,7 +4551,7 @@ class CloudDatabaseForm extends React.Component {
       labelText: "Plan",
       name: "plan",
       formName: this.props.data.name + "-db-plan",
-      groups: ["standard"],
+      groups: this.state.service === "databases-for-mongodb" ? ["standard", "enterprise"] : ["standard"],
       value: this.state.plan,
       handleInputChange: this.handleInputChange,
       invalidText: "Select a Plan.",
@@ -11023,12 +11022,12 @@ class SubnetsPage extends React__default["default"].Component {
   }
   render() {
     let tiers = [...this.props.subnetTiers[this.props.data.name]];
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(icseReactAssets.FormModal, {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(FormModal, {
       name: "Add a Subnet Tier",
       show: this.props.showSubModal,
       onRequestSubmit: this.onModalSubmit,
       onRequestClose: this.props.handleModalToggle
-    }, /*#__PURE__*/React__default["default"].createElement(icseReactAssets.SubnetTierForm, {
+    }, /*#__PURE__*/React__default["default"].createElement(SubnetTierForm$1, {
       dynamicSubnets: this.props.dynamicSubnets,
       networkAcls: lazyZ.splat(this.props.data.acls, "name"),
       enabledPublicGateways: this.props.data.publicGateways,
@@ -11047,18 +11046,18 @@ class SubnetsPage extends React__default["default"].Component {
       invalidCidrText: this.props.invalidCidrText(this.props.craig),
       invalidSubnetCallback: this.props.invalidName("subnet", this.props.craig),
       invalidSubnetTextCallback: this.props.invalidNameText("subnet", this.props.craig)
-    })), /*#__PURE__*/React__default["default"].createElement(icseReactAssets.IcseHeading, {
+    })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
       name: "Subnet Tiers",
       className: "marginBottomSmall",
       type: "subHeading",
-      buttons: /*#__PURE__*/React__default["default"].createElement(icseReactAssets.SaveAddButton, {
+      buttons: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
         onClick: () => this.props.handleModalToggle(),
         type: "add",
         noDeleteButton: true
       })
-    }), tiers.length === 0 && /*#__PURE__*/React__default["default"].createElement(icseReactAssets.EmptyResourceTile, {
+    }), tiers.length === 0 && /*#__PURE__*/React__default["default"].createElement(EmptyResourceTile, {
       name: "Subnet Tiers for " + lazyZ.titleCase(this.props.data.name) + " VPC"
-    }), this.props.subnetTiers[this.props.data.name].map((tier, index) => /*#__PURE__*/React__default["default"].createElement(icseReactAssets.SubnetTierForm, {
+    }), this.props.subnetTiers[this.props.data.name].map((tier, index) => /*#__PURE__*/React__default["default"].createElement(SubnetTierForm$1, {
       key: JSON.stringify(tier),
       data: this.props.getSubnetTierStateData(tier, this.props.data),
       index: index,
@@ -11119,7 +11118,7 @@ SubnetsPage.propTypes = {
   onSubnetTierDelete: PropTypes__default["default"].func.isRequired
 };
 const Subnets = props => {
-  return /*#__PURE__*/React__default["default"].createElement(icseReactAssets.IcseFormTemplate, {
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
     name: "VPC Subnets",
     innerForm: SubnetsPage,
     arrayData: props.vpcs,
@@ -13295,6 +13294,7 @@ SubnetTierForm.propTypes = {
   invalidSubnetTextCallback: PropTypes__default["default"].func,
   dynamicSubnets: PropTypes__default["default"].bool.isRequired
 };
+var SubnetTierForm$1 = SubnetTierForm;
 
 const emailRegex = /^[\w-_\.]+@([\w-_]+\.)+[\w]{1,4}$/g;
 class TeleportClaimToRoleForm extends React.Component {
@@ -14463,7 +14463,7 @@ exports.StatelessToggleForm = StatelessToggleForm;
 exports.SubnetForm = SubnetForm;
 exports.SubnetMultiSelect = SubnetMultiSelect;
 exports.SubnetPageTemplate = Subnets;
-exports.SubnetTierForm = SubnetTierForm;
+exports.SubnetTierForm = SubnetTierForm$1;
 exports.SubnetTileForm = SubnetTileForm;
 exports.SysdigForm = SysdigForm;
 exports.TeleportClaimToRoleForm = TeleportClaimToRoleForm;
