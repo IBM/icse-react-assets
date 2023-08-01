@@ -85,7 +85,7 @@ class CloudDatabaseForm extends Component {
             labelText="Plan"
             name="plan"
             formName={this.props.data.name + "-db-plan"}
-            groups={["standard"]}
+            groups={this.state.service === "databases-for-mongodb" ? ["standard", "enterprise"] : ["standard"]}
             value={this.state.plan}
             handleInputChange={this.handleInputChange}
             invalidText="Select a Plan."
