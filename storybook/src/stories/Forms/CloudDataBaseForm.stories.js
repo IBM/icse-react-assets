@@ -1,6 +1,6 @@
 import React from "react";
 import { CloudDatabaseForm } from "icse-react-assets";
-import { contains, isWholeNumber } from "lazy-z";
+import { contains } from "lazy-z";
 
 export default {
   component: CloudDatabaseForm,
@@ -46,20 +46,25 @@ export default {
         description: "A number value of the allocated memory per member",
         control: "none",
         type: { required: false }, // required prop or not
-      },
+    },
     ["data.disk"]: {
         description: "A number value of the allocated disk per member",
         control: "none",
         type: { required: false }, // required prop or not
-      },
+    },
     ["data.cpu"]: {
         description: "A number value of the allocated dedicated CPU per member",
         control: "none",
         type: { required: false }, // required prop or not
-      },
+    },
     resourceGroups: {
       description:
         "An array of strings containing the names of resource groups to select",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
+    encryptionKeys: {
+      description: "An array of string encryption key names",
       type: { required: true }, // required prop or not
       control: "none",
     },
@@ -87,17 +92,12 @@ export default {
       type: { required: true }, // required prop or not
       control: "none",
     },
-    encryptionKeys: {
-      description: "An array of string encryption key names",
-      type: { required: true }, // required prop or not
-      control: "none",
-    },
   },
   parameters: {
     docs: {
       description: {
         component:
-          "AppIdForm is a form component that provides functionality for editing an AppID instance",
+          "Cloud Database Form is a form component that provides functionality for editing a Cloud Database instance.",
       },
     },
   },
@@ -121,18 +121,6 @@ const CloudDatabaseFormStory = () => {
     return `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
   }
 
-  function invalidCpuCallback(stateData, componentProps) {
-    return (
-        !isWholeNumber(Number(stateData.cpu)) || 
-        (Number(stateData.cpu) !== 0 && Number(stateData.cpu) < 3) ||
-        Number(stateData.cpu) > 28
-    );
-  }
-
-  function invalidCpuTextCallback(stateData, componentProps) {
-    return `Using dedicated cores requires a minimum of 3 cores and a maximum of 28 cores per member. For shared CPU, select 0 cores.`;
-  }
-
   return (
     <CloudDatabaseForm
       data={{
@@ -143,9 +131,9 @@ const CloudDatabaseFormStory = () => {
         encryption_key: "",
         service: "",
         group_id: "",
-        memory: 0,
-        disk: 0,
-        cpu: 0,
+        memory: "",
+        disk: "",
+        cpu: "",
       }}
       propsMatchState={function () {
         return false;
@@ -154,8 +142,6 @@ const CloudDatabaseFormStory = () => {
       encryptionKeys={["ekey1", "ekey2", "ekey3"]}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
-      invalidCpuCallback={invalidCpuCallback}
-      invalidCpuTextCallback={invalidCpuTextCallback}
     />
   );
 };

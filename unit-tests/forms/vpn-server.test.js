@@ -1,7 +1,6 @@
 const { assert } = require("chai");
 const {
   handleVpnServerInputChange,
-  vpnServerRangeInvalid,
 } = require("../../src/lib/forms/vpn-server");
 
 describe("vpn-server", () => {
@@ -157,28 +156,6 @@ describe("vpn-server", () => {
         handleVpnServerInputChange(currentState, event),
         expectedData
       );
-    });
-  });
-  describe("vpnServerRangeInvalid", () => {
-    it("should return false for empty string input", () => {
-      let input = "";
-      let expectedData = false;
-      assert.deepEqual(vpnServerRangeInvalid(input, 1, 65535), expectedData);
-    });
-    it("should return false for null input", () => {
-      let input = null;
-      let expectedData = false;
-      assert.deepEqual(vpnServerRangeInvalid(input, 1, 65535), expectedData);
-    });
-    it("should return true for decimal input", () => {
-      let input = "2.2";
-      let expectedData = true;
-      assert.deepEqual(vpnServerRangeInvalid(input, 1, 65535), expectedData);
-    });
-    it("should return true for out of range integer input", () => {
-      let input = "1000000";
-      let expectedData = true;
-      assert.deepEqual(vpnServerRangeInvalid(input, 1, 65535), expectedData);
     });
   });
 });

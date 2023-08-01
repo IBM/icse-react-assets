@@ -3,7 +3,6 @@ const { atrackerInputChange } = require("./atracker");
 const { handleRgToggle } = require("./resource-groups");
 const {
   handleVpnServerInputChange,
-  vpnServerRangeInvalid,
 } = require("./vpn-server");
 const {
   cbrInvalid,
@@ -91,6 +90,5 @@ module.exports = {
   filterKubeVersion,
   onCheckClick,
   handleVpnServerInputChange,
-  vpnServerRangeInvalid,
   handlePgwToggle,
 };

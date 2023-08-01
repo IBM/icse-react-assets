@@ -1,4 +1,8 @@
-const { contains, capitalize } = require("lazy-z");
+const { contains, 
+        capitalize, 
+        isNullOrEmptyString, 
+        isWholeNumber 
+      } = require("lazy-z");
 
 /**
  * create a composed class name
@@ -95,6 +99,19 @@ function subnetTierName(tierName) {
   }
 }
 
+/**
+ * Handle Range NumberInput invalidation check
+ * @param {string} input
+ * @param {number} minRange
+ * @param {number} maxRange
+ */
+function rangeInvalid(input, minRange, maxRange) {
+  return (
+    !isNullOrEmptyString(input) &&
+    (!isWholeNumber(parseFloat(input)) || input < minRange || input > maxRange)
+  );
+}
+
 module.exports = {
   addClassName,
   toggleMarginBottom,
@@ -103,4 +120,5 @@ module.exports = {
   invalidRegex,
   handleClusterInputChange,
   subnetTierName,
+  rangeInvalid,
 };

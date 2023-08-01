@@ -49,7 +49,9 @@ styleInject(css_248z$3);
 
 const {
   contains: contains$4,
-  capitalize: capitalize$1
+  capitalize: capitalize$1,
+  isNullOrEmptyString: isNullOrEmptyString$6,
+  isWholeNumber: isWholeNumber$1
 } = lazyZ__default["default"];
 
 /**
@@ -146,6 +148,16 @@ function subnetTierName$1(tierName) {
     return capitalize$1(tierName) + " Subnet Tier";
   }
 }
+
+/**
+ * Handle Range NumberInput invalidation check
+ * @param {string} input
+ * @param {number} minRange
+ * @param {number} maxRange
+ */
+function rangeInvalid$1(input, minRange, maxRange) {
+  return !isNullOrEmptyString$6(input) && (!isWholeNumber$1(parseFloat(input)) || input < minRange || input > maxRange);
+}
 var formUtils = {
   addClassName: addClassName$4,
   toggleMarginBottom: toggleMarginBottom$2,
@@ -153,7 +165,8 @@ var formUtils = {
   checkNullorEmptyString: checkNullorEmptyString$1,
   invalidRegex: invalidRegex$1,
   handleClusterInputChange: handleClusterInputChange$1,
-  subnetTierName: subnetTierName$1
+  subnetTierName: subnetTierName$1,
+  rangeInvalid: rangeInvalid$1
 };
 
 const {
@@ -310,7 +323,7 @@ var docUtils = {
 };
 
 const {
-  isNullOrEmptyString: isNullOrEmptyString$6,
+  isNullOrEmptyString: isNullOrEmptyString$5,
   kebabCase: kebabCase$3
 } = lazyZ__default["default"];
 const {
@@ -326,7 +339,7 @@ const {
 function icseSelectParams$1(props) {
   let invalid =
   // automatically set to invalid if value is null or empty string and invalid not disabled
-  props.disableInvalid !== true && isNullOrEmptyString$6(props.value) ? true : props.invalid;
+  props.disableInvalid !== true && isNullOrEmptyString$5(props.value) ? true : props.invalid;
   let groups = props.groups.length === 0 ? [] // if no groups, empty array
   : prependEmptyStringWhenNull$1(
   // otherwise try and prepend empty string if null or empty string is allowed
@@ -726,11 +739,6 @@ var resourceGroups = {
   handleRgToggle: handleRgToggle$1
 };
 
-const {
-  isNullOrEmptyString: isNullOrEmptyString$5,
-  isWholeNumber: isWholeNumber$1
-} = lazyZ__default["default"];
-
 /**
  * Handle vpn-server input
  * @param {event} event
@@ -773,19 +781,8 @@ function handleVpnServerInputChange$1(stateData, event) {
   }
   return newState;
 }
-
-/**
- * Handle port and client_idle_timeout invalidation check
- * @param {string} input
- * @param {number} minRange
- * @param {number} maxRange
- */
-function vpnServerRangeInvalid$1(input, minRange, maxRange) {
-  return !isNullOrEmptyString$5(input) && (!isWholeNumber$1(parseFloat(input)) || input < minRange || input > maxRange);
-}
 var vpnServer = {
-  handleVpnServerInputChange: handleVpnServerInputChange$1,
-  vpnServerRangeInvalid: vpnServerRangeInvalid$1
+  handleVpnServerInputChange: handleVpnServerInputChange$1
 };
 
 const {
@@ -1680,8 +1677,7 @@ const {
   handleRgToggle
 } = resourceGroups;
 const {
-  handleVpnServerInputChange,
-  vpnServerRangeInvalid
+  handleVpnServerInputChange
 } = vpnServer;
 const {
   cbrInvalid,
@@ -1789,7 +1785,6 @@ var forms = {
   filterKubeVersion: filterKubeVersion$1,
   onCheckClick,
   handleVpnServerInputChange,
-  vpnServerRangeInvalid,
   handlePgwToggle
 };
 var forms_1 = forms.workerPoolSubnetChange;
@@ -1818,7 +1813,6 @@ var forms_35 = forms.swapArrayElements;
 var forms_36 = forms.getOrderCardClassName;
 var forms_38 = forms.onCheckClick;
 var forms_39 = forms.handleVpnServerInputChange;
-var forms_40 = forms.vpnServerRangeInvalid;
 
 const {
   toggleMarginBottom,
@@ -1827,7 +1821,8 @@ const {
   checkNullorEmptyString,
   invalidRegex,
   handleClusterInputChange,
-  subnetTierName
+  subnetTierName,
+  rangeInvalid
 } = formUtils;
 const {
   formatInputPlaceholder
@@ -1894,6 +1889,7 @@ var lib = {
   invalidRegex,
   handleClusterInputChange,
   subnetTierName,
+  rangeInvalid,
   saveAddParams,
   editCloseParams,
   deleteButtonParams,
@@ -1919,13 +1915,14 @@ var lib_14 = lib.setNameToValue;
 var lib_15 = lib.invalidRegex;
 var lib_16 = lib.handleClusterInputChange;
 var lib_17 = lib.subnetTierName;
-var lib_18 = lib.saveAddParams;
-var lib_19 = lib.editCloseParams;
-var lib_20 = lib.deleteButtonParams;
-var lib_22 = lib.icseFormTemplateParams;
-var lib_28 = lib.statefulTabPanelParams;
-var lib_29 = lib.popoverWrapperParams;
-var lib_30 = lib.filterKubeVersion;
+var lib_18 = lib.rangeInvalid;
+var lib_19 = lib.saveAddParams;
+var lib_20 = lib.editCloseParams;
+var lib_21 = lib.deleteButtonParams;
+var lib_23 = lib.icseFormTemplateParams;
+var lib_29 = lib.statefulTabPanelParams;
+var lib_30 = lib.popoverWrapperParams;
+var lib_31 = lib.filterKubeVersion;
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -1962,7 +1959,7 @@ class PopoverWrapper extends React__default["default"].Component {
       noPopover,
       autoAlign,
       contentClassName
-    } = lib_29(this.props);
+    } = lib_30(this.props);
     return noPopover ? this.props.children : /*#__PURE__*/React__default["default"].createElement("div", {
       className: lib_7("popover-obj", this.props),
       onMouseEnter: this.handleMouseOver,
@@ -2296,7 +2293,7 @@ const SaveAddButton = props => {
     wrapperClassInline,
     buttonKind,
     buttonClass
-  } = lib_18(props);
+  } = lib_19(props);
   return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
     hoverText: hoverText,
     className: wrapperClassDisabled + wrapperClassInline,
@@ -2337,7 +2334,7 @@ SaveAddButton.propTypes = {
 const EditCloseIcon = props => {
   let {
     hoverText
-  } = lib_19(props);
+  } = lib_20(props);
   return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
     hoverText: hoverText
   }, /*#__PURE__*/React__default["default"].createElement("i", {
@@ -2373,7 +2370,7 @@ const DeleteButton = props => {
     popoverClassName,
     buttonClassName,
     iconClassName
-  } = lib_20(props);
+  } = lib_21(props);
   return /*#__PURE__*/React__default["default"].createElement("div", {
     className: "delete-area"
   }, /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
@@ -2969,7 +2966,7 @@ class StatefulTabPanel extends React__default["default"].Component {
       dynamicRenderHide,
       headingHide,
       buttonIsDisabled
-    } = lib_28(this.props, this.state);
+    } = lib_29(this.props, this.state);
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, headingHide && /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
       name: this.props.name,
       type: headingType,
@@ -3561,7 +3558,7 @@ class IcseFormTemplate extends React__default["default"].Component {
     let {
       arrayIsEmpty,
       tabPanelClassName
-    } = lib_22(this.props);
+    } = lib_23(this.props);
     return /*#__PURE__*/React__default["default"].createElement("div", {
       id: formattedName
     }, /*#__PURE__*/React__default["default"].createElement(StatefulTabPanel, {
@@ -4519,7 +4516,15 @@ class CloudDatabaseForm extends React.Component {
   render() {
     return /*#__PURE__*/React__default["default"].createElement("div", {
       id: "db-form"
-    }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+    }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      labelText: "Use Existing Instance",
+      key: this.state.use_data,
+      defaultToggled: this.state.use_data,
+      toggleFieldName: "use_data",
+      onToggle: this.handleToggle,
+      className: "fieldWidthSmaller",
+      id: `${this.props.data.name}-db-existing-instance`
+    }), /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       id: this.props.data.name + "-db-name",
       componentName: this.props.data.name + "-db-name",
       placeholder: "my-db-name",
@@ -4528,35 +4533,7 @@ class CloudDatabaseForm extends React.Component {
       hideHelperText: true,
       invalid: this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props),
-      className: "fieldWidth"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      labelText: "Resource Group",
-      name: "resource_group",
-      formName: this.props.data.name + "-db-rg",
-      groups: this.props.resourceGroups,
-      value: this.state.resource_group,
-      handleInputChange: this.handleInputChange,
-      invalidText: "Select a Resource Group.",
-      className: "fieldWidth",
-      id: `${this.props.data.name}-db-rg`
-    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      labelText: "Use Existing Instance",
-      key: this.state.use_data,
-      defaultToggled: this.state.use_data,
-      toggleFieldName: "use_data",
-      onToggle: this.handleToggle,
-      className: "fieldWidthSmallest",
-      id: `${this.props.data.name}-db-existing-instance`
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      labelText: "Plan",
-      name: "plan",
-      formName: this.props.data.name + "-db-plan",
-      groups: this.state.service === "databases-for-mongodb" ? ["standard", "enterprise"] : ["standard"],
-      value: this.state.plan,
-      handleInputChange: this.handleInputChange,
-      invalidText: "Select a Plan.",
-      className: "fieldWidth",
-      id: `${this.props.data.name}-db-plan`
+      className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       labelText: "Cloud Database",
       name: "service",
@@ -4565,53 +4542,85 @@ class CloudDatabaseForm extends React.Component {
       value: this.state.service,
       handleInputChange: this.handleInputChange,
       invalidText: "Select a Cloud Database.",
-      className: "fieldWidth",
+      className: "fieldWidthSmaller",
       id: `${this.props.data.name}-db-service`
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      labelText: "Resource Group",
+      name: "resource_group",
+      formName: this.props.data.name + "-db-rg",
+      groups: this.props.resourceGroups,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a Resource Group.",
+      className: "fieldWidthSmaller",
+      id: `${this.props.data.name}-db-rg`
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      labelText: "Plan",
+      name: "plan",
+      formName: this.props.data.name + "-db-plan",
+      groups: this.state.service === "databases-for-mongodb" ? ["Standard", "Enterprise"] : ["Standard"],
+      value: this.state.plan,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a Plan.",
+      className: "fieldWidthSmaller",
+      id: `${this.props.data.name}-db-plan`
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       labelText: "Group ID",
       name: "group_id",
       formName: this.props.data.name + "-db-groupId",
+      tooltip: {
+        content: "The ID of the scaling group. Scaling group ID allowed values: member, analytics, bi_connector or search. Read more about analytics and bi_connector down below.",
+        align: "bottom-left",
+        link: "https://cloud.ibm.com/docs/databases-for-mongodb?topic=databases-for-mongodb-mongodbee-analytics&interface=api"
+      },
       groups: ["member", "analytcs", "bi_connector", "search"],
       value: this.state.group_id,
       handleInputChange: this.handleInputChange,
       invalidText: "Select a Group ID.",
-      className: "fieldWidth",
+      className: "fieldWidthSmaller",
       id: `${this.props.data.name}-db-groupId`
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
-      label: "Memory",
+      label: "Memory (GB)",
       id: this.props.data.name + "-db-memory",
       value: this.state.memory,
+      allowEmpty: true,
       defaultValue: 1,
       max: 112,
       min: 1,
       onChange: this.handleInputChange,
       name: "memory",
       hideSteppers: true,
+      invalid: lib_18(this.state.memory, 1, 112),
       invalidText: "RAM must be a minimum of 1GB and a maximum 112GB per member",
       className: "fieldWidthSmaller leftTextAlign"
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
-      label: "Disk",
+      label: "Disk (GB)",
       id: this.props.data.name + "-db-disk",
       value: this.state.disk,
+      allowEmpty: true,
       defaultValue: 1,
       max: 4096,
       min: 5,
       onChange: this.handleInputChange,
       name: "disk",
       hideSteppers: true,
+      invalid: lib_18(this.state.disk, 5, 4096),
       invalidText: "Disk must be a minimum of 5GB and a maximum 4096GB per member",
       className: "fieldWidthSmaller leftTextAlign"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+    }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      label: "CPU",
       id: this.props.data.name + "-db-cpu",
-      componentName: this.props.data.name + "-db-cpu",
-      placeholder: "",
-      field: "cpu",
-      labelText: "CPU",
       value: this.state.cpu,
+      allowEmpty: true,
+      defaultValue: 1,
+      max: 28,
+      min: 0,
       onChange: this.handleInputChange,
-      invalid: this.props.invalidCpuCallback(this.state, this.props),
-      invalidText: this.props.invalidCpuTextCallback(this.state, this.props),
-      className: "fieldWidthSmaller"
+      name: "cpu",
+      hideSteppers: true,
+      invalid: !lazyZ.isNullOrEmptyString(this.state.cpu) && (!lazyZ.isWholeNumber(Number(this.state.cpu)) || Number(this.state.cpu) !== 0 && Number(this.state.cpu) < 3 || Number(this.state.cpu) > 28),
+      invalidText: "Using dedicated cores requires a minimum of 3 cores and a maximum of 28 cores per member. For shared CPU, select 0 cores.",
+      className: "fieldWidthSmaller leftTextAlign"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       value: this.state.encryption_key,
       groups: this.props.encryptionKeys,
@@ -4619,7 +4628,8 @@ class CloudDatabaseForm extends React.Component {
       name: "encryption_key",
       labelText: "(Optional) Encryption Key",
       handleInputChange: this.handleInputChange,
-      disableInvalid: true
+      disableInvalid: true,
+      className: "fieldWidthSmaller"
     })));
   }
 }
@@ -4632,14 +4642,14 @@ CloudDatabaseForm.defaultProps = {
     encryption_key: "",
     service: "",
     group_id: "",
-    memory: 1024,
-    disk: 1024,
-    cpu: 0
+    memory: "",
+    disk: "",
+    cpu: ""
   }
 };
 CloudDatabaseForm.propTypes = {
   data: PropTypes__default["default"].shape({
-    name: PropTypes__default["default"].string,
+    name: PropTypes__default["default"].string.isRequired,
     resource_group: PropTypes__default["default"].string,
     use_data: PropTypes__default["default"].bool,
     plan: PropTypes__default["default"].string,
@@ -4653,9 +4663,7 @@ CloudDatabaseForm.propTypes = {
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   encryptionKeys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   invalidCallback: PropTypes__default["default"].func,
-  invalidTextCallback: PropTypes__default["default"].func,
-  invalidCpuCallback: PropTypes__default["default"].func,
-  invalidCpuTextCallback: PropTypes__default["default"].func
+  invalidTextCallback: PropTypes__default["default"].func
 };
 
 class WorkerPoolForm extends React.Component {
@@ -10528,7 +10536,7 @@ class VpnServerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: forms_40(this.state.port, 1, 65535),
+      invalid: lib_18(this.state.port, 1, 65535),
       invalidText: "Must be a whole number between 1 and 65535.",
       className: "fieldWidthSmaller leftTextAlign"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
@@ -10557,7 +10565,7 @@ class VpnServerForm extends React.Component {
       hideSteppers: true,
       min: 0,
       max: 28800,
-      invalid: forms_40(this.state.client_idle_timeout, 0, 28800),
+      invalid: lib_18(this.state.client_idle_timeout, 0, 28800),
       invalidText: "Must be a whole number between 0 and 28800.",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
@@ -11237,7 +11245,7 @@ class ClusterForm extends React.Component {
    * @returns {string} version
    */
   filterVersion(version) {
-    return lib_30(version, this.state.kube_type);
+    return lib_31(version, this.state.kube_type);
   }
   render() {
     let clusterComponent = this.props.isModal ? "new-cluster" : this.props.data.name;

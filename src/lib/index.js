@@ -6,6 +6,7 @@ const {
   invalidRegex,
   handleClusterInputChange,
   subnetTierName,
+  rangeInvalid,
 } = require("./form-utils");
 const { formatInputPlaceholder } = require("./text-utils");
 const {
@@ -54,6 +55,7 @@ module.exports = {
   invalidRegex,
   handleClusterInputChange,
   subnetTierName,
+  rangeInvalid,
   saveAddParams,
   editCloseParams,
   deleteButtonParams,
