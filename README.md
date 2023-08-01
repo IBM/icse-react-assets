@@ -1,5 +1,7 @@
 # icse-react-assets
 
+ICSE React Assets is a collection of forms and inputs using [@carbon/react](https://github.com/carbon-design-system/carbon/tree/main/packages/react). These assets are designed to streamline the creation of some front-end assets for automation tools.
+
 ## Documentation
 
 Documentation for all components is available on storybook: http://ibm.github.io/icse-react-assets
