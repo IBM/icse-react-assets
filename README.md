@@ -1,5 +1,7 @@
 # icse-react-assets
 
+[![OpenSSF Best Practices](https://bestpractices.coreinfrastructure.org/projects/7561/badge)](https://bestpractices.coreinfrastructure.org/projects/7561)
+
 ICSE React Assets is a collection of forms and inputs using [@carbon/react](https://github.com/carbon-design-system/carbon/tree/main/packages/react). These assets are designed to streamline the creation of some front-end assets for automation tools.
 
 ## Documentation
@@ -45,27 +47,26 @@ Use the command `npm run coverage` to determine unit test coverage for this pack
 
 To use the library within an application to test your changes, navigate to the base directory where your application is cloned:
 
-```
+```shell
 cd icse-react-assets
 ```
 
 Build the repo. Make sure you have bumped the package version before doing this.
 
-```
+```shell
 npm run build
 ```
 
 Package the library, and save it to a location of your choosing. For this example, the location is `~`.
 
-```
+```shell
 npm pack --pack-destination ~
 ```
 
 Finally, go to your application, and change the entry for `icse-react-assets` in your package.json to this:
 
-```
+```json
     "icse-react-assets": "file:<your file destination>/icse-react-assets-<package-version>.tgz",
-
 ```
 
 ## Contribution Guidelines
