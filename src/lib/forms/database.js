@@ -11,9 +11,9 @@ function databaseInputChange(stateData, event) {
   if (name === "service") state.service = kebabCase(value);
   else if (name === "plan") state.plan = kebabCase(value);
   else if (name === "memory") {
-    state.memory = Number(value) * 1024;
+    state.memory = Number(value);
   } else if (name === "disk") {
-    state.disk = Number(value) * 1024;
+    state.disk = Number(value);
   } else state[name] = value;
   console.log(state);
   return state;

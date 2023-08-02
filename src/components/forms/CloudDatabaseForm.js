@@ -75,17 +75,16 @@ class CloudDatabaseForm extends Component {
             name="service"
             formName={this.props.data.name + "-db-service"}
             groups={[
-              "Databases for Postgresql",
-              "Databases for Etcd",
-              "Databases for Redis",
-              "Databases for Mongodb",
-              "Databases for Mysql",
+              "Databases For Postgresql",
+              "Databases For Etcd",
+              "Databases For Redis",
+              "Databases For Mongodb",
+              "Databases For Mysql",
             ]}
             value={titleCase(this.state.service)}
             handleInputChange={this.handleInputChange}
             invalidText="Select a Cloud Database."
             className="fieldWidthSmaller"
-            id={`${this.props.data.name}-db-service`}
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -93,13 +92,12 @@ class CloudDatabaseForm extends Component {
           <IcseSelect
             labelText="Resource Group"
             name="resource_group"
-            formName={this.props.data.name + "-db-rg"}
+            formName={this.props.data.name + "-db-rg-select"}
             groups={this.props.resourceGroups}
             value={this.state.resource_group}
             handleInputChange={this.handleInputChange}
             invalidText="Select a Resource Group."
             className="fieldWidthSmaller"
-            id={`${this.props.data.name}-db-rg`}
           />
           {/* Select Plan */}
           <IcseSelect
@@ -118,7 +116,6 @@ class CloudDatabaseForm extends Component {
             handleInputChange={this.handleInputChange}
             invalidText="Select a Plan."
             className="fieldWidthSmaller"
-            id={`${this.props.data.name}-db-plan`}
           />
           {/* Select Group ID */}
           <IcseSelect
@@ -143,7 +140,6 @@ class CloudDatabaseForm extends Component {
             handleInputChange={this.handleInputChange}
             invalidText="Select a Group ID."
             className="fieldWidthSmaller"
-            id={`${this.props.data.name}-db-groupId`}
           />
         </IcseFormGroup>
         <IcseFormGroup>

@@ -710,9 +710,9 @@ function databaseInputChange$1(stateData, event) {
     value
   } = event.target;
   if (name === "service") state.service = kebabCase$1(value);else if (name === "plan") state.plan = kebabCase$1(value);else if (name === "memory") {
-    state.memory = Number(value) * 1024;
+    state.memory = Number(value);
   } else if (name === "disk") {
-    state.disk = Number(value) * 1024;
+    state.disk = Number(value);
   } else state[name] = value;
   console.log(state);
   return state;
@@ -4660,22 +4660,20 @@ class CloudDatabaseForm extends Component {
       labelText: "Cloud Database",
       name: "service",
       formName: this.props.data.name + "-db-service",
-      groups: ["Databases for Postgresql", "Databases for Etcd", "Databases for Redis", "Databases for Mongodb", "Databases for Mysql"],
+      groups: ["Databases For Postgresql", "Databases For Etcd", "Databases For Redis", "Databases For Mongodb", "Databases For Mysql"],
       value: titleCase$2(this.state.service),
       handleInputChange: this.handleInputChange,
       invalidText: "Select a Cloud Database.",
-      className: "fieldWidthSmaller",
-      id: `${this.props.data.name}-db-service`
+      className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
       labelText: "Resource Group",
       name: "resource_group",
-      formName: this.props.data.name + "-db-rg",
+      formName: this.props.data.name + "-db-rg-select",
       groups: this.props.resourceGroups,
       value: this.state.resource_group,
       handleInputChange: this.handleInputChange,
       invalidText: "Select a Resource Group.",
-      className: "fieldWidthSmaller",
-      id: `${this.props.data.name}-db-rg`
+      className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseSelect, {
       labelText: "Plan",
       name: "plan",
@@ -4685,8 +4683,7 @@ class CloudDatabaseForm extends Component {
       value: titleCase$2(this.state.plan),
       handleInputChange: this.handleInputChange,
       invalidText: "Select a Plan.",
-      className: "fieldWidthSmaller",
-      id: `${this.props.data.name}-db-plan`
+      className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseSelect, {
       labelText: "Group ID",
       name: "group_id",
@@ -4701,8 +4698,7 @@ class CloudDatabaseForm extends Component {
       value: this.state.group_id,
       handleInputChange: this.handleInputChange,
       invalidText: "Select a Group ID.",
-      className: "fieldWidthSmaller",
-      id: `${this.props.data.name}-db-groupId`
+      className: "fieldWidthSmaller"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NumberInput, {
       label: "Memory (GB)",
       id: this.props.data.name + "-db-memory",
