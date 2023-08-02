@@ -4751,8 +4751,8 @@ class CloudDatabaseForm extends React.Component {
       onChange: this.handleInputChange,
       name: "cpu",
       hideSteppers: true,
-      invalid: !lazyZ.isNullOrEmptyString(this.state.cpu) && (!lazyZ.isWholeNumber(Number(this.state.cpu)) || Number(this.state.cpu) !== 0 && Number(this.state.cpu) < max(this.props.cpuMin, 3) || Number(this.state.cpu) > this.props.cpuMax),
-      invalidText: `Using dedicated cores requires a minimum of ${max(this.props.cpuMin, 3)} cores and a maximum of ${this.props.cpuMax} cores per member. For shared CPU, select 0 cores.`,
+      invalid: !lazyZ.isNullOrEmptyString(this.state.cpu) && (!lazyZ.isWholeNumber(Number(this.state.cpu)) || Number(this.state.cpu) !== 0 && Number(this.state.cpu) < Math.max(this.props.cpuMin, 3) || Number(this.state.cpu) > this.props.cpuMax),
+      invalidText: `Using dedicated cores requires a minimum of ${Math.max(this.props.cpuMin, 3)} cores and a maximum of ${this.props.cpuMax} cores per member. For shared CPU, select 0 cores.`,
       className: "fieldWidthSmaller leftTextAlign"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       value: this.state.encryption_key,

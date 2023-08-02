@@ -202,10 +202,10 @@ class CloudDatabaseForm extends Component {
               !isNullOrEmptyString(this.state.cpu) &&
               (!isWholeNumber(Number(this.state.cpu)) ||
                 (Number(this.state.cpu) !== 0 &&
-                  Number(this.state.cpu) < max(this.props.cpuMin, 3)) ||
+                  Number(this.state.cpu) < Math.max(this.props.cpuMin, 3)) ||
                 Number(this.state.cpu) > this.props.cpuMax)
             }
-            invalidText={`Using dedicated cores requires a minimum of ${max(this.props.cpuMin, 3,)} cores and a maximum of ${this.props.cpuMax} cores per member. For shared CPU, select 0 cores.`}
+            invalidText={`Using dedicated cores requires a minimum of ${Math.max(this.props.cpuMin, 3,)} cores and a maximum of ${this.props.cpuMax} cores per member. For shared CPU, select 0 cores.`}
             className="fieldWidthSmaller leftTextAlign"
           />
         </IcseFormGroup>
