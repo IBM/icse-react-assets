@@ -710,9 +710,9 @@ function databaseInputChange$1(stateData, event) {
     value
   } = event.target;
   if (name === "service") state.service = kebabCase$1(value);else if (name === "plan") state.plan = kebabCase$1(value);else if (name === "memory") {
-    state.memory = Number(value);
+    state.memory = Number(value) || "";
   } else if (name === "disk") {
-    state.disk = Number(value);
+    state.disk = Number(value) || "";
   } else state[name] = value;
   return state;
 }

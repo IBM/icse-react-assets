@@ -139,7 +139,7 @@ const CloudDatabaseFormStory = () => {
         memoryMax: 112,
         diskMin: 5,
         diskMax: 4096,
-        cpuMin: 0,
+        cpuMin: 3,
         cpuMax: 28,
       }}
       propsMatchState={function () {
