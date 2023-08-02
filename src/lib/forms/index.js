@@ -1,5 +1,6 @@
 const { handlePgwToggle } = require("./vpc");
 const { atrackerInputChange } = require("./atracker");
+const { databaseInputChange } = require("./database");
 const { handleRgToggle } = require("./resource-groups");
 const {
   handleVpnServerInputChange,
@@ -80,6 +81,7 @@ module.exports = {
   handleDnsResolverInputChange,
   dnsFormInputChange,
   atrackerInputChange,
+  databaseInputChange,
   handleRgToggle,
   handleCRNs,
   handleVpcSelect,

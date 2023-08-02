@@ -130,7 +130,7 @@ const CloudDatabaseFormStory = () => {
         plan: "standard",
         encryption_key: "",
         service: "",
-        group_id: "",
+        group_id: "member",
         memory: "",
         disk: "",
         cpu: "",

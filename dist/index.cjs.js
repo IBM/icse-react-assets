@@ -49,9 +49,7 @@ styleInject(css_248z$3);
 
 const {
   contains: contains$4,
-  capitalize: capitalize$1,
-  isNullOrEmptyString: isNullOrEmptyString$6,
-  isWholeNumber: isWholeNumber$1
+  capitalize: capitalize$1
 } = lazyZ__default["default"];
 
 /**
@@ -148,16 +146,6 @@ function subnetTierName$1(tierName) {
     return capitalize$1(tierName) + " Subnet Tier";
   }
 }
-
-/**
- * Handle Range NumberInput invalidation check
- * @param {string} input
- * @param {number} minRange
- * @param {number} maxRange
- */
-function rangeInvalid$1(input, minRange, maxRange) {
-  return !isNullOrEmptyString$6(input) && (!isWholeNumber$1(parseFloat(input)) || input < minRange || input > maxRange);
-}
 var formUtils = {
   addClassName: addClassName$4,
   toggleMarginBottom: toggleMarginBottom$2,
@@ -165,12 +153,11 @@ var formUtils = {
   checkNullorEmptyString: checkNullorEmptyString$1,
   invalidRegex: invalidRegex$1,
   handleClusterInputChange: handleClusterInputChange$1,
-  subnetTierName: subnetTierName$1,
-  rangeInvalid: rangeInvalid$1
+  subnetTierName: subnetTierName$1
 };
 
 const {
-  kebabCase: kebabCase$4
+  kebabCase: kebabCase$5
 } = lazyZ__default["default"];
 
 /**
@@ -180,7 +167,7 @@ const {
  * @returns {string} placeholder name
  */
 function formatInputPlaceholder$2(componentName, fieldName) {
-  return `my-${kebabCase$4(componentName)}-${kebabCase$4(fieldName)}`;
+  return `my-${kebabCase$5(componentName)}-${kebabCase$5(fieldName)}`;
 }
 var textUtils = {
   formatInputPlaceholder: formatInputPlaceholder$2
@@ -324,7 +311,7 @@ var docUtils = {
 
 const {
   isNullOrEmptyString: isNullOrEmptyString$5,
-  kebabCase: kebabCase$3
+  kebabCase: kebabCase$4
 } = lazyZ__default["default"];
 const {
   prependEmptyStringWhenNull: prependEmptyStringWhenNull$1,
@@ -345,8 +332,8 @@ function icseSelectParams$1(props) {
   // otherwise try and prepend empty string if null or empty string is allowed
   props.disableInvalid ? "" : props.value, props.groups);
   let popoverClassName = props.tooltip ? "tooltip select" : " select";
-  let wrapperId = kebabCase$3(props.name) + "-dropdown-tooltip";
-  let selectId = kebabCase$3(props.formName + " " + props.name);
+  let wrapperId = kebabCase$4(props.name) + "-dropdown-tooltip";
+  let selectId = kebabCase$4(props.formName + " " + props.name);
   let labelText = props.tooltip ? null : props.labelText;
   let selectClassName = addClassName$3(`leftTextAlign${props.tooltip ? " tooltip" : ""}`, props);
   return {
@@ -494,7 +481,7 @@ var emptyResourceTile_1 = emptyResourceTile.emptyResourceTileParams;
 
 const {
   snakeCase: snakeCase$1,
-  kebabCase: kebabCase$2,
+  kebabCase: kebabCase$3,
   titleCase: titleCase$1,
   isBoolean
 } = lazyZ__default["default"];
@@ -520,7 +507,7 @@ function toggleParams$1(props) {
   let labelA = props.useOnOff ? "Off" : "False",
     labelB = props.useOnOff ? "On" : "True",
     labelText = props.tooltip ? " " : props.labelText,
-    id = kebabCase$2(toggleName) + "-icse-toggle-" + props.id,
+    id = kebabCase$3(toggleName) + "-icse-toggle-" + props.id,
     className = addClassName$1("leftTextAlign fitContent", props) + (props.tooltip ? " cds--form-item tooltip" : " cds--form-item");
   let onToggle = onToggleEvent$1(props, toggleName);
   return {
@@ -573,7 +560,7 @@ function textInputParams(props) {
     onInputChange = props.onChange;
   if (props.forceKebabCase) {
     onInputChange = function (event) {
-      event.target.value = kebabCase$2(event.target.value);
+      event.target.value = kebabCase$3(event.target.value);
       return props.onChange(event);
     };
   }
@@ -693,7 +680,7 @@ var vpc = {
 var vpc_1 = vpc.handlePgwToggle;
 
 const {
-  kebabCase: kebabCase$1
+  kebabCase: kebabCase$2
 } = lazyZ__default["default"];
 
 /**
@@ -709,11 +696,35 @@ function atrackerInputChange$1(stateData, event) {
     name,
     value
   } = event.target;
-  if (name === "plan") state.plan = kebabCase$1(value);else state[name] = value;
+  if (name === "plan") state.plan = kebabCase$2(value);else state[name] = value;
   return state;
 }
 var atracker = {
   atrackerInputChange: atrackerInputChange$1
+};
+
+const {
+  kebabCase: kebabCase$1
+} = lazyZ__default["default"];
+
+/**
+ * handle input change for Cloud Database Form
+ * @param {Object} stateData
+ * @param {Object} event
+ */
+function databaseInputChange$1(stateData, event) {
+  let state = {
+    ...stateData
+  };
+  let {
+    name,
+    value
+  } = event.target;
+  if (name === "service") state.service = kebabCase$1(value);else if (name === "plan") state.plan = kebabCase$1(value);else state[name] = value;
+  return state;
+}
+var database = {
+  databaseInputChange: databaseInputChange$1
 };
 
 /**
@@ -1674,6 +1685,9 @@ const {
   atrackerInputChange
 } = atracker;
 const {
+  databaseInputChange
+} = database;
+const {
   handleRgToggle
 } = resourceGroups;
 const {
@@ -1775,6 +1789,7 @@ var forms = {
   handleDnsResolverInputChange,
   dnsFormInputChange,
   atrackerInputChange,
+  databaseInputChange,
   handleRgToggle,
   handleCRNs,
   handleVpcSelect,
@@ -1804,15 +1819,16 @@ var forms_20 = forms.handleRuleInputChange;
 var forms_27 = forms.handleDnsResolverInputChange;
 var forms_28 = forms.dnsFormInputChange;
 var forms_29 = forms.atrackerInputChange;
-var forms_30 = forms.handleRgToggle;
-var forms_31 = forms.handleCRNs;
-var forms_32 = forms.handleVpcSelect;
-var forms_33 = forms.getRuleProtocol;
-var forms_34 = forms.getSubRule;
-var forms_35 = forms.swapArrayElements;
-var forms_36 = forms.getOrderCardClassName;
-var forms_38 = forms.onCheckClick;
-var forms_39 = forms.handleVpnServerInputChange;
+var forms_30 = forms.databaseInputChange;
+var forms_31 = forms.handleRgToggle;
+var forms_32 = forms.handleCRNs;
+var forms_33 = forms.handleVpcSelect;
+var forms_34 = forms.getRuleProtocol;
+var forms_35 = forms.getSubRule;
+var forms_36 = forms.swapArrayElements;
+var forms_37 = forms.getOrderCardClassName;
+var forms_39 = forms.onCheckClick;
+var forms_40 = forms.handleVpnServerInputChange;
 
 const {
   toggleMarginBottom,
@@ -1821,8 +1837,7 @@ const {
   checkNullorEmptyString,
   invalidRegex,
   handleClusterInputChange,
-  subnetTierName,
-  rangeInvalid
+  subnetTierName
 } = formUtils;
 const {
   formatInputPlaceholder
@@ -1889,7 +1904,6 @@ var lib = {
   invalidRegex,
   handleClusterInputChange,
   subnetTierName,
-  rangeInvalid,
   saveAddParams,
   editCloseParams,
   deleteButtonParams,
@@ -1915,14 +1929,13 @@ var lib_14 = lib.setNameToValue;
 var lib_15 = lib.invalidRegex;
 var lib_16 = lib.handleClusterInputChange;
 var lib_17 = lib.subnetTierName;
-var lib_18 = lib.rangeInvalid;
-var lib_19 = lib.saveAddParams;
-var lib_20 = lib.editCloseParams;
-var lib_21 = lib.deleteButtonParams;
-var lib_23 = lib.icseFormTemplateParams;
-var lib_29 = lib.statefulTabPanelParams;
-var lib_30 = lib.popoverWrapperParams;
-var lib_31 = lib.filterKubeVersion;
+var lib_18 = lib.saveAddParams;
+var lib_19 = lib.editCloseParams;
+var lib_20 = lib.deleteButtonParams;
+var lib_22 = lib.icseFormTemplateParams;
+var lib_28 = lib.statefulTabPanelParams;
+var lib_29 = lib.popoverWrapperParams;
+var lib_30 = lib.filterKubeVersion;
 
 /**
  * Wrapper for carbon popover component to handle individual component mouseover
@@ -1959,7 +1972,7 @@ class PopoverWrapper extends React__default["default"].Component {
       noPopover,
       autoAlign,
       contentClassName
-    } = lib_30(this.props);
+    } = lib_29(this.props);
     return noPopover ? this.props.children : /*#__PURE__*/React__default["default"].createElement("div", {
       className: lib_7("popover-obj", this.props),
       onMouseEnter: this.handleMouseOver,
@@ -2293,7 +2306,7 @@ const SaveAddButton = props => {
     wrapperClassInline,
     buttonKind,
     buttonClass
-  } = lib_19(props);
+  } = lib_18(props);
   return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
     hoverText: hoverText,
     className: wrapperClassDisabled + wrapperClassInline,
@@ -2334,7 +2347,7 @@ SaveAddButton.propTypes = {
 const EditCloseIcon = props => {
   let {
     hoverText
-  } = lib_20(props);
+  } = lib_19(props);
   return /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
     hoverText: hoverText
   }, /*#__PURE__*/React__default["default"].createElement("i", {
@@ -2370,7 +2383,7 @@ const DeleteButton = props => {
     popoverClassName,
     buttonClassName,
     iconClassName
-  } = lib_21(props);
+  } = lib_20(props);
   return /*#__PURE__*/React__default["default"].createElement("div", {
     className: "delete-area"
   }, /*#__PURE__*/React__default["default"].createElement(PopoverWrapper, {
@@ -2966,7 +2979,7 @@ class StatefulTabPanel extends React__default["default"].Component {
       dynamicRenderHide,
       headingHide,
       buttonIsDisabled
-    } = lib_29(this.props, this.state);
+    } = lib_28(this.props, this.state);
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, headingHide && /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
       name: this.props.name,
       type: headingType,
@@ -3558,7 +3571,7 @@ class IcseFormTemplate extends React__default["default"].Component {
     let {
       arrayIsEmpty,
       tabPanelClassName
-    } = lib_23(this.props);
+    } = lib_22(this.props);
     return /*#__PURE__*/React__default["default"].createElement("div", {
       id: formattedName
     }, /*#__PURE__*/React__default["default"].createElement(StatefulTabPanel, {
@@ -4481,6 +4494,121 @@ AtrackerForm.propTypes = {
   logdnaEnabled: PropTypes__default["default"].bool.isRequired
 };
 
+const {
+  isWholeNumber,
+  isInRange
+} = lazyZ__default["default"];
+const {
+  RegexButWithWords
+} = regexButWithWords__default["default"];
+const commaSeparatedIpListExp = new RegexButWithWords().stringBegin().group(exp => {
+  exp.group(exp => {
+    exp.wordBoundary().group(exp => {
+      exp.group(exp => {
+        exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+      }).literal(".");
+    }, 3).group(exp => {
+      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+    }).wordBoundary().group(exp => {
+      exp.group(exp => {
+        exp.literal("/").group(exp => {
+          exp.literal("3").set("0-2").or().set("012").lazy().digit();
+        });
+      });
+    }).lazy();
+  });
+}).anyNumber().group(exp => {
+  exp.literal(",").whitespace().anyNumber().wordBoundary().group(exp => {
+    exp.group(exp => {
+      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+    }).literal(".");
+  }, 3).group(exp => {
+    exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+  }).wordBoundary().group(exp => {
+    exp.group(exp => {
+      exp.literal("/").group(exp => {
+        exp.literal("3").set("0-2").or().set("012").lazy().digit();
+      });
+    });
+  }).lazy();
+}).anyNumber().stringEnd().done("gm");
+const commaSeparatedIpListExpNoCidr = new RegexButWithWords().stringBegin().group(exp => {
+  exp.group(exp => {
+    exp.wordBoundary().group(exp => {
+      exp.group(exp => {
+        exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+      }).literal(".");
+    }, 3).group(exp => {
+      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+    }).lazy();
+  });
+}).anyNumber().group(exp => {
+  exp.literal(",").whitespace().anyNumber().wordBoundary().group(exp => {
+    exp.group(exp => {
+      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+    }).literal(".");
+  }, 3).group(exp => {
+    exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+  }).lazy();
+}).anyNumber().stringEnd().done("gm");
+
+/**
+ * return true if value is null or empty string
+ * @param {*} value
+ * @returns {boolean} true if null or empty string
+ */
+function isNullOrEmptyString$1(value) {
+  return value === null || value === "";
+}
+
+/**
+ * test for invalid range
+ * @param {*} value
+ * @param {number} min
+ * @param {number} max
+ * @returns {boolean} true if invalid
+ */
+function isRangeInvalid(value, min, max) {
+  if (isNullOrEmptyString$1(value)) return false;
+  value = parseFloat(value);
+  if (!isWholeNumber(value) || !isInRange(value, min, max)) {
+    return true;
+  }
+  return false;
+}
+
+/**
+ * test for invalid IP string/CIDR
+ * @param {string} value
+ * @returns {boolean} true if invalid
+ */
+function isIpStringInvalid(value) {
+  if (!isNullOrEmptyString$1(value) && value.match(commaSeparatedIpListExp) === null) {
+    return true;
+  }
+  return false;
+}
+
+/**
+ * test for invalid IP string no CIDR
+ * @param {string} value
+ * @returns {boolean} true if invalid
+ */
+function isIpStringInvalidNoCidr(value) {
+  if (!isNullOrEmptyString$1(value) && value.match(commaSeparatedIpListExpNoCidr) === null) {
+    return true;
+  }
+  return false;
+}
+var iamUtils = {
+  isIpStringInvalid,
+  isIpStringInvalidNoCidr,
+  isRangeInvalid
+};
+var iamUtils_1 = iamUtils.isIpStringInvalid;
+var iamUtils_2 = iamUtils.isIpStringInvalidNoCidr;
+var iamUtils_3 = iamUtils.isRangeInvalid;
+
 /**
  * CloudDatabaseForm
  * @param {Object} props
@@ -4504,7 +4632,7 @@ class CloudDatabaseForm extends React.Component {
    * @param {event} event event
    */
   handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
+    this.setState(forms_30(this.state, event));
   }
 
   /**
@@ -4538,8 +4666,8 @@ class CloudDatabaseForm extends React.Component {
       labelText: "Cloud Database",
       name: "service",
       formName: this.props.data.name + "-db-service",
-      groups: ["databases-for-postgresql", "databases-for-etcd", "databases-for-redis", "databases-for-mongodb", "databases-for-mysql"],
-      value: this.state.service,
+      groups: ["Databases for Postgresql", "Databases for Etcd", "Databases for Redis", "Databases for Mongodb", "Databases for Mysql"],
+      value: lazyZ.titleCase(this.state.service),
       handleInputChange: this.handleInputChange,
       invalidText: "Select a Cloud Database.",
       className: "fieldWidthSmaller",
@@ -4559,7 +4687,8 @@ class CloudDatabaseForm extends React.Component {
       name: "plan",
       formName: this.props.data.name + "-db-plan",
       groups: this.state.service === "databases-for-mongodb" ? ["Standard", "Enterprise"] : ["Standard"],
-      value: this.state.plan,
+      value: lazyZ.titleCase(this.state.plan),
+      disabled: this.state.service === "databases-for-mongodb" ? false : true,
       handleInputChange: this.handleInputChange,
       invalidText: "Select a Plan.",
       className: "fieldWidthSmaller",
@@ -4569,11 +4698,12 @@ class CloudDatabaseForm extends React.Component {
       name: "group_id",
       formName: this.props.data.name + "-db-groupId",
       tooltip: {
-        content: "The ID of the scaling group. Scaling group ID allowed values: member, analytics, bi_connector or search. Read more about analytics and bi_connector down below.",
+        content: "The ID of the scaling group. Read more about analytics and bi_connector down below.",
         align: "bottom-left",
         link: "https://cloud.ibm.com/docs/databases-for-mongodb?topic=databases-for-mongodb-mongodbee-analytics&interface=api"
       },
       groups: ["member", "analytcs", "bi_connector", "search"],
+      defaultValue: "member",
       value: this.state.group_id,
       handleInputChange: this.handleInputChange,
       invalidText: "Select a Group ID.",
@@ -4585,12 +4715,13 @@ class CloudDatabaseForm extends React.Component {
       value: this.state.memory,
       allowEmpty: true,
       defaultValue: 1,
+      placeholder: 1,
       max: 112,
       min: 1,
       onChange: this.handleInputChange,
       name: "memory",
       hideSteppers: true,
-      invalid: lib_18(this.state.memory, 1, 112),
+      invalid: iamUtils_3(this.state.memory, 1, 112),
       invalidText: "RAM must be a minimum of 1GB and a maximum 112GB per member",
       className: "fieldWidthSmaller leftTextAlign"
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
@@ -4599,12 +4730,13 @@ class CloudDatabaseForm extends React.Component {
       value: this.state.disk,
       allowEmpty: true,
       defaultValue: 1,
+      placeholder: 1,
       max: 4096,
       min: 5,
       onChange: this.handleInputChange,
       name: "disk",
       hideSteppers: true,
-      invalid: lib_18(this.state.disk, 5, 4096),
+      invalid: iamUtils_3(this.state.disk, 5, 4096),
       invalidText: "Disk must be a minimum of 5GB and a maximum 4096GB per member",
       className: "fieldWidthSmaller leftTextAlign"
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
@@ -4612,7 +4744,8 @@ class CloudDatabaseForm extends React.Component {
       id: this.props.data.name + "-db-cpu",
       value: this.state.cpu,
       allowEmpty: true,
-      defaultValue: 1,
+      defaultValue: 0,
+      placeholder: 0,
       max: 28,
       min: 0,
       onChange: this.handleInputChange,
@@ -4641,7 +4774,7 @@ CloudDatabaseForm.defaultProps = {
     plan: "standard",
     encryption_key: "",
     service: "",
-    group_id: "",
+    group_id: "member",
     memory: "",
     disk: "",
     cpu: ""
@@ -6264,7 +6397,7 @@ class ResourceGroupForm extends React.Component {
    * @param {string} name name of the object key to change
    */
   handleToggle(name) {
-    this.setState(forms_30(this.state, name));
+    this.setState(forms_31(this.state, name));
   }
 
   /**
@@ -6521,7 +6654,7 @@ const {
   kebabCase,
   isIpv4CidrOrAddress,
   validPortRange,
-  isNullOrEmptyString: isNullOrEmptyString$1,
+  isNullOrEmptyString,
   contains
 } = require("lazy-z");
 
@@ -6821,7 +6954,7 @@ const NetworkingRuleProtocolTextField = props => {
     value: value === -1 ? "" : String(value) // if invalid number value is empty string
     ,
     onChange: e => props.onChange(props.name, e),
-    invalid: !validPortRange(props.name, value) && !isNullOrEmptyString$1(props.state.rule[props.name]) || props.state.rule[props.name] === "null",
+    invalid: !validPortRange(props.name, value) && !isNullOrEmptyString(props.state.rule[props.name]) || props.state.rule[props.name] === "null",
     invalidText: contains(["type", "code"], props.name) ? `0 to ${props.name === "type" ? 254 : 255}` : "1 to 65535",
     className: "fieldWidthSmaller"
   });
@@ -6979,7 +7112,7 @@ class NetworkingRulesOrderCard extends React.Component {
   handleUp(index) {
     let prevRulesState = [...this.state.rules];
     if (index !== 0) {
-      forms_35(prevRulesState, index, index - 1);
+      forms_36(prevRulesState, index, index - 1);
     }
     this.props.networkRuleOrderDidChange(prevRulesState);
     this.setState({
@@ -6995,7 +7128,7 @@ class NetworkingRulesOrderCard extends React.Component {
     let prevRulesState = [...this.state.rules];
     let maxLen = prevRulesState.length - 1;
     if (index !== maxLen) {
-      forms_35(prevRulesState, index, index + 1);
+      forms_36(prevRulesState, index, index + 1);
     }
     this.props.networkRuleOrderDidChange(prevRulesState);
     this.setState({
@@ -7087,7 +7220,7 @@ class NetworkingRulesOrderCard extends React.Component {
       vpc_name: this.props.vpc_name
     }) : this.state.rules.map((rule, index) => /*#__PURE__*/React__default["default"].createElement("div", {
       key: "rule-div-" + rule.name + "-wrapper",
-      className: forms_36(this.props)
+      className: forms_37(this.props)
     }, /*#__PURE__*/React__default["default"].createElement(NetworkingRuleForm, {
       hide: this.state.collapse[rule.name],
       onToggle: () => this.toggleCollapse(rule.name),
@@ -7105,8 +7238,8 @@ class NetworkingRulesOrderCard extends React.Component {
         direction: rule.direction,
         source: rule.source,
         destination: rule.destination || null,
-        ruleProtocol: forms_33(rule),
-        rule: forms_34(rule, this.props.isSecurityGroup)
+        ruleProtocol: forms_34(rule),
+        rule: forms_35(rule, this.props.isSecurityGroup)
       },
       disableSaveCallback: this.props.disableSaveCallback,
       isSecurityGroup: this.props.isSecurityGroup,
@@ -7356,7 +7489,7 @@ class TransitGatewayForm extends React.Component {
    * @param {event} event
    */
   handleCRNs(event) {
-    this.setState(forms_31(event));
+    this.setState(forms_32(event));
   }
 
   /**
@@ -7364,7 +7497,7 @@ class TransitGatewayForm extends React.Component {
    * @param {Array} selectedItems
    */
   handleVpcSelect(selectedItems) {
-    this.setState(forms_32(selectedItems, this.state.name));
+    this.setState(forms_33(selectedItems, this.state.name));
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
@@ -8053,121 +8186,6 @@ VpnGateways.propTypes = {
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   subnetList: PropTypes__default["default"].array.isRequired
 };
-
-const {
-  isWholeNumber,
-  isInRange
-} = lazyZ__default["default"];
-const {
-  RegexButWithWords
-} = regexButWithWords__default["default"];
-const commaSeparatedIpListExp = new RegexButWithWords().stringBegin().group(exp => {
-  exp.group(exp => {
-    exp.wordBoundary().group(exp => {
-      exp.group(exp => {
-        exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
-      }).literal(".");
-    }, 3).group(exp => {
-      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
-    }).wordBoundary().group(exp => {
-      exp.group(exp => {
-        exp.literal("/").group(exp => {
-          exp.literal("3").set("0-2").or().set("012").lazy().digit();
-        });
-      });
-    }).lazy();
-  });
-}).anyNumber().group(exp => {
-  exp.literal(",").whitespace().anyNumber().wordBoundary().group(exp => {
-    exp.group(exp => {
-      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
-    }).literal(".");
-  }, 3).group(exp => {
-    exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
-  }).wordBoundary().group(exp => {
-    exp.group(exp => {
-      exp.literal("/").group(exp => {
-        exp.literal("3").set("0-2").or().set("012").lazy().digit();
-      });
-    });
-  }).lazy();
-}).anyNumber().stringEnd().done("gm");
-const commaSeparatedIpListExpNoCidr = new RegexButWithWords().stringBegin().group(exp => {
-  exp.group(exp => {
-    exp.wordBoundary().group(exp => {
-      exp.group(exp => {
-        exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
-      }).literal(".");
-    }, 3).group(exp => {
-      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
-    }).lazy();
-  });
-}).anyNumber().group(exp => {
-  exp.literal(",").whitespace().anyNumber().wordBoundary().group(exp => {
-    exp.group(exp => {
-      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
-    }).literal(".");
-  }, 3).group(exp => {
-    exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
-  }).lazy();
-}).anyNumber().stringEnd().done("gm");
-
-/**
- * return true if value is null or empty string
- * @param {*} value
- * @returns {boolean} true if null or empty string
- */
-function isNullOrEmptyString(value) {
-  return value === null || value === "";
-}
-
-/**
- * test for invalid range
- * @param {*} value
- * @param {number} min
- * @param {number} max
- * @returns {boolean} true if invalid
- */
-function isRangeInvalid(value, min, max) {
-  if (isNullOrEmptyString(value)) return false;
-  value = parseFloat(value);
-  if (!isWholeNumber(value) || !isInRange(value, min, max)) {
-    return true;
-  }
-  return false;
-}
-
-/**
- * test for invalid IP string/CIDR
- * @param {string} value
- * @returns {boolean} true if invalid
- */
-function isIpStringInvalid(value) {
-  if (!isNullOrEmptyString(value) && value.match(commaSeparatedIpListExp) === null) {
-    return true;
-  }
-  return false;
-}
-
-/**
- * test for invalid IP string no CIDR
- * @param {string} value
- * @returns {boolean} true if invalid
- */
-function isIpStringInvalidNoCidr(value) {
-  if (!isNullOrEmptyString(value) && value.match(commaSeparatedIpListExpNoCidr) === null) {
-    return true;
-  }
-  return false;
-}
-var iamUtils = {
-  isIpStringInvalid,
-  isIpStringInvalidNoCidr,
-  isRangeInvalid
-};
-var iamUtils_1 = iamUtils.isIpStringInvalid;
-var iamUtils_2 = iamUtils.isIpStringInvalidNoCidr;
-var iamUtils_3 = iamUtils.isRangeInvalid;
 
 class VsiVolumeForm extends React.Component {
   constructor(props) {
@@ -10398,7 +10416,7 @@ class VpnServerForm extends React.Component {
    * @param {event} event
    */
   handleInputChange(event) {
-    this.setState(forms_39(this.state, event));
+    this.setState(forms_40(this.state, event));
   }
   handleMultiSelectChange(name, value) {
     this.setState(this.setNameToValue(name, value));
@@ -10536,7 +10554,7 @@ class VpnServerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: lib_18(this.state.port, 1, 65535),
+      invalid: iamUtils_3(this.state.port, 1, 65535),
       invalidText: "Must be a whole number between 1 and 65535.",
       className: "fieldWidthSmaller leftTextAlign"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
@@ -10565,7 +10583,7 @@ class VpnServerForm extends React.Component {
       hideSteppers: true,
       min: 0,
       max: 28800,
-      invalid: lib_18(this.state.client_idle_timeout, 0, 28800),
+      invalid: iamUtils_3(this.state.client_idle_timeout, 0, 28800),
       invalidText: "Must be a whole number between 0 and 28800.",
       className: "fieldWidthSmaller"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
@@ -11245,7 +11263,7 @@ class ClusterForm extends React.Component {
    * @returns {string} version
    */
   filterVersion(version) {
-    return lib_31(version, this.state.kube_type);
+    return lib_30(version, this.state.kube_type);
   }
   render() {
     let clusterComponent = this.props.isModal ? "new-cluster" : this.props.data.name;
@@ -14339,7 +14357,7 @@ class SecretsManagerChecklist extends React__default["default"].Component {
     this.toggleHide = this.toggleHide.bind(this);
   }
   onCheckClick(ref) {
-    let selected = forms_38(this.state.selected, ref, this.props.secrets);
+    let selected = forms_39(this.state.selected, ref, this.props.secrets);
     this.setState({
       selected: selected
     }, () => {

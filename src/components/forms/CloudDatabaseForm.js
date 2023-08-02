@@ -1,16 +1,15 @@
 import React, { Component } from "react";
 import { NumberInput } from "@carbon/react";
-import { isNullOrEmptyString, isWholeNumber } from "lazy-z";
+import { isNullOrEmptyString, isWholeNumber, titleCase } from "lazy-z";
 import {
   buildFormDefaultInputMethods,
   buildFormFunctions,
 } from "../component-utils";
-import {
-  rangeInvalid,
-} from "../../lib";
+import { isRangeInvalid } from "../../lib/iam-utils";
 import { IcseNameInput, IcseToggle } from "../Inputs";
 import { IcseFormGroup } from "../Utils";
 import { IcseSelect } from "../Dropdowns";
+import { databaseInputChange } from "../../lib/forms";
 import PropTypes from "prop-types";
 
 /**
@@ -34,7 +33,7 @@ class CloudDatabaseForm extends Component {
    * @param {event} event event
    */
   handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
+    this.setState(databaseInputChange(this.state, event));
   }
 
   /**
@@ -75,8 +74,8 @@ class CloudDatabaseForm extends Component {
             labelText="Cloud Database"
             name="service"
             formName={this.props.data.name + "-db-service"}
-            groups={["databases-for-postgresql", "databases-for-etcd", "databases-for-redis", "databases-for-mongodb", "databases-for-mysql"]}
-            value={this.state.service}
+            groups={["Databases for Postgresql", "Databases for Etcd", "Databases for Redis", "Databases for Mongodb", "Databases for Mysql"]}
+            value={titleCase(this.state.service)}
             handleInputChange={this.handleInputChange}
             invalidText="Select a Cloud Database."
             className="fieldWidthSmaller"
@@ -102,7 +101,8 @@ class CloudDatabaseForm extends Component {
             name="plan"
             formName={this.props.data.name + "-db-plan"}
             groups={this.state.service === "databases-for-mongodb" ? ["Standard", "Enterprise"] : ["Standard"]}
-            value={this.state.plan}
+            value={titleCase(this.state.plan)}
+            disabled={this.state.service === "databases-for-mongodb" ? false : true}
             handleInputChange={this.handleInputChange}
             invalidText="Select a Plan."
             className="fieldWidthSmaller"
@@ -115,11 +115,12 @@ class CloudDatabaseForm extends Component {
             formName={this.props.data.name + "-db-groupId"}
             tooltip={{
               content:
-                "The ID of the scaling group. Scaling group ID allowed values: member, analytics, bi_connector or search. Read more about analytics and bi_connector down below.",
+                "The ID of the scaling group. Read more about analytics and bi_connector down below.",
               align: "bottom-left",
               link: "https://cloud.ibm.com/docs/databases-for-mongodb?topic=databases-for-mongodb-mongodbee-analytics&interface=api",
             }}
             groups={["member", "analytcs", "bi_connector", "search"]}
+            defaultValue={"member"}
             value={this.state.group_id}
             handleInputChange={this.handleInputChange}
             invalidText="Select a Group ID."
@@ -133,14 +134,15 @@ class CloudDatabaseForm extends Component {
             label="Memory (GB)"
             id={this.props.data.name + "-db-memory"}
             value={this.state.memory}
-            allowEmpty={true}
+            allowEmpty
             defaultValue={1}
+            placeholder={1}
             max={112}
             min={1}
             onChange={this.handleInputChange}
             name="memory"
-            hideSteppers={true}
-            invalid={rangeInvalid(this.state.memory, 1, 112)}
+            hideSteppers
+            invalid={isRangeInvalid(this.state.memory, 1, 112)}
             invalidText="RAM must be a minimum of 1GB and a maximum 112GB per member"
             className="fieldWidthSmaller leftTextAlign"
           />
@@ -149,14 +151,15 @@ class CloudDatabaseForm extends Component {
             label="Disk (GB)"
             id={this.props.data.name + "-db-disk"}
             value={this.state.disk}
-            allowEmpty={true}
+            allowEmpty
             defaultValue={1}
+            placeholder={1}
             max={4096}
             min={5}
             onChange={this.handleInputChange}
             name="disk"
-            hideSteppers={true}
-            invalid={rangeInvalid(this.state.disk, 5, 4096)}
+            hideSteppers
+            invalid={isRangeInvalid(this.state.disk, 5, 4096)}
             invalidText="Disk must be a minimum of 5GB and a maximum 4096GB per member"
             className="fieldWidthSmaller leftTextAlign"
           />
@@ -165,13 +168,14 @@ class CloudDatabaseForm extends Component {
             label="CPU"
             id={this.props.data.name + "-db-cpu"}
             value={this.state.cpu}
-            allowEmpty={true}
-            defaultValue={1}
+            allowEmpty
+            defaultValue={0}
+            placeholder={0}
             max={28}
             min={0}
             onChange={this.handleInputChange}
             name="cpu"
-            hideSteppers={true}
+            hideSteppers
             invalid={!isNullOrEmptyString(this.state.cpu) &&
                     (!isWholeNumber(Number(this.state.cpu)) || 
                       (Number(this.state.cpu) !== 0 && Number(this.state.cpu) < 3) ||
@@ -206,7 +210,7 @@ CloudDatabaseForm.defaultProps = {
     plan: "standard",
     encryption_key: "",
     service: "",
-    group_id: "",
+    group_id: "member",
     memory: "",
     disk: "",
     cpu: "",

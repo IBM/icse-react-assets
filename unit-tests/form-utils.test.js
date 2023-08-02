@@ -7,7 +7,6 @@ const {
   invalidRegex,
   handleClusterInputChange,
   subnetTierName,
-  rangeInvalid,
 } = require("../src/lib/form-utils");
 
 describe("form-utils", () => {
@@ -179,28 +178,6 @@ describe("form-utils", () => {
     it("should return testCluster with entitlement: `null`", () => {
       handleClusterInputChange("entitlement", "null", testCluster);
       assert.deepEqual(testCluster.entitlement, null, "it should return true");
-    });
-  });
-  describe("rangeInvalid", () => {
-    it("should return false for empty string input", () => {
-      let input = "";
-      let expectedData = false;
-      assert.deepEqual(rangeInvalid(input, 1, 65535), expectedData);
-    });
-    it("should return false for null input", () => {
-      let input = null;
-      let expectedData = false;
-      assert.deepEqual(rangeInvalid(input, 1, 65535), expectedData);
-    });
-    it("should return true for decimal input", () => {
-      let input = "2.2";
-      let expectedData = true;
-      assert.deepEqual(rangeInvalid(input, 1, 65535), expectedData);
-    });
-    it("should return true for out of range integer input", () => {
-      let input = "1000000";
-      let expectedData = true;
-      assert.deepEqual(rangeInvalid(input, 1, 65535), expectedData);
     });
   });
 });

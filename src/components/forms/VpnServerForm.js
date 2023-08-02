@@ -11,9 +11,7 @@ import { isIpStringInvalidNoCidr } from "../../lib/iam-utils";
 import {
   handleVpnServerInputChange,
 } from "../../lib/forms";
-import {
-  rangeInvalid,
-} from "../../lib";
+import { isRangeInvalid } from "../../lib/iam-utils";
 import {
   buildFormDefaultInputMethods,
   buildFormFunctions,
@@ -241,7 +239,7 @@ class VpnServerForm extends Component {
             hideSteppers={true}
             min={1}
             max={65535}
-            invalid={rangeInvalid(this.state.port, 1, 65535)}
+            invalid={isRangeInvalid(this.state.port, 1, 65535)}
             invalidText="Must be a whole number between 1 and 65535."
             className="fieldWidthSmaller leftTextAlign"
           />
@@ -280,7 +278,7 @@ class VpnServerForm extends Component {
             hideSteppers={true}
             min={0}
             max={28800}
-            invalid={rangeInvalid(
+            invalid={isRangeInvalid(
               this.state.client_idle_timeout,
               0,
               28800
