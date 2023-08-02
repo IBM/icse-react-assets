@@ -122,6 +122,19 @@ const CloudDatabaseFormStory = () => {
     return `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
   }
 
+  function invalidCpuCallback(stateData, componentProps) {
+    return (
+        !isNullOrEmptyString(this.state.cpu) &&
+        (!isWholeNumber(Number(stateData.cpu)) || 
+        (Number(stateData.cpu) !== 0 && Number(stateData.cpu) < componentProps.cpuMin) ||
+        Number(stateData.cpu) > componentProps.cpuMax)
+    );
+  }
+
+  function invalidCpuTextCallback(stateData, componentProps) {
+    return `Using dedicated cores requires a minimum of ${componentProps.cpuMin} cores and a maximum of ${componentProps.cpuMax} cores per member. For shared CPU, select 0 cores.`;
+  }
+
   return (
     <CloudDatabaseForm
       data={{
@@ -143,6 +156,8 @@ const CloudDatabaseFormStory = () => {
       encryptionKeys={["ekey1", "ekey2", "ekey3"]}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
+      invalidCpuCallback={invalidCpuCallback}
+      invalidCpuTextCallback={invalidCpuTextCallback}
     />
   );
 };

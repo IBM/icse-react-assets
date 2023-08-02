@@ -149,10 +149,9 @@ class CloudDatabaseForm extends Component {
             id={this.props.data.name + "-db-memory"}
             value={this.state.memory}
             allowEmpty
-            defaultValue={1}
-            placeholder={1}
-            min={this.props.memoryMin || 1}
-            max={this.props.memoryMax || 112}
+            placeholder={this.props.memoryMin}
+            min={this.props.memoryMin}
+            max={this.props.memoryMax}
             onChange={this.handleInputChange}
             name="memory"
             hideSteppers
@@ -170,10 +169,9 @@ class CloudDatabaseForm extends Component {
             id={this.props.data.name + "-db-disk"}
             value={this.state.disk}
             allowEmpty
-            defaultValue={1}
-            placeholder={1}
-            min={this.props.diskMin || 5}
-            max={this.props.diskMax || 4096}
+            placeholder={this.props.diskMin}
+            min={this.props.diskMin}
+            max={this.props.diskMax}
             onChange={this.handleInputChange}
             name="disk"
             hideSteppers
@@ -191,21 +189,14 @@ class CloudDatabaseForm extends Component {
             id={this.props.data.name + "-db-cpu"}
             value={this.state.cpu}
             allowEmpty
-            defaultValue={0}
-            placeholder={0}
-            min={this.props.cpuMin || 0}
-            max={this.props.cpuMax || 28}
+            placeholder={this.props.cpuMin}
+            min={this.props.cpuMin}
+            max={this.props.cpuMax}
             onChange={this.handleInputChange}
             name="cpu"
             hideSteppers
-            invalid={
-              !isNullOrEmptyString(this.state.cpu) &&
-              (!isWholeNumber(Number(this.state.cpu)) ||
-                (Number(this.state.cpu) !== 0 &&
-                  Number(this.state.cpu) < Math.max(this.props.cpuMin, 3)) ||
-                Number(this.state.cpu) > this.props.cpuMax)
-            }
-            invalidText={`Using dedicated cores requires a minimum of ${Math.max(this.props.cpuMin, 3,)} cores and a maximum of ${this.props.cpuMax} cores per member. For shared CPU, select 0 cores.`}
+            invalid={this.props.invalidCpuCallback(this.state, this.props)}
+            invalidText={this.props.invalidCpuTextCallback(this.state, this.props)}
             className="fieldWidthSmaller leftTextAlign"
           />
         </IcseFormGroup>

@@ -1,6 +1,6 @@
 import '@carbon/styles/css/styles.css';
 import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, NumberInput, DataTable, TableContainer, Table, TableHead, TableRow, TableHeader, TableBody, TableCell, TextArea, Tag, PasswordInput, Dropdown, Checkbox } from '@carbon/react';
-import lazyZ, { titleCase as titleCase$2, kebabCase as kebabCase$6, isEmpty, buildNumberDropdownList, contains as contains$5, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$6, transpose as transpose$2, isWholeNumber as isWholeNumber$1, capitalize as capitalize$2, getObjectFromArray, splat as splat$2, containsKeys, parseIntFromZone as parseIntFromZone$1, snakeCase as snakeCase$2, distinct, isInRange as isInRange$1, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual } from 'lazy-z';
+import lazyZ, { titleCase as titleCase$2, kebabCase as kebabCase$6, isEmpty, buildNumberDropdownList, contains as contains$5, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$6, transpose as transpose$2, capitalize as capitalize$2, getObjectFromArray, splat as splat$2, containsKeys, parseIntFromZone as parseIntFromZone$1, snakeCase as snakeCase$2, distinct, isWholeNumber as isWholeNumber$1, isInRange as isInRange$1, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual } from 'lazy-z';
 import regexButWithWords from 'regex-but-with-words';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -4703,10 +4703,9 @@ class CloudDatabaseForm extends Component {
       id: this.props.data.name + "-db-memory",
       value: this.state.memory,
       allowEmpty: true,
-      defaultValue: 1,
-      placeholder: 1,
-      min: this.props.memoryMin || 1,
-      max: this.props.memoryMax || 112,
+      placeholder: this.props.memoryMin,
+      min: this.props.memoryMin,
+      max: this.props.memoryMax,
       onChange: this.handleInputChange,
       name: "memory",
       hideSteppers: true,
@@ -4718,10 +4717,9 @@ class CloudDatabaseForm extends Component {
       id: this.props.data.name + "-db-disk",
       value: this.state.disk,
       allowEmpty: true,
-      defaultValue: 1,
-      placeholder: 1,
-      min: this.props.diskMin || 5,
-      max: this.props.diskMax || 4096,
+      placeholder: this.props.diskMin,
+      min: this.props.diskMin,
+      max: this.props.diskMax,
       onChange: this.handleInputChange,
       name: "disk",
       hideSteppers: true,
@@ -4733,15 +4731,14 @@ class CloudDatabaseForm extends Component {
       id: this.props.data.name + "-db-cpu",
       value: this.state.cpu,
       allowEmpty: true,
-      defaultValue: 0,
-      placeholder: 0,
-      min: this.props.cpuMin || 0,
-      max: this.props.cpuMax || 28,
+      placeholder: this.props.cpuMin,
+      min: this.props.cpuMin,
+      max: this.props.cpuMax,
       onChange: this.handleInputChange,
       name: "cpu",
       hideSteppers: true,
-      invalid: !isNullOrEmptyString$6(this.state.cpu) && (!isWholeNumber$1(Number(this.state.cpu)) || Number(this.state.cpu) !== 0 && Number(this.state.cpu) < Math.max(this.props.cpuMin, 3) || Number(this.state.cpu) > this.props.cpuMax),
-      invalidText: `Using dedicated cores requires a minimum of ${Math.max(this.props.cpuMin, 3)} cores and a maximum of ${this.props.cpuMax} cores per member. For shared CPU, select 0 cores.`,
+      invalid: this.props.invalidCpuCallback(this.state, this.props),
+      invalidText: this.props.invalidCpuTextCallback(this.state, this.props),
       className: "fieldWidthSmaller leftTextAlign"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
       value: this.state.encryption_key,
