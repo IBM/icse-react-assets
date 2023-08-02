@@ -111,10 +111,10 @@ class CloudDatabaseForm extends Component {
                 ? ["Standard", "Enterprise"]
                 : ["Standard"]
             }
-            value={titleCase(this.state.plan)}
             disabled={
               this.state.service === "databases-for-mongodb" ? false : true
             }
+            value={titleCase(this.state.plan)}
             handleInputChange={this.handleInputChange}
             invalidText="Select a Plan."
             className="fieldWidthSmaller"
@@ -127,12 +127,18 @@ class CloudDatabaseForm extends Component {
             formName={this.props.data.name + "-db-groupId"}
             tooltip={{
               content:
-                "The ID of the scaling group. Read more about analytics and bi_connector down below.",
+                "The ID of the scaling group. Read more about analytics and bi_connector for MongoDB down below.",
               align: "bottom-left",
               link: "https://cloud.ibm.com/docs/databases-for-mongodb?topic=databases-for-mongodb-mongodbee-analytics&interface=api",
             }}
-            groups={["member", "analytcs", "bi_connector", "search"]}
-            defaultValue={"member"}
+            groups={
+              this.state.service === "databases-for-mongodb"
+                ? ["member", "analytcs", "bi_connector"]
+                : ["member"]
+            }
+            disabled={
+              this.state.service === "databases-for-mongodb" ? false : true
+            }
             value={this.state.group_id}
             handleInputChange={this.handleInputChange}
             invalidText="Select a Group ID."
@@ -145,7 +151,7 @@ class CloudDatabaseForm extends Component {
           <NumberInput
             label="Memory (GB)"
             id={this.props.data.name + "-db-memory"}
-            value={this.state.memory}
+            value={this.state.memoryGB}
             allowEmpty
             defaultValue={1}
             placeholder={1}
@@ -168,7 +174,7 @@ class CloudDatabaseForm extends Component {
           <NumberInput
             label="Disk (GB)"
             id={this.props.data.name + "-db-disk"}
-            value={this.state.disk}
+            value={this.state.diskGB}
             allowEmpty
             defaultValue={1}
             placeholder={1}
@@ -237,7 +243,9 @@ CloudDatabaseForm.defaultProps = {
     service: "",
     group_id: "member",
     memory: "",
+    memoryGB: "",
     disk: "",
+    diskGB: "",
     cpu: "",
     memoryMin: "",
     memoryMax: "",
@@ -257,7 +265,9 @@ CloudDatabaseForm.propTypes = {
     service: PropTypes.string.isRequired,
     group_id: PropTypes.string,
     memory: PropTypes.number,
+    memoryGB: PropTypes.number,
     disk: PropTypes.number,
+    diskGB: PropTypes.number,
     cpu: PropTypes.number,
     memoryMin: PropTypes.number,
     memoryMax: PropTypes.number,

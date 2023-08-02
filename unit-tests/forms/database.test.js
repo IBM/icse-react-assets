@@ -36,6 +36,44 @@ describe("databaseInputChange", () => {
     );
     assert.deepEqual(expectedData, actualData);
   });
+  it("should convert memory from GB to MB", () => {
+    let event = {
+      target: { name: "memoryGB", value: "1" },
+    };
+    let expectedData = {
+      resource_group: "hi",
+      memoryGB: 1,
+      memory: 1024,
+    };
+    let actualData = databaseInputChange(
+      {
+        resource_group: "hi",
+        memoryGB: "",
+        memory: "",
+      },
+      event,
+    );
+    assert.deepEqual(expectedData, actualData);
+  });
+  it("should convert disk from GB to MB", () => {
+    let event = {
+      target: { name: "diskGB", value: "1" },
+    };
+    let expectedData = {
+      resource_group: "hi",
+      diskGB: 1,
+      disk: 1024,
+    };
+    let actualData = databaseInputChange(
+      {
+        resource_group: "hi",
+        diskGB: "",
+        disk: "",
+      },
+      event,
+    );
+    assert.deepEqual(expectedData, actualData);
+  });
   it("should set other values", () => {
     let event = {
       target: { name: "resource_group", value: "management" },

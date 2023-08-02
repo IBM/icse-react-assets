@@ -720,7 +720,14 @@ function databaseInputChange$1(stateData, event) {
     name,
     value
   } = event.target;
-  if (name === "service") state.service = kebabCase$1(value);else if (name === "plan") state.plan = kebabCase$1(value);else state[name] = value;
+  if (name === "service") state.service = kebabCase$1(value);else if (name === "plan") state.plan = kebabCase$1(value);else if (name === "memoryGB") {
+    state.memoryGB = Number(value);
+    state.memory = Number(value) * 1024;
+  } else if (name === "diskGB") {
+    state.diskGB = Number(value);
+    state.disk = Number(value) * 1024;
+  } else state[name] = value;
+  console.log(state);
   return state;
 }
 var database = {
@@ -4687,8 +4694,8 @@ class CloudDatabaseForm extends React.Component {
       name: "plan",
       formName: this.props.data.name + "-db-plan",
       groups: this.state.service === "databases-for-mongodb" ? ["Standard", "Enterprise"] : ["Standard"],
-      value: lazyZ.titleCase(this.state.plan),
       disabled: this.state.service === "databases-for-mongodb" ? false : true,
+      value: lazyZ.titleCase(this.state.plan),
       handleInputChange: this.handleInputChange,
       invalidText: "Select a Plan.",
       className: "fieldWidthSmaller",
@@ -4698,12 +4705,12 @@ class CloudDatabaseForm extends React.Component {
       name: "group_id",
       formName: this.props.data.name + "-db-groupId",
       tooltip: {
-        content: "The ID of the scaling group. Read more about analytics and bi_connector down below.",
+        content: "The ID of the scaling group. Read more about analytics and bi_connector for MongoDB down below.",
         align: "bottom-left",
         link: "https://cloud.ibm.com/docs/databases-for-mongodb?topic=databases-for-mongodb-mongodbee-analytics&interface=api"
       },
-      groups: ["member", "analytcs", "bi_connector", "search"],
-      defaultValue: "member",
+      groups: this.state.service === "databases-for-mongodb" ? ["member", "analytcs", "bi_connector"] : ["member"],
+      disabled: this.state.service === "databases-for-mongodb" ? false : true,
       value: this.state.group_id,
       handleInputChange: this.handleInputChange,
       invalidText: "Select a Group ID.",
@@ -4712,7 +4719,7 @@ class CloudDatabaseForm extends React.Component {
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
       label: "Memory (GB)",
       id: this.props.data.name + "-db-memory",
-      value: this.state.memory,
+      value: this.state.memoryGB,
       allowEmpty: true,
       defaultValue: 1,
       placeholder: 1,
@@ -4727,7 +4734,7 @@ class CloudDatabaseForm extends React.Component {
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
       label: "Disk (GB)",
       id: this.props.data.name + "-db-disk",
-      value: this.state.disk,
+      value: this.state.diskGB,
       allowEmpty: true,
       defaultValue: 1,
       placeholder: 1,
@@ -4776,7 +4783,9 @@ CloudDatabaseForm.defaultProps = {
     service: "",
     group_id: "member",
     memory: "",
+    memoryGB: "",
     disk: "",
+    diskGB: "",
     cpu: "",
     memoryMin: "",
     memoryMax: "",
@@ -4795,7 +4804,9 @@ CloudDatabaseForm.propTypes = {
     service: PropTypes__default["default"].string.isRequired,
     group_id: PropTypes__default["default"].string,
     memory: PropTypes__default["default"].number,
+    memoryGB: PropTypes__default["default"].number,
     disk: PropTypes__default["default"].number,
+    diskGB: PropTypes__default["default"].number,
     cpu: PropTypes__default["default"].number,
     memoryMin: PropTypes__default["default"].number,
     memoryMax: PropTypes__default["default"].number,
