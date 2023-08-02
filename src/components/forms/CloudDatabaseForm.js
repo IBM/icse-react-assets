@@ -151,19 +151,17 @@ class CloudDatabaseForm extends Component {
             allowEmpty
             defaultValue={1}
             placeholder={1}
-            min={this.state.memoryMin || 1}
-            max={this.state.memoryMax || 112}
+            min={this.props.memoryMin || 1}
+            max={this.props.memoryMax || 112}
             onChange={this.handleInputChange}
             name="memory"
             hideSteppers
             invalid={isRangeInvalid(
               this.state.memory,
-              Number(this.state.memoryMin),
-              Number(this.state.memoryMax),
+              this.props.memoryMin,
+              this.props.memoryMax,
             )}
-            invalidText={`RAM must be a minimum of ${Number(
-              this.state.memoryMin,
-            )}GB and a maximum ${Number(this.state.memoryMax)}GB per member`}
+            invalidText={`RAM must be a minimum of ${this.props.memoryMin}GB and a maximum ${this.props.memoryMax}GB per member`}
             className="fieldWidthSmaller leftTextAlign"
           />
           {/* disk number input */}
@@ -174,17 +172,17 @@ class CloudDatabaseForm extends Component {
             allowEmpty
             defaultValue={1}
             placeholder={1}
-            min={this.state.diskMin || 5}
-            max={this.state.diskMax || 4096}
+            min={this.props.diskMin || 5}
+            max={this.props.diskMax || 4096}
             onChange={this.handleInputChange}
             name="disk"
             hideSteppers
             invalid={isRangeInvalid(
               this.state.disk,
-              Number(this.state.diskMin),
-              Number(this.state.diskMax),
+              this.props.diskMin,
+              this.props.diskMax,
             )}
-            invalidText={`Disk must be a minimum of ${this.state.diskMin}GB and a maximum ${this.state.diskMax}GB per member`}
+            invalidText={`Disk must be a minimum of ${this.props.diskMin}GB and a maximum ${this.props.diskMax}GB per member`}
             className="fieldWidthSmaller leftTextAlign"
           />
           {/* cpu text input */}
@@ -195,8 +193,8 @@ class CloudDatabaseForm extends Component {
             allowEmpty
             defaultValue={0}
             placeholder={0}
-            min={this.state.cpuMin || 0}
-            max={this.state.cpuMin || 28}
+            min={this.props.cpuMin || 0}
+            max={this.props.cpuMax || 28}
             onChange={this.handleInputChange}
             name="cpu"
             hideSteppers
@@ -204,10 +202,10 @@ class CloudDatabaseForm extends Component {
               !isNullOrEmptyString(this.state.cpu) &&
               (!isWholeNumber(Number(this.state.cpu)) ||
                 (Number(this.state.cpu) !== 0 &&
-                  Number(this.state.cpu) < Number(this.state.cpuMin)) ||
-                Number(this.state.cpu) > Number(this.state.cpuMax))
+                  Number(this.state.cpu) < max(this.props.cpuMin, 3)) ||
+                Number(this.state.cpu) > this.props.cpuMax)
             }
-            invalidText={`Using dedicated cores requires a minimum of ${this.state.cpuMin} cores and a maximum of ${this.state.cpuMax} cores per member. For shared CPU, select 0 cores.`}
+            invalidText={`Using dedicated cores requires a minimum of ${max(this.props.cpuMin, 3,)} cores and a maximum of ${this.props.cpuMax} cores per member. For shared CPU, select 0 cores.`}
             className="fieldWidthSmaller leftTextAlign"
           />
         </IcseFormGroup>
@@ -248,6 +246,12 @@ CloudDatabaseForm.defaultProps = {
     cpuMin: "",
     cpuMax: "",
   },
+  memoryMin: 1,
+  memoryMax: 112,
+  diskMin: 5,
+  diskMax: 4096,
+  cpuMin: 0,
+  cpuMax: 28,
 };
 
 CloudDatabaseForm.propTypes = {
@@ -261,14 +265,14 @@ CloudDatabaseForm.propTypes = {
     memory: PropTypes.number,
     disk: PropTypes.number,
     cpu: PropTypes.number,
-    memoryMin: PropTypes.number,
-    memoryMax: PropTypes.number,
-    diskMin: PropTypes.number,
-    diskMax: PropTypes.number,
-    cpuMin: PropTypes.number,
-    cpuMax: PropTypes.number,
     encryption_key: PropTypes.string,
   }).isRequired,
+  memoryMin: PropTypes.number,
+  memoryMax: PropTypes.number,
+  diskMin: PropTypes.number,
+  diskMax: PropTypes.number,
+  cpuMin: PropTypes.number,
+  cpuMax: PropTypes.number,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   encryptionKeys: PropTypes.arrayOf(PropTypes.string).isRequired,
   invalidCallback: PropTypes.func,

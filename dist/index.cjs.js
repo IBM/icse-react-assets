@@ -4716,13 +4716,13 @@ class CloudDatabaseForm extends React.Component {
       allowEmpty: true,
       defaultValue: 1,
       placeholder: 1,
-      min: this.state.memoryMin || 1,
-      max: this.state.memoryMax || 112,
+      min: this.props.memoryMin || 1,
+      max: this.props.memoryMax || 112,
       onChange: this.handleInputChange,
       name: "memory",
       hideSteppers: true,
-      invalid: iamUtils_3(this.state.memory, Number(this.state.memoryMin), Number(this.state.memoryMax)),
-      invalidText: `RAM must be a minimum of ${Number(this.state.memoryMin)}GB and a maximum ${Number(this.state.memoryMax)}GB per member`,
+      invalid: iamUtils_3(this.state.memory, this.props.memoryMin, this.props.memoryMax),
+      invalidText: `RAM must be a minimum of ${this.props.memoryMin}GB and a maximum ${this.props.memoryMax}GB per member`,
       className: "fieldWidthSmaller leftTextAlign"
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
       label: "Disk (GB)",
@@ -4731,13 +4731,13 @@ class CloudDatabaseForm extends React.Component {
       allowEmpty: true,
       defaultValue: 1,
       placeholder: 1,
-      min: this.state.diskMin || 5,
-      max: this.state.diskMax || 4096,
+      min: this.props.diskMin || 5,
+      max: this.props.diskMax || 4096,
       onChange: this.handleInputChange,
       name: "disk",
       hideSteppers: true,
-      invalid: iamUtils_3(this.state.disk, Number(this.state.diskMin), Number(this.state.diskMax)),
-      invalidText: `Disk must be a minimum of ${this.state.diskMin}GB and a maximum ${this.state.diskMax}GB per member`,
+      invalid: iamUtils_3(this.state.disk, this.props.diskMin, this.props.diskMax),
+      invalidText: `Disk must be a minimum of ${this.props.diskMin}GB and a maximum ${this.props.diskMax}GB per member`,
       className: "fieldWidthSmaller leftTextAlign"
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
       label: "CPU",
@@ -4746,13 +4746,13 @@ class CloudDatabaseForm extends React.Component {
       allowEmpty: true,
       defaultValue: 0,
       placeholder: 0,
-      min: this.state.cpuMin || 0,
-      max: this.state.cpuMin || 28,
+      min: this.props.cpuMin || 0,
+      max: this.props.cpuMax || 28,
       onChange: this.handleInputChange,
       name: "cpu",
       hideSteppers: true,
-      invalid: !lazyZ.isNullOrEmptyString(this.state.cpu) && (!lazyZ.isWholeNumber(Number(this.state.cpu)) || Number(this.state.cpu) !== 0 && Number(this.state.cpu) < Number(this.state.cpuMin) || Number(this.state.cpu) > Number(this.state.cpuMax)),
-      invalidText: `Using dedicated cores requires a minimum of ${this.state.cpuMin} cores and a maximum of ${this.state.cpuMax} cores per member. For shared CPU, select 0 cores.`,
+      invalid: !lazyZ.isNullOrEmptyString(this.state.cpu) && (!lazyZ.isWholeNumber(Number(this.state.cpu)) || Number(this.state.cpu) !== 0 && Number(this.state.cpu) < max(this.props.cpuMin, 3) || Number(this.state.cpu) > this.props.cpuMax),
+      invalidText: `Using dedicated cores requires a minimum of ${max(this.props.cpuMin, 3)} cores and a maximum of ${this.props.cpuMax} cores per member. For shared CPU, select 0 cores.`,
       className: "fieldWidthSmaller leftTextAlign"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       value: this.state.encryption_key,
@@ -4784,7 +4784,13 @@ CloudDatabaseForm.defaultProps = {
     diskMax: "",
     cpuMin: "",
     cpuMax: ""
-  }
+  },
+  memoryMin: 1,
+  memoryMax: 112,
+  diskMin: 5,
+  diskMax: 4096,
+  cpuMin: 0,
+  cpuMax: 28
 };
 CloudDatabaseForm.propTypes = {
   data: PropTypes__default["default"].shape({
@@ -4797,14 +4803,14 @@ CloudDatabaseForm.propTypes = {
     memory: PropTypes__default["default"].number,
     disk: PropTypes__default["default"].number,
     cpu: PropTypes__default["default"].number,
-    memoryMin: PropTypes__default["default"].number,
-    memoryMax: PropTypes__default["default"].number,
-    diskMin: PropTypes__default["default"].number,
-    diskMax: PropTypes__default["default"].number,
-    cpuMin: PropTypes__default["default"].number,
-    cpuMax: PropTypes__default["default"].number,
     encryption_key: PropTypes__default["default"].string
   }).isRequired,
+  memoryMin: PropTypes__default["default"].number,
+  memoryMax: PropTypes__default["default"].number,
+  diskMin: PropTypes__default["default"].number,
+  diskMax: PropTypes__default["default"].number,
+  cpuMin: PropTypes__default["default"].number,
+  cpuMax: PropTypes__default["default"].number,
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   encryptionKeys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   invalidCallback: PropTypes__default["default"].func,
