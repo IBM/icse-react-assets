@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { NumberInput } from "@carbon/react";
-import { isNullOrEmptyString, isWholeNumber, titleCase } from "lazy-z";
+import { titleCase } from "lazy-z";
 import {
   buildFormDefaultInputMethods,
   buildFormFunctions,
