@@ -714,7 +714,6 @@ function databaseInputChange$1(stateData, event) {
   } else if (name === "disk") {
     state.disk = Number(value);
   } else state[name] = value;
-  console.log(state);
   return state;
 }
 var database = {
