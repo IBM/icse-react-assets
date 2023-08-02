@@ -18,9 +18,9 @@ describe("access-groups", () => {
           {
             resources: { resource_group: "hi", resource: "resource" },
           },
-          event
+          event,
         ),
-        expectedData
+        expectedData,
       );
     });
   });
@@ -37,9 +37,9 @@ describe("access-groups", () => {
           {
             conditions: { claim: "one", operator: "IN", value: "1" },
           },
-          event
+          event,
         ),
-        expectedData
+        expectedData,
       );
     });
     it("should change value", () => {
@@ -49,9 +49,9 @@ describe("access-groups", () => {
           {
             conditions: { claim: "one", operator: "EQUALS", value: "frog" },
           },
-          event
+          event,
         ),
-        expectedData
+        expectedData,
       );
     });
   });

@@ -74,7 +74,13 @@ class CloudDatabaseForm extends Component {
             labelText="Cloud Database"
             name="service"
             formName={this.props.data.name + "-db-service"}
-            groups={["Databases for Postgresql", "Databases for Etcd", "Databases for Redis", "Databases for Mongodb", "Databases for Mysql"]}
+            groups={[
+              "Databases for Postgresql",
+              "Databases for Etcd",
+              "Databases for Redis",
+              "Databases for Mongodb",
+              "Databases for Mysql",
+            ]}
             value={titleCase(this.state.service)}
             handleInputChange={this.handleInputChange}
             invalidText="Select a Cloud Database."
@@ -100,9 +106,15 @@ class CloudDatabaseForm extends Component {
             labelText="Plan"
             name="plan"
             formName={this.props.data.name + "-db-plan"}
-            groups={this.state.service === "databases-for-mongodb" ? ["Standard", "Enterprise"] : ["Standard"]}
+            groups={
+              this.state.service === "databases-for-mongodb"
+                ? ["Standard", "Enterprise"]
+                : ["Standard"]
+            }
             value={titleCase(this.state.plan)}
-            disabled={this.state.service === "databases-for-mongodb" ? false : true}
+            disabled={
+              this.state.service === "databases-for-mongodb" ? false : true
+            }
             handleInputChange={this.handleInputChange}
             invalidText="Select a Plan."
             className="fieldWidthSmaller"
@@ -137,13 +149,19 @@ class CloudDatabaseForm extends Component {
             allowEmpty
             defaultValue={1}
             placeholder={1}
-            max={112}
-            min={1}
+            min={this.state.memoryMin || 1}
+            max={this.state.memoryMax || 112}
             onChange={this.handleInputChange}
             name="memory"
             hideSteppers
-            invalid={isRangeInvalid(this.state.memory, 1, 112)}
-            invalidText="RAM must be a minimum of 1GB and a maximum 112GB per member"
+            invalid={isRangeInvalid(
+              this.state.memory,
+              Number(this.state.memoryMin),
+              Number(this.state.memoryMax),
+            )}
+            invalidText={`RAM must be a minimum of ${Number(
+              this.state.memoryMin,
+            )}GB and a maximum ${Number(this.state.memoryMax)}GB per member`}
             className="fieldWidthSmaller leftTextAlign"
           />
           {/* disk number input */}
@@ -154,13 +172,17 @@ class CloudDatabaseForm extends Component {
             allowEmpty
             defaultValue={1}
             placeholder={1}
-            max={4096}
-            min={5}
+            min={this.state.diskMin || 5}
+            max={this.state.diskMax || 4096}
             onChange={this.handleInputChange}
             name="disk"
             hideSteppers
-            invalid={isRangeInvalid(this.state.disk, 5, 4096)}
-            invalidText="Disk must be a minimum of 5GB and a maximum 4096GB per member"
+            invalid={isRangeInvalid(
+              this.state.disk,
+              Number(this.state.diskMin),
+              Number(this.state.diskMax),
+            )}
+            invalidText={`Disk must be a minimum of ${this.state.diskMin}GB and a maximum ${this.state.diskMax}GB per member`}
             className="fieldWidthSmaller leftTextAlign"
           />
           {/* cpu text input */}
@@ -171,16 +193,19 @@ class CloudDatabaseForm extends Component {
             allowEmpty
             defaultValue={0}
             placeholder={0}
-            max={28}
-            min={0}
+            min={this.state.cpuMin || 0}
+            max={this.state.cpuMin || 28}
             onChange={this.handleInputChange}
             name="cpu"
             hideSteppers
-            invalid={!isNullOrEmptyString(this.state.cpu) &&
-                    (!isWholeNumber(Number(this.state.cpu)) || 
-                      (Number(this.state.cpu) !== 0 && Number(this.state.cpu) < 3) ||
-                      Number(this.state.cpu) > 28) }
-            invalidText="Using dedicated cores requires a minimum of 3 cores and a maximum of 28 cores per member. For shared CPU, select 0 cores."
+            invalid={
+              !isNullOrEmptyString(this.state.cpu) &&
+              (!isWholeNumber(Number(this.state.cpu)) ||
+                (Number(this.state.cpu) !== 0 &&
+                  Number(this.state.cpu) < Number(this.state.cpuMin)) ||
+                Number(this.state.cpu) > Number(this.state.cpuMax))
+            }
+            invalidText={`Using dedicated cores requires a minimum of ${this.state.cpuMin} cores and a maximum of ${this.state.cpuMax} cores per member. For shared CPU, select 0 cores.`}
             className="fieldWidthSmaller leftTextAlign"
           />
         </IcseFormGroup>
@@ -214,7 +239,13 @@ CloudDatabaseForm.defaultProps = {
     memory: "",
     disk: "",
     cpu: "",
-  }
+    memoryMin: "",
+    memoryMax: "",
+    diskMin: "",
+    diskMax: "",
+    cpuMin: "",
+    cpuMax: "",
+  },
 };
 
 CloudDatabaseForm.propTypes = {
@@ -228,6 +259,12 @@ CloudDatabaseForm.propTypes = {
     memory: PropTypes.number,
     disk: PropTypes.number,
     cpu: PropTypes.number,
+    memoryMin: PropTypes.number,
+    memoryMax: PropTypes.number,
+    diskMin: PropTypes.number,
+    diskMax: PropTypes.number,
+    cpuMin: PropTypes.number,
+    cpuMax: PropTypes.number,
     encryption_key: PropTypes.string,
   }).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,

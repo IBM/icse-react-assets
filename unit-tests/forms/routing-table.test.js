@@ -19,9 +19,9 @@ describe("routing table routes", () => {
           {
             name: "route",
           },
-          event
+          event,
         ),
-        expectedData
+        expectedData,
       );
     });
     it("set next hop to null when deliver", () => {
@@ -38,9 +38,9 @@ describe("routing table routes", () => {
           {
             name: "route",
           },
-          event
+          event,
         ),
-        expectedData
+        expectedData,
       );
     });
     it("should pass through other values", () => {
@@ -56,9 +56,9 @@ describe("routing table routes", () => {
           {
             name: "route",
           },
-          event
+          event,
         ),
-        expectedData
+        expectedData,
       );
     });
   });

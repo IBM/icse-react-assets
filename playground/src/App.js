@@ -24,9 +24,9 @@ const App = () => {
 
   function invalidCpuCallback(stateData, componentProps) {
     return (
-        !isWholeNumber(Number(stateData.cpu)) || 
-        (Number(stateData.cpu) !== 0 && Number(stateData.cpu) < 3) ||
-        Number(stateData.cpu) > 28
+      !isWholeNumber(Number(stateData.cpu)) ||
+      (Number(stateData.cpu) !== 0 && Number(stateData.cpu) < 3) ||
+      Number(stateData.cpu) > 28
     );
   }
 

@@ -82,7 +82,7 @@ class VpcNetworkForm extends React.Component {
             invalidText={this.props.invalidTextCallback(
               "name",
               this.state,
-              this.props
+              this.props,
             )}
             className="fieldWidthSmaller"
           />
@@ -127,12 +127,12 @@ class VpcNetworkForm extends React.Component {
                 invalid={this.props.invalidCallback(
                   field,
                   this.state,
-                  this.props
+                  this.props,
                 )}
                 invalidText={this.props.invalidTextCallback(
                   field,
                   this.state,
-                  this.props
+                  this.props,
                 )}
                 className="fieldWidthSmaller"
                 optional

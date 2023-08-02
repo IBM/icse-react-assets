@@ -15,7 +15,7 @@ describe("databaseInputChange", () => {
         resource_group: "hi",
         service: "",
       },
-      event
+      event,
     );
     assert.deepEqual(expectedData, actualData);
   });
@@ -32,7 +32,7 @@ describe("databaseInputChange", () => {
         resource_group: "hi",
         plan: "",
       },
-      event
+      event,
     );
     assert.deepEqual(expectedData, actualData);
   });
@@ -49,7 +49,7 @@ describe("databaseInputChange", () => {
         resource_group: "hi",
         plan: "standard",
       },
-      event
+      event,
     );
     assert.deepEqual(expectedData, actualData);
   });

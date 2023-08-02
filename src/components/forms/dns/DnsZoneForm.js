@@ -50,7 +50,7 @@ class DnsZoneForm extends React.Component {
             }
             invalidText={this.props.invalidNameTextCallback(
               this.state,
-              this.props
+              this.props,
             )}
           />
           <VpcListMultiSelect
@@ -71,7 +71,7 @@ class DnsZoneForm extends React.Component {
             }
             invalidText={this.props.invalidLabelTextCallback(
               this.state,
-              this.props
+              this.props,
             )}
           />
         </IcseFormGroup>
@@ -85,11 +85,11 @@ class DnsZoneForm extends React.Component {
           enableCounter
           invalid={this.props.invalidDescriptionCallback(
             this.state,
-            this.props
+            this.props,
           )}
           invalidText={this.props.invalidDescriptionTextCallback(
             this.state,
-            this.props
+            this.props,
           )}
         />
       </div>

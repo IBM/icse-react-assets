@@ -29,7 +29,7 @@ class SecretsManagerChecklist extends React.Component {
       },
       () => {
         this.props.onSelectChange(selected);
-      }
+      },
     );
   }
 
@@ -50,7 +50,7 @@ class SecretsManagerChecklist extends React.Component {
       >
         <div className="formInSubForm secretChecklistMargin">
           {distinct(
-            ["Select All"].concat([...splat(this.props.secrets, "ref")])
+            ["Select All"].concat([...splat(this.props.secrets, "ref")]),
           ).map((value) => (
             <Checkbox
               className="secretCheckBoxMargin"

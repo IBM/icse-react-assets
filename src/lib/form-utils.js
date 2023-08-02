@@ -1,6 +1,4 @@
-const { contains, 
-        capitalize,
-      } = require("lazy-z");
+const { contains, capitalize } = require("lazy-z");
 
 /**
  * create a composed class name

@@ -123,5 +123,5 @@ const ToolTipWrapperWithChildrenStory = ({ ...args }) => {
 
 export const Default = ToolTipWrapperStory.bind({});
 export const ToolTipWrapperWithChildren = ToolTipWrapperWithChildrenStory.bind(
-  {}
+  {},
 );

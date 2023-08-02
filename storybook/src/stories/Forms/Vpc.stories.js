@@ -178,7 +178,7 @@ const VpcFormStory = () => {
     else if (field === "name") {
       invalidCheck = contains(
         ["foo", "bar"],
-        stateData.name || componentProps.data.name === stateData.name
+        stateData.name || componentProps.data.name === stateData.name,
       );
     } else
       invalidCheck = vpcFieldCheck(field, stateData, componentProps).invalid;

@@ -12,28 +12,28 @@ describe("button utils", () => {
       assert.deepEqual(
         saveChangeButtonClass({}),
         "forceTertiaryButtonStyles marginRightSmall tertiaryButtonColors",
-        "it should return button styles"
+        "it should return button styles",
       );
     });
     it("should return default styles with topLevelToggleForm params", () => {
       assert.deepEqual(
         saveChangeButtonClass({ topLevelToggleForm: true }),
         "forceTertiaryButtonStyles marginRightSmall tertiaryButtonColors",
-        "it should return button styles"
+        "it should return button styles",
       );
     });
     it("should return default styles when not hiding delete", () => {
       assert.deepEqual(
         saveChangeButtonClass({ noDeleteButton: true }),
         "forceTertiaryButtonStyles tertiaryButtonColors",
-        "it should return button styles"
+        "it should return button styles",
       );
     });
     it("should return default styles when save is disabled", () => {
       assert.deepEqual(
         saveChangeButtonClass({ disabled: true }),
         "forceTertiaryButtonStyles marginRightSmall",
-        "it should return button styles"
+        "it should return button styles",
       );
     });
   });
@@ -56,7 +56,7 @@ describe("button utils", () => {
       assert.deepEqual(
         actualData,
         expectedData,
-        "it should return correct data"
+        "it should return correct data",
       );
     });
     it("should return the correct class when not disabled, not inline, add, and does not have default hover text", () => {
@@ -75,7 +75,7 @@ describe("button utils", () => {
       assert.deepEqual(
         actualData,
         expectedData,
-        "it should return correct data"
+        "it should return correct data",
       );
     });
     it("should return the correct class when not disabled, not inline, save, and has default hover text", () => {
@@ -94,7 +94,7 @@ describe("button utils", () => {
       assert.deepEqual(
         actualData,
         expectedData,
-        "it should return correct data"
+        "it should return correct data",
       );
     });
   });

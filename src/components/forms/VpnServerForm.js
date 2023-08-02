@@ -8,9 +8,7 @@ import {
 } from "lazy-z";
 import PropTypes from "prop-types";
 import { isIpStringInvalidNoCidr } from "../../lib/iam-utils";
-import {
-  handleVpnServerInputChange,
-} from "../../lib/forms";
+import { handleVpnServerInputChange } from "../../lib/forms";
 import { isRangeInvalid } from "../../lib/iam-utils";
 import {
   buildFormDefaultInputMethods,
@@ -151,12 +149,12 @@ class VpnServerForm extends Component {
             invalid={this.props.invalidCrns(
               this.state,
               this.props,
-              "certificate_crn"
+              "certificate_crn",
             )}
             invalidText={this.props.invalidCrnText(
               this.state,
               this.props,
-              "certificate_crn"
+              "certificate_crn",
             )}
             className="fieldWidthSmaller"
           />
@@ -188,13 +186,13 @@ class VpnServerForm extends Component {
               invalid={this.props.invalidCrns(
                 this.state,
                 this.props,
-                "client_ca_crn"
+                "client_ca_crn",
               )}
               invalidText={() =>
                 this.props.invalidCrnText(
                   this.state,
                   this.props,
-                  "client_ca_crn"
+                  "client_ca_crn",
                 )
               }
               className="fieldWidthSmaller"
@@ -220,7 +218,7 @@ class VpnServerForm extends Component {
             }
             invalidText={this.props.invalidClientIpPoolTextCallback(
               this.state,
-              this.props
+              this.props,
             )}
             onChange={this.handleInputChange}
             className="fieldWidthSmaller"
@@ -278,11 +276,7 @@ class VpnServerForm extends Component {
             hideSteppers={true}
             min={0}
             max={28800}
-            invalid={isRangeInvalid(
-              this.state.client_idle_timeout,
-              0,
-              28800
-            )}
+            invalid={isRangeInvalid(this.state.client_idle_timeout, 0, 28800)}
             invalidText="Must be a whole number between 0 and 28800."
             className="fieldWidthSmaller"
           />

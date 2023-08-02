@@ -12,7 +12,8 @@ export default {
       control: "none",
     },
     ["data.name"]: {
-      description: "A string specifying the name of the Cloud Database instance",
+      description:
+        "A string specifying the name of the Cloud Database instance",
       control: "none",
       type: { required: true }, // required prop or not
     },
@@ -43,19 +44,19 @@ export default {
       type: { required: false }, // required prop or not
     },
     ["data.memory"]: {
-        description: "A number value of the allocated memory per member",
-        control: "none",
-        type: { required: false }, // required prop or not
+      description: "A number value of the allocated memory per member",
+      control: "none",
+      type: { required: false }, // required prop or not
     },
     ["data.disk"]: {
-        description: "A number value of the allocated disk per member",
-        control: "none",
-        type: { required: false }, // required prop or not
+      description: "A number value of the allocated disk per member",
+      control: "none",
+      type: { required: false }, // required prop or not
     },
     ["data.cpu"]: {
-        description: "A number value of the allocated dedicated CPU per member",
-        control: "none",
-        type: { required: false }, // required prop or not
+      description: "A number value of the allocated dedicated CPU per member",
+      control: "none",
+      type: { required: false }, // required prop or not
     },
     resourceGroups: {
       description:
@@ -134,6 +135,12 @@ const CloudDatabaseFormStory = () => {
         memory: "",
         disk: "",
         cpu: "",
+        memoryMin: 1,
+        memoryMax: 112,
+        diskMin: 5,
+        diskMax: 4096,
+        cpuMin: 0,
+        cpuMax: 28,
       }}
       propsMatchState={function () {
         return false;

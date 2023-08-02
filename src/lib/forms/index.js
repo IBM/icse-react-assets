@@ -2,9 +2,7 @@ const { handlePgwToggle } = require("./vpc");
 const { atrackerInputChange } = require("./atracker");
 const { databaseInputChange } = require("./database");
 const { handleRgToggle } = require("./resource-groups");
-const {
-  handleVpnServerInputChange,
-} = require("./vpn-server");
+const { handleVpnServerInputChange } = require("./vpn-server");
 const {
   cbrInvalid,
   cbrValueInvalid,

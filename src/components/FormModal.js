@@ -68,7 +68,7 @@ class FormModal extends Component {
                   enableModal: this.enableModal,
                   isModal: true,
                   ref: this.modalForm,
-                })
+                }),
               )}
           </Modal>
         }

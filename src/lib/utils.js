@@ -34,9 +34,9 @@ function handleNumberDropdownEvent(props) {
 function titleGroupParams(props) {
   return addClassName(
     `displayFlex alignItemsCenter widthOneHundredPercent ${toggleMarginBottom(
-      props.hide
+      props.hide,
     )}`,
-    props
+    props,
   );
 }
 
@@ -70,7 +70,7 @@ function icseSubFormParams(props) {
     props.formInSubForm
       ? "formInSubForm positionRelative"
       : "subForm marginBottomSmall",
-    props
+    props,
   );
 }
 
@@ -91,7 +91,7 @@ function icseHeadingParams(props) {
   return (
     addClassName(
       "displayFlex spaceBetween widthOneHundredPercent alignItemsCenter",
-      props
+      props,
     ) + titleFormDivClass
   );
 }

@@ -21,7 +21,7 @@ describe("dns", () => {
           vpc: "",
           subnets: ["hi"],
         },
-        event
+        event,
       );
       assert.deepEqual(expectedData, actualData);
     });
@@ -38,7 +38,7 @@ describe("dns", () => {
           resource_group: "hi",
           vpc: "management",
         },
-        event
+        event,
       );
       assert.deepEqual(expectedData, actualData);
     });
@@ -53,7 +53,7 @@ describe("dns", () => {
           },
         }),
         { plan: "plan" },
-        "it should return correct value"
+        "it should return correct value",
       );
     });
     it("should return value", () => {
@@ -65,7 +65,7 @@ describe("dns", () => {
           },
         }),
         { name: "PLAN" },
-        "it should return correct value"
+        "it should return correct value",
       );
     });
   });
