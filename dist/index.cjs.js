@@ -720,11 +720,9 @@ function databaseInputChange$1(stateData, event) {
     name,
     value
   } = event.target;
-  if (name === "service") state.service = kebabCase$1(value);else if (name === "plan") state.plan = kebabCase$1(value);else if (name === "memoryGB") {
-    state.memoryGB = Number(value);
+  if (name === "service") state.service = kebabCase$1(value);else if (name === "plan") state.plan = kebabCase$1(value);else if (name === "memory") {
     state.memory = Number(value) * 1024;
-  } else if (name === "diskGB") {
-    state.diskGB = Number(value);
+  } else if (name === "disk") {
     state.disk = Number(value) * 1024;
   } else state[name] = value;
   console.log(state);
@@ -4719,7 +4717,7 @@ class CloudDatabaseForm extends React.Component {
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
       label: "Memory (GB)",
       id: this.props.data.name + "-db-memory",
-      value: this.state.memoryGB,
+      value: this.state.memory,
       allowEmpty: true,
       defaultValue: 1,
       placeholder: 1,
@@ -4734,7 +4732,7 @@ class CloudDatabaseForm extends React.Component {
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
       label: "Disk (GB)",
       id: this.props.data.name + "-db-disk",
-      value: this.state.diskGB,
+      value: this.state.disk,
       allowEmpty: true,
       defaultValue: 1,
       placeholder: 1,
@@ -4783,9 +4781,7 @@ CloudDatabaseForm.defaultProps = {
     service: "",
     group_id: "member",
     memory: "",
-    memoryGB: "",
     disk: "",
-    diskGB: "",
     cpu: "",
     memoryMin: "",
     memoryMax: "",
@@ -4804,9 +4800,7 @@ CloudDatabaseForm.propTypes = {
     service: PropTypes__default["default"].string.isRequired,
     group_id: PropTypes__default["default"].string,
     memory: PropTypes__default["default"].number,
-    memoryGB: PropTypes__default["default"].number,
     disk: PropTypes__default["default"].number,
-    diskGB: PropTypes__default["default"].number,
     cpu: PropTypes__default["default"].number,
     memoryMin: PropTypes__default["default"].number,
     memoryMax: PropTypes__default["default"].number,

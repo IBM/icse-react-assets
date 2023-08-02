@@ -151,7 +151,7 @@ class CloudDatabaseForm extends Component {
           <NumberInput
             label="Memory (GB)"
             id={this.props.data.name + "-db-memory"}
-            value={this.state.memoryGB}
+            value={this.state.memory}
             allowEmpty
             defaultValue={1}
             placeholder={1}
@@ -174,7 +174,7 @@ class CloudDatabaseForm extends Component {
           <NumberInput
             label="Disk (GB)"
             id={this.props.data.name + "-db-disk"}
-            value={this.state.diskGB}
+            value={this.state.disk}
             allowEmpty
             defaultValue={1}
             placeholder={1}
@@ -243,9 +243,7 @@ CloudDatabaseForm.defaultProps = {
     service: "",
     group_id: "member",
     memory: "",
-    memoryGB: "",
     disk: "",
-    diskGB: "",
     cpu: "",
     memoryMin: "",
     memoryMax: "",
@@ -265,9 +263,7 @@ CloudDatabaseForm.propTypes = {
     service: PropTypes.string.isRequired,
     group_id: PropTypes.string,
     memory: PropTypes.number,
-    memoryGB: PropTypes.number,
     disk: PropTypes.number,
-    diskGB: PropTypes.number,
     cpu: PropTypes.number,
     memoryMin: PropTypes.number,
     memoryMax: PropTypes.number,
