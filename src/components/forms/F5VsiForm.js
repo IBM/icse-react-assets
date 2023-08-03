@@ -230,6 +230,7 @@ F5VsiForm.defaultProps = {
   vsis: [],
   edge_pattern: "vpn-and-waf",
   f5_on_management: true,
+  hideSaveCallback: () => {},
 };
 
 F5VsiForm.propTypes = {
