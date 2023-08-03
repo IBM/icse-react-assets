@@ -17,7 +17,7 @@ function icseSelectParams(props) {
       : prependEmptyStringWhenNull(
           // otherwise try and prepend empty string if null or empty string is allowed
           props.disableInvalid ? "" : props.value,
-          props.groups,
+          props.groups
         );
   let popoverClassName = props.tooltip ? "tooltip select" : " select";
   let wrapperId = kebabCase(props.name) + "-dropdown-tooltip";
@@ -25,7 +25,7 @@ function icseSelectParams(props) {
   let labelText = props.tooltip ? null : props.labelText;
   let selectClassName = addClassName(
     `leftTextAlign${props.tooltip ? " tooltip" : ""}`,
-    props,
+    props
   );
   return {
     invalid,

@@ -74,7 +74,7 @@ class ToggleForm extends React.Component {
         this.props.propsMatchState(
           this.props.submissionFieldName,
           stateData,
-          componentProps,
+          componentProps
         ) === false;
       if (propsDoNotMatch || this.state.useDefaultUnsavedMessage === false) {
         this.toggleUnsavedChangeModal();
@@ -127,7 +127,7 @@ class ToggleForm extends React.Component {
     this.props.onShowToggle(this.props.index);
     this.props.onDelete(
       this.childRef.current?.state,
-      this.childRef.current?.props,
+      this.childRef.current?.props
     );
     this.setState({ hide: true, showDeleteModal: false });
   }
@@ -142,13 +142,13 @@ class ToggleForm extends React.Component {
       this.props.disableSave(
         this.props.submissionFieldName,
         stateData,
-        componentProps,
+        componentProps
       ) === false;
     let propsDoNotMatch =
       this.props.propsMatchState(
         this.props.submissionFieldName,
         stateData,
-        componentProps,
+        componentProps
       ) === false;
     if (
       enableSave === false &&

@@ -49,7 +49,7 @@ class SubnetsPage extends React.Component {
               return this.props.disableSave(
                 "subnetTier",
                 stateData,
-                componentProps,
+                componentProps
               );
             }}
             invalidTextCallback={this.props.invalidSubnetTierText}
@@ -58,11 +58,11 @@ class SubnetsPage extends React.Component {
             invalidCidrText={this.props.invalidCidrText(this.props.craig)}
             invalidSubnetCallback={this.props.invalidName(
               "subnet",
-              this.props.craig,
+              this.props.craig
             )}
             invalidSubnetTextCallback={this.props.invalidNameText(
               "subnet",
-              this.props.craig,
+              this.props.craig
             )}
           />
         </FormModal>
@@ -105,13 +105,13 @@ class SubnetsPage extends React.Component {
                 this.props.propsMatchState(
                   "subnet",
                   stateData,
-                  componentProps,
+                  componentProps
                 ) ||
                 this.props.disableSave(
                   "subnet",
                   stateData,
                   componentProps,
-                  this.props.craig,
+                  this.props.craig
                 )
               );
             }}
@@ -120,7 +120,7 @@ class SubnetsPage extends React.Component {
                 this.props.propsMatchState(
                   "subnetTier",
                   stateData,
-                  componentProps,
+                  componentProps
                 ) ||
                 this.props.disableSave("subnetTier", stateData, componentProps)
               );
@@ -129,7 +129,7 @@ class SubnetsPage extends React.Component {
               return this.props.propsMatchState(
                 "subnetTier",
                 stateData,
-                componentProps,
+                componentProps
               );
             }}
             shouldDisableSubmit={none}
@@ -139,11 +139,11 @@ class SubnetsPage extends React.Component {
             invalidCidrText={this.props.invalidCidrText(this.props.craig)}
             invalidSubnetCallback={this.props.invalidName(
               "subnet",
-              this.props.craig,
+              this.props.craig
             )}
             invalidSubnetTextCallback={this.props.invalidNameText(
               "subnet",
-              this.props.craig,
+              this.props.craig
             )}
             onSubnetSave={this.props.onSubnetSave}
           />

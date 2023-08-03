@@ -482,7 +482,7 @@ var emptyResourceTile_1 = emptyResourceTile.emptyResourceTileParams;
 const {
   snakeCase: snakeCase$1,
   kebabCase: kebabCase$3,
-  titleCase: titleCase$1,
+  titleCase: titleCase$2,
   isBoolean
 } = lazyZ__default["default"];
 const {
@@ -552,7 +552,7 @@ function onToggleEvent$1(props, toggleName) {
  * @returns {Object} params object
  */
 function textInputParams(props) {
-  let fieldName = titleCase$1(props.field);
+  let fieldName = titleCase$2(props.field);
   let invalidText = props.invalidText ? props.invalidText : `Invalid ${props.field} value.`,
     invalid = isBoolean(props.invalid) ? props.invalid : props.invalidCallback(),
     placeholder = (props.optional ? "(Optional) " : "") + (props.placeholder || formatInputPlaceholder$1(props.componentName, fieldName)),
@@ -704,7 +704,8 @@ var atracker = {
 };
 
 const {
-  kebabCase: kebabCase$1
+  kebabCase: kebabCase$1,
+  titleCase: titleCase$1
 } = lazyZ__default["default"];
 
 /**
@@ -720,16 +721,28 @@ function databaseInputChange$1(stateData, event) {
     name,
     value
   } = event.target;
+  console.log(name);
+  console.log(value);
+  console.log(titleCase$1("databases-for-postgresql"));
   if (name === "service") state.service = kebabCase$1(value);else if (name === "plan") state.plan = kebabCase$1(value);else if (name === "memory") {
     state.memory = Number(value) || "";
   } else if (name === "disk") {
     state.disk = Number(value) || "";
   } else state[name] = value;
+  console.log(state);
   return state;
 }
 var database = {
   databaseInputChange: databaseInputChange$1
 };
+var database_1 = database.databaseInputChange;
+
+var database$1 = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  'default': database,
+  __moduleExports: database,
+  databaseInputChange: database_1
+});
 
 /**
  * handle toggle for resource group
@@ -1690,7 +1703,7 @@ const {
 } = atracker;
 const {
   databaseInputChange
-} = database;
+} = database$1;
 const {
   handleRgToggle
 } = resourceGroups;
@@ -4670,7 +4683,7 @@ class CloudDatabaseForm extends React.Component {
       labelText: "Cloud Database",
       name: "service",
       formName: this.props.data.name + "-db-service",
-      groups: ["Databases For Postgresql", "Databases For Etcd", "Databases For Redis", "Databases For Mongodb", "Databases For Mysql"],
+      groups: ["databases-for-postgresql", "databases-for-etcd", "databases-for-redis", "databases-for-mongodb", "databases-for-mysql"],
       value: lazyZ.titleCase(this.state.service),
       handleInputChange: this.handleInputChange,
       invalidText: "Select a Cloud Database.",

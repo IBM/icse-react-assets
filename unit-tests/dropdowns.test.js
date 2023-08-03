@@ -25,7 +25,7 @@ describe("dropdown functions", () => {
       assert.deepEqual(
         actualData,
         expectedData,
-        "it should return correct data",
+        "it should return correct data"
       );
     });
     it("should return correct props when value is not null or empty string with no groups", () => {
@@ -50,7 +50,7 @@ describe("dropdown functions", () => {
       assert.deepEqual(
         actualData,
         expectedData,
-        "it should return correct data",
+        "it should return correct data"
       );
     });
     it("should return correct props when value is not null or empty string with no groups with tooltip", () => {
@@ -78,7 +78,7 @@ describe("dropdown functions", () => {
       assert.deepEqual(
         actualData,
         expectedData,
-        "it should return correct data",
+        "it should return correct data"
       );
     });
     it("should return correct props when value is null or empty string", () => {
@@ -103,7 +103,7 @@ describe("dropdown functions", () => {
       assert.deepEqual(
         actualData,
         expectedData,
-        "it should return correct data",
+        "it should return correct data"
       );
     });
     it("should return correct props when value is null or empty string and invalid is disabled", () => {
@@ -129,7 +129,7 @@ describe("dropdown functions", () => {
       assert.deepEqual(
         actualData,
         expectedData,
-        "it should return correct data",
+        "it should return correct data"
       );
     });
   });

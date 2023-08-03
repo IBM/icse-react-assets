@@ -11,7 +11,7 @@ describe("cluster", () => {
     it("should remove default from openshift version string", () => {
       let actualValue = filterKubeVersion(
         "4.11.39_openshift (Default)",
-        "openshift",
+        "openshift"
       );
       let expectedValue = "4.11.39_openshift";
       assert.equal(actualValue, expectedValue);
@@ -29,7 +29,7 @@ describe("cluster", () => {
     it("should remove default from kube version string", () => {
       let actualValue = filterKubeVersion(
         "1.25.10_kubernetes (Default)",
-        "iks",
+        "iks"
       );
       let expectedValue = "1.25.10_kubernetes";
       assert.equal(actualValue, expectedValue);

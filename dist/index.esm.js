@@ -1,6 +1,6 @@
 import '@carbon/styles/css/styles.css';
 import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, NumberInput, DataTable, TableContainer, Table, TableHead, TableRow, TableHeader, TableBody, TableCell, TextArea, Tag, PasswordInput, Dropdown, Checkbox } from '@carbon/react';
-import lazyZ, { titleCase as titleCase$2, kebabCase as kebabCase$6, isEmpty, buildNumberDropdownList, contains as contains$5, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$6, transpose as transpose$2, capitalize as capitalize$2, getObjectFromArray, splat as splat$2, containsKeys, parseIntFromZone as parseIntFromZone$1, snakeCase as snakeCase$2, distinct, isWholeNumber as isWholeNumber$1, isInRange as isInRange$1, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual } from 'lazy-z';
+import lazyZ, { titleCase as titleCase$3, kebabCase as kebabCase$6, isEmpty, buildNumberDropdownList, contains as contains$5, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$6, transpose as transpose$2, capitalize as capitalize$2, getObjectFromArray, splat as splat$2, containsKeys, parseIntFromZone as parseIntFromZone$1, snakeCase as snakeCase$2, distinct, isWholeNumber as isWholeNumber$1, isInRange as isInRange$1, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual } from 'lazy-z';
 import regexButWithWords from 'regex-but-with-words';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
@@ -471,7 +471,7 @@ var emptyResourceTile_1 = emptyResourceTile.emptyResourceTileParams;
 const {
   snakeCase: snakeCase$1,
   kebabCase: kebabCase$3,
-  titleCase: titleCase$1,
+  titleCase: titleCase$2,
   isBoolean
 } = lazyZ;
 const {
@@ -541,7 +541,7 @@ function onToggleEvent$1(props, toggleName) {
  * @returns {Object} params object
  */
 function textInputParams(props) {
-  let fieldName = titleCase$1(props.field);
+  let fieldName = titleCase$2(props.field);
   let invalidText = props.invalidText ? props.invalidText : `Invalid ${props.field} value.`,
     invalid = isBoolean(props.invalid) ? props.invalid : props.invalidCallback(),
     placeholder = (props.optional ? "(Optional) " : "") + (props.placeholder || formatInputPlaceholder$1(props.componentName, fieldName)),
@@ -693,7 +693,8 @@ var atracker = {
 };
 
 const {
-  kebabCase: kebabCase$1
+  kebabCase: kebabCase$1,
+  titleCase: titleCase$1
 } = lazyZ;
 
 /**
@@ -709,16 +710,28 @@ function databaseInputChange$1(stateData, event) {
     name,
     value
   } = event.target;
+  console.log(name);
+  console.log(value);
+  console.log(titleCase$1("databases-for-postgresql"));
   if (name === "service") state.service = kebabCase$1(value);else if (name === "plan") state.plan = kebabCase$1(value);else if (name === "memory") {
     state.memory = Number(value) || "";
   } else if (name === "disk") {
     state.disk = Number(value) || "";
   } else state[name] = value;
+  console.log(state);
   return state;
 }
 var database = {
   databaseInputChange: databaseInputChange$1
 };
+var database_1 = database.databaseInputChange;
+
+var database$1 = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  'default': database,
+  __moduleExports: database,
+  databaseInputChange: database_1
+});
 
 /**
  * handle toggle for resource group
@@ -1679,7 +1692,7 @@ const {
 } = atracker;
 const {
   databaseInputChange
-} = database;
+} = database$1;
 const {
   handleRgToggle
 } = resourceGroups;
@@ -2082,7 +2095,7 @@ const ToolTipWrapper = props => {
     className: "cds--label labelRow"
   }, /*#__PURE__*/React.createElement("label", {
     htmlFor: props.id
-  }, props.labelText || titleCase$2(props.field)), tooltip), props.children ? /*#__PURE__*/React.cloneElement(props.children, {
+  }, props.labelText || titleCase$3(props.field)), tooltip), props.children ? /*#__PURE__*/React.cloneElement(props.children, {
     // adjust props
     labelText: " ",
     // set labelText to empty
@@ -2782,13 +2795,13 @@ EntitlementSelect.defaultProps = {
 const EndpointSelect = props => {
   let titleCaseGroups = [];
   props.groups.forEach(group => {
-    titleCaseGroups.push(titleCase$2(group).replace(/And/g, "and"));
+    titleCaseGroups.push(titleCase$3(group).replace(/And/g, "and"));
   });
   return /*#__PURE__*/React.createElement(IcseSelect, {
     name: props.name,
     labelText: "Endpoint Type",
     groups: titleCaseGroups,
-    value: titleCase$2(props.value).replace(/And/g, "and"),
+    value: titleCase$3(props.value).replace(/And/g, "and"),
     handleInputChange: event => {
       let {
         name,
@@ -4436,7 +4449,7 @@ class AtrackerForm extends Component {
       groups: ["Lite", "7 Day", "14 Day", "30 Day"],
       formName: this.props.data.name + "-atracker-plan",
       name: "plan",
-      value: titleCase$2(this.state.plan),
+      value: titleCase$3(this.state.plan),
       handleInputChange: this.handleInputChange,
       className: "fieldWidth",
       labelText: "Plan",
@@ -4659,8 +4672,8 @@ class CloudDatabaseForm extends Component {
       labelText: "Cloud Database",
       name: "service",
       formName: this.props.data.name + "-db-service",
-      groups: ["Databases For Postgresql", "Databases For Etcd", "Databases For Redis", "Databases For Mongodb", "Databases For Mysql"],
-      value: titleCase$2(this.state.service),
+      groups: ["databases-for-postgresql", "databases-for-etcd", "databases-for-redis", "databases-for-mongodb", "databases-for-mysql"],
+      value: titleCase$3(this.state.service),
       handleInputChange: this.handleInputChange,
       invalidText: "Select a Cloud Database.",
       className: "fieldWidthSmaller"
@@ -4679,7 +4692,7 @@ class CloudDatabaseForm extends Component {
       formName: this.props.data.name + "-db-plan",
       groups: this.state.service === "databases-for-mongodb" ? ["Standard", "Enterprise"] : ["Standard"],
       disabled: this.state.service === "databases-for-mongodb" ? false : true,
-      value: titleCase$2(this.state.plan),
+      value: titleCase$3(this.state.plan),
       handleInputChange: this.handleInputChange,
       invalidText: "Select a Plan.",
       className: "fieldWidthSmaller"
@@ -7727,7 +7740,7 @@ class VpcNetworkForm extends React.Component {
         id: composedId + "-" + field,
         key: this.props.data.name + "-" + kebabCase$6(field),
         field: field,
-        labelText: titleCase$2(field),
+        labelText: titleCase$3(field),
         value: this.state[field],
         onChange: this.handleInputChange,
         invalid: this.props.invalidCallback(field, this.state, this.props),
@@ -8847,7 +8860,7 @@ class VsiLoadBalancerForm extends React.Component {
       name: "algorithm",
       labelText: "Load Balancing Algorithm",
       groups: ["Round Robin", "Weighted Round Robin", "Least Connections"],
-      value: titleCase$2(this.state.algorithm || ""),
+      value: titleCase$3(this.state.algorithm || ""),
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseSelect, {
@@ -8976,7 +8989,7 @@ class VsiLoadBalancerForm extends React.Component {
       name: "session_persistence_type",
       labelText: "Session Persistence Type",
       groups: ["Source IP", "App Cookie", "HTTP Cookie"],
-      value: titleCase$2(this.state.session_persistence_type || "").replace(/Ip/s, "IP").replace(/Http/g, "HTTP"),
+      value: titleCase$3(this.state.session_persistence_type || "").replace(/Ip/s, "IP").replace(/Http/g, "HTTP"),
       handleInputChange: this.handleInputChange,
       disableInvalid: true,
       className: "fieldWidthSmaller"
@@ -9537,7 +9550,7 @@ class DnsForm extends Component {
       id: this.props.data.name + "-dns-plan",
       name: "plan",
       className: "fieldWidthSmaller",
-      value: titleCase$2(this.state.plan),
+      value: titleCase$3(this.state.plan),
       labelText: "Plan",
       groups: ["Free", "Standard"],
       formName: "dns-form",
@@ -9870,7 +9883,7 @@ class RoutingTableRouteForm extends Component {
       groups: ["Delegate", "Deliver", "Delegate VPC", "Drop"],
       labelText: "Action",
       handleInputChange: this.handleInputChange,
-      value: titleCase$2(this.state.action),
+      value: titleCase$3(this.state.action),
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: this.props.data.name + "-next-hop",
@@ -10218,7 +10231,7 @@ class EventStreamsForm extends Component {
       className: classNameModalCheck
     }), /*#__PURE__*/React.createElement(IcseSelect, {
       formName: this.props.data.name + "-event-streams",
-      value: titleCase$2(this.state.plan),
+      value: titleCase$3(this.state.plan),
       groups: ["Lite", "Standard", "Enterprise"],
       handleInputChange: this.handlePlanChange,
       className: classNameModalCheck,
@@ -10376,7 +10389,7 @@ class VpnServerRouteForm extends React.Component {
       name: "action",
       labelText: "Action",
       groups: ["Translate", "Deliver", "Drop"],
-      value: titleCase$2(this.state.action),
+      value: titleCase$3(this.state.action),
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller"
     }));
@@ -10513,7 +10526,7 @@ class VpnServerForm extends Component {
       name: "method",
       labelText: "Authentication Method",
       groups: ["Certificate", "Username"],
-      value: titleCase$2(this.state.method),
+      value: titleCase$3(this.state.method),
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller"
     }), this.state.method === "certificate" && /*#__PURE__*/React.createElement(IcseTextInput, {
@@ -11086,7 +11099,7 @@ class SubnetsPage extends React.Component {
         noDeleteButton: true
       })
     }), tiers.length === 0 && /*#__PURE__*/React.createElement(EmptyResourceTile, {
-      name: "Subnet Tiers for " + titleCase$2(this.props.data.name) + " VPC"
+      name: "Subnet Tiers for " + titleCase$3(this.props.data.name) + " VPC"
     }), this.props.subnetTiers[this.props.data.name].map((tier, index) => /*#__PURE__*/React.createElement(SubnetTierForm$1, {
       key: JSON.stringify(tier),
       data: this.props.getSubnetTierStateData(tier, this.props.data),
@@ -13627,7 +13640,7 @@ class CbrRuleForm extends Component {
       id: this.props.data.name + "-cbr-rule-enforcement-mode",
       name: "enforcement_mode",
       className: "fieldWidthSmaller",
-      value: titleCase$2(this.state.enforcement_mode),
+      value: titleCase$3(this.state.enforcement_mode),
       labelText: "Enforcement Mode",
       groups: ["Enabled", "Disabled", "Report"],
       invalid: this.props.invalidCallback("enforcement_mode", this.state, this.props),
@@ -14171,7 +14184,7 @@ class LogDNAForm extends Component {
       groups: ["Lite", "7 Day", "14 Day", "30 Day"],
       formName: this.props.data.name + "-logdna-plan",
       name: "plan",
-      value: titleCase$2(this.state.plan).replace(/3 0/, "30").replace(/1 4/, "14"),
+      value: titleCase$3(this.state.plan).replace(/3 0/, "30").replace(/1 4/, "14"),
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller",
       labelText: "Plan",
@@ -14304,7 +14317,7 @@ class SysdigForm extends Component {
       groups: ["Tier 1", "Tier 2", "Tier 3", "Tier 4"],
       formName: this.props.data.name + "-sysdig-plan",
       name: "plan",
-      value: titleCase$2(this.state.plan),
+      value: titleCase$3(this.state.plan),
       handleInputChange: this.handleInputChange,
       className: "fieldWidth",
       labelText: "Plan",

@@ -148,7 +148,7 @@ class F5VsiTile extends React.Component {
                   disabled={this.props.propsMatchState(
                     "f5_vsi",
                     this.state,
-                    this.props,
+                    this.props
                   )}
                 />
               }

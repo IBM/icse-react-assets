@@ -82,7 +82,7 @@ class AccessGroupDynamicPolicyForm extends React.Component {
             value={this.state.identity_provider}
             invalid={this.props.invalidIdentityProviderCallback(
               this.state,
-              this.props,
+              this.props
             )}
             onChange={this.handleInputChange}
             className="textInputWide"

@@ -139,7 +139,7 @@ SubnetTileForm.propTypes = {
       cidr: PropTypes.string.isRequired,
       public_gateway: PropTypes.bool,
       network_acl: PropTypes.string,
-    }),
+    })
   ),
   readOnly: PropTypes.bool.isRequired,
   enabledPublicGateways: PropTypes.arrayOf(PropTypes.number).isRequired,

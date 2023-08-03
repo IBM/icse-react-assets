@@ -70,7 +70,7 @@ export const VpnServers = (props) => {
             return props.disableSave(
               "vpn_server_routes",
               stateData,
-              componentProps,
+              componentProps
             );
           },
           invalidCallback: props.invalidRouteCallback,

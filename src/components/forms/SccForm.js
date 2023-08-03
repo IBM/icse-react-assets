@@ -108,14 +108,14 @@ class SccForm extends Component {
               invalidRegex(
                 "passphrase",
                 this.state.passphrase,
-                this.props.descriptionRegex,
+                this.props.descriptionRegex
               ).invalid
             }
             invalidText={
               invalidRegex(
                 "passphrase",
                 this.state.passphrase,
-                this.props.descriptionRegex,
+                this.props.descriptionRegex
               ).invalidText
             }
           />
@@ -148,14 +148,14 @@ class SccForm extends Component {
               invalidRegex(
                 "credential_description",
                 this.state.credential_description,
-                this.props.descriptionRegex,
+                this.props.descriptionRegex
               ).invalid
             }
             invalidText={
               invalidRegex(
                 "credential_description",
                 this.state.credential_description,
-                this.props.descriptionRegex,
+                this.props.descriptionRegex
               ).invalidText
             }
           />
@@ -201,14 +201,14 @@ class SccForm extends Component {
               invalidRegex(
                 "scope_description",
                 this.state.scope_description,
-                this.props.descriptionRegex,
+                this.props.descriptionRegex
               ).invalid
             }
             invalidText={
               invalidRegex(
                 "scope_description",
                 this.state.scope_description,
-                this.props.descriptionRegex,
+                this.props.descriptionRegex
               ).invalidText
             }
           />
@@ -229,14 +229,14 @@ class SccForm extends Component {
               invalidRegex(
                 "collector_description",
                 this.state.collector_description,
-                this.props.descriptionRegex,
+                this.props.descriptionRegex
               ).invalid
             }
             invalidText={
               invalidRegex(
                 "collector_description",
                 this.state.collector_description,
-                this.props.descriptionRegex,
+                this.props.descriptionRegex
               ).invalidText
             }
           />

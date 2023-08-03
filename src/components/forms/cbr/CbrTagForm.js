@@ -41,7 +41,7 @@ class CbrTagForm extends Component {
           }
           invalidText={this.props.invalidNameTextCallback(
             this.state,
-            this.props,
+            this.props
           )}
           hideHelperText
           forceKebabCase
@@ -59,7 +59,7 @@ class CbrTagForm extends Component {
           invalidText={this.props.invalidTextCallback(
             "operator",
             this.state,
-            this.props,
+            this.props
           )}
           hideHelperText
         />
@@ -76,7 +76,7 @@ class CbrTagForm extends Component {
           invalidText={this.props.invalidTextCallback(
             "value",
             this.state,
-            this.props,
+            this.props
           )}
           hideHelperText
         />

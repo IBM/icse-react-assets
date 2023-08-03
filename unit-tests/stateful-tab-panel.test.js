@@ -16,7 +16,7 @@ describe("statefulTabPanelParams", () => {
         hasBuiltInHeading: false,
         name: "hi",
       },
-      { tabIndex: 1 },
+      { tabIndex: 1 }
     );
     assert.deepEqual(expectedData, actualData);
   });
@@ -38,7 +38,7 @@ describe("statefulTabPanelParams", () => {
           return true;
         },
       },
-      { tabIndex: 0 },
+      { tabIndex: 0 }
     );
     assert.deepEqual(expectedData, actualData);
   });

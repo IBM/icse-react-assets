@@ -33,8 +33,8 @@ function f5Vsis(stateData, componentProps) {
           resource_group: stateData.resource_group,
           ssh_keys: stateData.ssh_keys,
           profile: stateData.profile,
-        },
-      ),
+        }
+      )
     );
   }
   return vsis;

@@ -31,7 +31,7 @@ class DnsForm extends Component {
     let zoneInnerFormProps = {};
     transpose(
       { ...this.props.zoneProps, arrayParentName: this.props.data.name },
-      zoneInnerFormProps,
+      zoneInnerFormProps
     );
 
     let recordInnerFormProps = {};
@@ -40,13 +40,13 @@ class DnsForm extends Component {
         ...this.props.recordProps,
         arrayParentName: this.props.data.name,
       },
-      recordInnerFormProps,
+      recordInnerFormProps
     );
 
     let resolverInnerFormProps = {};
     transpose(
       { ...this.props.resolverProps, arrayParentName: this.props.data.name },
-      resolverInnerFormProps,
+      resolverInnerFormProps
     );
 
     return (
@@ -63,7 +63,7 @@ class DnsForm extends Component {
             }
             invalidText={this.props.invalidNameTextCallback(
               this.state,
-              this.props,
+              this.props
             )}
           />
           <IcseSelect
@@ -184,7 +184,7 @@ DnsForm.propTypes = {
         description: PropTypes.string,
         label: PropTypes.string,
         vpcs: PropTypes.array,
-      }),
+      })
     ),
     records: PropTypes.arrayOf(
       PropTypes.shape({
@@ -193,7 +193,7 @@ DnsForm.propTypes = {
         type: PropTypes.string.isRequired,
         rdata: PropTypes.string.isRequired,
         ttl: PropTypes.number.isRequired,
-      }),
+      })
     ),
     custom_resolvers: PropTypes.arrayOf(
       PropTypes.shape({
@@ -203,7 +203,7 @@ DnsForm.propTypes = {
         high_availability: PropTypes.bool,
         vpc: PropTypes.string,
         subnets: PropTypes.arrayOf(PropTypes.string),
-      }),
+      })
     ),
   }),
   zoneProps: PropTypes.shape({

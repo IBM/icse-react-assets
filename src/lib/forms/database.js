@@ -1,4 +1,4 @@
-const { kebabCase } = require("lazy-z");
+const { kebabCase, titleCase } = require("lazy-z");
 
 /**
  * handle input change for Cloud Database Form
@@ -8,6 +8,9 @@ const { kebabCase } = require("lazy-z");
 function databaseInputChange(stateData, event) {
   let state = { ...stateData };
   let { name, value } = event.target;
+  console.log(name);
+  console.log(value);
+  console.log(titleCase("databases-for-postgresql"));
   if (name === "service") state.service = kebabCase(value);
   else if (name === "plan") state.plan = kebabCase(value);
   else if (name === "memory") {
@@ -15,6 +18,7 @@ function databaseInputChange(stateData, event) {
   } else if (name === "disk") {
     state.disk = Number(value) || "";
   } else state[name] = value;
+  console.log(state);
   return state;
 }
 

@@ -75,11 +75,11 @@ class CloudDatabaseForm extends Component {
             name="service"
             formName={this.props.data.name + "-db-service"}
             groups={[
-              "Databases For Postgresql",
-              "Databases For Etcd",
-              "Databases For Redis",
-              "Databases For Mongodb",
-              "Databases For Mysql",
+              "databases-for-postgresql",
+              "databases-for-etcd",
+              "databases-for-redis",
+              "databases-for-mongodb",
+              "databases-for-mysql",
             ]}
             value={titleCase(this.state.service)}
             handleInputChange={this.handleInputChange}

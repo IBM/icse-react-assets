@@ -149,12 +149,12 @@ class VpnServerForm extends Component {
             invalid={this.props.invalidCrns(
               this.state,
               this.props,
-              "certificate_crn",
+              "certificate_crn"
             )}
             invalidText={this.props.invalidCrnText(
               this.state,
               this.props,
-              "certificate_crn",
+              "certificate_crn"
             )}
             className="fieldWidthSmaller"
           />
@@ -186,13 +186,13 @@ class VpnServerForm extends Component {
               invalid={this.props.invalidCrns(
                 this.state,
                 this.props,
-                "client_ca_crn",
+                "client_ca_crn"
               )}
               invalidText={() =>
                 this.props.invalidCrnText(
                   this.state,
                   this.props,
-                  "client_ca_crn",
+                  "client_ca_crn"
                 )
               }
               className="fieldWidthSmaller"
@@ -218,7 +218,7 @@ class VpnServerForm extends Component {
             }
             invalidText={this.props.invalidClientIpPoolTextCallback(
               this.state,
-              this.props,
+              this.props
             )}
             onChange={this.handleInputChange}
             className="fieldWidthSmaller"

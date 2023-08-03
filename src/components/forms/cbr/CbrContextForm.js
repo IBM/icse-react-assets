@@ -37,7 +37,7 @@ class CbrContextForm extends Component {
           }
           invalidText={this.props.invalidNameTextCallback(
             this.state,
-            this.props,
+            this.props
           )}
           hideHelperText={true}
           forceKebabCase
@@ -54,7 +54,7 @@ class CbrContextForm extends Component {
           invalidText={this.props.invalidTextCallback(
             "value",
             this.state,
-            this.props,
+            this.props
           )}
         />
       </IcseFormGroup>
