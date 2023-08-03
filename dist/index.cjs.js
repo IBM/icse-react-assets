@@ -11623,7 +11623,8 @@ F5VsiTile.defaultProps = {
     resource_group: "",
     encryption_key: ""
   },
-  hide: false
+  hide: false,
+  hideSaveCallback: () => {}
 };
 F5VsiTile.propTypes = {
   data: PropTypes__default["default"].shape({

@@ -201,6 +201,7 @@ F5VsiTile.defaultProps = {
     encryption_key: "",
   },
   hide: false,
+  hideSaveCallback: () => {},
 };
 
 F5VsiTile.propTypes = {
