@@ -723,7 +723,7 @@ function databaseInputChange$1(stateData, event) {
   } = event.target;
   console.log(name);
   console.log(value);
-  console.log(titleCase$1("databases-for-postgresql"));
+  console.log(titleCase$1(value));
   if (name === "service") state.service = kebabCase$1(value);else if (name === "plan") state.plan = kebabCase$1(value);else if (name === "memory") {
     state.memory = Number(value) || "";
   } else if (name === "disk") {
@@ -735,14 +735,6 @@ function databaseInputChange$1(stateData, event) {
 var database = {
   databaseInputChange: databaseInputChange$1
 };
-var database_1 = database.databaseInputChange;
-
-var database$1 = /*#__PURE__*/Object.freeze({
-  __proto__: null,
-  'default': database,
-  __moduleExports: database,
-  databaseInputChange: database_1
-});
 
 /**
  * handle toggle for resource group
@@ -1703,7 +1695,7 @@ const {
 } = atracker;
 const {
   databaseInputChange
-} = database$1;
+} = database;
 const {
   handleRgToggle
 } = resourceGroups;

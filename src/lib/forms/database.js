@@ -10,7 +10,7 @@ function databaseInputChange(stateData, event) {
   let { name, value } = event.target;
   console.log(name);
   console.log(value);
-  console.log(titleCase("databases-for-postgresql"));
+  console.log(titleCase(value));
   if (name === "service") state.service = kebabCase(value);
   else if (name === "plan") state.plan = kebabCase(value);
   else if (name === "memory") {
