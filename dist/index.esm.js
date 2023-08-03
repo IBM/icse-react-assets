@@ -710,9 +710,6 @@ function databaseInputChange$1(stateData, event) {
     name,
     value
   } = event.target;
-  console.log(name);
-  console.log(value);
-  console.log(titleCase$1(value));
   if (name === "service") state.service = kebabCase$1(value);else if (name === "plan") state.plan = kebabCase$1(value);else if (name === "memory") {
     state.memory = Number(value) || "";
   } else if (name === "disk") {
@@ -4768,13 +4765,7 @@ CloudDatabaseForm.defaultProps = {
     group_id: "member",
     memory: "",
     disk: "",
-    cpu: "",
-    memoryMin: "",
-    memoryMax: "",
-    diskMin: "",
-    diskMax: "",
-    cpuMin: "",
-    cpuMax: ""
+    cpu: ""
   },
   memoryMin: 1,
   memoryMax: 112,
@@ -4791,9 +4782,9 @@ CloudDatabaseForm.propTypes = {
     plan: PropTypes.string,
     service: PropTypes.string.isRequired,
     group_id: PropTypes.string,
-    memory: PropTypes.number,
-    disk: PropTypes.number,
-    cpu: PropTypes.number,
+    memory: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf([""])]),
+    disk: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf([""])]),
+    cpu: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf([""])]),
     encryption_key: PropTypes.string
   }).isRequired,
   memoryMin: PropTypes.number,

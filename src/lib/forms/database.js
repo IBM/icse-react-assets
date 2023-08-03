@@ -8,9 +8,6 @@ const { kebabCase, titleCase } = require("lazy-z");
 function databaseInputChange(stateData, event) {
   let state = { ...stateData };
   let { name, value } = event.target;
-  console.log(name);
-  console.log(value);
-  console.log(titleCase(value));
   if (name === "service") state.service = kebabCase(value);
   else if (name === "plan") state.plan = kebabCase(value);
   else if (name === "memory") {

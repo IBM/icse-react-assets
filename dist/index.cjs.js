@@ -721,9 +721,6 @@ function databaseInputChange$1(stateData, event) {
     name,
     value
   } = event.target;
-  console.log(name);
-  console.log(value);
-  console.log(titleCase$1(value));
   if (name === "service") state.service = kebabCase$1(value);else if (name === "plan") state.plan = kebabCase$1(value);else if (name === "memory") {
     state.memory = Number(value) || "";
   } else if (name === "disk") {
@@ -4779,13 +4776,7 @@ CloudDatabaseForm.defaultProps = {
     group_id: "member",
     memory: "",
     disk: "",
-    cpu: "",
-    memoryMin: "",
-    memoryMax: "",
-    diskMin: "",
-    diskMax: "",
-    cpuMin: "",
-    cpuMax: ""
+    cpu: ""
   },
   memoryMin: 1,
   memoryMax: 112,
@@ -4802,9 +4793,9 @@ CloudDatabaseForm.propTypes = {
     plan: PropTypes__default["default"].string,
     service: PropTypes__default["default"].string.isRequired,
     group_id: PropTypes__default["default"].string,
-    memory: PropTypes__default["default"].number,
-    disk: PropTypes__default["default"].number,
-    cpu: PropTypes__default["default"].number,
+    memory: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].oneOf([""])]),
+    disk: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].oneOf([""])]),
+    cpu: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].oneOf([""])]),
     encryption_key: PropTypes__default["default"].string
   }).isRequired,
   memoryMin: PropTypes__default["default"].number,
