@@ -181,13 +181,13 @@ class ToggleForm extends React.Component {
   render() {
     if (this.props.noDeleteButton !== true && !this.props.onDelete) {
       throw new Error(
-        `ToggleForm expects onDelete Function to be passed when a delete button is rendered`,
+        `ToggleForm expects onDelete Function to be passed when a delete button is rendered`
       );
     }
 
     if (this.props.noSaveButton !== true && !this.props.onSave) {
       throw new Error(
-        `ToggleForm expects onSave Function to be passed when a save button is rendered`,
+        `ToggleForm expects onSave Function to be passed when a save button is rendered`
       );
     }
     return (
@@ -204,7 +204,7 @@ class ToggleForm extends React.Component {
                 className={addClassName(
                   this.props.type === "formInSubForm"
                     ? "formInSubForm positionRelative marginBottomSmall"
-                    : "subForm marginBottomSmall",
+                    : "subForm marginBottomSmall"
                 )}
               >
                 <StatelessToggleForm
