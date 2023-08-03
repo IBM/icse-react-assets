@@ -124,9 +124,10 @@ const CloudDatabaseFormStory = () => {
 
   function invalidCpuCallback(stateData, componentProps) {
     return (
-        !isNullOrEmptyString(stateData.cpu) &&
-        (!isWholeNumber(Number(stateData.cpu)) || 
-        (Number(stateData.cpu) !== 0 && Number(stateData.cpu) < componentProps.cpuMin) ||
+      !isNullOrEmptyString(stateData.cpu) &&
+      (!isWholeNumber(Number(stateData.cpu)) ||
+        (Number(stateData.cpu) !== 0 &&
+          Number(stateData.cpu) < componentProps.cpuMin) ||
         Number(stateData.cpu) > componentProps.cpuMax)
     );
   }
@@ -145,9 +146,6 @@ const CloudDatabaseFormStory = () => {
         encryption_key: "",
         service: "",
         group_id: "member",
-        memory: "",
-        disk: "",
-        cpu: "",
       }}
       propsMatchState={function () {
         return false;
