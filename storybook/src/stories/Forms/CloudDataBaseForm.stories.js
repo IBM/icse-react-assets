@@ -146,6 +146,9 @@ const CloudDatabaseFormStory = () => {
         encryption_key: "",
         service: "",
         group_id: "member",
+        memory: "",
+        disk: "",
+        cpu: "",
       }}
       propsMatchState={function () {
         return false;
