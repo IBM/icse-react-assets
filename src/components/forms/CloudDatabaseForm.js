@@ -80,7 +80,7 @@ class CloudDatabaseForm extends Component {
               "databases-for-redis",
               "databases-for-mongodb",
               "databases-for-mysql",
-            ]}
+            ].map(titleCase)}
             value={titleCase(this.state.service)}
             handleInputChange={this.handleInputChange}
             invalidText="Select a Cloud Database."

@@ -4675,7 +4675,7 @@ class CloudDatabaseForm extends React.Component {
       labelText: "Cloud Database",
       name: "service",
       formName: this.props.data.name + "-db-service",
-      groups: ["databases-for-postgresql", "databases-for-etcd", "databases-for-redis", "databases-for-mongodb", "databases-for-mysql"],
+      groups: ["databases-for-postgresql", "databases-for-etcd", "databases-for-redis", "databases-for-mongodb", "databases-for-mysql"].map(lazyZ.titleCase),
       value: lazyZ.titleCase(this.state.service),
       handleInputChange: this.handleInputChange,
       invalidText: "Select a Cloud Database.",
