@@ -7026,25 +7026,28 @@ class OrderCardDataTable extends React.Component {
     return /*#__PURE__*/React__default["default"].createElement(react.DataTable, {
       headers: headers,
       rows: rows
-    }, ({
-      rows,
-      headers,
-      getHeaderProps,
-      getRowProps
-    }) => /*#__PURE__*/React__default["default"].createElement(react.TableContainer, null, /*#__PURE__*/React__default["default"].createElement(react.Table, null, /*#__PURE__*/React__default["default"].createElement(react.TableHead, null, /*#__PURE__*/React__default["default"].createElement(react.TableRow, null, headers.map((header, index) => /*#__PURE__*/React__default["default"].createElement(react.TableHeader, _extends({
-      key: header.header + "-" + index
-    }, getHeaderProps({
-      header
-    })), header.header)))), /*#__PURE__*/React__default["default"].createElement(react.TableBody, null, rows.map((row, index) => /*#__PURE__*/React__default["default"].createElement(react.TableRow, _extends({
-      key: row.name + "-" + index
-    }, getRowProps({
-      row
-    })), row.cells.map(cell => /*#__PURE__*/React__default["default"].createElement(react.TableCell, {
-      key: JSON.stringify(cell),
-      className: this.props.isSecurityGroup ? "dt-security-group" : ""
-    }, /*#__PURE__*/React__default["default"].createElement("div", {
-      key: JSON.stringify(cell) + "-port"
-    }, lazyZ.contains(["tcp", "udp", "all", "icmp"], cell.value) ? cell.value.toUpperCase() : cell.value)))))))));
+    }, _ref => {
+      let {
+        rows,
+        headers,
+        getHeaderProps,
+        getRowProps
+      } = _ref;
+      return /*#__PURE__*/React__default["default"].createElement(react.TableContainer, null, /*#__PURE__*/React__default["default"].createElement(react.Table, null, /*#__PURE__*/React__default["default"].createElement(react.TableHead, null, /*#__PURE__*/React__default["default"].createElement(react.TableRow, null, headers.map((header, index) => /*#__PURE__*/React__default["default"].createElement(react.TableHeader, _extends({
+        key: header.header + "-" + index
+      }, getHeaderProps({
+        header
+      })), header.header)))), /*#__PURE__*/React__default["default"].createElement(react.TableBody, null, rows.map((row, index) => /*#__PURE__*/React__default["default"].createElement(react.TableRow, _extends({
+        key: row.name + "-" + index
+      }, getRowProps({
+        row
+      })), row.cells.map(cell => /*#__PURE__*/React__default["default"].createElement(react.TableCell, {
+        key: JSON.stringify(cell),
+        className: this.props.isSecurityGroup ? "dt-security-group" : ""
+      }, /*#__PURE__*/React__default["default"].createElement("div", {
+        key: JSON.stringify(cell) + "-port"
+      }, lazyZ.contains(["tcp", "udp", "all", "icmp"], cell.value) ? cell.value.toUpperCase() : cell.value))))))));
+    });
   }
 }
 OrderCardDataTable.propTypes = {
@@ -10797,7 +10800,7 @@ VpnServers.propTypes = {
   vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string)
 };
 
-function none$1() {}
+function none$2() {}
 class NetworkAclPage extends React__default["default"].Component {
   constructor(props) {
     super(props);
@@ -10851,12 +10854,12 @@ class NetworkAclPage extends React__default["default"].Component {
       },
       isModal: true
       /* below functions only needed when not modal but are required */,
-      disableSaveCallback: none$1,
-      helperTextCallback: none$1,
-      onRuleSave: none$1,
-      onRuleDelete: none$1,
-      disableModalSubmitCallback: none$1,
-      onSubmitCallback: none$1
+      disableSaveCallback: none$2,
+      helperTextCallback: none$2,
+      onRuleSave: none$2,
+      onRuleDelete: none$2,
+      disableModalSubmitCallback: none$2,
+      onSubmitCallback: none$2
     })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
       name: "Network Access Control Lists",
       className: "marginBottomSmall",
@@ -10868,7 +10871,7 @@ class NetworkAclPage extends React__default["default"].Component {
       })
     }), /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
       arrayData: this.props.data.acls,
-      onSubmit: none$1 // no modal
+      onSubmit: none$2 // no modal
       ,
       onDelete: this.props.onDelete,
       onSave: this.props.onSave,
@@ -10889,7 +10892,7 @@ class NetworkAclPage extends React__default["default"].Component {
         resourceGroups: this.props.resourceGroups,
         vpc_name: this.props.data.name,
         craig: this.props.craig,
-        disableModalSubmitCallback: none$1
+        disableModalSubmitCallback: none$2
       },
       disableSave: this.props.disableSave,
       propsMatchState: this.props.propsMatchState,
@@ -10936,11 +10939,11 @@ const NetworkAcls = props => {
     innerForm: NetworkAclPage,
     arrayData: props.vpcs,
     docs: props.docs,
-    onSubmit: none$1,
-    onDelete: none$1,
-    onSave: none$1,
-    disableSave: none$1,
-    propsMatchState: none$1,
+    onSubmit: none$2,
+    onDelete: none$2,
+    onSave: none$2,
+    disableSave: none$2,
+    propsMatchState: none$2,
     forceOpen: props.forceOpen,
     hideFormTitleButton: true,
     innerFormProps: {
@@ -10967,8 +10970,8 @@ const NetworkAcls = props => {
       noSaveButton: true,
       hideName: true,
       submissionFieldName: "network_acls",
-      disableSave: none$1,
-      propsMatchState: none$1,
+      disableSave: none$2,
+      propsMatchState: none$2,
       nullRef: true
     }
   });
@@ -11044,7 +11047,7 @@ SshKeys.propTypes = {
   invalidKeyCallback: PropTypes__default["default"].func.isRequired
 };
 
-function none() {}
+function none$1() {}
 class SubnetsPage extends React__default["default"].Component {
   constructor(props) {
     super(props);
@@ -11070,9 +11073,9 @@ class SubnetsPage extends React__default["default"].Component {
       vpc_name: this.props.data.name,
       subnetListCallback: this.props.subnetListCallback,
       craig: this.props.craig,
-      disableSubnetSaveCallback: none,
-      propsMatchState: none,
-      shouldDisableSave: none,
+      disableSubnetSaveCallback: none$1,
+      propsMatchState: none$1,
+      shouldDisableSave: none$1,
       shouldDisableSubmit: (stateData, componentProps) => {
         return this.props.disableSave("subnetTier", stateData, componentProps);
       },
@@ -11116,7 +11119,7 @@ class SubnetsPage extends React__default["default"].Component {
       propsMatchState: (stateData, componentProps) => {
         return this.props.propsMatchState("subnetTier", stateData, componentProps);
       },
-      shouldDisableSubmit: none,
+      shouldDisableSubmit: none$1,
       invalidTextCallback: this.props.invalidSubnetTierText,
       invalidCallback: this.props.invalidSubnetTierName,
       invalidCidr: this.props.invalidCidr(this.props.craig),
@@ -11159,11 +11162,11 @@ const Subnets = props => {
     innerForm: SubnetsPage,
     arrayData: props.vpcs,
     docs: props.docs,
-    onSubmit: none,
-    onDelete: none,
-    onSave: none,
-    disableSave: none,
-    propsMatchState: none,
+    onSubmit: none$1,
+    onDelete: none$1,
+    onSave: none$1,
+    disableSave: none$1,
+    propsMatchState: none$1,
     forceOpen: props.forceOpen,
     hideFormTitleButton: true,
     innerFormProps: {
@@ -11192,8 +11195,8 @@ const Subnets = props => {
       noSaveButton: true,
       hideName: true,
       submissionFieldName: "subnets",
-      disableSave: none,
-      propsMatchState: none,
+      disableSave: none$1,
+      propsMatchState: none$1,
       nullRef: true
     }
   });
@@ -11620,7 +11623,8 @@ F5VsiTile.defaultProps = {
     resource_group: "",
     encryption_key: ""
   },
-  hide: false
+  hide: false,
+  hideSaveCallback: () => {}
 };
 F5VsiTile.propTypes = {
   data: PropTypes__default["default"].shape({
@@ -11647,7 +11651,8 @@ F5VsiForm.defaultProps = {
   },
   vsis: [],
   edge_pattern: "vpn-and-waf",
-  f5_on_management: true
+  f5_on_management: true,
+  hideSaveCallback: () => {}
 };
 F5VsiForm.propTypes = {
   data: PropTypes__default["default"].shape({
@@ -12056,7 +12061,7 @@ F5VsiTemplateForm.propTypes = {
     license_password: PropTypes__default["default"].string.isRequired,
     license_host: PropTypes__default["default"].string.isRequired,
     license_pool: PropTypes__default["default"].string.isRequired,
-    license_unit_of_measure: PropTypes__default["default"].string.isRequired,
+    license_unit_of_measure: PropTypes__default["default"].string,
     license_sku_keyword_1: PropTypes__default["default"].string.isRequired,
     license_sku_keyword_2: PropTypes__default["default"].string.isRequired,
     template_version: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].string]),
@@ -14411,6 +14416,259 @@ SecretsManagerChecklist.propTypes = {
   parentName: PropTypes__default["default"].string.isRequired
 };
 
+const Atracker = props => {
+  return /*#__PURE__*/React__default["default"].createElement(ToggleForm, {
+    name: props.resourceName,
+    about: props.docs,
+    propsMatchState: props.propsMatchState,
+    disableSave: props.disableSave,
+    innerForm: AtrackerForm,
+    hideName: true,
+    noDeleteButton: true,
+    tabPanel: {
+      name: "Activity Tracker"
+    },
+    hide: true,
+    submissionFieldName: "atracker",
+    onSave: props.onSave,
+    innerFormProps: {
+      craig: props.craig,
+      region: props.region,
+      data: props.data,
+      resourceGroups: props.resourceGroups,
+      cosKeys: props.cosKeys,
+      cosBuckets: props.cosBuckets,
+      prefix: props.prefix
+    }
+  });
+};
+Atracker.propTypes = {
+  docs: PropTypes__default["default"].object.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  craig: PropTypes__default["default"].shape({}).isRequired,
+  region: PropTypes__default["default"].string.isRequired,
+  data: PropTypes__default["default"].shape({}).isRequired,
+  resourceName: PropTypes__default["default"].string.isRequired,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  cosKeys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  cosBuckets: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  onSave: PropTypes__default["default"].func.isRequired,
+  prefix: PropTypes__default["default"].string.isRequired
+};
+
+const IamAccountSettings = props => {
+  return /*#__PURE__*/React__default["default"].createElement(ToggleForm, {
+    name: "IAM Account Settings",
+    about: props.docs,
+    propsMatchState: props.propsMatchState,
+    disableSave: props.disableSave,
+    innerForm: IamAccountSettingsForm,
+    hideName: true,
+    tabPanel: {
+      name: "IAM Account Settings"
+    },
+    hide: true,
+    submissionFieldName: "iam_account_settings",
+    noDeleteButton: props.noDeleteButton,
+    onSave: props.onSave,
+    onDelete: props.onDelete,
+    useAddButton: props.useAddButton,
+    onShowToggle: () => {},
+    innerFormProps: {
+      craig: props.craig,
+      data: props.data,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback
+    }
+  });
+};
+IamAccountSettings.propTypes = {
+  docs: PropTypes__default["default"].object.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  craig: PropTypes__default["default"].shape({}).isRequired,
+  data: PropTypes__default["default"].shape({}).isRequired,
+  onSave: PropTypes__default["default"].func.isRequired,
+  onDelete: PropTypes__default["default"].func.isRequired,
+  useAddButton: PropTypes__default["default"].bool.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  noDeleteButton: PropTypes__default["default"].bool.isRequired
+};
+
+const SccV1 = props => {
+  return /*#__PURE__*/React__default["default"].createElement(ToggleForm, {
+    name: "Security and Compliance Center V1",
+    about: props.docs,
+    propsMatchState: props.propsMatchState,
+    disableSave: props.disableSave,
+    innerForm: SccForm,
+    hideName: true,
+    noDeleteButton: props.noDeleteButton,
+    onDelete: props.onDelete,
+    useAddButton: props.useAddButton,
+    tabPanel: {
+      name: "Security and Compliance Center V1"
+    },
+    hide: true,
+    onShowToggle: () => {},
+    submissionFieldName: "scc",
+    onSave: props.onSave,
+    innerFormProps: {
+      craig: props.craig,
+      data: props.data,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback
+    }
+  });
+};
+SccV1.propTypes = {
+  docs: PropTypes__default["default"].object.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  craig: PropTypes__default["default"].shape({}).isRequired,
+  data: PropTypes__default["default"].shape({}).isRequired,
+  onSave: PropTypes__default["default"].func.isRequired,
+  useAddButton: PropTypes__default["default"].bool.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  noDeleteButton: PropTypes__default["default"].bool.isRequired,
+  onDelete: PropTypes__default["default"].func.isRequired
+};
+
+function none() {}
+const NoEdgeNetworkTile = () => {
+  return /*#__PURE__*/React__default["default"].createElement(react.Tile, {
+    className: "tileBackground displayFlex alignItemsCenter wrap marginTop"
+  }, /*#__PURE__*/React__default["default"].createElement("span", null, /*#__PURE__*/React__default["default"].createElement(iconsReact.CloudAlerting, {
+    size: "24",
+    className: "iconMargin"
+  }), " No Edge Network. Go back to the", " ", /*#__PURE__*/React__default["default"].createElement("a", {
+    className: "no-secrets-link",
+    href: "/"
+  }, "Home page"), " ", "to enable Edge Networking.", " ", /*#__PURE__*/React__default["default"].createElement("em", null, "Dynamic Scalable Subnets must be disabled to create an Edge VPC network.")));
+};
+const F5Form = props => {
+  return /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(ToggleForm, {
+    name: "F5 Big IP Template Configuration",
+    submissionFieldName: "f5_vsi_template",
+    noDeleteButton: true,
+    hideName: true,
+    onSave: props.onTemplateSave,
+    disableSave: props.disableSave,
+    type: "formInSubForm",
+    innerForm: F5VsiTemplateForm,
+    tabPanel: {
+      hideAbout: true
+    },
+    craig: props.craig,
+    innerFormProps: props.templateInnerFormProps,
+    propsMatchState: props.propsMatchState
+  }), /*#__PURE__*/React__default["default"].createElement(ToggleForm, {
+    name: "F5 VSI Deployment Configuration",
+    submissionFieldName: "f5_vsi",
+    noDeleteButton: true,
+    hideName: true,
+    tabPanel: {
+      hideAbout: true
+    },
+    onSave: props.onVsiSave,
+    disableSave: props.disableSave,
+    type: "formInSubForm",
+    innerForm: F5VsiForm,
+    innerFormProps: props.deploymentInnerFormProps,
+    craig: props.craig,
+    propsMatchState: props.propsMatchState
+  }));
+};
+F5Form.propTypes = {
+  craig: PropTypes__default["default"].shape({}).isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  templateInnerFormProps: PropTypes__default["default"].shape({}).isRequired,
+  deploymentInnerFormProps: PropTypes__default["default"].shape({}).isRequired,
+  data: PropTypes__default["default"].shape({}),
+  onTemplateSave: PropTypes__default["default"].func.isRequired,
+  onVsiSave: PropTypes__default["default"].func.isRequired
+};
+const F5BigIp = props => {
+  return props.noEdgePattern ? /*#__PURE__*/React__default["default"].createElement(StatefulTabPanel, {
+    name: "F5 Big IP",
+    hideFormTitleButton: true,
+    form: /*#__PURE__*/React__default["default"].createElement(NoEdgeNetworkTile, null),
+    about: props.docs
+  }) : /*#__PURE__*/React__default["default"].createElement(ToggleForm, {
+    craig: props.craig,
+    name: "Configure F5 Big IP",
+    noSaveButton: true,
+    submissionFieldName: "f5_vsi",
+    about: props.docs,
+    innerForm: F5Form,
+    hideName: true,
+    noDeleteButton: true,
+    tabPanel: {
+      name: "F5 Big IP"
+    },
+    propsMatchState: props.propsMatchState,
+    disableSave: props.disableSave,
+    hide: true,
+    nullRef: true,
+    innerFormProps: {
+      onVsiSave: props.onVsiSave,
+      onTemplateSave: props.onTemplateSave,
+      craig: props.craig,
+      disableSave: props.disableSave,
+      propsMatchState: props.propsMatchState,
+      templateInnerFormProps: {
+        invalidCallback: props.invalidTemplateCallback,
+        invalidTextCallback: none,
+        disableSave: props.disableSave,
+        propsMatchState: props.propsMatchState,
+        data: props.templateData
+      },
+      deploymentInnerFormProps: {
+        craig: props.craig,
+        vsis: props.vsis,
+        sshKeys: props.sshKeys,
+        edge_pattern: props.edge_pattern,
+        f5_on_management: props.f5_on_management,
+        apiEndpointInstanceProfiles: props.instanceProfilesApiEndpoint,
+        resourceGroups: props.resourceGroups,
+        encryptionKeys: props.encryptionKeys,
+        f5Images: props.f5Images,
+        initVsiCallback: props.initVsiCallback,
+        saveVsiCallback: props.saveVsiCallback,
+        disableSaveCallback: props.propsMatchState,
+        hideSaveCallback: none,
+        propsMatchState: props.propsMatchState,
+        data: props.deploymentData
+      }
+    }
+  });
+};
+F5BigIp.propTypes = {
+  docs: PropTypes__default["default"].object.isRequired,
+  craig: PropTypes__default["default"].shape({}).isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  invalidTemplateCallback: PropTypes__default["default"].func.isRequired,
+  vsis: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  sshKeys: PropTypes__default["default"].array.isRequired,
+  edge_pattern: PropTypes__default["default"].string,
+  f5_on_management: PropTypes__default["default"].bool.isRequired,
+  instanceProfilesApiEndpoint: PropTypes__default["default"].string.isRequired,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  encryptionKeys: PropTypes__default["default"].array.isRequired,
+  f5Images: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  initVsiCallback: PropTypes__default["default"].func.isRequired,
+  saveVsiCallback: PropTypes__default["default"].func.isRequired,
+  templateData: PropTypes__default["default"].shape({}).isRequired,
+  deploymentData: PropTypes__default["default"].shape({}),
+  onTemplateSave: PropTypes__default["default"].func.isRequired,
+  onVsiSave: PropTypes__default["default"].func.isRequired
+};
+
 exports.AccessGroupDynamicPolicyForm = AccessGroupDynamicPolicyForm;
 exports.AccessGroupForm = AccessGroupForm;
 exports.AccessGroupPolicyForm = AccessGroupPolicyForm;
@@ -14419,6 +14677,7 @@ exports.AppIdForm = AppIdForm;
 exports.AppIdKeyForm = AppIdKeyForm;
 exports.AppIdTemplate = AppId;
 exports.AtrackerForm = AtrackerForm;
+exports.AtrackerPage = Atracker;
 exports.CbrContextForm = CbrContextForm;
 exports.CbrExclusionAddressForm = CbrExclusionAddressForm;
 exports.CbrResourceAttributeForm = CbrResourceAttributeForm;
@@ -14445,11 +14704,13 @@ exports.EndpointSelect = EndpointSelect;
 exports.EntitlementSelect = EntitlementSelect;
 exports.EventStreamsForm = EventStreamsForm;
 exports.EventStreamsTemplate = EventStreams;
+exports.F5BigIpPage = F5BigIp;
 exports.F5VsiForm = F5VsiForm;
 exports.F5VsiTemplateForm = F5VsiTemplateForm;
 exports.FetchSelect = FetchSelect;
 exports.FormModal = FormModal;
 exports.IamAccountSettingsForm = IamAccountSettingsForm;
+exports.IamAccountSettingsPage = IamAccountSettings;
 exports.IcseFormGroup = IcseFormGroup;
 exports.IcseFormTemplate = IcseFormTemplate;
 exports.IcseHeading = IcseHeading;
@@ -14485,6 +14746,7 @@ exports.RoutingTableTemplate = RoutingTables;
 exports.SaveAddButton = SaveAddButton;
 exports.SaveIcon = SaveIcon;
 exports.SccForm = SccForm;
+exports.SccV1Page = SccV1;
 exports.SecretsManagerChecklist = SecretsManagerChecklist;
 exports.SecretsManagerForm = SecretsManagerForm;
 exports.SecretsManagerTemplate = SecretsManager;

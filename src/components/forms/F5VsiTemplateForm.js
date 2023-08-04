@@ -706,7 +706,7 @@ F5VsiTemplateForm.propTypes = {
     license_password: PropTypes.string.isRequired,
     license_host: PropTypes.string.isRequired,
     license_pool: PropTypes.string.isRequired,
-    license_unit_of_measure: PropTypes.string.isRequired,
+    license_unit_of_measure: PropTypes.string,
     license_sku_keyword_1: PropTypes.string.isRequired,
     license_sku_keyword_2: PropTypes.string.isRequired,
     template_version: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),

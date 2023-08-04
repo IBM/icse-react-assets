@@ -201,6 +201,7 @@ F5VsiTile.defaultProps = {
     encryption_key: "",
   },
   hide: false,
+  hideSaveCallback: () => {},
 };
 
 F5VsiTile.propTypes = {
@@ -230,6 +231,7 @@ F5VsiForm.defaultProps = {
   vsis: [],
   edge_pattern: "vpn-and-waf",
   f5_on_management: true,
+  hideSaveCallback: () => {},
 };
 
 F5VsiForm.propTypes = {

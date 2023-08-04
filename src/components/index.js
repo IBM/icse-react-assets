@@ -124,3 +124,7 @@ export { NetworkAcls as NetworkAclTemplate } from "./crud-form-pages";
 export { SshKeys as SshKeysTemplate } from "./crud-form-pages";
 export { AccessGroups as AccessGroupsTemplate } from "./crud-form-pages";
 export { Subnets as SubnetPageTemplate } from "./crud-form-pages";
+export { Atracker as AtrackerPage } from "./toggle-form-pages";
+export { IamAccountSettings as IamAccountSettingsPage } from "./toggle-form-pages";
+export { SccV1 as SccV1Page } from "./toggle-form-pages";
+export { F5BigIp as F5BigIpPage } from "./toggle-form-pages";
