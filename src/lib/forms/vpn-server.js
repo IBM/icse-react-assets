@@ -39,17 +39,4 @@ function handleVpnServerInputChange(stateData, event) {
   return newState;
 }
 
-/**
- * Handle port and client_idle_timeout invalidation check
- * @param {string} input
- * @param {number} minRange
- * @param {number} maxRange
- */
-function vpnServerRangeInvalid(input, minRange, maxRange) {
-  return (
-    !isNullOrEmptyString(input) &&
-    (!isWholeNumber(parseFloat(input)) || input < minRange || input > maxRange)
-  );
-}
-
-module.exports = { handleVpnServerInputChange, vpnServerRangeInvalid };
+module.exports = { handleVpnServerInputChange };

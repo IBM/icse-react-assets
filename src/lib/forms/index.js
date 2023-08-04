@@ -1,10 +1,8 @@
 const { handlePgwToggle } = require("./vpc");
 const { atrackerInputChange } = require("./atracker");
+const { databaseInputChange } = require("./database");
 const { handleRgToggle } = require("./resource-groups");
-const {
-  handleVpnServerInputChange,
-  vpnServerRangeInvalid,
-} = require("./vpn-server");
+const { handleVpnServerInputChange } = require("./vpn-server");
 const {
   cbrInvalid,
   cbrValueInvalid,
@@ -81,6 +79,7 @@ module.exports = {
   handleDnsResolverInputChange,
   dnsFormInputChange,
   atrackerInputChange,
+  databaseInputChange,
   handleRgToggle,
   handleCRNs,
   handleVpcSelect,
@@ -91,6 +90,5 @@ module.exports = {
   filterKubeVersion,
   onCheckClick,
   handleVpnServerInputChange,
-  vpnServerRangeInvalid,
   handlePgwToggle,
 };

@@ -47,6 +47,7 @@ export {
 export { default as AppIdForm } from "./forms/AppIdForm";
 export { default as AppIdKeyForm } from "./forms/AppIdKeyForm";
 export { default as AtrackerForm } from "./forms/AtrackerForm";
+export { default as CloudDatabaseForm } from "./forms/CloudDatabaseForm";
 export { default as ClusterForm } from "./forms/ClusterForm";
 export { default as EncryptionKeyForm } from "./forms/EncryptionKeyForm";
 export { default as EventStreamsForm } from "./forms/EventStreamsForm";

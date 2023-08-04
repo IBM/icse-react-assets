@@ -18,12 +18,12 @@ export default {
     },
     ["data.use_data"]: {
       description:
-        "A string specifying the name of the resource group selected",
+        "A boolean specifying if an existing AppID instance should be used",
       control: "none",
       type: { required: true }, // required prop or not
     },
     ["data.resource_group"]: {
-      description: "A string value of the Resource Group",
+      description: "A string value of the resource group selected",
       control: "none",
       type: { required: false }, // required prop or not
     },
