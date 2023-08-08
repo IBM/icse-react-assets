@@ -1,5 +1,6 @@
 export { AccessGroups } from "./AccessGroups";
 export { AppId } from "./AppId";
+export { CloudDatabase } from "./CloudDatabase";
 export { Clusters } from "./Clusters";
 export { KeyManagement } from "./KeyManagement";
 export { ObjectStorage } from "./ObjectStorage";

@@ -731,6 +731,14 @@ function databaseInputChange$1(stateData, event) {
 var database = {
   databaseInputChange: databaseInputChange$1
 };
+var database_1 = database.databaseInputChange;
+
+var database$1 = /*#__PURE__*/Object.freeze({
+  __proto__: null,
+  'default': database,
+  __moduleExports: database,
+  databaseInputChange: database_1
+});
 
 /**
  * handle toggle for resource group
@@ -1691,7 +1699,7 @@ const {
 } = atracker;
 const {
   databaseInputChange
-} = database;
+} = database$1;
 const {
   handleRgToggle
 } = resourceGroups;
@@ -5517,6 +5525,56 @@ AppId.propTypes = {
   encryptionKeys: PropTypes__default["default"].array.isRequired
 };
 
+const CloudDatabase = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "Cloud Databases",
+    addText: "Create a Cloud Database",
+    docs: props.docs,
+    innerForm: CloudDatabaseForm,
+    arrayData: props.databases,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    innerFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      invalidCpuCallback: props.invalidCpuCallback,
+      invalidCpuTextCallback: props.invalidCpuTextCallback,
+      resourceGroups: props.resourceGroups,
+      encryptionKeys: props.encryptionKeys
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "databases",
+      hide: true,
+      hideName: true
+    }
+  });
+};
+CloudDatabase.propTypes = {
+  docs: PropTypes__default["default"].func.isRequired,
+  databases: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  onDelete: PropTypes__default["default"].func.isRequired,
+  onSave: PropTypes__default["default"].func.isRequired,
+  onSubmit: PropTypes__default["default"].func.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  forceOpen: PropTypes__default["default"].func.isRequired,
+  craig: PropTypes__default["default"].shape({}),
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidCpuCallback: PropTypes__default["default"].func.isRequired,
+  invalidCpuTextCallback: PropTypes__default["default"].func.isRequired,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  encryptionKeys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string.isRequired)
+};
+
 const Clusters = props => {
   return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
     name: "Clusters",
@@ -7026,28 +7084,25 @@ class OrderCardDataTable extends React.Component {
     return /*#__PURE__*/React__default["default"].createElement(react.DataTable, {
       headers: headers,
       rows: rows
-    }, _ref => {
-      let {
-        rows,
-        headers,
-        getHeaderProps,
-        getRowProps
-      } = _ref;
-      return /*#__PURE__*/React__default["default"].createElement(react.TableContainer, null, /*#__PURE__*/React__default["default"].createElement(react.Table, null, /*#__PURE__*/React__default["default"].createElement(react.TableHead, null, /*#__PURE__*/React__default["default"].createElement(react.TableRow, null, headers.map((header, index) => /*#__PURE__*/React__default["default"].createElement(react.TableHeader, _extends({
-        key: header.header + "-" + index
-      }, getHeaderProps({
-        header
-      })), header.header)))), /*#__PURE__*/React__default["default"].createElement(react.TableBody, null, rows.map((row, index) => /*#__PURE__*/React__default["default"].createElement(react.TableRow, _extends({
-        key: row.name + "-" + index
-      }, getRowProps({
-        row
-      })), row.cells.map(cell => /*#__PURE__*/React__default["default"].createElement(react.TableCell, {
-        key: JSON.stringify(cell),
-        className: this.props.isSecurityGroup ? "dt-security-group" : ""
-      }, /*#__PURE__*/React__default["default"].createElement("div", {
-        key: JSON.stringify(cell) + "-port"
-      }, lazyZ.contains(["tcp", "udp", "all", "icmp"], cell.value) ? cell.value.toUpperCase() : cell.value))))))));
-    });
+    }, ({
+      rows,
+      headers,
+      getHeaderProps,
+      getRowProps
+    }) => /*#__PURE__*/React__default["default"].createElement(react.TableContainer, null, /*#__PURE__*/React__default["default"].createElement(react.Table, null, /*#__PURE__*/React__default["default"].createElement(react.TableHead, null, /*#__PURE__*/React__default["default"].createElement(react.TableRow, null, headers.map((header, index) => /*#__PURE__*/React__default["default"].createElement(react.TableHeader, _extends({
+      key: header.header + "-" + index
+    }, getHeaderProps({
+      header
+    })), header.header)))), /*#__PURE__*/React__default["default"].createElement(react.TableBody, null, rows.map((row, index) => /*#__PURE__*/React__default["default"].createElement(react.TableRow, _extends({
+      key: row.name + "-" + index
+    }, getRowProps({
+      row
+    })), row.cells.map(cell => /*#__PURE__*/React__default["default"].createElement(react.TableCell, {
+      key: JSON.stringify(cell),
+      className: this.props.isSecurityGroup ? "dt-security-group" : ""
+    }, /*#__PURE__*/React__default["default"].createElement("div", {
+      key: JSON.stringify(cell) + "-port"
+    }, lazyZ.contains(["tcp", "udp", "all", "icmp"], cell.value) ? cell.value.toUpperCase() : cell.value)))))))));
   }
 }
 OrderCardDataTable.propTypes = {
@@ -14685,6 +14740,7 @@ exports.CbrRuleForm = CbrRuleForm;
 exports.CbrTagForm = CbrTagForm;
 exports.CbrZoneForm = CbrZoneForm;
 exports.CloudDatabaseForm = CloudDatabaseForm;
+exports.CloudDatabaseTemplate = CloudDatabase;
 exports.ClusterForm = ClusterForm;
 exports.ClustersTemplate = Clusters;
 exports.DeleteButton = DeleteButton;
