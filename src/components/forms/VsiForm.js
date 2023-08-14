@@ -210,7 +210,7 @@ class VsiForm extends Component {
                 className={
                   this.props.isModal ? "textInputWide" : "fieldWidthBigger"
                 }
-                placeholder="Cloud init data"
+                placeholder="(Optional) Cloud init data"
                 labelText="User Data"
                 name="user_data"
                 value={this.state.user_data || ""}

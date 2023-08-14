@@ -69,11 +69,13 @@ class CbrZoneForm extends Component {
             value={this.state.account_id}
             labelText={"Account ID"} // needed to override titlecase capitalization
             onChange={this.handleInputChange}
+            optional
             {...cbrInvalid("account_id", this.state.account_id)}
           />
         </IcseFormGroup>
         <IcseFormGroup>
           <TextArea
+            placeholder="(Optional)"
             id={this.props.data.name + "-cbr-zone-description"}
             className="textInputWide"
             name="description"

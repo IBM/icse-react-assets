@@ -66,6 +66,7 @@ class EncryptionKeyForm extends Component {
             id={this.props.data.name + "-key-ring"}
             invalid={this.props.invalidRingCallback(this.state, this.props)}
             invalidText={this.props.invalidRingText}
+            optional
           />
         </IcseFormGroup>
         <IcseFormGroup>

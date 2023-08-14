@@ -104,6 +104,7 @@ class CbrRuleForm extends Component {
             field={"api_type_id"}
             value={this.state.api_type_id}
             onChange={this.handleInputChange}
+            optional
             invalidCallback={() =>
               this.props.invalidCallback("api_type_id", this.state, this.props)
             }
@@ -116,6 +117,7 @@ class CbrRuleForm extends Component {
         </IcseFormGroup>
         <IcseFormGroup>
           <TextArea
+            placeholder="(Optional)"
             id={this.props.data.name + "-cbr-rule-description"}
             className="textInputWide"
             name="description"

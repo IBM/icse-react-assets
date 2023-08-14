@@ -80,7 +80,7 @@ class VsiVolumeForm extends Component {
             allowEmpty={true}
             step={1}
             hideSteppers={true}
-            placeholder="100"
+            placeholder="(Optional) 100"
             min={10}
             max={16000}
             invalid={isRangeInvalid(this.state.capacity, 10, 16000)}

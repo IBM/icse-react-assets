@@ -5311,7 +5311,8 @@ class AccessGroupForm extends React__default["default"].Component {
       isModal: this.props.isModal,
       className: "textInputWide",
       hideHelperText: true,
-      invalid: false
+      invalid: false,
+      optional: true
     })), this.props.isModal === false && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
       name: "Policies",
       subHeading: true,
@@ -5640,7 +5641,8 @@ class EncryptionKeyForm extends React.Component {
       onChange: this.handleInputChange,
       id: this.props.data.name + "-key-ring",
       invalid: this.props.invalidRingCallback(this.state, this.props),
-      invalidText: this.props.invalidRingText
+      invalidText: this.props.invalidRingText,
+      optional: true
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
       tooltip: {
         content: "Setting a rotation policy shortens the lifetime of the key at regular intervals. When it's time to rotate the key based on the rotation interval that you specify, the root key will be automatically replaced with new key material.",
@@ -7026,28 +7028,25 @@ class OrderCardDataTable extends React.Component {
     return /*#__PURE__*/React__default["default"].createElement(react.DataTable, {
       headers: headers,
       rows: rows
-    }, _ref => {
-      let {
-        rows,
-        headers,
-        getHeaderProps,
-        getRowProps
-      } = _ref;
-      return /*#__PURE__*/React__default["default"].createElement(react.TableContainer, null, /*#__PURE__*/React__default["default"].createElement(react.Table, null, /*#__PURE__*/React__default["default"].createElement(react.TableHead, null, /*#__PURE__*/React__default["default"].createElement(react.TableRow, null, headers.map((header, index) => /*#__PURE__*/React__default["default"].createElement(react.TableHeader, _extends({
-        key: header.header + "-" + index
-      }, getHeaderProps({
-        header
-      })), header.header)))), /*#__PURE__*/React__default["default"].createElement(react.TableBody, null, rows.map((row, index) => /*#__PURE__*/React__default["default"].createElement(react.TableRow, _extends({
-        key: row.name + "-" + index
-      }, getRowProps({
-        row
-      })), row.cells.map(cell => /*#__PURE__*/React__default["default"].createElement(react.TableCell, {
-        key: JSON.stringify(cell),
-        className: this.props.isSecurityGroup ? "dt-security-group" : ""
-      }, /*#__PURE__*/React__default["default"].createElement("div", {
-        key: JSON.stringify(cell) + "-port"
-      }, lazyZ.contains(["tcp", "udp", "all", "icmp"], cell.value) ? cell.value.toUpperCase() : cell.value))))))));
-    });
+    }, ({
+      rows,
+      headers,
+      getHeaderProps,
+      getRowProps
+    }) => /*#__PURE__*/React__default["default"].createElement(react.TableContainer, null, /*#__PURE__*/React__default["default"].createElement(react.Table, null, /*#__PURE__*/React__default["default"].createElement(react.TableHead, null, /*#__PURE__*/React__default["default"].createElement(react.TableRow, null, headers.map((header, index) => /*#__PURE__*/React__default["default"].createElement(react.TableHeader, _extends({
+      key: header.header + "-" + index
+    }, getHeaderProps({
+      header
+    })), header.header)))), /*#__PURE__*/React__default["default"].createElement(react.TableBody, null, rows.map((row, index) => /*#__PURE__*/React__default["default"].createElement(react.TableRow, _extends({
+      key: row.name + "-" + index
+    }, getRowProps({
+      row
+    })), row.cells.map(cell => /*#__PURE__*/React__default["default"].createElement(react.TableCell, {
+      key: JSON.stringify(cell),
+      className: this.props.isSecurityGroup ? "dt-security-group" : ""
+    }, /*#__PURE__*/React__default["default"].createElement("div", {
+      key: JSON.stringify(cell) + "-port"
+    }, lazyZ.contains(["tcp", "udp", "all", "icmp"], cell.value) ? cell.value.toUpperCase() : cell.value)))))))));
   }
 }
 OrderCardDataTable.propTypes = {
@@ -7562,7 +7561,7 @@ class TransitGatewayForm extends React.Component {
       invalid: this.props.invalidCrns(this.state, this.props),
       invalidText: this.props.invalidCrnText(this.state, this.props),
       helperText: "Enter a comma separated list of CRNs",
-      placeholder: "crn:v1:bluemix..."
+      placeholder: "(Optional) crn:v1:bluemix..."
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement("div", {
       className: "marginBottomSmall textInputWide"
     }, this.state.crns !== undefined && this.state.crns.length > 0 && this.state.crns.map((crn, i) => /*#__PURE__*/React__default["default"].createElement(react.Tag, {
@@ -8255,7 +8254,7 @@ class VsiVolumeForm extends React.Component {
       allowEmpty: true,
       step: 1,
       hideSteppers: true,
-      placeholder: "100",
+      placeholder: "(Optional) 100",
       min: 10,
       max: 16000,
       invalid: iamUtils_3(this.state.capacity, 10, 16000),
@@ -8431,7 +8430,7 @@ class VsiForm extends React.Component {
       show: /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
         id: composedId + "-vsi-user-data",
         className: this.props.isModal ? "textInputWide" : "fieldWidthBigger",
-        placeholder: "Cloud init data",
+        placeholder: "(Optional) Cloud init data",
         labelText: "User Data",
         name: "user_data",
         value: this.state.user_data || "",
@@ -8956,6 +8955,7 @@ class VsiLoadBalancerForm extends React__default["default"].Component {
         content: "Protocol of the listener for the load balancer"
       }
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      placeholder: "(Optional)",
       label: "Connection Limit",
       id: componentName + "-connection-limit",
       allowEmpty: true,
@@ -12294,7 +12294,7 @@ class IamAccountSettingsForm extends React.Component {
         content: "Defines if the entity history is included in the response.",
         align: "top-left"
       },
-      labelText: "Include History",
+      labelText: "(Optional) Include History",
       defaultToggled: this.state.include_history,
       onToggle: () => this.handleToggle("include_history"),
       className: "fieldWidthSmaller",
@@ -12330,7 +12330,7 @@ class IamAccountSettingsForm extends React.Component {
       invalidText: this.props.invalidTextCallback("max_sessions_per_identity", this.state, this.props),
       id: "iam-max-sessions-per-id"
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
-      placeholder: "900",
+      placeholder: "(Optional) 900",
       label: "Session Expiration (sec)",
       id: "iam-session-expiration-seconds",
       allowEmpty: true,
@@ -12345,7 +12345,7 @@ class IamAccountSettingsForm extends React.Component {
       invalidText: "Must be a whole number between 900 and 86400",
       className: "fieldWidth leftTextAlign"
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
-      placeholder: "900",
+      placeholder: "(Optional) 900",
       label: "Session Invalidation (sec)",
       id: "iam-session-invalidation-seconds",
       allowEmpty: true,
@@ -12369,7 +12369,7 @@ class IamAccountSettingsForm extends React.Component {
       id: "iam-allowed-ip",
       labelText: "Allowed IPs",
       onChange: this.handleAllowedIps,
-      placeholder: this.state.allowed_ip_addresses || "X.X.X.X, X.X.X.X/X, ...",
+      placeholder: this.state.allowed_ip_addresses || "(Optional) X.X.X.X, X.X.X.X/X, ...",
       invalid: iamUtils_1(this.state.allowed_ip_addresses),
       invalidText: "Please enter a comma separated list of IP addresses or CIDR blocks"
     })));
@@ -13657,9 +13657,11 @@ class CbrRuleForm extends React.Component {
       field: "api_type_id",
       value: this.state.api_type_id,
       onChange: this.handleInputChange,
+      optional: true,
       invalidCallback: () => this.props.invalidCallback("api_type_id", this.state, this.props),
       invalidText: this.props.invalidTextCallback("api_type_id", this.state, this.props)
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
+      placeholder: "(Optional)",
       id: this.props.data.name + "-cbr-rule-description",
       className: "textInputWide",
       name: "description",
@@ -14003,8 +14005,10 @@ class CbrZoneForm extends React.Component {
       value: this.state.account_id,
       labelText: "Account ID" // needed to override titlecase capitalization
       ,
-      onChange: this.handleInputChange
+      onChange: this.handleInputChange,
+      optional: true
     }, forms_17("account_id", this.state.account_id)))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
+      placeholder: "(Optional)",
       id: this.props.data.name + "-cbr-zone-description",
       className: "textInputWide",
       name: "description",
@@ -14210,7 +14214,7 @@ class LogDNAForm extends React.Component {
         content: "Create an archive with the LogDNA Provider",
         align: "bottom-left"
       },
-      labelText: "Archive",
+      labelText: "(Optional) Archive",
       defaultToggled: this.state.archive,
       name: "archive",
       toggleFieldName: "archive",
@@ -14218,7 +14222,7 @@ class LogDNAForm extends React.Component {
       id: "logdna-archive",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      labelText: "Platform Logs",
+      labelText: "(Optional) Platform Logs",
       defaultToggled: this.state.platform_logs,
       name: "platform_logs",
       toggleFieldName: "platform_logs",
@@ -14330,7 +14334,7 @@ class SysdigForm extends React.Component {
       labelText: "Resource Group",
       className: "fieldWidth"
     }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      labelText: "Platform Logs",
+      labelText: "(Optional) Platform Logs",
       defaultToggled: this.state.platform_logs,
       name: "platform_logs",
       toggleFieldName: "platform_logs",

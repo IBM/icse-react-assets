@@ -116,7 +116,7 @@ class TransitGatewayForm extends Component {
             invalid={this.props.invalidCrns(this.state, this.props)}
             invalidText={this.props.invalidCrnText(this.state, this.props)}
             helperText="Enter a comma separated list of CRNs"
-            placeholder="crn:v1:bluemix..."
+            placeholder="(Optional) crn:v1:bluemix..."
           />
         </IcseFormGroup>
         <IcseFormGroup>
