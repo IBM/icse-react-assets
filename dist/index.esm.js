@@ -714,6 +714,8 @@ function databaseInputChange$1(stateData, event) {
     state.memory = Number(value) || "";
   } else if (name === "disk") {
     state.disk = Number(value) || "";
+  } else if (name === "cpu") {
+    state.cpu = Number(value) || "";
   } else state[name] = value;
   return state;
 }
