@@ -74,13 +74,13 @@ class VsiVolumeForm extends Component {
           <NumberInput
             id={this.props.data.name + "vsi-volume-capacity"}
             name="capacity"
-            label="Capacity (GB)"
+            label="Capacity (GB) (optional)"
             value={this.state.capacity || ""}
             onChange={this.handleInputChange}
             allowEmpty={true}
             step={1}
             hideSteppers={true}
-            placeholder="(Optional) 100"
+            placeholder="100"
             min={10}
             max={16000}
             invalid={isRangeInvalid(this.state.capacity, 10, 16000)}

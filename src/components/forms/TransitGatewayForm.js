@@ -110,13 +110,13 @@ class TransitGatewayForm extends Component {
           <TextArea
             className="textInputWide"
             id={this.props.data.name + "crns"}
-            labelText="Add a new connection from any region in the account"
+            labelText="Add a new connection from any region in the account (optional)"
             value={this.state.crns === undefined ? "" : String(this.state.crns)}
             onChange={this.handleCRNs}
             invalid={this.props.invalidCrns(this.state, this.props)}
             invalidText={this.props.invalidCrnText(this.state, this.props)}
             helperText="Enter a comma separated list of CRNs"
-            placeholder="(Optional) crn:v1:bluemix..."
+            placeholder="crn:v1:bluemix..."
           />
         </IcseFormGroup>
         <IcseFormGroup>

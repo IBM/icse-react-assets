@@ -75,12 +75,11 @@ class CbrZoneForm extends Component {
         </IcseFormGroup>
         <IcseFormGroup>
           <TextArea
-            placeholder="(Optional)"
             id={this.props.data.name + "-cbr-zone-description"}
             className="textInputWide"
             name="description"
             value={this.state.description}
-            labelText={"Description"}
+            labelText={"Description (optional)"}
             onChange={this.handleInputChange}
             invalid={
               this.state.description.length < 0 ||

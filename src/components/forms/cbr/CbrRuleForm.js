@@ -117,12 +117,11 @@ class CbrRuleForm extends Component {
         </IcseFormGroup>
         <IcseFormGroup>
           <TextArea
-            placeholder="(Optional)"
             id={this.props.data.name + "-cbr-rule-description"}
             className="textInputWide"
             name="description"
             value={this.state.description}
-            labelText="Description"
+            labelText="Description (optional)"
             onChange={this.handleInputChange}
             invalid={this.props.invalidCallback(
               "description",
