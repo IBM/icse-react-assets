@@ -88,7 +88,7 @@ class SysdigForm extends Component {
             className="fieldWidth"
           />
           <IcseToggle
-            labelText="Add Platform Logging (optional) "
+            labelText="(Optional) Add Platform Logging"
             defaultToggled={this.state.platform_logs}
             name="platform_logs"
             toggleFieldName="platform_logs"

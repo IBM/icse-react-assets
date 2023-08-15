@@ -211,7 +211,7 @@ class VsiForm extends Component {
                   this.props.isModal ? "textInputWide" : "fieldWidthBigger"
                 }
                 placeholder="Cloud init data"
-                labelText="User Data (optional)"
+                labelText="(Optional) User Data"
                 name="user_data"
                 value={this.state.user_data || ""}
                 onChange={this.handleInputChange}

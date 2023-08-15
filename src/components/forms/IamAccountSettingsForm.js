@@ -129,7 +129,7 @@ class IamAccountSettingsForm extends Component {
                 "Defines if the entity history is included in the response.",
               align: "top-left",
             }}
-            labelText="Include History (optional)"
+            labelText="(Optional) Include History"
             defaultToggled={this.state.include_history}
             onToggle={() => this.handleToggle("include_history")}
             className="fieldWidthSmaller"
@@ -184,7 +184,7 @@ class IamAccountSettingsForm extends Component {
           {/* session expiration */}
           <NumberInput
             placeholder="900"
-            label="Session Expiration (sec) (optional)"
+            label="(Optional) Session Expiration (sec)"
             id="iam-session-expiration-seconds"
             allowEmpty={true}
             value={this.state.session_expiration_in_seconds || ""}
@@ -205,7 +205,7 @@ class IamAccountSettingsForm extends Component {
           {/* session invalidation */}
           <NumberInput
             placeholder="900"
-            label="Session Invalidation (sec) (optional)"
+            label="(Optional) Session Invalidation (sec)"
             id="iam-session-invalidation-seconds"
             allowEmpty={true}
             value={this.state.session_invalidation_in_seconds || ""}

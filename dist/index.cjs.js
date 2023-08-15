@@ -7555,7 +7555,7 @@ class TransitGatewayForm extends React.Component {
     }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
       className: "textInputWide",
       id: this.props.data.name + "crns",
-      labelText: "Add a new connection from any region in the account (optional)",
+      labelText: "(Optional) Add a new connection from any region in the account",
       value: this.state.crns === undefined ? "" : String(this.state.crns),
       onChange: this.handleCRNs,
       invalid: this.props.invalidCrns(this.state, this.props),
@@ -8248,7 +8248,7 @@ class VsiVolumeForm extends React.Component {
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
       id: this.props.data.name + "vsi-volume-capacity",
       name: "capacity",
-      label: "Capacity (GB) (optional)",
+      label: "(Optional) Capacity (GB)",
       value: this.state.capacity || "",
       onChange: this.handleInputChange,
       allowEmpty: true,
@@ -8431,7 +8431,7 @@ class VsiForm extends React.Component {
         id: composedId + "-vsi-user-data",
         className: this.props.isModal ? "textInputWide" : "fieldWidthBigger",
         placeholder: "Cloud init data",
-        labelText: "User Data (optional)",
+        labelText: "(Optional) User Data",
         name: "user_data",
         value: this.state.user_data || "",
         onChange: this.handleInputChange,
@@ -8955,7 +8955,7 @@ class VsiLoadBalancerForm extends React__default["default"].Component {
         content: "Protocol of the listener for the load balancer"
       }
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
-      label: "Connection Limit (optional)",
+      label: "(Optional) Connection Limit",
       id: componentName + "-connection-limit",
       allowEmpty: true,
       value: this.state.connection_limit || "",
@@ -12293,7 +12293,7 @@ class IamAccountSettingsForm extends React.Component {
         content: "Defines if the entity history is included in the response.",
         align: "top-left"
       },
-      labelText: "Include History (optional)",
+      labelText: "(Optional) Include History",
       defaultToggled: this.state.include_history,
       onToggle: () => this.handleToggle("include_history"),
       className: "fieldWidthSmaller",
@@ -12330,7 +12330,7 @@ class IamAccountSettingsForm extends React.Component {
       id: "iam-max-sessions-per-id"
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
       placeholder: "900",
-      label: "Session Expiration (sec) (optional)",
+      label: "(Optional) Session Expiration (sec)",
       id: "iam-session-expiration-seconds",
       allowEmpty: true,
       value: this.state.session_expiration_in_seconds || "",
@@ -12345,7 +12345,7 @@ class IamAccountSettingsForm extends React.Component {
       className: "fieldWidth leftTextAlign"
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
       placeholder: "900",
-      label: "Session Invalidation (sec) (optional)",
+      label: "(Optional) Session Invalidation (sec)",
       id: "iam-session-invalidation-seconds",
       allowEmpty: true,
       value: this.state.session_invalidation_in_seconds || "",
@@ -13664,7 +13664,7 @@ class CbrRuleForm extends React.Component {
       className: "textInputWide",
       name: "description",
       value: this.state.description,
-      labelText: "Description (optional)",
+      labelText: "(Optional) Description",
       onChange: this.handleInputChange,
       invalid: this.props.invalidCallback("description", this.state, this.props),
       invalidText: this.props.invalidTextCallback("description", this.state, this.props),
@@ -14010,7 +14010,7 @@ class CbrZoneForm extends React.Component {
       className: "textInputWide",
       name: "description",
       value: this.state.description,
-      labelText: "Description (optional)",
+      labelText: "(Optional) Description",
       onChange: this.handleInputChange,
       invalid: this.state.description.length < 0 || this.state.description.length > 300,
       invalidText: "Invalid description, must be between 0 and 300 characters.",
@@ -14211,7 +14211,7 @@ class LogDNAForm extends React.Component {
         content: "Create an archive with the LogDNA Provider",
         align: "bottom-left"
       },
-      labelText: "Add LogDNA Archive (optional) ",
+      labelText: "(Optional) Add LogDNA Archive",
       defaultToggled: this.state.archive,
       name: "archive",
       toggleFieldName: "archive",
@@ -14219,7 +14219,7 @@ class LogDNAForm extends React.Component {
       id: "logdna-archive",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      labelText: "Add Platform Logging (optional) ",
+      labelText: "(Optional) Add Platform Logging",
       defaultToggled: this.state.platform_logs,
       name: "platform_logs",
       toggleFieldName: "platform_logs",
@@ -14331,7 +14331,7 @@ class SysdigForm extends React.Component {
       labelText: "Resource Group",
       className: "fieldWidth"
     }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      labelText: "Add Platform Logging (optional) ",
+      labelText: "(Optional) Add Platform Logging",
       defaultToggled: this.state.platform_logs,
       name: "platform_logs",
       toggleFieldName: "platform_logs",

@@ -121,7 +121,7 @@ class CbrRuleForm extends Component {
             className="textInputWide"
             name="description"
             value={this.state.description}
-            labelText="Description (optional)"
+            labelText="(Optional) Description"
             onChange={this.handleInputChange}
             invalid={this.props.invalidCallback(
               "description",

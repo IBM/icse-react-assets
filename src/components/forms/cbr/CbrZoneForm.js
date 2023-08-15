@@ -79,7 +79,7 @@ class CbrZoneForm extends Component {
             className="textInputWide"
             name="description"
             value={this.state.description}
-            labelText={"Description (optional)"}
+            labelText={"(Optional) Description"}
             onChange={this.handleInputChange}
             invalid={
               this.state.description.length < 0 ||
