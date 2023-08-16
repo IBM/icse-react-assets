@@ -5303,7 +5303,9 @@ class AccessGroupForm extends React__default["default"].Component {
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: this.props.data.name + "-description",
       tooltip: {
-        content: "Description of the access group"
+        content: "Description of the access group",
+        alignModal: "right",
+        align: "right"
       },
       field: "description",
       value: this.state.description,
@@ -7026,28 +7028,25 @@ class OrderCardDataTable extends React.Component {
     return /*#__PURE__*/React__default["default"].createElement(react.DataTable, {
       headers: headers,
       rows: rows
-    }, _ref => {
-      let {
-        rows,
-        headers,
-        getHeaderProps,
-        getRowProps
-      } = _ref;
-      return /*#__PURE__*/React__default["default"].createElement(react.TableContainer, null, /*#__PURE__*/React__default["default"].createElement(react.Table, null, /*#__PURE__*/React__default["default"].createElement(react.TableHead, null, /*#__PURE__*/React__default["default"].createElement(react.TableRow, null, headers.map((header, index) => /*#__PURE__*/React__default["default"].createElement(react.TableHeader, _extends({
-        key: header.header + "-" + index
-      }, getHeaderProps({
-        header
-      })), header.header)))), /*#__PURE__*/React__default["default"].createElement(react.TableBody, null, rows.map((row, index) => /*#__PURE__*/React__default["default"].createElement(react.TableRow, _extends({
-        key: row.name + "-" + index
-      }, getRowProps({
-        row
-      })), row.cells.map(cell => /*#__PURE__*/React__default["default"].createElement(react.TableCell, {
-        key: JSON.stringify(cell),
-        className: this.props.isSecurityGroup ? "dt-security-group" : ""
-      }, /*#__PURE__*/React__default["default"].createElement("div", {
-        key: JSON.stringify(cell) + "-port"
-      }, lazyZ.contains(["tcp", "udp", "all", "icmp"], cell.value) ? cell.value.toUpperCase() : cell.value))))))));
-    });
+    }, ({
+      rows,
+      headers,
+      getHeaderProps,
+      getRowProps
+    }) => /*#__PURE__*/React__default["default"].createElement(react.TableContainer, null, /*#__PURE__*/React__default["default"].createElement(react.Table, null, /*#__PURE__*/React__default["default"].createElement(react.TableHead, null, /*#__PURE__*/React__default["default"].createElement(react.TableRow, null, headers.map((header, index) => /*#__PURE__*/React__default["default"].createElement(react.TableHeader, _extends({
+      key: header.header + "-" + index
+    }, getHeaderProps({
+      header
+    })), header.header)))), /*#__PURE__*/React__default["default"].createElement(react.TableBody, null, rows.map((row, index) => /*#__PURE__*/React__default["default"].createElement(react.TableRow, _extends({
+      key: row.name + "-" + index
+    }, getRowProps({
+      row
+    })), row.cells.map(cell => /*#__PURE__*/React__default["default"].createElement(react.TableCell, {
+      key: JSON.stringify(cell),
+      className: this.props.isSecurityGroup ? "dt-security-group" : ""
+    }, /*#__PURE__*/React__default["default"].createElement("div", {
+      key: JSON.stringify(cell) + "-port"
+    }, lazyZ.contains(["tcp", "udp", "all", "icmp"], cell.value) ? cell.value.toUpperCase() : cell.value)))))))));
   }
 }
 OrderCardDataTable.propTypes = {
@@ -13231,7 +13230,8 @@ class SubnetTierForm extends React__default["default"].Component {
     }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
       tooltip: {
         content: this.props.dynamicSubnets ? "Advanced configuration cannot be set when using dynamically scaled subnets" : "Enable advanced subnet configuration such as custom CIDR blocks",
-        alignModal: "bottom"
+        alignModal: "bottom",
+        align: "left"
       },
       id: composedId + "-advanced",
       labelText: "Advanced Configuration",
@@ -13243,7 +13243,9 @@ class SubnetTierForm extends React__default["default"].Component {
       className: "marginBottomSmall"
     }, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       tooltip: {
-        content: "Changing this field will overwrite existing Network ACL changes to subnets in this data."
+        content: "Changing this field will overwrite existing Network ACL changes to subnets in this data.",
+        alignModal: "right",
+        align: "right"
       },
       className: "fieldWidthSmaller",
       field: "networkAcl",
@@ -13648,8 +13650,8 @@ class CbrRuleForm extends React.Component {
     }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       tooltip: {
         content: "APIs can be scoped for some service types that adopt CBR. This is mostly used for managed database services.",
-        align: "bottom-right",
-        alignModal: "bottom-right"
+        alignModal: "right",
+        align: "right"
       },
       id: this.props.data.name + "-cbr-rule-api-type-id",
       labelText: "API Type ID" // needed to override title case capitalization
