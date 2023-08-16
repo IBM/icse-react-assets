@@ -69,6 +69,7 @@ class CbrZoneForm extends Component {
             value={this.state.account_id}
             labelText={"Account ID"} // needed to override titlecase capitalization
             onChange={this.handleInputChange}
+            optional
             {...cbrInvalid("account_id", this.state.account_id)}
           />
         </IcseFormGroup>
@@ -78,7 +79,7 @@ class CbrZoneForm extends Component {
             className="textInputWide"
             name="description"
             value={this.state.description}
-            labelText={"Description"}
+            labelText={"(Optional) Description"}
             onChange={this.handleInputChange}
             invalid={
               this.state.description.length < 0 ||

@@ -76,6 +76,7 @@ class AccessGroupForm extends React.Component {
             className="textInputWide"
             hideHelperText
             invalid={false}
+            optional
           />
         </IcseFormGroup>
         {this.props.isModal === false && (

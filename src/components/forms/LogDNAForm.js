@@ -103,7 +103,7 @@ class LogDNAForm extends Component {
               content: "Create an archive with the LogDNA Provider",
               align: "bottom-left",
             }}
-            labelText="Archive"
+            labelText="(Optional) Add LogDNA Archive"
             defaultToggled={this.state.archive}
             name="archive"
             toggleFieldName="archive"
@@ -112,7 +112,7 @@ class LogDNAForm extends Component {
             className="fieldWidthSmaller"
           />
           <IcseToggle
-            labelText="Platform Logs"
+            labelText="(Optional) Add Platform Logging"
             defaultToggled={this.state.platform_logs}
             name="platform_logs"
             toggleFieldName="platform_logs"

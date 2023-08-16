@@ -104,6 +104,7 @@ class CbrRuleForm extends Component {
             field={"api_type_id"}
             value={this.state.api_type_id}
             onChange={this.handleInputChange}
+            optional
             invalidCallback={() =>
               this.props.invalidCallback("api_type_id", this.state, this.props)
             }
@@ -120,7 +121,7 @@ class CbrRuleForm extends Component {
             className="textInputWide"
             name="description"
             value={this.state.description}
-            labelText="Description"
+            labelText="(Optional) Description"
             onChange={this.handleInputChange}
             invalid={this.props.invalidCallback(
               "description",

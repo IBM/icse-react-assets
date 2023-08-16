@@ -412,7 +412,7 @@ class VsiLoadBalancerForm extends React.Component {
           />
           {/* connection limit */}
           <NumberInput
-            label="Connection Limit"
+            label="(Optional) Connection Limit"
             id={componentName + "-connection-limit"}
             allowEmpty={true}
             value={this.state.connection_limit || ""}
