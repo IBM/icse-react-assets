@@ -110,7 +110,7 @@ class TransitGatewayForm extends Component {
           <TextArea
             className="textInputWide"
             id={this.props.data.name + "crns"}
-            labelText="Add a new connection from any region in the account"
+            labelText="(Optional) Add a new connection from any region in the account"
             value={this.state.crns === undefined ? "" : String(this.state.crns)}
             onChange={this.handleCRNs}
             invalid={this.props.invalidCrns(this.state, this.props)}

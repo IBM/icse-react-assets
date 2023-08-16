@@ -74,7 +74,7 @@ class VsiVolumeForm extends Component {
           <NumberInput
             id={this.props.data.name + "vsi-volume-capacity"}
             name="capacity"
-            label="Capacity (GB)"
+            label="(Optional) Capacity (GB)"
             value={this.state.capacity || ""}
             onChange={this.handleInputChange}
             allowEmpty={true}
