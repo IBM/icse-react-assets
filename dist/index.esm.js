@@ -5292,7 +5292,9 @@ class AccessGroupForm extends React.Component {
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
       id: this.props.data.name + "-description",
       tooltip: {
-        content: "Description of the access group"
+        content: "Description of the access group",
+        alignModal: "right",
+        align: "right"
       },
       field: "description",
       value: this.state.description,
@@ -13219,7 +13221,8 @@ class SubnetTierForm extends React.Component {
     }), /*#__PURE__*/React.createElement(IcseToggle, {
       tooltip: {
         content: this.props.dynamicSubnets ? "Advanced configuration cannot be set when using dynamically scaled subnets" : "Enable advanced subnet configuration such as custom CIDR blocks",
-        alignModal: "bottom"
+        alignModal: "bottom",
+        align: "left"
       },
       id: composedId + "-advanced",
       labelText: "Advanced Configuration",
@@ -13231,7 +13234,9 @@ class SubnetTierForm extends React.Component {
       className: "marginBottomSmall"
     }, /*#__PURE__*/React.createElement(IcseSelect, {
       tooltip: {
-        content: "Changing this field will overwrite existing Network ACL changes to subnets in this data."
+        content: "Changing this field will overwrite existing Network ACL changes to subnets in this data.",
+        alignModal: "right",
+        align: "right"
       },
       className: "fieldWidthSmaller",
       field: "networkAcl",
@@ -13636,8 +13641,8 @@ class CbrRuleForm extends Component {
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       tooltip: {
         content: "APIs can be scoped for some service types that adopt CBR. This is mostly used for managed database services.",
-        align: "bottom-right",
-        alignModal: "bottom-right"
+        alignModal: "right",
+        align: "right"
       },
       id: this.props.data.name + "-cbr-rule-api-type-id",
       labelText: "API Type ID" // needed to override title case capitalization
