@@ -5553,7 +5553,7 @@ const CloudDatabase = props => {
     toggleFormProps: {
       craig: props.craig,
       disableSave: props.disableSave,
-      submissionFieldName: "databases",
+      submissionFieldName: "icd",
       hide: true,
       hideName: true
     }
@@ -5561,7 +5561,7 @@ const CloudDatabase = props => {
 };
 CloudDatabase.propTypes = {
   docs: PropTypes__default["default"].func.isRequired,
-  databases: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  icd: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
   disableSave: PropTypes__default["default"].func.isRequired,
   onDelete: PropTypes__default["default"].func.isRequired,
   onSave: PropTypes__default["default"].func.isRequired,
