@@ -129,7 +129,7 @@ class IamAccountSettingsForm extends Component {
                 "Defines if the entity history is included in the response.",
               align: "top-left",
             }}
-            labelText="Include History"
+            labelText="(Optional) Include History"
             defaultToggled={this.state.include_history}
             onToggle={() => this.handleToggle("include_history")}
             className="fieldWidthSmaller"
@@ -184,7 +184,7 @@ class IamAccountSettingsForm extends Component {
           {/* session expiration */}
           <NumberInput
             placeholder="900"
-            label="Session Expiration (sec)"
+            label="(Optional) Session Expiration (sec)"
             id="iam-session-expiration-seconds"
             allowEmpty={true}
             value={this.state.session_expiration_in_seconds || ""}
@@ -205,7 +205,7 @@ class IamAccountSettingsForm extends Component {
           {/* session invalidation */}
           <NumberInput
             placeholder="900"
-            label="Session Invalidation (sec)"
+            label="(Optional) Session Invalidation (sec)"
             id="iam-session-invalidation-seconds"
             allowEmpty={true}
             value={this.state.session_invalidation_in_seconds || ""}
@@ -238,7 +238,7 @@ class IamAccountSettingsForm extends Component {
             labelText="Allowed IPs"
             onChange={this.handleAllowedIps}
             placeholder={
-              this.state.allowed_ip_addresses || "X.X.X.X, X.X.X.X/X, ..."
+              this.state.allowed_ip_addresses || "(Optional) X.X.X.X, X.X.X.X/X, ..."
             }
             invalid={isIpStringInvalid(this.state.allowed_ip_addresses)}
             invalidText="Please enter a comma separated list of IP addresses or CIDR blocks"

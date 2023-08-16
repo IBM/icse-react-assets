@@ -96,14 +96,15 @@ class CbrRuleForm extends Component {
             tooltip={{
               content:
                 "APIs can be scoped for some service types that adopt CBR. This is mostly used for managed database services.",
-              align: "bottom-right",
-              alignModal: "bottom-right",
+              alignModal: "right",
+              align: "right"   
             }}
             id={this.props.data.name + "-cbr-rule-api-type-id"}
             labelText="API Type ID" // needed to override title case capitalization
             field={"api_type_id"}
             value={this.state.api_type_id}
             onChange={this.handleInputChange}
+            optional
             invalidCallback={() =>
               this.props.invalidCallback("api_type_id", this.state, this.props)
             }
@@ -120,7 +121,7 @@ class CbrRuleForm extends Component {
             className="textInputWide"
             name="description"
             value={this.state.description}
-            labelText="Description"
+            labelText="(Optional) Description"
             onChange={this.handleInputChange}
             invalid={this.props.invalidCallback(
               "description",

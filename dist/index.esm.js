@@ -5294,7 +5294,9 @@ class AccessGroupForm extends React.Component {
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
       id: this.props.data.name + "-description",
       tooltip: {
-        content: "Description of the access group"
+        content: "Description of the access group",
+        alignModal: "right",
+        align: "right"
       },
       field: "description",
       value: this.state.description,
@@ -5302,7 +5304,8 @@ class AccessGroupForm extends React.Component {
       isModal: this.props.isModal,
       className: "textInputWide",
       hideHelperText: true,
-      invalid: false
+      invalid: false,
+      optional: true
     })), this.props.isModal === false && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormTemplate, {
       name: "Policies",
       subHeading: true,
@@ -5681,7 +5684,8 @@ class EncryptionKeyForm extends Component {
       onChange: this.handleInputChange,
       id: this.props.data.name + "-key-ring",
       invalid: this.props.invalidRingCallback(this.state, this.props),
-      invalidText: this.props.invalidRingText
+      invalidText: this.props.invalidRingText,
+      optional: true
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNumberSelect, {
       tooltip: {
         content: "Setting a rotation policy shortens the lifetime of the key at regular intervals. When it's time to rotate the key based on the rotation interval that you specify, the root key will be automatically replaced with new key material.",
@@ -7594,7 +7598,7 @@ class TransitGatewayForm extends Component {
     }), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
       className: "textInputWide",
       id: this.props.data.name + "crns",
-      labelText: "Add a new connection from any region in the account",
+      labelText: "(Optional) Add a new connection from any region in the account",
       value: this.state.crns === undefined ? "" : String(this.state.crns),
       onChange: this.handleCRNs,
       invalid: this.props.invalidCrns(this.state, this.props),
@@ -8287,7 +8291,7 @@ class VsiVolumeForm extends Component {
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NumberInput, {
       id: this.props.data.name + "vsi-volume-capacity",
       name: "capacity",
-      label: "Capacity (GB)",
+      label: "(Optional) Capacity (GB)",
       value: this.state.capacity || "",
       onChange: this.handleInputChange,
       allowEmpty: true,
@@ -8470,7 +8474,7 @@ class VsiForm extends Component {
         id: composedId + "-vsi-user-data",
         className: this.props.isModal ? "textInputWide" : "fieldWidthBigger",
         placeholder: "Cloud init data",
-        labelText: "User Data",
+        labelText: "(Optional) User Data",
         name: "user_data",
         value: this.state.user_data || "",
         onChange: this.handleInputChange,
@@ -8994,7 +8998,7 @@ class VsiLoadBalancerForm extends React.Component {
         content: "Protocol of the listener for the load balancer"
       }
     }), /*#__PURE__*/React.createElement(NumberInput, {
-      label: "Connection Limit",
+      label: "(Optional) Connection Limit",
       id: componentName + "-connection-limit",
       allowEmpty: true,
       value: this.state.connection_limit || "",
@@ -12332,7 +12336,7 @@ class IamAccountSettingsForm extends Component {
         content: "Defines if the entity history is included in the response.",
         align: "top-left"
       },
-      labelText: "Include History",
+      labelText: "(Optional) Include History",
       defaultToggled: this.state.include_history,
       onToggle: () => this.handleToggle("include_history"),
       className: "fieldWidthSmaller",
@@ -12369,7 +12373,7 @@ class IamAccountSettingsForm extends Component {
       id: "iam-max-sessions-per-id"
     }), /*#__PURE__*/React.createElement(NumberInput, {
       placeholder: "900",
-      label: "Session Expiration (sec)",
+      label: "(Optional) Session Expiration (sec)",
       id: "iam-session-expiration-seconds",
       allowEmpty: true,
       value: this.state.session_expiration_in_seconds || "",
@@ -12384,7 +12388,7 @@ class IamAccountSettingsForm extends Component {
       className: "fieldWidth leftTextAlign"
     }), /*#__PURE__*/React.createElement(NumberInput, {
       placeholder: "900",
-      label: "Session Invalidation (sec)",
+      label: "(Optional) Session Invalidation (sec)",
       id: "iam-session-invalidation-seconds",
       allowEmpty: true,
       value: this.state.session_invalidation_in_seconds || "",
@@ -12407,7 +12411,7 @@ class IamAccountSettingsForm extends Component {
       id: "iam-allowed-ip",
       labelText: "Allowed IPs",
       onChange: this.handleAllowedIps,
-      placeholder: this.state.allowed_ip_addresses || "X.X.X.X, X.X.X.X/X, ...",
+      placeholder: this.state.allowed_ip_addresses || "(Optional) X.X.X.X, X.X.X.X/X, ...",
       invalid: iamUtils_1(this.state.allowed_ip_addresses),
       invalidText: "Please enter a comma separated list of IP addresses or CIDR blocks"
     })));
@@ -13269,7 +13273,8 @@ class SubnetTierForm extends React.Component {
     }), /*#__PURE__*/React.createElement(IcseToggle, {
       tooltip: {
         content: this.props.dynamicSubnets ? "Advanced configuration cannot be set when using dynamically scaled subnets" : "Enable advanced subnet configuration such as custom CIDR blocks",
-        alignModal: "bottom"
+        alignModal: "bottom",
+        align: "left"
       },
       id: composedId + "-advanced",
       labelText: "Advanced Configuration",
@@ -13281,7 +13286,9 @@ class SubnetTierForm extends React.Component {
       className: "marginBottomSmall"
     }, /*#__PURE__*/React.createElement(IcseSelect, {
       tooltip: {
-        content: "Changing this field will overwrite existing Network ACL changes to subnets in this data."
+        content: "Changing this field will overwrite existing Network ACL changes to subnets in this data.",
+        alignModal: "right",
+        align: "right"
       },
       className: "fieldWidthSmaller",
       field: "networkAcl",
@@ -13686,8 +13693,8 @@ class CbrRuleForm extends Component {
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       tooltip: {
         content: "APIs can be scoped for some service types that adopt CBR. This is mostly used for managed database services.",
-        align: "bottom-right",
-        alignModal: "bottom-right"
+        alignModal: "right",
+        align: "right"
       },
       id: this.props.data.name + "-cbr-rule-api-type-id",
       labelText: "API Type ID" // needed to override title case capitalization
@@ -13695,6 +13702,7 @@ class CbrRuleForm extends Component {
       field: "api_type_id",
       value: this.state.api_type_id,
       onChange: this.handleInputChange,
+      optional: true,
       invalidCallback: () => this.props.invalidCallback("api_type_id", this.state, this.props),
       invalidText: this.props.invalidTextCallback("api_type_id", this.state, this.props)
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
@@ -13702,7 +13710,7 @@ class CbrRuleForm extends Component {
       className: "textInputWide",
       name: "description",
       value: this.state.description,
-      labelText: "Description",
+      labelText: "(Optional) Description",
       onChange: this.handleInputChange,
       invalid: this.props.invalidCallback("description", this.state, this.props),
       invalidText: this.props.invalidTextCallback("description", this.state, this.props),
@@ -14041,13 +14049,14 @@ class CbrZoneForm extends Component {
       value: this.state.account_id,
       labelText: "Account ID" // needed to override titlecase capitalization
       ,
-      onChange: this.handleInputChange
+      onChange: this.handleInputChange,
+      optional: true
     }, forms_17("account_id", this.state.account_id)))), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
       id: this.props.data.name + "-cbr-zone-description",
       className: "textInputWide",
       name: "description",
       value: this.state.description,
-      labelText: "Description",
+      labelText: "(Optional) Description",
       onChange: this.handleInputChange,
       invalid: this.state.description.length < 0 || this.state.description.length > 300,
       invalidText: "Invalid description, must be between 0 and 300 characters.",
@@ -14248,7 +14257,7 @@ class LogDNAForm extends Component {
         content: "Create an archive with the LogDNA Provider",
         align: "bottom-left"
       },
-      labelText: "Archive",
+      labelText: "(Optional) Add LogDNA Archive",
       defaultToggled: this.state.archive,
       name: "archive",
       toggleFieldName: "archive",
@@ -14256,7 +14265,7 @@ class LogDNAForm extends Component {
       id: "logdna-archive",
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseToggle, {
-      labelText: "Platform Logs",
+      labelText: "(Optional) Add Platform Logging",
       defaultToggled: this.state.platform_logs,
       name: "platform_logs",
       toggleFieldName: "platform_logs",
@@ -14368,7 +14377,7 @@ class SysdigForm extends Component {
       labelText: "Resource Group",
       className: "fieldWidth"
     }), /*#__PURE__*/React.createElement(IcseToggle, {
-      labelText: "Platform Logs",
+      labelText: "(Optional) Add Platform Logging",
       defaultToggled: this.state.platform_logs,
       name: "platform_logs",
       toggleFieldName: "platform_logs",

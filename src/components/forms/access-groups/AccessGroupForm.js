@@ -66,6 +66,8 @@ class AccessGroupForm extends React.Component {
             id={this.props.data.name + "-description"}
             tooltip={{
               content: "Description of the access group",
+              alignModal: "right",
+              align: "right",
             }}
             field="description"
             value={this.state.description}
@@ -74,6 +76,7 @@ class AccessGroupForm extends React.Component {
             className="textInputWide"
             hideHelperText
             invalid={false}
+            optional
           />
         </IcseFormGroup>
         {this.props.isModal === false && (
