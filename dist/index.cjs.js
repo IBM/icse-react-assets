@@ -733,14 +733,6 @@ function databaseInputChange$1(stateData, event) {
 var database = {
   databaseInputChange: databaseInputChange$1
 };
-var database_1 = database.databaseInputChange;
-
-var database$1 = /*#__PURE__*/Object.freeze({
-  __proto__: null,
-  'default': database,
-  __moduleExports: database,
-  databaseInputChange: database_1
-});
 
 /**
  * handle toggle for resource group
@@ -1701,7 +1693,7 @@ const {
 } = atracker;
 const {
   databaseInputChange
-} = database$1;
+} = database;
 const {
   handleRgToggle
 } = resourceGroups;
