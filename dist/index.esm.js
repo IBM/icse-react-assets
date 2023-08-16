@@ -5522,7 +5522,7 @@ const CloudDatabase = props => {
     addText: "Create a Cloud Database",
     docs: props.docs,
     innerForm: CloudDatabaseForm,
-    arrayData: props.databases,
+    arrayData: props.icd,
     disableSave: props.disableSave,
     onDelete: props.onDelete,
     onSave: props.onSave,
