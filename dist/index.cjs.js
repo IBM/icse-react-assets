@@ -721,12 +721,18 @@ function databaseInputChange$1(stateData, event) {
     name,
     value
   } = event.target;
-  if (name === "service") state.service = kebabCase$1(value);else if (name === "plan") state.plan = kebabCase$1(value);else if (name === "memory") {
-    state.memory = Number(value) || "";
+  if (name === "service") {
+    if (value !== "Databases for Mongodb") {
+      state.plan = "standard";
+      state.group_id = "member";
+    }
+    state.service = kebabCase$1(value);
+  } else if (name === "plan") state.plan = kebabCase$1(value);else if (name === "memory") {
+    state.memory = Number(value);
   } else if (name === "disk") {
-    state.disk = Number(value) || "";
+    state.disk = Number(value);
   } else if (name === "cpu") {
-    state.cpu = Number(value) || "";
+    state.cpu = Number(value);
   } else state[name] = value;
   return state;
 }
