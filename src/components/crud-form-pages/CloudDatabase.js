@@ -26,6 +26,12 @@ export const CloudDatabase = (props) => {
         invalidCpuTextCallback: props.invalidCpuTextCallback,
         resourceGroups: props.resourceGroups,
         encryptionKeys: props.encryptionKeys,
+        memoryMin: props.memoryMin,
+        memoryMax: props.memoryMax,
+        diskMin: props.diskMin,
+        diskMax: props.diskMax,
+        cpuMin: props.cpuMin,
+        cpuMax: props.cpuMax,
       }}
       toggleFormProps={{
         craig: props.craig,

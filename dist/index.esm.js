@@ -5546,7 +5546,13 @@ const CloudDatabase = props => {
       invalidCpuCallback: props.invalidCpuCallback,
       invalidCpuTextCallback: props.invalidCpuTextCallback,
       resourceGroups: props.resourceGroups,
-      encryptionKeys: props.encryptionKeys
+      encryptionKeys: props.encryptionKeys,
+      memoryMin: props.memoryMin,
+      memoryMax: props.memoryMax,
+      diskMin: props.diskMin,
+      diskMax: props.diskMax,
+      cpuMin: props.cpuMin,
+      cpuMax: props.cpuMax
     },
     toggleFormProps: {
       craig: props.craig,
