@@ -44,6 +44,15 @@ export const CloudDatabase = (props) => {
   );
 };
 
+CloudDatabase.defaultProps = {
+  memoryMin: 1,
+  memoryMax: 112,
+  diskMin: 5,
+  diskMax: 4096,
+  cpuMin: 0,
+  cpuMax: 28,
+};
+
 CloudDatabase.propTypes = {
   docs: PropTypes.func.isRequired,
   icd: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
@@ -60,10 +69,4 @@ CloudDatabase.propTypes = {
   invalidCpuTextCallback: PropTypes.func.isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   encryptionKeys: PropTypes.arrayOf(PropTypes.string.isRequired),
-  memoryMin: 1,
-  memoryMax: 112,
-  diskMin: 5,
-  diskMax: 4096,
-  cpuMin: 0,
-  cpuMax: 28,
 };
