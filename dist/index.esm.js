@@ -5578,7 +5578,13 @@ CloudDatabase.propTypes = {
   invalidCpuCallback: PropTypes.func.isRequired,
   invalidCpuTextCallback: PropTypes.func.isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
-  encryptionKeys: PropTypes.arrayOf(PropTypes.string.isRequired)
+  encryptionKeys: PropTypes.arrayOf(PropTypes.string.isRequired),
+  memoryMin: 1,
+  memoryMax: 112,
+  diskMin: 5,
+  diskMax: 4096,
+  cpuMin: 0,
+  cpuMax: 28
 };
 
 const Clusters = props => {
