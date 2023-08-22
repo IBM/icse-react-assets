@@ -91,6 +91,27 @@ describe("databaseInputChange", () => {
     );
     assert.deepEqual(expectedData, actualData);
   });
+  it("should set empty string values to null", () => {
+    let event = {
+      target: { name: "cpu", value: "" },
+    };
+    let expectedData = {
+      resource_group: "hi",
+      cpu: null,
+    };
+    let actualData = databaseInputChange(
+      {
+        resource_group: "hi",
+        cpu: "",
+      },
+      event
+    );
+    assert.deepEqual(
+      expectedData,
+      actualData,
+      "it should correctly set state data"
+    );
+  });
   it("should change cpu to number value", () => {
     let event = {
       target: { name: "cpu", value: "5" },

@@ -1,4 +1,4 @@
-const { kebabCase, titleCase } = require("lazy-z");
+const { kebabCase } = require("lazy-z");
 
 /**
  * handle input change for Cloud Database Form
@@ -9,13 +9,16 @@ function databaseInputChange(stateData, event) {
   let state = { ...stateData };
   let { name, value } = event.target;
   if (name === "service") {
-    if(value !== "Databases for Mongodb") {
-        state.plan = "standard";
-        state.group_id = "member";
+    if (value !== "Databases for Mongodb") {
+      state.plan = "standard";
+      state.group_id = "member";
     }
     state.service = kebabCase(value);
-  } else if (name === "plan") state.plan = kebabCase(value);
-  else if (name === "memory") {
+  } else if (name === "plan") {
+    state.plan = kebabCase(value);
+  } else if (value === "") {
+    state[name] = null;
+  } else if (name === "memory") {
     state.memory = Number(value);
   } else if (name === "disk") {
     state.disk = Number(value);

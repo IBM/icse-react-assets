@@ -62,7 +62,7 @@ class CloudDatabaseForm extends Component {
             id={this.props.data.name + "-db-name"}
             componentName={this.props.data.name + "-db-name"}
             placeholder="my-db-name"
-            value={this.state.name}
+            value={this.state.name || ""}
             onChange={this.handleInputChange}
             hideHelperText
             invalid={this.props.invalidCallback(this.state, this.props)}
@@ -99,123 +99,131 @@ class CloudDatabaseForm extends Component {
             invalidText="Select a Resource Group."
             className="fieldWidthSmaller"
           />
-          {/* Select Plan */}
-          <IcseSelect
-            labelText="Plan"
-            name="plan"
-            formName={this.props.data.name + "-db-plan"}
-            groups={
-              this.state.service === "databases-for-mongodb"
-                ? ["Standard", "Enterprise"]
-                : ["Standard"]
-            }
-            disabled={
-              this.state.service === "databases-for-mongodb" ? false : true
-            }
-            value={titleCase(this.state.plan)}
-            handleInputChange={this.handleInputChange}
-            invalidText="Select a Plan."
-            className="fieldWidthSmaller"
-          />
-          {/* Select Group ID */}
-          <IcseSelect
-            labelText="Group ID"
-            name="group_id"
-            formName={this.props.data.name + "-db-groupId"}
-            tooltip={{
-              content:
-                "The ID of the scaling group. Read more about analytics and bi_connector for MongoDB down below.",
-              align: "bottom-left",
-              link: "https://cloud.ibm.com/docs/databases-for-mongodb?topic=databases-for-mongodb-mongodbee-analytics&interface=api",
-            }}
-            groups={
-              this.state.service === "databases-for-mongodb"
-                ? ["member", "analytcs", "bi_connector"]
-                : ["member"]
-            }
-            disabled={
-              this.state.service === "databases-for-mongodb" ? false : true
-            }
-            value={this.state.group_id}
-            handleInputChange={this.handleInputChange}
-            invalidText="Select a Group ID."
-            className="fieldWidthSmaller"
-          />
+          {this.state.use_data !== true && (
+            <>
+              {/* Select Plan */}
+              <IcseSelect
+                labelText="Plan"
+                name="plan"
+                formName={this.props.data.name + "-db-plan"}
+                groups={
+                  this.state.service === "databases-for-mongodb"
+                    ? ["Standard", "Enterprise"]
+                    : ["Standard"]
+                }
+                disabled={
+                  this.state.service === "databases-for-mongodb" ? false : true
+                }
+                value={titleCase(this.state.plan)}
+                handleInputChange={this.handleInputChange}
+                invalidText="Select a Plan."
+                className="fieldWidthSmaller"
+              />
+              {/* Select Group ID */}
+              <IcseSelect
+                labelText="Group ID"
+                name="group_id"
+                formName={this.props.data.name + "-db-groupId"}
+                tooltip={{
+                  content:
+                    "The ID of the scaling group. Read more about analytics and bi_connector for MongoDB down below.",
+                  align: "bottom-left",
+                  link: "https://cloud.ibm.com/docs/databases-for-mongodb?topic=databases-for-mongodb-mongodbee-analytics&interface=api",
+                }}
+                groups={
+                  this.state.service === "databases-for-mongodb"
+                    ? ["member", "analytcs", "bi_connector"]
+                    : ["member"]
+                }
+                disabled={
+                  this.state.service === "databases-for-mongodb" ? false : true
+                }
+                value={this.state.group_id}
+                handleInputChange={this.handleInputChange}
+                invalidText="Select a Group ID."
+                className="fieldWidthSmaller"
+              />
+            </>
+          )}
         </IcseFormGroup>
-        <IcseFormGroup>
-          {/* memory number input */}
-          <NumberInput
-            label="Memory (GB)"
-            id={this.props.data.name + "-db-memory"}
-            value={this.state.memory}
-            allowEmpty
-            placeholder={this.props.memoryMin}
-            min={this.props.memoryMin}
-            max={this.props.memoryMax}
-            onChange={this.handleInputChange}
-            name="memory"
-            hideSteppers
-            invalid={isRangeInvalid(
-              this.state.memory,
-              this.props.memoryMin,
-              this.props.memoryMax
-            )}
-            invalidText={`RAM must be a minimum of ${this.props.memoryMin}GB and a maximum ${this.props.memoryMax}GB per member`}
-            className="fieldWidthSmaller leftTextAlign"
-          />
-          {/* disk number input */}
-          <NumberInput
-            label="Disk (GB)"
-            id={this.props.data.name + "-db-disk"}
-            value={this.state.disk}
-            allowEmpty
-            placeholder={this.props.diskMin}
-            min={this.props.diskMin}
-            max={this.props.diskMax}
-            onChange={this.handleInputChange}
-            name="disk"
-            hideSteppers
-            invalid={isRangeInvalid(
-              this.state.disk,
-              this.props.diskMin,
-              this.props.diskMax
-            )}
-            invalidText={`Disk must be a minimum of ${this.props.diskMin}GB and a maximum ${this.props.diskMax}GB per member`}
-            className="fieldWidthSmaller leftTextAlign"
-          />
-          {/* cpu text input */}
-          <NumberInput
-            label="CPU"
-            id={this.props.data.name + "-db-cpu"}
-            value={this.state.cpu}
-            allowEmpty
-            placeholder={this.props.cpuMin}
-            min={this.props.cpuMin}
-            max={this.props.cpuMax}
-            onChange={this.handleInputChange}
-            name="cpu"
-            hideSteppers
-            invalid={this.props.invalidCpuCallback(this.state, this.props)}
-            invalidText={this.props.invalidCpuTextCallback(
-              this.state,
-              this.props
-            )}
-            className="fieldWidthSmaller leftTextAlign"
-          />
-        </IcseFormGroup>
-        <IcseFormGroup>
-          {/* Select Encryption Key */}
-          <IcseSelect
-            value={this.state.encryption_key}
-            groups={this.props.encryptionKeys}
-            formName={this.props.data.name + " CloudDatabase"}
-            name="encryption_key"
-            labelText="(Optional) Encryption Key"
-            handleInputChange={this.handleInputChange}
-            disableInvalid
-            className="fieldWidthSmaller"
-          />
-        </IcseFormGroup>
+        {this.state.use_data !== true && (
+          <IcseFormGroup>
+            {/* memory number input */}
+            <NumberInput
+              label="Memory (GB)"
+              id={this.props.data.name + "-db-memory"}
+              value={this.state.memory || ""}
+              allowEmpty
+              placeholder={this.props.memoryMin}
+              min={this.props.memoryMin}
+              max={this.props.memoryMax}
+              onChange={this.handleInputChange}
+              name="memory"
+              hideSteppers
+              invalid={isRangeInvalid(
+                this.state.memory,
+                this.props.memoryMin,
+                this.props.memoryMax
+              )}
+              invalidText={`RAM must be a minimum of ${this.props.memoryMin}GB and a maximum ${this.props.memoryMax}GB per member`}
+              className="fieldWidthSmaller leftTextAlign"
+            />
+            {/* disk number input */}
+            <NumberInput
+              label="Disk (GB)"
+              id={this.props.data.name + "-db-disk"}
+              value={this.state.disk || ""}
+              allowEmpty
+              placeholder={this.props.diskMin}
+              min={this.props.diskMin}
+              max={this.props.diskMax}
+              onChange={this.handleInputChange}
+              name="disk"
+              hideSteppers
+              invalid={isRangeInvalid(
+                this.state.disk,
+                this.props.diskMin,
+                this.props.diskMax
+              )}
+              invalidText={`Disk must be a minimum of ${this.props.diskMin}GB and a maximum ${this.props.diskMax}GB per member`}
+              className="fieldWidthSmaller leftTextAlign"
+            />
+            {/* cpu text input */}
+            <NumberInput
+              label="CPU"
+              id={this.props.data.name + "-db-cpu"}
+              value={this.state.cpu || ""}
+              allowEmpty
+              placeholder={this.props.cpuMin}
+              min={this.props.cpuMin}
+              max={this.props.cpuMax}
+              onChange={this.handleInputChange}
+              name="cpu"
+              hideSteppers
+              invalid={this.props.invalidCpuCallback(this.state, this.props)}
+              invalidText={this.props.invalidCpuTextCallback(
+                this.state,
+                this.props
+              )}
+              className="fieldWidthSmaller leftTextAlign"
+            />
+          </IcseFormGroup>
+        )}
+        {this.state.use_data !== true && (
+          <IcseFormGroup>
+            {/* Select Encryption Key */}
+            <IcseSelect
+              value={this.state.encryption_key}
+              groups={this.props.encryptionKeys}
+              formName={this.props.data.name + " CloudDatabase"}
+              name="encryption_key"
+              labelText="(Optional) Encryption Key"
+              handleInputChange={this.handleInputChange}
+              disableInvalid
+              className="fieldWidthSmaller"
+            />
+          </IcseFormGroup>
+        )}
       </div>
     );
   }
@@ -230,9 +238,9 @@ CloudDatabaseForm.defaultProps = {
     encryption_key: "",
     service: "",
     group_id: "member",
-    memory: "",
-    disk: "",
-    cpu: "",
+    memory: null,
+    disk: null,
+    cpu: null,
   },
   memoryMin: 1,
   memoryMax: 112,
@@ -250,9 +258,9 @@ CloudDatabaseForm.propTypes = {
     plan: PropTypes.string,
     service: PropTypes.string.isRequired,
     group_id: PropTypes.string,
-    memory: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf([""])]),
-    disk: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf([""])]),
-    cpu: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf([""])]),
+    memory: PropTypes.number,
+    disk: PropTypes.number,
+    cpu: PropTypes.number,
     encryption_key: PropTypes.string,
   }).isRequired,
   memoryMin: PropTypes.number,
