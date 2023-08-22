@@ -482,7 +482,7 @@ var emptyResourceTile_1 = emptyResourceTile.emptyResourceTileParams;
 const {
   snakeCase: snakeCase$1,
   kebabCase: kebabCase$3,
-  titleCase: titleCase$2,
+  titleCase: titleCase$1,
   isBoolean
 } = lazyZ__default["default"];
 const {
@@ -552,7 +552,7 @@ function onToggleEvent$1(props, toggleName) {
  * @returns {Object} params object
  */
 function textInputParams(props) {
-  let fieldName = titleCase$2(props.field);
+  let fieldName = titleCase$1(props.field);
   let invalidText = props.invalidText ? props.invalidText : `Invalid ${props.field} value.`,
     invalid = isBoolean(props.invalid) ? props.invalid : props.invalidCallback(),
     placeholder = (props.optional ? "(Optional) " : "") + (props.placeholder || formatInputPlaceholder$1(props.componentName, fieldName)),
@@ -704,8 +704,7 @@ var atracker = {
 };
 
 const {
-  kebabCase: kebabCase$1,
-  titleCase: titleCase$1
+  kebabCase: kebabCase$1
 } = lazyZ__default["default"];
 
 /**
@@ -721,10 +720,22 @@ function databaseInputChange$1(stateData, event) {
     name,
     value
   } = event.target;
-  if (name === "service") state.service = kebabCase$1(value);else if (name === "plan") state.plan = kebabCase$1(value);else if (name === "memory") {
-    state.memory = Number(value) || "";
+  if (name === "service") {
+    if (value !== "Databases for Mongodb") {
+      state.plan = "standard";
+      state.group_id = "member";
+    }
+    state.service = kebabCase$1(value);
+  } else if (name === "plan") {
+    state.plan = kebabCase$1(value);
+  } else if (value === "") {
+    state[name] = null;
+  } else if (name === "memory") {
+    state.memory = Number(value);
   } else if (name === "disk") {
-    state.disk = Number(value) || "";
+    state.disk = Number(value);
+  } else if (name === "cpu") {
+    state.cpu = Number(value);
   } else state[name] = value;
   return state;
 }
@@ -4661,7 +4672,7 @@ class CloudDatabaseForm extends React.Component {
       id: this.props.data.name + "-db-name",
       componentName: this.props.data.name + "-db-name",
       placeholder: "my-db-name",
-      value: this.state.name,
+      value: this.state.name || "",
       onChange: this.handleInputChange,
       hideHelperText: true,
       invalid: this.props.invalidCallback(this.state, this.props),
@@ -4685,7 +4696,7 @@ class CloudDatabaseForm extends React.Component {
       handleInputChange: this.handleInputChange,
       invalidText: "Select a Resource Group.",
       className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+    }), this.state.use_data !== true && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       labelText: "Plan",
       name: "plan",
       formName: this.props.data.name + "-db-plan",
@@ -4710,10 +4721,10 @@ class CloudDatabaseForm extends React.Component {
       handleInputChange: this.handleInputChange,
       invalidText: "Select a Group ID.",
       className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+    }))), this.state.use_data !== true && /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
       label: "Memory (GB)",
       id: this.props.data.name + "-db-memory",
-      value: this.state.memory,
+      value: this.state.memory || "",
       allowEmpty: true,
       placeholder: this.props.memoryMin,
       min: this.props.memoryMin,
@@ -4727,7 +4738,7 @@ class CloudDatabaseForm extends React.Component {
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
       label: "Disk (GB)",
       id: this.props.data.name + "-db-disk",
-      value: this.state.disk,
+      value: this.state.disk || "",
       allowEmpty: true,
       placeholder: this.props.diskMin,
       min: this.props.diskMin,
@@ -4741,7 +4752,7 @@ class CloudDatabaseForm extends React.Component {
     }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
       label: "CPU",
       id: this.props.data.name + "-db-cpu",
-      value: this.state.cpu,
+      value: this.state.cpu || "",
       allowEmpty: true,
       placeholder: this.props.cpuMin,
       min: this.props.cpuMin,
@@ -4752,7 +4763,7 @@ class CloudDatabaseForm extends React.Component {
       invalid: this.props.invalidCpuCallback(this.state, this.props),
       invalidText: this.props.invalidCpuTextCallback(this.state, this.props),
       className: "fieldWidthSmaller leftTextAlign"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+    })), this.state.use_data !== true && /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       value: this.state.encryption_key,
       groups: this.props.encryptionKeys,
       formName: this.props.data.name + " CloudDatabase",
@@ -4773,9 +4784,9 @@ CloudDatabaseForm.defaultProps = {
     encryption_key: "",
     service: "",
     group_id: "member",
-    memory: "",
-    disk: "",
-    cpu: ""
+    memory: null,
+    disk: null,
+    cpu: null
   },
   memoryMin: 1,
   memoryMax: 112,
@@ -4792,9 +4803,9 @@ CloudDatabaseForm.propTypes = {
     plan: PropTypes__default["default"].string,
     service: PropTypes__default["default"].string.isRequired,
     group_id: PropTypes__default["default"].string,
-    memory: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].oneOf([""])]),
-    disk: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].oneOf([""])]),
-    cpu: PropTypes__default["default"].oneOfType([PropTypes__default["default"].number, PropTypes__default["default"].oneOf([""])]),
+    memory: PropTypes__default["default"].number,
+    disk: PropTypes__default["default"].number,
+    cpu: PropTypes__default["default"].number,
     encryption_key: PropTypes__default["default"].string
   }).isRequired,
   memoryMin: PropTypes__default["default"].number,
@@ -5518,6 +5529,76 @@ AppId.propTypes = {
   onKeySubmit: PropTypes__default["default"].func.isRequired,
   docs: PropTypes__default["default"].func.isRequired,
   encryptionKeys: PropTypes__default["default"].array.isRequired
+};
+
+const CloudDatabase = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "Cloud Databases",
+    addText: "Create a Cloud Database",
+    docs: props.docs,
+    innerForm: CloudDatabaseForm,
+    arrayData: props.icd,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    innerFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      invalidCpuCallback: props.invalidCpuCallback,
+      invalidCpuTextCallback: props.invalidCpuTextCallback,
+      resourceGroups: props.resourceGroups,
+      encryptionKeys: props.encryptionKeys,
+      memoryMin: props.memoryMin,
+      memoryMax: props.memoryMax,
+      diskMin: props.diskMin,
+      diskMax: props.diskMax,
+      cpuMin: props.cpuMin,
+      cpuMax: props.cpuMax
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "icd",
+      hide: true,
+      hideName: true
+    }
+  });
+};
+CloudDatabase.defaultProps = {
+  memoryMin: 1,
+  memoryMax: 112,
+  diskMin: 5,
+  diskMax: 4096,
+  cpuMin: 0,
+  cpuMax: 28
+};
+CloudDatabase.propTypes = {
+  docs: PropTypes__default["default"].func.isRequired,
+  icd: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  onDelete: PropTypes__default["default"].func.isRequired,
+  onSave: PropTypes__default["default"].func.isRequired,
+  onSubmit: PropTypes__default["default"].func.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  forceOpen: PropTypes__default["default"].func.isRequired,
+  craig: PropTypes__default["default"].shape({}),
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidCpuCallback: PropTypes__default["default"].func.isRequired,
+  invalidCpuTextCallback: PropTypes__default["default"].func.isRequired,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  encryptionKeys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string.isRequired),
+  memoryMin: PropTypes__default["default"].number,
+  memoryMax: PropTypes__default["default"].number,
+  diskMin: PropTypes__default["default"].number,
+  diskMax: PropTypes__default["default"].number,
+  cpuMin: PropTypes__default["default"].number,
+  cpuMax: PropTypes__default["default"].number
 };
 
 const Clusters = props => {
@@ -14691,6 +14772,7 @@ exports.CbrRuleForm = CbrRuleForm;
 exports.CbrTagForm = CbrTagForm;
 exports.CbrZoneForm = CbrZoneForm;
 exports.CloudDatabaseForm = CloudDatabaseForm;
+exports.CloudDatabaseTemplate = CloudDatabase;
 exports.ClusterForm = ClusterForm;
 exports.ClustersTemplate = Clusters;
 exports.DeleteButton = DeleteButton;
