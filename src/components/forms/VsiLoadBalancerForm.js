@@ -56,7 +56,7 @@ class VsiLoadBalancerForm extends React.Component {
             "listener_port",
             "connection_limit",
           ],
-          name
+          name,
         )
       ? Number(value)
       : snakeCase(value);
@@ -86,7 +86,7 @@ class VsiLoadBalancerForm extends React.Component {
       nextState.subnets = [];
       this.props.vsiDeployments.forEach((deployment) => {
         nextState.subnets = distinct(
-          nextState.subnets.concat(deployment.subnets)
+          nextState.subnets.concat(deployment.subnets),
         );
       });
     }
@@ -104,7 +104,7 @@ class VsiLoadBalancerForm extends React.Component {
       let vsi = getObjectFromArray(
         this.props.vsiDeployments,
         "name",
-        deployment
+        deployment,
       );
       let nextRow = [];
       // for each subnet vsi
@@ -217,7 +217,7 @@ class VsiLoadBalancerForm extends React.Component {
                   return deployment;
                 }
               }),
-              "name"
+              "name",
             )}
             onChange={(value) => {
               this.handleMultiSelectChange("target_vsi", value.selectedItems);
@@ -465,7 +465,7 @@ class VsiLoadBalancerForm extends React.Component {
               value={this.state.session_persistence_app_cookie_name || ""}
               invalid={
                 isNullOrEmptyString(
-                  this.state.session_persistence_app_cookie_name || ""
+                  this.state.session_persistence_app_cookie_name || "",
                 )
                   ? false
                   : this.props.invalidCallback(this.state, this.props)

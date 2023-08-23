@@ -177,7 +177,7 @@ CbrZoneForm.propTypes = {
         service_instance: PropTypes.string,
         type: PropTypes.string,
         value: PropTypes.string,
-      }).isRequired
+      }).isRequired,
     ),
     exclusions: PropTypes.arrayOf(
       PropTypes.shape({
@@ -189,7 +189,7 @@ CbrZoneForm.propTypes = {
         service_instance: PropTypes.string,
         type: PropTypes.string,
         value: PropTypes.string,
-      }).isRequired
+      }).isRequired,
     ),
   }),
   exclusionProps: PropTypes.shape({

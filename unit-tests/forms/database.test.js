@@ -15,7 +15,7 @@ describe("databaseInputChange", () => {
         resource_group: "hi",
         service: "",
       },
-      event
+      event,
     );
     assert.deepEqual(expectedData, actualData);
   });
@@ -36,7 +36,7 @@ describe("databaseInputChange", () => {
         plan: "enterprise",
         group_id: "bi_connector",
       },
-      event
+      event,
     );
     assert.deepEqual(expectedData, actualData);
   });
@@ -53,7 +53,7 @@ describe("databaseInputChange", () => {
         resource_group: "hi",
         plan: "",
       },
-      event
+      event,
     );
     assert.deepEqual(expectedData, actualData);
   });
@@ -70,7 +70,7 @@ describe("databaseInputChange", () => {
         resource_group: "hi",
         memory: "",
       },
-      event
+      event,
     );
     assert.deepEqual(expectedData, actualData);
   });
@@ -87,7 +87,7 @@ describe("databaseInputChange", () => {
         resource_group: "hi",
         disk: "",
       },
-      event
+      event,
     );
     assert.deepEqual(expectedData, actualData);
   });
@@ -104,12 +104,12 @@ describe("databaseInputChange", () => {
         resource_group: "hi",
         cpu: "",
       },
-      event
+      event,
     );
     assert.deepEqual(
       expectedData,
       actualData,
-      "it should correctly set state data"
+      "it should correctly set state data",
     );
   });
   it("should change cpu to number value", () => {
@@ -125,7 +125,7 @@ describe("databaseInputChange", () => {
         resource_group: "hi",
         cpu: "",
       },
-      event
+      event,
     );
     assert.deepEqual(expectedData, actualData);
   });
@@ -142,7 +142,7 @@ describe("databaseInputChange", () => {
         resource_group: "hi",
         plan: "standard",
       },
-      event
+      event,
     );
     assert.deepEqual(expectedData, actualData);
   });

@@ -163,7 +163,7 @@ class CloudDatabaseForm extends Component {
               invalid={isRangeInvalid(
                 this.state.memory,
                 this.props.memoryMin,
-                this.props.memoryMax
+                this.props.memoryMax,
               )}
               invalidText={`RAM must be a minimum of ${this.props.memoryMin}GB and a maximum ${this.props.memoryMax}GB per member`}
               className="fieldWidthSmaller leftTextAlign"
@@ -183,7 +183,7 @@ class CloudDatabaseForm extends Component {
               invalid={isRangeInvalid(
                 this.state.disk,
                 this.props.diskMin,
-                this.props.diskMax
+                this.props.diskMax,
               )}
               invalidText={`Disk must be a minimum of ${this.props.diskMin}GB and a maximum ${this.props.diskMax}GB per member`}
               className="fieldWidthSmaller leftTextAlign"
@@ -203,7 +203,7 @@ class CloudDatabaseForm extends Component {
               invalid={this.props.invalidCpuCallback(this.state, this.props)}
               invalidText={this.props.invalidCpuTextCallback(
                 this.state,
-                this.props
+                this.props,
               )}
               className="fieldWidthSmaller leftTextAlign"
             />

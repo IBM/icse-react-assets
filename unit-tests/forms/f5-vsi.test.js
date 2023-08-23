@@ -15,7 +15,7 @@ describe("f5_vsi", () => {
         {
           resource_group: "hi",
         },
-        event
+        event,
       );
       assert.deepEqual(expectedData, actualData);
     });
@@ -32,7 +32,7 @@ describe("f5_vsi", () => {
           resource_group: "hi",
           profile: "blah",
         },
-        event
+        event,
       );
       assert.deepEqual(expectedData, actualData);
     });

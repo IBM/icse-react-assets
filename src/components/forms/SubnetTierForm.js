@@ -88,7 +88,7 @@ class SubnetTierForm extends React.Component {
         },
         () => {
           this.props.onSave(noToggleState, this.props);
-        }
+        },
       );
     }
   }
@@ -207,7 +207,7 @@ class SubnetTierForm extends React.Component {
                 invalid={this.props.invalidCallback(this.state, this.props)}
                 invalidText={this.props.invalidTextCallback(
                   this.state,
-                  this.props
+                  this.props,
                 )}
                 hideHelperText
               />
@@ -221,7 +221,7 @@ class SubnetTierForm extends React.Component {
                   items={["1", "2", "3"]}
                   initialSelectedItems={parseZoneStrings(
                     this.state,
-                    this.props
+                    this.props,
                   )}
                   onChange={this.handleSelectZones}
                 />
@@ -244,7 +244,7 @@ class SubnetTierForm extends React.Component {
                     ? "Advanced configuration cannot be set when using dynamically scaled subnets"
                     : "Enable advanced subnet configuration such as custom CIDR blocks",
                   alignModal: "bottom",
-                  align: "left"
+                  align: "left",
                 }}
                 id={composedId + "-advanced"}
                 labelText="Advanced Configuration"
@@ -260,8 +260,8 @@ class SubnetTierForm extends React.Component {
                 tooltip={{
                   content:
                     "Changing this field will overwrite existing Network ACL changes to subnets in this data.",
-                    alignModal: "right",
-                    align: "right"
+                  alignModal: "right",
+                  align: "right",
                 }}
                 className="fieldWidthSmaller"
                 field="networkAcl"

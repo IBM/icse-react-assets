@@ -15,7 +15,7 @@ describe("atrackerInputChange", () => {
         resource_group: "hi",
         plan: "7-day",
       },
-      event
+      event,
     );
     assert.deepEqual(expectedData, actualData);
   });
@@ -32,7 +32,7 @@ describe("atrackerInputChange", () => {
         resource_group: "hi",
         plan: "14-day",
       },
-      event
+      event,
     );
     assert.deepEqual(expectedData, actualData);
   });

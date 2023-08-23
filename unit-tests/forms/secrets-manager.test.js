@@ -7,7 +7,7 @@ describe("secrets manager", () => {
       assert.deepEqual(
         onCheckClick(["Select All"], "Select All", []),
         [],
-        "it should return correct selected"
+        "it should return correct selected",
       );
     });
     it("should return all items when clicking select all", () => {
@@ -21,7 +21,7 @@ describe("secrets manager", () => {
           },
         ]),
         ["Select All", "hello", "world"],
-        "it should return correct selected"
+        "it should return correct selected",
       );
     });
     it("should remove an item when clicked", () => {
@@ -35,7 +35,7 @@ describe("secrets manager", () => {
           },
         ]),
         ["world"],
-        "it should return correct selected"
+        "it should return correct selected",
       );
     });
     it("should add an item when clicked", () => {
@@ -49,7 +49,7 @@ describe("secrets manager", () => {
           },
         ]),
         ["world", "hello"],
-        "it should return correct selected"
+        "it should return correct selected",
       );
     });
     it("should add an item when clicked and remove select all", () => {
@@ -63,7 +63,7 @@ describe("secrets manager", () => {
           },
         ]),
         ["hello"],
-        "it should return correct selected"
+        "it should return correct selected",
       );
     });
   });
