@@ -5701,7 +5701,7 @@ class EncryptionKeyForm extends React.Component {
    * @param {string} name name of the object key to change
    */
   handleToggle(name) {
-    this.setState(this.toggleStateFieldBoolean(name, this.state));
+    this.setState(this.toggleStateBoolean(name, this.state));
   }
   render() {
     let composedId = `encryption-key-${this.props.data.name}-`;
