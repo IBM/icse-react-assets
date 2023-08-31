@@ -1,9 +1,9 @@
 import '@carbon/styles/css/styles.css';
-import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, NumberInput, DataTable, TableContainer, Table, TableHead, TableRow, TableHeader, TableBody, TableCell, TextArea, Tag, PasswordInput, Dropdown, Checkbox } from '@carbon/react';
+import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, NumberInput, DataTable, TableContainer, Table, TableHead, TableRow, TableHeader, TableBody, TableCell, TextArea, Tag, PasswordInput, Dropdown, Checkbox, DatePicker, DatePickerInput } from '@carbon/react';
 import lazyZ, { titleCase as titleCase$2, kebabCase as kebabCase$6, isEmpty, buildNumberDropdownList, contains as contains$5, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$6, transpose as transpose$2, capitalize as capitalize$2, getObjectFromArray, splat as splat$2, containsKeys, parseIntFromZone as parseIntFromZone$1, snakeCase as snakeCase$2, distinct, isWholeNumber as isWholeNumber$1, isInRange as isInRange$1, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual } from 'lazy-z';
 import regexButWithWords from 'regex-but-with-words';
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { PropTypes as PropTypes$1 } from 'prop-types';
 import { Information, Save, Add, ChevronDown, ChevronRight, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt, Edit, DataView, Password } from '@carbon/icons-react';
 
 function styleInject(css, ref) {
@@ -33,8 +33,8 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z$3 = "/* vars and themes */\n:root {\n  --background: #ffffff;\n  --subForm: #f4f4f4;\n  --formInSubForm: #fffdfd;\n  --cds-text-primary: #161616;\n  --cds-text-secondary: #525252;\n  --cds-field: #f4f4f4;\n  --cds-border-strong: #8d8d8d;\n  --blue: #0f62fe;\n  --red: #da1e28;\n  --white: #ffffff;\n}\n\n.dark {\n  --background: #161616;\n  --subForm: #262626;\n  --formInSubForm: #414141;\n  --cds-text-primary: #f4f4f4;\n  --cds-text-secondary: #c6c6c6;\n  --cds-field: #363636;\n  --cds-border-strong: #8897a2;\n  --cds-layer: #262626;\n  --cds-layer-hover: #363636;\n  --cds-field-02: #363636;\n  --cds-icon-secondary: #c6c6c6;\n  --cds-icon-primary: #c6c6c6;\n  --placeholder: #565656;\n  --cds-field-hover: #464646;\n  --cds-layer-selected: #525252;\n  --cds-background-inverse: #f4f4f4;\n  --cds-text-inverse: #262626;\n}\n\n.subForm {\n  /* white background for subform input fields */\n  --cds-field: #ffffff;\n}\n\n.formInSubForm {\n  /* gray for formInSubForm input fields */\n  --cds-field: #f4f4f4;\n}\n\ninput:read-only {\n  /* read only fields should only have text */\n  --cds-border-strong: transparent;\n}\n\n.dark {\n  background-color: var(--background);\n}\n\n.dark p {\n  color: #f4f4f4;\n}\n\n.dark i.chevron > svg {\n  fill: #f4f4f4;\n}\n\n.dark h4 {\n  color: #f4f4f4;\n}\n\n.dark .underConstruction > svg {\n  fill: #ffffff;\n}\n/* styling for tooltip content in dark mode */\n.dark .cds--toggletip-content > p {\n  color: #363636;\n}\n\n.dark .subForm {\n  /* alternate background for dark subforms */\n  --cds-field: #414141;\n}\n\n.dark .formInSubForm {\n  /* alternate background for dark formInSubForm */\n  --cds-field: #363636;\n}\n\n.dark ::placeholder {\n  color: var(--placeholder);\n}\n\n/* general alignment classes */\n\n.displayFlex {\n  display: flex;\n}\n\n.alignItemsTop {\n  align-items: top;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n\n.fieldWidthSmallest {\n  width: 8rem;\n}\n\n.fieldWidthBigger {\n  width: 40rem;\n}\n\n.textInputWide {\n  width: 30rem;\n}\n\n.textInputMedium {\n  width: 20rem;\n}\n\n/* backhground classes */\n.formInSubForm {\n  margin-top: 0rem;\n  background: var(--formInSubForm);\n  padding: 1rem;\n}\n\n.subForm {\n  background: var(--subForm);\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n/* Tooltips */\n.labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -22px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n\n.tooltip > div.cds--select--invalid {\n  margin-top: -8px;\n}\n\n/* subnet tile form */\n\n.tileFormMargin {\n  margin-bottom: -0.5rem;\n  margin-top: 0.5rem;\n}\n\n.tileFormMargin.subForm {\n  padding: 0px;\n}\n\n.marginRightSubnetTile {\n  margin-right: 10px;\n}\n\n/* StatefulTabPanel */\n\n.cds--tab-content.doc {\n  padding: 0.5rem 0;\n}\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}\n\n/* popover wrappers */\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  z-index: 9001;\n}\n\n/* buttons */\n.edit-view-btn:focus {\n  background-color: var(--white);\n}\n\ni.chevron > svg {\n  display: block; /* remove extra padding on bottom of i which misaligns icon */\n  margin-right: 1rem;\n  margin-top: 0.15rem;\n}\n\n.chevron {\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: var(--blue) !important;\n  fill: var(--white) !important;\n  border-color: var(--blue) !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding: 0.4375rem !important;\n  align-items: center;\n}\n\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: var(--red) !important;\n}\n\n.alignButtons {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.cds--tabs__nav-link:focus {\n  outline: none !important;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important;\n}\n\n/* docs */\n.about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n\n/* empty resource tile */\n.iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: var(--subForm);\n}\n\n.marginTop {\n  margin-top: 1rem;\n}\n\n/* under construction */\n\n.underConstruction {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.flexDirectionColumn {\n  flex-direction: column;\n}\n\n/* f5 vsi */\n.wide {\n  width: 20rem !important;\n}\n\n.tight {\n  width: min-content; /* force invalid text to split line */\n}\n\n.passwordGenerateButton {\n  margin-top: 1.25rem;\n  margin-left: calc(-4rem - 3vw);\n}\n\n.passwordGenerateButton svg {\n  fill: var(--cds-icon-secondary, #525252) !important;\n}\n\n.passwordGenerateButton.invalid {\n  margin-left: calc(-5.75rem - 3vw);\n}\n\n.wrap {\n  flex-flow: wrap;\n}\n\n.docsUpdated {\n  display: flex;\n  align-items: flex-end;\n}\n\n.cds--list-box__menu {\n  width: fit-content;\n  text-align: left;\n}\n\n@media screen and (max-width: 1024px) {\n  .fieldWidth {\n    width: 11rem;\n  }\n\n  .fieldWidthSmaller {\n    width: 8rem;\n  }\n\n  .fieldWidthSmallest {\n    width: 5rem;\n  }\n\n  .textInputWide {\n    width: 20rem;\n  }\n\n  .fieldWidthBigger {\n    width: 30rem;\n  }\n\n  .textInputMedium {\n    width: 15rem;\n  }\n}\n\n@media screen and (max-width: 850px) {\n  .fieldWidth {\n    width: 100%;\n  }\n\n  .fieldWidthSmaller {\n    width: 100%;\n  }\n\n  .fieldWidthSmallest {\n    width: 100%;\n  }\n\n  .textInputMedium {\n    width: 100%;\n  }\n\n  .fieldWidthBigger {\n    width: 100%;\n  }\n\n  .textInputWide {\n    width: 100%;\n  }\n\n  .formGroup {\n    /* items 1 wide */\n    flex-direction: column !important;\n  }\n\n  .popover-obj.select {\n    /* need to adjust size for popover container at small widths */\n    width: 100%;\n  }\n\n  .popover-obj.select > span {\n    width: 100%;\n  }\n\n  /* items with tooltip should also be full width */\n  .cds--form-item {\n    flex: none;\n    width: 100%;\n  }\n}\n\n.cds--form-item {\n  flex: none; /* overwrite flex to fix inconsistent widths */\n}\n\n/* data table */\ndiv .dt-security-group {\n  background-color: white !important;\n}\n";
-styleInject(css_248z$3);
+var css_248z$4 = "/* vars and themes */\n:root {\n  --background: #ffffff;\n  --subForm: #f4f4f4;\n  --formInSubForm: #fffdfd;\n  --cds-text-primary: #161616;\n  --cds-text-secondary: #525252;\n  --cds-field: #f4f4f4;\n  --cds-border-strong: #8d8d8d;\n  --blue: #0f62fe;\n  --red: #da1e28;\n  --white: #ffffff;\n}\n\n.dark {\n  --background: #161616;\n  --subForm: #262626;\n  --formInSubForm: #414141;\n  --cds-text-primary: #f4f4f4;\n  --cds-text-secondary: #c6c6c6;\n  --cds-field: #363636;\n  --cds-border-strong: #8897a2;\n  --cds-layer: #262626;\n  --cds-layer-hover: #363636;\n  --cds-field-02: #363636;\n  --cds-icon-secondary: #c6c6c6;\n  --cds-icon-primary: #c6c6c6;\n  --placeholder: #565656;\n  --cds-field-hover: #464646;\n  --cds-layer-selected: #525252;\n  --cds-background-inverse: #f4f4f4;\n  --cds-text-inverse: #262626;\n}\n\n.subForm {\n  /* white background for subform input fields */\n  --cds-field: #ffffff;\n}\n\n.formInSubForm {\n  /* gray for formInSubForm input fields */\n  --cds-field: #f4f4f4;\n}\n\ninput:read-only {\n  /* read only fields should only have text */\n  --cds-border-strong: transparent;\n}\n\n.dark {\n  background-color: var(--background);\n}\n\n.dark p {\n  color: #f4f4f4;\n}\n\n.dark i.chevron > svg {\n  fill: #f4f4f4;\n}\n\n.dark h4 {\n  color: #f4f4f4;\n}\n\n.dark .underConstruction > svg {\n  fill: #ffffff;\n}\n/* styling for tooltip content in dark mode */\n.dark .cds--toggletip-content > p {\n  color: #363636;\n}\n\n.dark .subForm {\n  /* alternate background for dark subforms */\n  --cds-field: #414141;\n}\n\n.dark .formInSubForm {\n  /* alternate background for dark formInSubForm */\n  --cds-field: #363636;\n}\n\n.dark ::placeholder {\n  color: var(--placeholder);\n}\n\n/* general alignment classes */\n\n.displayFlex {\n  display: flex;\n}\n\n.alignItemsTop {\n  align-items: top;\n}\n\n.fitContent {\n  width: fit-content;\n}\n\n.alignItemsCenter {\n  align-items: center;\n}\n\n.widthOneHundredPercent {\n  width: 100%;\n}\n\n.marginBottom {\n  margin-bottom: 2rem;\n}\n\n.marginBottomSmall {\n  margin-bottom: 1rem;\n}\n\n.evenSpacing {\n  gap: 3vw;\n}\n\n.positionRelative {\n  position: relative;\n}\n\n.icseFormTitleMinHeight {\n  min-height: 32px;\n}\n\n.spaceBetween {\n  justify-content: space-between;\n}\n\n.leftTextAlign {\n  text-align: left;\n}\n\n.fieldWidth {\n  width: 14rem;\n}\n\n.fieldWidthSmaller {\n  width: 11rem;\n}\n\n.fieldWidthSmallest {\n  width: 8rem;\n}\n\n.fieldWidthBigger {\n  width: 40rem;\n}\n\n.textInputWide {\n  width: 30rem;\n}\n\n.textInputMedium {\n  width: 20rem;\n}\n\n/* backhground classes */\n.formInSubForm {\n  margin-top: 0rem;\n  background: var(--formInSubForm);\n  padding: 1rem;\n}\n\n.subForm {\n  background: var(--subForm);\n  padding: 1rem;\n  margin-top: 1rem;\n  margin-bottom: 2rem;\n}\n\n/* Tooltips */\n.labelRow {\n  display: inline-flex !important;\n  align-items: center;\n}\n\n.tooltip > div div.cds--password-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.cds--toggle {\n  margin-top: -8px;\n}\n\n.tooltip.cds--text-input-wrapper {\n  margin-top: -8px;\n}\n\n.tooltip.popover-obj {\n  margin-top: -22px;\n}\n\n.subHeadingTooltip {\n  margin: 0.2rem 0 0 0.2rem;\n}\n\n.tooltipMarginLeft {\n  margin-left: 3px;\n}\n\n.tooltip > div.cds--select--invalid {\n  margin-top: -8px;\n}\n\n/* subnet tile form */\n\n.tileFormMargin {\n  margin-bottom: -0.5rem;\n  margin-top: 0.5rem;\n}\n\n.tileFormMargin.subForm {\n  padding: 0px;\n}\n\n.marginRightSubnetTile {\n  margin-right: 10px;\n}\n\n/* StatefulTabPanel */\n\n.cds--tab-content.doc {\n  padding: 0.5rem 0;\n}\n\n.cds--tab-content:focus {\n  outline: none !important;\n  border: none !important;\n}\n\n/* popover wrappers */\n\n.popover-box {\n  padding: 5px;\n  position: relative;\n  font-size: 80%;\n  top: 20px;\n}\n\n.cds--popover--open .cds--popover-content {\n  z-index: 9001;\n}\n\n/* buttons */\n.edit-view-btn:focus {\n  background-color: var(--white);\n}\n\ni.chevron > svg {\n  display: block; /* remove extra padding on bottom of i which misaligns icon */\n  margin-right: 1rem;\n  margin-top: 0.15rem;\n}\n\n.chevron {\n  cursor: pointer;\n}\n\n.tertiaryButtonColors {\n  color: var(--blue) !important;\n  fill: var(--white) !important;\n  border-color: var(--blue) !important;\n}\n\n.pointerEventsNone {\n  pointer-events: none;\n}\n\n.cursorNotAllowed {\n  cursor: not-allowed;\n}\n\n.forceTertiaryButtonStyles {\n  padding: 0.4375rem !important;\n  align-items: center;\n}\n\n.inlineBlock {\n  display: inline-block;\n}\n\n.redFill {\n  fill: var(--red) !important;\n}\n\n.alignButtons {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n/* CSS for overriding default component styles */\n.cds--btn--ghost:focus {\n  outline: none;\n  border: none;\n  box-shadow: none;\n}\n\n.cds--tabs__nav-link:focus {\n  outline: none !important;\n}\n\n.marginRightSmall {\n  margin-right: 0.5rem !important;\n}\n\n/* docs */\n.about {\n  padding: 2rem 1rem;\n  line-height: 1.5;\n}\n\n.smallerText {\n  font-size: 0.9rem;\n  font-weight: 400;\n}\n\n/* empty resource tile */\n.iconMargin {\n  margin: 0 0.5rem -0.4rem 0;\n}\n\n.inlineIconMargin {\n  margin: -0.4rem 0.05rem;\n}\n\n.marginBottomXs {\n  margin-bottom: 0.5rem;\n}\n\n.tileBackground {\n  background-color: var(--subForm);\n}\n\n.marginTop {\n  margin-top: 1rem;\n}\n\n/* under construction */\n\n.underConstruction {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n}\n\n.flexDirectionColumn {\n  flex-direction: column;\n}\n\n/* f5 vsi */\n.wide {\n  width: 20rem !important;\n}\n\n.tight {\n  width: min-content; /* force invalid text to split line */\n}\n\n.passwordGenerateButton {\n  margin-top: 1.25rem;\n  margin-left: calc(-4rem - 3vw);\n}\n\n.passwordGenerateButton svg {\n  fill: var(--cds-icon-secondary, #525252) !important;\n}\n\n.passwordGenerateButton.invalid {\n  margin-left: calc(-5.75rem - 3vw);\n}\n\n.wrap {\n  flex-flow: wrap;\n}\n\n.docsUpdated {\n  display: flex;\n  align-items: flex-end;\n}\n\n.cds--list-box__menu {\n  width: fit-content;\n  text-align: left;\n}\n\n@media screen and (max-width: 1024px) {\n  .fieldWidth {\n    width: 11rem;\n  }\n\n  .fieldWidthSmaller {\n    width: 8rem;\n  }\n\n  .fieldWidthSmallest {\n    width: 5rem;\n  }\n\n  .textInputWide {\n    width: 20rem;\n  }\n\n  .fieldWidthBigger {\n    width: 30rem;\n  }\n\n  .textInputMedium {\n    width: 15rem;\n  }\n}\n\n@media screen and (max-width: 850px) {\n  .fieldWidth {\n    width: 100%;\n  }\n\n  .fieldWidthSmaller {\n    width: 100%;\n  }\n\n  .fieldWidthSmallest {\n    width: 100%;\n  }\n\n  .textInputMedium {\n    width: 100%;\n  }\n\n  .fieldWidthBigger {\n    width: 100%;\n  }\n\n  .textInputWide {\n    width: 100%;\n  }\n\n  .formGroup {\n    /* items 1 wide */\n    flex-direction: column !important;\n  }\n\n  .popover-obj.select {\n    /* need to adjust size for popover container at small widths */\n    width: 100%;\n  }\n\n  .popover-obj.select > span {\n    width: 100%;\n  }\n\n  /* items with tooltip should also be full width */\n  .cds--form-item {\n    flex: none;\n    width: 100%;\n  }\n}\n\n.cds--form-item {\n  flex: none; /* overwrite flex to fix inconsistent widths */\n}\n\n/* data table */\ndiv .dt-security-group {\n  background-color: white !important;\n}";
+styleInject(css_248z$4);
 
 const {
   contains: contains$4,
@@ -6594,8 +6594,8 @@ ResourceGroups.propTypes = {
   docs: PropTypes.func
 };
 
-var css_248z$2 = ".secretsChecklistPadding {\n  margin-bottom: 0px !important;\n  margin-top: 1rem !important;\n}\n\n.secretChecklistMargin {\n  margin-top: -1rem !important;\n}\n\n.secretCheckBoxMargin {\n  padding-left: 1rem !important;\n}\n";
-styleInject(css_248z$2);
+var css_248z$3 = ".secretsChecklistPadding {\n  margin-bottom: 0px !important;\n  margin-top: 1rem !important;\n}\n\n.secretChecklistMargin {\n  margin-top: -1rem !important;\n}\n\n.secretCheckBoxMargin {\n  padding-left: 1rem !important;\n}\n";
+styleInject(css_248z$3);
 
 /**
  * SecretsManagerForm
@@ -8725,8 +8725,8 @@ WorkerPools.propTypes = {
   craig: PropTypes.shape({})
 };
 
-var css_248z$1 = ".tileTitle {\n  font-size: 80%;\n  font-weight: bold;\n}\n\n.tileContent {\n  font-size: 90%;\n}\n";
-styleInject(css_248z$1);
+var css_248z$2 = ".tileTitle {\n  font-size: 80%;\n  font-weight: bold;\n}\n\n.tileContent {\n  font-size: 90%;\n}\n";
+styleInject(css_248z$2);
 
 class VsiLoadBalancerForm extends React.Component {
   constructor(props) {
@@ -10768,8 +10768,8 @@ VpnServerForm.propTypes = {
   invalidCrnText: PropTypes.func.isRequired
 };
 
-var css_248z = ".no-secrets-link {\n  padding-left: 3px;\n  padding-right: 3px;\n}\n";
-styleInject(css_248z);
+var css_248z$1 = ".no-secrets-link {\n  padding-left: 3px;\n  padding-right: 3px;\n}\n";
+styleInject(css_248z$1);
 
 const NoSecretsManagerTile = () => {
   return /*#__PURE__*/React.createElement(Tile, {
@@ -14492,6 +14492,283 @@ SecretsManagerChecklist.propTypes = {
   parentName: PropTypes.string.isRequired
 };
 
+var css_248z = ".cds--date-picker-container {\n  width: 11rem;\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n\n.cds--date-picker.cds--date-picker--single .cds--date-picker__input {\n  width: 11rem;\n}";
+styleInject(css_248z);
+
+const labelColors = ["red", "magenta", "purple", "blue", "cyan", "teal", "green"];
+class OpaqueIngressSecretForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    this.handleLabels = this.handleLabels.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+
+  /**
+   * handle text input change
+   * @param {event} event
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * handle toggle
+   * @param {event} event
+   */
+  handleToggle(name) {
+    this.setState(this.toggleStateBoolean(name, this.state));
+  }
+
+  /**
+   * handle labels
+   * @param {event} event
+   */
+  handleLabels(event) {
+    let labelList = event.target.value ? event.target.value.replace(/\s\s+/g, "") // replace extra spaces
+    .replace(/,(?=,)/g, "") // prevent null tags from
+    .replace(/[^\w,-]/g, "").split(",") : [];
+    this.setState({
+      labels: labelList
+    });
+  }
+  render() {
+    let composedId = `opaque-ingress-secrets-from-${this.props.data.name}`;
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: composedId + "-name",
+      component: "opaque_ingress_secrets",
+      componentName: this.props.data.name,
+      componentProps: this.props,
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      placeholder: "my-opaque-ingress-name",
+      invalidCallback: () => this.props.secretCallback(this.state, this.props),
+      invalidText: this.props.secretCallbackText(this.state, this.props),
+      className: "fieldWidthSmaller",
+      field: "name",
+      hideHelperText: true
+    }), /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: composedId + "-namespace",
+      componentName: this.props.data.name,
+      labelText: "Namespace",
+      placeholder: "my-namespace",
+      value: this.state.namespace,
+      onChange: this.handleInputChange,
+      invalidCallback: () => this.props.secretCallback(this.state, this.props),
+      invalidText: this.props.secretCallbackText(this.state, this.props),
+      className: "fieldWidthSmaller",
+      field: "namespace"
+    }), /*#__PURE__*/React.createElement(IcseToggle, {
+      tooltip: {
+        content: "The persistence field ensures that if a user inadvertently deletes the secret from the cluster, it will be recreated.",
+        alignModal: "bottom",
+        align: "bottom"
+      },
+      labelText: "Persistence",
+      defaultToggled: this.state.persistence,
+      id: composedId + "-persistence-toggle",
+      onToggle: () => this.handleToggle("persistence"),
+      isModal: this.props.isModal,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: "Opaque Secrets Ingress Form",
+      name: "secrets_manager",
+      groups: this.props.secretsManagerList,
+      value: this.state.secrets_manager,
+      labelText: "Secrets Manager",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: composedId + "-secrets-group",
+      componentName: this.props.data.name,
+      labelText: "Secrets Group",
+      placeholder: "my-secrets-group",
+      value: this.state.secrets_group,
+      onChange: this.handleInputChange,
+      invalidCallback: () => this.props.secretsManagerGroupCallback(this.state, this.props),
+      invalidText: this.props.secretsManagerGroupCallbackText(this.state, this.props),
+      className: "fieldWidthSmaller",
+      field: "secrets_group"
+    }), /*#__PURE__*/React.createElement(DatePicker, {
+      datePickerType: "single",
+      dateFormat: "Y-m-d",
+      value: this.state.expiration_date
+    }, /*#__PURE__*/React.createElement(DatePickerInput, {
+      placeholder: "YYYY-MM-DD",
+      labelText: "Expiration Date",
+      id: composedId + "-expiration-date"
+    }))), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
+      className: "wide",
+      id: "labels",
+      labelText: "Labels",
+      placeholder: "hello,world",
+      value: String(this.state.labels),
+      onChange: this.handleLabels,
+      invalid: this.props.labelsInvalid(this.state, this.props),
+      invalidText: this.props.labelsInvalidText(this.state, this.props),
+      helperText: "Enter a comma separated list of tags"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(Tile, {
+      className: "formInSubForm"
+    }, /*#__PURE__*/React.createElement(IcseFormGroup, null, "Arbitrary Secret"), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: composedId + "-arb-secret-name",
+      componentName: this.props.data.name,
+      labelText: "Name",
+      placeholder: "my-secret-name",
+      value: this.state.arbitrary_secret_name,
+      onChange: this.handleInputChange,
+      invalidCallback: () => this.props.secretCallback(this.state, this.props),
+      invalidText: this.props.secretCallbackText(this.state, this.props),
+      field: "arbitrary_secret_name",
+      className: "fieldWidth"
+    }), /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: composedId + "-arb-secret-description",
+      componentName: this.props.data.name,
+      labelText: "Description",
+      placeholder: "my-secret-description",
+      value: this.state.arbitrary_secret_description,
+      onChange: this.handleInputChange,
+      invalidCallback: () => this.props.descriptionInvalid(this.state, this.props),
+      invalidText: this.props.descriptionInvalidText(this.state, this.props),
+      field: "arbitrary_secret_description",
+      className: "fieldWidth"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: composedId + "-arb-secret-data",
+      componentName: this.props.data.name,
+      labelText: "Data",
+      placeholder: "my-secret-data",
+      value: this.state.arbitrary_secret_data,
+      onChange: this.handleInputChange,
+      invalidCallback: () => this.props.descriptionInvalid(this.state, this.props),
+      invalidText: this.props.descriptionInvalidText(this.state, this.props),
+      field: "arbitrary_secret_data",
+      className: "fieldWidth"
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "marginBottomSmall"
+    }, this.state.labels.map((label, i) => /*#__PURE__*/React.createElement(Tag, {
+      key: "label" + i,
+      size: "md",
+      type: labelColors[i % labelColors.length]
+    }, label))))), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(Tile, {
+      className: "formInSubForm"
+    }, /*#__PURE__*/React.createElement(IcseFormGroup, null, "Username Password Secret"), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: composedId + "-username-password-secret-name",
+      componentName: this.props.data.name,
+      labelText: "Name",
+      placeholder: "my-secret-name",
+      value: this.state.username_password_secret_name,
+      onChange: this.handleInputChange,
+      invalidCallback: () => this.props.secretCallback(this.state, this.props),
+      invalidText: this.props.secretCallbackText(this.state, this.props),
+      field: "username_password_secret_name",
+      className: "fieldWidth"
+    }), /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: composedId + "-username-password-secret-description",
+      componentName: this.props.data.name,
+      labelText: "Description",
+      placeholder: "my-secret-description",
+      value: this.state.username_password_secret_description,
+      onChange: this.handleInputChange,
+      invalidCallback: () => this.props.descriptionInvalid(this.state, this.props),
+      invalidText: this.props.descriptionInvalidText(this.state, this.props),
+      field: "username_password_secret_description",
+      className: "fieldWidth"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: composedId + "-username-password-secret-username",
+      componentName: this.props.data.name,
+      labelText: "Username",
+      placeholder: "my-secret-username",
+      value: this.state.username_password_secret_username,
+      onChange: this.handleInputChange,
+      invalidCallback: () => this.props.descriptionInvalid(this.state, this.props),
+      invalidText: this.props.descriptionInvalidText(this.state, this.props),
+      field: "username_password_secret_username",
+      className: "fieldWidth"
+    }), /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: composedId + "-username-password-secret-password",
+      componentName: this.props.data.name,
+      labelText: "Password",
+      placeholder: "my-secret-password",
+      value: this.state.username_password_secret_password,
+      onChange: this.handleInputChange,
+      invalidCallback: () => this.props.descriptionInvalid(this.state, this.props),
+      invalidText: this.props.descriptionInvalidText(this.state, this.props),
+      field: "username_password_secret_password",
+      className: "fieldWidth"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
+      labelText: "Auto Rotate",
+      defaultToggled: this.state.auto_rotate,
+      id: composedId + "-auto-rotate-toggle",
+      onToggle: () => this.handleToggle("auto_rotate"),
+      isModal: this.props.isModal
+    })), this.state.auto_rotate ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(NumberInput, {
+      id: composedId + "-interval",
+      label: "Interval",
+      value: this.state.interval,
+      defaultValue: this.props.interval,
+      min: 1,
+      onChange: this.handleInputChange,
+      name: "interval",
+      hideSteppers: true,
+      invalidText: "Enter a number greater than or equal to 1",
+      className: "fieldWidth"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: "Opaque Secrets Ingress Form",
+      name: "unit",
+      groups: ["day", "month"],
+      value: this.state.unit,
+      labelText: "Unit",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidth"
+    }))) : "", /*#__PURE__*/React.createElement("div", {
+      className: "marginBottomSmall"
+    }, this.state.labels.map((label, i) => /*#__PURE__*/React.createElement(Tag, {
+      key: "label" + i,
+      size: "md",
+      type: labelColors[i % labelColors.length]
+    }, label))))));
+  }
+}
+OpaqueIngressSecretForm.defaultProps = {
+  data: {
+    name: "",
+    namespace: "",
+    interval: 1,
+    auto_rotate: false
+  },
+  isModal: false
+};
+OpaqueIngressSecretForm.propTypes = {
+  data: PropTypes$1.shape({
+    cluster: PropTypes$1.string,
+    name: PropTypes$1.string.isRequired,
+    namespace: PropTypes$1.string,
+    persistence: PropTypes$1.bool,
+    secrets_manager: PropTypes$1.string,
+    secrets_group: PropTypes$1.string,
+    expiration_date: PropTypes$1.string,
+    labels: PropTypes$1.arrayOf(PropTypes$1.string),
+    arbitrary_secret_name: PropTypes$1.string,
+    arbitrary_secret_description: PropTypes$1.string,
+    arbitrary_secret_data: PropTypes$1.string,
+    username_password_secret_name: PropTypes$1.string,
+    username_password_secret_description: PropTypes$1.string,
+    username_password_secret_username: PropTypes$1.string,
+    username_password_secret_password: PropTypes$1.string
+  }),
+  secretsManagerList: PropTypes$1.arrayOf(PropTypes$1.string).isRequired,
+  secretsManagerGroupCallback: PropTypes$1.func,
+  secretsManagerGroupCallbackText: PropTypes$1.func,
+  secretCallback: PropTypes$1.func,
+  secretCallbackText: PropTypes$1.func,
+  descriptionInvalid: PropTypes$1.func,
+  descriptionInvalidText: PropTypes$1.func,
+  labelsInvalid: PropTypes$1.func,
+  labelsInvalidText: PropTypes$1.func
+};
+
 const Atracker = props => {
   return /*#__PURE__*/React.createElement(ToggleForm, {
     name: props.resourceName,
@@ -14745,4 +15022,4 @@ F5BigIp.propTypes = {
   onVsiSave: PropTypes.func.isRequired
 };
 
-export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AccessGroups as AccessGroupsTemplate, AppIdForm, AppIdKeyForm, AppId as AppIdTemplate, AtrackerForm, Atracker as AtrackerPage, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, CloudDatabaseForm, CloudDatabase as CloudDatabaseTemplate, ClusterForm, Clusters as ClustersTemplate, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsForm, DnsRecordForm, Dns as DnsTemplate, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, EventStreams as EventStreamsTemplate, F5BigIp as F5BigIpPage, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IamAccountSettings as IamAccountSettingsPage, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, KeyManagement as KeyManagementTemplate, LocationsMultiSelect, LogDNAForm, NetworkAclForm$1 as NetworkAclForm, NetworkAcls as NetworkAclTemplate, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, ObjectStorage as ObjectStorageTemplate, OrderCardDataTable, PopoverWrapper, RenderForm, ResourceGroupForm, ResourceGroups as ResourceGroupsTemplate, RoutingTableForm, RoutingTableRouteForm, RoutingTables as RoutingTableTemplate, SaveAddButton, SaveIcon, SccForm, SccV1 as SccV1Page, SecretsManagerChecklist, SecretsManagerForm, SecretsManager as SecretsManagerTemplate, SecurityGroupForm, SecurityGroupMultiSelect, SecurityGroups as SecurityGroupTemplate, SshKeyForm, SshKeyMultiSelect, SshKeys as SshKeysTemplate, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, Subnets as SubnetPageTemplate, SubnetTierForm$1 as SubnetTierForm, SubnetTileForm, SysdigForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, TransitGateways as TransitGatewayTemplate, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, Vpcs as VpcTemplate, VpeForm, Vpe as VpeTemplate, VpnGatewayForm, VpnGateways as VpnGatewayTemplate, VpnServerForm, VpnServerRouteForm, VpnServers as VpnServerTemplate, VsiForm, VsiLoadBalancerForm, VsiLoadBalancer as VsiLoadBalancerTemplate, Vsi as VsiTemplate, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AccessGroups as AccessGroupsTemplate, AppIdForm, AppIdKeyForm, AppId as AppIdTemplate, AtrackerForm, Atracker as AtrackerPage, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, CloudDatabaseForm, CloudDatabase as CloudDatabaseTemplate, ClusterForm, Clusters as ClustersTemplate, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsForm, DnsRecordForm, Dns as DnsTemplate, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, EventStreams as EventStreamsTemplate, F5BigIp as F5BigIpPage, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IamAccountSettings as IamAccountSettingsPage, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, KeyManagement as KeyManagementTemplate, LocationsMultiSelect, LogDNAForm, NetworkAclForm$1 as NetworkAclForm, NetworkAcls as NetworkAclTemplate, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, ObjectStorage as ObjectStorageTemplate, OpaqueIngressSecretForm, OrderCardDataTable, PopoverWrapper, RenderForm, ResourceGroupForm, ResourceGroups as ResourceGroupsTemplate, RoutingTableForm, RoutingTableRouteForm, RoutingTables as RoutingTableTemplate, SaveAddButton, SaveIcon, SccForm, SccV1 as SccV1Page, SecretsManagerChecklist, SecretsManagerForm, SecretsManager as SecretsManagerTemplate, SecurityGroupForm, SecurityGroupMultiSelect, SecurityGroups as SecurityGroupTemplate, SshKeyForm, SshKeyMultiSelect, SshKeys as SshKeysTemplate, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, Subnets as SubnetPageTemplate, SubnetTierForm$1 as SubnetTierForm, SubnetTileForm, SysdigForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, TransitGateways as TransitGatewayTemplate, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, Vpcs as VpcTemplate, VpeForm, Vpe as VpeTemplate, VpnGatewayForm, VpnGateways as VpnGatewayTemplate, VpnServerForm, VpnServerRouteForm, VpnServers as VpnServerTemplate, VsiForm, VsiLoadBalancerForm, VsiLoadBalancer as VsiLoadBalancerTemplate, Vsi as VsiTemplate, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
