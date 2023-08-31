@@ -66,7 +66,7 @@ class SysdigForm extends Component {
               link: "https://cloud.ibm.com/docs/monitoring?topic=monitoring-pricing_plans#graduated_secure",
               align: "bottom-left",
             }}
-            groups={["Tier 1", "Tier 2", "Tier 3", "Tier 4"]}
+            groups={["Graduated Tier"]}
             formName={this.props.data.name + "-sysdig-plan"}
             name="plan"
             value={titleCase(this.state.plan)}
@@ -105,7 +105,7 @@ class SysdigForm extends Component {
 SysdigForm.defaultProps = {
   data: {
     enabled: false,
-    plan: "tier-1",
+    plan: "graduated-tier",
     resource_group: "",
     platform_logs: false,
   },
