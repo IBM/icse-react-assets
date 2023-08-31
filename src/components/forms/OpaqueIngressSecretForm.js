@@ -379,6 +379,7 @@ OpaqueIngressSecretForm.defaultProps = {
     namespace: "",
     interval: 1,
     auto_rotate: false,
+    labels: [],
   },
   isModal: false,
 };

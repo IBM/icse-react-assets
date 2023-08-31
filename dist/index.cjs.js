@@ -3553,6 +3553,7 @@ class IcseFormTemplate extends React__default["default"].Component {
     : lazyZ.contains(this.state.shownArrayForms, index);
   }
   render() {
+    console.log(this.props);
     let formattedName = lazyZ.kebabCase(this.props.name); // formatted component name
     // enable submit field here is set to variable value to allow for passing to
     // child array components without needing to reference `this` directly
@@ -5630,11 +5631,26 @@ const Clusters = props => {
       helperTextCallback: props.helperTextCallback,
       propsMatchState: props.propsMatchState,
       cosNames: props.cosNames,
+      secretsManagerList: props.secretsManagerList,
+      secretsManagerGroupCallback: props.secretsManagerGroupCallback,
+      secretsManagerGroupCallbackText: props.secretsManagerGroupCallbackText,
+      secretCallback: props.secretCallback,
+      secretCallbackText: props.secretCallbackText,
+      descriptionInvalid: props.descriptionInvalid,
+      descriptionInvalidText: props.descriptionInvalidText,
+      labelsInvalid: props.labelsInvalid,
+      labelsInvalidText: props.labelsInvalidText,
       workerPoolProps: {
         onSave: props.onPoolSave,
         onDelete: props.onPoolDelete,
         onSubmit: props.onPoolSubmit,
         disableSave: props.disablePoolSave
+      },
+      opaqueIngressSecretProps: {
+        onSave: props.onOpaqueSecretsSave,
+        onDelete: props.onOpaqueSecretsDelete,
+        onSubmit: props.onOpaqueSecretsSubmit,
+        disableSave: props.disableOpaqueSecretsSave
       }
     },
     toggleFormProps: {
@@ -11307,6 +11323,340 @@ Subnets.propTypes = {
   onSubnetTierDelete: PropTypes__default["default"].func.isRequired
 };
 
+var css_248z = ".cds--date-picker-container {\n  width: 11rem;\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n\n.cds--date-picker.cds--date-picker--single .cds--date-picker__input {\n  width: 11rem;\n}";
+styleInject(css_248z);
+
+const labelColors = ["red", "magenta", "purple", "blue", "cyan", "teal", "green"];
+class OpaqueIngressSecretForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = this.props.data;
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    this.handleLabels = this.handleLabels.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+
+  /**
+   * handle text input change
+   * @param {event} event
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * handle toggle
+   * @param {event} event
+   */
+  handleToggle(name) {
+    this.setState(this.toggleStateBoolean(name, this.state));
+  }
+
+  /**
+   * handle labels
+   * @param {event} event
+   */
+  handleLabels(event) {
+    let labelList = event.target.value ? event.target.value.replace(/\s\s+/g, "") // replace extra spaces
+    .replace(/,(?=,)/g, "") // prevent null tags from
+    .replace(/[^\w,-]/g, "").split(",") : [];
+    this.setState({
+      labels: labelList
+    });
+  }
+  render() {
+    let composedId = `opaque-ingress-secrets-from-${this.props.data.name}`;
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: composedId + "-name",
+      component: "opaque_ingress_secrets",
+      componentName: this.props.data.name,
+      componentProps: this.props,
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      placeholder: "my-opaque-ingress-name",
+      invalidCallback: () => this.props.secretCallback(this.state, this.props),
+      invalidText: this.props.secretCallbackText(this.state, this.props),
+      className: "fieldWidthSmaller",
+      field: "name",
+      hideHelperText: true
+    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: composedId + "-namespace",
+      componentName: this.props.data.name,
+      labelText: "Namespace",
+      placeholder: "my-namespace",
+      value: this.state.namespace,
+      onChange: this.handleInputChange,
+      invalidCallback: () => this.props.secretCallback(this.state, this.props),
+      invalidText: this.props.secretCallbackText(this.state, this.props),
+      className: "fieldWidthSmaller",
+      field: "namespace"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      tooltip: {
+        content: "The persistence field ensures that if a user inadvertently deletes the secret from the cluster, it will be recreated.",
+        alignModal: "bottom",
+        align: "bottom"
+      },
+      labelText: "Persistence",
+      defaultToggled: this.state.persistence,
+      id: composedId + "-persistence-toggle",
+      onToggle: () => this.handleToggle("persistence"),
+      isModal: this.props.isModal,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: "Opaque Secrets Ingress Form",
+      name: "secrets_manager",
+      groups: this.props.secretsManagerList,
+      value: this.state.secrets_manager,
+      labelText: "Secrets Manager",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: composedId + "-secrets-group",
+      componentName: this.props.data.name,
+      labelText: "Secrets Group",
+      placeholder: "my-secrets-group",
+      value: this.state.secrets_group,
+      onChange: this.handleInputChange,
+      invalidCallback: () => this.props.secretsManagerGroupCallback(this.state, this.props),
+      invalidText: this.props.secretsManagerGroupCallbackText(this.state, this.props),
+      className: "fieldWidthSmaller",
+      field: "secrets_group"
+    }), /*#__PURE__*/React__default["default"].createElement(react.DatePicker, {
+      datePickerType: "single",
+      dateFormat: "Y-m-d",
+      value: this.state.expiration_date
+    }, /*#__PURE__*/React__default["default"].createElement(react.DatePickerInput, {
+      placeholder: "YYYY-MM-DD",
+      labelText: "Expiration Date",
+      id: composedId + "-expiration-date"
+    }))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
+      className: "wide",
+      id: "labels",
+      labelText: "Labels",
+      placeholder: "hello,world",
+      value: String(this.state.labels),
+      onChange: this.handleLabels,
+      invalid: this.props.labelsInvalid(this.state, this.props),
+      invalidText: this.props.labelsInvalidText(this.state, this.props),
+      helperText: "Enter a comma separated list of tags"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.Tile, {
+      className: "formInSubForm"
+    }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, "Arbitrary Secret"), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: composedId + "-arb-secret-name",
+      componentName: this.props.data.name,
+      labelText: "Name",
+      placeholder: "my-secret-name",
+      value: this.state.arbitrary_secret_name,
+      onChange: this.handleInputChange,
+      invalidCallback: () => this.props.secretCallback(this.state, this.props),
+      invalidText: this.props.secretCallbackText(this.state, this.props),
+      field: "arbitrary_secret_name",
+      className: "fieldWidth"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: composedId + "-arb-secret-description",
+      componentName: this.props.data.name,
+      labelText: "Description",
+      placeholder: "my-secret-description",
+      value: this.state.arbitrary_secret_description,
+      onChange: this.handleInputChange,
+      invalidCallback: () => this.props.descriptionInvalid(this.state, this.props),
+      invalidText: this.props.descriptionInvalidText(this.state, this.props),
+      field: "arbitrary_secret_description",
+      className: "fieldWidth"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: composedId + "-arb-secret-data",
+      componentName: this.props.data.name,
+      labelText: "Data",
+      placeholder: "my-secret-data",
+      value: this.state.arbitrary_secret_data,
+      onChange: this.handleInputChange,
+      invalidCallback: () => this.props.descriptionInvalid(this.state, this.props),
+      invalidText: this.props.descriptionInvalidText(this.state, this.props),
+      field: "arbitrary_secret_data",
+      className: "fieldWidth"
+    })), /*#__PURE__*/React__default["default"].createElement("div", {
+      className: "marginBottomSmall"
+    }, this.state.labels.map((label, i) => /*#__PURE__*/React__default["default"].createElement(react.Tag, {
+      key: "label" + i,
+      size: "md",
+      type: labelColors[i % labelColors.length]
+    }, label))))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.Tile, {
+      className: "formInSubForm"
+    }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, "Username Password Secret"), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: composedId + "-username-password-secret-name",
+      componentName: this.props.data.name,
+      labelText: "Name",
+      placeholder: "my-secret-name",
+      value: this.state.username_password_secret_name,
+      onChange: this.handleInputChange,
+      invalidCallback: () => this.props.secretCallback(this.state, this.props),
+      invalidText: this.props.secretCallbackText(this.state, this.props),
+      field: "username_password_secret_name",
+      className: "fieldWidth"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: composedId + "-username-password-secret-description",
+      componentName: this.props.data.name,
+      labelText: "Description",
+      placeholder: "my-secret-description",
+      value: this.state.username_password_secret_description,
+      onChange: this.handleInputChange,
+      invalidCallback: () => this.props.descriptionInvalid(this.state, this.props),
+      invalidText: this.props.descriptionInvalidText(this.state, this.props),
+      field: "username_password_secret_description",
+      className: "fieldWidth"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: composedId + "-username-password-secret-username",
+      componentName: this.props.data.name,
+      labelText: "Username",
+      placeholder: "my-secret-username",
+      value: this.state.username_password_secret_username,
+      onChange: this.handleInputChange,
+      invalidCallback: () => this.props.descriptionInvalid(this.state, this.props),
+      invalidText: this.props.descriptionInvalidText(this.state, this.props),
+      field: "username_password_secret_username",
+      className: "fieldWidth"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: composedId + "-username-password-secret-password",
+      componentName: this.props.data.name,
+      labelText: "Password",
+      placeholder: "my-secret-password",
+      value: this.state.username_password_secret_password,
+      onChange: this.handleInputChange,
+      invalidCallback: () => this.props.descriptionInvalid(this.state, this.props),
+      invalidText: this.props.descriptionInvalidText(this.state, this.props),
+      field: "username_password_secret_password",
+      className: "fieldWidth"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      labelText: "Auto Rotate",
+      defaultToggled: this.state.auto_rotate,
+      id: composedId + "-auto-rotate-toggle",
+      onToggle: () => this.handleToggle("auto_rotate"),
+      isModal: this.props.isModal
+    })), this.state.auto_rotate ? /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      id: composedId + "-interval",
+      label: "Interval",
+      value: this.state.interval,
+      defaultValue: this.props.interval,
+      min: 1,
+      onChange: this.handleInputChange,
+      name: "interval",
+      hideSteppers: true,
+      invalidText: "Enter a number greater than or equal to 1",
+      className: "fieldWidth"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: "Opaque Secrets Ingress Form",
+      name: "unit",
+      groups: ["day", "month"],
+      value: this.state.unit,
+      labelText: "Unit",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidth"
+    }))) : "", /*#__PURE__*/React__default["default"].createElement("div", {
+      className: "marginBottomSmall"
+    }, this.state.labels.map((label, i) => /*#__PURE__*/React__default["default"].createElement(react.Tag, {
+      key: "label" + i,
+      size: "md",
+      type: labelColors[i % labelColors.length]
+    }, label))))));
+  }
+}
+OpaqueIngressSecretForm.defaultProps = {
+  data: {
+    name: "",
+    namespace: "",
+    interval: 1,
+    auto_rotate: false,
+    labels: []
+  },
+  isModal: false
+};
+OpaqueIngressSecretForm.propTypes = {
+  data: PropTypes.PropTypes.shape({
+    cluster: PropTypes.PropTypes.string,
+    name: PropTypes.PropTypes.string.isRequired,
+    namespace: PropTypes.PropTypes.string,
+    persistence: PropTypes.PropTypes.bool,
+    secrets_manager: PropTypes.PropTypes.string,
+    secrets_group: PropTypes.PropTypes.string,
+    expiration_date: PropTypes.PropTypes.string,
+    labels: PropTypes.PropTypes.arrayOf(PropTypes.PropTypes.string),
+    arbitrary_secret_name: PropTypes.PropTypes.string,
+    arbitrary_secret_description: PropTypes.PropTypes.string,
+    arbitrary_secret_data: PropTypes.PropTypes.string,
+    username_password_secret_name: PropTypes.PropTypes.string,
+    username_password_secret_description: PropTypes.PropTypes.string,
+    username_password_secret_username: PropTypes.PropTypes.string,
+    username_password_secret_password: PropTypes.PropTypes.string
+  }),
+  secretsManagerList: PropTypes.PropTypes.arrayOf(PropTypes.PropTypes.string).isRequired,
+  secretsManagerGroupCallback: PropTypes.PropTypes.func,
+  secretsManagerGroupCallbackText: PropTypes.PropTypes.func,
+  secretCallback: PropTypes.PropTypes.func,
+  secretCallbackText: PropTypes.PropTypes.func,
+  descriptionInvalid: PropTypes.PropTypes.func,
+  descriptionInvalidText: PropTypes.PropTypes.func,
+  labelsInvalid: PropTypes.PropTypes.func,
+  labelsInvalidText: PropTypes.PropTypes.func
+};
+
+const OpaqueIngressSecret = props => {
+  return props.isModal ? "" : /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "Opaque Ingress Secrets",
+    subHeading: true,
+    addText: "Create a Opaque Ingress Secret",
+    arrayData: props.opaque_secrets,
+    innerForm: OpaqueIngressSecretForm,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    innerFormProps: {
+      secretsManagerList: props.secretsManagerList,
+      secretsManagerGroupCallback: props.secretsManagerGroupCallback,
+      secretsManagerGroupCallbackText: props.secretsManagerGroupCallbackText,
+      secretCallback: props.secretCallback,
+      secretCallbackText: props.secretCallbackText,
+      descriptionInvalid: props.descriptionInvalid,
+      descriptionInvalidText: props.descriptionInvalidText,
+      labelsInvalid: props.labelsInvalid,
+      labelsInvalidText: props.labelsInvalidText,
+      craig: props.craig
+    },
+    hideAbout: true,
+    toggleFormProps: {
+      hideName: true,
+      submissionFieldName: "opaque_secrets",
+      disableSave: props.disableSave,
+      type: "formInSubForm"
+    }
+  });
+};
+OpaqueIngressSecret.defaultProps = {
+  isModal: false
+};
+OpaqueIngressSecret.propTypes = {
+  isModal: PropTypes__default["default"].bool.isRequired,
+  opaque_secrets: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})),
+  disableSave: PropTypes__default["default"].func,
+  onDelete: PropTypes__default["default"].func,
+  onSave: PropTypes__default["default"].func,
+  onSubmit: PropTypes__default["default"].func,
+  propsMatchState: PropTypes__default["default"].func,
+  secretsManagerList: PropTypes__default["default"].array,
+  secretsManagerGroupCallback: PropTypes__default["default"].func,
+  secretsManagerGroupCallbackText: PropTypes__default["default"].func,
+  secretCallback: PropTypes__default["default"].func,
+  secretCallbackText: PropTypes__default["default"].func,
+  descriptionInvalid: PropTypes__default["default"].func,
+  descriptionInvalidText: PropTypes__default["default"].func,
+  labelsInvalid: PropTypes__default["default"].func,
+  labelsInvalidText: PropTypes__default["default"].func,
+  craig: PropTypes__default["default"].shape({})
+};
+
 class ClusterForm extends React.Component {
   constructor(props) {
     super(props);
@@ -11488,6 +11838,24 @@ class ClusterForm extends React.Component {
       craig: this.props.craig,
       flavorApiEndpoint: this.props.flavorApiEndpoint,
       isModal: this.props.isModal
+    }), /*#__PURE__*/React__default["default"].createElement(OpaqueIngressSecret, {
+      opaque_secrets: this.props.data.opaque_secrets,
+      disableSave: this.props.opaqueIngressSecretProps.disableSave,
+      onDelete: this.props.opaqueIngressSecretProps.onDelete,
+      onSave: this.props.opaqueIngressSecretProps.onSave,
+      onSubmit: this.props.opaqueIngressSecretProps.onSubmit,
+      propsMatchState: this.props.propsMatchState,
+      cluster: this.props.data,
+      secretsManagerList: this.props.secretsManagerList,
+      secretsManagerGroupCallback: this.props.secretsManagerGroupCallback,
+      secretsManagerGroupCallbackText: this.props.secretsManagerGroupCallbackText,
+      secretCallback: this.props.secretCallback,
+      secretCallbackText: this.props.secretCallbackText,
+      descriptionInvalid: this.props.descriptionInvalid,
+      descriptionInvalidText: this.props.descriptionInvalidText,
+      labelsInvalid: this.props.labelsInvalid,
+      labelsInvalidText: this.props.labelsInvalidText,
+      craig: this.props.craig
     }));
   }
 }
@@ -11550,6 +11918,12 @@ ClusterForm.propTypes = {
   invalidPoolTextCallback: PropTypes__default["default"].func,
   /* forms */
   workerPoolProps: PropTypes__default["default"].shape({
+    onSave: PropTypes__default["default"].func.isRequired,
+    onDelete: PropTypes__default["default"].func.isRequired,
+    onSubmit: PropTypes__default["default"].func.isRequired,
+    disableSave: PropTypes__default["default"].func.isRequired
+  }).isRequired,
+  opaqueIngressSecretProps: PropTypes__default["default"].shape({
     onSave: PropTypes__default["default"].func.isRequired,
     onDelete: PropTypes__default["default"].func.isRequired,
     onSubmit: PropTypes__default["default"].func.isRequired,
@@ -14501,283 +14875,6 @@ SecretsManagerChecklist.propTypes = {
   secrets: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
   onSelectChange: PropTypes__default["default"].func.isRequired,
   parentName: PropTypes__default["default"].string.isRequired
-};
-
-var css_248z = ".cds--date-picker-container {\n  width: 11rem;\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n\n.cds--date-picker.cds--date-picker--single .cds--date-picker__input {\n  width: 11rem;\n}";
-styleInject(css_248z);
-
-const labelColors = ["red", "magenta", "purple", "blue", "cyan", "teal", "green"];
-class OpaqueIngressSecretForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = this.props.data;
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
-    this.handleLabels = this.handleLabels.bind(this);
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-  }
-
-  /**
-   * handle text input change
-   * @param {event} event
-   */
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-
-  /**
-   * handle toggle
-   * @param {event} event
-   */
-  handleToggle(name) {
-    this.setState(this.toggleStateBoolean(name, this.state));
-  }
-
-  /**
-   * handle labels
-   * @param {event} event
-   */
-  handleLabels(event) {
-    let labelList = event.target.value ? event.target.value.replace(/\s\s+/g, "") // replace extra spaces
-    .replace(/,(?=,)/g, "") // prevent null tags from
-    .replace(/[^\w,-]/g, "").split(",") : [];
-    this.setState({
-      labels: labelList
-    });
-  }
-  render() {
-    let composedId = `opaque-ingress-secrets-from-${this.props.data.name}`;
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: composedId + "-name",
-      component: "opaque_ingress_secrets",
-      componentName: this.props.data.name,
-      componentProps: this.props,
-      value: this.state.name,
-      onChange: this.handleInputChange,
-      placeholder: "my-opaque-ingress-name",
-      invalidCallback: () => this.props.secretCallback(this.state, this.props),
-      invalidText: this.props.secretCallbackText(this.state, this.props),
-      className: "fieldWidthSmaller",
-      field: "name",
-      hideHelperText: true
-    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: composedId + "-namespace",
-      componentName: this.props.data.name,
-      labelText: "Namespace",
-      placeholder: "my-namespace",
-      value: this.state.namespace,
-      onChange: this.handleInputChange,
-      invalidCallback: () => this.props.secretCallback(this.state, this.props),
-      invalidText: this.props.secretCallbackText(this.state, this.props),
-      className: "fieldWidthSmaller",
-      field: "namespace"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      tooltip: {
-        content: "The persistence field ensures that if a user inadvertently deletes the secret from the cluster, it will be recreated.",
-        alignModal: "bottom",
-        align: "bottom"
-      },
-      labelText: "Persistence",
-      defaultToggled: this.state.persistence,
-      id: composedId + "-persistence-toggle",
-      onToggle: () => this.handleToggle("persistence"),
-      isModal: this.props.isModal,
-      className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "Opaque Secrets Ingress Form",
-      name: "secrets_manager",
-      groups: this.props.secretsManagerList,
-      value: this.state.secrets_manager,
-      labelText: "Secrets Manager",
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: composedId + "-secrets-group",
-      componentName: this.props.data.name,
-      labelText: "Secrets Group",
-      placeholder: "my-secrets-group",
-      value: this.state.secrets_group,
-      onChange: this.handleInputChange,
-      invalidCallback: () => this.props.secretsManagerGroupCallback(this.state, this.props),
-      invalidText: this.props.secretsManagerGroupCallbackText(this.state, this.props),
-      className: "fieldWidthSmaller",
-      field: "secrets_group"
-    }), /*#__PURE__*/React__default["default"].createElement(react.DatePicker, {
-      datePickerType: "single",
-      dateFormat: "Y-m-d",
-      value: this.state.expiration_date
-    }, /*#__PURE__*/React__default["default"].createElement(react.DatePickerInput, {
-      placeholder: "YYYY-MM-DD",
-      labelText: "Expiration Date",
-      id: composedId + "-expiration-date"
-    }))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
-      className: "wide",
-      id: "labels",
-      labelText: "Labels",
-      placeholder: "hello,world",
-      value: String(this.state.labels),
-      onChange: this.handleLabels,
-      invalid: this.props.labelsInvalid(this.state, this.props),
-      invalidText: this.props.labelsInvalidText(this.state, this.props),
-      helperText: "Enter a comma separated list of tags"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.Tile, {
-      className: "formInSubForm"
-    }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, "Arbitrary Secret"), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: composedId + "-arb-secret-name",
-      componentName: this.props.data.name,
-      labelText: "Name",
-      placeholder: "my-secret-name",
-      value: this.state.arbitrary_secret_name,
-      onChange: this.handleInputChange,
-      invalidCallback: () => this.props.secretCallback(this.state, this.props),
-      invalidText: this.props.secretCallbackText(this.state, this.props),
-      field: "arbitrary_secret_name",
-      className: "fieldWidth"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: composedId + "-arb-secret-description",
-      componentName: this.props.data.name,
-      labelText: "Description",
-      placeholder: "my-secret-description",
-      value: this.state.arbitrary_secret_description,
-      onChange: this.handleInputChange,
-      invalidCallback: () => this.props.descriptionInvalid(this.state, this.props),
-      invalidText: this.props.descriptionInvalidText(this.state, this.props),
-      field: "arbitrary_secret_description",
-      className: "fieldWidth"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: composedId + "-arb-secret-data",
-      componentName: this.props.data.name,
-      labelText: "Data",
-      placeholder: "my-secret-data",
-      value: this.state.arbitrary_secret_data,
-      onChange: this.handleInputChange,
-      invalidCallback: () => this.props.descriptionInvalid(this.state, this.props),
-      invalidText: this.props.descriptionInvalidText(this.state, this.props),
-      field: "arbitrary_secret_data",
-      className: "fieldWidth"
-    })), /*#__PURE__*/React__default["default"].createElement("div", {
-      className: "marginBottomSmall"
-    }, this.state.labels.map((label, i) => /*#__PURE__*/React__default["default"].createElement(react.Tag, {
-      key: "label" + i,
-      size: "md",
-      type: labelColors[i % labelColors.length]
-    }, label))))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.Tile, {
-      className: "formInSubForm"
-    }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, "Username Password Secret"), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: composedId + "-username-password-secret-name",
-      componentName: this.props.data.name,
-      labelText: "Name",
-      placeholder: "my-secret-name",
-      value: this.state.username_password_secret_name,
-      onChange: this.handleInputChange,
-      invalidCallback: () => this.props.secretCallback(this.state, this.props),
-      invalidText: this.props.secretCallbackText(this.state, this.props),
-      field: "username_password_secret_name",
-      className: "fieldWidth"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: composedId + "-username-password-secret-description",
-      componentName: this.props.data.name,
-      labelText: "Description",
-      placeholder: "my-secret-description",
-      value: this.state.username_password_secret_description,
-      onChange: this.handleInputChange,
-      invalidCallback: () => this.props.descriptionInvalid(this.state, this.props),
-      invalidText: this.props.descriptionInvalidText(this.state, this.props),
-      field: "username_password_secret_description",
-      className: "fieldWidth"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: composedId + "-username-password-secret-username",
-      componentName: this.props.data.name,
-      labelText: "Username",
-      placeholder: "my-secret-username",
-      value: this.state.username_password_secret_username,
-      onChange: this.handleInputChange,
-      invalidCallback: () => this.props.descriptionInvalid(this.state, this.props),
-      invalidText: this.props.descriptionInvalidText(this.state, this.props),
-      field: "username_password_secret_username",
-      className: "fieldWidth"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: composedId + "-username-password-secret-password",
-      componentName: this.props.data.name,
-      labelText: "Password",
-      placeholder: "my-secret-password",
-      value: this.state.username_password_secret_password,
-      onChange: this.handleInputChange,
-      invalidCallback: () => this.props.descriptionInvalid(this.state, this.props),
-      invalidText: this.props.descriptionInvalidText(this.state, this.props),
-      field: "username_password_secret_password",
-      className: "fieldWidth"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      labelText: "Auto Rotate",
-      defaultToggled: this.state.auto_rotate,
-      id: composedId + "-auto-rotate-toggle",
-      onToggle: () => this.handleToggle("auto_rotate"),
-      isModal: this.props.isModal
-    })), this.state.auto_rotate ? /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
-      id: composedId + "-interval",
-      label: "Interval",
-      value: this.state.interval,
-      defaultValue: this.props.interval,
-      min: 1,
-      onChange: this.handleInputChange,
-      name: "interval",
-      hideSteppers: true,
-      invalidText: "Enter a number greater than or equal to 1",
-      className: "fieldWidth"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: "Opaque Secrets Ingress Form",
-      name: "unit",
-      groups: ["day", "month"],
-      value: this.state.unit,
-      labelText: "Unit",
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidth"
-    }))) : "", /*#__PURE__*/React__default["default"].createElement("div", {
-      className: "marginBottomSmall"
-    }, this.state.labels.map((label, i) => /*#__PURE__*/React__default["default"].createElement(react.Tag, {
-      key: "label" + i,
-      size: "md",
-      type: labelColors[i % labelColors.length]
-    }, label))))));
-  }
-}
-OpaqueIngressSecretForm.defaultProps = {
-  data: {
-    name: "",
-    namespace: "",
-    interval: 1,
-    auto_rotate: false
-  },
-  isModal: false
-};
-OpaqueIngressSecretForm.propTypes = {
-  data: PropTypes.PropTypes.shape({
-    cluster: PropTypes.PropTypes.string,
-    name: PropTypes.PropTypes.string.isRequired,
-    namespace: PropTypes.PropTypes.string,
-    persistence: PropTypes.PropTypes.bool,
-    secrets_manager: PropTypes.PropTypes.string,
-    secrets_group: PropTypes.PropTypes.string,
-    expiration_date: PropTypes.PropTypes.string,
-    labels: PropTypes.PropTypes.arrayOf(PropTypes.PropTypes.string),
-    arbitrary_secret_name: PropTypes.PropTypes.string,
-    arbitrary_secret_description: PropTypes.PropTypes.string,
-    arbitrary_secret_data: PropTypes.PropTypes.string,
-    username_password_secret_name: PropTypes.PropTypes.string,
-    username_password_secret_description: PropTypes.PropTypes.string,
-    username_password_secret_username: PropTypes.PropTypes.string,
-    username_password_secret_password: PropTypes.PropTypes.string
-  }),
-  secretsManagerList: PropTypes.PropTypes.arrayOf(PropTypes.PropTypes.string).isRequired,
-  secretsManagerGroupCallback: PropTypes.PropTypes.func,
-  secretsManagerGroupCallbackText: PropTypes.PropTypes.func,
-  secretCallback: PropTypes.PropTypes.func,
-  secretCallbackText: PropTypes.PropTypes.func,
-  descriptionInvalid: PropTypes.PropTypes.func,
-  descriptionInvalidText: PropTypes.PropTypes.func,
-  labelsInvalid: PropTypes.PropTypes.func,
-  labelsInvalidText: PropTypes.PropTypes.func
 };
 
 const Atracker = props => {

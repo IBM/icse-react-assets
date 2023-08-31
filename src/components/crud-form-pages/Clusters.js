@@ -33,11 +33,26 @@ export const Clusters = (props) => {
         helperTextCallback: props.helperTextCallback,
         propsMatchState: props.propsMatchState,
         cosNames: props.cosNames,
+        secretsManagerList: props.secretsManagerList,
+        secretsManagerGroupCallback: props.secretsManagerGroupCallback,
+        secretsManagerGroupCallbackText: props.secretsManagerGroupCallbackText,
+        secretCallback: props.secretCallback,
+        secretCallbackText: props.secretCallbackText,
+        descriptionInvalid: props.descriptionInvalid,
+        descriptionInvalidText: props.descriptionInvalidText,
+        labelsInvalid: props.labelsInvalid,
+        labelsInvalidText: props.labelsInvalidText,
         workerPoolProps: {
           onSave: props.onPoolSave,
           onDelete: props.onPoolDelete,
           onSubmit: props.onPoolSubmit,
           disableSave: props.disablePoolSave,
+        },
+        opaqueIngressSecretProps: {
+          onSave: props.onOpaqueSecretsSave,
+          onDelete: props.onOpaqueSecretsDelete,
+          onSubmit: props.onOpaqueSecretsSubmit,
+          disableSave: props.disableOpaqueSecretsSave,
         },
       }}
       toggleFormProps={{

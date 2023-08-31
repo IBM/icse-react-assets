@@ -219,6 +219,13 @@ const ClusterFormStory = () => {
             workers_per_subnet: 2,
           },
         ],
+        opaque_secrets: [
+          {
+            labels: ["hello", "world"],
+            name: "test-secret",
+            interval: 1,
+          },
+        ],
       }}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
@@ -271,6 +278,21 @@ const ClusterFormStory = () => {
       }}
       invalidPoolCallback={invalidCallback}
       invalidPoolTextCallback={invalidTextCallback}
+      opaqueIngressSecretProps={{
+        onSave: () => {},
+        onDelete: () => {},
+        onSubmit: () => {},
+        disableSave: () => {},
+      }}
+      secretsManagerList={["sm1", "sm2", "sm3"]}
+      secretsManagerGroupCallback={invalidCallback}
+      secretsManagerGroupCallbackText={invalidTextCallback}
+      secretCallback={invalidCallback}
+      secretCallbackText={invalidTextCallback}
+      descriptionInvalid={invalidCallback}
+      descriptionInvalidText={invalidTextCallback}
+      labelsInvalid={invalidCallback}
+      labelsInvalidText={invalidTextCallback}
     />
   );
 };

@@ -12,7 +12,7 @@ export const OpaqueIngressSecret = (props) => {
       subHeading
       addText="Create a Opaque Ingress Secret"
       arrayData={props.opaque_secrets}
-      innerFor={OpaqueIngressSecretForm}
+      innerForm={OpaqueIngressSecretForm}
       disableSave={props.disableSave}
       onDelete={props.onDelete}
       onSave={props.onSave}

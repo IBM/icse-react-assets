@@ -18,6 +18,7 @@ import IcseFormTemplate from "../IcseFormTemplate";
 import PropTypes from "prop-types";
 import { transpose } from "lazy-z";
 import { WorkerPools } from "../crud-form-pages";
+import { OpaqueIngressSecret } from "../crud-form-pages/OpaqueIngressSecret";
 
 class ClusterForm extends Component {
   constructor(props) {
@@ -251,6 +252,27 @@ class ClusterForm extends Component {
           flavorApiEndpoint={this.props.flavorApiEndpoint}
           isModal={this.props.isModal}
         />
+        <OpaqueIngressSecret
+          opaque_secrets={this.props.data.opaque_secrets}
+          disableSave={this.props.opaqueIngressSecretProps.disableSave}
+          onDelete={this.props.opaqueIngressSecretProps.onDelete}
+          onSave={this.props.opaqueIngressSecretProps.onSave}
+          onSubmit={this.props.opaqueIngressSecretProps.onSubmit}
+          propsMatchState={this.props.propsMatchState}
+          cluster={this.props.data}
+          secretsManagerList={this.props.secretsManagerList}
+          secretsManagerGroupCallback={this.props.secretsManagerGroupCallback}
+          secretsManagerGroupCallbackText={
+            this.props.secretsManagerGroupCallbackText
+          }
+          secretCallback={this.props.secretCallback}
+          secretCallbackText={this.props.secretCallbackText}
+          descriptionInvalid={this.props.descriptionInvalid}
+          descriptionInvalidText={this.props.descriptionInvalidText}
+          labelsInvalid={this.props.labelsInvalid}
+          labelsInvalidText={this.props.labelsInvalidText}
+          craig={this.props.craig}
+        />
       </>
     );
   }
@@ -315,6 +337,12 @@ ClusterForm.propTypes = {
   invalidPoolTextCallback: PropTypes.func,
   /* forms */
   workerPoolProps: PropTypes.shape({
+    onSave: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    disableSave: PropTypes.func.isRequired,
+  }).isRequired,
+  opaqueIngressSecretProps: PropTypes.shape({
     onSave: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
