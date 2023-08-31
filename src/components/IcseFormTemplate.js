@@ -89,7 +89,6 @@ class IcseFormTemplate extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     let formattedName = kebabCase(this.props.name); // formatted component name
     // enable submit field here is set to variable value to allow for passing to
     // child array components without needing to reference `this` directly

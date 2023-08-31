@@ -3542,7 +3542,6 @@ class IcseFormTemplate extends React.Component {
     : contains$5(this.state.shownArrayForms, index);
   }
   render() {
-    console.log(this.props);
     let formattedName = kebabCase$6(this.props.name); // formatted component name
     // enable submit field here is set to variable value to allow for passing to
     // child array components without needing to reference `this` directly
@@ -5675,6 +5674,19 @@ Clusters.propTypes = {
   invalidPoolCallback: PropTypes.func,
   invalidPoolTextCallback: PropTypes.func,
   helperTextCallback: PropTypes.func,
+  onOpaqueSecretsSave: PropTypes.func.isRequired,
+  onOpaqueSecretsDelete: PropTypes.func.isRequired,
+  onOpaqueSecretsSubmid: PropTypes.func.isRequired,
+  disableOpaqueSecretsSave: PropTypes.func.isRequired,
+  secretsManagerGroupCallback: PropTypes.func,
+  secretsManagerGroupCallbackText: PropTypes.func,
+  secretCallback: PropTypes.func,
+  secretCallbackText: PropTypes.func,
+  descriptionInvalid: PropTypes.func,
+  descriptionInvalidText: PropTypes.func,
+  labelsInvalid: PropTypes.func,
+  labelsInvalidText: PropTypes.func,
+  secretsManagerList: PropTypes.arrayOf(PropTypes.string).isRequired,
   cosNames: PropTypes.arrayOf(PropTypes.string).isRequired,
   docs: PropTypes.func
 };
@@ -11372,7 +11384,7 @@ class OpaqueIngressSecretForm extends Component {
       hideHelperText: true
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: composedId + "-namespace",
-      componentName: this.props.data.name,
+      componentName: this.props.data.namespace,
       labelText: "Namespace",
       placeholder: "my-namespace",
       value: this.state.namespace,
@@ -11403,7 +11415,7 @@ class OpaqueIngressSecretForm extends Component {
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: composedId + "-secrets-group",
-      componentName: this.props.data.name,
+      componentName: this.props.data.secrets_group,
       labelText: "Secrets Group",
       placeholder: "my-secrets-group",
       value: this.state.secrets_group,
@@ -11434,7 +11446,7 @@ class OpaqueIngressSecretForm extends Component {
       className: "formInSubForm"
     }, /*#__PURE__*/React.createElement(IcseFormGroup, null, "Arbitrary Secret"), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
       id: composedId + "-arb-secret-name",
-      componentName: this.props.data.name,
+      componentName: this.props.data.arbitrary_secret_name,
       labelText: "Name",
       placeholder: "my-secret-name",
       value: this.state.arbitrary_secret_name,
@@ -11445,7 +11457,7 @@ class OpaqueIngressSecretForm extends Component {
       className: "fieldWidth"
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: composedId + "-arb-secret-description",
-      componentName: this.props.data.name,
+      componentName: this.props.data.arbitrary_secret_description,
       labelText: "Description",
       placeholder: "my-secret-description",
       value: this.state.arbitrary_secret_description,
@@ -11456,7 +11468,7 @@ class OpaqueIngressSecretForm extends Component {
       className: "fieldWidth"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
       id: composedId + "-arb-secret-data",
-      componentName: this.props.data.name,
+      componentName: this.props.data.arbitrary_secret_data,
       labelText: "Data",
       placeholder: "my-secret-data",
       value: this.state.arbitrary_secret_data,
@@ -11475,7 +11487,7 @@ class OpaqueIngressSecretForm extends Component {
       className: "formInSubForm"
     }, /*#__PURE__*/React.createElement(IcseFormGroup, null, "Username Password Secret"), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
       id: composedId + "-username-password-secret-name",
-      componentName: this.props.data.name,
+      componentName: this.props.data.username_password_secret_name,
       labelText: "Name",
       placeholder: "my-secret-name",
       value: this.state.username_password_secret_name,
@@ -11486,7 +11498,7 @@ class OpaqueIngressSecretForm extends Component {
       className: "fieldWidth"
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: composedId + "-username-password-secret-description",
-      componentName: this.props.data.name,
+      componentName: this.props.data.username_password_secret_description,
       labelText: "Description",
       placeholder: "my-secret-description",
       value: this.state.username_password_secret_description,
@@ -11497,7 +11509,7 @@ class OpaqueIngressSecretForm extends Component {
       className: "fieldWidth"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
       id: composedId + "-username-password-secret-username",
-      componentName: this.props.data.name,
+      componentName: this.props.data.username_password_secret_username,
       labelText: "Username",
       placeholder: "my-secret-username",
       value: this.state.username_password_secret_username,
@@ -11508,7 +11520,7 @@ class OpaqueIngressSecretForm extends Component {
       className: "fieldWidth"
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: composedId + "-username-password-secret-password",
-      componentName: this.props.data.name,
+      componentName: this.props.data.username_password_secret_password,
       labelText: "Password",
       placeholder: "my-secret-password",
       value: this.state.username_password_secret_password,
@@ -11570,24 +11582,27 @@ OpaqueIngressSecretForm.propTypes = {
     secrets_manager: PropTypes$1.string,
     secrets_group: PropTypes$1.string,
     expiration_date: PropTypes$1.string,
-    labels: PropTypes$1.arrayOf(PropTypes$1.string),
+    labels: PropTypes$1.arrayOf(PropTypes$1.string).isRequired,
     arbitrary_secret_name: PropTypes$1.string,
     arbitrary_secret_description: PropTypes$1.string,
     arbitrary_secret_data: PropTypes$1.string,
     username_password_secret_name: PropTypes$1.string,
     username_password_secret_description: PropTypes$1.string,
     username_password_secret_username: PropTypes$1.string,
-    username_password_secret_password: PropTypes$1.string
+    username_password_secret_password: PropTypes$1.string,
+    interval: PropTypes$1.number.isRequired,
+    auto_rotate: PropTypes$1.bool.isRequired,
+    unit: PropTypes$1.string
   }),
   secretsManagerList: PropTypes$1.arrayOf(PropTypes$1.string).isRequired,
-  secretsManagerGroupCallback: PropTypes$1.func,
-  secretsManagerGroupCallbackText: PropTypes$1.func,
-  secretCallback: PropTypes$1.func,
-  secretCallbackText: PropTypes$1.func,
-  descriptionInvalid: PropTypes$1.func,
-  descriptionInvalidText: PropTypes$1.func,
-  labelsInvalid: PropTypes$1.func,
-  labelsInvalidText: PropTypes$1.func
+  secretsManagerGroupCallback: PropTypes$1.func.isRequired,
+  secretsManagerGroupCallbackText: PropTypes$1.func.isRequired,
+  secretCallback: PropTypes$1.func.isRequired,
+  secretCallbackText: PropTypes$1.func.isRequired,
+  descriptionInvalid: PropTypes$1.func.isRequired,
+  descriptionInvalidText: PropTypes$1.func.isRequired,
+  labelsInvalid: PropTypes$1.func.isRequired,
+  labelsInvalidText: PropTypes$1.func.isRequired
 };
 
 const OpaqueIngressSecret = props => {
@@ -11834,7 +11849,6 @@ class ClusterForm extends Component {
       onSave: this.props.opaqueIngressSecretProps.onSave,
       onSubmit: this.props.opaqueIngressSecretProps.onSubmit,
       propsMatchState: this.props.propsMatchState,
-      cluster: this.props.data,
       secretsManagerList: this.props.secretsManagerList,
       secretsManagerGroupCallback: this.props.secretsManagerGroupCallback,
       secretsManagerGroupCallbackText: this.props.secretsManagerGroupCallbackText,
@@ -11862,7 +11876,8 @@ ClusterForm.defaultProps = {
     flavor: "",
     kube_version: "",
     update_all_workers: false,
-    worker_pools: []
+    worker_pools: [],
+    opaque_secrets: []
   },
   resourceGroups: [],
   encryptionKeys: [],
@@ -11886,7 +11901,8 @@ ClusterForm.propTypes = {
     kube_version: PropTypes.string.isRequired,
     flavor: PropTypes.string.isRequired,
     update_all_workers: PropTypes.bool.isRequired,
-    worker_pools: PropTypes.array.isRequired
+    worker_pools: PropTypes.array.isRequired,
+    opaque_secrets: PropTypes.array.isRequired
   }),
   /* bools */
   isModal: PropTypes.bool.isRequired,
@@ -11896,6 +11912,7 @@ ClusterForm.propTypes = {
   cosNames: PropTypes.arrayOf(PropTypes.string),
   vpcList: PropTypes.arrayOf(PropTypes.string),
   subnetList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  secretsManagerList: PropTypes.arrayOf(PropTypes.string).isRequired,
   /* api endpoints */
   kubeVersionApiEndpoint: PropTypes.string.isRequired,
   flavorApiEndpoint: PropTypes.string.isRequired,
@@ -11905,6 +11922,14 @@ ClusterForm.propTypes = {
   helperTextCallback: PropTypes.func,
   invalidPoolCallback: PropTypes.func,
   invalidPoolTextCallback: PropTypes.func,
+  secretsManagerGroupCallback: PropTypes.func,
+  secretsManagerGroupCallbackText: PropTypes.func,
+  secretCallback: PropTypes.func,
+  secretCallbackText: PropTypes.func,
+  descriptionInvalid: PropTypes.func,
+  descriptionInvalidText: PropTypes.func,
+  labelsInvalid: PropTypes.func,
+  labelsInvalidText: PropTypes.func,
   /* forms */
   workerPoolProps: PropTypes.shape({
     onSave: PropTypes.func.isRequired,

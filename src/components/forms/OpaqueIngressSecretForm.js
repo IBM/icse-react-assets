@@ -92,7 +92,7 @@ class OpaqueIngressSecretForm extends Component {
           />
           <IcseTextInput
             id={composedId + "-namespace"}
-            componentName={this.props.data.name}
+            componentName={this.props.data.namespace}
             labelText="Namespace"
             placeholder="my-namespace"
             value={this.state.namespace}
@@ -131,7 +131,7 @@ class OpaqueIngressSecretForm extends Component {
           />
           <IcseTextInput
             id={composedId + "-secrets-group"}
-            componentName={this.props.data.name}
+            componentName={this.props.data.secrets_group}
             labelText="Secrets Group"
             placeholder="my-secrets-group"
             value={this.state.secrets_group}
@@ -177,7 +177,7 @@ class OpaqueIngressSecretForm extends Component {
             <IcseFormGroup>
               <IcseTextInput
                 id={composedId + "-arb-secret-name"}
-                componentName={this.props.data.name}
+                componentName={this.props.data.arbitrary_secret_name}
                 labelText="Name"
                 placeholder="my-secret-name"
                 value={this.state.arbitrary_secret_name}
@@ -194,7 +194,7 @@ class OpaqueIngressSecretForm extends Component {
               />
               <IcseTextInput
                 id={composedId + "-arb-secret-description"}
-                componentName={this.props.data.name}
+                componentName={this.props.data.arbitrary_secret_description}
                 labelText="Description"
                 placeholder="my-secret-description"
                 value={this.state.arbitrary_secret_description}
@@ -213,7 +213,7 @@ class OpaqueIngressSecretForm extends Component {
             <IcseFormGroup>
               <IcseTextInput
                 id={composedId + "-arb-secret-data"}
-                componentName={this.props.data.name}
+                componentName={this.props.data.arbitrary_secret_data}
                 labelText="Data"
                 placeholder="my-secret-data"
                 value={this.state.arbitrary_secret_data}
@@ -248,7 +248,7 @@ class OpaqueIngressSecretForm extends Component {
             <IcseFormGroup>
               <IcseTextInput
                 id={composedId + "-username-password-secret-name"}
-                componentName={this.props.data.name}
+                componentName={this.props.data.username_password_secret_name}
                 labelText="Name"
                 placeholder="my-secret-name"
                 value={this.state.username_password_secret_name}
@@ -265,7 +265,9 @@ class OpaqueIngressSecretForm extends Component {
               />
               <IcseTextInput
                 id={composedId + "-username-password-secret-description"}
-                componentName={this.props.data.name}
+                componentName={
+                  this.props.data.username_password_secret_description
+                }
                 labelText="Description"
                 placeholder="my-secret-description"
                 value={this.state.username_password_secret_description}
@@ -284,7 +286,9 @@ class OpaqueIngressSecretForm extends Component {
             <IcseFormGroup>
               <IcseTextInput
                 id={composedId + "-username-password-secret-username"}
-                componentName={this.props.data.name}
+                componentName={
+                  this.props.data.username_password_secret_username
+                }
                 labelText="Username"
                 placeholder="my-secret-username"
                 value={this.state.username_password_secret_username}
@@ -301,7 +305,9 @@ class OpaqueIngressSecretForm extends Component {
               />
               <IcseTextInput
                 id={composedId + "-username-password-secret-password"}
-                componentName={this.props.data.name}
+                componentName={
+                  this.props.data.username_password_secret_password
+                }
                 labelText="Password"
                 placeholder="my-secret-password"
                 value={this.state.username_password_secret_password}
@@ -393,7 +399,7 @@ OpaqueIngressSecretForm.propTypes = {
     secrets_manager: PropTypes.string,
     secrets_group: PropTypes.string,
     expiration_date: PropTypes.string,
-    labels: PropTypes.arrayOf(PropTypes.string),
+    labels: PropTypes.arrayOf(PropTypes.string).isRequired,
     arbitrary_secret_name: PropTypes.string,
     arbitrary_secret_description: PropTypes.string,
     arbitrary_secret_data: PropTypes.string,
@@ -401,16 +407,19 @@ OpaqueIngressSecretForm.propTypes = {
     username_password_secret_description: PropTypes.string,
     username_password_secret_username: PropTypes.string,
     username_password_secret_password: PropTypes.string,
+    interval: PropTypes.number.isRequired,
+    auto_rotate: PropTypes.bool.isRequired,
+    unit: PropTypes.string,
   }),
   secretsManagerList: PropTypes.arrayOf(PropTypes.string).isRequired,
-  secretsManagerGroupCallback: PropTypes.func,
-  secretsManagerGroupCallbackText: PropTypes.func,
-  secretCallback: PropTypes.func,
-  secretCallbackText: PropTypes.func,
-  descriptionInvalid: PropTypes.func,
-  descriptionInvalidText: PropTypes.func,
-  labelsInvalid: PropTypes.func,
-  labelsInvalidText: PropTypes.func,
+  secretsManagerGroupCallback: PropTypes.func.isRequired,
+  secretsManagerGroupCallbackText: PropTypes.func.isRequired,
+  secretCallback: PropTypes.func.isRequired,
+  secretCallbackText: PropTypes.func.isRequired,
+  descriptionInvalid: PropTypes.func.isRequired,
+  descriptionInvalidText: PropTypes.func.isRequired,
+  labelsInvalid: PropTypes.func.isRequired,
+  labelsInvalidText: PropTypes.func.isRequired,
 };
 
 export default OpaqueIngressSecretForm;
