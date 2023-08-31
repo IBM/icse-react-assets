@@ -71,6 +71,7 @@ class OpaqueIngressSecretForm extends Component {
 
   render() {
     let composedId = `opaque-ingress-secrets-from-${this.props.data.name}`;
+    let tileClassName = this.props.isModal ? "formInSubForm" : "subForm";
     return (
       <>
         <IcseFormGroup>
@@ -172,8 +173,10 @@ class OpaqueIngressSecretForm extends Component {
           />
         </IcseFormGroup>
         <IcseFormGroup>
-          <Tile className="formInSubForm">
-            <IcseFormGroup>Arbitrary Secret</IcseFormGroup>
+          <Tile className={tileClassName + " widthOneHundredPercent"}>
+            <IcseFormGroup>
+              <strong>Arbitrary Secret</strong>
+            </IcseFormGroup>
             <IcseFormGroup>
               <IcseTextInput
                 id={composedId + "-arb-secret-name"}
@@ -243,8 +246,10 @@ class OpaqueIngressSecretForm extends Component {
           </Tile>
         </IcseFormGroup>
         <IcseFormGroup>
-          <Tile className="formInSubForm">
-            <IcseFormGroup>Username Password Secret</IcseFormGroup>
+          <Tile className={tileClassName + " widthOneHundredPercent"}>
+            <IcseFormGroup>
+              <strong>Username Password Secret</strong>
+            </IcseFormGroup>
             <IcseFormGroup>
               <IcseTextInput
                 id={composedId + "-username-password-secret-name"}

@@ -11380,6 +11380,7 @@ class OpaqueIngressSecretForm extends React.Component {
   }
   render() {
     let composedId = `opaque-ingress-secrets-from-${this.props.data.name}`;
+    let tileClassName = this.props.isModal ? "formInSubForm" : "subForm";
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       id: composedId + "-name",
       component: "opaque_ingress_secrets",
@@ -11454,8 +11455,8 @@ class OpaqueIngressSecretForm extends React.Component {
       invalidText: this.props.labelsInvalidText(this.state, this.props),
       helperText: "Enter a comma separated list of tags"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.Tile, {
-      className: "formInSubForm"
-    }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, "Arbitrary Secret"), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      className: tileClassName + " widthOneHundredPercent"
+    }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement("strong", null, "Arbitrary Secret")), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: composedId + "-arb-secret-name",
       componentName: this.props.data.arbitrary_secret_name,
       labelText: "Name",
@@ -11495,8 +11496,8 @@ class OpaqueIngressSecretForm extends React.Component {
       size: "md",
       type: labelColors[i % labelColors.length]
     }, label))))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.Tile, {
-      className: "formInSubForm"
-    }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, "Username Password Secret"), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      className: tileClassName + " widthOneHundredPercent"
+    }, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement("strong", null, "Username Password Secret")), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: composedId + "-username-password-secret-name",
       componentName: this.props.data.username_password_secret_name,
       labelText: "Name",
