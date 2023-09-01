@@ -113,3 +113,5 @@ const PowerVsNetworkFormStory = () => {
     />
   );
 };
+
+export const Default = PowerVsNetworkFormStory.bind({});
