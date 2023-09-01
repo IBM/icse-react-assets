@@ -46,11 +46,11 @@ class PowerVsNetworkForm extends React.Component {
             hideHelperText
             invalid={this.props.invalidNetworkNameCallback(
               this.state,
-              this.props
+              this.props,
             )}
             invalidText={this.props.invalidNetworkNameCallbackText(
               this.state,
-              this.props
+              this.props,
             )}
           />
           <IcseSelect
@@ -76,7 +76,7 @@ class PowerVsNetworkForm extends React.Component {
             }
             invalidText={this.props.invalidCidrCallbackText(
               this.state,
-              this.props
+              this.props,
             )}
             onChange={this.handleInputChange}
           />
@@ -92,7 +92,7 @@ class PowerVsNetworkForm extends React.Component {
             }
             invalidText={this.props.invalidDnsCallbackText(
               this.state,
-              this.props
+              this.props,
             )}
             onChange={this.handleInputChange}
           />
@@ -143,7 +143,12 @@ const App = () => {
   return (
     <>
       <PowerVsNetworkForm
-        data={{ name: "frog", pi_cidr: "1.2.3.4/5", pi_network_type: "vlan", pi_dns:"1.2.3.4" }}
+        data={{
+          name: "frog",
+          pi_cidr: "1.2.3.4/5",
+          pi_network_type: "vlan",
+          pi_dns: "1.2.3.4",
+        }}
         invalidNetworkNameCallback={() => {
           return false;
         }}
@@ -156,11 +161,11 @@ const App = () => {
         invalidCidrCallback={() => {
           return false;
         }}
-        invalidDnsCallback={() =>{
-          return false
+        invalidDnsCallback={() => {
+          return false;
         }}
-        invalidDnsCallbackText={()=>{
-          return "enter a valid IP"
+        invalidDnsCallbackText={() => {
+          return "enter a valid IP";
         }}
       />
     </>

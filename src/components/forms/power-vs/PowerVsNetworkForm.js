@@ -39,11 +39,11 @@ class PowerVsNetworkForm extends Component {
             hideHelperText
             invalid={this.props.invalidNetworkNameCallback(
               this.state,
-              this.props
+              this.props,
             )}
             invalidText={this.props.invalidNetworkNameCallbackText(
               this.state,
-              this.props
+              this.props,
             )}
           />
           <IcseSelect
@@ -69,7 +69,7 @@ class PowerVsNetworkForm extends Component {
             }
             invalidText={this.props.invalidCidrCallbackText(
               this.state,
-              this.props
+              this.props,
             )}
             onChange={this.handleInputChange}
           />
@@ -85,7 +85,7 @@ class PowerVsNetworkForm extends Component {
             }
             invalidText={this.props.invalidDnsCallbackText(
               this.state,
-              this.props
+              this.props,
             )}
             onChange={this.handleInputChange}
           />
