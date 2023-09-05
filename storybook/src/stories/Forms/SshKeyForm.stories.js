@@ -30,7 +30,7 @@ export default {
       control: "none",
       type: { required: false }, // required prop or not
     },
-    ["data.power_vs"]: {
+    powerVs: {
       description: "A boolean indicating whether or not PowerVS is used",
       control: "none",
       type: { required: false },
@@ -119,8 +119,8 @@ const PowerVsSshKeyStory = () => {
         resource_group: "rg1",
         public_key: "test-key",
         use_data: false,
-        power_vs: true,
       }}
+      powerVs={true}
       resourceGroups={["rg1", "rg2", "rg3"]}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
