@@ -4809,101 +4809,6 @@ CloudDatabaseForm.propTypes = {
   invalidTextCallback: PropTypes.func
 };
 
-class WorkerPoolForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = forms_3(this.props);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubnetChange = this.handleSubnetChange.bind(this);
-    buildFormFunctions(this);
-  }
-  handleInputChange(event) {
-    this.setState(forms_2(event, this.state));
-  }
-  handleSubnetChange(subnets) {
-    this.setState(forms_1(subnets, this.state));
-  }
-  render() {
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
-      id: this.state.name + "-name",
-      componentName: "Worker Pools",
-      onChange: this.handleInputChange,
-      value: this.state.name,
-      className: "fieldWidthSmaller",
-      hideHelperText: true,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props)
-    }), /*#__PURE__*/React.createElement(EntitlementSelect, {
-      name: "entitlement",
-      value: this.state.entitlement,
-      handleInputChange: this.handleInputChange,
-      component: this.props.data.name,
-      formName: "Worker Pools"
-    }), /*#__PURE__*/React.createElement(FetchSelect, {
-      name: "flavor",
-      formName: this.props.data.name + "flavor",
-      labelText: "Instance Profile",
-      value: this.state.flavor,
-      apiEndpoint: this.props.flavorApiEndpoint,
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(SubnetMultiSelect, {
-      id: this.props.data.name,
-      disabled: this.props.cluster.vpc === null,
-      vpc_name: this.state.vpc,
-      initialSelectedItems: this.state.subnets,
-      subnets: this.getSubnetList(),
-      onChange: this.handleSubnetChange,
-      component: this.props.data.name,
-      className: "fieldWidthSmaller cds--form-item"
-    }), /*#__PURE__*/React.createElement(IcseNumberSelect, {
-      name: "workers_per_subnet",
-      formName: this.props.data.name + "Worker Pools",
-      labelText: "Workers Per Subnet",
-      value: this.state.workers_per_subnet,
-      max: 10,
-      min: 0,
-      handleInputChange: this.handleInputChange,
-      component: this.props.data.name,
-      className: "fieldWidthSmaller"
-    })));
-  }
-}
-WorkerPoolForm.defaultProps = {
-  data: {
-    entitlement: "",
-    flavor: "",
-    name: "",
-    subnets: [],
-    vpc: "",
-    workers_per_subnet: 2
-  },
-  isModal: false
-};
-WorkerPoolForm.propTypes = {
-  subnetList: PropTypes.array.isRequired,
-  isModal: PropTypes.bool.isRequired,
-  cluster: PropTypes.shape({
-    entitlement: PropTypes.string,
-    // can be null
-    flavor: PropTypes.string.isRequired,
-    vpc: PropTypes.string,
-    workers_per_subnet: PropTypes.number.isRequired,
-    subnets: PropTypes.array.isRequired
-  }),
-  // can be null
-  data: PropTypes.shape({
-    entitlement: PropTypes.string.isRequired,
-    flavor: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    vpc: PropTypes.string,
-    workers_per_subnet: PropTypes.number.isRequired,
-    subnets: PropTypes.array.isRequired
-  }).isRequired,
-  invalidCallback: PropTypes.func.isRequired,
-  invalidTextCallback: PropTypes.func.isRequired
-};
-
 const {
   snakeCase
 } = lazyZ;
@@ -8673,6 +8578,101 @@ Vsi.propTypes = {
   onVolumeSave: PropTypes.func.isRequired,
   onVolumeDelete: PropTypes.func.isRequired,
   onVolumeCreate: PropTypes.func.isRequired
+};
+
+class WorkerPoolForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = forms_3(this.props);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubnetChange = this.handleSubnetChange.bind(this);
+    buildFormFunctions(this);
+  }
+  handleInputChange(event) {
+    this.setState(forms_2(event, this.state));
+  }
+  handleSubnetChange(subnets) {
+    this.setState(forms_1(subnets, this.state));
+  }
+  render() {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: this.state.name + "-name",
+      componentName: "Worker Pools",
+      onChange: this.handleInputChange,
+      value: this.state.name,
+      className: "fieldWidthSmaller",
+      hideHelperText: true,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React.createElement(EntitlementSelect, {
+      name: "entitlement",
+      value: this.state.entitlement,
+      handleInputChange: this.handleInputChange,
+      component: this.props.data.name,
+      formName: "Worker Pools"
+    }), /*#__PURE__*/React.createElement(FetchSelect, {
+      name: "flavor",
+      formName: this.props.data.name + "flavor",
+      labelText: "Instance Profile",
+      value: this.state.flavor,
+      apiEndpoint: this.props.flavorApiEndpoint,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(SubnetMultiSelect, {
+      id: this.props.data.name,
+      disabled: this.props.cluster.vpc === null,
+      vpc_name: this.state.vpc,
+      initialSelectedItems: this.state.subnets,
+      subnets: this.getSubnetList(),
+      onChange: this.handleSubnetChange,
+      component: this.props.data.name,
+      className: "fieldWidthSmaller cds--form-item"
+    }), /*#__PURE__*/React.createElement(IcseNumberSelect, {
+      name: "workers_per_subnet",
+      formName: this.props.data.name + "Worker Pools",
+      labelText: "Workers Per Subnet",
+      value: this.state.workers_per_subnet,
+      max: 10,
+      min: 0,
+      handleInputChange: this.handleInputChange,
+      component: this.props.data.name,
+      className: "fieldWidthSmaller"
+    })));
+  }
+}
+WorkerPoolForm.defaultProps = {
+  data: {
+    entitlement: "",
+    flavor: "",
+    name: "",
+    subnets: [],
+    vpc: "",
+    workers_per_subnet: 2
+  },
+  isModal: false
+};
+WorkerPoolForm.propTypes = {
+  subnetList: PropTypes.array.isRequired,
+  isModal: PropTypes.bool.isRequired,
+  cluster: PropTypes.shape({
+    entitlement: PropTypes.string,
+    // can be null
+    flavor: PropTypes.string.isRequired,
+    vpc: PropTypes.string,
+    workers_per_subnet: PropTypes.number.isRequired,
+    subnets: PropTypes.array.isRequired
+  }),
+  // can be null
+  data: PropTypes.shape({
+    entitlement: PropTypes.string.isRequired,
+    flavor: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    vpc: PropTypes.string,
+    workers_per_subnet: PropTypes.number.isRequired,
+    subnets: PropTypes.array.isRequired
+  }).isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired
 };
 
 const WorkerPools = props => {
@@ -14745,4 +14745,99 @@ F5BigIp.propTypes = {
   onVsiSave: PropTypes.func.isRequired
 };
 
-export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AccessGroups as AccessGroupsTemplate, AppIdForm, AppIdKeyForm, AppId as AppIdTemplate, AtrackerForm, Atracker as AtrackerPage, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, CloudDatabaseForm, CloudDatabase as CloudDatabaseTemplate, ClusterForm, Clusters as ClustersTemplate, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsForm, DnsRecordForm, Dns as DnsTemplate, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, EventStreams as EventStreamsTemplate, F5BigIp as F5BigIpPage, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IamAccountSettings as IamAccountSettingsPage, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, KeyManagement as KeyManagementTemplate, LocationsMultiSelect, LogDNAForm, NetworkAclForm$1 as NetworkAclForm, NetworkAcls as NetworkAclTemplate, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, ObjectStorage as ObjectStorageTemplate, OrderCardDataTable, PopoverWrapper, RenderForm, ResourceGroupForm, ResourceGroups as ResourceGroupsTemplate, RoutingTableForm, RoutingTableRouteForm, RoutingTables as RoutingTableTemplate, SaveAddButton, SaveIcon, SccForm, SccV1 as SccV1Page, SecretsManagerChecklist, SecretsManagerForm, SecretsManager as SecretsManagerTemplate, SecurityGroupForm, SecurityGroupMultiSelect, SecurityGroups as SecurityGroupTemplate, SshKeyForm, SshKeyMultiSelect, SshKeys as SshKeysTemplate, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, Subnets as SubnetPageTemplate, SubnetTierForm$1 as SubnetTierForm, SubnetTileForm, SysdigForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, TransitGateways as TransitGatewayTemplate, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, Vpcs as VpcTemplate, VpeForm, Vpe as VpeTemplate, VpnGatewayForm, VpnGateways as VpnGatewayTemplate, VpnServerForm, VpnServerRouteForm, VpnServers as VpnServerTemplate, VsiForm, VsiLoadBalancerForm, VsiLoadBalancer as VsiLoadBalancerTemplate, Vsi as VsiTemplate, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+class PowerVsNetworkForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
+  }
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  handleToggle(name) {
+    this.setState(this.toggleStateBoolean(name, this.state));
+  }
+  render() {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: this.props.data.name + "-power-nw-name",
+      componentName: this.props.data.name + "-power-nw-name",
+      placeholder: "my-network-name",
+      value: this.state.name || "",
+      onChange: this.handleInputChange,
+      hideHelperText: true,
+      invalid: this.props.invalidNetworkNameCallback(this.state, this.props),
+      invalidText: this.props.invalidNetworkNameCallbackText(this.state, this.props),
+      className: "fieldWidth"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: this.props.data.name + "-power-nw",
+      groups: ["vlan", "pub-vlan"],
+      value: this.state.pi_network_type,
+      labelText: "Network Type",
+      name: "pi_network_type",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidth"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: this.props.data.name + "-power-nw-cidr",
+      componentName: this.props.data.name + "-power-nw-cidr",
+      name: "client_ip_pool",
+      field: "pi_cidr",
+      value: this.state.pi_cidr,
+      placeholder: "x.x.x.x/x",
+      labelText: "Network CIDR Block",
+      invalidCallback: () => this.props.invalidCidrCallback(this.state, this.props),
+      invalidText: this.props.invalidCidrCallbackText(this.state, this.props),
+      onChange: this.handleInputChange,
+      className: "fieldWidth"
+    }), /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: this.props.data.name + "-power-nw-dns",
+      componentName: this.props.data.name + "-power-nw-dns",
+      field: "pi_dns",
+      value: this.state.pi_dns,
+      placeholder: "127.0.0.1",
+      labelText: "DNS Server IP",
+      invalidCallback: () => this.props.invalidDnsCallback(this.state, this.props),
+      invalidText: this.props.invalidDnsCallbackText(this.state, this.props),
+      onChange: this.handleInputChange,
+      className: "fieldWidth"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
+      id: this.props.data.name + "-power-nw-jumbo",
+      defaultToggled: this.state.pi_network_jumbo,
+      labelText: "MTU Jumbo",
+      onToggle: () => this.handleToggle("pi_network_jumbo"),
+      className: "fieldWidth"
+    })));
+  }
+}
+PowerVsNetworkForm.defaultProps = {
+  data: {
+    name: "",
+    pi_network_type: "vlan",
+    pi_cidr: "",
+    pi_dns: "",
+    pi_network_jumbo: false
+  },
+  isModal: false
+};
+PowerVsNetworkForm.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string,
+    pi_network_type: PropTypes.string.isRequired,
+    pi_cidr: PropTypes.string.isRequired,
+    pi_dns: PropTypes.string.isRequired,
+    pi_network_jumbo: PropTypes.bool.isRequired
+  }),
+  isModal: PropTypes.bool.isRequired,
+  invalidNetworkNameCallback: PropTypes.func.isRequired,
+  invalidNetworkNameCallbackText: PropTypes.func.isRequired,
+  invalidCidrCallback: PropTypes.func.isRequired,
+  invalidCidrCallbackText: PropTypes.func.isRequired,
+  invalidDnsCallback: PropTypes.func.isRequired,
+  invalidDnsCallbackText: PropTypes.func.isRequired
+};
+
+export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AccessGroups as AccessGroupsTemplate, AppIdForm, AppIdKeyForm, AppId as AppIdTemplate, AtrackerForm, Atracker as AtrackerPage, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, CloudDatabaseForm, CloudDatabase as CloudDatabaseTemplate, ClusterForm, Clusters as ClustersTemplate, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsForm, DnsRecordForm, Dns as DnsTemplate, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, EventStreams as EventStreamsTemplate, F5BigIp as F5BigIpPage, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IamAccountSettings as IamAccountSettingsPage, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, KeyManagement as KeyManagementTemplate, LocationsMultiSelect, LogDNAForm, NetworkAclForm$1 as NetworkAclForm, NetworkAcls as NetworkAclTemplate, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, ObjectStorage as ObjectStorageTemplate, OrderCardDataTable, PopoverWrapper, PowerVsNetworkForm, RenderForm, ResourceGroupForm, ResourceGroups as ResourceGroupsTemplate, RoutingTableForm, RoutingTableRouteForm, RoutingTables as RoutingTableTemplate, SaveAddButton, SaveIcon, SccForm, SccV1 as SccV1Page, SecretsManagerChecklist, SecretsManagerForm, SecretsManager as SecretsManagerTemplate, SecurityGroupForm, SecurityGroupMultiSelect, SecurityGroups as SecurityGroupTemplate, SshKeyForm, SshKeyMultiSelect, SshKeys as SshKeysTemplate, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, Subnets as SubnetPageTemplate, SubnetTierForm$1 as SubnetTierForm, SubnetTileForm, SysdigForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, TransitGateways as TransitGatewayTemplate, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, Vpcs as VpcTemplate, VpeForm, Vpe as VpeTemplate, VpnGatewayForm, VpnGateways as VpnGatewayTemplate, VpnServerForm, VpnServerRouteForm, VpnServers as VpnServerTemplate, VsiForm, VsiLoadBalancerForm, VsiLoadBalancer as VsiLoadBalancerTemplate, Vsi as VsiTemplate, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
