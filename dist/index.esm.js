@@ -12801,7 +12801,7 @@ class SshKeyForm extends Component {
     this.setState(this.eventTargetToNameAndValue(event));
   }
   render() {
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, !this.props.powerVs && /*#__PURE__*/React.createElement(IcseToggle, {
       labelText: "Use Existing Instance",
       key: this.state.use_data,
       defaultToggled: this.state.use_data,
@@ -12847,6 +12847,7 @@ SshKeyForm.defaultProps = {
     use_data: false,
     resource_group: ""
   },
+  powerVs: false,
   resourceGroups: [],
   isModal: false
 };
@@ -12857,6 +12858,7 @@ SshKeyForm.propTypes = {
     public_key: PropTypes.string,
     use_data: PropTypes.bool
   }).isRequired,
+  powerVs: PropTypes.bool.isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   isModal: PropTypes.bool.isRequired,
   invalidCallback: PropTypes.func.isRequired,
