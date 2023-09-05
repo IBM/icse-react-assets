@@ -6,7 +6,6 @@ import {
 import { handleClusterInputChange, filterKubeVersion } from "../../lib";
 import { IcseNameInput, IcseToggle } from "../Inputs";
 import { IcseFormGroup } from "../Utils";
-import WorkerPoolForm from "./WorkerPoolForm";
 import {
   IcseSelect,
   IcseNumberSelect,
@@ -14,9 +13,7 @@ import {
   FetchSelect,
 } from "../Dropdowns";
 import { SubnetMultiSelect } from "../MultiSelects";
-import IcseFormTemplate from "../IcseFormTemplate";
 import PropTypes from "prop-types";
-import { transpose } from "lazy-z";
 import { WorkerPools } from "../crud-form-pages";
 import { OpaqueIngressSecret } from "../crud-form-pages/OpaqueIngressSecret";
 
