@@ -12812,7 +12812,7 @@ class SshKeyForm extends React.Component {
     this.setState(this.eventTargetToNameAndValue(event));
   }
   render() {
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, !this.state.power_vs && /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
       labelText: "Use Existing Instance",
       key: this.state.use_data,
       defaultToggled: this.state.use_data,
@@ -12856,7 +12856,8 @@ SshKeyForm.defaultProps = {
     name: "",
     public_key: "",
     use_data: false,
-    resource_group: ""
+    resource_group: "",
+    power_vs: false
   },
   resourceGroups: [],
   isModal: false
@@ -12866,7 +12867,8 @@ SshKeyForm.propTypes = {
     name: PropTypes__default["default"].string.isRequired,
     resource_group: PropTypes__default["default"].string,
     public_key: PropTypes__default["default"].string,
-    use_data: PropTypes__default["default"].bool
+    use_data: PropTypes__default["default"].bool,
+    power_vs: PropTypes__default["default"].bool
   }).isRequired,
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   isModal: PropTypes__default["default"].bool.isRequired,

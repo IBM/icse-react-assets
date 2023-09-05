@@ -43,7 +43,8 @@ class SshKeyForm extends Component {
       <>
         <IcseFormGroup>
           {/* use data */}
-          <IcseToggle
+          {!this.state.power_vs && (
+            <IcseToggle
             labelText="Use Existing Instance"
             key={this.state.use_data}
             defaultToggled={this.state.use_data}
@@ -52,6 +53,7 @@ class SshKeyForm extends Component {
             className="fieldWidthSmallest"
             id={this.state.name + "-use-existing-instance"}
           />
+          )}
           {/* name */}
           <IcseNameInput
             id={this.state.name + "-name"}
@@ -105,6 +107,7 @@ SshKeyForm.defaultProps = {
     public_key: "",
     use_data: false,
     resource_group: "",
+    power_vs: false,
   },
   resourceGroups: [],
   isModal: false,
@@ -116,6 +119,7 @@ SshKeyForm.propTypes = {
     resource_group: PropTypes.string,
     public_key: PropTypes.string,
     use_data: PropTypes.bool,
+    power_vs: PropTypes.bool,
   }).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   isModal: PropTypes.bool.isRequired,

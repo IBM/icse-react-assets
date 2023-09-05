@@ -30,6 +30,11 @@ export default {
       control: "none",
       type: { required: false }, // required prop or not
     },
+    ["data.power_vs"]: {
+      description: "A boolean indicating whether or not PowerVS is used",
+      control: "none",
+      type: { required: false },
+    },
     resourceGroups: {
       description:
         "An array of strings containing the names of resource groups to select",
@@ -65,31 +70,31 @@ export default {
   },
 };
 
+function validName(str) {
+  const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
+  if (str) return str.match(regex) !== null;
+  else return false;
+}
+
+function invalidCallback(stateData, componentProps) {
+  return !validName(stateData.name);
+}
+
+function invalidTextCallback(stateData, componentProps) {
+  return !validName(stateData.name)
+    ? `Name ${stateData.name} is invalid.`
+    : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
+}
+
+function invalidKeyCallback(stateData, componentProps) {
+  const regex = /^ssh-rsa AAAA[0-9A-Za-z+\/]+([=]{0,3}([^@]+@[^@]+))?$/g;
+  return {
+    invalid: stateData.public_key.match(regex) === null,
+    invalidText: `Provide a unique SSH public key that matches ${regex} and does not exist in the IBM Cloud account in your region`,
+  };
+}
+
 const SshKeyFormStory = () => {
-  function validName(str) {
-    const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
-    if (str) return str.match(regex) !== null;
-    else return false;
-  }
-
-  function invalidCallback(stateData, componentProps) {
-    return !validName(stateData.name);
-  }
-
-  function invalidTextCallback(stateData, componentProps) {
-    return !validName(stateData.name)
-      ? `Name ${stateData.name} is invalid.`
-      : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
-  }
-
-  function invalidKeyCallback(stateData, componentProps) {
-    const regex = /^ssh-rsa AAAA[0-9A-Za-z+\/]+([=]{0,3}([^@]+@[^@]+))?$/g;
-    return {
-      invalid: stateData.public_key.match(regex) === null,
-      invalidText: `Provide a unique SSH public key that matches ${regex} and does not exist in the IBM Cloud account in your region`,
-    };
-  }
-
   return (
     <SshKeyForm
       data={{
@@ -106,4 +111,23 @@ const SshKeyFormStory = () => {
   );
 };
 
+const PowerVsSshKeyStory = () => {
+  return (
+    <SshKeyForm
+      data={{
+        name: "PowerVsSshKeyFormTest",
+        resource_group: "rg1",
+        public_key: "test-key",
+        use_data: false,
+        power_vs: true,
+      }}
+      resourceGroups={["rg1", "rg2", "rg3"]}
+      invalidCallback={invalidCallback}
+      invalidTextCallback={invalidTextCallback}
+      invalidKeyCallback={invalidKeyCallback}
+    />
+  );
+}
+
 export const Default = SshKeyFormStory.bind({});
+export const PowerVS = PowerVsSshKeyStory.bind({});
