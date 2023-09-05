@@ -11369,6 +11369,7 @@ class OpaqueIngressSecretForm extends Component {
   }
   render() {
     let composedId = `opaque-ingress-secrets-from-${this.props.data.name}`;
+    let tileClassName = this.props.isModal ? "formInSubForm" : "subForm";
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
       id: composedId + "-name",
       component: "opaque_ingress_secrets",
@@ -11443,8 +11444,8 @@ class OpaqueIngressSecretForm extends Component {
       invalidText: this.props.labelsInvalidText(this.state, this.props),
       helperText: "Enter a comma separated list of tags"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(Tile, {
-      className: "formInSubForm"
-    }, /*#__PURE__*/React.createElement(IcseFormGroup, null, "Arbitrary Secret"), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+      className: tileClassName + " widthOneHundredPercent"
+    }, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement("strong", null, "Arbitrary Secret")), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
       id: composedId + "-arb-secret-name",
       componentName: this.props.data.arbitrary_secret_name,
       labelText: "Name",
@@ -11484,8 +11485,8 @@ class OpaqueIngressSecretForm extends Component {
       size: "md",
       type: labelColors[i % labelColors.length]
     }, label))))), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(Tile, {
-      className: "formInSubForm"
-    }, /*#__PURE__*/React.createElement(IcseFormGroup, null, "Username Password Secret"), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+      className: tileClassName + " widthOneHundredPercent"
+    }, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement("strong", null, "Username Password Secret")), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
       id: composedId + "-username-password-secret-name",
       componentName: this.props.data.username_password_secret_name,
       labelText: "Name",
