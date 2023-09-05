@@ -45,6 +45,7 @@ class PowerVsNetworkForm extends Component {
               this.state,
               this.props,
             )}
+            className="fieldWidth"
           />
           <IcseSelect
             formName={this.props.data.name + "-power-nw"}
@@ -53,6 +54,7 @@ class PowerVsNetworkForm extends Component {
             labelText="Network Type"
             name="pi_network_type"
             handleInputChange={this.handleInputChange}
+            className="fieldWidth"
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -72,6 +74,7 @@ class PowerVsNetworkForm extends Component {
               this.props,
             )}
             onChange={this.handleInputChange}
+            className="fieldWidth"
           />
           <IcseTextInput
             id={this.props.data.name + "-power-nw-dns"}
@@ -88,6 +91,7 @@ class PowerVsNetworkForm extends Component {
               this.props,
             )}
             onChange={this.handleInputChange}
+            className="fieldWidth"
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -96,6 +100,7 @@ class PowerVsNetworkForm extends Component {
             defaultToggled={this.state.pi_network_jumbo}
             labelText="MTU Jumbo"
             onToggle={() => this.handleToggle("pi_network_jumbo")}
+            className="fieldWidth"
           />
         </IcseFormGroup>
       </>

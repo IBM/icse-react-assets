@@ -4820,101 +4820,6 @@ CloudDatabaseForm.propTypes = {
   invalidTextCallback: PropTypes__default["default"].func
 };
 
-class WorkerPoolForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = forms_3(this.props);
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubnetChange = this.handleSubnetChange.bind(this);
-    buildFormFunctions(this);
-  }
-  handleInputChange(event) {
-    this.setState(forms_2(event, this.state));
-  }
-  handleSubnetChange(subnets) {
-    this.setState(forms_1(subnets, this.state));
-  }
-  render() {
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: this.state.name + "-name",
-      componentName: "Worker Pools",
-      onChange: this.handleInputChange,
-      value: this.state.name,
-      className: "fieldWidthSmaller",
-      hideHelperText: true,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props)
-    }), /*#__PURE__*/React__default["default"].createElement(EntitlementSelect, {
-      name: "entitlement",
-      value: this.state.entitlement,
-      handleInputChange: this.handleInputChange,
-      component: this.props.data.name,
-      formName: "Worker Pools"
-    }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
-      name: "flavor",
-      formName: this.props.data.name + "flavor",
-      labelText: "Instance Profile",
-      value: this.state.flavor,
-      apiEndpoint: this.props.flavorApiEndpoint,
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(SubnetMultiSelect, {
-      id: this.props.data.name,
-      disabled: this.props.cluster.vpc === null,
-      vpc_name: this.state.vpc,
-      initialSelectedItems: this.state.subnets,
-      subnets: this.getSubnetList(),
-      onChange: this.handleSubnetChange,
-      component: this.props.data.name,
-      className: "fieldWidthSmaller cds--form-item"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
-      name: "workers_per_subnet",
-      formName: this.props.data.name + "Worker Pools",
-      labelText: "Workers Per Subnet",
-      value: this.state.workers_per_subnet,
-      max: 10,
-      min: 0,
-      handleInputChange: this.handleInputChange,
-      component: this.props.data.name,
-      className: "fieldWidthSmaller"
-    })));
-  }
-}
-WorkerPoolForm.defaultProps = {
-  data: {
-    entitlement: "",
-    flavor: "",
-    name: "",
-    subnets: [],
-    vpc: "",
-    workers_per_subnet: 2
-  },
-  isModal: false
-};
-WorkerPoolForm.propTypes = {
-  subnetList: PropTypes__default["default"].array.isRequired,
-  isModal: PropTypes__default["default"].bool.isRequired,
-  cluster: PropTypes__default["default"].shape({
-    entitlement: PropTypes__default["default"].string,
-    // can be null
-    flavor: PropTypes__default["default"].string.isRequired,
-    vpc: PropTypes__default["default"].string,
-    workers_per_subnet: PropTypes__default["default"].number.isRequired,
-    subnets: PropTypes__default["default"].array.isRequired
-  }),
-  // can be null
-  data: PropTypes__default["default"].shape({
-    entitlement: PropTypes__default["default"].string.isRequired,
-    flavor: PropTypes__default["default"].string.isRequired,
-    name: PropTypes__default["default"].string.isRequired,
-    vpc: PropTypes__default["default"].string,
-    workers_per_subnet: PropTypes__default["default"].number.isRequired,
-    subnets: PropTypes__default["default"].array.isRequired
-  }).isRequired,
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired
-};
-
 const {
   snakeCase
 } = lazyZ__default["default"];
@@ -8684,6 +8589,101 @@ Vsi.propTypes = {
   onVolumeSave: PropTypes__default["default"].func.isRequired,
   onVolumeDelete: PropTypes__default["default"].func.isRequired,
   onVolumeCreate: PropTypes__default["default"].func.isRequired
+};
+
+class WorkerPoolForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = forms_3(this.props);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubnetChange = this.handleSubnetChange.bind(this);
+    buildFormFunctions(this);
+  }
+  handleInputChange(event) {
+    this.setState(forms_2(event, this.state));
+  }
+  handleSubnetChange(subnets) {
+    this.setState(forms_1(subnets, this.state));
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: this.state.name + "-name",
+      componentName: "Worker Pools",
+      onChange: this.handleInputChange,
+      value: this.state.name,
+      className: "fieldWidthSmaller",
+      hideHelperText: true,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(EntitlementSelect, {
+      name: "entitlement",
+      value: this.state.entitlement,
+      handleInputChange: this.handleInputChange,
+      component: this.props.data.name,
+      formName: "Worker Pools"
+    }), /*#__PURE__*/React__default["default"].createElement(FetchSelect, {
+      name: "flavor",
+      formName: this.props.data.name + "flavor",
+      labelText: "Instance Profile",
+      value: this.state.flavor,
+      apiEndpoint: this.props.flavorApiEndpoint,
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(SubnetMultiSelect, {
+      id: this.props.data.name,
+      disabled: this.props.cluster.vpc === null,
+      vpc_name: this.state.vpc,
+      initialSelectedItems: this.state.subnets,
+      subnets: this.getSubnetList(),
+      onChange: this.handleSubnetChange,
+      component: this.props.data.name,
+      className: "fieldWidthSmaller cds--form-item"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
+      name: "workers_per_subnet",
+      formName: this.props.data.name + "Worker Pools",
+      labelText: "Workers Per Subnet",
+      value: this.state.workers_per_subnet,
+      max: 10,
+      min: 0,
+      handleInputChange: this.handleInputChange,
+      component: this.props.data.name,
+      className: "fieldWidthSmaller"
+    })));
+  }
+}
+WorkerPoolForm.defaultProps = {
+  data: {
+    entitlement: "",
+    flavor: "",
+    name: "",
+    subnets: [],
+    vpc: "",
+    workers_per_subnet: 2
+  },
+  isModal: false
+};
+WorkerPoolForm.propTypes = {
+  subnetList: PropTypes__default["default"].array.isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired,
+  cluster: PropTypes__default["default"].shape({
+    entitlement: PropTypes__default["default"].string,
+    // can be null
+    flavor: PropTypes__default["default"].string.isRequired,
+    vpc: PropTypes__default["default"].string,
+    workers_per_subnet: PropTypes__default["default"].number.isRequired,
+    subnets: PropTypes__default["default"].array.isRequired
+  }),
+  // can be null
+  data: PropTypes__default["default"].shape({
+    entitlement: PropTypes__default["default"].string.isRequired,
+    flavor: PropTypes__default["default"].string.isRequired,
+    name: PropTypes__default["default"].string.isRequired,
+    vpc: PropTypes__default["default"].string,
+    workers_per_subnet: PropTypes__default["default"].number.isRequired,
+    subnets: PropTypes__default["default"].array.isRequired
+  }).isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired
 };
 
 const WorkerPools = props => {
@@ -14782,14 +14782,16 @@ class PowerVsNetworkForm extends React.Component {
       onChange: this.handleInputChange,
       hideHelperText: true,
       invalid: this.props.invalidNetworkNameCallback(this.state, this.props),
-      invalidText: this.props.invalidNetworkNameCallbackText(this.state, this.props)
+      invalidText: this.props.invalidNetworkNameCallbackText(this.state, this.props),
+      className: "fieldWidth"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       formName: this.props.data.name + "-power-nw",
       groups: ["vlan", "pub-vlan"],
       value: this.state.pi_network_type,
       labelText: "Network Type",
       name: "pi_network_type",
-      handleInputChange: this.handleInputChange
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidth"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: this.props.data.name + "-power-nw-cidr",
       componentName: this.props.data.name + "-power-nw-cidr",
@@ -14800,7 +14802,8 @@ class PowerVsNetworkForm extends React.Component {
       labelText: "Network CIDR Block",
       invalidCallback: () => this.props.invalidCidrCallback(this.state, this.props),
       invalidText: this.props.invalidCidrCallbackText(this.state, this.props),
-      onChange: this.handleInputChange
+      onChange: this.handleInputChange,
+      className: "fieldWidth"
     }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: this.props.data.name + "-power-nw-dns",
       componentName: this.props.data.name + "-power-nw-dns",
@@ -14810,12 +14813,14 @@ class PowerVsNetworkForm extends React.Component {
       labelText: "DNS Server IP",
       invalidCallback: () => this.props.invalidDnsCallback(this.state, this.props),
       invalidText: this.props.invalidDnsCallbackText(this.state, this.props),
-      onChange: this.handleInputChange
+      onChange: this.handleInputChange,
+      className: "fieldWidth"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
       id: this.props.data.name + "-power-nw-jumbo",
       defaultToggled: this.state.pi_network_jumbo,
       labelText: "MTU Jumbo",
-      onToggle: () => this.handleToggle("pi_network_jumbo")
+      onToggle: () => this.handleToggle("pi_network_jumbo"),
+      className: "fieldWidth"
     })));
   }
 }
