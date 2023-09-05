@@ -1,21 +1,14 @@
-import React from "react";
-import { contains, isWholeNumber } from "lazy-z";
-
-import "./App.css";
-import {
-  CloudDatabaseForm,
-  IcseFormGroup,
-  IcseNameInput,
-  IcseTextInput,
-  IcseSelect,
-  IcseToggle,
-} from "icse-react-assets";
+import React, { Component } from "react";
 import {
   buildFormDefaultInputMethods,
   buildFormFunctions,
-} from "icse-react-assets";
+} from "../../component-utils";
+import { IcseSelect } from "../../Dropdowns";
+import { IcseTextInput, IcseNameInput, IcseToggle } from "../../Inputs";
+import { IcseFormGroup } from "../../Utils";
+import PropTypes from "prop-types";
 
-class PowerVsNetworkForm extends React.Component {
+class PowerVsNetworkForm extends Component {
   constructor(props) {
     super(props);
     this.state = { ...this.props.data };
@@ -40,7 +33,7 @@ class PowerVsNetworkForm extends React.Component {
           <IcseNameInput
             id={this.props.data.name + "-power-nw-name"}
             componentName={this.props.data.name + "-power-nw-name"}
-            placeholder="my-network0name"
+            placeholder="my-network-name"
             value={this.state.name || ""}
             onChange={this.handleInputChange}
             hideHelperText
@@ -52,6 +45,7 @@ class PowerVsNetworkForm extends React.Component {
               this.state,
               this.props,
             )}
+            className="fieldWidth"
           />
           <IcseSelect
             formName={this.props.data.name + "-power-nw"}
@@ -60,6 +54,7 @@ class PowerVsNetworkForm extends React.Component {
             labelText="Network Type"
             name="pi_network_type"
             handleInputChange={this.handleInputChange}
+            className="fieldWidth"
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -79,13 +74,14 @@ class PowerVsNetworkForm extends React.Component {
               this.props,
             )}
             onChange={this.handleInputChange}
+            className="fieldWidth"
           />
           <IcseTextInput
             id={this.props.data.name + "-power-nw-dns"}
             componentName={this.props.data.name + "-power-nw-dns"}
             field="pi_dns"
             value={this.state.pi_dns}
-            placeholder="x.x.x.x"
+            placeholder="127.0.0.1"
             labelText="DNS Server IP"
             invalidCallback={() =>
               this.props.invalidDnsCallback(this.state, this.props)
@@ -95,6 +91,7 @@ class PowerVsNetworkForm extends React.Component {
               this.props,
             )}
             onChange={this.handleInputChange}
+            className="fieldWidth"
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -103,6 +100,7 @@ class PowerVsNetworkForm extends React.Component {
             defaultToggled={this.state.pi_network_jumbo}
             labelText="MTU Jumbo"
             onToggle={() => this.handleToggle("pi_network_jumbo")}
+            className="fieldWidth"
           />
         </IcseFormGroup>
       </>
@@ -110,65 +108,32 @@ class PowerVsNetworkForm extends React.Component {
   }
 }
 
-const App = () => {
-  function validName(str) {
-    // regex name validation that only allows alphanumerical characters and "-", string cannot end with "-"
-    const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
-    if (str) return str.match(regex) !== null;
-    else return false;
-  }
-
-  function invalidCallback(stateData, componentProps) {
-    return (
-      !validName(stateData.name) || contains(["foo", "bar"], stateData.name)
-    );
-  }
-
-  function invalidTextCallback(stateData, componentProps) {
-    return `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
-  }
-
-  function invalidCpuCallback(stateData, componentProps) {
-    return (
-      !isWholeNumber(Number(stateData.cpu)) ||
-      (Number(stateData.cpu) !== 0 && Number(stateData.cpu) < 3) ||
-      Number(stateData.cpu) > 28
-    );
-  }
-
-  function invalidCpuTextCallback(stateData, componentProps) {
-    return `Using dedicated cores requires a minimum of 3 cores and a maximum of 28 cores per member. For shared CPU, select 0 cores.`;
-  }
-
-  return (
-    <>
-      <PowerVsNetworkForm
-        data={{
-          name: "frog",
-          pi_cidr: "1.2.3.4/5",
-          pi_network_type: "vlan",
-          pi_dns: "1.2.3.4",
-        }}
-        invalidNetworkNameCallback={() => {
-          return false;
-        }}
-        invalidNetworkNameCallbackText={() => {
-          return "enter a valid name";
-        }}
-        invalidCidrCallbackText={() => {
-          return "enter a valid CIDR";
-        }}
-        invalidCidrCallback={() => {
-          return false;
-        }}
-        invalidDnsCallback={() => {
-          return false;
-        }}
-        invalidDnsCallbackText={() => {
-          return "enter a valid IP";
-        }}
-      />
-    </>
-  );
+PowerVsNetworkForm.defaultProps = {
+  data: {
+    name: "",
+    pi_network_type: "vlan",
+    pi_cidr: "",
+    pi_dns: "",
+    pi_network_jumbo: false,
+  },
+  isModal: false,
 };
-export default App;
+
+PowerVsNetworkForm.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string,
+    pi_network_type: PropTypes.string.isRequired,
+    pi_cidr: PropTypes.string.isRequired,
+    pi_dns: PropTypes.string.isRequired,
+    pi_network_jumbo: PropTypes.bool.isRequired,
+  }),
+  isModal: PropTypes.bool.isRequired,
+  invalidNetworkNameCallback: PropTypes.func.isRequired,
+  invalidNetworkNameCallbackText: PropTypes.func.isRequired,
+  invalidCidrCallback: PropTypes.func.isRequired,
+  invalidCidrCallbackText: PropTypes.func.isRequired,
+  invalidDnsCallback: PropTypes.func.isRequired,
+  invalidDnsCallbackText: PropTypes.func.isRequired,
+};
+
+export default PowerVsNetworkForm;
