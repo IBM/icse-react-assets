@@ -45,14 +45,14 @@ class SshKeyForm extends Component {
           {/* use data */}
           {!this.props.powerVs && (
             <IcseToggle
-            labelText="Use Existing Instance"
-            key={this.state.use_data}
-            defaultToggled={this.state.use_data}
-            toggleFieldName="use_data"
-            onToggle={this.handleToggle}
-            className="fieldWidthSmallest"
-            id={this.state.name + "-use-existing-instance"}
-          />
+              labelText="Use Existing Instance"
+              key={this.state.use_data}
+              defaultToggled={this.state.use_data}
+              toggleFieldName="use_data"
+              onToggle={this.handleToggle}
+              className="fieldWidthSmallest"
+              id={this.state.name + "-use-existing-instance"}
+            />
           )}
           {/* name */}
           <IcseNameInput

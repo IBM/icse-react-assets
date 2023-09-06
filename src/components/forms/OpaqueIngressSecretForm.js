@@ -142,7 +142,7 @@ class OpaqueIngressSecretForm extends Component {
             }
             invalidText={this.props.secretsManagerGroupCallbackText(
               this.state,
-              this.props
+              this.props,
             )}
             className="fieldWidthSmaller"
             field="secrets_group"
@@ -190,7 +190,7 @@ class OpaqueIngressSecretForm extends Component {
                 }
                 invalidText={this.props.secretCallbackText(
                   this.state,
-                  this.props
+                  this.props,
                 )}
                 field="arbitrary_secret_name"
                 className="fieldWidth"
@@ -207,7 +207,7 @@ class OpaqueIngressSecretForm extends Component {
                 }
                 invalidText={this.props.descriptionInvalidText(
                   this.state,
-                  this.props
+                  this.props,
                 )}
                 field="arbitrary_secret_description"
                 className="fieldWidth"
@@ -226,7 +226,7 @@ class OpaqueIngressSecretForm extends Component {
                 }
                 invalidText={this.props.descriptionInvalidText(
                   this.state,
-                  this.props
+                  this.props,
                 )}
                 field="arbitrary_secret_data"
                 className="fieldWidth"
@@ -263,7 +263,7 @@ class OpaqueIngressSecretForm extends Component {
                 }
                 invalidText={this.props.secretCallbackText(
                   this.state,
-                  this.props
+                  this.props,
                 )}
                 field="username_password_secret_name"
                 className="fieldWidth"
@@ -282,7 +282,7 @@ class OpaqueIngressSecretForm extends Component {
                 }
                 invalidText={this.props.descriptionInvalidText(
                   this.state,
-                  this.props
+                  this.props,
                 )}
                 field="username_password_secret_description"
                 className="fieldWidth"
@@ -303,7 +303,7 @@ class OpaqueIngressSecretForm extends Component {
                 }
                 invalidText={this.props.descriptionInvalidText(
                   this.state,
-                  this.props
+                  this.props,
                 )}
                 field="username_password_secret_username"
                 className="fieldWidth"
@@ -322,7 +322,7 @@ class OpaqueIngressSecretForm extends Component {
                 }
                 invalidText={this.props.descriptionInvalidText(
                   this.state,
-                  this.props
+                  this.props,
                 )}
                 field="username_password_secret_password"
                 className="fieldWidth"

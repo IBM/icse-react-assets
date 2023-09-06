@@ -1,25 +1,16 @@
 import React from "react";
-
-import "./App.css";
-import {
-  IcseFormGroup,
-  IcseHeading,
-  IcseMultiSelect,
-  SaveAddButton,
-  buildFormDefaultInputMethods,
-  buildFormFunctions,
-  StatelessToggleForm,
-} from "icse-react-assets";
-import { getObjectFromArray } from "lazy-z";
 import { Network_3 } from "@carbon/icons-react";
+import { getObjectFromArray } from "lazy-z";
 import PropTypes from "prop-types";
+import { IcseFormGroup, StatelessToggleForm } from "../../Utils";
+import { SaveAddButton } from "../../Buttons";
+import { IcseMultiSelect } from "../../MultiSelects";
+import "./power-attachment.css";
 
 class PowerVsNetworkAttachmentForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = { attachments: [...this.props.data], hide: true };
-    buildFormDefaultInputMethods(this);
-    buildFormFunctions(this);
     this.handleSave = this.handleSave.bind(this);
     this.handleMultiselectChange = this.handleMultiselectChange.bind(this);
     this.toggleHide = this.toggleHide.bind(this);
@@ -43,7 +34,7 @@ class PowerVsNetworkAttachmentForm extends React.Component {
   render() {
     return (
       <StatelessToggleForm
-        id={this.props.parentName + "-network-attachments"}
+        id={this.props.workspace + "-network-attachments"}
         name="Network Attachments"
         hide={this.state.hide}
         onIconClick={this.toggleHide}
@@ -63,13 +54,8 @@ class PowerVsNetworkAttachmentForm extends React.Component {
         <div className="formInSubForm secretChecklistMargin">
           {this.props.networks.map((nw) => (
             <IcseFormGroup className="marginBottomSmall" key={nw}>
-              <div
-                className="displayFlex fieldWidth"
-                style={{ marginTop: "1.75rem" }}
-              >
-                <Network_3
-                  style={{ marginRight: "1rem", marginTop: ".30rem" }}
-                />
+              <div className="displayFlex fieldWidth network-div">
+                <Network_3 className="network-icon" />
                 <p>{nw}</p>
               </div>
               <IcseMultiSelect
@@ -105,35 +91,6 @@ PowerVsNetworkAttachmentForm.propTypes = {
   workspace: PropTypes.string.isRequired,
 };
 
-const App = () => {
-  return (
-    <div className="subForm">
-      <PowerVsNetworkAttachmentForm
-        networks={["example-1", "example-2", "example-3"]}
-        cloudConnections={["connection-1", "connection-2", "connection-3"]}
-        data={[
-          {
-            network: "example-1",
-            connections: ["connection-1"],
-          },
-          {
-            network: "example-2",
-            connections: ["connection-1", "connection-3"],
-          },
-          {
-            network: "example-3",
-            connections: ["connection-1", "connection-2", "connection-3"],
-          },
-        ]}
-        propsMatchState={(stateData, componentProps) => {
-          return true;
-        }}
-        onSave={() => {
-          alert("ding");
-        }}
-        workspace="example"
-      />
-    </div>
-  );
-};
-export default App;
+// no default props needed here as this form will not be rendered in a modal
+
+export default PowerVsNetworkAttachmentForm;
