@@ -15,6 +15,7 @@ import {
 import { SubnetMultiSelect } from "../MultiSelects";
 import PropTypes from "prop-types";
 import { WorkerPools } from "../crud-form-pages";
+import { OpaqueIngressSecret } from "../crud-form-pages/OpaqueIngressSecret";
 
 class ClusterForm extends Component {
   constructor(props) {
@@ -248,6 +249,26 @@ class ClusterForm extends Component {
           flavorApiEndpoint={this.props.flavorApiEndpoint}
           isModal={this.props.isModal}
         />
+        <OpaqueIngressSecret
+          opaque_secrets={this.props.data.opaque_secrets}
+          disableSave={this.props.opaqueIngressSecretProps.disableSave}
+          onDelete={this.props.opaqueIngressSecretProps.onDelete}
+          onSave={this.props.opaqueIngressSecretProps.onSave}
+          onSubmit={this.props.opaqueIngressSecretProps.onSubmit}
+          propsMatchState={this.props.propsMatchState}
+          secretsManagerList={this.props.secretsManagerList}
+          secretsManagerGroupCallback={this.props.secretsManagerGroupCallback}
+          secretsManagerGroupCallbackText={
+            this.props.secretsManagerGroupCallbackText
+          }
+          secretCallback={this.props.secretCallback}
+          secretCallbackText={this.props.secretCallbackText}
+          descriptionInvalid={this.props.descriptionInvalid}
+          descriptionInvalidText={this.props.descriptionInvalidText}
+          labelsInvalid={this.props.labelsInvalid}
+          labelsInvalidText={this.props.labelsInvalidText}
+          craig={this.props.craig}
+        />
       </>
     );
   }
@@ -268,6 +289,7 @@ ClusterForm.defaultProps = {
     kube_version: "",
     update_all_workers: false,
     worker_pools: [],
+    opaque_secrets: [],
   },
   resourceGroups: [],
   encryptionKeys: [],
@@ -292,6 +314,7 @@ ClusterForm.propTypes = {
     flavor: PropTypes.string.isRequired,
     update_all_workers: PropTypes.bool.isRequired,
     worker_pools: PropTypes.array.isRequired,
+    opaque_secrets: PropTypes.array.isRequired,
   }),
   /* bools */
   isModal: PropTypes.bool.isRequired,
@@ -301,6 +324,7 @@ ClusterForm.propTypes = {
   cosNames: PropTypes.arrayOf(PropTypes.string),
   vpcList: PropTypes.arrayOf(PropTypes.string),
   subnetList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  secretsManagerList: PropTypes.arrayOf(PropTypes.string).isRequired,
   /* api endpoints */
   kubeVersionApiEndpoint: PropTypes.string.isRequired,
   flavorApiEndpoint: PropTypes.string.isRequired,
@@ -310,8 +334,22 @@ ClusterForm.propTypes = {
   helperTextCallback: PropTypes.func,
   invalidPoolCallback: PropTypes.func,
   invalidPoolTextCallback: PropTypes.func,
+  secretsManagerGroupCallback: PropTypes.func,
+  secretsManagerGroupCallbackText: PropTypes.func,
+  secretCallback: PropTypes.func,
+  secretCallbackText: PropTypes.func,
+  descriptionInvalid: PropTypes.func,
+  descriptionInvalidText: PropTypes.func,
+  labelsInvalid: PropTypes.func,
+  labelsInvalidText: PropTypes.func,
   /* forms */
   workerPoolProps: PropTypes.shape({
+    onSave: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    disableSave: PropTypes.func.isRequired,
+  }).isRequired,
+  opaqueIngressSecretProps: PropTypes.shape({
     onSave: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
