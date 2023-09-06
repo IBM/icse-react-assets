@@ -127,7 +127,7 @@ const PowerVsSshKeyStory = () => {
       invalidKeyCallback={invalidKeyCallback}
     />
   );
-}
+};
 
 export const Default = SshKeyFormStory.bind({});
 export const PowerVS = PowerVsSshKeyStory.bind({});
