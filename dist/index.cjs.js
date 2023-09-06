@@ -11870,7 +11870,8 @@ class ClusterForm extends React.Component {
       descriptionInvalidText: this.props.descriptionInvalidText,
       labelsInvalid: this.props.labelsInvalid,
       labelsInvalidText: this.props.labelsInvalidText,
-      craig: this.props.craig
+      craig: this.props.craig,
+      isModal: this.props.isModal
     }));
   }
 }
