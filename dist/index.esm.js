@@ -15301,7 +15301,7 @@ class PowerVsNetworkAttachmentForm extends React.Component {
       id: "power-connections-" + nw,
       className: "fieldWidth",
       initialSelectedItems: getObjectFromArray(this.state.attachments, "network", nw).connections,
-      onChange: items => this.handleMultiselectChange(nw, items)
+      onChange: items => this.handleMultiselectChange(nw, items.selectedItems)
     })))));
   }
 }

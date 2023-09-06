@@ -67,7 +67,9 @@ class PowerVsNetworkAttachmentForm extends React.Component {
                   getObjectFromArray(this.state.attachments, "network", nw)
                     .connections
                 }
-                onChange={(items) => this.handleMultiselectChange(nw, items)}
+                onChange={(items) =>
+                  this.handleMultiselectChange(nw, items.selectedItems)
+                }
               />
             </IcseFormGroup>
           ))}

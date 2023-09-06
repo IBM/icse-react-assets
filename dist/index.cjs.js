@@ -15312,7 +15312,7 @@ class PowerVsNetworkAttachmentForm extends React__default["default"].Component {
       id: "power-connections-" + nw,
       className: "fieldWidth",
       initialSelectedItems: lazyZ.getObjectFromArray(this.state.attachments, "network", nw).connections,
-      onChange: items => this.handleMultiselectChange(nw, items)
+      onChange: items => this.handleMultiselectChange(nw, items.selectedItems)
     })))));
   }
 }
