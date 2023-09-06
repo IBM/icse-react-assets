@@ -160,6 +160,85 @@ export default {
       type: { required: true }, // required prop or not
       control: "none",
     },
+    opaqueIngressSecretProps: {
+      description: "Pass through props for opaque secrets form",
+      type: { required: true },
+      control: "none",
+    },
+    "opaqueIngressSecretProps.onSubmit": {
+      description:
+        "A function that defines what occurs when a modal is submitted",
+      type: { required: true },
+    },
+    "opaqueIngressSecretProps.onSave": {
+      description: "A function that defines what occurs when the form is saved",
+      type: { required: true },
+    },
+    "opaqueIngressSecretProps.onDelete": {
+      description:
+        "A function that defines what occurs when the resource is deleted",
+      type: { required: true },
+    },
+    "opaqueIngressSecretProps.disableSave": {
+      description:
+        "A function that returns a single boolean describing whether the save button should be disabled",
+      type: { required: true },
+      control: "none",
+    },
+    secretsManagerList: {
+      description:
+        "An array of strings representing secrets manager instance names",
+      type: { required: true },
+      control: "none",
+    },
+    secretsManagerGroupCallback: {
+      description:
+        "A function to determine if the value supplied to group name is invalid and returns a single boolean",
+      type: { required: false }, // required prop or not
+      control: "none",
+    },
+    secretsManagerGroupCallbackText: {
+      description:
+        "A function to determine the invalid text displayed to the user and returns the string to display",
+      type: { required: false }, // required prop or not
+      control: "none",
+    },
+    secretCallback: {
+      description:
+        "A function to determine if the value supplied to secret name is invalid and returns a single boolean",
+      type: { required: false }, // required prop or not
+      control: "none",
+    },
+    secretCallbackText: {
+      description:
+        "A function to determine the invalid text displayed to the user and returns the string to display",
+      type: { required: false }, // required prop or not
+      control: "none",
+    },
+    descriptionInvalid: {
+      description:
+        "A function to determine if the value supplied to description is invalid and returns a single boolean",
+      type: { required: false }, // required prop or not
+      control: "none",
+    },
+    descriptionInvalidText: {
+      description:
+        "A function to determine the invalid text displayed to the user and returns the string to display",
+      type: { required: false }, // required prop or not
+      control: "none",
+    },
+    labelInvalid: {
+      description:
+        "A function to determine if the value supplied to labels is invalid and returns a single boolean",
+      type: { required: false }, // required prop or not
+      control: "none",
+    },
+    labelsInvalidText: {
+      description:
+        "A function to determine the invalid text displayed to the user and returns the string to display",
+      type: { required: false }, // required prop or not
+      control: "none",
+    },
   },
   parameters: {
     docs: {
@@ -219,6 +298,14 @@ const ClusterFormStory = () => {
             workers_per_subnet: 2,
           },
         ],
+        opaque_secrets: [
+          {
+            labels: ["hello", "world"],
+            name: "test-secret",
+            interval: 1,
+            auto_rotate: false,
+          },
+        ],
       }}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
@@ -271,6 +358,21 @@ const ClusterFormStory = () => {
       }}
       invalidPoolCallback={invalidCallback}
       invalidPoolTextCallback={invalidTextCallback}
+      opaqueIngressSecretProps={{
+        onSave: () => {},
+        onDelete: () => {},
+        onSubmit: () => {},
+        disableSave: () => {},
+      }}
+      secretsManagerList={["sm1", "sm2", "sm3"]}
+      secretsManagerGroupCallback={invalidCallback}
+      secretsManagerGroupCallbackText={invalidTextCallback}
+      secretCallback={invalidCallback}
+      secretCallbackText={invalidTextCallback}
+      descriptionInvalid={invalidCallback}
+      descriptionInvalidText={invalidTextCallback}
+      labelsInvalid={invalidCallback}
+      labelsInvalidText={invalidTextCallback}
     />
   );
 };
