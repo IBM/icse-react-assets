@@ -14853,6 +14853,115 @@ PowerVsNetworkForm.propTypes = {
   invalidDnsCallbackText: PropTypes__default["default"].func.isRequired
 };
 
+class PowerVsCloudConnectionForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
+  }
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  handleToggle(name) {
+    this.setState(this.toggleStateBoolean(name, this.state));
+  }
+
+  /**
+  * handle multiselect change
+  * @param {string} name key to change in the instance
+  * @param {*} value value
+  */
+  handleMultiSelectChange(name, value) {
+    this.setState(this.setNameToValue(name, value));
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: this.props.data.name + "-cloud-connect-name",
+      componentName: this.props.data.name + "-cloud-connect-name",
+      value: this.state.name || "",
+      onChange: this.handleInputChange,
+      invalidText: this.props.invalidText,
+      invalidTextCallback: this.props.invalidTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(IcseNumberSelect, {
+      formName: this.props.data.name + "-cloud-connect-speed",
+      groups: [50, 100, 200, 500, 1000, 2000, 5000, 10000],
+      value: this.state.pi_cloud_connection_speed,
+      labelText: "Connection Speed",
+      name: "pi_cloud_connection_speed",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidth"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      id: this.props.data.name + "-cloud-connect-global-routing",
+      defaultToggled: this.state.pi_cloud_connection_global_routing,
+      labelText: "Enable Global Routing",
+      onToggle: () => this.handleToggle("pi_cloud_connection_global_routing"),
+      className: "fieldWidth"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      id: this.props.data.name + "-cloud-connect-metered",
+      defaultToggled: this.state.pi_cloud_connection_metered,
+      labelText: "Enable Metered Connection",
+      onToggle: () => this.handleToggle("pi_cloud_connection_metered"),
+      className: "fieldWidth"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      id: this.props.data.name + "-cloud-connect-transit-enabled",
+      defaultToggled: this.state.pi_cloud_connection_transit_enabled,
+      labelText: "Enable Transit Gateway",
+      onToggle: () => this.handleToggle("pi_cloud_connection_transit_enabled"),
+      className: "fieldWidth"
+    })), this.state.pi_cloud_connection_transit_enabled && /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: this.props.data.name + "-cloud-connect-transit-gw",
+      groups: this.props.transitGatewayList,
+      value: this.state.transit_gateways,
+      labelText: "Transit Gateways"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+      className: "fieldWidthSmaller",
+      id: this.props.data.name + "-cloud-connect-transit-gw",
+      titleText: "Transit Gateways",
+      items: this.props.transitGatewayList,
+      onChange: value => {
+        this.handleMultiSelectChange("transit_gateways", value);
+      },
+      initialSelectedItems: this.state.transit_gateways,
+      invalid: this.state.transit_gateways.length === 0,
+      invalidText: "Select at least one transit gateway"
+    })));
+  }
+}
+PowerVsCloudConnectionForm.defaultProps = {
+  data: {
+    name: "",
+    pi_cloud_connection_speed: null,
+    //[50, 100, 200, 500, 1000, 2000, 5000, 10000],
+    pi_cloud_connection_global_routing: false,
+    pi_cloud_connection_metered: false,
+    pi_cloud_connection_transit_enabled: false,
+    transit_gateways: []
+  },
+  isModal: false,
+  transitGatewayList: [],
+  invalidText: "Invalid Text"
+};
+PowerVsCloudConnectionForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    pi_cloud_connection_speed: PropTypes__default["default"].number,
+    pi_cloud_connection_global_routing: PropTypes__default["default"].bool.isRequired,
+    pi_cloud_connection_metered: PropTypes__default["default"].bool.isRequired,
+    pi_cloud_connection_transit_enabled: PropTypes__default["default"].bool.isRequired,
+    transit_gateways: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string)
+  }),
+  isModal: PropTypes__default["default"].bool.isRequired,
+  transitGatewayList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string),
+  invalidText: PropTypes__default["default"].string.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired
+};
+
 exports.AccessGroupDynamicPolicyForm = AccessGroupDynamicPolicyForm;
 exports.AccessGroupForm = AccessGroupForm;
 exports.AccessGroupPolicyForm = AccessGroupPolicyForm;
@@ -14922,6 +15031,7 @@ exports.ObjectStorageKeyForm = ObjectStorageKeyForm;
 exports.ObjectStorageTemplate = ObjectStorage;
 exports.OrderCardDataTable = OrderCardDataTable;
 exports.PopoverWrapper = PopoverWrapper;
+exports.PowerVsCloudConnectionForm = PowerVsCloudConnectionForm;
 exports.PowerVsNetworkForm = PowerVsNetworkForm;
 exports.RenderForm = RenderForm;
 exports.ResourceGroupForm = ResourceGroupForm;
