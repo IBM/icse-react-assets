@@ -6,169 +6,144 @@ import {
   CloudDatabaseForm,
   IcseFormGroup,
   IcseNameInput,
+  IcseMultiSelect,
   IcseTextInput,
   IcseSelect,
   IcseToggle,
+  IcseNumberSelect,
 } from "icse-react-assets";
 import {
   buildFormDefaultInputMethods,
   buildFormFunctions,
 } from "icse-react-assets";
 
-class PowerVsNetworkForm extends React.Component {
+class PowerVsCloudConnectionForm extends React.Component {
   constructor(props) {
-    super(props);
-    this.state = { ...this.props.data };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
-    buildFormDefaultInputMethods(this);
-    buildFormFunctions(this);
+      super(props);
+      this.state = { ...this.props.data };
+      this.handleInputChange = this.handleInputChange.bind(this);
+      this.handleToggle = this.handleToggle.bind(this);
+      this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
+      buildFormDefaultInputMethods(this);
+      buildFormFunctions(this);
   }
 
   handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
+      this.setState(this.eventTargetToNameAndValue(event));
+  }
+  
+  handleToggle(name) {
+      this.setState(this.toggleStateBoolean(name, this.state));
   }
 
-  handleToggle(name) {
-    this.setState(this.toggleStateBoolean(name, this.state));
+  /**
+ * handle multiselect change
+ * @param {string} name key to change in the instance
+ * @param {*} value value
+ */
+  handleMultiSelectChange(name, value) {
+      this.setState(this.setNameToValue(name, value));
   }
 
   render() {
-    return (
-      <>
-        <IcseFormGroup>
-          <IcseNameInput
-            id={this.props.data.name + "-power-nw-name"}
-            componentName={this.props.data.name + "-power-nw-name"}
-            placeholder="my-network0name"
-            value={this.state.name || ""}
-            onChange={this.handleInputChange}
-            hideHelperText
-            invalid={this.props.invalidNetworkNameCallback(
-              this.state,
-              this.props,
-            )}
-            invalidText={this.props.invalidNetworkNameCallbackText(
-              this.state,
-              this.props,
-            )}
-          />
-          <IcseSelect
-            formName={this.props.data.name + "-power-nw"}
-            groups={["vlan", "pub-vlan"]}
-            value={this.state.pi_network_type}
-            labelText="Network Type"
-            name="pi_network_type"
-            handleInputChange={this.handleInputChange}
-          />
-        </IcseFormGroup>
-        <IcseFormGroup>
-          <IcseTextInput
-            id={this.props.data.name + "-power-nw-cidr"}
-            componentName={this.props.data.name + "-power-nw-cidr"}
-            name="client_ip_pool"
-            field="pi_cidr"
-            value={this.state.pi_cidr}
-            placeholder="x.x.x.x/x"
-            labelText="Network CIDR Block"
-            invalidCallback={() =>
-              this.props.invalidCidrCallback(this.state, this.props)
-            }
-            invalidText={this.props.invalidCidrCallbackText(
-              this.state,
-              this.props,
-            )}
-            onChange={this.handleInputChange}
-          />
-          <IcseTextInput
-            id={this.props.data.name + "-power-nw-dns"}
-            componentName={this.props.data.name + "-power-nw-dns"}
-            field="pi_dns"
-            value={this.state.pi_dns}
-            placeholder="x.x.x.x"
-            labelText="DNS Server IP"
-            invalidCallback={() =>
-              this.props.invalidDnsCallback(this.state, this.props)
-            }
-            invalidText={this.props.invalidDnsCallbackText(
-              this.state,
-              this.props,
-            )}
-            onChange={this.handleInputChange}
-          />
-        </IcseFormGroup>
-        <IcseFormGroup>
-          <IcseToggle
-            id={this.props.data.name + "-power-nw-jumbo"}
-            defaultToggled={this.state.pi_network_jumbo}
-            labelText="MTU Jumbo"
-            onToggle={() => this.handleToggle("pi_network_jumbo")}
-          />
-        </IcseFormGroup>
-      </>
-    );
+      return (
+          <>
+              <IcseFormGroup>
+                  <IcseNameInput
+                      id={this.props.data.name + "-cloud-connect-name"}
+                      componentName={this.props.data.name + "-cloud-connect-name"}
+                      value={this.state.name || ""}
+                      onChange={this.handleInputChange}
+                      hideHelperText
+                      invalid={this.props.invalidCallback(this.state, this.props)}
+                      invalidText={this.props.invalidTextCallback(this.state, this.props)}
+                  />
+                  <IcseSelect
+                      formName={this.props.data.name + "-cloud-connect-speed"}
+                      groups={[50, 100, 200, 500, 1000, 2000, 5000, 10000]}
+                      value={this.state.pi_cloud_connection_speed}
+                      labelText="Connection Speed"
+                      name="pi_cloud_connection_speed"
+                      handleInputChange={this.handleInputChange}
+                      className="fieldWidth"
+                  />
+
+              </IcseFormGroup>
+              <IcseFormGroup>
+                  <IcseToggle
+                      id={this.props.data.name + "-cloud-connect-global-routing"}
+                      defaultToggled={this.state.pi_cloud_connection_global_routing}
+                      labelText="Enable Global Routing"
+                      onToggle={() => this.handleToggle("pi_cloud_connection_global_routing")}
+                      className="fieldWidth"
+                  />
+                  <IcseToggle
+                      id={this.props.data.name + "-cloud-connect-metered"}
+                      defaultToggled={this.state.pi_cloud_connection_metered}
+                      labelText="Enable Metered Connection"
+                      onToggle={() => this.handleToggle("pi_cloud_connection_metered")}
+                      className="fieldWidth"
+                  />
+                  <IcseToggle
+                      id={this.props.data.name + "-cloud-connect-transit-enabled"}
+                      defaultToggled={this.state.pi_cloud_connection_transit_enabled}
+                      labelText="Enable Transit Gateway"
+                      onToggle={() => this.handleToggle("pi_cloud_connection_transit_enabled")}
+                      className="fieldWidth"
+                  />
+              </IcseFormGroup>
+              {this.state.pi_cloud_connection_transit_enabled && (
+                  <IcseFormGroup>
+                      <IcseMultiSelect
+                          className="fieldWidthSmaller"
+                          id={this.props.data.name + "-cloud-connect-transit-gw"}
+                          titleText="Transit Gateways"
+                          items={this.props.transitGatewayList}
+                          onChange={(value) => {
+                              this.handleMultiSelectChange("transit_gateways", value.selectedItems);
+                          }}
+                          initialSelectedItems={this.state.transit_gateways}
+                          invalid={this.state.transit_gateways.length === 0}
+                          invalidText="Select at least one transit gateway"
+                      />
+                  </IcseFormGroup>
+              )}
+          </>
+      );
   }
 }
 
 const App = () => {
   function validName(str) {
-    // regex name validation that only allows alphanumerical characters and "-", string cannot end with "-"
     const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
     if (str) return str.match(regex) !== null;
     else return false;
   }
-
   function invalidCallback(stateData, componentProps) {
     return (
       !validName(stateData.name) || contains(["foo", "bar"], stateData.name)
     );
   }
-
   function invalidTextCallback(stateData, componentProps) {
-    return `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
+      return contains(["foo", "bar"], stateData.name)
+        ? `Name ${stateData.name} already in use.`
+        : componentProps.invalidText;//`Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
   }
-
-  function invalidCpuCallback(stateData, componentProps) {
-    return (
-      !isWholeNumber(Number(stateData.cpu)) ||
-      (Number(stateData.cpu) !== 0 && Number(stateData.cpu) < 3) ||
-      Number(stateData.cpu) > 28
-    );
-  }
-
-  function invalidCpuTextCallback(stateData, componentProps) {
-    return `Using dedicated cores requires a minimum of 3 cores and a maximum of 28 cores per member. For shared CPU, select 0 cores.`;
-  }
-
   return (
-    <>
-      <PowerVsNetworkForm
-        data={{
-          name: "frog",
-          pi_cidr: "1.2.3.4/5",
-          pi_network_type: "vlan",
-          pi_dns: "1.2.3.4",
-        }}
-        invalidNetworkNameCallback={() => {
-          return false;
-        }}
-        invalidNetworkNameCallbackText={() => {
-          return "enter a valid name";
-        }}
-        invalidCidrCallbackText={() => {
-          return "enter a valid CIDR";
-        }}
-        invalidCidrCallback={() => {
-          return false;
-        }}
-        invalidDnsCallback={() => {
-          return false;
-        }}
-        invalidDnsCallbackText={() => {
-          return "enter a valid IP";
-        }}
+      <PowerVsCloudConnectionForm
+          data={{
+              name: "frog",
+              pi_cloud_connection_speed: 50,
+              pi_cloud_connection_global_routing: true,
+              pi_cloud_connection_metered: true,
+              pi_cloud_connection_transit_enabled: true,
+              transit_gateways: ["transit_gateway_1", "transit_gateway_3"],
+          }}
+          transitGatewayList={["transit_gateway_1", "transit_gateway_2", "transit_gateway_3"]}
+          invalidText={"Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i"}
+          invalidCallback={invalidCallback}
+          invalidTextCallback={invalidTextCallback}
       />
-    </>
   );
 };
 export default App;

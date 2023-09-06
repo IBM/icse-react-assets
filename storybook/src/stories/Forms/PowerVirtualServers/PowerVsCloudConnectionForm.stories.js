@@ -46,13 +46,13 @@ export default {
             type: { required: true },
             control: "none",
         },
-        invalidText: {
-            description: "A string describing the text to display when name is invalid",
+        invalidCallback: {
+            description: "Function that determines the invalid state for the `name` field",
             type: { required: true },
             control: "none",
         },
         invalidTextCallback: {
-            description: "Function that determines the invalid state for the `name` field",
+            description: "Function that determines the invalid text for the `name` field",
             type: { required: true },
             control: "none",
         },
@@ -73,11 +73,16 @@ const PowerVsCloudConnectionFormStory = () => {
         if (str) return str.match(regex) !== null;
         else return false;
     }
+    function invalidCallback(stateData, componentProps) {
+        return (
+          !validName(stateData.name) || contains(["foo", "bar"], stateData.name)
+        );
+      }
     function invalidTextCallback(stateData, componentProps) {
-        return !validName(stateData.name) || contains(["foo", "bar"], stateData.name)
+        return contains(["foo", "bar"], stateData.name)
           ? `Name ${stateData.name} already in use.`
-          : componentProps.invalidText;//`Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
-    }
+          : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
+      }
     return (
         <PowerVsCloudConnectionForm
             data={{
@@ -89,7 +94,7 @@ const PowerVsCloudConnectionFormStory = () => {
                 transit_gateways: ["transit_gateway_1", "transit_gateway_3"],
             }}
             transitGatewayList={["transit_gateway_1", "transit_gateway_2", "transit_gateway_3"]}
-            invalidText={"Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i"}
+            invalidCallback={invalidCallback}
             invalidTextCallback={invalidTextCallback}
         />
     );

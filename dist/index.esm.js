@@ -14875,9 +14875,10 @@ class PowerVsCloudConnectionForm extends Component {
       componentName: this.props.data.name + "-cloud-connect-name",
       value: this.state.name || "",
       onChange: this.handleInputChange,
-      invalidText: this.props.invalidText,
-      invalidTextCallback: this.props.invalidTextCallback(this.state, this.props)
-    }), /*#__PURE__*/React.createElement(IcseNumberSelect, {
+      hideHelperText: true,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
       formName: this.props.data.name + "-cloud-connect-speed",
       groups: [50, 100, 200, 500, 1000, 2000, 5000, 10000],
       value: this.state.pi_cloud_connection_speed,
@@ -14903,18 +14904,13 @@ class PowerVsCloudConnectionForm extends Component {
       labelText: "Enable Transit Gateway",
       onToggle: () => this.handleToggle("pi_cloud_connection_transit_enabled"),
       className: "fieldWidth"
-    })), this.state.pi_cloud_connection_transit_enabled && /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
-      formName: this.props.data.name + "-cloud-connect-transit-gw",
-      groups: this.props.transitGatewayList,
-      value: this.state.transit_gateways,
-      labelText: "Transit Gateways"
-    }), /*#__PURE__*/React.createElement(IcseMultiSelect, {
+    })), this.state.pi_cloud_connection_transit_enabled && /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseMultiSelect, {
       className: "fieldWidthSmaller",
       id: this.props.data.name + "-cloud-connect-transit-gw",
       titleText: "Transit Gateways",
       items: this.props.transitGatewayList,
       onChange: value => {
-        this.handleMultiSelectChange("transit_gateways", value);
+        this.handleMultiSelectChange("transit_gateways", value.selectedItems);
       },
       initialSelectedItems: this.state.transit_gateways,
       invalid: this.state.transit_gateways.length === 0,
@@ -14933,8 +14929,7 @@ PowerVsCloudConnectionForm.defaultProps = {
     transit_gateways: []
   },
   isModal: false,
-  transitGatewayList: [],
-  invalidText: "Invalid Text"
+  transitGatewayList: []
 };
 PowerVsCloudConnectionForm.propTypes = {
   data: PropTypes.shape({
@@ -14947,7 +14942,7 @@ PowerVsCloudConnectionForm.propTypes = {
   }),
   isModal: PropTypes.bool.isRequired,
   transitGatewayList: PropTypes.arrayOf(PropTypes.string),
-  invalidText: PropTypes.string.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired
 };
 
