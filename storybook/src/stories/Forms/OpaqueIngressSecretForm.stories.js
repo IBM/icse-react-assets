@@ -209,4 +209,39 @@ const OpaqueIngressSecretFormStory = () => {
   );
 };
 
+const OpaqueIngressModalSecretFormStory = () => {
+  function validName(str) {
+    const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/s;
+    if (str) return str.match(regex) !== null;
+    else return false;
+  }
+
+  function invalidCallback(stateData, componentProps) {
+    return !validName(stateData.name);
+  }
+
+  function invalidTextCallback(stateData, componentProps) {
+    return contains(["foo", "bar"], stateData.name)
+      ? `Cluster name ${stateData.name} already in use.`
+      : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
+  }
+
+  return (
+    <OpaqueIngressSecretForm
+      data={{ labels: ["hello", "world"], interval: 1, name: "test-name" }}
+      secretsManagerList={["sm1", "sm2", "sm3"]}
+      secretsManagerGroupCallback={invalidCallback}
+      secretsManagerGroupCallbackText={invalidTextCallback}
+      secretCallback={invalidCallback}
+      secretCallbackText={invalidTextCallback}
+      descriptionInvalid={invalidCallback}
+      descriptionInvalidText={invalidTextCallback}
+      labelsInvalid={invalidCallback}
+      labelsInvalidText={invalidTextCallback}
+      isModal
+    />
+  );
+};
+
 export const Default = OpaqueIngressSecretFormStory.bind({});
+export const Modal = OpaqueIngressModalSecretFormStory.bind({});
