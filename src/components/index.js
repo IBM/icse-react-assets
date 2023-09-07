@@ -133,4 +133,5 @@ export { F5BigIp as F5BigIpPage } from "./toggle-form-pages";
 export {
   PowerVsNetworkForm,
   PowerVsCloudConnectionForm,
+  PowerVsNetworkAttachmentForm,
 } from "./forms/power-vs";

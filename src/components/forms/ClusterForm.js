@@ -268,6 +268,7 @@ class ClusterForm extends Component {
           labelsInvalid={this.props.labelsInvalid}
           labelsInvalidText={this.props.labelsInvalidText}
           craig={this.props.craig}
+          isModal={this.props.isModal}
         />
       </>
     );

@@ -86,7 +86,7 @@ class PowerVsCloudConnectionForm extends Component {
             }
             className="fieldWidth"
           />
-        {this.state.pi_cloud_connection_transit_enabled && (
+          {this.state.pi_cloud_connection_transit_enabled && (
             <IcseMultiSelect
               className="fieldWidthSmaller"
               id={this.props.data.name + "-cloud-connect-transit-gw"}
@@ -102,9 +102,8 @@ class PowerVsCloudConnectionForm extends Component {
               invalid={this.state.transit_gateways.length === 0}
               invalidText="Select at least one transit gateway"
             />
-        )}          
+          )}
         </IcseFormGroup>
-
       </>
     );
   }
