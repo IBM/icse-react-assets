@@ -59,8 +59,6 @@ class PowerVsCloudConnectionForm extends Component {
             handleInputChange={this.handleInputChange}
             className="fieldWidth"
           />
-        </IcseFormGroup>
-        <IcseFormGroup>
           <IcseToggle
             id={this.props.data.name + "-cloud-connect-global-routing"}
             defaultToggled={this.state.pi_cloud_connection_global_routing}
@@ -70,6 +68,8 @@ class PowerVsCloudConnectionForm extends Component {
             }
             className="fieldWidth"
           />
+        </IcseFormGroup>
+        <IcseFormGroup>
           <IcseToggle
             id={this.props.data.name + "-cloud-connect-metered"}
             defaultToggled={this.state.pi_cloud_connection_metered}
@@ -86,9 +86,7 @@ class PowerVsCloudConnectionForm extends Component {
             }
             className="fieldWidth"
           />
-        </IcseFormGroup>
         {this.state.pi_cloud_connection_transit_enabled && (
-          <IcseFormGroup>
             <IcseMultiSelect
               className="fieldWidthSmaller"
               id={this.props.data.name + "-cloud-connect-transit-gw"}
@@ -104,8 +102,9 @@ class PowerVsCloudConnectionForm extends Component {
               invalid={this.state.transit_gateways.length === 0}
               invalidText="Select at least one transit gateway"
             />
-          </IcseFormGroup>
-        )}
+        )}          
+        </IcseFormGroup>
+
       </>
     );
   }
