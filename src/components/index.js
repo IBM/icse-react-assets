@@ -132,6 +132,7 @@ export { SccV1 as SccV1Page } from "./toggle-form-pages";
 export { F5BigIp as F5BigIpPage } from "./toggle-form-pages";
 export { PowerVsNetwork as PowerVsNetworkPage } from "./crud-form-pages";
 export { PowerVsCloudConnections as PowerVsCloudConnectionPage } from "./crud-form-pages";
+export { PowerVsWorkspace as PowerVsWorkspacePage } from "./crud-form-pages";
 export {
   PowerVsNetworkForm,
   PowerVsCloudConnectionForm,

@@ -11841,6 +11841,85 @@ PowerVsCloudConnections.propTypes = {
   workspace: PropTypes__default["default"].string.isRequired
 };
 
+const PowerVsWorkspace = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "Power VS Workspaces",
+    addText: "Create a Workspace",
+    innerForm: PowerVsWorkspaceForm,
+    arrayData: props.power,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    docs: props.docs,
+    innerFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      helperTextCallback: props.helperTextCallback,
+      resourceGroups: props.resourceGroups,
+      zones: props.zones,
+      onNetworkDelete: props.onNetworkDelete,
+      onNetworkSave: props.onNetworkSave,
+      onNetworkSubmit: props.onNetworkSubmit,
+      invalidNetworkNameCallback: props.invalidNetworkNameCallback,
+      invalidNetworkNameCallbackText: props.invalidNetworkNameCallbackText,
+      invalidCidrCallback: props.invalidCidrCallback,
+      invalidCidrCallbackText: props.invalidCidrCallbackText,
+      invalidDnsCallback: props.invalidDnsCallback,
+      invalidDnsCallbackText: props.invalidDnsCallbackText,
+      onConnectionDelete: props.onConnectionDelete,
+      onConnectionSave: props.onConnectionSave,
+      onConnectionSubmit: props.onConnectionSubmit,
+      onAttachmentSave: props.onAttachmentSave,
+      invalidConnectionNameCallback: props.invalidConnectionNameCallback,
+      invalidConnectionNameTextCallback: props.invalidConnectionNameTextCallback,
+      transitGatewayList: props.transitGatewayList
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "power",
+      hideName: true
+    }
+  });
+};
+PowerVsWorkspace.propTypes = {
+  power: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  disableSave: PropTypes__default["default"].func,
+  propsMatchState: PropTypes__default["default"].func,
+  onDelete: PropTypes__default["default"].func,
+  onSave: PropTypes__default["default"].func,
+  onSubmit: PropTypes__default["default"].func,
+  forceOpen: PropTypes__default["default"].func,
+  craig: PropTypes__default["default"].shape({}),
+  docs: PropTypes__default["default"].func,
+  invalidCallback: PropTypes__default["default"].func,
+  invalidTextCallback: PropTypes__default["default"].func,
+  helperTextCallback: PropTypes__default["default"].func,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  zones: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  onNetworkDelete: PropTypes__default["default"].func.isRequired,
+  onNetworkSave: PropTypes__default["default"].func.isRequired,
+  onNetworkSubmit: PropTypes__default["default"].func.isRequired,
+  invalidNetworkNameCallback: PropTypes__default["default"].func.isRequired,
+  invalidNetworkNameCallbackText: PropTypes__default["default"].func.isRequired,
+  invalidCidrCallback: PropTypes__default["default"].func.isRequired,
+  invalidCidrCallbackText: PropTypes__default["default"].func.isRequired,
+  invalidDnsCallback: PropTypes__default["default"].func.isRequired,
+  invalidDnsCallbackText: PropTypes__default["default"].func.isRequired,
+  onConnectionDelete: PropTypes__default["default"].func.isRequired,
+  onConnectionSave: PropTypes__default["default"].func.isRequired,
+  onConnectionSubmit: PropTypes__default["default"].func.isRequired,
+  onAttachmentSave: PropTypes__default["default"].func.isRequired,
+  invalidConnectionNameCallback: PropTypes__default["default"].func.isRequired,
+  invalidConnectionNameTextCallback: PropTypes__default["default"].func.isRequired,
+  transitGatewayList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+};
+
 var css_248z = ".cds--date-picker-container {\n  width: 11rem;\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n\n.cds--date-picker.cds--date-picker--single .cds--date-picker__input {\n  width: 11rem;\n}\n";
 styleInject(css_248z);
 
@@ -15741,6 +15820,7 @@ exports.PowerVsNetworkAttachmentForm = PowerVsNetworkAttachmentForm;
 exports.PowerVsNetworkForm = PowerVsNetworkForm;
 exports.PowerVsNetworkPage = PowerVsNetwork;
 exports.PowerVsWorkspaceForm = PowerVsWorkspaceForm;
+exports.PowerVsWorkspacePage = PowerVsWorkspace;
 exports.RenderForm = RenderForm;
 exports.ResourceGroupForm = ResourceGroupForm;
 exports.ResourceGroupsTemplate = ResourceGroups;
