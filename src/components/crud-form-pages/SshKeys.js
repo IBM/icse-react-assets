@@ -8,7 +8,8 @@ export const SshKeys = (props) => {
     <IcseFormTemplate
       name="SSH Keys"
       addText="Create an SSH Key"
-      docs={props.docs}
+      docs={props.powerVs ? undefined : props.docs}
+      subHeading={props.powerVs}
       innerForm={SshKeyForm}
       arrayData={props.ssh_keys}
       disableSave={props.disableSave}
@@ -27,16 +28,24 @@ export const SshKeys = (props) => {
         propsMatchState: props.propsMatchState,
         disableSave: props.disableSave,
         invalidKeyCallback: props.invalidKeyCallback,
+        powerVs: props.powerVs,
+        arrayParentName: props.powerVs ? props.arrayParentName : undefined,
       }}
+      hideAbout={props.powerVs}
       toggleFormProps={{
         craig: props.craig,
         disableSave: props.disableSave,
         submissionFieldName: "ssh_keys",
         hide: true,
         hideName: true,
+        type: props.powerVs ? "formInSubForm" : undefined,
       }}
     />
   );
+};
+
+SshKeys.defaultProps = {
+  powerVs: false,
 };
 
 SshKeys.propTypes = {
@@ -51,7 +60,9 @@ SshKeys.propTypes = {
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
   craig: PropTypes.shape({}),
-  docs: PropTypes.func.isRequired,
+  docs: PropTypes.func, // not required for power vs
   deleteDisabled: PropTypes.func.isRequired,
   invalidKeyCallback: PropTypes.func.isRequired,
+  powerVs: PropTypes.bool.isRequired,
+  arrayParentName: PropTypes.string,
 };

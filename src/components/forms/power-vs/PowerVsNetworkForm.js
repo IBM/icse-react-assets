@@ -19,7 +19,11 @@ class PowerVsNetworkForm extends Component {
   }
 
   handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
+    if (event.target.name === "pi_dns") {
+      this.setState({
+        pi_dns: [event.target.value],
+      });
+    } else this.setState(this.eventTargetToNameAndValue(event));
   }
 
   handleToggle(name) {
@@ -80,7 +84,7 @@ class PowerVsNetworkForm extends Component {
             id={this.props.data.name + "-power-nw-dns"}
             componentName={this.props.data.name + "-power-nw-dns"}
             field="pi_dns"
-            value={this.state.pi_dns}
+            value={this.state.pi_dns[0]}
             placeholder="127.0.0.1"
             labelText="DNS Server IP"
             invalidCallback={() =>
@@ -113,7 +117,7 @@ PowerVsNetworkForm.defaultProps = {
     name: "",
     pi_network_type: "vlan",
     pi_cidr: "",
-    pi_dns: "",
+    pi_dns: [""],
     pi_network_jumbo: false,
   },
   isModal: false,
@@ -124,7 +128,7 @@ PowerVsNetworkForm.propTypes = {
     name: PropTypes.string,
     pi_network_type: PropTypes.string.isRequired,
     pi_cidr: PropTypes.string.isRequired,
-    pi_dns: PropTypes.string.isRequired,
+    pi_dns: PropTypes.arrayOf(PropTypes.string).isRequired,
     pi_network_jumbo: PropTypes.bool.isRequired,
   }),
   isModal: PropTypes.bool.isRequired,

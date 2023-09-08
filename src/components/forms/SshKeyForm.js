@@ -56,7 +56,11 @@ class SshKeyForm extends Component {
           )}
           {/* name */}
           <IcseNameInput
-            id={this.state.name + "-name"}
+            id={
+              this.state.name +
+              (this.props.powerVs ? "-power-ssh-key" : "") +
+              "-name"
+            }
             componentName={this.props.data.name + "-ssh-key-name"}
             value={this.state.name}
             onChange={this.handleInputChange}

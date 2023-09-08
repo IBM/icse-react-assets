@@ -3,9 +3,9 @@ import {
   buildFormDefaultInputMethods,
   buildFormFunctions,
 } from "../../component-utils";
-import { IcseNumberSelect, IcseSelect } from "../../Dropdowns";
+import { IcseSelect } from "../../Dropdowns";
 import { IcseMultiSelect } from "../../MultiSelects";
-import { IcseTextInput, IcseNameInput, IcseToggle } from "../../Inputs";
+import { IcseNameInput, IcseToggle } from "../../Inputs";
 import { IcseFormGroup } from "../../Utils";
 import PropTypes from "prop-types";
 
@@ -38,81 +38,86 @@ class PowerVsCloudConnectionForm extends Component {
   }
 
   render() {
-    if (this.props.isModal) {
-      return "";
-    } else {
-      return (
-        <>
-          <IcseFormGroup>
-            <IcseNameInput
-              id={this.props.data.name + "-cloud-connect-name"}
-              componentName={this.props.data.name + "-cloud-connect-name"}
-              value={this.state.name || ""}
-              onChange={this.handleInputChange}
-              hideHelperText
-              invalid={this.props.invalidCallback(this.state, this.props)}
-              invalidText={this.props.invalidTextCallback(
-                this.state,
-                this.props,
-              )}
-            />
-            <IcseSelect
-              formName={this.props.data.name + "-cloud-connect-speed"}
-              groups={[50, 100, 200, 500, 1000, 2000, 5000, 10000]}
-              value={this.state.pi_cloud_connection_speed}
-              labelText="Connection Speed"
-              name="pi_cloud_connection_speed"
-              handleInputChange={this.handleInputChange}
+    return (
+      <>
+        <IcseFormGroup>
+          <IcseNameInput
+            id={this.props.data.name + "-cloud-connect-name"}
+            componentName={this.props.data.name + "-cloud-connect-name"}
+            value={this.state.name || ""}
+            onChange={this.handleInputChange}
+            hideHelperText
+            invalid={this.props.invalidCallback(this.state, this.props)}
+            invalidText={this.props.invalidTextCallback(this.state, this.props)}
+            className="fieldWidth"
+          />
+          <IcseSelect
+            formName={this.props.data.name + "-cloud-connect-speed"}
+            groups={[
+              "50",
+              "100",
+              "200",
+              "500",
+              "1000",
+              "2000",
+              "5000",
+              "10000",
+            ]}
+            value={this.state.pi_cloud_connection_speed}
+            labelText="Connection Speed"
+            name="pi_cloud_connection_speed"
+            handleInputChange={this.handleInputChange}
+            className="fieldWidth"
+          />
+        </IcseFormGroup>
+        <IcseFormGroup>
+          <IcseToggle
+            id={this.props.data.name + "-cloud-connect-global-routing"}
+            defaultToggled={this.state.pi_cloud_connection_global_routing}
+            labelText="Enable Global Routing"
+            onToggle={() =>
+              this.handleToggle("pi_cloud_connection_global_routing")
+            }
+            className="fieldWidth"
+          />
+          <IcseToggle
+            id={this.props.data.name + "-cloud-connect-metered"}
+            defaultToggled={this.state.pi_cloud_connection_metered}
+            labelText="Enable Metered Connection"
+            onToggle={() => this.handleToggle("pi_cloud_connection_metered")}
+            className="fieldWidth"
+          />
+        </IcseFormGroup>
+        <IcseFormGroup>
+          <IcseToggle
+            id={this.props.data.name + "-cloud-connect-transit-enabled"}
+            defaultToggled={this.state.pi_cloud_connection_transit_enabled}
+            labelText="Enable Transit Gateway"
+            onToggle={() =>
+              this.handleToggle("pi_cloud_connection_transit_enabled")
+            }
+            className="fieldWidth"
+          />
+          {this.state.pi_cloud_connection_transit_enabled && (
+            <IcseMultiSelect
               className="fieldWidth"
+              id={this.props.data.name + "-cloud-connect-transit-gw"}
+              titleText="Transit Gateways"
+              items={this.props.transitGatewayList}
+              onChange={(value) => {
+                this.handleMultiSelectChange(
+                  "transit_gateways",
+                  value.selectedItems
+                );
+              }}
+              initialSelectedItems={this.state.transit_gateways}
+              invalid={this.state.transit_gateways.length === 0}
+              invalidText="Select at least one transit gateway"
             />
-            <IcseToggle
-              id={this.props.data.name + "-cloud-connect-global-routing"}
-              defaultToggled={this.state.pi_cloud_connection_global_routing}
-              labelText="Enable Global Routing"
-              onToggle={() =>
-                this.handleToggle("pi_cloud_connection_global_routing")
-              }
-              className="fieldWidth"
-            />
-          </IcseFormGroup>
-          <IcseFormGroup>
-            <IcseToggle
-              id={this.props.data.name + "-cloud-connect-metered"}
-              defaultToggled={this.state.pi_cloud_connection_metered}
-              labelText="Enable Metered Connection"
-              onToggle={() => this.handleToggle("pi_cloud_connection_metered")}
-              className="fieldWidth"
-            />
-            <IcseToggle
-              id={this.props.data.name + "-cloud-connect-transit-enabled"}
-              defaultToggled={this.state.pi_cloud_connection_transit_enabled}
-              labelText="Enable Transit Gateway"
-              onToggle={() =>
-                this.handleToggle("pi_cloud_connection_transit_enabled")
-              }
-              className="fieldWidth"
-            />
-            {this.state.pi_cloud_connection_transit_enabled && (
-              <IcseMultiSelect
-                className="fieldWidthSmaller"
-                id={this.props.data.name + "-cloud-connect-transit-gw"}
-                titleText="Transit Gateways"
-                items={this.props.transitGatewayList}
-                onChange={(value) => {
-                  this.handleMultiSelectChange(
-                    "transit_gateways",
-                    value.selectedItems,
-                  );
-                }}
-                initialSelectedItems={this.state.transit_gateways}
-                invalid={this.state.transit_gateways.length === 0}
-                invalidText="Select at least one transit gateway"
-              />
-            )}
-          </IcseFormGroup>
-        </>
-      );
-    }
+          )}
+        </IcseFormGroup>
+      </>
+    );
   }
 }
 
@@ -132,7 +137,7 @@ PowerVsCloudConnectionForm.defaultProps = {
 PowerVsCloudConnectionForm.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    pi_cloud_connection_speed: PropTypes.number,
+    pi_cloud_connection_speed: PropTypes.string,
     pi_cloud_connection_global_routing: PropTypes.bool.isRequired,
     pi_cloud_connection_metered: PropTypes.bool.isRequired,
     pi_cloud_connection_transit_enabled: PropTypes.bool.isRequired,
