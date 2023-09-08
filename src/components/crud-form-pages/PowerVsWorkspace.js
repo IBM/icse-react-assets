@@ -20,6 +20,7 @@ export const PowerVsWorkspace = (props) => {
       innerFormProps={{
         craig: props.craig,
         disableSave: props.disableSave,
+        propsMatchState: props.propsMatchState,
         invalidCallback: props.invalidCallback,
         invalidTextCallback: props.invalidTextCallback,
         helperTextCallback: props.helperTextCallback,

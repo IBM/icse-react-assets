@@ -92,6 +92,13 @@ const PowerVsWorkSpaceFormStory = () => {
         name: "frog",
         resource_group: "dev-2",
         zone: "az-1",
+        ssh_keys: [
+          {
+            workspace: "example",
+            name: "keyname",
+            zone: "dal10",
+          },
+        ],
         network: [
           {
             workspace: "example",
@@ -149,6 +156,22 @@ const PowerVsWorkSpaceFormStory = () => {
       invalidConnectionNameTextCallback={invalidTextCallback}
       transitGatewayList={["tgw", "tgw-2"]}
       onAttachmentSave={() => {}}
+      sshKeyDeleteDisabled={() => {}}
+      onSshKeyDelete={() => {}}
+      onSshKeySave={() => {}}
+      onSshKeySubmit={() => {}}
+      forceOpen={() => {
+        return false;
+      }}
+      invalidSshKeyCallback={() => {
+        return true;
+      }}
+      invalidSshKeyCallbackText={() => {
+        return "uh oh";
+      }}
+      invalidKeyCallback={() => {
+        return false;
+      }}
     />
   );
 };
@@ -236,6 +259,22 @@ const PowerVsWorkSpaceModalFormStory = () => {
       invalidConnectionNameTextCallback={invalidTextCallback}
       transitGatewayList={["tgw", "tgw-2"]}
       onAttachmentSave={() => {}}
+      onSshKeyDelete={() => {}}
+      onSshKeySave={() => {}}
+      onSshKeySubmit={() => {}}
+      forceOpen={() => {
+        return false;
+      }}
+      invalidSshKeyCallback={() => {
+        return true;
+      }}
+      invalidSshKeyCallbackText={() => {
+        return "uh oh";
+      }}
+      invalidKeyCallback={() => {
+        return false;
+      }}
+      sshKeyDeleteDisabled={() => {}}
     />
   );
 };

@@ -11111,7 +11111,7 @@ const SshKeys = props => {
   return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
     name: "SSH Keys",
     addText: "Create an SSH Key",
-    docs: props.docs,
+    docs: props.powerVs ? undefined : props.docs,
     innerForm: SshKeyForm,
     arrayData: props.ssh_keys,
     disableSave: props.disableSave,
@@ -11129,16 +11129,22 @@ const SshKeys = props => {
       invalidTextCallback: props.invalidTextCallback,
       propsMatchState: props.propsMatchState,
       disableSave: props.disableSave,
-      invalidKeyCallback: props.invalidKeyCallback
+      invalidKeyCallback: props.invalidKeyCallback,
+      powerVs: props.powerVs
     },
+    hideAbout: props.powerVs,
     toggleFormProps: {
       craig: props.craig,
       disableSave: props.disableSave,
       submissionFieldName: "ssh_keys",
       hide: true,
-      hideName: true
+      hideName: true,
+      type: props.powerVs ? "formInSubForm" : undefined
     }
   });
+};
+SshKeys.defaultProps = {
+  powerVs: false
 };
 SshKeys.propTypes = {
   ssh_keys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
@@ -11152,9 +11158,11 @@ SshKeys.propTypes = {
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
   craig: PropTypes__default["default"].shape({}),
-  docs: PropTypes__default["default"].func.isRequired,
+  docs: PropTypes__default["default"].func,
+  // not required for power vs
   deleteDisabled: PropTypes__default["default"].func.isRequired,
-  invalidKeyCallback: PropTypes__default["default"].func.isRequired
+  invalidKeyCallback: PropTypes__default["default"].func.isRequired,
+  powerVs: PropTypes__default["default"].bool.isRequired
 };
 
 function none$1() {}
@@ -11556,6 +11564,7 @@ class PowerVsNetworkAttachmentForm extends React__default["default"].Component {
     this.handleSave = this.handleSave.bind(this);
     this.handleMultiselectChange = this.handleMultiselectChange.bind(this);
     this.toggleHide = this.toggleHide.bind(this);
+    this.propsMatchState = this.propsMatchState(this);
   }
   handleSave() {
     this.props.onSave(this.state, this.props);
@@ -11573,6 +11582,9 @@ class PowerVsNetworkAttachmentForm extends React__default["default"].Component {
       hide: !this.state.hide
     });
   }
+  propsMatchState() {
+    return this.props.propsMatchState(this.state, this.props);
+  }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(StatelessToggleForm, {
       id: this.props.workspace + "-network-attachments",
@@ -11583,7 +11595,7 @@ class PowerVsNetworkAttachmentForm extends React__default["default"].Component {
       toggleFormTitle: true,
       noMarginBottom: true,
       buttons: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
-        disabled: this.props.propsMatchState(this.state.attachments, this.props.data),
+        disabled: this.propsMatchState,
         onClick: this.handleSave
       })
     }, /*#__PURE__*/React__default["default"].createElement("div", {
@@ -11659,7 +11671,23 @@ class PowerVsWorkspaceForm extends React__default["default"].Component {
       handleInputChange: this.handleInputChange,
       invalidText: "Select a Zone.",
       className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React__default["default"].createElement(PowerVsNetwork, {
+    })), this.props.isModal ? "" : /*#__PURE__*/React__default["default"].createElement(SshKeys, {
+      isModal: this.props.isModal,
+      ssh_keys: this.props.data.ssh_keys,
+      disableSave: this.props.disableSave,
+      onDelete: this.props.onSshKeyDelete,
+      onSave: this.props.onSshKeySave,
+      onSubmit: this.props.onSshKeySubmit,
+      propsMatchState: this.props.propsMatchState,
+      forceOpen: this.props.forceOpen,
+      resourceGroups: this.props.resourceGroups,
+      invalidCallback: this.props.invalidSshKeyCallback,
+      invalidTextCallback: this.props.invalidSshKeyCallbackText,
+      craig: this.props.craig,
+      deleteDisabled: this.props.sshKeyDeleteDisabled,
+      invalidKeyCallback: this.props.invalidKeyCallback,
+      powerVs: true
+    }), /*#__PURE__*/React__default["default"].createElement(PowerVsNetwork, {
       isModal: this.props.isModal,
       networks: this.props.data.network,
       disableSave: this.props.disableSave,
@@ -11687,7 +11715,7 @@ class PowerVsWorkspaceForm extends React__default["default"].Component {
       invalidConnectionNameTextCallback: this.props.invalidConnectionNameTextCallback,
       transitGatewayList: this.props.transitGatewayList,
       workspace: this.props.data.name
-    }), this.props.isModal ? "" : /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+    }), this.props.isModal || this.props.data.network.length === 0 || this.props.data.cloud_connections.length === 0 ? "" : /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
       name: "Workspace Network Attachments",
       type: "subHeading",
       className: "marginBottom"
@@ -11731,14 +11759,27 @@ PowerVsWorkspaceForm.propTypes = {
     name: PropTypes__default["default"].string,
     resource_group: PropTypes__default["default"].string,
     zone: PropTypes__default["default"].string
-  }).isRequired
+  }).isRequired,
+  onSshKeyDelete: PropTypes__default["default"].func.isRequired,
+  onSshKeySave: PropTypes__default["default"].func.isRequired,
+  onSshKeySubmit: PropTypes__default["default"].func.isRequired,
+  forceOpen: PropTypes__default["default"].func.isRequired,
+  invalidSshKeyCallback: PropTypes__default["default"].func.isRequired,
+  invalidSshKeyCallbackText: PropTypes__default["default"].func.isRequired,
+  invalidKeyCallback: PropTypes__default["default"].func.isRequired,
+  sshKeyDeleteDisabled: PropTypes__default["default"].func.isRequired
 };
 PowerVsWorkspaceForm.defaultProps = {
   isModal: false,
   data: {
     name: "",
     resource_group: "",
-    zone: ""
+    zone: "",
+    ssh_keys: [],
+    network: [],
+    cloud_connections: [],
+    images: [],
+    attachments: []
   }
 };
 
@@ -11857,6 +11898,7 @@ const PowerVsWorkspace = props => {
     innerFormProps: {
       craig: props.craig,
       disableSave: props.disableSave,
+      propsMatchState: props.propsMatchState,
       invalidCallback: props.invalidCallback,
       invalidTextCallback: props.invalidTextCallback,
       helperTextCallback: props.helperTextCallback,

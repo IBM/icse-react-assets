@@ -13,6 +13,7 @@ import {
   PowerVsNetworkPage,
 } from "../..";
 import { splat } from "lazy-z";
+import { SshKeys } from "../../crud-form-pages";
 
 class PowerVsWorkspaceForm extends React.Component {
   constructor(props) {
@@ -72,6 +73,27 @@ class PowerVsWorkspaceForm extends React.Component {
             className="fieldWidthSmaller"
           />
         </IcseFormGroup>
+        {this.props.isModal ? (
+          ""
+        ) : (
+          <SshKeys
+            isModal={this.props.isModal}
+            ssh_keys={this.props.data.ssh_keys}
+            disableSave={this.props.disableSave}
+            onDelete={this.props.onSshKeyDelete}
+            onSave={this.props.onSshKeySave}
+            onSubmit={this.props.onSshKeySubmit}
+            propsMatchState={this.props.propsMatchState}
+            forceOpen={this.props.forceOpen}
+            resourceGroups={this.props.resourceGroups}
+            invalidCallback={this.props.invalidSshKeyCallback}
+            invalidTextCallback={this.props.invalidSshKeyCallbackText}
+            craig={this.props.craig}
+            deleteDisabled={this.props.sshKeyDeleteDisabled}
+            invalidKeyCallback={this.props.invalidKeyCallback}
+            powerVs
+          />
+        )}
         <PowerVsNetworkPage
           isModal={this.props.isModal}
           networks={this.props.data.network}
@@ -108,7 +130,9 @@ class PowerVsWorkspaceForm extends React.Component {
           transitGatewayList={this.props.transitGatewayList}
           workspace={this.props.data.name}
         />
-        {this.props.isModal ? (
+        {this.props.isModal ||
+        this.props.data.network.length === 0 ||
+        this.props.data.cloud_connections.length === 0 ? (
           ""
         ) : (
           <>
@@ -166,6 +190,14 @@ PowerVsWorkspaceForm.propTypes = {
     resource_group: PropTypes.string,
     zone: PropTypes.string,
   }).isRequired,
+  onSshKeyDelete: PropTypes.func.isRequired,
+  onSshKeySave: PropTypes.func.isRequired,
+  onSshKeySubmit: PropTypes.func.isRequired,
+  forceOpen: PropTypes.func.isRequired,
+  invalidSshKeyCallback: PropTypes.func.isRequired,
+  invalidSshKeyCallbackText: PropTypes.func.isRequired,
+  invalidKeyCallback: PropTypes.func.isRequired,
+  sshKeyDeleteDisabled: PropTypes.func.isRequired,
 };
 
 PowerVsWorkspaceForm.defaultProps = {
@@ -174,6 +206,11 @@ PowerVsWorkspaceForm.defaultProps = {
     name: "",
     resource_group: "",
     zone: "",
+    ssh_keys: [],
+    network: [],
+    cloud_connections: [],
+    images: [],
+    attachments: [],
   },
 };
 

@@ -14,6 +14,7 @@ class PowerVsNetworkAttachmentForm extends React.Component {
     this.handleSave = this.handleSave.bind(this);
     this.handleMultiselectChange = this.handleMultiselectChange.bind(this);
     this.toggleHide = this.toggleHide.bind(this);
+    this.propsMatchState = this.propsMatchState(this);
   }
 
   handleSave() {
@@ -31,6 +32,10 @@ class PowerVsNetworkAttachmentForm extends React.Component {
     this.setState({ hide: !this.state.hide });
   }
 
+  propsMatchState() {
+    return this.props.propsMatchState(this.state, this.props);
+  }
+
   render() {
     return (
       <StatelessToggleForm
@@ -43,10 +48,7 @@ class PowerVsNetworkAttachmentForm extends React.Component {
         noMarginBottom
         buttons={
           <SaveAddButton
-            disabled={this.props.propsMatchState(
-              this.state.attachments,
-              this.props.data,
-            )}
+            disabled={this.propsMatchState}
             onClick={this.handleSave}
           />
         }
