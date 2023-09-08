@@ -107,7 +107,7 @@ class PowerVsCloudConnectionForm extends Component {
               onChange={(value) => {
                 this.handleMultiSelectChange(
                   "transit_gateways",
-                  value.selectedItems
+                  value.selectedItems,
                 );
               }}
               initialSelectedItems={this.state.transit_gateways}
