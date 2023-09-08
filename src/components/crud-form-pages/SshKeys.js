@@ -9,6 +9,7 @@ export const SshKeys = (props) => {
       name="SSH Keys"
       addText="Create an SSH Key"
       docs={props.powerVs ? undefined : props.docs}
+      subHeading={props.powerVs}
       innerForm={SshKeyForm}
       arrayData={props.ssh_keys}
       disableSave={props.disableSave}
@@ -28,6 +29,7 @@ export const SshKeys = (props) => {
         disableSave: props.disableSave,
         invalidKeyCallback: props.invalidKeyCallback,
         powerVs: props.powerVs,
+        arrayParentName: props.powerVs ? props.arrayParentName : undefined,
       }}
       hideAbout={props.powerVs}
       toggleFormProps={{
@@ -62,4 +64,5 @@ SshKeys.propTypes = {
   deleteDisabled: PropTypes.func.isRequired,
   invalidKeyCallback: PropTypes.func.isRequired,
   powerVs: PropTypes.bool.isRequired,
+  arrayParentName: PropTypes.string,
 };

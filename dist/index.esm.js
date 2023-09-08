@@ -11101,6 +11101,7 @@ const SshKeys = props => {
     name: "SSH Keys",
     addText: "Create an SSH Key",
     docs: props.powerVs ? undefined : props.docs,
+    subHeading: props.powerVs,
     innerForm: SshKeyForm,
     arrayData: props.ssh_keys,
     disableSave: props.disableSave,
@@ -11119,7 +11120,8 @@ const SshKeys = props => {
       propsMatchState: props.propsMatchState,
       disableSave: props.disableSave,
       invalidKeyCallback: props.invalidKeyCallback,
-      powerVs: props.powerVs
+      powerVs: props.powerVs,
+      arrayParentName: props.powerVs ? props.arrayParentName : undefined
     },
     hideAbout: props.powerVs,
     toggleFormProps: {
@@ -11151,7 +11153,8 @@ SshKeys.propTypes = {
   // not required for power vs
   deleteDisabled: PropTypes.func.isRequired,
   invalidKeyCallback: PropTypes.func.isRequired,
-  powerVs: PropTypes.bool.isRequired
+  powerVs: PropTypes.bool.isRequired,
+  arrayParentName: PropTypes.string
 };
 
 function none$1() {}
@@ -11675,7 +11678,8 @@ class PowerVsWorkspaceForm extends React.Component {
       craig: this.props.craig,
       deleteDisabled: this.props.sshKeyDeleteDisabled,
       invalidKeyCallback: this.props.invalidKeyCallback,
-      powerVs: true
+      powerVs: true,
+      arrayParentName: this.props.data.name
     }), /*#__PURE__*/React.createElement(PowerVsNetwork, {
       isModal: this.props.isModal,
       networks: this.props.data.network,
@@ -11908,7 +11912,15 @@ const PowerVsWorkspace = props => {
       onAttachmentSave: props.onAttachmentSave,
       invalidConnectionNameCallback: props.invalidConnectionNameCallback,
       invalidConnectionNameTextCallback: props.invalidConnectionNameTextCallback,
-      transitGatewayList: props.transitGatewayList
+      transitGatewayList: props.transitGatewayList,
+      onSshKeyDelete: props.onSshKeyDelete,
+      onSshKeySave: props.onSshKeySave,
+      onSshKeySubmit: props.onSshKeySubmit,
+      forceOpen: props.forceOpen,
+      invalidSshKeyCallback: props.invalidSshKeyCallback,
+      invalidSshKeyCallbackText: props.invalidSshKeyCallbackText,
+      invalidKeyCallback: props.invalidKeyCallback,
+      sshKeyDeleteDisabled: props.sshKeyDeleteDisabled
     },
     toggleFormProps: {
       craig: props.craig,
@@ -11948,7 +11960,15 @@ PowerVsWorkspace.propTypes = {
   onAttachmentSave: PropTypes.func.isRequired,
   invalidConnectionNameCallback: PropTypes.func.isRequired,
   invalidConnectionNameTextCallback: PropTypes.func.isRequired,
-  transitGatewayList: PropTypes.arrayOf(PropTypes.string).isRequired
+  transitGatewayList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onSshKeyDelete: PropTypes.func.isRequired,
+  onSshKeySave: PropTypes.func.isRequired,
+  onSshKeySubmit: PropTypes.func.isRequired,
+  forceOpen: PropTypes.func.isRequired,
+  invalidSshKeyCallback: PropTypes.func.isRequired,
+  invalidSshKeyCallbackText: PropTypes.func.isRequired,
+  invalidKeyCallback: PropTypes.func.isRequired,
+  sshKeyDeleteDisabled: PropTypes.func.isRequired
 };
 
 var css_248z = ".cds--date-picker-container {\n  width: 11rem;\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n\n.cds--date-picker.cds--date-picker--single .cds--date-picker__input {\n  width: 11rem;\n}\n";

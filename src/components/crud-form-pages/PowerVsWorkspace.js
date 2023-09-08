@@ -43,6 +43,14 @@ export const PowerVsWorkspace = (props) => {
         invalidConnectionNameTextCallback:
           props.invalidConnectionNameTextCallback,
         transitGatewayList: props.transitGatewayList,
+        onSshKeyDelete: props.onSshKeyDelete,
+        onSshKeySave: props.onSshKeySave,
+        onSshKeySubmit: props.onSshKeySubmit,
+        forceOpen: props.forceOpen,
+        invalidSshKeyCallback: props.invalidSshKeyCallback,
+        invalidSshKeyCallbackText: props.invalidSshKeyCallbackText,
+        invalidKeyCallback: props.invalidKeyCallback,
+        sshKeyDeleteDisabled: props.sshKeyDeleteDisabled,
       }}
       toggleFormProps={{
         craig: props.craig,
@@ -85,4 +93,12 @@ PowerVsWorkspace.propTypes = {
   invalidConnectionNameCallback: PropTypes.func.isRequired,
   invalidConnectionNameTextCallback: PropTypes.func.isRequired,
   transitGatewayList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onSshKeyDelete: PropTypes.func.isRequired,
+  onSshKeySave: PropTypes.func.isRequired,
+  onSshKeySubmit: PropTypes.func.isRequired,
+  forceOpen: PropTypes.func.isRequired,
+  invalidSshKeyCallback: PropTypes.func.isRequired,
+  invalidSshKeyCallbackText: PropTypes.func.isRequired,
+  invalidKeyCallback: PropTypes.func.isRequired,
+  sshKeyDeleteDisabled: PropTypes.func.isRequired,
 };

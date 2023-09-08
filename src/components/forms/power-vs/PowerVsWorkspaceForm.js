@@ -92,6 +92,7 @@ class PowerVsWorkspaceForm extends React.Component {
             deleteDisabled={this.props.sshKeyDeleteDisabled}
             invalidKeyCallback={this.props.invalidKeyCallback}
             powerVs
+            arrayParentName={this.props.data.name}
           />
         )}
         <PowerVsNetworkPage
