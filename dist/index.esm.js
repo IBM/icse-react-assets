@@ -13857,7 +13857,7 @@ class SshKeyForm extends Component {
       className: "fieldWidthSmallest",
       id: this.state.name + "-use-existing-instance"
     }), /*#__PURE__*/React.createElement(IcseNameInput, {
-      id: this.state.name + "-name",
+      id: this.state.name + (this.props.powerVs ? "-power-ssh-key" : "") + "-name",
       componentName: this.props.data.name + "-ssh-key-name",
       value: this.state.name,
       onChange: this.handleInputChange,
