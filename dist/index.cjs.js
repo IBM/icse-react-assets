@@ -11473,57 +11473,53 @@ class PowerVsCloudConnectionForm extends React.Component {
     this.setState(this.setNameToValue(name, value));
   }
   render() {
-    if (this.props.isModal) {
-      return "";
-    } else {
-      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-        id: this.props.data.name + "-cloud-connect-name",
-        componentName: this.props.data.name + "-cloud-connect-name",
-        value: this.state.name || "",
-        onChange: this.handleInputChange,
-        hideHelperText: true,
-        invalid: this.props.invalidCallback(this.state, this.props),
-        invalidText: this.props.invalidTextCallback(this.state, this.props),
-        className: "fieldWidth"
-      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-        formName: this.props.data.name + "-cloud-connect-speed",
-        groups: ["50", "100", "200", "500", "1000", "2000", "5000", "10000"],
-        value: this.state.pi_cloud_connection_speed,
-        labelText: "Connection Speed",
-        name: "pi_cloud_connection_speed",
-        handleInputChange: this.handleInputChange,
-        className: "fieldWidth"
-      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-        id: this.props.data.name + "-cloud-connect-global-routing",
-        defaultToggled: this.state.pi_cloud_connection_global_routing,
-        labelText: "Enable Global Routing",
-        onToggle: () => this.handleToggle("pi_cloud_connection_global_routing"),
-        className: "fieldWidth"
-      }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-        id: this.props.data.name + "-cloud-connect-metered",
-        defaultToggled: this.state.pi_cloud_connection_metered,
-        labelText: "Enable Metered Connection",
-        onToggle: () => this.handleToggle("pi_cloud_connection_metered"),
-        className: "fieldWidth"
-      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-        id: this.props.data.name + "-cloud-connect-transit-enabled",
-        defaultToggled: this.state.pi_cloud_connection_transit_enabled,
-        labelText: "Enable Transit Gateway",
-        onToggle: () => this.handleToggle("pi_cloud_connection_transit_enabled"),
-        className: "fieldWidth"
-      }), this.state.pi_cloud_connection_transit_enabled && /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
-        className: "fieldWidth",
-        id: this.props.data.name + "-cloud-connect-transit-gw",
-        titleText: "Transit Gateways",
-        items: this.props.transitGatewayList,
-        onChange: value => {
-          this.handleMultiSelectChange("transit_gateways", value.selectedItems);
-        },
-        initialSelectedItems: this.state.transit_gateways,
-        invalid: this.state.transit_gateways.length === 0,
-        invalidText: "Select at least one transit gateway"
-      })));
-    }
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: this.props.data.name + "-cloud-connect-name",
+      componentName: this.props.data.name + "-cloud-connect-name",
+      value: this.state.name || "",
+      onChange: this.handleInputChange,
+      hideHelperText: true,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      className: "fieldWidth"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: this.props.data.name + "-cloud-connect-speed",
+      groups: ["50", "100", "200", "500", "1000", "2000", "5000", "10000"],
+      value: this.state.pi_cloud_connection_speed,
+      labelText: "Connection Speed",
+      name: "pi_cloud_connection_speed",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidth"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      id: this.props.data.name + "-cloud-connect-global-routing",
+      defaultToggled: this.state.pi_cloud_connection_global_routing,
+      labelText: "Enable Global Routing",
+      onToggle: () => this.handleToggle("pi_cloud_connection_global_routing"),
+      className: "fieldWidth"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      id: this.props.data.name + "-cloud-connect-metered",
+      defaultToggled: this.state.pi_cloud_connection_metered,
+      labelText: "Enable Metered Connection",
+      onToggle: () => this.handleToggle("pi_cloud_connection_metered"),
+      className: "fieldWidth"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      id: this.props.data.name + "-cloud-connect-transit-enabled",
+      defaultToggled: this.state.pi_cloud_connection_transit_enabled,
+      labelText: "Enable Transit Gateway",
+      onToggle: () => this.handleToggle("pi_cloud_connection_transit_enabled"),
+      className: "fieldWidth"
+    }), this.state.pi_cloud_connection_transit_enabled && /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+      className: "fieldWidth",
+      id: this.props.data.name + "-cloud-connect-transit-gw",
+      titleText: "Transit Gateways",
+      items: this.props.transitGatewayList,
+      onChange: value => {
+        this.handleMultiSelectChange("transit_gateways", value.selectedItems);
+      },
+      initialSelectedItems: this.state.transit_gateways,
+      invalid: this.state.transit_gateways.length === 0,
+      invalidText: "Select at least one transit gateway"
+    })));
   }
 }
 PowerVsCloudConnectionForm.defaultProps = {
@@ -11567,7 +11563,7 @@ class PowerVsNetworkAttachmentForm extends React__default["default"].Component {
     this.handleSave = this.handleSave.bind(this);
     this.handleMultiselectChange = this.handleMultiselectChange.bind(this);
     this.toggleHide = this.toggleHide.bind(this);
-    this.propsMatchState = this.propsMatchState(this);
+    this.disableSave = this.disableSave(this);
   }
   handleSave() {
     this.props.onSave(this.state, this.props);
@@ -11585,8 +11581,8 @@ class PowerVsNetworkAttachmentForm extends React__default["default"].Component {
       hide: !this.state.hide
     });
   }
-  propsMatchState() {
-    return this.props.propsMatchState(this.state, this.props);
+  disableSave() {
+    return this.props.disableAttachmentSave(this.state, this.props);
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(StatelessToggleForm, {
@@ -11598,7 +11594,7 @@ class PowerVsNetworkAttachmentForm extends React__default["default"].Component {
       toggleFormTitle: true,
       noMarginBottom: true,
       buttons: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
-        disabled: this.propsMatchState,
+        disabled: this.disableSave,
         onClick: this.handleSave
       })
     }, /*#__PURE__*/React__default["default"].createElement("div", {
@@ -11627,7 +11623,7 @@ PowerVsNetworkAttachmentForm.propTypes = {
     network: PropTypes__default["default"].string,
     connections: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string)
   })).isRequired,
-  propsMatchState: PropTypes__default["default"].func.isRequired,
+  disableAttachmentSave: PropTypes__default["default"].func.isRequired,
   onSave: PropTypes__default["default"].func.isRequired,
   workspace: PropTypes__default["default"].string.isRequired
 };
@@ -11727,7 +11723,7 @@ class PowerVsWorkspaceForm extends React__default["default"].Component {
       networks: lazyZ.splat(this.props.data.network, "name"),
       cloudConnections: lazyZ.splat(this.props.data.cloud_connections, "name"),
       data: this.props.data.attachments,
-      propsMatchState: this.props.propsMatchState,
+      disableAttachmentSave: this.props.disableAttachmentSave,
       onSave: this.props.onAttachmentSave,
       workspace: this.props.data.name
     })));
@@ -11771,7 +11767,8 @@ PowerVsWorkspaceForm.propTypes = {
   invalidSshKeyCallback: PropTypes__default["default"].func.isRequired,
   invalidSshKeyCallbackText: PropTypes__default["default"].func.isRequired,
   invalidKeyCallback: PropTypes__default["default"].func.isRequired,
-  sshKeyDeleteDisabled: PropTypes__default["default"].func.isRequired
+  sshKeyDeleteDisabled: PropTypes__default["default"].func.isRequired,
+  disableAttachmentSave: PropTypes__default["default"].func.isRequired
 };
 PowerVsWorkspaceForm.defaultProps = {
   isModal: false,
@@ -11931,7 +11928,8 @@ const PowerVsWorkspace = props => {
       invalidSshKeyCallback: props.invalidSshKeyCallback,
       invalidSshKeyCallbackText: props.invalidSshKeyCallbackText,
       invalidKeyCallback: props.invalidKeyCallback,
-      sshKeyDeleteDisabled: props.sshKeyDeleteDisabled
+      sshKeyDeleteDisabled: props.sshKeyDeleteDisabled,
+      disableAttachmentSave: props.disableAttachmentSave
     },
     toggleFormProps: {
       craig: props.craig,
@@ -11979,7 +11977,8 @@ PowerVsWorkspace.propTypes = {
   invalidSshKeyCallback: PropTypes__default["default"].func.isRequired,
   invalidSshKeyCallbackText: PropTypes__default["default"].func.isRequired,
   invalidKeyCallback: PropTypes__default["default"].func.isRequired,
-  sshKeyDeleteDisabled: PropTypes__default["default"].func.isRequired
+  sshKeyDeleteDisabled: PropTypes__default["default"].func.isRequired,
+  disableAttachmentSave: PropTypes__default["default"].func.isRequired
 };
 
 var css_248z = ".cds--date-picker-container {\n  width: 11rem;\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n\n.cds--date-picker.cds--date-picker--single .cds--date-picker__input {\n  width: 11rem;\n}\n";

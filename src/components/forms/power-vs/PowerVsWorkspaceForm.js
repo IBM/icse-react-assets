@@ -149,7 +149,7 @@ class PowerVsWorkspaceForm extends React.Component {
                 "name",
               )}
               data={this.props.data.attachments}
-              propsMatchState={this.props.propsMatchState}
+              disableAttachmentSave={this.props.disableAttachmentSave}
               onSave={this.props.onAttachmentSave}
               workspace={this.props.data.name}
             />
@@ -199,6 +199,7 @@ PowerVsWorkspaceForm.propTypes = {
   invalidSshKeyCallbackText: PropTypes.func.isRequired,
   invalidKeyCallback: PropTypes.func.isRequired,
   sshKeyDeleteDisabled: PropTypes.func.isRequired,
+  disableAttachmentSave: PropTypes.func.isRequired,
 };
 
 PowerVsWorkspaceForm.defaultProps = {

@@ -51,6 +51,7 @@ export const PowerVsWorkspace = (props) => {
         invalidSshKeyCallbackText: props.invalidSshKeyCallbackText,
         invalidKeyCallback: props.invalidKeyCallback,
         sshKeyDeleteDisabled: props.sshKeyDeleteDisabled,
+        disableAttachmentSave: props.disableAttachmentSave
       }}
       toggleFormProps={{
         craig: props.craig,
@@ -101,4 +102,5 @@ PowerVsWorkspace.propTypes = {
   invalidSshKeyCallbackText: PropTypes.func.isRequired,
   invalidKeyCallback: PropTypes.func.isRequired,
   sshKeyDeleteDisabled: PropTypes.func.isRequired,
+  disableAttachmentSave: PropTypes.func.isRequired,
 };

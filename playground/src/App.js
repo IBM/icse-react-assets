@@ -117,6 +117,9 @@ const App = () => {
       invalidKeyCallback={() => {
         return false;
       }}
+      disableAttachmentSave={() => {
+        return true;
+      }}
     />
   );
 };
