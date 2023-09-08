@@ -3,9 +3,9 @@ import {
   buildFormDefaultInputMethods,
   buildFormFunctions,
 } from "../../component-utils";
-import { IcseNumberSelect, IcseSelect } from "../../Dropdowns";
+import { IcseSelect } from "../../Dropdowns";
 import { IcseMultiSelect } from "../../MultiSelects";
-import { IcseTextInput, IcseNameInput, IcseToggle } from "../../Inputs";
+import { IcseNameInput, IcseToggle } from "../../Inputs";
 import { IcseFormGroup } from "../../Utils";
 import PropTypes from "prop-types";
 
@@ -55,16 +55,28 @@ class PowerVsCloudConnectionForm extends Component {
                 this.state,
                 this.props,
               )}
+              className="fieldWidth"
             />
             <IcseSelect
               formName={this.props.data.name + "-cloud-connect-speed"}
-              groups={[50, 100, 200, 500, 1000, 2000, 5000, 10000]}
+              groups={[
+                "50",
+                "100",
+                "200",
+                "500",
+                "1000",
+                "2000",
+                "5000",
+                "10000",
+              ]}
               value={this.state.pi_cloud_connection_speed}
               labelText="Connection Speed"
               name="pi_cloud_connection_speed"
               handleInputChange={this.handleInputChange}
               className="fieldWidth"
             />
+          </IcseFormGroup>
+          <IcseFormGroup>
             <IcseToggle
               id={this.props.data.name + "-cloud-connect-global-routing"}
               defaultToggled={this.state.pi_cloud_connection_global_routing}
@@ -74,8 +86,6 @@ class PowerVsCloudConnectionForm extends Component {
               }
               className="fieldWidth"
             />
-          </IcseFormGroup>
-          <IcseFormGroup>
             <IcseToggle
               id={this.props.data.name + "-cloud-connect-metered"}
               defaultToggled={this.state.pi_cloud_connection_metered}
@@ -83,6 +93,8 @@ class PowerVsCloudConnectionForm extends Component {
               onToggle={() => this.handleToggle("pi_cloud_connection_metered")}
               className="fieldWidth"
             />
+          </IcseFormGroup>
+          <IcseFormGroup>
             <IcseToggle
               id={this.props.data.name + "-cloud-connect-transit-enabled"}
               defaultToggled={this.state.pi_cloud_connection_transit_enabled}
@@ -94,7 +106,7 @@ class PowerVsCloudConnectionForm extends Component {
             />
             {this.state.pi_cloud_connection_transit_enabled && (
               <IcseMultiSelect
-                className="fieldWidthSmaller"
+                className="fieldWidth"
                 id={this.props.data.name + "-cloud-connect-transit-gw"}
                 titleText="Transit Gateways"
                 items={this.props.transitGatewayList}
@@ -132,7 +144,7 @@ PowerVsCloudConnectionForm.defaultProps = {
 PowerVsCloudConnectionForm.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    pi_cloud_connection_speed: PropTypes.number,
+    pi_cloud_connection_speed: PropTypes.string,
     pi_cloud_connection_global_routing: PropTypes.bool.isRequired,
     pi_cloud_connection_metered: PropTypes.bool.isRequired,
     pi_cloud_connection_transit_enabled: PropTypes.bool.isRequired,

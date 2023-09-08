@@ -11335,8 +11335,514 @@ Subnets.propTypes = {
   onSubnetTierDelete: PropTypes__default["default"].func.isRequired
 };
 
-var css_248z$1 = ".cds--date-picker-container {\n  width: 11rem;\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n\n.cds--date-picker.cds--date-picker--single .cds--date-picker__input {\n  width: 11rem;\n}\n";
+class PowerVsNetworkForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
+  }
+  handleInputChange(event) {
+    if (event.target.name === "pi_dns") {
+      this.setState({
+        pi_dns: [event.target.value]
+      });
+    } else this.setState(this.eventTargetToNameAndValue(event));
+  }
+  handleToggle(name) {
+    this.setState(this.toggleStateBoolean(name, this.state));
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: this.props.data.name + "-power-nw-name",
+      componentName: this.props.data.name + "-power-nw-name",
+      placeholder: "my-network-name",
+      value: this.state.name || "",
+      onChange: this.handleInputChange,
+      hideHelperText: true,
+      invalid: this.props.invalidNetworkNameCallback(this.state, this.props),
+      invalidText: this.props.invalidNetworkNameCallbackText(this.state, this.props),
+      className: "fieldWidth"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: this.props.data.name + "-power-nw",
+      groups: ["vlan", "pub-vlan"],
+      value: this.state.pi_network_type,
+      labelText: "Network Type",
+      name: "pi_network_type",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidth"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: this.props.data.name + "-power-nw-cidr",
+      componentName: this.props.data.name + "-power-nw-cidr",
+      name: "client_ip_pool",
+      field: "pi_cidr",
+      value: this.state.pi_cidr,
+      placeholder: "x.x.x.x/x",
+      labelText: "Network CIDR Block",
+      invalidCallback: () => this.props.invalidCidrCallback(this.state, this.props),
+      invalidText: this.props.invalidCidrCallbackText(this.state, this.props),
+      onChange: this.handleInputChange,
+      className: "fieldWidth"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: this.props.data.name + "-power-nw-dns",
+      componentName: this.props.data.name + "-power-nw-dns",
+      field: "pi_dns",
+      value: this.state.pi_dns[0],
+      placeholder: "127.0.0.1",
+      labelText: "DNS Server IP",
+      invalidCallback: () => this.props.invalidDnsCallback(this.state, this.props),
+      invalidText: this.props.invalidDnsCallbackText(this.state, this.props),
+      onChange: this.handleInputChange,
+      className: "fieldWidth"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      id: this.props.data.name + "-power-nw-jumbo",
+      defaultToggled: this.state.pi_network_jumbo,
+      labelText: "MTU Jumbo",
+      onToggle: () => this.handleToggle("pi_network_jumbo"),
+      className: "fieldWidth"
+    })));
+  }
+}
+PowerVsNetworkForm.defaultProps = {
+  data: {
+    name: "",
+    pi_network_type: "vlan",
+    pi_cidr: "",
+    pi_dns: [""],
+    pi_network_jumbo: false
+  },
+  isModal: false
+};
+PowerVsNetworkForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string,
+    pi_network_type: PropTypes__default["default"].string.isRequired,
+    pi_cidr: PropTypes__default["default"].string.isRequired,
+    pi_dns: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+    pi_network_jumbo: PropTypes__default["default"].bool.isRequired
+  }),
+  isModal: PropTypes__default["default"].bool.isRequired,
+  invalidNetworkNameCallback: PropTypes__default["default"].func.isRequired,
+  invalidNetworkNameCallbackText: PropTypes__default["default"].func.isRequired,
+  invalidCidrCallback: PropTypes__default["default"].func.isRequired,
+  invalidCidrCallbackText: PropTypes__default["default"].func.isRequired,
+  invalidDnsCallback: PropTypes__default["default"].func.isRequired,
+  invalidDnsCallbackText: PropTypes__default["default"].func.isRequired
+};
+
+class PowerVsCloudConnectionForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
+  }
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  handleToggle(name) {
+    this.setState(this.toggleStateBoolean(name, this.state));
+  }
+
+  /**
+   * handle multiselect change
+   * @param {string} name key to change in the instance
+   * @param {*} value value
+   */
+  handleMultiSelectChange(name, value) {
+    this.setState(this.setNameToValue(name, value));
+  }
+  render() {
+    if (this.props.isModal) {
+      return "";
+    } else {
+      return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+        id: this.props.data.name + "-cloud-connect-name",
+        componentName: this.props.data.name + "-cloud-connect-name",
+        value: this.state.name || "",
+        onChange: this.handleInputChange,
+        hideHelperText: true,
+        invalid: this.props.invalidCallback(this.state, this.props),
+        invalidText: this.props.invalidTextCallback(this.state, this.props),
+        className: "fieldWidth"
+      }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+        formName: this.props.data.name + "-cloud-connect-speed",
+        groups: ["50", "100", "200", "500", "1000", "2000", "5000", "10000"],
+        value: this.state.pi_cloud_connection_speed,
+        labelText: "Connection Speed",
+        name: "pi_cloud_connection_speed",
+        handleInputChange: this.handleInputChange,
+        className: "fieldWidth"
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        id: this.props.data.name + "-cloud-connect-global-routing",
+        defaultToggled: this.state.pi_cloud_connection_global_routing,
+        labelText: "Enable Global Routing",
+        onToggle: () => this.handleToggle("pi_cloud_connection_global_routing"),
+        className: "fieldWidth"
+      }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        id: this.props.data.name + "-cloud-connect-metered",
+        defaultToggled: this.state.pi_cloud_connection_metered,
+        labelText: "Enable Metered Connection",
+        onToggle: () => this.handleToggle("pi_cloud_connection_metered"),
+        className: "fieldWidth"
+      })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+        id: this.props.data.name + "-cloud-connect-transit-enabled",
+        defaultToggled: this.state.pi_cloud_connection_transit_enabled,
+        labelText: "Enable Transit Gateway",
+        onToggle: () => this.handleToggle("pi_cloud_connection_transit_enabled"),
+        className: "fieldWidth"
+      }), this.state.pi_cloud_connection_transit_enabled && /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+        className: "fieldWidth",
+        id: this.props.data.name + "-cloud-connect-transit-gw",
+        titleText: "Transit Gateways",
+        items: this.props.transitGatewayList,
+        onChange: value => {
+          this.handleMultiSelectChange("transit_gateways", value.selectedItems);
+        },
+        initialSelectedItems: this.state.transit_gateways,
+        invalid: this.state.transit_gateways.length === 0,
+        invalidText: "Select at least one transit gateway"
+      })));
+    }
+  }
+}
+PowerVsCloudConnectionForm.defaultProps = {
+  data: {
+    name: "",
+    pi_cloud_connection_speed: null,
+    //[50, 100, 200, 500, 1000, 2000, 5000, 10000],
+    pi_cloud_connection_global_routing: false,
+    pi_cloud_connection_metered: false,
+    pi_cloud_connection_transit_enabled: false,
+    transit_gateways: []
+  },
+  isModal: false,
+  transitGatewayList: []
+};
+PowerVsCloudConnectionForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string.isRequired,
+    pi_cloud_connection_speed: PropTypes__default["default"].string,
+    pi_cloud_connection_global_routing: PropTypes__default["default"].bool.isRequired,
+    pi_cloud_connection_metered: PropTypes__default["default"].bool.isRequired,
+    pi_cloud_connection_transit_enabled: PropTypes__default["default"].bool.isRequired,
+    transit_gateways: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string)
+  }),
+  isModal: PropTypes__default["default"].bool.isRequired,
+  transitGatewayList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string),
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired
+};
+
+var css_248z$1 = ".network-div {\n  margin-top: 1.75rem;\n}\n\n.network-icon {\n  margin-right: 1rem;\n  margin-top: 0.3rem;\n}\n";
 styleInject(css_248z$1);
+
+class PowerVsNetworkAttachmentForm extends React__default["default"].Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      attachments: [...this.props.data],
+      hide: true
+    };
+    this.handleSave = this.handleSave.bind(this);
+    this.handleMultiselectChange = this.handleMultiselectChange.bind(this);
+    this.toggleHide = this.toggleHide.bind(this);
+  }
+  handleSave() {
+    this.props.onSave(this.state, this.props);
+  }
+  handleMultiselectChange(network, connections) {
+    let attachments = [...this.state.attachments];
+    let stateObj = lazyZ.getObjectFromArray(attachments, "network", network);
+    stateObj.connections = connections;
+    this.setState({
+      attachments
+    });
+  }
+  toggleHide() {
+    this.setState({
+      hide: !this.state.hide
+    });
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(StatelessToggleForm, {
+      id: this.props.workspace + "-network-attachments",
+      name: "Network Attachments",
+      hide: this.state.hide,
+      onIconClick: this.toggleHide,
+      className: "formInSubForm secretChecklistMargin",
+      toggleFormTitle: true,
+      noMarginBottom: true,
+      buttons: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
+        disabled: this.props.propsMatchState(this.state.attachments, this.props.data),
+        onClick: this.handleSave
+      })
+    }, /*#__PURE__*/React__default["default"].createElement("div", {
+      className: "formInSubForm secretChecklistMargin"
+    }, this.props.networks.map(nw => /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+      className: "marginBottomSmall",
+      key: nw
+    }, /*#__PURE__*/React__default["default"].createElement("div", {
+      className: "displayFlex fieldWidth network-div"
+    }, /*#__PURE__*/React__default["default"].createElement(iconsReact.Network_3, {
+      className: "network-icon"
+    }), /*#__PURE__*/React__default["default"].createElement("p", null, nw)), /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+      titleText: "Cloud Connections",
+      items: this.props.cloudConnections,
+      id: "power-connections-" + nw,
+      className: "fieldWidth",
+      initialSelectedItems: lazyZ.getObjectFromArray(this.state.attachments, "network", nw).connections,
+      onChange: items => this.handleMultiselectChange(nw, items.selectedItems)
+    })))));
+  }
+}
+PowerVsNetworkAttachmentForm.propTypes = {
+  networks: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  cloudConnections: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  data: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({
+    network: PropTypes__default["default"].string,
+    connections: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string)
+  })).isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  onSave: PropTypes__default["default"].func.isRequired,
+  workspace: PropTypes__default["default"].string.isRequired
+};
+
+class PowerVsWorkspaceForm extends React__default["default"].Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+  }
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: this.state.name + "-name",
+      labelText: "Workspace Name",
+      componentName: this.state.name + "-power-vs-workspace",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      invalidCallback: () => this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props),
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      labelText: "Resource Group",
+      name: "resource_group",
+      formName: this.state.name + "-power-vs-workspace-resource-group",
+      groups: this.props.resourceGroups,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a Resource Group.",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      labelText: "Availability Zone",
+      name: "zone",
+      formName: this.state.name + "-power-vs-workspace-zone",
+      groups: this.props.zones,
+      value: this.state.zone,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a Zone.",
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(PowerVsNetwork, {
+      isModal: this.props.isModal,
+      networks: this.props.data.network,
+      disableSave: this.props.disableSave,
+      propsMatchState: this.props.propsMatchState,
+      onNetworkDelete: this.props.onNetworkDelete,
+      onNetworkSave: this.props.onNetworkSave,
+      onNetworkSubmit: this.props.onNetworkSubmit,
+      craig: this.props.craig,
+      invalidNetworkNameCallback: this.props.invalidNetworkNameCallback,
+      invalidNetworkNameCallbackText: this.props.invalidNetworkNameCallbackText,
+      invalidCidrCallback: this.props.invalidCidrCallback,
+      invalidCidrCallbackText: this.props.invalidCidrCallbackText,
+      invalidDnsCallback: this.props.invalidDnsCallback,
+      invalidDnsCallbackText: this.props.invalidDnsCallbackText,
+      workspace: this.props.data.name
+    }), /*#__PURE__*/React__default["default"].createElement(PowerVsCloudConnections, {
+      cloud_connections: this.props.data.cloud_connections,
+      isModal: this.props.isModal,
+      disableSave: this.props.disableSave,
+      propsMatchState: this.props.propsMatchState,
+      onConnectionDelete: this.props.onConnectionDelete,
+      onConnectionSave: this.props.onConnectionSave,
+      onConnectionSubmit: this.props.onConnectionSubmit,
+      invalidConnectionNameCallback: this.props.invalidConnectionNameCallback,
+      invalidConnectionNameTextCallback: this.props.invalidConnectionNameTextCallback,
+      transitGatewayList: this.props.transitGatewayList,
+      workspace: this.props.data.name
+    }), this.props.isModal ? "" : /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+      name: "Workspace Network Attachments",
+      type: "subHeading",
+      className: "marginBottom"
+    }), /*#__PURE__*/React__default["default"].createElement(PowerVsNetworkAttachmentForm, {
+      networks: lazyZ.splat(this.props.data.network, "name"),
+      cloudConnections: lazyZ.splat(this.props.data.cloud_connections, "name"),
+      data: this.props.data.attachments,
+      propsMatchState: this.props.propsMatchState,
+      onSave: this.props.onAttachmentSave,
+      workspace: this.props.data.name
+    })));
+  }
+}
+PowerVsWorkspaceForm.propTypes = {
+  invalidCallback: PropTypes__default["default"].func,
+  invalidTextCallback: PropTypes__default["default"].func,
+  helperTextCallback: PropTypes__default["default"].func,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  zones: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  onNetworkDelete: PropTypes__default["default"].func.isRequired,
+  onNetworkSave: PropTypes__default["default"].func.isRequired,
+  onNetworkSubmit: PropTypes__default["default"].func.isRequired,
+  craig: PropTypes__default["default"].shape({}).isRequired,
+  invalidNetworkNameCallback: PropTypes__default["default"].func.isRequired,
+  invalidNetworkNameCallbackText: PropTypes__default["default"].func.isRequired,
+  invalidCidrCallback: PropTypes__default["default"].func.isRequired,
+  invalidCidrCallbackText: PropTypes__default["default"].func.isRequired,
+  invalidDnsCallback: PropTypes__default["default"].func.isRequired,
+  invalidDnsCallbackText: PropTypes__default["default"].func.isRequired,
+  onConnectionDelete: PropTypes__default["default"].func.isRequired,
+  onConnectionSave: PropTypes__default["default"].func.isRequired,
+  onConnectionSubmit: PropTypes__default["default"].func.isRequired,
+  onAttachmentSave: PropTypes__default["default"].func.isRequired,
+  invalidConnectionNameCallback: PropTypes__default["default"].func.isRequired,
+  invalidConnectionNameTextCallback: PropTypes__default["default"].func.isRequired,
+  transitGatewayList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string,
+    resource_group: PropTypes__default["default"].string,
+    zone: PropTypes__default["default"].string
+  }).isRequired
+};
+PowerVsWorkspaceForm.defaultProps = {
+  isModal: false,
+  data: {
+    name: "",
+    resource_group: "",
+    zone: ""
+  }
+};
+
+const PowerVsNetwork = props => {
+  return props.isModal ? "" : /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "Network Interfaces",
+    subHeading: true,
+    addText: "Create a Network Interface",
+    arrayData: props.networks,
+    innerForm: PowerVsNetworkForm,
+    disableSave: props.disableSave,
+    propsMatchState: props.propsMatchState,
+    onDelete: props.onNetworkDelete,
+    onSave: props.onNetworkSave,
+    onSubmit: props.onNetworkSubmit,
+    innerFormProps: {
+      craig: props.craig,
+      isModal: props.isModal,
+      invalidNetworkNameCallback: props.invalidNetworkNameCallback,
+      invalidNetworkNameCallbackText: props.invalidNetworkNameCallbackText,
+      invalidCidrCallback: props.invalidCidrCallback,
+      invalidCidrCallbackText: props.invalidCidrCallbackText,
+      invalidDnsCallback: props.invalidDnsCallback,
+      invalidDnsCallbackText: props.invalidDnsCallbackText,
+      arrayParentName: props.workspace
+    },
+    hideAbout: true,
+    toggleFormProps: {
+      hideName: true,
+      submissionFieldName: "network",
+      disableSave: props.disableSave,
+      type: "formInSubForm"
+    }
+  });
+};
+PowerVsNetwork.defaultProps = {
+  isModal: false
+};
+PowerVsNetwork.propTypes = {
+  networks: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  onNetworkDelete: PropTypes__default["default"].func.isRequired,
+  onNetworkSave: PropTypes__default["default"].func.isRequired,
+  onNetworkSubmit: PropTypes__default["default"].func.isRequired,
+  craig: PropTypes__default["default"].shape({}).isRequired,
+  invalidNetworkNameCallback: PropTypes__default["default"].func.isRequired,
+  invalidNetworkNameCallbackText: PropTypes__default["default"].func.isRequired,
+  invalidCidrCallback: PropTypes__default["default"].func.isRequired,
+  invalidCidrCallbackText: PropTypes__default["default"].func.isRequired,
+  invalidDnsCallback: PropTypes__default["default"].func.isRequired,
+  invalidDnsCallbackText: PropTypes__default["default"].func.isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired,
+  workspace: PropTypes__default["default"].string.isRequired
+};
+
+const PowerVsCloudConnections = props => {
+  return props.isModal ? "" : /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "Cloud Connections",
+    subHeading: true,
+    addText: "Create a Cloud Connection",
+    arrayData: props.cloud_connections,
+    innerForm: PowerVsCloudConnectionForm,
+    disableSave: props.disableSave,
+    propsMatchState: props.propsMatchState,
+    onDelete: props.onConnectionDelete,
+    onSave: props.onConnectionSave,
+    onSubmit: props.onConnectionSubmit,
+    innerFormProps: {
+      craig: props.craig,
+      isModal: props.isModal,
+      invalidCallback: props.invalidConnectionNameCallback,
+      invalidTextCallback: props.invalidConnectionNameTextCallback,
+      arrayParentName: props.workspace,
+      transitGatewayList: props.transitGatewayList
+    },
+    hideAbout: true,
+    toggleFormProps: {
+      hideName: true,
+      submissionFieldName: "cloud_connections",
+      disableSave: props.disableSave,
+      type: "formInSubForm"
+    }
+  });
+};
+PowerVsCloudConnections.defaultProps = {
+  isModal: false
+};
+PowerVsCloudConnections.propTypes = {
+  cloud_connections: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({}).isRequired),
+  isModal: PropTypes__default["default"].bool.isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  onConnectionDelete: PropTypes__default["default"].func.isRequired,
+  onConnectionSave: PropTypes__default["default"].func.isRequired,
+  onConnectionSubmit: PropTypes__default["default"].func.isRequired,
+  invalidConnectionNameCallback: PropTypes__default["default"].func.isRequired,
+  invalidConnectionNameTextCallback: PropTypes__default["default"].func.isRequired,
+  transitGatewayList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  workspace: PropTypes__default["default"].string.isRequired
+};
+
+var css_248z = ".cds--date-picker-container {\n  width: 11rem;\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n\n.cds--date-picker.cds--date-picker--single .cds--date-picker__input {\n  width: 11rem;\n}\n";
+styleInject(css_248z);
 
 const labelColors = ["red", "magenta", "purple", "blue", "cyan", "teal", "green"];
 class OpaqueIngressSecretForm extends React.Component {
@@ -15159,279 +15665,6 @@ F5BigIp.propTypes = {
   onVsiSave: PropTypes__default["default"].func.isRequired
 };
 
-class PowerVsNetworkForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
-    buildFormDefaultInputMethods(this);
-    buildFormFunctions(this);
-  }
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-  handleToggle(name) {
-    this.setState(this.toggleStateBoolean(name, this.state));
-  }
-  render() {
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: this.props.data.name + "-power-nw-name",
-      componentName: this.props.data.name + "-power-nw-name",
-      placeholder: "my-network-name",
-      value: this.state.name || "",
-      onChange: this.handleInputChange,
-      hideHelperText: true,
-      invalid: this.props.invalidNetworkNameCallback(this.state, this.props),
-      invalidText: this.props.invalidNetworkNameCallbackText(this.state, this.props),
-      className: "fieldWidth"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: this.props.data.name + "-power-nw",
-      groups: ["vlan", "pub-vlan"],
-      value: this.state.pi_network_type,
-      labelText: "Network Type",
-      name: "pi_network_type",
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidth"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: this.props.data.name + "-power-nw-cidr",
-      componentName: this.props.data.name + "-power-nw-cidr",
-      name: "client_ip_pool",
-      field: "pi_cidr",
-      value: this.state.pi_cidr,
-      placeholder: "x.x.x.x/x",
-      labelText: "Network CIDR Block",
-      invalidCallback: () => this.props.invalidCidrCallback(this.state, this.props),
-      invalidText: this.props.invalidCidrCallbackText(this.state, this.props),
-      onChange: this.handleInputChange,
-      className: "fieldWidth"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: this.props.data.name + "-power-nw-dns",
-      componentName: this.props.data.name + "-power-nw-dns",
-      field: "pi_dns",
-      value: this.state.pi_dns,
-      placeholder: "127.0.0.1",
-      labelText: "DNS Server IP",
-      invalidCallback: () => this.props.invalidDnsCallback(this.state, this.props),
-      invalidText: this.props.invalidDnsCallbackText(this.state, this.props),
-      onChange: this.handleInputChange,
-      className: "fieldWidth"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      id: this.props.data.name + "-power-nw-jumbo",
-      defaultToggled: this.state.pi_network_jumbo,
-      labelText: "MTU Jumbo",
-      onToggle: () => this.handleToggle("pi_network_jumbo"),
-      className: "fieldWidth"
-    })));
-  }
-}
-PowerVsNetworkForm.defaultProps = {
-  data: {
-    name: "",
-    pi_network_type: "vlan",
-    pi_cidr: "",
-    pi_dns: "",
-    pi_network_jumbo: false
-  },
-  isModal: false
-};
-PowerVsNetworkForm.propTypes = {
-  data: PropTypes__default["default"].shape({
-    name: PropTypes__default["default"].string,
-    pi_network_type: PropTypes__default["default"].string.isRequired,
-    pi_cidr: PropTypes__default["default"].string.isRequired,
-    pi_dns: PropTypes__default["default"].string.isRequired,
-    pi_network_jumbo: PropTypes__default["default"].bool.isRequired
-  }),
-  isModal: PropTypes__default["default"].bool.isRequired,
-  invalidNetworkNameCallback: PropTypes__default["default"].func.isRequired,
-  invalidNetworkNameCallbackText: PropTypes__default["default"].func.isRequired,
-  invalidCidrCallback: PropTypes__default["default"].func.isRequired,
-  invalidCidrCallbackText: PropTypes__default["default"].func.isRequired,
-  invalidDnsCallback: PropTypes__default["default"].func.isRequired,
-  invalidDnsCallbackText: PropTypes__default["default"].func.isRequired
-};
-
-class PowerVsCloudConnectionForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
-    this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
-    buildFormDefaultInputMethods(this);
-    buildFormFunctions(this);
-  }
-  handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
-  }
-  handleToggle(name) {
-    this.setState(this.toggleStateBoolean(name, this.state));
-  }
-
-  /**
-   * handle multiselect change
-   * @param {string} name key to change in the instance
-   * @param {*} value value
-   */
-  handleMultiSelectChange(name, value) {
-    this.setState(this.setNameToValue(name, value));
-  }
-  render() {
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: this.props.data.name + "-cloud-connect-name",
-      componentName: this.props.data.name + "-cloud-connect-name",
-      value: this.state.name || "",
-      onChange: this.handleInputChange,
-      hideHelperText: true,
-      invalid: this.props.invalidCallback(this.state, this.props),
-      invalidText: this.props.invalidTextCallback(this.state, this.props)
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: this.props.data.name + "-cloud-connect-speed",
-      groups: [50, 100, 200, 500, 1000, 2000, 5000, 10000],
-      value: this.state.pi_cloud_connection_speed,
-      labelText: "Connection Speed",
-      name: "pi_cloud_connection_speed",
-      handleInputChange: this.handleInputChange,
-      className: "fieldWidth"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      id: this.props.data.name + "-cloud-connect-global-routing",
-      defaultToggled: this.state.pi_cloud_connection_global_routing,
-      labelText: "Enable Global Routing",
-      onToggle: () => this.handleToggle("pi_cloud_connection_global_routing"),
-      className: "fieldWidth"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      id: this.props.data.name + "-cloud-connect-metered",
-      defaultToggled: this.state.pi_cloud_connection_metered,
-      labelText: "Enable Metered Connection",
-      onToggle: () => this.handleToggle("pi_cloud_connection_metered"),
-      className: "fieldWidth"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      id: this.props.data.name + "-cloud-connect-transit-enabled",
-      defaultToggled: this.state.pi_cloud_connection_transit_enabled,
-      labelText: "Enable Transit Gateway",
-      onToggle: () => this.handleToggle("pi_cloud_connection_transit_enabled"),
-      className: "fieldWidth"
-    }), this.state.pi_cloud_connection_transit_enabled && /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
-      className: "fieldWidthSmaller",
-      id: this.props.data.name + "-cloud-connect-transit-gw",
-      titleText: "Transit Gateways",
-      items: this.props.transitGatewayList,
-      onChange: value => {
-        this.handleMultiSelectChange("transit_gateways", value.selectedItems);
-      },
-      initialSelectedItems: this.state.transit_gateways,
-      invalid: this.state.transit_gateways.length === 0,
-      invalidText: "Select at least one transit gateway"
-    })));
-  }
-}
-PowerVsCloudConnectionForm.defaultProps = {
-  data: {
-    name: "",
-    pi_cloud_connection_speed: null,
-    //[50, 100, 200, 500, 1000, 2000, 5000, 10000],
-    pi_cloud_connection_global_routing: false,
-    pi_cloud_connection_metered: false,
-    pi_cloud_connection_transit_enabled: false,
-    transit_gateways: []
-  },
-  isModal: false,
-  transitGatewayList: []
-};
-PowerVsCloudConnectionForm.propTypes = {
-  data: PropTypes__default["default"].shape({
-    name: PropTypes__default["default"].string.isRequired,
-    pi_cloud_connection_speed: PropTypes__default["default"].number,
-    pi_cloud_connection_global_routing: PropTypes__default["default"].bool.isRequired,
-    pi_cloud_connection_metered: PropTypes__default["default"].bool.isRequired,
-    pi_cloud_connection_transit_enabled: PropTypes__default["default"].bool.isRequired,
-    transit_gateways: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string)
-  }),
-  isModal: PropTypes__default["default"].bool.isRequired,
-  transitGatewayList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string),
-  invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired
-};
-
-var css_248z = ".network-div {\n  margin-top: 1.75rem;\n}\n\n.network-icon {\n  margin-right: 1rem;\n  margin-top: 0.3rem;\n}\n";
-styleInject(css_248z);
-
-class PowerVsNetworkAttachmentForm extends React__default["default"].Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      attachments: [...this.props.data],
-      hide: true
-    };
-    this.handleSave = this.handleSave.bind(this);
-    this.handleMultiselectChange = this.handleMultiselectChange.bind(this);
-    this.toggleHide = this.toggleHide.bind(this);
-  }
-  handleSave() {
-    this.props.onSave(this.state, this.props);
-  }
-  handleMultiselectChange(network, connections) {
-    let attachments = [...this.state.attachments];
-    let stateObj = lazyZ.getObjectFromArray(attachments, "network", network);
-    stateObj.connections = connections;
-    this.setState({
-      attachments
-    });
-  }
-  toggleHide() {
-    this.setState({
-      hide: !this.state.hide
-    });
-  }
-  render() {
-    return /*#__PURE__*/React__default["default"].createElement(StatelessToggleForm, {
-      id: this.props.workspace + "-network-attachments",
-      name: "Network Attachments",
-      hide: this.state.hide,
-      onIconClick: this.toggleHide,
-      className: "formInSubForm secretChecklistMargin",
-      toggleFormTitle: true,
-      noMarginBottom: true,
-      buttons: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
-        disabled: this.props.propsMatchState(this.state.attachments, this.props.data),
-        onClick: this.handleSave
-      })
-    }, /*#__PURE__*/React__default["default"].createElement("div", {
-      className: "formInSubForm secretChecklistMargin"
-    }, this.props.networks.map(nw => /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
-      className: "marginBottomSmall",
-      key: nw
-    }, /*#__PURE__*/React__default["default"].createElement("div", {
-      className: "displayFlex fieldWidth network-div"
-    }, /*#__PURE__*/React__default["default"].createElement(iconsReact.Network_3, {
-      className: "network-icon"
-    }), /*#__PURE__*/React__default["default"].createElement("p", null, nw)), /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
-      titleText: "Cloud Connections",
-      items: this.props.cloudConnections,
-      id: "power-connections-" + nw,
-      className: "fieldWidth",
-      initialSelectedItems: lazyZ.getObjectFromArray(this.state.attachments, "network", nw).connections,
-      onChange: items => this.handleMultiselectChange(nw, items.selectedItems)
-    })))));
-  }
-}
-PowerVsNetworkAttachmentForm.propTypes = {
-  networks: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  cloudConnections: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  data: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({
-    network: PropTypes__default["default"].string,
-    connections: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string)
-  })).isRequired,
-  propsMatchState: PropTypes__default["default"].func.isRequired,
-  onSave: PropTypes__default["default"].func.isRequired,
-  workspace: PropTypes__default["default"].string.isRequired
-};
-
 exports.AccessGroupDynamicPolicyForm = AccessGroupDynamicPolicyForm;
 exports.AccessGroupForm = AccessGroupForm;
 exports.AccessGroupPolicyForm = AccessGroupPolicyForm;
@@ -15503,8 +15736,11 @@ exports.OpaqueIngressSecretForm = OpaqueIngressSecretForm;
 exports.OrderCardDataTable = OrderCardDataTable;
 exports.PopoverWrapper = PopoverWrapper;
 exports.PowerVsCloudConnectionForm = PowerVsCloudConnectionForm;
+exports.PowerVsCloudConnectionPage = PowerVsCloudConnections;
 exports.PowerVsNetworkAttachmentForm = PowerVsNetworkAttachmentForm;
 exports.PowerVsNetworkForm = PowerVsNetworkForm;
+exports.PowerVsNetworkPage = PowerVsNetwork;
+exports.PowerVsWorkspaceForm = PowerVsWorkspaceForm;
 exports.RenderForm = RenderForm;
 exports.ResourceGroupForm = ResourceGroupForm;
 exports.ResourceGroupsTemplate = ResourceGroups;

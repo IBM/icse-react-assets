@@ -1,139 +1,101 @@
 import React from "react";
 
 import "./App.css";
-import {
-  IcseFormGroup,
-  IcseHeading,
-  IcseMultiSelect,
-  SaveAddButton,
-  buildFormDefaultInputMethods,
-  buildFormFunctions,
-  StatelessToggleForm,
-} from "icse-react-assets";
-import { getObjectFromArray } from "lazy-z";
+import { PowerVsWorkspaceForm } from "icse-react-assets";
+import { getObjectFromArray, splat } from "lazy-z";
 import { Network_3 } from "@carbon/icons-react";
 import PropTypes from "prop-types";
 
-class PowerVsNetworkAttachmentForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { attachments: [...this.props.data], hide: true };
-    buildFormDefaultInputMethods(this);
-    buildFormFunctions(this);
-    this.handleSave = this.handleSave.bind(this);
-    this.handleMultiselectChange = this.handleMultiselectChange.bind(this);
-    this.toggleHide = this.toggleHide.bind(this);
-  }
-
-  handleSave() {
-    this.props.onSave(this.state, this.props);
-  }
-
-  handleMultiselectChange(network, connections) {
-    let attachments = [...this.state.attachments];
-    let stateObj = getObjectFromArray(attachments, "network", network);
-    stateObj.connections = connections;
-    this.setState({ attachments });
-  }
-
-  toggleHide() {
-    this.setState({ hide: !this.state.hide });
-  }
-
-  render() {
-    return (
-      <StatelessToggleForm
-        id={this.props.parentName + "-network-attachments"}
-        name="Network Attachments"
-        hide={this.state.hide}
-        onIconClick={this.toggleHide}
-        className="formInSubForm secretChecklistMargin"
-        toggleFormTitle
-        noMarginBottom
-        buttons={
-          <SaveAddButton
-            disabled={this.props.propsMatchState(
-              this.state.attachments,
-              this.props.data,
-            )}
-            onClick={this.handleSave}
-          />
-        }
-      >
-        <div className="formInSubForm secretChecklistMargin">
-          {this.props.networks.map((nw) => (
-            <IcseFormGroup className="marginBottomSmall" key={nw}>
-              <div
-                className="displayFlex fieldWidth"
-                style={{ marginTop: "1.75rem" }}
-              >
-                <Network_3
-                  style={{ marginRight: "1rem", marginTop: ".30rem" }}
-                />
-                <p>{nw}</p>
-              </div>
-              <IcseMultiSelect
-                titleText="Cloud Connections"
-                items={this.props.cloudConnections}
-                id={"power-connections-" + nw}
-                className="fieldWidth"
-                initialSelectedItems={
-                  getObjectFromArray(this.state.attachments, "network", nw)
-                    .connections
-                }
-                onChange={(items) => this.handleMultiselectChange(nw, items)}
-              />
-            </IcseFormGroup>
-          ))}
-        </div>
-      </StatelessToggleForm>
-    );
-  }
-}
-
-PowerVsNetworkAttachmentForm.propTypes = {
-  networks: PropTypes.arrayOf(PropTypes.string).isRequired,
-  cloudConnections: PropTypes.arrayOf(PropTypes.string).isRequired,
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      network: PropTypes.string,
-      connections: PropTypes.arrayOf(PropTypes.string),
-    }),
-  ).isRequired,
-  propsMatchState: PropTypes.func.isRequired,
-  onSave: PropTypes.func.isRequired,
-  workspace: PropTypes.string.isRequired,
-};
-
 const App = () => {
   return (
-    <div className="subForm">
-      <PowerVsNetworkAttachmentForm
-        networks={["example-1", "example-2", "example-3"]}
-        cloudConnections={["connection-1", "connection-2", "connection-3"]}
-        data={[
+    <PowerVsWorkspaceForm
+      invalidCallback={() => {
+        return true;
+      }}
+      invalidTextCallback={() => {
+        return "oops";
+      }}
+      helperTextCallback={() => {
+        return "help";
+      }}
+      data={{
+        name: "frog",
+        resource_group: "dev-2",
+        zone: "az-1",
+        network: [
           {
-            network: "example-1",
-            connections: ["connection-1"],
+            workspace: "example",
+            name: "dev-nw",
+            pi_cidr: "1.2.3.4/5",
+            pi_dns: ["127.0.0.1"],
+            pi_network_type: "vlan",
+            pi_network_jumbo: true,
+            zone: "dal10",
           },
+        ],
+        cloud_connections: [
           {
-            network: "example-2",
-            connections: ["connection-1", "connection-3"],
+            name: "dev-connection",
+            workspace: "example",
+            pi_cloud_connection_speed: "50",
+            pi_cloud_connection_global_routing: false,
+            pi_cloud_connection_metered: false,
+            pi_cloud_connection_transit_enabled: true,
+            transit_gateways: ["tgw", "tgw2"],
+            zone: "dal10",
           },
+        ],
+        attachments: [
           {
-            network: "example-3",
-            connections: ["connection-1", "connection-2", "connection-3"],
+            connections: ["dev-connection"],
+            workspace: "example",
+            network: "dev-nw",
+            zone: "dal10",
           },
-        ]}
-        propsMatchState={(stateData, componentProps) => {
-          return true;
-        }}
-        onSave={() => {
-          alert("ding");
-        }}
-        workspace="example"
-      />
-    </div>
+        ],
+      }}
+      resourceGroups={["dev-1", "dev-2"]}
+      zones={["az-1", "az-2"]}
+      disableSave={() => {
+        return true;
+      }}
+      propsMatchState={() => {
+        return true;
+      }}
+      onNetworkDelete={() => {}}
+      onNetworkSave={() => {}}
+      onNetworkSubmit={() => {}}
+      craig={{}}
+      invalidNetworkNameCallbackText={() => {
+        return "uh oh";
+      }}
+      invalidCidrCallbackText={() => {
+        return "uh oh";
+      }}
+      invalidDnsCallbackText={() => {
+        return "uh oh";
+      }}
+      invalidNetworkNameCallback={() => {
+        return true;
+      }}
+      invalidCidrCallback={() => {
+        return true;
+      }}
+      invalidDnsCallback={() => {
+        return true;
+      }}
+      onConnectionDelete={() => {}}
+      onConnectionSave={() => {}}
+      onConnectionSubmit={() => {}}
+      invalidConnectionNameCallback={() => {
+        return true;
+      }}
+      invalidConnectionNameTextCallback={() => {
+        return "uh oh";
+      }}
+      transitGatewayList={["tgw", "tgw-2"]}
+      onAttachmentSave={() => {}}
+    />
   );
 };
 export default App;

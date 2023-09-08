@@ -21,3 +21,5 @@ export { VpnServers } from "./VpnServers";
 export { NetworkAcls } from "./NetworkAcls";
 export { SshKeys } from "./SshKeys";
 export { Subnets } from "./Subnets";
+export { PowerVsNetwork } from "./PowerVsNetwork";
+export { PowerVsCloudConnections } from "./PowerVsCloudConnections";
