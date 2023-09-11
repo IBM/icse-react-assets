@@ -11705,18 +11705,7 @@ class PowerVsWorkspaceForm extends React.Component {
       transitGatewayList: this.props.transitGatewayList,
       workspace: this.props.data.name,
       craig: this.props.craig
-    }), this.props.isModal || this.props.data.network.length === 0 || this.props.data.cloud_connections.length === 0 ? "" : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseHeading, {
-      name: "Workspace Network Attachments",
-      type: "subHeading",
-      className: "marginBottom"
-    }), /*#__PURE__*/React.createElement(PowerVsNetworkAttachmentForm, {
-      networks: splat$2(this.props.data.network, "name"),
-      cloudConnections: splat$2(this.props.data.cloud_connections, "name"),
-      data: this.props.data.attachments,
-      disableAttachmentSave: this.props.disableAttachmentSave,
-      onSave: this.props.onAttachmentSave,
-      workspace: this.props.data.name
-    })));
+    }));
   }
 }
 PowerVsWorkspaceForm.propTypes = {

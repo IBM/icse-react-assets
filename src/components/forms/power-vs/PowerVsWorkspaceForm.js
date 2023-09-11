@@ -132,7 +132,7 @@ class PowerVsWorkspaceForm extends React.Component {
           workspace={this.props.data.name}
           craig={this.props.craig}
         />
-        {this.props.isModal ||
+        {/*this.props.isModal ||
         this.props.data.network.length === 0 ||
         this.props.data.cloud_connections.length === 0 ? (
           ""
@@ -155,7 +155,7 @@ class PowerVsWorkspaceForm extends React.Component {
               workspace={this.props.data.name}
             />
           </>
-        )}
+        )*/}
       </>
     );
   }
