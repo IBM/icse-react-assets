@@ -130,6 +130,7 @@ class PowerVsWorkspaceForm extends React.Component {
           }
           transitGatewayList={this.props.transitGatewayList}
           workspace={this.props.data.name}
+          craig={this.props.craig}
         />
         {this.props.isModal ||
         this.props.data.network.length === 0 ||

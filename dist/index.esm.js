@@ -11703,7 +11703,8 @@ class PowerVsWorkspaceForm extends React.Component {
       invalidConnectionNameCallback: this.props.invalidConnectionNameCallback,
       invalidConnectionNameTextCallback: this.props.invalidConnectionNameTextCallback,
       transitGatewayList: this.props.transitGatewayList,
-      workspace: this.props.data.name
+      workspace: this.props.data.name,
+      craig: this.props.craig
     }), this.props.isModal || this.props.data.network.length === 0 || this.props.data.cloud_connections.length === 0 ? "" : /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseHeading, {
       name: "Workspace Network Attachments",
       type: "subHeading",
