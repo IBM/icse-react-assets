@@ -11383,7 +11383,7 @@ class PowerVsNetworkForm extends Component {
       value: this.state.pi_cidr,
       placeholder: "x.x.x.x/x",
       labelText: "Network CIDR Block",
-      invalidCallback: this.props.invalidCidrCallback(this.state, this.props),
+      invalid: this.props.invalidCidrCallback(this.state, this.props),
       invalidText: this.props.invalidCidrCallbackText(this.state, this.props),
       onChange: this.handleInputChange,
       className: "fieldWidth"
@@ -11394,7 +11394,7 @@ class PowerVsNetworkForm extends Component {
       value: this.state.pi_dns[0],
       placeholder: "127.0.0.1",
       labelText: "DNS Server IP",
-      invalidCallback: this.props.invalidDnsCallback(this.state, this.props),
+      invalid: this.props.invalidDnsCallback(this.state, this.props),
       invalidText: this.props.invalidDnsCallbackText(this.state, this.props),
       onChange: this.handleInputChange,
       className: "fieldWidth"
