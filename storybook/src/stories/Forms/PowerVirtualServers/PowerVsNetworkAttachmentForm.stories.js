@@ -23,32 +23,10 @@ export default {
       control: "none",
       type: { required: true }, // required prop or not
     },
-    networks: {
-      description: "An array of plaintext strings for each network",
-      type: { required: true }, // required prop or not
-      control: "none",
-    },
-    cloudConnections: {
+    cloud_connections: {
       description: "An array of plaintext strings for each cloud connection",
       type: { required: true }, // required prop or not
       control: "none",
-    },
-    propsMatchState: {
-      description:
-        "Function to tell if the props match state. This is used to manage if a form is disabled",
-      type: { required: true }, // required prop or not
-      control: "none",
-    },
-    onSave: {
-      description: "Function to save network attachments",
-      type: { required: true }, // required prop or not
-      control: "none",
-    },
-    workspace: {
-      description:
-        "A string value of the workspace where connections are created. This is used to identify connection workspace when connecting with an application",
-      control: "none",
-      type: { required: true }, // required prop or not
     },
   },
   parameters: {
@@ -73,25 +51,11 @@ const PowerVsNetworkFormStory = () => {
   return (
     <div style={{ minWidth: "30vw" }}>
       <PowerVsNetworkAttachmentForm
-        networks={["example-1", "example-2", "example-3"]}
-        cloudConnections={["connection-1", "connection-2", "connection-3"]}
-        data={[
-          {
-            network: "example-1",
-            connections: ["connection-1"],
-          },
-          {
-            network: "example-2",
-            connections: ["connection-1", "connection-3"],
-          },
-          {
-            network: "example-3",
-            connections: ["connection-1", "connection-2", "connection-3"],
-          },
-        ]}
-        propsMatchState={propsMatchState}
-        onSave={onSave}
-        workspace="example"
+        cloud_connections={["a", "b", "c"]}
+        data={{
+          network: "test",
+          connections: ["b"],
+        }}
       />
     </div>
   );

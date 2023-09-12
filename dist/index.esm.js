@@ -4,7 +4,7 @@ import lazyZ, { titleCase as titleCase$2, kebabCase as kebabCase$6, isEmpty, bui
 import regexButWithWords from 'regex-but-with-words';
 import React, { Component } from 'react';
 import PropTypes, { PropTypes as PropTypes$1 } from 'prop-types';
-import { Information, Save, Add, ChevronDown, ChevronRight, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt, Edit, DataView, Network_3, Password } from '@carbon/icons-react';
+import { Information, Save, Add, ChevronDown, ChevronRight, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt, Edit, DataView, Password } from '@carbon/icons-react';
 
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
@@ -4080,7 +4080,8 @@ LocationsMultiSelect.propTypes = {
 
 const {
   isFunction,
-  splat
+  splat,
+  getType
 } = require("lazy-z");
 
 /**
@@ -4088,10 +4089,11 @@ const {
  * @param {React.Element} component stateful component
  */
 function buildFormFunctions(component) {
-  let disableSubmit = isFunction(component.props.shouldDisableSubmit);
   let disableSave = isFunction(component.props.shouldDisableSave);
+  let disableSubmit = isFunction(component.props.shouldDisableSubmit);
   let usesSubnetList = Array.isArray(component.props.subnetList);
   let usesSecurityGroups = Array.isArray(component.props.securityGroups);
+  let usesImageList = getType(component.props.imageMap) === "object";
   if (component.props.shouldDisableSave) component.shouldDisableSave = component.props.shouldDisableSave.bind(component);
   if (disableSubmit) component.shouldDisableSubmit = component.props.shouldDisableSubmit.bind(component);
   if (usesSubnetList) {
@@ -4099,6 +4101,11 @@ function buildFormFunctions(component) {
       return splat(component.props.subnetList.filter(subnet => {
         if (subnet.vpc === component.state.vpc) return subnet;
       }), "name");
+    }.bind(component);
+  }
+  if (usesImageList) {
+    component.getImageList = function () {
+      return splat(component.props.imageMap[component.state.zone], "name");
     }.bind(component);
   }
   if (usesSecurityGroups) {
@@ -4114,9 +4121,12 @@ function buildFormFunctions(component) {
     if (disableSubmit) component.shouldDisableSubmit();
     if (disableSave) component.shouldDisableSave(this.state, this.props);
   }.bind(component);
-  component.componentDidUpdate = function () {
+  component.componentDidUpdate = function (prevProps) {
     if (disableSubmit) component.shouldDisableSubmit();
     if (disableSave) component.shouldDisableSave(this.state, this.props);
+    if (usesImageList) {
+      component.forceUpdateOnPropsChange(prevProps);
+    }
   }.bind(component);
 
   // set on save function
@@ -11539,83 +11549,42 @@ PowerVsCloudConnectionForm.propTypes = {
   invalidTextCallback: PropTypes.func.isRequired
 };
 
-var css_248z$1 = ".network-div {\n  margin-top: 1.75rem;\n}\n\n.network-icon {\n  margin-right: 1rem;\n  margin-top: 0.3rem;\n}\n";
-styleInject(css_248z$1);
-
 class PowerVsNetworkAttachmentForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      attachments: [...this.props.data],
-      hide: true
+      ...this.props.data
     };
-    this.handleSave = this.handleSave.bind(this);
-    this.handleMultiselectChange = this.handleMultiselectChange.bind(this);
-    this.toggleHide = this.toggleHide.bind(this);
-    this.disableSave = this.disableSave(this);
+    buildFormFunctions(this);
+    this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
   }
-  handleSave() {
-    this.props.onSave(this.state, this.props);
-  }
-  handleMultiselectChange(network, connections) {
-    let attachments = [...this.state.attachments];
-    let stateObj = getObjectFromArray(attachments, "network", network);
-    stateObj.connections = connections;
+  handleMultiSelectChange(event) {
     this.setState({
-      attachments
+      connections: event.selectedItems
     });
-  }
-  toggleHide() {
-    this.setState({
-      hide: !this.state.hide
-    });
-  }
-  disableSave() {
-    return this.props.disableAttachmentSave(this.state, this.props);
   }
   render() {
-    return /*#__PURE__*/React.createElement(StatelessToggleForm, {
-      id: this.props.workspace + "-network-attachments",
-      name: "Network Attachments",
-      hide: this.state.hide,
-      onIconClick: this.toggleHide,
-      className: "formInSubForm secretChecklistMargin",
-      toggleFormTitle: true,
-      noMarginBottom: true,
-      buttons: /*#__PURE__*/React.createElement(SaveAddButton, {
-        disabled: this.disableSave,
-        onClick: this.handleSave
-      })
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "formInSubForm secretChecklistMargin"
-    }, this.props.networks.map(nw => /*#__PURE__*/React.createElement(IcseFormGroup, {
-      className: "marginBottomSmall",
-      key: nw
-    }, /*#__PURE__*/React.createElement("div", {
-      className: "displayFlex fieldWidth network-div"
-    }, /*#__PURE__*/React.createElement(Network_3, {
-      className: "network-icon"
-    }), /*#__PURE__*/React.createElement("p", null, nw)), /*#__PURE__*/React.createElement(IcseMultiSelect, {
-      titleText: "Cloud Connections",
-      items: this.props.cloudConnections,
-      id: "power-connections-" + nw,
+    return /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseMultiSelect, {
+      titleText: "Connections",
       className: "fieldWidth",
-      initialSelectedItems: getObjectFromArray(this.state.attachments, "network", nw).connections,
-      onChange: items => this.handleMultiselectChange(nw, items.selectedItems)
-    })))));
+      id: this.props.data.network + "-power-connections",
+      items: this.props.cloud_connections,
+      initialSelectedItems: this.state.connections,
+      onChange: this.handleMultiSelectChange
+    }));
   }
 }
 PowerVsNetworkAttachmentForm.propTypes = {
-  networks: PropTypes.arrayOf(PropTypes.string).isRequired,
-  cloudConnections: PropTypes.arrayOf(PropTypes.string).isRequired,
-  data: PropTypes.arrayOf(PropTypes.shape({
-    network: PropTypes.string,
-    connections: PropTypes.arrayOf(PropTypes.string)
-  })).isRequired,
-  disableAttachmentSave: PropTypes.func.isRequired,
-  onSave: PropTypes.func.isRequired,
-  workspace: PropTypes.string.isRequired
+  data: PropTypes.shape({
+    connections: PropTypes.arrayOf(PropTypes.string).isRequired,
+    network: PropTypes.string.isRequired
+  }),
+  // not required as not abailable on load
+  cloud_connections: PropTypes.arrayOf(PropTypes.string.isRequired)
 };
+
+var css_248z$1 = ".network-div {\n  margin-top: 1.75rem;\n}\n\n.network-icon {\n  margin-right: 1rem;\n  margin-top: 0.3rem;\n}\n";
+styleInject(css_248z$1);
 
 class PowerVsWorkspaceForm extends React.Component {
   constructor(props) {
@@ -11626,9 +11595,29 @@ class PowerVsWorkspaceForm extends React.Component {
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
+    this.forceUpdateOnPropsChange = this.forceUpdateOnPropsChange.bind(this);
   }
   handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
+    if (event.target.name === "zone") {
+      this.setState({
+        zone: event.target.value,
+        imageNames: []
+      });
+    } else this.setState(this.eventTargetToNameAndValue(event));
+  }
+  handleMultiSelectChange(items) {
+    this.setState({
+      imageNames: items
+    });
+  }
+  forceUpdateOnPropsChange(prevProps) {
+    if (!deepEqual(prevProps.data.imageNames, this.props.data.imageNames)) {
+      console.log("hard set");
+      this.setState({
+        ...this.props.data
+      });
+    }
   }
   render() {
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
@@ -11640,7 +11629,7 @@ class PowerVsWorkspaceForm extends React.Component {
       invalidCallback: () => this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props),
       helperTextCallback: () => this.props.helperTextCallback(this.state, this.props),
-      className: "fieldWidthSmaller"
+      className: "fieldWidth"
     }), /*#__PURE__*/React.createElement(IcseSelect, {
       labelText: "Resource Group",
       name: "resource_group",
@@ -11649,8 +11638,8 @@ class PowerVsWorkspaceForm extends React.Component {
       value: this.state.resource_group,
       handleInputChange: this.handleInputChange,
       invalidText: "Select a Resource Group.",
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      className: "fieldWidth"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
       labelText: "Availability Zone",
       name: "zone",
       formName: this.state.name + "-power-vs-workspace-zone",
@@ -11658,7 +11647,17 @@ class PowerVsWorkspaceForm extends React.Component {
       value: this.state.zone,
       handleInputChange: this.handleInputChange,
       invalidText: "Select a Zone.",
-      className: "fieldWidthSmaller"
+      className: "fieldWidth"
+    }), /*#__PURE__*/React.createElement(IcseMultiSelect, {
+      key: this.state.zone,
+      titleText: "Import Images",
+      className: "fieldWidth",
+      items: isNullOrEmptyString$6(this.state.zone) ? [] : this.getImageList(),
+      id: this.props.data.name + "-images",
+      initialSelectedItems: this.state.imageNames,
+      onChange: event => this.handleMultiSelectChange(event.selectedItems),
+      invalid: this.state.imageNames === [],
+      invalidText: "Select at least one Image"
     })), this.props.isModal ? "" : /*#__PURE__*/React.createElement(SshKeys, {
       isModal: this.props.isModal,
       ssh_keys: this.props.data.ssh_keys,
@@ -11705,6 +11704,14 @@ class PowerVsWorkspaceForm extends React.Component {
       transitGatewayList: this.props.transitGatewayList,
       workspace: this.props.data.name,
       craig: this.props.craig
+    }), this.props.isModal || this.props.data.network.length === 0 || this.props.data.cloud_connections.length === 0 ? "" : /*#__PURE__*/React.createElement(PowerVsNetworkAttachment$1, {
+      attachments: this.props.data.attachments,
+      disableSave: this.props.disableSave,
+      propsMatchState: this.props.propsMatchState,
+      onAttachmentSave: this.props.onAttachmentSave,
+      cloud_connections: splat$2(this.props.data.cloud_connections, "name"),
+      workspace: this.props.data.name,
+      craig: this.props.craig
     }));
   }
 }
@@ -11737,7 +11744,8 @@ PowerVsWorkspaceForm.propTypes = {
   data: PropTypes.shape({
     name: PropTypes.string,
     resource_group: PropTypes.string,
-    zone: PropTypes.string
+    zone: PropTypes.string,
+    imageNames: PropTypes.arrayOf(PropTypes.string)
   }).isRequired,
   onSshKeyDelete: PropTypes.func.isRequired,
   onSshKeySave: PropTypes.func.isRequired,
@@ -11747,7 +11755,8 @@ PowerVsWorkspaceForm.propTypes = {
   invalidSshKeyCallbackText: PropTypes.func.isRequired,
   invalidKeyCallback: PropTypes.func.isRequired,
   sshKeyDeleteDisabled: PropTypes.func.isRequired,
-  disableAttachmentSave: PropTypes.func.isRequired
+  disableAttachmentSave: PropTypes.func.isRequired,
+  imageMap: PropTypes.shape({}).isRequired
 };
 PowerVsWorkspaceForm.defaultProps = {
   isModal: false,
@@ -11760,6 +11769,10 @@ PowerVsWorkspaceForm.defaultProps = {
     cloud_connections: [],
     images: [],
     attachments: []
+  },
+  imageMap: {},
+  sshKeyDeleteDisabled: () => {
+    return false;
   }
 };
 
@@ -11908,7 +11921,8 @@ const PowerVsWorkspace = props => {
       invalidSshKeyCallbackText: props.invalidSshKeyCallbackText,
       invalidKeyCallback: props.invalidKeyCallback,
       sshKeyDeleteDisabled: props.sshKeyDeleteDisabled,
-      disableAttachmentSave: props.disableAttachmentSave
+      disableAttachmentSave: props.disableAttachmentSave,
+      imageMap: props.imageMap
     },
     toggleFormProps: {
       craig: props.craig,
@@ -11957,8 +11971,63 @@ PowerVsWorkspace.propTypes = {
   invalidSshKeyCallbackText: PropTypes.func.isRequired,
   invalidKeyCallback: PropTypes.func.isRequired,
   sshKeyDeleteDisabled: PropTypes.func.isRequired,
-  disableAttachmentSave: PropTypes.func.isRequired
+  disableAttachmentSave: PropTypes.func.isRequired,
+  imageMap: PropTypes.shape({}).isRequired
 };
+
+class PowerVsNetworkAttachment extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      hide: true
+    };
+    this.handleToggle = this.handleToggle.bind(this);
+    buildFormDefaultInputMethods(this);
+  }
+  handleToggle() {
+    this.setState({
+      hide: !this.state.hide
+    });
+  }
+  render() {
+    return /*#__PURE__*/React.createElement(IcseFormTemplate, {
+      name: "Network Connections",
+      subHeading: true,
+      hideFormTitleButton: true,
+      arrayData: this.props.attachments,
+      innerForm: PowerVsNetworkAttachmentForm,
+      disableSave: this.props.disableSave,
+      propsMatchState: this.props.propsMatchState,
+      onSubmit: () => {},
+      onDelete: () => {},
+      onSave: this.props.onAttachmentSave,
+      toggleFormFieldName: "network",
+      innerFormProps: {
+        cloud_connections: this.props.cloud_connections,
+        arrayParentName: this.props.workspace,
+        craig: this.props.craig
+      },
+      hideAbout: true,
+      toggleFormProps: {
+        hideName: true,
+        submissionFieldName: "attachments",
+        disableSave: this.props.disableSave,
+        type: "formInSubForm",
+        noDeleteButton: true
+      }
+    });
+  }
+}
+PowerVsNetworkAttachment.propTypes = {
+  attachments: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  disableSave: PropTypes.func.isRequired,
+  propsMatchState: PropTypes.func.isRequired,
+  onAttachmentSave: PropTypes.func.isRequired,
+  cloud_connections: PropTypes.arrayOf(PropTypes.string).isRequired,
+  workspace: PropTypes.string.isRequired,
+  craig: PropTypes.shape({}).isRequired
+};
+var PowerVsNetworkAttachment$1 = PowerVsNetworkAttachment;
 
 var css_248z = ".cds--date-picker-container {\n  width: 11rem;\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n\n.cds--date-picker.cds--date-picker--single .cds--date-picker__input {\n  width: 11rem;\n}\n";
 styleInject(css_248z);

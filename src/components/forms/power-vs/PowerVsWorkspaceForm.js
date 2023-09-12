@@ -4,16 +4,17 @@ import {
   buildFormDefaultInputMethods,
   buildFormFunctions,
 } from "../../component-utils";
-import { IcseFormGroup, IcseHeading } from "../../Utils";
+import { IcseFormGroup } from "../../Utils";
 import { IcseNameInput } from "../../Inputs";
 import { IcseSelect } from "../../Dropdowns";
 import {
+  IcseMultiSelect,
   PowerVsCloudConnectionPage,
-  PowerVsNetworkAttachmentForm,
   PowerVsNetworkPage,
 } from "../..";
-import { splat } from "lazy-z";
-import { SshKeys } from "../../crud-form-pages";
+import { SshKeys, PowerVsNetworkAttachment } from "../../crud-form-pages";
+import { deepEqual, isNullOrEmptyString, splat } from "lazy-z";
+import "./power-attachment.css";
 
 class PowerVsWorkspaceForm extends React.Component {
   constructor(props) {
@@ -22,10 +23,28 @@ class PowerVsWorkspaceForm extends React.Component {
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
+    this.forceUpdateOnPropsChange = this.forceUpdateOnPropsChange.bind(this);
   }
 
   handleInputChange(event) {
-    this.setState(this.eventTargetToNameAndValue(event));
+    if (event.target.name === "zone") {
+      this.setState({
+        zone: event.target.value,
+        imageNames: [],
+      });
+    } else this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  handleMultiSelectChange(items) {
+    this.setState({ imageNames: items });
+  }
+
+  forceUpdateOnPropsChange(prevProps) {
+    // force component to update when images change
+    if (!deepEqual(prevProps.data.imageNames, this.props.data.imageNames)) {
+      this.setState({ ...this.props.data });
+    }
   }
 
   render() {
@@ -46,7 +65,7 @@ class PowerVsWorkspaceForm extends React.Component {
             helperTextCallback={() =>
               this.props.helperTextCallback(this.state, this.props)
             }
-            className="fieldWidthSmaller"
+            className="fieldWidth"
           />
 
           {/* resource group */}
@@ -58,9 +77,10 @@ class PowerVsWorkspaceForm extends React.Component {
             value={this.state.resource_group}
             handleInputChange={this.handleInputChange}
             invalidText="Select a Resource Group."
-            className="fieldWidthSmaller"
+            className="fieldWidth"
           />
-
+        </IcseFormGroup>
+        <IcseFormGroup>
           {/* availability zone group */}
           <IcseSelect
             labelText="Availability Zone"
@@ -70,7 +90,23 @@ class PowerVsWorkspaceForm extends React.Component {
             value={this.state.zone}
             handleInputChange={this.handleInputChange}
             invalidText="Select a Zone."
-            className="fieldWidthSmaller"
+            className="fieldWidth"
+          />
+          {/* import images */}
+          <IcseMultiSelect
+            key={this.state.zone}
+            titleText="Import Images"
+            className="fieldWidth"
+            items={
+              isNullOrEmptyString(this.state.zone) ? [] : this.getImageList()
+            }
+            id={this.props.data.name + "-images"}
+            initialSelectedItems={this.state.imageNames}
+            onChange={(event) =>
+              this.handleMultiSelectChange(event.selectedItems)
+            }
+            invalid={this.state.imageNames === []}
+            invalidText="Select at least one Image"
           />
         </IcseFormGroup>
         {this.props.isModal ? (
@@ -132,30 +168,21 @@ class PowerVsWorkspaceForm extends React.Component {
           workspace={this.props.data.name}
           craig={this.props.craig}
         />
-        {/*this.props.isModal ||
+        {this.props.isModal ||
         this.props.data.network.length === 0 ||
         this.props.data.cloud_connections.length === 0 ? (
           ""
         ) : (
-          <>
-            <IcseHeading
-              name="Workspace Network Attachments"
-              type="subHeading"
-              className="marginBottom"
-            />
-            <PowerVsNetworkAttachmentForm
-              networks={splat(this.props.data.network, "name")}
-              cloudConnections={splat(
-                this.props.data.cloud_connections,
-                "name",
-              )}
-              data={this.props.data.attachments}
-              disableAttachmentSave={this.props.disableAttachmentSave}
-              onSave={this.props.onAttachmentSave}
-              workspace={this.props.data.name}
-            />
-          </>
-        )*/}
+          <PowerVsNetworkAttachment
+            attachments={this.props.data.attachments}
+            disableSave={this.props.disableSave}
+            propsMatchState={this.props.propsMatchState}
+            onAttachmentSave={this.props.onAttachmentSave}
+            cloud_connections={splat(this.props.data.cloud_connections, "name")}
+            workspace={this.props.data.name}
+            craig={this.props.craig}
+          />
+        )}
       </>
     );
   }
@@ -191,6 +218,7 @@ PowerVsWorkspaceForm.propTypes = {
     name: PropTypes.string,
     resource_group: PropTypes.string,
     zone: PropTypes.string,
+    imageNames: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
   onSshKeyDelete: PropTypes.func.isRequired,
   onSshKeySave: PropTypes.func.isRequired,
@@ -201,6 +229,7 @@ PowerVsWorkspaceForm.propTypes = {
   invalidKeyCallback: PropTypes.func.isRequired,
   sshKeyDeleteDisabled: PropTypes.func.isRequired,
   disableAttachmentSave: PropTypes.func.isRequired,
+  imageMap: PropTypes.shape({}).isRequired,
 };
 
 PowerVsWorkspaceForm.defaultProps = {
@@ -214,6 +243,10 @@ PowerVsWorkspaceForm.defaultProps = {
     cloud_connections: [],
     images: [],
     attachments: [],
+  },
+  imageMap: {},
+  sshKeyDeleteDisabled: () => {
+    return false;
   },
 };
 

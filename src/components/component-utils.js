@@ -3,17 +3,18 @@ import {
   setNameToValue,
   toggleStateBoolean,
 } from "../lib";
-const { isFunction, splat } = require("lazy-z");
+const { isFunction, splat, getType } = require("lazy-z");
 
 /**
  * build functions for modal forms
  * @param {React.Element} component stateful component
  */
 function buildFormFunctions(component) {
-  let disableSubmit = isFunction(component.props.shouldDisableSubmit);
   let disableSave = isFunction(component.props.shouldDisableSave);
+  let disableSubmit = isFunction(component.props.shouldDisableSubmit);
   let usesSubnetList = Array.isArray(component.props.subnetList);
   let usesSecurityGroups = Array.isArray(component.props.securityGroups);
+  let usesImageList = getType(component.props.imageMap) === "object";
 
   if (component.props.shouldDisableSave)
     component.shouldDisableSave =
@@ -34,6 +35,12 @@ function buildFormFunctions(component) {
     }.bind(component);
   }
 
+  if (usesImageList) {
+    component.getImageList = function () {
+      return splat(component.props.imageMap[component.state.zone], "name");
+    }.bind(component);
+  }
+
   if (usesSecurityGroups) {
     component.getSecurityGroupList = function () {
       return splat(
@@ -51,9 +58,12 @@ function buildFormFunctions(component) {
     if (disableSave) component.shouldDisableSave(this.state, this.props);
   }.bind(component);
 
-  component.componentDidUpdate = function () {
+  component.componentDidUpdate = function (prevProps) {
     if (disableSubmit) component.shouldDisableSubmit();
     if (disableSave) component.shouldDisableSave(this.state, this.props);
+    if (usesImageList) {
+      component.forceUpdateOnPropsChange(prevProps);
+    }
   }.bind(component);
 
   // set on save function

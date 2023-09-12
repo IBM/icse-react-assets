@@ -24,3 +24,4 @@ export { Subnets } from "./Subnets";
 export { PowerVsNetwork } from "./PowerVsNetwork";
 export { PowerVsCloudConnections } from "./PowerVsCloudConnections";
 export { PowerVsWorkspace } from "./PowerVsWorkspace";
+export { default as PowerVsNetworkAttachment } from "./PowerVsNetworkAttachments";
