@@ -138,4 +138,5 @@ export {
   PowerVsCloudConnectionForm,
   PowerVsNetworkAttachmentForm,
   PowerVsWorkspaceForm,
+  PowerVsInstanceForm
 } from "./forms/power-vs";

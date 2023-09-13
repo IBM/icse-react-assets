@@ -3,7 +3,7 @@ import {
   setNameToValue,
   toggleStateBoolean,
 } from "../lib";
-const { isFunction, splat, getType } = require("lazy-z");
+const { isFunction, splat, getType, getObjectFromArray } = require("lazy-z");
 
 /**
  * build functions for modal forms
@@ -15,6 +15,7 @@ function buildFormFunctions(component) {
   let usesSubnetList = Array.isArray(component.props.subnetList);
   let usesSecurityGroups = Array.isArray(component.props.securityGroups);
   let usesImageList = getType(component.props.imageMap) === "object";
+  let powerInstance = component.props.power;
 
   if (component.props.shouldDisableSave)
     component.shouldDisableSave =
@@ -50,6 +51,35 @@ function buildFormFunctions(component) {
         "name",
       );
     };
+  }
+
+  if (powerInstance) {
+    component.getPowerSshKeyList = function () {
+      let list = getObjectFromArray(
+        component.props.power,
+        "name",
+        component.state.workspace,
+      ).ssh_keys;
+      return splat(list, "name");
+    }.bind(component);
+
+    component.getPowerImageList = function () {
+      let list = getObjectFromArray(
+        component.props.power,
+        "name",
+        component.state.workspace,
+      ).images;
+      return splat(list, "name");
+    }.bind(component);
+
+    component.getPowerNetworkList = function () {
+      let list = getObjectFromArray(
+        component.props.power,
+        "name",
+        component.state.workspace,
+      ).network;
+      return splat(list, "name");
+    }.bind(component);
   }
 
   // set update

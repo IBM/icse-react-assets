@@ -1,6 +1,6 @@
 import '@carbon/styles/css/styles.css';
 import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, NumberInput, DataTable, TableContainer, Table, TableHead, TableRow, TableHeader, TableBody, TableCell, TextArea, Tag, DatePicker, DatePickerInput, PasswordInput, Dropdown, Checkbox } from '@carbon/react';
-import lazyZ, { titleCase as titleCase$2, kebabCase as kebabCase$6, isEmpty, buildNumberDropdownList, contains as contains$5, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$6, transpose as transpose$2, capitalize as capitalize$2, getObjectFromArray, splat as splat$2, containsKeys, parseIntFromZone as parseIntFromZone$1, snakeCase as snakeCase$2, distinct, isWholeNumber as isWholeNumber$1, isInRange as isInRange$1, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual } from 'lazy-z';
+import lazyZ, { titleCase as titleCase$2, kebabCase as kebabCase$6, isEmpty, buildNumberDropdownList, contains as contains$5, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$6, transpose as transpose$2, capitalize as capitalize$2, getObjectFromArray as getObjectFromArray$1, splat as splat$2, containsKeys, parseIntFromZone as parseIntFromZone$1, snakeCase as snakeCase$2, distinct, isWholeNumber as isWholeNumber$1, isInRange as isInRange$1, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual } from 'lazy-z';
 import regexButWithWords from 'regex-but-with-words';
 import React, { Component } from 'react';
 import PropTypes, { PropTypes as PropTypes$1 } from 'prop-types';
@@ -4081,7 +4081,8 @@ LocationsMultiSelect.propTypes = {
 const {
   isFunction,
   splat,
-  getType
+  getType,
+  getObjectFromArray
 } = require("lazy-z");
 
 /**
@@ -4094,6 +4095,7 @@ function buildFormFunctions(component) {
   let usesSubnetList = Array.isArray(component.props.subnetList);
   let usesSecurityGroups = Array.isArray(component.props.securityGroups);
   let usesImageList = getType(component.props.imageMap) === "object";
+  let powerInstance = component.props.power;
   if (component.props.shouldDisableSave) component.shouldDisableSave = component.props.shouldDisableSave.bind(component);
   if (disableSubmit) component.shouldDisableSubmit = component.props.shouldDisableSubmit.bind(component);
   if (usesSubnetList) {
@@ -4114,6 +4116,20 @@ function buildFormFunctions(component) {
         if (sg.vpc === component.state.vpc) return sg;
       }), "name");
     };
+  }
+  if (powerInstance) {
+    component.getPowerSshKeyList = function () {
+      let list = getObjectFromArray(component.props.power, "name", component.state.workspace).ssh_keys;
+      return splat(list, "name");
+    }.bind(component);
+    component.getPowerImageList = function () {
+      let list = getObjectFromArray(component.props.power, "name", component.state.workspace).images;
+      return splat(list, "name");
+    }.bind(component);
+    component.getPowerNetworkList = function () {
+      let list = getObjectFromArray(component.props.power, "name", component.state.workspace).network;
+      return splat(list, "name");
+    }.bind(component);
   }
 
   // set update
@@ -6567,7 +6583,7 @@ class SecretsManagerForm extends Component {
     let nextSecrets = [];
     items.forEach(item => {
       if (item !== "Select All") {
-        nextSecrets.push(getObjectFromArray(this.props.secrets, "ref", item));
+        nextSecrets.push(getObjectFromArray$1(this.props.secrets, "ref", item));
       }
     });
     this.setState({
@@ -8834,7 +8850,7 @@ class VsiLoadBalancerForm extends React.Component {
   allVsi() {
     let allVsi = [];
     this.state.target_vsi.forEach(deployment => {
-      let vsi = getObjectFromArray(this.props.vsiDeployments, "name", deployment);
+      let vsi = getObjectFromArray$1(this.props.vsiDeployments, "name", deployment);
       let nextRow = [];
       // for each subnet vsi
       for (let subnet = 0; subnet < vsi.subnets.length; subnet++) {
@@ -11612,8 +11628,8 @@ class PowerVsWorkspaceForm extends React.Component {
     });
   }
   forceUpdateOnPropsChange(prevProps) {
+    // force component to update when images change
     if (!deepEqual(prevProps.data.imageNames, this.props.data.imageNames)) {
-      console.log("hard set");
       this.setState({
         ...this.props.data
       });

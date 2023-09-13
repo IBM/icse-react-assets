@@ -4092,7 +4092,8 @@ LocationsMultiSelect.propTypes = {
 const {
   isFunction,
   splat,
-  getType
+  getType,
+  getObjectFromArray
 } = require("lazy-z");
 
 /**
@@ -4105,6 +4106,7 @@ function buildFormFunctions(component) {
   let usesSubnetList = Array.isArray(component.props.subnetList);
   let usesSecurityGroups = Array.isArray(component.props.securityGroups);
   let usesImageList = getType(component.props.imageMap) === "object";
+  let powerInstance = component.props.power;
   if (component.props.shouldDisableSave) component.shouldDisableSave = component.props.shouldDisableSave.bind(component);
   if (disableSubmit) component.shouldDisableSubmit = component.props.shouldDisableSubmit.bind(component);
   if (usesSubnetList) {
@@ -4125,6 +4127,20 @@ function buildFormFunctions(component) {
         if (sg.vpc === component.state.vpc) return sg;
       }), "name");
     };
+  }
+  if (powerInstance) {
+    component.getPowerSshKeyList = function () {
+      let list = getObjectFromArray(component.props.power, "name", component.state.workspace).ssh_keys;
+      return splat(list, "name");
+    }.bind(component);
+    component.getPowerImageList = function () {
+      let list = getObjectFromArray(component.props.power, "name", component.state.workspace).images;
+      return splat(list, "name");
+    }.bind(component);
+    component.getPowerNetworkList = function () {
+      let list = getObjectFromArray(component.props.power, "name", component.state.workspace).network;
+      return splat(list, "name");
+    }.bind(component);
   }
 
   // set update
@@ -11623,8 +11639,8 @@ class PowerVsWorkspaceForm extends React__default["default"].Component {
     });
   }
   forceUpdateOnPropsChange(prevProps) {
+    // force component to update when images change
     if (!lazyZ.deepEqual(prevProps.data.imageNames, this.props.data.imageNames)) {
-      console.log("hard set");
       this.setState({
         ...this.props.data
       });

@@ -1,16 +1,4 @@
 import React from "react";
-
-import "./App.css";
-import {
-  IcseFormGroup,
-  IcseNameInput,
-  IcseSelect,
-  buildFormDefaultInputMethods,
-  buildFormFunctions,
-  IcseMultiSelect,
-  IcseHeading,
-  IcseTextInput,
-} from "icse-react-assets";
 import {
   capitalize,
   contains,
@@ -20,8 +8,13 @@ import {
 } from "lazy-z";
 import { Network_3 } from "@carbon/icons-react";
 import PropTypes from "prop-types";
+import { IcseFormGroup, IcseHeading } from "../../Utils";
+import { IcseNameInput, IcseTextInput } from "../../Inputs";
+import { IcseSelect } from "../../Dropdowns";
+import { buildFormDefaultInputMethods, buildFormFunctions } from "../../component-utils";
+import { IcseMultiSelect } from "../../MultiSelects";
 
-class PowerVsInstance extends React.Component {
+class PowerVsInstanceForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -260,7 +253,7 @@ class PowerVsInstance extends React.Component {
   }
 }
 
-PowerVsInstance.defaultProps = {
+PowerVsInstanceForm.defaultProps = {
   data: {
     name: "",
     workspace: "",
@@ -272,7 +265,7 @@ PowerVsInstance.defaultProps = {
   },
 };
 
-PowerVsInstance.propTypes = {
+PowerVsInstanceForm.propTypes = {
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
   power: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
@@ -283,152 +276,4 @@ PowerVsInstance.propTypes = {
   invalidPiMemoryTextCallback: PropTypes.func.isRequired,
 };
 
-const App = () => {
-  return (
-    <div style={{ maxWidth: "66vw" }}>
-      <PowerVsInstance
-        data={{
-          name: "frog",
-          workspace: "example",
-          image: "",
-          ssh_key: "",
-          network: [
-            {
-              name: "dev-nw",
-              ip_address: "1.2.3.4",
-            },
-          ],
-          pi_proc_type: "shared",
-          pi_storage_type: "tier1",
-          pi_health_status: "WARNING",
-        }}
-        invalidCallback={() => {
-          return false;
-        }}
-        invalidTextCallback={() => {
-          return "uh oh";
-        }}
-        invalidPiProcessorsCallback={() => {
-          return false;
-        }}
-        invalidPiProcessorsTextCallback={() => {
-          return "uh oh";
-        }}
-        invalidIpCallback={() => {
-          return false;
-        }}
-        invalidPiMemoryCallback={() => {
-          return false;
-        }}
-        invalidPiMemoryTextCallback={() => {
-          return "uh oh";
-        }}
-        power={[
-          {
-            name: "example",
-            resource_group: "example",
-            zone: "dal10",
-            ssh_keys: [
-              {
-                workspace: "example",
-                name: "keyname",
-                zone: "dal10",
-              },
-            ],
-            network: [
-              {
-                workspace: "example",
-                name: "dev-nw",
-                pi_cidr: "1.2.3.4/5",
-                pi_dns: ["127.0.0.1"],
-                pi_network_type: "vlan",
-                pi_network_jumbo: true,
-                zone: "dal10",
-              },
-            ],
-            cloud_connections: [
-              {
-                name: "dev-connection",
-                workspace: "example",
-                pi_cloud_connection_speed: 50,
-                pi_cloud_connection_global_routing: false,
-                pi_cloud_connection_metered: false,
-                pi_cloud_connection_transit_enabled: true,
-                transit_gateways: [],
-                zone: "dal10",
-              },
-            ],
-            images: [
-              {
-                workspace: "example",
-                pi_image_id: "e4de6683-2a42-4993-b702-c8613f132d39",
-                name: "SLES15-SP3-SAP",
-                zone: "dal10",
-              },
-            ],
-            attachments: [
-              {
-                connections: ["dev-connection"],
-                workspace: "example",
-                network: "dev-nw",
-                zone: "dal10",
-              },
-            ],
-          },
-          {
-            name: "2example",
-            resource_group: "example",
-            zone: "dal10",
-            ssh_keys: [
-              {
-                workspace: "example",
-                name: "2keyname",
-                zone: "dal10",
-              },
-            ],
-            network: [
-              {
-                workspace: "example",
-                name: "2dev-nw",
-                pi_cidr: "1.2.3.4/5",
-                pi_dns: ["127.0.0.1"],
-                pi_network_type: "vlan",
-                pi_network_jumbo: true,
-                zone: "dal10",
-              },
-            ],
-            cloud_connections: [
-              {
-                name: "2dev-connection",
-                workspace: "example",
-                pi_cloud_connection_speed: 50,
-                pi_cloud_connection_global_routing: false,
-                pi_cloud_connection_metered: false,
-                pi_cloud_connection_transit_enabled: true,
-                transit_gateways: [],
-                zone: "dal10",
-              },
-            ],
-            images: [
-              {
-                workspace: "example",
-                pi_image_id: "e4de6683-2a42-4993-b702-c8613f132d39",
-                name: "SLES15-SP3-SAP",
-                zone: "dal10",
-              },
-            ],
-            attachments: [
-              {
-                connections: ["dev-connection"],
-                workspace: "example",
-                network: "dev-nw",
-                zone: "dal10",
-              },
-            ],
-          },
-        ]}
-      />
-    </div>
-  );
-};
-export default App;
+export default PowerVsInstanceForm;
