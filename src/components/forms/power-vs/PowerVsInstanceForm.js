@@ -3,6 +3,7 @@ import {
   capitalize,
   contains,
   getObjectFromArray,
+  isNullOrEmptyString,
   splat,
   splatContains,
 } from "lazy-z";
@@ -104,7 +105,7 @@ class PowerVsInstanceForm extends React.Component {
           />
           <IcseSelect
             labelText="Workspace"
-            name="workspaces"
+            name="workspace"
             formName={this.props.data.name + "-power-instance-workspace"}
             groups={splat(this.props.power, "name")}
             value={this.state.workspace}
@@ -117,7 +118,11 @@ class PowerVsInstanceForm extends React.Component {
             titleText="Network Interfaces"
             className="fieldWidthSmaller"
             id={this.props.data.network + "-power-instance-network"}
-            items={this.getPowerNetworkList()}
+            items={
+              isNullOrEmptyString(this.state.workspace)
+                ? []
+                : this.getPowerNetworkList()
+            }
             initialSelectedItems={splat(this.state.network, "name")}
             onChange={this.handleMultiSelectChange}
             invalid={this.state.network.length === 0}
@@ -129,7 +134,11 @@ class PowerVsInstanceForm extends React.Component {
             labelText="SSH Key"
             name="ssh_key"
             formName={this.props.data.name + "-power-instance-key"}
-            groups={this.getPowerSshKeyList()}
+            groups={
+              isNullOrEmptyString(this.state.workspace)
+                ? []
+                : this.getPowerSshKeyList()
+            }
             value={this.state.ssh_key}
             handleInputChange={this.handleInputChange}
             invalidText="Select an SSH Key."
@@ -140,7 +149,11 @@ class PowerVsInstanceForm extends React.Component {
             labelText="Image"
             name="image"
             formName={this.props.data.name + "-power-instance-image"}
-            groups={this.getPowerImageList()}
+            groups={
+              isNullOrEmptyString(this.state.workspace)
+                ? []
+                : this.getPowerImageList()
+            }
             value={this.state.image}
             handleInputChange={this.handleInputChange}
             invalidText="Select an Image."
@@ -189,7 +202,7 @@ class PowerVsInstanceForm extends React.Component {
             formName={this.props.data.name + "-power-instance-stortype"}
             groups={["Tier-1", "Tier-3"]}
             value={
-              this.state.pi_storage_type === ""
+              isNullOrEmptyString(this.state.pi_storage_type)
                 ? ""
                 : capitalize(
                     this.state.pi_storage_type.split(/(?=\d)/).join("-"),
@@ -203,6 +216,7 @@ class PowerVsInstanceForm extends React.Component {
         </IcseFormGroup>
         <IcseFormGroup>
           <IcseTextInput
+            id={"power-instance" + this.state.name + "processors"}
             labelText="Processors"
             onChange={this.handleInputChange}
             field="pi_processors"
@@ -219,6 +233,7 @@ class PowerVsInstanceForm extends React.Component {
             placeholder="0.25"
           />
           <IcseTextInput
+            id={"power-instance" + this.state.name + "memory"}
             labelText="Memory"
             onChange={this.handleInputChange}
             field="pi_memory"
@@ -234,30 +249,33 @@ class PowerVsInstanceForm extends React.Component {
         </IcseFormGroup>
         <IcseHeading name="Interface IP Addresses" type="subHeading" />
         <div className="formInSubForm">
-          {this.state.network.map((nw, index) => (
-            <IcseFormGroup
-              key={nw.name + "-group"}
-              className="alignItemsCenter"
-            >
-              <Network_3 className="powerIpMargin" />
-              <div className="powerIpMargin">
-                <p>{nw.name}</p>
-              </div>
-              <IcseTextInput
-                onChange={(event) => {
-                  this.handleIpAddressChange(index, event.target.value);
-                }}
-                field="ip_address"
-                invalidCallback={() =>
-                  this.props.invalidIpCallback(nw.ip_address)
-                }
-                invalidTextCallback={() => {
-                  return "Invalid IP Address";
-                }}
-                value={nw.ip_address}
-              />
-            </IcseFormGroup>
-          ))}
+          {this.state.network.length === 0
+            ? "No Network Interfaces Selected"
+            : this.state.network.map((nw, index) => (
+                <IcseFormGroup
+                  key={nw.name + "-group"}
+                  className="alignItemsCenter marginBottomSmall"
+                >
+                  <Network_3 className="powerIpMargin" />
+                  <div className="powerIpMargin">
+                    <p>{nw.name}</p>
+                  </div>
+                  <IcseTextInput
+                    id={"power-instance" + this.state.name + "ip"}
+                    onChange={(event) => {
+                      this.handleIpAddressChange(index, event.target.value);
+                    }}
+                    field="ip_address"
+                    invalidCallback={() =>
+                      this.props.invalidIpCallback(nw.ip_address)
+                    }
+                    invalidTextCallback={() => {
+                      return "Invalid IP Address";
+                    }}
+                    value={nw.ip_address}
+                  />
+                </IcseFormGroup>
+              ))}
         </div>
       </>
     );
@@ -273,6 +291,7 @@ PowerVsInstanceForm.defaultProps = {
     zone: "",
     pi_health_status: "OK",
     pi_proc_type: "shared",
+    pi_storage_type: "",
   },
 };
 

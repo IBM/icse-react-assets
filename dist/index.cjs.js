@@ -11889,7 +11889,7 @@ class PowerVsInstanceForm extends React__default["default"].Component {
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       labelText: "Workspace",
-      name: "workspaces",
+      name: "workspace",
       formName: this.props.data.name + "-power-instance-workspace",
       groups: lazyZ.splat(this.props.power, "name"),
       value: this.state.workspace,
@@ -11901,7 +11901,7 @@ class PowerVsInstanceForm extends React__default["default"].Component {
       titleText: "Network Interfaces",
       className: "fieldWidthSmaller",
       id: this.props.data.network + "-power-instance-network",
-      items: this.getPowerNetworkList(),
+      items: lazyZ.isNullOrEmptyString(this.state.workspace) ? [] : this.getPowerNetworkList(),
       initialSelectedItems: lazyZ.splat(this.state.network, "name"),
       onChange: this.handleMultiSelectChange,
       invalid: this.state.network.length === 0,
@@ -11910,7 +11910,7 @@ class PowerVsInstanceForm extends React__default["default"].Component {
       labelText: "SSH Key",
       name: "ssh_key",
       formName: this.props.data.name + "-power-instance-key",
-      groups: this.getPowerSshKeyList(),
+      groups: lazyZ.isNullOrEmptyString(this.state.workspace) ? [] : this.getPowerSshKeyList(),
       value: this.state.ssh_key,
       handleInputChange: this.handleInputChange,
       invalidText: "Select an SSH Key.",
@@ -11920,7 +11920,7 @@ class PowerVsInstanceForm extends React__default["default"].Component {
       labelText: "Image",
       name: "image",
       formName: this.props.data.name + "-power-instance-image",
-      groups: this.getPowerImageList(),
+      groups: lazyZ.isNullOrEmptyString(this.state.workspace) ? [] : this.getPowerImageList(),
       value: this.state.image,
       handleInputChange: this.handleInputChange,
       invalidText: "Select an Image.",
@@ -11961,12 +11961,13 @@ class PowerVsInstanceForm extends React__default["default"].Component {
       name: "pi_storage_type",
       formName: this.props.data.name + "-power-instance-stortype",
       groups: ["Tier-1", "Tier-3"],
-      value: this.state.pi_storage_type === "" ? "" : lazyZ.capitalize(this.state.pi_storage_type.split(/(?=\d)/).join("-")),
+      value: lazyZ.isNullOrEmptyString(this.state.pi_storage_type) ? "" : lazyZ.capitalize(this.state.pi_storage_type.split(/(?=\d)/).join("-")),
       handleInputChange: this.handleInputChange,
       invalidText: "Select a Storage Type.",
       className: "fieldWidthSmaller",
       id: `${this.props.data.name}-power-instance-stortype`
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: "power-instance" + this.state.name + "processors",
       labelText: "Processors",
       onChange: this.handleInputChange,
       field: "pi_processors",
@@ -11976,6 +11977,7 @@ class PowerVsInstanceForm extends React__default["default"].Component {
       className: "fieldWidthSmaller",
       placeholder: "0.25"
     }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: "power-instance" + this.state.name + "memory",
       labelText: "Memory",
       onChange: this.handleInputChange,
       field: "pi_memory",
@@ -11989,14 +11991,15 @@ class PowerVsInstanceForm extends React__default["default"].Component {
       type: "subHeading"
     }), /*#__PURE__*/React__default["default"].createElement("div", {
       className: "formInSubForm"
-    }, this.state.network.map((nw, index) => /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+    }, this.state.network.length === 0 ? "No Network Interfaces Selected" : this.state.network.map((nw, index) => /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
       key: nw.name + "-group",
-      className: "alignItemsCenter"
+      className: "alignItemsCenter marginBottomSmall"
     }, /*#__PURE__*/React__default["default"].createElement(iconsReact.Network_3, {
       className: "powerIpMargin"
     }), /*#__PURE__*/React__default["default"].createElement("div", {
       className: "powerIpMargin"
     }, /*#__PURE__*/React__default["default"].createElement("p", null, nw.name)), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: "power-instance" + this.state.name + "ip",
       onChange: event => {
         this.handleIpAddressChange(index, event.target.value);
       },
@@ -12017,7 +12020,8 @@ PowerVsInstanceForm.defaultProps = {
     network: [],
     zone: "",
     pi_health_status: "OK",
-    pi_proc_type: "shared"
+    pi_proc_type: "shared",
+    pi_storage_type: ""
   }
 };
 PowerVsInstanceForm.propTypes = {
@@ -12286,8 +12290,9 @@ var PowerVsNetworkAttachment$1 = PowerVsNetworkAttachment;
 
 const PowerVsInstances = props => {
   return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
-    name: "Power Virtual Servers Instances",
+    name: "Power VS Instances",
     addText: "Create an Instance",
+    docs: props.docs,
     arrayData: props.power_instances,
     innerForm: PowerVsInstanceForm,
     disableSave: props.disableSave,
@@ -12305,6 +12310,11 @@ const PowerVsInstances = props => {
       invalidPiProcessorsTextCallback: props.invalidPiProcessorsTextCallback,
       invalidPiMemoryCallback: props.invalidPiMemoryCallback,
       invalidPiMemoryTextCallback: props.invalidPiMemoryTextCallback
+    },
+    toggleFormProps: {
+      hideName: true,
+      submissionFieldName: "submissionFieldName",
+      disableSave: props.disableSave
     }
   });
 };
@@ -12315,7 +12325,7 @@ PowerVsInstances.propTypes = {
   onSave: PropTypes__default["default"].func.isRequired,
   onSubmit: PropTypes__default["default"].func.isRequired,
   onDelete: PropTypes__default["default"].func.isRequired,
-  craig: PropTypes__default["default"].func.isRequired,
+  craig: PropTypes__default["default"].shape({}).isRequired,
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
   power: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
@@ -12323,7 +12333,8 @@ PowerVsInstances.propTypes = {
   invalidPiProcessorsCallback: PropTypes__default["default"].func.isRequired,
   invalidPiProcessorsTextCallback: PropTypes__default["default"].func.isRequired,
   invalidPiMemoryCallback: PropTypes__default["default"].func.isRequired,
-  invalidPiMemoryTextCallback: PropTypes__default["default"].func.isRequired
+  invalidPiMemoryTextCallback: PropTypes__default["default"].func.isRequired,
+  docs: PropTypes__default["default"].func.isRequired
 };
 
 var css_248z = ".cds--date-picker-container {\n  width: 11rem;\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n\n.cds--date-picker.cds--date-picker--single .cds--date-picker__input {\n  width: 11rem;\n}\n";

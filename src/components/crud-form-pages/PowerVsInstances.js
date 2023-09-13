@@ -6,8 +6,9 @@ import PropTypes from "prop-types";
 export const PowerVsInstances = (props) => {
   return (
     <IcseFormTemplate
-      name="Power Virtual Servers Instances"
+      name="Power VS Instances"
       addText="Create an Instance"
+      docs={props.docs}
       arrayData={props.power_instances}
       innerForm={PowerVsInstanceForm}
       disableSave={props.disableSave}
@@ -26,6 +27,11 @@ export const PowerVsInstances = (props) => {
         invalidPiMemoryCallback: props.invalidPiMemoryCallback,
         invalidPiMemoryTextCallback: props.invalidPiMemoryTextCallback,
       }}
+      toggleFormProps={{
+        hideName: true,
+        submissionFieldName: "submissionFieldName",
+        disableSave: props.disableSave,
+      }}
     />
   );
 };
@@ -37,7 +43,7 @@ PowerVsInstances.propTypes = {
   onSave: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
-  craig: PropTypes.func.isRequired,
+  craig: PropTypes.shape({}).isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
   power: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
@@ -46,4 +52,5 @@ PowerVsInstances.propTypes = {
   invalidPiProcessorsTextCallback: PropTypes.func.isRequired,
   invalidPiMemoryCallback: PropTypes.func.isRequired,
   invalidPiMemoryTextCallback: PropTypes.func.isRequired,
+  docs: PropTypes.func.isRequired,
 };

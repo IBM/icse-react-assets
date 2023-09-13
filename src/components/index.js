@@ -133,7 +133,7 @@ export { F5BigIp as F5BigIpPage } from "./toggle-form-pages";
 export { PowerVsNetwork as PowerVsNetworkPage } from "./crud-form-pages";
 export { PowerVsCloudConnections as PowerVsCloudConnectionPage } from "./crud-form-pages";
 export { PowerVsWorkspace as PowerVsWorkspacePage } from "./crud-form-pages";
-export { PowerVsInstances as PowerVsInstancesPage } from "./crud-form-pages"
+export { PowerVsInstances as PowerVsInstancesPage } from "./crud-form-pages";
 export {
   PowerVsNetworkForm,
   PowerVsCloudConnectionForm,
