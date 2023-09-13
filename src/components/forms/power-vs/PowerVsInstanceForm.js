@@ -11,8 +11,12 @@ import PropTypes from "prop-types";
 import { IcseFormGroup, IcseHeading } from "../../Utils";
 import { IcseNameInput, IcseTextInput } from "../../Inputs";
 import { IcseSelect } from "../../Dropdowns";
-import { buildFormDefaultInputMethods, buildFormFunctions } from "../../component-utils";
+import {
+  buildFormDefaultInputMethods,
+  buildFormFunctions,
+} from "../../component-utils";
 import { IcseMultiSelect } from "../../MultiSelects";
+import "./power-attachment.css";
 
 class PowerVsInstanceForm extends React.Component {
   constructor(props) {
@@ -199,6 +203,7 @@ class PowerVsInstanceForm extends React.Component {
         </IcseFormGroup>
         <IcseFormGroup>
           <IcseTextInput
+            labelText="Processors"
             onChange={this.handleInputChange}
             field="pi_processors"
             invalid={this.props.invalidPiProcessorsCallback(
@@ -211,8 +216,10 @@ class PowerVsInstanceForm extends React.Component {
             )}
             value={this.state.pi_processors}
             className="fieldWidthSmaller"
+            placeholder="0.25"
           />
           <IcseTextInput
+            labelText="Memory"
             onChange={this.handleInputChange}
             field="pi_memory"
             invalid={this.props.invalidPiMemoryCallback(this.state, this.props)}
@@ -222,6 +229,7 @@ class PowerVsInstanceForm extends React.Component {
             )}
             value={this.state.pi_processors}
             className="fieldWidthSmaller"
+            placeholder="1024"
           />
         </IcseFormGroup>
         <IcseHeading name="Interface IP Addresses" type="subHeading" />
@@ -231,7 +239,10 @@ class PowerVsInstanceForm extends React.Component {
               key={nw.name + "-group"}
               className="alignItemsCenter"
             >
-              <Network_3 style={{ marginLeft: "1rem" }} /> {nw.name}{" "}
+              <Network_3 className="powerIpMargin" />
+              <div className="powerIpMargin">
+                <p>{nw.name}</p>
+              </div>
               <IcseTextInput
                 onChange={(event) => {
                   this.handleIpAddressChange(index, event.target.value);

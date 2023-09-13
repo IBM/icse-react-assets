@@ -11610,7 +11610,7 @@ PowerVsNetworkAttachmentForm.propTypes = {
   cloud_connections: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string.isRequired)
 };
 
-var css_248z$1 = ".network-div {\n  margin-top: 1.75rem;\n}\n\n.network-icon {\n  margin-right: 1rem;\n  margin-top: 0.3rem;\n}\n";
+var css_248z$1 = ".network-div {\n  margin-top: 1.75rem;\n}\n\n.network-icon {\n  margin-right: 1rem;\n  margin-top: 0.3rem;\n}\n\n.powerIpMargin {\n  margin-top: 24px;\n}\n";
 styleInject(css_248z$1);
 
 class PowerVsWorkspaceForm extends React__default["default"].Component {
@@ -11801,6 +11801,234 @@ PowerVsWorkspaceForm.defaultProps = {
   sshKeyDeleteDisabled: () => {
     return false;
   }
+};
+
+class PowerVsInstanceForm extends React__default["default"].Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
+    this.handleIpAddressChange = this.handleIpAddressChange.bind(this);
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  handleInputChange(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    if (name === "workspace") {
+      let zone = lazyZ.getObjectFromArray(this.props.power, "name", value).zone;
+      this.setState({
+        workspace: value,
+        zone: zone,
+        image: "",
+        ssh_key: "",
+        network: []
+      });
+    } else if (lazyZ.contains(["pi_proc_type", "pi_storage_type"], name)) {
+      this.setState({
+        [name]: value.toLowerCase().replace(/-/g, "")
+      });
+    } else if (name === "pi_health_status") {
+      this.setState({
+        [name]: value.toUpperCase()
+      });
+    } else this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * handle network change
+   * @param {*} event
+   */
+  handleMultiSelectChange(event) {
+    let newItems = [];
+    let oldItems = [...this.state.network];
+    oldItems.forEach(item => {
+      if (lazyZ.contains(event.selectedItems, item.name)) {
+        newItems.push(item);
+      }
+    });
+    event.selectedItems.forEach(item => {
+      if (!lazyZ.splatContains(newItems, "name", item)) {
+        newItems.push({
+          name: item,
+          ip_address: ""
+        });
+      }
+    });
+    this.setState({
+      network: newItems
+    });
+  }
+  handleIpAddressChange(index, ip) {
+    let nw = [...this.state.network];
+    nw[index].ip_address = ip;
+    this.setState({
+      network: nw
+    });
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: this.props.data.name + "-power-vs-name",
+      componentName: this.props.data.name + "-power-vs-name",
+      placeholder: "my-powe-vs-instance-name",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      hideHelperText: true,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      labelText: "Workspace",
+      name: "workspaces",
+      formName: this.props.data.name + "-power-instance-workspace",
+      groups: lazyZ.splat(this.props.power, "name"),
+      value: this.state.workspace,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a Workspace.",
+      className: "fieldWidthSmaller",
+      id: `${this.props.data.name}-power-instance-workspace`
+    }), /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+      titleText: "Network Interfaces",
+      className: "fieldWidthSmaller",
+      id: this.props.data.network + "-power-instance-network",
+      items: this.getPowerNetworkList(),
+      initialSelectedItems: lazyZ.splat(this.state.network, "name"),
+      onChange: this.handleMultiSelectChange,
+      invalid: this.state.network.length === 0,
+      invalidText: "Select at lease one Network Interface"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      labelText: "SSH Key",
+      name: "ssh_key",
+      formName: this.props.data.name + "-power-instance-key",
+      groups: this.getPowerSshKeyList(),
+      value: this.state.ssh_key,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select an SSH Key.",
+      className: "fieldWidthSmaller",
+      id: `${this.props.data.name}-power-instance-key`
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      labelText: "Image",
+      name: "image",
+      formName: this.props.data.name + "-power-instance-image",
+      groups: this.getPowerImageList(),
+      value: this.state.image,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select an Image.",
+      className: "fieldWidthSmaller",
+      id: `${this.props.data.name}-power-instance-image`
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      labelText: "System Type",
+      name: "pi_sys_type",
+      formName: this.props.data.name + "-power-instance-systype",
+      groups: ["e880", "e980", "s922", "s1022"],
+      value: this.state.pi_sys_type,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a System Type.",
+      className: "fieldWidthSmaller",
+      id: `${this.props.data.name}-power-instance-systype`
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      labelText: "Health Status",
+      name: "pi_health_status",
+      formName: this.props.data.name + "-power-instance-status",
+      groups: ["Ok", "Warning"],
+      value: lazyZ.capitalize(this.state.pi_health_status.toLowerCase()),
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a Health Status.",
+      className: "fieldWidthSmaller",
+      id: `${this.props.data.name}-power-instance-status`
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      labelText: "Processor Type",
+      name: "pi_proc_type",
+      formName: this.props.data.name + "-power-instance-proctype",
+      groups: ["Shared", "Capped", "Dedicated"],
+      value: lazyZ.capitalize(this.state.pi_proc_type),
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a Processor Type.",
+      className: "fieldWidthSmaller",
+      id: `${this.props.data.name}-power-instance-proctype`
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      labelText: "Storage Type",
+      name: "pi_storage_type",
+      formName: this.props.data.name + "-power-instance-stortype",
+      groups: ["Tier-1", "Tier-3"],
+      value: this.state.pi_storage_type === "" ? "" : lazyZ.capitalize(this.state.pi_storage_type.split(/(?=\d)/).join("-")),
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a Storage Type.",
+      className: "fieldWidthSmaller",
+      id: `${this.props.data.name}-power-instance-stortype`
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      labelText: "Processors",
+      onChange: this.handleInputChange,
+      field: "pi_processors",
+      invalid: this.props.invalidPiProcessorsCallback(this.state, this.props),
+      invalidText: this.props.invalidPiProcessorsTextCallback(this.state, this.props),
+      value: this.state.pi_processors,
+      className: "fieldWidthSmaller",
+      placeholder: "0.25"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      labelText: "Memory",
+      onChange: this.handleInputChange,
+      field: "pi_memory",
+      invalid: this.props.invalidPiMemoryCallback(this.state, this.props),
+      invalidText: this.props.invalidPiMemoryTextCallback(this.state, this.props),
+      value: this.state.pi_processors,
+      className: "fieldWidthSmaller",
+      placeholder: "1024"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
+      name: "Interface IP Addresses",
+      type: "subHeading"
+    }), /*#__PURE__*/React__default["default"].createElement("div", {
+      className: "formInSubForm"
+    }, this.state.network.map((nw, index) => /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, {
+      key: nw.name + "-group",
+      className: "alignItemsCenter"
+    }, /*#__PURE__*/React__default["default"].createElement(iconsReact.Network_3, {
+      className: "powerIpMargin"
+    }), /*#__PURE__*/React__default["default"].createElement("div", {
+      className: "powerIpMargin"
+    }, /*#__PURE__*/React__default["default"].createElement("p", null, nw.name)), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      onChange: event => {
+        this.handleIpAddressChange(index, event.target.value);
+      },
+      field: "ip_address",
+      invalidCallback: () => this.props.invalidIpCallback(nw.ip_address),
+      invalidTextCallback: () => {
+        return "Invalid IP Address";
+      },
+      value: nw.ip_address
+    })))));
+  }
+}
+PowerVsInstanceForm.defaultProps = {
+  data: {
+    name: "",
+    workspace: "",
+    image: "",
+    network: [],
+    zone: "",
+    pi_health_status: "OK",
+    pi_proc_type: "shared"
+  }
+};
+PowerVsInstanceForm.propTypes = {
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  power: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  invalidIpCallback: PropTypes__default["default"].func.isRequired,
+  invalidPiProcessorsCallback: PropTypes__default["default"].func.isRequired,
+  invalidPiProcessorsTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidPiMemoryCallback: PropTypes__default["default"].func.isRequired,
+  invalidPiMemoryTextCallback: PropTypes__default["default"].func.isRequired
 };
 
 const PowerVsNetwork = props => {
@@ -12055,6 +12283,48 @@ PowerVsNetworkAttachment.propTypes = {
   craig: PropTypes__default["default"].shape({}).isRequired
 };
 var PowerVsNetworkAttachment$1 = PowerVsNetworkAttachment;
+
+const PowerVsInstances = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "Power Virtual Servers Instances",
+    addText: "Create an Instance",
+    arrayData: props.power_instances,
+    innerForm: PowerVsInstanceForm,
+    disableSave: props.disableSave,
+    propsMatchState: props.propsMatchState,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    onDelete: props.onDelete,
+    innerFormProps: {
+      craig: props.craig,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      power: props.power,
+      invalidIpCallback: props.invalidIpCallback,
+      invalidPiProcessorsCallback: props.invalidPiProcessorsCallback,
+      invalidPiProcessorsTextCallback: props.invalidPiProcessorsTextCallback,
+      invalidPiMemoryCallback: props.invalidPiMemoryCallback,
+      invalidPiMemoryTextCallback: props.invalidPiMemoryTextCallback
+    }
+  });
+};
+PowerVsInstances.propTypes = {
+  power_instances: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape).isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  onSave: PropTypes__default["default"].func.isRequired,
+  onSubmit: PropTypes__default["default"].func.isRequired,
+  onDelete: PropTypes__default["default"].func.isRequired,
+  craig: PropTypes__default["default"].func.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  power: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  invalidIpCallback: PropTypes__default["default"].func.isRequired,
+  invalidPiProcessorsCallback: PropTypes__default["default"].func.isRequired,
+  invalidPiProcessorsTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidPiMemoryCallback: PropTypes__default["default"].func.isRequired,
+  invalidPiMemoryTextCallback: PropTypes__default["default"].func.isRequired
+};
 
 var css_248z = ".cds--date-picker-container {\n  width: 11rem;\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n\n.cds--date-picker.cds--date-picker--single .cds--date-picker__input {\n  width: 11rem;\n}\n";
 styleInject(css_248z);
@@ -15952,6 +16222,8 @@ exports.OrderCardDataTable = OrderCardDataTable;
 exports.PopoverWrapper = PopoverWrapper;
 exports.PowerVsCloudConnectionForm = PowerVsCloudConnectionForm;
 exports.PowerVsCloudConnectionPage = PowerVsCloudConnections;
+exports.PowerVsInstanceForm = PowerVsInstanceForm;
+exports.PowerVsInstancesPage = PowerVsInstances;
 exports.PowerVsNetworkAttachmentForm = PowerVsNetworkAttachmentForm;
 exports.PowerVsNetworkForm = PowerVsNetworkForm;
 exports.PowerVsNetworkPage = PowerVsNetwork;

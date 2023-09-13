@@ -1,10 +1,10 @@
 import '@carbon/styles/css/styles.css';
 import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, NumberInput, DataTable, TableContainer, Table, TableHead, TableRow, TableHeader, TableBody, TableCell, TextArea, Tag, DatePicker, DatePickerInput, PasswordInput, Dropdown, Checkbox } from '@carbon/react';
-import lazyZ, { titleCase as titleCase$2, kebabCase as kebabCase$6, isEmpty, buildNumberDropdownList, contains as contains$5, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$6, transpose as transpose$2, capitalize as capitalize$2, getObjectFromArray as getObjectFromArray$1, splat as splat$2, containsKeys, parseIntFromZone as parseIntFromZone$1, snakeCase as snakeCase$2, distinct, isWholeNumber as isWholeNumber$1, isInRange as isInRange$1, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual } from 'lazy-z';
+import lazyZ, { titleCase as titleCase$2, kebabCase as kebabCase$6, isEmpty, buildNumberDropdownList, contains as contains$5, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$6, transpose as transpose$2, capitalize as capitalize$2, getObjectFromArray as getObjectFromArray$1, splat as splat$2, containsKeys, parseIntFromZone as parseIntFromZone$1, snakeCase as snakeCase$2, distinct, isWholeNumber as isWholeNumber$1, isInRange as isInRange$1, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual, splatContains } from 'lazy-z';
 import regexButWithWords from 'regex-but-with-words';
 import React, { Component } from 'react';
 import PropTypes, { PropTypes as PropTypes$1 } from 'prop-types';
-import { Information, Save, Add, ChevronDown, ChevronRight, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt, Edit, DataView, Password } from '@carbon/icons-react';
+import { Information, Save, Add, ChevronDown, ChevronRight, TrashCan, ArrowUp, ArrowDown, CloudAlerting, WarningAlt, Edit, DataView, Network_3, Password } from '@carbon/icons-react';
 
 function styleInject(css, ref) {
   if ( ref === void 0 ) ref = {};
@@ -11599,7 +11599,7 @@ PowerVsNetworkAttachmentForm.propTypes = {
   cloud_connections: PropTypes.arrayOf(PropTypes.string.isRequired)
 };
 
-var css_248z$1 = ".network-div {\n  margin-top: 1.75rem;\n}\n\n.network-icon {\n  margin-right: 1rem;\n  margin-top: 0.3rem;\n}\n";
+var css_248z$1 = ".network-div {\n  margin-top: 1.75rem;\n}\n\n.network-icon {\n  margin-right: 1rem;\n  margin-top: 0.3rem;\n}\n\n.powerIpMargin {\n  margin-top: 24px;\n}\n";
 styleInject(css_248z$1);
 
 class PowerVsWorkspaceForm extends React.Component {
@@ -11790,6 +11790,234 @@ PowerVsWorkspaceForm.defaultProps = {
   sshKeyDeleteDisabled: () => {
     return false;
   }
+};
+
+class PowerVsInstanceForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
+    this.handleIpAddressChange = this.handleIpAddressChange.bind(this);
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  handleInputChange(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    if (name === "workspace") {
+      let zone = getObjectFromArray$1(this.props.power, "name", value).zone;
+      this.setState({
+        workspace: value,
+        zone: zone,
+        image: "",
+        ssh_key: "",
+        network: []
+      });
+    } else if (contains$5(["pi_proc_type", "pi_storage_type"], name)) {
+      this.setState({
+        [name]: value.toLowerCase().replace(/-/g, "")
+      });
+    } else if (name === "pi_health_status") {
+      this.setState({
+        [name]: value.toUpperCase()
+      });
+    } else this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * handle network change
+   * @param {*} event
+   */
+  handleMultiSelectChange(event) {
+    let newItems = [];
+    let oldItems = [...this.state.network];
+    oldItems.forEach(item => {
+      if (contains$5(event.selectedItems, item.name)) {
+        newItems.push(item);
+      }
+    });
+    event.selectedItems.forEach(item => {
+      if (!splatContains(newItems, "name", item)) {
+        newItems.push({
+          name: item,
+          ip_address: ""
+        });
+      }
+    });
+    this.setState({
+      network: newItems
+    });
+  }
+  handleIpAddressChange(index, ip) {
+    let nw = [...this.state.network];
+    nw[index].ip_address = ip;
+    this.setState({
+      network: nw
+    });
+  }
+  render() {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: this.props.data.name + "-power-vs-name",
+      componentName: this.props.data.name + "-power-vs-name",
+      placeholder: "my-powe-vs-instance-name",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      hideHelperText: true,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      labelText: "Workspace",
+      name: "workspaces",
+      formName: this.props.data.name + "-power-instance-workspace",
+      groups: splat$2(this.props.power, "name"),
+      value: this.state.workspace,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a Workspace.",
+      className: "fieldWidthSmaller",
+      id: `${this.props.data.name}-power-instance-workspace`
+    }), /*#__PURE__*/React.createElement(IcseMultiSelect, {
+      titleText: "Network Interfaces",
+      className: "fieldWidthSmaller",
+      id: this.props.data.network + "-power-instance-network",
+      items: this.getPowerNetworkList(),
+      initialSelectedItems: splat$2(this.state.network, "name"),
+      onChange: this.handleMultiSelectChange,
+      invalid: this.state.network.length === 0,
+      invalidText: "Select at lease one Network Interface"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+      labelText: "SSH Key",
+      name: "ssh_key",
+      formName: this.props.data.name + "-power-instance-key",
+      groups: this.getPowerSshKeyList(),
+      value: this.state.ssh_key,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select an SSH Key.",
+      className: "fieldWidthSmaller",
+      id: `${this.props.data.name}-power-instance-key`
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      labelText: "Image",
+      name: "image",
+      formName: this.props.data.name + "-power-instance-image",
+      groups: this.getPowerImageList(),
+      value: this.state.image,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select an Image.",
+      className: "fieldWidthSmaller",
+      id: `${this.props.data.name}-power-instance-image`
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      labelText: "System Type",
+      name: "pi_sys_type",
+      formName: this.props.data.name + "-power-instance-systype",
+      groups: ["e880", "e980", "s922", "s1022"],
+      value: this.state.pi_sys_type,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a System Type.",
+      className: "fieldWidthSmaller",
+      id: `${this.props.data.name}-power-instance-systype`
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+      labelText: "Health Status",
+      name: "pi_health_status",
+      formName: this.props.data.name + "-power-instance-status",
+      groups: ["Ok", "Warning"],
+      value: capitalize$2(this.state.pi_health_status.toLowerCase()),
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a Health Status.",
+      className: "fieldWidthSmaller",
+      id: `${this.props.data.name}-power-instance-status`
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      labelText: "Processor Type",
+      name: "pi_proc_type",
+      formName: this.props.data.name + "-power-instance-proctype",
+      groups: ["Shared", "Capped", "Dedicated"],
+      value: capitalize$2(this.state.pi_proc_type),
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a Processor Type.",
+      className: "fieldWidthSmaller",
+      id: `${this.props.data.name}-power-instance-proctype`
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      labelText: "Storage Type",
+      name: "pi_storage_type",
+      formName: this.props.data.name + "-power-instance-stortype",
+      groups: ["Tier-1", "Tier-3"],
+      value: this.state.pi_storage_type === "" ? "" : capitalize$2(this.state.pi_storage_type.split(/(?=\d)/).join("-")),
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a Storage Type.",
+      className: "fieldWidthSmaller",
+      id: `${this.props.data.name}-power-instance-stortype`
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+      labelText: "Processors",
+      onChange: this.handleInputChange,
+      field: "pi_processors",
+      invalid: this.props.invalidPiProcessorsCallback(this.state, this.props),
+      invalidText: this.props.invalidPiProcessorsTextCallback(this.state, this.props),
+      value: this.state.pi_processors,
+      className: "fieldWidthSmaller",
+      placeholder: "0.25"
+    }), /*#__PURE__*/React.createElement(IcseTextInput, {
+      labelText: "Memory",
+      onChange: this.handleInputChange,
+      field: "pi_memory",
+      invalid: this.props.invalidPiMemoryCallback(this.state, this.props),
+      invalidText: this.props.invalidPiMemoryTextCallback(this.state, this.props),
+      value: this.state.pi_processors,
+      className: "fieldWidthSmaller",
+      placeholder: "1024"
+    })), /*#__PURE__*/React.createElement(IcseHeading, {
+      name: "Interface IP Addresses",
+      type: "subHeading"
+    }), /*#__PURE__*/React.createElement("div", {
+      className: "formInSubForm"
+    }, this.state.network.map((nw, index) => /*#__PURE__*/React.createElement(IcseFormGroup, {
+      key: nw.name + "-group",
+      className: "alignItemsCenter"
+    }, /*#__PURE__*/React.createElement(Network_3, {
+      className: "powerIpMargin"
+    }), /*#__PURE__*/React.createElement("div", {
+      className: "powerIpMargin"
+    }, /*#__PURE__*/React.createElement("p", null, nw.name)), /*#__PURE__*/React.createElement(IcseTextInput, {
+      onChange: event => {
+        this.handleIpAddressChange(index, event.target.value);
+      },
+      field: "ip_address",
+      invalidCallback: () => this.props.invalidIpCallback(nw.ip_address),
+      invalidTextCallback: () => {
+        return "Invalid IP Address";
+      },
+      value: nw.ip_address
+    })))));
+  }
+}
+PowerVsInstanceForm.defaultProps = {
+  data: {
+    name: "",
+    workspace: "",
+    image: "",
+    network: [],
+    zone: "",
+    pi_health_status: "OK",
+    pi_proc_type: "shared"
+  }
+};
+PowerVsInstanceForm.propTypes = {
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  power: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  invalidIpCallback: PropTypes.func.isRequired,
+  invalidPiProcessorsCallback: PropTypes.func.isRequired,
+  invalidPiProcessorsTextCallback: PropTypes.func.isRequired,
+  invalidPiMemoryCallback: PropTypes.func.isRequired,
+  invalidPiMemoryTextCallback: PropTypes.func.isRequired
 };
 
 const PowerVsNetwork = props => {
@@ -12044,6 +12272,48 @@ PowerVsNetworkAttachment.propTypes = {
   craig: PropTypes.shape({}).isRequired
 };
 var PowerVsNetworkAttachment$1 = PowerVsNetworkAttachment;
+
+const PowerVsInstances = props => {
+  return /*#__PURE__*/React.createElement(IcseFormTemplate, {
+    name: "Power Virtual Servers Instances",
+    addText: "Create an Instance",
+    arrayData: props.power_instances,
+    innerForm: PowerVsInstanceForm,
+    disableSave: props.disableSave,
+    propsMatchState: props.propsMatchState,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    onDelete: props.onDelete,
+    innerFormProps: {
+      craig: props.craig,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      power: props.power,
+      invalidIpCallback: props.invalidIpCallback,
+      invalidPiProcessorsCallback: props.invalidPiProcessorsCallback,
+      invalidPiProcessorsTextCallback: props.invalidPiProcessorsTextCallback,
+      invalidPiMemoryCallback: props.invalidPiMemoryCallback,
+      invalidPiMemoryTextCallback: props.invalidPiMemoryTextCallback
+    }
+  });
+};
+PowerVsInstances.propTypes = {
+  power_instances: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  disableSave: PropTypes.func.isRequired,
+  propsMatchState: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  craig: PropTypes.func.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  power: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  invalidIpCallback: PropTypes.func.isRequired,
+  invalidPiProcessorsCallback: PropTypes.func.isRequired,
+  invalidPiProcessorsTextCallback: PropTypes.func.isRequired,
+  invalidPiMemoryCallback: PropTypes.func.isRequired,
+  invalidPiMemoryTextCallback: PropTypes.func.isRequired
+};
 
 var css_248z = ".cds--date-picker-container {\n  width: 11rem;\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n\n.cds--date-picker.cds--date-picker--single .cds--date-picker__input {\n  width: 11rem;\n}\n";
 styleInject(css_248z);
@@ -15869,4 +16139,4 @@ F5BigIp.propTypes = {
   onVsiSave: PropTypes.func.isRequired
 };
 
-export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AccessGroups as AccessGroupsTemplate, AppIdForm, AppIdKeyForm, AppId as AppIdTemplate, AtrackerForm, Atracker as AtrackerPage, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, CloudDatabaseForm, CloudDatabase as CloudDatabaseTemplate, ClusterForm, Clusters as ClustersTemplate, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsForm, DnsRecordForm, Dns as DnsTemplate, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, EventStreams as EventStreamsTemplate, F5BigIp as F5BigIpPage, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IamAccountSettings as IamAccountSettingsPage, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, KeyManagement as KeyManagementTemplate, LocationsMultiSelect, LogDNAForm, NetworkAclForm$1 as NetworkAclForm, NetworkAcls as NetworkAclTemplate, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, ObjectStorage as ObjectStorageTemplate, OpaqueIngressSecretForm, OrderCardDataTable, PopoverWrapper, PowerVsCloudConnectionForm, PowerVsCloudConnections as PowerVsCloudConnectionPage, PowerVsNetworkAttachmentForm, PowerVsNetworkForm, PowerVsNetwork as PowerVsNetworkPage, PowerVsWorkspaceForm, PowerVsWorkspace as PowerVsWorkspacePage, RenderForm, ResourceGroupForm, ResourceGroups as ResourceGroupsTemplate, RoutingTableForm, RoutingTableRouteForm, RoutingTables as RoutingTableTemplate, SaveAddButton, SaveIcon, SccForm, SccV1 as SccV1Page, SecretsManagerChecklist, SecretsManagerForm, SecretsManager as SecretsManagerTemplate, SecurityGroupForm, SecurityGroupMultiSelect, SecurityGroups as SecurityGroupTemplate, SshKeyForm, SshKeyMultiSelect, SshKeys as SshKeysTemplate, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, Subnets as SubnetPageTemplate, SubnetTierForm$1 as SubnetTierForm, SubnetTileForm, SysdigForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, TransitGateways as TransitGatewayTemplate, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, Vpcs as VpcTemplate, VpeForm, Vpe as VpeTemplate, VpnGatewayForm, VpnGateways as VpnGatewayTemplate, VpnServerForm, VpnServerRouteForm, VpnServers as VpnServerTemplate, VsiForm, VsiLoadBalancerForm, VsiLoadBalancer as VsiLoadBalancerTemplate, Vsi as VsiTemplate, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AccessGroups as AccessGroupsTemplate, AppIdForm, AppIdKeyForm, AppId as AppIdTemplate, AtrackerForm, Atracker as AtrackerPage, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, CloudDatabaseForm, CloudDatabase as CloudDatabaseTemplate, ClusterForm, Clusters as ClustersTemplate, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsForm, DnsRecordForm, Dns as DnsTemplate, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, EventStreams as EventStreamsTemplate, F5BigIp as F5BigIpPage, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IamAccountSettings as IamAccountSettingsPage, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, KeyManagement as KeyManagementTemplate, LocationsMultiSelect, LogDNAForm, NetworkAclForm$1 as NetworkAclForm, NetworkAcls as NetworkAclTemplate, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, ObjectStorage as ObjectStorageTemplate, OpaqueIngressSecretForm, OrderCardDataTable, PopoverWrapper, PowerVsCloudConnectionForm, PowerVsCloudConnections as PowerVsCloudConnectionPage, PowerVsInstanceForm, PowerVsInstances as PowerVsInstancesPage, PowerVsNetworkAttachmentForm, PowerVsNetworkForm, PowerVsNetwork as PowerVsNetworkPage, PowerVsWorkspaceForm, PowerVsWorkspace as PowerVsWorkspacePage, RenderForm, ResourceGroupForm, ResourceGroups as ResourceGroupsTemplate, RoutingTableForm, RoutingTableRouteForm, RoutingTables as RoutingTableTemplate, SaveAddButton, SaveIcon, SccForm, SccV1 as SccV1Page, SecretsManagerChecklist, SecretsManagerForm, SecretsManager as SecretsManagerTemplate, SecurityGroupForm, SecurityGroupMultiSelect, SecurityGroups as SecurityGroupTemplate, SshKeyForm, SshKeyMultiSelect, SshKeys as SshKeysTemplate, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, Subnets as SubnetPageTemplate, SubnetTierForm$1 as SubnetTierForm, SubnetTileForm, SysdigForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, TransitGateways as TransitGatewayTemplate, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, Vpcs as VpcTemplate, VpeForm, Vpe as VpeTemplate, VpnGatewayForm, VpnGateways as VpnGatewayTemplate, VpnServerForm, VpnServerRouteForm, VpnServers as VpnServerTemplate, VsiForm, VsiLoadBalancerForm, VsiLoadBalancer as VsiLoadBalancerTemplate, Vsi as VsiTemplate, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
