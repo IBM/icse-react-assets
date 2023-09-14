@@ -5613,7 +5613,7 @@ Clusters.propTypes = {
   helperTextCallback: PropTypes.func,
   onOpaqueSecretsSave: PropTypes.func.isRequired,
   onOpaqueSecretsDelete: PropTypes.func.isRequired,
-  onOpaqueSecretsSubmid: PropTypes.func.isRequired,
+  onOpaqueSecretsSubmit: PropTypes.func.isRequired,
   disableOpaqueSecretsSave: PropTypes.func.isRequired,
   secretsManagerGroupCallback: PropTypes.func,
   secretsManagerGroupCallbackText: PropTypes.func,
@@ -12347,6 +12347,7 @@ class OpaqueIngressSecretForm extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.handleLabels = this.handleLabels.bind(this);
+    this.handleDate = this.handleDate.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
@@ -12365,6 +12366,16 @@ class OpaqueIngressSecretForm extends Component {
    */
   handleToggle(name) {
     this.setState(this.toggleStateBoolean(name, this.state));
+  }
+
+  /**
+   * handle date
+   * @param {event} event // event from DatePicker is an array with the selected date
+   */
+  handleDate(event) {
+    this.setState({
+      expiration_date: event[0]
+    });
   }
 
   /**
@@ -12442,11 +12453,14 @@ class OpaqueIngressSecretForm extends Component {
     }), /*#__PURE__*/React.createElement(DatePicker, {
       datePickerType: "single",
       dateFormat: "Y-m-d",
-      value: this.state.expiration_date
+      value: this.state.expiration_date,
+      onChange: this.handleDate
     }, /*#__PURE__*/React.createElement(DatePickerInput, {
       placeholder: "YYYY-MM-DD",
       labelText: "Expiration Date",
-      id: composedId + "-expiration-date"
+      id: composedId + "-expiration-date",
+      invalid: !this.state.expiration_date,
+      invalidText: "Select an expiration date"
     }))), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(TextArea, {
       className: "wide",
       id: "labels",
@@ -12590,7 +12604,6 @@ OpaqueIngressSecretForm.defaultProps = {
     arbitrary_secret_data: "",
     secrets_group: "",
     secrets_manager: "",
-    expiration_date: "",
     username_password_secret_name: "",
     username_password_secret_username: "",
     username_password_secret_password: "",

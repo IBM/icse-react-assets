@@ -5624,7 +5624,7 @@ Clusters.propTypes = {
   helperTextCallback: PropTypes__default["default"].func,
   onOpaqueSecretsSave: PropTypes__default["default"].func.isRequired,
   onOpaqueSecretsDelete: PropTypes__default["default"].func.isRequired,
-  onOpaqueSecretsSubmid: PropTypes__default["default"].func.isRequired,
+  onOpaqueSecretsSubmit: PropTypes__default["default"].func.isRequired,
   disableOpaqueSecretsSave: PropTypes__default["default"].func.isRequired,
   secretsManagerGroupCallback: PropTypes__default["default"].func,
   secretsManagerGroupCallbackText: PropTypes__default["default"].func,
@@ -12358,6 +12358,7 @@ class OpaqueIngressSecretForm extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.handleLabels = this.handleLabels.bind(this);
+    this.handleDate = this.handleDate.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
@@ -12376,6 +12377,16 @@ class OpaqueIngressSecretForm extends React.Component {
    */
   handleToggle(name) {
     this.setState(this.toggleStateBoolean(name, this.state));
+  }
+
+  /**
+   * handle date
+   * @param {event} event // event from DatePicker is an array with the selected date
+   */
+  handleDate(event) {
+    this.setState({
+      expiration_date: event[0]
+    });
   }
 
   /**
@@ -12453,11 +12464,14 @@ class OpaqueIngressSecretForm extends React.Component {
     }), /*#__PURE__*/React__default["default"].createElement(react.DatePicker, {
       datePickerType: "single",
       dateFormat: "Y-m-d",
-      value: this.state.expiration_date
+      value: this.state.expiration_date,
+      onChange: this.handleDate
     }, /*#__PURE__*/React__default["default"].createElement(react.DatePickerInput, {
       placeholder: "YYYY-MM-DD",
       labelText: "Expiration Date",
-      id: composedId + "-expiration-date"
+      id: composedId + "-expiration-date",
+      invalid: !this.state.expiration_date,
+      invalidText: "Select an expiration date"
     }))), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(react.TextArea, {
       className: "wide",
       id: "labels",
@@ -12601,7 +12615,6 @@ OpaqueIngressSecretForm.defaultProps = {
     arbitrary_secret_data: "",
     secrets_group: "",
     secrets_manager: "",
-    expiration_date: "",
     username_password_secret_name: "",
     username_password_secret_username: "",
     username_password_secret_password: "",

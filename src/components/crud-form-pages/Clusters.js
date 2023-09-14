@@ -98,7 +98,7 @@ Clusters.propTypes = {
   helperTextCallback: PropTypes.func,
   onOpaqueSecretsSave: PropTypes.func.isRequired,
   onOpaqueSecretsDelete: PropTypes.func.isRequired,
-  onOpaqueSecretsSubmid: PropTypes.func.isRequired,
+  onOpaqueSecretsSubmit: PropTypes.func.isRequired,
   disableOpaqueSecretsSave: PropTypes.func.isRequired,
   secretsManagerGroupCallback: PropTypes.func,
   secretsManagerGroupCallbackText: PropTypes.func,
