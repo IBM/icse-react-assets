@@ -5535,6 +5535,7 @@ const Clusters = props => {
     forceOpen: props.forceOpen,
     docs: props.docs,
     innerFormProps: {
+      noSecretsManager: props.noSecretsManager,
       craig: props.craig,
       disableSave: props.disableSave,
       invalidCallback: props.invalidCallback,
@@ -5555,6 +5556,10 @@ const Clusters = props => {
       secretsManagerGroupCallbackText: props.secretsManagerGroupCallbackText,
       secretCallback: props.secretCallback,
       secretCallbackText: props.secretCallbackText,
+      arbSecretCallback: props.arbSecretCallback,
+      arbSecretCallbackText: props.arbSecretCallbackText,
+      userPassSecretCallback: props.userPassSecretCallback,
+      userPassSecretCallbackText: props.userPassSecretCallbackText,
       descriptionInvalid: props.descriptionInvalid,
       descriptionInvalidText: props.descriptionInvalidText,
       labelsInvalid: props.labelsInvalid,
@@ -5581,6 +5586,7 @@ const Clusters = props => {
   });
 };
 Clusters.propTypes = {
+  noSecretsManager: PropTypes.bool,
   clusters: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   disableSave: PropTypes.func,
   propsMatchState: PropTypes.func,
@@ -10825,7 +10831,7 @@ VpnServerForm.propTypes = {
 var css_248z$2 = ".no-secrets-link {\n  padding-left: 3px;\n  padding-right: 3px;\n}\n";
 styleInject(css_248z$2);
 
-const NoSecretsManagerTile = () => {
+const NoSecretsManagerTile$1 = () => {
   return /*#__PURE__*/React.createElement(Tile, {
     className: "tileBackground displayFlex alignItemsCenter wrap marginTop"
   }, /*#__PURE__*/React.createElement(CloudAlerting, {
@@ -10850,7 +10856,7 @@ const VpnServers = props => {
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
     hideFormTitleButton: props.noSecretsManager,
-    overrideTile: props.noSecretsManager ? /*#__PURE__*/React.createElement(NoSecretsManagerTile, null) : null,
+    overrideTile: props.noSecretsManager ? /*#__PURE__*/React.createElement(NoSecretsManagerTile$1, null) : null,
     innerFormProps: {
       craig: props.craig,
       resourceGroups: props.resourceGroups,
@@ -12396,8 +12402,8 @@ class OpaqueIngressSecretForm extends Component {
       placeholder: "my-namespace",
       value: this.state.namespace,
       onChange: this.handleInputChange,
-      invalidCallback: () => this.props.secretCallback(this.state, this.props),
-      invalidText: this.props.secretCallbackText(this.state, this.props),
+      invalid: lib_15("namespace", this.state.namespace, this.props.descriptionRegex).invalid,
+      invalidText: lib_15("namespace", this.state.namespace, this.props.descriptionRegex).invalidText,
       className: "fieldWidthSmaller",
       field: "namespace"
     }), /*#__PURE__*/React.createElement(IcseToggle, {
@@ -12419,7 +12425,9 @@ class OpaqueIngressSecretForm extends Component {
       value: this.state.secrets_manager,
       labelText: "Secrets Manager",
       handleInputChange: this.handleInputChange,
-      className: "fieldWidthSmaller"
+      className: "fieldWidthSmaller",
+      invalid: isNullOrEmptyString$6(this.state.secrets_manager),
+      invalidText: "Invalid Selection"
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: composedId + "-secrets-group",
       componentName: this.props.data.secrets_group,
@@ -12458,8 +12466,8 @@ class OpaqueIngressSecretForm extends Component {
       placeholder: "my-secret-name",
       value: this.state.arbitrary_secret_name,
       onChange: this.handleInputChange,
-      invalidCallback: () => this.props.secretCallback(this.state, this.props),
-      invalidText: this.props.secretCallbackText(this.state, this.props),
+      invalidCallback: () => this.props.arbSecretCallback(this.state, this.props),
+      invalidText: this.props.arbSecretCallbackText(this.state, this.props),
       field: "arbitrary_secret_name",
       className: "fieldWidth"
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
@@ -12469,7 +12477,7 @@ class OpaqueIngressSecretForm extends Component {
       placeholder: "my-secret-description",
       value: this.state.arbitrary_secret_description,
       onChange: this.handleInputChange,
-      invalidCallback: () => this.props.descriptionInvalid(this.state, this.props),
+      invalidCallback: () => this.props.descriptionInvalid(this.state.arbitrary_secret_description, this.props),
       invalidText: this.props.descriptionInvalidText(this.state, this.props),
       field: "arbitrary_secret_description",
       className: "fieldWidth"
@@ -12480,8 +12488,8 @@ class OpaqueIngressSecretForm extends Component {
       placeholder: "my-secret-data",
       value: this.state.arbitrary_secret_data,
       onChange: this.handleInputChange,
-      invalidCallback: () => this.props.descriptionInvalid(this.state, this.props),
-      invalidText: this.props.descriptionInvalidText(this.state, this.props),
+      invalid: isNullOrEmptyString$6(this.state.arbitrary_secret_data),
+      invalidText: "Arbitrary Secret Data cannot be empty",
       field: "arbitrary_secret_data",
       className: "fieldWidth"
     })), /*#__PURE__*/React.createElement("div", {
@@ -12499,8 +12507,8 @@ class OpaqueIngressSecretForm extends Component {
       placeholder: "my-secret-name",
       value: this.state.username_password_secret_name,
       onChange: this.handleInputChange,
-      invalidCallback: () => this.props.secretCallback(this.state, this.props),
-      invalidText: this.props.secretCallbackText(this.state, this.props),
+      invalidCallback: () => this.props.userPassSecretCallback(this.state, this.props),
+      invalidText: this.props.userPassSecretCallbackText(this.state, this.props),
       field: "username_password_secret_name",
       className: "fieldWidth"
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
@@ -12510,7 +12518,7 @@ class OpaqueIngressSecretForm extends Component {
       placeholder: "my-secret-description",
       value: this.state.username_password_secret_description,
       onChange: this.handleInputChange,
-      invalidCallback: () => this.props.descriptionInvalid(this.state, this.props),
+      invalidCallback: () => this.props.descriptionInvalid(this.state.username_password_secret_description, this.props),
       invalidText: this.props.descriptionInvalidText(this.state, this.props),
       field: "username_password_secret_description",
       className: "fieldWidth"
@@ -12521,8 +12529,9 @@ class OpaqueIngressSecretForm extends Component {
       placeholder: "my-secret-username",
       value: this.state.username_password_secret_username,
       onChange: this.handleInputChange,
-      invalidCallback: () => this.props.descriptionInvalid(this.state, this.props),
-      invalidText: this.props.descriptionInvalidText(this.state, this.props),
+      maxLength: 255,
+      invalid: lib_15("username", this.state.username_password_secret_username, this.props.descriptionRegex).invalid,
+      invalidText: lib_15("username", this.state.username_password_secret_username, this.props.descriptionRegex).invalidText,
       field: "username_password_secret_username",
       className: "fieldWidth"
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
@@ -12532,8 +12541,8 @@ class OpaqueIngressSecretForm extends Component {
       placeholder: "my-secret-password",
       value: this.state.username_password_secret_password,
       onChange: this.handleInputChange,
-      invalidCallback: () => this.props.descriptionInvalid(this.state, this.props),
-      invalidText: this.props.descriptionInvalidText(this.state, this.props),
+      invalid: lib_15("password", this.state.username_password_secret_password, this.props.descriptionRegex).invalid,
+      invalidText: lib_15("password", this.state.username_password_secret_password, this.props.descriptionRegex).invalidText,
       field: "username_password_secret_password",
       className: "fieldWidth"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
@@ -12576,11 +12585,30 @@ OpaqueIngressSecretForm.defaultProps = {
     namespace: "",
     interval: 1,
     auto_rotate: false,
-    labels: []
+    labels: [],
+    arbitrary_secret_description: "",
+    arbitrary_secret_data: "",
+    secrets_group: "",
+    secrets_manager: "",
+    expiration_date: "",
+    username_password_secret_name: "",
+    username_password_secret_username: "",
+    username_password_secret_password: "",
+    username_password_secret_description: ""
   },
-  isModal: false
+  isModal: false,
+  descriptionRegex: /^[A-z][a-zA-Z0-9-\._,\s]*$/i
 };
 OpaqueIngressSecretForm.propTypes = {
+  cluster: PropTypes$1.shape({
+    entitlement: PropTypes$1.string,
+    // can be null
+    flavor: PropTypes$1.string.isRequired,
+    vpc: PropTypes$1.string,
+    workers_per_subnet: PropTypes$1.number.isRequired,
+    subnets: PropTypes$1.array.isRequired
+  }),
+  // can be null
   data: PropTypes$1.shape({
     cluster: PropTypes$1.string,
     name: PropTypes$1.string.isRequired,
@@ -12612,6 +12640,17 @@ OpaqueIngressSecretForm.propTypes = {
   labelsInvalidText: PropTypes$1.func.isRequired
 };
 
+const NoSecretsManagerTile = () => {
+  return /*#__PURE__*/React.createElement(Tile, {
+    className: "tileBackground displayFlex alignItemsCenter wrap marginTop"
+  }, /*#__PURE__*/React.createElement(CloudAlerting, {
+    size: "24",
+    className: "iconMargin"
+  }), " No Secrets Manager instances have been created. Create one from the", " ", /*#__PURE__*/React.createElement("a", {
+    className: "no-secrets-link",
+    href: "/form/secretsManager"
+  }, "Secrets Manager Page"), " ", "to enable Opaque Ingress Secrets.");
+};
 const OpaqueIngressSecret = props => {
   return props.isModal ? "" : /*#__PURE__*/React.createElement(IcseFormTemplate, {
     name: "Opaque Ingress Secrets",
@@ -12624,17 +12663,26 @@ const OpaqueIngressSecret = props => {
     onSave: props.onSave,
     onSubmit: props.onSubmit,
     propsMatchState: props.propsMatchState,
+    hideFormTitleButton: props.noSecretsManager,
+    overrideTile: props.noSecretsManager ? /*#__PURE__*/React.createElement(NoSecretsManagerTile, null) : null,
     innerFormProps: {
+      noSecretsManager: props.noSecretsManager,
       secretsManagerList: props.secretsManagerList,
       secretsManagerGroupCallback: props.secretsManagerGroupCallback,
       secretsManagerGroupCallbackText: props.secretsManagerGroupCallbackText,
       secretCallback: props.secretCallback,
       secretCallbackText: props.secretCallbackText,
+      arbSecretCallback: props.arbSecretCallback,
+      arbSecretCallbackText: props.arbSecretCallbackText,
+      userPassSecretCallback: props.userPassSecretCallback,
+      userPassSecretCallbackText: props.userPassSecretCallbackText,
       descriptionInvalid: props.descriptionInvalid,
       descriptionInvalidText: props.descriptionInvalidText,
       labelsInvalid: props.labelsInvalid,
       labelsInvalidText: props.labelsInvalidText,
-      craig: props.craig
+      craig: props.craig,
+      cluster: props.cluster,
+      arrayParentName: props.cluster.name
     },
     hideAbout: true,
     toggleFormProps: {
@@ -12649,6 +12697,7 @@ OpaqueIngressSecret.defaultProps = {
   isModal: false
 };
 OpaqueIngressSecret.propTypes = {
+  noSecretsManager: PropTypes.bool,
   isModal: PropTypes.bool.isRequired,
   opaque_secrets: PropTypes.arrayOf(PropTypes.shape({})),
   disableSave: PropTypes.func,
@@ -12661,11 +12710,17 @@ OpaqueIngressSecret.propTypes = {
   secretsManagerGroupCallbackText: PropTypes.func,
   secretCallback: PropTypes.func,
   secretCallbackText: PropTypes.func,
+  arbSecretCallback: PropTypes.func,
+  arbSecretCallbackText: PropTypes.func,
+  userPassSecretCallback: PropTypes.func,
+  userPassSecretCallbackText: PropTypes.func,
   descriptionInvalid: PropTypes.func,
   descriptionInvalidText: PropTypes.func,
   labelsInvalid: PropTypes.func,
   labelsInvalidText: PropTypes.func,
-  craig: PropTypes.shape({})
+  craig: PropTypes.shape({}),
+  arrayParentName: PropTypes.string,
+  cluster: PropTypes.shape({}).isRequired
 };
 
 class ClusterForm extends Component {
@@ -12850,6 +12905,8 @@ class ClusterForm extends Component {
       flavorApiEndpoint: this.props.flavorApiEndpoint,
       isModal: this.props.isModal
     }), /*#__PURE__*/React.createElement(OpaqueIngressSecret, {
+      cluster: this.props.data,
+      noSecretsManager: this.props.noSecretsManager,
       opaque_secrets: this.props.data.opaque_secrets,
       disableSave: this.props.opaqueIngressSecretProps.disableSave,
       onDelete: this.props.opaqueIngressSecretProps.onDelete,
@@ -12861,6 +12918,10 @@ class ClusterForm extends Component {
       secretsManagerGroupCallbackText: this.props.secretsManagerGroupCallbackText,
       secretCallback: this.props.secretCallback,
       secretCallbackText: this.props.secretCallbackText,
+      arbSecretCallback: this.props.arbSecretCallback,
+      arbSecretCallbackText: this.props.arbSecretCallbackText,
+      userPassSecretCallback: this.props.userPassSecretCallback,
+      userPassSecretCallbackText: this.props.userPassSecretCallbackText,
       descriptionInvalid: this.props.descriptionInvalid,
       descriptionInvalidText: this.props.descriptionInvalidText,
       labelsInvalid: this.props.labelsInvalid,
@@ -12914,6 +12975,7 @@ ClusterForm.propTypes = {
   }),
   /* bools */
   isModal: PropTypes.bool.isRequired,
+  noSecretsManager: PropTypes.bool,
   /* lists */
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   encryptionKeys: PropTypes.arrayOf(PropTypes.string),
@@ -12934,6 +12996,10 @@ ClusterForm.propTypes = {
   secretsManagerGroupCallbackText: PropTypes.func,
   secretCallback: PropTypes.func,
   secretCallbackText: PropTypes.func,
+  arbSecretCallback: PropTypes.func,
+  arbSecretCallbackText: PropTypes.func,
+  userPassSecretCallback: PropTypes.func,
+  userPassSecretCallbackText: PropTypes.func,
   descriptionInvalid: PropTypes.func,
   descriptionInvalidText: PropTypes.func,
   labelsInvalid: PropTypes.func,

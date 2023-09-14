@@ -250,6 +250,8 @@ class ClusterForm extends Component {
           isModal={this.props.isModal}
         />
         <OpaqueIngressSecret
+          cluster={this.props.data}
+          noSecretsManager={this.props.noSecretsManager}
           opaque_secrets={this.props.data.opaque_secrets}
           disableSave={this.props.opaqueIngressSecretProps.disableSave}
           onDelete={this.props.opaqueIngressSecretProps.onDelete}
@@ -263,6 +265,10 @@ class ClusterForm extends Component {
           }
           secretCallback={this.props.secretCallback}
           secretCallbackText={this.props.secretCallbackText}
+          arbSecretCallback={this.props.arbSecretCallback}
+          arbSecretCallbackText={this.props.arbSecretCallbackText}
+          userPassSecretCallback={this.props.userPassSecretCallback}
+          userPassSecretCallbackText={this.props.userPassSecretCallbackText}
           descriptionInvalid={this.props.descriptionInvalid}
           descriptionInvalidText={this.props.descriptionInvalidText}
           labelsInvalid={this.props.labelsInvalid}
@@ -319,6 +325,7 @@ ClusterForm.propTypes = {
   }),
   /* bools */
   isModal: PropTypes.bool.isRequired,
+  noSecretsManager: PropTypes.bool,
   /* lists */
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   encryptionKeys: PropTypes.arrayOf(PropTypes.string),
@@ -339,6 +346,10 @@ ClusterForm.propTypes = {
   secretsManagerGroupCallbackText: PropTypes.func,
   secretCallback: PropTypes.func,
   secretCallbackText: PropTypes.func,
+  arbSecretCallback: PropTypes.func,
+  arbSecretCallbackText: PropTypes.func,
+  userPassSecretCallback: PropTypes.func,
+  userPassSecretCallbackText: PropTypes.func,
   descriptionInvalid: PropTypes.func,
   descriptionInvalidText: PropTypes.func,
   labelsInvalid: PropTypes.func,

@@ -18,6 +18,7 @@ export const Clusters = (props) => {
       forceOpen={props.forceOpen}
       docs={props.docs}
       innerFormProps={{
+        noSecretsManager: props.noSecretsManager,
         craig: props.craig,
         disableSave: props.disableSave,
         invalidCallback: props.invalidCallback,
@@ -38,6 +39,10 @@ export const Clusters = (props) => {
         secretsManagerGroupCallbackText: props.secretsManagerGroupCallbackText,
         secretCallback: props.secretCallback,
         secretCallbackText: props.secretCallbackText,
+        arbSecretCallback: props.arbSecretCallback,
+        arbSecretCallbackText: props.arbSecretCallbackText,
+        userPassSecretCallback: props.userPassSecretCallback,
+        userPassSecretCallbackText: props.userPassSecretCallbackText,
         descriptionInvalid: props.descriptionInvalid,
         descriptionInvalidText: props.descriptionInvalidText,
         labelsInvalid: props.labelsInvalid,
@@ -66,6 +71,7 @@ export const Clusters = (props) => {
 };
 
 Clusters.propTypes = {
+  noSecretsManager: PropTypes.bool,
   clusters: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   disableSave: PropTypes.func,
   propsMatchState: PropTypes.func,
