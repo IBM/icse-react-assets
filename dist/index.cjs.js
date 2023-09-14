@@ -4107,12 +4107,22 @@ function buildFormFunctions(component) {
   let usesSecurityGroups = Array.isArray(component.props.securityGroups);
   let usesImageList = getType(component.props.imageMap) === "object";
   let powerInstance = component.props.power;
+  let powerVolumes = component.props.power_instances;
   if (component.props.shouldDisableSave) component.shouldDisableSave = component.props.shouldDisableSave.bind(component);
   if (disableSubmit) component.shouldDisableSubmit = component.props.shouldDisableSubmit.bind(component);
   if (usesSubnetList) {
     component.getSubnetList = function () {
       return splat(component.props.subnetList.filter(subnet => {
         if (subnet.vpc === component.state.vpc) return subnet;
+      }), "name");
+    }.bind(component);
+  }
+  if (powerVolumes) {
+    component.getPowerInstances = function () {
+      return splat(component.props.power_instances.filter(instance => {
+        if (instance.workspace === component.state.workspace && instance.pi_storage_type === component.state.pi_volume_type) {
+          return instance;
+        }
       }), "name");
     }.bind(component);
   }

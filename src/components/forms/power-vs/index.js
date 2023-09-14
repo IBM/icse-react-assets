@@ -3,3 +3,4 @@ export { default as PowerVsCloudConnectionForm } from "./PowerVsCloudConnectionF
 export { default as PowerVsNetworkAttachmentForm } from "./PowerVsNetworkAttachmentForm";
 export { default as PowerVsWorkspaceForm } from "./PowerVsWorkspaceForm";
 export { default as PowerVsInstanceForm } from "./PowerVsInstanceForm";
+export { default as PowerVsVolumeForm } from "./PowerVsVolumeForm";

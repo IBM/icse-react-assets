@@ -16,6 +16,7 @@ function buildFormFunctions(component) {
   let usesSecurityGroups = Array.isArray(component.props.securityGroups);
   let usesImageList = getType(component.props.imageMap) === "object";
   let powerInstance = component.props.power;
+  let powerVolumes = component.props.power_instances;
 
   if (component.props.shouldDisableSave)
     component.shouldDisableSave =
@@ -31,7 +32,23 @@ function buildFormFunctions(component) {
         component.props.subnetList.filter((subnet) => {
           if (subnet.vpc === component.state.vpc) return subnet;
         }),
-        "name",
+        "name"
+      );
+    }.bind(component);
+  }
+
+  if (powerVolumes) {
+    component.getPowerInstances = function () {
+      return splat(
+        component.props.power_instances.filter((instance) => {
+          if (
+            instance.workspace === component.state.workspace &&
+            instance.pi_storage_type === component.state.pi_volume_type
+          ) {
+            return instance;
+          }
+        }),
+        "name"
       );
     }.bind(component);
   }
@@ -48,7 +65,7 @@ function buildFormFunctions(component) {
         component.props.securityGroups.filter((sg) => {
           if (sg.vpc === component.state.vpc) return sg;
         }),
-        "name",
+        "name"
       );
     };
   }
@@ -58,7 +75,7 @@ function buildFormFunctions(component) {
       let list = getObjectFromArray(
         component.props.power,
         "name",
-        component.state.workspace,
+        component.state.workspace
       ).ssh_keys;
       return splat(list, "name");
     }.bind(component);
@@ -67,7 +84,7 @@ function buildFormFunctions(component) {
       let list = getObjectFromArray(
         component.props.power,
         "name",
-        component.state.workspace,
+        component.state.workspace
       ).images;
       return splat(list, "name");
     }.bind(component);
@@ -76,7 +93,7 @@ function buildFormFunctions(component) {
       let list = getObjectFromArray(
         component.props.power,
         "name",
-        component.state.workspace,
+        component.state.workspace
       ).network;
       return splat(list, "name");
     }.bind(component);
