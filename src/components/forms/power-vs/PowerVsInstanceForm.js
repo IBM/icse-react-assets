@@ -1,27 +1,25 @@
 import React from "react";
-
-import "./App.css";
-import {
-  IcseFormGroup,
-  IcseNameInput,
-  IcseSelect,
-  buildFormDefaultInputMethods,
-  buildFormFunctions,
-  IcseMultiSelect,
-  IcseHeading,
-  IcseTextInput,
-} from "icse-react-assets";
 import {
   capitalize,
   contains,
   getObjectFromArray,
+  isNullOrEmptyString,
   splat,
   splatContains,
 } from "lazy-z";
 import { Network_3 } from "@carbon/icons-react";
 import PropTypes from "prop-types";
+import { IcseFormGroup, IcseHeading } from "../../Utils";
+import { IcseNameInput, IcseTextInput } from "../../Inputs";
+import { IcseSelect } from "../../Dropdowns";
+import {
+  buildFormDefaultInputMethods,
+  buildFormFunctions,
+} from "../../component-utils";
+import { IcseMultiSelect } from "../../MultiSelects";
+import "./power-attachment.css";
 
-class PowerVsInstance extends React.Component {
+class PowerVsInstanceForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -86,7 +84,9 @@ class PowerVsInstance extends React.Component {
 
   handleIpAddressChange(index, ip) {
     let nw = [...this.state.network];
-    nw[index].ip_address = ip;
+    let item = { ...nw[index] };
+    item.ip_address = ip;
+    nw[index] = item;
     this.setState({ network: nw });
   }
 
@@ -107,7 +107,7 @@ class PowerVsInstance extends React.Component {
           />
           <IcseSelect
             labelText="Workspace"
-            name="workspaces"
+            name="workspace"
             formName={this.props.data.name + "-power-instance-workspace"}
             groups={splat(this.props.power, "name")}
             value={this.state.workspace}
@@ -120,7 +120,11 @@ class PowerVsInstance extends React.Component {
             titleText="Network Interfaces"
             className="fieldWidthSmaller"
             id={this.props.data.network + "-power-instance-network"}
-            items={this.getPowerNetworkList()}
+            items={
+              isNullOrEmptyString(this.state.workspace)
+                ? []
+                : this.getPowerNetworkList()
+            }
             initialSelectedItems={splat(this.state.network, "name")}
             onChange={this.handleMultiSelectChange}
             invalid={this.state.network.length === 0}
@@ -132,7 +136,11 @@ class PowerVsInstance extends React.Component {
             labelText="SSH Key"
             name="ssh_key"
             formName={this.props.data.name + "-power-instance-key"}
-            groups={this.getPowerSshKeyList()}
+            groups={
+              isNullOrEmptyString(this.state.workspace)
+                ? []
+                : this.getPowerSshKeyList()
+            }
             value={this.state.ssh_key}
             handleInputChange={this.handleInputChange}
             invalidText="Select an SSH Key."
@@ -143,7 +151,11 @@ class PowerVsInstance extends React.Component {
             labelText="Image"
             name="image"
             formName={this.props.data.name + "-power-instance-image"}
-            groups={this.getPowerImageList()}
+            groups={
+              isNullOrEmptyString(this.state.workspace)
+                ? []
+                : this.getPowerImageList()
+            }
             value={this.state.image}
             handleInputChange={this.handleInputChange}
             invalidText="Select an Image."
@@ -192,7 +204,7 @@ class PowerVsInstance extends React.Component {
             formName={this.props.data.name + "-power-instance-stortype"}
             groups={["Tier-1", "Tier-3"]}
             value={
-              this.state.pi_storage_type === ""
+              isNullOrEmptyString(this.state.pi_storage_type)
                 ? ""
                 : capitalize(
                     this.state.pi_storage_type.split(/(?=\d)/).join("-"),
@@ -206,6 +218,7 @@ class PowerVsInstance extends React.Component {
         </IcseFormGroup>
         <IcseFormGroup>
           <IcseTextInput
+            id={"power-instance" + this.state.name + "processors"}
             labelText="Processors"
             onChange={this.handleInputChange}
             field="pi_processors"
@@ -222,7 +235,8 @@ class PowerVsInstance extends React.Component {
             placeholder="0.25"
           />
           <IcseTextInput
-            labelText="Memory"
+            id={"power-instance" + this.state.name + "memory"}
+            labelText="Memory (GB)"
             onChange={this.handleInputChange}
             field="pi_memory"
             invalid={this.props.invalidPiMemoryCallback(this.state, this.props)}
@@ -230,44 +244,47 @@ class PowerVsInstance extends React.Component {
               this.state,
               this.props,
             )}
-            value={this.state.pi_processors}
+            value={this.state.pi_memory}
             className="fieldWidthSmaller"
             placeholder="1024"
           />
         </IcseFormGroup>
         <IcseHeading name="Interface IP Addresses" type="subHeading" />
         <div className="formInSubForm">
-          {this.state.network.map((nw, index) => (
-            <IcseFormGroup
-              key={nw.name + "-group"}
-              className="alignItemsCenter"
-            >
-              <Network_3 className="powerIpMargin" />
-              <div className="powerIpMargin">
-                <p>{nw.name}</p>
-              </div>
-              <IcseTextInput
-                onChange={(event) => {
-                  this.handleIpAddressChange(index, event.target.value);
-                }}
-                field="ip_address"
-                invalidCallback={() =>
-                  this.props.invalidIpCallback(nw.ip_address)
-                }
-                invalidTextCallback={() => {
-                  return "Invalid IP Address";
-                }}
-                value={nw.ip_address}
-              />
-            </IcseFormGroup>
-          ))}
+          {this.state.network.length === 0
+            ? "No Network Interfaces Selected"
+            : this.state.network.map((nw, index) => (
+                <IcseFormGroup
+                  key={nw.name + "-group"}
+                  className="alignItemsCenter marginBottomSmall"
+                >
+                  <Network_3 className="powerIpMargin" />
+                  <div className="powerIpMargin">
+                    <p>{nw.name}</p>
+                  </div>
+                  <IcseTextInput
+                    id={"power-instance" + this.state.name + "ip"}
+                    onChange={(event) => {
+                      this.handleIpAddressChange(index, event.target.value);
+                    }}
+                    field="ip_address"
+                    invalidCallback={() =>
+                      this.props.invalidIpCallback(nw.ip_address)
+                    }
+                    invalidTextCallback={() => {
+                      return "Invalid IP Address";
+                    }}
+                    value={nw.ip_address}
+                  />
+                </IcseFormGroup>
+              ))}
         </div>
       </>
     );
   }
 }
 
-PowerVsInstance.defaultProps = {
+PowerVsInstanceForm.defaultProps = {
   data: {
     name: "",
     workspace: "",
@@ -276,10 +293,11 @@ PowerVsInstance.defaultProps = {
     zone: "",
     pi_health_status: "OK",
     pi_proc_type: "shared",
+    pi_storage_type: "",
   },
 };
 
-PowerVsInstance.propTypes = {
+PowerVsInstanceForm.propTypes = {
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
   power: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
@@ -290,152 +308,4 @@ PowerVsInstance.propTypes = {
   invalidPiMemoryTextCallback: PropTypes.func.isRequired,
 };
 
-const App = () => {
-  return (
-    <div style={{ maxWidth: "66vw" }}>
-      <PowerVsInstance
-        data={{
-          name: "frog",
-          workspace: "example",
-          image: "",
-          ssh_key: "",
-          network: [
-            {
-              name: "dev-nw",
-              ip_address: "1.2.3.4",
-            },
-          ],
-          pi_proc_type: "shared",
-          pi_storage_type: "tier1",
-          pi_health_status: "WARNING",
-        }}
-        invalidCallback={() => {
-          return false;
-        }}
-        invalidTextCallback={() => {
-          return "uh oh";
-        }}
-        invalidPiProcessorsCallback={() => {
-          return false;
-        }}
-        invalidPiProcessorsTextCallback={() => {
-          return "uh oh";
-        }}
-        invalidIpCallback={() => {
-          return false;
-        }}
-        invalidPiMemoryCallback={() => {
-          return false;
-        }}
-        invalidPiMemoryTextCallback={() => {
-          return "uh oh";
-        }}
-        power={[
-          {
-            name: "example",
-            resource_group: "example",
-            zone: "dal10",
-            ssh_keys: [
-              {
-                workspace: "example",
-                name: "keyname",
-                zone: "dal10",
-              },
-            ],
-            network: [
-              {
-                workspace: "example",
-                name: "dev-nw",
-                pi_cidr: "1.2.3.4/5",
-                pi_dns: ["127.0.0.1"],
-                pi_network_type: "vlan",
-                pi_network_jumbo: true,
-                zone: "dal10",
-              },
-            ],
-            cloud_connections: [
-              {
-                name: "dev-connection",
-                workspace: "example",
-                pi_cloud_connection_speed: 50,
-                pi_cloud_connection_global_routing: false,
-                pi_cloud_connection_metered: false,
-                pi_cloud_connection_transit_enabled: true,
-                transit_gateways: [],
-                zone: "dal10",
-              },
-            ],
-            images: [
-              {
-                workspace: "example",
-                pi_image_id: "e4de6683-2a42-4993-b702-c8613f132d39",
-                name: "SLES15-SP3-SAP",
-                zone: "dal10",
-              },
-            ],
-            attachments: [
-              {
-                connections: ["dev-connection"],
-                workspace: "example",
-                network: "dev-nw",
-                zone: "dal10",
-              },
-            ],
-          },
-          {
-            name: "2example",
-            resource_group: "example",
-            zone: "dal10",
-            ssh_keys: [
-              {
-                workspace: "example",
-                name: "2keyname",
-                zone: "dal10",
-              },
-            ],
-            network: [
-              {
-                workspace: "example",
-                name: "2dev-nw",
-                pi_cidr: "1.2.3.4/5",
-                pi_dns: ["127.0.0.1"],
-                pi_network_type: "vlan",
-                pi_network_jumbo: true,
-                zone: "dal10",
-              },
-            ],
-            cloud_connections: [
-              {
-                name: "2dev-connection",
-                workspace: "example",
-                pi_cloud_connection_speed: 50,
-                pi_cloud_connection_global_routing: false,
-                pi_cloud_connection_metered: false,
-                pi_cloud_connection_transit_enabled: true,
-                transit_gateways: [],
-                zone: "dal10",
-              },
-            ],
-            images: [
-              {
-                workspace: "example",
-                pi_image_id: "e4de6683-2a42-4993-b702-c8613f132d39",
-                name: "SLES15-SP3-SAP",
-                zone: "dal10",
-              },
-            ],
-            attachments: [
-              {
-                connections: ["dev-connection"],
-                workspace: "example",
-                network: "dev-nw",
-                zone: "dal10",
-              },
-            ],
-          },
-        ]}
-      />
-    </div>
-  );
-};
-export default App;
+export default PowerVsInstanceForm;
