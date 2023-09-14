@@ -29,7 +29,7 @@ export const PowerVsInstances = (props) => {
       }}
       toggleFormProps={{
         hideName: true,
-        submissionFieldName: "submissionFieldName",
+        submissionFieldName: "power_instances",
         disableSave: props.disableSave,
       }}
     />

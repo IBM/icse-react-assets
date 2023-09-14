@@ -84,7 +84,9 @@ class PowerVsInstanceForm extends React.Component {
 
   handleIpAddressChange(index, ip) {
     let nw = [...this.state.network];
-    nw[index].ip_address = ip;
+    let item = { ...nw[index] };
+    item.ip_address = ip;
+    nw[index] = item;
     this.setState({ network: nw });
   }
 
@@ -234,7 +236,7 @@ class PowerVsInstanceForm extends React.Component {
           />
           <IcseTextInput
             id={"power-instance" + this.state.name + "memory"}
-            labelText="Memory"
+            labelText="Memory (GB)"
             onChange={this.handleInputChange}
             field="pi_memory"
             invalid={this.props.invalidPiMemoryCallback(this.state, this.props)}
@@ -242,7 +244,7 @@ class PowerVsInstanceForm extends React.Component {
               this.state,
               this.props,
             )}
-            value={this.state.pi_processors}
+            value={this.state.pi_memory}
             className="fieldWidthSmaller"
             placeholder="1024"
           />

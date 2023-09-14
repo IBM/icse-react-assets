@@ -11860,7 +11860,11 @@ class PowerVsInstanceForm extends React.Component {
   }
   handleIpAddressChange(index, ip) {
     let nw = [...this.state.network];
-    nw[index].ip_address = ip;
+    let item = {
+      ...nw[index]
+    };
+    item.ip_address = ip;
+    nw[index] = item;
     this.setState({
       network: nw
     });
@@ -11967,12 +11971,12 @@ class PowerVsInstanceForm extends React.Component {
       placeholder: "0.25"
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: "power-instance" + this.state.name + "memory",
-      labelText: "Memory",
+      labelText: "Memory (GB)",
       onChange: this.handleInputChange,
       field: "pi_memory",
       invalid: this.props.invalidPiMemoryCallback(this.state, this.props),
       invalidText: this.props.invalidPiMemoryTextCallback(this.state, this.props),
-      value: this.state.pi_processors,
+      value: this.state.pi_memory,
       className: "fieldWidthSmaller",
       placeholder: "1024"
     })), /*#__PURE__*/React.createElement(IcseHeading, {
@@ -12302,7 +12306,7 @@ const PowerVsInstances = props => {
     },
     toggleFormProps: {
       hideName: true,
-      submissionFieldName: "submissionFieldName",
+      submissionFieldName: "power_instances",
       disableSave: props.disableSave
     }
   });
