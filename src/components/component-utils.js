@@ -32,7 +32,7 @@ function buildFormFunctions(component) {
         component.props.subnetList.filter((subnet) => {
           if (subnet.vpc === component.state.vpc) return subnet;
         }),
-        "name"
+        "name",
       );
     }.bind(component);
   }
@@ -48,7 +48,7 @@ function buildFormFunctions(component) {
             return instance;
           }
         }),
-        "name"
+        "name",
       );
     }.bind(component);
   }
@@ -65,7 +65,7 @@ function buildFormFunctions(component) {
         component.props.securityGroups.filter((sg) => {
           if (sg.vpc === component.state.vpc) return sg;
         }),
-        "name"
+        "name",
       );
     };
   }
@@ -75,7 +75,7 @@ function buildFormFunctions(component) {
       let list = getObjectFromArray(
         component.props.power,
         "name",
-        component.state.workspace
+        component.state.workspace,
       ).ssh_keys;
       return splat(list, "name");
     }.bind(component);
@@ -84,7 +84,7 @@ function buildFormFunctions(component) {
       let list = getObjectFromArray(
         component.props.power,
         "name",
-        component.state.workspace
+        component.state.workspace,
       ).images;
       return splat(list, "name");
     }.bind(component);
@@ -93,7 +93,7 @@ function buildFormFunctions(component) {
       let list = getObjectFromArray(
         component.props.power,
         "name",
-        component.state.workspace
+        component.state.workspace,
       ).network;
       return splat(list, "name");
     }.bind(component);

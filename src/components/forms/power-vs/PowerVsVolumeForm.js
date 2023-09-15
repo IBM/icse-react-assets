@@ -121,7 +121,7 @@ class PowerVsVolumeForm extends React.Component {
               isNullOrEmptyString(this.state.pi_volume_type)
                 ? ""
                 : capitalize(
-                    this.state.pi_volume_type.split(/(?=\d)/).join("-")
+                    this.state.pi_volume_type.split(/(?=\d)/).join("-"),
                   )
             }
             handleInputChange={this.handleInputChange}

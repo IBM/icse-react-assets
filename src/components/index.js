@@ -134,11 +134,12 @@ export { PowerVsNetwork as PowerVsNetworkPage } from "./crud-form-pages";
 export { PowerVsCloudConnections as PowerVsCloudConnectionPage } from "./crud-form-pages";
 export { PowerVsWorkspace as PowerVsWorkspacePage } from "./crud-form-pages";
 export { PowerVsInstances as PowerVsInstancesPage } from "./crud-form-pages";
+export { PowerVsVolume as PowerVsVolumesPage } from "./crud-form-pages";
 export {
   PowerVsNetworkForm,
   PowerVsCloudConnectionForm,
   PowerVsNetworkAttachmentForm,
   PowerVsWorkspaceForm,
   PowerVsInstanceForm,
-  PowerVsVolumeForm
+  PowerVsVolumeForm,
 } from "./forms/power-vs";
