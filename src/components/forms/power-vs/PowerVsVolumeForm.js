@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { NumberInput } from "@carbon/react";
 import {
   buildFormDefaultInputMethods,
   buildFormFunctions,
@@ -9,7 +10,14 @@ import {
   getObjectFromArray,
   isNullOrEmptyString,
   capitalize,
+  splat,
+  isEmpty,
 } from "lazy-z";
+import { IcseFormGroup } from "../../Utils";
+import { IcseNameInput, IcseToggle } from "../../Inputs";
+import { IcseSelect } from "../../Dropdowns";
+import { IcseMultiSelect } from "../../MultiSelects";
+import { isRangeInvalid } from "../../../lib/iam-utils";
 
 class PowerVsVolumeForm extends React.Component {
   constructor(props) {
@@ -72,7 +80,7 @@ class PowerVsVolumeForm extends React.Component {
             hideHelperText
             invalid={this.props.invalidCallback(this.state, this.props)}
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
-            className="fieldWidth"
+            className="fieldWidthSmaller"
           />
           <IcseSelect
             labelText="Workspace"
@@ -82,33 +90,17 @@ class PowerVsVolumeForm extends React.Component {
             value={this.state.workspace}
             handleInputChange={this.handleInputChange}
             invalidText="Select a Workspace."
-            className="fieldWidth"
+            className="fieldWidthSmaller"
             id={`${this.props.data.name}-power-volume-workspace`}
           />
-        </IcseFormGroup>
-        <IcseFormGroup>
           <IcseToggle
-            tooltip={{
-              content: "Enable sharing between multiple instances",
-              align: "bottom-left",
-              alignModal: "right",
-            }}
-            id={this.props.data.name + "-power-volume-sharable"}
-            labelText="Enable Volume Sharing"
-            toggleFieldName="pi_volume_shareable"
-            defaultToggled={this.state.pi_volume_shareable}
-            onToggle={this.handleToggle}
-            isModal={this.props.isModal}
-            className="fieldWidth"
-          />
-          <IcseToggle
-            id={this.props.data.name + "-power-volume-sharable"}
+            id={this.props.data.name + "-power-volume-replication"}
             labelText="Enable Volume Replication"
             toggleFieldName="pi_replication_enabled"
             defaultToggled={this.state.pi_replication_enabled}
             onToggle={this.handleToggle}
             isModal={this.props.isModal}
-            className="fieldWidth"
+            className="fieldWidthSmaller"
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -126,9 +118,49 @@ class PowerVsVolumeForm extends React.Component {
             }
             handleInputChange={this.handleInputChange}
             invalidText="Select a Storage Type."
-            className="fieldWidth"
+            className="fieldWidthSmaller"
             id={`${this.props.data.name}-power-instance-stortype`}
           />
+          <NumberInput
+            id={this.props.data.name + "power-volume-capacity"}
+            name="pi_volume_size"
+            label="Capacity (GB)"
+            value={
+              this.state.pi_volume_size
+                ? parseInt(
+                    isNullOrEmptyString(this.state.pi_volume_size)
+                      ? 0
+                      : this.state.pi_volume_size,
+                  )
+                : ""
+            }
+            onChange={this.handleInputChange}
+            allowEmpty={true}
+            step={1}
+            hideSteppers={true}
+            placeholder="1"
+            min={1}
+            max={2000}
+            invalid={isRangeInvalid(this.state.pi_volume_size, 1, 2000)}
+            invalidText="Must be a whole number between 1 and 2000"
+            className="fieldWidthSmaller leftTextAlign"
+          />
+          <IcseToggle
+            tooltip={{
+              content: "Enable sharing between multiple instances",
+              align: "bottom-left",
+              alignModal: "right",
+            }}
+            id={this.props.data.name + "-power-volume-sharable"}
+            labelText="Enable Volume Sharing"
+            toggleFieldName="pi_volume_shareable"
+            defaultToggled={this.state.pi_volume_shareable}
+            onToggle={this.handleToggle}
+            isModal={this.props.isModal}
+            className="fieldWidthSmaller"
+          />
+        </IcseFormGroup>
+        <IcseFormGroup>
           {this.state.pi_volume_shareable ? (
             <IcseMultiSelect
               key={JSON.stringify(this.state.attachments)} // force rerender on type change
@@ -139,6 +171,7 @@ class PowerVsVolumeForm extends React.Component {
               onChange={(event) =>
                 this.handleInstanceSelect(event.selectedItems)
               }
+              className="fieldWidthSmaller"
             />
           ) : (
             <IcseSelect
@@ -153,7 +186,7 @@ class PowerVsVolumeForm extends React.Component {
                 this.handleInstanceSelect([event.target.value])
               }
               disableInvalid
-              className="fieldWidth"
+              className="fieldWidthSmaller"
               id={`${this.props.data.name}-power-volume-instance`}
             />
           )}
