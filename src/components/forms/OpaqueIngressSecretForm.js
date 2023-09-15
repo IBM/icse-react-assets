@@ -450,6 +450,7 @@ OpaqueIngressSecretForm.defaultProps = {
     interval: 1,
     auto_rotate: false,
     labels: [],
+    arbitrary_secret_name: "",
     arbitrary_secret_description: "",
     arbitrary_secret_data: "",
     secrets_group: "",
