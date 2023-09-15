@@ -95,9 +95,17 @@ class OpaqueIngressSecretForm extends Component {
             onChange={this.handleInputChange}
             placeholder="my-opaque-ingress-name"
             invalidCallback={() =>
-              this.props.secretCallback(this.state, this.props)
+              this.props.secretCallback("opaque_secrets")(
+                this.state,
+                this.props,
+                "name",
+              )
             }
-            invalidText={this.props.secretCallbackText(this.state, this.props)}
+            invalidText={this.props.secretCallbackText("opaque_secrets")(
+              this.state,
+              this.props,
+              "name",
+            )}
             className="fieldWidthSmaller"
             field="name"
             hideHelperText
@@ -110,12 +118,18 @@ class OpaqueIngressSecretForm extends Component {
             value={this.state.namespace}
             onChange={this.handleInputChange}
             invalid={
-              invalidRegex("namespace", this.state.namespace, this.props.descriptionRegex)
-                .invalid
+              invalidRegex(
+                "namespace",
+                this.state.namespace,
+                this.props.descriptionRegex,
+              ).invalid
             }
             invalidText={
-              invalidRegex("namespace", this.state.namespace, this.props.descriptionRegex)
-                .invalidText
+              invalidRegex(
+                "namespace",
+                this.state.namespace,
+                this.props.descriptionRegex,
+              ).invalidText
             }
             className="fieldWidthSmaller"
             field="namespace"
@@ -155,12 +169,15 @@ class OpaqueIngressSecretForm extends Component {
             value={this.state.secrets_group}
             onChange={this.handleInputChange}
             invalidCallback={() =>
-              this.props.secretsManagerGroupCallback(this.state, this.props)
+              this.props.secretsManagerGroupCallback("secrets_group")(
+                this.state,
+                this.props,
+                "secrets_group",
+              )
             }
             invalidText={this.props.secretsManagerGroupCallbackText(
-              this.state,
-              this.props,
-            )}
+              "secrets_group",
+            )(this.state, this.props, "secrets_group")}
             className="fieldWidthSmaller"
             field="secrets_group"
           />
@@ -187,8 +204,8 @@ class OpaqueIngressSecretForm extends Component {
             placeholder="hello,world"
             value={String(this.state.labels)}
             onChange={this.handleLabels}
-            invalid={this.props.labelsInvalid(this.state, this.props)}
-            invalidText={this.props.labelsInvalidText(this.state, this.props)}
+            invalid={this.props.labelsInvalid(this.state.labels)}
+            invalidText="One or more labels are invalid"
             helperText="Enter a comma separated list of tags"
           />
         </IcseFormGroup>
@@ -206,12 +223,15 @@ class OpaqueIngressSecretForm extends Component {
                 value={this.state.arbitrary_secret_name}
                 onChange={this.handleInputChange}
                 invalidCallback={() =>
-                  this.props.arbSecretCallback(this.state, this.props)
+                  this.props.secretCallback("arbitrary_secret_name")(
+                    this.state,
+                    this.props,
+                    "arbitrary_secret_name",
+                  )
                 }
-                invalidText={this.props.arbSecretCallbackText(
-                  this.state,
-                  this.props,
-                )}
+                invalidText={this.props.secretCallbackText(
+                  "arbitrary_secret_name",
+                )(this.state, this.props, "arbitrary_secret_name")}
                 field="arbitrary_secret_name"
                 className="fieldWidth"
               />
@@ -223,7 +243,10 @@ class OpaqueIngressSecretForm extends Component {
                 value={this.state.arbitrary_secret_description}
                 onChange={this.handleInputChange}
                 invalidCallback={() =>
-                  this.props.descriptionInvalid(this.state.arbitrary_secret_description, this.props)
+                  this.props.descriptionInvalid(
+                    this.state.arbitrary_secret_description,
+                    this.props,
+                  )
                 }
                 invalidText={this.props.descriptionInvalidText(
                   this.state,
@@ -274,12 +297,15 @@ class OpaqueIngressSecretForm extends Component {
                 value={this.state.username_password_secret_name}
                 onChange={this.handleInputChange}
                 invalidCallback={() =>
-                  this.props.userPassSecretCallback(this.state, this.props)
+                  this.props.secretCallback("username_password_secret_name")(
+                    this.state,
+                    this.props,
+                    "username_password_secret_name",
+                  )
                 }
-                invalidText={this.props.userPassSecretCallbackText(
-                  this.state,
-                  this.props,
-                )}
+                invalidText={this.props.secretCallbackText(
+                  "username_password_secret_name",
+                )(this.state, this.props, "username_password_secret_name")}
                 field="username_password_secret_name"
                 className="fieldWidth"
               />
@@ -293,7 +319,10 @@ class OpaqueIngressSecretForm extends Component {
                 value={this.state.username_password_secret_description}
                 onChange={this.handleInputChange}
                 invalidCallback={() =>
-                  this.props.descriptionInvalid(this.state.username_password_secret_description, this.props)
+                  this.props.descriptionInvalid(
+                    this.state.username_password_secret_description,
+                    this.props,
+                  )
                 }
                 invalidText={this.props.descriptionInvalidText(
                   this.state,
@@ -315,12 +344,18 @@ class OpaqueIngressSecretForm extends Component {
                 onChange={this.handleInputChange}
                 maxLength={255}
                 invalid={
-                  invalidRegex("username", this.state.username_password_secret_username, this.props.descriptionRegex)
-                    .invalid
+                  invalidRegex(
+                    "username",
+                    this.state.username_password_secret_username,
+                    this.props.descriptionRegex,
+                  ).invalid
                 }
                 invalidText={
-                  invalidRegex("username", this.state.username_password_secret_username, this.props.descriptionRegex)
-                    .invalidText
+                  invalidRegex(
+                    "username",
+                    this.state.username_password_secret_username,
+                    this.props.descriptionRegex,
+                  ).invalidText
                 }
                 field="username_password_secret_username"
                 className="fieldWidth"
@@ -335,12 +370,18 @@ class OpaqueIngressSecretForm extends Component {
                 value={this.state.username_password_secret_password}
                 onChange={this.handleInputChange}
                 invalid={
-                  invalidRegex("password", this.state.username_password_secret_password, this.props.descriptionRegex)
-                    .invalid
+                  invalidRegex(
+                    "password",
+                    this.state.username_password_secret_password,
+                    this.props.descriptionRegex,
+                  ).invalid
                 }
                 invalidText={
-                  invalidRegex("password", this.state.username_password_secret_password, this.props.descriptionRegex)
-                    .invalidText
+                  invalidRegex(
+                    "password",
+                    this.state.username_password_secret_password,
+                    this.props.descriptionRegex,
+                  ).invalidText
                 }
                 field="username_password_secret_password"
                 className="fieldWidth"
@@ -458,7 +499,7 @@ OpaqueIngressSecretForm.propTypes = {
   descriptionInvalid: PropTypes.func.isRequired,
   descriptionInvalidText: PropTypes.func.isRequired,
   labelsInvalid: PropTypes.func.isRequired,
-  labelsInvalidText: PropTypes.func.isRequired,
+  labelsInvalidText: PropTypes.string,
 };
 
 export default OpaqueIngressSecretForm;
