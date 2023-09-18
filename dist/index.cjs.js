@@ -4107,12 +4107,22 @@ function buildFormFunctions(component) {
   let usesSecurityGroups = Array.isArray(component.props.securityGroups);
   let usesImageList = getType(component.props.imageMap) === "object";
   let powerInstance = component.props.power;
+  let powerVolumes = component.props.power_instances;
   if (component.props.shouldDisableSave) component.shouldDisableSave = component.props.shouldDisableSave.bind(component);
   if (disableSubmit) component.shouldDisableSubmit = component.props.shouldDisableSubmit.bind(component);
   if (usesSubnetList) {
     component.getSubnetList = function () {
       return splat(component.props.subnetList.filter(subnet => {
         if (subnet.vpc === component.state.vpc) return subnet;
+      }), "name");
+    }.bind(component);
+  }
+  if (powerVolumes) {
+    component.getPowerInstances = function () {
+      return splat(component.props.power_instances.filter(instance => {
+        if (instance.workspace === component.state.workspace && instance.pi_storage_type === component.state.pi_volume_type) {
+          return instance;
+        }
       }), "name");
     }.bind(component);
   }
@@ -12045,6 +12055,171 @@ PowerVsInstanceForm.propTypes = {
   invalidPiMemoryTextCallback: PropTypes__default["default"].func.isRequired
 };
 
+class PowerVsVolumeForm extends React__default["default"].Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    this.handleInstanceSelect = this.handleInstanceSelect.bind(this);
+  }
+  handleInputChange(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    if (name === "workspace") {
+      let zone = lazyZ.getObjectFromArray(this.props.power, "name", value).zone;
+      this.setState({
+        workspace: value,
+        zone: zone,
+        attachments: []
+      });
+    } else if (lazyZ.contains(["pi_volume_type"], name)) {
+      this.setState({
+        [name]: value.toLowerCase().replace(/-/g, ""),
+        attachments: []
+      });
+    } else this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * Toggle on and off param in state at name
+   * @param {string} name name of the object key to change
+   */
+  handleToggle(name) {
+    if (name === "pi_volume_shareable") {
+      this.setState({
+        pi_volume_shareable: !this.state.pi_volume_shareable,
+        attachments: []
+      });
+    }
+    this.setState(this.toggleStateBoolean(name, this.state));
+  }
+  handleInstanceSelect(instances) {
+    this.setState({
+      attachments: instances
+    });
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: this.props.data.name + "-power-volume-name",
+      componentName: this.props.data.name + "-power-volume-name",
+      placeholder: "my-power-volume-instance-name",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      hideHelperText: true,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      labelText: "Workspace",
+      name: "workspace",
+      formName: this.props.data.name + "-power-volume-workspace",
+      groups: lazyZ.splat(this.props.power, "name"),
+      value: this.state.workspace,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a Workspace.",
+      className: "fieldWidthSmaller",
+      id: `${this.props.data.name}-power-volume-workspace`
+    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      id: this.props.data.name + "-power-volume-replication",
+      labelText: "Enable Volume Replication",
+      toggleFieldName: "pi_replication_enabled",
+      defaultToggled: this.state.pi_replication_enabled,
+      onToggle: this.handleToggle,
+      isModal: this.props.isModal,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      labelText: "Storage Type",
+      name: "pi_volume_type",
+      formName: this.props.data.name + "-power-instance-stortype",
+      groups: ["Tier-1", "Tier-3"],
+      value: lazyZ.isNullOrEmptyString(this.state.pi_volume_type) ? "" : lazyZ.capitalize(this.state.pi_volume_type.split(/(?=\d)/).join("-")),
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a Storage Type.",
+      className: "fieldWidthSmaller",
+      id: `${this.props.data.name}-power-instance-stortype`
+    }), /*#__PURE__*/React__default["default"].createElement(react.NumberInput, {
+      id: this.props.data.name + "power-volume-capacity",
+      name: "pi_volume_size",
+      label: "Capacity (GB)",
+      value: this.state.pi_volume_size ? parseInt(lazyZ.isNullOrEmptyString(this.state.pi_volume_size) ? 0 : this.state.pi_volume_size) : "",
+      onChange: this.handleInputChange,
+      allowEmpty: true,
+      step: 1,
+      hideSteppers: true,
+      placeholder: "1",
+      min: 1,
+      max: 2000,
+      invalid: iamUtils_3(this.state.pi_volume_size, 1, 2000),
+      invalidText: "Must be a whole number between 1 and 2000",
+      className: "fieldWidthSmaller leftTextAlign"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      tooltip: {
+        content: "Enable sharing between multiple instances",
+        align: "bottom-left",
+        alignModal: "right"
+      },
+      id: this.props.data.name + "-power-volume-sharable",
+      labelText: "Enable Volume Sharing",
+      toggleFieldName: "pi_volume_shareable",
+      defaultToggled: this.state.pi_volume_shareable,
+      onToggle: this.handleToggle,
+      isModal: this.props.isModal,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, this.state.pi_volume_shareable ? /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+      key: JSON.stringify(this.state.attachments) // force rerender on type change
+      ,
+      titleText: "Attached Instances",
+      items: this.getPowerInstances(),
+      id: this.props.data.name + "-power-volume",
+      initialSelectedItems: this.state.attachments,
+      onChange: event => this.handleInstanceSelect(event.selectedItems),
+      className: "fieldWidthSmaller"
+    }) : /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      labelText: "Attached Instance",
+      name: "attachments",
+      formName: this.props.data.name + "-power-volume-instance",
+      groups: this.getPowerInstances(),
+      value: lazyZ.isEmpty(this.state.attachments) ? "" : this.state.attachments[0],
+      handleInputChange: event => this.handleInstanceSelect([event.target.value]),
+      disableInvalid: true,
+      className: "fieldWidthSmaller",
+      id: `${this.props.data.name}-power-volume-instance`
+    })));
+  }
+}
+PowerVsVolumeForm.defaultProps = {
+  data: {
+    name: "",
+    workspace: "",
+    pi_volume_shareable: false,
+    pi_replication_enabled: false,
+    pi_volume_type: "",
+    attachments: []
+  },
+  isModal: false
+};
+PowerVsVolumeForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string,
+    workspace: PropTypes__default["default"].string,
+    pi_volume_shareable: PropTypes__default["default"].bool,
+    pi_replication_enabled: PropTypes__default["default"].bool,
+    pi_volume_type: PropTypes__default["default"].string
+  }),
+  power: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  power_instances: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  isModal: PropTypes__default["default"].bool.isRequired
+};
+
 const PowerVsNetwork = props => {
   return props.isModal ? "" : /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
     name: "Network Interfaces",
@@ -12345,6 +12520,50 @@ PowerVsInstances.propTypes = {
   invalidPiMemoryCallback: PropTypes__default["default"].func.isRequired,
   invalidPiMemoryTextCallback: PropTypes__default["default"].func.isRequired,
   docs: PropTypes__default["default"].func.isRequired
+};
+
+const PowerVsVolume = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "Power VS Storage Volumes",
+    addText: "Create a Volume",
+    arrayData: props.power_volumes,
+    innerForm: PowerVsVolumeForm,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    docs: props.docs,
+    innerFormProps: {
+      craig: props.craig,
+      power: props.power,
+      power_instances: props.power_instances,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "power_volumes",
+      hideName: true
+    }
+  });
+};
+PowerVsVolume.propTypes = {
+  power_volumes: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  disableSave: PropTypes__default["default"].func,
+  propsMatchState: PropTypes__default["default"].func,
+  onDelete: PropTypes__default["default"].func,
+  onSave: PropTypes__default["default"].func,
+  onSubmit: PropTypes__default["default"].func,
+  forceOpen: PropTypes__default["default"].func,
+  craig: PropTypes__default["default"].shape({}),
+  docs: PropTypes__default["default"].func,
+  power: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  power_instances: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired
 };
 
 var css_248z = ".cds--date-picker-container {\n  width: 11rem;\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n\n.cds--date-picker.cds--date-picker--single .cds--date-picker__input {\n  width: 11rem;\n}\n";
@@ -16296,6 +16515,8 @@ exports.PowerVsInstancesPage = PowerVsInstances;
 exports.PowerVsNetworkAttachmentForm = PowerVsNetworkAttachmentForm;
 exports.PowerVsNetworkForm = PowerVsNetworkForm;
 exports.PowerVsNetworkPage = PowerVsNetwork;
+exports.PowerVsVolumeForm = PowerVsVolumeForm;
+exports.PowerVsVolumesPage = PowerVsVolume;
 exports.PowerVsWorkspaceForm = PowerVsWorkspaceForm;
 exports.PowerVsWorkspacePage = PowerVsWorkspace;
 exports.RenderForm = RenderForm;
