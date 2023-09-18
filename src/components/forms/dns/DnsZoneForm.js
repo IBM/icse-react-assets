@@ -84,8 +84,7 @@ class DnsZoneForm extends React.Component {
           onChange={this.handleInputChange}
           enableCounter
           invalid={this.props.invalidDescriptionCallback(
-            this.state,
-            this.props,
+            this.state.description,
           )}
           invalidText={this.props.invalidDescriptionTextCallback(
             this.state,
