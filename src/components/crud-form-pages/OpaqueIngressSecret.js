@@ -3,6 +3,7 @@ import OpaqueIngressSecretForm from "../forms/OpaqueIngressSecretForm";
 import IcseFormTemplate from "../IcseFormTemplate";
 import PropTypes from "prop-types";
 import { NoSecretsManagerTile } from "./VpnServers";
+import { isEmpty } from "lazy-z";
 
 export const OpaqueIngressSecret = (props) => {
   return props.isModal ? (
@@ -19,14 +20,13 @@ export const OpaqueIngressSecret = (props) => {
       onSave={props.onSave}
       onSubmit={props.onSubmit}
       propsMatchState={props.propsMatchState}
-      hideFormTitleButton={props.noSecretsManager}
+      hideFormTitleButton={isEmpty(props.secretsManagerList)}
       overrideTile={
-        props.noSecretsManager ? (
+        isEmpty(props.secretsManagerList) ? (
           <NoSecretsManagerTile text="to enable Opaque Ingress Secrets" />
         ) : null
       }
       innerFormProps={{
-        noSecretsManager: props.noSecretsManager,
         secretsManagerList: props.secretsManagerList,
         secretsManagerGroupCallback: props.secretsManagerGroupCallback,
         secretsManagerGroupCallbackText: props.secretsManagerGroupCallbackText,
@@ -56,7 +56,6 @@ OpaqueIngressSecret.defaultProps = {
 };
 
 OpaqueIngressSecret.propTypes = {
-  noSecretsManager: PropTypes.bool,
   isModal: PropTypes.bool.isRequired,
   opaque_secrets: PropTypes.arrayOf(PropTypes.shape({})),
   disableSave: PropTypes.func,

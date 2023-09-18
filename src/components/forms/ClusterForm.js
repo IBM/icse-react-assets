@@ -251,7 +251,6 @@ class ClusterForm extends Component {
         />
         <OpaqueIngressSecret
           cluster={this.props.data}
-          noSecretsManager={this.props.noSecretsManager}
           opaque_secrets={this.props.data.opaque_secrets}
           disableSave={this.props.opaqueIngressSecretProps.disableSave}
           onDelete={this.props.opaqueIngressSecretProps.onDelete}
@@ -321,7 +320,6 @@ ClusterForm.propTypes = {
   }),
   /* bools */
   isModal: PropTypes.bool.isRequired,
-  noSecretsManager: PropTypes.bool,
   /* lists */
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   encryptionKeys: PropTypes.arrayOf(PropTypes.string),

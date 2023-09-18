@@ -4,6 +4,7 @@ import { IcseFormGroup } from "../Utils";
 import { IcseNameInput, IcseTextInput, IcseToggle } from "../Inputs";
 import { invalidRegex } from "../../lib";
 import { isNullOrEmptyString } from "lazy-z";
+import {handleNumberInputChange} from "../../lib/forms/iam"
 import {
   buildFormDefaultInputMethods,
   buildFormFunctions,
@@ -37,6 +38,7 @@ class OpaqueIngressSecretForm extends Component {
     this.handleToggle = this.handleToggle.bind(this);
     this.handleLabels = this.handleLabels.bind(this);
     this.handleDate = this.handleDate.bind(this);
+    this.handleNumberInputChange = this.handleNumberInputChange.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
@@ -64,6 +66,17 @@ class OpaqueIngressSecretForm extends Component {
   handleDate(event) {
     this.setState({ expiration_date: event[0] });
   }
+
+    /**
+   * handle input change of number-only fields
+   * @param {event} event
+   */
+    handleNumberInputChange(event) {
+      let value = handleNumberInputChange(event);
+      if (value !== null) {
+        this.setState(value);
+      }
+    }
 
   /**
    * handle labels
@@ -95,16 +108,14 @@ class OpaqueIngressSecretForm extends Component {
             onChange={this.handleInputChange}
             placeholder="my-opaque-ingress-name"
             invalidCallback={() =>
-              this.props.secretCallback("opaque_secrets")(
+              this.props.secretCallback(
                 this.state,
                 this.props,
-                "name",
               )
             }
-            invalidText={this.props.secretCallbackText("opaque_secrets")(
+            invalidText={this.props.secretCallbackText(
               this.state,
               this.props,
-              "name",
             )}
             className="fieldWidthSmaller"
             field="name"
@@ -168,18 +179,16 @@ class OpaqueIngressSecretForm extends Component {
             placeholder="my-secrets-group"
             value={this.state.secrets_group}
             onChange={this.handleInputChange}
+            field="secrets_group"
             invalidCallback={() =>
-              this.props.secretsManagerGroupCallback("secrets_group")(
+              this.props.secretsManagerGroupCallback(
                 this.state,
                 this.props,
-                "secrets_group",
+                "secrets_group"
               )
             }
-            invalidText={this.props.secretsManagerGroupCallbackText(
-              "secrets_group",
-            )(this.state, this.props, "secrets_group")}
+            invalidText={this.props.secretsManagerGroupCallbackText(this.state, this.props, "secrets_group")}
             className="fieldWidthSmaller"
-            field="secrets_group"
           />
           <DatePicker
             datePickerType="single"
@@ -222,17 +231,15 @@ class OpaqueIngressSecretForm extends Component {
                 placeholder="my-secret-name"
                 value={this.state.arbitrary_secret_name}
                 onChange={this.handleInputChange}
+                field="arbitrary_secret_name"
                 invalidCallback={() =>
-                  this.props.secretCallback("arbitrary_secret_name")(
+                  this.props.secretCallback(
                     this.state,
                     this.props,
                     "arbitrary_secret_name",
                   )
                 }
-                invalidText={this.props.secretCallbackText(
-                  "arbitrary_secret_name",
-                )(this.state, this.props, "arbitrary_secret_name")}
-                field="arbitrary_secret_name"
+                invalidText={this.props.secretCallbackText(this.state, this.props, "arbitrary_secret_name")}
                 className="fieldWidth"
               />
               <IcseTextInput
@@ -296,17 +303,15 @@ class OpaqueIngressSecretForm extends Component {
                 placeholder="my-secret-name"
                 value={this.state.username_password_secret_name}
                 onChange={this.handleInputChange}
+                field="username_password_secret_name"
                 invalidCallback={() =>
-                  this.props.secretCallback("username_password_secret_name")(
+                  this.props.secretCallback(
                     this.state,
                     this.props,
-                    "username_password_secret_name",
+                    "username_password_secret_name"
                   )
                 }
-                invalidText={this.props.secretCallbackText(
-                  "username_password_secret_name",
-                )(this.state, this.props, "username_password_secret_name")}
-                field="username_password_secret_name"
+                invalidText={this.props.secretCallbackText(this.state, this.props, "username_password_secret_name")}
                 className="fieldWidth"
               />
               <IcseTextInput
@@ -405,7 +410,7 @@ class OpaqueIngressSecretForm extends Component {
                     value={this.state.interval}
                     defaultValue={this.props.interval}
                     min={1}
-                    onChange={this.handleInputChange}
+                    onChange={this.handleNumberInputChange}
                     name="interval"
                     hideSteppers={true}
                     invalidText="Enter a number greater than or equal to 1"
@@ -501,6 +506,7 @@ OpaqueIngressSecretForm.propTypes = {
   descriptionInvalidText: PropTypes.func.isRequired,
   labelsInvalid: PropTypes.func.isRequired,
   labelsInvalidText: PropTypes.string,
+  descriptionRegex: PropTypes.instanceOf(RegExp).isRequired,
 };
 
 export default OpaqueIngressSecretForm;

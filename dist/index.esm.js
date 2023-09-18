@@ -5545,7 +5545,6 @@ const Clusters = props => {
     forceOpen: props.forceOpen,
     docs: props.docs,
     innerFormProps: {
-      noSecretsManager: props.noSecretsManager,
       craig: props.craig,
       disableSave: props.disableSave,
       invalidCallback: props.invalidCallback,
@@ -5592,7 +5591,6 @@ const Clusters = props => {
   });
 };
 Clusters.propTypes = {
-  noSecretsManager: PropTypes.bool,
   clusters: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   disableSave: PropTypes.func,
   propsMatchState: PropTypes.func,
@@ -5628,7 +5626,7 @@ Clusters.propTypes = {
   descriptionInvalid: PropTypes.func,
   descriptionInvalidText: PropTypes.func,
   labelsInvalid: PropTypes.func,
-  labelsInvalidText: PropTypes.func,
+  labelsInvalidText: PropTypes.string,
   secretsManagerList: PropTypes.arrayOf(PropTypes.string).isRequired,
   cosNames: PropTypes.arrayOf(PropTypes.string).isRequired,
   docs: PropTypes.func
@@ -12555,6 +12553,132 @@ PowerVsVolume.propTypes = {
   invalidTextCallback: PropTypes.func.isRequired
 };
 
+const restrictMenuItems = ["Unset", "Yes", "No"];
+const mfaMenuItems = ["NONE", "TOTP", "TOTP4ALL", "Email-Based MFA", "TOTP MFA", "U2F MFA"];
+const iamItems = {
+  null: {
+    display: null,
+    value: null
+  },
+  NONE: {
+    display: "NONE",
+    value: "NONE"
+  },
+  TOTP: {
+    display: "TOTP",
+    value: "TOTP"
+  },
+  TOTP4ALL: {
+    display: "TOTP4ALL",
+    value: "TOTP4ALL"
+  },
+  LEVEL1: {
+    display: "Email-Based MFA",
+    value: "LEVEL1"
+  },
+  LEVEL2: {
+    display: "TOTP MFA",
+    value: "LEVEL2"
+  },
+  LEVEL3: {
+    display: "U2F MFA",
+    value: "LEVEL3"
+  },
+  NOT_SET: {
+    display: "Unset",
+    value: "NOT_SET"
+  },
+  RESTRICTED: {
+    display: "Yes",
+    value: "RESTRICTED"
+  },
+  NOT_RESTRICTED: {
+    display: "No",
+    value: "NOT_RESTRICTED"
+  },
+  "Email-Based MFA": {
+    display: "Email-Based MFA",
+    value: "LEVEL1"
+  },
+  "TOTP MFA": {
+    display: "TOTP MFA",
+    value: "LEVEL2"
+  },
+  "U2F MFA": {
+    display: "U2F MFA",
+    value: "LEVEL3"
+  },
+  Unset: {
+    display: "Unset",
+    value: "NOT_SET"
+  },
+  Yes: {
+    display: "Yes",
+    value: "RESTRICTED"
+  },
+  No: {
+    display: "No",
+    value: "NOT_RESTRICTED"
+  }
+};
+
+/**
+ * handle input change of number-only fields
+ * @param {event} event
+ */
+function handleNumberInputChange(event) {
+  let value = parseInt(event.target.value) || null;
+  if (value || event.target.value === "") {
+    return {
+      [event.target.name]: value
+    };
+  } else {
+    return null;
+  }
+}
+
+/**
+ * Handle input change for allowed ips text field
+ * @param {event} event
+ */
+function handleAllowedIps(event) {
+  let value = event.target.value.replace(/\s*/g, ""); // remove white space and check for empty value
+  if (value === "") {
+    value = null;
+  }
+  return {
+    allowed_ip_addresses: value
+  };
+}
+
+/**
+ * Handle input change for a select
+ * @param {event} event
+ */
+function handleSelectChange(event) {
+  let {
+    name,
+    value
+  } = event.target;
+  return {
+    [name]: iamItems[value].value
+  };
+}
+var iam = {
+  restrictMenuItems,
+  mfaMenuItems,
+  iamItems,
+  handleNumberInputChange,
+  handleAllowedIps,
+  handleSelectChange
+};
+var iam_1 = iam.restrictMenuItems;
+var iam_2 = iam.mfaMenuItems;
+var iam_3 = iam.iamItems;
+var iam_4 = iam.handleNumberInputChange;
+var iam_5 = iam.handleAllowedIps;
+var iam_6 = iam.handleSelectChange;
+
 var css_248z = ".cds--date-picker-container {\n  width: 11rem;\n  position: relative;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n}\n\n.cds--date-picker.cds--date-picker--single .cds--date-picker__input {\n  width: 11rem;\n}\n";
 styleInject(css_248z);
 
@@ -12567,6 +12691,7 @@ class OpaqueIngressSecretForm extends Component {
     this.handleToggle = this.handleToggle.bind(this);
     this.handleLabels = this.handleLabels.bind(this);
     this.handleDate = this.handleDate.bind(this);
+    this.handleNumberInputChange = this.handleNumberInputChange.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
@@ -12598,6 +12723,17 @@ class OpaqueIngressSecretForm extends Component {
   }
 
   /**
+  * handle input change of number-only fields
+  * @param {event} event
+  */
+  handleNumberInputChange(event) {
+    let value = iam_4(event);
+    if (value !== null) {
+      this.setState(value);
+    }
+  }
+
+  /**
    * handle labels
    * @param {event} event
    */
@@ -12620,8 +12756,8 @@ class OpaqueIngressSecretForm extends Component {
       value: this.state.name,
       onChange: this.handleInputChange,
       placeholder: "my-opaque-ingress-name",
-      invalidCallback: () => this.props.secretCallback("opaque_secrets")(this.state, this.props, "name"),
-      invalidText: this.props.secretCallbackText("opaque_secrets")(this.state, this.props, "name"),
+      invalidCallback: () => this.props.secretCallback(this.state, this.props),
+      invalidText: this.props.secretCallbackText(this.state, this.props),
       className: "fieldWidthSmaller",
       field: "name",
       hideHelperText: true
@@ -12665,10 +12801,10 @@ class OpaqueIngressSecretForm extends Component {
       placeholder: "my-secrets-group",
       value: this.state.secrets_group,
       onChange: this.handleInputChange,
-      invalidCallback: () => this.props.secretsManagerGroupCallback("secrets_group")(this.state, this.props, "secrets_group"),
-      invalidText: this.props.secretsManagerGroupCallbackText("secrets_group")(this.state, this.props, "secrets_group"),
-      className: "fieldWidthSmaller",
-      field: "secrets_group"
+      field: "secrets_group",
+      invalidCallback: () => this.props.secretsManagerGroupCallback(this.state, this.props, "secrets_group"),
+      invalidText: this.props.secretsManagerGroupCallbackText(this.state, this.props, "secrets_group"),
+      className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(DatePicker, {
       datePickerType: "single",
       dateFormat: "Y-m-d",
@@ -12699,9 +12835,9 @@ class OpaqueIngressSecretForm extends Component {
       placeholder: "my-secret-name",
       value: this.state.arbitrary_secret_name,
       onChange: this.handleInputChange,
-      invalidCallback: () => this.props.secretCallback("arbitrary_secret_name")(this.state, this.props, "arbitrary_secret_name"),
-      invalidText: this.props.secretCallbackText("arbitrary_secret_name")(this.state, this.props, "arbitrary_secret_name"),
       field: "arbitrary_secret_name",
+      invalidCallback: () => this.props.secretCallback(this.state, this.props, "arbitrary_secret_name"),
+      invalidText: this.props.secretCallbackText(this.state, this.props, "arbitrary_secret_name"),
       className: "fieldWidth"
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: composedId + "-arb-secret-description",
@@ -12740,9 +12876,9 @@ class OpaqueIngressSecretForm extends Component {
       placeholder: "my-secret-name",
       value: this.state.username_password_secret_name,
       onChange: this.handleInputChange,
-      invalidCallback: () => this.props.secretCallback("username_password_secret_name")(this.state, this.props, "username_password_secret_name"),
-      invalidText: this.props.secretCallbackText("username_password_secret_name")(this.state, this.props, "username_password_secret_name"),
       field: "username_password_secret_name",
+      invalidCallback: () => this.props.secretCallback(this.state, this.props, "username_password_secret_name"),
+      invalidText: this.props.secretCallbackText(this.state, this.props, "username_password_secret_name"),
       className: "fieldWidth"
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: composedId + "-username-password-secret-description",
@@ -12790,7 +12926,7 @@ class OpaqueIngressSecretForm extends Component {
       value: this.state.interval,
       defaultValue: this.props.interval,
       min: 1,
-      onChange: this.handleInputChange,
+      onChange: this.handleNumberInputChange,
       name: "interval",
       hideSteppers: true,
       invalidText: "Enter a number greater than or equal to 1",
@@ -12819,6 +12955,7 @@ OpaqueIngressSecretForm.defaultProps = {
     interval: 1,
     auto_rotate: false,
     labels: [],
+    arbitrary_secret_name: "",
     arbitrary_secret_description: "",
     arbitrary_secret_data: "",
     secrets_group: "",
@@ -12869,7 +13006,8 @@ OpaqueIngressSecretForm.propTypes = {
   descriptionInvalid: PropTypes$1.func.isRequired,
   descriptionInvalidText: PropTypes$1.func.isRequired,
   labelsInvalid: PropTypes$1.func.isRequired,
-  labelsInvalidText: PropTypes$1.string
+  labelsInvalidText: PropTypes$1.string,
+  descriptionRegex: PropTypes$1.instanceOf(RegExp).isRequired
 };
 
 const OpaqueIngressSecret = props => {
@@ -12884,12 +13022,11 @@ const OpaqueIngressSecret = props => {
     onSave: props.onSave,
     onSubmit: props.onSubmit,
     propsMatchState: props.propsMatchState,
-    hideFormTitleButton: props.noSecretsManager,
-    overrideTile: props.noSecretsManager ? /*#__PURE__*/React.createElement(NoSecretsManagerTile, {
+    hideFormTitleButton: isEmpty(props.secretsManagerList),
+    overrideTile: isEmpty(props.secretsManagerList) ? /*#__PURE__*/React.createElement(NoSecretsManagerTile, {
       text: "to enable Opaque Ingress Secrets"
     }) : null,
     innerFormProps: {
-      noSecretsManager: props.noSecretsManager,
       secretsManagerList: props.secretsManagerList,
       secretsManagerGroupCallback: props.secretsManagerGroupCallback,
       secretsManagerGroupCallbackText: props.secretsManagerGroupCallbackText,
@@ -12916,7 +13053,6 @@ OpaqueIngressSecret.defaultProps = {
   isModal: false
 };
 OpaqueIngressSecret.propTypes = {
-  noSecretsManager: PropTypes.bool,
   isModal: PropTypes.bool.isRequired,
   opaque_secrets: PropTypes.arrayOf(PropTypes.shape({})),
   disableSave: PropTypes.func,
@@ -13121,7 +13257,6 @@ class ClusterForm extends Component {
       isModal: this.props.isModal
     }), /*#__PURE__*/React.createElement(OpaqueIngressSecret, {
       cluster: this.props.data,
-      noSecretsManager: this.props.noSecretsManager,
       opaque_secrets: this.props.data.opaque_secrets,
       disableSave: this.props.opaqueIngressSecretProps.disableSave,
       onDelete: this.props.opaqueIngressSecretProps.onDelete,
@@ -13186,7 +13321,6 @@ ClusterForm.propTypes = {
   }),
   /* bools */
   isModal: PropTypes.bool.isRequired,
-  noSecretsManager: PropTypes.bool,
   /* lists */
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   encryptionKeys: PropTypes.arrayOf(PropTypes.string),
@@ -13829,132 +13963,6 @@ F5VsiTemplateForm.propTypes = {
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired
 };
-
-const restrictMenuItems = ["Unset", "Yes", "No"];
-const mfaMenuItems = ["NONE", "TOTP", "TOTP4ALL", "Email-Based MFA", "TOTP MFA", "U2F MFA"];
-const iamItems = {
-  null: {
-    display: null,
-    value: null
-  },
-  NONE: {
-    display: "NONE",
-    value: "NONE"
-  },
-  TOTP: {
-    display: "TOTP",
-    value: "TOTP"
-  },
-  TOTP4ALL: {
-    display: "TOTP4ALL",
-    value: "TOTP4ALL"
-  },
-  LEVEL1: {
-    display: "Email-Based MFA",
-    value: "LEVEL1"
-  },
-  LEVEL2: {
-    display: "TOTP MFA",
-    value: "LEVEL2"
-  },
-  LEVEL3: {
-    display: "U2F MFA",
-    value: "LEVEL3"
-  },
-  NOT_SET: {
-    display: "Unset",
-    value: "NOT_SET"
-  },
-  RESTRICTED: {
-    display: "Yes",
-    value: "RESTRICTED"
-  },
-  NOT_RESTRICTED: {
-    display: "No",
-    value: "NOT_RESTRICTED"
-  },
-  "Email-Based MFA": {
-    display: "Email-Based MFA",
-    value: "LEVEL1"
-  },
-  "TOTP MFA": {
-    display: "TOTP MFA",
-    value: "LEVEL2"
-  },
-  "U2F MFA": {
-    display: "U2F MFA",
-    value: "LEVEL3"
-  },
-  Unset: {
-    display: "Unset",
-    value: "NOT_SET"
-  },
-  Yes: {
-    display: "Yes",
-    value: "RESTRICTED"
-  },
-  No: {
-    display: "No",
-    value: "NOT_RESTRICTED"
-  }
-};
-
-/**
- * handle input change of number-only fields
- * @param {event} event
- */
-function handleNumberInputChange(event) {
-  let value = parseInt(event.target.value) || null;
-  if (value || event.target.value === "") {
-    return {
-      [event.target.name]: value
-    };
-  } else {
-    return null;
-  }
-}
-
-/**
- * Handle input change for allowed ips text field
- * @param {event} event
- */
-function handleAllowedIps(event) {
-  let value = event.target.value.replace(/\s*/g, ""); // remove white space and check for empty value
-  if (value === "") {
-    value = null;
-  }
-  return {
-    allowed_ip_addresses: value
-  };
-}
-
-/**
- * Handle input change for a select
- * @param {event} event
- */
-function handleSelectChange(event) {
-  let {
-    name,
-    value
-  } = event.target;
-  return {
-    [name]: iamItems[value].value
-  };
-}
-var iam = {
-  restrictMenuItems,
-  mfaMenuItems,
-  iamItems,
-  handleNumberInputChange,
-  handleAllowedIps,
-  handleSelectChange
-};
-var iam_1 = iam.restrictMenuItems;
-var iam_2 = iam.mfaMenuItems;
-var iam_3 = iam.iamItems;
-var iam_4 = iam.handleNumberInputChange;
-var iam_5 = iam.handleAllowedIps;
-var iam_6 = iam.handleSelectChange;
 
 /**
  * IAM Account Settings form
