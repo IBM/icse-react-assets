@@ -250,6 +250,7 @@ class ClusterForm extends Component {
           isModal={this.props.isModal}
         />
         <OpaqueIngressSecret
+          cluster={this.props.data}
           opaque_secrets={this.props.data.opaque_secrets}
           disableSave={this.props.opaqueIngressSecretProps.disableSave}
           onDelete={this.props.opaqueIngressSecretProps.onDelete}
@@ -342,7 +343,7 @@ ClusterForm.propTypes = {
   descriptionInvalid: PropTypes.func,
   descriptionInvalidText: PropTypes.func,
   labelsInvalid: PropTypes.func,
-  labelsInvalidText: PropTypes.func,
+  labelsInvalidText: PropTypes.string,
   /* forms */
   workerPoolProps: PropTypes.shape({
     onSave: PropTypes.func.isRequired,
