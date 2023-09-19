@@ -13,7 +13,13 @@ import {
   PowerVsNetworkPage,
 } from "../..";
 import { SshKeys, PowerVsNetworkAttachment } from "../../crud-form-pages";
-import { deepEqual, isNullOrEmptyString, splat } from "lazy-z";
+import {
+  contains,
+  deepEqual,
+  isEmpty,
+  isNullOrEmptyString,
+  splat,
+} from "lazy-z";
 import "./power-attachment.css";
 
 class PowerVsWorkspaceForm extends React.Component {
@@ -105,7 +111,7 @@ class PowerVsWorkspaceForm extends React.Component {
             onChange={(event) =>
               this.handleMultiSelectChange(event.selectedItems)
             }
-            invalid={this.state.imageNames === []}
+            invalid={isEmpty(this.state.imageNames || [])}
             invalidText="Select at least one Image"
           />
         </IcseFormGroup>
@@ -150,27 +156,30 @@ class PowerVsWorkspaceForm extends React.Component {
           invalidDnsCallbackText={this.props.invalidDnsCallbackText}
           workspace={this.props.data.name}
         />
-        <PowerVsCloudConnectionPage
-          cloud_connections={this.props.data.cloud_connections}
-          isModal={this.props.isModal}
-          disableSave={this.props.disableSave}
-          propsMatchState={this.props.propsMatchState}
-          onConnectionDelete={this.props.onConnectionDelete}
-          onConnectionSave={this.props.onConnectionSave}
-          onConnectionSubmit={this.props.onConnectionSubmit}
-          invalidConnectionNameCallback={
-            this.props.invalidConnectionNameCallback
-          }
-          invalidConnectionNameTextCallback={
-            this.props.invalidConnectionNameTextCallback
-          }
-          transitGatewayList={this.props.transitGatewayList}
-          workspace={this.props.data.name}
-          craig={this.props.craig}
-        />
+        {!contains(this.props.edgeRouterEnabledZones, this.state.zone) && (
+          <PowerVsCloudConnectionPage
+            cloud_connections={this.props.data.cloud_connections}
+            isModal={this.props.isModal}
+            disableSave={this.props.disableSave}
+            propsMatchState={this.props.propsMatchState}
+            onConnectionDelete={this.props.onConnectionDelete}
+            onConnectionSave={this.props.onConnectionSave}
+            onConnectionSubmit={this.props.onConnectionSubmit}
+            invalidConnectionNameCallback={
+              this.props.invalidConnectionNameCallback
+            }
+            invalidConnectionNameTextCallback={
+              this.props.invalidConnectionNameTextCallback
+            }
+            transitGatewayList={this.props.transitGatewayList}
+            workspace={this.props.data.name}
+            craig={this.props.craig}
+          />
+        )}
         {this.props.isModal ||
         this.props.data.network.length === 0 ||
-        this.props.data.cloud_connections.length === 0 ? (
+        (this.props.data.cloud_connections.length === 0 &&
+          !contains(this.props.edgeRouterEnabledZones, this.state.zone)) ? (
           ""
         ) : (
           <PowerVsNetworkAttachment
@@ -230,9 +239,11 @@ PowerVsWorkspaceForm.propTypes = {
   sshKeyDeleteDisabled: PropTypes.func.isRequired,
   disableAttachmentSave: PropTypes.func.isRequired,
   imageMap: PropTypes.shape({}).isRequired,
+  edgeRouterEnabledZones: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 PowerVsWorkspaceForm.defaultProps = {
+  edgeRouterEnabledZones: ["dal10"],
   isModal: false,
   data: {
     name: "",
