@@ -165,6 +165,13 @@ export default {
       type: { required: true }, // required prop or not
       control: "none",
     },
+    descriptionRegex: {
+      description:
+        "A regular expression to determine invalid status for descriptions",
+      type: { required: true }, // required prop or not
+      control: "none",
+      table: { defaultValue: { summary: "/^[A-z][a-zA-Z0-9-._,s]*$/i" } },
+    },
   },
   parameters: {
     docs: {
@@ -183,28 +190,56 @@ const OpaqueIngressSecretFormStory = () => {
     else return false;
   }
 
-  function invalidCallback(stateData, componentProps) {
-    return !validName(stateData.name);
+  function invalidCallback(stateData, componentProps, field) {
+    field = field || "name"
+    return !validName(stateData[field]) || contains(["foo", "bar"], stateData[field]);
   }
 
-  function invalidTextCallback(stateData, componentProps) {
-    return contains(["foo", "bar"], stateData.name)
-      ? `Cluster name ${stateData.name} already in use.`
+  function invalidDescription(description, componentProps) {
+    if (description) return description.match(this.descriptionRegex) == null;
+    else return false;
+  }
+
+  function invalidDescriptionText(stateData) {
+    return `Invalid Description. Must match the regular expression: /^[A-z][a-zA-Z0-9-._,\s]`
+  }
+
+  function invalidLabels(stateData) {
+    if(stateData.length == 0) {
+      return false;
+    }
+    let invalid = false;
+    stateData.forEach((label) => {
+      if (!validName(label)) {
+        invalid = true;
+      }
+    });
+    return invalid;
+  }
+
+  function invalidLabelsText(stateData) {
+    return "One or more labels are invalid"
+  }
+
+  function invalidTextCallback(stateData, componentProps, field) {
+    return contains(["foo", "bar"], stateData[field])
+      ? `Name ${stateData[field]} already in use.`
       : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
   }
 
   return (
     <OpaqueIngressSecretForm
-      data={{ labels: ["hello", "world"], interval: 1, name: "test-name" }}
+      data={{ labels: ["hello", "world"], interval: 1, name: "test-name" ,arbitrary_secret_data: "", namespace: "", username_password_secret_username: "", username_password_secret_password: ""}}
       secretsManagerList={["sm1", "sm2", "sm3"]}
       secretsManagerGroupCallback={invalidCallback}
       secretsManagerGroupCallbackText={invalidTextCallback}
       secretCallback={invalidCallback}
       secretCallbackText={invalidTextCallback}
-      descriptionInvalid={invalidCallback}
-      descriptionInvalidText={invalidTextCallback}
-      labelsInvalid={invalidCallback}
-      labelsInvalidText={invalidTextCallback}
+      descriptionInvalid={invalidDescription}
+      descriptionInvalidText={invalidDescriptionText}
+      labelsInvalid={invalidLabels}
+      labelsInvalidText={invalidLabelsText}
+      descriptionRegex={/^[A-z][a-zA-Z0-9-._,\s]*$/i}
     />
   );
 };
