@@ -4117,7 +4117,7 @@ function buildFormFunctions(component) {
   }
   if (usesImageList) {
     component.getImageList = function () {
-      return splat(component.props.imageMap[component.state.zone], "name");
+      if (component.props.imageMap[component.state.zone]) return splat(component.props.imageMap[component.state.zone], "name");else return [];
     }.bind(component);
   }
   if (usesSecurityGroups) {
@@ -11734,7 +11734,7 @@ class PowerVsWorkspaceForm extends React.Component {
       transitGatewayList: this.props.transitGatewayList,
       workspace: this.props.data.name,
       craig: this.props.craig
-    }), this.props.isModal || this.props.data.network.length === 0 || this.props.data.cloud_connections.length === 0 && !contains$5(this.props.edgeRouterEnabledZones, this.state.zone) ? "" : /*#__PURE__*/React.createElement(PowerVsNetworkAttachment$1, {
+    }), this.props.isModal || this.props.data.network.length === 0 || this.props.data.cloud_connections.length === 0 || contains$5(this.props.edgeRouterEnabledZones, this.state.zone) ? "" : /*#__PURE__*/React.createElement(PowerVsNetworkAttachment$1, {
       attachments: this.props.data.attachments,
       disableSave: this.props.disableSave,
       propsMatchState: this.props.propsMatchState,
@@ -11785,7 +11785,6 @@ PowerVsWorkspaceForm.propTypes = {
   invalidSshKeyCallbackText: PropTypes.func.isRequired,
   invalidKeyCallback: PropTypes.func.isRequired,
   sshKeyDeleteDisabled: PropTypes.func.isRequired,
-  disableAttachmentSave: PropTypes.func.isRequired,
   imageMap: PropTypes.shape({}).isRequired,
   edgeRouterEnabledZones: PropTypes.arrayOf(PropTypes.string).isRequired
 };

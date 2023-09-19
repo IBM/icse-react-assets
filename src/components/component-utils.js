@@ -55,7 +55,9 @@ function buildFormFunctions(component) {
 
   if (usesImageList) {
     component.getImageList = function () {
-      return splat(component.props.imageMap[component.state.zone], "name");
+      if (component.props.imageMap[component.state.zone])
+        return splat(component.props.imageMap[component.state.zone], "name");
+      else return [];
     }.bind(component);
   }
 

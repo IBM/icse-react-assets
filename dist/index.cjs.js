@@ -4128,7 +4128,7 @@ function buildFormFunctions(component) {
   }
   if (usesImageList) {
     component.getImageList = function () {
-      return splat(component.props.imageMap[component.state.zone], "name");
+      if (component.props.imageMap[component.state.zone]) return splat(component.props.imageMap[component.state.zone], "name");else return [];
     }.bind(component);
   }
   if (usesSecurityGroups) {
@@ -11745,7 +11745,7 @@ class PowerVsWorkspaceForm extends React__default["default"].Component {
       transitGatewayList: this.props.transitGatewayList,
       workspace: this.props.data.name,
       craig: this.props.craig
-    }), this.props.isModal || this.props.data.network.length === 0 || this.props.data.cloud_connections.length === 0 && !lazyZ.contains(this.props.edgeRouterEnabledZones, this.state.zone) ? "" : /*#__PURE__*/React__default["default"].createElement(PowerVsNetworkAttachment$1, {
+    }), this.props.isModal || this.props.data.network.length === 0 || this.props.data.cloud_connections.length === 0 || lazyZ.contains(this.props.edgeRouterEnabledZones, this.state.zone) ? "" : /*#__PURE__*/React__default["default"].createElement(PowerVsNetworkAttachment$1, {
       attachments: this.props.data.attachments,
       disableSave: this.props.disableSave,
       propsMatchState: this.props.propsMatchState,
@@ -11796,7 +11796,6 @@ PowerVsWorkspaceForm.propTypes = {
   invalidSshKeyCallbackText: PropTypes__default["default"].func.isRequired,
   invalidKeyCallback: PropTypes__default["default"].func.isRequired,
   sshKeyDeleteDisabled: PropTypes__default["default"].func.isRequired,
-  disableAttachmentSave: PropTypes__default["default"].func.isRequired,
   imageMap: PropTypes__default["default"].shape({}).isRequired,
   edgeRouterEnabledZones: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
 };

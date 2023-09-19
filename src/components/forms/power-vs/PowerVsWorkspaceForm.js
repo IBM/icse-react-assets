@@ -178,8 +178,8 @@ class PowerVsWorkspaceForm extends React.Component {
         )}
         {this.props.isModal ||
         this.props.data.network.length === 0 ||
-        (this.props.data.cloud_connections.length === 0 &&
-          !contains(this.props.edgeRouterEnabledZones, this.state.zone)) ? (
+        this.props.data.cloud_connections.length === 0 ||
+        contains(this.props.edgeRouterEnabledZones, this.state.zone) ? (
           ""
         ) : (
           <PowerVsNetworkAttachment
@@ -237,7 +237,6 @@ PowerVsWorkspaceForm.propTypes = {
   invalidSshKeyCallbackText: PropTypes.func.isRequired,
   invalidKeyCallback: PropTypes.func.isRequired,
   sshKeyDeleteDisabled: PropTypes.func.isRequired,
-  disableAttachmentSave: PropTypes.func.isRequired,
   imageMap: PropTypes.shape({}).isRequired,
   edgeRouterEnabledZones: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
