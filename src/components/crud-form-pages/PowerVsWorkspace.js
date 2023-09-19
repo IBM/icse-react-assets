@@ -53,6 +53,7 @@ export const PowerVsWorkspace = (props) => {
         sshKeyDeleteDisabled: props.sshKeyDeleteDisabled,
         disableAttachmentSave: props.disableAttachmentSave,
         imageMap: props.imageMap,
+        edgeRouterEnabledZones: props.edgeRouterEnabledZones,
       }}
       toggleFormProps={{
         craig: props.craig,
@@ -62,6 +63,10 @@ export const PowerVsWorkspace = (props) => {
       }}
     />
   );
+};
+
+PowerVsWorkspace.defaultProps = {
+  edgeRouterEnabledZones: ["dal10"],
 };
 
 PowerVsWorkspace.propTypes = {
@@ -105,4 +110,5 @@ PowerVsWorkspace.propTypes = {
   sshKeyDeleteDisabled: PropTypes.func.isRequired,
   disableAttachmentSave: PropTypes.func.isRequired,
   imageMap: PropTypes.shape({}).isRequired,
+  edgeRouterEnabledZones: PropTypes.arrayOf(PropTypes.string).isRequired,
 };

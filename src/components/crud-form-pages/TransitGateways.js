@@ -27,6 +27,8 @@ export const TransitGateways = (props) => {
         invalidCrns: props.invalidCrns,
         invalidCrnText: props.invalidCrnText,
         resourceGroups: props.resourceGroups,
+        edgeRouterEnabledZones: props.edgeRouterEnabledZones,
+        power: props.power,
       }}
       toggleFormProps={{
         craig: props.craig,
@@ -37,6 +39,10 @@ export const TransitGateways = (props) => {
       }}
     />
   );
+};
+
+TransitGateways.defaultProps = {
+  edgeRouterEnabledZones: ["dal10"],
 };
 
 TransitGateways.propTypes = {
@@ -55,4 +61,6 @@ TransitGateways.propTypes = {
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   invalidCrns: PropTypes.func.isRequired,
   invalidCrnText: PropTypes.func.isRequired,
+  edgeRouterEnabledZones: PropTypes.arrayOf(PropTypes.string).isRequired,
+  power: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
 };
