@@ -11697,7 +11697,7 @@ class PowerVsWorkspaceForm extends React__default["default"].Component {
       id: this.props.data.name + "-images",
       initialSelectedItems: this.state.imageNames,
       onChange: event => this.handleMultiSelectChange(event.selectedItems),
-      invalid: this.state.imageNames === [],
+      invalid: lazyZ.isEmpty(this.state.imageNames || []),
       invalidText: "Select at least one Image"
     })), this.props.isModal ? "" : /*#__PURE__*/React__default["default"].createElement(SshKeys, {
       isModal: this.props.isModal,
@@ -11732,7 +11732,7 @@ class PowerVsWorkspaceForm extends React__default["default"].Component {
       invalidDnsCallback: this.props.invalidDnsCallback,
       invalidDnsCallbackText: this.props.invalidDnsCallbackText,
       workspace: this.props.data.name
-    }), /*#__PURE__*/React__default["default"].createElement(PowerVsCloudConnections, {
+    }), !lazyZ.contains(this.props.edgeRouterEnabledZones, this.state.zone) && /*#__PURE__*/React__default["default"].createElement(PowerVsCloudConnections, {
       cloud_connections: this.props.data.cloud_connections,
       isModal: this.props.isModal,
       disableSave: this.props.disableSave,
@@ -11745,7 +11745,7 @@ class PowerVsWorkspaceForm extends React__default["default"].Component {
       transitGatewayList: this.props.transitGatewayList,
       workspace: this.props.data.name,
       craig: this.props.craig
-    }), this.props.isModal || this.props.data.network.length === 0 || this.props.data.cloud_connections.length === 0 ? "" : /*#__PURE__*/React__default["default"].createElement(PowerVsNetworkAttachment$1, {
+    }), this.props.isModal || this.props.data.network.length === 0 || this.props.data.cloud_connections.length === 0 && !lazyZ.contains(this.props.edgeRouterEnabledZones, this.state.zone) ? "" : /*#__PURE__*/React__default["default"].createElement(PowerVsNetworkAttachment$1, {
       attachments: this.props.data.attachments,
       disableSave: this.props.disableSave,
       propsMatchState: this.props.propsMatchState,
@@ -11797,9 +11797,11 @@ PowerVsWorkspaceForm.propTypes = {
   invalidKeyCallback: PropTypes__default["default"].func.isRequired,
   sshKeyDeleteDisabled: PropTypes__default["default"].func.isRequired,
   disableAttachmentSave: PropTypes__default["default"].func.isRequired,
-  imageMap: PropTypes__default["default"].shape({}).isRequired
+  imageMap: PropTypes__default["default"].shape({}).isRequired,
+  edgeRouterEnabledZones: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
 };
 PowerVsWorkspaceForm.defaultProps = {
+  edgeRouterEnabledZones: ["dal10"],
   isModal: false,
   data: {
     name: "",
@@ -12734,9 +12736,9 @@ class OpaqueIngressSecretForm extends React.Component {
   }
 
   /**
-  * handle input change of number-only fields
-  * @param {event} event
-  */
+   * handle input change of number-only fields
+   * @param {event} event
+   */
   handleNumberInputChange(event) {
     let value = iam_4(event);
     if (value !== null) {

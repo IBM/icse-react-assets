@@ -11686,7 +11686,7 @@ class PowerVsWorkspaceForm extends React.Component {
       id: this.props.data.name + "-images",
       initialSelectedItems: this.state.imageNames,
       onChange: event => this.handleMultiSelectChange(event.selectedItems),
-      invalid: this.state.imageNames === [],
+      invalid: isEmpty(this.state.imageNames || []),
       invalidText: "Select at least one Image"
     })), this.props.isModal ? "" : /*#__PURE__*/React.createElement(SshKeys, {
       isModal: this.props.isModal,
@@ -11721,7 +11721,7 @@ class PowerVsWorkspaceForm extends React.Component {
       invalidDnsCallback: this.props.invalidDnsCallback,
       invalidDnsCallbackText: this.props.invalidDnsCallbackText,
       workspace: this.props.data.name
-    }), /*#__PURE__*/React.createElement(PowerVsCloudConnections, {
+    }), !contains$5(this.props.edgeRouterEnabledZones, this.state.zone) && /*#__PURE__*/React.createElement(PowerVsCloudConnections, {
       cloud_connections: this.props.data.cloud_connections,
       isModal: this.props.isModal,
       disableSave: this.props.disableSave,
@@ -11734,7 +11734,7 @@ class PowerVsWorkspaceForm extends React.Component {
       transitGatewayList: this.props.transitGatewayList,
       workspace: this.props.data.name,
       craig: this.props.craig
-    }), this.props.isModal || this.props.data.network.length === 0 || this.props.data.cloud_connections.length === 0 ? "" : /*#__PURE__*/React.createElement(PowerVsNetworkAttachment$1, {
+    }), this.props.isModal || this.props.data.network.length === 0 || this.props.data.cloud_connections.length === 0 && !contains$5(this.props.edgeRouterEnabledZones, this.state.zone) ? "" : /*#__PURE__*/React.createElement(PowerVsNetworkAttachment$1, {
       attachments: this.props.data.attachments,
       disableSave: this.props.disableSave,
       propsMatchState: this.props.propsMatchState,
@@ -11786,9 +11786,11 @@ PowerVsWorkspaceForm.propTypes = {
   invalidKeyCallback: PropTypes.func.isRequired,
   sshKeyDeleteDisabled: PropTypes.func.isRequired,
   disableAttachmentSave: PropTypes.func.isRequired,
-  imageMap: PropTypes.shape({}).isRequired
+  imageMap: PropTypes.shape({}).isRequired,
+  edgeRouterEnabledZones: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 PowerVsWorkspaceForm.defaultProps = {
+  edgeRouterEnabledZones: ["dal10"],
   isModal: false,
   data: {
     name: "",
@@ -12723,9 +12725,9 @@ class OpaqueIngressSecretForm extends Component {
   }
 
   /**
-  * handle input change of number-only fields
-  * @param {event} event
-  */
+   * handle input change of number-only fields
+   * @param {event} event
+   */
   handleNumberInputChange(event) {
     let value = iam_4(event);
     if (value !== null) {
