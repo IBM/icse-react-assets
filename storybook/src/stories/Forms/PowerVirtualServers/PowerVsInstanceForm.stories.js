@@ -1,10 +1,15 @@
-import { PowerVsVolumeForm } from "icse-react-assets";
-import { contains } from "lazy-z";
+import { PowerVsInstanceForm } from "icse-react-assets";
+import {
+  contains,
+  isNullOrEmptyString,
+  isIpv4CidrOrAddress,
+  isInRange,
+} from "lazy-z";
 import React from "react";
 
 export default {
-  component: PowerVsVolumeForm,
-  title: "Components/Forms/PowerVs/PowerVsVolumeForm",
+  component: PowerVsInstanceForm,
+  title: "Components/Forms/PowerVs/PowerVsInstanceForm",
   argTypes: {
     data: {
       summary: "An object that contains the data for the form.",
@@ -12,42 +17,48 @@ export default {
       control: "none",
     },
     ["data.name"]: {
-      description: "A string value for the name of the volume",
-      type: { required: true },
+      description: "A string value for the name of the Power instance",
+      type: { required: false },
       control: "none",
     },
     ["data.workspace"]: {
-      description: "A string value for the name of the selected workspace",
+      description:
+        "A string value for the name of the selected Power workspace",
       type: { required: false },
       control: "none",
     },
-    ["data.pi_volume_shareable"]: {
-      description: "A boolean determining whether the volume is shareable",
+    ["data.image"]: {
+      description: "A string value for the name of the selected image",
       type: { required: false },
       control: "none",
     },
-    ["data.pi_replication_enabled"]: {
-      description: "A boolean determining whether replication is enabled",
+    ["data.network"]: {
+      description: "An array of selected network interfaces",
       type: { required: false },
       control: "none",
     },
-    ["data.pi_volume_type"]: {
-      description: "A string value indicating the volume type",
+    ["data.zone"]: {
+      description: "A string indicating the instance's zone",
       type: { required: false },
       control: "none",
     },
-    ["data.attachments"]: {
-      description: "An array of attached Power Instances",
+    ["data.pi_health_status"]: {
+      description: "A string describing the health status of the instance",
+      type: { required: false },
+      control: "none",
+    },
+    ["data.pi_proc_type"]: {
+      description: "A string describing the proc type of the instance",
+      type: { required: false },
+      control: "none",
+    },
+    ["data.pi_storage_type"]: {
+      description: "A string indicating the storage type of the instance",
       type: { required: false },
       control: "none",
     },
     power: {
       description: "An array of available Power workspaces",
-      type: { required: true },
-      control: "none",
-    },
-    power_instances: {
-      description: "An array of available Power instances",
       type: { required: true },
       control: "none",
     },
@@ -63,18 +74,39 @@ export default {
       type: { required: true },
       control: "none",
     },
-    parameters: {
-      docs: {
-        description: {
-          component:
-            "PowerVsVolumeForm allows users to create volumes for Power Virtual Servers",
-        },
-      },
+    invalidIpCallback: {
+      description: "Function that determines an invalid IP address",
+      type: { required: true },
+      control: "none",
+    },
+    invalidPiProcessorsCallback: {
+      description:
+        "Function that determines the invalid state for the `pi_processor` field",
+      type: { required: true },
+      control: "none",
+    },
+    invalidPiProcessorsTextCallback: {
+      description:
+        "Function that determines the invalid text for the `pi_processor` field",
+      type: { required: true },
+      control: "none",
+    },
+    invalidPiMemoryCallback: {
+      description:
+        "Function that determines the invalid state for the `pi_memory` field",
+      type: { required: true },
+      control: "none",
+    },
+    invalidPiMemoryTextCallback: {
+      description:
+        "Function that determines the invalid text for the `pi_memory` field",
+      type: { required: true },
+      control: "none",
     },
   },
 };
 
-const PowerVsVolumeFormStory = () => {
+const PowerVsInstanceFormStory = () => {
   function validName(str) {
     const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
     if (str) return str.match(regex) !== null;
@@ -90,16 +122,46 @@ const PowerVsVolumeFormStory = () => {
       ? `Name ${stateData.name} already in use.`
       : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
   }
+  function invalidIpCallback(ip) {
+    if (isNullOrEmptyString(ip)) {
+      return false;
+    } else return contains(ip, "/") || !isIpv4CidrOrAddress(ip);
+  }
+  function invalidPiProcessorsCallback(stateData) {
+    // weird is in range error with decimal numbers and is in range
+    return (
+      parseFloat(stateData.pi_processors) < 0.25 ||
+      parseFloat(stateData.pi_processors) > 7
+    );
+  }
+  function invalidPiMemoryCallback(stateData) {
+    return !isInRange(parseFloat(stateData.pi_memory), 0, 918);
+  }
+  function invalidPiProcessorsTextCallback() {
+    return "Must be a number between 0.25 and 7.";
+  }
+  function invalidPiMemoryTextCallback() {
+    return "Must be a whole number less than 918.";
+  }
   return (
-    <PowerVsVolumeForm
+    <PowerVsInstanceForm
       data={{
         name: "frog",
         workspace: "example",
-        pi_volume_shareable: true,
-        pi_replication_enabled: true,
-        pi_volume_type: "tier1",
-        attachments: [],
+        image: "SLES15-SP3-SAP",
+        network: [],
+        zone: "dal10",
+        pi_health_status: "OK",
+        pi_proc_type: "shared",
+        pi_storage_type: "tier1",
       }}
+      invalidCallback={invalidCallback}
+      invalidTextCallback={invalidTextCallback}
+      invalidIpCallback={invalidIpCallback}
+      invalidPiProcessorsCallback={invalidPiProcessorsCallback}
+      invalidPiProcessorsTextCallback={invalidPiProcessorsTextCallback}
+      invalidPiMemoryCallback={invalidPiMemoryCallback}
+      invalidPiMemoryTextCallback={invalidPiMemoryTextCallback}
       power={[
         {
           name: "example",
@@ -204,31 +266,8 @@ const PowerVsVolumeFormStory = () => {
           ],
         },
       ]}
-      power_instances={[
-        {
-          zone: "dal12",
-          workspace: "example",
-          name: "test",
-          image: "SLES15-SP3-SAP",
-          ssh_key: "keyname",
-          network: [
-            {
-              name: "dev-nw",
-            },
-          ],
-          pi_memory: "4",
-          pi_processors: "2",
-          pi_proc_type: "shared",
-          pi_sys_type: "s922",
-          pi_pin_policy: "none",
-          pi_health_status: "WARNING",
-          pi_storage_type: "tier1",
-        },
-      ]}
-      invalidCallback={invalidCallback}
-      invalidTextCallback={invalidTextCallback}
     />
   );
 };
 
-export const Default = PowerVsVolumeFormStory.bind({});
+export const Default = PowerVsInstanceFormStory.bind({});
