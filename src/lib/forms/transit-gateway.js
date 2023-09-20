@@ -17,12 +17,19 @@ function handleCRNs(event) {
  * Handle vpc selection
  * @param {Array} selectedItems list of selected vpcs
  * @param {String} tgw transit gateway name
+ * @param {Array<object>} oldConnections previous state connections
  */
-function handleVpcSelect(selectedItems, tgw) {
+function handleVpcSelect(selectedItems, tgw, oldConnections) {
   let connections = [];
 
   selectedItems.forEach((vpc) => {
     connections.push({ tgw: tgw, vpc: vpc });
+  });
+
+  (oldConnections || []).forEach((connection) => {
+    if (connection.power) {
+      connections.push(connection);
+    }
   });
 
   return { connections: connections };

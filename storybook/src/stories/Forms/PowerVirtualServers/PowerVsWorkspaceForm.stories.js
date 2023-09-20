@@ -275,9 +275,122 @@ const PowerVsWorkSpaceModalFormStory = () => {
         return false;
       }}
       sshKeyDeleteDisabled={() => {}}
+      imageMap={{
+        dal10: [],
+      }}
+    />
+  );
+};
+
+const PowerVsWorkSpaceFormStoryEdgeRouter = () => {
+  function validName(str) {
+    const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
+    if (str) return str.match(regex) !== null;
+    else return false;
+  }
+  function invalidCallback(stateData, componentProps) {
+    return (
+      !validName(stateData.name) || contains(["foo", "bar"], stateData.name)
+    );
+  }
+  function invalidTextCallback(stateData, componentProps) {
+    return contains(["foo", "bar"], stateData.name)
+      ? `Name ${stateData.name} already in use.`
+      : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
+  }
+  return (
+    <PowerVsWorkspaceForm
+      invalidCallback={invalidCallback}
+      invalidTextCallback={invalidTextCallback}
+      helperTextCallback={invalidTextCallback}
+      data={{
+        name: "frog",
+        resource_group: "dev-2",
+        zone: "dal10",
+        ssh_keys: [
+          {
+            workspace: "example",
+            name: "keyname",
+            zone: "dal10",
+          },
+        ],
+        network: [
+          {
+            workspace: "example",
+            name: "dev-nw",
+            pi_cidr: "1.2.3.4/5",
+            pi_dns: ["127.0.0.1"],
+            pi_network_type: "vlan",
+            pi_network_jumbo: true,
+            zone: "dal10",
+          },
+        ],
+        cloud_connections: [
+          {
+            name: "dev-connection",
+            workspace: "example",
+            pi_cloud_connection_speed: "50",
+            pi_cloud_connection_global_routing: false,
+            pi_cloud_connection_metered: false,
+            pi_cloud_connection_transit_enabled: true,
+            transit_gateways: ["tgw", "tgw2"],
+            zone: "dal10",
+          },
+        ],
+        attachments: [
+          {
+            connections: ["dev-connection"],
+            workspace: "example",
+            network: "dev-nw",
+            zone: "dal10",
+          },
+        ],
+      }}
+      resourceGroups={["dev-1", "dev-2"]}
+      zones={["az-1", "az-2"]}
+      disableSave={() => {
+        return true;
+      }}
+      propsMatchState={() => {
+        return true;
+      }}
+      onNetworkDelete={() => {}}
+      onNetworkSave={() => {}}
+      onNetworkSubmit={() => {}}
+      craig={{}}
+      invalidNetworkNameCallbackText={invalidTextCallback}
+      invalidCidrCallbackText={invalidTextCallback}
+      invalidDnsCallbackText={invalidTextCallback}
+      invalidNetworkNameCallback={invalidCallback}
+      invalidCidrCallback={invalidCallback}
+      invalidDnsCallback={invalidCallback}
+      onConnectionDelete={() => {}}
+      onConnectionSave={() => {}}
+      onConnectionSubmit={() => {}}
+      invalidConnectionNameCallback={invalidCallback}
+      invalidConnectionNameTextCallback={invalidTextCallback}
+      transitGatewayList={["tgw", "tgw-2"]}
+      onAttachmentSave={() => {}}
+      sshKeyDeleteDisabled={() => {}}
+      onSshKeyDelete={() => {}}
+      onSshKeySave={() => {}}
+      onSshKeySubmit={() => {}}
+      forceOpen={() => {
+        return false;
+      }}
+      invalidSshKeyCallback={() => {
+        return true;
+      }}
+      invalidSshKeyCallbackText={() => {
+        return "uh oh";
+      }}
+      invalidKeyCallback={() => {
+        return false;
+      }}
     />
   );
 };
 
 export const Default = PowerVsWorkSpaceFormStory.bind({});
 export const Modal = PowerVsWorkSpaceModalFormStory.bind({});
+export const PowerEdgeRouter = PowerVsWorkSpaceFormStoryEdgeRouter.bind({});
