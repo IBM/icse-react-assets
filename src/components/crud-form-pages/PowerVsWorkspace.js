@@ -17,6 +17,8 @@ export const PowerVsWorkspace = (props) => {
       propsMatchState={props.propsMatchState}
       forceOpen={props.forceOpen}
       docs={props.docs}
+      deleteDisabled={props.deleteDisabled}
+      deleteDisabledMessage="Cannot delete only power VS workspace when volumes or instances are provisioned."
       innerFormProps={{
         craig: props.craig,
         disableSave: props.disableSave,
@@ -111,4 +113,5 @@ PowerVsWorkspace.propTypes = {
   disableAttachmentSave: PropTypes.func.isRequired,
   imageMap: PropTypes.shape({}).isRequired,
   edgeRouterEnabledZones: PropTypes.arrayOf(PropTypes.string).isRequired,
+  deleteDisabled: PropTypes.func.isRequired,
 };

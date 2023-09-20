@@ -12073,7 +12073,7 @@ class PowerVsInstanceForm extends React__default["default"].Component {
     }, /*#__PURE__*/React__default["default"].createElement(iconsReact.Network_3, {
       className: "powerIpMargin"
     }), /*#__PURE__*/React__default["default"].createElement("div", {
-      className: "powerIpMargin"
+      className: "powerIpMargin fieldWidth"
     }, /*#__PURE__*/React__default["default"].createElement("p", null, nw.name)), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: "power-instance" + this.state.name + "ip",
       onChange: event => {
@@ -12388,6 +12388,8 @@ const PowerVsWorkspace = props => {
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
     docs: props.docs,
+    deleteDisabled: props.deleteDisabled,
+    deleteDisabledMessage: "Cannot delete only power VS workspace when volumes or instances are provisioned.",
     innerFormProps: {
       craig: props.craig,
       disableSave: props.disableSave,
@@ -12477,7 +12479,8 @@ PowerVsWorkspace.propTypes = {
   sshKeyDeleteDisabled: PropTypes__default["default"].func.isRequired,
   disableAttachmentSave: PropTypes__default["default"].func.isRequired,
   imageMap: PropTypes__default["default"].shape({}).isRequired,
-  edgeRouterEnabledZones: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+  edgeRouterEnabledZones: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  deleteDisabled: PropTypes__default["default"].func.isRequired
 };
 
 class PowerVsNetworkAttachment extends React__default["default"].Component {

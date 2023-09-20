@@ -259,7 +259,7 @@ class PowerVsInstanceForm extends React.Component {
                   className="alignItemsCenter marginBottomSmall"
                 >
                   <Network_3 className="powerIpMargin" />
-                  <div className="powerIpMargin">
+                  <div className="powerIpMargin fieldWidth">
                     <p>{nw.name}</p>
                   </div>
                   <IcseTextInput
