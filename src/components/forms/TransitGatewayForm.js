@@ -3,13 +3,13 @@ import { Tag, TextArea } from "@carbon/react";
 import { IcseTextInput, IcseToggle } from "../Inputs";
 import { IcseFormGroup, IcseHeading } from "../Utils";
 import { IcseSelect } from "../Dropdowns";
-import { VpcListMultiSelect } from "../MultiSelects";
+import { IcseMultiSelect, VpcListMultiSelect } from "../MultiSelects";
 import {
   buildFormFunctions,
   buildFormDefaultInputMethods,
 } from "../component-utils";
 import PropTypes from "prop-types";
-import { splat } from "lazy-z";
+import { contains, splat } from "lazy-z";
 import { handleCRNs, handleVpcSelect } from "../../lib/forms";
 
 class TransitGatewayForm extends Component {
@@ -20,6 +20,8 @@ class TransitGatewayForm extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleCRNs = this.handleCRNs.bind(this);
     this.handleVpcSelect = this.handleVpcSelect.bind(this);
+    this.handlePowerWorkspaceSelect =
+      this.handlePowerWorkspaceSelect.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
@@ -53,7 +55,29 @@ class TransitGatewayForm extends Component {
    * @param {Array} selectedItems
    */
   handleVpcSelect(selectedItems) {
-    this.setState(handleVpcSelect(selectedItems, this.state.name));
+    this.setState(
+      handleVpcSelect(selectedItems, this.state.name, this.state.connections),
+    );
+  }
+
+  /**
+   * handle power workspace selection
+   * @param {Array} selectedItems
+   */
+  handlePowerWorkspaceSelect(selectedItems) {
+    let newConnetions = [];
+    this.state.connections.forEach((connection) => {
+      if (connection.vpc) {
+        newConnetions.push(connection);
+      }
+    });
+    selectedItems.forEach((item) => {
+      newConnetions.push({
+        power: item,
+        tgw: this.state.name,
+      });
+    });
+    this.setState({ connections: newConnetions });
   }
 
   render() {
@@ -98,11 +122,38 @@ class TransitGatewayForm extends Component {
           <VpcListMultiSelect
             id={this.props.data.name + "-tg-vpc-multiselect"}
             titleText="Connected VPCs"
-            initialSelectedItems={splat(this.state.connections, "vpc")}
+            initialSelectedItems={splat(
+              // filter only connections with vpc
+              this.state.connections.filter((connection) => {
+                if (connection.vpc) return connection;
+              }),
+              "vpc",
+            )}
             vpcList={this.props.vpcList}
             onChange={this.handleVpcSelect}
             invalid={this.state.connections.length === 0}
             invalidText="At least one VPC must be connected"
+          />
+          <IcseMultiSelect
+            invalid={false}
+            id={this.props.data.name + "-tg-power-multislect"}
+            titleText="Connected Power Workspaces"
+            onChange={(event) => {
+              this.handlePowerWorkspaceSelect(event.selectedItems);
+            }}
+            initialSelectedItems={splat(
+              this.state.connections.filter((connection) => {
+                if (connection.power) return connection;
+              }),
+              "power",
+            )}
+            items={splat(
+              this.props.power.filter((workspace) => {
+                if (contains(this.props.edgeRouterEnabledZones, workspace.zone))
+                  return workspace;
+              }),
+              "name",
+            )}
           />
         </IcseFormGroup>
         <IcseHeading name="Additional connections" type="section" />
@@ -145,6 +196,8 @@ TransitGatewayForm.defaultProps = {
   },
   vpcList: [],
   resourceGroups: [],
+  power: [],
+  edgeRouterEnabledZones: ["dal10"],
 };
 
 TransitGatewayForm.propTypes = {
@@ -161,6 +214,8 @@ TransitGatewayForm.propTypes = {
   invalidTextCallback: PropTypes.func.isRequired,
   invalidCrns: PropTypes.func.isRequired,
   invalidCrnText: PropTypes.func.isRequired,
+  power: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  edgeRouterEnabledZones: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default TransitGatewayForm;

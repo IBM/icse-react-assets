@@ -36,5 +36,28 @@ describe("transit-gateway", () => {
 
       assert.deepEqual(actualValue, expectedValue);
     });
+    it("should return connections object from selected vpcs with power already selected", () => {
+      let tgw = "tgw1";
+      let selectedItems = ["vpc1", "vpc2"];
+      let expectedValue = {
+        connections: [
+          { tgw, vpc: "vpc1" },
+          { tgw, vpc: "vpc2" },
+          { tgw, power: "dev" },
+        ],
+      };
+      let actualValue = handleVpcSelect(selectedItems, tgw, [
+        {
+          tgw,
+          power: "dev",
+        },
+        {
+          vpc: "ugh",
+          tgw,
+        },
+      ]);
+
+      assert.deepEqual(actualValue, expectedValue);
+    });
   });
 });

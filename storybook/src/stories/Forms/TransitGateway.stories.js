@@ -131,4 +131,62 @@ const TransitGatewayFormStory = () => {
   );
 };
 
+const TransitGatewayFormStoryPowerEdgeRouter = () => {
+  function validName(str) {
+    const regex = /^[A-z]([a-z0-9-]*[a-z0-9])?$/i;
+    if (str) return str.match(regex) !== null;
+    else return false;
+  }
+
+  function invalidCallback(stateData) {
+    return !validName(stateData.name);
+  }
+
+  function invalidTextCallback(stateData) {
+    return !validName(stateData.name)
+      ? `Name ${stateData.name} is invalid.`
+      : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
+  }
+
+  function invalidCrns(stateData, componentProps) {
+    return false;
+  }
+
+  function invalidCrnText(stateData, componentProps) {
+    return `One or more CRNs is invalid.`;
+  }
+
+  return (
+    <TransitGatewayForm
+      data={{
+        global: true,
+        connections: [{ tgw: "transit-gateway", vpc: "management" }],
+        resource_group: "service-rg",
+        name: "transit-gateway",
+        // crns: [
+        //   "crn:v1:bluemix:public:containers-kubernetes:us-south:a/59bcbfa6ea2f006b4ed7094c1a08dcdd:8042b2a8af6a4a5cbf6dbe09e07311d2:worker:kube-hou02-pa8042b2a8af6a4a5cbf6dbe09e07311d2-w1",
+        //   "crn:v1:bluemix:public:resource-controller:global:a/59bcbfa6ea2f006b4ed7094c1a08dcdd:resource-group:59bcbfa6ea2f006b4ed7094c1a08dcdd",
+        // ],
+      }}
+      vpcList={["management", "workload"]}
+      resourceGroups={["service-rg", "management-rg", "workload-rg"]}
+      invalidCallback={invalidCallback}
+      invalidTextCallback={invalidTextCallback}
+      invalidCrns={invalidCrns}
+      invalidCrnText={invalidCrnText}
+      power={[
+        {
+          name: "dev",
+          zone: "dal10",
+        },
+        {
+          name: "do-not-display",
+          zone: "dal12",
+        },
+      ]}
+    />
+  );
+};
+
 export const Default = TransitGatewayFormStory.bind({});
+export const PowerEdgeRouter = TransitGatewayFormStoryPowerEdgeRouter.bind({});

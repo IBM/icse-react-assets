@@ -1378,14 +1378,20 @@ function handleCRNs$1(event) {
  * Handle vpc selection
  * @param {Array} selectedItems list of selected vpcs
  * @param {String} tgw transit gateway name
+ * @param {Array<object>} oldConnections previous state connections
  */
-function handleVpcSelect$1(selectedItems, tgw) {
+function handleVpcSelect$1(selectedItems, tgw, oldConnections) {
   let connections = [];
   selectedItems.forEach(vpc => {
     connections.push({
       tgw: tgw,
       vpc: vpc
     });
+  });
+  (oldConnections || []).forEach(connection => {
+    if (connection.power) {
+      connections.push(connection);
+    }
   });
   return {
     connections: connections
@@ -4128,7 +4134,7 @@ function buildFormFunctions(component) {
   }
   if (usesImageList) {
     component.getImageList = function () {
-      return splat(component.props.imageMap[component.state.zone], "name");
+      if (component.props.imageMap[component.state.zone]) return splat(component.props.imageMap[component.state.zone], "name");else return [];
     }.bind(component);
   }
   if (usesSecurityGroups) {
@@ -7528,6 +7534,7 @@ class TransitGatewayForm extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleCRNs = this.handleCRNs.bind(this);
     this.handleVpcSelect = this.handleVpcSelect.bind(this);
+    this.handlePowerWorkspaceSelect = this.handlePowerWorkspaceSelect.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
@@ -7561,7 +7568,29 @@ class TransitGatewayForm extends React.Component {
    * @param {Array} selectedItems
    */
   handleVpcSelect(selectedItems) {
-    this.setState(forms_33(selectedItems, this.state.name));
+    this.setState(forms_33(selectedItems, this.state.name, this.state.connections));
+  }
+
+  /**
+   * handle power workspace selection
+   * @param {Array} selectedItems
+   */
+  handlePowerWorkspaceSelect(selectedItems) {
+    let newConnetions = [];
+    this.state.connections.forEach(connection => {
+      if (connection.vpc) {
+        newConnetions.push(connection);
+      }
+    });
+    selectedItems.forEach(item => {
+      newConnetions.push({
+        power: item,
+        tgw: this.state.name
+      });
+    });
+    this.setState({
+      connections: newConnetions
+    });
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
@@ -7596,11 +7625,28 @@ class TransitGatewayForm extends React.Component {
     }), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(VpcListMultiSelect, {
       id: this.props.data.name + "-tg-vpc-multiselect",
       titleText: "Connected VPCs",
-      initialSelectedItems: lazyZ.splat(this.state.connections, "vpc"),
+      initialSelectedItems: lazyZ.splat(
+      // filter only connections with vpc
+      this.state.connections.filter(connection => {
+        if (connection.vpc) return connection;
+      }), "vpc"),
       vpcList: this.props.vpcList,
       onChange: this.handleVpcSelect,
       invalid: this.state.connections.length === 0,
       invalidText: "At least one VPC must be connected"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+      invalid: false,
+      id: this.props.data.name + "-tg-power-multislect",
+      titleText: "Connected Power Workspaces",
+      onChange: event => {
+        this.handlePowerWorkspaceSelect(event.selectedItems);
+      },
+      initialSelectedItems: lazyZ.splat(this.state.connections.filter(connection => {
+        if (connection.power) return connection;
+      }), "power"),
+      items: lazyZ.splat(this.props.power.filter(workspace => {
+        if (lazyZ.contains(this.props.edgeRouterEnabledZones, workspace.zone)) return workspace;
+      }), "name")
     })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
       name: "Additional connections",
       type: "section"
@@ -7632,7 +7678,9 @@ TransitGatewayForm.defaultProps = {
     crns: []
   },
   vpcList: [],
-  resourceGroups: []
+  resourceGroups: [],
+  power: [],
+  edgeRouterEnabledZones: ["dal10"]
 };
 TransitGatewayForm.propTypes = {
   data: PropTypes__default["default"].shape({
@@ -7647,7 +7695,9 @@ TransitGatewayForm.propTypes = {
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
   invalidCrns: PropTypes__default["default"].func.isRequired,
-  invalidCrnText: PropTypes__default["default"].func.isRequired
+  invalidCrnText: PropTypes__default["default"].func.isRequired,
+  power: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  edgeRouterEnabledZones: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
 };
 
 const TransitGateways = props => {
@@ -7672,7 +7722,9 @@ const TransitGateways = props => {
       readOnlyName: false,
       invalidCrns: props.invalidCrns,
       invalidCrnText: props.invalidCrnText,
-      resourceGroups: props.resourceGroups
+      resourceGroups: props.resourceGroups,
+      edgeRouterEnabledZones: props.edgeRouterEnabledZones,
+      power: props.power
     },
     toggleFormProps: {
       craig: props.craig,
@@ -7682,6 +7734,9 @@ const TransitGateways = props => {
       hideName: true
     }
   });
+};
+TransitGateways.defaultProps = {
+  edgeRouterEnabledZones: ["dal10"]
 };
 TransitGateways.propTypes = {
   docs: PropTypes__default["default"].func.isRequired,
@@ -7698,7 +7753,9 @@ TransitGateways.propTypes = {
   vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string),
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   invalidCrns: PropTypes__default["default"].func.isRequired,
-  invalidCrnText: PropTypes__default["default"].func.isRequired
+  invalidCrnText: PropTypes__default["default"].func.isRequired,
+  edgeRouterEnabledZones: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  power: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired
 };
 
 const nameFields = ["default_network_acl_name", "default_routing_table_name", "default_security_group_name"];
@@ -11697,7 +11754,7 @@ class PowerVsWorkspaceForm extends React__default["default"].Component {
       id: this.props.data.name + "-images",
       initialSelectedItems: this.state.imageNames,
       onChange: event => this.handleMultiSelectChange(event.selectedItems),
-      invalid: this.state.imageNames === [],
+      invalid: lazyZ.isEmpty(this.state.imageNames || []),
       invalidText: "Select at least one Image"
     })), this.props.isModal ? "" : /*#__PURE__*/React__default["default"].createElement(SshKeys, {
       isModal: this.props.isModal,
@@ -11732,7 +11789,7 @@ class PowerVsWorkspaceForm extends React__default["default"].Component {
       invalidDnsCallback: this.props.invalidDnsCallback,
       invalidDnsCallbackText: this.props.invalidDnsCallbackText,
       workspace: this.props.data.name
-    }), /*#__PURE__*/React__default["default"].createElement(PowerVsCloudConnections, {
+    }), !lazyZ.contains(this.props.edgeRouterEnabledZones, this.state.zone) && /*#__PURE__*/React__default["default"].createElement(PowerVsCloudConnections, {
       cloud_connections: this.props.data.cloud_connections,
       isModal: this.props.isModal,
       disableSave: this.props.disableSave,
@@ -11745,7 +11802,7 @@ class PowerVsWorkspaceForm extends React__default["default"].Component {
       transitGatewayList: this.props.transitGatewayList,
       workspace: this.props.data.name,
       craig: this.props.craig
-    }), this.props.isModal || this.props.data.network.length === 0 || this.props.data.cloud_connections.length === 0 ? "" : /*#__PURE__*/React__default["default"].createElement(PowerVsNetworkAttachment$1, {
+    }), this.props.isModal || this.props.data.network.length === 0 || this.props.data.cloud_connections.length === 0 || lazyZ.contains(this.props.edgeRouterEnabledZones, this.state.zone) ? "" : /*#__PURE__*/React__default["default"].createElement(PowerVsNetworkAttachment$1, {
       attachments: this.props.data.attachments,
       disableSave: this.props.disableSave,
       propsMatchState: this.props.propsMatchState,
@@ -11796,10 +11853,11 @@ PowerVsWorkspaceForm.propTypes = {
   invalidSshKeyCallbackText: PropTypes__default["default"].func.isRequired,
   invalidKeyCallback: PropTypes__default["default"].func.isRequired,
   sshKeyDeleteDisabled: PropTypes__default["default"].func.isRequired,
-  disableAttachmentSave: PropTypes__default["default"].func.isRequired,
-  imageMap: PropTypes__default["default"].shape({}).isRequired
+  imageMap: PropTypes__default["default"].shape({}).isRequired,
+  edgeRouterEnabledZones: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
 };
 PowerVsWorkspaceForm.defaultProps = {
+  edgeRouterEnabledZones: ["dal10"],
   isModal: false,
   data: {
     name: "",
@@ -12364,7 +12422,8 @@ const PowerVsWorkspace = props => {
       invalidKeyCallback: props.invalidKeyCallback,
       sshKeyDeleteDisabled: props.sshKeyDeleteDisabled,
       disableAttachmentSave: props.disableAttachmentSave,
-      imageMap: props.imageMap
+      imageMap: props.imageMap,
+      edgeRouterEnabledZones: props.edgeRouterEnabledZones
     },
     toggleFormProps: {
       craig: props.craig,
@@ -12373,6 +12432,9 @@ const PowerVsWorkspace = props => {
       hideName: true
     }
   });
+};
+PowerVsWorkspace.defaultProps = {
+  edgeRouterEnabledZones: ["dal10"]
 };
 PowerVsWorkspace.propTypes = {
   power: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
@@ -12414,7 +12476,8 @@ PowerVsWorkspace.propTypes = {
   invalidKeyCallback: PropTypes__default["default"].func.isRequired,
   sshKeyDeleteDisabled: PropTypes__default["default"].func.isRequired,
   disableAttachmentSave: PropTypes__default["default"].func.isRequired,
-  imageMap: PropTypes__default["default"].shape({}).isRequired
+  imageMap: PropTypes__default["default"].shape({}).isRequired,
+  edgeRouterEnabledZones: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
 };
 
 class PowerVsNetworkAttachment extends React__default["default"].Component {
@@ -12734,9 +12797,9 @@ class OpaqueIngressSecretForm extends React.Component {
   }
 
   /**
-  * handle input change of number-only fields
-  * @param {event} event
-  */
+   * handle input change of number-only fields
+   * @param {event} event
+   */
   handleNumberInputChange(event) {
     let value = iam_4(event);
     if (value !== null) {

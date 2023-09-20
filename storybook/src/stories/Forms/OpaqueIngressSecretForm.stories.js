@@ -191,8 +191,10 @@ const OpaqueIngressSecretFormStory = () => {
   }
 
   function invalidCallback(stateData, componentProps, field) {
-    field = field || "name"
-    return !validName(stateData[field]) || contains(["foo", "bar"], stateData[field]);
+    field = field || "name";
+    return (
+      !validName(stateData[field]) || contains(["foo", "bar"], stateData[field])
+    );
   }
 
   function invalidDescription(description, componentProps) {
@@ -201,11 +203,11 @@ const OpaqueIngressSecretFormStory = () => {
   }
 
   function invalidDescriptionText(stateData) {
-    return `Invalid Description. Must match the regular expression: /^[A-z][a-zA-Z0-9-._,\s]`
+    return `Invalid Description. Must match the regular expression: /^[A-z][a-zA-Z0-9-._,\s]`;
   }
 
   function invalidLabels(stateData) {
-    if(stateData.length == 0) {
+    if (stateData.length == 0) {
       return false;
     }
     let invalid = false;
@@ -218,7 +220,7 @@ const OpaqueIngressSecretFormStory = () => {
   }
 
   function invalidLabelsText(stateData) {
-    return "One or more labels are invalid"
+    return "One or more labels are invalid";
   }
 
   function invalidTextCallback(stateData, componentProps, field) {
@@ -229,7 +231,15 @@ const OpaqueIngressSecretFormStory = () => {
 
   return (
     <OpaqueIngressSecretForm
-      data={{ labels: ["hello", "world"], interval: 1, name: "test-name" ,arbitrary_secret_data: "", namespace: "", username_password_secret_username: "", username_password_secret_password: ""}}
+      data={{
+        labels: ["hello", "world"],
+        interval: 1,
+        name: "test-name",
+        arbitrary_secret_data: "",
+        namespace: "",
+        username_password_secret_username: "",
+        username_password_secret_password: "",
+      }}
       secretsManagerList={["sm1", "sm2", "sm3"]}
       secretsManagerGroupCallback={invalidCallback}
       secretsManagerGroupCallbackText={invalidTextCallback}
