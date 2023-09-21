@@ -117,6 +117,7 @@ class PowerVsInstanceForm extends React.Component {
             id={`${this.props.data.name}-power-instance-workspace`}
           />
           <IcseMultiSelect
+            key={this.state.workspace}
             titleText="Network Interfaces"
             className="fieldWidthSmaller"
             id={this.props.data.network + "-power-instance-network"}

@@ -11974,6 +11974,7 @@ class PowerVsInstanceForm extends React__default["default"].Component {
       className: "fieldWidthSmaller",
       id: `${this.props.data.name}-power-instance-workspace`
     }), /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+      key: this.state.workspace,
       titleText: "Network Interfaces",
       className: "fieldWidthSmaller",
       id: this.props.data.network + "-power-instance-network",
