@@ -2264,6 +2264,7 @@ const StatelessToggleForm = props => {
   }), /*#__PURE__*/React.createElement(IcseHeading, {
     type: type,
     name: props.name,
+    toggleFormTitle: props.toggleFormTitle,
     buttons: /*#__PURE__*/React.createElement(DynamicRender, {
       hide: dynamicRenderHide,
       show: props.buttons || ""

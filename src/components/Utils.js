@@ -152,6 +152,7 @@ export const StatelessToggleForm = (props) => {
         <IcseHeading
           type={type}
           name={props.name}
+          toggleFormTitle={props.toggleFormTitle}
           buttons={
             <DynamicRender
               hide={dynamicRenderHide}
