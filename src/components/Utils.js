@@ -98,7 +98,9 @@ export const IcseHeading = (props) => {
           return props.type === "subHeading" ? (
             <h5>{props.name}</h5>
           ) : props.type === "p" ? (
-            <p>{props.name}</p>
+            <p className={props.toggleFormTitle ? "toggleFormTitle" : null}>
+              {props.name}
+            </p>
           ) : props.type === "section" ? (
             <h6>{props.name}</h6>
           ) : (

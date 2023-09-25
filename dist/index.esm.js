@@ -2219,7 +2219,9 @@ const IcseHeading = props => {
     noLabelText: true,
     id: props.name,
     innerForm: () => {
-      return props.type === "subHeading" ? /*#__PURE__*/React.createElement("h5", null, props.name) : props.type === "p" ? /*#__PURE__*/React.createElement("p", null, props.name) : props.type === "section" ? /*#__PURE__*/React.createElement("h6", null, props.name) : /*#__PURE__*/React.createElement("h4", null, props.name);
+      return props.type === "subHeading" ? /*#__PURE__*/React.createElement("h5", null, props.name) : props.type === "p" ? /*#__PURE__*/React.createElement("p", {
+        className: props.toggleFormTitle ? "toggleFormTitle" : null
+      }, props.name) : props.type === "section" ? /*#__PURE__*/React.createElement("h6", null, props.name) : /*#__PURE__*/React.createElement("h4", null, props.name);
     }
   }), /*#__PURE__*/React.createElement("div", {
     className: "displayFlex"
