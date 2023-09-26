@@ -10,7 +10,7 @@ import { IcseToggle, IcseNameInput } from "../Inputs";
 import IcseFormTemplate from "../IcseFormTemplate";
 import ObjectStorageBucketForm from "./ObjectStorageBucketForm";
 import ObjectStorageKeyForm from "./ObjectStorageKeyForm";
-import { transpose } from "lazy-z";
+import { transpose, kebabCase, titleCase } from "lazy-z";
 
 /**
  * Object storage
@@ -22,6 +22,7 @@ class ObjectStorageInstancesForm extends Component {
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleCosPlanChange = this.handleCosPlanChange.bind(this);
   }
 
   /**
@@ -30,6 +31,14 @@ class ObjectStorageInstancesForm extends Component {
    */
   handleInputChange(event) {
     this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+    /**
+   * handle cos plan change and convert to kebab when saving to state
+   * @param {event} event event
+   */
+  handleCosPlanChange(event) {
+    this.setState({ plan: kebabCase(event.target.value) });
   }
 
   render() {
@@ -107,7 +116,15 @@ class ObjectStorageInstancesForm extends Component {
             value={this.state.resource_group}
             handleInputChange={this.handleInputChange}
           />
-        </IcseFormGroup>
+          <IcseSelect
+            formName={this.props.data.name + "-object-storage-plan"}
+            name="plan"
+            labelText="Plan"
+            groups={this.props.cosPlans}
+            value={titleCase(this.state.plan)}
+            handleInputChange={this.handleCosPlanChange}
+          />
+        </IcseFormGroup>        
         {/* show keys and buckets if not modal */}
         {this.props.isModal !== true && (
           <>
@@ -168,14 +185,17 @@ ObjectStorageInstancesForm.defaultProps = {
     name: "",
     use_data: false,
     resource_group: "",
+    plan: "standard",
     use_random_suffix: true,
   },
   resourceGroups: [],
+  cosPlans: ["standard"]
 };
 
 ObjectStorageInstancesForm.propTypes = {
   isModal: PropTypes.bool,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  cosPlans: PropTypes.arrayOf(PropTypes.string).isRequired,
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
     use_data: PropTypes.bool.isRequired,

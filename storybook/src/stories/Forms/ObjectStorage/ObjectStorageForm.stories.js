@@ -27,6 +27,11 @@ export default {
       control: "none",
       type: { required: false }, // required prop or not
     },
+    ["data.plan"]: {
+      description: "A string value of the cos plan",
+      control: "none",
+      type: { required: false }, // required prop or not
+    },
     ["data.use_random_suffix"]: {
       description:
         "A boolean describing whether or not to add a random suffix to the end of the instance name",
@@ -69,6 +74,11 @@ export default {
     },
     resourceGroups: {
       description: "An array of string resource group names",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
+    cosPlans: {
+      description: "An array of string cos plan names",
       type: { required: true }, // required prop or not
       control: "none",
     },
@@ -137,6 +147,7 @@ const ObjectStorageFormStory = () => {
       invalidTextCallback={invalidTextCallback}
       composedNameCallback={composedNameCallback}
       resourceGroups={["rg1", "rg2", "rg3"]}
+      cosPlans={["Standard", "Lite", "One Rate"]}
       kmsList={["kms-1", "kms-2"]}
       propsMatchState={() => {}}
       invalidBucketCallback={invalidCallback}
