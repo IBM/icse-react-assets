@@ -6088,7 +6088,7 @@ class ObjectStorageBucketForm extends React.Component {
       labelText: "Encryption Key",
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller",
-      invalidText: this.props.encryptionsKeys == [] ? "Select a KMS Instance." : "Select an Encryption Key."
+      invalidText: lazyZ.isEmpty(this.props.encryptionKeys) ? "Select a KMS Instance." : "Select an Encryption Key."
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
       tooltip: {
         content: "Toggling this on will force delete contents of the bucket after the bucket is deleted"
@@ -6409,6 +6409,7 @@ const ObjectStorage = props => {
     innerFormProps: {
       craig: props.craig,
       resourceGroups: props.resourceGroups,
+      cosPlans: props.cosPlans,
       kmsList: props.kmsList,
       invalidCallback: props.invalidCallback,
       invalidTextCallback: props.invalidTextCallback,
@@ -6454,6 +6455,7 @@ ObjectStorage.propTypes = {
   propsMatchState: PropTypes__default["default"].func.isRequired,
   forceOpen: PropTypes__default["default"].func.isRequired,
   resourceGroups: PropTypes__default["default"].array.isRequired,
+  cosPlans: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
   invalidKeyCallback: PropTypes__default["default"].func.isRequired,

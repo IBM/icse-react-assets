@@ -87,7 +87,7 @@ class ObjectStorageBucketForm extends Component {
             handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"
             invalidText={
-              isEmpty(this.props.encryptionsKeys)
+              isEmpty(this.props.encryptionKeys)
                 ? "Select a KMS Instance."
                 : "Select an Encryption Key."
             }

@@ -6077,7 +6077,7 @@ class ObjectStorageBucketForm extends Component {
       labelText: "Encryption Key",
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller",
-      invalidText: this.props.encryptionsKeys == [] ? "Select a KMS Instance." : "Select an Encryption Key."
+      invalidText: isEmpty(this.props.encryptionKeys) ? "Select a KMS Instance." : "Select an Encryption Key."
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
       tooltip: {
         content: "Toggling this on will force delete contents of the bucket after the bucket is deleted"
@@ -6398,6 +6398,7 @@ const ObjectStorage = props => {
     innerFormProps: {
       craig: props.craig,
       resourceGroups: props.resourceGroups,
+      cosPlans: props.cosPlans,
       kmsList: props.kmsList,
       invalidCallback: props.invalidCallback,
       invalidTextCallback: props.invalidTextCallback,
@@ -6443,6 +6444,7 @@ ObjectStorage.propTypes = {
   propsMatchState: PropTypes.func.isRequired,
   forceOpen: PropTypes.func.isRequired,
   resourceGroups: PropTypes.array.isRequired,
+  cosPlans: PropTypes.arrayOf(PropTypes.string).isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
   invalidKeyCallback: PropTypes.func.isRequired,
