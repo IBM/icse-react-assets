@@ -6088,7 +6088,7 @@ class ObjectStorageBucketForm extends React.Component {
       labelText: "Encryption Key",
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller",
-      invalidText: this.props.encryptionsKeys === [] ? "Select a KMS Instance." : "Select an Encryption Key."
+      invalidText: lazyZ.isEmpty(this.props.encryptionKeys) ? "Select a KMS Instance." : "Select an Encryption Key."
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
       tooltip: {
         content: "Toggling this on will force delete contents of the bucket after the bucket is deleted"
@@ -6226,6 +6226,7 @@ class ObjectStorageInstancesForm extends React.Component {
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleCosPlanChange = this.handleCosPlanChange.bind(this);
   }
 
   /**
@@ -6234,6 +6235,16 @@ class ObjectStorageInstancesForm extends React.Component {
    */
   handleInputChange(event) {
     this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+  * handle cos plan change and convert to kebab when saving to state
+  * @param {event} event event
+  */
+  handleCosPlanChange(event) {
+    this.setState({
+      plan: lazyZ.kebabCase(event.target.value)
+    });
   }
   render() {
     let composedId = `object-storage-form-${this.props.data.name}-`;
@@ -6300,6 +6311,13 @@ class ObjectStorageInstancesForm extends React.Component {
       groups: this.props.resourceGroups,
       value: this.state.resource_group,
       handleInputChange: this.handleInputChange
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: this.props.data.name + "-object-storage-plan",
+      name: "plan",
+      labelText: "Plan",
+      groups: this.props.cosPlans,
+      value: lazyZ.titleCase(this.state.plan),
+      handleInputChange: this.handleCosPlanChange
     })), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
       name: "Service Credentials",
       subHeading: true,
@@ -6354,13 +6372,16 @@ ObjectStorageInstancesForm.defaultProps = {
     name: "",
     use_data: false,
     resource_group: "",
+    plan: "standard",
     use_random_suffix: true
   },
-  resourceGroups: []
+  resourceGroups: [],
+  cosPlans: ["standard"]
 };
 ObjectStorageInstancesForm.propTypes = {
   isModal: PropTypes__default["default"].bool,
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  cosPlans: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   data: PropTypes__default["default"].shape({
     name: PropTypes__default["default"].string.isRequired,
     use_data: PropTypes__default["default"].bool.isRequired,
@@ -6388,6 +6409,7 @@ const ObjectStorage = props => {
     innerFormProps: {
       craig: props.craig,
       resourceGroups: props.resourceGroups,
+      cosPlans: props.cosPlans,
       kmsList: props.kmsList,
       invalidCallback: props.invalidCallback,
       invalidTextCallback: props.invalidTextCallback,
@@ -6433,6 +6455,7 @@ ObjectStorage.propTypes = {
   propsMatchState: PropTypes__default["default"].func.isRequired,
   forceOpen: PropTypes__default["default"].func.isRequired,
   resourceGroups: PropTypes__default["default"].array.isRequired,
+  cosPlans: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
   invalidKeyCallback: PropTypes__default["default"].func.isRequired,
