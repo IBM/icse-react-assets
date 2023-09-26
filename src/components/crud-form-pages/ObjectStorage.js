@@ -20,6 +20,7 @@ export const ObjectStorage = (props) => {
       innerFormProps={{
         craig: props.craig,
         resourceGroups: props.resourceGroups,
+        cosPlans: props.cosPlans,
         kmsList: props.kmsList,
         invalidCallback: props.invalidCallback,
         invalidTextCallback: props.invalidTextCallback,
@@ -67,6 +68,7 @@ ObjectStorage.propTypes = {
   propsMatchState: PropTypes.func.isRequired,
   forceOpen: PropTypes.func.isRequired,
   resourceGroups: PropTypes.array.isRequired,
+  cosPlans: PropTypes.arrayOf(PropTypes.string).isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
   invalidKeyCallback: PropTypes.func.isRequired,
