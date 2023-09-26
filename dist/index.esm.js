@@ -6123,7 +6123,7 @@ class ObjectStorageBucketForm extends Component {
       labelText: "Encryption Key",
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller",
-      invalidText: this.props.encryptionsKeys === [] ? "Select a KMS Instance." : "Select an Encryption Key."
+      invalidText: isEmpty(this.props.encryptionKeys) ? "Select a KMS Instance." : "Select an Encryption Key."
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
       tooltip: {
         content: "Toggling this on will force delete contents of the bucket after the bucket is deleted"
@@ -6261,6 +6261,7 @@ class ObjectStorageInstancesForm extends Component {
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleCosPlanChange = this.handleCosPlanChange.bind(this);
   }
 
   /**
@@ -6269,6 +6270,16 @@ class ObjectStorageInstancesForm extends Component {
    */
   handleInputChange(event) {
     this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+  * handle cos plan change and convert to kebab when saving to state
+  * @param {event} event event
+  */
+  handleCosPlanChange(event) {
+    this.setState({
+      plan: kebabCase$6(event.target.value)
+    });
   }
   render() {
     let composedId = `object-storage-form-${this.props.data.name}-`;
@@ -6335,6 +6346,13 @@ class ObjectStorageInstancesForm extends Component {
       groups: this.props.resourceGroups,
       value: this.state.resource_group,
       handleInputChange: this.handleInputChange
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: this.props.data.name + "-object-storage-plan",
+      name: "plan",
+      labelText: "Plan",
+      groups: this.props.cosPlans,
+      value: titleCase$2(this.state.plan),
+      handleInputChange: this.handleCosPlanChange
     })), this.props.isModal !== true && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormTemplate, {
       name: "Service Credentials",
       subHeading: true,
@@ -6389,13 +6407,16 @@ ObjectStorageInstancesForm.defaultProps = {
     name: "",
     use_data: false,
     resource_group: "",
+    plan: "standard",
     use_random_suffix: true
   },
-  resourceGroups: []
+  resourceGroups: [],
+  cosPlans: ["standard"]
 };
 ObjectStorageInstancesForm.propTypes = {
   isModal: PropTypes.bool,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  cosPlans: PropTypes.arrayOf(PropTypes.string).isRequired,
   data: PropTypes.shape({
     name: PropTypes.string.isRequired,
     use_data: PropTypes.bool.isRequired,
@@ -6423,6 +6444,7 @@ const ObjectStorage = props => {
     innerFormProps: {
       craig: props.craig,
       resourceGroups: props.resourceGroups,
+      cosPlans: props.cosPlans,
       kmsList: props.kmsList,
       invalidCallback: props.invalidCallback,
       invalidTextCallback: props.invalidTextCallback,
@@ -6468,6 +6490,7 @@ ObjectStorage.propTypes = {
   propsMatchState: PropTypes.func.isRequired,
   forceOpen: PropTypes.func.isRequired,
   resourceGroups: PropTypes.array.isRequired,
+  cosPlans: PropTypes.arrayOf(PropTypes.string).isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
   invalidKeyCallback: PropTypes.func.isRequired,

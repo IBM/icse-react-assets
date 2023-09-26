@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { capitalize } from "lazy-z";
+import { capitalize, isEmpty } from "lazy-z";
 import { IcseNameInput, IcseToggle } from "../Inputs";
 import { IcseSelect } from "../Dropdowns";
 import { IcseFormGroup } from "../Utils";
@@ -87,7 +87,7 @@ class ObjectStorageBucketForm extends Component {
             handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"
             invalidText={
-              this.props.encryptionsKeys === []
+              isEmpty(this.props.encryptionKeys)
                 ? "Select a KMS Instance."
                 : "Select an Encryption Key."
             }
