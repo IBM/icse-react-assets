@@ -790,6 +790,8 @@ function handleVpnServerInputChange$1(stateData, event) {
     newState.protocol = value.toLowerCase();
   } else if (name === "client_dns_server_ips") {
     newState.client_dns_server_ips = clientDnsServerIps;
+  } else if (name === "additional_prefixes") {
+    newState.additional_prefixes = value.replace(/\s*/g, "").split(",");
   } else {
     newState = {
       [name]: value
@@ -4551,6 +4553,37 @@ const {
 const {
   RegexButWithWords
 } = regexButWithWords;
+const commaSeparatedCidrListExp = new RegexButWithWords().stringBegin().group(exp => {
+  exp.group(exp => {
+    exp.wordBoundary().group(exp => {
+      exp.group(exp => {
+        exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+      }).literal(".");
+    }, 3).group(exp => {
+      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+    }).wordBoundary().group(exp => {
+      exp.group(exp => {
+        exp.literal("/").group(exp => {
+          exp.literal("3").set("0-2").or().set("012").lazy().digit();
+        });
+      });
+    });
+  });
+}).anyNumber().group(exp => {
+  exp.literal(",").whitespace().anyNumber().wordBoundary().group(exp => {
+    exp.group(exp => {
+      exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+    }).literal(".");
+  }, 3).group(exp => {
+    exp.literal("25").set("0-5").or().literal("2").set("0-4").digit().or().set("01").lazy().digit(1, 2);
+  }).wordBoundary().group(exp => {
+    exp.group(exp => {
+      exp.literal("/").group(exp => {
+        exp.literal("3").set("0-2").or().set("012").lazy().digit();
+      });
+    });
+  });
+}).anyNumber().stringEnd().done("gm");
 const commaSeparatedIpListExp = new RegexButWithWords().stringBegin().group(exp => {
   exp.group(exp => {
     exp.wordBoundary().group(exp => {
@@ -4650,14 +4683,27 @@ function isIpStringInvalidNoCidr(value) {
   }
   return false;
 }
+
+/**
+ * test for invalid list of cidr string
+ * @param {string} value
+ * @returns {boolean} true if invalid
+ */
+function isCidrStringInvalid(value) {
+  if (!isNullOrEmptyString$1(value) && value.match(commaSeparatedCidrListExp) === null) {
+    return true;
+  } else return false;
+}
 var iamUtils = {
   isIpStringInvalid,
   isIpStringInvalidNoCidr,
-  isRangeInvalid
+  isRangeInvalid,
+  isCidrStringInvalid
 };
 var iamUtils_1 = iamUtils.isIpStringInvalid;
 var iamUtils_2 = iamUtils.isIpStringInvalidNoCidr;
 var iamUtils_3 = iamUtils.isRangeInvalid;
+var iamUtils_4 = iamUtils.isCidrStringInvalid;
 
 /**
  * CloudDatabaseForm
@@ -10611,6 +10657,9 @@ class VpnServerForm extends Component {
     this.state = {
       ...this.props.data
     };
+    if (!this.state.additional_prefixes) {
+      this.state.additional_prefixes = [];
+    }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
@@ -10804,6 +10853,31 @@ class VpnServerForm extends Component {
       invalid: iamUtils_2(this.state.client_dns_server_ips),
       invalidText: "Please enter a comma separated list of IP addresses.",
       helperText: "Enter a comma separated list of IP addresses."
+    })), /*#__PURE__*/React.createElement(IcseHeading, {
+      type: "p",
+      name: "Additional VPC Prefixes"
+    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+      formName: this.props.data.name + "-vpn-additional-prefix-zone",
+      groups: ["1", "2", "3"],
+      value: this.state.zone || "",
+      labelText: "Zone",
+      name: "zone",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller",
+      disableInvalid: isEmpty(this.state.additional_prefixes)
+    }), /*#__PURE__*/React.createElement(TextArea, {
+      className: "textInputMedium",
+      id: this.props.data.name + "-vpn-server-additional-prefixes",
+      labelText: "Additional VPC Prefixes",
+      placeholder: "X.X.X.X/XX, X.X.X.X/XX, ...",
+      value: this.state.additional_prefixes.join(","),
+      onChange: event => {
+        event.target.name = "additional_prefixes";
+        this.handleInputChange(event);
+      },
+      invalid: iamUtils_4(this.state.additional_prefixes.join(",")),
+      invalidText: "Please enter a comma separated list of IPV4 CIDR blocks.",
+      helperText: "Enter a comma separated list of IPV4 CIDR blocks."
     })), this.props.isModal === false && /*#__PURE__*/React.createElement(IcseFormTemplate, {
       name: "Routes",
       subHeading: true,
@@ -10844,7 +10918,8 @@ VpnServerForm.defaultProps = {
     security_groups: [],
     client_dns_server_ips: "",
     routes: [],
-    subnets: []
+    subnets: [],
+    additional_prefixes: []
   },
   isModal: false,
   resourceGroups: [],
@@ -10867,7 +10942,8 @@ VpnServerForm.propTypes = {
     vpc: PropTypes.string.isRequired,
     subnets: PropTypes.array,
     security_groups: PropTypes.array.isRequired,
-    routes: PropTypes.array
+    routes: PropTypes.array,
+    additional_prefixes: PropTypes.arrayOf(PropTypes.string)
   }).isRequired,
   /* bools */
   isModal: PropTypes.bool.isRequired,

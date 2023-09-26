@@ -1,6 +1,102 @@
 const { isWholeNumber, isInRange } = require("lazy-z");
 const { RegexButWithWords } = require("regex-but-with-words");
 
+const commaSeparatedCidrListExp = new RegexButWithWords()
+  .stringBegin()
+  .group((exp) => {
+    exp.group((exp) => {
+      exp
+        .wordBoundary()
+        .group((exp) => {
+          exp
+            .group((exp) => {
+              exp
+                .literal("25")
+                .set("0-5")
+                .or()
+                .literal("2")
+                .set("0-4")
+                .digit()
+                .or()
+                .set("01")
+                .lazy()
+                .digit(1, 2);
+            })
+            .literal(".");
+        }, 3)
+        .group((exp) => {
+          exp
+            .literal("25")
+            .set("0-5")
+            .or()
+            .literal("2")
+            .set("0-4")
+            .digit()
+            .or()
+            .set("01")
+            .lazy()
+            .digit(1, 2);
+        })
+        .wordBoundary()
+        .group((exp) => {
+          exp.group((exp) => {
+            exp.literal("/").group((exp) => {
+              exp.literal("3").set("0-2").or().set("012").lazy().digit();
+            });
+          });
+        });
+    });
+  })
+  .anyNumber()
+  .group((exp) => {
+    exp
+      .literal(",")
+      .whitespace()
+      .anyNumber()
+      .wordBoundary()
+      .group((exp) => {
+        exp
+          .group((exp) => {
+            exp
+              .literal("25")
+              .set("0-5")
+              .or()
+              .literal("2")
+              .set("0-4")
+              .digit()
+              .or()
+              .set("01")
+              .lazy()
+              .digit(1, 2);
+          })
+          .literal(".");
+      }, 3)
+      .group((exp) => {
+        exp
+          .literal("25")
+          .set("0-5")
+          .or()
+          .literal("2")
+          .set("0-4")
+          .digit()
+          .or()
+          .set("01")
+          .lazy()
+          .digit(1, 2);
+      })
+      .wordBoundary()
+      .group((exp) => {
+        exp.group((exp) => {
+          exp.literal("/").group((exp) => {
+            exp.literal("3").set("0-2").or().set("012").lazy().digit();
+          });
+        });
+      });
+  })
+  .anyNumber()
+  .stringEnd()
+  .done("gm");
+
 const commaSeparatedIpListExp = new RegexButWithWords()
   .stringBegin()
   .group((exp) => {
@@ -237,8 +333,23 @@ function isIpStringInvalidNoCidr(value) {
   return false;
 }
 
+/**
+ * test for invalid list of cidr string
+ * @param {string} value
+ * @returns {boolean} true if invalid
+ */
+function isCidrStringInvalid(value) {
+  if (
+    !isNullOrEmptyString(value) &&
+    value.match(commaSeparatedCidrListExp) === null
+  ) {
+    return true;
+  } else return false;
+}
+
 module.exports = {
   isIpStringInvalid,
   isIpStringInvalidNoCidr,
   isRangeInvalid,
+  isCidrStringInvalid,
 };
