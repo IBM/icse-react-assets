@@ -125,6 +125,22 @@ describe("vpn-server", () => {
         expectedData,
       );
     });
+    it("should handle empty spaces in additional_prefixes input", () => {
+      let event = {
+        target: {
+          name: "additional_prefixes",
+          value: "1.1.1.1/1, 2.2.2.2/2",
+        },
+      };
+      let currentState = { additional_prefixes: [] };
+      let expectedData = {
+        additional_prefixes: ["1.1.1.1/1", "2.2.2.2/2"],
+      };
+      assert.deepEqual(
+        handleVpnServerInputChange(currentState, event),
+        expectedData,
+      );
+    });
     it("should handle client_dns_server_ip input for empty string case", () => {
       let event = {
         target: {

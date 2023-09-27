@@ -5,9 +5,13 @@ import {
   transpose,
   isNullOrEmptyString,
   isWholeNumber,
+  isEmpty,
 } from "lazy-z";
 import PropTypes from "prop-types";
-import { isIpStringInvalidNoCidr } from "../../lib/iam-utils";
+import {
+  isCidrStringInvalid,
+  isIpStringInvalidNoCidr,
+} from "../../lib/iam-utils";
 import { handleVpnServerInputChange } from "../../lib/forms";
 import { isRangeInvalid } from "../../lib/iam-utils";
 import {
@@ -17,7 +21,7 @@ import {
 import { IcseSelect } from "../Dropdowns";
 import { IcseTextInput, IcseNameInput, IcseToggle } from "../Inputs";
 import { SecurityGroupMultiSelect, SubnetMultiSelect } from "../MultiSelects";
-import { IcseFormGroup } from "../Utils";
+import { IcseFormGroup, IcseHeading } from "../Utils";
 import IcseFormTemplate from "../IcseFormTemplate";
 import VpnServerRouteForm from "./VpnServerRouteForm";
 
@@ -25,6 +29,9 @@ class VpnServerForm extends Component {
   constructor(props) {
     super(props);
     this.state = { ...this.props.data };
+    if (!this.state.additional_prefixes) {
+      this.state.additional_prefixes = [];
+    }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
@@ -295,6 +302,36 @@ class VpnServerForm extends Component {
             helperText="Enter a comma separated list of IP addresses."
           />
         </IcseFormGroup>
+        <IcseHeading type="p" name="Additional VPC Prefixes" />
+        <IcseFormGroup>
+          <IcseSelect
+            formName={this.props.data.name + "-vpn-additional-prefix-zone"}
+            groups={["1", "2", "3"]}
+            value={this.state.zone || ""}
+            labelText="Zone"
+            name="zone"
+            handleInputChange={this.handleInputChange}
+            className="fieldWidthSmaller"
+            disableInvalid={isEmpty(this.state.additional_prefixes)}
+          />
+          {/* text area for additional prefixes */}
+          <TextArea
+            className="textInputMedium"
+            id={this.props.data.name + "-vpn-server-additional-prefixes"}
+            labelText="Additional VPC Prefixes"
+            placeholder={"X.X.X.X/XX, X.X.X.X/XX, ..."}
+            value={this.state.additional_prefixes.join(",")}
+            onChange={(event) => {
+              event.target.name = "additional_prefixes";
+              this.handleInputChange(event);
+            }}
+            invalid={isCidrStringInvalid(
+              this.state.additional_prefixes.join(","),
+            )}
+            invalidText="Please enter a comma separated list of IPV4 CIDR blocks."
+            helperText="Enter a comma separated list of IPV4 CIDR blocks."
+          />
+        </IcseFormGroup>
         {/* show routes if not modal */}
         {this.props.isModal === false && (
           <IcseFormTemplate
@@ -340,6 +377,7 @@ VpnServerForm.defaultProps = {
     client_dns_server_ips: "",
     routes: [],
     subnets: [],
+    additional_prefixes: [],
   },
   isModal: false,
   resourceGroups: [],
@@ -367,6 +405,7 @@ VpnServerForm.propTypes = {
     subnets: PropTypes.array,
     security_groups: PropTypes.array.isRequired,
     routes: PropTypes.array,
+    additional_prefixes: PropTypes.arrayOf(PropTypes.string),
   }).isRequired,
   /* bools */
   isModal: PropTypes.bool.isRequired,

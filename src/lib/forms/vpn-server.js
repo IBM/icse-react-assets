@@ -33,6 +33,8 @@ function handleVpnServerInputChange(stateData, event) {
     newState.protocol = value.toLowerCase();
   } else if (name === "client_dns_server_ips") {
     newState.client_dns_server_ips = clientDnsServerIps;
+  } else if (name === "additional_prefixes") {
+    newState.additional_prefixes = value.replace(/\s*/g, "").split(",");
   } else {
     newState = { [name]: value };
   }

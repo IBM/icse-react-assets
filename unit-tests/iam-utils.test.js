@@ -3,6 +3,7 @@ const {
   isIpStringInvalid,
   isIpStringInvalidNoCidr,
   isRangeInvalid,
+  isCidrStringInvalid,
 } = require("../src/lib/iam-utils");
 
 describe("iam-utils", () => {
@@ -28,6 +29,23 @@ describe("iam-utils", () => {
         isIpStringInvalid(""),
         false,
         "it should return false",
+      );
+    });
+  });
+  describe("isCidrStringInvalid", () => {
+    it("should return false for valid cidr list", () => {
+      assert.strictEqual(
+        isCidrStringInvalid("1.1.1.1/1, 2.2.2.2/2"),
+        false,
+        "it should return false",
+      );
+    });
+
+    it("should return true for invalid cidr list", () => {
+      assert.strictEqual(
+        isCidrStringInvalid("1.1, 2"),
+        true,
+        "it should return true",
       );
     });
   });
