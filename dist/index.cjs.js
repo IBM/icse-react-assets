@@ -6272,7 +6272,6 @@ class ObjectStorageInstancesForm extends React.Component {
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleCosPlanChange = this.handleCosPlanChange.bind(this);
   }
 
   /**
@@ -6281,16 +6280,6 @@ class ObjectStorageInstancesForm extends React.Component {
    */
   handleInputChange(event) {
     this.setState(this.eventTargetToNameAndValue(event));
-  }
-
-  /**
-  * handle cos plan change and convert to kebab when saving to state
-  * @param {event} event event
-  */
-  handleCosPlanChange(event) {
-    this.setState({
-      plan: lazyZ.kebabCase(event.target.value)
-    });
   }
   render() {
     let composedId = `object-storage-form-${this.props.data.name}-`;
@@ -6362,8 +6351,8 @@ class ObjectStorageInstancesForm extends React.Component {
       name: "plan",
       labelText: "Plan",
       groups: this.props.cosPlans,
-      value: lazyZ.titleCase(this.state.plan),
-      handleInputChange: this.handleCosPlanChange
+      value: this.state.plan,
+      handleInputChange: this.handleInputChange
     })), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
       name: "Service Credentials",
       subHeading: true,
