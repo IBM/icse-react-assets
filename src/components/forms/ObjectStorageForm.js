@@ -33,7 +33,7 @@ class ObjectStorageInstancesForm extends Component {
     this.setState(this.eventTargetToNameAndValue(event));
   }
 
-    /**
+  /**
    * handle cos plan change and convert to kebab when saving to state
    * @param {event} event event
    */
@@ -124,7 +124,7 @@ class ObjectStorageInstancesForm extends Component {
             value={titleCase(this.state.plan)}
             handleInputChange={this.handleCosPlanChange}
           />
-        </IcseFormGroup>        
+        </IcseFormGroup>
         {/* show keys and buckets if not modal */}
         {this.props.isModal !== true && (
           <>
@@ -189,7 +189,7 @@ ObjectStorageInstancesForm.defaultProps = {
     use_random_suffix: true,
   },
   resourceGroups: [],
-  cosPlans: ["standard"]
+  cosPlans: ["standard"],
 };
 
 ObjectStorageInstancesForm.propTypes = {

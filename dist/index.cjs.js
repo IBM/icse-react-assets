@@ -6284,9 +6284,9 @@ class ObjectStorageInstancesForm extends React.Component {
   }
 
   /**
-  * handle cos plan change and convert to kebab when saving to state
-  * @param {event} event event
-  */
+   * handle cos plan change and convert to kebab when saving to state
+   * @param {event} event event
+   */
   handleCosPlanChange(event) {
     this.setState({
       plan: lazyZ.kebabCase(event.target.value)
@@ -10197,8 +10197,12 @@ class RoutingTableForm extends React.Component {
       ...this.props.data
     };
     if (this.props.isModal) this.state.routes = [];
+    if (!this.state.accept_routes_from_resource_type) {
+      this.state.accept_routes_from_resource_type = [];
+    }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
+    this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
@@ -10213,6 +10217,11 @@ class RoutingTableForm extends React.Component {
   }
   handleToggle(name) {
     this.setState(this.toggleStateBoolean(name, this.state));
+  }
+  handleMultiSelectChange(items) {
+    this.setState({
+      accept_routes_from_resource_type: items
+    });
   }
   render() {
     let composedId = this.props.data.name + "-route-form";
@@ -10285,6 +10294,14 @@ class RoutingTableForm extends React.Component {
         content: "If set to true, the routing table is used to route traffic that originates from subnets in other zones in the VPC. To succeed, the VPC must not already have a routing table with the property set to true",
         align: "bottom-left",
         alignModal: "bottom-left"
+      }
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+      id: this.props.data.name + "-accept-routes",
+      titleText: "Additional Route Sources",
+      initialSelectedItems: this.state.accept_routes_from_resource_type,
+      items: ["vpn_server", "vpn_gateway"],
+      onChange: event => {
+        this.handleMultiSelectChange(event.selectedItems);
       }
     })), this.props.isModal === false && /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
       name: "Routes",
