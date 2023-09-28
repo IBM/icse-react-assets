@@ -12,6 +12,13 @@ import ObjectStorageBucketForm from "./ObjectStorageBucketForm";
 import ObjectStorageKeyForm from "./ObjectStorageKeyForm";
 import { transpose, kebabCase, titleCase } from "lazy-z";
 
+function cosPlanTitleCase(str) {
+  return titleCase(str)
+    .replace("1 2", "12")
+    .replace("2 4", "24")
+    .replace("4 8", "48")
+    .replace("9 6", "96");
+}
 /**
  * Object storage
  */
@@ -120,8 +127,8 @@ class ObjectStorageInstancesForm extends Component {
             formName={this.props.data.name + "-object-storage-plan"}
             name="plan"
             labelText="Plan"
-            groups={this.props.cosPlans}
-            value={titleCase(this.state.plan)}
+            groups={this.props.cosPlans.map(cosPlanTitleCase)}
+            value={cosPlanTitleCase(this.state.plan)}
             handleInputChange={this.handleCosPlanChange}
           />
         </IcseFormGroup>
@@ -201,6 +208,7 @@ ObjectStorageInstancesForm.propTypes = {
     use_data: PropTypes.bool.isRequired,
     resource_group: PropTypes.string,
     use_random_suffix: PropTypes.bool.isRequired,
+    plan: PropTypes.string.isRequired,
   }),
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,

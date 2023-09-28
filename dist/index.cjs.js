@@ -6260,6 +6260,9 @@ ObjectStorageKeyForm.propTypes = {
   composedNameCallback: PropTypes__default["default"].func.isRequired
 };
 
+function cosPlanTitleCase(str) {
+  return lazyZ.titleCase(str).replace("1 2", "12").replace("2 4", "24").replace("4 8", "48").replace("9 6", "96");
+}
 /**
  * Object storage
  */
@@ -6361,8 +6364,8 @@ class ObjectStorageInstancesForm extends React.Component {
       formName: this.props.data.name + "-object-storage-plan",
       name: "plan",
       labelText: "Plan",
-      groups: this.props.cosPlans,
-      value: lazyZ.titleCase(this.state.plan),
+      groups: this.props.cosPlans.map(cosPlanTitleCase),
+      value: cosPlanTitleCase(this.state.plan),
       handleInputChange: this.handleCosPlanChange
     })), this.props.isModal !== true && /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
       name: "Service Credentials",
@@ -6432,7 +6435,8 @@ ObjectStorageInstancesForm.propTypes = {
     name: PropTypes__default["default"].string.isRequired,
     use_data: PropTypes__default["default"].bool.isRequired,
     resource_group: PropTypes__default["default"].string,
-    use_random_suffix: PropTypes__default["default"].bool.isRequired
+    use_random_suffix: PropTypes__default["default"].bool.isRequired,
+    plan: PropTypes__default["default"].string.isRequired
   }),
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
