@@ -6249,6 +6249,9 @@ ObjectStorageKeyForm.propTypes = {
   composedNameCallback: PropTypes.func.isRequired
 };
 
+function cosPlanTitleCase(str) {
+  return titleCase$2(str).replace("1 2", "12").replace("2 4", "24").replace("4 8", "48").replace("9 6", "96");
+}
 /**
  * Object storage
  */
@@ -6350,8 +6353,8 @@ class ObjectStorageInstancesForm extends Component {
       formName: this.props.data.name + "-object-storage-plan",
       name: "plan",
       labelText: "Plan",
-      groups: this.props.cosPlans,
-      value: titleCase$2(this.state.plan),
+      groups: this.props.cosPlans.map(cosPlanTitleCase),
+      value: cosPlanTitleCase(this.state.plan),
       handleInputChange: this.handleCosPlanChange
     })), this.props.isModal !== true && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormTemplate, {
       name: "Service Credentials",
@@ -6421,7 +6424,8 @@ ObjectStorageInstancesForm.propTypes = {
     name: PropTypes.string.isRequired,
     use_data: PropTypes.bool.isRequired,
     resource_group: PropTypes.string,
-    use_random_suffix: PropTypes.bool.isRequired
+    use_random_suffix: PropTypes.bool.isRequired,
+    plan: PropTypes.string.isRequired
   }),
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,

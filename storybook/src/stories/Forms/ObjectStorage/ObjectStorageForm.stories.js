@@ -147,7 +147,7 @@ const ObjectStorageFormStory = () => {
       invalidTextCallback={invalidTextCallback}
       composedNameCallback={composedNameCallback}
       resourceGroups={["rg1", "rg2", "rg3"]}
-      cosPlans={["Standard", "Lite", "One Rate"]}
+      cosPlans={["standard", "lite", "cos-one-rate", "cos-satellite-12tb-plan"]}
       kmsList={["kms-1", "kms-2"]}
       propsMatchState={() => {}}
       invalidBucketCallback={invalidCallback}
