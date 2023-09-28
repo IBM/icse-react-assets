@@ -12,6 +12,13 @@ import ObjectStorageBucketForm from "./ObjectStorageBucketForm";
 import ObjectStorageKeyForm from "./ObjectStorageKeyForm";
 import { transpose, kebabCase, titleCase } from "lazy-z";
 
+function cosPlanTitleCase(str) {
+  return titleCase(str)
+    .replace("1 2", "12")
+    .replace("2 4", "24")
+    .replace("4 8", "48")
+    .replace("9 6", "96");
+}
 /**
  * Object storage
  */
@@ -22,6 +29,7 @@ class ObjectStorageInstancesForm extends Component {
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleCosPlanChange = this.handleCosPlanChange.bind(this);
   }
 
   /**
@@ -32,6 +40,13 @@ class ObjectStorageInstancesForm extends Component {
     this.setState(this.eventTargetToNameAndValue(event));
   }
 
+  /**
+   * handle cos plan change and convert to kebab when saving to state
+   * @param {event} event event
+   */
+  handleCosPlanChange(event) {
+    this.setState({ plan: kebabCase(event.target.value) });
+  }
 
   render() {
     let composedId = `object-storage-form-${this.props.data.name}-`;
@@ -112,11 +127,11 @@ class ObjectStorageInstancesForm extends Component {
             formName={this.props.data.name + "-object-storage-plan"}
             name="plan"
             labelText="Plan"
-            groups={this.props.cosPlans}
-            value={this.state.plan}
-            handleInputChange={this.handleInputChange}
+            groups={this.props.cosPlans.map(cosPlanTitleCase)}
+            value={cosPlanTitleCase(this.state.plan)}
+            handleInputChange={this.handleCosPlanChange}
           />
-        </IcseFormGroup>        
+        </IcseFormGroup>
         {/* show keys and buckets if not modal */}
         {this.props.isModal !== true && (
           <>
@@ -181,7 +196,7 @@ ObjectStorageInstancesForm.defaultProps = {
     use_random_suffix: true,
   },
   resourceGroups: [],
-  cosPlans: ["standard"]
+  cosPlans: ["standard"],
 };
 
 ObjectStorageInstancesForm.propTypes = {
@@ -193,6 +208,7 @@ ObjectStorageInstancesForm.propTypes = {
     use_data: PropTypes.bool.isRequired,
     resource_group: PropTypes.string,
     use_random_suffix: PropTypes.bool.isRequired,
+    plan: PropTypes.string.isRequired,
   }),
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
