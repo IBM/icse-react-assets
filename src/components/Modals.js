@@ -32,6 +32,7 @@ export const IcseModal = (props) => {
       secondaryButtonText={props.secondaryButtonText}
       onRequestSubmit={props.onRequestSubmit}
       onRequestClose={props.onRequestClose}
+      size={props.size | "md"}
     >
       {props.children}
     </Modal>

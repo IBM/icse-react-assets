@@ -3091,7 +3091,8 @@ const IcseModal = props => {
     primaryButtonText: props.primaryButtonText,
     secondaryButtonText: props.secondaryButtonText,
     onRequestSubmit: props.onRequestSubmit,
-    onRequestClose: props.onRequestClose
+    onRequestClose: props.onRequestClose,
+    size: props.size | "md"
   }, props.children);
 };
 IcseModal.defaultProps = {
