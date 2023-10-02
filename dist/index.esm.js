@@ -10858,7 +10858,7 @@ class VpnServerForm extends Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: iamUtils_3(this.state.port, 1, 65535),
+      invalid: iamUtils_3(this.state.port, 1, 65535) || isNullOrEmptyString$6(this.state.port || ""),
       invalidText: "Must be a whole number between 1 and 65535.",
       className: "fieldWidthSmaller leftTextAlign"
     }), /*#__PURE__*/React.createElement(IcseSelect, {
