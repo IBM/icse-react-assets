@@ -3092,7 +3092,7 @@ const IcseModal = props => {
     secondaryButtonText: props.secondaryButtonText,
     onRequestSubmit: props.onRequestSubmit,
     onRequestClose: props.onRequestClose,
-    size: props.size | "md"
+    size: props.size
   }, props.children);
 };
 IcseModal.defaultProps = {
@@ -3103,7 +3103,8 @@ IcseModal.defaultProps = {
   alert: true,
   open: false,
   heading: "Default Heading",
-  id: "default-icse-modal"
+  id: "default-icse-modal",
+  size: "md"
 };
 IcseModal.propTypes = {
   primaryButtonText: PropTypes__default["default"].string.isRequired,
@@ -3116,7 +3117,8 @@ IcseModal.propTypes = {
   onRequestClose: PropTypes__default["default"].func.isRequired,
   id: PropTypes__default["default"].string.isRequired,
   open: PropTypes__default["default"].bool.isRequired,
-  children: PropTypes__default["default"].node.isRequired
+  children: PropTypes__default["default"].node.isRequired,
+  size: PropTypes__default["default"].string
 };
 
 /**
