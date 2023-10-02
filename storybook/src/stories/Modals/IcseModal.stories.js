@@ -76,6 +76,12 @@ export default {
       type: { required: true },
       control: "none",
     },
+    size: {
+      description: "Size value of modal",
+      type: { required: false },
+      table: { defaultValue: { summary: "md" } },
+      control: "none",
+    },
   },
   parameters: {
     docs: {
