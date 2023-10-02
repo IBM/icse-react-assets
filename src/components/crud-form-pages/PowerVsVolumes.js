@@ -23,6 +23,8 @@ export const PowerVsVolume = (props) => {
         power_instances: props.power_instances,
         invalidCallback: props.invalidCallback,
         invalidTextCallback: props.invalidTextCallback,
+        power_volumes: props.power_volumes,
+        storage_pool_map: props.storage_pool_map,
       }}
       toggleFormProps={{
         craig: props.craig,
@@ -48,6 +50,10 @@ PowerVsVolume.propTypes = {
   power_instances: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
+  storage_pool_map: PropTypes.shape({}).isRequired,
+  power_instances: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  power_volumes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  affinityChangesDisabled: PropTypes.func.isRequired,
 };
 
 export default PowerVsVolume;

@@ -11993,17 +11993,110 @@ PowerVsWorkspaceForm.defaultProps = {
   }
 };
 
+const PowerVsAffinity = props => {
+  let volumeTypeFieldName = props.isVolume ? "pi_volume_type" : "pi_storage_type";
+  return /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+    labelText: "Storage Option",
+    name: "storage_option",
+    formName: props.data.name + "-power-instance-status",
+    groups: ["Storage Type", "Storage Pool"].concat(!props.stateData.pi_health_status || props.stateData.pi_health_status === "OK" ? ["Affinity", "Anti-Affinity"] : []),
+    value: props.stateData.storage_option,
+    handleInputChange: props.handleInputChange,
+    invalidText: "Select a Storage Option.",
+    className: "fieldWidthSmaller",
+    id: `${props.data.name}-power-storage-option`,
+    disabled: props.affinityChangesDisabled(props.stateData, props.componentProps)
+  }), props.stateData.storage_option === "Storage Type" && /*#__PURE__*/React.createElement(IcseSelect, {
+    labelText: "Storage Type",
+    name: "pi_storage_type",
+    formName: props.data.name + "-power-instance-stortype",
+    groups: ["Tier-1", "Tier-3"],
+    value: isNullOrEmptyString$6(props.stateData[volumeTypeFieldName]) ? "" : capitalize$2(props.stateData[volumeTypeFieldName].split(/(?=\d)/).join("-")),
+    handleInputChange: props.handleInputChange,
+    invalidText: "Select a Storage Type.",
+    className: "fieldWidthSmaller",
+    id: `${props.data.name}-power-instance-stortype`,
+    disabled: props.affinityChangesDisabled(props.stateData, props.componentProps)
+  }), props.stateData.storage_option === "Storage Pool" && /*#__PURE__*/React.createElement(IcseSelect, {
+    key: props.stateData.zone,
+    labelText: "Storage Pool",
+    name: "pi_storage_pool",
+    formName: props.data.name + "-power-instance-storpool",
+    groups: props.storage_pool_map[props.stateData.zone],
+    value: isNullOrEmptyString$6(props.stateData.pi_storage_pool) ? "" : props.stateData,
+    handleInputChange: props.handleInputChange,
+    invalidText: "Select a Storage Pool.",
+    className: "fieldWidthSmaller",
+    id: `${props.data.name}-power-instance-storpool`,
+    disabled: props.affinityChangesDisabled(props.stateData, props.componentProps)
+  }), contains$5(["Affinity", "Anti-Affinity"], props.stateData.storage_option) && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseSelect, {
+    labelText: "Affinity Type",
+    name: "affinity_type",
+    formName: props.data.name + "-power-instance-affinity-type",
+    groups: ["Instance", "Volume"],
+    value: isNullOrEmptyString$6(props.stateData.affinity_type) ? "" : props.stateData.affinity_type,
+    handleInputChange: props.handleInputChange,
+    invalidText: "Select Instance or Volume for boot volume affinity",
+    className: "fieldWidthSmaller",
+    id: `${props.data.name}-power-affinity-type`,
+    disabled: props.affinityChangesDisabled(props.stateData, props.componentProps)
+  }), props.stateData.affinity_type && /*#__PURE__*/React.createElement(IcseSelect, {
+    groups: props.stateData.affinity_type === "Instance" ? splat$2(props.power_instances.filter(props.instanceFilter), "name") : splat$2(props.power_volumes.filter(props.volumeFilter), "name"),
+    formName: props.data.name + "-power-affinity-source",
+    labelText: `${props.stateData.storage_option === "Anti-Affinity" ? "Anti-" : ""}Affinity ${props.stateData.affinity_type}`,
+    name: snakeCase$2(`pi ${props.stateData.storage_option} ${props.stateData.affinity_type}`),
+    handleInputChange: props.handleInputChange,
+    invalidText: `Select an ${props.stateData.affinity_type.toLowerCase()} ${props.stateData.affinity_type.toLowerCase()}.`,
+    id: `${props.data.name}-power-affinity-source`,
+    value: isNullOrEmptyString$6(props.stateData[snakeCase$2(`pi ${props.stateData.storage_option} ${props.stateData.affinity_type}`)]) ? "" : props.stateData[snakeCase$2(`pi ${props.stateData.storage_option} ${props.stateData.affinity_type}`)],
+    className: "fieldWidthSmaller",
+    disabled: props.affinityChangesDisabled(props.stateData, props.componentProps)
+  })));
+};
+PowerVsAffinity.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired
+  }).isRequired,
+  stateData: PropTypes.shape({
+    pi_health_status: PropTypes.string,
+    storage_option: PropTypes.string,
+    zone: PropTypes.string.isRequired,
+    pi_storage_pool: PropTypes.string,
+    storage_option: PropTypes.string,
+    affinity_type: PropTypes.string
+  }).isRequired,
+  handleInputChange: PropTypes.func.isRequired,
+  affinityChangesDisabled: PropTypes.func.isRequired,
+  componentProps: PropTypes.shape({}).isRequired,
+  storage_pool_map: PropTypes.shape({}).isRequired,
+  power_instances: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  instanceFilter: PropTypes.func.isRequired,
+  power_volumes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  volumeFilter: PropTypes.func.isRequired
+};
+
 class PowerVsInstanceForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       ...this.props.data
     };
+    if (!this.state.storage_option) {
+      this.state.storage_option = "Storage Type";
+      this.state.affinity_type = null;
+      this.state.pi_storage_pool_affinity = true;
+    }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
     this.handleIpAddressChange = this.handleIpAddressChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    this.instanceFilter = this.instanceFilter.bind(this);
+    this.volumeFilter = this.volumeFilter.bind(this);
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
+  }
+  handleToggle() {
+    this.setState(this.toggleStateBoolean("pi_storage_pool_affinity", this.state));
   }
 
   /**
@@ -12022,7 +12115,11 @@ class PowerVsInstanceForm extends React.Component {
         zone: zone,
         image: "",
         ssh_key: "",
-        network: []
+        network: [],
+        pi_affinity_volume: null,
+        pi_anti_affinity_instance: null,
+        pi_anti_affinity_volume: null,
+        pi_anti_affinity_instance: null
       });
     } else if (contains$5(["pi_proc_type", "pi_storage_type"], name)) {
       this.setState({
@@ -12031,7 +12128,46 @@ class PowerVsInstanceForm extends React.Component {
     } else if (name === "pi_health_status") {
       this.setState({
         [name]: value.toUpperCase()
+      }, () => {
+        // if status is set to warning, disable affinity
+        if (this.state.pi_health_status === "WARNING" && !contains$5(["Storage Type", "Storage Pool"], this.state.storage_option)) {
+          this.setState({
+            storage_option: null,
+            affinity_type: null,
+            pi_affinity_policy: null,
+            pi_affinity_volume: null,
+            pi_anti_affinity_instance: null,
+            pi_anti_affinity_volume: null,
+            pi_anti_affinity_instance: null
+          });
+        }
       });
+    } else if (name === "storage_option") {
+      let nextState = {
+        ...this.state
+      };
+      if (value !== "Storage Type") {
+        nextState.pi_storage_type = null;
+      }
+      if (value !== "Storage Pool") {
+        nextState.pi_storage_pool = null;
+      }
+      if (value !== "Affinity") {
+        nextState.pi_affinity_policy = null;
+        nextState.pi_affinity_volume = null;
+        nextState.pi_affinity_instance = null;
+      }
+      if (value !== "Anti-Affinity") {
+        nextState.pi_anti_affinity_volume = null;
+        nextState.pi_anti_affinity_instance = null;
+      }
+      if (contains$5(["Affinity", "Anti-Affinity"], value)) {
+        nextState.pi_affinity_policy = value.toLowerCase();
+      } else {
+        nextState.pi_affinity_policy = null;
+      }
+      nextState[name] = value;
+      this.setState(nextState);
     } else this.setState(this.eventTargetToNameAndValue(event));
   }
 
@@ -12070,7 +12206,16 @@ class PowerVsInstanceForm extends React.Component {
       network: nw
     });
   }
+  instanceFilter(instance) {
+    if (instance.name !== this.props.data.name && (!instance.pi_affinity_policy || isNullOrEmptyString$6(instance.pi_affinity_policy)) && (!instance.pi_anti_affinity_policy || isNullOrEmptyString$6(instance.pi_anti_affinity_policy)) && instance.zone === this.state.zone && instance.workspace === this.state.workspace) {
+      return instance;
+    }
+  }
+  volumeFilter(volume) {
+    if ((!volume.pi_affinity_policy || isNullOrEmptyString$6(volume.pi_affinity_policy)) && (!volume.pi_anti_affinity_policy || isNullOrEmptyString$6(volume.pi_anti_affinity_policy)) && volume.zone === this.state.zone && volume.workspace === this.state.workspace) return volume;
+  }
   render() {
+    console.log(JSON.stringify(this.state, null, 2));
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
       id: this.props.data.name + "-power-vs-name",
       componentName: this.props.data.name + "-power-vs-name",
@@ -12132,16 +12277,6 @@ class PowerVsInstanceForm extends React.Component {
       className: "fieldWidthSmaller",
       id: `${this.props.data.name}-power-instance-systype`
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
-      labelText: "Health Status",
-      name: "pi_health_status",
-      formName: this.props.data.name + "-power-instance-status",
-      groups: ["Ok", "Warning"],
-      value: capitalize$2(this.state.pi_health_status.toLowerCase()),
-      handleInputChange: this.handleInputChange,
-      invalidText: "Select a Health Status.",
-      className: "fieldWidthSmaller",
-      id: `${this.props.data.name}-power-instance-status`
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
       labelText: "Processor Type",
       name: "pi_proc_type",
       formName: this.props.data.name + "-power-instance-proctype",
@@ -12151,17 +12286,7 @@ class PowerVsInstanceForm extends React.Component {
       invalidText: "Select a Processor Type.",
       className: "fieldWidthSmaller",
       id: `${this.props.data.name}-power-instance-proctype`
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      labelText: "Storage Type",
-      name: "pi_storage_type",
-      formName: this.props.data.name + "-power-instance-stortype",
-      groups: ["Tier-1", "Tier-3"],
-      value: isNullOrEmptyString$6(this.state.pi_storage_type) ? "" : capitalize$2(this.state.pi_storage_type.split(/(?=\d)/).join("-")),
-      handleInputChange: this.handleInputChange,
-      invalidText: "Select a Storage Type.",
-      className: "fieldWidthSmaller",
-      id: `${this.props.data.name}-power-instance-stortype`
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+    }), /*#__PURE__*/React.createElement(IcseTextInput, {
       id: "power-instance" + this.state.name + "processors",
       labelText: "Processors",
       onChange: this.handleInputChange,
@@ -12181,7 +12306,45 @@ class PowerVsInstanceForm extends React.Component {
       value: this.state.pi_memory,
       className: "fieldWidthSmaller",
       placeholder: "1024"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+      labelText: "Health Status",
+      name: "pi_health_status",
+      formName: this.props.data.name + "-power-instance-status",
+      groups: ["Ok", "Warning"],
+      value: capitalize$2(this.state.pi_health_status.toLowerCase()),
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a Health Status.",
+      className: "fieldWidthSmaller",
+      id: `${this.props.data.name}-power-instance-status`,
+      disabled: this.props.storageChangesDisabledCallback(this.state, this.props)
+    }), /*#__PURE__*/React.createElement(IcseToggle, {
+      tooltip: {
+        align: "bottom-left",
+        alignModal: "right",
+        content: "To attach data volumes from different storage pools, set to false. When this is set to false it cannot be set to true without recrea"
+      },
+      id: this.props.data.name + "pi_storage_pool_affinity",
+      labelText: "Enable Storage Pool Affinity",
+      toggleFieldName: "pi_storage_pool_affinity",
+      defaultToggled: this.state.pi_storage_pool_affinity,
+      onToggle: this.handleToggle,
+      className: "fieldWidthSmaller",
+      disabled: this.props.storageChangesDisabledCallback(this.state, this.props)
     })), /*#__PURE__*/React.createElement(IcseHeading, {
+      name: "Boot Volume",
+      type: "subHeading"
+    }), /*#__PURE__*/React.createElement(PowerVsAffinity, {
+      data: this.props.data,
+      stateData: this.state,
+      componentProps: this.props,
+      handleInputChange: this.handleInputChange,
+      affinityChangesDisabled: this.props.storageChangesDisabledCallback,
+      storage_pool_map: this.props.storage_pool_map,
+      power_instances: this.props.power_instances,
+      power_volumes: this.props.power_volumes,
+      instanceFilter: this.instanceFilter,
+      volumeFilter: this.volumeFilter
+    }), /*#__PURE__*/React.createElement(IcseHeading, {
       name: "Interface IP Addresses",
       type: "subHeading"
     }), /*#__PURE__*/React.createElement("div", {
@@ -12216,7 +12379,9 @@ PowerVsInstanceForm.defaultProps = {
     zone: "",
     pi_health_status: "OK",
     pi_proc_type: "shared",
-    pi_storage_type: ""
+    pi_storage_type: "",
+    storage_option: "Storage Type",
+    pi_storage_pool_affinity: false
   }
 };
 PowerVsInstanceForm.propTypes = {
@@ -12227,7 +12392,13 @@ PowerVsInstanceForm.propTypes = {
   invalidPiProcessorsCallback: PropTypes.func.isRequired,
   invalidPiProcessorsTextCallback: PropTypes.func.isRequired,
   invalidPiMemoryCallback: PropTypes.func.isRequired,
-  invalidPiMemoryTextCallback: PropTypes.func.isRequired
+  invalidPiMemoryTextCallback: PropTypes.func.isRequired,
+  storage_pool_map: PropTypes.shape({}).isRequired,
+  power_instances: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  power_volumes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  // changes should be disabled when another instance or volume uses this
+  // instance for affinity
+  storageChangesDisabledCallback: PropTypes.func.isRequired
 };
 
 class PowerVsVolumeForm extends React.Component {
@@ -12236,11 +12407,17 @@ class PowerVsVolumeForm extends React.Component {
     this.state = {
       ...this.props.data
     };
+    if (!this.state.storage_option) {
+      this.state.storage_option = "Storage Type";
+      this.state.affinity_type = null;
+    }
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.handleInstanceSelect = this.handleInstanceSelect.bind(this);
+    this.instanceFilter = this.instanceFilter.bind(this);
+    this.volumeFilter = this.volumeFilter.bind(this);
   }
   handleInputChange(event) {
     let {
@@ -12259,6 +12436,32 @@ class PowerVsVolumeForm extends React.Component {
         [name]: value.toLowerCase().replace(/-/g, ""),
         attachments: []
       });
+    } else if (name === "storage_option") {
+      let nextState = {
+        ...this.state
+      };
+      if (value !== "Storage Type") {
+        nextState.pi_storage_type = null;
+      }
+      if (value !== "Storage Pool") {
+        nextState.pi_storage_pool = null;
+      }
+      if (value !== "Affinity") {
+        nextState.pi_affinity_policy = null;
+        nextState.pi_affinity_volume = null;
+        nextState.pi_affinity_instance = null;
+      }
+      if (value !== "Anti-Affinity") {
+        nextState.pi_anti_affinity_volume = null;
+        nextState.pi_anti_affinity_instance = null;
+      }
+      if (contains$5(["Affinity", "Anti-Affinity"], value)) {
+        nextState.pi_affinity_policy = value.toLowerCase();
+      } else {
+        nextState.pi_affinity_policy = null;
+      }
+      nextState[name] = value;
+      this.setState(nextState);
     } else this.setState(this.eventTargetToNameAndValue(event));
   }
 
@@ -12279,6 +12482,14 @@ class PowerVsVolumeForm extends React.Component {
     this.setState({
       attachments: instances
     });
+  }
+  instanceFilter(instance) {
+    if ((!instance.pi_affinity_policy || isNullOrEmptyString$6(instance.pi_affinity_policy)) && (!instance.pi_anti_affinity_policy || isNullOrEmptyString$6(instance.pi_anti_affinity_policy)) && instance.zone === this.state.zone && instance.workspace === this.state.workspace) {
+      return instance;
+    }
+  }
+  volumeFilter(volume) {
+    if ((!volume.pi_affinity_policy || isNullOrEmptyString$6(volume.pi_affinity_policy)) && (!volume.pi_anti_affinity_policy || isNullOrEmptyString$6(volume.pi_anti_affinity_policy)) && volume.zone === this.state.zone && volume.workspace === this.state.workspace && volume.name !== this.props.data.name) return volume;
   }
   render() {
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
@@ -12301,24 +12512,6 @@ class PowerVsVolumeForm extends React.Component {
       invalidText: "Select a Workspace.",
       className: "fieldWidthSmaller",
       id: `${this.props.data.name}-power-volume-workspace`
-    }), /*#__PURE__*/React.createElement(IcseToggle, {
-      id: this.props.data.name + "-power-volume-replication",
-      labelText: "Enable Volume Replication",
-      toggleFieldName: "pi_replication_enabled",
-      defaultToggled: this.state.pi_replication_enabled,
-      onToggle: this.handleToggle,
-      isModal: this.props.isModal,
-      className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
-      labelText: "Storage Type",
-      name: "pi_volume_type",
-      formName: this.props.data.name + "-power-instance-stortype",
-      groups: ["Tier-1", "Tier-3"],
-      value: isNullOrEmptyString$6(this.state.pi_volume_type) ? "" : capitalize$2(this.state.pi_volume_type.split(/(?=\d)/).join("-")),
-      handleInputChange: this.handleInputChange,
-      invalidText: "Select a Storage Type.",
-      className: "fieldWidthSmaller",
-      id: `${this.props.data.name}-power-instance-stortype`
     }), /*#__PURE__*/React.createElement(NumberInput, {
       id: this.props.data.name + "power-volume-capacity",
       name: "pi_volume_size",
@@ -12334,6 +12527,26 @@ class PowerVsVolumeForm extends React.Component {
       invalid: iamUtils_3(this.state.pi_volume_size, 1, 2000),
       invalidText: "Must be a whole number between 1 and 2000",
       className: "fieldWidthSmaller leftTextAlign"
+    })), /*#__PURE__*/React.createElement(PowerVsAffinity, {
+      data: this.props.data,
+      stateData: this.state,
+      componentProps: this.props,
+      handleInputChange: this.handleInputChange,
+      affinityChangesDisabled: this.props.affinityChangesDisabled,
+      storage_pool_map: this.props.storage_pool_map,
+      power_instances: this.props.power_instances,
+      power_volumes: this.props.power_volumes,
+      instanceFilter: this.instanceFilter,
+      volumeFilter: this.volumeFilter,
+      isVolume: true
+    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
+      id: this.props.data.name + "-power-volume-replication",
+      labelText: "Enable Volume Replication",
+      toggleFieldName: "pi_replication_enabled",
+      defaultToggled: this.state.pi_replication_enabled,
+      onToggle: this.handleToggle,
+      isModal: this.props.isModal,
+      className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseToggle, {
       tooltip: {
         content: "Enable sharing between multiple instances",
@@ -12347,7 +12560,7 @@ class PowerVsVolumeForm extends React.Component {
       onToggle: this.handleToggle,
       isModal: this.props.isModal,
       className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, this.state.pi_volume_shareable ? /*#__PURE__*/React.createElement(IcseMultiSelect, {
+    }), this.state.pi_volume_shareable ? /*#__PURE__*/React.createElement(IcseMultiSelect, {
       key: JSON.stringify(this.state.attachments) // force rerender on type change
       ,
       titleText: "Attached Instances",
@@ -12392,7 +12605,13 @@ PowerVsVolumeForm.propTypes = {
   power_instances: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
-  isModal: PropTypes.bool.isRequired
+  isModal: PropTypes.bool.isRequired,
+  storage_pool_map: PropTypes.shape({}).isRequired,
+  power_instances: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  power_volumes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  // changes should be disabled when another instance or volume uses this
+  // instance for affinity
+  affinityChangesDisabled: PropTypes.func.isRequired
 };
 
 const PowerVsNetwork = props => {
@@ -12677,7 +12896,11 @@ const PowerVsInstances = props => {
       invalidPiProcessorsCallback: props.invalidPiProcessorsCallback,
       invalidPiProcessorsTextCallback: props.invalidPiProcessorsTextCallback,
       invalidPiMemoryCallback: props.invalidPiMemoryCallback,
-      invalidPiMemoryTextCallback: props.invalidPiMemoryTextCallback
+      invalidPiMemoryTextCallback: props.invalidPiMemoryTextCallback,
+      storage_pool_map: props.storage_pool_map,
+      power_instances: props.power_instances,
+      power_volumes: props.power_volumes,
+      storageChangesDisabledCallback: props.storageChangesDisabledCallback
     },
     toggleFormProps: {
       hideName: true,
@@ -12702,7 +12925,11 @@ PowerVsInstances.propTypes = {
   invalidPiProcessorsTextCallback: PropTypes.func.isRequired,
   invalidPiMemoryCallback: PropTypes.func.isRequired,
   invalidPiMemoryTextCallback: PropTypes.func.isRequired,
-  docs: PropTypes.func.isRequired
+  docs: PropTypes.func.isRequired,
+  storage_pool_map: PropTypes.shape({}).isRequired,
+  power_instances: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  power_volumes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  storageChangesDisabledCallback: PropTypes.func.isRequired
 };
 
 const PowerVsVolume = props => {
@@ -12723,7 +12950,9 @@ const PowerVsVolume = props => {
       power: props.power,
       power_instances: props.power_instances,
       invalidCallback: props.invalidCallback,
-      invalidTextCallback: props.invalidTextCallback
+      invalidTextCallback: props.invalidTextCallback,
+      power_volumes: props.power_volumes,
+      storage_pool_map: props.storage_pool_map
     },
     toggleFormProps: {
       craig: props.craig,
@@ -12746,7 +12975,11 @@ PowerVsVolume.propTypes = {
   power: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   power_instances: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   invalidCallback: PropTypes.func.isRequired,
-  invalidTextCallback: PropTypes.func.isRequired
+  invalidTextCallback: PropTypes.func.isRequired,
+  storage_pool_map: PropTypes.shape({}).isRequired,
+  power_instances: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  power_volumes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  affinityChangesDisabled: PropTypes.func.isRequired
 };
 
 const restrictMenuItems = ["Unset", "Yes", "No"];

@@ -18,6 +18,7 @@ import { IcseNameInput, IcseToggle } from "../../Inputs";
 import { IcseSelect } from "../../Dropdowns";
 import { IcseMultiSelect } from "../../MultiSelects";
 import { isRangeInvalid } from "../../../lib/iam-utils";
+import { PowerVsAffinity } from "./PowerVsAffinity";
 
 class PowerVsVolumeForm extends React.Component {
   constructor(props) {
@@ -25,11 +26,17 @@ class PowerVsVolumeForm extends React.Component {
     this.state = {
       ...this.props.data,
     };
+    if (!this.state.storage_option) {
+      this.state.storage_option = "Storage Type";
+      this.state.affinity_type = null;
+    }
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.handleInstanceSelect = this.handleInstanceSelect.bind(this);
+    this.instanceFilter = this.instanceFilter.bind(this);
+    this.volumeFilter = this.volumeFilter.bind(this);
   }
 
   handleInputChange(event) {
@@ -46,6 +53,30 @@ class PowerVsVolumeForm extends React.Component {
         [name]: value.toLowerCase().replace(/-/g, ""),
         attachments: [],
       });
+    } else if (name === "storage_option") {
+      let nextState = { ...this.state };
+      if (value !== "Storage Type") {
+        nextState.pi_storage_type = null;
+      }
+      if (value !== "Storage Pool") {
+        nextState.pi_storage_pool = null;
+      }
+      if (value !== "Affinity") {
+        nextState.pi_affinity_policy = null;
+        nextState.pi_affinity_volume = null;
+        nextState.pi_affinity_instance = null;
+      }
+      if (value !== "Anti-Affinity") {
+        nextState.pi_anti_affinity_volume = null;
+        nextState.pi_anti_affinity_instance = null;
+      }
+      if (contains(["Affinity", "Anti-Affinity"], value)) {
+        nextState.pi_affinity_policy = value.toLowerCase();
+      } else {
+        nextState.pi_affinity_policy = null;
+      }
+      nextState[name] = value;
+      this.setState(nextState);
     } else this.setState(this.eventTargetToNameAndValue(event));
   }
 
@@ -65,6 +96,32 @@ class PowerVsVolumeForm extends React.Component {
 
   handleInstanceSelect(instances) {
     this.setState({ attachments: instances });
+  }
+
+  instanceFilter(instance) {
+    if (
+      (!instance.pi_affinity_policy ||
+        isNullOrEmptyString(instance.pi_affinity_policy)) &&
+      (!instance.pi_anti_affinity_policy ||
+        isNullOrEmptyString(instance.pi_anti_affinity_policy)) &&
+      instance.zone === this.state.zone &&
+      instance.workspace === this.state.workspace
+    ) {
+      return instance;
+    }
+  }
+
+  volumeFilter(volume) {
+    if (
+      (!volume.pi_affinity_policy ||
+        isNullOrEmptyString(volume.pi_affinity_policy)) &&
+      (!volume.pi_anti_affinity_policy ||
+        isNullOrEmptyString(volume.pi_anti_affinity_policy)) &&
+      volume.zone === this.state.zone &&
+      volume.workspace === this.state.workspace &&
+      volume.name !== this.props.data.name
+    )
+      return volume;
   }
 
   render() {
@@ -93,34 +150,7 @@ class PowerVsVolumeForm extends React.Component {
             className="fieldWidthSmaller"
             id={`${this.props.data.name}-power-volume-workspace`}
           />
-          <IcseToggle
-            id={this.props.data.name + "-power-volume-replication"}
-            labelText="Enable Volume Replication"
-            toggleFieldName="pi_replication_enabled"
-            defaultToggled={this.state.pi_replication_enabled}
-            onToggle={this.handleToggle}
-            isModal={this.props.isModal}
-            className="fieldWidthSmaller"
-          />
-        </IcseFormGroup>
-        <IcseFormGroup>
-          <IcseSelect
-            labelText="Storage Type"
-            name="pi_volume_type"
-            formName={this.props.data.name + "-power-instance-stortype"}
-            groups={["Tier-1", "Tier-3"]}
-            value={
-              isNullOrEmptyString(this.state.pi_volume_type)
-                ? ""
-                : capitalize(
-                    this.state.pi_volume_type.split(/(?=\d)/).join("-"),
-                  )
-            }
-            handleInputChange={this.handleInputChange}
-            invalidText="Select a Storage Type."
-            className="fieldWidthSmaller"
-            id={`${this.props.data.name}-power-instance-stortype`}
-          />
+
           <NumberInput
             id={this.props.data.name + "power-volume-capacity"}
             name="pi_volume_size"
@@ -145,6 +175,30 @@ class PowerVsVolumeForm extends React.Component {
             invalidText="Must be a whole number between 1 and 2000"
             className="fieldWidthSmaller leftTextAlign"
           />
+        </IcseFormGroup>
+        <PowerVsAffinity
+          data={this.props.data}
+          stateData={this.state}
+          componentProps={this.props}
+          handleInputChange={this.handleInputChange}
+          affinityChangesDisabled={this.props.affinityChangesDisabled}
+          storage_pool_map={this.props.storage_pool_map}
+          power_instances={this.props.power_instances}
+          power_volumes={this.props.power_volumes}
+          instanceFilter={this.instanceFilter}
+          volumeFilter={this.volumeFilter}
+          isVolume
+        />
+        <IcseFormGroup>
+          <IcseToggle
+            id={this.props.data.name + "-power-volume-replication"}
+            labelText="Enable Volume Replication"
+            toggleFieldName="pi_replication_enabled"
+            defaultToggled={this.state.pi_replication_enabled}
+            onToggle={this.handleToggle}
+            isModal={this.props.isModal}
+            className="fieldWidthSmaller"
+          />
           <IcseToggle
             tooltip={{
               content: "Enable sharing between multiple instances",
@@ -159,8 +213,6 @@ class PowerVsVolumeForm extends React.Component {
             isModal={this.props.isModal}
             className="fieldWidthSmaller"
           />
-        </IcseFormGroup>
-        <IcseFormGroup>
           {this.state.pi_volume_shareable ? (
             <IcseMultiSelect
               key={JSON.stringify(this.state.attachments)} // force rerender on type change
@@ -221,6 +273,12 @@ PowerVsVolumeForm.propTypes = {
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
   isModal: PropTypes.bool.isRequired,
+  storage_pool_map: PropTypes.shape({}).isRequired,
+  power_instances: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  power_volumes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  // changes should be disabled when another instance or volume uses this
+  // instance for affinity
+  affinityChangesDisabled: PropTypes.func.isRequired,
 };
 
 export default PowerVsVolumeForm;
