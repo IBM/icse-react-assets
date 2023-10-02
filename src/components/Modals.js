@@ -32,6 +32,7 @@ export const IcseModal = (props) => {
       secondaryButtonText={props.secondaryButtonText}
       onRequestSubmit={props.onRequestSubmit}
       onRequestClose={props.onRequestClose}
+      size={props.size}
     >
       {props.children}
     </Modal>
@@ -47,6 +48,7 @@ IcseModal.defaultProps = {
   open: false,
   heading: "Default Heading",
   id: "default-icse-modal",
+  size: "md",
 };
 
 IcseModal.propTypes = {
@@ -61,6 +63,7 @@ IcseModal.propTypes = {
   id: PropTypes.string.isRequired,
   open: PropTypes.bool.isRequired,
   children: PropTypes.node.isRequired,
+  size: PropTypes.string,
 };
 
 /**
