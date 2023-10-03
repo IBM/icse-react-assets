@@ -10179,7 +10179,7 @@ class RoutingTableRouteForm extends React.Component {
 RoutingTableRouteForm.defaultProps = {
   data: {
     name: "",
-    zone: "",
+    zone: 1,
     destination: "",
     action: "",
     next_hop: ""
@@ -10262,7 +10262,7 @@ class RoutingTableForm extends React.Component {
       id: composedId + "-direct-link-toggle",
       labelText: "Direct Link Ingress",
       defaultToggled: this.state.route_direct_link_ingress,
-      name: "route_direct_link_ingress",
+      name: "direct_link_ingress",
       onToggle: this.handleToggle,
       tooltip: {
         content: "If set to true, the routing table is used to route traffic that originates from Direct Link to the VPC. To succeed, the VPC must not already have a routing table with the property set to true",
@@ -10272,8 +10272,8 @@ class RoutingTableForm extends React.Component {
     }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
       id: composedId + "-route-internet-toggle",
       labelText: "Internet Ingress",
-      defaultToggled: this.state.route_internet_ingress,
-      name: "route_internet_ingress",
+      defaultToggled: this.state.internet_ingress,
+      name: "internet_ingress",
       onToggle: this.handleToggle,
       tooltip: {
         content: "If set to true, this routing table will be used to route traffic that originates from the internet. For this to succeed, the VPC must not already have a routing table with this property set to true",
@@ -10283,8 +10283,8 @@ class RoutingTableForm extends React.Component {
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
       id: composedId + "-tgw-ingress",
       labelText: "Transit Gateway Ingress",
-      defaultToggled: this.state.route_transit_gateway_ingress,
-      name: "route_transit_gateway_ingress",
+      defaultToggled: this.state.transit_gateway_ingress,
+      name: "transit_gateway_ingress",
       onToggle: this.handleToggle,
       tooltip: {
         content: "If set to true, the routing table is used to route traffic that originates from Transit Gateway to the VPC. To succeed, the VPC must not already have a routing table with the property set to true",
@@ -10295,7 +10295,7 @@ class RoutingTableForm extends React.Component {
       id: composedId + "-zone-ingress",
       labelText: "VPC Zone Ingress",
       defaultToggled: this.state.route_vpc_zone_ingress,
-      name: "route_vpc_zone_ingress",
+      name: "vpc_zone_ingress",
       onToggle: this.handleToggle,
       tooltip: {
         content: "If set to true, the routing table is used to route traffic that originates from subnets in other zones in the VPC. To succeed, the VPC must not already have a routing table with the property set to true",
@@ -10340,10 +10340,10 @@ RoutingTableForm.defaultProps = {
     name: "",
     vpc: null,
     routes: [],
-    route_internet_ingress: false,
-    route_transit_gateway_ingress: false,
-    route_vpc_zone_ingress: false,
-    route_direct_link_ingress: false
+    internet_ingress: false,
+    transit_gateway_ingress: false,
+    vpc_zone_ingress: false,
+    direct_link_ingress: false
   }
 };
 RoutingTableForm.propTypes = {
@@ -10353,10 +10353,10 @@ RoutingTableForm.propTypes = {
     name: PropTypes__default["default"].string.isRequired,
     vpc: PropTypes__default["default"].string,
     routes: PropTypes__default["default"].array.isRequired,
-    route_internet_ingress: PropTypes__default["default"].bool.isRequired,
-    route_transit_gateway_ingress: PropTypes__default["default"].bool.isRequired,
-    route_vpc_zone_ingress: PropTypes__default["default"].bool.isRequired,
-    route_direct_link_ingress: PropTypes__default["default"].bool.isRequired
+    internet_ingress: PropTypes__default["default"].bool.isRequired,
+    transit_gateway_ingress: PropTypes__default["default"].bool.isRequired,
+    vpc_zone_ingress: PropTypes__default["default"].bool.isRequired,
+    direct_link_ingress: PropTypes__default["default"].bool.isRequired
   }).isRequired,
   propsMatchState: PropTypes__default["default"].func.isRequired,
   invalidRouteCallback: PropTypes__default["default"].func.isRequired,
@@ -10767,7 +10767,7 @@ class VpnServerForm extends React.Component {
       onChange: this.handleInputChange,
       invalidCallback: () => this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props),
-      hideHelperText: true,
+      helperTextCallback: () => this.props.helperTextCallback(this.state, this.props),
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       formName: this.props.data.name + "-vpn-server-resource-group",
@@ -10869,7 +10869,7 @@ class VpnServerForm extends React.Component {
       hideSteppers: true,
       min: 1,
       max: 65535,
-      invalid: iamUtils_3(this.state.port, 1, 65535),
+      invalid: iamUtils_3(this.state.port, 1, 65535) || lazyZ.isNullOrEmptyString(this.state.port || ""),
       invalidText: "Must be a whole number between 1 and 65535.",
       className: "fieldWidthSmaller leftTextAlign"
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
@@ -11015,6 +11015,7 @@ VpnServerForm.propTypes = {
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
   invalidClientIpPoolCallback: PropTypes__default["default"].func.isRequired,
   invalidClientIpPoolTextCallback: PropTypes__default["default"].func.isRequired,
+  helperTextCallback: PropTypes__default["default"].func.isRequired,
   /* forms */
   vpnServerRouteProps: PropTypes__default["default"].shape({
     onSave: PropTypes__default["default"].func.isRequired,
@@ -11078,6 +11079,7 @@ const VpnServers = props => {
       invalidCrnText: function (stateData, componentProps, field) {
         return props.invalidCrnList([stateData[field]]) ? "Enter a valid resource CRN" : "";
       },
+      helperTextCallback: props.helperTextCallback,
       subnetList: props.subnetList,
       securityGroups: props.securityGroups,
       vpcList: props.vpcList,
@@ -11119,6 +11121,7 @@ VpnServers.propTypes = {
   resourceGroups: PropTypes__default["default"].array.isRequired,
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  helperTextCallback: PropTypes__default["default"].func.isRequired,
   craig: PropTypes__default["default"].shape({}),
   docs: PropTypes__default["default"].func.isRequired,
   invalidCidrBlock: PropTypes__default["default"].func.isRequired,

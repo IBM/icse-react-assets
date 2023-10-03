@@ -81,7 +81,7 @@ class RoutingTableForm extends Component {
             id={composedId + "-direct-link-toggle"}
             labelText="Direct Link Ingress"
             defaultToggled={this.state.route_direct_link_ingress}
-            name="route_direct_link_ingress"
+            name="direct_link_ingress"
             onToggle={this.handleToggle}
             tooltip={{
               content:
@@ -93,8 +93,8 @@ class RoutingTableForm extends Component {
           <IcseToggle
             id={composedId + "-route-internet-toggle"}
             labelText="Internet Ingress"
-            defaultToggled={this.state.route_internet_ingress}
-            name="route_internet_ingress"
+            defaultToggled={this.state.internet_ingress}
+            name="internet_ingress"
             onToggle={this.handleToggle}
             tooltip={{
               content:
@@ -108,8 +108,8 @@ class RoutingTableForm extends Component {
           <IcseToggle
             id={composedId + "-tgw-ingress"}
             labelText="Transit Gateway Ingress"
-            defaultToggled={this.state.route_transit_gateway_ingress}
-            name="route_transit_gateway_ingress"
+            defaultToggled={this.state.transit_gateway_ingress}
+            name="transit_gateway_ingress"
             onToggle={this.handleToggle}
             tooltip={{
               content:
@@ -122,7 +122,7 @@ class RoutingTableForm extends Component {
             id={composedId + "-zone-ingress"}
             labelText="VPC Zone Ingress"
             defaultToggled={this.state.route_vpc_zone_ingress}
-            name="route_vpc_zone_ingress"
+            name="vpc_zone_ingress"
             onToggle={this.handleToggle}
             tooltip={{
               content:
@@ -176,10 +176,10 @@ RoutingTableForm.defaultProps = {
     name: "",
     vpc: null,
     routes: [],
-    route_internet_ingress: false,
-    route_transit_gateway_ingress: false,
-    route_vpc_zone_ingress: false,
-    route_direct_link_ingress: false,
+    internet_ingress: false,
+    transit_gateway_ingress: false,
+    vpc_zone_ingress: false,
+    direct_link_ingress: false,
   },
 };
 
@@ -190,10 +190,10 @@ RoutingTableForm.propTypes = {
     name: PropTypes.string.isRequired,
     vpc: PropTypes.string,
     routes: PropTypes.array.isRequired,
-    route_internet_ingress: PropTypes.bool.isRequired,
-    route_transit_gateway_ingress: PropTypes.bool.isRequired,
-    route_vpc_zone_ingress: PropTypes.bool.isRequired,
-    route_direct_link_ingress: PropTypes.bool.isRequired,
+    internet_ingress: PropTypes.bool.isRequired,
+    transit_gateway_ingress: PropTypes.bool.isRequired,
+    vpc_zone_ingress: PropTypes.bool.isRequired,
+    direct_link_ingress: PropTypes.bool.isRequired,
   }).isRequired,
   propsMatchState: PropTypes.func.isRequired,
   invalidRouteCallback: PropTypes.func.isRequired,
