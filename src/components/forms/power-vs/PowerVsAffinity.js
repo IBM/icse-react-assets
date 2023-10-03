@@ -71,7 +71,7 @@ export const PowerVsAffinity = (props) => {
           value={
             isNullOrEmptyString(props.stateData.pi_storage_pool)
               ? ""
-              : props.stateData
+              : props.stateData.pi_storage_pool
           }
           handleInputChange={props.handleInputChange}
           invalidText="Select a Storage Pool."

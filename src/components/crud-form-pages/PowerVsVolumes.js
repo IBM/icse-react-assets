@@ -25,6 +25,7 @@ export const PowerVsVolume = (props) => {
         invalidTextCallback: props.invalidTextCallback,
         power_volumes: props.power_volumes,
         storage_pool_map: props.storage_pool_map,
+        affinityChangesDisabled: props.affinityChangesDisabled,
       }}
       toggleFormProps={{
         craig: props.craig,

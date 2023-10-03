@@ -125,6 +125,7 @@ class PowerVsVolumeForm extends React.Component {
   }
 
   render() {
+    console.log(JSON.stringify(this.state, null, 2));
     return (
       <>
         <IcseFormGroup>

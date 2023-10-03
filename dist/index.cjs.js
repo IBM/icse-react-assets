@@ -12034,7 +12034,7 @@ const PowerVsAffinity = props => {
     name: "pi_storage_pool",
     formName: props.data.name + "-power-instance-storpool",
     groups: props.storage_pool_map[props.stateData.zone],
-    value: lazyZ.isNullOrEmptyString(props.stateData.pi_storage_pool) ? "" : props.stateData,
+    value: lazyZ.isNullOrEmptyString(props.stateData.pi_storage_pool) ? "" : props.stateData.pi_storage_pool,
     handleInputChange: props.handleInputChange,
     invalidText: "Select a Storage Pool.",
     className: "fieldWidthSmaller",
@@ -12226,7 +12226,6 @@ class PowerVsInstanceForm extends React__default["default"].Component {
     if ((!volume.pi_affinity_policy || lazyZ.isNullOrEmptyString(volume.pi_affinity_policy)) && (!volume.pi_anti_affinity_policy || lazyZ.isNullOrEmptyString(volume.pi_anti_affinity_policy)) && volume.zone === this.state.zone && volume.workspace === this.state.workspace) return volume;
   }
   render() {
-    console.log(JSON.stringify(this.state, null, 2));
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       id: this.props.data.name + "-power-vs-name",
       componentName: this.props.data.name + "-power-vs-name",
@@ -12332,7 +12331,7 @@ class PowerVsInstanceForm extends React__default["default"].Component {
       tooltip: {
         align: "bottom-left",
         alignModal: "right",
-        content: "To attach data volumes from different storage pools, set to false. When this is set to false it cannot be set to true without recrea"
+        content: "To attach data volumes from different storage pools, set to false. When this is set to false it cannot be set to true without re-creation of instance."
       },
       id: this.props.data.name + "pi_storage_pool_affinity",
       labelText: "Enable Storage Pool Affinity",
@@ -12503,6 +12502,7 @@ class PowerVsVolumeForm extends React__default["default"].Component {
     if ((!volume.pi_affinity_policy || lazyZ.isNullOrEmptyString(volume.pi_affinity_policy)) && (!volume.pi_anti_affinity_policy || lazyZ.isNullOrEmptyString(volume.pi_anti_affinity_policy)) && volume.zone === this.state.zone && volume.workspace === this.state.workspace && volume.name !== this.props.data.name) return volume;
   }
   render() {
+    console.log(JSON.stringify(this.state, null, 2));
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       id: this.props.data.name + "-power-volume-name",
       componentName: this.props.data.name + "-power-volume-name",
@@ -12963,7 +12963,8 @@ const PowerVsVolume = props => {
       invalidCallback: props.invalidCallback,
       invalidTextCallback: props.invalidTextCallback,
       power_volumes: props.power_volumes,
-      storage_pool_map: props.storage_pool_map
+      storage_pool_map: props.storage_pool_map,
+      affinityChangesDisabled: props.affinityChangesDisabled
     },
     toggleFormProps: {
       craig: props.craig,

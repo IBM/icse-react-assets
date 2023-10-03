@@ -183,7 +183,6 @@ class PowerVsInstanceForm extends React.Component {
   }
 
   render() {
-    console.log(JSON.stringify(this.state, null, 2));
     return (
       <>
         <IcseFormGroup>
@@ -334,7 +333,7 @@ class PowerVsInstanceForm extends React.Component {
               align: "bottom-left",
               alignModal: "right",
               content:
-                "To attach data volumes from different storage pools, set to false. When this is set to false it cannot be set to true without recrea",
+                "To attach data volumes from different storage pools, set to false. When this is set to false it cannot be set to true without re-creation of instance.",
             }}
             id={this.props.data.name + "pi_storage_pool_affinity"}
             labelText="Enable Storage Pool Affinity"
