@@ -39,7 +39,7 @@ export const PowerVsAffinity = (props) => {
       {props.stateData.storage_option === "Storage Type" && (
         <IcseSelect
           labelText="Storage Type"
-          name="pi_storage_type"
+          name={volumeTypeFieldName}
           formName={props.data.name + "-power-instance-stortype"}
           groups={["Tier-1", "Tier-3"]}
           value={
@@ -65,7 +65,7 @@ export const PowerVsAffinity = (props) => {
         <IcseSelect
           key={props.stateData.zone}
           labelText="Storage Pool"
-          name="pi_storage_pool"
+          name={props.isVolume ? "pi_volume_pool" : "pi_storage_pool"}
           formName={props.data.name + "-power-instance-storpool"}
           groups={props.storage_pool_map[props.stateData.zone]}
           value={

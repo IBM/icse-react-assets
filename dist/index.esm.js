@@ -12008,7 +12008,7 @@ const PowerVsAffinity = props => {
     disabled: props.affinityChangesDisabled(props.stateData, props.componentProps)
   }), props.stateData.storage_option === "Storage Type" && /*#__PURE__*/React.createElement(IcseSelect, {
     labelText: "Storage Type",
-    name: "pi_storage_type",
+    name: volumeTypeFieldName,
     formName: props.data.name + "-power-instance-stortype",
     groups: ["Tier-1", "Tier-3"],
     value: isNullOrEmptyString$6(props.stateData[volumeTypeFieldName]) ? "" : capitalize$2(props.stateData[volumeTypeFieldName].split(/(?=\d)/).join("-")),
@@ -12020,7 +12020,7 @@ const PowerVsAffinity = props => {
   }), props.stateData.storage_option === "Storage Pool" && /*#__PURE__*/React.createElement(IcseSelect, {
     key: props.stateData.zone,
     labelText: "Storage Pool",
-    name: "pi_storage_pool",
+    name: props.isVolume ? "pi_volume_pool" : "pi_storage_pool",
     formName: props.data.name + "-power-instance-storpool",
     groups: props.storage_pool_map[props.stateData.zone],
     value: isNullOrEmptyString$6(props.stateData.pi_storage_pool) ? "" : props.stateData.pi_storage_pool,
@@ -12440,7 +12440,7 @@ class PowerVsVolumeForm extends React.Component {
         ...this.state
       };
       if (value !== "Storage Type") {
-        nextState.pi_storage_type = null;
+        nextState.pi_volume_type = null;
       }
       if (value !== "Storage Pool") {
         nextState.pi_storage_pool = null;

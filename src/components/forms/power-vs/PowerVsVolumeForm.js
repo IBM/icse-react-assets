@@ -9,7 +9,6 @@ import {
   contains,
   getObjectFromArray,
   isNullOrEmptyString,
-  capitalize,
   splat,
   isEmpty,
 } from "lazy-z";
@@ -56,7 +55,7 @@ class PowerVsVolumeForm extends React.Component {
     } else if (name === "storage_option") {
       let nextState = { ...this.state };
       if (value !== "Storage Type") {
-        nextState.pi_storage_type = null;
+        nextState.pi_volume_type = null;
       }
       if (value !== "Storage Pool") {
         nextState.pi_storage_pool = null;
@@ -125,7 +124,6 @@ class PowerVsVolumeForm extends React.Component {
   }
 
   render() {
-    console.log(JSON.stringify(this.state, null, 2));
     return (
       <>
         <IcseFormGroup>

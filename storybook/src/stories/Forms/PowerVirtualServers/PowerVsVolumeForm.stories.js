@@ -51,6 +51,17 @@ export default {
       type: { required: true },
       control: "none",
     },
+    power_volumes: {
+      description: "An array of available Power volumes",
+      type: { required: true },
+      control: "none",
+    },
+    storage_pool_map: {
+      description:
+        "A map of power storage pools where each key is a zone and the value is a list of storage pools allowed",
+      type: { required: true },
+      control: "none",
+    },
     invalidCallback: {
       description:
         "Function that determines the invalid state for the `name` field",
