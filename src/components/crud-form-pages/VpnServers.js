@@ -62,6 +62,7 @@ export const VpnServers = (props) => {
             ? "Enter a valid resource CRN"
             : "";
         },
+        helperTextCallback: props.helperTextCallback,
         subnetList: props.subnetList,
         securityGroups: props.securityGroups,
         vpcList: props.vpcList,
@@ -74,7 +75,7 @@ export const VpnServers = (props) => {
             return props.disableSave(
               "vpn_server_routes",
               stateData,
-              componentProps,
+              componentProps
             );
           },
           invalidCallback: props.invalidRouteCallback,
@@ -110,6 +111,7 @@ VpnServers.propTypes = {
   resourceGroups: PropTypes.array.isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
+  helperTextCallback: PropTypes.func.isRequired,
   craig: PropTypes.shape({}),
   docs: PropTypes.func.isRequired,
   invalidCidrBlock: PropTypes.func.isRequired,

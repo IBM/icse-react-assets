@@ -157,6 +157,11 @@ export default {
       type: { required: true },
       control: "none",
     },
+    helperTextCallback: {
+      description: "Function that determines invalid text for `name` field",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
   },
   parameters: {
     docs: {
@@ -203,6 +208,10 @@ const VpnServerFormStory = () => {
 
   function invalidCrnText(stateData, componentProps) {
     return `One or more CRNs is invalid.`;
+  }
+
+  function helperTextCallback(stateData, componentProps) {
+    return "<prefix>-" + stateData.name;
   }
 
   const formProps = {
@@ -292,6 +301,7 @@ const VpnServerFormStory = () => {
     invalidVpnServerRouteTextCallback: invalidTextCallback,
     invalidCrns: invalidCrns,
     invalidCrnText: invalidCrnText,
+    helperTextCallback: helperTextCallback,
     vpnServerRouteProps: {
       onSave: () => {},
       onDelete: () => {},
@@ -328,6 +338,10 @@ const VpnServerFormModalStory = () => {
 
   function invalidClientIpPoolTextCallback(stateData) {
     return `Invalid Client CIDR Pool.`;
+  }
+
+  function helperTextCallback(stateData, componentProps) {
+    return "<prefix>-" + stateData.name;
   }
 
   const formProps = {
@@ -414,6 +428,7 @@ const VpnServerFormModalStory = () => {
     propsMatchState: () => {},
     invalidVpnServerRouteCallback: invalidCallback,
     invalidVpnServerRouteTextCallback: invalidTextCallback,
+    helperTextCallback: helperTextCallback,
     vpnServerRouteProps: {
       onSave: () => {},
       onDelete: () => {},

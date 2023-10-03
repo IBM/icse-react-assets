@@ -111,7 +111,7 @@ class RoutingTableRouteForm extends Component {
 RoutingTableRouteForm.defaultProps = {
   data: {
     name: "",
-    zone: "",
+    zone: 1,
     destination: "",
     action: "",
     next_hop: "",
