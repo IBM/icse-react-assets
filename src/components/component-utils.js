@@ -43,7 +43,8 @@ function buildFormFunctions(component) {
         component.props.power_instances.filter((instance) => {
           if (
             instance.workspace === component.state.workspace &&
-            instance.pi_storage_type === component.state.pi_volume_type
+            (instance.pi_storage_type === component.state.pi_volume_type ||
+              !component.state.pi_volume_type)
           ) {
             return instance;
           }

@@ -4134,7 +4134,7 @@ function buildFormFunctions(component) {
   if (powerVolumes) {
     component.getPowerInstances = function () {
       return splat(component.props.power_instances.filter(instance => {
-        if (instance.workspace === component.state.workspace && instance.pi_storage_type === component.state.pi_volume_type) {
+        if (instance.workspace === component.state.workspace && (instance.pi_storage_type === component.state.pi_volume_type || !component.state.pi_volume_type)) {
           return instance;
         }
       }), "name");
@@ -12502,7 +12502,6 @@ class PowerVsVolumeForm extends React__default["default"].Component {
     if ((!volume.pi_affinity_policy || lazyZ.isNullOrEmptyString(volume.pi_affinity_policy)) && (!volume.pi_anti_affinity_policy || lazyZ.isNullOrEmptyString(volume.pi_anti_affinity_policy)) && volume.zone === this.state.zone && volume.workspace === this.state.workspace && volume.name !== this.props.data.name) return volume;
   }
   render() {
-    console.log(JSON.stringify(this.state, null, 2));
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
       id: this.props.data.name + "-power-volume-name",
       componentName: this.props.data.name + "-power-volume-name",

@@ -158,12 +158,12 @@ class VpnServerForm extends Component {
             invalid={this.props.invalidCrns(
               this.state,
               this.props,
-              "certificate_crn"
+              "certificate_crn",
             )}
             invalidText={this.props.invalidCrnText(
               this.state,
               this.props,
-              "certificate_crn"
+              "certificate_crn",
             )}
             className="fieldWidthSmaller"
           />
@@ -195,13 +195,13 @@ class VpnServerForm extends Component {
               invalid={this.props.invalidCrns(
                 this.state,
                 this.props,
-                "client_ca_crn"
+                "client_ca_crn",
               )}
               invalidText={() =>
                 this.props.invalidCrnText(
                   this.state,
                   this.props,
-                  "client_ca_crn"
+                  "client_ca_crn",
                 )
               }
               className="fieldWidthSmaller"
@@ -227,7 +227,7 @@ class VpnServerForm extends Component {
             }
             invalidText={this.props.invalidClientIpPoolTextCallback(
               this.state,
-              this.props
+              this.props,
             )}
             onChange={this.handleInputChange}
             className="fieldWidthSmaller"
@@ -331,7 +331,7 @@ class VpnServerForm extends Component {
               this.handleInputChange(event);
             }}
             invalid={isCidrStringInvalid(
-              this.state.additional_prefixes.join(",")
+              this.state.additional_prefixes.join(","),
             )}
             invalidText="Please enter a comma separated list of IPV4 CIDR blocks."
             helperText="Enter a comma separated list of IPV4 CIDR blocks."
