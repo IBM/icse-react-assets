@@ -6222,7 +6222,7 @@ class ObjectStorageKeyForm extends Component {
       },
       id: composedId + "cos-instance-key-hmac",
       labelText: "Enable HMAC",
-      defaultToggled: this.props.forceEnableHmac,
+      defaultToggled: this.state.enable_hmac,
       onToggle: this.handleToggle,
       disabled: this.props.forceEnableHmac,
       isModal: this.props.isModal
