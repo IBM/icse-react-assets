@@ -26,6 +26,10 @@ export const PowerVsInstances = (props) => {
         invalidPiProcessorsTextCallback: props.invalidPiProcessorsTextCallback,
         invalidPiMemoryCallback: props.invalidPiMemoryCallback,
         invalidPiMemoryTextCallback: props.invalidPiMemoryTextCallback,
+        storage_pool_map: props.storage_pool_map,
+        power_instances: props.power_instances,
+        power_volumes: props.power_volumes,
+        storageChangesDisabledCallback: props.storageChangesDisabledCallback,
       }}
       toggleFormProps={{
         hideName: true,
@@ -53,4 +57,8 @@ PowerVsInstances.propTypes = {
   invalidPiMemoryCallback: PropTypes.func.isRequired,
   invalidPiMemoryTextCallback: PropTypes.func.isRequired,
   docs: PropTypes.func.isRequired,
+  storage_pool_map: PropTypes.shape({}).isRequired,
+  power_instances: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  power_volumes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  storageChangesDisabledCallback: PropTypes.func.isRequired,
 };
