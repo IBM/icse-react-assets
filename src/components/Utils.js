@@ -88,6 +88,7 @@ IcseSubForm.propTypes = {
 
 export const IcseHeading = (props) => {
   let className = icseHeadingParams(props);
+  className = className.replace("marginBottomSmall", "");
   return (
     <div className={className}>
       <DynamicToolTipWrapper
