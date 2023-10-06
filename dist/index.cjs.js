@@ -468,7 +468,7 @@ var utils_6 = utils.statelessToggleFormParams;
  */
 function emptyResourceTileParams$1(props) {
   let show = !props.showIfEmpty || props.showIfEmpty.length === 0;
-  let className = "tileBackground displayFlex alignItemsCenter wrap";
+  let className = "tileBackground displayFlex alignItemsCenter wrap" + (props.noMarginTop ? "" : " marginTop");
   return {
     show,
     className
