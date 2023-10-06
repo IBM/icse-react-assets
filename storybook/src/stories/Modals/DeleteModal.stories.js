@@ -7,6 +7,7 @@ export default {
     // add props in args to make them editable, or add controls in argTypes. These can supply example defaults
     name: "Example Name",
     modalOpen: true,
+    additionalText: "example additional text",
     onRequestSubmit: () => {}, // place empty functions so these show up as props
     onRequestClose: () => {}, // place empty functions so these show up as props,
   },
@@ -26,6 +27,12 @@ export default {
     name: {
       description: "A string value for the name of the resource/form",
       type: { required: true },
+      control: "text",
+    },
+    additionalText: {
+      description:
+        "A string value for any additional text to display on the modal",
+      type: { required: false },
       control: "text",
     },
     modalOpen: {

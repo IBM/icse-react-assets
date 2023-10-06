@@ -277,6 +277,7 @@ class ToggleForm extends React.Component {
                   {/* delete resource */}
                   <DeleteModal
                     name={this.props.name}
+                    additionalText={this.props.additionalText}
                     modalOpen={this.state.showDeleteModal}
                     onModalClose={this.toggleDeleteModal}
                     onModalSubmit={this.onDelete}
