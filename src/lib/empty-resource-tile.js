@@ -6,7 +6,9 @@
  */
 function emptyResourceTileParams(props) {
   let show = !props.showIfEmpty || props.showIfEmpty.length === 0;
-  let className = "tileBackground displayFlex alignItemsCenter wrap";
+  let className =
+    "tileBackground displayFlex alignItemsCenter wrap" +
+    (props.noMarginTop ? "" : " marginTop");
 
   return { show, className };
 }
