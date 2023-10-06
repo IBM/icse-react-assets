@@ -83,7 +83,7 @@ class IcseFormTemplate extends React.Component {
     return this.props.parentToggle
       ? contains(
           this.props.parentToggle.shownChildren[this.props.parentToggle.index],
-          index,
+          index
         ) // show children
       : contains(this.state.shownArrayForms, index);
   }
@@ -112,7 +112,7 @@ class IcseFormTemplate extends React.Component {
           this.props.disableSave(
             this.props.submissionFieldName,
             this.state,
-            this.props,
+            this.props
           ) === false
         ) {
           this.props.enableModal();
@@ -125,7 +125,7 @@ class IcseFormTemplate extends React.Component {
       formModalProps.data = { ...this.props.defaultModalValues };
     }
     let { arrayIsEmpty, tabPanelClassName } = icseFormTemplateParams(
-      this.props,
+      this.props
     );
     return (
       <div id={formattedName}>
@@ -147,6 +147,7 @@ class IcseFormTemplate extends React.Component {
                 <EmptyResourceTile
                   name={this.props.name}
                   showIfEmpty={this.props.arrayData}
+                  noMarginTop
                 />
               )}
 

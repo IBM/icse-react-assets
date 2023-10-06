@@ -49,7 +49,7 @@ class SubnetsPage extends React.Component {
               return this.props.disableSave(
                 "subnetTier",
                 stateData,
-                componentProps,
+                componentProps
               );
             }}
             invalidTextCallback={this.props.invalidSubnetTierText}
@@ -58,17 +58,17 @@ class SubnetsPage extends React.Component {
             invalidCidrText={this.props.invalidCidrText(this.props.craig)}
             invalidSubnetCallback={this.props.invalidName(
               "subnet",
-              this.props.craig,
+              this.props.craig
             )}
             invalidSubnetTextCallback={this.props.invalidNameText(
               "subnet",
-              this.props.craig,
+              this.props.craig
             )}
           />
         </FormModal>
         <IcseHeading
           name="Subnet Tiers"
-          className="marginBottomSmall"
+          className={tiers.length === 0 ? "" : "marginBottomSmall"}
           type="subHeading"
           buttons={
             <SaveAddButton
@@ -83,6 +83,7 @@ class SubnetsPage extends React.Component {
             name={
               "Subnet Tiers for " + titleCase(this.props.data.name) + " VPC"
             }
+            noMarginTop
           />
         )}
         {this.props.subnetTiers[this.props.data.name].map((tier, index) => (
@@ -105,13 +106,13 @@ class SubnetsPage extends React.Component {
                 this.props.propsMatchState(
                   "subnet",
                   stateData,
-                  componentProps,
+                  componentProps
                 ) ||
                 this.props.disableSave(
                   "subnet",
                   stateData,
                   componentProps,
-                  this.props.craig,
+                  this.props.craig
                 )
               );
             }}
@@ -120,7 +121,7 @@ class SubnetsPage extends React.Component {
                 this.props.propsMatchState(
                   "subnetTier",
                   stateData,
-                  componentProps,
+                  componentProps
                 ) ||
                 this.props.disableSave("subnetTier", stateData, componentProps)
               );
@@ -129,7 +130,7 @@ class SubnetsPage extends React.Component {
               return this.props.propsMatchState(
                 "subnetTier",
                 stateData,
-                componentProps,
+                componentProps
               );
             }}
             shouldDisableSubmit={none}
@@ -139,11 +140,11 @@ class SubnetsPage extends React.Component {
             invalidCidrText={this.props.invalidCidrText(this.props.craig)}
             invalidSubnetCallback={this.props.invalidName(
               "subnet",
-              this.props.craig,
+              this.props.craig
             )}
             invalidSubnetTextCallback={this.props.invalidNameText(
               "subnet",
-              this.props.craig,
+              this.props.craig
             )}
             onSubnetSave={this.props.onSubnetSave}
           />
