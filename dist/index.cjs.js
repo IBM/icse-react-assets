@@ -3610,7 +3610,7 @@ class IcseFormTemplate extends React__default["default"].Component {
       addText: this.props.addText,
       hideButton: this.props.hideFormTitleButton,
       subHeading: this.props.subHeading,
-      className: tabPanelClassName,
+      className: this.props.arrayData.length === 0 ? "subHeading" : tabPanelClassName,
       tooltip: this.props.tooltip,
       about: this.props.docs ? this.props.docs() : false,
       hideAbout: this.props.hideAbout,
