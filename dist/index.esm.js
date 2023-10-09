@@ -457,7 +457,7 @@ var utils_6 = utils.statelessToggleFormParams;
  */
 function emptyResourceTileParams$1(props) {
   let show = !props.showIfEmpty || props.showIfEmpty.length === 0;
-  let className = "tileBackground displayFlex alignItemsCenter wrap" + (props.noMarginTop ? "" : " marginTop");
+  let className = "tileBackground displayFlex alignItemsCenter wrap";
   return {
     show,
     className
@@ -2214,6 +2214,7 @@ IcseSubForm.propTypes = {
 };
 const IcseHeading = props => {
   let className = utils_5(props);
+  className = className.replace("marginBottomSmall", "");
   return /*#__PURE__*/React.createElement("div", {
     className: className
   }, /*#__PURE__*/React.createElement(DynamicToolTipWrapper, {
