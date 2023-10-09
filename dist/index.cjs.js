@@ -3064,8 +3064,6 @@ StatefulTabPanel.propTypes = {
   hasBuiltInHeading: PropTypes__default["default"].bool.isRequired
 };
 
-require("lazy-z");
-
 /**
  * Icse Modal Wrapper
  * @param {*} props
