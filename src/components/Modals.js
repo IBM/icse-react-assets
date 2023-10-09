@@ -1,4 +1,5 @@
 import { Modal } from "@carbon/react";
+const { isNullOrEmptyString } = require("lazy-z");
 import PropTypes from "prop-types";
 import React from "react";
 
@@ -77,6 +78,7 @@ IcseModal.propTypes = {
  */
 export const DeleteModal = (props) => {
   let name = <strong>{props.name}</strong>;
+  const hasAdditionalText = !isNullOrEmptyString(props.additionalText);
   return (
     <IcseModal
       id={props.name + "-delete"}
@@ -89,8 +91,10 @@ export const DeleteModal = (props) => {
       primaryButtonText="Delete Resource"
       danger
     >
-      <span>You are about to delete {name}. This cannot be undone.</span>
-      <p>{props.additionalText}</p>
+      <span>
+        You are about to delete {name}. This cannot be undone.
+        <div>{hasAdditionalText && props.additionalText}</div>
+      </span>
     </IcseModal>
   );
 };
