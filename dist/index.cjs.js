@@ -310,7 +310,7 @@ var docUtils = {
 };
 
 const {
-  isNullOrEmptyString: isNullOrEmptyString$6,
+  isNullOrEmptyString: isNullOrEmptyString$5,
   kebabCase: kebabCase$4
 } = lazyZ__default["default"];
 const {
@@ -326,7 +326,7 @@ const {
 function icseSelectParams$1(props) {
   let invalid =
   // automatically set to invalid if value is null or empty string and invalid not disabled
-  props.disableInvalid !== true && isNullOrEmptyString$6(props.value) ? true : props.invalid;
+  props.disableInvalid !== true && isNullOrEmptyString$5(props.value) ? true : props.invalid;
   let groups = props.groups.length === 0 ? [] // if no groups, empty array
   : prependEmptyStringWhenNull$1(
   // otherwise try and prepend empty string if null or empty string is allowed
@@ -815,7 +815,7 @@ var vpnServer = {
 };
 
 const {
-  isNullOrEmptyString: isNullOrEmptyString$5,
+  isNullOrEmptyString: isNullOrEmptyString$4,
   isIpv4CidrOrAddress: isIpv4CidrOrAddress$1
 } = lazyZ__default["default"];
 const {
@@ -870,7 +870,7 @@ function cbrInvalid$1(field, value) {
     invalid: false,
     invalidText: ""
   };
-  if (!isNullOrEmptyString$5(value) && (value.match(/^[0-9a-z-]+$/) === null || value.length >= 128)) {
+  if (!isNullOrEmptyString$4(value) && (value.match(/^[0-9a-z-]+$/) === null || value.length >= 128)) {
     invalid.invalid = true;
     invalid.invalidText = `Invalid ${field}. Value must match regex expression /^[0-9a-z-]+$/.`;
   }
@@ -888,7 +888,7 @@ function cbrValueInvalid$1(type, value) {
     invalid: false,
     invalidText: ""
   };
-  if (isNullOrEmptyString$5(value)) {
+  if (isNullOrEmptyString$4(value)) {
     invalid.invalid = true;
     invalid.invalidText = `Invalid value for type ${type}. Cannot be empty string.`;
   } else if (type === "ipAddress") {
@@ -1054,7 +1054,7 @@ const {
   RegexButWithWords: RegexButWithWords$1
 } = regexButWithWords__default["default"];
 const {
-  isNullOrEmptyString: isNullOrEmptyString$4
+  isNullOrEmptyString: isNullOrEmptyString$3
 } = lazyZ__default["default"];
 const urlValidationExp = new RegexButWithWords$1().group(exp => {
   exp.literal("ftp").or().literal("http").literal("s").lazy();
@@ -1077,7 +1077,7 @@ const tmosAdminPasswordValidationExp = new RegexButWithWords$1().stringBegin().l
  * @returns {boolean} true when url is valid and not empty, false when invalid
  */
 function isValidUrl$1(url) {
-  if (isNullOrEmptyString$4(url) || url === "null") return true;
+  if (isNullOrEmptyString$3(url) || url === "null") return true;
   return url.match(urlValidationExp) !== null;
 }
 
@@ -1087,7 +1087,7 @@ function isValidUrl$1(url) {
  * @returns {boolean} true when password is valid
  */
 function isValidTmosAdminPassword$1(password) {
-  if (isNullOrEmptyString$4(password)) return true;else return password.match(tmosAdminPasswordValidationExp) !== null;
+  if (isNullOrEmptyString$3(password)) return true;else return password.match(tmosAdminPasswordValidationExp) !== null;
 }
 
 /**
@@ -1146,7 +1146,7 @@ function getValidAdminPassword$1(length) {
 }
 var f5 = {
   getValidAdminPassword: getValidAdminPassword$1,
-  isNullOrEmptyString: isNullOrEmptyString$4,
+  isNullOrEmptyString: isNullOrEmptyString$3,
   isValidTmosAdminPassword: isValidTmosAdminPassword$1,
   isValidUrl: isValidUrl$1
 };
@@ -1734,7 +1734,7 @@ const {
 } = dns;
 const {
   getValidAdminPassword,
-  isNullOrEmptyString: isNullOrEmptyString$3,
+  isNullOrEmptyString: isNullOrEmptyString$2,
   isValidTmosAdminPassword,
   isValidUrl
 } = f5;
@@ -1807,7 +1807,7 @@ var forms = {
   cbrTypeNameMap,
   handleExclusionAddressInputChange,
   getValidAdminPassword,
-  isNullOrEmptyString: isNullOrEmptyString$3,
+  isNullOrEmptyString: isNullOrEmptyString$2,
   isValidTmosAdminPassword,
   isValidUrl,
   handleDnsResolverInputChange,
@@ -3064,9 +3064,7 @@ StatefulTabPanel.propTypes = {
   hasBuiltInHeading: PropTypes__default["default"].bool.isRequired
 };
 
-const {
-  isNullOrEmptyString: isNullOrEmptyString$2
-} = require("lazy-z");
+require("lazy-z");
 
 /**
  * Icse Modal Wrapper
@@ -3137,7 +3135,6 @@ IcseModal.propTypes = {
  */
 const DeleteModal = props => {
   let name = /*#__PURE__*/React__default["default"].createElement("strong", null, props.name);
-  const hasAdditionalText = !isNullOrEmptyString$2(props.additionalText);
   return /*#__PURE__*/React__default["default"].createElement(IcseModal, {
     id: props.name + "-delete",
     name: props.name,
@@ -3148,7 +3145,7 @@ const DeleteModal = props => {
     additionalText: props.additionalText,
     primaryButtonText: "Delete Resource",
     danger: true
-  }, /*#__PURE__*/React__default["default"].createElement("span", null, "You are about to delete ", name, ". This cannot be undone.", /*#__PURE__*/React__default["default"].createElement("div", null, hasAdditionalText && props.additionalText)));
+  }, /*#__PURE__*/React__default["default"].createElement("span", null, "You are about to delete ", name, ". This cannot be undone.", props.additionalText && /*#__PURE__*/React__default["default"].createElement("div", null, props.additionalText)));
 };
 DeleteModal.defaultProps = {
   modalOpen: false

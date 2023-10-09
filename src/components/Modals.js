@@ -78,7 +78,6 @@ IcseModal.propTypes = {
  */
 export const DeleteModal = (props) => {
   let name = <strong>{props.name}</strong>;
-  const hasAdditionalText = !isNullOrEmptyString(props.additionalText);
   return (
     <IcseModal
       id={props.name + "-delete"}
@@ -93,7 +92,7 @@ export const DeleteModal = (props) => {
     >
       <span>
         You are about to delete {name}. This cannot be undone.
-        <div>{hasAdditionalText && props.additionalText}</div>
+        {props.additionalText && <div>{props.additionalText}</div>}
       </span>
     </IcseModal>
   );
