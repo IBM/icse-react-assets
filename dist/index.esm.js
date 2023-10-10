@@ -3600,13 +3600,14 @@ class IcseFormTemplate extends React.Component {
       addText: this.props.addText,
       hideButton: this.props.hideFormTitleButton,
       subHeading: this.props.subHeading,
-      className: tabPanelClassName,
+      className: this.props.arrayData.length === 0 ? "subHeading" : tabPanelClassName,
       tooltip: this.props.tooltip,
       about: this.props.docs ? this.props.docs() : false,
       hideAbout: this.props.hideAbout,
       form: /*#__PURE__*/React.createElement(React.Fragment, null, arrayIsEmpty ? this.props.overrideTile : /*#__PURE__*/React.createElement(EmptyResourceTile, {
         name: this.props.name,
-        showIfEmpty: this.props.arrayData
+        showIfEmpty: this.props.arrayData,
+        noMarginTop: true
       }), this.props.arrayData.map((data, index) => {
         // return a form with the index and props
         return /*#__PURE__*/React.createElement(ToggleForm, _extends({}, this.props.toggleFormProps, {
@@ -11424,7 +11425,7 @@ class SubnetsPage extends React.Component {
       invalidSubnetTextCallback: this.props.invalidNameText("subnet", this.props.craig)
     })), /*#__PURE__*/React.createElement(IcseHeading, {
       name: "Subnet Tiers",
-      className: "marginBottomSmall",
+      className: tiers.length === 0 ? "" : "marginBottomSmall",
       type: "subHeading",
       buttons: /*#__PURE__*/React.createElement(SaveAddButton, {
         onClick: () => this.props.handleModalToggle(),
@@ -11432,7 +11433,8 @@ class SubnetsPage extends React.Component {
         noDeleteButton: true
       })
     }), tiers.length === 0 && /*#__PURE__*/React.createElement(EmptyResourceTile, {
-      name: "Subnet Tiers for " + titleCase$2(this.props.data.name) + " VPC"
+      name: "Subnet Tiers for " + titleCase$2(this.props.data.name) + " VPC",
+      noMarginTop: true
     }), this.props.subnetTiers[this.props.data.name].map((tier, index) => /*#__PURE__*/React.createElement(SubnetTierForm$1, {
       key: JSON.stringify(tier),
       data: this.props.getSubnetTierStateData(tier, this.props.data),
