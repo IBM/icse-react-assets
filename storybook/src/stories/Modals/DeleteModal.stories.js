@@ -7,7 +7,6 @@ export default {
     // add props in args to make them editable, or add controls in argTypes. These can supply example defaults
     name: "Example Name",
     modalOpen: true,
-    additionalText: "example additional text",
     onRequestSubmit: () => {}, // place empty functions so these show up as props
     onRequestClose: () => {}, // place empty functions so these show up as props,
   },
@@ -58,4 +57,17 @@ const DeleteModalStory = ({ ...args }) => {
   return <DeleteModal {...args} />;
 };
 
+const DeleteModalAdditionalTextStory = () => {
+  return (
+    <DeleteModal
+      name={"Example Name"}
+      modalOpen={true}
+      additionalText={"example additional text"}
+      onRequestSubmit={() => {}} // place empty functions so these show up as props
+      onRequestClose={() => {}} // place empty functions so these show up as props,
+    />
+  );
+};
+
 export const Default = DeleteModalStory.bind({});
+export const AdditionalText = DeleteModalAdditionalTextStory.bind({});
