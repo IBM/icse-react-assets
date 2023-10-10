@@ -3115,6 +3115,7 @@ IcseModal.propTypes = {
  * Delete modal
  * @param {*} props
  * @param {string} props.name name of modal
+ * @param {string} props.additionalText optional extra text to display
  * @param {boolean} props.modalOpen true if open
  * @param {Function} props.onModalClose function for on close
  * @param {Function} props.onModalSubmit function for on submit
@@ -3128,9 +3129,10 @@ const DeleteModal = props => {
     open: props.modalOpen,
     onRequestClose: props.onModalClose,
     onRequestSubmit: props.onModalSubmit,
+    additionalText: props.additionalText,
     primaryButtonText: "Delete Resource",
     danger: true
-  }, /*#__PURE__*/React.createElement("span", null, "You are about to delete ", name, ". This cannot be undone."));
+  }, /*#__PURE__*/React.createElement("span", null, "You are about to delete ", name, ". This cannot be undone.", props.additionalText && /*#__PURE__*/React.createElement("div", null, props.additionalText)));
 };
 DeleteModal.defaultProps = {
   modalOpen: false
@@ -3139,7 +3141,8 @@ DeleteModal.propTypes = {
   name: PropTypes.string.isRequired,
   modalOpen: PropTypes.bool.isRequired,
   onModalClose: PropTypes.func.isRequired,
-  onModalSubmit: PropTypes.func.isRequired
+  onModalSubmit: PropTypes.func.isRequired,
+  additionalText: PropTypes.string
 };
 
 /**
@@ -3401,6 +3404,7 @@ class ToggleForm extends React.Component {
         useDefaultUnsavedMessage: this.state.useDefaultUnsavedMessage
       }), /*#__PURE__*/React.createElement(DeleteModal, {
         name: this.props.name,
+        additionalText: this.props.additionalText,
         modalOpen: this.state.showDeleteModal,
         onModalClose: this.toggleDeleteModal,
         onModalSubmit: this.onDelete
