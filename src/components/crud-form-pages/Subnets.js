@@ -68,7 +68,7 @@ class SubnetsPage extends React.Component {
         </FormModal>
         <IcseHeading
           name="Subnet Tiers"
-          className="marginBottomSmall"
+          className={tiers.length === 0 ? "" : "marginBottomSmall"}
           type="subHeading"
           buttons={
             <SaveAddButton
@@ -83,6 +83,7 @@ class SubnetsPage extends React.Component {
             name={
               "Subnet Tiers for " + titleCase(this.props.data.name) + " VPC"
             }
+            noMarginTop
           />
         )}
         {this.props.subnetTiers[this.props.data.name].map((tier, index) => (

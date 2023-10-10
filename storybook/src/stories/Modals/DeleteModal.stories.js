@@ -28,6 +28,12 @@ export default {
       type: { required: true },
       control: "text",
     },
+    additionalText: {
+      description:
+        "A string value for any additional text to display on the modal",
+      type: { required: false },
+      control: "text",
+    },
     modalOpen: {
       description: "A boolean value of whether or not the modal is open",
       table: { defaultValue: { summary: "false" } },
@@ -51,4 +57,17 @@ const DeleteModalStory = ({ ...args }) => {
   return <DeleteModal {...args} />;
 };
 
+const DeleteModalAdditionalTextStory = () => {
+  return (
+    <DeleteModal
+      name={"Example Name"}
+      modalOpen={true}
+      additionalText={"example additional text"}
+      onRequestSubmit={() => {}} // place empty functions so these show up as props
+      onRequestClose={() => {}} // place empty functions so these show up as props,
+    />
+  );
+};
+
 export const Default = DeleteModalStory.bind({});
+export const AdditionalText = DeleteModalAdditionalTextStory.bind({});

@@ -3126,6 +3126,7 @@ IcseModal.propTypes = {
  * Delete modal
  * @param {*} props
  * @param {string} props.name name of modal
+ * @param {string} props.additionalText optional extra text to display
  * @param {boolean} props.modalOpen true if open
  * @param {Function} props.onModalClose function for on close
  * @param {Function} props.onModalSubmit function for on submit
@@ -3139,9 +3140,10 @@ const DeleteModal = props => {
     open: props.modalOpen,
     onRequestClose: props.onModalClose,
     onRequestSubmit: props.onModalSubmit,
+    additionalText: props.additionalText,
     primaryButtonText: "Delete Resource",
     danger: true
-  }, /*#__PURE__*/React__default["default"].createElement("span", null, "You are about to delete ", name, ". This cannot be undone."));
+  }, /*#__PURE__*/React__default["default"].createElement("span", null, "You are about to delete ", name, ". This cannot be undone.", props.additionalText && /*#__PURE__*/React__default["default"].createElement("div", null, props.additionalText)));
 };
 DeleteModal.defaultProps = {
   modalOpen: false
@@ -3150,7 +3152,8 @@ DeleteModal.propTypes = {
   name: PropTypes__default["default"].string.isRequired,
   modalOpen: PropTypes__default["default"].bool.isRequired,
   onModalClose: PropTypes__default["default"].func.isRequired,
-  onModalSubmit: PropTypes__default["default"].func.isRequired
+  onModalSubmit: PropTypes__default["default"].func.isRequired,
+  additionalText: PropTypes__default["default"].string
 };
 
 /**
@@ -3412,6 +3415,7 @@ class ToggleForm extends React__default["default"].Component {
         useDefaultUnsavedMessage: this.state.useDefaultUnsavedMessage
       }), /*#__PURE__*/React__default["default"].createElement(DeleteModal, {
         name: this.props.name,
+        additionalText: this.props.additionalText,
         modalOpen: this.state.showDeleteModal,
         onModalClose: this.toggleDeleteModal,
         onModalSubmit: this.onDelete
@@ -3611,13 +3615,14 @@ class IcseFormTemplate extends React__default["default"].Component {
       addText: this.props.addText,
       hideButton: this.props.hideFormTitleButton,
       subHeading: this.props.subHeading,
-      className: tabPanelClassName,
+      className: this.props.arrayData.length === 0 ? "subHeading" : tabPanelClassName,
       tooltip: this.props.tooltip,
       about: this.props.docs ? this.props.docs() : false,
       hideAbout: this.props.hideAbout,
       form: /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, arrayIsEmpty ? this.props.overrideTile : /*#__PURE__*/React__default["default"].createElement(EmptyResourceTile, {
         name: this.props.name,
-        showIfEmpty: this.props.arrayData
+        showIfEmpty: this.props.arrayData,
+        noMarginTop: true
       }), this.props.arrayData.map((data, index) => {
         // return a form with the index and props
         return /*#__PURE__*/React__default["default"].createElement(ToggleForm, _extends({}, this.props.toggleFormProps, {
@@ -11435,7 +11440,7 @@ class SubnetsPage extends React__default["default"].Component {
       invalidSubnetTextCallback: this.props.invalidNameText("subnet", this.props.craig)
     })), /*#__PURE__*/React__default["default"].createElement(IcseHeading, {
       name: "Subnet Tiers",
-      className: "marginBottomSmall",
+      className: tiers.length === 0 ? "" : "marginBottomSmall",
       type: "subHeading",
       buttons: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
         onClick: () => this.props.handleModalToggle(),
@@ -11443,7 +11448,8 @@ class SubnetsPage extends React__default["default"].Component {
         noDeleteButton: true
       })
     }), tiers.length === 0 && /*#__PURE__*/React__default["default"].createElement(EmptyResourceTile, {
-      name: "Subnet Tiers for " + lazyZ.titleCase(this.props.data.name) + " VPC"
+      name: "Subnet Tiers for " + lazyZ.titleCase(this.props.data.name) + " VPC",
+      noMarginTop: true
     }), this.props.subnetTiers[this.props.data.name].map((tier, index) => /*#__PURE__*/React__default["default"].createElement(SubnetTierForm$1, {
       key: JSON.stringify(tier),
       data: this.props.getSubnetTierStateData(tier, this.props.data),
