@@ -167,7 +167,7 @@ const {
  * @returns {string} placeholder name
  */
 function formatInputPlaceholder$2(componentName, fieldName) {
-  return `my-${kebabCase$5(componentName)}-${kebabCase$5(fieldName)}`;
+  return `my-${kebabCase$5(componentName)}-${kebabCase$5(fieldName)}`.replace(/-+/g, "-");
 }
 var textUtils = {
   formatInputPlaceholder: formatInputPlaceholder$2
