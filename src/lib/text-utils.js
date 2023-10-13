@@ -7,7 +7,10 @@ const { kebabCase } = require("lazy-z");
  * @returns {string} placeholder name
  */
 function formatInputPlaceholder(componentName, fieldName) {
-  return `my-${kebabCase(componentName)}-${kebabCase(fieldName)}`.replace(/-+/g, "-");
+  return `my-${kebabCase(componentName)}-${kebabCase(fieldName)}`.replace(
+    /-+/g,
+    "-",
+  );
 }
 
 module.exports = {

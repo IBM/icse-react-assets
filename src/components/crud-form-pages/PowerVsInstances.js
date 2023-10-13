@@ -16,6 +16,7 @@ export const PowerVsInstances = (props) => {
       onSave={props.onSave}
       onSubmit={props.onSubmit}
       onDelete={props.onDelete}
+      forceOpen={props.forceOpen}
       innerFormProps={{
         craig: props.craig,
         invalidCallback: props.invalidCallback,
@@ -60,5 +61,6 @@ PowerVsInstances.propTypes = {
   storage_pool_map: PropTypes.shape({}).isRequired,
   power_instances: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   power_volumes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  forceOpen: PropTypes.func.isRequired,
   storageChangesDisabledCallback: PropTypes.func.isRequired,
 };
