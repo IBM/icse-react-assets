@@ -2,6 +2,7 @@ import React from "react";
 import IcseFormTemplate from "../IcseFormTemplate";
 import PropTypes from "prop-types";
 import VsiForm from "../forms/VsiForm";
+import { NoVpcTile } from "./Vpc";
 
 export const Vsi = (props) => {
   return (
@@ -50,6 +51,11 @@ export const Vsi = (props) => {
         hide: true,
         hideName: true,
       }}
+      overrideTile={
+        props.craig.store.json.vpcs.length === 0
+          ? NoVpcTile("Virtual Server Instances")
+          : null
+      }
     />
   );
 };
@@ -79,4 +85,5 @@ Vsi.propTypes = {
   onVolumeSave: PropTypes.func.isRequired,
   onVolumeDelete: PropTypes.func.isRequired,
   onVolumeCreate: PropTypes.func.isRequired,
+  overrideTile: PropTypes.node,
 };

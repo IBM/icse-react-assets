@@ -8,6 +8,7 @@ import {
   RenderForm,
 } from "../../components";
 import PropTypes from "prop-types";
+import { NoVpcTile } from "./Vpc";
 
 function none() {}
 
@@ -198,6 +199,11 @@ export const NetworkAcls = (props) => {
         propsMatchState: none,
         nullRef: true,
       }}
+      overrideTile={
+        props.craig.store.json.vpcs.length === 0
+          ? NoVpcTile("VPC Access Control")
+          : null
+      }
     />
   );
 };
@@ -221,4 +227,5 @@ NetworkAcls.propTypes = {
   onSubmitCallback: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
+  overrideTile: PropTypes.node,
 };

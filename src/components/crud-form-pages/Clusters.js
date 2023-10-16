@@ -2,6 +2,7 @@ import React from "react";
 import ClusterForm from "../forms/ClusterForm";
 import IcseFormTemplate from "../IcseFormTemplate";
 import PropTypes from "prop-types";
+import { NoVpcTile } from "./Vpc";
 
 export const Clusters = (props) => {
   return (
@@ -61,6 +62,9 @@ export const Clusters = (props) => {
         submissionFieldName: "clusters",
         hideName: true,
       }}
+      overrideTile={
+        props.craig.store.json.vpcs.length === 0 ? NoVpcTile("Clusters") : null
+      }
     />
   );
 };
@@ -105,4 +109,5 @@ Clusters.propTypes = {
   secretsManagerList: PropTypes.arrayOf(PropTypes.string).isRequired,
   cosNames: PropTypes.arrayOf(PropTypes.string).isRequired,
   docs: PropTypes.func,
+  overrideTile: PropTypes.node,
 };

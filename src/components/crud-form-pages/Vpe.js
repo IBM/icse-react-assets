@@ -2,6 +2,7 @@ import React from "react";
 import IcseFormTemplate from "../IcseFormTemplate";
 import PropTypes from "prop-types";
 import VpeForm from "../forms/VpeForm";
+import { NoVpcTile } from "./Vpc";
 
 export const Vpe = (props) => {
   return (
@@ -36,6 +37,11 @@ export const Vpe = (props) => {
         hide: true,
         hideName: true,
       }}
+      overrideTile={
+        props.craig.store.json.vpcs.length === 0
+          ? NoVpcTile("Virtual Private Endpoints")
+          : null
+      }
     />
   );
 };
@@ -57,4 +63,5 @@ Vpe.propTypes = {
   secretsManagerInstances: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
+  overrideTile: PropTypes.node,
 };

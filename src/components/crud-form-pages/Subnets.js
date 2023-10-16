@@ -9,6 +9,7 @@ import {
 } from "../../";
 import PropTypes from "prop-types";
 import { titleCase, splat } from "lazy-z";
+import { NoVpcTile } from "./Vpc";
 
 function none() {}
 
@@ -225,6 +226,11 @@ export const Subnets = (props) => {
         propsMatchState: none,
         nullRef: true,
       }}
+      overrideTile={
+        props.craig.store.json.vpcs.length === 0
+          ? NoVpcTile("VPC Subnets")
+          : null
+      }
     />
   );
 };
@@ -251,4 +257,5 @@ Subnets.propTypes = {
   onSubnetSave: PropTypes.func.isRequired,
   onSubnetTierSave: PropTypes.func.isRequired,
   onSubnetTierDelete: PropTypes.func.isRequired,
+  overrideTile: PropTypes.node,
 };

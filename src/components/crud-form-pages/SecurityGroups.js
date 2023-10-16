@@ -2,6 +2,7 @@ import React from "react";
 import IcseFormTemplate from "../IcseFormTemplate";
 import PropTypes from "prop-types";
 import SecurityGroupForm from "../forms/SecurityGroupForm";
+import { NoVpcTile } from "./Vpc";
 
 export const SecurityGroups = (props) => {
   return (
@@ -41,6 +42,11 @@ export const SecurityGroups = (props) => {
         hide: true,
         hideName: true,
       }}
+      overrideTile={
+        props.craig.store.json.vpcs.length === 0
+          ? NoVpcTile("Security Groups")
+          : null
+      }
     />
   );
 };
@@ -65,4 +71,5 @@ SecurityGroups.propTypes = {
   onRuleDelete: PropTypes.func.isRequired,
   disableSaveCallback: PropTypes.func.isRequired,
   vpcList: PropTypes.array.isRequired,
+  overrideTile: PropTypes.node,
 };

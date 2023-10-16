@@ -4,6 +4,23 @@ import IcseFormTemplate from "../IcseFormTemplate";
 import PropTypes from "prop-types";
 import VpcNetworkForm from "../forms/VpcForm";
 
+import { CloudAlerting } from "@carbon/icons-react";
+import { Tile } from "@carbon/react";
+import "./no-secrets-manager-tile.css";
+
+export const NoVpcTile = (resource) => {
+  return (
+    <Tile className="tileBackground displayFlex alignItemsCenter wrap marginTop">
+      <CloudAlerting size="24" className="iconMargin" /> No VPC instances have
+      been created. Create one from the
+      <a className="no-vpc-link" href="/form/vpcs">
+        Virtual Private Clouds Page
+      </a>
+      to enable {resource}
+    </Tile>
+  );
+};
+
 export const Vpcs = (props) => {
   return (
     <IcseFormTemplate

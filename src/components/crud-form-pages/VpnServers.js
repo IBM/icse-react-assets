@@ -5,6 +5,7 @@ import VpnServerForm from "../forms/VpnServerForm";
 import { CloudAlerting } from "@carbon/icons-react";
 import { Tile } from "@carbon/react";
 import "./no-secrets-manager-tile.css";
+import { NoVpcTile } from "./Vpc";
 
 export const NoSecretsManagerTile = ({ text }) => {
   return (
@@ -37,6 +38,8 @@ export const VpnServers = (props) => {
       overrideTile={
         props.noSecretsManager ? (
           <NoSecretsManagerTile text="to enable VPN Servers." />
+        ) : props.craig.store.json.vpcs.length === 0 ? (
+          NoVpcTile("Routing Tables")
         ) : null
       }
       innerFormProps={{
@@ -124,4 +127,5 @@ VpnServers.propTypes = {
   subnetList: PropTypes.array.isRequired,
   securityGroups: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   vpcList: PropTypes.arrayOf(PropTypes.string),
+  overrideTile: PropTypes.node,
 };
