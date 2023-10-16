@@ -8,7 +8,7 @@ import {
   RenderForm,
 } from "../../components";
 import PropTypes from "prop-types";
-import { NoVpcTile } from "./Vpc";
+import { NoVpcTile } from "./NoVpcTile";
 
 function none() {}
 

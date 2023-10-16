@@ -2,7 +2,7 @@ import React from "react";
 import IcseFormTemplate from "../IcseFormTemplate";
 import PropTypes from "prop-types";
 import VsiForm from "../forms/VsiForm";
-import { NoVpcTile } from "./Vpc";
+import { NoVpcTile } from "./NoVpcTile";
 
 export const Vsi = (props) => {
   return (
@@ -52,7 +52,7 @@ export const Vsi = (props) => {
         hideName: true,
       }}
       overrideTile={
-        props.craig.store.json.vpcs.length === 0
+        props.vpcList.length === 0
           ? NoVpcTile("Virtual Server Instances")
           : null
       }

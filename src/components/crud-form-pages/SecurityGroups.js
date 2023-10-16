@@ -2,7 +2,7 @@ import React from "react";
 import IcseFormTemplate from "../IcseFormTemplate";
 import PropTypes from "prop-types";
 import SecurityGroupForm from "../forms/SecurityGroupForm";
-import { NoVpcTile } from "./Vpc";
+import { NoVpcTile } from "./NoVpcTile";
 
 export const SecurityGroups = (props) => {
   return (
@@ -43,7 +43,7 @@ export const SecurityGroups = (props) => {
         hideName: true,
       }}
       overrideTile={
-        props.craig.store.json.vpcs.length === 0
+        props.vpcList.length === 0
           ? NoVpcTile("Security Groups")
           : null
       }

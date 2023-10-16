@@ -2,7 +2,7 @@ import React from "react";
 import IcseFormTemplate from "../IcseFormTemplate";
 import VsiLoadBalancerForm from "../forms/VsiLoadBalancerForm";
 import PropTypes from "prop-types";
-import { NoVpcTile } from "./Vpc";
+import { NoVpcTile } from "./NoVpcTile";
 
 export const VsiLoadBalancer = (props) => {
   return (
@@ -36,7 +36,7 @@ export const VsiLoadBalancer = (props) => {
         hideName: true,
       }}
       overrideTile={
-        props.craig.store.json.vpcs.length === 0
+        props.vpcList.length === 0
           ? NoVpcTile("Load Balancers")
           : null
       }

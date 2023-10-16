@@ -9,7 +9,7 @@ import {
 } from "../../";
 import PropTypes from "prop-types";
 import { titleCase, splat } from "lazy-z";
-import { NoVpcTile } from "./Vpc";
+import { NoVpcTile } from "./NoVpcTile";
 
 function none() {}
 

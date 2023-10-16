@@ -2,7 +2,7 @@ import React from "react";
 import VpnGatewayForm from "../forms/VpnGatewayForm";
 import IcseFormTemplate from "../IcseFormTemplate";
 import PropTypes from "prop-types";
-import { NoVpcTile } from "./Vpc";
+import { NoVpcTile } from "./NoVpcTile";
 
 export const VpnGateways = (props) => {
   return (
@@ -35,7 +35,7 @@ export const VpnGateways = (props) => {
         hideName: true,
       }}
       overrideTile={
-        props.craig.store.json.vpcs.length === 0
+        props.vpcList.length === 0
           ? NoVpcTile("VPN Gateways")
           : null
       }

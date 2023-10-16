@@ -5,7 +5,7 @@ import VpnServerForm from "../forms/VpnServerForm";
 import { CloudAlerting } from "@carbon/icons-react";
 import { Tile } from "@carbon/react";
 import "./no-secrets-manager-tile.css";
-import { NoVpcTile } from "./Vpc";
+import { NoVpcTile } from "./NoVpcTile";
 
 export const NoSecretsManagerTile = ({ text }) => {
   return (
@@ -36,10 +36,10 @@ export const VpnServers = (props) => {
       forceOpen={props.forceOpen}
       hideFormTitleButton={props.noSecretsManager}
       overrideTile={
-        props.noSecretsManager ? (
+        props.vpcList.length === 0 ? (
+          NoVpcTile("VPN Servers")
+        ) : props.noSecretsManager ? (
           <NoSecretsManagerTile text="to enable VPN Servers." />
-        ) : props.craig.store.json.vpcs.length === 0 ? (
-          NoVpcTile("Routing Tables")
         ) : null
       }
       innerFormProps={{

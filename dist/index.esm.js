@@ -1,6 +1,6 @@
 import '@carbon/styles/css/styles.css';
 import { Popover, PopoverContent, Toggletip, ToggletipButton, ToggletipContent, ToggletipActions, Button, StructuredListWrapper, StructuredListHead, StructuredListRow, StructuredListCell, StructuredListBody, Select, SelectItem, Tile, Modal, Tabs, TabList, Tab, TabPanels, TabPanel, Toggle, TextInput, FilterableMultiSelect, NumberInput, DataTable, TableContainer, Table, TableHead, TableRow, TableHeader, TableBody, TableCell, TextArea, Tag, DatePicker, DatePickerInput, PasswordInput, Dropdown, Checkbox } from '@carbon/react';
-import lazyZ, { titleCase as titleCase$2, kebabCase as kebabCase$6, isEmpty, buildNumberDropdownList, contains as contains$5, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$6, transpose as transpose$2, parseIntFromZone as parseIntFromZone$1, capitalize as capitalize$2, getObjectFromArray as getObjectFromArray$1, splat as splat$2, containsKeys, snakeCase as snakeCase$2, distinct, isWholeNumber as isWholeNumber$1, isInRange as isInRange$1, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual, splatContains } from 'lazy-z';
+import lazyZ, { titleCase as titleCase$2, kebabCase as kebabCase$6, isEmpty, buildNumberDropdownList, contains as contains$5, prettyJSON, isNullOrEmptyString as isNullOrEmptyString$6, transpose as transpose$2, capitalize as capitalize$2, getObjectFromArray as getObjectFromArray$1, splat as splat$2, containsKeys, parseIntFromZone as parseIntFromZone$1, snakeCase as snakeCase$2, distinct, isWholeNumber as isWholeNumber$1, isInRange as isInRange$1, isIpv4CidrOrAddress as isIpv4CidrOrAddress$2, deepEqual, splatContains } from 'lazy-z';
 import regexButWithWords from 'regex-but-with-words';
 import React, { Component } from 'react';
 import PropTypes, { PropTypes as PropTypes$1 } from 'prop-types';
@@ -5595,166 +5595,6 @@ CloudDatabase.propTypes = {
   cpuMax: PropTypes.number
 };
 
-const nameFields = ["default_network_acl_name", "default_routing_table_name", "default_security_group_name"];
-class VpcNetworkForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...this.props.data
-    };
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
-    this.handlePgwToggle = this.handlePgwToggle.bind(this);
-    buildFormFunctions(this);
-    buildFormDefaultInputMethods(this);
-  }
-
-  /**
-   * handle input change
-   * @param {event} event event
-   */
-  handleInputChange(event) {
-    let {
-      name,
-      value
-    } = event.target;
-    if (name === "bucket" && value === "Disabled") {
-      value = "$disabled";
-    }
-    this.setState(this.setNameToValue(name, value));
-  }
-
-  /**
-   * Toggle on and off param in state at name
-   * @param {string} name name of the object key to change
-   */
-  handleToggle(name) {
-    this.setState(this.toggleStateBoolean(name, this.state));
-  }
-
-  /**
-   * handle change of public gateway by zone
-   * @param {string} zone zone-1, zone-2, or zone-3
-   */
-  handlePgwToggle(zone) {
-    this.setState(vpc_1(zone, this.state));
-  }
-  render() {
-    let composedId = `${this.props.data.name}-vpc-form`;
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
-      tooltip: {
-        content: "This name will be prepended to all components within this VPC.",
-        alignModal: "bottom-left",
-        align: "bottom-left"
-      },
-      id: composedId + "-name",
-      placeholder: "my-vpc-name",
-      hideHelperText: true,
-      value: this.state.name,
-      forceKebabCase: true,
-      onChange: this.handleInputChange,
-      invalid: this.props.invalidCallback("name", this.state, this.props),
-      invalidText: this.props.invalidTextCallback("name", this.state, this.props),
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      labelText: "Resource Group",
-      name: "resource_group",
-      formName: "resource_group",
-      groups: this.props.resourceGroups,
-      value: this.state.resource_group,
-      handleInputChange: this.handleInputChange,
-      invalid: lib_9(this.state.resource_group),
-      invalidText: "Select a Resource Group.",
-      className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React.createElement(IcseSelect, {
-      labelText: "Flow Logs Bucket Name",
-      name: "bucket",
-      formName: this.props.data.name + "-vpc",
-      groups: this.props.cosBuckets.concat("Disabled"),
-      value: (this.state.bucket === "$disabled" ? "Disabled" : this.state.bucket) || "",
-      handleInputChange: this.handleInputChange,
-      invalid: lib_9(this.state.bucket),
-      invalidText: "Select a Bucket.",
-      className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, nameFields.map(field => {
-      return /*#__PURE__*/React.createElement(IcseTextInput, {
-        id: composedId + "-" + field,
-        key: this.props.data.name + "-" + kebabCase$6(field),
-        field: field,
-        labelText: titleCase$2(field),
-        value: this.state[field],
-        onChange: this.handleInputChange,
-        invalid: this.props.invalidCallback(field, this.state, this.props),
-        invalidText: this.props.invalidTextCallback(field, this.state, this.props),
-        className: "fieldWidthSmaller",
-        optional: true,
-        forceKebabCase: true
-      });
-    })), /*#__PURE__*/React.createElement(IcseHeading, {
-      name: "Public Gateways",
-      type: "subHeading",
-      noLabelText: true,
-      tooltip: {
-        content: "Public Gateways allow for all resources in a zone to communicate with the public internet. Public Gateways are not needed for subnets where a VPN gateway is created."
-      }
-    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, ["zone-1", "zone-2", "zone-3"].map(zone => /*#__PURE__*/React.createElement(IcseToggle, {
-      key: this.props.data.name + "-gateway-toggle-" + zone,
-      id: this.props.data.name + "-pgw-" + zone,
-      labelText: "Create in Zone " + parseIntFromZone$1(zone),
-      defaultToggled: this.state.publicGateways.indexOf(parseIntFromZone$1(zone)) !== -1,
-      onToggle: () => this.handlePgwToggle(zone),
-      className: "fieldWidthSmaller leftTextAlign"
-    }))), /*#__PURE__*/React.createElement(IcseHeading, {
-      name: "Classic Access",
-      type: "subHeading"
-    }), /*#__PURE__*/React.createElement(IcseFormGroup, {
-      noMarginBottom: true
-    }, /*#__PURE__*/React.createElement(IcseToggle, {
-      id: this.props.data.name + "-classic-access",
-      labelText: "Classic Infrastructure Access",
-      toggleFieldName: "classic_access",
-      defaultToggled: this.state.classic_access,
-      onToggle: this.handleToggle,
-      disabled: this.props.disableManualPrefixToggle,
-      className: "fieldWidthSmaller leftTextAlign"
-    })));
-  }
-}
-VpcNetworkForm.defaultProps = {
-  data: {
-    name: "",
-    resource_group: "",
-    bucket: "",
-    default_network_acl_name: "",
-    default_routing_table_name: "",
-    default_security_group_name: "",
-    classic_access: false,
-    manual_address_prefix_management: false,
-    publicGateways: []
-  },
-  isModal: false,
-  disableManualPrefixToggle: false
-};
-VpcNetworkForm.propTypes = {
-  data: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    resource_group: PropTypes.string,
-    bucket: PropTypes.string,
-    default_network_acl_name: PropTypes.string,
-    default_security_group_name: PropTypes.string,
-    default_routing_table_name: PropTypes.string,
-    classic_access: PropTypes.bool.isRequired,
-    manual_address_prefix_management: PropTypes.bool.isRequired,
-    publicGateways: PropTypes.arrayOf(PropTypes.number).isRequired
-  }),
-  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
-  cosBuckets: PropTypes.arrayOf(PropTypes.string).isRequired,
-  invalidCallback: PropTypes.func.isRequired,
-  invalidTextCallback: PropTypes.func.isRequired,
-  isModal: PropTypes.bool.isRequired,
-  disableManualPrefixToggle: PropTypes.bool.isRequired
-};
-
 var css_248z$4 = ".no-secrets-link {\n  padding-left: 3px;\n  padding-right: 3px;\n}\n\n.no-vpc-link {\n  padding-left: 3px;\n  padding-right: 3px;\n}\n";
 styleInject(css_248z$4);
 
@@ -5768,51 +5608,6 @@ const NoVpcTile = resource => {
     className: "no-vpc-link",
     href: "/form/vpcs"
   }, "Virtual Private Clouds Page"), "to enable ", resource);
-};
-const Vpcs = props => {
-  return /*#__PURE__*/React.createElement(IcseFormTemplate, {
-    name: "Virtual Private Clouds",
-    addText: "Create a VPC",
-    docs: props.docs,
-    innerForm: VpcNetworkForm,
-    arrayData: props.vpcs,
-    disableSave: props.disableSave,
-    onDelete: props.onDelete,
-    onSave: props.onSave,
-    onSubmit: props.onSubmit,
-    propsMatchState: props.propsMatchState,
-    forceOpen: props.forceOpen,
-    craig: props.craig,
-    innerFormProps: {
-      craig: props.craig,
-      disableSave: props.disableSave,
-      resourceGroups: props.resourceGroups,
-      cosBuckets: props.cosBuckets,
-      invalidCallback: props.invalidCallback,
-      invalidTextCallback: props.invalidTextCallback
-    },
-    toggleFormProps: {
-      craig: props.craig,
-      disableSave: props.disableSave,
-      submissionFieldName: "vpcs",
-      hide: true,
-      hideName: true
-    }
-  });
-};
-Vpcs.propTypes = {
-  docs: PropTypes.func.isRequired,
-  vpcs: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  disableSave: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired,
-  onSave: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  propsMatchState: PropTypes.func.isRequired,
-  forceOpen: PropTypes.func.isRequired,
-  craig: PropTypes.shape({}),
-  invalidCallback: PropTypes.func.isRequired,
-  invalidTextCallback: PropTypes.func.isRequired,
-  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
 const Clusters = props => {
@@ -5872,7 +5667,7 @@ const Clusters = props => {
       submissionFieldName: "clusters",
       hideName: true
     },
-    overrideTile: props.craig.store.json.vpcs.length === 0 ? NoVpcTile("Clusters") : null
+    overrideTile: props.vpcList.length === 0 ? NoVpcTile("Clusters") : null
   });
 };
 Clusters.propTypes = {
@@ -7796,7 +7591,7 @@ const SecurityGroups = props => {
       hide: true,
       hideName: true
     },
-    overrideTile: props.craig.store.json.vpcs.length === 0 ? NoVpcTile("Security Groups") : null
+    overrideTile: props.vpcList.length === 0 ? NoVpcTile("Security Groups") : null
   });
 };
 SecurityGroups.propTypes = {
@@ -8056,6 +7851,212 @@ TransitGateways.propTypes = {
   power: PropTypes.arrayOf(PropTypes.shape({})).isRequired
 };
 
+const nameFields = ["default_network_acl_name", "default_routing_table_name", "default_security_group_name"];
+class VpcNetworkForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    this.handlePgwToggle = this.handlePgwToggle.bind(this);
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  handleInputChange(event) {
+    let {
+      name,
+      value
+    } = event.target;
+    if (name === "bucket" && value === "Disabled") {
+      value = "$disabled";
+    }
+    this.setState(this.setNameToValue(name, value));
+  }
+
+  /**
+   * Toggle on and off param in state at name
+   * @param {string} name name of the object key to change
+   */
+  handleToggle(name) {
+    this.setState(this.toggleStateBoolean(name, this.state));
+  }
+
+  /**
+   * handle change of public gateway by zone
+   * @param {string} zone zone-1, zone-2, or zone-3
+   */
+  handlePgwToggle(zone) {
+    this.setState(vpc_1(zone, this.state));
+  }
+  render() {
+    let composedId = `${this.props.data.name}-vpc-form`;
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      tooltip: {
+        content: "This name will be prepended to all components within this VPC.",
+        alignModal: "bottom-left",
+        align: "bottom-left"
+      },
+      id: composedId + "-name",
+      placeholder: "my-vpc-name",
+      hideHelperText: true,
+      value: this.state.name,
+      forceKebabCase: true,
+      onChange: this.handleInputChange,
+      invalid: this.props.invalidCallback("name", this.state, this.props),
+      invalidText: this.props.invalidTextCallback("name", this.state, this.props),
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      labelText: "Resource Group",
+      name: "resource_group",
+      formName: "resource_group",
+      groups: this.props.resourceGroups,
+      value: this.state.resource_group,
+      handleInputChange: this.handleInputChange,
+      invalid: lib_9(this.state.resource_group),
+      invalidText: "Select a Resource Group.",
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      labelText: "Flow Logs Bucket Name",
+      name: "bucket",
+      formName: this.props.data.name + "-vpc",
+      groups: this.props.cosBuckets.concat("Disabled"),
+      value: (this.state.bucket === "$disabled" ? "Disabled" : this.state.bucket) || "",
+      handleInputChange: this.handleInputChange,
+      invalid: lib_9(this.state.bucket),
+      invalidText: "Select a Bucket.",
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, nameFields.map(field => {
+      return /*#__PURE__*/React.createElement(IcseTextInput, {
+        id: composedId + "-" + field,
+        key: this.props.data.name + "-" + kebabCase$6(field),
+        field: field,
+        labelText: titleCase$2(field),
+        value: this.state[field],
+        onChange: this.handleInputChange,
+        invalid: this.props.invalidCallback(field, this.state, this.props),
+        invalidText: this.props.invalidTextCallback(field, this.state, this.props),
+        className: "fieldWidthSmaller",
+        optional: true,
+        forceKebabCase: true
+      });
+    })), /*#__PURE__*/React.createElement(IcseHeading, {
+      name: "Public Gateways",
+      type: "subHeading",
+      noLabelText: true,
+      tooltip: {
+        content: "Public Gateways allow for all resources in a zone to communicate with the public internet. Public Gateways are not needed for subnets where a VPN gateway is created."
+      }
+    }), /*#__PURE__*/React.createElement(IcseFormGroup, null, ["zone-1", "zone-2", "zone-3"].map(zone => /*#__PURE__*/React.createElement(IcseToggle, {
+      key: this.props.data.name + "-gateway-toggle-" + zone,
+      id: this.props.data.name + "-pgw-" + zone,
+      labelText: "Create in Zone " + parseIntFromZone$1(zone),
+      defaultToggled: this.state.publicGateways.indexOf(parseIntFromZone$1(zone)) !== -1,
+      onToggle: () => this.handlePgwToggle(zone),
+      className: "fieldWidthSmaller leftTextAlign"
+    }))), /*#__PURE__*/React.createElement(IcseHeading, {
+      name: "Classic Access",
+      type: "subHeading"
+    }), /*#__PURE__*/React.createElement(IcseFormGroup, {
+      noMarginBottom: true
+    }, /*#__PURE__*/React.createElement(IcseToggle, {
+      id: this.props.data.name + "-classic-access",
+      labelText: "Classic Infrastructure Access",
+      toggleFieldName: "classic_access",
+      defaultToggled: this.state.classic_access,
+      onToggle: this.handleToggle,
+      disabled: this.props.disableManualPrefixToggle,
+      className: "fieldWidthSmaller leftTextAlign"
+    })));
+  }
+}
+VpcNetworkForm.defaultProps = {
+  data: {
+    name: "",
+    resource_group: "",
+    bucket: "",
+    default_network_acl_name: "",
+    default_routing_table_name: "",
+    default_security_group_name: "",
+    classic_access: false,
+    manual_address_prefix_management: false,
+    publicGateways: []
+  },
+  isModal: false,
+  disableManualPrefixToggle: false
+};
+VpcNetworkForm.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    resource_group: PropTypes.string,
+    bucket: PropTypes.string,
+    default_network_acl_name: PropTypes.string,
+    default_security_group_name: PropTypes.string,
+    default_routing_table_name: PropTypes.string,
+    classic_access: PropTypes.bool.isRequired,
+    manual_address_prefix_management: PropTypes.bool.isRequired,
+    publicGateways: PropTypes.arrayOf(PropTypes.number).isRequired
+  }),
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  cosBuckets: PropTypes.arrayOf(PropTypes.string).isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  isModal: PropTypes.bool.isRequired,
+  disableManualPrefixToggle: PropTypes.bool.isRequired
+};
+
+const Vpcs = props => {
+  return /*#__PURE__*/React.createElement(IcseFormTemplate, {
+    name: "Virtual Private Clouds",
+    addText: "Create a VPC",
+    docs: props.docs,
+    innerForm: VpcNetworkForm,
+    arrayData: props.vpcs,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    craig: props.craig,
+    innerFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      resourceGroups: props.resourceGroups,
+      cosBuckets: props.cosBuckets,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "vpcs",
+      hide: true,
+      hideName: true
+    }
+  });
+};
+Vpcs.propTypes = {
+  docs: PropTypes.func.isRequired,
+  vpcs: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  disableSave: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  propsMatchState: PropTypes.func.isRequired,
+  forceOpen: PropTypes.func.isRequired,
+  craig: PropTypes.shape({}),
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired
+};
+
 /**
  * Vpe Form
  */
@@ -8238,7 +8239,7 @@ const Vpe = props => {
       hide: true,
       hideName: true
     },
-    overrideTile: props.craig.store.json.vpcs.length === 0 ? NoVpcTile("Virtual Private Endpoints") : null
+    overrideTile: props.vpcList.length === 0 ? NoVpcTile("Virtual Private Endpoints") : null
   });
 };
 Vpe.propTypes = {
@@ -8383,7 +8384,7 @@ const VpnGateways = props => {
       hide: true,
       hideName: true
     },
-    overrideTile: props.craig.store.json.vpcs.length === 0 ? NoVpcTile("VPN Gateways") : null
+    overrideTile: props.vpcList.length === 0 ? NoVpcTile("VPN Gateways") : null
   });
 };
 VpnGateways.propTypes = {
@@ -8779,7 +8780,7 @@ const Vsi = props => {
       hide: true,
       hideName: true
     },
-    overrideTile: props.craig.store.json.vpcs.length === 0 ? NoVpcTile("Virtual Server Instances") : null
+    overrideTile: props.vpcList.length === 0 ? NoVpcTile("Virtual Server Instances") : null
   });
 };
 Vsi.propTypes = {
@@ -9372,7 +9373,7 @@ const VsiLoadBalancer = props => {
       hide: true,
       hideName: true
     },
-    overrideTile: props.craig.store.json.vpcs.length === 0 ? NoVpcTile("Load Balancers") : null
+    overrideTile: props.vpcList.length === 0 ? NoVpcTile("Load Balancers") : null
   });
 };
 VsiLoadBalancer.propTypes = {
@@ -10428,7 +10429,7 @@ const RoutingTables = props => {
       submissionFieldName: "routing_tables",
       hideName: true
     },
-    overrideTile: props.craig.store.json.vpcs.length === 0 ? NoVpcTile("Routing Tables") : null
+    overrideTile: props.vpcList.length === 0 ? NoVpcTile("Routing Tables") : null
   });
 };
 RoutingTables.propTypes = {
@@ -11077,9 +11078,9 @@ const VpnServers = props => {
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
     hideFormTitleButton: props.noSecretsManager,
-    overrideTile: props.noSecretsManager ? /*#__PURE__*/React.createElement(NoSecretsManagerTile, {
+    overrideTile: props.vpcList.length === 0 ? NoVpcTile("VPN Servers") : props.noSecretsManager ? /*#__PURE__*/React.createElement(NoSecretsManagerTile, {
       text: "to enable VPN Servers."
-    }) : props.craig.store.json.vpcs.length === 0 ? NoVpcTile("Routing Tables") : null,
+    }) : null,
     innerFormProps: {
       craig: props.craig,
       resourceGroups: props.resourceGroups,

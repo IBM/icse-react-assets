@@ -2,7 +2,7 @@ import React from "react";
 import ClusterForm from "../forms/ClusterForm";
 import IcseFormTemplate from "../IcseFormTemplate";
 import PropTypes from "prop-types";
-import { NoVpcTile } from "./Vpc";
+import { NoVpcTile } from "./NoVpcTile";
 
 export const Clusters = (props) => {
   return (
@@ -63,7 +63,7 @@ export const Clusters = (props) => {
         hideName: true,
       }}
       overrideTile={
-        props.craig.store.json.vpcs.length === 0 ? NoVpcTile("Clusters") : null
+        props.vpcList.length === 0 ? NoVpcTile("Clusters") : null
       }
     />
   );
