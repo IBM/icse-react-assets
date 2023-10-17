@@ -3,6 +3,7 @@ import ClusterForm from "../forms/ClusterForm";
 import IcseFormTemplate from "../IcseFormTemplate";
 import PropTypes from "prop-types";
 import { NoVpcTile } from "./NoVpcTile";
+import { isEmpty } from "lazy-z";
 
 export const Clusters = (props) => {
   return (
@@ -18,6 +19,7 @@ export const Clusters = (props) => {
       propsMatchState={props.propsMatchState}
       forceOpen={props.forceOpen}
       docs={props.docs}
+      hideFormTitleButton={isEmpty(props.vpcList)}
       innerFormProps={{
         craig: props.craig,
         disableSave: props.disableSave,

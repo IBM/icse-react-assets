@@ -3,6 +3,7 @@ import IcseFormTemplate from "../IcseFormTemplate";
 import VsiLoadBalancerForm from "../forms/VsiLoadBalancerForm";
 import PropTypes from "prop-types";
 import { NoVpcTile } from "./NoVpcTile";
+import { isEmpty } from "lazy-z";
 
 export const VsiLoadBalancer = (props) => {
   return (
@@ -18,6 +19,7 @@ export const VsiLoadBalancer = (props) => {
       onSubmit={props.onSubmit}
       propsMatchState={props.propsMatchState}
       forceOpen={props.forceOpen}
+      hideFormTitleButton={isEmpty(props.vpcList)}
       innerFormProps={{
         craig: props.craig,
         disableSave: props.disableSave,

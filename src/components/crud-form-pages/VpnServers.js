@@ -6,6 +6,7 @@ import { CloudAlerting } from "@carbon/icons-react";
 import { Tile } from "@carbon/react";
 import "./no-secrets-manager-tile.css";
 import { NoVpcTile } from "./NoVpcTile";
+import { isEmpty } from "lazy-z";
 
 export const NoSecretsManagerTile = ({ text }) => {
   return (
@@ -34,7 +35,7 @@ export const VpnServers = (props) => {
       onSubmit={props.onSubmit}
       propsMatchState={props.propsMatchState}
       forceOpen={props.forceOpen}
-      hideFormTitleButton={props.noSecretsManager}
+      hideFormTitleButton={props.noSecretsManager || isEmpty(props.vpcList)}
       overrideTile={
         props.vpcList.length === 0 ? (
           NoVpcTile("VPN Servers")

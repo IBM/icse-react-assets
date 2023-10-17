@@ -3,6 +3,7 @@ import IcseFormTemplate from "../IcseFormTemplate";
 import PropTypes from "prop-types";
 import SecurityGroupForm from "../forms/SecurityGroupForm";
 import { NoVpcTile } from "./NoVpcTile";
+import { isEmpty } from "lazy-z";
 
 export const SecurityGroups = (props) => {
   return (
@@ -18,6 +19,7 @@ export const SecurityGroups = (props) => {
       onSubmit={props.onSubmit}
       propsMatchState={props.propsMatchState}
       forceOpen={props.forceOpen}
+      hideFormTitleButton={isEmpty(props.vpcList)}
       isSecurityGroup
       innerFormProps={{
         craig: props.craig,

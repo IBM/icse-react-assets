@@ -3,6 +3,7 @@ import IcseFormTemplate from "../IcseFormTemplate";
 import PropTypes from "prop-types";
 import VpeForm from "../forms/VpeForm";
 import { NoVpcTile } from "./NoVpcTile";
+import { isEmpty } from "lazy-z";
 
 export const Vpe = (props) => {
   return (
@@ -18,6 +19,7 @@ export const Vpe = (props) => {
       onSubmit={props.onSubmit}
       propsMatchState={props.propsMatchState}
       forceOpen={props.forceOpen}
+      hideFormTitleButton={isEmpty(props.vpcList)}
       innerFormProps={{
         craig: props.craig,
         disableSave: props.disableSave,

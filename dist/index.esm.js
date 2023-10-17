@@ -5623,6 +5623,7 @@ const Clusters = props => {
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
     docs: props.docs,
+    hideFormTitleButton: isEmpty(props.vpcList),
     innerFormProps: {
       craig: props.craig,
       disableSave: props.disableSave,
@@ -7566,6 +7567,7 @@ const SecurityGroups = props => {
     onSubmit: props.onSubmit,
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
+    hideFormTitleButton: isEmpty(props.vpcList),
     isSecurityGroup: true,
     innerFormProps: {
       craig: props.craig,
@@ -8220,6 +8222,7 @@ const Vpe = props => {
     onSubmit: props.onSubmit,
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
+    hideFormTitleButton: isEmpty(props.vpcList),
     innerFormProps: {
       craig: props.craig,
       disableSave: props.disableSave,
@@ -8368,6 +8371,7 @@ const VpnGateways = props => {
     onSubmit: props.onSubmit,
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
+    hideFormTitleButton: isEmpty(props.vpcList),
     innerFormProps: {
       craig: props.craig,
       disableSave: props.disableSave,
@@ -8747,6 +8751,7 @@ const Vsi = props => {
     onSubmit: props.onSubmit,
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
+    hideFormTitleButton: isEmpty(props.vpcList),
     innerFormProps: {
       craig: props.craig,
       disableSave: props.disableSave,
@@ -9356,6 +9361,7 @@ const VsiLoadBalancer = props => {
     onSubmit: props.onSubmit,
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
+    hideFormTitleButton: isEmpty(props.vpcList),
     innerFormProps: {
       craig: props.craig,
       disableSave: props.disableSave,
@@ -10406,6 +10412,7 @@ const RoutingTables = props => {
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
     docs: props.docs,
+    hideFormTitleButton: isEmpty(props.vpcList),
     innerFormProps: {
       propsMatchState: props.propsMatchState,
       craig: props.craig,
@@ -11077,7 +11084,7 @@ const VpnServers = props => {
     onSubmit: props.onSubmit,
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
-    hideFormTitleButton: props.noSecretsManager,
+    hideFormTitleButton: props.noSecretsManager || isEmpty(props.vpcList),
     overrideTile: props.vpcList.length === 0 ? NoVpcTile("VPN Servers") : props.noSecretsManager ? /*#__PURE__*/React.createElement(NoSecretsManagerTile, {
       text: "to enable VPN Servers."
     }) : null,
