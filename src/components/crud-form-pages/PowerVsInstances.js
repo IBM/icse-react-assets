@@ -17,6 +17,8 @@ export const PowerVsInstances = (props) => {
       onSubmit={props.onSubmit}
       onDelete={props.onDelete}
       forceOpen={props.forceOpen}
+      hideFormTitleButton={props.overrideTile ? true : false}
+      overrideTile={props.overrideTile}
       innerFormProps={{
         craig: props.craig,
         invalidCallback: props.invalidCallback,
@@ -63,4 +65,5 @@ PowerVsInstances.propTypes = {
   power_volumes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   forceOpen: PropTypes.func.isRequired,
   storageChangesDisabledCallback: PropTypes.func.isRequired,
+  overrideTile: PropTypes.node,
 };

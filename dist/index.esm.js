@@ -12724,6 +12724,8 @@ const PowerVsWorkspace = props => {
     name: "Power VS Workspaces",
     addText: "Create a Workspace",
     innerForm: PowerVsWorkspaceForm,
+    hideFormTitleButton: props.overrideTile ? true : false,
+    overrideTile: props.overrideTile,
     arrayData: props.power,
     disableSave: props.disableSave,
     onDelete: props.onDelete,
@@ -12824,7 +12826,8 @@ PowerVsWorkspace.propTypes = {
   disableAttachmentSave: PropTypes.func.isRequired,
   imageMap: PropTypes.shape({}).isRequired,
   edgeRouterEnabledZones: PropTypes.arrayOf(PropTypes.string).isRequired,
-  deleteDisabled: PropTypes.func.isRequired
+  deleteDisabled: PropTypes.func.isRequired,
+  overrideTile: PropTypes.node
 };
 
 class PowerVsNetworkAttachment extends React.Component {
@@ -12894,6 +12897,8 @@ const PowerVsInstances = props => {
     onSubmit: props.onSubmit,
     onDelete: props.onDelete,
     forceOpen: props.forceOpen,
+    hideFormTitleButton: props.overrideTile ? true : false,
+    overrideTile: props.overrideTile,
     innerFormProps: {
       craig: props.craig,
       invalidCallback: props.invalidCallback,
@@ -12937,7 +12942,8 @@ PowerVsInstances.propTypes = {
   power_instances: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   power_volumes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   forceOpen: PropTypes.func.isRequired,
-  storageChangesDisabledCallback: PropTypes.func.isRequired
+  storageChangesDisabledCallback: PropTypes.func.isRequired,
+  overrideTile: PropTypes.node
 };
 
 const PowerVsVolume = props => {
@@ -12953,6 +12959,8 @@ const PowerVsVolume = props => {
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
     docs: props.docs,
+    hideFormTitleButton: props.overrideTile ? true : false,
+    overrideTile: props.overrideTile,
     innerFormProps: {
       craig: props.craig,
       power: props.power,
@@ -12988,7 +12996,8 @@ PowerVsVolume.propTypes = {
   storage_pool_map: PropTypes.shape({}).isRequired,
   power_instances: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   power_volumes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  affinityChangesDisabled: PropTypes.func.isRequired
+  affinityChangesDisabled: PropTypes.func.isRequired,
+  overrideTile: PropTypes.node
 };
 
 const restrictMenuItems = ["Unset", "Yes", "No"];

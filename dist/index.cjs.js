@@ -12735,6 +12735,8 @@ const PowerVsWorkspace = props => {
     name: "Power VS Workspaces",
     addText: "Create a Workspace",
     innerForm: PowerVsWorkspaceForm,
+    hideFormTitleButton: props.overrideTile ? true : false,
+    overrideTile: props.overrideTile,
     arrayData: props.power,
     disableSave: props.disableSave,
     onDelete: props.onDelete,
@@ -12835,7 +12837,8 @@ PowerVsWorkspace.propTypes = {
   disableAttachmentSave: PropTypes__default["default"].func.isRequired,
   imageMap: PropTypes__default["default"].shape({}).isRequired,
   edgeRouterEnabledZones: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  deleteDisabled: PropTypes__default["default"].func.isRequired
+  deleteDisabled: PropTypes__default["default"].func.isRequired,
+  overrideTile: PropTypes__default["default"].node
 };
 
 class PowerVsNetworkAttachment extends React__default["default"].Component {
@@ -12905,6 +12908,8 @@ const PowerVsInstances = props => {
     onSubmit: props.onSubmit,
     onDelete: props.onDelete,
     forceOpen: props.forceOpen,
+    hideFormTitleButton: props.overrideTile ? true : false,
+    overrideTile: props.overrideTile,
     innerFormProps: {
       craig: props.craig,
       invalidCallback: props.invalidCallback,
@@ -12948,7 +12953,8 @@ PowerVsInstances.propTypes = {
   power_instances: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
   power_volumes: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
   forceOpen: PropTypes__default["default"].func.isRequired,
-  storageChangesDisabledCallback: PropTypes__default["default"].func.isRequired
+  storageChangesDisabledCallback: PropTypes__default["default"].func.isRequired,
+  overrideTile: PropTypes__default["default"].node
 };
 
 const PowerVsVolume = props => {
@@ -12964,6 +12970,8 @@ const PowerVsVolume = props => {
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
     docs: props.docs,
+    hideFormTitleButton: props.overrideTile ? true : false,
+    overrideTile: props.overrideTile,
     innerFormProps: {
       craig: props.craig,
       power: props.power,
@@ -12999,7 +13007,8 @@ PowerVsVolume.propTypes = {
   storage_pool_map: PropTypes__default["default"].shape({}).isRequired,
   power_instances: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
   power_volumes: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
-  affinityChangesDisabled: PropTypes__default["default"].func.isRequired
+  affinityChangesDisabled: PropTypes__default["default"].func.isRequired,
+  overrideTile: PropTypes__default["default"].node
 };
 
 const restrictMenuItems = ["Unset", "Yes", "No"];

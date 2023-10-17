@@ -17,6 +17,8 @@ export const PowerVsVolume = (props) => {
       propsMatchState={props.propsMatchState}
       forceOpen={props.forceOpen}
       docs={props.docs}
+      hideFormTitleButton={props.overrideTile ? true : false}
+      overrideTile={props.overrideTile}
       innerFormProps={{
         craig: props.craig,
         power: props.power,
@@ -55,6 +57,7 @@ PowerVsVolume.propTypes = {
   power_instances: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   power_volumes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   affinityChangesDisabled: PropTypes.func.isRequired,
+  overrideTile: PropTypes.node,
 };
 
 export default PowerVsVolume;

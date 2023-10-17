@@ -9,6 +9,8 @@ export const PowerVsWorkspace = (props) => {
       name="Power VS Workspaces"
       addText="Create a Workspace"
       innerForm={PowerVsWorkspaceForm}
+      hideFormTitleButton={props.overrideTile ? true : false}
+      overrideTile={props.overrideTile}
       arrayData={props.power}
       disableSave={props.disableSave}
       onDelete={props.onDelete}
@@ -114,4 +116,5 @@ PowerVsWorkspace.propTypes = {
   imageMap: PropTypes.shape({}).isRequired,
   edgeRouterEnabledZones: PropTypes.arrayOf(PropTypes.string).isRequired,
   deleteDisabled: PropTypes.func.isRequired,
+  overrideTile: PropTypes.node,
 };
