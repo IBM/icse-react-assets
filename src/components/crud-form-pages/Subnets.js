@@ -226,11 +226,7 @@ export const Subnets = (props) => {
         propsMatchState: none,
         nullRef: true,
       }}
-      overrideTile={
-        props.craig.store.json.vpcs.length === 0
-          ? NoVpcTile("VPC Subnets")
-          : null
-      }
+      overrideTile={props.craig.store.json.vpcs.length === 0 ? NoVpcTile() : null}
     />
   );
 };

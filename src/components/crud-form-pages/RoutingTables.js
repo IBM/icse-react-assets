@@ -43,11 +43,7 @@ export const RoutingTables = (props) => {
         submissionFieldName: "routing_tables",
         hideName: true,
       }}
-      overrideTile={
-        props.vpcList.length === 0
-          ? NoVpcTile("Routing Tables")
-          : null
-      }
+      overrideTile={props.vpcList.length === 0 ? NoVpcTile() : null}
     />
   );
 };

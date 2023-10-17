@@ -64,9 +64,7 @@ export const Clusters = (props) => {
         submissionFieldName: "clusters",
         hideName: true,
       }}
-      overrideTile={
-        props.vpcList.length === 0 ? NoVpcTile("Clusters") : null
-      }
+      overrideTile={props.vpcList.length === 0 ? NoVpcTile() : null}
     />
   );
 };

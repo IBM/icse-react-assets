@@ -199,11 +199,7 @@ export const NetworkAcls = (props) => {
         propsMatchState: none,
         nullRef: true,
       }}
-      overrideTile={
-        props.craig.store.json.vpcs.length === 0
-          ? NoVpcTile("VPC Access Control")
-          : null
-      }
+      overrideTile={props.craig.store.json.vpcs.length === 0 ? NoVpcTile() : null}
     />
   );
 };

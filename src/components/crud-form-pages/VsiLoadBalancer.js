@@ -37,11 +37,7 @@ export const VsiLoadBalancer = (props) => {
         hide: true,
         hideName: true,
       }}
-      overrideTile={
-        props.vpcList.length === 0
-          ? NoVpcTile("Load Balancers")
-          : null
-      }
+      overrideTile={props.vpcList.length === 0 ? NoVpcTile() : null}
     />
   );
 };

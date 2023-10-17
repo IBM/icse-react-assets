@@ -53,11 +53,7 @@ export const Vsi = (props) => {
         hide: true,
         hideName: true,
       }}
-      overrideTile={
-        props.vpcList.length === 0
-          ? NoVpcTile("Virtual Server Instances")
-          : null
-      }
+      overrideTile={props.vpcList.length === 0 ? NoVpcTile() : null}
     />
   );
 };

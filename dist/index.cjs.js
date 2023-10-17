@@ -5609,16 +5609,16 @@ CloudDatabase.propTypes = {
 var css_248z$4 = ".no-secrets-link {\n  padding-left: 3px;\n  padding-right: 3px;\n}\n\n.no-vpc-link {\n  padding-left: 3px;\n  padding-right: 3px;\n}\n";
 styleInject(css_248z$4);
 
-const NoVpcTile = resource => {
+const NoVpcTile = () => {
   return /*#__PURE__*/React__default["default"].createElement(react.Tile, {
     className: "tileBackground displayFlex alignItemsCenter wrap marginTop"
   }, /*#__PURE__*/React__default["default"].createElement(iconsReact.CloudAlerting, {
     size: "24",
     className: "iconMargin"
-  }), " No VPC instances have been created. Create one from the", /*#__PURE__*/React__default["default"].createElement("a", {
+  }), " No VPCs have been created. Go to the", /*#__PURE__*/React__default["default"].createElement("a", {
     className: "no-vpc-link",
     href: "/form/vpcs"
-  }, "Virtual Private Clouds Page"), "to enable ", resource);
+  }, "Virtual Private Clouds Page"), "to create one.");
 };
 
 const Clusters = props => {
@@ -5679,7 +5679,7 @@ const Clusters = props => {
       submissionFieldName: "clusters",
       hideName: true
     },
-    overrideTile: props.vpcList.length === 0 ? NoVpcTile("Clusters") : null
+    overrideTile: props.vpcList.length === 0 ? NoVpcTile() : null
   });
 };
 Clusters.propTypes = {
@@ -7604,7 +7604,7 @@ const SecurityGroups = props => {
       hide: true,
       hideName: true
     },
-    overrideTile: props.vpcList.length === 0 ? NoVpcTile("Security Groups") : null
+    overrideTile: props.vpcList.length === 0 ? NoVpcTile() : null
   });
 };
 SecurityGroups.propTypes = {
@@ -8253,7 +8253,7 @@ const Vpe = props => {
       hide: true,
       hideName: true
     },
-    overrideTile: props.vpcList.length === 0 ? NoVpcTile("Virtual Private Endpoints") : null
+    overrideTile: props.vpcList.length === 0 ? NoVpcTile() : null
   });
 };
 Vpe.propTypes = {
@@ -8399,7 +8399,7 @@ const VpnGateways = props => {
       hide: true,
       hideName: true
     },
-    overrideTile: props.vpcList.length === 0 ? NoVpcTile("VPN Gateways") : null
+    overrideTile: props.vpcList.length === 0 ? NoVpcTile() : null
   });
 };
 VpnGateways.propTypes = {
@@ -8796,7 +8796,7 @@ const Vsi = props => {
       hide: true,
       hideName: true
     },
-    overrideTile: props.vpcList.length === 0 ? NoVpcTile("Virtual Server Instances") : null
+    overrideTile: props.vpcList.length === 0 ? NoVpcTile() : null
   });
 };
 Vsi.propTypes = {
@@ -9390,7 +9390,7 @@ const VsiLoadBalancer = props => {
       hide: true,
       hideName: true
     },
-    overrideTile: props.vpcList.length === 0 ? NoVpcTile("Load Balancers") : null
+    overrideTile: props.vpcList.length === 0 ? NoVpcTile() : null
   });
 };
 VsiLoadBalancer.propTypes = {
@@ -10447,7 +10447,7 @@ const RoutingTables = props => {
       submissionFieldName: "routing_tables",
       hideName: true
     },
-    overrideTile: props.vpcList.length === 0 ? NoVpcTile("Routing Tables") : null
+    overrideTile: props.vpcList.length === 0 ? NoVpcTile() : null
   });
 };
 RoutingTables.propTypes = {
@@ -11096,7 +11096,7 @@ const VpnServers = props => {
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
     hideFormTitleButton: props.noSecretsManager || lazyZ.isEmpty(props.vpcList),
-    overrideTile: props.vpcList.length === 0 ? NoVpcTile("VPN Servers") : props.noSecretsManager ? /*#__PURE__*/React__default["default"].createElement(NoSecretsManagerTile, {
+    overrideTile: props.vpcList.length === 0 ? NoVpcTile() : props.noSecretsManager ? /*#__PURE__*/React__default["default"].createElement(NoSecretsManagerTile, {
       text: "to enable VPN Servers."
     }) : null,
     innerFormProps: {
@@ -11350,7 +11350,7 @@ const NetworkAcls = props => {
       propsMatchState: none$2,
       nullRef: true
     },
-    overrideTile: props.craig.store.json.vpcs.length === 0 ? NoVpcTile("VPC Access Control") : null
+    overrideTile: props.craig.store.json.vpcs.length === 0 ? NoVpcTile() : null
   });
 };
 NetworkAcls.propTypes = {
@@ -11589,7 +11589,7 @@ const Subnets = props => {
       propsMatchState: none$1,
       nullRef: true
     },
-    overrideTile: props.craig.store.json.vpcs.length === 0 ? NoVpcTile("VPC Subnets") : null
+    overrideTile: props.craig.store.json.vpcs.length === 0 ? NoVpcTile() : null
   });
 };
 Subnets.propTypes = {

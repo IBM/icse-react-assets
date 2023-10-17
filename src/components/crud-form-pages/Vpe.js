@@ -39,11 +39,7 @@ export const Vpe = (props) => {
         hide: true,
         hideName: true,
       }}
-      overrideTile={
-        props.vpcList.length === 0
-          ? NoVpcTile("Virtual Private Endpoints")
-          : null
-      }
+      overrideTile={props.vpcList.length === 0 ? NoVpcTile() : null}
     />
   );
 };

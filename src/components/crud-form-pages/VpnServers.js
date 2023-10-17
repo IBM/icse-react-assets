@@ -38,7 +38,7 @@ export const VpnServers = (props) => {
       hideFormTitleButton={props.noSecretsManager || isEmpty(props.vpcList)}
       overrideTile={
         props.vpcList.length === 0 ? (
-          NoVpcTile("VPN Servers")
+          NoVpcTile()
         ) : props.noSecretsManager ? (
           <NoSecretsManagerTile text="to enable VPN Servers." />
         ) : null

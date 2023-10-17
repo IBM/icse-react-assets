@@ -44,11 +44,7 @@ export const SecurityGroups = (props) => {
         hide: true,
         hideName: true,
       }}
-      overrideTile={
-        props.vpcList.length === 0
-          ? NoVpcTile("Security Groups")
-          : null
-      }
+      overrideTile={props.vpcList.length === 0 ? NoVpcTile() : null}
     />
   );
 };

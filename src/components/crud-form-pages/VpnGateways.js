@@ -36,11 +36,7 @@ export const VpnGateways = (props) => {
         hide: true,
         hideName: true,
       }}
-      overrideTile={
-        props.vpcList.length === 0
-          ? NoVpcTile("VPN Gateways")
-          : null
-      }
+      overrideTile={props.vpcList.length === 0 ? NoVpcTile() : null}
     />
   );
 };
