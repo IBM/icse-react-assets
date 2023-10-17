@@ -2,6 +2,8 @@ import React from "react";
 import IcseFormTemplate from "../IcseFormTemplate";
 import PropTypes from "prop-types";
 import VpeForm from "../forms/VpeForm";
+import { NoVpcTile } from "./NoVpcTile";
+import { isEmpty } from "lazy-z";
 
 export const Vpe = (props) => {
   return (
@@ -17,6 +19,7 @@ export const Vpe = (props) => {
       onSubmit={props.onSubmit}
       propsMatchState={props.propsMatchState}
       forceOpen={props.forceOpen}
+      hideFormTitleButton={isEmpty(props.vpcList)}
       innerFormProps={{
         craig: props.craig,
         disableSave: props.disableSave,
@@ -36,6 +39,7 @@ export const Vpe = (props) => {
         hide: true,
         hideName: true,
       }}
+      overrideTile={props.vpcList.length === 0 ? NoVpcTile() : null}
     />
   );
 };
@@ -57,4 +61,5 @@ Vpe.propTypes = {
   secretsManagerInstances: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
+  overrideTile: PropTypes.node,
 };

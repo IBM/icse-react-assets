@@ -2,6 +2,8 @@ import React from "react";
 import VpnGatewayForm from "../forms/VpnGatewayForm";
 import IcseFormTemplate from "../IcseFormTemplate";
 import PropTypes from "prop-types";
+import { NoVpcTile } from "./NoVpcTile";
+import { isEmpty } from "lazy-z";
 
 export const VpnGateways = (props) => {
   return (
@@ -17,6 +19,7 @@ export const VpnGateways = (props) => {
       onSubmit={props.onSubmit}
       propsMatchState={props.propsMatchState}
       forceOpen={props.forceOpen}
+      hideFormTitleButton={isEmpty(props.vpcList)}
       innerFormProps={{
         craig: props.craig,
         disableSave: props.disableSave,
@@ -33,6 +36,7 @@ export const VpnGateways = (props) => {
         hide: true,
         hideName: true,
       }}
+      overrideTile={props.vpcList.length === 0 ? NoVpcTile() : null}
     />
   );
 };
@@ -52,4 +56,5 @@ VpnGateways.propTypes = {
   vpcList: PropTypes.arrayOf(PropTypes.string).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   subnetList: PropTypes.array.isRequired,
+  overrideTile: PropTypes.node,
 };

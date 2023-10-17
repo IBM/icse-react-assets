@@ -2,6 +2,8 @@ import React from "react";
 import IcseFormTemplate from "../IcseFormTemplate";
 import PropTypes from "prop-types";
 import VsiForm from "../forms/VsiForm";
+import { NoVpcTile } from "./NoVpcTile";
+import { isEmpty } from "lazy-z";
 
 export const Vsi = (props) => {
   return (
@@ -17,6 +19,7 @@ export const Vsi = (props) => {
       onSubmit={props.onSubmit}
       propsMatchState={props.propsMatchState}
       forceOpen={props.forceOpen}
+      hideFormTitleButton={isEmpty(props.vpcList)}
       innerFormProps={{
         craig: props.craig,
         disableSave: props.disableSave,
@@ -50,6 +53,7 @@ export const Vsi = (props) => {
         hide: true,
         hideName: true,
       }}
+      overrideTile={props.vpcList.length === 0 ? NoVpcTile() : null}
     />
   );
 };
@@ -79,4 +83,5 @@ Vsi.propTypes = {
   onVolumeSave: PropTypes.func.isRequired,
   onVolumeDelete: PropTypes.func.isRequired,
   onVolumeCreate: PropTypes.func.isRequired,
+  overrideTile: PropTypes.node,
 };
