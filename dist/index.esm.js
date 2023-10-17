@@ -5595,6 +5595,21 @@ CloudDatabase.propTypes = {
   cpuMax: PropTypes.number
 };
 
+var css_248z$4 = ".no-secrets-link {\n  padding-left: 3px;\n  padding-right: 3px;\n}\n\n.no-vpc-link {\n  padding-left: 3px;\n  padding-right: 3px;\n}\n";
+styleInject(css_248z$4);
+
+const NoVpcTile = () => {
+  return /*#__PURE__*/React.createElement(Tile, {
+    className: "tileBackground displayFlex alignItemsCenter wrap marginTop"
+  }, /*#__PURE__*/React.createElement(CloudAlerting, {
+    size: "24",
+    className: "iconMargin"
+  }), " No VPCs have been created. Go to the", /*#__PURE__*/React.createElement("a", {
+    className: "no-vpc-link",
+    href: "/form/vpcs"
+  }, "Virtual Private Clouds Page"), "to create one.");
+};
+
 const Clusters = props => {
   return /*#__PURE__*/React.createElement(IcseFormTemplate, {
     name: "Clusters",
@@ -5608,6 +5623,7 @@ const Clusters = props => {
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
     docs: props.docs,
+    hideFormTitleButton: isEmpty(props.vpcList),
     innerFormProps: {
       craig: props.craig,
       disableSave: props.disableSave,
@@ -5651,7 +5667,8 @@ const Clusters = props => {
       disableSave: props.disableSave,
       submissionFieldName: "clusters",
       hideName: true
-    }
+    },
+    overrideTile: props.vpcList.length === 0 ? NoVpcTile() : null
   });
 };
 Clusters.propTypes = {
@@ -5693,7 +5710,8 @@ Clusters.propTypes = {
   labelsInvalidText: PropTypes.string,
   secretsManagerList: PropTypes.arrayOf(PropTypes.string).isRequired,
   cosNames: PropTypes.arrayOf(PropTypes.string).isRequired,
-  docs: PropTypes.func
+  docs: PropTypes.func,
+  overrideTile: PropTypes.node
 };
 
 /**
@@ -6654,8 +6672,8 @@ ResourceGroups.propTypes = {
   docs: PropTypes.func
 };
 
-var css_248z$4 = ".secretsChecklistPadding {\n  margin-bottom: 0px !important;\n  margin-top: 1rem !important;\n}\n\n.secretChecklistMargin {\n  margin-top: -1rem !important;\n}\n\n.secretCheckBoxMargin {\n  padding-left: 1rem !important;\n}\n";
-styleInject(css_248z$4);
+var css_248z$3 = ".secretsChecklistPadding {\n  margin-bottom: 0px !important;\n  margin-top: 1rem !important;\n}\n\n.secretChecklistMargin {\n  margin-top: -1rem !important;\n}\n\n.secretCheckBoxMargin {\n  padding-left: 1rem !important;\n}\n";
+styleInject(css_248z$3);
 
 /**
  * SecretsManagerForm
@@ -7549,6 +7567,7 @@ const SecurityGroups = props => {
     onSubmit: props.onSubmit,
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
+    hideFormTitleButton: isEmpty(props.vpcList),
     isSecurityGroup: true,
     innerFormProps: {
       craig: props.craig,
@@ -7573,7 +7592,8 @@ const SecurityGroups = props => {
       submissionFieldName: "security_groups",
       hide: true,
       hideName: true
-    }
+    },
+    overrideTile: props.vpcList.length === 0 ? NoVpcTile() : null
   });
 };
 SecurityGroups.propTypes = {
@@ -7595,7 +7615,8 @@ SecurityGroups.propTypes = {
   onRuleSave: PropTypes.func.isRequired,
   onRuleDelete: PropTypes.func.isRequired,
   disableSaveCallback: PropTypes.func.isRequired,
-  vpcList: PropTypes.array.isRequired
+  vpcList: PropTypes.array.isRequired,
+  overrideTile: PropTypes.node
 };
 
 class TransitGatewayForm extends Component {
@@ -8201,6 +8222,7 @@ const Vpe = props => {
     onSubmit: props.onSubmit,
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
+    hideFormTitleButton: isEmpty(props.vpcList),
     innerFormProps: {
       craig: props.craig,
       disableSave: props.disableSave,
@@ -8219,7 +8241,8 @@ const Vpe = props => {
       submissionFieldName: "virtual_private_endpoints",
       hide: true,
       hideName: true
-    }
+    },
+    overrideTile: props.vpcList.length === 0 ? NoVpcTile() : null
   });
 };
 Vpe.propTypes = {
@@ -8238,7 +8261,8 @@ Vpe.propTypes = {
   vpcList: PropTypes.arrayOf(PropTypes.string),
   secretsManagerInstances: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   invalidCallback: PropTypes.func.isRequired,
-  invalidTextCallback: PropTypes.func.isRequired
+  invalidTextCallback: PropTypes.func.isRequired,
+  overrideTile: PropTypes.node
 };
 
 /**
@@ -8347,6 +8371,7 @@ const VpnGateways = props => {
     onSubmit: props.onSubmit,
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
+    hideFormTitleButton: isEmpty(props.vpcList),
     innerFormProps: {
       craig: props.craig,
       disableSave: props.disableSave,
@@ -8362,7 +8387,8 @@ const VpnGateways = props => {
       submissionFieldName: "vpn_gateways",
       hide: true,
       hideName: true
-    }
+    },
+    overrideTile: props.vpcList.length === 0 ? NoVpcTile() : null
   });
 };
 VpnGateways.propTypes = {
@@ -8379,7 +8405,8 @@ VpnGateways.propTypes = {
   invalidTextCallback: PropTypes.func.isRequired,
   vpcList: PropTypes.arrayOf(PropTypes.string).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
-  subnetList: PropTypes.array.isRequired
+  subnetList: PropTypes.array.isRequired,
+  overrideTile: PropTypes.node
 };
 
 class VsiVolumeForm extends Component {
@@ -8724,6 +8751,7 @@ const Vsi = props => {
     onSubmit: props.onSubmit,
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
+    hideFormTitleButton: isEmpty(props.vpcList),
     innerFormProps: {
       craig: props.craig,
       disableSave: props.disableSave,
@@ -8756,7 +8784,8 @@ const Vsi = props => {
       submissionFieldName: "vsi",
       hide: true,
       hideName: true
-    }
+    },
+    overrideTile: props.vpcList.length === 0 ? NoVpcTile() : null
   });
 };
 Vsi.propTypes = {
@@ -8783,7 +8812,8 @@ Vsi.propTypes = {
   invalidVolumeTextCallback: PropTypes.func.isRequired,
   onVolumeSave: PropTypes.func.isRequired,
   onVolumeDelete: PropTypes.func.isRequired,
-  onVolumeCreate: PropTypes.func.isRequired
+  onVolumeCreate: PropTypes.func.isRequired,
+  overrideTile: PropTypes.node
 };
 
 class WorkerPoolForm extends Component {
@@ -8931,8 +8961,8 @@ WorkerPools.propTypes = {
   craig: PropTypes.shape({})
 };
 
-var css_248z$3 = ".tileTitle {\n  font-size: 80%;\n  font-weight: bold;\n}\n\n.tileContent {\n  font-size: 90%;\n}\n";
-styleInject(css_248z$3);
+var css_248z$2 = ".tileTitle {\n  font-size: 80%;\n  font-weight: bold;\n}\n\n.tileContent {\n  font-size: 90%;\n}\n";
+styleInject(css_248z$2);
 
 class VsiLoadBalancerForm extends React.Component {
   constructor(props) {
@@ -9331,6 +9361,7 @@ const VsiLoadBalancer = props => {
     onSubmit: props.onSubmit,
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
+    hideFormTitleButton: isEmpty(props.vpcList),
     innerFormProps: {
       craig: props.craig,
       disableSave: props.disableSave,
@@ -9347,7 +9378,8 @@ const VsiLoadBalancer = props => {
       submissionFieldName: "load_balancers",
       hide: true,
       hideName: true
-    }
+    },
+    overrideTile: props.vpcList.length === 0 ? NoVpcTile() : null
   });
 };
 VsiLoadBalancer.propTypes = {
@@ -9365,7 +9397,8 @@ VsiLoadBalancer.propTypes = {
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   vpcList: PropTypes.arrayOf(PropTypes.string.isRequired),
   securityGroups: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  vsiDeployments: PropTypes.arrayOf(PropTypes.shape({})).isRequired
+  vsiDeployments: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  overrideTile: PropTypes.node
 };
 
 class DnsZoneForm extends React.Component {
@@ -10379,6 +10412,7 @@ const RoutingTables = props => {
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
     docs: props.docs,
+    hideFormTitleButton: isEmpty(props.vpcList),
     innerFormProps: {
       propsMatchState: props.propsMatchState,
       craig: props.craig,
@@ -10401,7 +10435,8 @@ const RoutingTables = props => {
       disableSave: props.disableSave,
       submissionFieldName: "routing_tables",
       hideName: true
-    }
+    },
+    overrideTile: props.vpcList.length === 0 ? NoVpcTile() : null
   });
 };
 RoutingTables.propTypes = {
@@ -10420,7 +10455,8 @@ RoutingTables.propTypes = {
   invalidRouteCallback: PropTypes.func.isRequired,
   onRouteSave: PropTypes.func.isRequired,
   onRouteDelete: PropTypes.func.isRequired,
-  onRouteSubmit: PropTypes.func.isRequired
+  onRouteSubmit: PropTypes.func.isRequired,
+  overrideTile: PropTypes.node
 };
 
 /**
@@ -11022,9 +11058,6 @@ VpnServerForm.propTypes = {
   invalidCrnText: PropTypes.func.isRequired
 };
 
-var css_248z$2 = ".no-secrets-link {\n  padding-left: 3px;\n  padding-right: 3px;\n}\n";
-styleInject(css_248z$2);
-
 const NoSecretsManagerTile = ({
   text
 }) => {
@@ -11051,8 +11084,8 @@ const VpnServers = props => {
     onSubmit: props.onSubmit,
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
-    hideFormTitleButton: props.noSecretsManager,
-    overrideTile: props.noSecretsManager ? /*#__PURE__*/React.createElement(NoSecretsManagerTile, {
+    hideFormTitleButton: props.noSecretsManager || isEmpty(props.vpcList),
+    overrideTile: props.vpcList.length === 0 ? NoVpcTile() : props.noSecretsManager ? /*#__PURE__*/React.createElement(NoSecretsManagerTile, {
       text: "to enable VPN Servers."
     }) : null,
     innerFormProps: {
@@ -11128,7 +11161,8 @@ VpnServers.propTypes = {
   invalidRouteTextCallback: PropTypes.func.isRequired,
   subnetList: PropTypes.array.isRequired,
   securityGroups: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  vpcList: PropTypes.arrayOf(PropTypes.string)
+  vpcList: PropTypes.arrayOf(PropTypes.string),
+  overrideTile: PropTypes.node
 };
 
 function none$2() {}
@@ -11304,7 +11338,8 @@ const NetworkAcls = props => {
       disableSave: none$2,
       propsMatchState: none$2,
       nullRef: true
-    }
+    },
+    overrideTile: props.craig.store.json.vpcs.length === 0 ? NoVpcTile() : null
   });
 };
 NetworkAcls.propTypes = {
@@ -11325,7 +11360,8 @@ NetworkAcls.propTypes = {
   onRuleDelete: PropTypes.func.isRequired,
   onSubmitCallback: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
-  onDelete: PropTypes.func.isRequired
+  onDelete: PropTypes.func.isRequired,
+  overrideTile: PropTypes.node
 };
 
 const SshKeys = props => {
@@ -11541,7 +11577,8 @@ const Subnets = props => {
       disableSave: none$1,
       propsMatchState: none$1,
       nullRef: true
-    }
+    },
+    overrideTile: props.craig.store.json.vpcs.length === 0 ? NoVpcTile() : null
   });
 };
 Subnets.propTypes = {
@@ -11565,7 +11602,8 @@ Subnets.propTypes = {
   getTierSubnets: PropTypes.func.isRequired,
   onSubnetSave: PropTypes.func.isRequired,
   onSubnetTierSave: PropTypes.func.isRequired,
-  onSubnetTierDelete: PropTypes.func.isRequired
+  onSubnetTierDelete: PropTypes.func.isRequired,
+  overrideTile: PropTypes.node
 };
 
 class PowerVsNetworkForm extends Component {

@@ -2,6 +2,8 @@ import React from "react";
 import IcseFormTemplate from "../IcseFormTemplate";
 import VsiLoadBalancerForm from "../forms/VsiLoadBalancerForm";
 import PropTypes from "prop-types";
+import { NoVpcTile } from "./NoVpcTile";
+import { isEmpty } from "lazy-z";
 
 export const VsiLoadBalancer = (props) => {
   return (
@@ -17,6 +19,7 @@ export const VsiLoadBalancer = (props) => {
       onSubmit={props.onSubmit}
       propsMatchState={props.propsMatchState}
       forceOpen={props.forceOpen}
+      hideFormTitleButton={isEmpty(props.vpcList)}
       innerFormProps={{
         craig: props.craig,
         disableSave: props.disableSave,
@@ -34,6 +37,7 @@ export const VsiLoadBalancer = (props) => {
         hide: true,
         hideName: true,
       }}
+      overrideTile={props.vpcList.length === 0 ? NoVpcTile() : null}
     />
   );
 };
@@ -54,4 +58,5 @@ VsiLoadBalancer.propTypes = {
   vpcList: PropTypes.arrayOf(PropTypes.string.isRequired),
   securityGroups: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   vsiDeployments: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  overrideTile: PropTypes.node,
 };

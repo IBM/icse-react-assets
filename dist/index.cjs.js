@@ -5606,6 +5606,21 @@ CloudDatabase.propTypes = {
   cpuMax: PropTypes__default["default"].number
 };
 
+var css_248z$4 = ".no-secrets-link {\n  padding-left: 3px;\n  padding-right: 3px;\n}\n\n.no-vpc-link {\n  padding-left: 3px;\n  padding-right: 3px;\n}\n";
+styleInject(css_248z$4);
+
+const NoVpcTile = () => {
+  return /*#__PURE__*/React__default["default"].createElement(react.Tile, {
+    className: "tileBackground displayFlex alignItemsCenter wrap marginTop"
+  }, /*#__PURE__*/React__default["default"].createElement(iconsReact.CloudAlerting, {
+    size: "24",
+    className: "iconMargin"
+  }), " No VPCs have been created. Go to the", /*#__PURE__*/React__default["default"].createElement("a", {
+    className: "no-vpc-link",
+    href: "/form/vpcs"
+  }, "Virtual Private Clouds Page"), "to create one.");
+};
+
 const Clusters = props => {
   return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
     name: "Clusters",
@@ -5619,6 +5634,7 @@ const Clusters = props => {
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
     docs: props.docs,
+    hideFormTitleButton: lazyZ.isEmpty(props.vpcList),
     innerFormProps: {
       craig: props.craig,
       disableSave: props.disableSave,
@@ -5662,7 +5678,8 @@ const Clusters = props => {
       disableSave: props.disableSave,
       submissionFieldName: "clusters",
       hideName: true
-    }
+    },
+    overrideTile: props.vpcList.length === 0 ? NoVpcTile() : null
   });
 };
 Clusters.propTypes = {
@@ -5704,7 +5721,8 @@ Clusters.propTypes = {
   labelsInvalidText: PropTypes__default["default"].string,
   secretsManagerList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   cosNames: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  docs: PropTypes__default["default"].func
+  docs: PropTypes__default["default"].func,
+  overrideTile: PropTypes__default["default"].node
 };
 
 /**
@@ -6665,8 +6683,8 @@ ResourceGroups.propTypes = {
   docs: PropTypes__default["default"].func
 };
 
-var css_248z$4 = ".secretsChecklistPadding {\n  margin-bottom: 0px !important;\n  margin-top: 1rem !important;\n}\n\n.secretChecklistMargin {\n  margin-top: -1rem !important;\n}\n\n.secretCheckBoxMargin {\n  padding-left: 1rem !important;\n}\n";
-styleInject(css_248z$4);
+var css_248z$3 = ".secretsChecklistPadding {\n  margin-bottom: 0px !important;\n  margin-top: 1rem !important;\n}\n\n.secretChecklistMargin {\n  margin-top: -1rem !important;\n}\n\n.secretCheckBoxMargin {\n  padding-left: 1rem !important;\n}\n";
+styleInject(css_248z$3);
 
 /**
  * SecretsManagerForm
@@ -7560,6 +7578,7 @@ const SecurityGroups = props => {
     onSubmit: props.onSubmit,
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
+    hideFormTitleButton: lazyZ.isEmpty(props.vpcList),
     isSecurityGroup: true,
     innerFormProps: {
       craig: props.craig,
@@ -7584,7 +7603,8 @@ const SecurityGroups = props => {
       submissionFieldName: "security_groups",
       hide: true,
       hideName: true
-    }
+    },
+    overrideTile: props.vpcList.length === 0 ? NoVpcTile() : null
   });
 };
 SecurityGroups.propTypes = {
@@ -7606,7 +7626,8 @@ SecurityGroups.propTypes = {
   onRuleSave: PropTypes__default["default"].func.isRequired,
   onRuleDelete: PropTypes__default["default"].func.isRequired,
   disableSaveCallback: PropTypes__default["default"].func.isRequired,
-  vpcList: PropTypes__default["default"].array.isRequired
+  vpcList: PropTypes__default["default"].array.isRequired,
+  overrideTile: PropTypes__default["default"].node
 };
 
 class TransitGatewayForm extends React.Component {
@@ -8212,6 +8233,7 @@ const Vpe = props => {
     onSubmit: props.onSubmit,
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
+    hideFormTitleButton: lazyZ.isEmpty(props.vpcList),
     innerFormProps: {
       craig: props.craig,
       disableSave: props.disableSave,
@@ -8230,7 +8252,8 @@ const Vpe = props => {
       submissionFieldName: "virtual_private_endpoints",
       hide: true,
       hideName: true
-    }
+    },
+    overrideTile: props.vpcList.length === 0 ? NoVpcTile() : null
   });
 };
 Vpe.propTypes = {
@@ -8249,7 +8272,8 @@ Vpe.propTypes = {
   vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string),
   secretsManagerInstances: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
   invalidCallback: PropTypes__default["default"].func.isRequired,
-  invalidTextCallback: PropTypes__default["default"].func.isRequired
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  overrideTile: PropTypes__default["default"].node
 };
 
 /**
@@ -8358,6 +8382,7 @@ const VpnGateways = props => {
     onSubmit: props.onSubmit,
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
+    hideFormTitleButton: lazyZ.isEmpty(props.vpcList),
     innerFormProps: {
       craig: props.craig,
       disableSave: props.disableSave,
@@ -8373,7 +8398,8 @@ const VpnGateways = props => {
       submissionFieldName: "vpn_gateways",
       hide: true,
       hideName: true
-    }
+    },
+    overrideTile: props.vpcList.length === 0 ? NoVpcTile() : null
   });
 };
 VpnGateways.propTypes = {
@@ -8390,7 +8416,8 @@ VpnGateways.propTypes = {
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
   vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
-  subnetList: PropTypes__default["default"].array.isRequired
+  subnetList: PropTypes__default["default"].array.isRequired,
+  overrideTile: PropTypes__default["default"].node
 };
 
 class VsiVolumeForm extends React.Component {
@@ -8735,6 +8762,7 @@ const Vsi = props => {
     onSubmit: props.onSubmit,
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
+    hideFormTitleButton: lazyZ.isEmpty(props.vpcList),
     innerFormProps: {
       craig: props.craig,
       disableSave: props.disableSave,
@@ -8767,7 +8795,8 @@ const Vsi = props => {
       submissionFieldName: "vsi",
       hide: true,
       hideName: true
-    }
+    },
+    overrideTile: props.vpcList.length === 0 ? NoVpcTile() : null
   });
 };
 Vsi.propTypes = {
@@ -8794,7 +8823,8 @@ Vsi.propTypes = {
   invalidVolumeTextCallback: PropTypes__default["default"].func.isRequired,
   onVolumeSave: PropTypes__default["default"].func.isRequired,
   onVolumeDelete: PropTypes__default["default"].func.isRequired,
-  onVolumeCreate: PropTypes__default["default"].func.isRequired
+  onVolumeCreate: PropTypes__default["default"].func.isRequired,
+  overrideTile: PropTypes__default["default"].node
 };
 
 class WorkerPoolForm extends React.Component {
@@ -8942,8 +8972,8 @@ WorkerPools.propTypes = {
   craig: PropTypes__default["default"].shape({})
 };
 
-var css_248z$3 = ".tileTitle {\n  font-size: 80%;\n  font-weight: bold;\n}\n\n.tileContent {\n  font-size: 90%;\n}\n";
-styleInject(css_248z$3);
+var css_248z$2 = ".tileTitle {\n  font-size: 80%;\n  font-weight: bold;\n}\n\n.tileContent {\n  font-size: 90%;\n}\n";
+styleInject(css_248z$2);
 
 class VsiLoadBalancerForm extends React__default["default"].Component {
   constructor(props) {
@@ -9342,6 +9372,7 @@ const VsiLoadBalancer = props => {
     onSubmit: props.onSubmit,
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
+    hideFormTitleButton: lazyZ.isEmpty(props.vpcList),
     innerFormProps: {
       craig: props.craig,
       disableSave: props.disableSave,
@@ -9358,7 +9389,8 @@ const VsiLoadBalancer = props => {
       submissionFieldName: "load_balancers",
       hide: true,
       hideName: true
-    }
+    },
+    overrideTile: props.vpcList.length === 0 ? NoVpcTile() : null
   });
 };
 VsiLoadBalancer.propTypes = {
@@ -9376,7 +9408,8 @@ VsiLoadBalancer.propTypes = {
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string.isRequired),
   securityGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
-  vsiDeployments: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired
+  vsiDeployments: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  overrideTile: PropTypes__default["default"].node
 };
 
 class DnsZoneForm extends React__default["default"].Component {
@@ -10390,6 +10423,7 @@ const RoutingTables = props => {
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
     docs: props.docs,
+    hideFormTitleButton: lazyZ.isEmpty(props.vpcList),
     innerFormProps: {
       propsMatchState: props.propsMatchState,
       craig: props.craig,
@@ -10412,7 +10446,8 @@ const RoutingTables = props => {
       disableSave: props.disableSave,
       submissionFieldName: "routing_tables",
       hideName: true
-    }
+    },
+    overrideTile: props.vpcList.length === 0 ? NoVpcTile() : null
   });
 };
 RoutingTables.propTypes = {
@@ -10431,7 +10466,8 @@ RoutingTables.propTypes = {
   invalidRouteCallback: PropTypes__default["default"].func.isRequired,
   onRouteSave: PropTypes__default["default"].func.isRequired,
   onRouteDelete: PropTypes__default["default"].func.isRequired,
-  onRouteSubmit: PropTypes__default["default"].func.isRequired
+  onRouteSubmit: PropTypes__default["default"].func.isRequired,
+  overrideTile: PropTypes__default["default"].node
 };
 
 /**
@@ -11033,9 +11069,6 @@ VpnServerForm.propTypes = {
   invalidCrnText: PropTypes__default["default"].func.isRequired
 };
 
-var css_248z$2 = ".no-secrets-link {\n  padding-left: 3px;\n  padding-right: 3px;\n}\n";
-styleInject(css_248z$2);
-
 const NoSecretsManagerTile = ({
   text
 }) => {
@@ -11062,8 +11095,8 @@ const VpnServers = props => {
     onSubmit: props.onSubmit,
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
-    hideFormTitleButton: props.noSecretsManager,
-    overrideTile: props.noSecretsManager ? /*#__PURE__*/React__default["default"].createElement(NoSecretsManagerTile, {
+    hideFormTitleButton: props.noSecretsManager || lazyZ.isEmpty(props.vpcList),
+    overrideTile: props.vpcList.length === 0 ? NoVpcTile() : props.noSecretsManager ? /*#__PURE__*/React__default["default"].createElement(NoSecretsManagerTile, {
       text: "to enable VPN Servers."
     }) : null,
     innerFormProps: {
@@ -11139,7 +11172,8 @@ VpnServers.propTypes = {
   invalidRouteTextCallback: PropTypes__default["default"].func.isRequired,
   subnetList: PropTypes__default["default"].array.isRequired,
   securityGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
-  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string)
+  vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string),
+  overrideTile: PropTypes__default["default"].node
 };
 
 function none$2() {}
@@ -11315,7 +11349,8 @@ const NetworkAcls = props => {
       disableSave: none$2,
       propsMatchState: none$2,
       nullRef: true
-    }
+    },
+    overrideTile: props.craig.store.json.vpcs.length === 0 ? NoVpcTile() : null
   });
 };
 NetworkAcls.propTypes = {
@@ -11336,7 +11371,8 @@ NetworkAcls.propTypes = {
   onRuleDelete: PropTypes__default["default"].func.isRequired,
   onSubmitCallback: PropTypes__default["default"].func.isRequired,
   onSave: PropTypes__default["default"].func.isRequired,
-  onDelete: PropTypes__default["default"].func.isRequired
+  onDelete: PropTypes__default["default"].func.isRequired,
+  overrideTile: PropTypes__default["default"].node
 };
 
 const SshKeys = props => {
@@ -11552,7 +11588,8 @@ const Subnets = props => {
       disableSave: none$1,
       propsMatchState: none$1,
       nullRef: true
-    }
+    },
+    overrideTile: props.craig.store.json.vpcs.length === 0 ? NoVpcTile() : null
   });
 };
 Subnets.propTypes = {
@@ -11576,7 +11613,8 @@ Subnets.propTypes = {
   getTierSubnets: PropTypes__default["default"].func.isRequired,
   onSubnetSave: PropTypes__default["default"].func.isRequired,
   onSubnetTierSave: PropTypes__default["default"].func.isRequired,
-  onSubnetTierDelete: PropTypes__default["default"].func.isRequired
+  onSubnetTierDelete: PropTypes__default["default"].func.isRequired,
+  overrideTile: PropTypes__default["default"].node
 };
 
 class PowerVsNetworkForm extends React.Component {

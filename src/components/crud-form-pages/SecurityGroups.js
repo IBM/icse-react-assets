@@ -2,6 +2,8 @@ import React from "react";
 import IcseFormTemplate from "../IcseFormTemplate";
 import PropTypes from "prop-types";
 import SecurityGroupForm from "../forms/SecurityGroupForm";
+import { NoVpcTile } from "./NoVpcTile";
+import { isEmpty } from "lazy-z";
 
 export const SecurityGroups = (props) => {
   return (
@@ -17,6 +19,7 @@ export const SecurityGroups = (props) => {
       onSubmit={props.onSubmit}
       propsMatchState={props.propsMatchState}
       forceOpen={props.forceOpen}
+      hideFormTitleButton={isEmpty(props.vpcList)}
       isSecurityGroup
       innerFormProps={{
         craig: props.craig,
@@ -41,6 +44,7 @@ export const SecurityGroups = (props) => {
         hide: true,
         hideName: true,
       }}
+      overrideTile={props.vpcList.length === 0 ? NoVpcTile() : null}
     />
   );
 };
@@ -65,4 +69,5 @@ SecurityGroups.propTypes = {
   onRuleDelete: PropTypes.func.isRequired,
   disableSaveCallback: PropTypes.func.isRequired,
   vpcList: PropTypes.array.isRequired,
+  overrideTile: PropTypes.node,
 };
