@@ -43,7 +43,7 @@ class SshKeyForm extends Component {
       <>
         <IcseFormGroup>
           {/* use data */}
-          {!this.props.powerVs && (
+          {!this.props.powerVs && !this.props.classic && (
             <IcseToggle
               labelText="Use Existing Instance"
               key={this.state.use_data}
@@ -58,7 +58,11 @@ class SshKeyForm extends Component {
           <IcseNameInput
             id={
               this.state.name +
-              (this.props.powerVs ? "-power-ssh-key" : "") +
+              (this.props.powerVs
+                ? "-power-ssh-key"
+                : this.props.classic
+                ? "-classic-ssh-key"
+                : "") +
               "-name"
             }
             componentName={this.props.data.name + "-ssh-key-name"}
@@ -69,15 +73,17 @@ class SshKeyForm extends Component {
             hideHelperText
           />
           {/* resource group */}
-          <IcseSelect
-            name="resource_group"
-            formName={`${kebabCase(this.props.data.name)}-ssh-rg-select`}
-            groups={this.props.resourceGroups}
-            value={this.state.resource_group}
-            handleInputChange={this.handleInputChange}
-            invalidText="Select a Resource Group."
-            labelText="Resource Group"
-          />
+          {!this.props.classic && (
+            <IcseSelect
+              name="resource_group"
+              formName={`${kebabCase(this.props.data.name)}-ssh-rg-select`}
+              groups={this.props.resourceGroups}
+              value={this.state.resource_group}
+              handleInputChange={this.handleInputChange}
+              invalidText="Select a Resource Group."
+              labelText="Resource Group"
+            />
+          )}
         </IcseFormGroup>
         {/* do not render public key input if not use_data */}
         {!this.state.use_data && (
@@ -115,6 +121,7 @@ SshKeyForm.defaultProps = {
   powerVs: false,
   resourceGroups: [],
   isModal: false,
+  classic: false,
 };
 
 SshKeyForm.propTypes = {
@@ -130,6 +137,7 @@ SshKeyForm.propTypes = {
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
   invalidKeyCallback: PropTypes.func.isRequired,
+  classic: PropTypes.bool.isRequired,
 };
 
 export default SshKeyForm;

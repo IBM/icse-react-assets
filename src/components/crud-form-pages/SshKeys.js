@@ -30,6 +30,7 @@ export const SshKeys = (props) => {
         invalidKeyCallback: props.invalidKeyCallback,
         powerVs: props.powerVs,
         arrayParentName: props.powerVs ? props.arrayParentName : undefined,
+        classic: props.classic,
       }}
       hideAbout={props.powerVs}
       toggleFormProps={{
@@ -46,6 +47,7 @@ export const SshKeys = (props) => {
 
 SshKeys.defaultProps = {
   powerVs: false,
+  classic: false,
 };
 
 SshKeys.propTypes = {
@@ -65,4 +67,5 @@ SshKeys.propTypes = {
   invalidKeyCallback: PropTypes.func.isRequired,
   powerVs: PropTypes.bool.isRequired,
   arrayParentName: PropTypes.string,
+  classic: PropTypes.bool.isRequired,
 };

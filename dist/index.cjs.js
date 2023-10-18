@@ -11400,7 +11400,8 @@ const SshKeys = props => {
       disableSave: props.disableSave,
       invalidKeyCallback: props.invalidKeyCallback,
       powerVs: props.powerVs,
-      arrayParentName: props.powerVs ? props.arrayParentName : undefined
+      arrayParentName: props.powerVs ? props.arrayParentName : undefined,
+      classic: props.classic
     },
     hideAbout: props.powerVs,
     toggleFormProps: {
@@ -11414,7 +11415,8 @@ const SshKeys = props => {
   });
 };
 SshKeys.defaultProps = {
-  powerVs: false
+  powerVs: false,
+  classic: false
 };
 SshKeys.propTypes = {
   ssh_keys: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
@@ -11433,7 +11435,8 @@ SshKeys.propTypes = {
   deleteDisabled: PropTypes__default["default"].func.isRequired,
   invalidKeyCallback: PropTypes__default["default"].func.isRequired,
   powerVs: PropTypes__default["default"].bool.isRequired,
-  arrayParentName: PropTypes__default["default"].string
+  arrayParentName: PropTypes__default["default"].string,
+  classic: PropTypes__default["default"].bool.isRequired
 };
 
 function none$1() {}
@@ -14985,7 +14988,7 @@ class SshKeyForm extends React.Component {
     this.setState(this.eventTargetToNameAndValue(event));
   }
   render() {
-    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, !this.props.powerVs && /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, !this.props.powerVs && !this.props.classic && /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
       labelText: "Use Existing Instance",
       key: this.state.use_data,
       defaultToggled: this.state.use_data,
@@ -14994,14 +14997,14 @@ class SshKeyForm extends React.Component {
       className: "fieldWidthSmallest",
       id: this.state.name + "-use-existing-instance"
     }), /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
-      id: this.state.name + (this.props.powerVs ? "-power-ssh-key" : "") + "-name",
+      id: this.state.name + (this.props.powerVs ? "-power-ssh-key" : this.props.classic ? "-classic-ssh-key" : "") + "-name",
       componentName: this.props.data.name + "-ssh-key-name",
       value: this.state.name,
       onChange: this.handleInputChange,
       invalid: this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props),
       hideHelperText: true
-    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+    }), !this.props.classic && /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       name: "resource_group",
       formName: `${lazyZ.kebabCase(this.props.data.name)}-ssh-rg-select`,
       groups: this.props.resourceGroups,
@@ -15033,7 +15036,8 @@ SshKeyForm.defaultProps = {
   },
   powerVs: false,
   resourceGroups: [],
-  isModal: false
+  isModal: false,
+  classic: false
 };
 SshKeyForm.propTypes = {
   data: PropTypes__default["default"].shape({
@@ -15047,7 +15051,8 @@ SshKeyForm.propTypes = {
   isModal: PropTypes__default["default"].bool.isRequired,
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  invalidKeyCallback: PropTypes__default["default"].func.isRequired
+  invalidKeyCallback: PropTypes__default["default"].func.isRequired,
+  classic: PropTypes__default["default"].bool.isRequired
 };
 
 /**

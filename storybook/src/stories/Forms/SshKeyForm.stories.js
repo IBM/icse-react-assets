@@ -35,6 +35,11 @@ export default {
       control: "none",
       type: { required: false },
     },
+    classic: {
+      description: "A boolean indicating whether or not classic is used",
+      control: "none",
+      type: { required: false },
+    },
     resourceGroups: {
       description:
         "An array of strings containing the names of resource groups to select",
@@ -120,7 +125,23 @@ const PowerVsSshKeyStory = () => {
         public_key: "test-key",
         use_data: false,
       }}
-      powerVs={true}
+      powerVs
+      resourceGroups={["rg1", "rg2", "rg3"]}
+      invalidCallback={invalidCallback}
+      invalidTextCallback={invalidTextCallback}
+      invalidKeyCallback={invalidKeyCallback}
+    />
+  );
+};
+
+const ClassicSshKeyStory = () => {
+  return (
+    <SshKeyForm
+      data={{
+        name: "ClassicSshKeyFormTest",
+        public_key: "test-key",
+      }}
+      classic
       resourceGroups={["rg1", "rg2", "rg3"]}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
@@ -131,3 +152,4 @@ const PowerVsSshKeyStory = () => {
 
 export const Default = SshKeyFormStory.bind({});
 export const PowerVS = PowerVsSshKeyStory.bind({});
+export const ClassicInfrastructure = ClassicSshKeyStory.bind({});
