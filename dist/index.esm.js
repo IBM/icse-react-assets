@@ -4106,18 +4106,18 @@ const PageNotFound = () => {
     className: "underConstruction flexDirectionColumn"
   }, /*#__PURE__*/React.createElement(Help, {
     size: "128"
-  }), /*#__PURE__*/React.createElement("h1", null, " ERROR 404"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("h4", null, "Unfortunately, we couldn\u2019t find the page you were looking for, but here are some helpful places to start from:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", {
+  }), /*#__PURE__*/React.createElement("h1", null, " Error 404"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("h4", null, "Unfortunately, we couldn\u2019t find the page you were looking for, but here are some helpful places to start from:"), /*#__PURE__*/React.createElement("br", null), /*#__PURE__*/React.createElement("div", {
     className: "kerning"
-  }, "Projects", /*#__PURE__*/React.createElement("a", {
-    href: "localhost:3000/projects",
+  }, " ", /*#__PURE__*/React.createElement("a", {
+    href: "http://localhost:3000/projects",
     target: "_blank"
-  }), "Projects", /*#__PURE__*/React.createElement("br", null), "About", /*#__PURE__*/React.createElement("a", {
-    href: "localhost:3000/docs/about",
+  }, "Projects"), " ", /*#__PURE__*/React.createElement("br", null), " ", /*#__PURE__*/React.createElement("a", {
+    href: "http://localhost:3000/docs/about",
     target: "_blank"
-  }), "About", /*#__PURE__*/React.createElement("br", null), "Tutorial", /*#__PURE__*/React.createElement("a", {
-    href: "localhost:3000/docs/tutorial",
+  }, "About"), " ", /*#__PURE__*/React.createElement("br", null), " ", /*#__PURE__*/React.createElement("a", {
+    href: "http://localhost:3000/docs/tutorial",
     target: "_blank"
-  }), "Tutorial"));
+  }, "Tutorial"), " "));
 };
 
 const {

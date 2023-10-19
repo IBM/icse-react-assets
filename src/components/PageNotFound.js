@@ -14,17 +14,17 @@ const PageNotFound = () => {
       <br />
       <div className="kerning">
         {" "}
-        <a href="http://localhost:3000/projects" target="_blank">
+        <a href="http://localhost:3000/projects">
           Projects
         </a>{" "}
         <br />
         {" "}
-        <a href="http://localhost:3000/docs/about" target="_blank">
+        <a href="http://localhost:3000/docs/about">
           About
         </a>{" "}
         <br />
         {" "}
-        <a href="http://localhost:3000/docs/tutorial" target="_blank">
+        <a href="http://localhost:3000/docs/tutorial">
           Tutorial
         </a>{" "}
       </div>
