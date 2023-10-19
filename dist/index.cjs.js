@@ -4109,6 +4109,17 @@ LocationsMultiSelect.propTypes = {
   region: PropTypes__default["default"].string.isRequired
 };
 
+/**
+ * Under Construction Page
+ */
+const ErrorPage = () => {
+  return /*#__PURE__*/React__default["default"].createElement("div", {
+    className: "underConstruction flexDirectionColumn"
+  }, /*#__PURE__*/React__default["default"].createElement(iconsReact.WarningAlt, {
+    size: "128"
+  }), /*#__PURE__*/React__default["default"].createElement("h4", null, "Error 404: Page Not Found"));
+};
+
 const {
   isFunction,
   splat,
@@ -16970,6 +16981,7 @@ exports.EmptyResourceTile = EmptyResourceTile;
 exports.EncryptionKeyForm = EncryptionKeyForm;
 exports.EndpointSelect = EndpointSelect;
 exports.EntitlementSelect = EntitlementSelect;
+exports.ErrorPage = ErrorPage;
 exports.EventStreamsForm = EventStreamsForm;
 exports.EventStreamsTemplate = EventStreams;
 exports.F5BigIpPage = F5BigIp;
