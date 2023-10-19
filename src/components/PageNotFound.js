@@ -2,7 +2,7 @@ import React from "react";
 import { Help } from "@carbon/icons-react";
 
 /**
- * Under Construction Page
+ * Error Page not found Page
  */
 const PageNotFound = () => {
   return (
