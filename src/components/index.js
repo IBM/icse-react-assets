@@ -31,7 +31,7 @@ export { default as StatefulTabPanel } from "./StatefulTabPanel";
 export { default as ToggleForm } from "./ToggleForm";
 export { DynamicToolTipWrapper, IcseToolTip, ToolTipWrapper } from "./Tooltips";
 export { default as UnderConstruction } from "./UnderConstruction";
-export { default as ErrorPage } from "./ErrorPage";
+export { default as PageNotFound } from "./PageNotFound";
 export {
   DynamicRender,
   IcseFormGroup,

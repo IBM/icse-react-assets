@@ -1,21 +1,21 @@
 import React from "react";
-import { ErrorPage } from "icse-react-assets";
+import { PageNotFound } from "icse-react-assets";
 
 export default {
-  component: ErrorPage,
-  title: "Components/Other/ErrorPage",
+  component: PageNotFound,
+  title: "Components/Other/PageNotFound",
   parameters: {
     docs: {
       description: {
         component:
-          "ErrorPage is a component for the body of an invalid path",
+          "PageNotFound is a component for the body of an invalid path",
       },
     },
   },
 };
 
-const ErrorPageExampleStory = () => {
-  return <ErrorPage />;
+const PageNotFoundExampleStory = () => {
+  return <PageNotFound />;
 };
 
-export const Default = ErrorPageExampleStory.bind({});
+export const Default = PageNotFoundExampleStory.bind({});

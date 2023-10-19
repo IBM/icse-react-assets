@@ -4112,7 +4112,7 @@ LocationsMultiSelect.propTypes = {
 /**
  * Under Construction Page
  */
-const ErrorPage = () => {
+const PageNotFound = () => {
   return /*#__PURE__*/React__default["default"].createElement("div", {
     className: "underConstruction flexDirectionColumn"
   }, /*#__PURE__*/React__default["default"].createElement(iconsReact.WarningAlt, {
@@ -16981,7 +16981,7 @@ exports.EmptyResourceTile = EmptyResourceTile;
 exports.EncryptionKeyForm = EncryptionKeyForm;
 exports.EndpointSelect = EndpointSelect;
 exports.EntitlementSelect = EntitlementSelect;
-exports.ErrorPage = ErrorPage;
+exports.PageNotFound = PageNotFound;
 exports.EventStreamsForm = EventStreamsForm;
 exports.EventStreamsTemplate = EventStreams;
 exports.F5BigIpPage = F5BigIp;
