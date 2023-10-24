@@ -11955,7 +11955,15 @@ class PowerVsWorkspaceForm extends React.Component {
       invalidDnsCallback: this.props.invalidDnsCallback,
       invalidDnsCallbackText: this.props.invalidDnsCallbackText,
       workspace: this.props.data.name
-    }), !contains$5(this.props.edgeRouterEnabledZones, this.state.zone) && /*#__PURE__*/React.createElement(PowerVsCloudConnections, {
+    }), contains$5(this.props.edgeRouterEnabledZones, this.state.zone) ? /*#__PURE__*/React.createElement(Tile, {
+      className: "tileBackground displayFlex alignItemsCenter wrap marginTop"
+    }, /*#__PURE__*/React.createElement(CloudAlerting, {
+      size: "24",
+      className: "iconMargin"
+    }), " Cloud Connections cannot be created in zones where the Power Edge Router (PER) is enabled. Go to the", /*#__PURE__*/React.createElement("a", {
+      className: "no-vpc-link",
+      href: "/form/transitGateways"
+    }, "Transit Gateways Page"), "to connect this Power VS Workspace to a Transit Gateway.") : /*#__PURE__*/React.createElement(PowerVsCloudConnections, {
       cloud_connections: this.props.data.cloud_connections,
       isModal: this.props.isModal,
       disableSave: this.props.disableSave,
