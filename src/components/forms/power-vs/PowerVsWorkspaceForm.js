@@ -162,11 +162,10 @@ class PowerVsWorkspaceForm extends React.Component {
           <Tile className="tileBackground displayFlex alignItemsCenter wrap marginTop">
             <CloudAlerting size="24" className="iconMargin" /> Cloud Connections
             cannot be created in zones where the Power Edge Router (PER) is
-            enabled. Go to the
+            enabled. Connect this workspace to VPC networks from the
             <a className="no-vpc-link" href="/form/transitGateways">
-              Transit Gateways Page
+              Transit Gateways Page.
             </a>
-            to connect this Power VS Workspace to a Transit Gateway.
           </Tile>
         ) : (
           <PowerVsCloudConnectionPage

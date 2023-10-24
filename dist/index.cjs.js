@@ -11971,10 +11971,10 @@ class PowerVsWorkspaceForm extends React__default["default"].Component {
     }, /*#__PURE__*/React__default["default"].createElement(iconsReact.CloudAlerting, {
       size: "24",
       className: "iconMargin"
-    }), " Cloud Connections cannot be created in zones where the Power Edge Router (PER) is enabled. Go to the", /*#__PURE__*/React__default["default"].createElement("a", {
+    }), " Cloud Connections cannot be created in zones where the Power Edge Router (PER) is enabled. Connect this workspace to VPC networks from the", /*#__PURE__*/React__default["default"].createElement("a", {
       className: "no-vpc-link",
       href: "/form/transitGateways"
-    }, "Transit Gateways Page"), "to connect this Power VS Workspace to a Transit Gateway.") : /*#__PURE__*/React__default["default"].createElement(PowerVsCloudConnections, {
+    }, "Transit Gateways Page.")) : /*#__PURE__*/React__default["default"].createElement(PowerVsCloudConnections, {
       cloud_connections: this.props.data.cloud_connections,
       isModal: this.props.isModal,
       disableSave: this.props.disableSave,
