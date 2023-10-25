@@ -21,6 +21,8 @@ import {
   splat,
 } from "lazy-z";
 import "./power-attachment.css";
+import { Tile } from "@carbon/react";
+import { CloudAlerting } from "@carbon/icons-react";
 
 class PowerVsWorkspaceForm extends React.Component {
   constructor(props) {
@@ -156,7 +158,16 @@ class PowerVsWorkspaceForm extends React.Component {
           invalidDnsCallbackText={this.props.invalidDnsCallbackText}
           workspace={this.props.data.name}
         />
-        {!contains(this.props.edgeRouterEnabledZones, this.state.zone) && (
+        {contains(this.props.edgeRouterEnabledZones, this.state.zone) ? (
+          <Tile className="tileBackground displayFlex alignItemsCenter wrap marginTop">
+            <CloudAlerting size="24" className="iconMargin" /> Cloud Connections
+            cannot be created in zones where the Power Edge Router (PER) is
+            enabled. Connect this workspace to VPC networks from the
+            <a className="no-vpc-link" href="/form/transitGateways">
+              Transit Gateways Page.
+            </a>
+          </Tile>
+        ) : (
           <PowerVsCloudConnectionPage
             cloud_connections={this.props.data.cloud_connections}
             isModal={this.props.isModal}
