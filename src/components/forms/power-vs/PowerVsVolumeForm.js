@@ -137,6 +137,7 @@ class PowerVsVolumeForm extends React.Component {
             invalid={this.props.invalidCallback(this.state, this.props)}
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
             className="fieldWidthSmaller"
+            disabled={this.props.data.sap}
           />
           <IcseSelect
             labelText="Workspace"
@@ -148,6 +149,7 @@ class PowerVsVolumeForm extends React.Component {
             invalidText="Select a Workspace."
             className="fieldWidthSmaller"
             id={`${this.props.data.name}-power-volume-workspace`}
+            disabled={this.props.data.sap}
           />
 
           <NumberInput
@@ -163,6 +165,7 @@ class PowerVsVolumeForm extends React.Component {
                   )
                 : ""
             }
+            disabled={this.props.data.sap}
             onChange={this.handleInputChange}
             allowEmpty={true}
             step={1}
@@ -180,7 +183,13 @@ class PowerVsVolumeForm extends React.Component {
           stateData={this.state}
           componentProps={this.props}
           handleInputChange={this.handleInputChange}
-          affinityChangesDisabled={this.props.affinityChangesDisabled}
+          affinityChangesDisabled={
+            this.props.data.sap
+              ? () => {
+                  return true;
+                }
+              : this.props.affinityChangesDisabled
+          }
           storage_pool_map={this.props.storage_pool_map}
           power_instances={this.props.power_instances}
           power_volumes={this.props.power_volumes}
@@ -211,6 +220,7 @@ class PowerVsVolumeForm extends React.Component {
             onToggle={this.handleToggle}
             isModal={this.props.isModal}
             className="fieldWidthSmaller"
+            disabled={this.props.data.sap}
           />
           {this.state.pi_volume_shareable ? (
             <IcseMultiSelect
@@ -239,6 +249,7 @@ class PowerVsVolumeForm extends React.Component {
               disableInvalid
               className="fieldWidthSmaller"
               id={`${this.props.data.name}-power-volume-instance`}
+              disabled={this.props.data.sap}
             />
           )}
         </IcseFormGroup>

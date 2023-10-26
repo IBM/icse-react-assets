@@ -17,6 +17,8 @@ export const PowerVsVolume = (props) => {
       propsMatchState={props.propsMatchState}
       forceOpen={props.forceOpen}
       docs={props.docs}
+      deleteDisabled={props.deleteDisabled}
+      deleteDisabledMessage="SAP volumes cannot be deleted"
       hideFormTitleButton={props.overrideTile ? true : false}
       overrideTile={props.overrideTile}
       innerFormProps={{
@@ -58,6 +60,7 @@ PowerVsVolume.propTypes = {
   power_volumes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   affinityChangesDisabled: PropTypes.func.isRequired,
   overrideTile: PropTypes.node,
+  deleteDisabled: PropTypes.func,
 };
 
 export default PowerVsVolume;

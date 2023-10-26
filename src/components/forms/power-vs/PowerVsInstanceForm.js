@@ -20,6 +20,29 @@ import {
 import { IcseMultiSelect } from "../../MultiSelects";
 import "./power-attachment.css";
 import { PowerVsAffinity } from "./PowerVsAffinity";
+import { RegexButWithWords } from "regex-but-with-words";
+
+/**
+ * use a profile to calculate sap hana size
+ * @param {string} profile
+ * @returns {number} memory size
+ */
+function calculateSapHanaMemory(profile) {
+  let memory = parseInt(
+    profile.replace(
+      new RegexButWithWords()
+        .negatedSet("x")
+        .anyNumber()
+        .literal("x")
+        .done("g"),
+      "",
+    ),
+  );
+  if (memory < 256) {
+    // all volume sizes must be at least 256 regardless of memory
+    return String(256);
+  } else return String(memory);
+}
 
 class PowerVsInstanceForm extends React.Component {
   constructor(props) {
@@ -32,12 +55,16 @@ class PowerVsInstanceForm extends React.Component {
       this.state.affinity_type = null;
       this.state.pi_storage_pool_affinity = true;
     }
+    if (!this.state.sap) {
+      this.state.sap = false;
+    }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
     this.handleIpAddressChange = this.handleIpAddressChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     this.instanceFilter = this.instanceFilter.bind(this);
     this.volumeFilter = this.volumeFilter.bind(this);
+    this.handleSapToggle = this.handleSapToggle.bind(this);
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
   }
@@ -46,6 +73,20 @@ class PowerVsInstanceForm extends React.Component {
     this.setState(
       this.toggleStateBoolean("pi_storage_pool_affinity", this.state),
     );
+  }
+
+  handleSapToggle() {
+    if (!this.state.sap) {
+      this.setState({
+        sap: true,
+        sap_profile: "",
+      });
+    } else {
+      this.setState({
+        sap: false,
+        sap_profile: null,
+      });
+    }
   }
 
   /**
@@ -121,6 +162,12 @@ class PowerVsInstanceForm extends React.Component {
       }
       nextState[name] = value;
       this.setState(nextState);
+    } else if (name === "sap_profile") {
+      this.setState({
+        [name]: value,
+        pi_memory: calculateSapHanaMemory(value),
+        pi_processors: value.replace(/^[^-]+-/g, "").replace(/x\d+$/g, ""),
+      });
     } else this.setState(this.eventTargetToNameAndValue(event));
   }
 
@@ -185,6 +232,42 @@ class PowerVsInstanceForm extends React.Component {
   render() {
     return (
       <>
+        <IcseFormGroup>
+          <IcseToggle
+            tooltip={{
+              align: "bottom-left",
+              alignModal: "bottom-right",
+              content:
+                "Select from a supported SAP profile. Enabling SAP will automatically provision needed Power VS Volumes",
+            }}
+            labelText="SAP Instance"
+            id={this.props.data.name + "-sap"}
+            toggleFieldName="sap"
+            defaultToggled={this.state.sap} // remove
+            className="fieldWidthSmaller"
+            onToggle={this.handleSapToggle}
+          />
+          {this.state.sap ? (
+            <IcseSelect
+              className="fieldWidthSmaller"
+              labelText="SAP Instance Profile"
+              formName={this.props.data.name + "-sap-profile"}
+              invalid={this.state.sap && !this.state.sap_profile}
+              invalidText="Select an Instance Profile"
+              value={this.state.sap_profile}
+              handleInputChange={this.handleInputChange}
+              name="sap_profile"
+              groups={this.props.sapProfiles}
+              tooltip={{
+                content: "This is a list of supported SAP instance profiles",
+                link: "https://cloud.ibm.com/docs/sap?topic=sap-hana-iaas-offerings-profiles-power-vs",
+                align: "bottom-right",
+              }}
+            />
+          ) : (
+            ""
+          )}
+        </IcseFormGroup>
         <IcseFormGroup>
           <IcseNameInput
             id={this.props.data.name + "-power-vs-name"}
@@ -302,7 +385,11 @@ class PowerVsInstanceForm extends React.Component {
             labelText="Memory (GB)"
             onChange={this.handleInputChange}
             field="pi_memory"
-            invalid={this.props.invalidPiMemoryCallback(this.state, this.props)}
+            invalid={
+              this.state.sap
+                ? false
+                : this.props.invalidPiMemoryCallback(this.state, this.props)
+            }
             invalidText={this.props.invalidPiMemoryTextCallback(
               this.state,
               this.props,
@@ -310,6 +397,7 @@ class PowerVsInstanceForm extends React.Component {
             value={this.state.pi_memory}
             className="fieldWidthSmaller"
             placeholder="1024"
+            disabled={this.state.sap}
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -408,6 +496,61 @@ PowerVsInstanceForm.defaultProps = {
     storage_option: "Storage Type",
     pi_storage_pool_affinity: false,
   },
+  sapProfiles: [
+    "ush1-4x128",
+    "ush1-4x256",
+    "ush1-4x384",
+    "ush1-4x512",
+    "ush1-4x768",
+    "bh1-16x1600",
+    "bh1-20x2000",
+    "bh1-22x2200",
+    "bh1-25x2500",
+    "bh1-30x3000",
+    "bh1-35x3500",
+    "bh1-40x4000",
+    "bh1-50x5000",
+    "bh1-60x6000",
+    "bh1-70x7000",
+    "bh1-80x8000",
+    "bh1-100x10000",
+    "bh1-120x12000",
+    "bh1-140x14000",
+    "ch1-60x3000",
+    "ch1-70x3500",
+    "ch1-80x4000",
+    "ch1-100x5000",
+    "ch1-120x6000",
+    "ch1-140x7000",
+    "mh1-8x1440",
+    "mh1-10x1800",
+    "mh1-12x2160",
+    "mh1-16x2880",
+    "mh1-20x3600",
+    "mh1-22x3960",
+    "mh1-25x4500",
+    "mh1-30x5400",
+    "mh1-35x6300",
+    "mh1-40x7200",
+    "mh1-50x9000",
+    "mh1-60x10800",
+    "mh1-70x12600",
+    "mh1-80x14400",
+    "umh-4x960",
+    "umh-6x1440",
+    "umh-8x1920",
+    "umh-10x2400",
+    "umh-12x2880",
+    "umh-16x3840",
+    "umh-20x4800",
+    "umh-22x5280",
+    "umh-25x6000",
+    "umh-30x7200",
+    "umh-35x8400",
+    "umh-40x9600",
+    "umh-50x12000",
+    "umh-60x14400",
+  ],
 };
 
 PowerVsInstanceForm.propTypes = {
@@ -425,6 +568,7 @@ PowerVsInstanceForm.propTypes = {
   // changes should be disabled when another instance or volume uses this
   // instance for affinity
   storageChangesDisabledCallback: PropTypes.func.isRequired,
+  sapProfiles: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default PowerVsInstanceForm;
