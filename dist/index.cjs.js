@@ -4566,6 +4566,71 @@ AtrackerForm.propTypes = {
   logdnaEnabled: PropTypes__default["default"].bool.isRequired
 };
 
+class ClassicVlanForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
+  }
+
+  /**
+  * handle input change
+  * @param {event} event event
+  */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: this.state.name + "-name",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      componentProps: this.props,
+      hideHelperText: true,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      labelText: "VLAN Type",
+      name: "type",
+      formName: this.props.data.name + "-type",
+      groups: this.props.vlanTypes,
+      value: this.state.type,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a VLAN type.",
+      id: `${this.props.data.name}-type`
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      labelText: "Datacenter",
+      name: "datacenter",
+      formName: this.props.data.name + "-datacenter",
+      groups: this.props.datacenters,
+      value: this.state.datacenter,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a datacenter.",
+      id: `${this.props.data.name}-datacenter`
+    })));
+  }
+}
+ClassicVlanForm.defaultProps = {
+  data: {
+    name: "",
+    type: "",
+    datacenter: ""
+  }
+};
+ClassicVlanForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string,
+    type: PropTypes__default["default"].string,
+    datacenter: PropTypes__default["default"].string
+  }).isRequired,
+  vlanTypes: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  datacenters: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+};
+
 const {
   isWholeNumber,
   isInRange
@@ -16959,6 +17024,7 @@ exports.CbrResourceAttributeForm = CbrResourceAttributeForm;
 exports.CbrRuleForm = CbrRuleForm;
 exports.CbrTagForm = CbrTagForm;
 exports.CbrZoneForm = CbrZoneForm;
+exports.ClassicVlanForm = ClassicVlanForm;
 exports.CloudDatabaseForm = CloudDatabaseForm;
 exports.CloudDatabaseTemplate = CloudDatabase;
 exports.ClusterForm = ClusterForm;
