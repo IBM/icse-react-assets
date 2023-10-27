@@ -8,22 +8,22 @@ export default {
   argTypes: {
     data: {
       summary: "An object that contains the data for the form.",
-      type: { required: false }, // required prop or not
+      type: { required: true }, // required prop or not
       control: "none",
     },
     ["data.name"]: {
       description: "A string value for the name of the VLAN",
-      type: { required: false },
+      type: { required: true },
       control: "none",
     },
     ["data.type"]: {
       description: "A string value for the Vlan type, public or private",
-      type: { required: false },
+      type: { required: true },
       control: "none",
     },
     ["data.datacenter"]: {
       description: "A string value for the VLAN datacenter",
-      type: { required: false },
+      type: { required: true },
       control: "none",
     },
     vlanTypes: {
