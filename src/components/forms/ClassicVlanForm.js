@@ -32,7 +32,7 @@ class ClassicVlanForm extends Component {
   }
 
   handleTypeChange(event) {
-    this.setState({ type: event.target.value.toUpperCase() })
+    this.setState({ type: event.target.value.toUpperCase() });
   }
 
   render() {
