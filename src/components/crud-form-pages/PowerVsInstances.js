@@ -33,6 +33,7 @@ export const PowerVsInstances = (props) => {
         power_instances: props.power_instances,
         power_volumes: props.power_volumes,
         storageChangesDisabledCallback: props.storageChangesDisabledCallback,
+        sapProfiles: props.sapProfiles,
       }}
       toggleFormProps={{
         hideName: true,
@@ -66,4 +67,5 @@ PowerVsInstances.propTypes = {
   forceOpen: PropTypes.func.isRequired,
   storageChangesDisabledCallback: PropTypes.func.isRequired,
   overrideTile: PropTypes.node,
+  sapProfiles: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
