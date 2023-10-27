@@ -4554,6 +4554,9 @@ AtrackerForm.propTypes = {
   logdnaEnabled: PropTypes.bool.isRequired
 };
 
+function vlanTypeTitleCase(str) {
+  return titleCase$2(str.toLowerCase());
+}
 class ClassicVlanForm extends Component {
   constructor(props) {
     super(props);
@@ -4561,6 +4564,7 @@ class ClassicVlanForm extends Component {
       ...this.props.data
     };
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleTypeChange = this.handleTypeChange.bind(this);
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
   }
@@ -4571,6 +4575,11 @@ class ClassicVlanForm extends Component {
    */
   handleInputChange(event) {
     this.setState(this.eventTargetToNameAndValue(event));
+  }
+  handleTypeChange(event) {
+    this.setState({
+      type: event.target.value.toUpperCase()
+    });
   }
   render() {
     return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
@@ -4585,9 +4594,9 @@ class ClassicVlanForm extends Component {
       labelText: "VLAN Type",
       name: "type",
       formName: this.props.data.name + "-type",
-      groups: this.props.vlanTypes,
-      value: this.state.type,
-      handleInputChange: this.handleInputChange,
+      groups: ["PUBLIC", "PRIVATE"].map(vlanTypeTitleCase),
+      value: vlanTypeTitleCase(this.state.type),
+      handleInputChange: this.handleTypeChange,
       invalidText: "Select a VLAN type.",
       id: `${this.props.data.name}-type`
     }), /*#__PURE__*/React.createElement(IcseSelect, {
@@ -4615,7 +4624,6 @@ ClassicVlanForm.propTypes = {
     type: PropTypes.string,
     datacenter: PropTypes.string
   }).isRequired,
-  vlanTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
   datacenters: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 

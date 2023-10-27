@@ -6,13 +6,19 @@ import {
   buildFormDefaultInputMethods,
   buildFormFunctions,
 } from "../component-utils";
+import { titleCase } from "lazy-z";
 import PropTypes from "prop-types";
+
+function vlanTypeTitleCase(str) {
+  return titleCase(str.toLowerCase());
+}
 
 class ClassicVlanForm extends Component {
   constructor(props) {
     super(props);
     this.state = { ...this.props.data };
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleTypeChange = this.handleTypeChange.bind(this);
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
   }
@@ -23,6 +29,10 @@ class ClassicVlanForm extends Component {
    */
   handleInputChange(event) {
     this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  handleTypeChange(event) {
+    this.setState({ type: event.target.value.toUpperCase() })
   }
 
   render() {
@@ -42,9 +52,9 @@ class ClassicVlanForm extends Component {
             labelText={"VLAN Type"}
             name={"type"}
             formName={this.props.data.name + "-type"}
-            groups={this.props.vlanTypes}
-            value={this.state.type}
-            handleInputChange={this.handleInputChange}
+            groups={["PUBLIC", "PRIVATE"].map(vlanTypeTitleCase)}
+            value={vlanTypeTitleCase(this.state.type)}
+            handleInputChange={this.handleTypeChange}
             invalidText={"Select a VLAN type."}
             id={`${this.props.data.name}-type`}
           />
@@ -78,7 +88,6 @@ ClassicVlanForm.propTypes = {
     type: PropTypes.string,
     datacenter: PropTypes.string,
   }).isRequired,
-  vlanTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
   datacenters: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 

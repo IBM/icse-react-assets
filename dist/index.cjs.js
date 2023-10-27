@@ -4565,6 +4565,9 @@ AtrackerForm.propTypes = {
   logdnaEnabled: PropTypes__default["default"].bool.isRequired
 };
 
+function vlanTypeTitleCase(str) {
+  return lazyZ.titleCase(str.toLowerCase());
+}
 class ClassicVlanForm extends React.Component {
   constructor(props) {
     super(props);
@@ -4572,6 +4575,7 @@ class ClassicVlanForm extends React.Component {
       ...this.props.data
     };
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleTypeChange = this.handleTypeChange.bind(this);
     buildFormDefaultInputMethods(this);
     buildFormFunctions(this);
   }
@@ -4582,6 +4586,11 @@ class ClassicVlanForm extends React.Component {
    */
   handleInputChange(event) {
     this.setState(this.eventTargetToNameAndValue(event));
+  }
+  handleTypeChange(event) {
+    this.setState({
+      type: event.target.value.toUpperCase()
+    });
   }
   render() {
     return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
@@ -4596,9 +4605,9 @@ class ClassicVlanForm extends React.Component {
       labelText: "VLAN Type",
       name: "type",
       formName: this.props.data.name + "-type",
-      groups: this.props.vlanTypes,
-      value: this.state.type,
-      handleInputChange: this.handleInputChange,
+      groups: ["PUBLIC", "PRIVATE"].map(vlanTypeTitleCase),
+      value: vlanTypeTitleCase(this.state.type),
+      handleInputChange: this.handleTypeChange,
       invalidText: "Select a VLAN type.",
       id: `${this.props.data.name}-type`
     }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
@@ -4626,7 +4635,6 @@ ClassicVlanForm.propTypes = {
     type: PropTypes__default["default"].string,
     datacenter: PropTypes__default["default"].string
   }).isRequired,
-  vlanTypes: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   datacenters: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
 };
 

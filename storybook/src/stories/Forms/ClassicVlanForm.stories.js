@@ -26,12 +26,6 @@ export default {
       type: { required: true },
       control: "none",
     },
-    vlanTypes: {
-      description:
-        "An array of string values denoting the available VLAN types",
-      type: { required: true },
-      control: "none",
-    },
     datacenters: {
       description:
         "An array of string values denoting the available datacenters",
@@ -73,10 +67,9 @@ const ClassicVlanFormStory = () => {
     <ClassicVlanForm
       data={{
         name: "frog",
-        type: "public",
+        type: "PUBLIC",
         datacenter: "dal09",
       }}
-      vlanTypes={["public", "private"]}
       datacenters={["dal09", "dal10", "dal12", "dal13"]}
       invalidCallback={invalidCallback}
       invalidTextCallback={invalidTextCallback}
