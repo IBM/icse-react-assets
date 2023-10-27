@@ -9,10 +9,6 @@ import {
 import { titleCase } from "lazy-z";
 import PropTypes from "prop-types";
 
-function vlanTypeTitleCase(str) {
-  return titleCase(str.toLowerCase());
-}
-
 class ClassicVlanForm extends Component {
   constructor(props) {
     super(props);
@@ -52,8 +48,10 @@ class ClassicVlanForm extends Component {
             labelText={"VLAN Type"}
             name={"type"}
             formName={this.props.data.name + "-type"}
-            groups={["PUBLIC", "PRIVATE"].map(vlanTypeTitleCase)}
-            value={vlanTypeTitleCase(this.state.type)}
+            groups={["Public", "Private"].filter((str) => {
+              return str.toUpperCase();
+            })}
+            value={titleCase(this.state.type.toLowerCase())}
             handleInputChange={this.handleTypeChange}
             invalidText={"Select a VLAN type."}
             id={`${this.props.data.name}-type`}
