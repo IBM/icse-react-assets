@@ -4554,6 +4554,78 @@ AtrackerForm.propTypes = {
   logdnaEnabled: PropTypes.bool.isRequired
 };
 
+class ClassicVlanForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleTypeChange = this.handleTypeChange.bind(this);
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  handleTypeChange(event) {
+    this.setState({
+      type: event.target.value.toUpperCase()
+    });
+  }
+  render() {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: this.state.name + "-name",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      componentProps: this.props,
+      hideHelperText: true,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      labelText: "VLAN Type",
+      name: "type",
+      formName: this.props.data.name + "-type",
+      groups: ["Public", "Private"].filter(str => {
+        return str.toUpperCase();
+      }),
+      value: titleCase$2(this.state.type.toLowerCase()),
+      handleInputChange: this.handleTypeChange,
+      invalidText: "Select a VLAN type.",
+      id: `${this.props.data.name}-type`
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      labelText: "Datacenter",
+      name: "datacenter",
+      formName: this.props.data.name + "-datacenter",
+      groups: this.props.datacenters,
+      value: this.state.datacenter,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a datacenter.",
+      id: `${this.props.data.name}-datacenter`
+    })));
+  }
+}
+ClassicVlanForm.defaultProps = {
+  data: {
+    name: "",
+    type: "",
+    datacenter: ""
+  }
+};
+ClassicVlanForm.propTypes = {
+  data: PropTypes.shape({
+    name: PropTypes.string,
+    type: PropTypes.string,
+    datacenter: PropTypes.string
+  }).isRequired,
+  datacenters: PropTypes.arrayOf(PropTypes.string).isRequired
+};
+
 const {
   isWholeNumber,
   isInRange
@@ -12154,7 +12226,7 @@ class PowerVsInstanceForm extends React.Component {
       this.state.pi_storage_pool_affinity = true;
     }
     if (!this.state.sap) {
-      this.state.sap = true;
+      this.state.sap = false;
     }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
@@ -12309,7 +12381,7 @@ class PowerVsInstanceForm extends React.Component {
       tooltip: {
         align: "bottom-left",
         alignModal: "bottom-right",
-        content: "Select from a supported SAP profile and create needed Power VS volumes for SAP"
+        content: "Select from a supported SAP profile. Enabling SAP will automatically provision needed Power VS Volumes"
       },
       labelText: "SAP Instance",
       id: this.props.data.name + "-sap",
@@ -12684,7 +12756,8 @@ class PowerVsVolumeForm extends React.Component {
       defaultToggled: this.state.pi_volume_shareable,
       onToggle: this.handleToggle,
       isModal: this.props.isModal,
-      className: "fieldWidthSmaller"
+      className: "fieldWidthSmaller",
+      disabled: this.props.data.sap
     }), this.state.pi_volume_shareable ? /*#__PURE__*/React.createElement(IcseMultiSelect, {
       key: JSON.stringify(this.state.attachments) // force rerender on type change
       ,
@@ -12703,7 +12776,8 @@ class PowerVsVolumeForm extends React.Component {
       handleInputChange: event => this.handleInstanceSelect([event.target.value]),
       disableInvalid: true,
       className: "fieldWidthSmaller",
-      id: `${this.props.data.name}-power-volume-instance`
+      id: `${this.props.data.name}-power-volume-instance`,
+      disabled: this.props.data.sap
     })));
   }
 }
@@ -17008,4 +17082,4 @@ F5BigIp.propTypes = {
   onVsiSave: PropTypes.func.isRequired
 };
 
-export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AccessGroups as AccessGroupsTemplate, AppIdForm, AppIdKeyForm, AppId as AppIdTemplate, AtrackerForm, Atracker as AtrackerPage, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, CloudDatabaseForm, CloudDatabase as CloudDatabaseTemplate, ClusterForm, Clusters as ClustersTemplate, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsForm, DnsRecordForm, Dns as DnsTemplate, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, EventStreams as EventStreamsTemplate, F5BigIp as F5BigIpPage, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IamAccountSettings as IamAccountSettingsPage, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, KeyManagement as KeyManagementTemplate, LocationsMultiSelect, LogDNAForm, NetworkAclForm$1 as NetworkAclForm, NetworkAcls as NetworkAclTemplate, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, ObjectStorage as ObjectStorageTemplate, OpaqueIngressSecretForm, OrderCardDataTable, PopoverWrapper, PowerVsCloudConnectionForm, PowerVsCloudConnections as PowerVsCloudConnectionPage, PowerVsInstanceForm, PowerVsInstances as PowerVsInstancesPage, PowerVsNetworkAttachmentForm, PowerVsNetworkForm, PowerVsNetwork as PowerVsNetworkPage, PowerVsVolumeForm, PowerVsVolume as PowerVsVolumesPage, PowerVsWorkspaceForm, PowerVsWorkspace as PowerVsWorkspacePage, RenderForm, ResourceGroupForm, ResourceGroups as ResourceGroupsTemplate, RoutingTableForm, RoutingTableRouteForm, RoutingTables as RoutingTableTemplate, SaveAddButton, SaveIcon, SccForm, SccV1 as SccV1Page, SecretsManagerChecklist, SecretsManagerForm, SecretsManager as SecretsManagerTemplate, SecurityGroupForm, SecurityGroupMultiSelect, SecurityGroups as SecurityGroupTemplate, SshKeyForm, SshKeyMultiSelect, SshKeys as SshKeysTemplate, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, Subnets as SubnetPageTemplate, SubnetTierForm$1 as SubnetTierForm, SubnetTileForm, SysdigForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, TransitGateways as TransitGatewayTemplate, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, Vpcs as VpcTemplate, VpeForm, Vpe as VpeTemplate, VpnGatewayForm, VpnGateways as VpnGatewayTemplate, VpnServerForm, VpnServerRouteForm, VpnServers as VpnServerTemplate, VsiForm, VsiLoadBalancerForm, VsiLoadBalancer as VsiLoadBalancerTemplate, Vsi as VsiTemplate, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AccessGroups as AccessGroupsTemplate, AppIdForm, AppIdKeyForm, AppId as AppIdTemplate, AtrackerForm, Atracker as AtrackerPage, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, ClassicVlanForm, CloudDatabaseForm, CloudDatabase as CloudDatabaseTemplate, ClusterForm, Clusters as ClustersTemplate, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsForm, DnsRecordForm, Dns as DnsTemplate, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, EventStreams as EventStreamsTemplate, F5BigIp as F5BigIpPage, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IamAccountSettings as IamAccountSettingsPage, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, KeyManagement as KeyManagementTemplate, LocationsMultiSelect, LogDNAForm, NetworkAclForm$1 as NetworkAclForm, NetworkAcls as NetworkAclTemplate, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, ObjectStorage as ObjectStorageTemplate, OpaqueIngressSecretForm, OrderCardDataTable, PopoverWrapper, PowerVsCloudConnectionForm, PowerVsCloudConnections as PowerVsCloudConnectionPage, PowerVsInstanceForm, PowerVsInstances as PowerVsInstancesPage, PowerVsNetworkAttachmentForm, PowerVsNetworkForm, PowerVsNetwork as PowerVsNetworkPage, PowerVsVolumeForm, PowerVsVolume as PowerVsVolumesPage, PowerVsWorkspaceForm, PowerVsWorkspace as PowerVsWorkspacePage, RenderForm, ResourceGroupForm, ResourceGroups as ResourceGroupsTemplate, RoutingTableForm, RoutingTableRouteForm, RoutingTables as RoutingTableTemplate, SaveAddButton, SaveIcon, SccForm, SccV1 as SccV1Page, SecretsManagerChecklist, SecretsManagerForm, SecretsManager as SecretsManagerTemplate, SecurityGroupForm, SecurityGroupMultiSelect, SecurityGroups as SecurityGroupTemplate, SshKeyForm, SshKeyMultiSelect, SshKeys as SshKeysTemplate, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, Subnets as SubnetPageTemplate, SubnetTierForm$1 as SubnetTierForm, SubnetTileForm, SysdigForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, TransitGateways as TransitGatewayTemplate, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, Vpcs as VpcTemplate, VpeForm, Vpe as VpeTemplate, VpnGatewayForm, VpnGateways as VpnGatewayTemplate, VpnServerForm, VpnServerRouteForm, VpnServers as VpnServerTemplate, VsiForm, VsiLoadBalancerForm, VsiLoadBalancer as VsiLoadBalancerTemplate, Vsi as VsiTemplate, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };

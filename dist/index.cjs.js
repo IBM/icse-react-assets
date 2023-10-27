@@ -4565,6 +4565,78 @@ AtrackerForm.propTypes = {
   logdnaEnabled: PropTypes__default["default"].bool.isRequired
 };
 
+class ClassicVlanForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleTypeChange = this.handleTypeChange.bind(this);
+    buildFormDefaultInputMethods(this);
+    buildFormFunctions(this);
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  handleInputChange(event) {
+    this.setState(this.eventTargetToNameAndValue(event));
+  }
+  handleTypeChange(event) {
+    this.setState({
+      type: event.target.value.toUpperCase()
+    });
+  }
+  render() {
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: this.state.name + "-name",
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      componentProps: this.props,
+      hideHelperText: true,
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      labelText: "VLAN Type",
+      name: "type",
+      formName: this.props.data.name + "-type",
+      groups: ["Public", "Private"].filter(str => {
+        return str.toUpperCase();
+      }),
+      value: lazyZ.titleCase(this.state.type.toLowerCase()),
+      handleInputChange: this.handleTypeChange,
+      invalidText: "Select a VLAN type.",
+      id: `${this.props.data.name}-type`
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      labelText: "Datacenter",
+      name: "datacenter",
+      formName: this.props.data.name + "-datacenter",
+      groups: this.props.datacenters,
+      value: this.state.datacenter,
+      handleInputChange: this.handleInputChange,
+      invalidText: "Select a datacenter.",
+      id: `${this.props.data.name}-datacenter`
+    })));
+  }
+}
+ClassicVlanForm.defaultProps = {
+  data: {
+    name: "",
+    type: "",
+    datacenter: ""
+  }
+};
+ClassicVlanForm.propTypes = {
+  data: PropTypes__default["default"].shape({
+    name: PropTypes__default["default"].string,
+    type: PropTypes__default["default"].string,
+    datacenter: PropTypes__default["default"].string
+  }).isRequired,
+  datacenters: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
+};
+
 const {
   isWholeNumber,
   isInRange
@@ -12165,7 +12237,7 @@ class PowerVsInstanceForm extends React__default["default"].Component {
       this.state.pi_storage_pool_affinity = true;
     }
     if (!this.state.sap) {
-      this.state.sap = true;
+      this.state.sap = false;
     }
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleMultiSelectChange = this.handleMultiSelectChange.bind(this);
@@ -12320,7 +12392,7 @@ class PowerVsInstanceForm extends React__default["default"].Component {
       tooltip: {
         align: "bottom-left",
         alignModal: "bottom-right",
-        content: "Select from a supported SAP profile and create needed Power VS volumes for SAP"
+        content: "Select from a supported SAP profile. Enabling SAP will automatically provision needed Power VS Volumes"
       },
       labelText: "SAP Instance",
       id: this.props.data.name + "-sap",
@@ -12695,7 +12767,8 @@ class PowerVsVolumeForm extends React__default["default"].Component {
       defaultToggled: this.state.pi_volume_shareable,
       onToggle: this.handleToggle,
       isModal: this.props.isModal,
-      className: "fieldWidthSmaller"
+      className: "fieldWidthSmaller",
+      disabled: this.props.data.sap
     }), this.state.pi_volume_shareable ? /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
       key: JSON.stringify(this.state.attachments) // force rerender on type change
       ,
@@ -12714,7 +12787,8 @@ class PowerVsVolumeForm extends React__default["default"].Component {
       handleInputChange: event => this.handleInstanceSelect([event.target.value]),
       disableInvalid: true,
       className: "fieldWidthSmaller",
-      id: `${this.props.data.name}-power-volume-instance`
+      id: `${this.props.data.name}-power-volume-instance`,
+      disabled: this.props.data.sap
     })));
   }
 }
@@ -17034,6 +17108,7 @@ exports.CbrResourceAttributeForm = CbrResourceAttributeForm;
 exports.CbrRuleForm = CbrRuleForm;
 exports.CbrTagForm = CbrTagForm;
 exports.CbrZoneForm = CbrZoneForm;
+exports.ClassicVlanForm = ClassicVlanForm;
 exports.CloudDatabaseForm = CloudDatabaseForm;
 exports.CloudDatabaseTemplate = CloudDatabase;
 exports.ClusterForm = ClusterForm;
