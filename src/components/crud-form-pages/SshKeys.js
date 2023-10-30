@@ -20,6 +20,7 @@ export const SshKeys = (props) => {
       forceOpen={props.forceOpen}
       deleteDisabled={props.deleteDisabled}
       deleteDisabledMessage="SSH Key currently in use"
+      arrayParentName={props.powerVs ? props.arrayParentName : undefined}
       innerFormProps={{
         craig: props.craig,
         resourceGroups: props.resourceGroups,
