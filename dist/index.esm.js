@@ -5598,7 +5598,7 @@ AppId.propTypes = {
 
 const ClassicVlan = props => {
   return /*#__PURE__*/React.createElement(IcseFormTemplate, {
-    name: "VLAN",
+    name: "Classic VLANs",
     addText: "Create a VLAN",
     docs: props.docs,
     innerForm: ClassicVlanForm,
