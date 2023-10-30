@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 export const ClassicVlan = (props) => {
   return (
     <IcseFormTemplate
-      name="VLAN"
+      name="Classic VLANs"
       addText="Create a VLAN"
       docs={props.docs}
       innerForm={ClassicVlanForm}
