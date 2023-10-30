@@ -5607,6 +5607,43 @@ AppId.propTypes = {
   encryptionKeys: PropTypes__default["default"].array.isRequired
 };
 
+const ClassicVlan = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "VLAN",
+    addText: "Create a VLAN",
+    docs: props.docs,
+    innerForm: ClassicVlanForm,
+    arrayData: props.vlan,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    innerFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      datacenters: props.datacenters
+    }
+  });
+};
+ClassicVlan.propTypes = {
+  docs: PropTypes__default["default"].func.isRequired,
+  vlan: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  onDelete: PropTypes__default["default"].func.isRequired,
+  onSave: PropTypes__default["default"].func.isRequired,
+  onSubmit: PropTypes__default["default"].func.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  forceOpen: PropTypes__default["default"].func.isRequired,
+  craig: PropTypes__default["default"].shape({}),
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  datacenters: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string)
+};
+
 const CloudDatabase = props => {
   return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
     name: "Cloud Databases",
@@ -17109,6 +17146,7 @@ exports.CbrRuleForm = CbrRuleForm;
 exports.CbrTagForm = CbrTagForm;
 exports.CbrZoneForm = CbrZoneForm;
 exports.ClassicVlanForm = ClassicVlanForm;
+exports.ClassicVlanTemplate = ClassicVlan;
 exports.CloudDatabaseForm = CloudDatabaseForm;
 exports.CloudDatabaseTemplate = CloudDatabase;
 exports.ClusterForm = ClusterForm;
