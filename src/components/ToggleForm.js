@@ -213,6 +213,7 @@ class ToggleForm extends React.Component {
                   onIconClick={this.toggleChildren}
                   toggleFormTitle
                   name={this.props.name}
+                  hideIcon={this.props.hideChevon}
                   buttons={
                     <>
                       <DynamicRender
@@ -333,6 +334,7 @@ ToggleForm.defaultProps = {
   forceOpen: () => {
     return false;
   },
+  hideChevon: false,
 };
 
 ToggleForm.propTypes = {
@@ -358,4 +360,5 @@ ToggleForm.propTypes = {
   tabPanel: PropTypes.shape({
     hideFormTitleButton: PropTypes.bool, // can be null
   }).isRequired,
+  hideChevon: PropTypes.bool.isRequired,
 };

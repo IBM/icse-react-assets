@@ -2888,7 +2888,7 @@ class FormModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isDisabled: false
+      isDisabled: this.props.beginDisabled
     };
     this.modalForm = /*#__PURE__*/React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -2946,7 +2946,8 @@ class FormModal extends Component {
   }
 }
 FormModal.defaultProps = {
-  show: false
+  show: false,
+  beginDisabled: false
 };
 FormModal.propTypes = {
   show: PropTypes.bool.isRequired,
@@ -2954,7 +2955,8 @@ FormModal.propTypes = {
   onRequestClose: PropTypes.func.isRequired,
   name: PropTypes.string,
   // undefined for loaded modal not rendered
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  beginDisabled: PropTypes.bool.isRequired
 };
 
 /**
@@ -3365,6 +3367,7 @@ class ToggleForm extends React.Component {
         onIconClick: this.toggleChildren,
         toggleFormTitle: true,
         name: this.props.name,
+        hideIcon: this.props.hideChevon,
         buttons: /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DynamicRender, {
           hide: this.props.addButtonAtFormTitle !== true,
           show: /*#__PURE__*/React.createElement(SaveAddButton, {
@@ -3445,7 +3448,8 @@ ToggleForm.defaultProps = {
   },
   forceOpen: () => {
     return false;
-  }
+  },
+  hideChevon: false
 };
 ToggleForm.propTypes = {
   name: PropTypes.string,
@@ -3473,7 +3477,8 @@ ToggleForm.propTypes = {
   useAddButton: PropTypes.bool.isRequired,
   tabPanel: PropTypes.shape({
     hideFormTitleButton: PropTypes.bool // can be null
-  }).isRequired
+  }).isRequired,
+  hideChevon: PropTypes.bool.isRequired
 };
 
 class IcseFormTemplate extends React.Component {
