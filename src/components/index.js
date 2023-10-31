@@ -105,6 +105,7 @@ export { default as SysdigForm } from "./forms/SysdigForm";
 export { default as SecretsManagerChecklist } from "./forms/SecretsManagerChecklist";
 export { default as OrderCardDataTable } from "./forms/OrderCardDataTable";
 export { default as OpaqueIngressSecretForm } from "./forms/OpaqueIngressSecretForm";
+export { ClassicVlan as ClassicVlanTemplate } from "./crud-form-pages";
 export { CloudDatabase as CloudDatabaseTemplate } from "./crud-form-pages";
 export { Clusters as ClustersTemplate } from "./crud-form-pages";
 export { ResourceGroups as ResourceGroupsTemplate } from "./crud-form-pages";
