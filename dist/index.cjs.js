@@ -2899,7 +2899,7 @@ class FormModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isDisabled: false
+      isDisabled: this.props.beginDisabled
     };
     this.modalForm = /*#__PURE__*/React__default["default"].createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -2957,7 +2957,8 @@ class FormModal extends React.Component {
   }
 }
 FormModal.defaultProps = {
-  show: false
+  show: false,
+  beginDisabled: false
 };
 FormModal.propTypes = {
   show: PropTypes__default["default"].bool.isRequired,
@@ -2965,7 +2966,8 @@ FormModal.propTypes = {
   onRequestClose: PropTypes__default["default"].func.isRequired,
   name: PropTypes__default["default"].string,
   // undefined for loaded modal not rendered
-  children: PropTypes__default["default"].node.isRequired
+  children: PropTypes__default["default"].node.isRequired,
+  beginDisabled: PropTypes__default["default"].bool.isRequired
 };
 
 /**
@@ -3376,6 +3378,7 @@ class ToggleForm extends React__default["default"].Component {
         onIconClick: this.toggleChildren,
         toggleFormTitle: true,
         name: this.props.name,
+        hideIcon: this.props.hideChevon,
         buttons: /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
           hide: this.props.addButtonAtFormTitle !== true,
           show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
@@ -3456,7 +3459,8 @@ ToggleForm.defaultProps = {
   },
   forceOpen: () => {
     return false;
-  }
+  },
+  hideChevon: false
 };
 ToggleForm.propTypes = {
   name: PropTypes__default["default"].string,
@@ -3484,7 +3488,8 @@ ToggleForm.propTypes = {
   useAddButton: PropTypes__default["default"].bool.isRequired,
   tabPanel: PropTypes__default["default"].shape({
     hideFormTitleButton: PropTypes__default["default"].bool // can be null
-  }).isRequired
+  }).isRequired,
+  hideChevon: PropTypes__default["default"].bool.isRequired
 };
 
 class IcseFormTemplate extends React__default["default"].Component {
