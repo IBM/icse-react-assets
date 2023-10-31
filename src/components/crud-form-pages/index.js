@@ -1,5 +1,6 @@
 export { AccessGroups } from "./AccessGroups";
 export { AppId } from "./AppId";
+export { ClassicVlan } from "./ClassicVlan";
 export { CloudDatabase } from "./CloudDatabase";
 export { Clusters } from "./Clusters";
 export { KeyManagement } from "./KeyManagement";

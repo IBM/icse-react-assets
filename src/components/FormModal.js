@@ -15,7 +15,7 @@ class FormModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isDisabled: false,
+      isDisabled: this.props.beginDisabled,
     };
     this.modalForm = React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -79,6 +79,7 @@ class FormModal extends Component {
 
 FormModal.defaultProps = {
   show: false,
+  beginDisabled: false,
 };
 
 FormModal.propTypes = {
@@ -87,6 +88,7 @@ FormModal.propTypes = {
   onRequestClose: PropTypes.func.isRequired,
   name: PropTypes.string, // undefined for loaded modal not rendered
   children: PropTypes.node.isRequired,
+  beginDisabled: PropTypes.bool.isRequired,
 };
 
 export default FormModal;
