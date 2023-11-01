@@ -2899,7 +2899,7 @@ class FormModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isDisabled: false
+      isDisabled: this.props.beginDisabled
     };
     this.modalForm = /*#__PURE__*/React__default["default"].createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -2957,7 +2957,8 @@ class FormModal extends React.Component {
   }
 }
 FormModal.defaultProps = {
-  show: false
+  show: false,
+  beginDisabled: false
 };
 FormModal.propTypes = {
   show: PropTypes__default["default"].bool.isRequired,
@@ -2965,7 +2966,8 @@ FormModal.propTypes = {
   onRequestClose: PropTypes__default["default"].func.isRequired,
   name: PropTypes__default["default"].string,
   // undefined for loaded modal not rendered
-  children: PropTypes__default["default"].node.isRequired
+  children: PropTypes__default["default"].node.isRequired,
+  beginDisabled: PropTypes__default["default"].bool.isRequired
 };
 
 /**
@@ -3376,6 +3378,7 @@ class ToggleForm extends React__default["default"].Component {
         onIconClick: this.toggleChildren,
         toggleFormTitle: true,
         name: this.props.name,
+        hideIcon: this.props.hideChevon,
         buttons: /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(DynamicRender, {
           hide: this.props.addButtonAtFormTitle !== true,
           show: /*#__PURE__*/React__default["default"].createElement(SaveAddButton, {
@@ -3456,7 +3459,8 @@ ToggleForm.defaultProps = {
   },
   forceOpen: () => {
     return false;
-  }
+  },
+  hideChevon: false
 };
 ToggleForm.propTypes = {
   name: PropTypes__default["default"].string,
@@ -3484,7 +3488,8 @@ ToggleForm.propTypes = {
   useAddButton: PropTypes__default["default"].bool.isRequired,
   tabPanel: PropTypes__default["default"].shape({
     hideFormTitleButton: PropTypes__default["default"].bool // can be null
-  }).isRequired
+  }).isRequired,
+  hideChevon: PropTypes__default["default"].bool.isRequired
 };
 
 class IcseFormTemplate extends React__default["default"].Component {
@@ -5605,6 +5610,43 @@ AppId.propTypes = {
   onKeySubmit: PropTypes__default["default"].func.isRequired,
   docs: PropTypes__default["default"].func.isRequired,
   encryptionKeys: PropTypes__default["default"].array.isRequired
+};
+
+const ClassicVlan = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "Classic VLANs",
+    addText: "Create a VLAN",
+    docs: props.docs,
+    innerForm: ClassicVlanForm,
+    arrayData: props.vlan,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    innerFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      datacenters: props.datacenters
+    }
+  });
+};
+ClassicVlan.propTypes = {
+  docs: PropTypes__default["default"].func.isRequired,
+  vlan: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  onDelete: PropTypes__default["default"].func.isRequired,
+  onSave: PropTypes__default["default"].func.isRequired,
+  onSubmit: PropTypes__default["default"].func.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  forceOpen: PropTypes__default["default"].func.isRequired,
+  craig: PropTypes__default["default"].shape({}),
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  datacenters: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string)
 };
 
 const CloudDatabase = props => {
@@ -8353,8 +8395,11 @@ Vpe.propTypes = {
 class VpnGatewayForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = {
+      ...this.props.data
+    };
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handlePolicyToggle = this.handlePolicyToggle.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
@@ -8365,6 +8410,11 @@ class VpnGatewayForm extends React.Component {
    */
   handleInputChange(event) {
     this.setState(forms_13(event));
+  }
+  handlePolicyToggle() {
+    this.setState({
+      policy_mode: !this.state.policy_mode
+    });
   }
   render() {
     let composedId = `vpn-gateway-form-${this.props.data.name}-`;
@@ -8411,6 +8461,16 @@ class VpnGatewayForm extends React.Component {
       invalid: lib_9(this.state.vpc) || lib_9(this.state.subnet),
       invalidText: lib_9(this.state.vpc) ? `No VPC Selected.` : `Select a Subnet.`,
       className: "fieldWidth"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      id: composedId + "-policy-mode",
+      labelText: "Enable Policy Mode",
+      defaultToggled: this.state.policy_mode || false,
+      onToggle: this.handlePolicyToggle,
+      className: "fieldWidth",
+      tooltip: {
+        content: "A policy-based VPN operates in Active-Standby mode with a single VPN gateway IP shared between the members. The default is a route-based VPN which offers Active-Active redundancy with two VPN gateway IPs.",
+        link: "https://cloud.ibm.com/docs/vpc?topic=vpc-using-vpn"
+      }
     })));
   }
 }
@@ -8430,7 +8490,9 @@ VpnGatewayForm.propTypes = {
     // can be null
     vpc: PropTypes__default["default"].string,
     // can be null
-    subnet: PropTypes__default["default"].string // can be null
+    subnet: PropTypes__default["default"].string,
+    // can be null
+    policy_mode: PropTypes__default["default"].bool // can be null
   }).isRequired,
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
@@ -17110,6 +17172,7 @@ exports.CbrRuleForm = CbrRuleForm;
 exports.CbrTagForm = CbrTagForm;
 exports.CbrZoneForm = CbrZoneForm;
 exports.ClassicVlanForm = ClassicVlanForm;
+exports.ClassicVlanTemplate = ClassicVlan;
 exports.CloudDatabaseForm = CloudDatabaseForm;
 exports.CloudDatabaseTemplate = CloudDatabase;
 exports.ClusterForm = ClusterForm;

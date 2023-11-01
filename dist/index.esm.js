@@ -2888,7 +2888,7 @@ class FormModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isDisabled: false
+      isDisabled: this.props.beginDisabled
     };
     this.modalForm = /*#__PURE__*/React.createRef();
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -2946,7 +2946,8 @@ class FormModal extends Component {
   }
 }
 FormModal.defaultProps = {
-  show: false
+  show: false,
+  beginDisabled: false
 };
 FormModal.propTypes = {
   show: PropTypes.bool.isRequired,
@@ -2954,7 +2955,8 @@ FormModal.propTypes = {
   onRequestClose: PropTypes.func.isRequired,
   name: PropTypes.string,
   // undefined for loaded modal not rendered
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  beginDisabled: PropTypes.bool.isRequired
 };
 
 /**
@@ -3365,6 +3367,7 @@ class ToggleForm extends React.Component {
         onIconClick: this.toggleChildren,
         toggleFormTitle: true,
         name: this.props.name,
+        hideIcon: this.props.hideChevon,
         buttons: /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(DynamicRender, {
           hide: this.props.addButtonAtFormTitle !== true,
           show: /*#__PURE__*/React.createElement(SaveAddButton, {
@@ -3445,7 +3448,8 @@ ToggleForm.defaultProps = {
   },
   forceOpen: () => {
     return false;
-  }
+  },
+  hideChevon: false
 };
 ToggleForm.propTypes = {
   name: PropTypes.string,
@@ -3473,7 +3477,8 @@ ToggleForm.propTypes = {
   useAddButton: PropTypes.bool.isRequired,
   tabPanel: PropTypes.shape({
     hideFormTitleButton: PropTypes.bool // can be null
-  }).isRequired
+  }).isRequired,
+  hideChevon: PropTypes.bool.isRequired
 };
 
 class IcseFormTemplate extends React.Component {
@@ -5594,6 +5599,43 @@ AppId.propTypes = {
   onKeySubmit: PropTypes.func.isRequired,
   docs: PropTypes.func.isRequired,
   encryptionKeys: PropTypes.array.isRequired
+};
+
+const ClassicVlan = props => {
+  return /*#__PURE__*/React.createElement(IcseFormTemplate, {
+    name: "Classic VLANs",
+    addText: "Create a VLAN",
+    docs: props.docs,
+    innerForm: ClassicVlanForm,
+    arrayData: props.vlan,
+    disableSave: props.disableSave,
+    onDelete: props.onDelete,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    propsMatchState: props.propsMatchState,
+    forceOpen: props.forceOpen,
+    innerFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      datacenters: props.datacenters
+    }
+  });
+};
+ClassicVlan.propTypes = {
+  docs: PropTypes.func.isRequired,
+  vlan: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  disableSave: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  propsMatchState: PropTypes.func.isRequired,
+  forceOpen: PropTypes.func.isRequired,
+  craig: PropTypes.shape({}),
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  datacenters: PropTypes.arrayOf(PropTypes.string)
 };
 
 const CloudDatabase = props => {
@@ -8342,8 +8384,11 @@ Vpe.propTypes = {
 class VpnGatewayForm extends Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = {
+      ...this.props.data
+    };
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handlePolicyToggle = this.handlePolicyToggle.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
@@ -8354,6 +8399,11 @@ class VpnGatewayForm extends Component {
    */
   handleInputChange(event) {
     this.setState(forms_13(event));
+  }
+  handlePolicyToggle() {
+    this.setState({
+      policy_mode: !this.state.policy_mode
+    });
   }
   render() {
     let composedId = `vpn-gateway-form-${this.props.data.name}-`;
@@ -8400,6 +8450,16 @@ class VpnGatewayForm extends Component {
       invalid: lib_9(this.state.vpc) || lib_9(this.state.subnet),
       invalidText: lib_9(this.state.vpc) ? `No VPC Selected.` : `Select a Subnet.`,
       className: "fieldWidth"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
+      id: composedId + "-policy-mode",
+      labelText: "Enable Policy Mode",
+      defaultToggled: this.state.policy_mode || false,
+      onToggle: this.handlePolicyToggle,
+      className: "fieldWidth",
+      tooltip: {
+        content: "A policy-based VPN operates in Active-Standby mode with a single VPN gateway IP shared between the members. The default is a route-based VPN which offers Active-Active redundancy with two VPN gateway IPs.",
+        link: "https://cloud.ibm.com/docs/vpc?topic=vpc-using-vpn"
+      }
     })));
   }
 }
@@ -8419,7 +8479,9 @@ VpnGatewayForm.propTypes = {
     // can be null
     vpc: PropTypes.string,
     // can be null
-    subnet: PropTypes.string // can be null
+    subnet: PropTypes.string,
+    // can be null
+    policy_mode: PropTypes.bool // can be null
   }).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   vpcList: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -17083,4 +17145,4 @@ F5BigIp.propTypes = {
   onVsiSave: PropTypes.func.isRequired
 };
 
-export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AccessGroups as AccessGroupsTemplate, AppIdForm, AppIdKeyForm, AppId as AppIdTemplate, AtrackerForm, Atracker as AtrackerPage, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, ClassicVlanForm, CloudDatabaseForm, CloudDatabase as CloudDatabaseTemplate, ClusterForm, Clusters as ClustersTemplate, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsForm, DnsRecordForm, Dns as DnsTemplate, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, EventStreams as EventStreamsTemplate, F5BigIp as F5BigIpPage, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IamAccountSettings as IamAccountSettingsPage, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, KeyManagement as KeyManagementTemplate, LocationsMultiSelect, LogDNAForm, NetworkAclForm$1 as NetworkAclForm, NetworkAcls as NetworkAclTemplate, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, ObjectStorage as ObjectStorageTemplate, OpaqueIngressSecretForm, OrderCardDataTable, PopoverWrapper, PowerVsCloudConnectionForm, PowerVsCloudConnections as PowerVsCloudConnectionPage, PowerVsInstanceForm, PowerVsInstances as PowerVsInstancesPage, PowerVsNetworkAttachmentForm, PowerVsNetworkForm, PowerVsNetwork as PowerVsNetworkPage, PowerVsVolumeForm, PowerVsVolume as PowerVsVolumesPage, PowerVsWorkspaceForm, PowerVsWorkspace as PowerVsWorkspacePage, RenderForm, ResourceGroupForm, ResourceGroups as ResourceGroupsTemplate, RoutingTableForm, RoutingTableRouteForm, RoutingTables as RoutingTableTemplate, SaveAddButton, SaveIcon, SccForm, SccV1 as SccV1Page, SecretsManagerChecklist, SecretsManagerForm, SecretsManager as SecretsManagerTemplate, SecurityGroupForm, SecurityGroupMultiSelect, SecurityGroups as SecurityGroupTemplate, SshKeyForm, SshKeyMultiSelect, SshKeys as SshKeysTemplate, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, Subnets as SubnetPageTemplate, SubnetTierForm$1 as SubnetTierForm, SubnetTileForm, SysdigForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, TransitGateways as TransitGatewayTemplate, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, Vpcs as VpcTemplate, VpeForm, Vpe as VpeTemplate, VpnGatewayForm, VpnGateways as VpnGatewayTemplate, VpnServerForm, VpnServerRouteForm, VpnServers as VpnServerTemplate, VsiForm, VsiLoadBalancerForm, VsiLoadBalancer as VsiLoadBalancerTemplate, Vsi as VsiTemplate, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AccessGroups as AccessGroupsTemplate, AppIdForm, AppIdKeyForm, AppId as AppIdTemplate, AtrackerForm, Atracker as AtrackerPage, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, ClassicVlanForm, ClassicVlan as ClassicVlanTemplate, CloudDatabaseForm, CloudDatabase as CloudDatabaseTemplate, ClusterForm, Clusters as ClustersTemplate, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsForm, DnsRecordForm, Dns as DnsTemplate, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, EventStreams as EventStreamsTemplate, F5BigIp as F5BigIpPage, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IamAccountSettings as IamAccountSettingsPage, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, KeyManagement as KeyManagementTemplate, LocationsMultiSelect, LogDNAForm, NetworkAclForm$1 as NetworkAclForm, NetworkAcls as NetworkAclTemplate, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, ObjectStorage as ObjectStorageTemplate, OpaqueIngressSecretForm, OrderCardDataTable, PopoverWrapper, PowerVsCloudConnectionForm, PowerVsCloudConnections as PowerVsCloudConnectionPage, PowerVsInstanceForm, PowerVsInstances as PowerVsInstancesPage, PowerVsNetworkAttachmentForm, PowerVsNetworkForm, PowerVsNetwork as PowerVsNetworkPage, PowerVsVolumeForm, PowerVsVolume as PowerVsVolumesPage, PowerVsWorkspaceForm, PowerVsWorkspace as PowerVsWorkspacePage, RenderForm, ResourceGroupForm, ResourceGroups as ResourceGroupsTemplate, RoutingTableForm, RoutingTableRouteForm, RoutingTables as RoutingTableTemplate, SaveAddButton, SaveIcon, SccForm, SccV1 as SccV1Page, SecretsManagerChecklist, SecretsManagerForm, SecretsManager as SecretsManagerTemplate, SecurityGroupForm, SecurityGroupMultiSelect, SecurityGroups as SecurityGroupTemplate, SshKeyForm, SshKeyMultiSelect, SshKeys as SshKeysTemplate, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, Subnets as SubnetPageTemplate, SubnetTierForm$1 as SubnetTierForm, SubnetTileForm, SysdigForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, TransitGateways as TransitGatewayTemplate, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, Vpcs as VpcTemplate, VpeForm, Vpe as VpeTemplate, VpnGatewayForm, VpnGateways as VpnGatewayTemplate, VpnServerForm, VpnServerRouteForm, VpnServers as VpnServerTemplate, VsiForm, VsiLoadBalancerForm, VsiLoadBalancer as VsiLoadBalancerTemplate, Vsi as VsiTemplate, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
