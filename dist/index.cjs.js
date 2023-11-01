@@ -8395,8 +8395,11 @@ Vpe.propTypes = {
 class VpnGatewayForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = {
+      ...this.props.data
+    };
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handlePolicyToggle = this.handlePolicyToggle.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
@@ -8407,6 +8410,11 @@ class VpnGatewayForm extends React.Component {
    */
   handleInputChange(event) {
     this.setState(forms_13(event));
+  }
+  handlePolicyToggle() {
+    this.setState({
+      policy_mode: !this.state.policy_mode
+    });
   }
   render() {
     let composedId = `vpn-gateway-form-${this.props.data.name}-`;
@@ -8453,6 +8461,16 @@ class VpnGatewayForm extends React.Component {
       invalid: lib_9(this.state.vpc) || lib_9(this.state.subnet),
       invalidText: lib_9(this.state.vpc) ? `No VPC Selected.` : `Select a Subnet.`,
       className: "fieldWidth"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      id: composedId + "-policy-mode",
+      labelText: "Enable Policy Mode",
+      defaultToggled: this.state.policy_mode || false,
+      onToggle: this.handlePolicyToggle,
+      className: "fieldWidth",
+      tooltip: {
+        content: "A policy-based VPN operates in Active-Standby mode with a single VPN gateway IP shared between the members. The default is a route-based VPN which offers Active-Active redundancy with two VPN gateway IPs.",
+        link: "https://cloud.ibm.com/docs/vpc?topic=vpc-using-vpn"
+      }
     })));
   }
 }
@@ -8472,7 +8490,9 @@ VpnGatewayForm.propTypes = {
     // can be null
     vpc: PropTypes__default["default"].string,
     // can be null
-    subnet: PropTypes__default["default"].string // can be null
+    subnet: PropTypes__default["default"].string,
+    // can be null
+    policy_mode: PropTypes__default["default"].bool // can be null
   }).isRequired,
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,

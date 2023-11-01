@@ -8384,8 +8384,11 @@ Vpe.propTypes = {
 class VpnGatewayForm extends Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = {
+      ...this.props.data
+    };
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handlePolicyToggle = this.handlePolicyToggle.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
@@ -8396,6 +8399,11 @@ class VpnGatewayForm extends Component {
    */
   handleInputChange(event) {
     this.setState(forms_13(event));
+  }
+  handlePolicyToggle() {
+    this.setState({
+      policy_mode: !this.state.policy_mode
+    });
   }
   render() {
     let composedId = `vpn-gateway-form-${this.props.data.name}-`;
@@ -8442,6 +8450,16 @@ class VpnGatewayForm extends Component {
       invalid: lib_9(this.state.vpc) || lib_9(this.state.subnet),
       invalidText: lib_9(this.state.vpc) ? `No VPC Selected.` : `Select a Subnet.`,
       className: "fieldWidth"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
+      id: composedId + "-policy-mode",
+      labelText: "Enable Policy Mode",
+      defaultToggled: this.state.policy_mode || false,
+      onToggle: this.handlePolicyToggle,
+      className: "fieldWidth",
+      tooltip: {
+        content: "A policy-based VPN operates in Active-Standby mode with a single VPN gateway IP shared between the members. The default is a route-based VPN which offers Active-Active redundancy with two VPN gateway IPs.",
+        link: "https://cloud.ibm.com/docs/vpc?topic=vpc-using-vpn"
+      }
     })));
   }
 }
@@ -8461,7 +8479,9 @@ VpnGatewayForm.propTypes = {
     // can be null
     vpc: PropTypes.string,
     // can be null
-    subnet: PropTypes.string // can be null
+    subnet: PropTypes.string,
+    // can be null
+    policy_mode: PropTypes.bool // can be null
   }).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   vpcList: PropTypes.arrayOf(PropTypes.string).isRequired,
