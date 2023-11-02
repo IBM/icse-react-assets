@@ -3582,7 +3582,7 @@ class IcseFormTemplate extends React__default["default"].Component {
     let formModalProps = {
       ...this.props.innerFormProps,
       disableSave: this.props.disableSave,
-      arrayParentName: this.props.arrayParentName,
+      arrayParentName: this.props.arrayParentName || this.props.innerFormProps.arrayParentName,
       isModal: true,
       submissionFieldName: this.props.toggleFormProps.submissionFieldName,
       shouldDisableSubmit: function () {
@@ -11524,7 +11524,6 @@ const SshKeys = props => {
     forceOpen: props.forceOpen,
     deleteDisabled: props.deleteDisabled,
     deleteDisabledMessage: "SSH Key currently in use",
-    arrayParentName: props.powerVs ? props.arrayParentName : undefined,
     innerFormProps: {
       craig: props.craig,
       resourceGroups: props.resourceGroups,
