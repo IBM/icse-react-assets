@@ -5618,25 +5618,33 @@ const ClassicVlan = props => {
     addText: "Create a VLAN",
     docs: props.docs,
     innerForm: ClassicVlanForm,
-    arrayData: props.vlan,
+    arrayData: props.vlans,
     disableSave: props.disableSave,
     onDelete: props.onDelete,
     onSave: props.onSave,
     onSubmit: props.onSubmit,
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
+    hideFormTitleButton: props.overrideTile ? true : false,
+    overrideTile: props.overrideTile,
     innerFormProps: {
       craig: props.craig,
       disableSave: props.disableSave,
       invalidCallback: props.invalidCallback,
       invalidTextCallback: props.invalidTextCallback,
       datacenters: props.datacenters
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "classic_vlans",
+      hideName: true
     }
   });
 };
 ClassicVlan.propTypes = {
   docs: PropTypes__default["default"].func.isRequired,
-  vlan: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  vlans: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
   disableSave: PropTypes__default["default"].func.isRequired,
   onDelete: PropTypes__default["default"].func.isRequired,
   onSave: PropTypes__default["default"].func.isRequired,
@@ -5646,7 +5654,8 @@ ClassicVlan.propTypes = {
   craig: PropTypes__default["default"].shape({}),
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  datacenters: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string)
+  datacenters: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string),
+  overrideTile: PropTypes__default["default"].node
 };
 
 const CloudDatabase = props => {
