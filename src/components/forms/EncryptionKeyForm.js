@@ -5,7 +5,8 @@ import {
 } from "../component-utils";
 import { IcseFormGroup } from "../Utils";
 import { IcseNameInput, IcseToggle, IcseTextInput } from "../Inputs";
-import { IcseNumberSelect } from "../Dropdowns";
+import { IcseNumberSelect, IcseSelect } from "../Dropdowns";
+import { titleCase } from "lazy-z";
 import PropTypes from "prop-types";
 
 /**
@@ -16,6 +17,7 @@ class EncryptionKeyForm extends Component {
     super(props);
     this.state = this.props.data;
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleTypeChange = this.handleTypeChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
@@ -23,11 +25,18 @@ class EncryptionKeyForm extends Component {
 
   /**
    * handle input change
-   * @param {string} name key to change in state
-   * @param {*} value value to update
+   * @param {*} event.target.name key to change in state
    */
   handleInputChange(event) {
     this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * handle type change
+   * @param {*} event
+   */
+  handleTypeChange(event) {
+    this.setState({ endpoint: event.target.value.toLowerCase() });
   }
 
   /**
@@ -86,6 +95,18 @@ class EncryptionKeyForm extends Component {
             handleInputChange={this.handleInputChange}
             isModal={this.props.isModal}
           />
+          {this.props.selectEndpoint && (
+            <IcseSelect
+              component="km-key-endpoint"
+              name="endpoint"
+              formName="kms-key"
+              groups={["Public", "Private"]}
+              value={titleCase((this.state.endpoint || "").toLowerCase())}
+              labelText="Endpoint"
+              handleInputChange={this.handleTypeChange}
+              className="fieldWidth"
+            />
+          )}
         </IcseFormGroup>
         <IcseFormGroup>
           {/* force delete */}
@@ -152,6 +173,7 @@ EncryptionKeyForm.defaultProps = {
     key_ring: "",
   },
   isModal: false,
+  selectEndpoint: false,
 };
 
 EncryptionKeyForm.propTypes = {
@@ -164,6 +186,7 @@ EncryptionKeyForm.propTypes = {
     key_ring: PropTypes.string,
   }).isRequired,
   isModal: PropTypes.bool.isRequired,
+  selectEndpoint: PropTypes.bool.isRequired,
   invalidRingCallback: PropTypes.func.isRequired,
 };
 
