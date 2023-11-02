@@ -12099,12 +12099,12 @@ class PowerVsWorkspaceForm extends React__default["default"].Component {
       invalidDnsCallback: this.props.invalidDnsCallback,
       invalidDnsCallbackText: this.props.invalidDnsCallbackText,
       workspace: this.props.data.name
-    }), lazyZ.contains(this.props.edgeRouterEnabledZones, this.state.zone) ? /*#__PURE__*/React__default["default"].createElement(react.Tile, {
+    }), this.props.isModal ? "" : lazyZ.contains(this.props.edgeRouterEnabledZones, this.state.zone) ? /*#__PURE__*/React__default["default"].createElement(react.Tile, {
       className: "tileBackground displayFlex alignItemsCenter wrap marginTop"
-    }, /*#__PURE__*/React__default["default"].createElement(iconsReact.CloudAlerting, {
+    }, /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(iconsReact.CloudAlerting, {
       size: "24",
       className: "iconMargin"
-    }), " Cloud Connections cannot be created in zones where the Power Edge Router (PER) is enabled. Connect this workspace to VPC networks from the", /*#__PURE__*/React__default["default"].createElement("a", {
+    })), " ", "Cloud Connections cannot be created in zones where the Power Edge Router (PER) is enabled. Connect this workspace to VPC networks from the", /*#__PURE__*/React__default["default"].createElement("a", {
       className: "no-vpc-link",
       href: "/form/transitGateways"
     }, "Transit Gateways Page.")) : /*#__PURE__*/React__default["default"].createElement(PowerVsCloudConnections, {
