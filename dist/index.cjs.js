@@ -5855,6 +5855,7 @@ class EncryptionKeyForm extends React.Component {
     super(props);
     this.state = this.props.data;
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleTypeChange = this.handleTypeChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
@@ -5862,11 +5863,20 @@ class EncryptionKeyForm extends React.Component {
 
   /**
    * handle input change
-   * @param {string} name key to change in state
-   * @param {*} value value to update
+   * @param {*} event.target.name key to change in state
    */
   handleInputChange(event) {
     this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * handle type change
+   * @param {*} event
+   */
+  handleTypeChange(event) {
+    this.setState({
+      endpoint: event.target.value.toLowerCase()
+    });
   }
 
   /**
@@ -5913,6 +5923,15 @@ class EncryptionKeyForm extends React.Component {
       labelText: "Rotation Interval (Months)",
       handleInputChange: this.handleInputChange,
       isModal: this.props.isModal
+    }), this.props.selectEndpoint && /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      component: "km-key-endpoint",
+      name: "endpoint",
+      formName: "kms-key",
+      groups: ["Public", "Private"],
+      value: lazyZ.titleCase((this.state.endpoint || "").toLowerCase()),
+      labelText: "Endpoint",
+      handleInputChange: this.handleTypeChange,
+      className: "fieldWidth"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
       tooltip: {
         content: "Force deletion of a key refers to the deletion of any key that's actively protecting any registered cloud resources. KMS keys can be force-deleted by managers of the instance. However, the force-delete won't succeed if the key's associated resource is non-erasable due to a retention policy.",
@@ -5964,7 +5983,8 @@ EncryptionKeyForm.defaultProps = {
     dual_auth_delete: false,
     key_ring: ""
   },
-  isModal: false
+  isModal: false,
+  selectEndpoint: false
 };
 EncryptionKeyForm.propTypes = {
   data: PropTypes__default["default"].shape({
@@ -5976,6 +5996,7 @@ EncryptionKeyForm.propTypes = {
     key_ring: PropTypes__default["default"].string
   }).isRequired,
   isModal: PropTypes__default["default"].bool.isRequired,
+  selectEndpoint: PropTypes__default["default"].bool.isRequired,
   invalidRingCallback: PropTypes__default["default"].func.isRequired
 };
 
@@ -6028,6 +6049,7 @@ class KeyManagementForm extends React.Component {
   }
   render() {
     let innerFormProps = {
+      selectEndpoint: this.props.selectEndpoint,
       invalidCallback: this.props.invalidKeyCallback,
       invalidTextCallback: this.props.invalidKeyTextCallback,
       invalidRingCallback: this.props.invalidRingCallback,
@@ -6124,7 +6146,8 @@ KeyManagementForm.defaultProps = {
     authorize_vpc_reader_role: false,
     keys: []
   },
-  isModal: false
+  isModal: false,
+  selectEndpoint: false
 };
 KeyManagementForm.propTypes = {
   data: PropTypes__default["default"].shape({
@@ -6136,6 +6159,7 @@ KeyManagementForm.propTypes = {
     keys: PropTypes__default["default"].array.isRequired
   }).isRequired,
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  selectEndpoint: PropTypes__default["default"].bool.isRequired,
   isModal: PropTypes__default["default"].bool.isRequired,
   invalidKeyCallback: PropTypes__default["default"].func.isRequired,
   invalidKeyTextCallback: PropTypes__default["default"].func.isRequired,
@@ -6168,6 +6192,7 @@ const KeyManagement = props => {
     innerFormProps: {
       craig: props.craig,
       resourceGroups: props.resourceGroups,
+      selectEndpoint: props.selectEndpoint,
       invalidCallback: props.invalidCallback,
       invalidTextCallback: props.invalidTextCallback,
       invalidKeyCallback: props.invalidKeyCallback,
@@ -6203,6 +6228,7 @@ KeyManagement.propTypes = {
   forceOpen: PropTypes__default["default"].func.isRequired,
   deleteDisabled: PropTypes__default["default"].func.isRequired,
   resourceGroups: PropTypes__default["default"].array.isRequired,
+  selectEndpoint: PropTypes__default["default"].bool.isRequired,
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
   invalidKeyCallback: PropTypes__default["default"].func.isRequired,

@@ -5844,6 +5844,7 @@ class EncryptionKeyForm extends Component {
     super(props);
     this.state = this.props.data;
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleTypeChange = this.handleTypeChange.bind(this);
     this.handleToggle = this.handleToggle.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
@@ -5851,11 +5852,20 @@ class EncryptionKeyForm extends Component {
 
   /**
    * handle input change
-   * @param {string} name key to change in state
-   * @param {*} value value to update
+   * @param {*} event.target.name key to change in state
    */
   handleInputChange(event) {
     this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * handle type change
+   * @param {*} event
+   */
+  handleTypeChange(event) {
+    this.setState({
+      endpoint: event.target.value.toLowerCase()
+    });
   }
 
   /**
@@ -5902,6 +5912,15 @@ class EncryptionKeyForm extends Component {
       labelText: "Rotation Interval (Months)",
       handleInputChange: this.handleInputChange,
       isModal: this.props.isModal
+    }), this.props.selectEndpoint && /*#__PURE__*/React.createElement(IcseSelect, {
+      component: "km-key-endpoint",
+      name: "endpoint",
+      formName: "kms-key",
+      groups: ["Public", "Private"],
+      value: titleCase$2((this.state.endpoint || "").toLowerCase()),
+      labelText: "Endpoint",
+      handleInputChange: this.handleTypeChange,
+      className: "fieldWidth"
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
       tooltip: {
         content: "Force deletion of a key refers to the deletion of any key that's actively protecting any registered cloud resources. KMS keys can be force-deleted by managers of the instance. However, the force-delete won't succeed if the key's associated resource is non-erasable due to a retention policy.",
@@ -5953,7 +5972,8 @@ EncryptionKeyForm.defaultProps = {
     dual_auth_delete: false,
     key_ring: ""
   },
-  isModal: false
+  isModal: false,
+  selectEndpoint: false
 };
 EncryptionKeyForm.propTypes = {
   data: PropTypes.shape({
@@ -5965,6 +5985,7 @@ EncryptionKeyForm.propTypes = {
     key_ring: PropTypes.string
   }).isRequired,
   isModal: PropTypes.bool.isRequired,
+  selectEndpoint: PropTypes.bool.isRequired,
   invalidRingCallback: PropTypes.func.isRequired
 };
 
@@ -6017,6 +6038,7 @@ class KeyManagementForm extends Component {
   }
   render() {
     let innerFormProps = {
+      selectEndpoint: this.props.selectEndpoint,
       invalidCallback: this.props.invalidKeyCallback,
       invalidTextCallback: this.props.invalidKeyTextCallback,
       invalidRingCallback: this.props.invalidRingCallback,
@@ -6113,7 +6135,8 @@ KeyManagementForm.defaultProps = {
     authorize_vpc_reader_role: false,
     keys: []
   },
-  isModal: false
+  isModal: false,
+  selectEndpoint: false
 };
 KeyManagementForm.propTypes = {
   data: PropTypes.shape({
@@ -6125,6 +6148,7 @@ KeyManagementForm.propTypes = {
     keys: PropTypes.array.isRequired
   }).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  selectEndpoint: PropTypes.bool.isRequired,
   isModal: PropTypes.bool.isRequired,
   invalidKeyCallback: PropTypes.func.isRequired,
   invalidKeyTextCallback: PropTypes.func.isRequired,
@@ -6157,6 +6181,7 @@ const KeyManagement = props => {
     innerFormProps: {
       craig: props.craig,
       resourceGroups: props.resourceGroups,
+      selectEndpoint: props.selectEndpoint,
       invalidCallback: props.invalidCallback,
       invalidTextCallback: props.invalidTextCallback,
       invalidKeyCallback: props.invalidKeyCallback,
@@ -6192,6 +6217,7 @@ KeyManagement.propTypes = {
   forceOpen: PropTypes.func.isRequired,
   deleteDisabled: PropTypes.func.isRequired,
   resourceGroups: PropTypes.array.isRequired,
+  selectEndpoint: PropTypes.bool.isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
   invalidKeyCallback: PropTypes.func.isRequired,
