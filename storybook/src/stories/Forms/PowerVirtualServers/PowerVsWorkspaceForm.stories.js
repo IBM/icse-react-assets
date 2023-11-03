@@ -201,7 +201,7 @@ const PowerVsWorkSpaceModalFormStory = () => {
       data={{
         name: "frog",
         resource_group: "dev-2",
-        zone: "az-1",
+        zone: "dal10",
         network: [
           {
             workspace: "example",

@@ -34,6 +34,12 @@ export default {
       control: "none",
       type: { required: false }, // required prop or not
     },
+    ["data.policy_mode"]: {
+      description:
+        "A boolean specifying to use the mode policy instead of the default mode, route",
+      control: "none",
+      type: { required: false }, // required prop or not
+    },
     resourceGroups: {
       description:
         "An array of strings containing the names of resource groups to select",

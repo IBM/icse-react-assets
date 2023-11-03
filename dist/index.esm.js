@@ -3571,7 +3571,7 @@ class IcseFormTemplate extends React.Component {
     let formModalProps = {
       ...this.props.innerFormProps,
       disableSave: this.props.disableSave,
-      arrayParentName: this.props.arrayParentName,
+      arrayParentName: this.props.arrayParentName || this.props.innerFormProps.arrayParentName,
       isModal: true,
       submissionFieldName: this.props.toggleFormProps.submissionFieldName,
       shouldDisableSubmit: function () {
@@ -5607,25 +5607,33 @@ const ClassicVlan = props => {
     addText: "Create a VLAN",
     docs: props.docs,
     innerForm: ClassicVlanForm,
-    arrayData: props.vlan,
+    arrayData: props.vlans,
     disableSave: props.disableSave,
     onDelete: props.onDelete,
     onSave: props.onSave,
     onSubmit: props.onSubmit,
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
+    hideFormTitleButton: props.overrideTile ? true : false,
+    overrideTile: props.overrideTile,
     innerFormProps: {
       craig: props.craig,
       disableSave: props.disableSave,
       invalidCallback: props.invalidCallback,
       invalidTextCallback: props.invalidTextCallback,
       datacenters: props.datacenters
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "classic_vlans",
+      hideName: true
     }
   });
 };
 ClassicVlan.propTypes = {
   docs: PropTypes.func.isRequired,
-  vlan: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  vlans: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   disableSave: PropTypes.func.isRequired,
   onDelete: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
@@ -5635,7 +5643,8 @@ ClassicVlan.propTypes = {
   craig: PropTypes.shape({}),
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
-  datacenters: PropTypes.arrayOf(PropTypes.string)
+  datacenters: PropTypes.arrayOf(PropTypes.string),
+  overrideTile: PropTypes.node
 };
 
 const CloudDatabase = props => {
@@ -8410,8 +8419,11 @@ Vpe.propTypes = {
 class VpnGatewayForm extends Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = {
+      ...this.props.data
+    };
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handlePolicyToggle = this.handlePolicyToggle.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
@@ -8422,6 +8434,11 @@ class VpnGatewayForm extends Component {
    */
   handleInputChange(event) {
     this.setState(forms_13(event));
+  }
+  handlePolicyToggle() {
+    this.setState({
+      policy_mode: !this.state.policy_mode
+    });
   }
   render() {
     let composedId = `vpn-gateway-form-${this.props.data.name}-`;
@@ -8468,6 +8485,16 @@ class VpnGatewayForm extends Component {
       invalid: lib_9(this.state.vpc) || lib_9(this.state.subnet),
       invalidText: lib_9(this.state.vpc) ? `No VPC Selected.` : `Select a Subnet.`,
       className: "fieldWidth"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
+      id: composedId + "-policy-mode",
+      labelText: "Enable Policy Mode",
+      defaultToggled: this.state.policy_mode || false,
+      onToggle: this.handlePolicyToggle,
+      className: "fieldWidth",
+      tooltip: {
+        content: "A policy-based VPN operates in Active-Standby mode with a single VPN gateway IP shared between the members. The default is a route-based VPN which offers Active-Active redundancy with two VPN gateway IPs.",
+        link: "https://cloud.ibm.com/docs/vpc?topic=vpc-using-vpn"
+      }
     })));
   }
 }
@@ -8487,7 +8514,9 @@ VpnGatewayForm.propTypes = {
     // can be null
     vpc: PropTypes.string,
     // can be null
-    subnet: PropTypes.string // can be null
+    subnet: PropTypes.string,
+    // can be null
+    policy_mode: PropTypes.bool // can be null
   }).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
   vpcList: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -12094,12 +12123,12 @@ class PowerVsWorkspaceForm extends React.Component {
       invalidDnsCallback: this.props.invalidDnsCallback,
       invalidDnsCallbackText: this.props.invalidDnsCallbackText,
       workspace: this.props.data.name
-    }), contains$5(this.props.edgeRouterEnabledZones, this.state.zone) ? /*#__PURE__*/React.createElement(Tile, {
+    }), this.props.isModal ? "" : contains$5(this.props.edgeRouterEnabledZones, this.state.zone) ? /*#__PURE__*/React.createElement(Tile, {
       className: "tileBackground displayFlex alignItemsCenter wrap marginTop"
-    }, /*#__PURE__*/React.createElement(CloudAlerting, {
+    }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(CloudAlerting, {
       size: "24",
       className: "iconMargin"
-    }), " Cloud Connections cannot be created in zones where the Power Edge Router (PER) is enabled. Connect this workspace to VPC networks from the", /*#__PURE__*/React.createElement("a", {
+    })), " ", "Cloud Connections cannot be created in zones where the Power Edge Router (PER) is enabled. Connect this workspace to VPC networks from the", /*#__PURE__*/React.createElement("a", {
       className: "no-vpc-link",
       href: "/form/transitGateways"
     }, "Transit Gateways Page.")) : /*#__PURE__*/React.createElement(PowerVsCloudConnections, {

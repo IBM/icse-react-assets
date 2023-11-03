@@ -3582,7 +3582,7 @@ class IcseFormTemplate extends React__default["default"].Component {
     let formModalProps = {
       ...this.props.innerFormProps,
       disableSave: this.props.disableSave,
-      arrayParentName: this.props.arrayParentName,
+      arrayParentName: this.props.arrayParentName || this.props.innerFormProps.arrayParentName,
       isModal: true,
       submissionFieldName: this.props.toggleFormProps.submissionFieldName,
       shouldDisableSubmit: function () {
@@ -5618,25 +5618,33 @@ const ClassicVlan = props => {
     addText: "Create a VLAN",
     docs: props.docs,
     innerForm: ClassicVlanForm,
-    arrayData: props.vlan,
+    arrayData: props.vlans,
     disableSave: props.disableSave,
     onDelete: props.onDelete,
     onSave: props.onSave,
     onSubmit: props.onSubmit,
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
+    hideFormTitleButton: props.overrideTile ? true : false,
+    overrideTile: props.overrideTile,
     innerFormProps: {
       craig: props.craig,
       disableSave: props.disableSave,
       invalidCallback: props.invalidCallback,
       invalidTextCallback: props.invalidTextCallback,
       datacenters: props.datacenters
+    },
+    toggleFormProps: {
+      craig: props.craig,
+      disableSave: props.disableSave,
+      submissionFieldName: "classic_vlans",
+      hideName: true
     }
   });
 };
 ClassicVlan.propTypes = {
   docs: PropTypes__default["default"].func.isRequired,
-  vlan: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  vlans: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
   disableSave: PropTypes__default["default"].func.isRequired,
   onDelete: PropTypes__default["default"].func.isRequired,
   onSave: PropTypes__default["default"].func.isRequired,
@@ -5646,7 +5654,8 @@ ClassicVlan.propTypes = {
   craig: PropTypes__default["default"].shape({}),
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
-  datacenters: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string)
+  datacenters: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string),
+  overrideTile: PropTypes__default["default"].node
 };
 
 const CloudDatabase = props => {
@@ -8421,8 +8430,11 @@ Vpe.propTypes = {
 class VpnGatewayForm extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.props.data;
+    this.state = {
+      ...this.props.data
+    };
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handlePolicyToggle = this.handlePolicyToggle.bind(this);
     buildFormFunctions(this);
     buildFormDefaultInputMethods(this);
   }
@@ -8433,6 +8445,11 @@ class VpnGatewayForm extends React.Component {
    */
   handleInputChange(event) {
     this.setState(forms_13(event));
+  }
+  handlePolicyToggle() {
+    this.setState({
+      policy_mode: !this.state.policy_mode
+    });
   }
   render() {
     let composedId = `vpn-gateway-form-${this.props.data.name}-`;
@@ -8479,6 +8496,16 @@ class VpnGatewayForm extends React.Component {
       invalid: lib_9(this.state.vpc) || lib_9(this.state.subnet),
       invalidText: lib_9(this.state.vpc) ? `No VPC Selected.` : `Select a Subnet.`,
       className: "fieldWidth"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      id: composedId + "-policy-mode",
+      labelText: "Enable Policy Mode",
+      defaultToggled: this.state.policy_mode || false,
+      onToggle: this.handlePolicyToggle,
+      className: "fieldWidth",
+      tooltip: {
+        content: "A policy-based VPN operates in Active-Standby mode with a single VPN gateway IP shared between the members. The default is a route-based VPN which offers Active-Active redundancy with two VPN gateway IPs.",
+        link: "https://cloud.ibm.com/docs/vpc?topic=vpc-using-vpn"
+      }
     })));
   }
 }
@@ -8498,7 +8525,9 @@ VpnGatewayForm.propTypes = {
     // can be null
     vpc: PropTypes__default["default"].string,
     // can be null
-    subnet: PropTypes__default["default"].string // can be null
+    subnet: PropTypes__default["default"].string,
+    // can be null
+    policy_mode: PropTypes__default["default"].bool // can be null
   }).isRequired,
   resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
@@ -12105,12 +12134,12 @@ class PowerVsWorkspaceForm extends React__default["default"].Component {
       invalidDnsCallback: this.props.invalidDnsCallback,
       invalidDnsCallbackText: this.props.invalidDnsCallbackText,
       workspace: this.props.data.name
-    }), lazyZ.contains(this.props.edgeRouterEnabledZones, this.state.zone) ? /*#__PURE__*/React__default["default"].createElement(react.Tile, {
+    }), this.props.isModal ? "" : lazyZ.contains(this.props.edgeRouterEnabledZones, this.state.zone) ? /*#__PURE__*/React__default["default"].createElement(react.Tile, {
       className: "tileBackground displayFlex alignItemsCenter wrap marginTop"
-    }, /*#__PURE__*/React__default["default"].createElement(iconsReact.CloudAlerting, {
+    }, /*#__PURE__*/React__default["default"].createElement("div", null, /*#__PURE__*/React__default["default"].createElement(iconsReact.CloudAlerting, {
       size: "24",
       className: "iconMargin"
-    }), " Cloud Connections cannot be created in zones where the Power Edge Router (PER) is enabled. Connect this workspace to VPC networks from the", /*#__PURE__*/React__default["default"].createElement("a", {
+    })), " ", "Cloud Connections cannot be created in zones where the Power Edge Router (PER) is enabled. Connect this workspace to VPC networks from the", /*#__PURE__*/React__default["default"].createElement("a", {
       className: "no-vpc-link",
       href: "/form/transitGateways"
     }, "Transit Gateways Page.")) : /*#__PURE__*/React__default["default"].createElement(PowerVsCloudConnections, {
