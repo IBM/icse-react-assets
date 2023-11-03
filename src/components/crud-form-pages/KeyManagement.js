@@ -22,6 +22,7 @@ export const KeyManagement = (props) => {
       innerFormProps={{
         craig: props.craig,
         resourceGroups: props.resourceGroups,
+        selectEndpoint: props.selectEndpoint,
         invalidCallback: props.invalidCallback,
         invalidTextCallback: props.invalidTextCallback,
         invalidKeyCallback: props.invalidKeyCallback,
@@ -59,6 +60,7 @@ KeyManagement.propTypes = {
   forceOpen: PropTypes.func.isRequired,
   deleteDisabled: PropTypes.func.isRequired,
   resourceGroups: PropTypes.array.isRequired,
+  selectEndpoint: PropTypes.bool.isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
   invalidKeyCallback: PropTypes.func.isRequired,

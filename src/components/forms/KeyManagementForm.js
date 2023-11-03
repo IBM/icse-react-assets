@@ -55,6 +55,7 @@ class KeyManagementForm extends Component {
 
   render() {
     let innerFormProps = {
+      selectEndpoint: this.props.selectEndpoint,
       invalidCallback: this.props.invalidKeyCallback,
       invalidTextCallback: this.props.invalidKeyTextCallback,
       invalidRingCallback: this.props.invalidRingCallback,
@@ -165,6 +166,7 @@ KeyManagementForm.defaultProps = {
     keys: [],
   },
   isModal: false,
+  selectEndpoint: false,
 };
 
 KeyManagementForm.propTypes = {
@@ -177,6 +179,7 @@ KeyManagementForm.propTypes = {
     keys: PropTypes.array.isRequired,
   }).isRequired,
   resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  selectEndpoint: PropTypes.bool.isRequired,
   isModal: PropTypes.bool.isRequired,
   invalidKeyCallback: PropTypes.func.isRequired,
   invalidKeyTextCallback: PropTypes.func.isRequired,

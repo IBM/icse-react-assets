@@ -45,6 +45,12 @@ export default {
       type: { required: true }, // required prop or not
       control: "none",
     },
+    selectEndpoint: {
+      description:
+        "A boolean for allowing the selection of the environment endpoint (public or private)",
+      control: "none",
+      type: { required: true }, // required prop or not
+    },
     invalidCallback: {
       description:
         "A function to determine if the value supplied is invalid and returns a single boolean",
