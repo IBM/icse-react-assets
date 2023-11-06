@@ -18,6 +18,7 @@ export const SshKeys = (props) => {
       onSubmit={props.onSubmit}
       propsMatchState={props.propsMatchState}
       forceOpen={props.forceOpen}
+      hideFormTitleButton={props.overrideTile ? true : false}
       deleteDisabled={props.deleteDisabled}
       deleteDisabledMessage="SSH Key currently in use"
       innerFormProps={{
@@ -58,7 +59,7 @@ SshKeys.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   propsMatchState: PropTypes.func.isRequired,
   forceOpen: PropTypes.func.isRequired,
-  resourceGroups: PropTypes.array.isRequired,
+  resourceGroups: PropTypes.array, //not required for classic
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
   craig: PropTypes.shape({}),
