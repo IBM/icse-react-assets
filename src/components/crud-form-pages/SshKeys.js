@@ -6,7 +6,7 @@ import { SshKeyForm } from "../..";
 export const SshKeys = (props) => {
   return (
     <IcseFormTemplate
-      name="SSH Keys"
+      name={props.classic ? "Classic SSH Keys" : "SSH Keys"}
       addText="Create an SSH Key"
       docs={props.powerVs ? undefined : props.docs}
       subHeading={props.powerVs}
