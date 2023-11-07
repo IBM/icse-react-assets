@@ -11558,7 +11558,7 @@ NetworkAcls.propTypes = {
 
 const SshKeys = props => {
   return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
-    name: "SSH Keys",
+    name: props.classic ? "Classic SSH Keys" : "SSH Keys",
     addText: "Create an SSH Key",
     docs: props.powerVs ? undefined : props.docs,
     subHeading: props.powerVs,
@@ -11570,6 +11570,7 @@ const SshKeys = props => {
     onSubmit: props.onSubmit,
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
+    hideFormTitleButton: props.overrideTile ? true : false,
     deleteDisabled: props.deleteDisabled,
     deleteDisabledMessage: "SSH Key currently in use",
     innerFormProps: {
@@ -11607,7 +11608,8 @@ SshKeys.propTypes = {
   onSubmit: PropTypes__default["default"].func.isRequired,
   propsMatchState: PropTypes__default["default"].func.isRequired,
   forceOpen: PropTypes__default["default"].func.isRequired,
-  resourceGroups: PropTypes__default["default"].array.isRequired,
+  resourceGroups: PropTypes__default["default"].array,
+  //not required for classic
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
   craig: PropTypes__default["default"].shape({}),
@@ -15389,7 +15391,8 @@ SshKeyForm.propTypes = {
     use_data: PropTypes__default["default"].bool
   }).isRequired,
   powerVs: PropTypes__default["default"].bool.isRequired,
-  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  resourceGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string),
+  //not required for classic
   isModal: PropTypes__default["default"].bool.isRequired,
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,

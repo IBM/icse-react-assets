@@ -132,7 +132,7 @@ SshKeyForm.propTypes = {
     use_data: PropTypes.bool,
   }).isRequired,
   powerVs: PropTypes.bool.isRequired,
-  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  resourceGroups: PropTypes.arrayOf(PropTypes.string), //not required for classic
   isModal: PropTypes.bool.isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
