@@ -4121,12 +4121,25 @@ function buildFormFunctions(component) {
   let usesImageList = getType(component.props.imageMap) === "object";
   let powerInstance = component.props.power;
   let powerVolumes = component.props.power_instances;
+  let usesClassicVlans = Array.isArray(component.props.classic_vlans);
   if (component.props.shouldDisableSave) component.shouldDisableSave = component.props.shouldDisableSave.bind(component);
   if (disableSubmit) component.shouldDisableSubmit = component.props.shouldDisableSubmit.bind(component);
   if (usesSubnetList) {
     component.getSubnetList = function () {
       return splat(component.props.subnetList.filter(subnet => {
         if (subnet.vpc === component.state.vpc) return subnet;
+      }), "name");
+    }.bind(component);
+  }
+  if (usesClassicVlans) {
+    component.getPrivateVlanList = function () {
+      return splat(component.props.classic_vlans.filter(vlan => {
+        if (vlan.datacenter === component.state.datacenter && vlan.type === "PRIVATE") return vlan;
+      }), "name");
+    }.bind(component);
+    component.getPublicVlanList = function () {
+      return splat(component.props.classic_vlans.filter(vlan => {
+        if (vlan.datacenter === component.state.datacenter && vlan.type === "PUBLIC") return vlan;
       }), "name");
     }.bind(component);
   }
@@ -13295,6 +13308,81 @@ PowerVsVolume.propTypes = {
   deleteDisabled: PropTypes.func
 };
 
+const ClassicGateways = props => {
+  return /*#__PURE__*/React.createElement(IcseFormTemplate, {
+    name: "Classic Gateways",
+    addText: "Create a Gateway",
+    docs: props.docs,
+    arrayData: props.classic_gateways,
+    innerForm: ClassicGatewayForm,
+    disableSave: props.disableSave,
+    propsMatchState: props.propsMatchState,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    onDelete: props.onDelete,
+    forceOpen: props.forceOpen,
+    hideFormTitleButton: props.overrideTile ? true : false,
+    overrideTile: props.overrideTile,
+    innerFormProps: {
+      craig: props.craig,
+      composedNameCallback: props.composedNameCallback,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      datacenterList: props.datacenterList,
+      packageNameList: props.packageNameList,
+      osKeyNameList: props.osKeyNameList,
+      processKeyNameList: props.processKeyNameList,
+      classicSshKeyList: props.classicSshKeyList,
+      diskKeyNameList: props.diskKeyNameList,
+      classic_vlans: props.classic_vlans,
+      invalidNetworkSpeedCallback: props.invalidNetworkSpeedCallback,
+      invalidNetworkSpeedTextCallback: props.invalidNetworkSpeedTextCallback,
+      invalidPublicBandwidthTextCallback: props.invalidPublicBandwidthTextCallback,
+      invalidPublicBandwidthCallback: props.invalidPublicBandwidthCallback,
+      invalidMemoryCallback: props.invalidMemoryCallback,
+      invalidMemoryTextCallback: props.invalidMemoryTextCallback
+    },
+    toggleFormProps: {
+      hideName: true,
+      submissionFieldName: "classic_gateways",
+      disableSave: props.disableSave
+    }
+  });
+};
+ClassicGateways.defaultProps = {
+  packageNameList: ["VIRTUAL_ROUTER_APPLIANCE_1_GPBS"],
+  osKeyNameList: ["OS_JUNIPER_VSRX_19_4_UP_TO_1GBPS_STANDARD_SRIOV"],
+  processKeyNameList: ["INTEL_XEON_4210_2_20"],
+  diskKeyNameList: ["HARD_DRIVE_2_00_TB_SATA_2"]
+};
+ClassicGateways.propTypes = {
+  classic_gateways: PropTypes.arrayOf(PropTypes.shape).isRequired,
+  disableSave: PropTypes.func.isRequired,
+  propsMatchState: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  craig: PropTypes.shape({}).isRequired,
+  docs: PropTypes.func.isRequired,
+  composedNameCallback: PropTypes.func.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  datacenterList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  packageNameList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  osKeyNameList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  processKeyNameList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  classicSshKeyList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  diskKeyNameList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  data: PropTypes.shape({}).isRequired,
+  classic_vlans: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  invalidNetworkSpeedCallback: PropTypes.func.isRequired,
+  invalidNetworkSpeedTextCallback: PropTypes.func.isRequired,
+  invalidPublicBandwidthTextCallback: PropTypes.func.isRequired,
+  invalidPublicBandwidthCallback: PropTypes.func.isRequired,
+  invalidMemoryCallback: PropTypes.func.isRequired,
+  invalidMemoryTextCallback: PropTypes.func.isRequired
+};
+
 const restrictMenuItems = ["Unset", "Yes", "No"];
 const mfaMenuItems = ["NONE", "TOTP", "TOTP4ALL", "Email-Based MFA", "TOTP MFA", "U2F MFA"];
 const iamItems = {
@@ -15905,6 +15993,233 @@ TeleportClaimToRoleForm.propTypes = {
   }).isRequired
 };
 
+class ClassicGatewayForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    this.handleDiskKeyNameChange = this.handleDiskKeyNameChange.bind(this);
+  }
+  handleDiskKeyNameChange(selectedItems) {
+    this.setState({
+      disk_key_names: selectedItems
+    });
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  handleInputChange(event) {
+    if (event.target.name === "datacenter") {
+      this.setState({
+        datacenter: event.target.value,
+        private_vlan: "",
+        public_vlan: ""
+      });
+    } else this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * Handler for toggle
+   */
+  handleToggle(toggle) {
+    if (toggle === "private_network_only" && this.state.private_network_only !== true) {
+      this.setState({
+        private_network_only: true,
+        public_vlan: ""
+      });
+    }
+    this.setState(this.toggleStateBoolean(toggle, this.state));
+  }
+  render() {
+    let composedId = this.props.data.name + "-classic-gateway-form-";
+    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseNameInput, {
+      id: this.props + "-name",
+      componentName: this.state.name,
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      helperTextCallback: () => this.props.composedNameCallback(this.state, this.props),
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseToggle, {
+      tooltip: {
+        content: "Create two network gateway members. Defaults to one"
+      },
+      id: composedId + "hadr",
+      labelText: "High Availability",
+      defaultToggled: this.state.hadr,
+      toggleFieldName: "hadr",
+      onToggle: () => this.handleToggle("hadr"),
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+      id: composedId + "-datacenter",
+      formName: composedId + "-datacenter",
+      name: "datacenter",
+      groups: this.props.datacenterList,
+      value: this.state.datacenter,
+      labelText: "Data Center",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      id: composedId + "-ssh-key",
+      formName: composedId + "-ssh-key",
+      name: "ssh_key",
+      groups: this.props.classicSshKeyList,
+      value: this.state.ssh_key,
+      labelText: "SSH Key",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseMultiSelect, {
+      key: this.state.datacenter,
+      titleText: "Disk Key Names",
+      items: this.props.diskKeyNameList,
+      id: this.props.data.name + "-disk-key-name",
+      initialSelectedItems: this.state.disk_key_names,
+      onChange: event => {
+        this.handleDiskKeyNameChange(event.selectedItems);
+      },
+      invalid: isEmpty(this.state.disk_key_names || []),
+      invalidText: "Select at least one disk key name",
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
+      id: composedId + "private-network-only",
+      labelText: "Private Network Only",
+      defaultToggled: this.state.private_network_only,
+      toggleFieldName: "private_network_only",
+      onToggle: () => this.handleToggle("private_network_only"),
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      id: composedId + "-private-vlan",
+      formName: composedId + "-private-vlan",
+      name: "private_vlan",
+      groups: this.getPrivateVlanList(),
+      value: this.state.private_vlan,
+      labelText: "Private VLAN",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), this.state.private_network_only !== true && /*#__PURE__*/React.createElement(IcseSelect, {
+      id: composedId + "-public-vlan",
+      formName: composedId + "-public-vlan",
+      name: "public_vlan",
+      groups: this.getPublicVlanList(),
+      value: this.state.public_vlan,
+      labelText: "Public VLAN",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
+      id: composedId + "-package-name",
+      formName: composedId + "-package-name",
+      name: "package_key_name",
+      groups: this.props.packageNameList,
+      value: this.state.package_key_name,
+      labelText: "Package Name",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      id: composedId + "-os-key-name",
+      formName: composedId + "-os-key-name",
+      name: "os_key_name",
+      groups: this.props.osKeyNameList,
+      value: this.state.os_key_name,
+      labelText: "OS Key Name",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseSelect, {
+      id: composedId + "-process-key-name",
+      formName: composedId + "-process-key-name",
+      name: "process_key_name",
+      groups: this.props.processKeyNameList,
+      value: this.state.process_key_name,
+      labelText: "Process Key Name",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: "network_speed",
+      componentName: "classic_gateway",
+      field: "network_speed",
+      value: this.state.network_speed,
+      isModal: this.props.isModal,
+      onChange: this.handleInputChange,
+      className: "fieldWidthSmaller",
+      invalid: this.props.invalidNetworkSpeedCallback(this.state, this.props),
+      invalidText: this.props.invalidNetworkSpeedTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: "public_bandwidth",
+      componentName: "classic_gateway",
+      field: "public_bandwidth",
+      value: this.state.public_bandwidth,
+      isModal: this.props.isModal,
+      onChange: this.handleInputChange,
+      className: "fieldWidthSmaller",
+      invalid: this.props.invalidPublicBandwidthCallback(this.state, this.props),
+      invalidText: this.props.invalidPublicBandwidthTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React.createElement(IcseTextInput, {
+      id: "memory",
+      componentName: "classic_gateway",
+      field: "memory",
+      value: this.state.memory,
+      isModal: this.props.isModal,
+      onChange: this.handleInputChange,
+      className: "fieldWidthSmaller",
+      invalid: this.props.invalidMemoryCallback(this.state, this.props),
+      invalidText: this.props.invalidMemoryTextCallback(this.state, this.props)
+    })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseToggle, {
+      id: composedId + "tcp-monitoring",
+      labelText: "Enable TCP Monitoring",
+      defaultToggled: this.state.tcp_monitoring,
+      toggleFieldName: "tcp_monitoring",
+      onToggle: () => this.handleToggle("tcp_monitoring"),
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseToggle, {
+      id: composedId + "redundant-network",
+      labelText: "Enable Redundant Network",
+      defaultToggled: this.state.redundant_network,
+      toggleFieldName: "redundant_network",
+      onToggle: () => this.handleToggle("redundant_network"),
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseToggle, {
+      id: composedId + "ipv6-enabled",
+      labelText: "IPV6 Enabled",
+      defaultToggled: this.state.ipv6_enabled,
+      toggleFieldName: "ipv6_enabled",
+      onToggle: () => this.handleToggle("ipv6_enabled"),
+      className: "fieldWidthSmaller"
+    })));
+  }
+}
+ClassicGatewayForm.defaultProps = {
+  packageNameList: ["VIRTUAL_ROUTER_APPLIANCE_1_GPBS"],
+  osKeyNameList: ["OS_JUNIPER_VSRX_19_4_UP_TO_1GBPS_STANDARD_SRIOV"],
+  processKeyNameList: ["INTEL_XEON_4210_2_20"],
+  diskKeyNameList: ["HARD_DRIVE_2_00_TB_SATA_2"]
+};
+ClassicGatewayForm.propTypes = {
+  composedNameCallback: PropTypes.func.isRequired,
+  invalidCallback: PropTypes.func.isRequired,
+  invalidTextCallback: PropTypes.func.isRequired,
+  datacenterList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  packageNameList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  osKeyNameList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  processKeyNameList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  classicSshKeyList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  diskKeyNameList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  data: PropTypes.shape({}).isRequired,
+  classic_vlans: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  invalidNetworkSpeedCallback: PropTypes.func.isRequired,
+  invalidNetworkSpeedTextCallback: PropTypes.func.isRequired,
+  invalidPublicBandwidthTextCallback: PropTypes.func.isRequired,
+  invalidPublicBandwidthCallback: PropTypes.func.isRequired,
+  invalidMemoryCallback: PropTypes.func.isRequired,
+  invalidMemoryTextCallback: PropTypes.func.isRequired
+};
+
 class CbrContextForm extends Component {
   constructor(props) {
     super(props);
@@ -17179,4 +17494,4 @@ F5BigIp.propTypes = {
   onVsiSave: PropTypes.func.isRequired
 };
 
-export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AccessGroups as AccessGroupsTemplate, AppIdForm, AppIdKeyForm, AppId as AppIdTemplate, AtrackerForm, Atracker as AtrackerPage, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, ClassicVlanForm, ClassicVlan as ClassicVlanTemplate, CloudDatabaseForm, CloudDatabase as CloudDatabaseTemplate, ClusterForm, Clusters as ClustersTemplate, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsForm, DnsRecordForm, Dns as DnsTemplate, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, EventStreams as EventStreamsTemplate, F5BigIp as F5BigIpPage, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IamAccountSettings as IamAccountSettingsPage, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, KeyManagement as KeyManagementTemplate, LocationsMultiSelect, LogDNAForm, NetworkAclForm$1 as NetworkAclForm, NetworkAcls as NetworkAclTemplate, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, ObjectStorage as ObjectStorageTemplate, OpaqueIngressSecretForm, OrderCardDataTable, PopoverWrapper, PowerVsCloudConnectionForm, PowerVsCloudConnections as PowerVsCloudConnectionPage, PowerVsInstanceForm, PowerVsInstances as PowerVsInstancesPage, PowerVsNetworkAttachmentForm, PowerVsNetworkForm, PowerVsNetwork as PowerVsNetworkPage, PowerVsVolumeForm, PowerVsVolume as PowerVsVolumesPage, PowerVsWorkspaceForm, PowerVsWorkspace as PowerVsWorkspacePage, RenderForm, ResourceGroupForm, ResourceGroups as ResourceGroupsTemplate, RoutingTableForm, RoutingTableRouteForm, RoutingTables as RoutingTableTemplate, SaveAddButton, SaveIcon, SccForm, SccV1 as SccV1Page, SecretsManagerChecklist, SecretsManagerForm, SecretsManager as SecretsManagerTemplate, SecurityGroupForm, SecurityGroupMultiSelect, SecurityGroups as SecurityGroupTemplate, SshKeyForm, SshKeyMultiSelect, SshKeys as SshKeysTemplate, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, Subnets as SubnetPageTemplate, SubnetTierForm$1 as SubnetTierForm, SubnetTileForm, SysdigForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, TransitGateways as TransitGatewayTemplate, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, Vpcs as VpcTemplate, VpeForm, Vpe as VpeTemplate, VpnGatewayForm, VpnGateways as VpnGatewayTemplate, VpnServerForm, VpnServerRouteForm, VpnServers as VpnServerTemplate, VsiForm, VsiLoadBalancerForm, VsiLoadBalancer as VsiLoadBalancerTemplate, Vsi as VsiTemplate, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };
+export { AccessGroupDynamicPolicyForm, AccessGroupForm, AccessGroupPolicyForm, AccessGroups as AccessGroupsTemplate, AppIdForm, AppIdKeyForm, AppId as AppIdTemplate, AtrackerForm, Atracker as AtrackerPage, CbrContextForm, CbrExclusionAddressForm, CbrResourceAttributeForm, CbrRuleForm, CbrTagForm, CbrZoneForm, ClassicGatewayForm, ClassicGateways as ClassicGatewaysPage, ClassicVlanForm, ClassicVlan as ClassicVlanTemplate, CloudDatabaseForm, CloudDatabase as CloudDatabaseTemplate, ClusterForm, Clusters as ClustersTemplate, DeleteButton, DeleteModal, DnsCustomResolverForm, DnsForm, DnsRecordForm, Dns as DnsTemplate, DnsZoneForm, Docs, DynamicRender, DynamicToolTipWrapper, EditCloseIcon, EmptyResourceTile, EncryptionKeyForm, EndpointSelect, EntitlementSelect, EventStreamsForm, EventStreams as EventStreamsTemplate, F5BigIp as F5BigIpPage, F5VsiForm, F5VsiTemplateForm, FetchSelect, FormModal, IamAccountSettingsForm, IamAccountSettings as IamAccountSettingsPage, IcseFormGroup, IcseFormTemplate, IcseHeading, IcseModal, IcseMultiSelect, IcseNameInput, IcseNumberSelect, IcseSelect, IcseSubForm, IcseTextInput, IcseToggle, IcseToolTip, KeyManagementForm, KeyManagement as KeyManagementTemplate, LocationsMultiSelect, LogDNAForm, NetworkAclForm$1 as NetworkAclForm, NetworkAcls as NetworkAclTemplate, NetworkingRuleForm, NetworkingRulesOrderCard, ObjectStorageBucketForm, ObjectStorageInstancesForm as ObjectStorageForm, ObjectStorageKeyForm, ObjectStorage as ObjectStorageTemplate, OpaqueIngressSecretForm, OrderCardDataTable, PopoverWrapper, PowerVsCloudConnectionForm, PowerVsCloudConnections as PowerVsCloudConnectionPage, PowerVsInstanceForm, PowerVsInstances as PowerVsInstancesPage, PowerVsNetworkAttachmentForm, PowerVsNetworkForm, PowerVsNetwork as PowerVsNetworkPage, PowerVsVolumeForm, PowerVsVolume as PowerVsVolumesPage, PowerVsWorkspaceForm, PowerVsWorkspace as PowerVsWorkspacePage, RenderForm, ResourceGroupForm, ResourceGroups as ResourceGroupsTemplate, RoutingTableForm, RoutingTableRouteForm, RoutingTables as RoutingTableTemplate, SaveAddButton, SaveIcon, SccForm, SccV1 as SccV1Page, SecretsManagerChecklist, SecretsManagerForm, SecretsManager as SecretsManagerTemplate, SecurityGroupForm, SecurityGroupMultiSelect, SecurityGroups as SecurityGroupTemplate, SshKeyForm, SshKeyMultiSelect, SshKeys as SshKeysTemplate, StatefulTabPanel, StatelessToggleForm, SubnetForm, SubnetMultiSelect, Subnets as SubnetPageTemplate, SubnetTierForm$1 as SubnetTierForm, SubnetTileForm, SysdigForm, TeleportClaimToRoleForm, TitleGroup, ToggleForm, ToolTipWrapper, TransitGatewayForm, TransitGateways as TransitGatewayTemplate, UnderConstruction, UnsavedChangesModal, UpDownButtons, VpcNetworkForm as VpcForm, VpcListMultiSelect, Vpcs as VpcTemplate, VpeForm, Vpe as VpeTemplate, VpnGatewayForm, VpnGateways as VpnGatewayTemplate, VpnServerForm, VpnServerRouteForm, VpnServers as VpnServerTemplate, VsiForm, VsiLoadBalancerForm, VsiLoadBalancer as VsiLoadBalancerTemplate, Vsi as VsiTemplate, VsiVolumeForm, WorkerPoolForm, buildFormDefaultInputMethods, buildFormFunctions };

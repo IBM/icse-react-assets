@@ -95,7 +95,8 @@ class IcseFormTemplate extends React.Component {
     let formModalProps = {
       ...this.props.innerFormProps,
       disableSave: this.props.disableSave,
-      arrayParentName: this.props.arrayParentName || this.props.innerFormProps.arrayParentName,
+      arrayParentName:
+        this.props.arrayParentName || this.props.innerFormProps.arrayParentName,
       isModal: true,
       submissionFieldName: this.props.toggleFormProps.submissionFieldName,
       shouldDisableSubmit: function () {
