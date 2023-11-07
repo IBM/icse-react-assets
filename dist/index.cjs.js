@@ -4132,12 +4132,25 @@ function buildFormFunctions(component) {
   let usesImageList = getType(component.props.imageMap) === "object";
   let powerInstance = component.props.power;
   let powerVolumes = component.props.power_instances;
+  let usesClassicVlans = Array.isArray(component.props.classic_vlans);
   if (component.props.shouldDisableSave) component.shouldDisableSave = component.props.shouldDisableSave.bind(component);
   if (disableSubmit) component.shouldDisableSubmit = component.props.shouldDisableSubmit.bind(component);
   if (usesSubnetList) {
     component.getSubnetList = function () {
       return splat(component.props.subnetList.filter(subnet => {
         if (subnet.vpc === component.state.vpc) return subnet;
+      }), "name");
+    }.bind(component);
+  }
+  if (usesClassicVlans) {
+    component.getPrivateVlanList = function () {
+      return splat(component.props.classic_vlans.filter(vlan => {
+        if (vlan.datacenter === component.state.datacenter && vlan.type === "PRIVATE") return vlan;
+      }), "name");
+    }.bind(component);
+    component.getPublicVlanList = function () {
+      return splat(component.props.classic_vlans.filter(vlan => {
+        if (vlan.datacenter === component.state.datacenter && vlan.type === "PUBLIC") return vlan;
       }), "name");
     }.bind(component);
   }
@@ -13306,6 +13319,81 @@ PowerVsVolume.propTypes = {
   deleteDisabled: PropTypes__default["default"].func
 };
 
+const ClassicGateways = props => {
+  return /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
+    name: "Classic Gateways",
+    addText: "Create a Gateway",
+    docs: props.docs,
+    arrayData: props.classic_gateways,
+    innerForm: ClassicGatewayForm,
+    disableSave: props.disableSave,
+    propsMatchState: props.propsMatchState,
+    onSave: props.onSave,
+    onSubmit: props.onSubmit,
+    onDelete: props.onDelete,
+    forceOpen: props.forceOpen,
+    hideFormTitleButton: props.overrideTile ? true : false,
+    overrideTile: props.overrideTile,
+    innerFormProps: {
+      craig: props.craig,
+      composedNameCallback: props.composedNameCallback,
+      invalidCallback: props.invalidCallback,
+      invalidTextCallback: props.invalidTextCallback,
+      datacenterList: props.datacenterList,
+      packageNameList: props.packageNameList,
+      osKeyNameList: props.osKeyNameList,
+      processKeyNameList: props.processKeyNameList,
+      classicSshKeyList: props.classicSshKeyList,
+      diskKeyNameList: props.diskKeyNameList,
+      classic_vlans: props.classic_vlans,
+      invalidNetworkSpeedCallback: props.invalidNetworkSpeedCallback,
+      invalidNetworkSpeedTextCallback: props.invalidNetworkSpeedTextCallback,
+      invalidPublicBandwidthTextCallback: props.invalidPublicBandwidthTextCallback,
+      invalidPublicBandwidthCallback: props.invalidPublicBandwidthCallback,
+      invalidMemoryCallback: props.invalidMemoryCallback,
+      invalidMemoryTextCallback: props.invalidMemoryTextCallback
+    },
+    toggleFormProps: {
+      hideName: true,
+      submissionFieldName: "classic_gateways",
+      disableSave: props.disableSave
+    }
+  });
+};
+ClassicGateways.defaultProps = {
+  packageNameList: ["VIRTUAL_ROUTER_APPLIANCE_1_GPBS"],
+  osKeyNameList: ["OS_JUNIPER_VSRX_19_4_UP_TO_1GBPS_STANDARD_SRIOV"],
+  processKeyNameList: ["INTEL_XEON_4210_2_20"],
+  diskKeyNameList: ["HARD_DRIVE_2_00_TB_SATA_2"]
+};
+ClassicGateways.propTypes = {
+  classic_gateways: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape).isRequired,
+  disableSave: PropTypes__default["default"].func.isRequired,
+  propsMatchState: PropTypes__default["default"].func.isRequired,
+  onSave: PropTypes__default["default"].func.isRequired,
+  onSubmit: PropTypes__default["default"].func.isRequired,
+  onDelete: PropTypes__default["default"].func.isRequired,
+  craig: PropTypes__default["default"].shape({}).isRequired,
+  docs: PropTypes__default["default"].func.isRequired,
+  composedNameCallback: PropTypes__default["default"].func.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  datacenterList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  packageNameList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  osKeyNameList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  processKeyNameList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  classicSshKeyList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  diskKeyNameList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  data: PropTypes__default["default"].shape({}).isRequired,
+  classic_vlans: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  invalidNetworkSpeedCallback: PropTypes__default["default"].func.isRequired,
+  invalidNetworkSpeedTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidPublicBandwidthTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidPublicBandwidthCallback: PropTypes__default["default"].func.isRequired,
+  invalidMemoryCallback: PropTypes__default["default"].func.isRequired,
+  invalidMemoryTextCallback: PropTypes__default["default"].func.isRequired
+};
+
 const restrictMenuItems = ["Unset", "Yes", "No"];
 const mfaMenuItems = ["NONE", "TOTP", "TOTP4ALL", "Email-Based MFA", "TOTP MFA", "U2F MFA"];
 const iamItems = {
@@ -15916,6 +16004,233 @@ TeleportClaimToRoleForm.propTypes = {
   }).isRequired
 };
 
+class ClassicGatewayForm extends React__default["default"].Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...this.props.data
+    };
+    buildFormFunctions(this);
+    buildFormDefaultInputMethods(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleToggle = this.handleToggle.bind(this);
+    this.handleDiskKeyNameChange = this.handleDiskKeyNameChange.bind(this);
+  }
+  handleDiskKeyNameChange(selectedItems) {
+    this.setState({
+      disk_key_names: selectedItems
+    });
+  }
+
+  /**
+   * handle input change
+   * @param {event} event event
+   */
+  handleInputChange(event) {
+    if (event.target.name === "datacenter") {
+      this.setState({
+        datacenter: event.target.value,
+        private_vlan: "",
+        public_vlan: ""
+      });
+    } else this.setState(this.eventTargetToNameAndValue(event));
+  }
+
+  /**
+   * Handler for toggle
+   */
+  handleToggle(toggle) {
+    if (toggle === "private_network_only" && this.state.private_network_only !== true) {
+      this.setState({
+        private_network_only: true,
+        public_vlan: ""
+      });
+    }
+    this.setState(this.toggleStateBoolean(toggle, this.state));
+  }
+  render() {
+    let composedId = this.props.data.name + "-classic-gateway-form-";
+    return /*#__PURE__*/React__default["default"].createElement(React__default["default"].Fragment, null, /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseNameInput, {
+      id: this.props + "-name",
+      componentName: this.state.name,
+      value: this.state.name,
+      onChange: this.handleInputChange,
+      helperTextCallback: () => this.props.composedNameCallback(this.state, this.props),
+      invalid: this.props.invalidCallback(this.state, this.props),
+      invalidText: this.props.invalidTextCallback(this.state, this.props),
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      tooltip: {
+        content: "Create two network gateway members. Defaults to one"
+      },
+      id: composedId + "hadr",
+      labelText: "High Availability",
+      defaultToggled: this.state.hadr,
+      toggleFieldName: "hadr",
+      onToggle: () => this.handleToggle("hadr"),
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      id: composedId + "-datacenter",
+      formName: composedId + "-datacenter",
+      name: "datacenter",
+      groups: this.props.datacenterList,
+      value: this.state.datacenter,
+      labelText: "Data Center",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      id: composedId + "-ssh-key",
+      formName: composedId + "-ssh-key",
+      name: "ssh_key",
+      groups: this.props.classicSshKeyList,
+      value: this.state.ssh_key,
+      labelText: "SSH Key",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseMultiSelect, {
+      key: this.state.datacenter,
+      titleText: "Disk Key Names",
+      items: this.props.diskKeyNameList,
+      id: this.props.data.name + "-disk-key-name",
+      initialSelectedItems: this.state.disk_key_names,
+      onChange: event => {
+        this.handleDiskKeyNameChange(event.selectedItems);
+      },
+      invalid: lazyZ.isEmpty(this.state.disk_key_names || []),
+      invalidText: "Select at least one disk key name",
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      id: composedId + "private-network-only",
+      labelText: "Private Network Only",
+      defaultToggled: this.state.private_network_only,
+      toggleFieldName: "private_network_only",
+      onToggle: () => this.handleToggle("private_network_only"),
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      id: composedId + "-private-vlan",
+      formName: composedId + "-private-vlan",
+      name: "private_vlan",
+      groups: this.getPrivateVlanList(),
+      value: this.state.private_vlan,
+      labelText: "Private VLAN",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), this.state.private_network_only !== true && /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      id: composedId + "-public-vlan",
+      formName: composedId + "-public-vlan",
+      name: "public_vlan",
+      groups: this.getPublicVlanList(),
+      value: this.state.public_vlan,
+      labelText: "Public VLAN",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      id: composedId + "-package-name",
+      formName: composedId + "-package-name",
+      name: "package_key_name",
+      groups: this.props.packageNameList,
+      value: this.state.package_key_name,
+      labelText: "Package Name",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      id: composedId + "-os-key-name",
+      formName: composedId + "-os-key-name",
+      name: "os_key_name",
+      groups: this.props.osKeyNameList,
+      value: this.state.os_key_name,
+      labelText: "OS Key Name",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      id: composedId + "-process-key-name",
+      formName: composedId + "-process-key-name",
+      name: "process_key_name",
+      groups: this.props.processKeyNameList,
+      value: this.state.process_key_name,
+      labelText: "Process Key Name",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: "network_speed",
+      componentName: "classic_gateway",
+      field: "network_speed",
+      value: this.state.network_speed,
+      isModal: this.props.isModal,
+      onChange: this.handleInputChange,
+      className: "fieldWidthSmaller",
+      invalid: this.props.invalidNetworkSpeedCallback(this.state, this.props),
+      invalidText: this.props.invalidNetworkSpeedTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: "public_bandwidth",
+      componentName: "classic_gateway",
+      field: "public_bandwidth",
+      value: this.state.public_bandwidth,
+      isModal: this.props.isModal,
+      onChange: this.handleInputChange,
+      className: "fieldWidthSmaller",
+      invalid: this.props.invalidPublicBandwidthCallback(this.state, this.props),
+      invalidText: this.props.invalidPublicBandwidthTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+      id: "memory",
+      componentName: "classic_gateway",
+      field: "memory",
+      value: this.state.memory,
+      isModal: this.props.isModal,
+      onChange: this.handleInputChange,
+      className: "fieldWidthSmaller",
+      invalid: this.props.invalidMemoryCallback(this.state, this.props),
+      invalidText: this.props.invalidMemoryTextCallback(this.state, this.props)
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      id: composedId + "tcp-monitoring",
+      labelText: "Enable TCP Monitoring",
+      defaultToggled: this.state.tcp_monitoring,
+      toggleFieldName: "tcp_monitoring",
+      onToggle: () => this.handleToggle("tcp_monitoring"),
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      id: composedId + "redundant-network",
+      labelText: "Enable Redundant Network",
+      defaultToggled: this.state.redundant_network,
+      toggleFieldName: "redundant_network",
+      onToggle: () => this.handleToggle("redundant_network"),
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      id: composedId + "ipv6-enabled",
+      labelText: "IPV6 Enabled",
+      defaultToggled: this.state.ipv6_enabled,
+      toggleFieldName: "ipv6_enabled",
+      onToggle: () => this.handleToggle("ipv6_enabled"),
+      className: "fieldWidthSmaller"
+    })));
+  }
+}
+ClassicGatewayForm.defaultProps = {
+  packageNameList: ["VIRTUAL_ROUTER_APPLIANCE_1_GPBS"],
+  osKeyNameList: ["OS_JUNIPER_VSRX_19_4_UP_TO_1GBPS_STANDARD_SRIOV"],
+  processKeyNameList: ["INTEL_XEON_4210_2_20"],
+  diskKeyNameList: ["HARD_DRIVE_2_00_TB_SATA_2"]
+};
+ClassicGatewayForm.propTypes = {
+  composedNameCallback: PropTypes__default["default"].func.isRequired,
+  invalidCallback: PropTypes__default["default"].func.isRequired,
+  invalidTextCallback: PropTypes__default["default"].func.isRequired,
+  datacenterList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  packageNameList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  osKeyNameList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  processKeyNameList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  classicSshKeyList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  diskKeyNameList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  data: PropTypes__default["default"].shape({}).isRequired,
+  classic_vlans: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
+  invalidNetworkSpeedCallback: PropTypes__default["default"].func.isRequired,
+  invalidNetworkSpeedTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidPublicBandwidthTextCallback: PropTypes__default["default"].func.isRequired,
+  invalidPublicBandwidthCallback: PropTypes__default["default"].func.isRequired,
+  invalidMemoryCallback: PropTypes__default["default"].func.isRequired,
+  invalidMemoryTextCallback: PropTypes__default["default"].func.isRequired
+};
+
 class CbrContextForm extends React.Component {
   constructor(props) {
     super(props);
@@ -17205,6 +17520,8 @@ exports.CbrResourceAttributeForm = CbrResourceAttributeForm;
 exports.CbrRuleForm = CbrRuleForm;
 exports.CbrTagForm = CbrTagForm;
 exports.CbrZoneForm = CbrZoneForm;
+exports.ClassicGatewayForm = ClassicGatewayForm;
+exports.ClassicGatewaysPage = ClassicGateways;
 exports.ClassicVlanForm = ClassicVlanForm;
 exports.ClassicVlanTemplate = ClassicVlan;
 exports.CloudDatabaseForm = CloudDatabaseForm;

@@ -17,6 +17,7 @@ function buildFormFunctions(component) {
   let usesImageList = getType(component.props.imageMap) === "object";
   let powerInstance = component.props.power;
   let powerVolumes = component.props.power_instances;
+  let usesClassicVlans = Array.isArray(component.props.classic_vlans);
 
   if (component.props.shouldDisableSave)
     component.shouldDisableSave =
@@ -31,6 +32,33 @@ function buildFormFunctions(component) {
       return splat(
         component.props.subnetList.filter((subnet) => {
           if (subnet.vpc === component.state.vpc) return subnet;
+        }),
+        "name",
+      );
+    }.bind(component);
+  }
+
+  if (usesClassicVlans) {
+    component.getPrivateVlanList = function () {
+      return splat(
+        component.props.classic_vlans.filter((vlan) => {
+          if (
+            vlan.datacenter === component.state.datacenter &&
+            vlan.type === "PRIVATE"
+          )
+            return vlan;
+        }),
+        "name",
+      );
+    }.bind(component);
+    component.getPublicVlanList = function () {
+      return splat(
+        component.props.classic_vlans.filter((vlan) => {
+          if (
+            vlan.datacenter === component.state.datacenter &&
+            vlan.type === "PUBLIC"
+          )
+            return vlan;
         }),
         "name",
       );

@@ -83,6 +83,7 @@ export { default as VsiForm } from "./forms/VsiForm";
 export { default as VsiLoadBalancerForm } from "./forms/VsiLoadBalancerForm";
 export { default as VsiVolumeForm } from "./forms/VsiVolumeForm";
 export { default as WorkerPoolForm } from "./forms/WorkerPoolForm";
+export { default as ClassicGatewayForm } from "./forms/ClassicGatewayForm";
 export {
   AccessGroupDynamicPolicyForm,
   AccessGroupForm,
@@ -137,6 +138,7 @@ export { PowerVsCloudConnections as PowerVsCloudConnectionPage } from "./crud-fo
 export { PowerVsWorkspace as PowerVsWorkspacePage } from "./crud-form-pages";
 export { PowerVsInstances as PowerVsInstancesPage } from "./crud-form-pages";
 export { PowerVsVolume as PowerVsVolumesPage } from "./crud-form-pages";
+export { ClassicGateways as ClassicGatewaysPage } from "./crud-form-pages";
 export {
   PowerVsNetworkForm,
   PowerVsCloudConnectionForm,

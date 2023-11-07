@@ -28,3 +28,4 @@ export { PowerVsWorkspace } from "./PowerVsWorkspace";
 export { default as PowerVsNetworkAttachment } from "./PowerVsNetworkAttachments";
 export { PowerVsInstances } from "./PowerVsInstances";
 export { PowerVsVolume } from "./PowerVsVolumes";
+export { ClassicGateways } from "./ClassicGateways";
