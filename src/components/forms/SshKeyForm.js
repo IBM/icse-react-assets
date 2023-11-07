@@ -137,7 +137,7 @@ SshKeyForm.propTypes = {
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
   invalidKeyCallback: PropTypes.func.isRequired,
-  classic: PropTypes.bool.isRequired,
+  classic: PropTypes.bool,
 };
 
 export default SshKeyForm;
