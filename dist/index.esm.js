@@ -11547,7 +11547,7 @@ NetworkAcls.propTypes = {
 
 const SshKeys = props => {
   return /*#__PURE__*/React.createElement(IcseFormTemplate, {
-    name: "SSH Keys",
+    name: props.classic ? "Classic SSH Keys" : "SSH Keys",
     addText: "Create an SSH Key",
     docs: props.powerVs ? undefined : props.docs,
     subHeading: props.powerVs,
@@ -11559,6 +11559,7 @@ const SshKeys = props => {
     onSubmit: props.onSubmit,
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
+    hideFormTitleButton: props.overrideTile ? true : false,
     deleteDisabled: props.deleteDisabled,
     deleteDisabledMessage: "SSH Key currently in use",
     innerFormProps: {
@@ -11596,7 +11597,8 @@ SshKeys.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   propsMatchState: PropTypes.func.isRequired,
   forceOpen: PropTypes.func.isRequired,
-  resourceGroups: PropTypes.array.isRequired,
+  resourceGroups: PropTypes.array,
+  //not required for classic
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
   craig: PropTypes.shape({}),
@@ -15378,7 +15380,8 @@ SshKeyForm.propTypes = {
     use_data: PropTypes.bool
   }).isRequired,
   powerVs: PropTypes.bool.isRequired,
-  resourceGroups: PropTypes.arrayOf(PropTypes.string).isRequired,
+  resourceGroups: PropTypes.arrayOf(PropTypes.string),
+  //not required for classic
   isModal: PropTypes.bool.isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
