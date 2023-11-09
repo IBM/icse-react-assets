@@ -12260,7 +12260,7 @@ const PowerVsAffinity = props => {
     name: props.isVolume ? "pi_volume_pool" : "pi_storage_pool",
     formName: props.data.name + "-power-instance-storpool",
     groups: props.storage_pool_map[props.stateData.zone],
-    value: isNullOrEmptyString$6(props.stateData.pi_storage_pool) ? "" : props.stateData.pi_storage_pool,
+    value: isNullOrEmptyString$6(props.stateData.pi_volume_pool) ? "" : props.stateData.pi_volume_pool,
     handleInputChange: props.handleInputChange,
     invalidText: "Select a Storage Pool.",
     className: "fieldWidthSmaller",
@@ -12851,6 +12851,7 @@ class PowerVsVolumeForm extends React.Component {
       labelText: "Enable Volume Replication",
       toggleFieldName: "pi_replication_enabled",
       defaultToggled: this.state.pi_replication_enabled,
+      disabled: this.props.replicationDisabledCallback(this.state, this.props),
       onToggle: this.handleToggle,
       isModal: this.props.isModal,
       className: "fieldWidthSmaller"
@@ -12920,7 +12921,8 @@ PowerVsVolumeForm.propTypes = {
   power_volumes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   // changes should be disabled when another instance or volume uses this
   // instance for affinity
-  affinityChangesDisabled: PropTypes.func.isRequired
+  affinityChangesDisabled: PropTypes.func.isRequired,
+  replicationDisabledCallback: PropTypes.func
 };
 
 const PowerVsNetwork = props => {
@@ -13276,7 +13278,8 @@ const PowerVsVolume = props => {
       invalidTextCallback: props.invalidTextCallback,
       power_volumes: props.power_volumes,
       storage_pool_map: props.storage_pool_map,
-      affinityChangesDisabled: props.affinityChangesDisabled
+      affinityChangesDisabled: props.affinityChangesDisabled,
+      replicationDisabledCallback: props.replicationDisabledCallback
     },
     toggleFormProps: {
       craig: props.craig,
@@ -13305,7 +13308,8 @@ PowerVsVolume.propTypes = {
   power_volumes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   affinityChangesDisabled: PropTypes.func.isRequired,
   overrideTile: PropTypes.node,
-  deleteDisabled: PropTypes.func
+  deleteDisabled: PropTypes.func,
+  replicationDisabledCallback: PropTypes.func
 };
 
 const ClassicGateways = props => {
