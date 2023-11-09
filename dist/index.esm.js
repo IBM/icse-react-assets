@@ -12292,7 +12292,7 @@ const PowerVsAffinity = props => {
     name: props.isVolume ? "pi_volume_pool" : "pi_storage_pool",
     formName: props.data.name + "-power-instance-storpool",
     groups: props.storage_pool_map[props.stateData.zone],
-    value: isNullOrEmptyString$7(props.stateData.pi_volume_pool) ? "" : props.stateData.pi_volume_pool,
+    value: isNullOrEmptyString$7(props.isVolume ? "pi_volume_pool" : "pi_storage_pool") ? "" : props.stateData[props.isVolume ? "pi_volume_pool" : "pi_storage_pool"],
     handleInputChange: props.handleInputChange,
     invalidText: "Select a Storage Pool.",
     className: "fieldWidthSmaller",
