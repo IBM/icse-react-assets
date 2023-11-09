@@ -4,7 +4,7 @@ import {
   titleCase,
   transpose,
   isNullOrEmptyString,
-  isWholeNumber,
+  contains,
   isEmpty,
 } from "lazy-z";
 import PropTypes from "prop-types";
@@ -142,71 +142,100 @@ class VpnServerForm extends Component {
             }
             className="fieldWidthSmaller"
           />
-          {/* certificate_crn */}
-          <IcseTextInput
-            id={this.props.data.name + "-vpn-server-certificate-crn"}
-            field="certificate_crn"
-            componentName="certificate_crn"
-            tooltip={{
-              content:
-                "Secrets Manager certificate unique identifier for VPN server",
-              align: "top-left",
-            }}
-            labelText="Secrets Manager Certificate CRN"
-            value={this.state.certificate_crn || ""}
-            onChange={this.handleInputChange}
-            invalid={this.props.invalidCrns(
-              this.state,
-              this.props,
-              "certificate_crn",
-            )}
-            invalidText={this.props.invalidCrnText(
-              this.state,
-              this.props,
-              "certificate_crn",
-            )}
-            className="fieldWidthSmaller"
-          />
-        </IcseFormGroup>
-        <IcseFormGroup>
           {/* method toggle */}
           <IcseSelect
             formName={this.props.data.name + "-vpn-server-method"}
             name="method"
             labelText="Authentication Method"
-            groups={["Certificate", "Username"]}
-            value={titleCase(this.state.method)}
+            groups={[
+              "Certificate",
+              "Username",
+              "Bring Your Own Certificate",
+              "INSECURE - Developer Certificate",
+            ]}
+            value={
+              this.state.DANGER_developer_certificate
+                ? "INSECURE - Developer Certificate"
+                : this.state.bring_your_own_cert
+                ? "Bring Your Own Certificate"
+                : titleCase(this.state.method)
+            }
             handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"
           />
-          {/* client_ca_crn */}
-          {this.state.method === "certificate" && (
+        </IcseFormGroup>
+        <IcseFormGroup>
+          {/* certificate_crn */}
+          {contains(["certificate", "username"], this.state.method) &&
+          !this.state.DANGER_developer_certificate &&
+          !this.state.bring_your_own_cert ? (
             <IcseTextInput
-              id={this.props.data.name + "-vpn-server-client-ca-crn"}
-              field="client_ca_crn"
-              componentName="client_ca_crn"
-              labelText="Client CA CRN"
+              id={this.props.data.name + "-vpn-server-certificate-crn"}
+              field="certificate_crn"
+              componentName="certificate_crn"
               tooltip={{
-                content: "Client Secrets Manager Certificate CRN",
+                content:
+                  "Secrets Manager certificate unique identifier for VPN server",
                 align: "top-left",
               }}
-              value={this.state.client_ca_crn || ""}
+              labelText="Secrets Manager Certificate CRN"
+              value={this.state.certificate_crn || ""}
               onChange={this.handleInputChange}
               invalid={this.props.invalidCrns(
                 this.state,
                 this.props,
-                "client_ca_crn",
+                "certificate_crn",
               )}
-              invalidText={() =>
-                this.props.invalidCrnText(
-                  this.state,
-                  this.props,
-                  "client_ca_crn",
-                )
-              }
+              invalidText={this.props.invalidCrnText(
+                this.state,
+                this.props,
+                "certificate_crn",
+              )}
+              className="fieldWidthSmaller"
+            />
+          ) : isNullOrEmptyString(this.state.method) ? (
+            ""
+          ) : (
+            <IcseSelect
+              formName={this.props.data.name + "-vpn-secrets-manager"}
+              name="secrets_manager"
+              labelText="Secrets Manager Instance"
+              groups={this.props.secretsManagerList}
+              value={this.state.secrets_manager}
+              handleInputChange={this.handleInputChange}
               className="fieldWidthSmaller"
             />
           )}
+          {/* client_ca_crn */}
+          {this.state.method === "certificate" &&
+            !this.state.DANGER_developer_certificate &&
+            !this.state.bring_your_own_cert && (
+              <IcseTextInput
+                id={this.props.data.name + "-vpn-server-client-ca-crn"}
+                field="client_ca_crn"
+                componentName="client_ca_crn"
+                labelText="Client CA CRN"
+                tooltip={{
+                  content: "Client Secrets Manager Certificate CRN",
+                  align: "top-left",
+                }}
+                value={this.state.client_ca_crn || ""}
+                onChange={this.handleInputChange}
+                invalid={this.props.invalidCrns(
+                  this.state,
+                  this.props,
+                  "client_ca_crn",
+                )}
+                invalidText={() =>
+                  this.props.invalidCrnText(
+                    this.state,
+                    this.props,
+                    "client_ca_crn",
+                  )
+                }
+                className="fieldWidthSmaller"
+              />
+            )}
           {/* client_ip_pool */}
           <IcseTextInput
             id={this.props.data.name + "-vpn-server-client-ip-pool"}
@@ -434,6 +463,7 @@ VpnServerForm.propTypes = {
   }).isRequired,
   invalidCrns: PropTypes.func.isRequired,
   invalidCrnText: PropTypes.func.isRequired,
+  secretsManagerList: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default VpnServerForm;

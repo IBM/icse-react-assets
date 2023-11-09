@@ -70,6 +70,7 @@ export const VpnServers = (props) => {
         subnetList: props.subnetList,
         securityGroups: props.securityGroups,
         vpcList: props.vpcList,
+        secretsManagerList: props.secretsManagerList,
         vpnServerRouteProps: {
           onSave: props.onRouteSave,
           onDelete: props.onRouteDelete,
@@ -129,4 +130,5 @@ VpnServers.propTypes = {
   securityGroups: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   vpcList: PropTypes.arrayOf(PropTypes.string),
   overrideTile: PropTypes.node,
+  secretsManagerList: PropTypes.arrayOf(PropTypes.string).isRequired,
 };

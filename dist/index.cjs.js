@@ -48,7 +48,7 @@ var css_248z$5 = "/* vars and themes */\n:root {\n  --background: #ffffff;\n  --
 styleInject(css_248z$5);
 
 const {
-  contains: contains$4,
+  contains: contains$5,
   capitalize: capitalize$1
 } = lazyZ__default["default"];
 
@@ -138,7 +138,7 @@ function handleClusterInputChange$1(name, value, stateData) {
   return cluster;
 }
 function subnetTierName$1(tierName) {
-  if (contains$4(["vsi", "vpe", "vpn", "vpn-1", "vpn-2"], tierName)) {
+  if (contains$5(["vsi", "vpe", "vpn", "vpn-1", "vpn-2"], tierName)) {
     return tierName.toUpperCase() + " Subnet Tier";
   } else if (tierName === "") {
     return "New Subnet Tier";
@@ -310,7 +310,7 @@ var docUtils = {
 };
 
 const {
-  isNullOrEmptyString: isNullOrEmptyString$5,
+  isNullOrEmptyString: isNullOrEmptyString$6,
   kebabCase: kebabCase$4
 } = lazyZ__default["default"];
 const {
@@ -326,7 +326,7 @@ const {
 function icseSelectParams$1(props) {
   let invalid =
   // automatically set to invalid if value is null or empty string and invalid not disabled
-  props.disableInvalid !== true && isNullOrEmptyString$5(props.value) ? true : props.invalid;
+  props.disableInvalid !== true && isNullOrEmptyString$6(props.value) ? true : props.invalid;
   let groups = props.groups.length === 0 ? [] // if no groups, empty array
   : prependEmptyStringWhenNull$1(
   // otherwise try and prepend empty string if null or empty string is allowed
@@ -655,7 +655,7 @@ var popoverWrapper = {
 };
 
 const {
-  contains: contains$3,
+  contains: contains$4,
   parseIntFromZone
 } = lazyZ__default["default"];
 function handlePgwToggle$1(zone, stateData) {
@@ -665,7 +665,7 @@ function handlePgwToggle$1(zone, stateData) {
   let currentGw = [...stateData.publicGateways]; // new array
   let zoneNumber = parseIntFromZone(zone);
   // check if zone is already present
-  if (contains$3(currentGw, zoneNumber)) {
+  if (contains$4(currentGw, zoneNumber)) {
     let index = currentGw.indexOf(zoneNumber);
     currentGw.splice(index, 1);
   } else {
@@ -766,6 +766,12 @@ var resourceGroups = {
   handleRgToggle: handleRgToggle$1
 };
 
+const {
+  isNullOrEmptyString: isNullOrEmptyString$5,
+  isWholeNumber: isWholeNumber$1,
+  contains: contains$3
+} = lazyZ__default["default"];
+
 /**
  * Handle vpn-server input
  * @param {event} event
@@ -785,9 +791,22 @@ function handleVpnServerInputChange$1(stateData, event) {
   // client_dns_server_ips input: removing white space and checking for empty value
   let clientDnsServerIps = value ? value.replace(/\s*/g, "") : null;
   if (name === "method") {
-    // Clear client_ca_crn when method changes
-    newState.method = value.toLowerCase();
+    newState.bring_your_own_cert = false;
+    newState.DANGER_developer_certificate = false;
+    if (contains$3(["Certificate", "Username"], value)) {
+      // Clear client_ca_crn when method changes
+      newState.method = value.toLowerCase();
+    } else if (value === "Bring Your Own Certificate") {
+      newState.method = "certificate";
+      newState.bring_your_own_cert = true;
+    } else {
+      newState.method = "certificate";
+      newState.DANGER_developer_certificate = true;
+    }
+    newState.secrets_manager = null;
     newState.client_ca_crn = "";
+  } else if (name === "secrets_manager") {
+    newState.secrets_manager = value;
   } else if (name === "vpc") {
     // Clear subnet and security groups when vpc changes
     newState.vpc = value;
@@ -11028,7 +11047,15 @@ class VpnServerForm extends React.Component {
       invalid: !(this.state.security_groups?.length > 0),
       invalidText: !this.state.vpc || lazyZ.isNullOrEmptyString(this.state.vpc) ? `Select a VPC.` : `Select at least one security group.`,
       className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: this.props.data.name + "-vpn-server-method",
+      name: "method",
+      labelText: "Authentication Method",
+      groups: ["Certificate", "Username", "Bring Your Own Certificate", "INSECURE - Developer Certificate"],
+      value: this.state.DANGER_developer_certificate ? "INSECURE - Developer Certificate" : this.state.bring_your_own_cert ? "Bring Your Own Certificate" : lazyZ.titleCase(this.state.method),
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, lazyZ.contains(["certificate", "username"], this.state.method) && !this.state.DANGER_developer_certificate && !this.state.bring_your_own_cert ? /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: this.props.data.name + "-vpn-server-certificate-crn",
       field: "certificate_crn",
       componentName: "certificate_crn",
@@ -11042,15 +11069,15 @@ class VpnServerForm extends React.Component {
       invalid: this.props.invalidCrns(this.state, this.props, "certificate_crn"),
       invalidText: this.props.invalidCrnText(this.state, this.props, "certificate_crn"),
       className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
-      formName: this.props.data.name + "-vpn-server-method",
-      name: "method",
-      labelText: "Authentication Method",
-      groups: ["Certificate", "Username"],
-      value: lazyZ.titleCase(this.state.method),
+    }) : lazyZ.isNullOrEmptyString(this.state.method) ? "" : /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      formName: this.props.data.name + "-vpn-secrets-manager",
+      name: "secrets_manager",
+      labelText: "Secrets Manager Instance",
+      groups: this.props.secretsManagerList,
+      value: this.state.secrets_manager,
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller"
-    }), this.state.method === "certificate" && /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
+    }), this.state.method === "certificate" && !this.state.DANGER_developer_certificate && !this.state.bring_your_own_cert && /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: this.props.data.name + "-vpn-server-client-ca-crn",
       field: "client_ca_crn",
       componentName: "client_ca_crn",
@@ -11247,7 +11274,8 @@ VpnServerForm.propTypes = {
     disableSave: PropTypes__default["default"].func.isRequired
   }).isRequired,
   invalidCrns: PropTypes__default["default"].func.isRequired,
-  invalidCrnText: PropTypes__default["default"].func.isRequired
+  invalidCrnText: PropTypes__default["default"].func.isRequired,
+  secretsManagerList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
 };
 
 const NoSecretsManagerTile = ({
@@ -11303,6 +11331,7 @@ const VpnServers = props => {
       subnetList: props.subnetList,
       securityGroups: props.securityGroups,
       vpcList: props.vpcList,
+      secretsManagerList: props.secretsManagerList,
       vpnServerRouteProps: {
         onSave: props.onRouteSave,
         onDelete: props.onRouteDelete,
@@ -11354,7 +11383,8 @@ VpnServers.propTypes = {
   subnetList: PropTypes__default["default"].array.isRequired,
   securityGroups: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
   vpcList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string),
-  overrideTile: PropTypes__default["default"].node
+  overrideTile: PropTypes__default["default"].node,
+  secretsManagerList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired
 };
 
 function none$2() {}
@@ -15397,7 +15427,7 @@ SshKeyForm.propTypes = {
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
   invalidKeyCallback: PropTypes__default["default"].func.isRequired,
-  classic: PropTypes__default["default"].bool.isRequired
+  classic: PropTypes__default["default"].bool
 };
 
 /**

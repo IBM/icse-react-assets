@@ -1,4 +1,4 @@
-const { isNullOrEmptyString, isWholeNumber } = require("lazy-z");
+const { isNullOrEmptyString, isWholeNumber, contains } = require("lazy-z");
 
 /**
  * Handle vpn-server input
@@ -17,9 +17,22 @@ function handleVpnServerInputChange(stateData, event) {
   // client_dns_server_ips input: removing white space and checking for empty value
   let clientDnsServerIps = value ? value.replace(/\s*/g, "") : null;
   if (name === "method") {
-    // Clear client_ca_crn when method changes
-    newState.method = value.toLowerCase();
+    newState.bring_your_own_cert = false;
+    newState.DANGER_developer_certificate = false;
+    if (contains(["Certificate", "Username"], value)) {
+      // Clear client_ca_crn when method changes
+      newState.method = value.toLowerCase();
+    } else if (value === "Bring Your Own Certificate") {
+      newState.method = "certificate";
+      newState.bring_your_own_cert = true;
+    } else {
+      newState.method = "certificate";
+      newState.DANGER_developer_certificate = true;
+    }
+    newState.secrets_manager = null;
     newState.client_ca_crn = "";
+  } else if (name === "secrets_manager") {
+    newState.secrets_manager = value;
   } else if (name === "vpc") {
     // Clear subnet and security groups when vpc changes
     newState.vpc = value;
