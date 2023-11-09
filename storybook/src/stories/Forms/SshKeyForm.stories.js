@@ -21,7 +21,8 @@ export default {
       control: "none",
     },
     ["data.resource_group"]: {
-      description: "A string specifying the name of the resource group",
+      description:
+        "A string specifying the name of the resource group, not required for classic infrastructure",
       control: "none",
       type: { required: false }, // required prop or not
     },

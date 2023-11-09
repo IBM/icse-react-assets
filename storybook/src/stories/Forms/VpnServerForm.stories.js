@@ -68,6 +68,12 @@ export default {
       control: "none",
       type: { required: false }, // required prop or not
     },
+    "data.secrets_manager": {
+      description:
+        "A string value representing the secrets manager instance for the VSI certificates",
+      control: "none",
+      type: { required: false }, // required prop or not
+    },
     "data.vpc": {
       description:
         "A string value representing the VPC where the VPN Server will be deployed to.",
@@ -79,6 +85,18 @@ export default {
         "An array of string values representing the security groups for the VPN Server.",
       control: "none",
       type: { required: true },
+    },
+    "data.bring_your_own_cert": {
+      description:
+        "A boolean value indicating whether the user is bringing their own cert for the VPN server",
+      control: "none",
+      type: { required: false }, // required prop or not
+    },
+    "data.DANGER_developer_certificate": {
+      description:
+        "A boolean value indicating whether the user insecurely generating their own cert",
+      control: "none",
+      type: { required: false }, // required prop or not
     },
     "data.client_dns_server_ips": {
       description:
@@ -159,6 +177,12 @@ export default {
     },
     helperTextCallback: {
       description: "Function that determines invalid text for `name` field",
+      type: { required: true }, // required prop or not
+      control: "none",
+    },
+    secretsManagerList: {
+      description:
+        "An array of strings containing the names of secrets manager instances to choose from",
       type: { required: true }, // required prop or not
       control: "none",
     },
@@ -308,6 +332,7 @@ const VpnServerFormStory = () => {
       onSubmit: () => {},
       disableSave: () => {},
     },
+    secretsManagerList: ["secrets-manager"],
   };
   return <VpnServerForm {...formProps} />;
 };
@@ -429,6 +454,7 @@ const VpnServerFormModalStory = () => {
     invalidVpnServerRouteCallback: invalidCallback,
     invalidVpnServerRouteTextCallback: invalidTextCallback,
     helperTextCallback: helperTextCallback,
+    secretsManagerList: ["secrets-manager"],
     vpnServerRouteProps: {
       onSave: () => {},
       onDelete: () => {},
