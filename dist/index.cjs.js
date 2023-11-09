@@ -12970,9 +12970,9 @@ PowerVsVolumeForm.propTypes = {
 
 const PowerVsNetwork = props => {
   return props.isModal ? "" : /*#__PURE__*/React__default["default"].createElement(IcseFormTemplate, {
-    name: "Network Interfaces",
+    name: "Power VS Subnets",
     subHeading: true,
-    addText: "Create a Network Interface",
+    addText: "Create a Subnet",
     arrayData: props.networks,
     innerForm: PowerVsNetworkForm,
     disableSave: props.disableSave,
