@@ -30,6 +30,7 @@ export const PowerVsVolume = (props) => {
         power_volumes: props.power_volumes,
         storage_pool_map: props.storage_pool_map,
         affinityChangesDisabled: props.affinityChangesDisabled,
+        replicationDisabledCallback: props.replicationDisabledCallback,
       }}
       toggleFormProps={{
         craig: props.craig,
@@ -61,6 +62,7 @@ PowerVsVolume.propTypes = {
   affinityChangesDisabled: PropTypes.func.isRequired,
   overrideTile: PropTypes.node,
   deleteDisabled: PropTypes.func,
+  replicationDisabledCallback: PropTypes.func,
 };
 
 export default PowerVsVolume;

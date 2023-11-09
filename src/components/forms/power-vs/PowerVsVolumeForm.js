@@ -203,6 +203,10 @@ class PowerVsVolumeForm extends React.Component {
             labelText="Enable Volume Replication"
             toggleFieldName="pi_replication_enabled"
             defaultToggled={this.state.pi_replication_enabled}
+            disabled={this.props.replicationDisabledCallback(
+              this.state,
+              this.props,
+            )}
             onToggle={this.handleToggle}
             isModal={this.props.isModal}
             className="fieldWidthSmaller"
@@ -289,6 +293,7 @@ PowerVsVolumeForm.propTypes = {
   // changes should be disabled when another instance or volume uses this
   // instance for affinity
   affinityChangesDisabled: PropTypes.func.isRequired,
+  replicationDisabledCallback: PropTypes.func,
 };
 
 export default PowerVsVolumeForm;

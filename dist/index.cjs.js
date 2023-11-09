@@ -12303,7 +12303,7 @@ const PowerVsAffinity = props => {
     name: props.isVolume ? "pi_volume_pool" : "pi_storage_pool",
     formName: props.data.name + "-power-instance-storpool",
     groups: props.storage_pool_map[props.stateData.zone],
-    value: lazyZ.isNullOrEmptyString(props.stateData.pi_storage_pool) ? "" : props.stateData.pi_storage_pool,
+    value: lazyZ.isNullOrEmptyString(props.isVolume ? "pi_volume_pool" : "pi_storage_pool") ? "" : props.stateData[props.isVolume ? "pi_volume_pool" : "pi_storage_pool"],
     handleInputChange: props.handleInputChange,
     invalidText: "Select a Storage Pool.",
     className: "fieldWidthSmaller",
@@ -12894,6 +12894,7 @@ class PowerVsVolumeForm extends React__default["default"].Component {
       labelText: "Enable Volume Replication",
       toggleFieldName: "pi_replication_enabled",
       defaultToggled: this.state.pi_replication_enabled,
+      disabled: this.props.replicationDisabledCallback(this.state, this.props),
       onToggle: this.handleToggle,
       isModal: this.props.isModal,
       className: "fieldWidthSmaller"
@@ -12963,7 +12964,8 @@ PowerVsVolumeForm.propTypes = {
   power_volumes: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
   // changes should be disabled when another instance or volume uses this
   // instance for affinity
-  affinityChangesDisabled: PropTypes__default["default"].func.isRequired
+  affinityChangesDisabled: PropTypes__default["default"].func.isRequired,
+  replicationDisabledCallback: PropTypes__default["default"].func
 };
 
 const PowerVsNetwork = props => {
@@ -13319,7 +13321,8 @@ const PowerVsVolume = props => {
       invalidTextCallback: props.invalidTextCallback,
       power_volumes: props.power_volumes,
       storage_pool_map: props.storage_pool_map,
-      affinityChangesDisabled: props.affinityChangesDisabled
+      affinityChangesDisabled: props.affinityChangesDisabled,
+      replicationDisabledCallback: props.replicationDisabledCallback
     },
     toggleFormProps: {
       craig: props.craig,
@@ -13348,7 +13351,8 @@ PowerVsVolume.propTypes = {
   power_volumes: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
   affinityChangesDisabled: PropTypes__default["default"].func.isRequired,
   overrideTile: PropTypes__default["default"].node,
-  deleteDisabled: PropTypes__default["default"].func
+  deleteDisabled: PropTypes__default["default"].func,
+  replicationDisabledCallback: PropTypes__default["default"].func
 };
 
 const ClassicGateways = props => {
