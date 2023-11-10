@@ -7906,9 +7906,7 @@ class TransitGatewayForm extends Component {
         if (connection.vpc) return connection;
       }), "vpc"),
       vpcList: this.props.vpcList,
-      onChange: this.handleVpcSelect,
-      invalid: this.state.connections.length === 0,
-      invalidText: "At least one VPC must be connected"
+      onChange: this.handleVpcSelect
     }), /*#__PURE__*/React.createElement(IcseMultiSelect, {
       invalid: false,
       id: this.props.data.name + "-tg-power-multislect",

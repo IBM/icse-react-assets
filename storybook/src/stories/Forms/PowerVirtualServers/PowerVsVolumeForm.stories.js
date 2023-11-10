@@ -98,7 +98,7 @@ const PowerVsVolumeFormDisabledStory = () => {
   }
 
   function replicationDisabledCallback(stateData, componentProps) {
-    return true
+    return true;
   }
 
   function invalidTextCallback(stateData, componentProps) {
@@ -539,7 +539,7 @@ const PowerVsVolumeFormStory = () => {
       : `Invalid Name. Must match the regular expression: /^[A-z]([a-z0-9-]*[a-z0-9])?$/i`;
   }
   function replicationDisabledCallback(stateData, componentProps) {
-    return false
+    return false;
   }
   return (
     <PowerVsVolumeForm

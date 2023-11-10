@@ -131,8 +131,6 @@ class TransitGatewayForm extends Component {
             )}
             vpcList={this.props.vpcList}
             onChange={this.handleVpcSelect}
-            invalid={this.state.connections.length === 0}
-            invalidText="At least one VPC must be connected"
           />
           <IcseMultiSelect
             invalid={false}
