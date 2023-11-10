@@ -11599,6 +11599,7 @@ const SshKeys = props => {
     propsMatchState: props.propsMatchState,
     forceOpen: props.forceOpen,
     hideFormTitleButton: props.overrideTile ? true : false,
+    overrideTile: props.overrideTile,
     deleteDisabled: props.deleteDisabled,
     deleteDisabledMessage: "SSH Key currently in use",
     innerFormProps: {
@@ -11647,7 +11648,8 @@ SshKeys.propTypes = {
   invalidKeyCallback: PropTypes__default["default"].func.isRequired,
   powerVs: PropTypes__default["default"].bool.isRequired,
   arrayParentName: PropTypes__default["default"].string,
-  classic: PropTypes__default["default"].bool.isRequired
+  classic: PropTypes__default["default"].bool,
+  overrideTile: PropTypes__default["default"].node
 };
 
 function none$1() {}
