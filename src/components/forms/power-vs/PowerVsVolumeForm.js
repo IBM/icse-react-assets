@@ -76,7 +76,15 @@ class PowerVsVolumeForm extends React.Component {
       }
       nextState[name] = value;
       this.setState(nextState);
-    } else this.setState(this.eventTargetToNameAndValue(event));
+    } 
+    else if(name === "pi_storage_pool" || name === "pi_volume_pool") {
+        this.setState({ [name]: value }, () => {
+          if(this.props.replicationDisabledCallback(this.state, this.props)) {
+            this.setState({ pi_replication_enabled: false })
+          }
+        });
+    }
+    else this.setState(this.eventTargetToNameAndValue(event));
   }
 
   /**
@@ -199,6 +207,7 @@ class PowerVsVolumeForm extends React.Component {
         />
         <IcseFormGroup>
           <IcseToggle
+            key={(this.state.pi_volume_pool || this.state.pi_storage_pool) + this.state.pi_replication_enabled} // force rerender when pool changes
             id={this.props.data.name + "-power-volume-replication"}
             labelText="Enable Volume Replication"
             toggleFieldName="pi_replication_enabled"
