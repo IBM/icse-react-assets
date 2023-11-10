@@ -8,9 +8,9 @@ export const PowerVsNetwork = (props) => {
     ""
   ) : (
     <IcseFormTemplate
-      name="Network Interfaces"
+      name="Power VS Subnets"
       subHeading
-      addText="Create a Network Interface"
+      addText="Create a Subnet"
       arrayData={props.networks}
       innerForm={PowerVsNetworkForm}
       disableSave={props.disableSave}

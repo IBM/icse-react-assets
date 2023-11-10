@@ -69,9 +69,13 @@ export const PowerVsAffinity = (props) => {
           formName={props.data.name + "-power-instance-storpool"}
           groups={props.storage_pool_map[props.stateData.zone]}
           value={
-            isNullOrEmptyString(props.stateData.pi_storage_pool)
+            isNullOrEmptyString(
+              props.isVolume ? "pi_volume_pool" : "pi_storage_pool",
+            )
               ? ""
-              : props.stateData.pi_storage_pool
+              : props.stateData[
+                  props.isVolume ? "pi_volume_pool" : "pi_storage_pool"
+                ]
           }
           handleInputChange={props.handleInputChange}
           invalidText="Select a Storage Pool."

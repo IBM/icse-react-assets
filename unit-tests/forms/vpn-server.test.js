@@ -7,7 +7,7 @@ describe("vpn-server", () => {
   describe("handleVpnServerInputChange", () => {
     it("should clear client_ca_crn when method changes", () => {
       let event = {
-        target: { name: "method", value: "certificate" },
+        target: { name: "method", value: "Certificate" },
       };
       let currentState = {
         method: "username",
@@ -16,6 +16,72 @@ describe("vpn-server", () => {
       let expectedData = {
         method: "certificate",
         client_ca_crn: "",
+        bring_your_own_cert: false,
+        secrets_manager: null,
+        DANGER_developer_certificate: false,
+      };
+      assert.deepEqual(
+        handleVpnServerInputChange(currentState, event),
+        expectedData,
+      );
+    });
+    it("should set correct values when bring your own certificate", () => {
+      let event = {
+        target: { name: "method", value: "Bring Your Own Certificate" },
+      };
+      let currentState = {
+        method: "username",
+        client_ca_crn: "CHEATER",
+      };
+      let expectedData = {
+        method: "certificate",
+        client_ca_crn: "",
+        bring_your_own_cert: true,
+        secrets_manager: null,
+        DANGER_developer_certificate: false,
+      };
+      assert.deepEqual(
+        handleVpnServerInputChange(currentState, event),
+        expectedData,
+      );
+    });
+    it("should set correct values when danger dev cert", () => {
+      let event = {
+        target: { name: "method", value: "INSECURE - Developer Certificate" },
+      };
+      let currentState = {
+        method: "username",
+        client_ca_crn: "CHEATER",
+      };
+      let expectedData = {
+        method: "certificate",
+        client_ca_crn: "",
+        bring_your_own_cert: false,
+        secrets_manager: null,
+        DANGER_developer_certificate: true,
+      };
+      assert.deepEqual(
+        handleVpnServerInputChange(currentState, event),
+        expectedData,
+      );
+    });
+    it("should set correct values when danger dev cert", () => {
+      let event = {
+        target: { name: "secrets_manager", value: "test" },
+      };
+      let currentState = {
+        method: "certificate",
+        client_ca_crn: "",
+        bring_your_own_cert: false,
+        secrets_manager: null,
+        DANGER_developer_certificate: true,
+      };
+      let expectedData = {
+        method: "certificate",
+        client_ca_crn: "",
+        bring_your_own_cert: false,
+        secrets_manager: "test",
+        DANGER_developer_certificate: true,
       };
       assert.deepEqual(
         handleVpnServerInputChange(currentState, event),
