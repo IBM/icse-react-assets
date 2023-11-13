@@ -143,8 +143,8 @@ function cbrValuePlaceholder(type) {
   return type === "ipAddress"
     ? "x.x.x.x"
     : type === "ipRange"
-    ? "x.x.x.x-x.x.x.x"
-    : `my-cbr-zone-${type}`;
+      ? "x.x.x.x-x.x.x.x"
+      : `my-cbr-zone-${type}`;
 }
 
 /**

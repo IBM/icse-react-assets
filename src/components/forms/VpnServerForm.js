@@ -157,8 +157,8 @@ class VpnServerForm extends Component {
               this.state.DANGER_developer_certificate
                 ? "INSECURE - Developer Certificate"
                 : this.state.bring_your_own_cert
-                ? "Bring Your Own Certificate"
-                : titleCase(this.state.method)
+                  ? "Bring Your Own Certificate"
+                  : titleCase(this.state.method)
             }
             handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"

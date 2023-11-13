@@ -110,8 +110,8 @@ class ClusterForm extends Component {
               this.state.kube_type === ""
                 ? ""
                 : this.state.kube_type === "openshift"
-                ? "OpenShift"
-                : "IBM Kubernetes Service"
+                  ? "OpenShift"
+                  : "IBM Kubernetes Service"
             }
             className="fieldWidthSmaller"
           />

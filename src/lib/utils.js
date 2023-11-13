@@ -85,8 +85,8 @@ function icseHeadingParams(props) {
   let titleFormDivClass = props.toggleFormTitle
     ? ""
     : props.name === ""
-    ? ""
-    : " icseFormTitleMinHeight";
+      ? ""
+      : " icseFormTitleMinHeight";
 
   return (
     addClassName(
@@ -109,8 +109,8 @@ function statelessToggleFormParams(props) {
   let type = props.toggleFormTitle
     ? "p"
     : props.subHeading
-    ? "subHeading"
-    : "heading";
+      ? "subHeading"
+      : "heading";
   let dynamicRenderHide =
     props.hide === true && props.alwaysShowButtons !== true;
 

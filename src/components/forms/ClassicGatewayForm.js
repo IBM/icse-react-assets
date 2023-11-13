@@ -87,6 +87,20 @@ class ClassicGatewayForm extends React.Component {
             onToggle={() => this.handleToggle("hadr")}
             className="fieldWidthSmaller"
           />
+          <IcseTextInput
+            componentName="Domain"
+            field="domain"
+            labelText="domain"
+            className="fieldWidthSmaller"
+            value={this.props.data.name + "-domain"}
+            readOnly
+            id={this.props.data.name + "domain"}
+            invalid={this.props.invalidDomainCallback(this.state, this.props)}
+            invalidText={this.props.invalidDomainTextCallback(
+              this.state,
+              this.props,
+            )}
+          />
         </IcseFormGroup>
         <IcseFormGroup>
           <IcseSelect
@@ -293,6 +307,8 @@ ClassicGatewayForm.propTypes = {
   invalidPublicBandwidthCallback: PropTypes.func.isRequired,
   invalidMemoryCallback: PropTypes.func.isRequired,
   invalidMemoryTextCallback: PropTypes.func.isRequired,
+  invalidDomainCallback: PropTypes.func.isRequired,
+  invalidDomainTextCallback: PropTypes.func.isRequired,
 };
 
 export default ClassicGatewayForm;

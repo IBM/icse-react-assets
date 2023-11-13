@@ -38,6 +38,8 @@ export const ClassicGateways = (props) => {
         invalidPublicBandwidthCallback: props.invalidPublicBandwidthCallback,
         invalidMemoryCallback: props.invalidMemoryCallback,
         invalidMemoryTextCallback: props.invalidMemoryTextCallback,
+        invalidDomainCallback: props.invalidDomainCallback,
+        invalidDomainTextCallback: props.invalidDomainTextCallback,
       }}
       toggleFormProps={{
         hideName: true,
@@ -81,4 +83,6 @@ ClassicGateways.propTypes = {
   invalidPublicBandwidthCallback: PropTypes.func.isRequired,
   invalidMemoryCallback: PropTypes.func.isRequired,
   invalidMemoryTextCallback: PropTypes.func.isRequired,
+  invalidDomainCallback: PropTypes.func.isRequired,
+  invalidDomainTextCallback: PropTypes.func.isRequired,
 };

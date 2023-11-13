@@ -61,8 +61,8 @@ class SshKeyForm extends Component {
               (this.props.powerVs
                 ? "-power-ssh-key"
                 : this.props.classic
-                ? "-classic-ssh-key"
-                : "") +
+                  ? "-classic-ssh-key"
+                  : "") +
               "-name"
             }
             componentName={this.props.data.name + "-ssh-key-name"}
