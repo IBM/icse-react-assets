@@ -48,18 +48,18 @@ class VsiLoadBalancerForm extends React.Component {
     nextState[name] = contains(["name", "vpc", "resource_group", "type"], name)
       ? value
       : contains(
-          [
-            "health_delay",
-            "health_retries",
-            "health_timeout",
-            "port",
-            "listener_port",
-            "connection_limit",
-          ],
-          name,
-        )
-      ? Number(value)
-      : snakeCase(value);
+            [
+              "health_delay",
+              "health_retries",
+              "health_timeout",
+              "port",
+              "listener_port",
+              "connection_limit",
+            ],
+            name,
+          )
+        ? Number(value)
+        : snakeCase(value);
     if (name === "vpc") {
       nextState.subnets = [];
       nextState.security_groups = [];
@@ -167,8 +167,8 @@ class VsiLoadBalancerForm extends React.Component {
               this.state.type === "private"
                 ? "Private (NLB)"
                 : this.state.type === "public"
-                ? "Public (ALB)"
-                : ""
+                  ? "Public (ALB)"
+                  : ""
             }
             handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"

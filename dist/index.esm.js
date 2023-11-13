@@ -13393,7 +13393,9 @@ const ClassicGateways = props => {
       invalidPublicBandwidthTextCallback: props.invalidPublicBandwidthTextCallback,
       invalidPublicBandwidthCallback: props.invalidPublicBandwidthCallback,
       invalidMemoryCallback: props.invalidMemoryCallback,
-      invalidMemoryTextCallback: props.invalidMemoryTextCallback
+      invalidMemoryTextCallback: props.invalidMemoryTextCallback,
+      invalidDomainCallback: props.invalidDomainCallback,
+      invalidDomainTextCallback: props.invalidDomainTextCallback
     },
     toggleFormProps: {
       hideName: true,
@@ -13433,7 +13435,9 @@ ClassicGateways.propTypes = {
   invalidPublicBandwidthTextCallback: PropTypes.func.isRequired,
   invalidPublicBandwidthCallback: PropTypes.func.isRequired,
   invalidMemoryCallback: PropTypes.func.isRequired,
-  invalidMemoryTextCallback: PropTypes.func.isRequired
+  invalidMemoryTextCallback: PropTypes.func.isRequired,
+  invalidDomainCallback: PropTypes.func.isRequired,
+  invalidDomainTextCallback: PropTypes.func.isRequired
 };
 
 const restrictMenuItems = ["Unset", "Yes", "No"];
@@ -16112,6 +16116,16 @@ class ClassicGatewayForm extends React.Component {
       toggleFieldName: "hadr",
       onToggle: () => this.handleToggle("hadr"),
       className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React.createElement(IcseTextInput, {
+      componentName: "Domain",
+      field: "domain",
+      labelText: "domain",
+      className: "fieldWidthSmaller",
+      value: this.props.data.name + "-domain",
+      readOnly: true,
+      id: this.props.data.name + "domain",
+      invalid: this.props.invalidDomainCallback(this.state, this.props),
+      invalidText: this.props.invalidDomainTextCallback(this.state, this.props)
     })), /*#__PURE__*/React.createElement(IcseFormGroup, null, /*#__PURE__*/React.createElement(IcseSelect, {
       id: composedId + "-datacenter",
       formName: composedId + "-datacenter",
@@ -16271,7 +16285,9 @@ ClassicGatewayForm.propTypes = {
   invalidPublicBandwidthTextCallback: PropTypes.func.isRequired,
   invalidPublicBandwidthCallback: PropTypes.func.isRequired,
   invalidMemoryCallback: PropTypes.func.isRequired,
-  invalidMemoryTextCallback: PropTypes.func.isRequired
+  invalidMemoryTextCallback: PropTypes.func.isRequired,
+  invalidDomainCallback: PropTypes.func.isRequired,
+  invalidDomainTextCallback: PropTypes.func.isRequired
 };
 
 class CbrContextForm extends Component {

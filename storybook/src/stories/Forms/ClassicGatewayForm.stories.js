@@ -184,6 +184,18 @@ export default {
       type: { required: true },
       control: "none",
     },
+    invalidDomainCallback: {
+      summary:
+        "A function that returns true when the memory for the gateway is invalid",
+      type: { required: true },
+      control: "none",
+    },
+    invalidDomainTextCallback: {
+      summary:
+        "A function that returns text when the memory for the gateway is invalid",
+      type: { required: true },
+      control: "none",
+    },
   },
   parameters: {
     docs: {
@@ -272,6 +284,12 @@ const ClassicGatewayStory = () => {
         return false;
       }}
       invalidMemoryTextCallback={() => {
+        return "uh oh";
+      }}
+      invalidDomainCallback={() => {
+        return false;
+      }}
+      invalidDomainTextCallback={() => {
         return "uh oh";
       }}
     />

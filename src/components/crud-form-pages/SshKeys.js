@@ -69,6 +69,6 @@ SshKeys.propTypes = {
   invalidKeyCallback: PropTypes.func.isRequired,
   powerVs: PropTypes.bool.isRequired,
   arrayParentName: PropTypes.string,
-  classic: PropTypes.bool, 
+  classic: PropTypes.bool,
   overrideTile: PropTypes.node,
 };

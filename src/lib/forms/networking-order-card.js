@@ -99,8 +99,8 @@ function setupRowsAndHeaders(componentProps) {
       row.protocol === "all"
         ? "ALL"
         : row.protocol === "icmp"
-        ? row.icmp.code
-        : `${row[row.protocol].port_min}-${row[row.protocol].port_max}`;
+          ? row.icmp.code
+          : `${row[row.protocol].port_min}-${row[row.protocol].port_max}`;
     delete row.icmp;
     delete row.tcp;
     delete row.udp;

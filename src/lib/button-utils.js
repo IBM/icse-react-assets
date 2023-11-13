@@ -60,10 +60,10 @@ function editCloseParams(props) {
   let hoverText = props.hoverText
     ? props.hoverText
     : props.open
-    ? "Close"
-    : props.type === "add"
-    ? "Configure Resource"
-    : "Open";
+      ? "Close"
+      : props.type === "add"
+        ? "Configure Resource"
+        : "Open";
   return { hoverText };
 }
 
