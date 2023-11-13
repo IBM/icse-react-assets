@@ -43,6 +43,11 @@ export default {
       type: { required: false },
       control: "none",
     },
+    ["data.systemTypes"]: {
+      description: "An array of available system types, depends on region",
+      type: { required: false },
+      control: "none",
+    },
     ["data.pi_health_status"]: {
       description: "A string describing the health status of the instance",
       type: { required: false },

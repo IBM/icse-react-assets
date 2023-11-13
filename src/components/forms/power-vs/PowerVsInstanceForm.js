@@ -346,7 +346,7 @@ class PowerVsInstanceForm extends React.Component {
             labelText="System Type"
             name="pi_sys_type"
             formName={this.props.data.name + "-power-instance-systype"}
-            groups={["e980", "s922"]}
+            groups={this.props.systemTypes}
             value={this.state.pi_sys_type}
             handleInputChange={this.handleInputChange}
             invalidText="Select a System Type."
@@ -513,6 +513,12 @@ PowerVsInstanceForm.defaultProps = {
     storage_option: "Storage Type",
     pi_storage_pool_affinity: false,
   },
+  systemTypes : [
+    "e880",
+    "e980",
+    "s922",
+    "s1022",
+  ],
   sapProfiles: [
     "ush1-4x128",
     "ush1-4x256",
@@ -580,6 +586,7 @@ PowerVsInstanceForm.propTypes = {
   invalidPiMemoryCallback: PropTypes.func.isRequired,
   invalidPiMemoryTextCallback: PropTypes.func.isRequired,
   storage_pool_map: PropTypes.shape({}).isRequired,
+  systemTypes: PropTypes.arrayOf(PropTypes.string).isRequired,
   power_instances: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   power_volumes: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   // changes should be disabled when another instance or volume uses this
