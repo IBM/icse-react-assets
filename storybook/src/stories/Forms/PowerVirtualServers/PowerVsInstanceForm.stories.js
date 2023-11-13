@@ -49,22 +49,26 @@ export default {
       control: "none",
     },
     ["data.pi_sys_type"]: {
-      description: "A string describing the machine type of the instance, defaults to `e980` when SAP Instance is enabled.",
+      description:
+        "A string describing the machine type of the instance, defaults to `e980` when SAP Instance is enabled.",
       type: { required: true },
       control: "none",
     },
     ["data.pi_proc_type"]: {
-      description: "A string describing the processor type of the instance, defaults to `Dedicated` when SAP Instance is enabled.",
+      description:
+        "A string describing the processor type of the instance, defaults to `Dedicated` when SAP Instance is enabled.",
       type: { required: true },
       control: "none",
     },
     ["data.pi_processors"]: {
-      description: "A string describing the number of processor cores of the instance, disabled when SAP Instance is enabled.",
+      description:
+        "A string describing the number of processor cores of the instance, disabled when SAP Instance is enabled.",
       type: { required: false },
       control: "none",
     },
     ["data.pi_memory"]: {
-      description: "A string describing the memory in GB of the instance, disabled when SAP Instance is enabled.",
+      description:
+        "A string describing the memory in GB of the instance, disabled when SAP Instance is enabled.",
       type: { required: false },
       control: "none",
     },
@@ -160,13 +164,18 @@ const PowerVsInstanceFormStory = () => {
     let coreMax = null;
     if (stateData.pi_proc_type === "dedicated") {
       coreMin = 1;
-      stateData.pi_sys_type === "e980" ? coreMax = 4 : coreMax = 13;
-      coreCheck =  !isWholeNumber(parseFloat(stateData.pi_processors)) ||
-        !isInRange(parseFloat(stateData.pi_processors), coreMin, coreMax)
+      stateData.pi_sys_type === "e980" ? (coreMax = 4) : (coreMax = 13);
+      coreCheck =
+        !isWholeNumber(parseFloat(stateData.pi_processors)) ||
+        !isInRange(parseFloat(stateData.pi_processors), coreMin, coreMax);
     } else {
       coreMin = 0.25;
-      stateData.pi_sys_type === "e980" ? coreMax = 4 : coreMax = 13.75;
-      coreCheck = !isInRange(parseFloat(stateData.pi_processors), coreMin, coreMax);
+      stateData.pi_sys_type === "e980" ? (coreMax = 4) : (coreMax = 13.75);
+      coreCheck = !isInRange(
+        parseFloat(stateData.pi_processors),
+        coreMin,
+        coreMax
+      );
     }
     return coreCheck;
   }
@@ -175,26 +184,29 @@ const PowerVsInstanceFormStory = () => {
     let coreMax = null;
     if (stateData.pi_proc_type === "dedicated") {
       coreMin = 1;
-      stateData.pi_sys_type === "e980" ? coreMax = 4 : coreMax = 13;
+      stateData.pi_sys_type === "e980" ? (coreMax = 4) : (coreMax = 13);
     } else {
       coreMin = 0.25;
-      stateData.pi_sys_type === "e980" ? coreMax = 4 : coreMax = 13.75;
+      stateData.pi_sys_type === "e980" ? (coreMax = 4) : (coreMax = 13.75);
     }
-    return `Must be a ${stateData.pi_proc_type === "dedicated" ? "whole" : ""} number between ${coreMin} and ${coreMax}.`;
+    return `Must be a ${
+      stateData.pi_proc_type === "dedicated" ? "whole" : ""
+    } number between ${coreMin} and ${coreMax}.`;
   }
   function invalidPiMemoryCallback(stateData) {
     let memCheck = false;
     let memMin = 2;
     let memMax = null;
-    stateData.pi_sys_type === "e980" ? memMax = 15400 : memMax = 934;
-    memCheck =  !isWholeNumber(parseFloat(stateData.pi_memory)) ||
-      !isInRange(parseFloat(stateData.pi_memory), memMin, memMax)
+    stateData.pi_sys_type === "e980" ? (memMax = 15400) : (memMax = 934);
+    memCheck =
+      !isWholeNumber(parseFloat(stateData.pi_memory)) ||
+      !isInRange(parseFloat(stateData.pi_memory), memMin, memMax);
     return memCheck;
   }
   function invalidPiMemoryTextCallback(stateData) {
     let memMin = 2;
     let memMax = null;
-    stateData.pi_sys_type === "e980" ? memMax = 15400 : memMax = 934;
+    stateData.pi_sys_type === "e980" ? (memMax = 15400) : (memMax = 934);
     return `Must be a whole number between ${memMin} and ${memMax}.`;
   }
   return (

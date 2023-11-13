@@ -35,8 +35,8 @@ function calculateSapHanaMemory(profile) {
         .anyNumber()
         .literal("x")
         .done("g"),
-      "",
-    ),
+      ""
+    )
   );
   if (memory < 256) {
     // all volume sizes must be at least 256 regardless of memory
@@ -71,7 +71,7 @@ class PowerVsInstanceForm extends React.Component {
 
   handleToggle() {
     this.setState(
-      this.toggleStateBoolean("pi_storage_pool_affinity", this.state),
+      this.toggleStateBoolean("pi_storage_pool_affinity", this.state)
     );
   }
 
@@ -87,6 +87,8 @@ class PowerVsInstanceForm extends React.Component {
       this.setState({
         sap: false,
         sap_profile: null,
+        pi_proc_type: "",
+        pi_sys_type: "",
       });
     }
   }
@@ -125,7 +127,7 @@ class PowerVsInstanceForm extends React.Component {
             this.state.pi_health_status === "WARNING" &&
             !contains(
               ["Storage Type", "Storage Pool"],
-              this.state.storage_option,
+              this.state.storage_option
             )
           ) {
             this.setState({
@@ -138,7 +140,7 @@ class PowerVsInstanceForm extends React.Component {
               pi_anti_affinity_instance: null,
             });
           }
-        },
+        }
       );
     } else if (name === "storage_option") {
       let nextState = { ...this.state };
@@ -345,7 +347,7 @@ class PowerVsInstanceForm extends React.Component {
             name="pi_sys_type"
             formName={this.props.data.name + "-power-instance-systype"}
             groups={["e980", "s922"]}
-            value={this.state.sap ? "e980" : this.state.pi_sys_type}
+            value={this.state.pi_sys_type}
             handleInputChange={this.handleInputChange}
             invalidText="Select a System Type."
             className="fieldWidthSmaller"
@@ -360,7 +362,7 @@ class PowerVsInstanceForm extends React.Component {
             name="pi_proc_type"
             formName={this.props.data.name + "-power-instance-proctype"}
             groups={["Shared", "Capped", "Dedicated"]}
-            value={this.state.sap ? "Dedicated" : capitalize(this.state.pi_proc_type)}
+            value={capitalize(this.state.pi_proc_type)}
             handleInputChange={this.handleInputChange}
             invalidText="Select a Processor Type."
             className="fieldWidthSmaller"
@@ -369,46 +371,49 @@ class PowerVsInstanceForm extends React.Component {
           />
           {this.state.sap ? (
             ""
-            ) : (
-              <>
+          ) : (
+            <>
               <IcseTextInput
-              id={"power-instance" + this.state.name + "processors"}
-              labelText="Processors"
-              onChange={this.handleInputChange}
-              field="pi_processors"
-              invalid={
-                this.state.sap
-                  ? false
-                  : this.props.invalidPiProcessorsCallback(this.state,this.props)
-              }
-              invalidText={this.props.invalidPiProcessorsTextCallback(
-                this.state,
-                this.props,
-              )}
-              value={this.state.pi_processors}
-              className="fieldWidthSmaller"
-              placeholder="0.25"
-              disabled={this.state.sap}
-            />
-            <IcseTextInput
-              id={"power-instance" + this.state.name + "memory"}
-              labelText="Memory (GB)"
-              onChange={this.handleInputChange}
-              field="pi_memory"
-              invalid={
-                this.state.sap
-                  ? false
-                  : this.props.invalidPiMemoryCallback(this.state, this.props)
-              }
-              invalidText={this.props.invalidPiMemoryTextCallback(
-                this.state,
-                this.props,
-              )}
-              value={this.state.pi_memory}
-              className="fieldWidthSmaller"
-              placeholder="1024"
-              disabled={this.state.sap}
-            />
+                id={"power-instance" + this.state.name + "processors"}
+                labelText="Processors"
+                onChange={this.handleInputChange}
+                field="pi_processors"
+                invalid={
+                  this.state.sap
+                    ? false
+                    : this.props.invalidPiProcessorsCallback(
+                        this.state,
+                        this.props
+                      )
+                }
+                invalidText={this.props.invalidPiProcessorsTextCallback(
+                  this.state,
+                  this.props
+                )}
+                value={this.state.pi_processors}
+                className="fieldWidthSmaller"
+                placeholder="0.25"
+                disabled={this.state.sap}
+              />
+              <IcseTextInput
+                id={"power-instance" + this.state.name + "memory"}
+                labelText="Memory (GB)"
+                onChange={this.handleInputChange}
+                field="pi_memory"
+                invalid={
+                  this.state.sap
+                    ? false
+                    : this.props.invalidPiMemoryCallback(this.state, this.props)
+                }
+                invalidText={this.props.invalidPiMemoryTextCallback(
+                  this.state,
+                  this.props
+                )}
+                value={this.state.pi_memory}
+                className="fieldWidthSmaller"
+                placeholder="1024"
+                disabled={this.state.sap}
+              />
             </>
           )}
         </IcseFormGroup>
@@ -425,7 +430,7 @@ class PowerVsInstanceForm extends React.Component {
             id={`${this.props.data.name}-power-instance-status`}
             disabled={this.props.storageChangesDisabledCallback(
               this.state,
-              this.props,
+              this.props
             )}
           />
           <IcseToggle
@@ -443,7 +448,7 @@ class PowerVsInstanceForm extends React.Component {
             className="fieldWidthSmaller"
             disabled={this.props.storageChangesDisabledCallback(
               this.state,
-              this.props,
+              this.props
             )}
           />
         </IcseFormGroup>
