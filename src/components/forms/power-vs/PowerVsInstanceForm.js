@@ -80,6 +80,8 @@ class PowerVsInstanceForm extends React.Component {
       this.setState({
         sap: true,
         sap_profile: "",
+        pi_proc_type: "dedicated",
+        pi_sys_type: "e980",
       });
     } else {
       this.setState({

@@ -12387,7 +12387,9 @@ class PowerVsInstanceForm extends React.Component {
     if (!this.state.sap) {
       this.setState({
         sap: true,
-        sap_profile: ""
+        sap_profile: "",
+        pi_proc_type: "dedicated",
+        pi_sys_type: "e980"
       });
     } else {
       this.setState({
@@ -12402,8 +12404,6 @@ class PowerVsInstanceForm extends React.Component {
    * @param {event} event event
    */
   handleInputChange(event) {
-    console.log(this.state.pi_processors);
-    console.log(this.state.pi_memory);
     let {
       name,
       value
