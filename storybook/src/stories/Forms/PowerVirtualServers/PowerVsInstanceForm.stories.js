@@ -4,6 +4,7 @@ import {
   isNullOrEmptyString,
   isIpv4CidrOrAddress,
   isInRange,
+  isWholeNumber,
 } from "lazy-z";
 import React from "react";
 
@@ -29,7 +30,7 @@ export default {
     },
     ["data.image"]: {
       description: "A string value for the name of the selected image",
-      type: { required: false },
+      type: { required: true },
       control: "none",
     },
     ["data.network"]: {
@@ -47,12 +48,27 @@ export default {
       type: { required: false },
       control: "none",
     },
+    ["data.pi_sys_type"]: {
+      description: "A string describing the machine type of the instance, defaults to `e980` when SAP Instance is enabled.",
+      type: { required: true },
+      control: "none",
+    },
     ["data.pi_proc_type"]: {
-      description: "A string describing the proc type of the instance",
+      description: "A string describing the processor type of the instance, defaults to `Dedicated` when SAP Instance is enabled.",
+      type: { required: true },
+      control: "none",
+    },
+    ["data.pi_processors"]: {
+      description: "A string describing the number of processor cores of the instance, disabled when SAP Instance is enabled.",
       type: { required: false },
       control: "none",
     },
-    ["data.pi_storage_type"]: {
+    ["data.pi_memory"]: {
+      description: "A string describing the memory in GB of the instance, disabled when SAP Instance is enabled.",
+      type: { required: false },
+      control: "none",
+    },
+    ["data.pi_memory"]: {
       description: "A string indicating the storage type of the instance",
       type: { required: false },
       control: "none",
@@ -139,20 +155,47 @@ const PowerVsInstanceFormStory = () => {
     } else return contains(ip, "/") || !isIpv4CidrOrAddress(ip);
   }
   function invalidPiProcessorsCallback(stateData) {
-    // weird is in range error with decimal numbers and is in range
-    return (
-      parseFloat(stateData.pi_processors) < 0.25 ||
-      parseFloat(stateData.pi_processors) > 7
-    );
+    let coreCheck = false;
+    let coreMin = null;
+    let coreMax = null;
+    if (stateData.pi_proc_type === "dedicated") {
+      coreMin = 1;
+      stateData.pi_sys_type === "e980" ? coreMax = 4 : coreMax = 13;
+      coreCheck =  !isWholeNumber(parseFloat(stateData.pi_processors)) ||
+        !isInRange(parseFloat(stateData.pi_processors), coreMin, coreMax)
+    } else {
+      coreMin = 0.25;
+      stateData.pi_sys_type === "e980" ? coreMax = 4 : coreMax = 13.75;
+      coreCheck = !isInRange(parseFloat(stateData.pi_processors), coreMin, coreMax);
+    }
+    return coreCheck;
+  }
+  function invalidPiProcessorsTextCallback(stateData) {
+    let coreMin = null;
+    let coreMax = null;
+    if (stateData.pi_proc_type === "dedicated") {
+      coreMin = 1;
+      stateData.pi_sys_type === "e980" ? coreMax = 4 : coreMax = 13;
+    } else {
+      coreMin = 0.25;
+      stateData.pi_sys_type === "e980" ? coreMax = 4 : coreMax = 13.75;
+    }
+    return `Must be a ${stateData.pi_proc_type === "dedicated" ? "whole" : ""} number between ${coreMin} and ${coreMax}.`;
   }
   function invalidPiMemoryCallback(stateData) {
-    return !isInRange(parseFloat(stateData.pi_memory), 0, 918);
+    let memCheck = false;
+    let memMin = 2;
+    let memMax = null;
+    stateData.pi_sys_type === "e980" ? memMax = 15400 : memMax = 934;
+    memCheck =  !isWholeNumber(parseFloat(stateData.pi_memory)) ||
+      !isInRange(parseFloat(stateData.pi_memory), memMin, memMax)
+    return memCheck;
   }
-  function invalidPiProcessorsTextCallback() {
-    return "Must be a number between 0.25 and 7.";
-  }
-  function invalidPiMemoryTextCallback() {
-    return "Must be a whole number less than 918.";
+  function invalidPiMemoryTextCallback(stateData) {
+    let memMin = 2;
+    let memMax = null;
+    stateData.pi_sys_type === "e980" ? memMax = 15400 : memMax = 934;
+    return `Must be a whole number between ${memMin} and ${memMax}.`;
   }
   return (
     <PowerVsInstanceForm

@@ -94,6 +94,8 @@ class PowerVsInstanceForm extends React.Component {
    * @param {event} event event
    */
   handleInputChange(event) {
+    console.log(this.state.pi_processors);
+    console.log(this.state.pi_memory);
     let { name, value } = event.target;
     if (name === "workspace") {
       let zone = getObjectFromArray(this.props.power, "name", value).zone;
@@ -304,7 +306,7 @@ class PowerVsInstanceForm extends React.Component {
             initialSelectedItems={splat(this.state.network, "name")}
             onChange={this.handleMultiSelectChange}
             invalid={this.state.network.length === 0}
-            invalidText="Select at lease one Network Interface"
+            invalidText="Select at least one Network Interface"
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -342,12 +344,13 @@ class PowerVsInstanceForm extends React.Component {
             labelText="System Type"
             name="pi_sys_type"
             formName={this.props.data.name + "-power-instance-systype"}
-            groups={["e880", "e980", "s922", "s1022"]}
-            value={this.state.pi_sys_type}
+            groups={["e980", "s922"]}
+            value={this.state.sap ? "e980" : this.state.pi_sys_type}
             handleInputChange={this.handleInputChange}
             invalidText="Select a System Type."
             className="fieldWidthSmaller"
             id={`${this.props.data.name}-power-instance-systype`}
+            disabled={this.state.sap}
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -357,48 +360,57 @@ class PowerVsInstanceForm extends React.Component {
             name="pi_proc_type"
             formName={this.props.data.name + "-power-instance-proctype"}
             groups={["Shared", "Capped", "Dedicated"]}
-            value={capitalize(this.state.pi_proc_type)}
+            value={this.state.sap ? "Dedicated" : capitalize(this.state.pi_proc_type)}
             handleInputChange={this.handleInputChange}
             invalidText="Select a Processor Type."
             className="fieldWidthSmaller"
             id={`${this.props.data.name}-power-instance-proctype`}
-          />
-          <IcseTextInput
-            id={"power-instance" + this.state.name + "processors"}
-            labelText="Processors"
-            onChange={this.handleInputChange}
-            field="pi_processors"
-            invalid={this.props.invalidPiProcessorsCallback(
-              this.state,
-              this.props,
-            )}
-            invalidText={this.props.invalidPiProcessorsTextCallback(
-              this.state,
-              this.props,
-            )}
-            value={this.state.pi_processors}
-            className="fieldWidthSmaller"
-            placeholder="0.25"
-          />
-          <IcseTextInput
-            id={"power-instance" + this.state.name + "memory"}
-            labelText="Memory (GB)"
-            onChange={this.handleInputChange}
-            field="pi_memory"
-            invalid={
-              this.state.sap
-                ? false
-                : this.props.invalidPiMemoryCallback(this.state, this.props)
-            }
-            invalidText={this.props.invalidPiMemoryTextCallback(
-              this.state,
-              this.props,
-            )}
-            value={this.state.pi_memory}
-            className="fieldWidthSmaller"
-            placeholder="1024"
             disabled={this.state.sap}
           />
+          {this.state.sap ? (
+            ""
+            ) : (
+              <>
+              <IcseTextInput
+              id={"power-instance" + this.state.name + "processors"}
+              labelText="Processors"
+              onChange={this.handleInputChange}
+              field="pi_processors"
+              invalid={
+                this.state.sap
+                  ? false
+                  : this.props.invalidPiProcessorsCallback(this.state,this.props)
+              }
+              invalidText={this.props.invalidPiProcessorsTextCallback(
+                this.state,
+                this.props,
+              )}
+              value={this.state.pi_processors}
+              className="fieldWidthSmaller"
+              placeholder="0.25"
+              disabled={this.state.sap}
+            />
+            <IcseTextInput
+              id={"power-instance" + this.state.name + "memory"}
+              labelText="Memory (GB)"
+              onChange={this.handleInputChange}
+              field="pi_memory"
+              invalid={
+                this.state.sap
+                  ? false
+                  : this.props.invalidPiMemoryCallback(this.state, this.props)
+              }
+              invalidText={this.props.invalidPiMemoryTextCallback(
+                this.state,
+                this.props,
+              )}
+              value={this.state.pi_memory}
+              className="fieldWidthSmaller"
+              placeholder="1024"
+              disabled={this.state.sap}
+            />
+            </>
+          )}
         </IcseFormGroup>
         <IcseFormGroup>
           <IcseSelect
