@@ -94,8 +94,6 @@ class PowerVsInstanceForm extends React.Component {
    * @param {event} event event
    */
   handleInputChange(event) {
-    console.log(this.state.pi_processors);
-    console.log(this.state.pi_memory);
     let { name, value } = event.target;
     if (name === "workspace") {
       let zone = getObjectFromArray(this.props.power, "name", value).zone;
