@@ -76,17 +76,6 @@ class ClassicGatewayForm extends React.Component {
             invalidText={this.props.invalidTextCallback(this.state, this.props)}
             className="fieldWidthSmaller"
           />
-          <IcseToggle
-            tooltip={{
-              content: "Create two network gateway members. Defaults to one",
-            }}
-            id={composedId + "hadr"}
-            labelText="High Availability"
-            defaultToggled={this.state.hadr}
-            toggleFieldName="hadr"
-            onToggle={() => this.handleToggle("hadr")}
-            className="fieldWidthSmaller"
-          />
           <IcseTextInput
             componentName="Domain"
             field="domain"
@@ -100,6 +89,17 @@ class ClassicGatewayForm extends React.Component {
               this.state,
               this.props,
             )}
+          />
+          <IcseToggle
+            tooltip={{
+              content: "Create two network gateway members. Defaults to one",
+            }}
+            id={composedId + "hadr"}
+            labelText="High Availability"
+            defaultToggled={this.state.hadr}
+            toggleFieldName="hadr"
+            onToggle={() => this.handleToggle("hadr")}
+            className="fieldWidthSmaller"
           />
         </IcseFormGroup>
         <IcseFormGroup>
@@ -202,39 +202,25 @@ class ClassicGatewayForm extends React.Component {
           />
         </IcseFormGroup>
         <IcseFormGroup>
-          <IcseTextInput
-            id="network_speed"
-            componentName="classic_gateway"
-            field="network_speed"
+          <IcseSelect
+            id={composedId + "-network-speed"}
+            formName={composedId + "-network-speed"}
+            name="network_speed"
+            groups={this.props.networkSpeedList}
             value={this.state.network_speed}
-            isModal={this.props.isModal}
-            onChange={this.handleInputChange}
+            labelText="Network Speed"
+            handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"
-            invalid={this.props.invalidNetworkSpeedCallback(
-              this.state,
-              this.props,
-            )}
-            invalidText={this.props.invalidNetworkSpeedTextCallback(
-              this.state,
-              this.props,
-            )}
           />
-          <IcseTextInput
-            id="public_bandwidth"
-            componentName="classic_gateway"
-            field="public_bandwidth"
+          <IcseSelect
+            id={composedId + "-public-bandwidth"}
+            formName={composedId + "-public-bandwidth"}
+            name="public_bandwidth"
+            groups={this.props.publicBandWidthList}
             value={this.state.public_bandwidth}
-            isModal={this.props.isModal}
-            onChange={this.handleInputChange}
+            labelText="Public Bandwidth"
+            handleInputChange={this.handleInputChange}
             className="fieldWidthSmaller"
-            invalid={this.props.invalidPublicBandwidthCallback(
-              this.state,
-              this.props,
-            )}
-            invalidText={this.props.invalidPublicBandwidthTextCallback(
-              this.state,
-              this.props,
-            )}
           />
           <IcseTextInput
             id="memory"
@@ -287,9 +273,13 @@ ClassicGatewayForm.defaultProps = {
   osKeyNameList: ["OS_JUNIPER_VSRX_19_4_UP_TO_1GBPS_STANDARD_SRIOV"],
   processKeyNameList: ["INTEL_XEON_4210_2_20"],
   diskKeyNameList: ["HARD_DRIVE_2_00_TB_SATA_2"],
+  networkSpeedList: ["1000", "10000"],
+  publicBandWidthList: ["500", "1000", "5000", "10000", "20000"],
 };
 
 ClassicGatewayForm.propTypes = {
+  networkSpeedList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  publicBandWidthList: PropTypes.arrayOf(PropTypes.string).isRequired,
   composedNameCallback: PropTypes.func.isRequired,
   invalidCallback: PropTypes.func.isRequired,
   invalidTextCallback: PropTypes.func.isRequired,
@@ -301,10 +291,6 @@ ClassicGatewayForm.propTypes = {
   diskKeyNameList: PropTypes.arrayOf(PropTypes.string).isRequired,
   data: PropTypes.shape({}).isRequired,
   classic_vlans: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
-  invalidNetworkSpeedCallback: PropTypes.func.isRequired,
-  invalidNetworkSpeedTextCallback: PropTypes.func.isRequired,
-  invalidPublicBandwidthTextCallback: PropTypes.func.isRequired,
-  invalidPublicBandwidthCallback: PropTypes.func.isRequired,
   invalidMemoryCallback: PropTypes.func.isRequired,
   invalidMemoryTextCallback: PropTypes.func.isRequired,
   invalidDomainCallback: PropTypes.func.isRequired,

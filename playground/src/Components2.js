@@ -33,26 +33,27 @@ function dynamicFieldId(props) {
 
 const DynamicFormTextInput = (props) => {
   let isDisabled = props.field.disabled(props.parentState, props.parentProps);
+  let placeholder =
+    (props.field.optional ? "(Optional) " : "") +
+    `my-${props.parentProps.formName}-${props.name}`;
+  let labelText = props.field.labelText
+    ? props.field.labelText
+    : titleCase(props.name);
   return (
     <TextInput
       name={props.name}
       id={dynamicFieldId(props)}
       className={addClassName("leftTextAlign", props.field)}
-      invalid={props.field.invalid(props.parentState, props.parentProps)}
-      invalidText={props.field.invalidText(
-        props.parentState,
-        props.parentProps
-      )}
-      labelText={
-        props.field.labelText ? props.field.labelText : titleCase(props.name)
-      }
-      placeholder={
-        (props.field.optional ? "(Optional) " : "") +
-        `my-${props.parentProps.formName}-${props.name}`
-      }
+      labelText={labelText}
+      placeholder={placeholder}
       value={props.parentState[props.name] || ""}
       onChange={props.handleInputChange}
       maxLength={props.field.maxLength}
+      invalid={props.field.invalid(props.parentState, props.parentProps)}
+      invalidText={props.field.invalidText(
+        props.parentState,
+        props.parentProps,
+      )}
       disabled={isDisabled}
       helperText={
         isDisabled
@@ -86,9 +87,12 @@ const DynamicFormSelect = (props) => {
   let invalid = contains(props.field.groups, stateValue)
     ? props.field.invalid(props.parentState, props.parentProps)
     : true;
-  let groups = (isNullOrEmptyString(stateValue) || !stateValue ? [""] : []).concat(
-    props.field.groups
-  );
+  let groups = (
+    isNullOrEmptyString(stateValue) || !stateValue ? [""] : []
+  ).concat(props.field.groups);
+  let labelText = props.tooltip
+    ? null
+    : titleCase(props.labelText || props.name);
   return (
     <PopoverWrapper
       hoverText={props.value || ""}
@@ -97,19 +101,17 @@ const DynamicFormSelect = (props) => {
       <Select
         id={dynamicFieldId(props)}
         name={props.name}
-        labelText={
-          props.tooltip ? null : titleCase(props.labelText || props.name)
-        }
+        labelText={labelText}
         value={stateValue || undefined}
         className={addClassName(
           `leftTextAlign${props.tooltip ? " tooltip" : ""}`,
-          props.field
+          props.field,
         )}
         disabled={props.field.disabled(props.parentState, props.parentProps)}
         invalid={invalid}
         invalidText={props.field.invalidText(
           props.parentState,
-          props.parentProps
+          props.parentProps,
         )}
         readOnly={props.field.readOnly}
         onChange={props.handleInputChange}
@@ -126,24 +128,23 @@ const DynamicFormSelect = (props) => {
   );
 };
 
-
 DynamicFormSelect.propTypes = {
-    name: PropTypes.string.isRequired,
-    propsName: PropTypes.string.isRequired,
-    keyIndex: PropTypes.number.isRequired,
-    field: PropTypes.shape({
-      invalid: PropTypes.func.isRequired,
-      invalidText: PropTypes.func.isRequired,
-      optional: PropTypes.bool,
-      labelText: PropTypes.string,
-      disabled: PropTypes.func.isRequired,
-      className: PropTypes.string,
-      groups: PropTypes.arrayOf(PropTypes.string).isRequired,
-      readOnly: PropTypes.bool
-    }).isRequired,
-    parentState: PropTypes.shape({}).isRequired,
-    parentProps: PropTypes.shape({}).isRequired,
-    handleInputChange: PropTypes.func.isRequired,
-  };
+  name: PropTypes.string.isRequired,
+  propsName: PropTypes.string.isRequired,
+  keyIndex: PropTypes.number.isRequired,
+  field: PropTypes.shape({
+    invalid: PropTypes.func.isRequired,
+    invalidText: PropTypes.func.isRequired,
+    optional: PropTypes.bool,
+    labelText: PropTypes.string,
+    disabled: PropTypes.func.isRequired,
+    className: PropTypes.string,
+    groups: PropTypes.arrayOf(PropTypes.string).isRequired,
+    readOnly: PropTypes.bool,
+  }).isRequired,
+  parentState: PropTypes.shape({}).isRequired,
+  parentProps: PropTypes.shape({}).isRequired,
+  handleInputChange: PropTypes.func.isRequired,
+};
 
 export { DynamicFormTextInput, DynamicFormSelect };

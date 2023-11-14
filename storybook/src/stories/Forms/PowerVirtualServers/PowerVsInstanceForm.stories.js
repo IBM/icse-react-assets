@@ -179,7 +179,7 @@ const PowerVsInstanceFormStory = () => {
       coreCheck = !isInRange(
         parseFloat(stateData.pi_processors),
         coreMin,
-        coreMax
+        coreMax,
       );
     }
     return coreCheck;

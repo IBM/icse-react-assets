@@ -35,8 +35,8 @@ function calculateSapHanaMemory(profile) {
         .anyNumber()
         .literal("x")
         .done("g"),
-      ""
-    )
+      "",
+    ),
   );
   if (memory < 256) {
     // all volume sizes must be at least 256 regardless of memory
@@ -71,7 +71,7 @@ class PowerVsInstanceForm extends React.Component {
 
   handleToggle() {
     this.setState(
-      this.toggleStateBoolean("pi_storage_pool_affinity", this.state)
+      this.toggleStateBoolean("pi_storage_pool_affinity", this.state),
     );
   }
 
@@ -127,7 +127,7 @@ class PowerVsInstanceForm extends React.Component {
             this.state.pi_health_status === "WARNING" &&
             !contains(
               ["Storage Type", "Storage Pool"],
-              this.state.storage_option
+              this.state.storage_option,
             )
           ) {
             this.setState({
@@ -140,7 +140,7 @@ class PowerVsInstanceForm extends React.Component {
               pi_anti_affinity_instance: null,
             });
           }
-        }
+        },
       );
     } else if (name === "storage_option") {
       let nextState = { ...this.state };
@@ -383,12 +383,12 @@ class PowerVsInstanceForm extends React.Component {
                     ? false
                     : this.props.invalidPiProcessorsCallback(
                         this.state,
-                        this.props
+                        this.props,
                       )
                 }
                 invalidText={this.props.invalidPiProcessorsTextCallback(
                   this.state,
-                  this.props
+                  this.props,
                 )}
                 value={this.state.pi_processors}
                 className="fieldWidthSmaller"
@@ -407,7 +407,7 @@ class PowerVsInstanceForm extends React.Component {
                 }
                 invalidText={this.props.invalidPiMemoryTextCallback(
                   this.state,
-                  this.props
+                  this.props,
                 )}
                 value={this.state.pi_memory}
                 className="fieldWidthSmaller"
@@ -430,7 +430,7 @@ class PowerVsInstanceForm extends React.Component {
             id={`${this.props.data.name}-power-instance-status`}
             disabled={this.props.storageChangesDisabledCallback(
               this.state,
-              this.props
+              this.props,
             )}
           />
           <IcseToggle
@@ -448,7 +448,7 @@ class PowerVsInstanceForm extends React.Component {
             className="fieldWidthSmaller"
             disabled={this.props.storageChangesDisabledCallback(
               this.state,
-              this.props
+              this.props,
             )}
           />
         </IcseFormGroup>
@@ -513,12 +513,7 @@ PowerVsInstanceForm.defaultProps = {
     storage_option: "Storage Type",
     pi_storage_pool_affinity: false,
   },
-  systemTypes : [
-    "e880",
-    "e980",
-    "s922",
-    "s1022",
-  ],
+  systemTypes: ["e880", "e980", "s922", "s1022"],
   sapProfiles: [
     "ush1-4x128",
     "ush1-4x256",

@@ -12405,7 +12405,9 @@ class PowerVsInstanceForm extends React__default["default"].Component {
     } else {
       this.setState({
         sap: false,
-        sap_profile: null
+        sap_profile: null,
+        pi_proc_type: "",
+        pi_sys_type: ""
       });
     }
   }
@@ -12614,8 +12616,8 @@ class PowerVsInstanceForm extends React__default["default"].Component {
       labelText: "System Type",
       name: "pi_sys_type",
       formName: this.props.data.name + "-power-instance-systype",
-      groups: ["e980", "s922"],
-      value: this.state.sap ? "e980" : this.state.pi_sys_type,
+      groups: this.props.systemTypes,
+      value: this.state.pi_sys_type,
       handleInputChange: this.handleInputChange,
       invalidText: "Select a System Type.",
       className: "fieldWidthSmaller",
@@ -12626,7 +12628,7 @@ class PowerVsInstanceForm extends React__default["default"].Component {
       name: "pi_proc_type",
       formName: this.props.data.name + "-power-instance-proctype",
       groups: ["Shared", "Capped", "Dedicated"],
-      value: this.state.sap ? "Dedicated" : lazyZ.capitalize(this.state.pi_proc_type),
+      value: lazyZ.capitalize(this.state.pi_proc_type),
       handleInputChange: this.handleInputChange,
       invalidText: "Select a Processor Type.",
       className: "fieldWidthSmaller",
@@ -12731,6 +12733,7 @@ PowerVsInstanceForm.defaultProps = {
     storage_option: "Storage Type",
     pi_storage_pool_affinity: false
   },
+  systemTypes: ["e880", "e980", "s922", "s1022"],
   sapProfiles: ["ush1-4x128", "ush1-4x256", "ush1-4x384", "ush1-4x512", "ush1-4x768", "bh1-16x1600", "bh1-20x2000", "bh1-22x2200", "bh1-25x2500", "bh1-30x3000", "bh1-35x3500", "bh1-40x4000", "bh1-50x5000", "bh1-60x6000", "bh1-70x7000", "bh1-80x8000", "bh1-100x10000", "bh1-120x12000", "bh1-140x14000", "ch1-60x3000", "ch1-70x3500", "ch1-80x4000", "ch1-100x5000", "ch1-120x6000", "ch1-140x7000", "mh1-8x1440", "mh1-10x1800", "mh1-12x2160", "mh1-16x2880", "mh1-20x3600", "mh1-22x3960", "mh1-25x4500", "mh1-30x5400", "mh1-35x6300", "mh1-40x7200", "mh1-50x9000", "mh1-60x10800", "mh1-70x12600", "mh1-80x14400", "umh-4x960", "umh-6x1440", "umh-8x1920", "umh-10x2400", "umh-12x2880", "umh-16x3840", "umh-20x4800", "umh-22x5280", "umh-25x6000", "umh-30x7200", "umh-35x8400", "umh-40x9600", "umh-50x12000", "umh-60x14400"]
 };
 PowerVsInstanceForm.propTypes = {
@@ -12743,6 +12746,7 @@ PowerVsInstanceForm.propTypes = {
   invalidPiMemoryCallback: PropTypes__default["default"].func.isRequired,
   invalidPiMemoryTextCallback: PropTypes__default["default"].func.isRequired,
   storage_pool_map: PropTypes__default["default"].shape({}).isRequired,
+  systemTypes: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   power_instances: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
   power_volumes: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
   // changes should be disabled when another instance or volume uses this
@@ -13275,6 +13279,7 @@ const PowerVsInstances = props => {
       invalidPiMemoryCallback: props.invalidPiMemoryCallback,
       invalidPiMemoryTextCallback: props.invalidPiMemoryTextCallback,
       storage_pool_map: props.storage_pool_map,
+      systemTypes: props.systemTypes,
       power_instances: props.power_instances,
       power_volumes: props.power_volumes,
       storageChangesDisabledCallback: props.storageChangesDisabledCallback,
@@ -13305,6 +13310,7 @@ PowerVsInstances.propTypes = {
   invalidPiMemoryTextCallback: PropTypes__default["default"].func.isRequired,
   docs: PropTypes__default["default"].func.isRequired,
   storage_pool_map: PropTypes__default["default"].shape({}).isRequired,
+  systemTypes: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   power_instances: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
   power_volumes: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
   forceOpen: PropTypes__default["default"].func.isRequired,
@@ -13399,14 +13405,12 @@ const ClassicGateways = props => {
       classicSshKeyList: props.classicSshKeyList,
       diskKeyNameList: props.diskKeyNameList,
       classic_vlans: props.classic_vlans,
-      invalidNetworkSpeedCallback: props.invalidNetworkSpeedCallback,
-      invalidNetworkSpeedTextCallback: props.invalidNetworkSpeedTextCallback,
-      invalidPublicBandwidthTextCallback: props.invalidPublicBandwidthTextCallback,
-      invalidPublicBandwidthCallback: props.invalidPublicBandwidthCallback,
+      publicBandWidthList: props.publicBandWidthList,
       invalidMemoryCallback: props.invalidMemoryCallback,
       invalidMemoryTextCallback: props.invalidMemoryTextCallback,
       invalidDomainCallback: props.invalidDomainCallback,
-      invalidDomainTextCallback: props.invalidDomainTextCallback
+      invalidDomainTextCallback: props.invalidDomainTextCallback,
+      networkSpeedList: props.networkSpeedList
     },
     toggleFormProps: {
       hideName: true,
@@ -13441,10 +13445,8 @@ ClassicGateways.propTypes = {
   diskKeyNameList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   data: PropTypes__default["default"].shape({}).isRequired,
   classic_vlans: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
-  invalidNetworkSpeedCallback: PropTypes__default["default"].func.isRequired,
-  invalidNetworkSpeedTextCallback: PropTypes__default["default"].func.isRequired,
-  invalidPublicBandwidthTextCallback: PropTypes__default["default"].func.isRequired,
-  invalidPublicBandwidthCallback: PropTypes__default["default"].func.isRequired,
+  networkSpeedList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  publicBandWidthList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   invalidMemoryCallback: PropTypes__default["default"].func.isRequired,
   invalidMemoryTextCallback: PropTypes__default["default"].func.isRequired,
   invalidDomainCallback: PropTypes__default["default"].func.isRequired,
@@ -16117,16 +16119,6 @@ class ClassicGatewayForm extends React__default["default"].Component {
       invalid: this.props.invalidCallback(this.state, this.props),
       invalidText: this.props.invalidTextCallback(this.state, this.props),
       className: "fieldWidthSmaller"
-    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
-      tooltip: {
-        content: "Create two network gateway members. Defaults to one"
-      },
-      id: composedId + "hadr",
-      labelText: "High Availability",
-      defaultToggled: this.state.hadr,
-      toggleFieldName: "hadr",
-      onToggle: () => this.handleToggle("hadr"),
-      className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       componentName: "Domain",
       field: "domain",
@@ -16137,6 +16129,16 @@ class ClassicGatewayForm extends React__default["default"].Component {
       id: this.props.data.name + "domain",
       invalid: this.props.invalidDomainCallback(this.state, this.props),
       invalidText: this.props.invalidDomainTextCallback(this.state, this.props)
+    }), /*#__PURE__*/React__default["default"].createElement(IcseToggle, {
+      tooltip: {
+        content: "Create two network gateway members. Defaults to one"
+      },
+      id: composedId + "hadr",
+      labelText: "High Availability",
+      defaultToggled: this.state.hadr,
+      toggleFieldName: "hadr",
+      onToggle: () => this.handleToggle("hadr"),
+      className: "fieldWidthSmaller"
     })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
       id: composedId + "-datacenter",
       formName: composedId + "-datacenter",
@@ -16219,26 +16221,24 @@ class ClassicGatewayForm extends React__default["default"].Component {
       labelText: "Process Key Name",
       handleInputChange: this.handleInputChange,
       className: "fieldWidthSmaller"
-    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: "network_speed",
-      componentName: "classic_gateway",
-      field: "network_speed",
+    })), /*#__PURE__*/React__default["default"].createElement(IcseFormGroup, null, /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      id: composedId + "-network-speed",
+      formName: composedId + "-network-speed",
+      name: "network_speed",
+      groups: this.props.networkSpeedList,
       value: this.state.network_speed,
-      isModal: this.props.isModal,
-      onChange: this.handleInputChange,
-      className: "fieldWidthSmaller",
-      invalid: this.props.invalidNetworkSpeedCallback(this.state, this.props),
-      invalidText: this.props.invalidNetworkSpeedTextCallback(this.state, this.props)
-    }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
-      id: "public_bandwidth",
-      componentName: "classic_gateway",
-      field: "public_bandwidth",
+      labelText: "Network Speed",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
+    }), /*#__PURE__*/React__default["default"].createElement(IcseSelect, {
+      id: composedId + "-public-bandwidth",
+      formName: composedId + "-public-bandwidth",
+      name: "public_bandwidth",
+      groups: this.props.publicBandWidthList,
       value: this.state.public_bandwidth,
-      isModal: this.props.isModal,
-      onChange: this.handleInputChange,
-      className: "fieldWidthSmaller",
-      invalid: this.props.invalidPublicBandwidthCallback(this.state, this.props),
-      invalidText: this.props.invalidPublicBandwidthTextCallback(this.state, this.props)
+      labelText: "Public Bandwidth",
+      handleInputChange: this.handleInputChange,
+      className: "fieldWidthSmaller"
     }), /*#__PURE__*/React__default["default"].createElement(IcseTextInput, {
       id: "memory",
       componentName: "classic_gateway",
@@ -16277,9 +16277,13 @@ ClassicGatewayForm.defaultProps = {
   packageNameList: ["VIRTUAL_ROUTER_APPLIANCE_1_GPBS"],
   osKeyNameList: ["OS_JUNIPER_VSRX_19_4_UP_TO_1GBPS_STANDARD_SRIOV"],
   processKeyNameList: ["INTEL_XEON_4210_2_20"],
-  diskKeyNameList: ["HARD_DRIVE_2_00_TB_SATA_2"]
+  diskKeyNameList: ["HARD_DRIVE_2_00_TB_SATA_2"],
+  networkSpeedList: ["1000", "10000"],
+  publicBandWidthList: ["500", "1000", "5000", "10000", "20000"]
 };
 ClassicGatewayForm.propTypes = {
+  networkSpeedList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
+  publicBandWidthList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   composedNameCallback: PropTypes__default["default"].func.isRequired,
   invalidCallback: PropTypes__default["default"].func.isRequired,
   invalidTextCallback: PropTypes__default["default"].func.isRequired,
@@ -16291,10 +16295,6 @@ ClassicGatewayForm.propTypes = {
   diskKeyNameList: PropTypes__default["default"].arrayOf(PropTypes__default["default"].string).isRequired,
   data: PropTypes__default["default"].shape({}).isRequired,
   classic_vlans: PropTypes__default["default"].arrayOf(PropTypes__default["default"].shape({})).isRequired,
-  invalidNetworkSpeedCallback: PropTypes__default["default"].func.isRequired,
-  invalidNetworkSpeedTextCallback: PropTypes__default["default"].func.isRequired,
-  invalidPublicBandwidthTextCallback: PropTypes__default["default"].func.isRequired,
-  invalidPublicBandwidthCallback: PropTypes__default["default"].func.isRequired,
   invalidMemoryCallback: PropTypes__default["default"].func.isRequired,
   invalidMemoryTextCallback: PropTypes__default["default"].func.isRequired,
   invalidDomainCallback: PropTypes__default["default"].func.isRequired,
