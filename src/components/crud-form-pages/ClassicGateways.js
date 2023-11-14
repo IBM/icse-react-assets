@@ -52,6 +52,8 @@ ClassicGateways.defaultProps = {
   osKeyNameList: ["OS_JUNIPER_VSRX_19_4_UP_TO_1GBPS_STANDARD_SRIOV"],
   processKeyNameList: ["INTEL_XEON_4210_2_20"],
   diskKeyNameList: ["HARD_DRIVE_2_00_TB_SATA_2"],
+  networkSpeedList: ["1000", "10000"],
+  publicBandWidthList: ["500", "1000", "5000", "10000", "20000"],
 };
 
 ClassicGateways.propTypes = {
@@ -72,7 +74,6 @@ ClassicGateways.propTypes = {
   processKeyNameList: PropTypes.arrayOf(PropTypes.string).isRequired,
   classicSshKeyList: PropTypes.arrayOf(PropTypes.string).isRequired,
   diskKeyNameList: PropTypes.arrayOf(PropTypes.string).isRequired,
-  data: PropTypes.shape({}).isRequired,
   classic_vlans: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   networkSpeedList: PropTypes.arrayOf(PropTypes.string).isRequired,
   publicBandWidthList: PropTypes.arrayOf(PropTypes.string).isRequired,

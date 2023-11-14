@@ -77,12 +77,11 @@ class ClassicGatewayForm extends React.Component {
             className="fieldWidthSmaller"
           />
           <IcseTextInput
-            componentName="Domain"
             field="domain"
-            labelText="domain"
+            componentName={this.state.name + "-domain"}
             className="fieldWidthSmaller"
-            value={this.props.data.name + "-domain"}
-            readOnly
+            onChange={this.handleInputChange}
+            value={this.state.domain}
             id={this.props.data.name + "domain"}
             invalid={this.props.invalidDomainCallback(this.state, this.props)}
             invalidText={this.props.invalidDomainTextCallback(
@@ -275,6 +274,26 @@ ClassicGatewayForm.defaultProps = {
   diskKeyNameList: ["HARD_DRIVE_2_00_TB_SATA_2"],
   networkSpeedList: ["1000", "10000"],
   publicBandWidthList: ["500", "1000", "5000", "10000", "20000"],
+  data: {
+    name: "",
+    ipv6_enabled: false,
+    redundant_network: false,
+    tcp_monitoring: false,
+    memory: "64",
+    network_speed: "1000",
+    process_key_name: "",
+    os_key_name: "",
+    package_key_name: "",
+    disk_key_names: [],
+    public_vlan: "",
+    private_vlan: "",
+    private_network_only: false,
+    datacenter: "",
+    ssh_key: "",
+    hadr: false,
+    domain: "",
+    public_bandwidth: "",
+  },
 };
 
 ClassicGatewayForm.propTypes = {
@@ -289,7 +308,7 @@ ClassicGatewayForm.propTypes = {
   processKeyNameList: PropTypes.arrayOf(PropTypes.string).isRequired,
   classicSshKeyList: PropTypes.arrayOf(PropTypes.string).isRequired,
   diskKeyNameList: PropTypes.arrayOf(PropTypes.string).isRequired,
-  data: PropTypes.shape({}).isRequired,
+  data: PropTypes.shape({}),
   classic_vlans: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   invalidMemoryCallback: PropTypes.func.isRequired,
   invalidMemoryTextCallback: PropTypes.func.isRequired,

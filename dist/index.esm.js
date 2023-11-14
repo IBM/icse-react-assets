@@ -13412,7 +13412,9 @@ ClassicGateways.defaultProps = {
   packageNameList: ["VIRTUAL_ROUTER_APPLIANCE_1_GPBS"],
   osKeyNameList: ["OS_JUNIPER_VSRX_19_4_UP_TO_1GBPS_STANDARD_SRIOV"],
   processKeyNameList: ["INTEL_XEON_4210_2_20"],
-  diskKeyNameList: ["HARD_DRIVE_2_00_TB_SATA_2"]
+  diskKeyNameList: ["HARD_DRIVE_2_00_TB_SATA_2"],
+  networkSpeedList: ["1000", "10000"],
+  publicBandWidthList: ["500", "1000", "5000", "10000", "20000"]
 };
 ClassicGateways.propTypes = {
   classic_gateways: PropTypes.arrayOf(PropTypes.shape).isRequired,
@@ -13432,7 +13434,6 @@ ClassicGateways.propTypes = {
   processKeyNameList: PropTypes.arrayOf(PropTypes.string).isRequired,
   classicSshKeyList: PropTypes.arrayOf(PropTypes.string).isRequired,
   diskKeyNameList: PropTypes.arrayOf(PropTypes.string).isRequired,
-  data: PropTypes.shape({}).isRequired,
   classic_vlans: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   networkSpeedList: PropTypes.arrayOf(PropTypes.string).isRequired,
   publicBandWidthList: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -16109,12 +16110,11 @@ class ClassicGatewayForm extends React.Component {
       invalidText: this.props.invalidTextCallback(this.state, this.props),
       className: "fieldWidthSmaller"
     }), /*#__PURE__*/React.createElement(IcseTextInput, {
-      componentName: "Domain",
       field: "domain",
-      labelText: "domain",
+      componentName: this.state.name + "-domain",
       className: "fieldWidthSmaller",
-      value: this.props.data.name + "-domain",
-      readOnly: true,
+      onChange: this.handleInputChange,
+      value: this.state.domain,
       id: this.props.data.name + "domain",
       invalid: this.props.invalidDomainCallback(this.state, this.props),
       invalidText: this.props.invalidDomainTextCallback(this.state, this.props)
@@ -16268,7 +16268,27 @@ ClassicGatewayForm.defaultProps = {
   processKeyNameList: ["INTEL_XEON_4210_2_20"],
   diskKeyNameList: ["HARD_DRIVE_2_00_TB_SATA_2"],
   networkSpeedList: ["1000", "10000"],
-  publicBandWidthList: ["500", "1000", "5000", "10000", "20000"]
+  publicBandWidthList: ["500", "1000", "5000", "10000", "20000"],
+  data: {
+    name: "",
+    ipv6_enabled: false,
+    redundant_network: false,
+    tcp_monitoring: false,
+    memory: "64",
+    network_speed: "1000",
+    process_key_name: "",
+    os_key_name: "",
+    package_key_name: "",
+    disk_key_names: [],
+    public_vlan: "",
+    private_vlan: "",
+    private_network_only: false,
+    datacenter: "",
+    ssh_key: "",
+    hadr: false,
+    domain: "",
+    public_bandwidth: ""
+  }
 };
 ClassicGatewayForm.propTypes = {
   networkSpeedList: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -16282,7 +16302,7 @@ ClassicGatewayForm.propTypes = {
   processKeyNameList: PropTypes.arrayOf(PropTypes.string).isRequired,
   classicSshKeyList: PropTypes.arrayOf(PropTypes.string).isRequired,
   diskKeyNameList: PropTypes.arrayOf(PropTypes.string).isRequired,
-  data: PropTypes.shape({}).isRequired,
+  data: PropTypes.shape({}),
   classic_vlans: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
   invalidMemoryCallback: PropTypes.func.isRequired,
   invalidMemoryTextCallback: PropTypes.func.isRequired,
