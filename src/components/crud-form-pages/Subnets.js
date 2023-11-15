@@ -10,6 +10,7 @@ import {
 import PropTypes from "prop-types";
 import { titleCase, splat } from "lazy-z";
 import { NoVpcTile } from "./NoVpcTile";
+import { NoAclTile } from "./NoAclTile";
 
 function none() {}
 
@@ -183,6 +184,12 @@ SubnetsPage.propTypes = {
 };
 
 export const Subnets = (props) => {
+  console.log(props.craig.store.json.vpcs);
+  let no_acls = true;
+  props.craig.store.json.vpcs.forEach((vpc) => {
+    if (vpc.acls.length > 0) no_acls = false;
+  })
+  console.log(no_acls);
   return (
     <IcseFormTemplate
       name="VPC Subnets"
@@ -227,7 +234,7 @@ export const Subnets = (props) => {
         nullRef: true,
       }}
       overrideTile={
-        props.craig.store.json.vpcs.length === 0 ? NoVpcTile() : null
+        props.craig.store.json.vpcs.length === 0 ? NoVpcTile() : (no_acls ? NoAclTile() : null)
       }
     />
   );
