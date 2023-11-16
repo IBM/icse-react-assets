@@ -11667,7 +11667,7 @@ class SubnetsPage extends React.Component {
   }
   render() {
     let tiers = [...this.props.subnetTiers[this.props.data.name]];
-    return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(FormModal, {
+    return /*#__PURE__*/React.createElement(React.Fragment, null, this.props.data.acls.length !== 0 && /*#__PURE__*/React.createElement(FormModal, {
       name: "Add a Subnet Tier",
       show: this.props.showSubModal,
       onRequestSubmit: this.onModalSubmit,
@@ -11691,7 +11691,7 @@ class SubnetsPage extends React.Component {
       invalidCidrText: this.props.invalidCidrText(this.props.craig),
       invalidSubnetCallback: this.props.invalidName("subnet", this.props.craig),
       invalidSubnetTextCallback: this.props.invalidNameText("subnet", this.props.craig)
-    })), /*#__PURE__*/React.createElement(IcseHeading, {
+    })), this.props.data.acls.length === 0 && NoAclTile(), this.props.data.acls.length !== 0 && /*#__PURE__*/React.createElement(IcseHeading, {
       name: "Subnet Tiers",
       className: tiers.length === 0 ? "" : "marginBottomSmall",
       type: "subHeading",
@@ -11700,10 +11700,10 @@ class SubnetsPage extends React.Component {
         type: "add",
         noDeleteButton: true
       })
-    }), tiers.length === 0 && /*#__PURE__*/React.createElement(EmptyResourceTile, {
+    }), this.props.data.acls.length !== 0 && tiers.length === 0 && /*#__PURE__*/React.createElement(EmptyResourceTile, {
       name: "Subnet Tiers for " + titleCase$2(this.props.data.name) + " VPC",
       noMarginTop: true
-    }), this.props.subnetTiers[this.props.data.name].map((tier, index) => /*#__PURE__*/React.createElement(SubnetTierForm$1, {
+    }), this.props.data.acls.length !== 0 && this.props.subnetTiers[this.props.data.name].map((tier, index) => /*#__PURE__*/React.createElement(SubnetTierForm$1, {
       key: JSON.stringify(tier),
       data: this.props.getSubnetTierStateData(tier, this.props.data),
       index: index,
@@ -11764,12 +11764,11 @@ SubnetsPage.propTypes = {
   onSubnetTierDelete: PropTypes.func.isRequired
 };
 const Subnets = props => {
-  console.log(props.craig.store.json.vpcs);
-  let no_acls = true;
-  props.craig.store.json.vpcs.forEach(vpc => {
-    if (vpc.acls.length > 0) no_acls = false;
-  });
-  console.log(no_acls);
+  // console.log(props.craig.store.json.vpcs);
+  // let no_acls = true;
+  // props.craig.store.json.vpcs.forEach((vpc) => {
+  //   if (vpc.acls.length > 0) no_acls = false;
+  // })
   return /*#__PURE__*/React.createElement(IcseFormTemplate, {
     name: "VPC Subnets",
     innerForm: SubnetsPage,
@@ -11812,7 +11811,7 @@ const Subnets = props => {
       propsMatchState: none$1,
       nullRef: true
     },
-    overrideTile: props.craig.store.json.vpcs.length === 0 ? NoVpcTile() : no_acls ? NoAclTile() : null
+    overrideTile: props.craig.store.json.vpcs.length === 0 ? NoVpcTile() : null
   });
 };
 Subnets.propTypes = {
