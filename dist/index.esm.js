@@ -11691,7 +11691,7 @@ class SubnetsPage extends React.Component {
       invalidCidrText: this.props.invalidCidrText(this.props.craig),
       invalidSubnetCallback: this.props.invalidName("subnet", this.props.craig),
       invalidSubnetTextCallback: this.props.invalidNameText("subnet", this.props.craig)
-    })), this.props.data.acls.length === 0 && NoAclTile(), this.props.data.acls.length !== 0 && /*#__PURE__*/React.createElement(IcseHeading, {
+    })), this.props.data.acls.length === 0 ? /*#__PURE__*/React.createElement(NoAclTile, null) : /*#__PURE__*/React.createElement(IcseHeading, {
       name: "Subnet Tiers",
       className: tiers.length === 0 ? "" : "marginBottomSmall",
       type: "subHeading",
@@ -11764,11 +11764,6 @@ SubnetsPage.propTypes = {
   onSubnetTierDelete: PropTypes.func.isRequired
 };
 const Subnets = props => {
-  // console.log(props.craig.store.json.vpcs);
-  // let no_acls = true;
-  // props.craig.store.json.vpcs.forEach((vpc) => {
-  //   if (vpc.acls.length > 0) no_acls = false;
-  // })
   return /*#__PURE__*/React.createElement(IcseFormTemplate, {
     name: "VPC Subnets",
     innerForm: SubnetsPage,
@@ -12634,7 +12629,7 @@ class PowerVsInstanceForm extends React.Component {
       name: "pi_proc_type",
       formName: this.props.data.name + "-power-instance-proctype",
       groups: ["Shared", "Capped", "Dedicated"],
-      value: capitalize$2(this.state.pi_proc_type),
+      value: this.state.pi_proc_type ? capitalize$2(this.state.pi_proc_type) : "",
       handleInputChange: this.handleInputChange,
       invalidText: "Select a Processor Type.",
       className: "fieldWidthSmaller",
