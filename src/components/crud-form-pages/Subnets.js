@@ -10,6 +10,7 @@ import {
 import PropTypes from "prop-types";
 import { titleCase, splat } from "lazy-z";
 import { NoVpcTile } from "./NoVpcTile";
+import { NoAclTile } from "./NoAclTile";
 
 function none() {}
 
@@ -30,56 +31,60 @@ class SubnetsPage extends React.Component {
     let tiers = [...this.props.subnetTiers[this.props.data.name]];
     return (
       <>
-        <FormModal
-          name="Add a Subnet Tier"
-          show={this.props.showSubModal}
-          onRequestSubmit={this.onModalSubmit}
-          onRequestClose={this.props.handleModalToggle}
-        >
-          <SubnetTierForm
-            dynamicSubnets={this.props.dynamicSubnets}
-            networkAcls={splat(this.props.data.acls, "name")}
-            enabledPublicGateways={this.props.data.publicGateways}
-            vpc_name={this.props.data.name}
-            subnetListCallback={this.props.subnetListCallback}
-            craig={this.props.craig}
-            disableSubnetSaveCallback={none}
-            propsMatchState={none}
-            shouldDisableSave={none}
-            shouldDisableSubmit={(stateData, componentProps) => {
-              return this.props.disableSave(
-                "subnetTier",
-                stateData,
-                componentProps,
-              );
-            }}
-            invalidTextCallback={this.props.invalidSubnetTierText}
-            invalidCallback={this.props.invalidSubnetTierName}
-            invalidCidr={this.props.invalidCidr(this.props.craig)}
-            invalidCidrText={this.props.invalidCidrText(this.props.craig)}
-            invalidSubnetCallback={this.props.invalidName(
-              "subnet",
-              this.props.craig,
-            )}
-            invalidSubnetTextCallback={this.props.invalidNameText(
-              "subnet",
-              this.props.craig,
-            )}
-          />
-        </FormModal>
-        <IcseHeading
-          name="Subnet Tiers"
-          className={tiers.length === 0 ? "" : "marginBottomSmall"}
-          type="subHeading"
-          buttons={
-            <SaveAddButton
-              onClick={() => this.props.handleModalToggle()}
-              type="add"
-              noDeleteButton
+        {this.props.data.acls.length !== 0 && (
+          <FormModal
+            name="Add a Subnet Tier"
+            show={this.props.showSubModal}
+            onRequestSubmit={this.onModalSubmit}
+            onRequestClose={this.props.handleModalToggle}
+          >
+            <SubnetTierForm
+              dynamicSubnets={this.props.dynamicSubnets}
+              networkAcls={splat(this.props.data.acls, "name")}
+              enabledPublicGateways={this.props.data.publicGateways}
+              vpc_name={this.props.data.name}
+              subnetListCallback={this.props.subnetListCallback}
+              craig={this.props.craig}
+              disableSubnetSaveCallback={none}
+              propsMatchState={none}
+              shouldDisableSave={none}
+              shouldDisableSubmit={(stateData, componentProps) => {
+                return this.props.disableSave(
+                  "subnetTier",
+                  stateData,
+                  componentProps,
+                );
+              }}
+              invalidTextCallback={this.props.invalidSubnetTierText}
+              invalidCallback={this.props.invalidSubnetTierName}
+              invalidCidr={this.props.invalidCidr(this.props.craig)}
+              invalidCidrText={this.props.invalidCidrText(this.props.craig)}
+              invalidSubnetCallback={this.props.invalidName(
+                "subnet",
+                this.props.craig,
+              )}
+              invalidSubnetTextCallback={this.props.invalidNameText(
+                "subnet",
+                this.props.craig,
+              )}
             />
-          }
-        />
-        {tiers.length === 0 && (
+          </FormModal>
+        )}
+        {this.props.data.acls.length === 0 ? <NoAclTile/> : 
+          <IcseHeading
+            name="Subnet Tiers"
+            className={tiers.length === 0 ? "" : "marginBottomSmall"}
+            type="subHeading"
+            buttons={
+              <SaveAddButton
+                onClick={() => this.props.handleModalToggle()}
+                type="add"
+                noDeleteButton
+              />
+            }
+          />
+        }
+        {this.props.data.acls.length !== 0 && tiers.length === 0 && (
           <EmptyResourceTile
             name={
               "Subnet Tiers for " + titleCase(this.props.data.name) + " VPC"
@@ -87,69 +92,74 @@ class SubnetsPage extends React.Component {
             noMarginTop
           />
         )}
-        {this.props.subnetTiers[this.props.data.name].map((tier, index) => (
-          <SubnetTierForm
-            key={JSON.stringify(tier)}
-            data={this.props.getSubnetTierStateData(tier, this.props.data)}
-            index={index}
-            onSave={this.props.onSubnetTierSave}
-            onDelete={this.props.onSubnetTierDelete}
-            networkAcls={splat(this.props.data.acls, "name")}
-            enabledPublicGateways={this.props.data.publicGateways}
-            vpc_name={this.props.data.name}
-            subnetListCallback={this.props.getTierSubnets(tier, {
-              ...this.props.data,
-            })}
-            craig={this.props.craig}
-            dynamicSubnets={this.props.dynamicSubnets}
-            disableSubnetSaveCallback={(stateData, componentProps) => {
-              return (
-                this.props.propsMatchState(
-                  "subnet",
-                  stateData,
-                  componentProps,
-                ) ||
-                this.props.disableSave(
-                  "subnet",
-                  stateData,
-                  componentProps,
-                  this.props.craig,
-                )
-              );
-            }}
-            shouldDisableSave={(stateData, componentProps) => {
-              return (
-                this.props.propsMatchState(
+        {this.props.data.acls.length !== 0 &&
+          this.props.subnetTiers[this.props.data.name].map((tier, index) => (
+            <SubnetTierForm
+              key={JSON.stringify(tier)}
+              data={this.props.getSubnetTierStateData(tier, this.props.data)}
+              index={index}
+              onSave={this.props.onSubnetTierSave}
+              onDelete={this.props.onSubnetTierDelete}
+              networkAcls={splat(this.props.data.acls, "name")}
+              enabledPublicGateways={this.props.data.publicGateways}
+              vpc_name={this.props.data.name}
+              subnetListCallback={this.props.getTierSubnets(tier, {
+                ...this.props.data,
+              })}
+              craig={this.props.craig}
+              dynamicSubnets={this.props.dynamicSubnets}
+              disableSubnetSaveCallback={(stateData, componentProps) => {
+                return (
+                  this.props.propsMatchState(
+                    "subnet",
+                    stateData,
+                    componentProps,
+                  ) ||
+                  this.props.disableSave(
+                    "subnet",
+                    stateData,
+                    componentProps,
+                    this.props.craig,
+                  )
+                );
+              }}
+              shouldDisableSave={(stateData, componentProps) => {
+                return (
+                  this.props.propsMatchState(
+                    "subnetTier",
+                    stateData,
+                    componentProps,
+                  ) ||
+                  this.props.disableSave(
+                    "subnetTier",
+                    stateData,
+                    componentProps,
+                  )
+                );
+              }}
+              propsMatchState={(stateData, componentProps) => {
+                return this.props.propsMatchState(
                   "subnetTier",
                   stateData,
                   componentProps,
-                ) ||
-                this.props.disableSave("subnetTier", stateData, componentProps)
-              );
-            }}
-            propsMatchState={(stateData, componentProps) => {
-              return this.props.propsMatchState(
-                "subnetTier",
-                stateData,
-                componentProps,
-              );
-            }}
-            shouldDisableSubmit={none}
-            invalidTextCallback={this.props.invalidSubnetTierText}
-            invalidCallback={this.props.invalidSubnetTierName}
-            invalidCidr={this.props.invalidCidr(this.props.craig)}
-            invalidCidrText={this.props.invalidCidrText(this.props.craig)}
-            invalidSubnetCallback={this.props.invalidName(
-              "subnet",
-              this.props.craig,
-            )}
-            invalidSubnetTextCallback={this.props.invalidNameText(
-              "subnet",
-              this.props.craig,
-            )}
-            onSubnetSave={this.props.onSubnetSave}
-          />
-        ))}
+                );
+              }}
+              shouldDisableSubmit={none}
+              invalidTextCallback={this.props.invalidSubnetTierText}
+              invalidCallback={this.props.invalidSubnetTierName}
+              invalidCidr={this.props.invalidCidr(this.props.craig)}
+              invalidCidrText={this.props.invalidCidrText(this.props.craig)}
+              invalidSubnetCallback={this.props.invalidName(
+                "subnet",
+                this.props.craig,
+              )}
+              invalidSubnetTextCallback={this.props.invalidNameText(
+                "subnet",
+                this.props.craig,
+              )}
+              onSubnetSave={this.props.onSubnetSave}
+            />
+          ))}
       </>
     );
   }
