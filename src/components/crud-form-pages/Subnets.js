@@ -195,11 +195,6 @@ SubnetsPage.propTypes = {
 };
 
 export const Subnets = (props) => {
-  // console.log(props.craig.store.json.vpcs);
-  // let no_acls = true;
-  // props.craig.store.json.vpcs.forEach((vpc) => {
-  //   if (vpc.acls.length > 0) no_acls = false;
-  // })
   return (
     <IcseFormTemplate
       name="VPC Subnets"
