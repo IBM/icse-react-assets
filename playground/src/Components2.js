@@ -31,7 +31,9 @@ function addClassName(className, props) {
   }
 
   composedClassName +=
-    props.size === "small" ? " fieldWidthSmaller" : " fieldWidth";
+    props.size === "small" || props.field.size === "small"
+      ? " fieldWidthSmaller"
+      : " fieldWidth";
 
   return composedClassName;
 }
@@ -44,7 +46,7 @@ function addClassName(className, props) {
 function dynamicFieldId(props) {
   return kebabCase(`${props.propsName} ${props.name} ${props.keyIndex}`);
 }
- .0
+
 /**
  *
  * @param {*} props
@@ -67,7 +69,7 @@ function dynamicTextInputProps(props) {
     labelText: labelText,
     placeholder: placeholder,
     value: props.field.onRender
-      ? props.field.onRender(props.parentState)
+      ? props.field.onRender(props.parentState, props.parentProps)
       : props.parentState[props.name] || "",
     onChange: props.handleInputChange,
     maxLength: props.field.maxLength,
@@ -76,7 +78,10 @@ function dynamicTextInputProps(props) {
     disabled: isDisabled,
     helperText: isDisabled
       ? props.field.disabledText(props.parentState, props.parentProps)
+      : props.field.onRender
+      ? props.field.onRender(props.parentState, props.parentProps)
       : props.field.helperText(props.parentState, props.parentProps),
+    readOnly: props.field.readOnly || false,
   };
 }
 
@@ -319,6 +324,26 @@ const DynamicMultiSelect = (props) => {
       disabled={props.field.disabled(props.parentState, props.parentProps)}
     />
   );
+};
+
+DynamicMultiSelect.propTypes = {
+  handleInputChange: PropTypes.func.isRequired,
+  parentState: PropTypes.shape({}).isRequired,
+  parentProps: PropTypes.shape({}).isRequired,
+  field: PropTypes.shape({
+    onRender: PropTypes.func,
+    invalid: PropTypes.func.isRequired,
+    groups: PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.string),
+      PropTypes.func,
+    ]).isRequired,
+    tooltip: PropTypes.shape({}),
+    labelText: PropTypes.string,
+    forceUpdateKey: PropTypes.func,
+    disabled: PropTypes.func.isRequired,
+  }).isRequired,
+  name: PropTypes.string.isRequired,
+  handleInputChange: PropTypes.func.isRequired,
 };
 
 export {

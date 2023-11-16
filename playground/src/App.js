@@ -41,7 +41,6 @@ import {
   DynamicMultiSelect,
 } from "./Components2";
 
-
 function addClassName(className, props) {
   let composedClassName = className;
   if (props?.className) {
@@ -87,50 +86,57 @@ class DynamicForm extends React.Component {
 
   render() {
     let propsName = this.props.data.name;
-    console.log(JSON.stringify(this.state, null, 2));
     return (
       <div>
-        {this.props.form.groups.map((group, index) => (
-          <IcseFormGroup key={this.props.data.name + "-group-" + index}>
-            {Object.keys(group).map((key, keyIndex) => {
-              let field = group[key];
-              return field.hideWhen && field.hideWhen(this.state) ? (
-                ""
-              ) : (
-                <DynamicToolTipWrapper
-                  tooltip={field.tooltip}
-                  key={`${propsName} input ${key} ${keyIndex}`}
-                  labelText={field.labelText ? field.labelText : titleCase(key)}
-                >
-                  {RenderForm(
-                    field.type === "select"
-                      ? DynamicFormSelect
-                      : field.type === "toggle"
-                      ? DynamicFormToggle
-                      : field.type === "textArea"
-                      ? DynamicTextArea
-                      : field.type === "multiselect"
-                      ? DynamicMultiSelect
-                      : DynamicFormTextInput,
-                    {
-                      name: key,
-                      labelText: field.labelText,
-                      propsName: propsName,
-                      keyIndex: keyIndex,
-                      field: field,
-                      parentState: this.state,
-                      parentProps: this.props,
-                      handleInputChange:
-                        field.type === "toggle"
-                          ? this.handleToggle
-                          : this.handleInputChange,
+        {this.props.form.groups.map((group, index) =>
+          group.hideWhen && group.hideWhen(this.state) ? (
+            ""
+          ) : (
+            <IcseFormGroup key={this.props.data.name + "-group-" + index}>
+              {Object.keys(group).map((key, keyIndex) => {
+                let field = group[key];
+                return (field.hideWhen && field.hideWhen(this.state)) ||
+                  key === "hideWhen" ? (
+                  ""
+                ) : (
+                  <DynamicToolTipWrapper
+                    id={`${propsName} input ${key} ${keyIndex} tooltip`}
+                    tooltip={field.tooltip}
+                    key={`${propsName} input ${key} ${keyIndex}`}
+                    labelText={
+                      field.labelText ? field.labelText : titleCase(key)
                     }
-                  )}
-                </DynamicToolTipWrapper>
-              );
-            })}
-          </IcseFormGroup>
-        ))}
+                  >
+                    {RenderForm(
+                      field.type === "select"
+                        ? DynamicFormSelect
+                        : field.type === "toggle"
+                        ? DynamicFormToggle
+                        : field.type === "textArea"
+                        ? DynamicTextArea
+                        : field.type === "multiselect"
+                        ? DynamicMultiSelect
+                        : DynamicFormTextInput,
+                      {
+                        name: key,
+                        labelText: field.labelText,
+                        propsName: propsName,
+                        keyIndex: keyIndex,
+                        field: field,
+                        parentState: this.state,
+                        parentProps: this.props,
+                        handleInputChange:
+                          field.type === "toggle"
+                            ? this.handleToggle
+                            : this.handleInputChange,
+                      }
+                    )}
+                  </DynamicToolTipWrapper>
+                );
+              })}
+            </IcseFormGroup>
+          )
+        )}
       </div>
     );
   }
@@ -198,18 +204,52 @@ const App = () => {
         vpc: "management",
         subnets: [],
       }}
+      prefix="iac"
       formName="appid"
+      // add a warning of some kind on compile to make sure that hideWhen isn't used
+      // add warning if multiple keys
       form={{
         groups: [
           {
-            name: {
-              tooltip: {
-                content: "Private IP addresses or CIDR blocks to allowlist",
-                align: "top-left",
+            enabled: {
+              type: "toggle",
+              labelText: "Enabled",
+              disabled: () => {
+                return false;
               },
+              tooltip: {
+                content:
+                  "Enable or Disable routing in your Activity Tracker Instance",
+                align: "bottom-left",
+              },
+              size: "small",
+            },
+            instance: {
+              type: "toggle",
+              labelText: "Create Activity Tracker Instance",
+              disabled: () => {
+                return false;
+              },
+              tooltip: {
+                content:
+                  "Only one instance of Activity Tracker can be created per region",
+                align: "bottom-left",
+              },
+              size: "small",
+            },
+          },
+          {
+            hideWhen: function (stateData) {
+              return stateData.enabled === false;
+            },
+            name: {
               type: "text",
+              readOnly: true,
               invalid: invalidCallback,
               invalidText: invalidTextCallback,
+              onRender: function (stateData, componentProps) {
+                return `${componentProps.prefix}-atracker`;
+              },
               helperText: function (stateData) {
                 return `iac-appid-${stateData.name}`;
               },
@@ -221,126 +261,9 @@ const App = () => {
               },
               size: "small",
             },
-            resource_group: {
-              type: "select",
-              invalid: function (stateData) {
-                return isNullOrEmptyString(stateData.resource_group);
-              },
-              invalidText: function () {
-                return "Select a resource group";
-              },
-              disabled: function () {
-                return false;
-              },
-              size: "small",
-              groups: ["rg-1", "rg-2"],
-            },
-            kube_type: {
-              type: "select",
-              invalid: function (stateData) {
-                return isNullOrEmptyString(stateData.kube_type);
-              },
-              invalidText: function () {
-                return "Select a cluster type";
-              },
-              disabled: function () {
-                return false;
-              },
-              onRender: function (stateData) {
-                return stateData.kube_type === "iks"
-                  ? "IBM Kubernetes Service"
-                  : stateData.kube_type === "openshift"
-                  ? "OpenShift"
-                  : "";
-              },
-              onInputChange: function (stateData) {
-                stateData.endpoints = stateData.endpoints.toLowerCase();
-              },
-              size: "small",
-              groups: ["OpenShift", "IBM Kubernetes Service"],
-            },
-          },
-          {
-            cos: {
-              type: "select",
-              labelText: "Cloud Object Storage Instance",
-              invalid: function (stateData) {
-                return isNullOrEmptyString(stateData.encryption_key);
-              },
-              invalidText: function () {
-                return "Select an object storage instance";
-              },
-              groups: ["cos-1", "cos-2"],
-              disabled: function () {
-                return false;
-              },
-              size: "small",
-              hideWhen: function (stateData) {
-                return stateData.kube_type !== "openshift";
-              },
-            },
-            entitlement: {
-              type: "select",
-              invalid: function (stateData) {
-                return isNullOrEmptyString(stateData.encryption_key);
-              },
-              invalidText: function () {
-                return "Select an entitlement";
-              },
-              groups: ["null", "cloud_pak"],
-              disabled: function () {
-                return false;
-              },
-              size: "small",
-              hideWhen: function (stateData) {
-                return stateData.kube_type !== "openshift";
-              },
-            },
-          },
-          {
-            vpc: {
-              type: "select",
-              size: "small",
-              labelText: "VPC",
-              invalid: function (stateData) {
-                return isNullOrEmptyString(stateData.vpc);
-              },
-              invalidText: function () {
-                return "Select a VPC";
-              },
-              disabled: function () {
-                return false;
-              },
-              onInputChange: function (stateData) {
-                stateData.subnets = [];
-              },
-              groups: ["management", "workload"],
-            },
-            subnets: {
-              type: "multiselect",
-              size: "small",
-              forceUpdateKey: function (stateData) {
-                return stateData.vpc;
-              },
-              invalid: function (stateData) {
-                return isEmpty(stateData.subnets);
-              },
-              invalidText: function () {
-                return "Select a VPC";
-              },
-              disabled: function () {
-                return false;
-              },
-              groups: function (stateData, componentProps) {
-                let foundSubnets = [];
-                subnetList.forEach((subnet) => {
-                  if (subnet.vpc === stateData.vpc) {
-                    foundSubnets.push(subnet.name);
-                  }
-                });
-                return foundSubnets;
-              },
-            },
+            locations: {
+              
+            }
           },
         ],
       }}
@@ -349,3 +272,150 @@ const App = () => {
 };
 
 export default App;
+
+let data = [
+  {
+    hideWhen: function (stateData) {
+      return stateData.subnets.length === 0;
+    },
+    name: {
+      tooltip: {
+        content: "Private IP addresses or CIDR blocks to allowlist",
+        align: "top-left",
+      },
+      type: "text",
+      invalid: invalidCallback,
+      invalidText: invalidTextCallback,
+      helperText: function (stateData) {
+        return `iac-appid-${stateData.name}`;
+      },
+      disabled: function () {
+        return false;
+      },
+      disabledText: function () {
+        return "";
+      },
+      size: "small",
+    },
+    resource_group: {
+      type: "select",
+      invalid: function (stateData) {
+        return isNullOrEmptyString(stateData.resource_group);
+      },
+      invalidText: function () {
+        return "Select a resource group";
+      },
+      disabled: function () {
+        return false;
+      },
+      size: "small",
+      groups: ["rg-1", "rg-2"],
+    },
+    kube_type: {
+      type: "select",
+      invalid: function (stateData) {
+        return isNullOrEmptyString(stateData.kube_type);
+      },
+      invalidText: function () {
+        return "Select a cluster type";
+      },
+      disabled: function () {
+        return false;
+      },
+      onRender: function (stateData) {
+        return stateData.kube_type === "iks"
+          ? "IBM Kubernetes Service"
+          : stateData.kube_type === "openshift"
+          ? "OpenShift"
+          : "";
+      },
+      onInputChange: function (stateData) {
+        stateData.endpoints = stateData.endpoints.toLowerCase();
+      },
+      size: "small",
+      groups: ["OpenShift", "IBM Kubernetes Service"],
+    },
+  },
+  {
+    cos: {
+      type: "select",
+      labelText: "Cloud Object Storage Instance",
+      invalid: function (stateData) {
+        return isNullOrEmptyString(stateData.encryption_key);
+      },
+      invalidText: function () {
+        return "Select an object storage instance";
+      },
+      groups: ["cos-1", "cos-2"],
+      disabled: function () {
+        return false;
+      },
+      size: "small",
+      hideWhen: function (stateData) {
+        return stateData.kube_type !== "openshift";
+      },
+    },
+    entitlement: {
+      type: "select",
+      invalid: function (stateData) {
+        return isNullOrEmptyString(stateData.encryption_key);
+      },
+      invalidText: function () {
+        return "Select an entitlement";
+      },
+      groups: ["null", "cloud_pak"],
+      disabled: function () {
+        return false;
+      },
+      size: "small",
+      hideWhen: function (stateData) {
+        return stateData.kube_type !== "openshift";
+      },
+    },
+  },
+  {
+    vpc: {
+      type: "select",
+      size: "small",
+      labelText: "VPC",
+      invalid: function (stateData) {
+        return isNullOrEmptyString(stateData.vpc);
+      },
+      invalidText: function () {
+        return "Select a VPC";
+      },
+      disabled: function () {
+        return false;
+      },
+      onInputChange: function (stateData) {
+        stateData.subnets = [];
+      },
+      groups: ["management", "workload"],
+    },
+    subnets: {
+      type: "multiselect",
+      size: "small",
+      forceUpdateKey: function (stateData) {
+        return stateData.vpc;
+      },
+      invalid: function (stateData) {
+        return isEmpty(stateData.subnets);
+      },
+      invalidText: function () {
+        return "Select a VPC";
+      },
+      disabled: function () {
+        return false;
+      },
+      groups: function (stateData, componentProps) {
+        let foundSubnets = [];
+        subnetList.forEach((subnet) => {
+          if (subnet.vpc === stateData.vpc) {
+            foundSubnets.push(subnet.name);
+          }
+        });
+        return foundSubnets;
+      },
+    },
+  },
+];
