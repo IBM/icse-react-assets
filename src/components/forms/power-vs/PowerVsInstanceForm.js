@@ -362,7 +362,9 @@ class PowerVsInstanceForm extends React.Component {
             name="pi_proc_type"
             formName={this.props.data.name + "-power-instance-proctype"}
             groups={["Shared", "Capped", "Dedicated"]}
-            value={this.state.pi_proc_type ? capitalize(this.state.pi_proc_type): ""}
+            value={
+              this.state.pi_proc_type ? capitalize(this.state.pi_proc_type) : ""
+            }
             handleInputChange={this.handleInputChange}
             invalidText="Select a Processor Type."
             className="fieldWidthSmaller"

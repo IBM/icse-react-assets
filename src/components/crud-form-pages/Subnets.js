@@ -70,7 +70,9 @@ class SubnetsPage extends React.Component {
             />
           </FormModal>
         )}
-        {this.props.data.acls.length === 0 ? <NoAclTile/> : 
+        {this.props.data.acls.length === 0 ? (
+          <NoAclTile />
+        ) : (
           <IcseHeading
             name="Subnet Tiers"
             className={tiers.length === 0 ? "" : "marginBottomSmall"}
@@ -83,7 +85,7 @@ class SubnetsPage extends React.Component {
               />
             }
           />
-        }
+        )}
         {this.props.data.acls.length !== 0 && tiers.length === 0 && (
           <EmptyResourceTile
             name={

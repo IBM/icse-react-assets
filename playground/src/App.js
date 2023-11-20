@@ -111,12 +111,12 @@ class DynamicForm extends React.Component {
                       field.type === "select"
                         ? DynamicFormSelect
                         : field.type === "toggle"
-                        ? DynamicFormToggle
-                        : field.type === "textArea"
-                        ? DynamicTextArea
-                        : field.type === "multiselect"
-                        ? DynamicMultiSelect
-                        : DynamicFormTextInput,
+                          ? DynamicFormToggle
+                          : field.type === "textArea"
+                            ? DynamicTextArea
+                            : field.type === "multiselect"
+                              ? DynamicMultiSelect
+                              : DynamicFormTextInput,
                       {
                         name: key,
                         labelText: field.labelText,
@@ -129,13 +129,13 @@ class DynamicForm extends React.Component {
                           field.type === "toggle"
                             ? this.handleToggle
                             : this.handleInputChange,
-                      }
+                      },
                     )}
                   </DynamicToolTipWrapper>
                 );
               })}
             </IcseFormGroup>
-          )
+          ),
         )}
       </div>
     );
@@ -261,9 +261,7 @@ const App = () => {
               },
               size: "small",
             },
-            locations: {
-              
-            }
+            locations: {},
           },
         ],
       }}
@@ -326,8 +324,8 @@ let data = [
         return stateData.kube_type === "iks"
           ? "IBM Kubernetes Service"
           : stateData.kube_type === "openshift"
-          ? "OpenShift"
-          : "";
+            ? "OpenShift"
+            : "";
       },
       onInputChange: function (stateData) {
         stateData.endpoints = stateData.endpoints.toLowerCase();

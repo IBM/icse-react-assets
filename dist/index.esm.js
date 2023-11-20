@@ -12884,7 +12884,7 @@ class PowerVsVolumeForm extends React.Component {
       name: "pi_volume_size",
       label: "Capacity (GB)",
       value: this.state.pi_volume_size ? parseInt(isNullOrEmptyString$7(this.state.pi_volume_size) ? 0 : this.state.pi_volume_size) : "",
-      disabled: this.props.data.sap,
+      disabled: this.props.disableCapacityCallback(this.state, this.props),
       onChange: this.handleInputChange,
       allowEmpty: true,
       step: 1,
@@ -12987,7 +12987,8 @@ PowerVsVolumeForm.propTypes = {
   // changes should be disabled when another instance or volume uses this
   // instance for affinity
   affinityChangesDisabled: PropTypes.func.isRequired,
-  replicationDisabledCallback: PropTypes.func
+  replicationDisabledCallback: PropTypes.func,
+  disableCapacityCallback: PropTypes.func.isRequired
 };
 
 const PowerVsNetwork = props => {
@@ -13346,7 +13347,8 @@ const PowerVsVolume = props => {
       power_volumes: props.power_volumes,
       storage_pool_map: props.storage_pool_map,
       affinityChangesDisabled: props.affinityChangesDisabled,
-      replicationDisabledCallback: props.replicationDisabledCallback
+      replicationDisabledCallback: props.replicationDisabledCallback,
+      disableCapacityCallback: props.disableCapacityCallback
     },
     toggleFormProps: {
       craig: props.craig,
@@ -13376,7 +13378,8 @@ PowerVsVolume.propTypes = {
   affinityChangesDisabled: PropTypes.func.isRequired,
   overrideTile: PropTypes.node,
   deleteDisabled: PropTypes.func,
-  replicationDisabledCallback: PropTypes.func
+  replicationDisabledCallback: PropTypes.func,
+  disableCapacityCallback: PropTypes.func.isRequired
 };
 
 const ClassicGateways = props => {

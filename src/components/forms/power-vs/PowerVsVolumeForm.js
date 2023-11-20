@@ -171,7 +171,10 @@ class PowerVsVolumeForm extends React.Component {
                   )
                 : ""
             }
-            disabled={this.props.data.sap}
+            disabled={this.props.disableCapacityCallback(
+              this.state,
+              this.props,
+            )}
             onChange={this.handleInputChange}
             allowEmpty={true}
             step={1}
@@ -304,6 +307,7 @@ PowerVsVolumeForm.propTypes = {
   // instance for affinity
   affinityChangesDisabled: PropTypes.func.isRequired,
   replicationDisabledCallback: PropTypes.func,
+  disableCapacityCallback: PropTypes.func.isRequired,
 };
 
 export default PowerVsVolumeForm;

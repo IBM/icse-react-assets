@@ -60,8 +60,8 @@ function dynamicTextInputProps(props) {
   let labelText = props.field.tooltip
     ? ""
     : props.field.labelText
-    ? props.field.labelText
-    : titleCase(props.name);
+      ? props.field.labelText
+      : titleCase(props.name);
   return {
     name: props.name,
     id: dynamicFieldId(props),
@@ -79,8 +79,8 @@ function dynamicTextInputProps(props) {
     helperText: isDisabled
       ? props.field.disabledText(props.parentState, props.parentProps)
       : props.field.onRender
-      ? props.field.onRender(props.parentState, props.parentProps)
-      : props.field.helperText(props.parentState, props.parentProps),
+        ? props.field.onRender(props.parentState, props.parentProps)
+        : props.field.helperText(props.parentState, props.parentProps),
     readOnly: props.field.readOnly || false,
   };
 }
@@ -121,7 +121,7 @@ function dynamicFormSelectData(props) {
       // filter groups if function, otherwise get array
       isFunction(props.field.groups)
         ? props.field.groups(props.parentState, props.parentProps)
-        : props.field.groups
+        : props.field.groups,
     );
   // hide text when tooltip so that multiple name labels are not rendered
   let labelText = props.field.tooltip
@@ -149,13 +149,13 @@ const DynamicFormSelect = (props) => {
         value={stateValue || undefined}
         className={addClassName(
           `leftTextAlign${props.tooltip ? " tooltip" : ""}`,
-          props.field
+          props.field,
         )}
         disabled={props.field.disabled(props.parentState, props.parentProps)}
         invalid={invalid}
         invalidText={props.field.invalidText(
           props.parentState,
-          props.parentProps
+          props.parentProps,
         )}
         readOnly={props.field.readOnly}
         onChange={props.handleInputChange}
@@ -246,7 +246,7 @@ const DynamicTextArea = (props) => {
       invalid={props.field.invalid(props.parentState, props.parentProps)}
       invalidText={props.field.invalidText(
         props.parentState,
-        props.parentProps
+        props.parentProps,
       )}
       placeholder={
         props.parentState[props.name] ||
@@ -286,7 +286,7 @@ const DynamicMultiSelect = (props) => {
       // filter groups if function, otherwise get array
       isFunction(props.field.groups)
         ? props.field.groups(props.parentState, props.parentProps)
-        : props.field.groups
+        : props.field.groups,
     );
   // hide text when tooltip so that multiple name labels are not rendered
   let labelText = props.field.tooltip
@@ -306,7 +306,7 @@ const DynamicMultiSelect = (props) => {
       invalid={invalid}
       invalidText={props.field.invalidText(
         props.parentState,
-        props.parentProps
+        props.parentProps,
       )}
       initialSelectedItems={stateValue}
       onChange={(selectEvent) => {
