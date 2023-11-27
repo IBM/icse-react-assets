@@ -89,6 +89,7 @@ BuildToolTip.propTypes = {
 };
 
 export const ToolTipWrapper = (props) => {
+  console.log(props);
   let allProps = { ...props };
   let tooltip = BuildToolTip(props);
   delete allProps.innerForm;

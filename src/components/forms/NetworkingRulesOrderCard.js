@@ -234,6 +234,7 @@ class NetworkingRulesOrderCard extends Component {
                 parent_name={this.props.parent_name}
                 innerFormProps={{ ...this.props }}
                 dev={this.props.dev}
+                craig={this.props.craig}
               />
             </div>
           ))

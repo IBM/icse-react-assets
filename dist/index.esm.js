@@ -2094,6 +2094,7 @@ BuildToolTip.propTypes = {
   alignModal: PropTypes.string.isRequired
 };
 const ToolTipWrapper = props => {
+  console.log(props);
   let allProps = {
     ...props
   };
@@ -7591,7 +7592,8 @@ class NetworkingRulesOrderCard extends Component {
       innerFormProps: {
         ...this.props
       },
-      dev: this.props.dev
+      dev: this.props.dev,
+      craig: this.props.craig
     }))));
   }
 }
@@ -7700,7 +7702,8 @@ class SecurityGroupForm extends Component {
       disableModalSubmitCallback: this.props.disableModalSubmitCallback,
       disableSaveCallback: this.props.disableSaveCallback,
       invalidRuleTextCallback: this.props.invalidRuleTextCallback,
-      invalidRuleText: this.props.invalidRuleText
+      invalidRuleText: this.props.invalidRuleText,
+      craig: this.props.craig
     }));
   }
 }

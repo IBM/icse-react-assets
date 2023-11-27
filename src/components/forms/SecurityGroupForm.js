@@ -101,6 +101,7 @@ class SecurityGroupForm extends Component {
             disableSaveCallback={this.props.disableSaveCallback}
             invalidRuleTextCallback={this.props.invalidRuleTextCallback}
             invalidRuleText={this.props.invalidRuleText}
+            craig={this.props.craig}
           />
         )}
       </>
