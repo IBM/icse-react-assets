@@ -191,20 +191,12 @@ input:read-only {
   margin-top: -8px;
 }
 
-.tooltip.popover-obj {
-  margin-top: -22px;
-}
-
 .subHeadingTooltip {
   margin: 0.2rem 0 0 0.2rem;
 }
 
 .tooltipMarginLeft {
   margin-left: 3px;
-}
-
-.tooltip > div.cds--select--invalid {
-  margin-top: -8px;
 }
 
 /* subnet tile form */
