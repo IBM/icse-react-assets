@@ -108,6 +108,7 @@ export const F5BigIp = (props) => {
         disableSave: props.disableSave,
         propsMatchState: props.propsMatchState,
         templateInnerFormProps: {
+          craig: props.craig,
           invalidCallback: props.invalidTemplateCallback,
           invalidTextCallback: none,
           disableSave: props.disableSave,
